@@ -352,8 +352,8 @@
               <div>
                 <div class="text-slate-500 mb-1.5"># 1. Simple GET request via RapidAPI Gateway</div>
                 <pre class="text-slate-200"><code><span class="text-emerald-400">$</span> curl --request GET \
-  --url <span class="text-amber-200">'https://b2b-contract-parser-api.onrender.com/v1/contracts/latest?sector=defense_cyber&amp;limit=1'</span> \
-  --header <span class="text-sky-300">'X-RapidAPI-Host: signaltender-govcon.p.rapidapi.com'</span> \
+  --url <span class="text-amber-200">'https://b2b-contract-parser-api.onrender.com/v1/health'</span> \
+  --header <span class="text-sky-300">'X-RapidAPI-Host: b2b-contract-parsing-api.p.rapidapi.com'</span> \
   --header <span class="text-sky-300">'X-RapidAPI-Key: rpk_live_98a7f6d5c4b3a210...'</span> \
   --header <span class="text-sky-300">'Accept: application/json'</span></code></pre>
               </div>
@@ -401,17 +401,17 @@
               // RAPIDAPI MARKETPLACE GATEWAY TIERS
             </div>
             <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Predictable API Access Tiers Built for Scale
+              Transparent RapidAPI Tiers &amp; Usage Rates
             </h3>
             <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl">
-              Authenticate via <code class="font-mono text-sky-300">X-RapidAPI-Key</code> with HMAC constant-time proxy verification and scale from prototype testing to enterprise-wide AI capture swarms.
+              Subscribe to either microservice independently on RapidAPI (<code class="font-mono text-sky-300">b2b-contract-parsing-api.p.rapidapi.com</code> &amp; <code class="font-mono text-sky-300">historical-procurement-pricing-api.p.rapidapi.com</code>) with transparent monthly request quotas and per-call overage rates.
             </p>
           </div>
 
           <!-- Primary RapidAPI Product & Profile CTA Buttons -->
           <div class="flex flex-wrap items-center gap-3 shrink-0">
             <a
-              href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api"
+              href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all"
@@ -422,7 +422,7 @@
               </svg>
             </a>
             <a
-              href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api"
+              href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-all"
@@ -438,54 +438,70 @@
         <!-- 4-Column RapidAPI Tiers Grid (Basic, Pro, Ultra, Mega) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
 
-          <!-- Tier 1: BASIC -->
+          <!-- Tier 1: BASIC ($0 / mo) -->
           <div class="rounded-xl bg-navy-950 border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
             <div>
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">BASIC</span>
-                <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-slate-800 text-slate-300">Sandbox / Dev</span>
+                <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-slate-800 text-slate-300">Freemium</span>
               </div>
               <div class="mt-4 flex items-baseline space-x-1">
                 <span class="text-3xl font-extrabold text-white font-mono">$0</span>
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-400">
-                Evaluate schema validation and test integration against live GovCon endpoints.
+                Evaluate Pydantic V2 schema validation and test live endpoints with zero upfront commitment.
               </p>
 
-              <ul class="mt-6 pt-5 border-t border-slate-800/80 space-y-2.5 text-xs text-slate-300">
+              <!-- Exact API Quotas & Overages Box -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+                <div>
+                  <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>50</strong> req / mo <span class="text-slate-400 font-mono">(+$0.10 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2.5">
+                  <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>50</strong> req / mo <span class="text-slate-400 font-mono">(+$0.10 / extra)</span></div>
+                </div>
+              </div>
+
+              <ul class="mt-5 space-y-2 text-xs text-slate-300">
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span><strong>100</strong> Requests / month</span>
+                  <span>Standardized JSON Extraction</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Rate Limit: 1 req / sec</span>
+                  <span>Entity &amp; Deadline Parsing</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span><code class="font-mono text-slate-200">/v1/parse/contract</code> access</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                  <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Public <code class="font-mono text-slate-200">/v1/health</code> SLA probe</span>
+                  <span>Historical SAM.gov &amp; CLIN Access</span>
                 </li>
               </ul>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-slate-900">
+            <div class="mt-6 pt-4 border-t border-slate-900 space-y-2">
               <a
                 href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
-                Select Basic on RapidAPI &rarr;
+                Contract Parser Basic &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-300 bg-navy-900 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
+              >
+                Historical API Basic &rarr;
               </a>
             </div>
           </div>
 
-          <!-- Tier 2: PRO -->
+          <!-- Tier 2: PRO ($19 / mo) -->
           <div class="rounded-xl bg-navy-950 border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
             <div>
               <div class="flex items-center justify-between">
@@ -493,49 +509,65 @@
                 <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">Production Pipelines</span>
               </div>
               <div class="mt-4 flex items-baseline space-x-1">
-                <span class="text-3xl font-extrabold text-white font-mono">$49</span>
+                <span class="text-3xl font-extrabold text-white font-mono">$19</span>
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-400">
-                Built for internal CRM enrichment and automated daily RFP ingestion workflows.
+                Built for automated CRM enrichment, daily RFP parsing, and historical award lookups.
               </p>
 
-              <ul class="mt-6 pt-5 border-t border-slate-800/80 space-y-2.5 text-xs text-slate-300">
+              <!-- Exact API Quotas & Overages Box -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+                <div>
+                  <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>500</strong> req / mo <span class="text-slate-400 font-mono">(+$0.08 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2.5">
+                  <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>1,000</strong> req / mo <span class="text-slate-400 font-mono">(+$0.05 / extra)</span></div>
+                </div>
+              </div>
+
+              <ul class="mt-5 space-y-2 text-xs text-slate-300">
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span><strong>5,000</strong> Requests / month</span>
+                  <span>Compliance &amp; Deliverable Tracking</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Rate Limit: 5 req / sec</span>
+                  <span>Line-Item (CLIN) Pricing Extraction</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>All Extraction &amp; Award Search routes</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                  <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>$0.01 per additional metered call</span>
+                  <span>Commercial Usage License</span>
                 </li>
               </ul>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-slate-900">
+            <div class="mt-6 pt-4 border-t border-slate-900 space-y-2">
               <a
                 href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
-                Select Pro on RapidAPI &rarr;
+                Contract Parser Pro &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-300 bg-navy-900 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
+              >
+                Historical API Pro &rarr;
               </a>
             </div>
           </div>
 
-          <!-- Tier 3: ULTRA (Highlighted) -->
+          <!-- Tier 3: ULTRA ($49 / mo - Highlighted) -->
           <div class="rounded-xl bg-navy-950 border-2 border-sky-500 p-6 flex flex-col justify-between relative shadow-xl shadow-sky-950/40">
             <div class="absolute -top-3 left-4 px-2.5 py-0.5 rounded-full bg-sky-500 text-navy-950 font-mono text-[10px] font-bold uppercase tracking-wider">
-              Recommended
+              Most Popular
             </div>
 
             <div>
@@ -544,46 +576,62 @@
                 <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">AI Capture Swarms</span>
               </div>
               <div class="mt-4 flex items-baseline space-x-1">
-                <span class="text-3xl font-extrabold text-white font-mono">$199</span>
+                <span class="text-3xl font-extrabold text-white font-mono">$49</span>
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-300">
-                High-concurrency parsing and full Prime Contractor CLIN price-to-win lookups.
+                High-volume SOW extraction and deep Prime Contractor CLIN price-to-win intelligence.
               </p>
 
-              <ul class="mt-6 pt-5 border-t border-slate-800/80 space-y-2.5 text-xs text-slate-200">
+              <!-- Exact API Quotas & Overages Box -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900 border border-sky-500/30 space-y-3 text-xs">
+                <div>
+                  <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
+                  <div class="text-white mt-0.5"><strong>2,000</strong> req / mo <span class="text-slate-300 font-mono">(+$0.05 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800 pt-2.5">
+                  <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
+                  <div class="text-white mt-0.5"><strong>5,000</strong> req / mo <span class="text-slate-300 font-mono">(+$0.03 / extra)</span></div>
+                </div>
+              </div>
+
+              <ul class="mt-5 space-y-2 text-xs text-slate-200">
                 <li class="flex items-center space-x-2">
                   <span class="text-sky-400 font-mono">&check;</span>
-                  <span><strong>25,000</strong> Requests / month</span>
+                  <span>Prime Contractor Win Histories</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-sky-400 font-mono">&check;</span>
-                  <span>Rate Limit: 20 req / sec</span>
+                  <span>Full UEI / CAGE CLIN Pricing Tables</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-sky-400 font-mono">&check;</span>
-                  <span>Full UEI / CAGE CLIN Pricing tables</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                  <span class="text-sky-400 font-mono">&check;</span>
-                  <span>Priority Claude Haiku 5.5 throughput</span>
+                  <span>Commercial SLA &amp; Priority Support</span>
                 </li>
               </ul>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-slate-900">
+            <div class="mt-6 pt-4 border-t border-slate-900 space-y-2">
               <a
                 href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-md shadow-sky-950/50 transition-colors"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-md shadow-sky-950/50 transition-colors"
               >
-                Select Ultra on RapidAPI &rarr;
+                Contract Parser Ultra &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-sky-300 bg-navy-900 hover:bg-slate-800 border border-sky-500/40 rounded-lg transition-colors"
+              >
+                Historical API Ultra &rarr;
               </a>
             </div>
           </div>
 
-          <!-- Tier 4: MEGA -->
+          <!-- Tier 4: MEGA ($99 / mo) -->
           <div class="rounded-xl bg-navy-950 border border-slate-800 p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
             <div>
               <div class="flex items-center justify-between">
@@ -591,41 +639,57 @@
                 <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">Enterprise Defense</span>
               </div>
               <div class="mt-4 flex items-baseline space-x-1">
-                <span class="text-3xl font-extrabold text-white font-mono">$499</span>
+                <span class="text-3xl font-extrabold text-white font-mono">$99</span>
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-400">
-                Unrestricted throughput for multi-tenant GovCon SaaS platforms and prime contractors.
+                Maximum throughput for multi-tenant GovCon SaaS platforms and enterprise data lakes.
               </p>
 
-              <ul class="mt-6 pt-5 border-t border-slate-800/80 space-y-2.5 text-xs text-slate-300">
+              <!-- Exact API Quotas & Overages Box -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+                <div>
+                  <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo <span class="text-slate-400 font-mono">(+$0.03 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2.5">
+                  <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
+                  <div class="text-slate-200 mt-0.5"><strong>1,000,000</strong> req / mo <span class="text-slate-400 font-mono">(Hard limit)</span></div>
+                </div>
+              </div>
+
+              <ul class="mt-5 space-y-2 text-xs text-slate-300">
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span><strong>100,000+</strong> Requests / month</span>
+                  <span>Bulk SOW &amp; 1M Award Ingestion</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Unthrottled Serverless Concurrency</span>
+                  <span>Lowest Per-Call Parsing Overage ($0.03)</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Bulk SOW &amp; Historical Award Ingestion</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                  <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>99.9% Uptime SLA &amp; Dedicated Support</span>
+                  <span>99.9% Uptime SLA &amp; Priority Support</span>
                 </li>
               </ul>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-slate-900">
+            <div class="mt-6 pt-4 border-t border-slate-900 space-y-2">
               <a
                 href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
-                Select Mega on RapidAPI &rarr;
+                Contract Parser Mega &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-300 bg-navy-900 hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors"
+              >
+                Historical API Mega &rarr;
               </a>
             </div>
           </div>
