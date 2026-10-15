@@ -79,7 +79,8 @@ tech_keywords = [
     r"saas", r"data", r"system", r"digital", r"platform", r"web", r"infrastructure"
 ]
 
-async def run_scraper():
+async def run_scraper(push_to_db: bool = True):
+    supabase_records = []
     async with Stealth().use_async(async_playwright()) as p:
         print("[*] Launching browser (Direct connection)...")
         browser = await p.chromium.launch(
@@ -175,23 +176,26 @@ async def run_scraper():
 
             supabase_records = list({r["url"]: r for r in supabase_records}.values())
 
-            if supabase_records:
-                if not SUPABASE_URL or not SUPABASE_KEY:
-                     print("[!] Found IT/Cyber contracts, but SUPABASE_URL or SUPABASE_KEY is missing. Cannot push data.")
-                else:
-                    print(f"[*] Found {len(supabase_records)} tech contracts! Pushing to Supabase...")
-                    db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
-                    response = db_client.table(TABLE_NAME).upsert(
-                        supabase_records, on_conflict="url", ignore_duplicates=True
-                    ).execute()
-                    new_records = response.data if response and getattr(response, "data", None) else []
-                    skipped_count = len(supabase_records) - len(new_records)
-                    print(f"[+] Successfully synced Federal data to Supabase! Added {len(new_records)} new records (skipped {skipped_count} duplicates).")
+            if push_to_db:
+                if supabase_records:
+                    if not SUPABASE_URL or not SUPABASE_KEY:
+                         print("[!] Found IT/Cyber contracts, but SUPABASE_URL or SUPABASE_KEY is missing. Cannot push data.")
+                    else:
+                        print(f"[*] Found {len(supabase_records)} tech contracts! Pushing to Supabase...")
+                        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+                        response = db_client.table(TABLE_NAME).upsert(
+                            supabase_records, on_conflict="url", ignore_duplicates=True
+                        ).execute()
+                        new_records = response.data if response and getattr(response, "data", None) else []
+                        skipped_count = len(supabase_records) - len(new_records)
+                        print(f"[+] Successfully synced Federal data to Supabase! Added {len(new_records)} new records (skipped {skipped_count} duplicates).")
 
-                    for rec in new_records:
-                        send_discord_content(rec)
+                        for rec in new_records:
+                            send_discord_content(rec)
+                else:
+                    print("[-] No IT/Cyber contracts found across scraped pages this run.")
             else:
-                print("[-] No IT/Cyber contracts found across scraped pages this run.")
+                print(f"[+] Federal (SAM.gov) extraction complete: {len(supabase_records)} tech contracts ready for master orchestrator.")
 
         except Exception as e:
             print(f"\n[!] Error during extraction: {e}")
@@ -210,6 +214,8 @@ async def run_scraper():
         finally:
             print("[*] Closing browser.")
             await browser.close()
+
+    return supabase_records
 
 if __name__ == "__main__":
     asyncio.run(run_scraper())

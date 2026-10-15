@@ -20,3 +20,4 @@ error_log.txt
 *.pdf
 sled-scraper/bids.json
 sled-scraper/bids_master.json
+

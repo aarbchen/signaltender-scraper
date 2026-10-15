@@ -1,16 +1,26 @@
 import asyncio
 import json
 import os
+import sys
 import argparse
 import re
 import time
 from datetime import datetime
+from difflib import SequenceMatcher
 import requests
 from dotenv import load_dotenv
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 from playwright_stealth import Stealth
 import anthropic
 from supabase import create_client, Client
+
+# Ensure sled-scraper directory is on sys.path for importing sledscraper
+SLED_SCRAPER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sled-scraper")
+if SLED_SCRAPER_DIR not in sys.path:
+    sys.path.insert(0, SLED_SCRAPER_DIR)
+
+import sam_scraper
+import sledscraper
 
 # 1. Load environment variables
 load_dotenv(dotenv_path=".env")
@@ -34,6 +44,94 @@ tech_keywords = [
     r"technology", r"cloud", r"broadband", r"telecom", r"fiber",
     r"saas", r"data", r"system", r"digital", r"platform", r"web", r"infrastructure"
 ]
+
+# Commodity IT & low-value renewal exclusions
+commodity_it_exclusions = [
+    r"bulk\s*mail(er)?",
+    r"mail\s*manager",
+    r"\bink\b",
+    r"\btoner\b",
+    r"cartridge",
+    r"license\s*renewal",
+    r"software\s*renewal",
+    r"subscription\s*renewal",
+    r"maintenance\s*renewal",
+    r"support\s*renewal",
+    r"seats?\s*renewal",
+    r"saas\s*renewal",
+    r"hardware\s*renewal",
+    r"off-the-shelf",
+    r"\bcots\b.*renewal",
+    r"smartnet\s*renewal",
+]
+
+B2B_EXTRACTION_SYSTEM_PROMPT = (
+    "You are a strict B2B government contract quality control filter and extractor.\n"
+    "1. REJECT COMMODITY IT: Explicitly ignore and drop any solicitations for commodity software licenses, "
+    "bulk mailers (e.g., Bulk Mailer, Mail Manager, postage/mailing software renewals), basic hardware renewals, "
+    "ink/toner/printer supplies, and off-the-shelf SaaS renewals or seat/subscription/maintenance renewals.\n"
+    "2. TARGET HIGH-VALUE ONLY: Return ONLY high-value, complex B2B IT contracts (e.g., custom software development, "
+    "cloud migrations, cybersecurity architecture, network infrastructure, data center operations, enterprise systems integration).\n"
+    "3. Strictly ignore unrelated non-IT contracts like HVAC, plumbing, construction, transit, or general municipal services.\n"
+    "Extract the full, detailed contract title and exact closing date. "
+    "Output strictly as a valid JSON array of objects with keys: title, closing_date, contact_email. "
+    "Do not wrap in markdown code blocks or output any other text. "
+    "If no closing date is found, leave closing_date as an empty string. "
+    "If no high-value B2B IT contracts are found, output an empty array []."
+)
+
+
+def is_commodity_it_spam(title: str) -> bool:
+    """Return True if the solicitation title matches commodity IT, bulk mailers, ink/toner, or basic renewal spam."""
+    if not title:
+        return True
+    t_lower = title.lower()
+    return any(re.search(pattern, t_lower) for pattern in commodity_it_exclusions)
+
+
+def _normalize_title_for_similarity(title: str) -> str:
+    """Strip trailing '- Due: MM/DD/YYYY' and normalize whitespace/case for fuzzy similarity comparison."""
+    base = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", str(title or ""), flags=re.IGNORECASE)
+    return re.sub(r"\s+", " ", base).strip().lower()
+
+
+def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> list[dict]:
+    """
+    Programmatic check before Supabase insertion: drop records if the Title is more than
+    85% similar (ratio > threshold) to a record already processed in the current batch,
+    preventing catalog-dump spam.
+    """
+    deduped = []
+    seen_titles = []
+    dropped_count = 0
+
+    for rec in records:
+        raw_title = str(rec.get("title") or "").strip()
+        norm_title = _normalize_title_for_similarity(raw_title)
+        if not norm_title:
+            continue
+
+        is_near_duplicate = False
+        for existing_norm, existing_raw in seen_titles:
+            ratio_norm = SequenceMatcher(None, norm_title, existing_norm).ratio()
+            ratio_raw = SequenceMatcher(None, raw_title.lower(), existing_raw).ratio()
+            if ratio_norm > threshold or ratio_raw > threshold:
+                is_near_duplicate = True
+                dropped_count += 1
+                break
+
+        if not is_near_duplicate:
+            deduped.append(rec)
+            seen_titles.append((norm_title, raw_title.lower()))
+
+    if dropped_count > 0:
+        print(
+            f"[*] Fuzzy Deduplication: Dropped {dropped_count} near-duplicate spam record(s) "
+            f"(>{int(threshold * 100)}% title similarity).",
+            flush=True,
+        )
+
+    return deduped
 
 def send_discord_alert(message):
     if not DISCORD_WEBHOOK_URL:
@@ -133,7 +231,7 @@ def format_title_and_due(raw_title: str, raw_date: str) -> tuple[str, str]:
 def chunk_text(text, max_chars=15000):
     return [text[i:i+max_chars] for i in range(0, len(text), max_chars)]
 
-async def scrape_and_extract(url: str, selector: str, keyword: str):
+async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: bool = False):
     max_retries = 3 
     raw_text = ""
     esbd_lines_captured = []
@@ -249,6 +347,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
     if esbd_lines_captured:
         print(f"[*] Processing {len(esbd_lines_captured)} items from ESBD JSON payload...", flush=True)
         seen_ids = set()
+        esbd_candidates = []
         for line in esbd_lines_captured:
             int_id = line.get("internalid") or line.get("solicitationId") or ""
             if int_id and int_id in seen_ids:
@@ -257,9 +356,12 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
                 seen_ids.add(int_id)
 
             raw_title = line.get("title") or line.get("solicitationTitle") or ""
+            if not raw_title or is_commodity_it_spam(raw_title):
+                continue
+
             raw_due = line.get("responseDue") or line.get("dueDate") or ""
             agency = line.get("agencyName") or "Texas SmartBuy / State of Texas"
-            raw_candidates.append({
+            esbd_candidates.append({
                 "raw_title": raw_title,
                 "raw_due": raw_due,
                 "agency": agency,
@@ -267,8 +369,46 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
                 "contact_email": line.get("contactEmail") or "",
             })
 
+        if esbd_candidates and os.getenv("ANTHROPIC_API_KEY"):
+            try:
+                esbd_snippet = json.dumps(
+                    [{"title": c["raw_title"], "closing_date": c["raw_due"], "contact_email": c["contact_email"]} for c in esbd_candidates]
+                )
+                response = await client.messages.create(
+                    model="claude-sonnet-5-5",
+                    max_tokens=8000,
+                    system=B2B_EXTRACTION_SYSTEM_PROMPT,
+                    messages=[
+                        {"role": "user", "content": f"Filter and extract ONLY high-value B2B IT contracts from this candidate list:\n\n{esbd_snippet}"}
+                    ],
+                )
+                raw_json_str = ""
+                for block in response.content:
+                    if block.type == "text":
+                        raw_json_str = block.text.strip()
+                        break
+                if raw_json_str.startswith("```"):
+                    raw_json_str = raw_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+                approved = json.loads(raw_json_str)
+                approved_titles = {_normalize_title_for_similarity(r.get("title", "")) for r in approved if r.get("title")}
+                for c in esbd_candidates:
+                    if _normalize_title_for_similarity(c["raw_title"]) in approved_titles:
+                        raw_candidates.append(c)
+            except Exception as e:
+                error_msg = f"Claude ESBD payload validation error: {e}"
+                print(error_msg, flush=True)
+                try:
+                    with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                        f.write(f"\n[!] {error_msg}\n")
+                except Exception:
+                    pass
+                send_discord_alert(error_msg)
+                raw_candidates.extend(esbd_candidates)
+        else:
+            raw_candidates.extend(esbd_candidates)
+
     if raw_text:
-        # Extract from scraped page text via Claude AI extraction with strict schema
+        # Extract from scraped page text via Claude AI extraction with strict B2B quality control schema
         text_chunks = chunk_text(raw_text, max_chars=15000)
         print(f"\nSplit text into {len(text_chunks)} chunks for processing...")
 
@@ -278,7 +418,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
                 response = await client.messages.create(
                     model="claude-sonnet-5-5",
                     max_tokens=8000,
-                    system="Extract ONLY Information Technology (IT), Cyber, Software, and Network related contract opportunities (e.g., software, hardware, cloud, telecom, infosec). Strictly ignore unrelated contracts like HVAC, plumbing, construction, transit, or general municipal services. Extract the full, detailed contract title and exact closing date. Output strictly as a valid JSON array of objects with keys: title, closing_date, contact_email. Do not wrap in markdown code blocks or output any other text. If no closing date is found, leave closing_date as an empty string. If no relevant contracts are found, output an empty array [].",
+                    system=B2B_EXTRACTION_SYSTEM_PROMPT,
                     messages=[
                         {"role": "user", "content": f"Extract data from this text snippet:\n\n{chunk}"}
                     ]
@@ -315,18 +455,18 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
                 send_discord_alert(error_msg)
                 continue
 
-    # Filter with tech_keywords regex array and format titles & dates
+    # Filter with tech_keywords regex array, reject commodity IT, and format titles & dates
     formatted_records = []
     for cand in raw_candidates:
         title = cand["raw_title"].strip()
-        if not title:
+        if not title or is_commodity_it_spam(title):
             continue
         title_lower = title.lower()
 
         # Strict regex filtering protocol
         if any(re.search(pattern, title_lower) for pattern in tech_keywords):
             formatted_title, clean_due = format_title_and_due(title, cand["raw_due"])
-            if not formatted_title:
+            if not formatted_title or is_commodity_it_spam(formatted_title):
                 continue
 
             bid_id = cand.get("bid_id", "").strip()
@@ -348,40 +488,151 @@ async def scrape_and_extract(url: str, selector: str, keyword: str):
 
     # Deduplicate by url to satisfy contracts_url_key unique constraint
     unique_records = list({r["url"]: r for r in formatted_records}.values())
+    # Programmatic 85% fuzzy title deduplication to prevent catalog-dump spam
+    unique_records = fuzzy_deduplicate_records(unique_records, threshold=0.85)
 
-    print(f"Extraction complete. Total validated tech contracts found: {len(unique_records)}. Uploading to Supabase...")
+    if push_to_db:
+        print(f"Extraction complete. Total validated tech contracts found: {len(unique_records)}. Uploading to Supabase...")
 
-    if not unique_records:
-        print("No valid tech contracts found to upload.")
-        return
+        if not unique_records:
+            print("No valid tech contracts found to upload.")
+            return unique_records
 
-    try:
-        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
-        response = db_client.table(TABLE_NAME).upsert(
-            unique_records, on_conflict="url", ignore_duplicates=True
-        ).execute()
-        new_records = response.data if response and getattr(response, "data", None) else []
-        skipped_count = len(unique_records) - len(new_records)
-        print(f"Success! {len(new_records)} new records were added to your Supabase '{TABLE_NAME}' table (skipped {skipped_count} duplicates).")
+        try:
+            db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+            response = db_client.table(TABLE_NAME).upsert(
+                unique_records, on_conflict="url", ignore_duplicates=True
+            ).execute()
+            new_records = response.data if response and getattr(response, "data", None) else []
+            skipped_count = len(unique_records) - len(new_records)
+            print(f"Success! {len(new_records)} new records were added to your Supabase '{TABLE_NAME}' table (skipped {skipped_count} duplicates).")
 
-        for rec in new_records:
-            send_discord_content(rec)
-    except Exception as e:
-        error_msg = f"Supabase Upload Error: {e}"
-        print(error_msg)
+            for rec in new_records:
+                send_discord_content(rec)
+        except Exception as e:
+            error_msg = f"Supabase Upload Error: {e}"
+            print(error_msg)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {error_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(error_msg)
+    else:
+        print(f"[+] Texas SmartBuy (ESBD) extraction complete: {len(unique_records)} tech contracts ready for master orchestrator.", flush=True)
+
+    return unique_records
+
+
+async def run_master_orchestrator(
+    url: str = "https://www.txsmartbuy.com/esbd",
+    selector: str = "body",
+    keyword: str = "software",
+):
+    print("========================================================", flush=True)
+    print("   SignalTender Master Orchestrator - Starting Cycle    ", flush=True)
+    print("========================================================", flush=True)
+
+    # Use a semaphore of 1 inside asyncio.gather so browsers do not exceed container memory limits
+    browser_sem = asyncio.Semaphore(1)
+
+    async def _run_source(source_name: str, coro):
+        async with browser_sem:
+            print(f"\n[*] Executing {source_name} pipeline...", flush=True)
+            return await coro
+
+    results = await asyncio.gather(
+        _run_source("Federal (SAM.gov)", sam_scraper.run_scraper(push_to_db=False)),
+        _run_source("SLED (DemandStar)", sledscraper.run_scraper(push_to_db=False)),
+        _run_source("Texas SLED (ESBD)", scrape_and_extract(url, selector, keyword, push_to_db=False)),
+        return_exceptions=True,
+    )
+
+    source_labels = ["Federal (SAM.gov)", "SLED (DemandStar)", "Texas SLED (ESBD)"]
+    combined_records = []
+
+    for label, res in zip(source_labels, results):
+        if isinstance(res, Exception):
+            error_msg = f"Orchestrator error in {label}: {res}"
+            print(f"[!] {error_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {error_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(error_msg)
+        elif isinstance(res, list):
+            print(f"[*] Collected {len(res)} validated records from {label}.", flush=True)
+            combined_records.extend(res)
+
+    # Combine extracted records from all sources into a single unified payload and deduplicate by URL
+    unified_payload = list({r["url"]: r for r in combined_records if isinstance(r, dict) and r.get("url")}.values())
+    # Apply 85% fuzzy title deduplication across the combined payload before Supabase insertion
+    unified_payload = fuzzy_deduplicate_records(unified_payload, threshold=0.85)
+
+    print(
+        f"\n[*] Master Orchestrator: Combined {len(combined_records)} total extracted records "
+        f"into {len(unified_payload)} unique high-value tech contracts.",
+        flush=True,
+    )
+
+    if not unified_payload:
+        print("[-] No valid tech contracts found across Federal and SLED sources this cycle.", flush=True)
+        return []
+
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        error_msg = "SUPABASE_URL or SUPABASE_KEY missing in environment. Cannot upload unified payload."
+        print(f"[!] {error_msg}", flush=True)
         try:
             with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
                 f.write(f"\n[!] {error_msg}\n")
         except Exception:
             pass
         send_discord_alert(error_msg)
+        return []
+
+    try:
+        print(f"[*] Passing unified payload ({len(unified_payload)} contracts) through Supabase deduplication filter...", flush=True)
+        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+        response = db_client.table(TABLE_NAME).upsert(
+            unified_payload, on_conflict="url", ignore_duplicates=True
+        ).execute()
+        new_records = response.data if response and getattr(response, "data", None) else []
+        skipped_count = len(unified_payload) - len(new_records)
+        print(
+            f"[+] Unified Supabase sync complete! Added {len(new_records)} net-new records "
+            f"(skipped {skipped_count} duplicates).",
+            flush=True,
+        )
+
+        if new_records:
+            print(f"[*] Pushing {len(new_records)} net-new federal and state contracts to DISCORD_CONTENT_WEBHOOK_URL...", flush=True)
+            for rec in new_records:
+                send_discord_content(rec)
+            print("[+] All net-new contracts dispatched to subscriber Discord webhook.", flush=True)
+        else:
+            print("[*] No net-new contracts to dispatch to Discord this cycle.", flush=True)
+
+        return new_records
+
+    except Exception as e:
+        error_msg = f"Master Orchestrator Supabase Upload Error: {e}"
+        print(f"[!] {error_msg}", flush=True)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"\n[!] {error_msg}\n")
+        except Exception:
+            pass
+        send_discord_alert(error_msg)
+        return []
+
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Scrape leads from a given URL.")
+    parser = argparse.ArgumentParser(description="Master Orchestrator: Scrape Federal and SLED leads.")
     parser.add_argument("url", nargs="?", default="https://www.txsmartbuy.com/esbd", help="The target URL to scrape")
     parser.add_argument("--selector", "-s", default="body", help="CSS selector to target specific HTML container (e.g., '.job-board')")
     parser.add_argument("--keyword", "-k", default="software", help="Keyword to dynamically type into the site's search bar")
     
     args = parser.parse_args()
     
-    asyncio.run(scrape_and_extract(args.url, args.selector, args.keyword))
+    asyncio.run(run_master_orchestrator(args.url, args.selector, args.keyword))
