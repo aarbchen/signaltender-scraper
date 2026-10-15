@@ -1,7 +1,7 @@
 services:
   - type: cron
     name: daas-contract-scraper
-    env: python
+    runtime: python
     schedule: "0 */6 * * *"
     buildCommand: pip install -r requirements.txt && playwright install chromium
     startCommand: python mainscraper.py
@@ -16,4 +16,3 @@ services:
         sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
-
