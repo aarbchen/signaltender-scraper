@@ -1,0 +1,7 @@
+playwright
+playwright-stealth
+supabase
+anthropic
+python-dotenv
+requests
+

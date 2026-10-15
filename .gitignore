@@ -1,0 +1,22 @@
+# Environment variables and secrets
+.env
+*.env
+
+# Virtual environments
+daas_env/
+sled-scraper/venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs, debug screenshots, and local data artifacts
+error_log.txt
+*.png
+*.csv
+*.pdf
+sled-scraper/bids.json
+sled-scraper/bids_master.json

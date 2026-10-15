@@ -1,0 +1,387 @@
+import asyncio
+import json
+import os
+import argparse
+import re
+import time
+from datetime import datetime
+import requests
+from dotenv import load_dotenv
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+from playwright_stealth import Stealth
+import anthropic
+from supabase import create_client, Client
+
+# 1. Load environment variables
+load_dotenv(dotenv_path=".env")
+
+# 2. Initialize API clients & paths
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+TABLE_NAME = "contracts"
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+DISCORD_CONTENT_WEBHOOK_URL = os.getenv("DISCORD_CONTENT_WEBHOOK_URL")
+ERROR_LOG_PATH = "error_log.txt"
+ERROR_SCREENSHOT_PATH = "error_debug.png"
+
+client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
+
+# Tech filter regex array as per project_rules.md data integrity protocol
+tech_keywords = [
+    r"\bit\b", r"cyber(security)?", r"software", r"network", r"computer", 
+    r"server", r"infosec", r"audio/visual", r"hardware", 
+    r"technology", r"cloud", r"broadband", r"telecom", r"fiber",
+    r"saas", r"data", r"system", r"digital", r"platform", r"web", r"infrastructure"
+]
+
+def send_discord_alert(message):
+    if not DISCORD_WEBHOOK_URL:
+        print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
+        return
+    try:
+        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"🚨 **DaaS Pipeline Alert:**\n{message}"})
+        response.raise_for_status()
+        print(" -> Discord alert sent successfully.", flush=True)
+    except Exception as e:
+        print(f" -> Failed to send Discord alert: {e}", flush=True)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"Failed to send Discord alert: {e}\n")
+        except Exception:
+            pass
+
+def send_discord_content(record: dict):
+    if not DISCORD_CONTENT_WEBHOOK_URL:
+        print(" -> WARNING: DISCORD_CONTENT_WEBHOOK_URL not found in .env file.", flush=True)
+        return
+    title = record.get("title") or ""
+    agency = record.get("agency") or ""
+    closing_date = record.get("closing_date")
+    link = record.get("url") or ""
+
+    lines = [
+        f"**Title:** {title}",
+        f"**Agency:** {agency}",
+    ]
+    if closing_date:
+        lines.append(f"**Closing Date:** {closing_date}")
+    lines.append(f"**Link:** {link}")
+    message = "\n".join(lines)
+
+    try:
+        response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json={"content": message}, timeout=10)
+        if response.status_code == 429:
+            retry_after = response.json().get("retry_after", 1.0)
+            time.sleep(float(retry_after))
+            response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json={"content": message}, timeout=10)
+        response.raise_for_status()
+        time.sleep(0.4)
+    except Exception as e:
+        error_msg = f"Failed to send Discord content webhook: {e}"
+        print(f" -> {error_msg}", flush=True)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"\n[!] {error_msg}\n")
+        except Exception:
+            pass
+        send_discord_alert(error_msg)
+
+def format_date_clean(date_str: str) -> str:
+    """Normalize extracted date strings into MM/DD/YYYY format, or empty if invalid."""
+    if not date_str:
+        return ""
+    date_str = str(date_str).strip()
+    if date_str.lower() in ["n/a", "tbd", "none", "null", "undefined", "tba", ""]:
+        return ""
+    # Strip time suffix if present (e.g., '10/15/2026 12:00 PM')
+    date_part = date_str.split(" ")[0] if ("/" in date_str or "-" in date_str) else date_str
+    for fmt in ("%b %d, %Y", "%B %d, %Y", "%m/%d/%Y", "%Y-%m-%d", "%m-%d-%Y", "%b %d %Y"):
+        try:
+            dt = datetime.strptime(date_str, fmt)
+            return dt.strftime("%m/%d/%Y")
+        except ValueError:
+            pass
+        try:
+            dt = datetime.strptime(date_part, fmt)
+            return dt.strftime("%m/%d/%Y")
+        except ValueError:
+            pass
+    if re.match(r'^\d{1,2}/\d{1,2}/\d{2,4}$', date_str):
+        return date_str
+    return date_str
+
+def format_title_and_due(raw_title: str, raw_date: str) -> tuple[str, str]:
+    """
+    Format contract title and closing date:
+    - If a closing date is successfully extracted, append it cleanly (e.g., 'Title - Due: MM/DD/YYYY').
+    - If a closing date cannot be found, drop the 'Due:' tag entirely. Never output 'N/A' or placeholder text.
+    """
+    if not raw_title or str(raw_title).strip().lower() in ["n/a", "none", "null", ""]:
+        return "", ""
+    clean_title = str(raw_title).strip()
+    # Strip any pre-existing Due tag or placeholder like (Due: N/A) or - Due: N/A
+    clean_title = re.sub(r'[\s\-\(]*Due:?\s*N/A\)?', '', clean_title, flags=re.IGNORECASE).strip()
+    clean_title = re.sub(r'[\s\-]+$', '', clean_title).strip()
+    
+    clean_date = format_date_clean(raw_date)
+    if clean_date:
+        return f"{clean_title} - Due: {clean_date}", clean_date
+    else:
+        return clean_title, ""
+
+def chunk_text(text, max_chars=15000):
+    return [text[i:i+max_chars] for i in range(0, len(text), max_chars)]
+
+async def scrape_and_extract(url: str, selector: str, keyword: str):
+    max_retries = 3 
+    raw_text = ""
+    esbd_lines_captured = []
+    
+    for attempt in range(max_retries):
+        try:
+            print(f"\nAttempt {attempt + 1} of {max_retries} connecting to {url}...", flush=True)
+            
+            async with Stealth().use_async(async_playwright()) as p:
+                print(" -> Launching Stealth browser (Local Connection)...", flush=True)
+                
+                browser = await p.chromium.launch(
+                    headless=True,
+                    args=[
+                        '--disable-blink-features=AutomationControlled',
+                        '--no-sandbox',
+                        '--disable-dev-shm-usage',
+                    ],
+                    ignore_default_args=["--enable-automation"]
+                )
+                
+                context = await browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080}
+                )
+                
+                page = await context.new_page()
+
+                # Intercept structured ESBD JSON payload containing full titles and responseDue dates
+                async def handle_response(response):
+                    if "ESBD.Service.ss" in response.url:
+                        try:
+                            data = await response.json()
+                            if isinstance(data, dict) and "lines" in data:
+                                esbd_lines_captured.extend(data["lines"])
+                        except Exception:
+                            pass
+                page.on("response", handle_response)
+                
+                print(" -> Browser open. Requesting page (waiting for network to idle)...", flush=True)
+                await page.goto(url, wait_until="networkidle", timeout=60000)
+                
+                print(" -> Page loaded! Waiting 5 additional seconds for JS hydration...", flush=True)
+                await page.wait_for_timeout(5000) 
+                
+                if keyword:
+                    try:
+                        print(f" -> Injecting keyword '{keyword}' into UI search...", flush=True)
+                        search_input = page.locator("input[placeholder*='Search'], input[placeholder*='search'], input[placeholder*='Keyword'], input[type='text']").first
+                        await search_input.wait_for(state="visible", timeout=10000)
+                        await search_input.click()
+                        await search_input.type(keyword, delay=100)
+                        await search_input.press("Enter")
+                        print(" -> Search submitted! Waiting 8 seconds for JS table to update...", flush=True)
+                        await page.wait_for_timeout(8000)
+                    except Exception as e:
+                        print(f" -> UI Search injection failed: {e}", flush=True)
+                
+                print(f" -> Extracting text from HTML selector: '{selector}'", flush=True)
+                
+                locator = page.locator(selector).first
+                await locator.wait_for(state="attached", timeout=10000)
+                raw_text = await locator.inner_text()
+                
+                await browser.close()
+                
+                print(f" -> Success! Scraped {len(raw_text)} characters. Captured {len(esbd_lines_captured)} structured lines.", flush=True)
+                
+                if len(raw_text) < 200 and "403" in raw_text:
+                    print(" -> 403 Forbidden detected. Retrying...", flush=True)
+                    raw_text = ""
+                    esbd_lines_captured.clear()
+                    raise Exception("WAF Block Detected.")
+                    
+                break  
+                
+        except PlaywrightTimeoutError as te:
+            error_msg = f"TimeoutError on {url}: {te}"
+            print(f" -> {error_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {error_msg}\n")
+            except Exception:
+                pass
+            if attempt == max_retries - 1:
+                send_discord_alert(error_msg)
+                try:
+                    await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
+                except Exception:
+                    pass
+                raise  
+            await asyncio.sleep(2)
+        except Exception as e:
+            error_msg = f"Playwright error on {url}: {e}"
+            print(f" -> {error_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {error_msg}\n")
+            except Exception:
+                pass
+            if attempt == max_retries - 1:
+                send_discord_alert(error_msg)
+                try:
+                    await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
+                except Exception:
+                    pass
+                raise
+            await asyncio.sleep(2)
+
+    raw_candidates = []
+
+    # Process structured ESBD JSON payload containing full contract titles and exact responseDue dates
+    if esbd_lines_captured:
+        print(f"[*] Processing {len(esbd_lines_captured)} items from ESBD JSON payload...", flush=True)
+        seen_ids = set()
+        for line in esbd_lines_captured:
+            int_id = line.get("internalid") or line.get("solicitationId") or ""
+            if int_id and int_id in seen_ids:
+                continue
+            if int_id:
+                seen_ids.add(int_id)
+
+            raw_title = line.get("title") or line.get("solicitationTitle") or ""
+            raw_due = line.get("responseDue") or line.get("dueDate") or ""
+            agency = line.get("agencyName") or "Texas SmartBuy / State of Texas"
+            raw_candidates.append({
+                "raw_title": raw_title,
+                "raw_due": raw_due,
+                "agency": agency,
+                "bid_id": line.get("solicitationId") or line.get("internalid") or "",
+                "contact_email": line.get("contactEmail") or "",
+            })
+
+    if raw_text:
+        # Extract from scraped page text via Claude AI extraction with strict schema
+        text_chunks = chunk_text(raw_text, max_chars=15000)
+        print(f"\nSplit text into {len(text_chunks)} chunks for processing...")
+
+        for i, chunk in enumerate(text_chunks):
+            print(f"Processing chunk {i+1} of {len(text_chunks)}...")
+            try:
+                response = await client.messages.create(
+                    model="claude-sonnet-5-5",
+                    max_tokens=8000,
+                    system="Extract ONLY Information Technology (IT), Cyber, Software, and Network related contract opportunities (e.g., software, hardware, cloud, telecom, infosec). Strictly ignore unrelated contracts like HVAC, plumbing, construction, transit, or general municipal services. Extract the full, detailed contract title and exact closing date. Output strictly as a valid JSON array of objects with keys: title, closing_date, contact_email. Do not wrap in markdown code blocks or output any other text. If no closing date is found, leave closing_date as an empty string. If no relevant contracts are found, output an empty array [].",
+                    messages=[
+                        {"role": "user", "content": f"Extract data from this text snippet:\n\n{chunk}"}
+                    ]
+                )
+
+                raw_json_str = ""
+                for block in response.content:
+                    if block.type == "text":
+                        raw_json_str = block.text.strip()
+                        break
+
+                if raw_json_str.startswith("```"):
+                    raw_json_str = raw_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+
+                records = json.loads(raw_json_str)
+                for r in records:
+                    raw_candidates.append({
+                        "raw_title": r.get("title") or "",
+                        "raw_due": r.get("closing_date") or "",
+                        "agency": "Texas SmartBuy / State of Texas",
+                        "bid_id": "",
+                        "contact_email": r.get("contact_email") or "",
+                    })
+                print(f"Found {len(records)} contracts in chunk {i+1}.")
+
+            except Exception as e:
+                error_msg = f"Claude Extraction Error on chunk {i+1}: {e}"
+                print(error_msg)
+                try:
+                    with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                        f.write(f"\n[!] {error_msg}\n")
+                except Exception:
+                    pass
+                send_discord_alert(error_msg)
+                continue
+
+    # Filter with tech_keywords regex array and format titles & dates
+    formatted_records = []
+    for cand in raw_candidates:
+        title = cand["raw_title"].strip()
+        if not title:
+            continue
+        title_lower = title.lower()
+
+        # Strict regex filtering protocol
+        if any(re.search(pattern, title_lower) for pattern in tech_keywords):
+            formatted_title, clean_due = format_title_and_due(title, cand["raw_due"])
+            if not formatted_title:
+                continue
+
+            bid_id = cand.get("bid_id", "").strip()
+            if bid_id:
+                contract_url = f"https://www.txsmartbuy.com/esbd/{bid_id}"
+            else:
+                slug = re.sub(r'[^a-z0-9]+', '-', formatted_title.lower()).strip('-')[:80]
+                contract_url = f"{url.rstrip('/')}#{slug}"
+
+            rec = {
+                "title": formatted_title,
+                "agency": cand["agency"],
+                "closing_date": clean_due if clean_due else None,
+                "url": contract_url,
+                "status": "New Lead"
+            }
+
+            formatted_records.append(rec)
+
+    # Deduplicate by url to satisfy contracts_url_key unique constraint
+    unique_records = list({r["url"]: r for r in formatted_records}.values())
+
+    print(f"Extraction complete. Total validated tech contracts found: {len(unique_records)}. Uploading to Supabase...")
+
+    if not unique_records:
+        print("No valid tech contracts found to upload.")
+        return
+
+    try:
+        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+        response = db_client.table(TABLE_NAME).upsert(
+            unique_records, on_conflict="url", ignore_duplicates=True
+        ).execute()
+        new_records = response.data if response and getattr(response, "data", None) else []
+        skipped_count = len(unique_records) - len(new_records)
+        print(f"Success! {len(new_records)} new records were added to your Supabase '{TABLE_NAME}' table (skipped {skipped_count} duplicates).")
+
+        for rec in new_records:
+            send_discord_content(rec)
+    except Exception as e:
+        error_msg = f"Supabase Upload Error: {e}"
+        print(error_msg)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"\n[!] {error_msg}\n")
+        except Exception:
+            pass
+        send_discord_alert(error_msg)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Scrape leads from a given URL.")
+    parser.add_argument("url", nargs="?", default="https://www.txsmartbuy.com/esbd", help="The target URL to scrape")
+    parser.add_argument("--selector", "-s", default="body", help="CSS selector to target specific HTML container (e.g., '.job-board')")
+    parser.add_argument("--keyword", "-k", default="software", help="Keyword to dynamically type into the site's search bar")
+    
+    args = parser.parse_args()
+    
+    asyncio.run(scrape_and_extract(args.url, args.selector, args.keyword))
