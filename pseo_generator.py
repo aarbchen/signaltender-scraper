@@ -17,7 +17,7 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 TABLE_NAME = "contracts"
 ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
 
-SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.com").rstrip("/")
+SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
 WHOP_TIER1_URL = os.getenv(
     "WHOP_CHECKOUT_URL",
     "https://whop.com/signaltender-net/signaltender-private-alerts",
@@ -27,9 +27,10 @@ WHOP_TIER2_URL = os.getenv(
     "https://whop.com/signaltender-net/signaltender-private-alerts",
 )
 
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts")
-SITEMAP_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sitemap.xml")
-ROBOTS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "robots.txt")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(BASE_DIR, "contracts")
+SITEMAP_PATH = os.path.join(BASE_DIR, "sitemap.xml")
+ROBOTS_PATH = os.path.join(BASE_DIR, "robots.txt")
 
 JURISDICTIONS = {
     "federal": {
