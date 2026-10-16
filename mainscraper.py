@@ -25,6 +25,7 @@ import va_scraper
 import ca_scraper
 import fl_scraper
 import md_scraper
+import pseo_generator
 
 # 1. Load environment variables
 load_dotenv(dotenv_path=".env")
@@ -687,6 +688,12 @@ async def run_master_orchestrator(
             print("[+] All net-new contracts dispatched to subscriber Discord webhook.", flush=True)
         else:
             print("[*] No net-new contracts to dispatch to Discord this cycle.", flush=True)
+
+        # Rebuild Programmatic SEO (pSEO) static directory & sitemap.xml from live Supabase contracts
+        try:
+            pseo_generator.generate_pseo_site()
+        except Exception as pseo_err:
+            print(f"[!] pSEO static generation warning: {pseo_err}", flush=True)
 
         return new_records
 

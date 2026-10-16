@@ -8,8 +8,11 @@ echo    (SAM.gov + DemandStar + TX + VA + CA + FL + MD)
 echo ========================================================
 echo.
 
-echo [*] Running Unified 7-Portal Master Orchestrator (Supabase + Discord Sync)...
+echo [*] Running Unified 7-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
 python mainscraper.py >> D:\Daas\error_log.txt 2>&1
+
+echo [*] Ensuring Programmatic SEO Static Pages and Sitemap are up to date...
+python pseo_generator.py >> D:\Daas\error_log.txt 2>&1
 
 if exist "D:\Daas\apollo-contacts.csv" (
     echo [*] Refreshing Apollo Outreach Payload (campaign_leads.csv) from Supabase...
@@ -18,8 +21,8 @@ if exist "D:\Daas\apollo-contacts.csv" (
 
 echo.
 echo ========================================================
-echo      [+] SUCCESS: All 7 scraping pipelines complete!
-echo      Supabase contracts table and Discord feed synced.
+echo      [+] SUCCESS: All 7 scraping & pSEO pipelines complete!
+echo      Supabase, Discord feed, and /contracts SEO pages synced.
 echo ========================================================
 echo.
 
