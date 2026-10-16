@@ -35,6 +35,17 @@
       }
     }
   </script>
+  <style>
+    /* Global safeguard: prevent any bordered or rounded badge/pill span from rendering as
+       multi-line inline boxes whose top/bottom borders cross through wrapped text */
+    span[class*="border"],
+    span[class*="rounded"]:not(.animate-ping) {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+  </style>
 </head>
 
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200">
