@@ -23,6 +23,8 @@ import sam_scraper
 import sledscraper
 import va_scraper
 import ca_scraper
+import fl_scraper
+import md_scraper
 
 # 1. Load environment variables
 load_dotenv(dotenv_path=".env")
@@ -549,6 +551,8 @@ async def run_master_orchestrator(
         _run_source("Texas SLED (ESBD)", scrape_and_extract(url, selector, keyword, push_to_db=False)),
         _run_source("Virginia SLED (eVA)", va_scraper.run_scraper(push_to_db=False)),
         _run_source("California SLED (Cal eProcure)", ca_scraper.run_scraper(push_to_db=False)),
+        _run_source("Florida SLED (MFMP VIP)", fl_scraper.run_scraper(push_to_db=False)),
+        _run_source("Maryland SLED (eMMA / Bonfire)", md_scraper.run_scraper(push_to_db=False)),
         return_exceptions=True,
     )
 
@@ -558,6 +562,8 @@ async def run_master_orchestrator(
         "Texas SLED (ESBD)",
         "Virginia SLED (eVA)",
         "California SLED (Cal eProcure)",
+        "Florida SLED (MFMP VIP)",
+        "Maryland SLED (eMMA / Bonfire)",
     ]
     combined_records = []
 
