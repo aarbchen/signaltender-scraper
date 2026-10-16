@@ -29,7 +29,7 @@ ERROR_SCREENSHOT_PATH = "error_debug.png"
 
 # Your Decodo residential proxy credentials
 PROXY_HOST = "us.decodo.com"
-PROXY_PORT = "10000"
+PROXY_PORT = "10001"  # Sticky session port so authenticated DemandStar sessions do not drop mid-scrape
 PROXY_USER = "sphmb5n9of"
 PROXY_PASS = "y7x~OwTiQim03Ooh4p"
 
@@ -268,13 +268,33 @@ async def run_scraper(push_to_db: bool = True):
         page = await context.new_page()
         all_bids_data = []
 
-        print(f"[*] Navigating to {LOGIN_URL} via proxy...")
+        print(f"[*] Navigating to {LOGIN_URL} via proxy ({PROXY_HOST}:{PROXY_PORT})...")
         try:
-            await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=45000)
-            
-            print("[*] Waiting for login form to render...")
-            username_input = page.locator("#userName")
-            await username_input.wait_for(state="visible", timeout=45000)
+            proxy_login_ok = False
+            try:
+                await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=25000)
+                print("[*] Waiting for login form to render...")
+                username_input = page.locator("#userName")
+                await username_input.wait_for(state="visible", timeout=15000)
+                proxy_login_ok = True
+            except Exception as proxy_err:
+                print(
+                    f"[!] Decodo proxy blocked or stalled on DemandStar login ({proxy_err}). "
+                    "Falling back to direct connection...",
+                    flush=True,
+                )
+                await context.close()
+                context = await browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080},
+                )
+                page = await context.new_page()
+
+            if not proxy_login_ok:
+                await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=45000)
+                print("[*] Waiting for login form to render (direct connection)...")
+                username_input = page.locator("#userName")
+                await username_input.wait_for(state="visible", timeout=45000)
             
             print("[*] Injecting credentials...")
             await username_input.fill(DEMANDSTAR_USER)
@@ -325,32 +345,33 @@ async def run_scraper(push_to_db: bool = True):
             except Exception:
                 pass
             
-            print("[*] Typing 'software' into the search bar to filter general municipal bids...")
+            print("[*] Typing 'software' into the Bid Name filter to target IT/software municipal bids...")
             try:
-                search_input = page.locator("input:not([readonly])[placeholder*='earch']").first
+                search_input = page.locator("input[name='bidName'], input[placeholder='Bid Name']").first
                 if not await search_input.is_visible():
-                    search_input = page.locator("input[type='text']:not([readonly]):not([name='agencyText'])").first
+                    adv_toggle = page.get_by_text("Advanced Search").first
+                    if await adv_toggle.is_visible(timeout=3000):
+                        await adv_toggle.click(force=True)
+                        await page.wait_for_timeout(1000)
 
                 await search_input.wait_for(state="visible", timeout=10000)
                 
                 if await search_input.is_editable():
                     await search_input.click() 
                     await page.wait_for_timeout(500)
-                    await search_input.type("software", delay=100)
+                    await search_input.fill("software")
                     await page.wait_for_timeout(500)
-                    await search_input.press("Enter")
                     
-                    try:
-                        mag_glass = page.locator(".mdi-magnify").first
-                        if await mag_glass.is_visible(timeout=3000):
-                            await mag_glass.click(force=True)
-                    except:
-                        pass
+                    search_btn = page.locator("button.bttn-primary:has-text('Search')").first
+                    if await search_btn.is_visible(timeout=3000):
+                        await search_btn.click(force=True)
+                    else:
+                        await search_input.press("Enter")
 
-                    print("[*] Search submitted. Waiting 10 seconds for tech bids to load...")
-                    await page.wait_for_timeout(10000)
+                    print("[*] Search submitted. Waiting 8 seconds for tech bids to load...")
+                    await page.wait_for_timeout(8000)
                 else:
-                    print("[!] Editable search bar not found, proceeding with default feed.")
+                    print("[!] Editable Bid Name search bar not found, proceeding with default feed.")
             except Exception as e:
                 err_msg = f"DemandStar keyword search error: {e}"
                 print(f"[!] {err_msg}")
