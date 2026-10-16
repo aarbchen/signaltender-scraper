@@ -40,632 +40,1563 @@
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200">
 
   <!-- =====================================================================
-       TOP TELEMETRY / STATUS BAR
+       PAGE 1 VIEW: MAIN FLAGSHIP GOVCON PROCUREMENT WIRE & DIRECTORY
        ===================================================================== -->
-  <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span class="font-mono text-slate-300 tracking-tight">
-          PIPELINE TELEMETRY: <span class="text-emerald-400 font-medium">ALL SCRAPERS &amp; DATA NODES ACTIVE</span>
-        </span>
-        <span class="hidden lg:inline text-slate-600">|</span>
-        <span class="hidden lg:inline font-mono text-slate-400">
-          PORTALS: SAM.GOV &bull; VIRGINIA eVA &bull; TEXAS ESBD &bull; CALIFORNIA Cal eProcure
-        </span>
-      </div>
-      <div class="flex items-center space-x-4 font-mono text-slate-400">
-        <a href="apis.html" class="hidden sm:inline hover:text-sky-400 transition-colors">
-          DEVELOPER API CATALOG &rarr;
-        </a>
-        <span class="hidden sm:inline text-slate-700">|</span>
-        <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
-          INSTANT DISCORD ACCESS ($99/MO) &nearr;
-        </a>
+  <div id="page-main">
+
+    <!-- Top Telemetry / Status Bar (Main Page) -->
+    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="font-mono text-slate-300 tracking-tight">
+            PIPELINE TELEMETRY: <span class="text-emerald-400 font-medium">ALL SCRAPERS &amp; DATA NODES ACTIVE</span>
+          </span>
+          <span class="hidden lg:inline text-slate-600">|</span>
+          <span class="hidden lg:inline font-mono text-slate-400">
+            PORTALS: SAM.GOV &bull; VIRGINIA eVA &bull; TEXAS ESBD &bull; CALIFORNIA Cal eProcure
+          </span>
+        </div>
+        <div class="flex items-center space-x-4 font-mono text-slate-400">
+          <a href="#apis" class="hidden sm:inline hover:text-sky-400 transition-colors">
+            DEVELOPER API CATALOG &rarr;
+          </a>
+          <span class="hidden sm:inline text-slate-700">|</span>
+          <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
+            INSTANT DISCORD ACCESS ($99/MO) &nearr;
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- =====================================================================
-       STICKY NAVIGATION HEADER
-       ===================================================================== -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <!-- Brand Identity -->
-      <a href="index.html" class="flex items-center space-x-3">
-        <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-sky-500/20 to-blue-600/10 border border-sky-500/40 flex items-center justify-center shadow-inner">
-          <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold tracking-tight text-white">SignalTender</span>
-            <span class="text-[10px] font-mono uppercase tracking-widest px-1.5 py-0.5 rounded bg-slate-800 text-sky-400 border border-slate-700">DaaS</span>
+    <!-- Sticky Navigation Header (Main Page) -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Brand Identity -->
+        <a href="#overview" class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-sky-500/20 to-blue-600/10 border border-sky-500/40 flex items-center justify-center shadow-inner">
+            <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
           </div>
-          <span class="text-[11px] font-mono text-slate-400 tracking-tight">GOVCON PROCUREMENT INTELLIGENCE</span>
-        </div>
-      </a>
-
-      <!-- Primary Multi-Page & Section Navigation -->
-      <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
-        <a href="#contract-directory" class="hover:text-white transition-colors">Live Contract Feed</a>
-        <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
-        <a href="#coverage" class="hover:text-white transition-colors">Portal Coverage</a>
-        <a href="apis.html" class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-md bg-slate-900/90 hover:bg-slate-800 text-sky-400 border border-slate-800 transition-colors font-mono text-xs">
-          <span>Developer APIs</span>
-          <span>&rarr;</span>
+          <div class="flex flex-col">
+            <div class="flex items-center space-x-2">
+              <span class="text-lg font-bold tracking-tight text-white">SignalTender</span>
+              <span class="text-[10px] font-mono uppercase tracking-widest px-1.5 py-0.5 rounded bg-slate-800 text-sky-400 border border-slate-700">DaaS</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 tracking-tight">GOVCON PROCUREMENT INTELLIGENCE</span>
+          </div>
         </a>
-      </nav>
 
-      <!-- Header CTAs -->
-      <div class="flex items-center space-x-3">
-        <a
-          href="apis.html"
-          class="md:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
-        >
-          APIs
-        </a>
-        <a
-          href="https://whop.com/signaltender-net/signaltender-private-alerts"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
-        >
-          <span>Join Discord Wire</span>
-          <svg class="ml-2 -mr-0.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+        <!-- Primary Navigation -->
+        <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
+          <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
+          <a href="#contract-directory" class="hover:text-white transition-colors">Live Contract Feed</a>
+          <a href="#coverage" class="hover:text-white transition-colors">Portal Coverage</a>
+          <a href="#apis" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
+            <span>Developer APIs</span>
+            <span>&rarr;</span>
+          </a>
+        </nav>
 
-  <!-- =====================================================================
-       SECTION 1: DARK-THEMED HERO SECTION (FLAGSHIP PROCUREMENT WIRE FOCUS)
-       ===================================================================== -->
-  <section id="overview" class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-28 border-b border-slate-800/80">
-    <!-- Tactical Grid Backdrop & Radial Glow -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b1a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b1a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[420px] bg-sky-500/10 blur-[130px] rounded-full pointer-events-none"></div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center space-y-8">
-
-        <!-- Institutional Badge -->
-        <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-mono text-sky-400">
-          <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
-          <span>ZERO-TOUCH GOVCON DATA-AS-A-SERVICE &bull; NO SALES CALLS OR DEMOS</span>
-        </div>
-
-        <!-- Hero Headline -->
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.06]">
-          Real-Time GovCon <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-400">Procurement Data</span>
-        </h1>
-
-        <!-- Hero Subheadline -->
-        <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
-          Stop refreshing fragmented government portals. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;extracting high-value Federal (<span class="text-white font-medium">SAM.gov</span>) and State SLED (<span class="text-white font-medium">VA, TX, CA</span>) IT &amp; cybersecurity solicitations into a live, noise-filtered intelligence feed.
-        </p>
-
-        <!-- Primary Dual CTAs -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-          <!-- Primary Flagship CTA: Whop Checkout ($99/mo IC Terminal) -->
+        <!-- Header CTAs -->
+        <div class="flex items-center space-x-3">
+          <a
+            href="#apis"
+            class="md:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
+          >
+            APIs &rarr;
+          </a>
           <a
             href="https://whop.com/signaltender-net/signaltender-private-alerts"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-xl shadow-sky-950/60 transition-all"
+            class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
           >
-            <span>Start Instant Discord Access &mdash; $99/mo</span>
-            <svg class="ml-2.5 h-5 w-5 text-sky-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-
-          <!-- Secondary CTA: Sanitized Contract Directory Preview -->
-          <a
-            href="#contract-directory"
-            class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-medium text-slate-200 bg-slate-900/90 hover:bg-slate-800/90 rounded-lg border border-slate-700/80 transition-colors"
-          >
-            <span>Inspect Live Contract Feed &darr;</span>
-          </a>
-        </div>
-
-        <!-- Operational Guarantee Pills -->
-        <div class="pt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-mono text-slate-400">
-          <div class="flex items-center space-x-2">
-            <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>NO SALES CALLS &bull; CANCEL ANYTIME</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>60-SECOND WHOP BOT PROVISIONING</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>EXPENSE-READY ($99/MO CORPORATE CARD)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Key Architecture Metrics Strip -->
-      <div class="mt-16 pt-10 border-t border-slate-800/80 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center sm:text-left">
-        <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-          <div class="text-2xl sm:text-3xl font-bold font-mono text-white">100%</div>
-          <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Self-Serve Architecture</div>
-          <p class="mt-1 text-xs text-slate-400">Zero discovery calls, demos, or enterprise retainers. Subscribe and deploy in seconds.</p>
-        </div>
-        <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-          <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">99.4%</div>
-          <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Commodity Noise Stripped</div>
-          <p class="mt-1 text-xs text-slate-400">Regex + LLM filtering drops ink/toner, COTS renewals, and non-IT municipal bids.</p>
-        </div>
-        <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-          <div class="text-2xl sm:text-3xl font-bold font-mono text-white">4 Portals</div>
-          <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Federal + SLED Ingestion</div>
-          <p class="mt-1 text-xs text-slate-400">Automated every-6-hour extraction across SAM.gov, Virginia eVA, Texas ESBD &amp; California.</p>
-        </div>
-        <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-          <div class="text-2xl sm:text-3xl font-bold font-mono text-white">&lt; 60 Sec</div>
-          <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Instant Role Provisioning</div>
-          <p class="mt-1 text-xs text-slate-400">Automated server invite and role assignment upon Stripe checkout via Whop.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 2: LIVE DISCORD PROCUREMENT WIRE FOR CAPTURE & BD TEAMS (TIER 1)
-       ===================================================================== -->
-  <section id="discord-terminal" class="py-24 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-        <!-- Left Column (6 cols): Non-Developer Capture Team Value Prop & Whop CTA -->
-        <div class="lg:col-span-6 space-y-6">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
-            <span>// FLAGSHIP PRODUCT &bull; THE "INDIVIDUAL CONTRIBUTOR" TERMINAL</span>
-          </div>
-
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Live Discord Procurement Wire for AEs, BDRs &amp; Capture Teams
-          </h2>
-
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Built for mid-market Account Executives, Business Development Reps, and boutique capture teams who need actionable IT and cybersecurity contract leads immediately&mdash;without waiting on enterprise procurement software or engineering support.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <div class="flex items-start space-x-3.5">
-              <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
-                01
-              </div>
-              <div>
-                <h3 class="text-sm font-bold text-white">Pre-Qualified for High-Value Defense &amp; Enterprise IT</h3>
-                <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-                  Every solicitation is vetted against our technical keyword array (<code class="text-slate-300 font-mono">Zero-Trust</code>, <code class="text-slate-300 font-mono">SIEM</code>, <code class="text-slate-300 font-mono">Cloud Migration</code>, <code class="text-slate-300 font-mono">IAM</code>, <code class="text-slate-300 font-mono">DevSecOps</code>, <code class="text-slate-300 font-mono">GIS</code>) before touching our Supabase data lake or Discord wire.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3.5">
-              <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
-                02
-              </div>
-              <div>
-                <h3 class="text-sm font-bold text-white">Expense-Ready Pricing ($99/mo &mdash; Under $100 Threshold)</h3>
-                <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-                  Specifically priced at $99/month so individual AEs and BDRs can expense their seat directly on a corporate card without manager approval or legal review.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3.5">
-              <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
-                03
-              </div>
-              <div>
-                <h3 class="text-sm font-bold text-white">Instant Automated Provisioning via Whop</h3>
-                <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-                  Complete your self-serve Stripe checkout on Whop and our bot issues your private server invite and assigns your subscriber role in under 60 seconds.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Primary Whop Checkout CTA Card -->
-          <div class="pt-4">
-            <div class="p-6 rounded-xl bg-navy-900 border-2 border-sky-500/50 shadow-xl shadow-sky-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-              <div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">INDIVIDUAL CONTRIBUTOR TERMINAL</span>
-                </div>
-                <div class="mt-1 flex items-baseline space-x-1.5">
-                  <span class="text-3xl font-extrabold text-white font-mono">$99</span>
-                  <span class="text-xs font-mono text-slate-400">/ month &bull; No sales calls &bull; Cancel anytime</span>
-                </div>
-              </div>
-
-              <a
-                href="https://whop.com/signaltender-net/signaltender-private-alerts"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all shrink-0"
-              >
-                <span>Subscribe on Whop</span>
-                <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column (6 cols): Live Discord Wire Visual Preview -->
-        <div class="lg:col-span-6">
-          <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl overflow-hidden">
-            <!-- Discord Channel Header -->
-            <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
-              <div class="flex items-center space-x-2.5">
-                <span class="text-slate-400 font-mono text-base font-bold">#</span>
-                <span class="text-sm font-semibold text-white">live-govcon-cyber-wire</span>
-                <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                  BOT WEBHOOK
-                </span>
-              </div>
-              <span class="text-xs font-mono text-emerald-400">&bull; Real-Time Dispatch</span>
-            </div>
-
-            <!-- Discord Feed Messages -->
-            <div class="p-6 space-y-4 bg-navy-950/70 font-mono text-xs">
-
-              <!-- Lead Block 1: Federal SAM.gov -->
-              <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-sky-500 border border-slate-800/90 space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
-                  <span class="text-sky-400 font-semibold">SignalTender Dispatch Bot</span>
-                  <span>Today at 08:14 EST</span>
-                </div>
-                <div class="text-slate-200"><strong class="text-white">Title:</strong> Enterprise Zero-Trust Cloud Migration &amp; SOC Modernization</div>
-                <div class="text-slate-300"><strong class="text-white">Agency:</strong> Dept of Defense / Defense Information Systems Agency (SAM.gov)</div>
-                <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-11-24</span></div>
-                <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://sam.gov/opp/fa872626r0042/view</span></div>
-              </div>
-
-              <!-- Lead Block 2: Virginia eVA -->
-              <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-emerald-500 border border-slate-800/90 space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
-                  <span class="text-emerald-400 font-semibold">SignalTender Dispatch Bot</span>
-                  <span>Today at 08:14 EST</span>
-                </div>
-                <div class="text-slate-200"><strong class="text-white">Title:</strong> Statewide Identity Governance &amp; Privileged Access Management</div>
-                <div class="text-slate-300"><strong class="text-white">Agency:</strong> Virginia Information Technologies Agency (eVA Portal)</div>
-                <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-11-29</span></div>
-                <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?rfp_id=88412</span></div>
-              </div>
-
-              <!-- Lead Block 3: Texas SmartBuy ESBD -->
-              <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-indigo-500 border border-slate-800/90 space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
-                  <span class="text-indigo-400 font-semibold">SignalTender Dispatch Bot</span>
-                  <span>Today at 08:15 EST</span>
-                </div>
-                <div class="text-slate-200"><strong class="text-white">Title:</strong> Next-Gen Emergency Communications Fiber &amp; GIS Telemetry Backbone</div>
-                <div class="text-slate-300"><strong class="text-white">Agency:</strong> Texas Department of Information Resources (Texas SmartBuy ESBD)</div>
-                <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-12-04</span></div>
-                <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://www.txsmartbuy.gov/esbd/DIR-CPO-5419</span></div>
-              </div>
-
-              <!-- Lead Block 4: California Cal eProcure -->
-              <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-amber-500 border border-slate-800/90 space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
-                  <span class="text-amber-400 font-semibold">SignalTender Dispatch Bot</span>
-                  <span>Today at 08:16 EST</span>
-                </div>
-                <div class="text-slate-200"><strong class="text-white">Title:</strong> [0000034891] Enterprise Cloud Security &amp; SIEM Telemetry Platform - Due: 12/11/2026</div>
-                <div class="text-slate-300"><strong class="text-white">Agency:</strong> California Department of Technology (Cal eProcure)</div>
-                <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">12/11/2026</span></div>
-                <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://caleprocure.ca.gov/event/7502/0000034891</span></div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 3: SANITIZED LIVE CONTRACT DIRECTORY PREVIEW (STRUCTURED FOR TIER 2 & pSEO)
-       ===================================================================== -->
-  <section id="contract-directory" class="py-24 bg-navy-900/40 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-        <div>
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
-            <span>// SUPABASE POSTGRESQL DATA LAKE &bull; SANITIZED DIRECTORY STREAM</span>
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Recent Qualified IT &amp; Cybersecurity Solicitations
-          </h2>
-          <p class="mt-3 text-slate-300 text-sm sm:text-base max-w-3xl">
-            Every 6 hours, our autonomous Playwright &amp; API ingestion engine normalizes Federal and State SLED opportunities into our centralized data lake. Preview recent qualified solicitations below or unlock real-time full-link dispatches in the Discord terminal.
-          </p>
-        </div>
-
-        <a
-          href="https://whop.com/signaltender-net/signaltender-private-alerts"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/50 transition-all shrink-0"
-        >
-          <span>Unlock Full Solicitation Links ($99/mo) &rarr;</span>
-        </a>
-      </div>
-
-      <!-- Sanitized Directory Table (Structured for Inbound Directory / pSEO Scale) -->
-      <div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                <th class="py-4 px-5">Portal / Jurisdiction</th>
-                <th class="py-4 px-5 min-w-[280px]">Solicitation Title &amp; Technical Scope</th>
-                <th class="py-4 px-4">Issuing Agency</th>
-                <th class="py-4 px-4">Closing Date</th>
-                <th class="py-4 px-5 text-right">Direct Portal Link</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/80 text-xs">
-
-              <!-- Directory Row 1 -->
-              <tr class="hover:bg-navy-900/60 transition-colors">
-                <td class="py-4 px-5 font-mono">
-                  <span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30 font-semibold">FEDERAL // SAM.GOV</span>
-                </td>
-                <td class="py-4 px-5">
-                  <div class="font-bold text-white text-sm">Enterprise Zero-Trust Cloud Migration &amp; SOC Modernization</div>
-                  <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">NAICS 541512</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">Zero-Trust</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">IL5 Cloud</span>
-                  </div>
-                </td>
-                <td class="py-4 px-4 text-slate-300">
-                  Dept of Defense / DISA
-                </td>
-                <td class="py-4 px-4 font-mono text-amber-300">
-                  2026-11-24
-                </td>
-                <td class="py-4 px-5 text-right font-mono">
-                  <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
-                    Unlock RFP Link &nearr;
-                  </a>
-                </td>
-              </tr>
-
-              <!-- Directory Row 2 -->
-              <tr class="hover:bg-navy-900/60 transition-colors">
-                <td class="py-4 px-5 font-mono">
-                  <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">VIRGINIA // eVA</span>
-                </td>
-                <td class="py-4 px-5">
-                  <div class="font-bold text-white text-sm">Statewide Identity Governance &amp; Privileged Access Management (PAM)</div>
-                  <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">SLED IT</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">IAM / PAM</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">Cybersecurity</span>
-                  </div>
-                </td>
-                <td class="py-4 px-4 text-slate-300">
-                  Virginia IT Agency (VITA)
-                </td>
-                <td class="py-4 px-4 font-mono text-amber-300">
-                  2026-11-29
-                </td>
-                <td class="py-4 px-5 text-right font-mono">
-                  <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
-                    Unlock RFP Link &nearr;
-                  </a>
-                </td>
-              </tr>
-
-              <!-- Directory Row 3 -->
-              <tr class="hover:bg-navy-900/60 transition-colors">
-                <td class="py-4 px-5 font-mono">
-                  <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold">TEXAS // ESBD</span>
-                </td>
-                <td class="py-4 px-5">
-                  <div class="font-bold text-white text-sm">Next-Gen Emergency Communications Fiber &amp; GIS Telemetry Backbone</div>
-                  <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">DIR-CPO</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-indigo-300">GIS Telemetry</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-indigo-300">Network Infrastructure</span>
-                  </div>
-                </td>
-                <td class="py-4 px-4 text-slate-300">
-                  Texas Dept of Information Resources
-                </td>
-                <td class="py-4 px-4 font-mono text-amber-300">
-                  2026-12-04
-                </td>
-                <td class="py-4 px-5 text-right font-mono">
-                  <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
-                    Unlock RFP Link &nearr;
-                  </a>
-                </td>
-              </tr>
-
-              <!-- Directory Row 4 -->
-              <tr class="hover:bg-navy-900/60 transition-colors">
-                <td class="py-4 px-5 font-mono">
-                  <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-semibold">CALIFORNIA // Cal eProcure</span>
-                </td>
-                <td class="py-4 px-5">
-                  <div class="font-bold text-white text-sm">[0000034891] Enterprise Cloud Security &amp; SIEM Telemetry Platform</div>
-                  <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Dept 7502</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-amber-300">SIEM / SOC</span>
-                    <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-amber-300">Cloud Security</span>
-                  </div>
-                </td>
-                <td class="py-4 px-4 text-slate-300">
-                  California Dept of Technology (CDT)
-                </td>
-                <td class="py-4 px-4 font-mono text-amber-300">
-                  2026-12-11
-                </td>
-                <td class="py-4 px-5 text-right font-mono">
-                  <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
-                    Unlock RFP Link &nearr;
-                  </a>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =====================================================================
-       SECTION 4: MULTI-PORTAL COVERAGE & DATA LAKE ARCHITECTURE
-       ===================================================================== -->
-  <section id="coverage" class="py-24 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="max-w-3xl mb-12">
-        <div class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">
-          // AUTONOMOUS EXTRACTION COVERAGE
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Federal &amp; State SLED Procurement Coverage
-        </h2>
-        <p class="mt-3 text-slate-300 text-sm sm:text-base">
-          Our scraping cluster combines direct Federal API polling with residential-proxied Playwright stealth automation across the largest State SLED IT markets in the United States.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Portal 1: SAM.gov -->
-        <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between font-mono text-xs mb-3">
-              <span class="text-sky-400 font-bold">FEDERAL</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">SAM.gov Opportunities</h3>
-            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-              Direct federal solicitation extraction covering DoD, DHS, Civilian agencies, SBIRs, and pre-solicitation sources sought notices.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
-            Cadence: Every 6 Hours
-          </div>
-        </div>
-
-        <!-- Portal 2: Virginia eVA -->
-        <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between font-mono text-xs mb-3">
-              <span class="text-emerald-400 font-bold">STATE SLED // VA</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">Virginia eVA Portal</h3>
-            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-              Covers VITA, state agencies, higher education institutions, and Northern Virginia municipal cybersecurity &amp; cloud procurements.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
-            Cadence: Every 6 Hours
-          </div>
-        </div>
-
-        <!-- Portal 3: Texas SmartBuy ESBD -->
-        <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between font-mono text-xs mb-3">
-              <span class="text-indigo-400 font-bold">STATE SLED // TX</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">Texas SmartBuy ESBD</h3>
-            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-              Tracks Electronic State Business Daily (ESBD) and Texas DIR technology solicitations above $25,000 across state and local buyers.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
-            Cadence: Every 6 Hours
-          </div>
-        </div>
-
-        <!-- Portal 4: California Cal eProcure -->
-        <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between font-mono text-xs mb-3">
-              <span class="text-amber-400 font-bold">STATE SLED // CA</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">California Cal eProcure</h3>
-            <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-              Extracts California Department of Technology (CDT) and statewide IT/software events with automated NIGP/UNSPSC commodity filtering.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
-            Cadence: Every 6 Hours
-          </div>
-        </div>
-      </div>
-
-      <!-- Secondary Developer / Agentic API Ecosystem Callout Banner (Links to apis.html) -->
-      <div class="mt-16 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 border border-slate-800 p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-        <div class="max-w-2xl space-y-2">
-          <div class="inline-flex items-center space-x-2 text-xs font-mono text-sky-400">
-            <span>// SECONDARY CHANNEL &bull; FOR SOFTWARE ENGINEERS, AI SWARMS &amp; LEGAL TECH</span>
-          </div>
-          <h3 class="text-2xl font-bold text-white tracking-tight">
-            Building Automated GovCon Workflows or AI Agents?
-          </h3>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Explore our dedicated <span class="text-white font-medium">Data API Catalog</span>&mdash;featuring stateless FastAPI microservices for unstructured RFP &amp; SOW JSON extraction, AI legal risk &amp; redline auditing, and historical federal award CLIN pricing on RapidAPI.
-          </p>
-          <div class="pt-2 flex flex-wrap gap-2 font-mono text-[11px]">
-            <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-800 text-sky-300">01. B2B Contract Parsing API</span>
-            <span class="px-2.5 py-1 rounded bg-navy-950 border border-rose-500/30 text-rose-300">02. AI Risk &amp; Redline Auditor API</span>
-            <span class="px-2.5 py-1 rounded bg-navy-950 border border-slate-800 text-emerald-300">03. Historical Procurement Pricing API</span>
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-          <a
-            href="apis.html"
-            class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-mono font-semibold text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-sky-500/40 shadow-lg transition-all"
-          >
-            <span>Open Developer API Catalog</span>
-            <svg class="ml-2 h-4 w-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <span>Join Discord Wire</span>
+            <svg class="ml-2 -mr-0.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
         </div>
       </div>
+    </header>
 
-    </div>
-  </section>
+    <!-- ===================================================================
+         SECTION 1: DARK-THEMED HERO SECTION (FLAGSHIP PROCUREMENT WIRE FOCUS)
+         =================================================================== -->
+    <section id="overview" class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-28 border-b border-slate-800/80">
+      <!-- Tactical Grid Backdrop & Radial Glow -->
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b1a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b1a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[420px] bg-sky-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+
+          <!-- Institutional Badge -->
+          <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-mono text-sky-400">
+            <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+            <span>ZERO-TOUCH GOVCON DATA-AS-A-SERVICE &bull; NO SALES CALLS OR DEMOS</span>
+          </div>
+
+          <!-- Hero Headline -->
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.06]">
+            Real-Time GovCon <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-400">Procurement Data</span>
+          </h1>
+
+          <!-- Hero Subheadline -->
+          <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
+            Stop refreshing fragmented government portals. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;extracting high-value Federal (<span class="text-white font-medium">SAM.gov</span>) and State SLED (<span class="text-white font-medium">VA, TX, CA</span>) IT &amp; cybersecurity solicitations into a live, noise-filtered intelligence feed.
+          </p>
+
+          <!-- Primary Dual CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <!-- Primary Flagship CTA: Whop Checkout ($99/mo IC Terminal) -->
+            <a
+              href="https://whop.com/signaltender-net/signaltender-private-alerts"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-xl shadow-sky-950/60 transition-all"
+            >
+              <span>Start Instant Discord Access &mdash; $99/mo</span>
+              <svg class="ml-2.5 h-5 w-5 text-sky-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+
+            <!-- Secondary CTA: Sanitized Contract Directory Preview -->
+            <a
+              href="#contract-directory"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-medium text-slate-200 bg-slate-900/90 hover:bg-slate-800/90 rounded-lg border border-slate-700/80 transition-colors"
+            >
+              <span>Inspect Live Contract Feed &darr;</span>
+            </a>
+          </div>
+
+          <!-- Operational Guarantee Pills -->
+          <div class="pt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-mono text-slate-400">
+            <div class="flex items-center space-x-2">
+              <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>NO SALES CALLS &bull; CANCEL ANYTIME</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>60-SECOND WHOP BOT PROVISIONING</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>EXPENSE-READY ($99/MO CORPORATE CARD)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Architecture Metrics Strip -->
+        <div class="mt-16 pt-10 border-t border-slate-800/80 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center sm:text-left">
+          <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">100%</div>
+            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Self-Serve Architecture</div>
+            <p class="mt-1 text-xs text-slate-400">Zero discovery calls, demos, or enterprise retainers. Subscribe and deploy in seconds.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">99.4%</div>
+            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Commodity Noise Stripped</div>
+            <p class="mt-1 text-xs text-slate-400">Regex + LLM filtering drops ink/toner, COTS renewals, and non-IT municipal bids.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">4 Portals</div>
+            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Federal + SLED Ingestion</div>
+            <p class="mt-1 text-xs text-slate-400">Automated every-6-hour extraction across SAM.gov, Virginia eVA, Texas ESBD &amp; California.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">&lt; 60 Sec</div>
+            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Instant Role Provisioning</div>
+            <p class="mt-1 text-xs text-slate-400">Automated server invite and role assignment upon Stripe checkout via Whop.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: LIVE DISCORD PROCUREMENT WIRE FOR CAPTURE & BD TEAMS (TIER 1)
+         =================================================================== -->
+    <section id="discord-terminal" class="py-24 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <!-- Left Column (6 cols): Non-Developer Capture Team Value Prop & Whop CTA -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
+              <span>// FLAGSHIP PRODUCT &bull; THE "INDIVIDUAL CONTRIBUTOR" TERMINAL</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Live Discord Procurement Wire for AEs, BDRs &amp; Capture Teams
+            </h2>
+
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+              Built for mid-market Account Executives, Business Development Reps, and boutique capture teams who need actionable IT and cybersecurity contract leads immediately&mdash;without waiting on enterprise procurement software or engineering support.
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex items-start space-x-3.5">
+                <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
+                  01
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white">Pre-Qualified for High-Value Defense &amp; Enterprise IT</h3>
+                  <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                    Every solicitation is vetted against our technical keyword array (<code class="text-slate-300 font-mono">Zero-Trust</code>, <code class="text-slate-300 font-mono">SIEM</code>, <code class="text-slate-300 font-mono">Cloud Migration</code>, <code class="text-slate-300 font-mono">IAM</code>, <code class="text-slate-300 font-mono">DevSecOps</code>, <code class="text-slate-300 font-mono">GIS</code>) before touching our Supabase data lake or Discord wire.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3.5">
+                <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
+                  02
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white">Expense-Ready Pricing ($99/mo &mdash; Under $100 Threshold)</h3>
+                  <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                    Specifically priced at $99/month so individual AEs and BDRs can expense their seat directly on a corporate card without manager approval or legal review.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3.5">
+                <div class="h-6 w-6 rounded bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs shrink-0 mt-0.5">
+                  03
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white">Instant Automated Provisioning via Whop</h3>
+                  <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                    Complete your self-serve Stripe checkout on Whop and our bot issues your private server invite and assigns your subscriber role in under 60 seconds.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Primary Whop Checkout CTA Card -->
+            <div class="pt-4">
+              <div class="p-6 rounded-xl bg-navy-900 border-2 border-sky-500/50 shadow-xl shadow-sky-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">INDIVIDUAL CONTRIBUTOR TERMINAL</span>
+                  </div>
+                  <div class="mt-1 flex items-baseline space-x-1.5">
+                    <span class="text-3xl font-extrabold text-white font-mono">$99</span>
+                    <span class="text-xs font-mono text-slate-400">/ month &bull; No sales calls &bull; Cancel anytime</span>
+                  </div>
+                </div>
+
+                <a
+                  href="https://whop.com/signaltender-net/signaltender-private-alerts"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all shrink-0"
+                >
+                  <span>Subscribe on Whop</span>
+                  <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (6 cols): Live Discord Wire Visual Preview -->
+          <div class="lg:col-span-6">
+            <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl overflow-hidden">
+              <!-- Discord Channel Header -->
+              <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <span class="text-slate-400 font-mono text-base font-bold">#</span>
+                  <span class="text-sm font-semibold text-white">live-govcon-cyber-wire</span>
+                  <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    BOT WEBHOOK
+                  </span>
+                </div>
+                <span class="text-xs font-mono text-emerald-400">&bull; Real-Time Dispatch</span>
+              </div>
+
+              <!-- Discord Feed Messages -->
+              <div class="p-6 space-y-4 bg-navy-950/70 font-mono text-xs">
+
+                <!-- Lead Block 1: Federal SAM.gov -->
+                <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-sky-500 border border-slate-800/90 space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
+                    <span class="text-sky-400 font-semibold">SignalTender Dispatch Bot</span>
+                    <span>Today at 08:14 EST</span>
+                  </div>
+                  <div class="text-slate-200"><strong class="text-white">Title:</strong> Enterprise Zero-Trust Cloud Migration &amp; SOC Modernization</div>
+                  <div class="text-slate-300"><strong class="text-white">Agency:</strong> Dept of Defense / Defense Information Systems Agency (SAM.gov)</div>
+                  <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-11-24</span></div>
+                  <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://sam.gov/opp/fa872626r0042/view</span></div>
+                </div>
+
+                <!-- Lead Block 2: Virginia eVA -->
+                <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-emerald-500 border border-slate-800/90 space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
+                    <span class="text-emerald-400 font-semibold">SignalTender Dispatch Bot</span>
+                    <span>Today at 08:14 EST</span>
+                  </div>
+                  <div class="text-slate-200"><strong class="text-white">Title:</strong> Statewide Identity Governance &amp; Privileged Access Management</div>
+                  <div class="text-slate-300"><strong class="text-white">Agency:</strong> Virginia Information Technologies Agency (eVA Portal)</div>
+                  <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-11-29</span></div>
+                  <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?rfp_id=88412</span></div>
+                </div>
+
+                <!-- Lead Block 3: Texas SmartBuy ESBD -->
+                <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-indigo-500 border border-slate-800/90 space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
+                    <span class="text-indigo-400 font-semibold">SignalTender Dispatch Bot</span>
+                    <span>Today at 08:15 EST</span>
+                  </div>
+                  <div class="text-slate-200"><strong class="text-white">Title:</strong> Next-Gen Emergency Communications Fiber &amp; GIS Telemetry Backbone</div>
+                  <div class="text-slate-300"><strong class="text-white">Agency:</strong> Texas Department of Information Resources (Texas SmartBuy ESBD)</div>
+                  <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">2026-12-04</span></div>
+                  <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://www.txsmartbuy.gov/esbd/DIR-CPO-5419</span></div>
+                </div>
+
+                <!-- Lead Block 4: California Cal eProcure -->
+                <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-amber-500 border border-slate-800/90 space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
+                    <span class="text-amber-400 font-semibold">SignalTender Dispatch Bot</span>
+                    <span>Today at 08:16 EST</span>
+                  </div>
+                  <div class="text-slate-200"><strong class="text-white">Title:</strong> [0000034891] Enterprise Cloud Security &amp; SIEM Telemetry Platform - Due: 12/11/2026</div>
+                  <div class="text-slate-300"><strong class="text-white">Agency:</strong> California Department of Technology (Cal eProcure)</div>
+                  <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">12/11/2026</span></div>
+                  <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://caleprocure.ca.gov/event/7502/0000034891</span></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: SANITIZED LIVE CONTRACT DIRECTORY PREVIEW (TIER 2 & pSEO)
+         =================================================================== -->
+    <section id="contract-directory" class="py-24 bg-navy-900/40 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+              <span>// SUPABASE POSTGRESQL DATA LAKE &bull; SANITIZED DIRECTORY STREAM</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Recent Qualified IT &amp; Cybersecurity Solicitations
+            </h2>
+            <p class="mt-3 text-slate-300 text-sm sm:text-base max-w-3xl">
+              Every 6 hours, our autonomous Playwright &amp; API ingestion engine normalizes Federal and State SLED opportunities into our centralized data lake. Preview recent qualified solicitations below or unlock real-time full-link dispatches in the Discord terminal.
+            </p>
+          </div>
+
+          <a
+            href="https://whop.com/signaltender-net/signaltender-private-alerts"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/50 transition-all shrink-0"
+          >
+            <span>Unlock Full Solicitation Links ($99/mo) &rarr;</span>
+          </a>
+        </div>
+
+        <!-- Sanitized Directory Table -->
+        <div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                  <th class="py-4 px-5">Portal / Jurisdiction</th>
+                  <th class="py-4 px-5 min-w-[280px]">Solicitation Title &amp; Technical Scope</th>
+                  <th class="py-4 px-4">Issuing Agency</th>
+                  <th class="py-4 px-4">Closing Date</th>
+                  <th class="py-4 px-5 text-right">Direct Portal Link</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/80 text-xs">
+
+                <!-- Directory Row 1 -->
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-4 px-5 font-mono">
+                    <span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30 font-semibold">FEDERAL // SAM.GOV</span>
+                  </td>
+                  <td class="py-4 px-5">
+                    <div class="font-bold text-white text-sm">Enterprise Zero-Trust Cloud Migration &amp; SOC Modernization</div>
+                    <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">NAICS 541512</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">Zero-Trust</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">IL5 Cloud</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-slate-300">
+                    Dept of Defense / DISA
+                  </td>
+                  <td class="py-4 px-4 font-mono text-amber-300">
+                    2026-11-24
+                  </td>
+                  <td class="py-4 px-5 text-right font-mono">
+                    <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
+                      Unlock RFP Link &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- Directory Row 2 -->
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-4 px-5 font-mono">
+                    <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">VIRGINIA // eVA</span>
+                  </td>
+                  <td class="py-4 px-5">
+                    <div class="font-bold text-white text-sm">Statewide Identity Governance &amp; Privileged Access Management (PAM)</div>
+                    <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">SLED IT</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">IAM / PAM</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">Cybersecurity</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-slate-300">
+                    Virginia IT Agency (VITA)
+                  </td>
+                  <td class="py-4 px-4 font-mono text-amber-300">
+                    2026-11-29
+                  </td>
+                  <td class="py-4 px-5 text-right font-mono">
+                    <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
+                      Unlock RFP Link &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- Directory Row 3 -->
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-4 px-5 font-mono">
+                    <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold">TEXAS // ESBD</span>
+                  </td>
+                  <td class="py-4 px-5">
+                    <div class="font-bold text-white text-sm">Next-Gen Emergency Communications Fiber &amp; GIS Telemetry Backbone</div>
+                    <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">DIR-CPO</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-indigo-300">GIS Telemetry</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-indigo-300">Network Infrastructure</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-slate-300">
+                    Texas Dept of Information Resources
+                  </td>
+                  <td class="py-4 px-4 font-mono text-amber-300">
+                    2026-12-04
+                  </td>
+                  <td class="py-4 px-5 text-right font-mono">
+                    <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
+                      Unlock RFP Link &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- Directory Row 4 -->
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-4 px-5 font-mono">
+                    <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-semibold">CALIFORNIA // Cal eProcure</span>
+                  </td>
+                  <td class="py-4 px-5">
+                    <div class="font-bold text-white text-sm">[0000034891] Enterprise Cloud Security &amp; SIEM Telemetry Platform</div>
+                    <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Dept 7502</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-amber-300">SIEM / SOC</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-amber-300">Cloud Security</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-slate-300">
+                    California Dept of Technology (CDT)
+                  </td>
+                  <td class="py-4 px-4 font-mono text-amber-300">
+                    2026-12-11
+                  </td>
+                  <td class="py-4 px-5 text-right font-mono">
+                    <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
+                      Unlock RFP Link &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: MULTI-PORTAL COVERAGE & SECONDARY API ECOSYSTEM CALLOUT
+         =================================================================== -->
+    <section id="coverage" class="py-24 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">
+            // AUTONOMOUS EXTRACTION COVERAGE
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Federal &amp; State SLED Procurement Coverage
+          </h2>
+          <p class="mt-3 text-slate-300 text-sm sm:text-base">
+            Our scraping cluster combines direct Federal API polling with residential-proxied Playwright stealth automation across the largest State SLED IT markets in the United States.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Portal 1: SAM.gov -->
+          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-3">
+                <span class="text-sky-400 font-bold">FEDERAL</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">SAM.gov Opportunities</h3>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+                Direct federal solicitation extraction covering DoD, DHS, Civilian agencies, SBIRs, and pre-solicitation sources sought notices.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+              Cadence: Every 6 Hours
+            </div>
+          </div>
+
+          <!-- Portal 2: Virginia eVA -->
+          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-3">
+                <span class="text-emerald-400 font-bold">STATE SLED // VA</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">Virginia eVA Portal</h3>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+                Covers VITA, state agencies, higher education institutions, and Northern Virginia municipal cybersecurity &amp; cloud procurements.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+              Cadence: Every 6 Hours
+            </div>
+          </div>
+
+          <!-- Portal 3: Texas SmartBuy ESBD -->
+          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-3">
+                <span class="text-indigo-400 font-bold">STATE SLED // TX</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">Texas SmartBuy ESBD</h3>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+                Tracks Electronic State Business Daily (ESBD) and Texas DIR technology solicitations above $25,000 across state and local buyers.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+              Cadence: Every 6 Hours
+            </div>
+          </div>
+
+          <!-- Portal 4: California Cal eProcure -->
+          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-3">
+                <span class="text-amber-400 font-bold">STATE SLED // CA</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
+              </div>
+              <h3 class="text-lg font-bold text-white">California Cal eProcure</h3>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+                Extracts California Department of Technology (CDT) and statewide IT/software events with automated NIGP/UNSPSC commodity filtering.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+              Cadence: Every 6 Hours
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Developer / Agentic API Ecosystem Callout Banner -->
+        <div class="mt-16 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 border border-slate-800 p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div class="max-w-2xl space-y-2">
+            <div class="inline-flex items-center space-x-2 text-xs font-mono text-sky-400">
+              <span>// SECONDARY CHANNEL &bull; FOR SOFTWARE ENGINEERS, AI SWARMS &amp; LEGAL TECH</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white tracking-tight">
+              Building Automated GovCon Workflows or AI Agents?
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Explore our dedicated <span class="text-white font-medium">Data API Catalog</span>&mdash;featuring stateless FastAPI microservices for unstructured RFP &amp; SOW JSON extraction, AI legal risk &amp; redline auditing, and historical federal award CLIN pricing on RapidAPI.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-2 font-mono text-[11px]">
+              <a href="#product-contract-parsing" class="px-2.5 py-1 rounded bg-navy-950 hover:border-sky-500/50 border border-slate-800 text-sky-300 transition-colors">01. B2B Contract Parsing API</a>
+              <a href="#product-risk-auditor" class="px-2.5 py-1 rounded bg-navy-950 hover:border-rose-500/60 border border-rose-500/30 text-rose-300 transition-colors">02. AI Risk &amp; Redline Auditor API</a>
+              <a href="#product-historical-pricing" class="px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/50 border border-slate-800 text-emerald-300 transition-colors">03. Historical Procurement Pricing API</a>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <a
+              href="#apis"
+              class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-mono font-semibold text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-sky-500/40 shadow-lg transition-all"
+            >
+              <span>Open Developer API Catalog</span>
+              <svg class="ml-2 h-4 w-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
 
   <!-- =====================================================================
-       SECTION 5: CLEAN, PROFESSIONAL FOOTER
+       PAGE 2 VIEW: DEDICATED DEVELOPER DATA API CATALOG (#apis)
+       ===================================================================== -->
+  <div id="page-apis" class="hidden">
+
+    <!-- Top Telemetry / Status Bar (API Catalog Page) -->
+    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="font-mono text-slate-300 tracking-tight">
+            API GATEWAY TELEMETRY: <span class="text-emerald-400 font-medium">ALL FASTAPI MICROSERVICES HEALTHY</span>
+          </span>
+          <span class="hidden lg:inline text-slate-600">|</span>
+          <span class="hidden lg:inline font-mono text-slate-400">
+            ENGINE: STATELESS FASTAPI &bull; PYDANTIC V2 &bull; INSTRUCTOR + CLAUDE LLM
+          </span>
+        </div>
+        <div class="flex items-center space-x-4 font-mono text-slate-400">
+          <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="hidden sm:inline hover:text-sky-400 transition-colors">
+            OPENAPI /DOCS &nearr;
+          </a>
+          <span class="hidden sm:inline text-slate-700">|</span>
+          <a href="#overview" class="text-sky-400 hover:text-sky-300 transition-colors">
+            &larr; MAIN PROCUREMENT WIRE
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Navigation Header (API Catalog Page) -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Brand Identity -->
+        <a href="#overview" class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-sky-500/20 to-blue-600/10 border border-sky-500/40 flex items-center justify-center shadow-inner">
+            <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center space-x-2">
+              <span class="text-lg font-bold tracking-tight text-white">SignalTender</span>
+              <span class="text-[10px] font-mono uppercase tracking-widest px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">API CATALOG</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 tracking-tight">DEVELOPER &amp; AGENTIC MICROSERVICES</span>
+          </div>
+        </a>
+
+        <!-- API Catalog Navigation -->
+        <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
+          <a href="#overview" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors font-mono text-xs">
+            <span>&larr; Main Platform</span>
+          </a>
+          <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (3)</a>
+          <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
+          <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
+        </nav>
+
+        <!-- Header CTAs -->
+        <div class="flex items-center space-x-3">
+          <a
+            href="#overview"
+            class="md:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-slate-200 bg-slate-900 rounded-lg border border-slate-800"
+          >
+            &larr; Home
+          </a>
+          <a
+            href="https://rapidapi.com/user/aarbchen"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
+          >
+            <span>RapidAPI Publisher Hub</span>
+            <svg class="ml-2 -mr-0.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- API Catalog Hero + Directory Index + Gateway Terminal -->
+    <section class="relative overflow-hidden pt-14 pb-20 border-b border-slate-800/80 bg-navy-900/30">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b1a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b1a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header Row -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400 mb-4">
+              <span>// TIER 3 DEVELOPER &amp; AGENTIC API ECOSYSTEM &bull; RAPIDAPI GATEWAY</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Modular B2B &amp; GovCon Data API Catalog
+            </h1>
+            <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
+              Built on a high-performance, stateless <span class="text-white font-medium">FastAPI</span> microservice architecture with strict <span class="text-white font-medium">Pydantic V2</span> schema enforcement. Subscribe to individual endpoints independently on RapidAPI&mdash;each with its own dedicated feature set and scalable <span class="text-white font-mono">Basic</span>, <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> usage tiers.
+            </p>
+          </div>
+
+          <!-- Live OpenAPI Specification & RapidAPI Publisher Links -->
+          <div class="flex flex-wrap items-center gap-3 text-xs font-mono shrink-0">
+            <a
+              href="https://rapidapi.com/user/aarbchen"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-3.5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+            >
+              <span>Publisher Profile (@aarbchen) &nearr;</span>
+            </a>
+            <a
+              href="https://b2b-contract-parser-api.onrender.com/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-3.5 py-2.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 transition-colors"
+            >
+              <span>Interactive OpenAPI /docs &nearr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick-Jump Catalog Directory Index + Unified Gateway GET Health Check Terminal -->
+        <div class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+          <!-- Left (7 cols): Quick-Jump Catalog Directory Index -->
+          <div class="lg:col-span-7 rounded-xl bg-navy-950 border border-slate-800 p-5 flex flex-col justify-between shadow-xl">
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
+                <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
+                <span class="text-emerald-400">3 LIVE ENDPOINTS</span>
+              </div>
+
+              <div class="mt-3 divide-y divide-slate-800/70 font-mono text-xs">
+                <!-- Directory Row 01 -->
+                <a href="#product-contract-parsing" class="py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-bold">01</span>
+                    <div>
+                      <div class="text-white font-sans font-semibold group-hover:text-sky-300 transition-colors">B2B Contract Parsing API</div>
+                      <div class="text-[11px] text-slate-400">POST /v1/parse/contract &bull; Unstructured RFP &amp; SOW Extraction</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300">$0 &ndash; $99/mo</span>
+                    <span class="text-sky-400">&darr;</span>
+                  </div>
+                </a>
+
+                <!-- Directory Row 02 -->
+                <a href="#product-risk-auditor" class="py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold">02</span>
+                    <div>
+                      <div class="flex items-center space-x-2">
+                        <span class="text-white font-sans font-semibold group-hover:text-rose-300 transition-colors">AI Contract Risk &amp; Redline Auditor API</span>
+                        <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-rose-500 text-white font-bold">New</span>
+                      </div>
+                      <div class="text-[11px] text-slate-400">POST /v1/parse/contract-risks &bull; Risk Score (0&ndash;100) &amp; Legal Redlines</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-rose-950/40 border border-rose-500/30 text-rose-200">$0 &ndash; $299/mo</span>
+                    <span class="text-rose-400">&darr;</span>
+                  </div>
+                </a>
+
+                <!-- Directory Row 03 -->
+                <a href="#product-historical-pricing" class="py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">03</span>
+                    <div>
+                      <div class="text-white font-sans font-semibold group-hover:text-emerald-300 transition-colors">Historical Procurement Pricing API</div>
+                      <div class="text-[11px] text-slate-400">POST /v1/awards/search &amp; /contractor &bull; Federal Awards &amp; CLIN Pricing</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300">$0 &ndash; $99/mo</span>
+                    <span class="text-emerald-400">&darr;</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Compare quotas &amp; overages across all microservices:</span>
+              <a href="#api-pricing-matrix" class="text-sky-400 hover:text-sky-300 underline">Jump to Full Tier Matrix &darr;</a>
+            </div>
+          </div>
+
+          <!-- Right (5 cols): Unified Gateway Authentication & GET Health Probe Terminal -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between">
+            <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="h-2.5 w-2.5 rounded-full bg-rose-500/70"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-amber-500/70"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald-500/70"></span>
+                <span class="ml-1.5 text-[11px] font-mono text-slate-400">bash &mdash; unified-gateway-quickstart</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                GET /v1/health
+              </span>
+            </div>
+
+            <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto space-y-3 flex-1">
+              <div class="text-slate-400 text-[11px]"># Verify gateway connectivity &amp; RapidAPI key authentication:</div>
+              <pre class="text-slate-200"><code><span class="text-emerald-400">$</span> curl --request GET \
+  --url <span class="text-amber-200">'https://b2b-contract-parser-api.onrender.com/v1/health'</span> \
+  --header <span class="text-sky-300">'X-RapidAPI-Key: rpk_live_98a7f6d5c4b3a210...'</span> \
+  --header <span class="text-sky-300">'Accept: application/json'</span></code></pre>
+              <div class="border-t border-slate-800/80 pt-2.5">
+                <pre class="text-emerald-300 text-[11px]"><code>{ "status": "healthy", "service": "SignalTender FastAPI Node", "version": "1.0.0" }</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modular API Product Dossiers -->
+    <section id="catalog-modules" class="py-20 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- PRODUCT MODULE 01: B2B CONTRACT PARSING API -->
+        <article id="product-contract-parsing" class="rounded-2xl bg-navy-950 border border-slate-800 hover:border-sky-500/50 transition-all overflow-hidden shadow-2xl">
+          <div class="px-6 py-4 bg-slate-900/70 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">
+                API 01 // DATA EXTRACTION
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                POST /v1/parse/contract
+              </span>
+              <span class="hidden sm:inline text-xs font-mono text-slate-400">
+                Host: <code class="text-slate-300">b2b-contract-parsing-api.p.rapidapi.com</code>
+              </span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <a
+                href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+              >
+                Playground &nearr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-mono font-semibold text-white shadow-md shadow-sky-950/50 transition-colors"
+              >
+                Subscribe on RapidAPI &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div>
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                  B2B Contract Parsing API
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Converts raw, unstructured government RFPs, Statements of Work (SOWs), and B2B procurement documents into deterministic <code class="text-sky-300 font-mono">ContractExtraction</code> JSON objects for automated CRM ingestion and bid/no-bid qualification.
+                </p>
+
+                <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-sky-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Standardized JSON Output</div>
+                      <div class="text-slate-400 mt-0.5">Strict Pydantic V2 validation with automatic LLM schema repair.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-sky-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Key Deliverable Identification</div>
+                      <div class="text-slate-400 mt-0.5">Isolates concrete CLIN deliverables and mandatory vendor clearances.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-sky-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Financial &amp; Budget Extraction</div>
+                      <div class="text-slate-400 mt-0.5">Normalizes ceiling values and estimated contract budgets to USD floats.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-sky-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">ISO-8601 Deadline Normalization</div>
+                      <div class="text-slate-400 mt-0.5">Extracts exact solicitation closing timestamps and award status flags.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800/80">
+                <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                  <span>B2B CONTRACT PARSING API &mdash; RAPIDAPI ACCESS TIERS</span>
+                  <a href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline">View Plans &nearr;</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">50 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-sky-400 uppercase font-semibold">PRO</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$19<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">500 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.08 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border-2 border-sky-500/70 flex flex-col justify-between relative">
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-sky-500 text-navy-950 text-[9px] font-bold uppercase">Popular</span>
+                    <div>
+                      <div class="text-[10px] text-sky-400 uppercase font-semibold">ULTRA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-white font-semibold">2,000 req/mo</div>
+                      <div class="text-sky-300 text-[10px]">+$0.05 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$99<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">5,000 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.03 / extra</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 flex">
+              <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+                <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-slate-400">RESPONSE // ContractExtraction</span>
+                  <span class="text-emerald-400">200 OK &bull; 142ms</span>
+                </div>
+                <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                  <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"buyer_entity"</span>: <span class="text-slate-100">"Dept of the Air Force / AFLCMC"</span>,
+  <span class="text-sky-400">"vendor_requirements"</span>: [
+    <span class="text-emerald-300">"Active FedRAMP High Authorization"</span>,
+    <span class="text-emerald-300">"CMMC Level 2 Assessment"</span>
+  ],
+  <span class="text-sky-400">"total_budget_usd"</span>: <span class="text-purple-300">4850000.0</span>,
+  <span class="text-sky-400">"submission_deadline"</span>: <span class="text-amber-200">"2026-11-30T17:00:00Z"</span>,
+  <span class="text-sky-400">"is_awarded"</span>: <span class="text-rose-400">false</span>,
+  <span class="text-sky-400">"key_deliverables"</span>: [
+    <span class="text-slate-200">"Zero-Trust Cloud Blueprint"</span>,
+    <span class="text-slate-200">"CLIN 0001: DevSecOps Migration"</span>
+  ]
+}</code></pre>
+                  <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">buyer_entity</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">vendor_requirements</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">total_budget_usd</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">key_deliverables</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT MODULE 02: AI CONTRACT RISK & REDLINE AUDITOR API -->
+        <article id="product-risk-auditor" class="rounded-2xl bg-navy-950 border-2 border-rose-500/50 hover:border-rose-400 transition-all overflow-hidden shadow-2xl shadow-rose-950/20">
+          <div class="px-6 py-4 bg-rose-950/20 border-b border-rose-500/30 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-rose-500 text-white uppercase">
+                NEW RELEASE
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                API 02 // AI LEGAL &amp; CLM AUDIT
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                POST /v1/parse/contract-risks
+              </span>
+              <span class="hidden xl:inline text-xs font-mono text-slate-400">
+                Host: <code class="text-slate-300">ai-contract-risk-redline-auditor-api.p.rapidapi.com</code>
+              </span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+              >
+                Playground &nearr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-xs font-mono font-semibold text-white shadow-md shadow-rose-950/50 transition-colors"
+              >
+                Subscribe on RapidAPI &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div>
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                  AI Contract Risk &amp; Redline Auditor API
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Performs an automated senior-counsel legal audit on unstructured MSAs, NDAs, SOWs, and Subcontracts from your chosen negotiating stance (<code class="text-rose-300 font-mono">vendor</code>, <code class="text-rose-300 font-mono">buyer</code>, or <code class="text-rose-300 font-mono">neutral</code>)&mdash;returning a quantified risk score, verbatim toxic quotes, and ready-to-paste replacement redlines.
+                </p>
+
+                <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-rose-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Quantified Risk Score (0&ndash;100)</div>
+                      <div class="text-slate-400 mt-0.5">Executive risk categorization (<code class="text-rose-300">LOW</code> to <code class="text-rose-300">CRITICAL</code>) &amp; deal-desk summary.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-rose-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Verbatim Quotes &amp; Redlines</div>
+                      <div class="text-slate-400 mt-0.5">Pinpoints exact problematic text with formal replacement legal language.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-rose-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Compromise Fallback Positions</div>
+                      <div class="text-slate-400 mt-0.5">Provides secondary middle-ground language if counterparty rejects primary redline.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-rose-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Missing Protection Detection</div>
+                      <div class="text-slate-400 mt-0.5">Flags omitted clauses like mutual consequential damages waivers or liability caps.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800/80">
+                <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                  <span>AI CONTRACT RISK &amp; REDLINE API &mdash; RAPIDAPI ACCESS TIERS</span>
+                  <a href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing" target="_blank" rel="noopener noreferrer" class="text-rose-400 hover:underline">View Plans &nearr;</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">5 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-rose-500/30 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-rose-300 uppercase font-semibold">PRO</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">250 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border-2 border-rose-500/80 flex flex-col justify-between relative">
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-rose-500 text-white text-[9px] font-bold uppercase">Popular</span>
+                    <div>
+                      <div class="text-[10px] text-rose-300 uppercase font-semibold">ULTRA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-white font-semibold">1,500 req/mo</div>
+                      <div class="text-rose-300 text-[10px]">+$0.15 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-rose-500/30 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$299<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">5,000 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 flex">
+              <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+                <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-slate-400">RESPONSE // ContractRiskAudit</span>
+                  <span class="text-rose-400">SCORE: 85/100 (CRITICAL)</span>
+                </div>
+                <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                  <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"contract_type"</span>: <span class="text-slate-100">"Master Services Agreement"</span>,
+  <span class="text-sky-400">"party_perspective"</span>: <span class="text-amber-200">"vendor"</span>,
+  <span class="text-sky-400">"overall_risk_score"</span>: <span class="text-rose-400">85</span>,
+  <span class="text-sky-400">"missing_standard_protections"</span>: [
+    <span class="text-amber-300">"Mutual consequential damages waiver"</span>
+  ],
+  <span class="text-sky-400">"flagged_clauses"</span>: [
+    {
+      <span class="text-sky-400">"category"</span>: <span class="text-rose-300">"INDEMNIFICATION"</span>,
+      <span class="text-sky-400">"severity"</span>: <span class="text-rose-400">"CRITICAL"</span>,
+      <span class="text-sky-400">"exact_quote"</span>: <span class="text-slate-400">"Indemnify without cap..."</span>,
+      <span class="text-sky-400">"suggested_redline"</span>: <span class="text-emerald-300">"Limit to 3rd-party IP &amp; gross negligence, subject to LoL cap."</span>,
+      <span class="text-sky-400">"fallback_position"</span>: <span class="text-sky-300">"Cap at 2x 12mo fees."</span>
+    }
+  ]
+}</code></pre>
+                  <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">overall_risk_score</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">exact_quote</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">suggested_redline</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">fallback_position</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT MODULE 03: HISTORICAL PROCUREMENT PRICING API -->
+        <article id="product-historical-pricing" class="rounded-2xl bg-navy-950 border border-slate-800 hover:border-emerald-500/50 transition-all overflow-hidden shadow-2xl">
+          <div class="px-6 py-4 bg-slate-900/70 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                API 03 // PROCUREMENT INTELLIGENCE
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                POST /v1/awards/search &amp; /contractor
+              </span>
+              <span class="hidden xl:inline text-xs font-mono text-slate-400">
+                Host: <code class="text-slate-300">historical-procurement-pricing-api.p.rapidapi.com</code>
+              </span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+              >
+                Playground &nearr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-mono font-semibold text-white shadow-md shadow-emerald-950/50 transition-colors"
+              >
+                Subscribe on RapidAPI &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div>
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                  Historical Procurement Pricing API
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Query historical federal contract awards, Prime Contractor win histories, and granular Contract Line Item Number (<code class="text-emerald-300 font-mono">CLIN</code>) unit pricing tables by keyword, awarding agency, NAICS code, UEI, or CAGE code for competitive Price-to-Win (PTW) modeling.
+                </p>
+
+                <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Line-Item (CLIN) Unit Pricing</div>
+                      <div class="text-slate-400 mt-0.5">Extracts unit prices, quantities, and total CLIN values for labor &amp; licenses.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Prime Contractor Lookup</div>
+                      <div class="text-slate-400 mt-0.5">Search competitor award histories by exact SAM.gov UEI, CAGE, or legal name.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Agency &amp; NAICS Filtering</div>
+                      <div class="text-slate-400 mt-0.5">Filter historical awards by DoD/Civilian sub-tier agency and NAICS code.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">High-Volume Data Lake Tier</div>
+                      <div class="text-slate-400 mt-0.5">Scales up to 1,000,000 requests/month on Mega for bulk PTW analytics.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800/80">
+                <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                  <span>HISTORICAL PROCUREMENT PRICING API &mdash; RAPIDAPI ACCESS TIERS</span>
+                  <a href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">View Plans &nearr;</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">50 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-emerald-400 uppercase font-semibold">PRO</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$19<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">1,000 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.05 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border-2 border-emerald-500/70 flex flex-col justify-between relative">
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-emerald-500 text-navy-950 text-[9px] font-bold uppercase">Popular</span>
+                    <div>
+                      <div class="text-[10px] text-emerald-400 uppercase font-semibold">ULTRA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-white font-semibold">5,000 req/mo</div>
+                      <div class="text-emerald-300 text-[10px]">+$0.03 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$99<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">1,000,000/mo</div>
+                      <div class="text-slate-400 text-[10px]">Hard limit</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 flex">
+              <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+                <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-slate-400">RESPONSE // AwardSearchResponse</span>
+                  <span class="text-emerald-400">200 OK &bull; 89ms</span>
+                </div>
+                <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                  <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"award_id"</span>: <span class="text-slate-100">"FA8726-25-C-0019"</span>,
+  <span class="text-sky-400">"recipient_name"</span>: <span class="text-emerald-300">"Aegis Cyber Defense LLC"</span>,
+  <span class="text-sky-400">"recipient_uei"</span>: <span class="text-amber-200">"J8K2L9M4N1P2"</span>,
+  <span class="text-sky-400">"award_amount"</span>: <span class="text-purple-300">3420000.0</span>,
+  <span class="text-sky-400">"naics_code"</span>: <span class="text-slate-200">"541512"</span>,
+  <span class="text-sky-400">"line_items"</span>: [
+    {
+      <span class="text-sky-400">"clin"</span>: <span class="text-slate-200">"0001"</span>,
+      <span class="text-sky-400">"description"</span>: <span class="text-slate-300">"Sr. Zero-Trust Architect (LH)"</span>,
+      <span class="text-sky-400">"unit_price"</span>: <span class="text-emerald-300">195.0</span>,
+      <span class="text-sky-400">"total_price"</span>: <span class="text-purple-300">390000.0</span>
+    }
+  ]
+}</code></pre>
+                  <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">award_amount</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">line_items (CLIN)</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">unit_price</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">recipient_uei</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Cross-Catalog RapidAPI Pricing & Quota Matrix Table -->
+    <section id="api-pricing-matrix" class="py-20 bg-navy-900/40 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
+          <div>
+            <div class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">
+              // CROSS-CATALOG PRICING &amp; QUOTA COMPARISON MATRIX
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              Compare Tiers &amp; Usage Rates Across All Microservices
+            </h2>
+            <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-3xl">
+              As our catalog expands, each API is priced independently based on LLM compute depth and dataset complexity. Compare monthly prices, included request quotas, and per-call overage rates across <span class="text-white font-mono">Basic</span>, <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
+            </p>
+          </div>
+
+          <a
+            href="https://rapidapi.com/user/aarbchen"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all shrink-0"
+          >
+            <span>View All APIs on RapidAPI Hub &nearr;</span>
+          </a>
+        </div>
+
+        <div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                  <th class="py-4 px-5 min-w-[240px]">API Product &amp; Endpoint</th>
+                  <th class="py-4 px-4 min-w-[140px]">BASIC (Free Tier)</th>
+                  <th class="py-4 px-4 min-w-[155px] text-sky-400">PRO Tier</th>
+                  <th class="py-4 px-4 min-w-[165px] bg-sky-500/10 text-sky-300 border-x border-sky-500/20">ULTRA (Popular)</th>
+                  <th class="py-4 px-4 min-w-[165px] text-purple-300">MEGA (Enterprise)</th>
+                  <th class="py-4 px-5 text-right min-w-[140px]">Direct Hub Link</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/80 text-xs font-mono">
+
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-5 px-5">
+                    <div class="font-sans font-bold text-sm text-white">B2B Contract Parsing API</div>
+                    <div class="text-emerald-400 text-[11px] mt-0.5">POST /v1/parse/contract</div>
+                    <div class="font-sans text-[11px] text-slate-400 mt-1">RFP &amp; SOW JSON Extraction</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-300 mt-0.5"><strong>50</strong> req / mo</div>
+                    <div class="text-slate-500 text-[10px]">+$0.10 / extra</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$19<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>500</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.08 / extra</div>
+                  </td>
+                  <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                    <div class="text-base font-extrabold text-sky-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-white mt-0.5"><strong>2,000</strong> req / mo</div>
+                    <div class="text-sky-300/80 text-[10px]">+$0.05 / extra</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$99<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.03 / extra</div>
+                  </td>
+                  <td class="py-5 px-5 text-right">
+                    <a
+                      href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center px-3 py-2 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 font-semibold transition-colors"
+                    >
+                      Subscribe &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-navy-900/60 transition-colors bg-rose-950/10">
+                  <td class="py-5 px-5">
+                    <div class="flex items-center space-x-2">
+                      <span class="font-sans font-bold text-sm text-white">AI Contract Risk &amp; Redline API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-rose-500 text-white font-bold">New</span>
+                    </div>
+                    <div class="text-amber-300 text-[11px] mt-0.5">POST /v1/parse/contract-risks</div>
+                    <div class="font-sans text-[11px] text-slate-400 mt-1">Risk Score (0&ndash;100) &amp; Legal Redlines</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-300 mt-0.5"><strong>5</strong> req / mo</div>
+                    <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-rose-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>250</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </td>
+                  <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                    <div class="text-base font-extrabold text-rose-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-white mt-0.5"><strong>1,500</strong> req / mo</div>
+                    <div class="text-rose-300/90 text-[10px]">+$0.15 / extra</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-rose-300">$299<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </td>
+                  <td class="py-5 px-5 text-right">
+                    <a
+                      href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center px-3 py-2 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/40 text-rose-300 font-semibold transition-colors"
+                    >
+                      Subscribe &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-5 px-5">
+                    <div class="font-sans font-bold text-sm text-white">Historical Procurement Pricing API</div>
+                    <div class="text-sky-400 text-[11px] mt-0.5">POST /v1/awards/search &amp; /contractor</div>
+                    <div class="font-sans text-[11px] text-slate-400 mt-1">SAM.gov Awards &amp; CLIN Unit Prices</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-300 mt-0.5"><strong>50</strong> req / mo</div>
+                    <div class="text-slate-500 text-[10px]">+$0.10 / extra</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$19<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>1,000</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.05 / extra</div>
+                  </td>
+                  <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                    <div class="text-base font-extrabold text-emerald-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-white mt-0.5"><strong>5,000</strong> req / mo</div>
+                    <div class="text-emerald-300/80 text-[10px]">+$0.03 / extra</div>
+                  </td>
+                  <td class="py-5 px-4">
+                    <div class="text-base font-extrabold text-white">$99<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>1,000,000</strong> / mo</div>
+                    <div class="text-slate-400 text-[10px]">Hard limit</div>
+                  </td>
+                  <td class="py-5 px-5 text-right">
+                    <a
+                      href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-semibold transition-colors"
+                    >
+                      Subscribe &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="px-5 py-3.5 bg-slate-900/70 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-400">
+            <div>
+              <span class="text-sky-400 font-semibold">COMMERCIAL PRODUCTION SLA:</span> All paid tiers include commercial licensing, stateless zero-retention processing, and 99.9% gateway uptime.
+            </div>
+            <a href="https://rapidapi.com/user/aarbchen" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-sky-400 shrink-0">
+              Follow @aarbchen on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Non-Developer Cross-Sell Banner back to Main Page -->
+        <div class="mt-14 rounded-2xl bg-navy-950 border border-slate-800 p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-1.5">
+            <div class="text-xs font-mono text-sky-400 uppercase tracking-wider">
+              // NON-DEVELOPER OPTION &bull; TURNKEY CAPTURE INTELLIGENCE
+            </div>
+            <h3 class="text-xl font-bold text-white">
+              Want Live Federal &amp; State SLED Contract Alerts Without Writing Code?
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
+              Our flagship <strong class="text-slate-200">Individual Contributor Discord Terminal ($99/mo)</strong> streams pre-vetted SAM.gov, Virginia eVA, Texas ESBD, and California Cal eProcure IT &amp; cybersecurity opportunities directly to your team.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 shrink-0">
+            <a
+              href="#overview"
+              class="px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              &larr; Return to Main Platform
+            </a>
+            <a
+              href="https://whop.com/signaltender-net/signaltender-private-alerts"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-mono font-semibold text-white shadow-lg shadow-sky-950/50 transition-colors"
+            >
+              Subscribe on Whop ($99/mo) &nearr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- =====================================================================
+       SHARED PROFESSIONAL FOOTER (WORKS ACROSS BOTH PAGES)
        ===================================================================== -->
   <footer class="bg-navy-950 pt-16 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -687,21 +1618,21 @@
           </p>
         </div>
 
-        <!-- Platform Navigation -->
+        <!-- Platform & API Catalog Navigation -->
         <div class="md:col-span-4 space-y-2.5 text-xs font-mono">
-          <div class="text-slate-200 uppercase tracking-wider font-semibold">Platform &amp; Channels</div>
+          <div class="text-slate-200 uppercase tracking-wider font-semibold">Platform &amp; API Catalog</div>
           <ul class="space-y-2 text-slate-400">
             <li>
-              <a href="#discord-terminal" class="hover:text-sky-400 transition-colors">Individual Contributor Discord Terminal ($99/mo)</a>
+              <a href="#discord-terminal" class="hover:text-sky-400 transition-colors">Main: Discord Procurement Wire ($99/mo)</a>
             </li>
             <li>
-              <a href="#contract-directory" class="hover:text-sky-400 transition-colors">Sanitized Live Contract Feed</a>
+              <a href="#contract-directory" class="hover:text-sky-400 transition-colors">Main: Sanitized Live Contract Feed</a>
             </li>
             <li>
-              <a href="#coverage" class="hover:text-sky-400 transition-colors">Federal &amp; State SLED Portal Coverage</a>
+              <a href="#apis" class="text-sky-400 hover:text-sky-300 transition-colors">Page 2: Developer Data API Catalog &rarr;</a>
             </li>
             <li>
-              <a href="apis.html" class="text-sky-400 hover:text-sky-300 transition-colors">Developer Data API Catalog (apis.html) &rarr;</a>
+              <a href="#api-pricing-matrix" class="hover:text-sky-400 transition-colors">Page 2: Cross-Catalog API Tier Matrix &rarr;</a>
             </li>
           </ul>
         </div>
@@ -742,6 +1673,54 @@
 
     </div>
   </footer>
+
+  <!-- =====================================================================
+       MULTI-PAGE ROUTER (WORKS WITH ISOLATED SINGLE-HTML DEPLOYMENTS)
+       ===================================================================== -->
+  <script>
+    (function () {
+      var apiPageHashes = {
+        '#apis': true,
+        '#catalog-modules': true,
+        '#product-contract-parsing': true,
+        '#product-risk-auditor': true,
+        '#product-historical-pricing': true,
+        '#api-pricing-matrix': true
+      };
+
+      function syncPageRoute() {
+        var hash = window.location.hash || '#overview';
+        var mainPage = document.getElementById('page-main');
+        var apisPage = document.getElementById('page-apis');
+
+        if (apiPageHashes[hash]) {
+          mainPage.classList.add('hidden');
+          apisPage.classList.remove('hidden');
+          document.title = 'SignalTender | Developer Data API Catalog & RapidAPI Microservices';
+          if (hash === '#apis') {
+            window.scrollTo(0, 0);
+          } else {
+            var targetEl = document.querySelector(hash);
+            if (targetEl) targetEl.scrollIntoView();
+          }
+        } else {
+          apisPage.classList.add('hidden');
+          mainPage.classList.remove('hidden');
+          document.title = 'SignalTender | Real-Time GovCon Procurement Data & Live Contract Wire';
+          if (hash === '#overview' || hash === '#') {
+            window.scrollTo(0, 0);
+          } else {
+            var mainTarget = document.querySelector(hash);
+            if (mainTarget) mainTarget.scrollIntoView();
+          }
+        }
+      }
+
+      window.addEventListener('hashchange', syncPageRoute);
+      window.addEventListener('DOMContentLoaded', syncPageRoute);
+      syncPageRoute();
+    })();
+  </script>
 
 </body>
 </html>
