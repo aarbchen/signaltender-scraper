@@ -22,6 +22,7 @@ if SLED_SCRAPER_DIR not in sys.path:
 import sam_scraper
 import sledscraper
 import va_scraper
+import ca_scraper
 
 # 1. Load environment variables
 load_dotenv(dotenv_path=".env")
@@ -547,6 +548,7 @@ async def run_master_orchestrator(
         _run_source("SLED (DemandStar)", sledscraper.run_scraper(push_to_db=False)),
         _run_source("Texas SLED (ESBD)", scrape_and_extract(url, selector, keyword, push_to_db=False)),
         _run_source("Virginia SLED (eVA)", va_scraper.run_scraper(push_to_db=False)),
+        _run_source("California SLED (Cal eProcure)", ca_scraper.run_scraper(push_to_db=False)),
         return_exceptions=True,
     )
 
@@ -555,6 +557,7 @@ async def run_master_orchestrator(
         "SLED (DemandStar)",
         "Texas SLED (ESBD)",
         "Virginia SLED (eVA)",
+        "California SLED (Cal eProcure)",
     ]
     combined_records = []
 
