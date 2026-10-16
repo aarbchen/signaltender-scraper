@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SignalTender | Real-Time GovCon Procurement Data &amp; B2B Contract Parsing API</title>
-  <meta name="description" content="Enterprise GovCon Data-as-a-Service. Real-time Federal &amp; SLED procurement intelligence delivered via a stateless FastAPI microservice on RapidAPI and automated Discord feeds via Whop." />
+  <title>SignalTender | Real-Time GovCon Procurement Data, Contract Parsing &amp; AI Risk Redline APIs</title>
+  <meta name="description" content="Enterprise GovCon Data-as-a-Service. Real-time Federal &amp; SLED procurement intelligence, B2B contract parsing, AI legal risk &amp; redline auditing, and historical CLIN pricing via FastAPI on RapidAPI and live Discord feeds via Whop." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22cyan%22%3E%3Cpath%20d%3D%22M8%202h2v3h4V2h2v3h1a2%202%200%200%201%202%202v1h3v2h-3v4h3v2h-3v1a2%202%200%200%201-2%202h-1v3h-2v-3h-4v3H8v-3H7a2%202%200%200%201-2-2v-1H2v-2h3v-4H2V8h3V7a2%202%200%200%201%202-2h1V2zm-1%205v10h10V7H7zm2%202h6v6H9V9z%22%2F%3E%3C%2Fsvg%3E" />
 
   <!-- Google Fonts: Inter (UI) & JetBrains Mono (Terminal / Code / Telemetry) -->
@@ -92,7 +92,7 @@
 
       <!-- Navigation Links -->
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-        <a href="#api-ecosystem" class="hover:text-white transition-colors">Data API Ecosystem</a>
+        <a href="#api-ecosystem" class="hover:text-white transition-colors">Data API Ecosystem (3 APIs)</a>
         <a href="#api-tiers" class="hover:text-white transition-colors">API Tiers</a>
         <a href="#discord-feed" class="hover:text-white transition-colors">Discord Wire Feed</a>
       </nav>
@@ -103,7 +103,7 @@
           href="#api-ecosystem"
           class="hidden sm:inline-flex items-center justify-center px-3.5 py-2 text-xs font-mono uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-colors"
         >
-          API Hub
+          API Suite
         </a>
         <a
           href="https://whop.com/signaltender-net/signaltender-private-alerts"
@@ -144,7 +144,7 @@
 
         <!-- Hero Subheadline -->
         <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
-          Eliminate manual portal monitoring and unstructured PDF bottlenecks. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;empowering defense engineering teams with a stateless FastAPI extraction microservice and equipping capture teams with live, AI-vetted Federal and SLED solicitation alerts.
+          Eliminate manual portal monitoring and unstructured legal bottlenecks. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;empowering engineering and deal-desk teams with three stateless FastAPI microservices (RFP Extraction, AI Contract Risk &amp; Redline Auditing, and Historical CLIN Pricing) alongside live Federal and SLED solicitation alerts.
         </p>
 
         <!-- Primary Dual CTAs -->
@@ -224,131 +224,224 @@
   </section>
 
   <!-- =====================================================================
-       SECTION 2: DATA API ECOSYSTEM (FASTAPI MICROSERVICE + RAPIDAPI TIERS)
+       SECTION 2: DATA API ECOSYSTEM (3 RAPIDAPI PRODUCTS + FASTAPI TERMINALS + TIERS)
        ===================================================================== -->
   <section id="api-ecosystem" class="py-24 bg-navy-900/40 border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Section Header -->
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400 mb-4">
-          <span>// FOR DEVELOPERS, AI ENGINEERS &amp; CAPTURE AUTOMATION</span>
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400 mb-4">
+            <span>// FOR DEVELOPERS, DEAL-DESK COUNSELS &amp; CAPTURE AUTOMATION</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            The SignalTender Data API Ecosystem
+          </h2>
+          <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
+            Built on a high-performance, stateless <span class="text-white font-medium">FastAPI</span> microservice architecture with strict <span class="text-white font-medium">Pydantic V2</span> validation and <span class="text-white font-medium">Instructor + Claude Haiku 5.5</span> extraction. Convert unstructured RFPs into structured JSON, audit commercial contracts for legal risks with instant redlines, and query historical federal award CLIN pricing through a unified RapidAPI gateway.
+          </p>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          The SignalTender Data API Ecosystem
-        </h2>
-        <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-          Built on a high-performance, stateless <span class="text-white font-medium">FastAPI</span> microservice architecture with strict <span class="text-white font-medium">Pydantic V2</span> validation and <span class="text-white font-medium">Instructor + Claude LLM</span> extraction. Convert raw RFP text into structured JSON, search historical federal awards, and query prime contractor CLIN pricing through a unified RapidAPI gateway.
-        </p>
+
+        <!-- Live OpenAPI Specification & RapidAPI Profile Links -->
+        <div class="flex flex-wrap items-center gap-3 text-xs font-mono shrink-0">
+          <a
+            href="https://rapidapi.com/user/aarbchen"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+          >
+            <span>RapidAPI Hub (@aarbchen) &nearr;</span>
+          </a>
+          <a
+            href="https://b2b-contract-parser-api.onrender.com/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-3.5 py-2 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 transition-colors"
+          >
+            <span>Live OpenAPI /docs &nearr;</span>
+          </a>
+        </div>
       </div>
 
-      <!-- FastAPI Microservice Architecture & Mock Terminal Grid -->
-      <div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- =================================================================
+           3-COLUMN PUBLISHED RAPIDAPI PRODUCT SUITE GRID
+           ================================================================= -->
+      <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
-        <!-- Left Column (5 cols): FastAPI Microservice Product Suite -->
-        <div class="lg:col-span-5 space-y-5">
-          <!-- Endpoint Card 1: B2B Contract Parsing API -->
-          <a
-            href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block rounded-xl bg-navy-950 border border-slate-800 p-6 hover:border-sky-500/60 transition-all group"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                POST /v1/parse/contract
-              </span>
+        <!-- Product 1: B2B Contract Parsing API -->
+        <div class="rounded-xl bg-navy-950 border border-slate-800 p-6 flex flex-col justify-between hover:border-sky-500/60 transition-all group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-slate-800 text-slate-300 border border-slate-700">
+                  Data
+                </span>
+                <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  POST /v1/parse/contract
+                </span>
+              </div>
               <span class="text-[11px] font-mono text-sky-400 group-hover:translate-x-0.5 transition-transform">RapidAPI &nearr;</span>
             </div>
-            <h3 class="text-lg font-bold text-white group-hover:text-sky-300 transition-colors">B2B Contract Parsing API</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Extracts structured JSON (<code class="text-sky-300 font-mono">buyer_entity</code>, <code class="text-sky-300 font-mono">vendor_requirements</code>, <code class="text-sky-300 font-mono">total_budget_usd</code>, ISO 8601 <code class="text-sky-300 font-mono">submission_deadline</code>, <code class="text-sky-300 font-mono">is_awarded</code>, and <code class="text-sky-300 font-mono">key_deliverables</code>) from unstructured B2B contracts and RFPs.
-            </p>
-          </a>
 
-          <!-- Endpoint Card 2: Historical Procurement Pricing API (/v1/awards/search) -->
-          <a
-            href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block rounded-xl bg-navy-950 border border-slate-800 p-6 hover:border-sky-500/60 transition-all group"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                POST /v1/awards/search
-              </span>
-              <span class="text-[11px] font-mono text-sky-400 group-hover:translate-x-0.5 transition-transform">RapidAPI &nearr;</span>
+            <h3 class="text-xl font-bold text-white group-hover:text-sky-300 transition-colors">
+              B2B Contract Parsing API
+            </h3>
+            <p class="mt-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Extracts structured JSON from unstructured B2B legal contracts, Statements of Work (SOWs), and government RFPs with deterministic schema enforcement.
+            </p>
+
+            <div class="mt-5 pt-4 border-t border-slate-800/80 space-y-2 text-xs font-mono text-slate-300">
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Pydantic V2 Schema (ContractExtraction)</div>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">buyer_entity</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">vendor_requirements</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">total_budget_usd</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">submission_deadline</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">is_awarded</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">key_deliverables</span>
+              </div>
             </div>
-            <h3 class="text-lg font-bold text-white group-hover:text-sky-300 transition-colors">Historical Procurement Pricing API</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Instantly access historical government contract awards by keyword, agency, or NAICS code, returning standardized <code class="text-sky-300 font-mono">AwardRecord</code> payloads and detailed line-item (<code class="text-sky-300 font-mono">CLIN</code>) pricing tables.
-            </p>
-          </a>
+          </div>
 
-          <!-- Endpoint Card 3: Prime Contractor Lookup (/v1/awards/contractor) -->
-          <a
-            href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="block rounded-xl bg-navy-950 border border-slate-800 p-6 hover:border-sky-500/60 transition-all group"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
-                POST /v1/awards/contractor
-              </span>
-              <span class="text-[11px] font-mono text-sky-400 group-hover:translate-x-0.5 transition-transform">RapidAPI &nearr;</span>
-            </div>
-            <h3 class="text-lg font-bold text-white group-hover:text-sky-300 transition-colors">Prime Contractor &amp; CLIN Pricing Lookup</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Retrieve historical award portfolios, aggregated obligated dollar volume, and granular <code class="text-sky-300 font-mono">LineItemPricing</code> unit rates for any defense prime by Name, SAM.gov <code class="text-sky-300 font-mono">uei</code>, or <code class="text-sky-300 font-mono">cage_code</code>.
-            </p>
-          </a>
-
-          <!-- Live OpenAPI Specification & RapidAPI Profile Links -->
-          <div class="pt-1 flex items-center justify-between text-xs font-mono text-slate-400 px-1">
+          <div class="mt-6 pt-4 border-t border-slate-900 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-slate-400 truncate">b2b-contract-parsing-api.p.rapidapi.com</span>
             <a
-              href="https://rapidapi.com/user/aarbchen"
+              href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-slate-300 hover:text-white underline"
+              class="inline-flex items-center text-xs font-mono font-semibold text-sky-400 hover:text-sky-300 shrink-0 ml-2"
             >
-              RapidAPI Profile (@aarbchen) &nearr;
-            </a>
-            <a
-              href="https://b2b-contract-parser-api.onrender.com/docs"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sky-400 hover:text-sky-300 underline"
-            >
-              Live OpenAPI /docs &nearr;
+              <span>Launch API &rarr;</span>
             </a>
           </div>
         </div>
 
-        <!-- Right Column (7 cols): Mock Terminal Block Showing a Simple GET Request -->
-        <div class="lg:col-span-7">
-          <div class="rounded-xl bg-navy-950 border border-slate-800 shadow-2xl overflow-hidden">
+        <!-- Product 2: AI Contract Risk & Redline Auditor API (NEW) -->
+        <div class="rounded-xl bg-navy-950 border-2 border-rose-500/50 p-6 flex flex-col justify-between hover:border-rose-400 transition-all group relative shadow-lg shadow-rose-950/20">
+          <div class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-rose-500 text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+            New Release
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-rose-500/10 text-rose-300 border border-rose-500/30">
+                  Business
+                </span>
+                <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                  POST /v1/parse/contract-risks
+                </span>
+              </div>
+              <span class="text-[11px] font-mono text-rose-300 group-hover:translate-x-0.5 transition-transform">RapidAPI &nearr;</span>
+            </div>
+
+            <h3 class="text-xl font-bold text-white group-hover:text-rose-300 transition-colors">
+              AI Contract Risk &amp; Redline Auditor API
+            </h3>
+            <p class="mt-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Audits unstructured B2B legal contracts, MSAs, NDAs, and SOWs from your negotiating stance (<code class="text-rose-300 font-mono">vendor</code>, <code class="text-rose-300 font-mono">buyer</code>, or <code class="text-rose-300 font-mono">neutral</code>) for toxic clauses, missing protections, and actionable replacement redlines.
+            </p>
+
+            <div class="mt-5 pt-4 border-t border-slate-800/80 space-y-2 text-xs font-mono text-slate-300">
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Pydantic V2 Schema (ContractRiskAudit)</div>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-rose-300">overall_risk_score (0-100)</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-rose-300">missing_standard_protections</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-amber-300">exact_quote</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">suggested_redline</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-sky-300">fallback_position</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-900 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-slate-400 truncate">12 Clause Categories (Indemnity, LoL, IP...)</span>
+            <a
+              href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-xs font-mono font-semibold text-rose-400 hover:text-rose-300 shrink-0 ml-2"
+            >
+              <span>Launch API &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 3: Historical Procurement Pricing API -->
+        <div class="rounded-xl bg-navy-950 border border-slate-800 p-6 flex flex-col justify-between hover:border-sky-500/60 transition-all group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-slate-800 text-slate-300 border border-slate-700">
+                  Data
+                </span>
+                <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                  POST /v1/awards/search &amp; /contractor
+                </span>
+              </div>
+              <span class="text-[11px] font-mono text-sky-400 group-hover:translate-x-0.5 transition-transform">RapidAPI &nearr;</span>
+            </div>
+
+            <h3 class="text-xl font-bold text-white group-hover:text-sky-300 transition-colors">
+              Historical Procurement Pricing API
+            </h3>
+            <p class="mt-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Instantly access historical government contract awards, detailed line-item (<code class="text-sky-300 font-mono">CLIN</code>) unit pricing tables, and prime contractor win histories by keyword, agency, NAICS, UEI, or CAGE code.
+            </p>
+
+            <div class="mt-5 pt-4 border-t border-slate-800/80 space-y-2 text-xs font-mono text-slate-300">
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Pydantic V2 Schema (AwardRecord + CLINs)</div>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">award_amount</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">line_items (CLIN)</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">unit_price</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">uei / cage_code</span>
+                <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-emerald-300">naics_code</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-900 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-slate-400 truncate">historical-procurement-pricing-api.p.rapidapi.com</span>
+            <a
+              href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-xs font-mono font-semibold text-sky-400 hover:text-sky-300 shrink-0 ml-2"
+            >
+              <span>Launch API &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =================================================================
+           DUAL MOCK TERMINAL SHOWCASE (EXTRACTION + RISK & REDLINE AUDIT)
+           ================================================================= -->
+      <div class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+        <!-- Left Terminal (6 cols): Simple GET Request & RFP ContractExtraction -->
+        <div class="lg:col-span-6 flex">
+          <div class="w-full rounded-xl bg-navy-950 border border-slate-800 shadow-2xl overflow-hidden flex flex-col">
             <!-- Terminal Header Bar -->
             <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 <span class="h-3 w-3 rounded-full bg-rose-500/70"></span>
                 <span class="h-3 w-3 rounded-full bg-amber-500/70"></span>
                 <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
-                <span class="ml-2 text-xs font-mono text-slate-400">bash &mdash; signaltender-fastapi-client</span>
+                <span class="ml-2 text-xs font-mono text-slate-400">bash &mdash; contract-extraction-client</span>
               </div>
               <div class="flex items-center space-x-2">
-                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                  FastAPI &bull; Pydantic V2
-                </span>
                 <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   HTTP 200 OK
                 </span>
               </div>
             </div>
 
-            <!-- Terminal Body: Simple GET Request & Validated JSON Output -->
-            <div class="p-6 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto space-y-5">
-              <!-- GET Request Block -->
+            <!-- Terminal Body -->
+            <div class="p-6 font-mono text-xs leading-relaxed overflow-x-auto space-y-5 flex-1">
               <div>
                 <div class="text-slate-500 mb-1.5"># 1. Simple GET request via RapidAPI Gateway</div>
                 <pre class="text-slate-200"><code><span class="text-emerald-400">$</span> curl --request GET \
@@ -358,33 +451,76 @@
   --header <span class="text-sky-300">'Accept: application/json'</span></code></pre>
               </div>
 
-              <!-- Divider -->
               <div class="border-t border-slate-800/80"></div>
 
-              <!-- Response Block -->
               <div>
                 <div class="flex items-center justify-between text-slate-500 mb-1.5">
-                  <span># 2. Strictly Validated Pydantic V2 JSON Response (ContractExtraction + CLINs)</span>
+                  <span># 2. POST /v1/parse/contract (ContractExtraction Schema)</span>
                   <span class="text-emerald-400">142ms</span>
                 </div>
                 <pre class="text-slate-300"><code>{
-  <span class="text-sky-400">"solicitation_id"</span>: <span class="text-amber-200">"FA8726-26-R-0042"</span>,
   <span class="text-sky-400">"buyer_entity"</span>: <span class="text-slate-100">"Department of the Air Force / AFLCMC"</span>,
   <span class="text-sky-400">"vendor_requirements"</span>: [
     <span class="text-emerald-300">"Active FedRAMP High Authorization (IL4/IL5)"</span>,
-    <span class="text-emerald-300">"CMMC Level 2 Third-Party Assessment"</span>,
-    <span class="text-emerald-300">"ISO/IEC 27001 Accredited SOC Operations"</span>
+    <span class="text-emerald-300">"CMMC Level 2 Third-Party Assessment"</span>
   ],
   <span class="text-sky-400">"total_budget_usd"</span>: <span class="text-purple-300">4850000.0</span>,
   <span class="text-sky-400">"submission_deadline"</span>: <span class="text-amber-200">"2026-11-30T17:00:00Z"</span>,
   <span class="text-sky-400">"is_awarded"</span>: <span class="text-rose-400">false</span>,
   <span class="text-sky-400">"key_deliverables"</span>: [
     <span class="text-slate-200">"Zero-Trust Cross-Domain Cloud Architecture Blueprint"</span>,
-    <span class="text-slate-200">"Continuous SIEM Telemetry &amp; Automated Threat Response"</span>,
     <span class="text-slate-200">"CLIN 0001: 12-Month DevSecOps Production Migration"</span>
   ]
 }</code></pre>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Terminal (6 cols): AI Contract Risk & Redline Auditor Output -->
+        <div class="lg:col-span-6 flex">
+          <div class="w-full rounded-xl bg-navy-950 border border-slate-800 shadow-2xl overflow-hidden flex flex-col">
+            <!-- Terminal Header Bar -->
+            <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="h-3 w-3 rounded-full bg-rose-500/70"></span>
+                <span class="h-3 w-3 rounded-full bg-amber-500/70"></span>
+                <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
+                <span class="ml-2 text-xs font-mono text-slate-400">bash &mdash; ai-risk-redline-auditor</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20">
+                  ContractRiskAudit
+                </span>
+              </div>
+            </div>
+
+            <!-- Terminal Body -->
+            <div class="p-6 font-mono text-xs leading-relaxed overflow-x-auto space-y-4 flex-1">
+              <div class="flex items-center justify-between text-slate-500">
+                <span># POST /v1/parse/contract-risks (party_perspective: "vendor")</span>
+                <span class="text-rose-400">SCORE: 85/100</span>
+              </div>
+              <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"contract_type"</span>: <span class="text-slate-100">"Master Services Agreement (MSA)"</span>,
+  <span class="text-sky-400">"party_perspective"</span>: <span class="text-amber-200">"vendor"</span>,
+  <span class="text-sky-400">"overall_risk_score"</span>: <span class="text-rose-400">85</span>,
+  <span class="text-sky-400">"overall_risk_level"</span>: <span class="text-rose-400">"CRITICAL"</span>,
+  <span class="text-sky-400">"missing_standard_protections"</span>: [
+    <span class="text-amber-300">"Mutual consequential damages waiver"</span>,
+    <span class="text-amber-300">"Aggregate limitation of liability cap (12mo fees)"</span>
+  ],
+  <span class="text-sky-400">"flagged_clauses"</span>: [
+    {
+      <span class="text-sky-400">"category"</span>: <span class="text-rose-300">"INDEMNIFICATION"</span>,
+      <span class="text-sky-400">"clause_title"</span>: <span class="text-slate-200">"Section 8.1 Indemnification"</span>,
+      <span class="text-sky-400">"severity"</span>: <span class="text-rose-400">"CRITICAL"</span>,
+      <span class="text-sky-400">"exact_quote"</span>: <span class="text-slate-400">"Vendor shall indemnify Client from any and all claims without cap..."</span>,
+      <span class="text-sky-400">"suggested_redline"</span>: <span class="text-emerald-300">"Vendor shall indemnify Client solely against third-party IP infringement and gross negligence, subject to the Limitation of Liability cap."</span>,
+      <span class="text-sky-400">"fallback_position"</span>: <span class="text-sky-300">"Cap super-indemnity obligations at 2x fees paid in the prior 12 months."</span>
+    }
+  ]
+}</code></pre>
             </div>
           </div>
         </div>
@@ -395,7 +531,7 @@
            RAPIDAPI ACCESS TIERS: BASIC, PRO, ULTRA, MEGA
            ================================================================= -->
       <div id="api-tiers" class="mt-20 pt-16 border-t border-slate-800/80">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div>
             <div class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">
               // RAPIDAPI MARKETPLACE GATEWAY TIERS
@@ -404,20 +540,31 @@
               Transparent RapidAPI Tiers &amp; Usage Rates
             </h3>
             <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl">
-              Subscribe to either microservice independently on RapidAPI (<code class="font-mono text-sky-300">b2b-contract-parsing-api.p.rapidapi.com</code> &amp; <code class="font-mono text-sky-300">historical-procurement-pricing-api.p.rapidapi.com</code>) with transparent monthly request quotas and per-call overage rates.
+              Subscribe to any of our three microservices independently on RapidAPI with unified monthly tier pricing, strict HMAC constant-time proxy verification, and transparent per-call overage rates.
             </p>
           </div>
 
-          <!-- Primary RapidAPI Product & Profile CTA Buttons -->
-          <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <!-- Primary RapidAPI Product CTA Buttons (All 3 APIs) -->
+          <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a
               href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all"
+              class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all"
             >
-              <span>B2B Contract Parsing API</span>
-              <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <span>Contract Parsing API</span>
+              <svg class="ml-1.5 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-semibold text-rose-200 bg-rose-950/60 hover:bg-rose-900/70 rounded-lg border border-rose-500/40 transition-all"
+            >
+              <span>AI Risk &amp; Redline API</span>
+              <svg class="ml-1.5 h-3.5 w-3.5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
@@ -425,10 +572,10 @@
               href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-all"
+              class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-all"
             >
               <span>Historical Pricing API</span>
-              <svg class="ml-2 h-4 w-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <svg class="ml-1.5 h-3.5 w-3.5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
@@ -453,13 +600,17 @@
                 Evaluate Pydantic V2 schema validation and test live endpoints with zero upfront commitment.
               </p>
 
-              <!-- Exact API Quotas & Overages Box -->
-              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+              <!-- Exact API Quotas & Overages Box (All 3 APIs) -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-2.5 text-xs">
                 <div>
                   <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>50</strong> req / mo <span class="text-slate-400 font-mono">(+$0.10 / extra)</span></div>
                 </div>
-                <div class="border-t border-slate-800/80 pt-2.5">
+                <div class="border-t border-slate-800/80 pt-2">
+                  <div class="font-mono text-[11px] text-rose-400 font-semibold">AI Risk &amp; Redline Auditor</div>
+                  <div class="text-slate-200 mt-0.5"><strong>50</strong> req / mo <span class="text-slate-400 font-mono">(+$0.10 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2">
                   <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>50</strong> req / mo <span class="text-slate-400 font-mono">(+$0.10 / extra)</span></div>
                 </div>
@@ -472,7 +623,7 @@
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Entity &amp; Deadline Parsing</span>
+                  <span>Clause Risk &amp; Redline Auditing</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
@@ -489,6 +640,14 @@
                 class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
                 Contract Parser Basic &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-300 bg-navy-900 hover:bg-slate-800 border border-rose-500/30 rounded-lg transition-colors"
+              >
+                AI Risk Auditor Basic &rarr;
               </a>
               <a
                 href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
@@ -513,16 +672,20 @@
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-400">
-                Built for automated CRM enrichment, daily RFP parsing, and historical award lookups.
+                Built for automated CRM enrichment, deal-desk redlining, and historical award lookups.
               </p>
 
-              <!-- Exact API Quotas & Overages Box -->
-              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+              <!-- Exact API Quotas & Overages Box (All 3 APIs) -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-2.5 text-xs">
                 <div>
                   <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>500</strong> req / mo <span class="text-slate-400 font-mono">(+$0.08 / extra)</span></div>
                 </div>
-                <div class="border-t border-slate-800/80 pt-2.5">
+                <div class="border-t border-slate-800/80 pt-2">
+                  <div class="font-mono text-[11px] text-rose-400 font-semibold">AI Risk &amp; Redline Auditor</div>
+                  <div class="text-slate-200 mt-0.5"><strong>500</strong> req / mo <span class="text-slate-400 font-mono">(+$0.08 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2">
                   <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>1,000</strong> req / mo <span class="text-slate-400 font-mono">(+$0.05 / extra)</span></div>
                 </div>
@@ -531,7 +694,7 @@
               <ul class="mt-5 space-y-2 text-xs text-slate-300">
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Compliance &amp; Deliverable Tracking</span>
+                  <span>Multi-Stance Legal Risk Auditing</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
@@ -552,6 +715,14 @@
                 class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
                 Contract Parser Pro &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-300 bg-navy-900 hover:bg-slate-800 border border-rose-500/30 rounded-lg transition-colors"
+              >
+                AI Risk Auditor Pro &rarr;
               </a>
               <a
                 href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
@@ -580,16 +751,20 @@
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-300">
-                High-volume SOW extraction and deep Prime Contractor CLIN price-to-win intelligence.
+                High-volume SOW extraction, automated MSA redlining, and Prime Contractor CLIN intelligence.
               </p>
 
-              <!-- Exact API Quotas & Overages Box -->
-              <div class="mt-5 p-3.5 rounded-lg bg-navy-900 border border-sky-500/30 space-y-3 text-xs">
+              <!-- Exact API Quotas & Overages Box (All 3 APIs) -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900 border border-sky-500/30 space-y-2.5 text-xs">
                 <div>
                   <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
                   <div class="text-white mt-0.5"><strong>2,000</strong> req / mo <span class="text-slate-300 font-mono">(+$0.05 / extra)</span></div>
                 </div>
-                <div class="border-t border-slate-800 pt-2.5">
+                <div class="border-t border-slate-800 pt-2">
+                  <div class="font-mono text-[11px] text-rose-400 font-semibold">AI Risk &amp; Redline Auditor</div>
+                  <div class="text-white mt-0.5"><strong>2,000</strong> req / mo <span class="text-slate-300 font-mono">(+$0.05 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800 pt-2">
                   <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
                   <div class="text-white mt-0.5"><strong>5,000</strong> req / mo <span class="text-slate-300 font-mono">(+$0.03 / extra)</span></div>
                 </div>
@@ -598,7 +773,7 @@
               <ul class="mt-5 space-y-2 text-xs text-slate-200">
                 <li class="flex items-center space-x-2">
                   <span class="text-sky-400 font-mono">&check;</span>
-                  <span>Prime Contractor Win Histories</span>
+                  <span>Automated Redline &amp; Fallback Clauses</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-sky-400 font-mono">&check;</span>
@@ -619,6 +794,14 @@
                 class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-md shadow-sky-950/50 transition-colors"
               >
                 Contract Parser Ultra &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-200 bg-rose-950/70 hover:bg-rose-900/80 border border-rose-500/40 rounded-lg transition-colors"
+              >
+                AI Risk Auditor Ultra &rarr;
               </a>
               <a
                 href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
@@ -643,16 +826,20 @@
                 <span class="text-xs text-slate-400 font-mono">/ month</span>
               </div>
               <p class="mt-2 text-xs text-slate-400">
-                Maximum throughput for multi-tenant GovCon SaaS platforms and enterprise data lakes.
+                Maximum throughput for multi-tenant GovCon SaaS platforms, CLM tools, and enterprise data lakes.
               </p>
 
-              <!-- Exact API Quotas & Overages Box -->
-              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-3 text-xs">
+              <!-- Exact API Quotas & Overages Box (All 3 APIs) -->
+              <div class="mt-5 p-3.5 rounded-lg bg-navy-900/90 border border-slate-800/90 space-y-2.5 text-xs">
                 <div>
                   <div class="font-mono text-[11px] text-sky-400 font-semibold">B2B Contract Parsing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo <span class="text-slate-400 font-mono">(+$0.03 / extra)</span></div>
                 </div>
-                <div class="border-t border-slate-800/80 pt-2.5">
+                <div class="border-t border-slate-800/80 pt-2">
+                  <div class="font-mono text-[11px] text-rose-400 font-semibold">AI Risk &amp; Redline Auditor</div>
+                  <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo <span class="text-slate-400 font-mono">(+$0.03 / extra)</span></div>
+                </div>
+                <div class="border-t border-slate-800/80 pt-2">
                   <div class="font-mono text-[11px] text-emerald-400 font-semibold">Historical Pricing API</div>
                   <div class="text-slate-200 mt-0.5"><strong>1,000,000</strong> req / mo <span class="text-slate-400 font-mono">(Hard limit)</span></div>
                 </div>
@@ -661,11 +848,11 @@
               <ul class="mt-5 space-y-2 text-xs text-slate-300">
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Bulk SOW &amp; 1M Award Ingestion</span>
+                  <span>Bulk SOW, Redline &amp; 1M Award Ingestion</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
-                  <span>Lowest Per-Call Parsing Overage ($0.03)</span>
+                  <span>Lowest Per-Call LLM Overage ($0.03)</span>
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="text-emerald-400 font-mono">&check;</span>
@@ -682,6 +869,14 @@
                 class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
               >
                 Contract Parser Mega &rarr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-3 py-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-300 bg-navy-900 hover:bg-slate-800 border border-rose-500/30 rounded-lg transition-colors"
+              >
+                AI Risk Auditor Mega &rarr;
               </a>
               <a
                 href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing"
@@ -888,6 +1083,9 @@
           <ul class="space-y-2 text-slate-400">
             <li>
               <a href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">B2B Contract Parsing API (/v1/parse/contract) &nearr;</a>
+            </li>
+            <li>
+              <a href="https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-colors">AI Contract Risk &amp; Redline API (/v1/parse/contract-risks) &nearr;</a>
             </li>
             <li>
               <a href="https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">Historical Procurement Pricing API (/v1/awards) &nearr;</a>
