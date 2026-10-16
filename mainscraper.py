@@ -586,15 +586,44 @@ async def run_master_orchestrator(
     # Apply 85% fuzzy title deduplication across the combined payload before Supabase insertion
     unified_payload = fuzzy_deduplicate_records(unified_payload, threshold=0.85)
 
+    # Drop any already-expired contracts from the incoming batch before touching Supabase
+    today = datetime.now().date()
+
+    def _parse_contract_due_date(rec: dict):
+        candidates = [str(rec.get("closing_date") or "").strip()]
+        m_title = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", str(rec.get("title") or ""), flags=re.IGNORECASE)
+        if m_title:
+            candidates.append(m_title.group(1))
+        for cand in candidates:
+            if not cand or cand.lower() in ["n/a", "tbd", "none", "null", ""]:
+                continue
+            if "T" in cand:
+                cand = cand.split("T")[0].strip()
+            for fmt in ("%m/%d/%Y", "%Y-%m-%d", "%m/%d/%y"):
+                try:
+                    return datetime.strptime(cand, fmt).date()
+                except ValueError:
+                    pass
+        return None
+
+    open_payload = []
+    dropped_expired_incoming = 0
+    for rec in unified_payload:
+        due_dt = _parse_contract_due_date(rec)
+        if due_dt is not None and due_dt < today:
+            dropped_expired_incoming += 1
+        else:
+            open_payload.append(rec)
+
+    if dropped_expired_incoming > 0:
+        print(f"[*] Dropped {dropped_expired_incoming} already-expired contract(s) from incoming batch.", flush=True)
+    unified_payload = open_payload
+
     print(
         f"\n[*] Master Orchestrator: Combined {len(combined_records)} total extracted records "
-        f"into {len(unified_payload)} unique high-value tech contracts.",
+        f"into {len(unified_payload)} unique, open high-value tech contracts.",
         flush=True,
     )
-
-    if not unified_payload:
-        print("[-] No valid tech contracts found across Federal and SLED sources this cycle.", flush=True)
-        return []
 
     if not SUPABASE_URL or not SUPABASE_KEY:
         error_msg = "SUPABASE_URL or SUPABASE_KEY missing in environment. Cannot upload unified payload."
@@ -607,9 +636,39 @@ async def run_master_orchestrator(
         send_discord_alert(error_msg)
         return []
 
+    db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+
+    # Automatically purge any previously stored contracts in Supabase whose closing_date has passed
+    try:
+        existing_resp = db_client.table(TABLE_NAME).select("url, title, closing_date").execute()
+        existing_rows = existing_resp.data if existing_resp and getattr(existing_resp, "data", None) else []
+        expired_urls = [
+            row["url"]
+            for row in existing_rows
+            if row.get("url") and (_parse_contract_due_date(row) is not None and _parse_contract_due_date(row) < today)
+        ]
+        if expired_urls:
+            for i in range(0, len(expired_urls), 100):
+                batch_urls = expired_urls[i : i + 100]
+                db_client.table(TABLE_NAME).delete().in_("url", batch_urls).execute()
+            print(f"[+] Purged {len(expired_urls)} expired contract(s) (closing_date < {today}) from Supabase.", flush=True)
+        else:
+            print(f"[*] Database hygiene check complete: 0 expired contracts found in Supabase.", flush=True)
+    except Exception as purge_err:
+        purge_msg = f"Master Orchestrator Expired Contract Purge Warning: {purge_err}"
+        print(f"[!] {purge_msg}", flush=True)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"\n[!] {purge_msg}\n")
+        except Exception:
+            pass
+
+    if not unified_payload:
+        print("[-] No valid tech contracts found across Federal and SLED sources this cycle.", flush=True)
+        return []
+
     try:
         print(f"[*] Passing unified payload ({len(unified_payload)} contracts) through Supabase deduplication filter...", flush=True)
-        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
         response = db_client.table(TABLE_NAME).upsert(
             unified_payload, on_conflict="url", ignore_duplicates=True
         ).execute()
