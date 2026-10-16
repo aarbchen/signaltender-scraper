@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SignalTender | Real-Time GovCon Procurement Data &amp; Live Contract Wire</title>
-  <meta name="description" content="Zero-touch GovCon Data-as-a-Service. Real-time Federal (SAM.gov) and State SLED (VA, TX, CA) IT &amp; cybersecurity procurement intelligence delivered via live Discord wire and automated FastAPI microservices." />
+  <meta name="description" content="Zero-touch GovCon Data-as-a-Service. Real-time Federal (SAM.gov), National Municipal (DemandStar), and State SLED (VA, TX, CA) IT &amp; cybersecurity procurement intelligence delivered via live Discord wire and automated FastAPI microservices." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22cyan%22%3E%3Cpath%20d%3D%22M8%202h2v3h4V2h2v3h1a2%202%200%200%201%202%202v1h3v2h-3v4h3v2h-3v1a2%202%200%200%201-2%202h-1v3h-2v-3h-4v3H8v-3H7a2%202%200%200%201-2-2v-1H2v-2h3v-4H2V8h3V7a2%202%200%200%201%202-2h1V2zm-1%205v10h10V7H7zm2%202h6v6H9V9z%22%2F%3E%3C%2Fsvg%3E" />
 
   <!-- Google Fonts: Inter (UI) & JetBrains Mono (Terminal / Code / Telemetry) -->
@@ -57,7 +57,7 @@
           </span>
           <span class="hidden lg:inline text-slate-600">|</span>
           <span class="hidden lg:inline font-mono text-slate-400">
-            PORTALS: SAM.GOV &bull; VIRGINIA eVA &bull; TEXAS ESBD &bull; CALIFORNIA Cal eProcure
+            PORTALS: SAM.GOV &bull; DEMANDSTAR &bull; VIRGINIA eVA &bull; TEXAS ESBD &bull; CALIFORNIA Cal eProcure
           </span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
@@ -149,7 +149,7 @@
 
           <!-- Hero Subheadline -->
           <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
-            Stop refreshing fragmented government portals. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;extracting high-value Federal (<span class="text-white font-medium">SAM.gov</span>) and State SLED (<span class="text-white font-medium">VA, TX, CA</span>) IT &amp; cybersecurity solicitations into a live, noise-filtered intelligence feed.
+            Stop refreshing fragmented government portals. SignalTender delivers <span class="text-white font-medium">automated contract parsing via API and Discord</span>&mdash;extracting high-value Federal (<span class="text-white font-medium">SAM.gov</span>), National Municipal (<span class="text-white font-medium">DemandStar</span>), and State SLED (<span class="text-white font-medium">VA, TX, CA</span>) IT &amp; cybersecurity solicitations into a live, noise-filtered intelligence feed.
           </p>
 
           <!-- Primary Dual CTAs -->
@@ -209,12 +209,12 @@
           <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
             <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">99.4%</div>
             <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Commodity Noise Stripped</div>
-            <p class="mt-1 text-xs text-slate-400">Regex + LLM filtering drops ink/toner, COTS renewals, and non-IT municipal bids.</p>
+            <p class="mt-1 text-xs text-slate-400">Regex + Claude AI filtering + 85% fuzzy deduplication drops ink/toner &amp; renewal spam.</p>
           </div>
           <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">4 Portals</div>
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">5 Portals</div>
             <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">Federal + SLED Ingestion</div>
-            <p class="mt-1 text-xs text-slate-400">Automated every-6-hour extraction across SAM.gov, Virginia eVA, Texas ESBD &amp; California.</p>
+            <p class="mt-1 text-xs text-slate-400">Every-6-hour extraction across SAM.gov, DemandStar, Virginia eVA, Texas ESBD &amp; California.</p>
           </div>
           <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
             <div class="text-2xl sm:text-3xl font-bold font-mono text-white">&lt; 60 Sec</div>
@@ -378,6 +378,18 @@
                   <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://caleprocure.ca.gov/event/7502/0000034891</span></div>
                 </div>
 
+                <!-- Lead Block 5: DemandStar National SLED -->
+                <div class="p-3.5 rounded-lg bg-navy-900 border-l-4 border-purple-500 border border-slate-800/90 space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-slate-400 pb-0.5">
+                    <span class="text-purple-400 font-semibold">SignalTender Dispatch Bot</span>
+                    <span>Today at 08:17 EST</span>
+                  </div>
+                  <div class="text-slate-200"><strong class="text-white">Title:</strong> Enterprise Municipal Cloud ERP &amp; Cybersecurity Architecture - Due: 12/15/2026</div>
+                  <div class="text-slate-300"><strong class="text-white">Agency:</strong> City of Orlando / County IT Procurement (DemandStar Network)</div>
+                  <div class="text-slate-300"><strong class="text-white">Closing Date:</strong> <span class="text-amber-300">12/15/2026</span></div>
+                  <div class="text-slate-300"><strong class="text-white">Link:</strong> <span class="text-sky-400 underline">https://www.demandstar.com/app/suppliers/bids#RFP-26-0419</span></div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -401,7 +413,7 @@
               Recent Qualified IT &amp; Cybersecurity Solicitations
             </h2>
             <p class="mt-3 text-slate-300 text-sm sm:text-base max-w-3xl">
-              Every 6 hours, our autonomous Playwright &amp; API ingestion engine normalizes Federal and State SLED opportunities into our centralized data lake. Preview recent qualified solicitations below or unlock real-time full-link dispatches in the Discord terminal.
+              Every 6 hours, our autonomous Playwright &amp; API ingestion engine normalizes Federal, National Municipal (DemandStar), and State SLED opportunities into our centralized data lake. Preview recent qualified solicitations below or unlock real-time full-link dispatches in the Discord terminal.
             </p>
           </div>
 
@@ -459,6 +471,32 @@
                 <!-- Directory Row 2 -->
                 <tr class="hover:bg-navy-900/60 transition-colors">
                   <td class="py-4 px-5 font-mono">
+                    <span class="px-2.5 py-1 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold">NATIONAL SLED // DEMANDSTAR</span>
+                  </td>
+                  <td class="py-4 px-5">
+                    <div class="font-bold text-white text-sm">Enterprise Municipal Cloud ERP &amp; Cybersecurity Architecture</div>
+                    <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">RFP-26-0419</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-purple-300">Cloud ERP</span>
+                      <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-purple-300">Systems Integration</span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-slate-300">
+                    City of Orlando / County IT
+                  </td>
+                  <td class="py-4 px-4 font-mono text-amber-300">
+                    2026-12-15
+                  </td>
+                  <td class="py-4 px-5 text-right font-mono">
+                    <a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 transition-colors">
+                      Unlock RFP Link &nearr;
+                    </a>
+                  </td>
+                </tr>
+
+                <!-- Directory Row 3 -->
+                <tr class="hover:bg-navy-900/60 transition-colors">
+                  <td class="py-4 px-5 font-mono">
                     <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">VIRGINIA // eVA</span>
                   </td>
                   <td class="py-4 px-5">
@@ -482,7 +520,7 @@
                   </td>
                 </tr>
 
-                <!-- Directory Row 3 -->
+                <!-- Directory Row 4 -->
                 <tr class="hover:bg-navy-900/60 transition-colors">
                   <td class="py-4 px-5 font-mono">
                     <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 font-semibold">TEXAS // ESBD</span>
@@ -508,7 +546,7 @@
                   </td>
                 </tr>
 
-                <!-- Directory Row 4 -->
+                <!-- Directory Row 5 -->
                 <tr class="hover:bg-navy-900/60 transition-colors">
                   <td class="py-4 px-5 font-mono">
                     <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-semibold">CALIFORNIA // Cal eProcure</span>
@@ -550,27 +588,27 @@
 
         <div class="max-w-3xl mb-12">
           <div class="text-xs font-mono uppercase tracking-widest text-sky-400 mb-2">
-            // AUTONOMOUS EXTRACTION COVERAGE
+            // AUTONOMOUS EXTRACTION COVERAGE (5 ACTIVE PIPELINES)
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Federal &amp; State SLED Procurement Coverage
+            Federal, National Municipal &amp; State SLED Coverage
           </h2>
           <p class="mt-3 text-slate-300 text-sm sm:text-base">
-            Our scraping cluster combines direct Federal API polling with residential-proxied Playwright stealth automation across the largest State SLED IT markets in the United States.
+            Our master orchestrator combines direct Federal API polling with residential-proxied Playwright stealth automation across DemandStar's nationwide municipal network and the largest State SLED IT portals in the United States.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           <!-- Portal 1: SAM.gov -->
-          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+          <div class="p-5 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between font-mono text-xs mb-3">
                 <span class="text-sky-400 font-bold">FEDERAL</span>
                 <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
               </div>
-              <h3 class="text-lg font-bold text-white">SAM.gov Opportunities</h3>
+              <h3 class="text-base font-bold text-white">SAM.gov</h3>
               <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-                Direct federal solicitation extraction covering DoD, DHS, Civilian agencies, SBIRs, and pre-solicitation sources sought notices.
+                Direct federal solicitation extraction covering DoD, DHS, Civilian agencies, SBIRs, and sources sought notices.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
@@ -578,16 +616,16 @@
             </div>
           </div>
 
-          <!-- Portal 2: Virginia eVA -->
-          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+          <!-- Portal 2: DemandStar Network -->
+          <div class="p-5 rounded-xl bg-navy-900/70 border border-purple-500/30 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between font-mono text-xs mb-3">
-                <span class="text-emerald-400 font-bold">STATE SLED // VA</span>
+                <span class="text-purple-400 font-bold">NATIONAL SLED</span>
                 <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
               </div>
-              <h3 class="text-lg font-bold text-white">Virginia eVA Portal</h3>
+              <h3 class="text-base font-bold text-white">DemandStar Network</h3>
               <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-                Covers VITA, state agencies, higher education institutions, and Northern Virginia municipal cybersecurity &amp; cloud procurements.
+                Nationwide municipal, county, K-12/university, and special district IT &amp; software bids with Claude B2B validation.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
@@ -595,16 +633,16 @@
             </div>
           </div>
 
-          <!-- Portal 3: Texas SmartBuy ESBD -->
-          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+          <!-- Portal 3: Virginia eVA -->
+          <div class="p-5 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between font-mono text-xs mb-3">
-                <span class="text-indigo-400 font-bold">STATE SLED // TX</span>
+                <span class="text-emerald-400 font-bold">STATE // VA</span>
                 <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
               </div>
-              <h3 class="text-lg font-bold text-white">Texas SmartBuy ESBD</h3>
+              <h3 class="text-base font-bold text-white">Virginia eVA Portal</h3>
               <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-                Tracks Electronic State Business Daily (ESBD) and Texas DIR technology solicitations above $25,000 across state and local buyers.
+                Covers VITA, state agencies, higher education institutions, and Northern Virginia cybersecurity &amp; cloud RFPs.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
@@ -612,16 +650,33 @@
             </div>
           </div>
 
-          <!-- Portal 4: California Cal eProcure -->
-          <div class="p-6 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+          <!-- Portal 4: Texas SmartBuy ESBD -->
+          <div class="p-5 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between font-mono text-xs mb-3">
-                <span class="text-amber-400 font-bold">STATE SLED // CA</span>
+                <span class="text-indigo-400 font-bold">STATE // TX</span>
                 <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
               </div>
-              <h3 class="text-lg font-bold text-white">California Cal eProcure</h3>
+              <h3 class="text-base font-bold text-white">Texas SmartBuy ESBD</h3>
               <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-                Extracts California Department of Technology (CDT) and statewide IT/software events with automated NIGP/UNSPSC commodity filtering.
+                Tracks Electronic State Business Daily (ESBD) and Texas DIR technology solicitations above $25,000 statewide.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
+              Cadence: Every 6 Hours
+            </div>
+          </div>
+
+          <!-- Portal 5: California Cal eProcure -->
+          <div class="p-5 rounded-xl bg-navy-900/70 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-3">
+                <span class="text-amber-400 font-bold">STATE // CA</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">ACTIVE</span>
+              </div>
+              <h3 class="text-base font-bold text-white">California Cal eProcure</h3>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+                Extracts California Department of Technology (CDT) and statewide IT/software events with commodity filtering.
               </p>
             </div>
             <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400">
@@ -1569,7 +1624,7 @@
               Want Live Federal &amp; State SLED Contract Alerts Without Writing Code?
             </h3>
             <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
-              Our flagship <strong class="text-slate-200">Individual Contributor Discord Terminal ($99/mo)</strong> streams pre-vetted SAM.gov, Virginia eVA, Texas ESBD, and California Cal eProcure IT &amp; cybersecurity opportunities directly to your team.
+              Our flagship <strong class="text-slate-200">Individual Contributor Discord Terminal ($99/mo)</strong> streams pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, and California Cal eProcure IT &amp; cybersecurity opportunities directly to your team.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-3 shrink-0">
