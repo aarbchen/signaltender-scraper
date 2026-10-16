@@ -104,7 +104,7 @@
       <!-- Primary Multi-Page & Section Navigation -->
       <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">&larr; Main Platform</a>
-        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (4)</a>
+        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (5)</a>
         <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
         <a href="index.html#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
       </nav>
@@ -151,7 +151,7 @@
             Automate RFP Parsing, Contract Redlining &amp; Price-to-Win Research
           </h1>
           <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-            Save hundreds of engineering and legal-review hours. Plug our production <span class="text-white font-medium">REST APIs</span> into your CRM, proposal software, or AI agents to extract structured JSON from messy RFPs, flag toxic legal clauses with ready-to-paste redlines, query historical federal award CLIN pricing, and stream live multi-portal SLED &amp; Federal solicitations. Start free on <span class="text-white font-mono">Basic</span> and scale seamlessly across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
+            Save hundreds of engineering and legal-review hours. Plug our production <span class="text-white font-medium">REST APIs</span> into your CRM, proposal software, or AI agents to extract structured JSON from messy RFPs, flag toxic legal clauses with ready-to-paste redlines, query historical federal award CLIN pricing, stream live multi-portal SLED &amp; Federal solicitations, and generate Shipley compliance matrices. Start free on <span class="text-white font-mono">Basic</span> and scale seamlessly across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
           </p>
         </div>
 
@@ -184,7 +184,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span class="text-emerald-400">4 LIVE ENDPOINTS</span>
+              <span class="text-emerald-400">5 LIVE ENDPOINTS</span>
             </div>
 
             <div class="mt-3 divide-y divide-slate-800/70 font-mono text-xs">
@@ -242,7 +242,6 @@
                   <div>
                     <div class="flex items-center space-x-2">
                       <span class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors">Live SLED &amp; Federal Open RFP Feed API</span>
-                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-500 text-navy-950 font-bold">New</span>
                     </div>
                     <div class="text-[11px] text-slate-400">GET /v1/solicitations/live &bull; 7-Portal AI-Vetted Open IT/Cyber Solicitations</div>
                   </div>
@@ -250,6 +249,24 @@
                 <div class="flex items-center space-x-3">
                   <span class="px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-200">$0 &ndash; $299/mo</span>
                   <span class="text-cyan-400">&darr;</span>
+                </div>
+              </a>
+
+              <!-- Directory Row 05 -->
+              <a href="#product-compliance-matrix" class="py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">05</span>
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-amber-300 transition-colors">RFP Compliance Matrix &amp; Proposal Outline API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-500 text-navy-950 font-bold">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">POST /v1/generate/compliance-matrix &bull; Shipley Checklist &amp; Section L/M Outline</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <span class="px-2 py-0.5 rounded bg-amber-950/40 border border-amber-500/30 text-amber-200">$0 &ndash; $299/mo</span>
+                  <span class="text-amber-400">&darr;</span>
                 </div>
               </a>
             </div>
@@ -1006,6 +1023,185 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 05: RFP COMPLIANCE MATRIX & PROPOSAL OUTLINE API
+           ================================================================= -->
+      <article id="product-compliance-matrix" class="rounded-2xl bg-navy-950 border-2 border-amber-500/40 overflow-hidden shadow-2xl scroll-mt-24">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-gradient-to-r from-amber-950/60 via-slate-900/90 to-slate-900/90 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+              PRODUCT 05 // PROPOSAL AUTOMATION
+            </span>
+            <span class="px-2 py-0.5 rounded bg-amber-500 text-navy-950 text-[10px] font-mono font-extrabold uppercase tracking-wider">
+              New Endpoint
+            </span>
+            <span class="font-mono text-xs text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20">
+              POST /v1/generate/compliance-matrix
+            </span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <a
+              href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-xs font-mono font-semibold text-white shadow-md shadow-amber-950/50 transition-colors"
+            >
+              Subscribe on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body: 12-Col Grid (7 Cols Specs + Pricing | 5 Cols Live Payload) -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+          <!-- Left 7 Cols: Title, Features, Schema, & Product-Specific 4-Tier Pricing -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div>
+              <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                RFP Compliance Matrix &amp; Proposal Outline API
+              </h2>
+              <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                Transform raw Federal &amp; SLED solicitation text (Section C / PWS, Section L instructions, and Section M evaluation factors) into a structured, <strong class="text-white">Shipley-aligned Compliance Matrix</strong> (<code class="text-amber-300 font-mono">shall</code>/<code class="text-amber-300 font-mono">must</code> requirements checklist), Section L-to-M cross-reference mapping, and hierarchical <strong class="text-white">Proposal Outline</strong> with recommended page allocations and win themes.
+              </p>
+
+              <!-- Product-Specific Features Grid -->
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-amber-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Exhaustive &ldquo;Shall/Must&rdquo; Shredding</div>
+                    <div class="text-slate-400 mt-0.5">Extracts binding obligations with source section tags and priority levels.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-amber-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Section L &harr; Section M Crosswalk</div>
+                    <div class="text-slate-400 mt-0.5">Maps every requirement to its exact proposal volume and evaluation factor.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-amber-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Annotated Proposal Outline &amp; Page Budgets</div>
+                    <div class="text-slate-400 mt-0.5">Generates hierarchical sections with recommended page limits and writing prompts.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-amber-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Disqualification Pitfall Radar</div>
+                    <div class="text-slate-400 mt-0.5">Flags strict formatting, font/page caps, and mandatory certification traps.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 05 Specific RapidAPI Tiers (Basic, Pro, Ultra, Mega) -->
+            <div class="pt-4 border-t border-slate-800/80">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                <span>RFP COMPLIANCE MATRIX API &mdash; RAPIDAPI ACCESS TIERS</span>
+                <a href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">View Plans &nearr;</a>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <!-- Basic -->
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">5 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </div>
+                </div>
+                <!-- Pro -->
+                <div class="p-3 rounded-xl bg-navy-900 border border-amber-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-amber-300 uppercase font-semibold">PRO</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">250 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </div>
+                </div>
+                <!-- Ultra -->
+                <div class="p-3 rounded-xl bg-navy-900 border-2 border-amber-500/80 flex flex-col justify-between relative">
+                  <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-amber-500 text-navy-950 text-[9px] font-bold uppercase">Popular</span>
+                  <div>
+                    <div class="text-[10px] text-amber-300 uppercase font-semibold">ULTRA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-white font-semibold">1,500 req/mo</div>
+                    <div class="text-amber-300 text-[10px]">+$0.15 / extra</div>
+                  </div>
+                </div>
+                <!-- Mega -->
+                <div class="p-3 rounded-xl bg-navy-900 border border-amber-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$299<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">5,000 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Dedicated Terminal Preview -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">RESPONSE // ComplianceMatrixResponse</span>
+                <span class="text-amber-400">200 OK &bull; 1.4s</span>
+              </div>
+              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"total_requirements_extracted"</span>: <span class="text-amber-300">14</span>,
+  <span class="text-sky-400">"mandatory_shall_count"</span>: <span class="text-rose-400">12</span>,
+  <span class="text-sky-400">"compliance_matrix"</span>: [
+    {
+      <span class="text-sky-400">"req_id"</span>: <span class="text-slate-100">"REQ-001"</span>,
+      <span class="text-sky-400">"source_section"</span>: <span class="text-amber-300">"Section C.3.1"</span>,
+      <span class="text-sky-400">"binding_keyword"</span>: <span class="text-rose-300">"shall"</span>,
+      <span class="text-sky-400">"priority"</span>: <span class="text-emerald-300">"Mandatory (Shall/Must)"</span>,
+      <span class="text-sky-400">"mapped_proposal_section"</span>: <span class="text-cyan-300">"1.1 - 24x7 MDR SOC"</span>,
+      <span class="text-sky-400">"evaluation_factor_mapping"</span>: <span class="text-slate-200">"Factor 1: Technical"</span>
+    }
+  ],
+  <span class="text-sky-400">"proposal_outline"</span>: [
+    {
+      <span class="text-sky-400">"section_number"</span>: <span class="text-amber-300">"1.1"</span>,
+      <span class="text-sky-400">"recommended_page_allocation"</span>: <span class="text-emerald-400">8.0</span>
+    }
+  ]
+}</code></pre>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">compliance_matrix[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-cyan-300">proposal_outline[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">disqualification_pitfalls[]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -1178,7 +1374,6 @@
                 <td class="py-5 px-5">
                   <div class="flex items-center space-x-2">
                     <span class="font-sans font-bold text-sm text-white">Live SLED &amp; Federal Open RFP Feed API</span>
-                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-500 text-navy-950 font-bold">New</span>
                   </div>
                   <div class="text-cyan-300 text-[11px] mt-0.5">GET /v1/solicitations/live</div>
                   <div class="font-sans text-[11px] text-slate-400 mt-1">7-Portal Filtered IT &amp; Cyber RFPs</div>
@@ -1209,6 +1404,48 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center px-3 py-2 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
+              <!-- Matrix Row 5: RFP Compliance Matrix & Proposal Outline API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-amber-950/10">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-sans font-bold text-sm text-white">RFP Compliance Matrix &amp; Proposal Outline API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-500 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="text-amber-300 text-[11px] mt-0.5">POST /v1/generate/compliance-matrix</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">Shipley Checklist &amp; Section L/M Outline</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>5</strong> req / mo</div>
+                  <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>250</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-amber-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,500</strong> req / mo</div>
+                  <div class="text-amber-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$299<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>5,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-semibold transition-colors"
                   >
                     Subscribe &nearr;
                   </a>
@@ -1302,6 +1539,9 @@
             </li>
             <li>
               <a href="https://rapidapi.com/aarbchen/api/live-sled-federal-open-rfp-feed-api" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">04. Live SLED &amp; Federal Open RFP Feed API (/v1/solicitations/live) &nearr;</a>
+            </li>
+            <li>
+              <a href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors">05. RFP Compliance Matrix &amp; Proposal Outline API (/v1/generate/compliance-matrix) &nearr;</a>
             </li>
             <li>
               <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">Interactive OpenAPI Documentation (/docs) &nearr;</a>
