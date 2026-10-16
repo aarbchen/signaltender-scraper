@@ -13,6 +13,14 @@ load_dotenv()
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
+
+# Optional Zero-Touch Cold Email API Credentials (Option C)
+INSTANTLY_API_KEY = os.getenv("INSTANTLY_API_KEY")
+INSTANTLY_CAMPAIGN_ID = os.getenv("INSTANTLY_CAMPAIGN_ID")
+SMARTLEAD_API_KEY = os.getenv("SMARTLEAD_API_KEY")
+SMARTLEAD_CAMPAIGN_ID = os.getenv("SMARTLEAD_CAMPAIGN_ID")
+
 TABLE_NAME = "contracts"
 ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
 
@@ -45,6 +53,16 @@ commodity_it_exclusions = [
     r"smoke\s*and\s*fire",
     r"fire\s*detection\s*alarm",
     r"\bhvac\b",
+    r"^50001",
+    r"cor-(ent|off|pro|stp)",
+    r"smart(-dt|-rti|-so|essential|mcms)",
+    r"wts-mobile",
+    r"software\s*support",
+    r"software\s*subscription",
+    r"software\s*synergy",
+    r"25ecert",
+    r"oms-500",
+    r"virtual\s+printer\s+driver",
 ]
 
 STATE_ALIASES = {
@@ -107,15 +125,16 @@ def detect_contract_region(rec: dict) -> str:
     """Classify a Supabase contract record into 'tx', 'va', 'ca', 'fl', 'md', 'fed', or 'other'."""
     url = str(rec.get("url") or "").lower()
     agency = str(rec.get("agency") or "").lower()
-    if "txsmartbuy.com" in url or "texas" in agency:
+    title = str(rec.get("title") or "")
+    if title.startswith("[TX]") or "txsmartbuy" in url or "texas" in agency:
         return "tx"
-    if "cgieva.com" in url or "virginia" in agency:
+    if title.startswith("[VA]") or "cgieva.com" in url or "eva.virginia.gov" in url or "virginia" in agency:
         return "va"
-    if "caleprocure.ca.gov" in url or "california" in agency:
+    if title.startswith("[CA]") or "caleprocure.ca.gov" in url or "california" in agency:
         return "ca"
-    if "myfloridamarketplace.com" in url or "florida" in agency:
+    if title.startswith("[FL]") or "myfloridamarketplace.com" in url or "florida" in agency:
         return "fl"
-    if "maryland" in url or "bonfirehub.com" in url or "maryland" in agency or "prince george" in agency or "howard county" in agency:
+    if title.startswith("[MD]") or "maryland" in url or "bonfirehub.com" in url or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "md"
     if "sam.gov" in url:
         return "fed"
@@ -136,7 +155,7 @@ def format_contract_line(index: int, rec: dict) -> str:
         return f"{index}. {title} - {agency}\n"
 
 
-def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str, max_count: int = 5) -> list[dict]:
+def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str, max_count: int = 3) -> list[dict]:
     """
     Prioritize contracts matching the prospect's state + Federal (SAM.gov) contracts,
     then backfill with the freshest remaining B2B IT contracts up to max_count.
@@ -153,6 +172,85 @@ def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str
     return combined[:max_count]
 
 
+def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
+    """
+    Option C: Zero-Touch Cold Email API Sync.
+    Automatically pushes generated leads directly to Instantly.ai or Smartlead.ai
+    when INSTANTLY_API_KEY/INSTANTLY_CAMPAIGN_ID or SMARTLEAD_API_KEY/SMARTLEAD_CAMPAIGN_ID
+    are configured in .env.
+    """
+    if not leads_payload:
+        return
+
+    # 1. Instantly.ai REST API Integration
+    if INSTANTLY_API_KEY and INSTANTLY_CAMPAIGN_ID:
+        try:
+            print(f"[*] Pushing {len(leads_payload)} leads directly to Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID}...", flush=True)
+            instantly_leads = [
+                {
+                    "email": item["Email"],
+                    "first_name": item["First Name"],
+                    "company_name": item["Company"],
+                    "custom_variables": {
+                        "subject_line": item["Subject Line"],
+                        "email_body": item["Email Body"],
+                    },
+                }
+                for item in leads_payload
+            ]
+            resp = requests.post(
+                "https://api.instantly.ai/api/v1/lead/add",
+                json={
+                    "api_key": INSTANTLY_API_KEY,
+                    "campaign_id": INSTANTLY_CAMPAIGN_ID,
+                    "skip_if_in_workspace": True,
+                    "leads": instantly_leads,
+                },
+                timeout=30,
+            )
+            resp.raise_for_status()
+            print(f"[+] Successfully synced {len(instantly_leads)} leads to Instantly.ai!", flush=True)
+        except Exception as inst_err:
+            err_msg = f"Instantly.ai API sync warning: {inst_err}"
+            print(f"[!] {err_msg}", flush=True)
+            send_discord_alert(err_msg)
+
+    # 2. Smartlead.ai REST API Integration
+    if SMARTLEAD_API_KEY and SMARTLEAD_CAMPAIGN_ID:
+        try:
+            print(f"[*] Pushing {len(leads_payload)} leads directly to Smartlead.ai campaign {SMARTLEAD_CAMPAIGN_ID}...", flush=True)
+            smartlead_leads = [
+                {
+                    "email": item["Email"],
+                    "first_name": item["First Name"],
+                    "company_name": item["Company"],
+                    "custom_fields": {
+                        "subject_line": item["Subject Line"],
+                        "email_body": item["Email Body"],
+                    },
+                }
+                for item in leads_payload
+            ]
+            resp = requests.post(
+                f"https://server.smartlead.ai/api/v1/campaigns/{SMARTLEAD_CAMPAIGN_ID}/leads?api_key={SMARTLEAD_API_KEY}",
+                json={
+                    "lead_list": smartlead_leads,
+                    "settings": {
+                        "ignore_global_block_list": False,
+                        "ignore_unsubscribe_list": False,
+                        "ignore_duplicate_leads_in_other_campaign": True,
+                    },
+                },
+                timeout=30,
+            )
+            resp.raise_for_status()
+            print(f"[+] Successfully synced {len(smartlead_leads)} leads to Smartlead.ai!", flush=True)
+        except Exception as sl_err:
+            err_msg = f"Smartlead.ai API sync warning: {sl_err}"
+            print(f"[!] {err_msg}", flush=True)
+            send_discord_alert(err_msg)
+
+
 def generate_outreach():
     if not SUPABASE_URL or not SUPABASE_KEY:
         err = "SUPABASE_URL or SUPABASE_KEY not found in .env"
@@ -167,7 +265,6 @@ def generate_outreach():
         response = (
             supabase.table(TABLE_NAME)
             .select("*")
-            .eq("status", "New Lead")
             .order("id", desc=True)
             .limit(200)
             .execute()
@@ -175,12 +272,12 @@ def generate_outreach():
         records = response.data if response and getattr(response, "data", None) else []
 
         if not records:
-            print("[!] No active contracts with status='New Lead' found in Supabase.", flush=True)
+            print("[!] No contracts found in Supabase.", flush=True)
             return
 
         today = datetime.now().date()
         tech_contracts = []
-        expired_Skipped = 0
+        expired_skipped = 0
 
         for rec in records:
             title = str(rec.get("title") or "").strip()
@@ -190,13 +287,13 @@ def generate_outreach():
             if any(re.search(pattern, title_lower) for pattern in commodity_it_exclusions):
                 continue
             if not is_contract_open(rec, today=today):
-                expired_Skipped += 1
+                expired_skipped += 1
                 continue
             if any(re.search(pattern, title_lower) for pattern in tech_keywords):
                 tech_contracts.append(rec)
 
-        if expired_Skipped > 0:
-            print(f"[*] Filtered out {expired_Skipped} expired contract(s) with closing_date < {today}.", flush=True)
+        if expired_skipped > 0:
+            print(f"[*] Filtered out {expired_skipped} expired contract(s) with closing_date < {today}.", flush=True)
 
         if not tech_contracts:
             print("[!] FATAL: Zero open IT/Cyber contracts found in Supabase. Run mainscraper.py first.", flush=True)
@@ -222,6 +319,8 @@ def generate_outreach():
             return
 
         print("[*] Reading Apollo contacts and generating personalized zero-touch email payloads...", flush=True)
+
+        leads_for_api = []
 
         with open(apollo_file, mode="r", encoding="utf-8-sig") as infile, \
              open(output_file, mode="w", newline="", encoding="utf-8") as outfile:
@@ -260,21 +359,26 @@ def generate_outreach():
                     f"I noticed {company} works in the tech space and wanted to send you {bid_count} live, active bids that just hit the wire:\n\n"
                     f"{payload_text}\n"
                     f"My automated system pulls high-value IT & cybersecurity RFPs every 6 hours and strips out 99% of commodity and renewal noise. "
-                    f"You can get instant access to the live private Discord wire right here:\n\n"
+                    f"You can browse our public directory ({SITE_BASE_URL}/contracts/index.html) or get instant access to the live private Discord wire right here:\n\n"
                     f"{whop_checkout_url}\n\n"
                     f"No sales calls, no demos. $99/mo. Cancel anytime."
                 )
 
-                writer.writerow({
+                lead_item = {
                     "First Name": fname,
                     "Email": email,
                     "Company": company,
                     "Subject Line": subject,
                     "Email Body": body,
-                })
+                }
+                writer.writerow(lead_item)
+                leads_for_api.append(lead_item)
                 count += 1
 
         print(f"[+] Success! Generated {count} personalized outreach emails in {output_file}.", flush=True)
+
+        # Trigger Option C Zero-Touch Cold Email API Sync if credentials are set in .env
+        sync_leads_to_cold_email_api(leads_for_api)
 
     except Exception as e:
         err_msg = f"outreach_generator.py error: {e}"
