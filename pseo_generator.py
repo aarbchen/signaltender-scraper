@@ -113,6 +113,44 @@ CATEGORIES = {
     },
 }
 
+COMMODITY_IT_EXCLUSIONS = [
+    r"bulk\s*mail(er)?",
+    r"mail\s*manager",
+    r"\bink\b",
+    r"\btoner\b",
+    r"cartridge",
+    r"license\s*renewal",
+    r"software\s*renewal",
+    r"subscription\s*renewal",
+    r"maintenance\s*renewal",
+    r"support\s*renewal",
+    r"seats?\s*renewal",
+    r"saas\s*renewal",
+    r"hardware\s*renewal",
+    r"off-the-shelf",
+    r"\bcots\b.*renewal",
+    r"smartnet\s*renewal",
+    r"smoke\s*and\s*fire",
+    r"fire\s*detection\s*alarm",
+    r"\bhvac\b",
+    r"^50001",
+    r"^cor-(ent|off|pro|stp)",
+    r"^smart(-dt|-rti|-so|essential|mcms)",
+    r"^wts-mobile-software-subscription",
+    r"^(csv|ctb|hfm|lin|lot|pci|ten|xml)\s+software\s+support",
+    r"^software\s+synergy\s+(basic|professional)",
+    r"^oms-500-enterprise",
+    r"virtual\s+printer\s+driver",
+]
+
+
+def is_commodity_it_spam(title: str) -> bool:
+    if not title:
+        return True
+    t_lower = str(title).strip().lower()
+    return any(re.search(pat, t_lower) for pat in COMMODITY_IT_EXCLUSIONS)
+
+
 
 def send_discord_alert(message: str):
     if not DISCORD_WEBHOOK_URL:
@@ -389,10 +427,15 @@ def generate_pseo_site() -> int:
         today = datetime.now().date()
         enriched_contracts = []
         seen_slugs = set()
+        spam_ids_to_purge = []
 
         for idx, rec in enumerate(raw_records, 1):
             raw_title = str(rec.get("title") or "").strip()
             if not raw_title:
+                continue
+            if is_commodity_it_spam(raw_title):
+                if rec.get("id"):
+                    spam_ids_to_purge.append(rec["id"])
                 continue
             due_dt = parse_due_date(rec)
             if due_dt is not None and due_dt < today:
@@ -421,9 +464,22 @@ def generate_pseo_site() -> int:
                 "categories": cats,
             })
 
-        # Prepare directories
+        if spam_ids_to_purge:
+            try:
+                supabase.table(TABLE_NAME).delete().in_("id", spam_ids_to_purge).execute()
+                print(f"[+] Purged {len(spam_ids_to_purge)} legacy pre-filter catalog/spam row(s) from Supabase.", flush=True)
+            except Exception as del_err:
+                print(f"[!] Could not delete legacy spam rows from Supabase: {del_err}", flush=True)
+
+        # Prepare directories and remove any stale/expired RFP HTML files
         rfp_dir = os.path.join(OUTPUT_DIR, "rfp")
         os.makedirs(rfp_dir, exist_ok=True)
+        for existing_file in os.listdir(rfp_dir):
+            if existing_file.endswith(".html"):
+                try:
+                    os.remove(os.path.join(rfp_dir, existing_file))
+                except Exception:
+                    pass
         for j_key in JURISDICTIONS:
             os.makedirs(os.path.join(OUTPUT_DIR, j_key), exist_ok=True)
 
