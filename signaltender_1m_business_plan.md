@@ -7,43 +7,37 @@
 
 ## 1. Critique of the Previous AI Business Plan (Why It Would Cap Out at ~$5k–$10k MRR)
 
-The previous [SignalTender Zero-Touch DaaS Business Plan](file:///d:/Daas/SignalTender%20Zero-Touch%20DaaS%20Business%20Plan.pdf) had the right philosophy (zero-touch checkout), but its unit economics and acquisition math were fundamentally broken:
-
-1. **The $99/mo High-Churn Treadmill:** Needing **500 active low-ticket customers** ($99–$149/mo) means fighting an 8%–12% monthly SMB churn rate. At 10% monthly churn, you must acquire **50 brand-new paying customers every single month** just to stay flat—requiring massive, hands-on ad spend or constant cold-email domain replacement.
-2. **Impossible RapidAPI Call Volume:** Projecting **2,500,000 API calls/month at $0.01/call** ignores that the entire US government doesn't publish 2.5M IT RFPs per year. Furthermore, charging $0.01/call on an endpoint powered by Anthropic Claude (`claude-sonnet-5-5`) would result in **negative gross margins** once token costs and RapidAPI's 20%–25% commission are deducted.
-3. **Underpricing in a High-Ticket Vertical:** Legacy GovCon platforms (GovWin IQ / Deltek, HigherGov, Bloomberg Gov) charge **$12,000 to $35,000/year**. Charging $99/mo for a single global Discord channel leaves 80% of corporate-card willingness-to-pay on the table. A GovCon VP of Capture can expense **$299–$499/mo** on a corporate Amex with zero CFO approval.
-4. **Hidden Manual Labor:** Exporting CSVs from Apollo by hand and maintaining brittle DOM scrapers across dozens of portals would turn into a 20-hour/week job during midterms or work sprints unless the pipeline is built on **API-first ingestion** and **autonomous trigger-based outbound**.
+1. **The $99/mo High-Churn Treadmill:** Needing **500 active low-ticket customers** ($99–$149/mo) means fighting an 8%–12% monthly SMB churn rate. At 10% monthly churn, you must acquire **50 brand-new paying customers every single month** just to stay flat.
+2. **Mispriced API Model ($0.01/call vs. Tiered Multi-API Portfolio):** Projecting **2,500,000 API calls/month at $0.01/call** on a single endpoint is unrealistic in niche B2B and destroys LLM token margins. Instead, scaling a **portfolio of 10+ specialized B2B/GovCon APIs** on `$49–$299/mo` RapidAPI subscription tiers creates compounding recurring revenue with 90%+ gross margins.
+3. **Underpricing in a High-Ticket Vertical:** Legacy GovCon platforms (GovWin IQ / Deltek, HigherGov, Bloomberg Gov) charge **$12,000 to $35,000/year**. Charging $99/mo for a single global Discord channel leaves 80% of corporate-card willingness-to-pay on the table.
+4. **Hidden Manual Labor:** Exporting CSVs from Apollo by hand and maintaining brittle DOM scrapers would turn into a 20-hour/week job during midterms or work sprints unless the pipeline is built on **stateless API microservices** and **autonomous outbound**.
 
 ---
 
-## 2. The New $1M ARR Equation: Higher ARPU, Lower Churn, Fewer Customers
+## 2. The New $1M ARR Equation: Multi-API Portfolio + Self-Serve Capture Tiers
 
-Instead of chasing 500 high-churn $99 users and 2.5 million $0.01 API calls, we shift to **Value-Ladder Self-Serve Tiers** backed by the exact same Supabase PostgreSQL engine (`contracts` table) and FastAPI microservices ([`apis.html`](file:///d:/Daas/apis.html)):
+Because all of your FastAPI microservices run on **one unified Render gateway** (`b2b-contract-parser-api.onrender.com`), every new API you launch costs **$0 in extra hosting** while acting as a brand-new organic storefront on RapidAPI and MCP registries.
 
-| Revenue Pillar | Self-Serve Product | Price Point | Target Active Customers | Monthly Recurring Revenue (MRR) | Annualized Run Rate (ARR) |
+| Revenue Pillar | Self-Serve Product | Price Point | Target Active Volume | Monthly Recurring Revenue (MRR) | Annualized Run Rate (ARR) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Tier 1: SignalWire Pro** | Real-Time Multi-State SLED + Federal Discord/Email/Slack Alert Wire (via Whop) | **$149 / mo** *(or $1,490/yr)* | **150 seats** | **$22,350** | **$268,200** |
-| **Tier 2: CaptureDesk Autopilot** | State/NAICS Custom Filtered Webhook + **AI Bid/No-Bid Dossier + CLIN Pricing + Risk Audit** per RFP | **$399 / mo** *(or $3,990/yr)* | **110 teams** | **$43,890** | **$526,680** |
-| **Tier 3: GovCon API & MCP Suite** | Bundled RapidAPI + MCP Server Subscriptions (`Pro` $49, `Ultra` $149, `Mega` $299) | **~$165 / mo avg** | **115 API keys** | **$18,975** | **$227,700** |
-| **TOTAL** | **100% Self-Serve (Whop + Stripe + RapidAPI)** | **~$227 Blended ARPU** | **375 Total Accounts** | **$85,215 / mo** | **$1,022,580 / yr** |
+| **Tier 1: SignalWire Pro** | Real-Time Multi-State SLED + Federal Discord/Email Alert Wire (via Whop) | **$149 / mo** *(or $1,490/yr)* | **120 seats** | **$17,880** | **$214,560** |
+| **Tier 2: CaptureDesk Autopilot** | State/NAICS Filtered Webhook + **Automated Multi-API Capture Dossiers** per RFP | **$399 / mo** *(or $3,990/yr)* | **85 teams** | **$33,915** | **$406,980** |
+| **Tier 3: 10+ API & MCP Portfolio** | **10–12 Stateless B2B/GovCon APIs** on RapidAPI (`Pro` $49, `Ultra` $149, `Mega` $299) | **~$150 / mo avg** *(~23 subs per API)* | **230 API subscriptions** *(across 10 APIs)* | **$34,500** | **$414,000** |
+| **TOTAL** | **100% Self-Serve (Whop + RapidAPI + MCP)** | **~$198 Blended ARPU** | **435 Total Subscriptions** | **$86,295 / mo** | **$1,035,540 / yr** |
 
 ---
 
-## 3. Product Architecture: Turning Your Existing Code Into a 3-Tier Engine
+## 3. The 10-API Portfolio Roadmap (One FastAPI Gateway, 10 RapidAPI Storefronts)
 
-1. **Tier 1 — SignalWire Pro ($149/mo via Whop):**
-   - **What it is:** Your current live Discord wire + daily email digest.
-   - **Upgrade to reduce churn:** Split the Discord server into state/federal channels (`#federal-sam`, `#texas-esbd`, `#virginia-eva`, `#california`, `#florida`, `#maryland`, `#municipal-demandstar`) using separate Discord channel webhooks in `.env`.
-2. **Tier 2 — CaptureDesk Autopilot ($399/mo via Whop / Stripe):**
-   - **What it is:** Whenever [`mainscraper.py`](file:///d:/Daas/mainscraper.py) inserts a net-new contract into Supabase, a background task automatically passes that contract through your own 3 FastAPI endpoints (`POST /v1/parse/contract`, `POST /v1/parse/contract-risks`, `POST /v1/awards/search`) to generate a **1-Page AI Capture Dossier**.
-3. **Tier 3 — Developer & Agentic MCP Suite ($49–$299/mo via RapidAPI):**
-   - **What it is:** Your 3 existing RapidAPI microservices, plus `GET /v1/solicitations/live` backed by your Supabase `contracts` table, wrapped in a lightweight **Model Context Protocol (MCP)** package.
-
----
-
-## 4. Phased Roadmap to $1M ARR (< 2 Hours/Week Effort)
-
-- **Phase 1 (Oct 16 – Oct 31):** Launch Programmatic SEO (pSEO) static page & sitemap generator (`pseo_generator.py`), keep cold email domains warming up, and prepare 5,000 verified GovCon contacts.
-- **Phase 2 (Nov – Month 3):** Launch automated Instantly/Smartlead campaigns via [`outreach_generator.py`](file:///d:/Daas/outreach_generator.py) and add API-backed SLED portals.
-- **Phase 3 (Months 4 – 9):** Wire Supabase new-lead triggers into the 3 FastAPI microservices to power the **$399/mo CaptureDesk Autopilot** tier.
-- **Phase 4 (Months 10 – 24):** Publish `@signaltender/mcp-server`, turn on Whop's 30% recurring affiliate network, and scale to **$85k+ MRR ($1M+ ARR)**.
+| API # | Endpoint & RapidAPI Product Name | What It Does (Stateless Input -> Output) | Target RapidAPI Buyer |
+| :--- | :--- | :--- | :--- |
+| **01 (Live)** | `POST /v1/parse/contract`<br>**B2B Contract Parsing API** | Converts raw RFP/SOW text into structured `ContractExtraction` JSON (budget, deadline, deliverables, clearances). | CRM & GovCon SaaS developers |
+| **02 (Live)** | `POST /v1/parse/contract-risks`<br>**AI Contract Risk & Redline Auditor API** | Audits MSAs/NDAs/Subcontracts for toxic clauses and outputs verbatim quotes + ready-to-paste legal redlines. | LegalTech, CLM tools, Deal Desks |
+| **03 (Live)** | `POST /v1/awards/search`<br>**Historical Procurement Pricing API** | Queries federal contract awards, prime contractor win histories, and CLIN unit pricing by NAICS/UEI/keyword. | Price-to-Win (PTW) & BI analysts |
+| **04 (Next)** | `GET /v1/solicitations/live`<br>**Live SLED & Federal Open RFP Feed API** | Exposes your live, AI-vetted 7-portal Supabase `contracts` table via REST filters (`state`, `category`, `closing_after`). | AI sales agents & GovCon dashboards |
+| **05 (Next)** | `POST /v1/generate/compliance-matrix`<br>**RFP Shipley Compliance Matrix Generator API** | Takes raw RFP Section L & M / SOW text and outputs a complete **Section-by-Section Proposal Compliance Matrix & Outline** JSON. | Proposal automation software & bid writers |
+| **06 (Next)** | `POST /v1/audit/far-dfars-clauses`<br>**FAR / DFARS & CMMC Clause Risk Scanner API** | Detects every Federal Acquisition Regulation (`FAR 52.2xx` / `DFARS 252.2xx`) clause in a solicitation, flags flow-down mandates, and scores CMMC/FedRAMP compliance burden. | Defense contractors & compliance platforms |
+| **07 (Next)** | `POST /v1/match/capability-statement`<br>**AI Bid/No-Bid & Capability Matcher API** | Accepts `(rfp_text, company_past_performance)` and outputs a **0–100 Pwin (Probability of Win) Score**, gap analysis, and tailored executive summary pitch. | GovCon capture teams & AI SDRs |
+| **08 (Next)** | `POST /v1/classify/naics-psc-nigp`<br>**Autonomous NAICS / PSC / NIGP Code Classifier API** | Maps any product description, SOW, or company website text to exact 6-digit **NAICS**, Federal **PSC**, and State **NIGP/UNSPSC** commodity codes with confidence scores. | FinTech, ERP, and vendor-onboarding platforms |
+| **09 (Next)** | `POST /v1/generate/rfp-questions`<br>**Vendor Q&A & Spec-Shaping Generator API** | Analyzes an RFP for ambiguous requirements or competitor-wired specs and generates **strategic vendor clarification questions** to shape the amendment in the user's favor. | Capture managers & proposal consultants |
+| **10 (Next)** | `POST /v1/extract/pricing-schedule`<br>**B2B Quote, Invoice & CLIN Table Extractor API** | Extracts messy multi-tier pricing tables, labor rate cards (LPTA/T&M), and BOM spreadsheets from unstructured vendor quotes into normalized JSON. | FinOps, procurement teams & ERP integrators |

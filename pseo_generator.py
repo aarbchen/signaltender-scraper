@@ -830,9 +830,15 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         with open(ROBOTS_PATH, "w", encoding="utf-8") as f:
             f.write(robots_txt)
 
+        # 5. Inject embedded SPA directory & dossier router into index.html
+        #    so isolated single-HTML deployments (like signaltender.net on Render)
+        #    serve all State Hubs, Category Filters, and RFP Dossiers with zero 404s.
+        _inject_spa_directory_into_index(enriched_contracts)
+
         print(
             f"[+] Programmatic SEO build complete! Generated {pages_built} static HTML pages in /contracts "
-            f"({len(enriched_contracts)} individual RFP dossiers + 36 state/category hubs) and updated sitemap.xml.",
+            f"({len(enriched_contracts)} individual RFP dossiers + 36 state/category hubs), updated sitemap.xml, "
+            f"and synced embedded SPA directory in index.html.",
             flush=True,
         )
         return pages_built
@@ -849,5 +855,389 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         return 0
 
 
+def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
+    index_path = os.path.join(BASE_DIR, "index.html")
+    if not os.path.exists(index_path):
+        return
+
+    with open(index_path, "r", encoding="utf-8") as f:
+        index_html = f.read()
+
+    # 1. Update PSEO_HUB_BAR_START .. PSEO_HUB_BAR_END
+    hub_bar_html = f"""<!-- PSEO_HUB_BAR_START -->
+          <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+            <div class="flex flex-wrap items-center gap-2 text-slate-300">
+              <span class="text-slate-400">BROWSE STATE HUBS:</span>
+              <a href="#contracts/federal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-400">Federal (SAM)</a>
+              <a href="#contracts/texas" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Texas</a>
+              <a href="#contracts/virginia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-400">Virginia</a>
+              <a href="#contracts/california" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">California</a>
+              <a href="#contracts/florida" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
+              <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
+              <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
+            </div>
+            <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
+              Explore All {len(enriched_contracts)} Live IT &amp; Cyber Solicitations &rarr;
+            </a>
+          </div>
+          <!-- PSEO_HUB_BAR_END -->"""
+
+    if "<!-- PSEO_HUB_BAR_START -->" in index_html and "<!-- PSEO_HUB_BAR_END -->" in index_html:
+        index_html = re.sub(
+            r"<!-- PSEO_HUB_BAR_START -->.*?<!-- PSEO_HUB_BAR_END -->",
+            lambda _: hub_bar_html,
+            index_html,
+            flags=re.DOTALL,
+        )
+
+    # 2. Prepare JSON payload for embedded SPA directory
+    spa_contracts = []
+    for c in enriched_contracts:
+        cat_key = c["categories"][0]
+        tags = CATEGORIES.get(cat_key, CATEGORIES["software-development"])["tags"]
+        spa_contracts.append({
+            "id": c["id"],
+            "slug": c["slug"],
+            "clean_title": c["clean_title"],
+            "raw_title": c["raw_title"],
+            "agency": c["agency"],
+            "masked_agency": c["masked_agency"],
+            "due_str": c["due_str"] or "Open / See Portal",
+            "jurisdiction": c["jurisdiction"],
+            "categories": c["categories"],
+            "tags": tags[:2],
+        })
+
+    contracts_json = json.dumps(spa_contracts)
+    jurisdictions_json = json.dumps(JURISDICTIONS)
+    categories_json = json.dumps({k: {"name": v["name"], "tags": v["tags"]} for k, v in CATEGORIES.items()})
+
+    contracts_view_html = f"""<!-- PSEO_CONTRACTS_VIEW_START -->
+  <div id="page-contracts" class="hidden">
+    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">7 PORTALS ACTIVE</span></span>
+        </div>
+        <div class="flex items-center space-x-4 font-mono text-slate-400">
+          <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
+          <span>|</span>
+          <a href="#apis" class="hover:text-sky-400 transition-colors">Developer APIs</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <a href="#overview" class="flex items-center space-x-3 shrink-0">
+          <span class="text-lg font-bold tracking-tight text-white">SignalTender</span>
+          <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">LIVE RFP INDEX</span>
+        </a>
+        <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
+          <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
+          <a href="#contracts/federal" class="hover:text-sky-400 transition-colors">Federal</a>
+          <a href="#contracts/texas" class="hover:text-sky-400 transition-colors">Texas</a>
+          <a href="#contracts/virginia" class="hover:text-sky-400 transition-colors">Virginia</a>
+          <a href="#contracts/california" class="hover:text-sky-400 transition-colors">California</a>
+          <a href="#contracts/florida" class="hover:text-sky-400 transition-colors">Florida</a>
+          <a href="#contracts/maryland" class="hover:text-sky-400 transition-colors">Maryland</a>
+          <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
+        </nav>
+        <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
+          Unlock All RFP Links &rarr;
+        </a>
+      </div>
+    </header>
+
+    <main id="contracts-dynamic-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-[65vh]"></main>
+  </div>
+
+  <script>
+    window.SIGNALTENDER_CONTRACTS = {contracts_json};
+    window.SIGNALTENDER_JURISDICTIONS = {jurisdictions_json};
+    window.SIGNALTENDER_CATEGORIES = {categories_json};
+
+    (function () {{
+      function esc(str) {{
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }}
+
+      function renderRows(list) {{
+        if (!list || !list.length) {{
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 7 portals.</td></tr>';
+        }}
+        var J = window.SIGNALTENDER_JURISDICTIONS;
+        return list.map(function (c) {{
+          var jm = J[c.jurisdiction] || J.federal;
+          var tagsHtml = (c.tags || []).map(function (t) {{
+            return '<span class="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">' + esc(t) + '</span>';
+          }}).join(' ');
+          return '<tr class="border-b border-slate-800/80 hover:bg-slate-900/60 transition-colors">' +
+            '<td class="py-4 px-5 font-mono whitespace-nowrap align-top">' +
+              '<a href="#contracts/' + esc(c.jurisdiction) + '" class="inline-flex items-center whitespace-nowrap px-2.5 py-0.5 rounded border text-[11px] ' + esc(jm.badge_class) + '">' + esc(jm.short.toUpperCase()) + '</a>' +
+            '</td>' +
+            '<td class="py-4 px-5 align-top">' +
+              '<a href="#contracts/rfp/' + esc(c.slug) + '" class="font-semibold text-white hover:text-sky-400 transition-colors text-sm block">' + esc(c.clean_title) + '</a>' +
+              '<div class="mt-1.5 flex flex-wrap gap-1.5 text-[11px] font-mono">' + tagsHtml + '</div>' +
+            '</td>' +
+            '<td class="py-4 px-4 text-slate-300 text-xs align-top">' + esc(c.masked_agency) + '</td>' +
+            '<td class="py-4 px-4 font-mono text-amber-300 text-xs whitespace-nowrap align-top">' + esc(c.due_str) + '</td>' +
+            '<td class="py-4 px-5 text-right font-mono whitespace-nowrap align-top">' +
+              '<a href="#contracts/rfp/' + esc(c.slug) + '" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">' +
+                '<span>View RFP Dossier</span><span class="ml-1.5">&rarr;</span>' +
+              '</a>' +
+            '</td>' +
+          '</tr>';
+        }}).join('');
+      }}
+
+      window.renderContractsRoute = function (rawHash) {{
+        var root = document.getElementById('contracts-dynamic-root');
+        if (!root) return;
+        var clean = String(rawHash || '#contracts')
+          .replace(/^#/, '')
+          .replace(/\\/index\\.html$/, '')
+          .replace(/\\.html$/, '')
+          .replace(/\\/+$/, '');
+        var parts = clean.split('/');
+        var all = window.SIGNALTENDER_CONTRACTS || [];
+        var J = window.SIGNALTENDER_JURISDICTIONS || {{}};
+        var C = window.SIGNALTENDER_CATEGORIES || {{}};
+
+        // Case 1: Individual RFP Dossier (#contracts/rfp/<slug>)
+        if (parts[1] === 'rfp' && parts[2]) {{
+          var slug = parts.slice(2).join('/');
+          var item = null;
+          for (var i = 0; i < all.length; i++) {{
+            if (all[i].slug === slug) {{ item = all[i]; break; }}
+          }}
+          if (!item) {{
+            root.innerHTML = '<div class="p-8 rounded-2xl bg-navy-900 border border-slate-800 text-center space-y-4">' +
+              '<div class="text-lg font-bold text-white">Solicitation Dossier Archived or Expired</div>' +
+              '<p class="text-xs text-slate-400 font-mono">This solicitation may have passed its closing date and been automatically purged.</p>' +
+              '<a href="#contracts" class="inline-flex items-center px-4 py-2 rounded bg-sky-600 text-white text-xs font-mono">Browse All Active RFPs &rarr;</a>' +
+            '</div>';
+            return;
+          }}
+          var jm = J[item.jurisdiction] || J.federal;
+          var catKey = (item.categories && item.categories[0]) || 'software-development';
+          var cm = C[catKey] || {{ name: 'Enterprise IT & Software' }};
+          document.title = item.clean_title + ' | ' + jm.short + ' Government IT RFP | SignalTender';
+
+          var related = all.filter(function (o) {{ return o.jurisdiction === item.jurisdiction && o.slug !== item.slug; }}).slice(0, 5);
+          var relatedHtml = related.length ? related.map(function (r) {{
+            return '<li class="py-2 border-b border-slate-800/70"><a href="#contracts/rfp/' + esc(r.slug) + '" class="text-sky-400 hover:underline font-medium">' + esc(r.clean_title) + '</a> <span class="text-slate-500 font-mono text-xs ml-2">(' + esc(r.due_str) + ')</span></li>';
+          }}).join('') : '<li class="text-slate-400 text-xs font-mono">Browse more opportunities in the portal hub above.</li>';
+
+          root.innerHTML =
+            '<div class="mb-6 text-xs font-mono text-slate-400 flex flex-wrap items-center gap-2">' +
+              '<a href="#contracts" class="hover:text-sky-400">All Contracts</a><span>/</span>' +
+              '<a href="#contracts/' + esc(item.jurisdiction) + '" class="hover:text-sky-400">' + esc(jm.name) + '</a><span>/</span>' +
+              '<span class="text-slate-200">' + esc(item.slug.slice(0, 45)) + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">' +
+              '<div class="lg:col-span-8 space-y-6">' +
+                '<div class="p-6 sm:p-8 rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl space-y-5">' +
+                  '<div class="flex flex-wrap items-center gap-2.5 font-mono text-xs">' +
+                    '<span class="px-2.5 py-1 rounded border font-semibold ' + esc(jm.badge_class) + '">' + esc(jm.name.toUpperCase()) + '</span>' +
+                    '<span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">STATUS: OPEN LEAD</span>' +
+                    '<span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">' + esc(cm.name) + '</span>' +
+                  '</div>' +
+                  '<h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">' + esc(item.clean_title) + '</h1>' +
+                  '<p class="text-slate-300 text-sm leading-relaxed">' +
+                    'Verified active government IT/cybersecurity solicitation monitored on <strong class="text-white">' + esc(jm.portal) + '</strong>. ' +
+                    'Pre-vetted by SignalTender AI for B2B software, cloud, cybersecurity, or systems integration scope (all commodity office supply and maintenance renewal noise excluded).' +
+                  '</p>' +
+                  '<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-800/80 text-xs font-mono">' +
+                    '<div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">' +
+                      '<div class="text-slate-400">ISSUING AGENCY</div>' +
+                      '<div class="text-white font-semibold mt-1">' + esc(item.masked_agency) + '</div>' +
+                    '</div>' +
+                    '<div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">' +
+                      '<div class="text-slate-400">RESPONSE DEADLINE</div>' +
+                      '<div class="text-amber-300 font-semibold mt-1">' + esc(item.due_str) + '</div>' +
+                    '</div>' +
+                    '<div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">' +
+                      '<div class="text-slate-400">SOURCE PORTAL</div>' +
+                      '<div class="text-sky-400 font-semibold mt-1">' + esc(jm.portal) + '</div>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="mt-6 p-6 rounded-xl bg-navy-950 border-2 border-sky-500/40 space-y-4">' +
+                    '<div class="flex items-center justify-between">' +
+                      '<span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">// SUBSCRIBER-ONLY PROCUREMENT DOSSIER</span>' +
+                      '<span class="text-xs font-mono text-emerald-400">INSTANT ACCESS</span>' +
+                    '</div>' +
+                    '<div class="space-y-2 text-xs font-mono text-slate-400">' +
+                      '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
+                      '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
+                      '<div><strong class="text-slate-200">AI Redline &amp; Historical CLIN Pricing Brief:</strong> <span class="blur-sm select-none">Included in CaptureDesk Autopilot</span></div>' +
+                    '</div>' +
+                    '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
+                      '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
+                        'Unlock Direct RFP Link &amp; Discord Wire &rarr;' +
+                      '</a>' +
+                      '<a href="#apis" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-colors">' +
+                        'Parse SOW via API' +
+                      '</a>' +
+                    '</div>' +
+                    '<p class="text-[11px] font-mono text-slate-400">No sales calls, no demos. Instant 60-second access via Whop. Cancel anytime.</p>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">' +
+                  '<h2 class="text-base font-bold text-white font-mono uppercase tracking-wider mb-3">More Open ' + esc(jm.short) + ' IT Solicitations</h2>' +
+                  '<ul class="text-sm space-y-1">' + relatedHtml + '</ul>' +
+                '</div>' +
+              '</div>' +
+              '<div class="lg:col-span-4 space-y-6">' +
+                '<div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 space-y-4">' +
+                  '<div class="text-xs font-mono text-sky-400 uppercase font-semibold">SIGNALWIRE PRO</div>' +
+                  '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
+                  '<p class="text-xs text-slate-300 leading-relaxed">' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 5-State SLED (TX, VA, CA, FL, MD) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                  '</p>' +
+                  '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
+                    '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
+                    '<li>&check; Direct One-Click Official Portal Links</li>' +
+                    '<li>&check; Instant Discord + Automated Feed Access</li>' +
+                  '</ul>' +
+                  '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
+                    'Start Getting Leads &rarr;' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+          return;
+        }}
+
+        // Case 2: Jurisdiction Hub (#contracts/<jurisdiction> or #contracts/<jurisdiction>/<category>)
+        var jKey = parts[1];
+        if (jKey && J[jKey]) {{
+          var jmHub = J[jKey];
+          var activeCat = parts[2] && C[parts[2]] ? parts[2] : null;
+          var jList = all.filter(function (c) {{
+            if (c.jurisdiction !== jKey) return false;
+            if (activeCat && (!c.categories || c.categories.indexOf(activeCat) === -1)) return false;
+            return true;
+          }});
+
+          document.title = (activeCat ? (jmHub.short + ' ' + C[activeCat].name + ' RFPs | ') : (jmHub.headline + ' | ')) + 'SignalTender';
+
+          var pills = '<a href="#contracts/' + esc(jKey) + '" class="px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors ' +
+            (!activeCat ? 'bg-sky-600 text-white border-sky-400' : 'bg-navy-900 hover:bg-slate-800 border-slate-700 text-slate-300') + '">All ' + esc(jmHub.short) + ' IT Bids</a>';
+          Object.keys(C).forEach(function (ck) {{
+            var isAct = activeCat === ck;
+            pills += ' <a href="#contracts/' + esc(jKey) + '/' + esc(ck) + '" class="px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors ' +
+              (isAct ? 'bg-sky-600 text-white border-sky-400' : 'bg-navy-900 hover:bg-slate-800 border-slate-700 text-sky-400') + '">' + esc(C[ck].name) + '</a>';
+          }});
+
+          root.innerHTML =
+            '<div class="mb-6 text-xs font-mono text-slate-400 flex items-center gap-2">' +
+              '<a href="#contracts" class="hover:text-sky-400">&larr; All Portals Directory</a>' +
+              '<span>/</span>' +
+              '<span class="text-white">' + esc(jmHub.name) + '</span>' +
+              (activeCat ? ('<span>/</span><span class="text-sky-400">' + esc(C[activeCat].name) + '</span>') : '') +
+            '</div>' +
+            '<div class="mb-8 space-y-4">' +
+              '<div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono ' + esc(jmHub.badge_class) + '">' +
+                '// ' + esc(jmHub.portal.toUpperCase()) + ' &bull; ' + jList.length + ' ACTIVE IT SOLICITATIONS' +
+              '</div>' +
+              '<h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">' +
+                esc(activeCat ? (jmHub.short + ' ' + C[activeCat].name + ' Government Contracts & RFPs') : jmHub.headline) +
+              '</h1>' +
+              '<p class="text-slate-300 text-sm sm:text-base max-w-3xl">' +
+                esc(jmHub.description) + ' Filtered automatically every 6 hours by SignalTender\\'s 3-layer B2B quality control engine.' +
+              '</p>' +
+              '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
+            '</div>' +
+            '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +
+              '<div class="overflow-x-auto">' +
+                '<table class="w-full text-left border-collapse">' +
+                  '<thead>' +
+                    '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
+                      '<th class="py-4 px-5">Jurisdiction</th>' +
+                      '<th class="py-4 px-5">Solicitation Title &amp; Scope</th>' +
+                      '<th class="py-4 px-4">Issuing Agency</th>' +
+                      '<th class="py-4 px-4">Closing Date</th>' +
+                      '<th class="py-4 px-5 text-right">Dossier</th>' +
+                    '</tr>' +
+                  '</thead>' +
+                  '<tbody class="text-xs">' + renderRows(jList) + '</tbody>' +
+                '</table>' +
+              '</div>' +
+            '</div>';
+          return;
+        }}
+
+        // Case 3: Master Directory (#contracts)
+        document.title = 'Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender';
+        var cardsHtml = Object.keys(J).map(function (jk) {{
+          var jmCard = J[jk];
+          var cnt = all.filter(function (c) {{ return c.jurisdiction === jk; }}).length;
+          return '<a href="#contracts/' + esc(jk) + '" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">' +
+            '<div>' +
+              '<span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold ' + esc(jmCard.badge_class) + '">' + esc(jmCard.short.toUpperCase()) + '</span>' +
+              '<h2 class="text-lg font-bold text-white mt-3">' + esc(jmCard.name) + '</h2>' +
+              '<p class="text-xs text-slate-400 mt-1">' + esc(jmCard.description) + '</p>' +
+            '</div>' +
+            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">' +
+              '<span class="text-emerald-400">' + cnt + ' Open Leads</span>' +
+              '<span class="text-sky-400">Browse Hub &rarr;</span>' +
+            '</div>' +
+          '</a>';
+        }}).join('');
+
+        root.innerHTML =
+          '<div class="mb-10 space-y-4">' +
+            '<div class="inline-flex items-center px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">' +
+              '// LIVE GOVCON DIRECTORY &bull; ' + all.length + ' VERIFIED OPEN IT SOLICITATIONS' +
+            '</div>' +
+            '<h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">' +
+              'Federal &amp; State SLED IT Contract Directory' +
+            '</h1>' +
+            '<p class="text-slate-300 text-base max-w-3xl">' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, and Maryland.' +
+            '</p>' +
+          '</div>' +
+          '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
+          '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
+          '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +
+            '<div class="overflow-x-auto">' +
+              '<table class="w-full text-left border-collapse">' +
+                '<thead>' +
+                  '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
+                    '<th class="py-4 px-5">Jurisdiction</th>' +
+                    '<th class="py-4 px-5">Solicitation Title &amp; Scope</th>' +
+                    '<th class="py-4 px-4">Issuing Agency</th>' +
+                    '<th class="py-4 px-4">Closing Date</th>' +
+                    '<th class="py-4 px-5 text-right">Dossier</th>' +
+                  '</tr>' +
+                '</thead>' +
+                '<tbody class="text-xs">' + renderRows(all) + '</tbody>' +
+              '</table>' +
+            '</div>' +
+          '</div>';
+      }};
+    }})();
+  </script>
+  <!-- PSEO_CONTRACTS_VIEW_END -->"""
+
+    if "<!-- PSEO_CONTRACTS_VIEW_START -->" in index_html and "<!-- PSEO_CONTRACTS_VIEW_END -->" in index_html:
+        index_html = re.sub(
+            r"<!-- PSEO_CONTRACTS_VIEW_START -->.*?<!-- PSEO_CONTRACTS_VIEW_END -->",
+            lambda _: contracts_view_html,
+            index_html,
+            flags=re.DOTALL,
+        )
+
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(index_html)
+
+
 if __name__ == "__main__":
     generate_pseo_site()
+

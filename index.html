@@ -647,20 +647,23 @@
               </tbody>
             </table>
           </div>
+          <!-- PSEO_HUB_BAR_START -->
           <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div class="flex flex-wrap items-center gap-2 text-slate-300">
               <span class="text-slate-400">BROWSE STATE HUBS:</span>
-              <a href="contracts/federal/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-400">Federal (SAM)</a>
-              <a href="contracts/texas/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Texas</a>
-              <a href="contracts/virginia/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-400">Virginia</a>
-              <a href="contracts/california/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">California</a>
-              <a href="contracts/florida/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
-              <a href="contracts/maryland/index.html" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
+              <a href="#contracts/federal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-400">Federal (SAM)</a>
+              <a href="#contracts/texas" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Texas</a>
+              <a href="#contracts/virginia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-400">Virginia</a>
+              <a href="#contracts/california" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">California</a>
+              <a href="#contracts/florida" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
+              <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
+              <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
-            <a href="contracts/index.html" class="text-sky-400 hover:text-sky-300 font-semibold">
-              Explore All 80+ Live IT &amp; Cyber Solicitations &rarr;
+            <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
+              Explore All 28 Live IT &amp; Cyber Solicitations &rarr;
             </a>
           </div>
+          <!-- PSEO_HUB_BAR_END -->
         </div>
 
       </div>
@@ -1773,8 +1776,12 @@
 
   </div>
 
+  <!-- PSEO_CONTRACTS_VIEW_START -->
+  <div id="page-contracts" class="hidden"></div>
+  <!-- PSEO_CONTRACTS_VIEW_END -->
+
   <!-- =====================================================================
-       SHARED PROFESSIONAL FOOTER (WORKS ACROSS BOTH PAGES)
+       SHARED PROFESSIONAL FOOTER (WORKS ACROSS ALL PAGES)
        ===================================================================== -->
   <footer class="bg-navy-950 pt-16 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1804,7 +1811,7 @@
               <a href="#discord-terminal" class="hover:text-sky-400 transition-colors">Main: Live Discord Alert Wire ($99/mo)</a>
             </li>
             <li>
-              <a href="#contract-directory" class="hover:text-sky-400 transition-colors">Main: Recent Pre-Vetted Contract Feed</a>
+              <a href="#contracts" class="text-emerald-400 hover:text-emerald-300 transition-colors">Directory: All State &amp; Federal RFP Hubs &rarr;</a>
             </li>
             <li>
               <a href="#apis" class="text-sky-400 hover:text-sky-300 transition-colors">Page 2: Developer Data API Catalog &rarr;</a>
@@ -1870,9 +1877,21 @@
         var hash = window.location.hash || '#overview';
         var mainPage = document.getElementById('page-main');
         var apisPage = document.getElementById('page-apis');
+        var contractsPage = document.getElementById('page-contracts');
 
-        if (apiPageHashes[hash]) {
+        if (hash === '#contracts' || hash.indexOf('#contracts/') === 0) {
           mainPage.classList.add('hidden');
+          apisPage.classList.add('hidden');
+          if (contractsPage) {
+            contractsPage.classList.remove('hidden');
+            if (typeof window.renderContractsRoute === 'function') {
+              window.renderContractsRoute(hash);
+            }
+          }
+          window.scrollTo(0, 0);
+        } else if (apiPageHashes[hash]) {
+          mainPage.classList.add('hidden');
+          if (contractsPage) contractsPage.classList.add('hidden');
           apisPage.classList.remove('hidden');
           document.title = 'SignalTender | Developer Data API Catalog & RapidAPI Microservices';
           if (hash === '#apis') {
@@ -1883,6 +1902,7 @@
           }
         } else {
           apisPage.classList.add('hidden');
+          if (contractsPage) contractsPage.classList.add('hidden');
           mainPage.classList.remove('hidden');
           document.title = 'SignalTender | Real-Time Federal & State SLED IT Contract Alerts';
           if (hash === '#overview' || hash === '#') {
