@@ -247,61 +247,90 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
             
             async with Stealth().use_async(async_playwright()) as p:
                 print(" -> Launching Stealth browser (Local Connection)...", flush=True)
-                
-                browser = await p.chromium.launch(
-                    headless=True,
-                    args=[
-                        '--disable-blink-features=AutomationControlled',
-                        '--no-sandbox',
-                        '--disable-dev-shm-usage',
-                    ],
-                    ignore_default_args=["--enable-automation"]
-                )
-                
-                context = await browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-                    viewport={"width": 1920, "height": 1080}
-                )
-                
-                page = await context.new_page()
+                browser = None
+                page = None
+                try:
+                    browser = await p.chromium.launch(
+                        headless=True,
+                        args=[
+                            '--disable-blink-features=AutomationControlled',
+                            '--no-sandbox',
+                            '--disable-dev-shm-usage',
+                            '--disable-gpu',
+                            '--disable-software-rasterizer',
+                            '--disable-extensions',
+                            '--disable-background-networking',
+                            '--disable-default-apps',
+                            '--disable-sync',
+                            '--no-first-run',
+                            '--mute-audio',
+                            '--renderer-process-limit=1',
+                            '--js-flags=--max-old-space-size=192',
+                        ],
+                        ignore_default_args=["--enable-automation"]
+                    )
+                    
+                    context = await browser.new_context(
+                        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                        viewport={"width": 1280, "height": 800}
+                    )
+                    
+                    page = await context.new_page()
 
-                # Intercept structured ESBD JSON payload containing full titles and responseDue dates
-                async def handle_response(response):
-                    if "ESBD.Service.ss" in response.url:
+                    # Intercept structured ESBD JSON payload containing full titles and responseDue dates
+                    async def handle_response(response):
+                        if "ESBD.Service.ss" in response.url:
+                            try:
+                                data = await response.json()
+                                if isinstance(data, dict) and "lines" in data:
+                                    esbd_lines_captured.extend(data["lines"])
+                            except Exception:
+                                pass
+                    page.on("response", handle_response)
+                    
+                    print(" -> Browser open. Requesting page (waiting for network to idle)...", flush=True)
+                    await page.goto(url, wait_until="networkidle", timeout=60000)
+                    
+                    print(" -> Page loaded! Waiting 5 additional seconds for JS hydration...", flush=True)
+                    await page.wait_for_timeout(5000) 
+                    
+                    if keyword:
                         try:
-                            data = await response.json()
-                            if isinstance(data, dict) and "lines" in data:
-                                esbd_lines_captured.extend(data["lines"])
+                            print(f" -> Injecting keyword '{keyword}' into UI search...", flush=True)
+                            search_input = page.locator("input[placeholder*='Search'], input[placeholder*='search'], input[placeholder*='Keyword'], input[type='text']").first
+                            await search_input.wait_for(state="visible", timeout=10000)
+                            await search_input.click()
+                            await search_input.type(keyword, delay=100)
+                            await search_input.press("Enter")
+                            print(" -> Search submitted! Waiting 8 seconds for JS table to update...", flush=True)
+                            await page.wait_for_timeout(8000)
+                        except Exception as e:
+                            print(f" -> UI Search injection failed: {e}", flush=True)
+                    
+                    print(f" -> Extracting text from HTML selector: '{selector}'", flush=True)
+                    
+                    locator = page.locator(selector).first
+                    await locator.wait_for(state="attached", timeout=10000)
+                    raw_text = await locator.inner_text()
+
+                    if attempt == max_retries - 1 and len(raw_text) < 200 and "403" in raw_text:
+                        try:
+                            await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
                         except Exception:
                             pass
-                page.on("response", handle_response)
-                
-                print(" -> Browser open. Requesting page (waiting for network to idle)...", flush=True)
-                await page.goto(url, wait_until="networkidle", timeout=60000)
-                
-                print(" -> Page loaded! Waiting 5 additional seconds for JS hydration...", flush=True)
-                await page.wait_for_timeout(5000) 
-                
-                if keyword:
-                    try:
-                        print(f" -> Injecting keyword '{keyword}' into UI search...", flush=True)
-                        search_input = page.locator("input[placeholder*='Search'], input[placeholder*='search'], input[placeholder*='Keyword'], input[type='text']").first
-                        await search_input.wait_for(state="visible", timeout=10000)
-                        await search_input.click()
-                        await search_input.type(keyword, delay=100)
-                        await search_input.press("Enter")
-                        print(" -> Search submitted! Waiting 8 seconds for JS table to update...", flush=True)
-                        await page.wait_for_timeout(8000)
-                    except Exception as e:
-                        print(f" -> UI Search injection failed: {e}", flush=True)
-                
-                print(f" -> Extracting text from HTML selector: '{selector}'", flush=True)
-                
-                locator = page.locator(selector).first
-                await locator.wait_for(state="attached", timeout=10000)
-                raw_text = await locator.inner_text()
-                
-                await browser.close()
+                except Exception:
+                    if attempt == max_retries - 1 and page:
+                        try:
+                            await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
+                        except Exception:
+                            pass
+                    raise
+                finally:
+                    if browser:
+                        try:
+                            await browser.close()
+                        except Exception:
+                            pass
                 
                 print(f" -> Success! Scraped {len(raw_text)} characters. Captured {len(esbd_lines_captured)} structured lines.", flush=True)
                 
@@ -323,10 +352,6 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                 pass
             if attempt == max_retries - 1:
                 send_discord_alert(error_msg)
-                try:
-                    await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
-                except Exception:
-                    pass
                 raise  
             await asyncio.sleep(2)
         except Exception as e:
@@ -339,10 +364,6 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                 pass
             if attempt == max_retries - 1:
                 send_discord_alert(error_msg)
-                try:
-                    await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
-                except Exception:
-                    pass
                 raise
             await asyncio.sleep(2)
 
@@ -534,26 +555,88 @@ async def run_master_orchestrator(
     selector: str = "body",
     keyword: str = "software",
 ):
+    import gc
+    import ctypes
+    import tempfile
+
     print("========================================================", flush=True)
     print("   SignalTender Master Orchestrator - Starting Cycle    ", flush=True)
     print("========================================================", flush=True)
 
-    # Use a semaphore of 1 inside asyncio.gather so browsers do not exceed container memory limits
-    browser_sem = asyncio.Semaphore(1)
+    def _reclaim_os_memory():
+        gc.collect()
+        try:
+            ctypes.CDLL("libc.so.6").malloc_trim(0)
+        except Exception:
+            pass
 
-    async def _run_source(source_name: str, coro):
+    # Use a semaphore of 1 inside asyncio.gather and run each scraper in an isolated
+    # child subprocess so 100% of Chromium/Playwright/Python heap is returned to the OS
+    # after each portal, preventing 512Mi OOM on Render and catching any OS SIGKILL (-9/137).
+    browser_sem = asyncio.Semaphore(1)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    async def _run_source(source_name: str, import_stmt: str, call_expr: str):
         async with browser_sem:
-            print(f"\n[*] Executing {source_name} pipeline...", flush=True)
-            return await coro
+            print(f"\n[*] Executing {source_name} pipeline (isolated subprocess)...", flush=True)
+            fd, temp_json_path = tempfile.mkstemp(prefix="st_scraper_", suffix=".json")
+            os.close(fd)
+            runner_script = (
+                "import asyncio, json, os, sys\n"
+                f"sys.path.insert(0, {repr(base_dir)})\n"
+                f"sys.path.insert(0, {repr(SLED_SCRAPER_DIR)})\n"
+                f"{import_stmt}\n"
+                "async def _main():\n"
+                f"    res = await {call_expr}\n"
+                "    with open(sys.argv[1], 'w', encoding='utf-8') as f:\n"
+                "        json.dump(res if isinstance(res, list) else [], f)\n"
+                "asyncio.run(_main())\n"
+            )
+            try:
+                proc = await asyncio.create_subprocess_exec(
+                    sys.executable,
+                    "-c",
+                    runner_script,
+                    temp_json_path,
+                    cwd=base_dir,
+                )
+                await proc.wait()
+
+                if proc.returncode != 0:
+                    oom_tag = (
+                        " [OUT OF MEMORY / SIGKILL >512Mi]"
+                        if proc.returncode in (-9, 137, -6, 134)
+                        else ""
+                    )
+                    raise RuntimeError(
+                        f"{source_name} subprocess terminated with exit code {proc.returncode}{oom_tag}."
+                    )
+
+                if os.path.exists(temp_json_path):
+                    with open(temp_json_path, "r", encoding="utf-8") as f:
+                        content = f.read().strip()
+                        return json.loads(content) if content else []
+                return []
+            finally:
+                if os.path.exists(temp_json_path):
+                    try:
+                        os.remove(temp_json_path)
+                    except Exception:
+                        pass
+                _reclaim_os_memory()
 
     results = await asyncio.gather(
-        _run_source("Federal (SAM.gov)", sam_scraper.run_scraper(push_to_db=False)),
-        _run_source("SLED (DemandStar)", sledscraper.run_scraper(push_to_db=False)),
-        _run_source("Texas SLED (ESBD)", scrape_and_extract(url, selector, keyword, push_to_db=False)),
-        _run_source("Virginia SLED (eVA)", va_scraper.run_scraper(push_to_db=False)),
-        _run_source("California SLED (Cal eProcure)", ca_scraper.run_scraper(push_to_db=False)),
-        _run_source("Florida SLED (MFMP VIP)", fl_scraper.run_scraper(push_to_db=False)),
-        _run_source("Maryland SLED (eMMA / Bonfire)", md_scraper.run_scraper(push_to_db=False)),
+        _run_source("Federal (SAM.gov)", "import sam_scraper", "sam_scraper.run_scraper(push_to_db=False)"),
+        _run_source("SLED (DemandStar)", "import sledscraper", "sledscraper.run_scraper(push_to_db=False)"),
+        _run_source(
+            "Texas SLED (ESBD)",
+            "import mainscraper",
+            f"mainscraper.scrape_and_extract({repr(url)}, {repr(selector)}, {repr(keyword)}, push_to_db=False)",
+        ),
+        _run_source("Virginia SLED (eVA)", "import va_scraper", "va_scraper.run_scraper(push_to_db=False)"),
+        _run_source("California SLED (Cal eProcure)", "import ca_scraper", "ca_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Florida SLED (MFMP VIP)", "import fl_scraper", "fl_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Maryland SLED (eMMA / Bonfire)", "import md_scraper", "md_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 

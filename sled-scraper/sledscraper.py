@@ -255,6 +255,16 @@ async def run_scraper(push_to_db: bool = True):
                 "--disable-blink-features=AutomationControlled",
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--disable-software-rasterizer",
+                "--disable-extensions",
+                "--disable-background-networking",
+                "--disable-default-apps",
+                "--disable-sync",
+                "--no-first-run",
+                "--mute-audio",
+                "--renderer-process-limit=1",
+                "--js-flags=--max-old-space-size=192",
             ],
             ignore_default_args=["--enable-automation"],
         )
@@ -262,7 +272,7 @@ async def run_scraper(push_to_db: bool = True):
         context = await browser.new_context(
             proxy=proxy_config,
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-            viewport={"width": 1920, "height": 1080},
+            viewport={"width": 1280, "height": 800},
         )
 
         page = await context.new_page()
@@ -286,7 +296,7 @@ async def run_scraper(push_to_db: bool = True):
                 await context.close()
                 context = await browser.new_context(
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-                    viewport={"width": 1920, "height": 1080},
+                    viewport={"width": 1280, "height": 800},
                 )
                 page = await context.new_page()
 
