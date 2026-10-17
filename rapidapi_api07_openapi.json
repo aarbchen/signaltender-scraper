@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AI Bid/No-Bid & Capability Matcher API",
+    "description": "High-performance, stateless GovCon & Enterprise B2B Capture Intelligence microservice. Compares raw RFP, Statement of Work (SOW), or Sources Sought solicitation text against a vendor's capability statement and past performance profile to compute a 0-100 Probability of Win (Pwin) score, granular 4-dimension fit breakdown, knockout disqualifier warnings, requirement-by-requirement gap remediation, subcontracting/teaming strategy, and a Shipley-aligned Executive Summary pitch.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/match/capability-statement": {
+      "post": {
+        "tags": [
+          "AI Bid/No-Bid & Capability Matcher"
+        ],
+        "summary": "Evaluate RFP Bid/No-Bid Pwin score, capability gaps & tailored capture pitch",
+        "description": "Compares raw RFP, SOW, or Sources Sought text against a vendor's capability statement and past performance profile. Returns a 0-100 Probability of Win (Pwin) score, granular dimension scoring (technical fit, past performance, clearances/certifications, set-aside eligibility), knockout disqualifiers, requirement-by-requirement gap remediation, subcontracting/teaming strategy, and a Shipley-aligned Executive Summary pitch.",
+        "operationId": "match_capability_statement_endpoint_v1_match_capability_statement_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CapabilityMatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated Bid/No-Bid Pwin scorecard, gap analysis, and tailored executive pitch.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilityMatchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid X-RapidAPI-Proxy-Secret."
+          },
+          "422": {
+            "description": "Unprocessable Entity - Payload validation failure or LLM schema extraction failure."
+          },
+          "502": {
+            "description": "Bad Gateway - Upstream LLM inference provider error."
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "Health & SLA"
+        ],
+        "summary": "Health Check & Uptime SLA Monitor",
+        "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Service is healthy."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PursuitRoleStrategy": {
+        "type": "string",
+        "enum": [
+          "prime_contractor",
+          "subcontractor_or_jv",
+          "either_prime_or_sub"
+        ],
+        "description": "Preferred pursuit posture to evaluate: 'prime_contractor', 'subcontractor_or_jv', or 'either_prime_or_sub'."
+      },
+      "BidRecommendation": {
+        "type": "string",
+        "enum": [
+          "STRONG_BID",
+          "CONDITIONAL_BID_TEAMING_REQUIRED",
+          "HIGH_RISK_STRETCH_BID",
+          "NO_BID"
+        ],
+        "description": "Executive gate decision: STRONG_BID, CONDITIONAL_BID_TEAMING_REQUIRED, HIGH_RISK_STRETCH_BID, or NO_BID."
+      },
+      "RequirementAlignmentStatus": {
+        "type": "string",
+        "enum": [
+          "FULL_MATCH",
+          "PARTIAL_MATCH",
+          "CRITICAL_GAP"
+        ],
+        "description": "Vendor alignment level: FULL_MATCH, PARTIAL_MATCH, or CRITICAL_GAP."
+      },
+      "CapabilityMatchRequest": {
+        "type": "object",
+        "required": [
+          "rfp_text",
+          "company_capability_statement"
+        ],
+        "properties": {
+          "rfp_text": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Raw text from the RFP, Statement of Work (SOW), Sources Sought notice, or solicitation summary.",
+            "example": "SOLICITATION: DHS-CISA-2026-SOC-09. NAICS: 541512 ($34M Size Standard). Set-Aside: Service-Disabled Veteran-Owned Small Business (SDVOSB). Scope: The Contractor shall provide 24x7x365 Zero-Trust SOC Modernization, CrowdStrike Falcon EDR engineering, and Splunk SOAR automation across 25,000 endpoints. Mandatory Qualifications: Active Top Secret Facility Clearance (FCL), ISO 27001 certification, CMMC Level 2 compliance, and at least two (2) prior federal cybersecurity contracts valued at $5M+ within the last 5 years. Cloud tools hosted by vendor must be FedRAMP High authorized."
+          },
+          "company_capability_statement": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Vendor capability statement, past performance summary, clearances, socioeconomic designations, and core competencies.",
+            "example": "Apex Cyber Defense LLC — Certified SDVOSB & SBA Small Business (UEI: K9M2X4P8L1Q2). Clearances & Certs: Secret Facility Clearance (FCL), ISO 27001:2022 Certified, CMMC Level 2 Ready. Core Capabilities: 24x7x365 Managed Detection & Response (MDR), CrowdStrike Falcon & Splunk Enterprise Security SOAR engineering, Zero-Trust Architecture. Past Performance: (1) U.S. Coast Guard SOC Support ($6.8M, 2023-present, 18,000 endpoints); (2) VA Enterprise SIEM/SOAR Modernization ($5.4M, 2022-2025). Partnered with AWS GovCloud (FedRAMP High)."
+          },
+          "target_pursuit_role": {
+            "$ref": "#/components/schemas/PursuitRoleStrategy",
+            "default": "either_prime_or_sub"
+          }
+        }
+      },
+      "DimensionScoreBreakdown": {
+        "type": "object",
+        "required": [
+          "technical_capability_fit",
+          "past_performance_relevance",
+          "clearance_and_certifications_fit",
+          "contract_vehicle_and_set_aside_fit"
+        ],
+        "properties": {
+          "technical_capability_fit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 95
+          },
+          "past_performance_relevance": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 90
+          },
+          "clearance_and_certifications_fit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 65
+          },
+          "contract_vehicle_and_set_aside_fit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 100
+          }
+        }
+      },
+      "RequirementGapItem": {
+        "type": "object",
+        "required": [
+          "requirement_area",
+          "alignment_status",
+          "gap_remediation_or_teaming_action"
+        ],
+        "properties": {
+          "requirement_area": {
+            "type": "string",
+            "example": "Active Top Secret Facility Clearance (FCL)"
+          },
+          "alignment_status": {
+            "$ref": "#/components/schemas/RequirementAlignmentStatus"
+          },
+          "vendor_evidence_matched": {
+            "type": "string",
+            "nullable": true,
+            "example": "Holds Secret Facility Clearance (FCL); lacks Top Secret FCL."
+          },
+          "gap_remediation_or_teaming_action": {
+            "type": "string",
+            "example": "Execute a Teaming Agreement with a Top Secret-cleared subcontractor for classified task areas or submit a Q&A question asking if Top Secret FCL can be satisfied by a cleared subcontractor/JV member."
+          }
+        }
+      },
+      "CapabilityMatchResponse": {
+        "type": "object",
+        "required": [
+          "solicitation_title",
+          "pwin_score",
+          "bid_recommendation",
+          "recommended_pursuit_role",
+          "score_breakdown",
+          "hard_disqualifiers_detected",
+          "key_discriminators",
+          "requirement_gap_analysis",
+          "teaming_and_subcontracting_strategy",
+          "tailored_executive_summary_pitch"
+        ],
+        "properties": {
+          "solicitation_title": {
+            "type": "string",
+            "example": "DHS-CISA-2026-SOC-09 Zero-Trust SOC Modernization & MDR/SOAR Support"
+          },
+          "pwin_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 78
+          },
+          "bid_recommendation": {
+            "$ref": "#/components/schemas/BidRecommendation"
+          },
+          "recommended_pursuit_role": {
+            "type": "string",
+            "example": "SDVOSB Prime Contractor with Top Secret-Cleared Subcontractor"
+          },
+          "score_breakdown": {
+            "$ref": "#/components/schemas/DimensionScoreBreakdown"
+          },
+          "hard_disqualifiers_detected": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "key_discriminators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "requirement_gap_analysis": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequirementGapItem"
+            }
+          },
+          "teaming_and_subcontracting_strategy": {
+            "type": "string"
+          },
+          "tailored_executive_summary_pitch": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
