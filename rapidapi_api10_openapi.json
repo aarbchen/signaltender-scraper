@@ -1,0 +1,452 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "B2B Quote, Invoice & CLIN Table Extractor API",
+    "version": "1.0.0",
+    "description": "Stateless B2B & GovCon FinOps extraction microservice that transforms messy multi-tier pricing tables, Federal RFP Section B CLIN/SLIN schedules, Time & Materials (T&M) labor rate cards, commercial vendor quotes, invoices, and Bills of Materials (BOMs) into normalized JSON with automated Quantity x Unit Price math verification, Base vs. Option Year subtotals, and Price-to-Win (PTW) negotiation intelligence."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "Production Render Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/extract/pricing-schedule": {
+      "post": {
+        "tags": ["Pricing, CLIN & FinOps Extraction"],
+        "summary": "Extract and Audit Multi-Tier Pricing Tables, Federal Section B CLINs, Rate Cards & BOMs",
+        "description": "Accepts unstructured text from a Federal RFP Section B CLIN schedule, B2B vendor quote, commercial invoice, T&M labor rate card, or Bill of Materials (BOM) and returns a normalized JSON pricing schedule with Base vs. Option Year subtotals, per-line unit/extended math verification, and FinOps / Price-to-Win negotiation insights.",
+        "operationId": "extract_pricing_schedule_v1_extract_pricing_schedule_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PricingScheduleExtractionRequest"
+              },
+              "example": {
+                "document_text": "SECTION B - SUPPLIES OR SERVICES AND PRICES/COSTS (SOLICITATION FA8732-26-R-0041)\nVendor: Sentinel GovCloud Solutions LLC | Buyer: USAF Enterprise IT Directorate\nPayment Terms: Net 30 via WAWF / IPP.\nCLIN 0001 (Base Year - FFP): FedRAMP High Cloud Landing Zone Managed Platform | Qty: 12 Months | Unit Price: $28,500.00/mo | Extended: $342,000.00\nCLIN 0002 (Base Year - T&M): Senior Zero-Trust Cloud Architect (GSA LCAT) | Qty: 1,920 Hours | Rate: $185.00/hr (10% discount off $205.56 GSA list) | Extended: $355,200.00\nCLIN 0003 (Base Year - T&M): DevSecOps Automation Engineer | Qty: 1,920 Hours | Rate: $155.00/hr | Stated Extended Total: $305,000.00\nCLIN 0004 (Base Year - Cost Reimbursable): CONUS Mission Travel & ODCs | Qty: 1 Lot | Unit: $25,000.00 | Extended: $25,000.00 (No NTE ceiling specified)\nCLIN 1001 (Option Year 1 - FFP): FedRAMP High Cloud Landing Zone Managed Platform | Qty: 12 Months | Unit Price: $29,355.00/mo | Extended: $352,260.00\nCLIN 1002 (Option Year 1 - T&M): Senior Zero-Trust Cloud Architect (3% escalation) | Qty: 1,920 Hours | Rate: $190.55/hr | Extended: $365,856.00",
+                "expected_document_type": "federal_section_b_clin_schedule",
+                "audit_math_and_anomalies": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Pricing Schedule, CLIN Table & FinOps Arithmetic Audit Extraction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricingScheduleExtractionResponse"
+                },
+                "example": {
+                  "document_title_or_reference": "SOLICITATION FA8732-26-R-0041 - Section B Supplies or Services and Prices/Costs",
+                  "detected_document_type": "federal_section_b_clin_schedule",
+                  "dominant_pricing_model": "HYBRID_MIXED",
+                  "vendor_or_issuer_name": "Sentinel GovCloud Solutions LLC",
+                  "customer_or_agency_name": "USAF Enterprise IT Directorate",
+                  "currency_code": "USD",
+                  "base_period_total_usd": 1027200.0,
+                  "options_total_usd": 718116.0,
+                  "total_evaluated_contract_value_usd": 1745316.0,
+                  "payment_terms_and_invoicing_rules": [
+                    "Net 30 via Wide Area Workflow (WAWF) / Invoice Processing Platform (IPP)",
+                    "Hybrid billing: Monthly FFP platform invoicing (CLIN 0001/1001) + T&M hourly burn (CLIN 0002/0003/1002)"
+                  ],
+                  "period_subtotals": [
+                    {
+                      "period_name": "Base Year (12 Months)",
+                      "line_item_count": 4,
+                      "subtotal_usd": 1027200.0
+                    },
+                    {
+                      "period_name": "Option Year 1 (12 Months)",
+                      "line_item_count": 2,
+                      "subtotal_usd": 718116.0
+                    }
+                  ],
+                  "line_items": [
+                    {
+                      "clin_or_item_number": "CLIN 0001",
+                      "item_category": "CLOUD_INFRASTRUCTURE",
+                      "description_or_labor_category": "FedRAMP High Cloud Landing Zone Managed Platform",
+                      "contract_period_or_tier": "Base Year (12 Months)",
+                      "pricing_basis": "FFP",
+                      "quantity": 12.0,
+                      "unit_of_measure": "Months",
+                      "unit_price_usd": 28500.0,
+                      "discount_pct": null,
+                      "extended_total_usd": 342000.0
+                    },
+                    {
+                      "clin_or_item_number": "CLIN 0002",
+                      "item_category": "LABOR_SERVICE",
+                      "description_or_labor_category": "Senior Zero-Trust Cloud Architect (GSA LCAT)",
+                      "contract_period_or_tier": "Base Year (12 Months)",
+                      "pricing_basis": "T&M Hourly",
+                      "quantity": 1920.0,
+                      "unit_of_measure": "Hours",
+                      "unit_price_usd": 185.0,
+                      "discount_pct": 10.0,
+                      "extended_total_usd": 355200.0
+                    },
+                    {
+                      "clin_or_item_number": "CLIN 0003",
+                      "item_category": "LABOR_SERVICE",
+                      "description_or_labor_category": "DevSecOps Automation Engineer",
+                      "contract_period_or_tier": "Base Year (12 Months)",
+                      "pricing_basis": "T&M Hourly",
+                      "quantity": 1920.0,
+                      "unit_of_measure": "Hours",
+                      "unit_price_usd": 155.0,
+                      "discount_pct": null,
+                      "extended_total_usd": 305000.0
+                    },
+                    {
+                      "clin_or_item_number": "CLIN 0004",
+                      "item_category": "TRAVEL_ODC",
+                      "description_or_labor_category": "CONUS Mission Travel & ODCs",
+                      "contract_period_or_tier": "Base Year (12 Months)",
+                      "pricing_basis": "Cost Reimbursable",
+                      "quantity": 1.0,
+                      "unit_of_measure": "Lot",
+                      "unit_price_usd": 25000.0,
+                      "discount_pct": null,
+                      "extended_total_usd": 25000.0
+                    },
+                    {
+                      "clin_or_item_number": "CLIN 1001",
+                      "item_category": "CLOUD_INFRASTRUCTURE",
+                      "description_or_labor_category": "FedRAMP High Cloud Landing Zone Managed Platform",
+                      "contract_period_or_tier": "Option Year 1 (12 Months)",
+                      "pricing_basis": "FFP",
+                      "quantity": 12.0,
+                      "unit_of_measure": "Months",
+                      "unit_price_usd": 29355.0,
+                      "discount_pct": null,
+                      "extended_total_usd": 352260.0
+                    },
+                    {
+                      "clin_or_item_number": "CLIN 1002",
+                      "item_category": "LABOR_SERVICE",
+                      "description_or_labor_category": "Senior Zero-Trust Cloud Architect (3% escalation)",
+                      "contract_period_or_tier": "Option Year 1 (12 Months)",
+                      "pricing_basis": "T&M Hourly",
+                      "quantity": 1920.0,
+                      "unit_of_measure": "Hours",
+                      "unit_price_usd": 190.55,
+                      "discount_pct": null,
+                      "extended_total_usd": 365856.0
+                    }
+                  ],
+                  "math_and_pricing_anomalies": [
+                    {
+                      "severity": "CRITICAL_MATH_ERROR",
+                      "affected_item_reference": "CLIN 0003 (DevSecOps Automation Engineer)",
+                      "finding_description": "Arithmetic extension error: 1,920 Hours x $155.00/hr equals $297,600.00, but the schedule states an extended total of $305,000.00 (+$7,400.00 overcharge discrepancy).",
+                      "recommended_remediation": "Require vendor to revise CLIN 0003 extended total down to $297,600.00 (reducing Total Evaluated Contract Value to $1,737,916.00) prior to contract award."
+                    },
+                    {
+                      "severity": "WARNING",
+                      "affected_item_reference": "CLIN 0004 (CONUS Mission Travel & ODCs)",
+                      "finding_description": "Cost-reimbursable travel/ODC line item ($25,000.00) lacks an explicit Not-To-Exceed (NTE) ceiling and JTR/FAR 31.205-46 per-diem incorporation.",
+                      "recommended_remediation": "Convert CLIN 0004 to 'Cost Reimbursable - Not-To-Exceed (NTE) $25,000.00' subject to FAR 31.205-46."
+                    }
+                  ],
+                  "finops_and_price_to_win_summary": "Hybrid FFP/T&M schedule totaling $1,745,316.00stated ($1,737,916.00 corrected). Blended T&M labor rate across Base Year is $170.00/hr with a reasonable 3.0% annual escalation into Option Year 1. Correcting the $7,400 math error on CLIN 0003 and applying the 10% GSA discount benchmark from CLIN 0002 onto CLIN 0003 yields $37,160.00 in immediate deal-desk savings."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid RapidAPI Proxy Secret"
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PricingDocumentType": {
+        "type": "string",
+        "enum": [
+          "federal_section_b_clin_schedule",
+          "vendor_quote",
+          "commercial_invoice",
+          "labor_rate_card_tm",
+          "bill_of_materials_bom",
+          "purchase_order"
+        ],
+        "example": "federal_section_b_clin_schedule"
+      },
+      "ContractPricingModel": {
+        "type": "string",
+        "enum": [
+          "FIRM_FIXED_PRICE_FFP",
+          "TIME_AND_MATERIALS_TM",
+          "LABOR_HOUR_LH",
+          "COST_PLUS_FIXED_FEE_CPFF",
+          "SUBSCRIPTION_SAAS_TIERED",
+          "HYBRID_MIXED"
+        ],
+        "example": "HYBRID_MIXED"
+      },
+      "PricingAnomalySeverity": {
+        "type": "string",
+        "enum": [
+          "INFO",
+          "WARNING",
+          "CRITICAL_MATH_ERROR"
+        ],
+        "example": "CRITICAL_MATH_ERROR"
+      },
+      "PricingScheduleExtractionRequest": {
+        "type": "object",
+        "required": ["document_text"],
+        "properties": {
+          "document_text": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Unstructured or semi-structured text from a vendor quote, commercial invoice, Federal RFP Section B CLIN schedule, T&M labor rate card, or Bill of Materials.",
+            "example": "SECTION B - SUPPLIES OR SERVICES AND PRICES/COSTS (SOLICITATION FA8732-26-R-0041)\nVendor: Sentinel GovCloud Solutions LLC | Buyer: USAF Enterprise IT Directorate\nPayment Terms: Net 30 via WAWF / IPP.\nCLIN 0001 (Base Year - FFP): FedRAMP High Cloud Landing Zone Managed Platform | Qty: 12 Months | Unit Price: $28,500.00/mo | Extended: $342,000.00\nCLIN 0002 (Base Year - T&M): Senior Zero-Trust Cloud Architect (GSA LCAT) | Qty: 1,920 Hours | Rate: $185.00/hr (10% discount off $205.56 GSA list) | Extended: $355,200.00\nCLIN 0003 (Base Year - T&M): DevSecOps Automation Engineer | Qty: 1,920 Hours | Rate: $155.00/hr | Stated Extended Total: $305,000.00\nCLIN 0004 (Base Year - Cost Reimbursable): CONUS Mission Travel & ODCs | Qty: 1 Lot | Unit: $25,000.00 | Extended: $25,000.00 (No NTE ceiling specified)\nCLIN 1001 (Option Year 1 - FFP): FedRAMP High Cloud Landing Zone Managed Platform | Qty: 12 Months | Unit Price: $29,355.00/mo | Extended: $352,260.00\nCLIN 1002 (Option Year 1 - T&M): Senior Zero-Trust Cloud Architect (3% escalation) | Qty: 1,920 Hours | Rate: $190.55/hr | Extended: $365,856.00"
+          },
+          "expected_document_type": {
+            "$ref": "#/components/schemas/PricingDocumentType"
+          },
+          "audit_math_and_anomalies": {
+            "type": "boolean",
+            "default": true,
+            "example": true
+          }
+        }
+      },
+      "ExtractedLineItemCLIN": {
+        "type": "object",
+        "required": [
+          "clin_or_item_number",
+          "item_category",
+          "description_or_labor_category",
+          "contract_period_or_tier",
+          "pricing_basis",
+          "quantity",
+          "unit_of_measure",
+          "unit_price_usd",
+          "extended_total_usd"
+        ],
+        "properties": {
+          "clin_or_item_number": {
+            "type": "string",
+            "example": "CLIN 0001"
+          },
+          "item_category": {
+            "type": "string",
+            "example": "CLOUD_INFRASTRUCTURE"
+          },
+          "description_or_labor_category": {
+            "type": "string",
+            "example": "FedRAMP High Cloud Landing Zone Managed Platform"
+          },
+          "contract_period_or_tier": {
+            "type": "string",
+            "example": "Base Year (12 Months)"
+          },
+          "pricing_basis": {
+            "type": "string",
+            "example": "FFP"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 12.0
+          },
+          "unit_of_measure": {
+            "type": "string",
+            "example": "Months"
+          },
+          "unit_price_usd": {
+            "type": "number",
+            "example": 28500.0
+          },
+          "discount_pct": {
+            "type": "number",
+            "nullable": true,
+            "example": 10.0
+          },
+          "extended_total_usd": {
+            "type": "number",
+            "example": 342000.0
+          }
+        }
+      },
+      "ContractPeriodSummary": {
+        "type": "object",
+        "required": [
+          "period_name",
+          "line_item_count",
+          "subtotal_usd"
+        ],
+        "properties": {
+          "period_name": {
+            "type": "string",
+            "example": "Base Year (12 Months)"
+          },
+          "line_item_count": {
+            "type": "integer",
+            "example": 4
+          },
+          "subtotal_usd": {
+            "type": "number",
+            "example": 1027200.0
+          }
+        }
+      },
+      "PricingAnomalyOrDiscrepancy": {
+        "type": "object",
+        "required": [
+          "severity",
+          "affected_item_reference",
+          "finding_description",
+          "recommended_remediation"
+        ],
+        "properties": {
+          "severity": {
+            "$ref": "#/components/schemas/PricingAnomalySeverity"
+          },
+          "affected_item_reference": {
+            "type": "string",
+            "example": "CLIN 0003 (DevSecOps Automation Engineer)"
+          },
+          "finding_description": {
+            "type": "string",
+            "example": "Arithmetic extension error: 1,920 Hours x $155.00/hr equals $297,600.00, but the schedule states an extended total of $305,000.00 (+$7,400.00 overcharge discrepancy)."
+          },
+          "recommended_remediation": {
+            "type": "string",
+            "example": "Require vendor to revise CLIN 0003 extended total down to $297,600.00 prior to contract award."
+          }
+        }
+      },
+      "PricingScheduleExtractionResponse": {
+        "type": "object",
+        "required": [
+          "document_title_or_reference",
+          "detected_document_type",
+          "dominant_pricing_model",
+          "base_period_total_usd",
+          "options_total_usd",
+          "total_evaluated_contract_value_usd",
+          "finops_and_price_to_win_summary"
+        ],
+        "properties": {
+          "document_title_or_reference": {
+            "type": "string",
+            "example": "SOLICITATION FA8732-26-R-0041 - Section B Supplies or Services and Prices/Costs"
+          },
+          "detected_document_type": {
+            "$ref": "#/components/schemas/PricingDocumentType"
+          },
+          "dominant_pricing_model": {
+            "$ref": "#/components/schemas/ContractPricingModel"
+          },
+          "vendor_or_issuer_name": {
+            "type": "string",
+            "nullable": true,
+            "example": "Sentinel GovCloud Solutions LLC"
+          },
+          "customer_or_agency_name": {
+            "type": "string",
+            "nullable": true,
+            "example": "USAF Enterprise IT Directorate"
+          },
+          "currency_code": {
+            "type": "string",
+            "default": "USD",
+            "example": "USD"
+          },
+          "base_period_total_usd": {
+            "type": "number",
+            "example": 1027200.0
+          },
+          "options_total_usd": {
+            "type": "number",
+            "example": 718116.0
+          },
+          "total_evaluated_contract_value_usd": {
+            "type": "number",
+            "example": 1745316.0
+          },
+          "payment_terms_and_invoicing_rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Net 30 via Wide Area Workflow (WAWF) / Invoice Processing Platform (IPP)",
+              "Hybrid billing: Monthly FFP platform invoicing (CLIN 0001/1001) + T&M hourly burn (CLIN 0002/0003/1002)"
+            ]
+          },
+          "period_subtotals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContractPeriodSummary"
+            },
+            "example": [
+              {
+                "period_name": "Base Year (12 Months)",
+                "line_item_count": 4,
+                "subtotal_usd": 1027200.0
+              },
+              {
+                "period_name": "Option Year 1 (12 Months)",
+                "line_item_count": 2,
+                "subtotal_usd": 718116.0
+              }
+            ]
+          },
+          "line_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractedLineItemCLIN"
+            },
+            "example": [
+              {
+                "clin_or_item_number": "CLIN 0001",
+                "item_category": "CLOUD_INFRASTRUCTURE",
+                "description_or_labor_category": "FedRAMP High Cloud Landing Zone Managed Platform",
+                "contract_period_or_tier": "Base Year (12 Months)",
+                "pricing_basis": "FFP",
+                "quantity": 12.0,
+                "unit_of_measure": "Months",
+                "unit_price_usd": 28500.0,
+                "discount_pct": null,
+                "extended_total_usd": 342000.0
+              }
+            ]
+          },
+          "math_and_pricing_anomalies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricingAnomalyOrDiscrepancy"
+            },
+            "example": [
+              {
+                "severity": "CRITICAL_MATH_ERROR",
+                "affected_item_reference": "CLIN 0003 (DevSecOps Automation Engineer)",
+                "finding_description": "Arithmetic extension error: 1,920 Hours x $155.00/hr equals $297,600.00, but the schedule states an extended total of $305,000.00 (+$7,400.00 overcharge discrepancy).",
+                "recommended_remediation": "Require vendor to revise CLIN 0003 extended total down to $297,600.00 prior to contract award."
+              }
+            ]
+          },
+          "finops_and_price_to_win_summary": {
+            "type": "string",
+            "example": "Hybrid FFP/T&M schedule totaling $1,745,316.00 stated ($1,737,916.00 corrected). Blended T&M labor rate across Base Year is $170.00/hr with a reasonable 3.0% annual escalation into Option Year 1."
+          }
+        }
+      }
+    }
+  }
+}
