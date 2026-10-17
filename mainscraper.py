@@ -663,6 +663,7 @@ async def run_master_orchestrator(
                 f.write(f"\n[!] {purge_msg}\n")
         except Exception:
             pass
+        send_discord_alert(purge_msg)
 
     if not unified_payload:
         print("[-] No valid tech contracts found across Federal and SLED sources this cycle.", flush=True)
@@ -693,7 +694,14 @@ async def run_master_orchestrator(
         try:
             pseo_generator.generate_pseo_site()
         except Exception as pseo_err:
-            print(f"[!] pSEO static generation warning: {pseo_err}", flush=True)
+            pseo_msg = f"pSEO static generation error in mainscraper.py: {pseo_err}"
+            print(f"[!] {pseo_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {pseo_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(pseo_msg)
 
         return new_records
 
