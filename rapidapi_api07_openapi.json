@@ -210,7 +210,8 @@
             "example": 78
           },
           "bid_recommendation": {
-            "$ref": "#/components/schemas/BidRecommendation"
+            "$ref": "#/components/schemas/BidRecommendation",
+            "example": "CONDITIONAL_BID_TEAMING_REQUIRED"
           },
           "recommended_pursuit_role": {
             "type": "string",
@@ -223,13 +224,21 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "Solicitation requires an Active Top Secret Facility Clearance (FCL), whereas vendor currently holds a Secret FCL (requires a Top Secret-cleared subcontractor or JV partner unless agency allows cleared sub)."
+            ]
           },
           "key_discriminators": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "Verified SDVOSB under NAICS 541512 with two directly relevant federal SOC/SIEM contracts >$5M (U.S. Coast Guard $6.8M & VA $5.4M).",
+              "Direct CrowdStrike Falcon EDR + Splunk Enterprise Security SOAR operational experience across 18,000+ federal endpoints.",
+              "Active ISO 27001:2022 certification, CMMC Level 2 readiness, and FedRAMP High AWS GovCloud hosting partnership."
+            ]
           },
           "requirement_gap_analysis": {
             "type": "array",
@@ -238,10 +247,12 @@
             }
           },
           "teaming_and_subcontracting_strategy": {
-            "type": "string"
+            "type": "string",
+            "example": "Bid as the SDVOSB Prime Contractor (performing >51% of labor in compliance with FAR 52.219-14) and execute a Teaming Agreement with a Top Secret-cleared cybersecurity subcontractor to cover classified task areas."
           },
           "tailored_executive_summary_pitch": {
-            "type": "string"
+            "type": "string",
+            "example": "Apex Cyber Defense LLC (Certified SDVOSB) brings proven DHS and federal enterprise SOC modernization experience—including our $6.8M U.S. Coast Guard 24x7 MDR contract (18,000 endpoints) and $5.4M VA Splunk SOAR modernization—to deliver a zero-risk, ISO 27001-certified and FedRAMP High-aligned Zero-Trust SOC for CISA."
           }
         }
       }

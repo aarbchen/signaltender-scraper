@@ -1,0 +1,364 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "NAICS, SIC, PSC & UNSPSC Industry Classifier API",
+    "description": "High-precision, stateless B2B & GovCon multi-taxonomy classification microservice. Maps any unstructured company description, website 'About Us' text, RFP Statement of Work (SOW), or product/line-item description to exact 6-digit NAICS codes (with official SBA Small Business Size Standards), 4-digit SIC codes (for FinTech KYB & commercial underwriting), 4-character Federal PSC codes (for SAM.gov & FPDS), and 8-digit UNSPSC / 5-digit NIGP codes (for State SLED portals & enterprise ERPs).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/classify/naics-psc-nigp": {
+      "post": {
+        "tags": [
+          "NAICS, SIC, PSC & UNSPSC Industry Classifier"
+        ],
+        "summary": "Classify text into 6-digit NAICS, 4-digit SIC, Federal PSC & State UNSPSC/NIGP codes",
+        "description": "Analyzes unstructured company descriptions, website 'About Us' text, RFP Statements of Work (SOWs), or product/service descriptions and returns exact 6-digit NAICS codes (with official SBA Small Business Size Standards), 4-digit SIC codes (for FinTech KYB & commercial underwriting), 4-character Federal PSC codes (for SAM.gov & FPDS), and 8-digit UNSPSC / 5-digit NIGP codes (for State SLED portals & ERPs).",
+        "operationId": "classify_naics_psc_nigp_endpoint_v1_classify_naics_psc_nigp_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndustryClassifierRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully classified text into NAICS, SIC, Federal PSC, and State UNSPSC/NIGP codes with SBA size standards.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndustryClassifierResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid X-RapidAPI-Proxy-Secret."
+          },
+          "422": {
+            "description": "Unprocessable Entity - Payload validation failure or LLM schema extraction failure."
+          },
+          "502": {
+            "description": "Bad Gateway - Upstream LLM inference provider error."
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "Health & SLA"
+        ],
+        "summary": "Health Check & Uptime SLA Monitor",
+        "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Service is healthy."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClassificationContextType": {
+        "type": "string",
+        "enum": [
+          "company_or_vendor_profile",
+          "rfp_or_sow_scope",
+          "product_or_line_item"
+        ],
+        "description": "Classification context: 'company_or_vendor_profile', 'rfp_or_sow_scope', or 'product_or_line_item'."
+      },
+      "SBASizeStandardType": {
+        "type": "string",
+        "enum": [
+          "ANNUAL_RECEIPTS_USD_MILLIONS",
+          "EMPLOYEE_HEADCOUNT"
+        ],
+        "description": "Whether the SBA small business size threshold is measured by annual receipts ($M) or employee headcount."
+      },
+      "NAICSCodePrediction": {
+        "type": "object",
+        "required": [
+          "naics_code",
+          "naics_title",
+          "is_primary",
+          "confidence_score",
+          "sba_size_standard_type",
+          "sba_size_standard_value",
+          "rationale"
+        ],
+        "properties": {
+          "naics_code": {
+            "type": "string",
+            "example": "541512"
+          },
+          "naics_title": {
+            "type": "string",
+            "example": "Computer Systems Design Services"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "example": true
+          },
+          "confidence_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 97
+          },
+          "sba_size_standard_type": {
+            "$ref": "#/components/schemas/SBASizeStandardType",
+            "example": "ANNUAL_RECEIPTS_USD_MILLIONS"
+          },
+          "sba_size_standard_value": {
+            "type": "string",
+            "example": "$34.0M annual receipts"
+          },
+          "rationale": {
+            "type": "string",
+            "example": "Core scope centers on Zero-Trust cloud architecture, SIEM/SOAR integration, and DevSecOps systems engineering for government clients."
+          }
+        }
+      },
+      "SICCodePrediction": {
+        "type": "object",
+        "required": [
+          "sic_code",
+          "sic_title",
+          "confidence_score"
+        ],
+        "properties": {
+          "sic_code": {
+            "type": "string",
+            "example": "7373"
+          },
+          "sic_title": {
+            "type": "string",
+            "example": "Computer Integrated Systems Design"
+          },
+          "confidence_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 95
+          }
+        }
+      },
+      "PSCCodePrediction": {
+        "type": "object",
+        "required": [
+          "psc_code",
+          "psc_title",
+          "psc_category",
+          "confidence_score"
+        ],
+        "properties": {
+          "psc_code": {
+            "type": "string",
+            "example": "DJ01"
+          },
+          "psc_title": {
+            "type": "string",
+            "example": "IT and Telecom - Security and Compliance Support Services (Labor)"
+          },
+          "psc_category": {
+            "type": "string",
+            "example": "IT_AND_TELECOM_SERVICES"
+          },
+          "confidence_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 96
+          }
+        }
+      },
+      "UNSPSCAndNIGPPrediction": {
+        "type": "object",
+        "required": [
+          "unspsc_code",
+          "unspsc_title",
+          "nigp_class_item_code",
+          "nigp_title",
+          "confidence_score"
+        ],
+        "properties": {
+          "unspsc_code": {
+            "type": "string",
+            "example": "81111801"
+          },
+          "unspsc_title": {
+            "type": "string",
+            "example": "Computer or network or internet security"
+          },
+          "nigp_class_item_code": {
+            "type": "string",
+            "example": "918-29"
+          },
+          "nigp_title": {
+            "type": "string",
+            "example": "Computer Network and Cybersecurity Consulting Services"
+          },
+          "confidence_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 94
+          }
+        }
+      },
+      "IndustryClassifierRequest": {
+        "type": "object",
+        "required": [
+          "description_text"
+        ],
+        "properties": {
+          "description_text": {
+            "type": "string",
+            "minLength": 15,
+            "description": "Unstructured company description, website 'About Us' text, RFP Statement of Work (SOW), or product/line-item description.",
+            "example": "Sentinel Cloud Defense Inc. provides managed 24x7x365 Zero-Trust cybersecurity operations (SOC), FedRAMP High cloud migration engineering on AWS GovCloud and Azure Government, custom DevSecOps software development, and automated SIEM/SOAR threat hunting for federal and state government agencies."
+          },
+          "context_type": {
+            "$ref": "#/components/schemas/ClassificationContextType",
+            "default": "company_or_vendor_profile"
+          },
+          "max_secondary_codes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "default": 3,
+            "example": 3
+          }
+        }
+      },
+      "IndustryClassifierResponse": {
+        "type": "object",
+        "required": [
+          "entity_or_offering_summary",
+          "primary_industry_sector",
+          "primary_naics",
+          "secondary_naics_codes",
+          "sic_codes",
+          "federal_psc_codes",
+          "state_unspsc_and_nigp_codes",
+          "kyb_and_procurement_notes"
+        ],
+        "properties": {
+          "entity_or_offering_summary": {
+            "type": "string",
+            "example": "Sentinel Cloud Defense Inc. — Managed 24x7 Zero-Trust SOC, FedRAMP High Cloud Engineering & DevSecOps Services Provider."
+          },
+          "primary_industry_sector": {
+            "type": "string",
+            "example": "54 - Professional, Scientific, and Technical Services"
+          },
+          "primary_naics": {
+            "$ref": "#/components/schemas/NAICSCodePrediction"
+          },
+          "secondary_naics_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NAICSCodePrediction"
+            },
+            "example": [
+              {
+                "naics_code": "541519",
+                "naics_title": "Other Computer Related Services",
+                "is_primary": false,
+                "confidence_score": 91,
+                "sba_size_standard_type": "ANNUAL_RECEIPTS_USD_MILLIONS",
+                "sba_size_standard_value": "$34.0M annual receipts (150 employees for IT Value Added Resellers under Footnote 18)",
+                "rationale": "Covers managed cybersecurity incident response, disaster recovery, and specialized federal IT security services."
+              },
+              {
+                "naics_code": "541511",
+                "naics_title": "Custom Computer Programming Services",
+                "is_primary": false,
+                "confidence_score": 88,
+                "sba_size_standard_type": "ANNUAL_RECEIPTS_USD_MILLIONS",
+                "sba_size_standard_value": "$34.0M annual receipts",
+                "rationale": "Covers custom DevSecOps application development and SIEM/SOAR automation scripting."
+              }
+            ]
+          },
+          "sic_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SICCodePrediction"
+            },
+            "example": [
+              {
+                "sic_code": "7373",
+                "sic_title": "Computer Integrated Systems Design",
+                "confidence_score": 95
+              },
+              {
+                "sic_code": "7371",
+                "sic_title": "Computer Programming Services",
+                "confidence_score": 89
+              }
+            ]
+          },
+          "federal_psc_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PSCCodePrediction"
+            },
+            "example": [
+              {
+                "psc_code": "DJ01",
+                "psc_title": "IT and Telecom - Security and Compliance Support Services (Labor)",
+                "psc_category": "IT_AND_TELECOM_SERVICES",
+                "confidence_score": 96
+              },
+              {
+                "psc_code": "DA01",
+                "psc_title": "IT and Telecom - Business Application/Application Development Support Services (Labor)",
+                "psc_category": "IT_AND_TELECOM_SERVICES",
+                "confidence_score": 90
+              }
+            ]
+          },
+          "state_unspsc_and_nigp_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UNSPSCAndNIGPPrediction"
+            },
+            "example": [
+              {
+                "unspsc_code": "81111801",
+                "unspsc_title": "Computer or network or internet security",
+                "nigp_class_item_code": "918-29",
+                "nigp_title": "Computer Network and Cybersecurity Consulting Services",
+                "confidence_score": 94
+              },
+              {
+                "unspsc_code": "81111500",
+                "unspsc_title": "Software or hardware engineering",
+                "nigp_class_item_code": "920-45",
+                "nigp_title": "Software Maintenance and Support Services",
+                "confidence_score": 89
+              }
+            ]
+          },
+          "kyb_and_procurement_notes": {
+            "type": "string",
+            "example": "Register 541512 as Primary NAICS in SAM.gov alongside 541519, 541511, and 518210 ($40.0M SBA size standard). Monitor Federal PSCs DJ01 (IT Security & Compliance) and DA01 (IT Application Development) on SAM.gov, and register NIGP codes 918-29 and 920-45 on State SLED portals (TX ESBD, VA eVA, MD eMMA). Low-risk B2B technology services profile for FinTech KYB underwriting."
+          }
+        }
+      }
+    }
+  }
+}
