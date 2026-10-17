@@ -1359,22 +1359,23 @@
             <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
               <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
                 <span class="text-slate-400">RESPONSE // FarDfarsAuditResponse</span>
-                <span class="text-indigo-400">CMMC L2 &bull; RISK: 84/100</span>
+                <span class="text-indigo-400">CMMC L2 &bull; SCORE: 85/100</span>
               </div>
               <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
                 <pre class="text-slate-300"><code>{
-  <span class="text-sky-400">"overall_regulatory_risk_score"</span>: <span class="text-rose-400">84</span>,
+  <span class="text-sky-400">"overall_compliance_burden_score"</span>: <span class="text-rose-400">85</span>,
+  <span class="text-sky-400">"compliance_burden_level"</span>: <span class="text-rose-300">"EXTREME_DEFENSE_GRADE"</span>,
   <span class="text-sky-400">"mandatory_flowdown_count"</span>: <span class="text-amber-300">3</span>,
   <span class="text-sky-400">"cyber_compliance_profile"</span>: {
-    <span class="text-sky-400">"cmmc_level_required"</span>: <span class="text-indigo-300">"level_2_advanced"</span>,
+    <span class="text-sky-400">"cmmc_level_required"</span>: <span class="text-indigo-300">"LEVEL_2_ADVANCED_NIST_800_171"</span>,
     <span class="text-sky-400">"nist_800_171_required"</span>: <span class="text-emerald-400">true</span>,
-    <span class="text-sky-400">"dfars_7012_present"</span>: <span class="text-emerald-400">true</span>,
-    <span class="text-sky-400">"sprs_score_required"</span>: <span class="text-emerald-400">true</span>
+    <span class="text-sky-400">"cui_handling_detected"</span>: <span class="text-emerald-400">true</span>,
+    <span class="text-sky-400">"incident_reporting_window_hours"</span>: <span class="text-amber-300">72</span>
   },
   <span class="text-sky-400">"detected_clauses"</span>: [
     {
       <span class="text-sky-400">"clause_number"</span>: <span class="text-slate-100">"DFARS 252.204-7021"</span>,
-      <span class="text-sky-400">"risk_severity"</span>: <span class="text-rose-400">"critical"</span>,
+      <span class="text-sky-400">"risk_severity"</span>: <span class="text-rose-400">"CRITICAL"</span>,
       <span class="text-sky-400">"mandatory_flowdown"</span>: <span class="text-emerald-400">true</span>
     }
   ]
@@ -1382,7 +1383,7 @@
                 <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
                   <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-indigo-300">cyber_compliance_profile</span>
                   <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">detected_clauses[]</span>
-                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">cas_applicability_warning</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">ip_and_data_rights_warnings[]</span>
                 </div>
               </div>
             </div>
