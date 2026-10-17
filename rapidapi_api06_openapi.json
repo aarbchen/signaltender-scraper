@@ -1,0 +1,308 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FAR / DFARS & CMMC Clause Risk Scanner API",
+    "description": "High-performance, stateless Defense & Federal GovCon regulatory compliance microservice. Scans Section I / Section K federal solicitation and contract text to extract FAR, DFARS, and agency supplement clauses, flags mandatory subcontractor flow-downs, identifies high-burden compliance triggers (Cost Accounting Standards, Buy American/BAA, Unlimited Technical Data Rights), and computes an actionable CMMC 2.0 / NIST SP 800-171 / DFARS 7012/7019/7020/7021 cyber readiness profile.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/far-dfars-clauses": {
+      "post": {
+        "tags": [
+          "FAR / DFARS & CMMC Compliance"
+        ],
+        "summary": "Scan Federal & Defense Contracts for FAR/DFARS Risks, Flow-Downs & CMMC 2.0 Mandates",
+        "description": "Accepts raw text from a federal/DoD solicitation (Section C, H, I, K, or L) or subcontract agreement and returns a strictly validated JSON regulatory audit containing every detected FAR/DFARS/agency clause, severity rating, mandatory subcontractor flow-down flag, compliance burden assessment, remediation guidance, and a dedicated CMMC 2.0 / NIST SP 800-171 / FedRAMP cyber compliance profile.",
+        "operationId": "audit_far_dfars_clauses_v1_audit_far_dfars_clauses_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FarDfarsAuditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully audited FAR/DFARS clauses and generated CMMC 2.0 compliance profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FarDfarsAuditResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid X-RapidAPI-Proxy-Secret."
+          },
+          "422": {
+            "description": "Unprocessable Entity - Payload validation failure or LLM schema extraction failure."
+          },
+          "502": {
+            "description": "Bad Gateway - Upstream LLM inference provider error."
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "Health & SLA"
+        ],
+        "summary": "Health Check & Uptime SLA Monitor",
+        "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Service is healthy."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContractorRole": {
+        "type": "string",
+        "enum": [
+          "prime_contractor",
+          "subcontractor",
+          "commercial_item_vendor"
+        ],
+        "description": "Role of the contractor auditing the solicitation or contract."
+      },
+      "ClauseRiskSeverity": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ],
+        "description": "Severity level of the regulatory, financial, IP, or cyber risk introduced by the clause."
+      },
+      "ComplianceBurdenLevel": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "moderate",
+          "heavy",
+          "extreme"
+        ],
+        "description": "Operational and administrative compliance burden level."
+      },
+      "CMMCLevelRequired": {
+        "type": "string",
+        "enum": [
+          "none_detected",
+          "level_1_foundational",
+          "level_2_advanced",
+          "level_3_expert"
+        ],
+        "description": "CMMC 2.0 certification level required or implied by the solicitation clauses."
+      },
+      "FarDfarsAuditRequest": {
+        "type": "object",
+        "required": [
+          "raw_text"
+        ],
+        "properties": {
+          "raw_text": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 150000,
+            "description": "Unstructured text from a federal/DoD solicitation (Section C, H, I, K, or L) or subcontract agreement containing FAR/DFARS/agency clauses.",
+            "example": "SECTION I - CONTRACT CLAUSES: This solicitation incorporates by reference: FAR 52.215-2 (Audit and Records - Negotiation), FAR 52.230-2 (Cost Accounting Standards), DFARS 252.204-7012 (Safeguarding Covered Defense Information and Cyber Incident Reporting), DFARS 252.204-7020 (NIST SP 800-171 DoD Assessment Requirements), DFARS 252.204-7021 (Cybersecurity Maturity Model Certification Requirements - CMMC Level 2 Required), and DFARS 252.227-7013 (Rights in Technical Data - Noncommercial Items; Government demands Unlimited Rights in all deliverables developed under this contract)."
+          },
+          "contractor_role": {
+            "$ref": "#/components/schemas/ContractorRole",
+            "default": "prime_contractor"
+          }
+        }
+      },
+      "DetectedClauseItem": {
+        "type": "object",
+        "required": [
+          "clause_number",
+          "clause_title",
+          "regulation_family",
+          "risk_severity",
+          "compliance_burden",
+          "mandatory_flowdown",
+          "risk_category",
+          "plain_english_obligation",
+          "financial_or_ip_exposure",
+          "remediation_or_negotiation_action"
+        ],
+        "properties": {
+          "clause_number": {
+            "type": "string",
+            "example": "DFARS 252.204-7012"
+          },
+          "clause_title": {
+            "type": "string",
+            "example": "Safeguarding Covered Defense Information and Cyber Incident Reporting"
+          },
+          "regulation_family": {
+            "type": "string",
+            "example": "DFARS"
+          },
+          "risk_severity": {
+            "$ref": "#/components/schemas/ClauseRiskSeverity"
+          },
+          "compliance_burden": {
+            "$ref": "#/components/schemas/ComplianceBurdenLevel"
+          },
+          "mandatory_flowdown": {
+            "type": "boolean",
+            "example": true
+          },
+          "flowdown_applicability_notes": {
+            "type": "string",
+            "nullable": true,
+            "example": "Must flow down verbatim to all subcontractors handling Covered Defense Information (CDI) or operationally critical support."
+          },
+          "risk_category": {
+            "type": "string",
+            "example": "Cybersecurity / CUI"
+          },
+          "plain_english_obligation": {
+            "type": "string",
+            "example": "Requires full implementation of NIST SP 800-171 security controls on covered contractor information systems and mandatory 72-hour DoD cyber incident reporting via DIBNet."
+          },
+          "financial_or_ip_exposure": {
+            "type": "string",
+            "example": "False Claims Act (FCA) treble damages exposure if SPRS self-assessment score or System Security Plan (SSP) is misrepresented; breach termination risk."
+          },
+          "remediation_or_negotiation_action": {
+            "type": "string",
+            "example": "Verify active Medium/High SPRS score, update SSP and POA&M prior to proposal submission, and isolate CUI enclave."
+          }
+        }
+      },
+      "CyberComplianceProfile": {
+        "type": "object",
+        "required": [
+          "cmmc_level_required",
+          "nist_800_171_required",
+          "dfars_7012_present",
+          "sprs_score_required",
+          "fedramp_Requirement",
+          "cui_handling_detected",
+          "cyber_summary"
+        ],
+        "properties": {
+          "cmmc_level_required": {
+            "$ref": "#/components/schemas/CMMCLevelRequired"
+          },
+          "nist_800_171_required": {
+            "type": "boolean",
+            "example": true
+          },
+          "dfars_7012_present": {
+            "type": "boolean",
+            "example": true
+          },
+          "sprs_score_required": {
+            "type": "boolean",
+            "example": true
+          },
+          "fedramp_Requirement": {
+            "type": "string",
+            "nullable": true,
+            "example": "FedRAMP Moderate baseline equivalencies required for external Cloud Service Providers (CSPs) storing CDI."
+          },
+          "cui_handling_detected": {
+            "type": "boolean",
+            "example": true
+          },
+          "cyber_summary": {
+            "type": "string",
+            "example": "Offeror must maintain an active NIST SP 800-171 assessment in SPRS (DFARS 252.204-7019/7020), achieve CMMC Level 2 certification prior to award (DFARS 252.204-7021), and enforce 72-hour DoD cyber incident reporting."
+          }
+        }
+      },
+      "FarDfarsAuditResponse": {
+        "type": "object",
+        "required": [
+          "document_title",
+          "contractor_role_assumed",
+          "overall_regulatory_risk_score",
+          "overall_risk_rating",
+          "executive_compliance_summary",
+          "total_clauses_analyzed",
+          "mandatory_flowdown_count",
+          "cas_applicability_warning",
+          "ip_data_rights_warning",
+          "cyber_compliance_profile",
+          "detected_clauses",
+          "immediate_action_items"
+        ],
+        "properties": {
+          "document_title": {
+            "type": "string",
+            "nullable": true
+          },
+          "solicitation_or_contract_number": {
+            "type": "string",
+            "nullable": true
+          },
+          "contractor_role_assumed": {
+            "$ref": "#/components/schemas/ContractorRole"
+          },
+          "overall_regulatory_risk_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 84
+          },
+          "overall_risk_rating": {
+            "$ref": "#/components/schemas/ClauseRiskSeverity"
+          },
+          "executive_compliance_summary": {
+            "type": "string"
+          },
+          "total_clauses_analyzed": {
+            "type": "integer",
+            "example": 6
+          },
+          "mandatory_flowdown_count": {
+            "type": "integer",
+            "example": 3
+          },
+          "cas_applicability_warning": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip_data_rights_warning": {
+            "type": "string",
+            "nullable": true
+          },
+          "cyber_compliance_profile": {
+            "$ref": "#/components/schemas/CyberComplianceProfile"
+          },
+          "detected_clauses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetectedClauseItem"
+            }
+          },
+          "immediate_action_items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

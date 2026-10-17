@@ -827,6 +827,7 @@
               <a href="#product-historical-pricing" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/50 border border-slate-800 text-emerald-300 transition-colors">03. Historical Procurement Pricing API</a>
               <a href="#product-live-solicitations" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-cyan-500/60 border border-cyan-500/30 text-cyan-300 transition-colors">04. Live SLED &amp; Federal Open RFP Feed API</a>
               <a href="#product-compliance-matrix" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-amber-500/60 border border-amber-500/30 text-amber-300 transition-colors">05. RFP Compliance Matrix &amp; Outline API</a>
+              <a href="#product-far-dfars-scanner" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-indigo-500/60 border border-indigo-500/40 text-indigo-300 transition-colors">06. FAR / DFARS &amp; CMMC Scanner API</a>
             </div>
           </div>
 
@@ -905,7 +906,7 @@
           <a href="#overview" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors font-mono text-xs">
             <span>&larr; Main Platform</span>
           </a>
-          <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (5)</a>
+          <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (6)</a>
           <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
           <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
         </nav>
@@ -949,7 +950,7 @@
               Automate RFP Parsing, Contract Redlining &amp; Price-to-Win Research
             </h1>
             <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-              Save hundreds of engineering and legal-review hours. Plug our production <span class="text-white font-medium">REST APIs</span> into your CRM, proposal software, or AI agents to extract structured JSON from messy RFPs, flag toxic legal clauses with ready-to-paste redlines, query historical federal award CLIN pricing, stream live multi-portal SLED &amp; Federal solicitations, and generate Shipley compliance matrices. Start free on <span class="text-white font-mono">Basic</span> and scale seamlessly across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
+              Save hundreds of engineering and legal-review hours. Plug our production <span class="text-white font-medium">REST APIs</span> into your CRM, proposal software, or AI agents to extract structured JSON from messy RFPs, flag toxic legal clauses with ready-to-paste redlines, query historical federal award CLIN pricing, stream live multi-portal SLED &amp; Federal solicitations, generate Shipley compliance matrices, and audit FAR/DFARS &amp; CMMC 2.0 flow-downs. Start free on <span class="text-white font-mono">Basic</span> and scale seamlessly across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
             </p>
           </div>
 
@@ -982,7 +983,7 @@
             <div>
               <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
                 <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-                <span class="text-emerald-400">5 LIVE ENDPOINTS</span>
+                <span class="text-emerald-400">6 LIVE ENDPOINTS</span>
               </div>
 
               <div class="mt-3 divide-y divide-slate-800/70 font-mono text-xs">
@@ -1057,14 +1058,31 @@
                     <div>
                       <div class="flex items-center space-x-2">
                         <span class="text-white font-sans font-semibold group-hover:text-amber-300 transition-colors">RFP Compliance Matrix &amp; Proposal Outline API</span>
-                        <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-500 text-navy-950 font-bold">New</span>
                       </div>
                       <div class="text-[11px] text-slate-400">POST /v1/generate/compliance-matrix &bull; Shipley Checklist &amp; Section L/M Outline</div>
                     </div>
                   </div>
                   <div class="flex items-center space-x-3">
-                    <span class="px-2 py-0.5 rounded bg-amber-950/40 border border-amber-500/30 text-amber-200">$0 &ndash; $299/mo</span>
+                    <span class="px-2 py-0.5 rounded bg-amber-950/40 border border-amber-500/30 text-amber-200">$0 &ndash; $399/mo</span>
                     <span class="text-amber-400">&darr;</span>
+                  </div>
+                </a>
+
+                <!-- Directory Row 06 -->
+                <a href="#product-far-dfars-scanner" class="py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-bold">06</span>
+                    <div>
+                      <div class="flex items-center space-x-2">
+                        <span class="text-white font-sans font-semibold group-hover:text-indigo-300 transition-colors">FAR / DFARS &amp; CMMC Clause Risk Scanner API</span>
+                        <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-indigo-500 text-white font-bold">New</span>
+                      </div>
+                      <div class="text-[11px] text-slate-400">POST /v1/audit/far-dfars-clauses &bull; DoD Flow-Downs, CAS &amp; CMMC 2.0 Audit</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-indigo-950/40 border border-indigo-500/30 text-indigo-200">$0 &ndash; $399/mo</span>
+                    <span class="text-indigo-400">&darr;</span>
                   </div>
                 </a>
               </div>
@@ -1764,12 +1782,9 @@
         </article>
 
         <!-- PRODUCT MODULE 05: RFP COMPLIANCE MATRIX & PROPOSAL OUTLINE API -->
-        <article id="product-compliance-matrix" class="rounded-2xl bg-navy-950 border-2 border-amber-500/50 hover:border-amber-400 transition-all overflow-hidden shadow-2xl shadow-amber-950/20">
+        <article id="product-compliance-matrix" class="rounded-2xl bg-navy-950 border border-slate-800 hover:border-amber-500/50 transition-all overflow-hidden shadow-2xl">
           <div class="px-6 py-4 bg-amber-950/20 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
             <div class="flex flex-wrap items-center gap-2.5">
-              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-500 text-navy-950 uppercase">
-                NEW RELEASE
-              </span>
               <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
                 API 05 // PROPOSAL AUTOMATION
               </span>
@@ -1923,6 +1938,171 @@
                     <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">requirements_matrix[]</span>
                     <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-cyan-300">proposal_outline[]</span>
                     <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">submission_format_rules[]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT MODULE 06: FAR / DFARS & CMMC CLAUSE RISK SCANNER API -->
+        <article id="product-far-dfars-scanner" class="rounded-2xl bg-navy-950 border-2 border-indigo-500/50 hover:border-indigo-400 transition-all overflow-hidden shadow-2xl shadow-indigo-950/20">
+          <div class="px-6 py-4 bg-indigo-950/30 border-b border-indigo-500/30 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-indigo-500 text-white uppercase">
+                NEW RELEASE
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+                API 06 // DEFENSE &amp; GOVCON REGULATORY AUDIT
+              </span>
+              <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                POST /v1/audit/far-dfars-clauses
+              </span>
+              <span class="hidden xl:inline text-xs font-mono text-slate-400">
+                Host: <code class="text-slate-300">far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com</code>
+              </span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <a
+                href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+              >
+                Playground &nearr;
+              </a>
+              <a
+                href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-mono font-semibold text-white shadow-md shadow-indigo-950/50 transition-colors"
+              >
+                Subscribe on RapidAPI &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+              <div>
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                  FAR / DFARS &amp; CMMC Clause Risk Scanner API
+                </h2>
+                <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Scan Federal &amp; DoD solicitations (Section I / Section K) or subcontract agreements to detect every incorporated <code class="text-indigo-300 font-mono">FAR 52.2xx</code> and <code class="text-indigo-300 font-mono">DFARS 252.2xx</code> clause, flag mandatory subcontractor flow-downs, expose <strong class="text-white">Cost Accounting Standards (CAS)</strong> &amp; <strong class="text-white">Unlimited IP Rights</strong> traps, and compute an instant <strong class="text-white">CMMC 2.0 / NIST SP 800-171 / SPRS</strong> cyber compliance readiness profile.
+                </p>
+
+                <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-indigo-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">CMMC 2.0 &amp; DFARS 7012/7020/7021 Radar</div>
+                      <div class="text-slate-400 mt-0.5">Pinpoints exact CMMC Level 1/2/3, NIST 800-171, SPRS, and 72-hr cyber reporting mandates.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-indigo-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Mandatory Subcontract Flow-Down Detection</div>
+                      <div class="text-slate-400 mt-0.5">Flags which clauses must flow down verbatim to lower-tier subcontractors and commercial vendors.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-indigo-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">CAS &amp; DCAA Audit Trigger Warnings</div>
+                      <div class="text-slate-400 mt-0.5">Detects FAR 52.230 Cost Accounting Standards and FAR 52.215-2 certified cost/pricing data exposure.</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                    <span class="text-indigo-400 font-mono font-bold mt-0.5">&check;</span>
+                    <div>
+                      <div class="font-semibold text-white">Technical Data &amp; IP Rights Protection</div>
+                      <div class="text-slate-400 mt-0.5">Highlights DFARS 252.227-7013/7014 Unlimited Rights overreach and advises GPR/Restricted assertions.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-800/80">
+                <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                  <span>FAR / DFARS &amp; CMMC SCANNER API &mdash; RAPIDAPI ACCESS TIERS</span>
+                  <a href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">View Plans &nearr;</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                  <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">5 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-indigo-500/30 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-indigo-300 uppercase font-semibold">PRO</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">250 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border-2 border-indigo-500/80 flex flex-col justify-between relative">
+                    <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-indigo-500 text-white text-[9px] font-bold uppercase">Popular</span>
+                    <div>
+                      <div class="text-[10px] text-indigo-300 uppercase font-semibold">ULTRA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-white font-semibold">1,500 req/mo</div>
+                      <div class="text-indigo-300 text-[10px]">+$0.15 / extra</div>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-navy-900 border border-indigo-500/30 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                      <div class="mt-1 text-xl font-extrabold text-white">$399<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                      <div class="text-slate-200 font-semibold">10,000 req/mo</div>
+                      <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 flex">
+              <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+                <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-slate-400">RESPONSE // FarDfarsAuditResponse</span>
+                  <span class="text-indigo-400">CMMC L2 &bull; RISK: 84/100</span>
+                </div>
+                <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                  <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"overall_regulatory_risk_score"</span>: <span class="text-rose-400">84</span>,
+  <span class="text-sky-400">"mandatory_flowdown_count"</span>: <span class="text-amber-300">3</span>,
+  <span class="text-sky-400">"cyber_compliance_profile"</span>: {
+    <span class="text-sky-400">"cmmc_level_required"</span>: <span class="text-indigo-300">"level_2_advanced"</span>,
+    <span class="text-sky-400">"nist_800_171_required"</span>: <span class="text-emerald-400">true</span>,
+    <span class="text-sky-400">"dfars_7012_present"</span>: <span class="text-emerald-400">true</span>,
+    <span class="text-sky-400">"sprs_score_required"</span>: <span class="text-emerald-400">true</span>
+  },
+  <span class="text-sky-400">"detected_clauses"</span>: [
+    {
+      <span class="text-sky-400">"clause_number"</span>: <span class="text-slate-100">"DFARS 252.204-7021"</span>,
+      <span class="text-sky-400">"risk_severity"</span>: <span class="text-rose-400">"critical"</span>,
+      <span class="text-sky-400">"mandatory_flowdown"</span>: <span class="text-emerald-400">true</span>
+    }
+  ]
+}</code></pre>
+                  <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-indigo-300">cyber_compliance_profile</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">detected_clauses[]</span>
+                    <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-rose-300">cas_applicability_warning</span>
                   </div>
                 </div>
               </div>
@@ -2139,7 +2319,6 @@
                   <td class="py-5 px-5">
                     <div class="flex items-center space-x-2">
                       <span class="font-sans font-bold text-sm text-white">RFP Compliance Matrix &amp; Proposal Outline API</span>
-                      <span class="inline-flex items-center whitespace-nowrap px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-500 text-navy-950 font-bold">New</span>
                     </div>
                     <div class="text-amber-300 text-[11px] mt-0.5">POST /v1/generate/compliance-matrix</div>
                     <div class="font-sans text-[11px] text-slate-400 mt-1">Shipley Checklist &amp; Section L/M Outline</div>
@@ -2170,6 +2349,48 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="inline-flex items-center whitespace-nowrap px-3 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-semibold transition-colors"
+                    >
+                      <span>Subscribe</span>
+                      <span class="ml-1.5">&nearr;</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr class="hover:bg-navy-900/60 transition-colors bg-indigo-950/15">
+                  <td class="py-5 px-5">
+                    <div class="flex items-center space-x-2">
+                      <span class="font-sans font-bold text-sm text-white">FAR / DFARS &amp; CMMC Clause Risk Scanner API</span>
+                      <span class="inline-flex items-center whitespace-nowrap px-1.5 py-0.2 text-[9px] uppercase rounded bg-indigo-500 text-white font-bold">New</span>
+                    </div>
+                    <div class="text-indigo-300 text-[11px] mt-0.5">POST /v1/audit/far-dfars-clauses</div>
+                    <div class="font-sans text-[11px] text-slate-400 mt-1">DoD Flow-Downs, CAS &amp; CMMC 2.0 Audit</div>
+                  </td>
+                  <td class="py-5 px-4 whitespace-nowrap">
+                    <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-300 mt-0.5"><strong>5</strong> req / mo</div>
+                    <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </td>
+                  <td class="py-5 px-4 whitespace-nowrap">
+                    <div class="text-base font-extrabold text-indigo-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>250</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </td>
+                  <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20 whitespace-nowrap">
+                    <div class="text-base font-extrabold text-indigo-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-white mt-0.5"><strong>1,500</strong> req / mo</div>
+                    <div class="text-indigo-300/90 text-[10px]">+$0.15 / extra</div>
+                  </td>
+                  <td class="py-5 px-4 whitespace-nowrap">
+                    <div class="text-base font-extrabold text-indigo-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                    <div class="text-slate-200 mt-0.5"><strong>10,000</strong> req / mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </td>
+                  <td class="py-5 px-5 text-right whitespace-nowrap">
+                    <a
+                      href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center whitespace-nowrap px-3 py-2 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 font-semibold transition-colors"
                     >
                       <span>Subscribe</span>
                       <span class="ml-1.5">&nearr;</span>
@@ -2424,14 +2645,14 @@
                     'Start Getting Leads &rarr;' +
                   '</a>' +
                 '</div>' +
-                '<div class="p-6 rounded-2xl bg-navy-900 border border-amber-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-amber-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (5 LIVE)</div>' +
+                '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (6 LIVE)</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Shred this RFP into a Shipley compliance matrix, extract SOW deliverables, audit legal clauses, or query historical CLIN pricing via our RapidAPI microservices.' +
+                    'Audit FAR/DFARS &amp; CMMC 2.0 flow-downs, shred this RFP into a Shipley compliance matrix, extract SOW deliverables, audit legal clauses, or query historical CLIN pricing via our RapidAPI microservices.' +
                   '</p>' +
-                  '<a href="#product-compliance-matrix" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-amber-300 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 rounded-lg transition-all">' +
-                    'Explore 5 RapidAPI Microservices &rarr;' +
+                  '<a href="#product-far-dfars-scanner" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 6 RapidAPI Microservices &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
@@ -2643,6 +2864,7 @@
         '#product-historical-pricing': true,
         '#product-live-solicitations': true,
         '#product-compliance-matrix': true,
+        '#product-far-dfars-scanner': true,
         '#api-pricing-matrix': true
       };
 
