@@ -629,13 +629,13 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (8 LIVE)</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (9 LIVE)</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, shred this RFP into a Shipley compliance matrix, extract SOW deliverables, audit legal clauses, or query historical CLIN pricing via our RapidAPI microservices.
+                    Draft Shipley proposal narratives &amp; CO clarification Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, shred this RFP into a compliance matrix, or query historical CLIN pricing via our RapidAPI microservices.
                   </p>
-                  <a href="../../apis.html#product-industry-classifier" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 8 RapidAPI Microservices &rarr;
+                  <a href="../../apis.html#product-rfp-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
+                    Explore 9 RapidAPI Microservices &rarr;
                   </a>
                 </div>
               </div>
@@ -1150,13 +1150,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (8 LIVE)</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (9 LIVE)</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, shred this RFP into a Shipley compliance matrix, extract SOW deliverables, audit legal clauses, or query historical CLIN pricing via our RapidAPI microservices.' +
+                    'Draft Shipley proposal narratives &amp; CO clarification Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, shred this RFP into a compliance matrix, or query historical CLIN pricing via our RapidAPI microservices.' +
                   '</p>' +
-                  '<a href="#product-industry-classifier" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 8 RapidAPI Microservices &rarr;' +
+                  '<a href="#product-rfp-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 9 RapidAPI Microservices &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +

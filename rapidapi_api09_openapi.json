@@ -1,0 +1,413 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AI RFP Response & Clarification Q&A Generator API",
+    "version": "1.0.0",
+    "description": "Stateless B2B & GovCon AI proposal writing microservice that transforms raw RFP/SOW requirements and vendor capability context into an evaluator-ready, Shipley-compliant proposal response narrative (with Feature-Benefit-Proof win-theme blocks, requirement traceability subsections, and graphic callout recommendations) plus strategic Contracting Officer (CO) clarification Q&A questions designed to expose incumbent wiring and neutralize restrictive specifications."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "Production Render Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/generate/rfp-response": {
+      "post": {
+        "tags": ["Proposal & Compliance Generation"],
+        "summary": "Draft a Shipley Proposal Response Narrative and Strategic Contracting Officer Q&A Questions",
+        "description": "Accepts an RFP requirement section (SOW/PWS/Section C/L/M) and the bidder's capability or past performance context, and generates an evaluator-ready, Shipley-compliant proposal response section (complete with win themes, Feature-Benefit-Proof blocks, requirement traceability subsections, and visual callout recommendations) plus strategic Contracting Officer clarification Q&A questions designed to expose incumbent biases and neutralize restrictive requirements.",
+        "operationId": "generate_rfp_response_v1_generate_rfp_response_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RfpResponseGeneratorRequest"
+              },
+              "example": {
+                "rfp_section_text": "SECTION C.4 - ZERO-TRUST CLOUD MIGRATION & SOC OPERATIONS: C.4.1 The Contractor shall migrate 45 legacy on-premise applications to a FedRAMP High cloud environment within 90 calendar days of contract award with zero unplanned downtime. C.4.2 The Contractor shall provide 24x7x365 continuous monitoring and automated SOAR incident containment with a Mean Time to Respond (MTTR) of <= 10 minutes for Severity-1 incidents. C.4.3 The Contractor shall utilize the Agency's legacy proprietary ticketing tool (GovTrack v2.1) with at least 5 years of prior production experience administering GovTrack v2.1.",
+                "company_context_and_capabilities": "Aegis Federal Cloud LLC — Certified 8(a) & SDVOSB (CMMC Level 2, ISO 27001, FedRAMP High P-ATO partner). Core Capabilities: Automated Terraform/Ansible cloud migration factory, AWS GovCloud & Azure Government landing zones, 24x7x365 Splunk ES + Palo Alto XSOAR security operations center with 4.2-minute average MTTR. Past Performance: Migrated 62 mission-critical applications for U.S. Department of Energy to AWS GovCloud in 115 days with 99.998% uptime ($14.2M); operates 24x7 SOC for DHS CISA component covering 32,000 endpoints.",
+                "target_section_type": "technical_approach",
+                "tone_and_methodology": "shipley_federal"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Shipley Proposal Response & Strategic Clarification Q&A Generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RfpResponseGeneratorResponse"
+                },
+                "example": {
+                  "section_title": "Section C.4 Technical Approach: Zero-Downtime FedRAMP High Cloud Migration & Autonomous 24x7x365 SOAR Operations",
+                  "executive_theme_statement": "Aegis Federal Cloud LLC delivers a zero-downtime 90-day FedRAMP High migration factory and a 4.2-minute MTTR Zero-Trust SOC—exceeding the Agency's 10-minute Severity-1 mandate by 58% while eliminating cutover risk through proven DOE and DHS CISA automation playbooks.",
+                  "win_themes": [
+                    "Accelerated 90-Day Zero-Downtime Migration Factory: Pre-hardened Terraform/Ansible FedRAMP High landing zones cut application cutover timelines by 40% with automated blue/green rollback.",
+                    "Sub-5-Minute Autonomous SOAR Containment: Palo Alto XSOAR + Splunk ES playbooks deliver a verified 4.2-minute Severity-1 MTTR across 32,000+ DHS endpoints, outperforming Section C.4.2's 10-minute SLA by 58%."
+                  ],
+                  "feature_benefit_proof_blocks": [
+                    {
+                      "feature": "Automated Terraform/Ansible FedRAMP High Cloud Migration Factory with Blue/Green Cutover",
+                      "benefit": "Eliminates manual configuration drift and guarantees zero unplanned downtime across all 45 legacy applications within the aggressive 90-calendar-day schedule.",
+                      "proof_point": "Successfully migrated 62 mission-critical applications for the U.S. Department of Energy ($14.2M) to AWS GovCloud achieving 99.998% operational availability.",
+                      "ghosting_angle": "Unlike traditional lift-and-shift integrators that rely on manual runbooks and extended weekend outage windows, Aegis's IaC factory validates FedRAMP High controls pre-cutover."
+                    },
+                    {
+                      "feature": "24x7x365 Splunk ES & Palo Alto XSOAR Autonomous Incident Containment Engine",
+                      "benefit": "Isolates compromised endpoints and revokes Zero-Trust session tokens automatically in under 5 minutes, preventing lateral movement during Severity-1 cyber events.",
+                      "proof_point": "Maintains a verified 4.2-minute average Severity-1 MTTR across 32,000 endpoints for a DHS CISA component—58% faster than the RFP's 10-minute threshold.",
+                      "ghosting_angle": "Legacy manual Tier-1 SOC models cannot humanly triage, escalate, and contain Severity-1 alerts within 10 minutes without pre-engineered SOAR playbooks."
+                    }
+                  ],
+                  "drafted_subsections": [
+                    {
+                      "subsection_heading": "1.0 Phased 90-Day Zero-Downtime FedRAMP High Migration Execution (Ref: C.4.1)",
+                      "requirement_reference": "C.4.1",
+                      "narrative_markdown": "**Aegis Federal Cloud LLC (Aegis) will migrate all 45 legacy on-premise applications to a FedRAMP High environment within 90 calendar days with zero unplanned downtime** using our repeatable 4-Gate Cloud Migration Factory. Building directly on our U.S. Department of Energy migration of 62 mission-critical systems ($14.2M, 99.998% uptime), Aegis deploys pre-authorized Terraform and Ansible Infrastructure-as-Code (IaC) templates during Days 1–15 to instantiate a compliant FedRAMP High landing zone.\n\n* **Wave 1 (Days 16–45 — 15 Low-Dependency Apps):** Automated containerization, database replication via AWS DMS / Azure Migrate, and parallel synthetic load testing prior to DNS blue/green cutover.\n* **Wave 2 & Wave 3 (Days 46–90 — 30 Core Mission Apps):** Continuous block-level synchronization with instant sub-second traffic shifting, ensuring zero disruption to agency end-users.",
+                      "recommended_graphic_or_callout": "Exhibit 1-1: 90-Day 3-Wave Zero-Downtime Migration Schedule & Automated Rollback Architecture (Callout Box: 62 Apps Migrated for DOE at 99.998% Uptime)"
+                    },
+                    {
+                      "subsection_heading": "2.0 24x7x365 Continuous Monitoring & Sub-10-Minute SOAR Containment (Ref: C.4.2 & C.4.3)",
+                      "requirement_reference": "C.4.2, C.4.3",
+                      "narrative_markdown": "**Aegis will provide uninterrupted 24x7x365 continuous monitoring and achieve a Severity-1 Mean Time to Respond (MTTR) of <= 10 minutes** by deploying our battle-tested Splunk Enterprise Security (ES) and Palo Alto XSOAR architecture. Across 32,000 endpoints for our active DHS CISA SOC contract, this exact automation fabric currently achieves a verified **4.2-minute average MTTR**.\n\nTo ensure seamless workflow continuity under **Section C.4.3**, Aegis integrates bidirectional REST/webhook connectors between Palo Alto XSOAR and the Agency's **GovTrack v2.1** ticketing platform, automating ticket creation, severity enrichment, and SLA audit logging without manual analyst re-keying.",
+                      "recommended_graphic_or_callout": "Exhibit 2-1: Autonomous 4.2-Minute Severity-1 SOAR Containment & GovTrack v2.1 Bidirectional API Workflow"
+                    }
+                  ],
+                  "full_compiled_response_markdown": "## Section C.4 Technical Approach: Zero-Downtime FedRAMP High Cloud Migration & Autonomous 24x7x365 SOAR Operations\n\n> **Executive Win Theme:** Aegis Federal Cloud LLC delivers a zero-downtime 90-day FedRAMP High migration factory and a 4.2-minute MTTR Zero-Trust SOC—exceeding the Agency's 10-minute Severity-1 mandate by 58% while eliminating cutover risk through proven DOE and DHS CISA automation playbooks.\n\n### 1.0 Phased 90-Day Zero-Downtime FedRAMP High Migration Execution (Ref: C.4.1)\n**Aegis Federal Cloud LLC (Aegis) will migrate all 45 legacy on-premise applications to a FedRAMP High environment within 90 calendar days with zero unplanned downtime** using our repeatable 4-Gate Cloud Migration Factory...\n\n### 2.0 24x7x365 Continuous Monitoring & Sub-10-Minute SOAR Containment (Ref: C.4.2 & C.4.3)\n**Aegis will provide uninterrupted 24x7x365 continuous monitoring and achieve a Severity-1 Mean Time to Respond (MTTR) of <= 10 minutes** by deploying our battle-tested Splunk Enterprise Security (ES) and Palo Alto XSOAR architecture...",
+                  "compliance_coverage_checklist": [
+                    "C.4.1 — Migrate 45 legacy on-premise applications to a FedRAMP High cloud environment within 90 calendar days with zero unplanned downtime (Addressed in Subsection 1.0)",
+                    "C.4.2 — Provide 24x7x365 continuous monitoring and automated SOAR incident containment with MTTR <= 10 minutes for Severity-1 incidents (Addressed in Subsection 2.0)",
+                    "C.4.3 — Utilize and integrate with Agency's GovTrack v2.1 ticketing tool (Addressed in Subsection 2.0 + Challenged in Strategic Q&A #1)"
+                  ],
+                  "strategic_clarification_questions": [
+                    {
+                      "question_id": "Q-01",
+                      "rfp_section_reference": "Section C.4.3",
+                      "category": "INCUMBENT_LOCKOUT_CHALLENGE",
+                      "formal_question_for_co": "Reference Section C.4.3, page 18: The solicitation requires 5 years of prior production experience specifically administering the Agency's internal proprietary ticketing tool, 'GovTrack v2.1'. Because GovTrack v2.1 is an agency-proprietary system not commercially available outside this contract, this requirement appears to restrict competition to the incumbent contractor. To promote full and open competition in accordance with FAR 11.002, will the Government amend Section C.4.3 to accept 5 years of enterprise ITSM/SOAR ticketing administration experience (e.g., ServiceNow Federal, Jira Service Management, Remedy, or Palo Alto XSOAR) combined with demonstrated REST API integration capabilities?",
+                      "internal_capture_rationale": "Classic incumbent wire: only the incumbent has 5 years of experience on an internal proprietary tool ('GovTrack v2.1'). Citing FAR 11.002 forces the Contracting Officer to broaden the requirement to commercial ITSM/SOAR equivalents via Amendment, neutralizing our only compliance gap.",
+                      "desired_amendment_outcome": "Government issues RFP Amendment 0001 revising C.4.3 to allow '5 years of experience with GovTrack v2.1 OR equivalent enterprise ITSM/SOAR platforms (ServiceNow, Jira, Remedy, XSOAR).'"
+                    },
+                    {
+                      "question_id": "Q-02",
+                      "rfp_section_reference": "Section C.4.1",
+                      "category": "TECHNICAL_SCOPE_CLARIFICATION",
+                      "formal_question_for_co": "Reference Section C.4.1: To ensure accurate sizing of the 90-calendar-day FedRAMP High migration wave schedule, will the Government provide an application inventory appendix detailing database volumes (TB), operating system versions, and Authority to Operate (ATO) boundary inheritance availability prior to the Authority to Proceed (ATP) milestone?",
+                      "internal_capture_rationale": "Establishes that delays in Government-Furnished Information (GFI) or ATO boundary sign-offs could impact the 90-day clock, protecting Aegis against fixed-price schedule risk.",
+                      "desired_amendment_outcome": "Government confirms GFI application inventory will be provided at Kickoff and clarifies that the 90-day migration clock excludes Government ATO review hold times."
+                    }
+                  ],
+                  "evidence_placeholders_needed": [
+                    "[INSERT CONTRACT NUMBER FOR U.S. DOE 62-APP MIGRATION REFERENCE]",
+                    "[INSERT CONTRACT NUMBER & COR CONTACT FOR DHS CISA 32,000-ENDPOINT SOC REFERENCE]",
+                    "[CONFIRM NAMED KEY PERSONNEL LEAD CLOUD ARCHITECT CERTIFICATION NUMBERS]"
+                  ],
+                  "estimated_page_count": 3.5
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid RapidAPI Proxy Secret"
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": ["Monitoring"],
+        "summary": "SLA & Health Check",
+        "description": "Unprotected health check endpoint for load balancers and RapidAPI SLA monitoring.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TargetProposalSectionType": {
+        "type": "string",
+        "enum": [
+          "technical_approach",
+          "management_and_staffing",
+          "past_performance_narrative",
+          "executive_summary",
+          "transition_and_phase_in"
+        ],
+        "example": "technical_approach",
+        "description": "Type of proposal section to draft."
+      },
+      "ClarificationQuestionCategory": {
+        "type": "string",
+        "enum": [
+          "INCUMBENT_LOCKOUT_CHALLENGE",
+          "AMBIGUOUS_REQUIREMENT",
+          "CONFLICTING_SLA_OR_TIMELINE",
+          "PRICING_OR_CLIN_CLARIFICATION",
+          "TECHNICAL_SCOPE_CLARIFICATION"
+        ],
+        "example": "INCUMBENT_LOCKOUT_CHALLENGE",
+        "description": "Strategic category of a vendor clarification question submitted to the Contracting Officer."
+      },
+      "RfpResponseGeneratorRequest": {
+        "type": "object",
+        "required": ["rfp_section_text", "company_context_and_capabilities"],
+        "properties": {
+          "rfp_section_text": {
+            "type": "string",
+            "minLength": 40,
+            "description": "Raw text of the RFP requirement section, Statement of Work (SOW), Performance Work Statement (PWS), Section C, Section L instructions, or Section M evaluation factors to respond to.",
+            "example": "SECTION C.4 - ZERO-TRUST CLOUD MIGRATION & SOC OPERATIONS: C.4.1 The Contractor shall migrate 45 legacy on-premise applications to a FedRAMP High cloud environment within 90 calendar days of contract award with zero unplanned downtime. C.4.2 The Contractor shall provide 24x7x365 continuous monitoring and automated SOAR incident containment with a Mean Time to Respond (MTTR) of <= 10 minutes for Severity-1 incidents. C.4.3 The Contractor shall utilize the Agency's legacy proprietary ticketing tool (GovTrack v2.1) with at least 5 years of prior production experience administering GovTrack v2.1."
+          },
+          "company_context_and_capabilities": {
+            "type": "string",
+            "minLength": 30,
+            "description": "Raw text of the bidder's capability statement, technical solution summary, past performance metrics, certifications (CMMC, FedRAMP, ISO), and key discriminators.",
+            "example": "Aegis Federal Cloud LLC — Certified 8(a) & SDVOSB (CMMC Level 2, ISO 27001, FedRAMP High P-ATO partner). Core Capabilities: Automated Terraform/Ansible cloud migration factory, AWS GovCloud & Azure Government landing zones, 24x7x365 Splunk ES + Palo Alto XSOAR security operations center with 4.2-minute average MTTR. Past Performance: Migrated 62 mission-critical applications for U.S. Department of Energy to AWS GovCloud in 115 days with 99.998% uptime ($14.2M); operates 24x7 SOC for DHS CISA component covering 32,000 endpoints."
+          },
+          "target_section_type": {
+            "$ref": "#/components/schemas/TargetProposalSectionType",
+            "default": "technical_approach"
+          },
+          "tone_and_methodology": {
+            "type": "string",
+            "default": "shipley_federal",
+            "example": "shipley_federal",
+            "description": "Writing style and capture methodology ('shipley_federal', 'commercial_enterprise', or 'sled_state_local')."
+          }
+        }
+      },
+      "FeatureBenefitProofBlock": {
+        "type": "object",
+        "required": ["feature", "benefit", "proof_point"],
+        "properties": {
+          "feature": {
+            "type": "string",
+            "example": "Automated Terraform/Ansible FedRAMP High Cloud Migration Factory with Blue/Green Cutover",
+            "description": "Specific technical, operational, or management feature proposed by the bidder."
+          },
+          "benefit": {
+            "type": "string",
+            "example": "Eliminates manual configuration drift and guarantees zero unplanned downtime across all 45 legacy applications within the aggressive 90-calendar-day schedule.",
+            "description": "Measurable mission benefit, risk reduction, or cost/schedule savings delivered to the issuing agency."
+          },
+          "proof_point": {
+            "type": "string",
+            "example": "Successfully migrated 62 mission-critical applications for the U.S. Department of Energy ($14.2M) to AWS GovCloud achieving 99.998% operational availability.",
+            "description": "Concrete past performance metric, SLA achievement, certification, or case study proving the benefit."
+          },
+          "ghosting_angle": {
+            "type": "string",
+            "nullable": true,
+            "example": "Unlike traditional lift-and-shift integrators that rely on manual runbooks and extended weekend outage windows, Aegis's IaC factory validates FedRAMP High controls pre-cutover.",
+            "description": "Subtle Shipley competitive 'ghosting' angle that highlights competitor or incumbent weaknesses without naming them."
+          }
+        }
+      },
+      "DraftedProposalSubsection": {
+        "type": "object",
+        "required": [
+          "subsection_heading",
+          "requirement_reference",
+          "narrative_markdown",
+          "recommended_graphic_or_callout"
+        ],
+        "properties": {
+          "subsection_heading": {
+            "type": "string",
+            "example": "1.0 Phased 90-Day Zero-Downtime FedRAMP High Migration Execution (Ref: C.4.1)",
+            "description": "Numbered or titled heading for this subsection aligned to the RFP requirement."
+          },
+          "requirement_reference": {
+            "type": "string",
+            "example": "C.4.1",
+            "description": "Exact RFP Section C/L/M or SOW paragraph reference addressed by this subsection."
+          },
+          "narrative_markdown": {
+            "type": "string",
+            "example": "**Aegis Federal Cloud LLC (Aegis) will migrate all 45 legacy on-premise applications to a FedRAMP High environment within 90 calendar days with zero unplanned downtime** using our repeatable 4-Gate Cloud Migration Factory. Building directly on our U.S. Department of Energy migration of 62 mission-critical systems ($14.2M, 99.998% uptime), Aegis deploys pre-authorized Terraform and Ansible Infrastructure-as-Code (IaC) templates during Days 1–15 to instantiate a compliant FedRAMP High landing zone.",
+            "description": "Ready-to-paste, evaluator-focused proposal prose formatted in clean Markdown using active voice, bolded compliance callouts, and integrated proof points."
+          },
+          "recommended_graphic_or_callout": {
+            "type": "string",
+            "example": "Exhibit 1-1: 90-Day 3-Wave Zero-Downtime Migration Schedule & Automated Rollback Architecture (Callout Box: 62 Apps Migrated for DOE at 99.998% Uptime)",
+            "description": "Recommended visual exhibit, architecture diagram, or action-caption callout box to accompany this subsection."
+          }
+        }
+      },
+      "StrategicClarificationQuestion": {
+        "type": "object",
+        "required": [
+          "question_id",
+          "rfp_section_reference",
+          "category",
+          "formal_question_for_co",
+          "internal_capture_rationale",
+          "desired_amendment_outcome"
+        ],
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "example": "Q-01",
+            "description": "Sequential identifier for the vendor question (e.g., 'Q-01', 'Q-02')."
+          },
+          "rfp_section_reference": {
+            "type": "string",
+            "example": "Section C.4.3",
+            "description": "Specific RFP section, paragraph, or page reference being questioned."
+          },
+          "category": {
+            "$ref": "#/components/schemas/ClarificationQuestionCategory"
+          },
+          "formal_question_for_co": {
+            "type": "string",
+            "example": "Reference Section C.4.3, page 18: The solicitation requires 5 years of prior production experience specifically administering the Agency's internal proprietary ticketing tool, 'GovTrack v2.1'. Because GovTrack v2.1 is an agency-proprietary system not commercially available outside this contract, this requirement appears to restrict competition to the incumbent contractor. To promote full and open competition in accordance with FAR 11.002, will the Government amend Section C.4.3 to accept 5 years of enterprise ITSM/SOAR ticketing administration experience (e.g., ServiceNow Federal, Jira Service Management, Remedy, or Palo Alto XSOAR) combined with demonstrated REST API integration capabilities?",
+            "description": "Polite, formal, ready-to-submit question phrased for the Contracting Officer (CO) or Procurement Officer Q&A log."
+          },
+          "internal_capture_rationale": {
+            "type": "string",
+            "example": "Classic incumbent wire: only the incumbent has 5 years of experience on an internal proprietary tool ('GovTrack v2.1'). Citing FAR 11.002 forces the Contracting Officer to broaden the requirement to commercial ITSM/SOAR equivalents via Amendment, neutralizing our only compliance gap.",
+            "description": "Internal capture strategy note explaining WHY this question is being asked (e.g., exposing an incumbent-wired spec, neutralizing a restrictive requirement, or forcing the agency to clarify unpriced scope)."
+          },
+          "desired_amendment_outcome": {
+            "type": "string",
+            "example": "Government issues RFP Amendment 0001 revising C.4.3 to allow '5 years of experience with GovTrack v2.1 OR equivalent enterprise ITSM/SOAR platforms (ServiceNow, Jira, Remedy, XSOAR).'",
+            "description": "The specific RFP amendment or clarification outcome sought from the agency."
+          }
+        }
+      },
+      "RfpResponseGeneratorResponse": {
+        "type": "object",
+        "required": [
+          "section_title",
+          "executive_theme_statement",
+          "win_themes",
+          "feature_benefit_proof_blocks",
+          "drafted_subsections",
+          "full_compiled_response_markdown",
+          "compliance_coverage_checklist",
+          "strategic_clarification_questions",
+          "evidence_placeholders_needed",
+          "estimated_page_count"
+        ],
+        "properties": {
+          "section_title": {
+            "type": "string",
+            "example": "Section C.4 Technical Approach: Zero-Downtime FedRAMP High Cloud Migration & Autonomous 24x7x365 SOAR Operations",
+            "description": "Recommended main heading for the drafted proposal response section."
+          },
+          "executive_theme_statement": {
+            "type": "string",
+            "example": "Aegis Federal Cloud LLC delivers a zero-downtime 90-day FedRAMP High migration factory and a 4.2-minute MTTR Zero-Trust SOC—exceeding the Agency's 10-minute Severity-1 mandate by 58% while eliminating cutover risk through proven DOE and DHS CISA automation playbooks.",
+            "description": "High-impact Shipley theme statement (callout box) summarizing why the bidder offers the highest technical confidence and lowest execution risk."
+          },
+          "win_themes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Accelerated 90-Day Zero-Downtime Migration Factory: Pre-hardened Terraform/Ansible FedRAMP High landing zones cut application cutover timelines by 40% with automated blue/green rollback.",
+              "Sub-5-Minute Autonomous SOAR Containment: Palo Alto XSOAR + Splunk ES playbooks deliver a verified 4.2-minute Severity-1 MTTR across 32,000+ DHS endpoints, outperforming Section C.4.2's 10-minute SLA by 58%."
+            ],
+            "description": "Core Shipley win themes woven throughout the drafted response."
+          },
+          "feature_benefit_proof_blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureBenefitProofBlock"
+            },
+            "example": [
+              {
+                "feature": "Automated Terraform/Ansible FedRAMP High Cloud Migration Factory with Blue/Green Cutover",
+                "benefit": "Eliminates manual configuration drift and guarantees zero unplanned downtime across all 45 legacy applications within the aggressive 90-calendar-day schedule.",
+                "proof_point": "Successfully migrated 62 mission-critical applications for the U.S. Department of Energy ($14.2M) to AWS GovCloud achieving 99.998% operational availability.",
+                "ghosting_angle": "Unlike traditional lift-and-shift integrators that rely on manual runbooks and extended weekend outage windows, Aegis's IaC factory validates FedRAMP High controls pre-cutover."
+              }
+            ],
+            "description": "Structured Feature-Benefit-Proof (FBP) discriminators anchoring the technical or management narrative."
+          },
+          "drafted_subsections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DraftedProposalSubsection"
+            },
+            "example": [
+              {
+                "subsection_heading": "1.0 Phased 90-Day Zero-Downtime FedRAMP High Migration Execution (Ref: C.4.1)",
+                "requirement_reference": "C.4.1",
+                "narrative_markdown": "**Aegis Federal Cloud LLC (Aegis) will migrate all 45 legacy on-premise applications to a FedRAMP High environment within 90 calendar days with zero unplanned downtime** using our repeatable 4-Gate Cloud Migration Factory.",
+                "recommended_graphic_or_callout": "Exhibit 1-1: 90-Day 3-Wave Zero-Downtime Migration Schedule & Automated Rollback Architecture"
+              }
+            ],
+            "description": "Section-by-section drafted proposal prose mapped directly to each RFP requirement."
+          },
+          "full_compiled_response_markdown": {
+            "type": "string",
+            "example": "## Section C.4 Technical Approach: Zero-Downtime FedRAMP High Cloud Migration & Autonomous 24x7x365 SOAR Operations\n\n> **Executive Win Theme:** Aegis Federal Cloud LLC delivers a zero-downtime 90-day FedRAMP High migration factory and a 4.2-minute MTTR Zero-Trust SOC...\n\n### 1.0 Phased 90-Day Zero-Downtime FedRAMP High Migration Execution (Ref: C.4.1)\n**Aegis Federal Cloud LLC (Aegis) will migrate all 45 legacy on-premise applications to a FedRAMP High environment within 90 calendar days with zero unplanned downtime**...",
+            "description": "Complete, copy-paste-ready Markdown document combining the executive theme banner, all drafted subsections, and compliance tables."
+          },
+          "compliance_coverage_checklist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "C.4.1 — Migrate 45 legacy on-premise applications to a FedRAMP High cloud environment within 90 calendar days with zero unplanned downtime (Addressed in Subsection 1.0)",
+              "C.4.2 — Provide 24x7x365 continuous monitoring and automated SOAR incident containment with MTTR <= 10 minutes for Severity-1 incidents (Addressed in Subsection 2.0)",
+              "C.4.3 — Utilize and integrate with Agency's GovTrack v2.1 ticketing tool (Addressed in Subsection 2.0 + Challenged in Strategic Q&A #1)"
+            ],
+            "description": "Checklist verifying each 'shall'/'must' requirement from the input RFP text and where it is satisfied in the drafted response."
+          },
+          "strategic_clarification_questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrategicClarificationQuestion"
+            },
+            "example": [
+              {
+                "question_id": "Q-01",
+                "rfp_section_reference": "Section C.4.3",
+                "category": "INCUMBENT_LOCKOUT_CHALLENGE",
+                "formal_question_for_co": "Reference Section C.4.3, page 18: The solicitation requires 5 years of prior production experience specifically administering the Agency's internal proprietary ticketing tool, 'GovTrack v2.1'. To promote full and open competition in accordance with FAR 11.002, will the Government amend Section C.4.3 to accept 5 years of enterprise ITSM/SOAR ticketing administration experience (e.g., ServiceNow Federal, Jira Service Management, Remedy, or Palo Alto XSOAR)?",
+                "internal_capture_rationale": "Classic incumbent wire: only the incumbent has 5 years of experience on an internal proprietary tool ('GovTrack v2.1'). Citing FAR 11.002 forces the Contracting Officer to broaden the requirement via Amendment.",
+                "desired_amendment_outcome": "Government issues RFP Amendment 0001 revising C.4.3 to allow '5 years of experience with GovTrack v2.1 OR equivalent enterprise ITSM/SOAR platforms.'"
+              }
+            ],
+            "description": "Strategic vendor Q&A clarification questions to submit to the Contracting Officer to resolve ambiguities, challenge incumbent-wired specs, or protect pricing assumptions."
+          },
+          "evidence_placeholders_needed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "[INSERT CONTRACT NUMBER FOR U.S. DOE 62-APP MIGRATION REFERENCE]",
+              "[INSERT CONTRACT NUMBER & COR CONTACT FOR DHS CISA 32,000-ENDPOINT SOC REFERENCE]",
+              "[CONFIRM NAMED KEY PERSONNEL LEAD CLOUD ARCHITECT CERTIFICATION NUMBERS]"
+            ],
+            "description": "List of specific data points or placeholders (e.g., '[INSERT CONTRACT # FOR DOE MIGRATION]') where the proposal team should verify or fill in exact internal details before submission."
+          },
+          "estimated_page_count": {
+            "type": "number",
+            "minimum": 0.5,
+            "example": 3.5,
+            "description": "Estimated page count of the drafted section assuming standard federal proposal formatting (12pt Times New Roman / Arial, single-spaced, including 1-2 graphics)."
+          }
+        }
+      }
+    }
+  }
+}
+
