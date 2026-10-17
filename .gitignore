@@ -16,6 +16,10 @@ __pycache__/
 # Logs, debug screenshots, and local data artifacts
 error_log.txt
 *.png
+!favicon-32x32.png
+!favicon-192x192.png
+!apple-touch-icon.png
+!og-banner.png
 *.csv
 *.pdf
 sled-scraper/bids.json
