@@ -19,12 +19,12 @@ ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
 
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
 WHOP_TIER1_URL = os.getenv(
-    "WHOP_CHECKOUT_URL",
-    "https://whop.com/signaltender-net/signaltender-private-alerts",
+    "STRIPE_TIER1_CHECKOUT_URL",
+    f"{SITE_BASE_URL}/index.html#checkout-tier1",
 )
 WHOP_TIER2_URL = os.getenv(
-    "WHOP_TIER2_CHECKOUT_URL",
-    "https://whop.com/signaltender-net/capturedesk-autopilot-tier-2",
+    "STRIPE_TIER2_CHECKOUT_URL",
+    f"{SITE_BASE_URL}/index.html#checkout-tier2",
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -599,7 +599,7 @@ def generate_pseo_site() -> int:
                         Generate Compliance Matrix via API &rarr;
                       </a>
                     </div>
-                    <p class="text-[11px] font-mono text-slate-400">Instant 60-second access via Whop. Flexible month-to-month—cancel anytime.</p>
+                    <p class="text-[11px] font-mono text-slate-400">Instant 60-second Discord role activation. Flexible month-to-month or annual billing—cancel anytime.</p>
                   </div>
                 </div>
 
@@ -624,7 +624,7 @@ def generate_pseo_site() -> int:
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
                     <li>&check; Direct One-Click Official Portal Links</li>
-                    <li>&check; Tier 2 CaptureDesk ($399/mo | $2,490/yr) Auto-Dossiers</li>
+                    <li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>
                   </ul>
                   <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">
                     Start Tier 1 Leads ($99/mo) &rarr;
@@ -1131,7 +1131,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         'Generate Compliance Matrix via API &rarr;' +
                       '</a>' +
                     '</div>' +
-                    '<p class="text-[11px] font-mono text-slate-400">Instant 60-second access via Whop. Flexible month-to-month—cancel anytime.</p>' +
+                    '<p class="text-[11px] font-mono text-slate-400">Instant 60-second Discord role activation. Flexible month-to-month or annual billing—cancel anytime.</p>' +
                   '</div>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">' +
@@ -1152,7 +1152,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
                     '<li>&check; Direct One-Click Official Portal Links</li>' +
-                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $2,490/yr) Auto-Dossiers</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
                   '</ul>' +
                   '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
                     'Start Tier 1 Leads ($99/mo) &rarr;' +
