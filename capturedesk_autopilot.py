@@ -34,9 +34,9 @@ RAPIDAPI_PROXY_SECRET = os.getenv("RAPIDAPI_PROXY_SECRET")
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
-WHOP_TIER2_URL = os.getenv(
-    "WHOP_TIER2_CHECKOUT_URL",
-    "https://whop.com/signaltender-net/capturedesk-autopilot-tier-2",
+STRIPE_TIER2_URL = os.getenv(
+    "STRIPE_TIER2_CHECKOUT_URL",
+    f"{SITE_BASE_URL}/index.html#checkout-tier2",
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
