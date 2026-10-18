@@ -267,11 +267,13 @@ def _render_layout(
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{escaped_title}</title>
   <meta name="description" content="{escaped_desc}" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22cyan%22%3E%3Cpath%20d%3D%22M8%202h2v3h4V2h2v3h1a2%202%200%200%201%202%202v1h3v2h-3v4h3v2h-3v1a2%202%200%200%201-2%202h-1v3h-2v-3h-4v3H8v-3H7a2%202%200%200%201-2-2v-1H2v-2h3v-4H2V8h3V7a2%202%200%200%201%202-2h1V2zm-1%205v10h10V7H7zm2%202h6v6H9V9z%22%2F%3E%3C%2Fsvg%3E" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon-96x96.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon-32x32.png" />
+  <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon.svg" />
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/aarbchen/signaltender-scraper/main/apple-touch-icon.png" />
   <link rel="canonical" href="{canonical_url}" />
   <meta property="og:site_name" content="SignalTender" />
   <meta property="og:title" content="{escaped_title}" />
