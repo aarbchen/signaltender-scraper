@@ -318,14 +318,22 @@ async def _scrape_bonfire_portal(page, agency_name: str, base_url: str, captured
     portal_url = f"{base_url}/portal/?tab=openOpportunities"
 
     extracted_for_agency = 0
+    # 1. Try lightweight HTTP GET first to avoid Chromium V8 heap pressure
     try:
-        resp = await asyncio.wait_for(
-            page.goto(api_url, wait_until="domcontentloaded", timeout=15000),
-            timeout=18.0,
+        http_resp = await asyncio.to_thread(
+            requests.get,
+            api_url,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                ),
+                "Accept": "application/json, text/plain, */*",
+            },
+            timeout=12,
         )
-        if resp and resp.status == 200:
-            body_text = await page.evaluate("() => document.body.innerText")
-            data = json.loads(body_text)
+        if http_resp.status_code == 200:
+            data = http_resp.json()
             projects = data.get("payload", {}).get("projects", {})
             if isinstance(projects, dict):
                 for proj_id, proj in projects.items():
@@ -348,8 +356,40 @@ async def _scrape_bonfire_portal(page, agency_name: str, base_url: str, captured
     except Exception:
         pass
 
-    # Fallback to DOM table on /portal/?tab=openOpportunities if JSON endpoint returned 0
-    if extracted_for_agency == 0:
+    # 2. Fallback to browser navigation if direct HTTP returned 0
+    if extracted_for_agency == 0 and page is not None:
+        try:
+            resp = await asyncio.wait_for(
+                page.goto(api_url, wait_until="domcontentloaded", timeout=15000),
+                timeout=18.0,
+            )
+            if resp and resp.status == 200:
+                body_text = await page.evaluate("() => document.body.innerText")
+                data = json.loads(body_text)
+                projects = data.get("payload", {}).get("projects", {})
+                if isinstance(projects, dict):
+                    for proj_id, proj in projects.items():
+                        if not isinstance(proj, dict):
+                            continue
+                        pid = str(proj.get("ProjectID") or proj_id).strip()
+                        ref_id = str(proj.get("ReferenceID") or "").strip()
+                        proj_name = str(proj.get("ProjectName") or "").strip()
+                        close_date = str(proj.get("DateClose") or "").strip()
+                        if pid and proj_name:
+                            detail_url = f"{base_url}/opportunities/{pid}"
+                            captured_by_url[detail_url] = {
+                                "title": proj_name,
+                                "bid_id": ref_id,
+                                "agency": agency_name,
+                                "close_date": close_date,
+                                "url": detail_url,
+                            }
+                            extracted_for_agency += 1
+        except Exception:
+            pass
+
+    # 3. Fallback to DOM table on /portal/?tab=openOpportunities if JSON endpoint returned 0
+    if extracted_for_agency == 0 and page is not None:
         try:
             await asyncio.wait_for(
                 page.goto(portal_url, wait_until="domcontentloaded", timeout=15000),
@@ -393,6 +433,8 @@ async def _scrape_bonfire_portal(page, agency_name: str, base_url: str, captured
 
 
 async def run_scraper(push_to_db: bool = True) -> list[dict]:
+    import gc
+
     supabase_records = []
     if push_to_db and (not SUPABASE_URL or not SUPABASE_KEY):
         print("[!] ERROR: SUPABASE_URL or SUPABASE_KEY not found in .env", flush=True)
@@ -433,7 +475,9 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                     "--no-first-run",
                     "--mute-audio",
                     "--renderer-process-limit=1",
-                    "--js-flags=--max-old-space-size=192",
+                    "--disk-cache-size=1",
+                    "--media-cache-size=1",
+                    "--js-flags=--max-old-space-size=128",
                 ],
                 ignore_default_args=["--enable-automation"],
             )
@@ -442,7 +486,13 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                 ),
-                viewport={"width": 1280, "height": 800},
+                viewport={"width": 1024, "height": 600},
+            )
+            await context.route(
+                "**/*",
+                lambda route: route.abort()
+                if route.request.resource_type in ("image", "media", "font")
+                else route.continue_(),
             )
             page = await context.new_page()
 
@@ -452,148 +502,7 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
             # 2. Extract open solicitations across Maryland State & County Bonfire portals
             for agency_name, base_url in MARYLAND_BONFIRE_PORTALS:
                 await _scrape_bonfire_portal(page, agency_name, base_url, captured_bids_by_url)
-                await human_delay(0.5, 1.2)
-
-            print(
-                f"[*] Maryland SLED: Captured {len(captured_bids_by_url)} unique open solicitations. "
-                "Applying tech regex and B2B quality filters...",
-                flush=True,
-            )
-
-            candidate_records = []
-            for detail_url, bid in captured_bids_by_url.items():
-                raw_title = str(bid.get("title") or "").strip()
-                if not raw_title or is_commodity_it_spam(raw_title):
-                    continue
-
-                title_lower = raw_title.lower()
-                if any(re.search(pattern, title_lower) for pattern in tech_keywords):
-                    bid_id = str(bid.get("bid_id") or "").strip()
-                    display_title = (
-                        raw_title
-                        if not bid_id or bid_id.lower() in title_lower
-                        else f"[{bid_id}] {raw_title}"
-                    )
-                    formatted_title, clean_due = format_title_and_due(display_title, str(bid.get("close_date") or ""))
-                    if not formatted_title or is_commodity_it_spam(formatted_title):
-                        continue
-
-                    candidate_records.append(
-                        {
-                            "title": formatted_title,
-                            "agency": str(bid.get("agency") or "State of Maryland").strip(),
-                            "closing_date": clean_due if clean_due else None,
-                            "url": detail_url,
-                            "status": "New Lead",
-                        }
-                    )
-
-            # Validate candidates through Anthropic B2B quality control prompt if configured
-            if candidate_records and client:
-                try:
-                    print(
-                        f"[*] Validating {len(candidate_records)} Maryland candidates via Anthropic B2B quality filter...",
-                        flush=True,
-                    )
-                    snippet = json.dumps(
-                        [
-                            {
-                                "title": r["title"],
-                                "closing_date": r["closing_date"] or "",
-                                "contact_email": "",
-                            }
-                            for r in candidate_records
-                        ]
-                    )
-                    llm_resp = await client.messages.create(
-                        model="claude-sonnet-5-5",
-                        max_tokens=8000,
-                        system=B2B_EXTRACTION_SYSTEM_PROMPT,
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": f"Filter and return ONLY high-value B2B IT contracts from this candidate list:\n\n{snippet}",
-                            }
-                        ],
-                    )
-                    raw_json_str = ""
-                    for block in llm_resp.content:
-                        if block.type == "text":
-                            raw_json_str = block.text.strip()
-                            break
-                    if raw_json_str.startswith("```"):
-                        raw_json_str = raw_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
-                    approved = json.loads(raw_json_str)
-                    approved_norms = {
-                        _normalize_title_for_similarity(a.get("title", ""))
-                        for a in approved
-                        if a.get("title")
-                    }
-                    supabase_records = [
-                        r
-                        for r in candidate_records
-                        if _normalize_title_for_similarity(r["title"]) in approved_norms
-                    ]
-                    print(
-                        f"[+] B2B LLM validation approved {len(supabase_records)} of {len(candidate_records)} Maryland contracts.",
-                        flush=True,
-                    )
-                except Exception as llm_err:
-                    err_msg = f"Maryland Claude B2B validation error: {llm_err}"
-                    print(f"[!] {err_msg}", flush=True)
-                    try:
-                        with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                            f.write(f"\n[!] {err_msg}\n")
-                    except Exception:
-                        pass
-                    send_discord_alert(err_msg)
-                    supabase_records = candidate_records
-            else:
-                supabase_records = candidate_records
-
-            # Exact URL deduplication + 85% fuzzy title deduplication
-            supabase_records = list({r["url"]: r for r in supabase_records}.values())
-            supabase_records = fuzzy_deduplicate_records(supabase_records, threshold=0.85)
-
-            if push_to_db:
-                if supabase_records:
-                    print(
-                        f"[*] Pushing {len(supabase_records)} tech-verified Maryland records to Supabase -> {TABLE_NAME}...",
-                        flush=True,
-                    )
-                    try:
-                        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
-                        response = (
-                            db_client.table(TABLE_NAME)
-                            .upsert(supabase_records, on_conflict="url", ignore_duplicates=True)
-                            .execute()
-                        )
-                        new_records = response.data if response and getattr(response, "data", None) else []
-                        skipped_count = len(supabase_records) - len(new_records)
-                        print(
-                            f"[+] Successfully synced Maryland data to Supabase! "
-                            f"Added {len(new_records)} new records (skipped {skipped_count} duplicates).",
-                            flush=True,
-                        )
-
-                        for rec in new_records:
-                            send_discord_content(rec)
-                    except Exception as supabase_err:
-                        err_msg = f"Maryland Supabase insert error: {supabase_err}"
-                        print(f"[!] {err_msg}", flush=True)
-                        try:
-                            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                                f.write(f"\n[!] {err_msg}\n")
-                        except Exception:
-                            pass
-                        send_discord_alert(err_msg)
-                else:
-                    print("[!] No valid Maryland tech records found to push from this run.", flush=True)
-            else:
-                print(
-                    f"[+] Maryland SLED extraction complete: {len(supabase_records)} tech contracts ready for master orchestrator.",
-                    flush=True,
-                )
+                await human_delay(0.3, 0.8)
 
         except PlaywrightTimeoutError as te:
             error_msg = f"Maryland Scraper Playwright TimeoutError: {te}"
@@ -628,6 +537,150 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
         finally:
             if browser:
                 await browser.close()
+
+    # Release Chromium + Playwright Node driver memory before LLM validation
+    gc.collect()
+
+    print(
+        f"[*] Maryland SLED: Captured {len(captured_bids_by_url)} unique open solicitations. "
+        "Applying tech regex and B2B quality filters...",
+        flush=True,
+    )
+
+    candidate_records = []
+    for detail_url, bid in captured_bids_by_url.items():
+        raw_title = str(bid.get("title") or "").strip()
+        if not raw_title or is_commodity_it_spam(raw_title):
+            continue
+
+        title_lower = raw_title.lower()
+        if any(re.search(pattern, title_lower) for pattern in tech_keywords):
+            bid_id = str(bid.get("bid_id") or "").strip()
+            display_title = (
+                raw_title
+                if not bid_id or bid_id.lower() in title_lower
+                else f"[{bid_id}] {raw_title}"
+            )
+            formatted_title, clean_due = format_title_and_due(display_title, str(bid.get("close_date") or ""))
+            if not formatted_title or is_commodity_it_spam(formatted_title):
+                continue
+
+            candidate_records.append(
+                {
+                    "title": formatted_title,
+                    "agency": str(bid.get("agency") or "State of Maryland").strip(),
+                    "closing_date": clean_due if clean_due else None,
+                    "url": detail_url,
+                    "status": "New Lead",
+                }
+            )
+
+    # Validate candidates through Anthropic B2B quality control prompt if configured
+    if candidate_records and client:
+        try:
+            print(
+                f"[*] Validating {len(candidate_records)} Maryland candidates via Anthropic B2B quality filter...",
+                flush=True,
+            )
+            snippet = json.dumps(
+                [
+                    {
+                        "title": r["title"],
+                        "closing_date": r["closing_date"] or "",
+                        "contact_email": "",
+                    }
+                    for r in candidate_records
+                ]
+            )
+            llm_resp = await client.messages.create(
+                model="claude-sonnet-5-5",
+                max_tokens=8000,
+                system=B2B_EXTRACTION_SYSTEM_PROMPT,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"Filter and return ONLY high-value B2B IT contracts from this candidate list:\n\n{snippet}",
+                    }
+                ],
+            )
+            raw_json_str = ""
+            for block in llm_resp.content:
+                if block.type == "text":
+                    raw_json_str = block.text.strip()
+                    break
+            if raw_json_str.startswith("```"):
+                raw_json_str = raw_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+            approved = json.loads(raw_json_str)
+            approved_norms = {
+                _normalize_title_for_similarity(a.get("title", ""))
+                for a in approved
+                if a.get("title")
+            }
+            supabase_records = [
+                r
+                for r in candidate_records
+                if _normalize_title_for_similarity(r["title"]) in approved_norms
+            ]
+            print(
+                f"[+] B2B LLM validation approved {len(supabase_records)} of {len(candidate_records)} Maryland contracts.",
+                flush=True,
+            )
+        except Exception as llm_err:
+            err_msg = f"Maryland Claude B2B validation error: {llm_err}"
+            print(f"[!] {err_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {err_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(err_msg)
+            supabase_records = candidate_records
+    else:
+        supabase_records = candidate_records
+
+    # Exact URL deduplication + 85% fuzzy title deduplication
+    supabase_records = list({r["url"]: r for r in supabase_records}.values())
+    supabase_records = fuzzy_deduplicate_records(supabase_records, threshold=0.85)
+
+    if push_to_db:
+        if supabase_records:
+            print(
+                f"[*] Pushing {len(supabase_records)} tech-verified Maryland records to Supabase -> {TABLE_NAME}...",
+                flush=True,
+            )
+            try:
+                db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+                response = (
+                    db_client.table(TABLE_NAME)
+                    .upsert(supabase_records, on_conflict="url", ignore_duplicates=True)
+                    .execute()
+                )
+                new_records = response.data if response and getattr(response, "data", None) else []
+                skipped_count = len(supabase_records) - len(new_records)
+                print(
+                    f"[+] Successfully synced Maryland data to Supabase! "
+                    f"Added {len(new_records)} new records (skipped {skipped_count} duplicates).",
+                    flush=True,
+                )
+
+                for rec in new_records:
+                    send_discord_content(rec)
+            except Exception as supabase_err:
+                err_msg = f"Maryland Supabase insert error: {supabase_err}"
+                print(f"[!] {err_msg}", flush=True)
+                try:
+                    with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                        f.write(f"\n[!] {err_msg}\n")
+                except Exception:
+                    pass
+                send_discord_alert(err_msg)
+        else:
+            print("[!] No valid Maryland tech records found to push from this run.", flush=True)
+    else:
+        print(
+            f"[+] Maryland SLED extraction complete: {len(supabase_records)} tech contracts ready for master orchestrator.",
+            flush=True,
+        )
 
     return supabase_records
 

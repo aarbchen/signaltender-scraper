@@ -80,7 +80,14 @@ tech_keywords = [
 ]
 
 async def run_scraper(push_to_db: bool = True):
+    import gc
+
     supabase_records = []
+    valid_opps = []
+    seen_links = set()
+    MAX_PAGES = 3
+    current_page = 1
+
     async with Stealth().use_async(async_playwright()) as p:
         print("[*] Launching browser (Direct connection)...")
         browser = await p.chromium.launch(
@@ -98,14 +105,22 @@ async def run_scraper(push_to_db: bool = True):
                 "--no-first-run",
                 "--mute-audio",
                 "--renderer-process-limit=1",
-                "--js-flags=--max-old-space-size=192",
+                "--disk-cache-size=1",
+                "--media-cache-size=1",
+                "--js-flags=--max-old-space-size=128",
             ],
             ignore_default_args=["--enable-automation"],
         )
 
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-            viewport={"width": 1280, "height": 800},
+            viewport={"width": 1024, "height": 600},
+        )
+        await context.route(
+            "**/*",
+            lambda route: route.abort()
+            if route.request.resource_type in ("image", "media", "font")
+            else route.continue_(),
         )
 
         page = await context.new_page()
@@ -129,10 +144,6 @@ async def run_scraper(push_to_db: bool = True):
                     await page.wait_for_timeout(5000)
             except Exception:
                 pass # If the box isn't there, it means results already loaded
-            
-            valid_opps = []
-            seen_links = set()
-            MAX_PAGES = 3
 
             for current_page in range(1, MAX_PAGES + 1):
                 print(f"[*] Scraping Page {current_page} of {MAX_PAGES}...")
@@ -166,47 +177,6 @@ async def run_scraper(push_to_db: bool = True):
                         print(f"[!] 'Next' button not visible on page {current_page}. Stopping pagination.")
                         break
 
-            print(f"[*] Extracted {len(valid_opps)} raw contracts across {min(current_page, MAX_PAGES)} pages. Filtering for tech validation...")
-
-            supabase_records = []
-            for title, link_path in valid_opps:
-                title_lower = title.lower()
-
-                # Double-check against our regex to ensure it's a valid IT/Cyber lead
-                if any(re.search(pattern, title_lower) for pattern in tech_keywords):
-                    full_link = "https://sam.gov" + str(link_path)
-
-                    supabase_records.append({
-                        "title": title,
-                        "agency": "Federal Government (SAM)",
-                        "closing_date": None,
-                        "url": full_link,
-                        "status": "New Lead"
-                    })
-
-            supabase_records = list({r["url"]: r for r in supabase_records}.values())
-
-            if push_to_db:
-                if supabase_records:
-                    if not SUPABASE_URL or not SUPABASE_KEY:
-                         print("[!] Found IT/Cyber contracts, but SUPABASE_URL or SUPABASE_KEY is missing. Cannot push data.")
-                    else:
-                        print(f"[*] Found {len(supabase_records)} tech contracts! Pushing to Supabase...")
-                        db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
-                        response = db_client.table(TABLE_NAME).upsert(
-                            supabase_records, on_conflict="url", ignore_duplicates=True
-                        ).execute()
-                        new_records = response.data if response and getattr(response, "data", None) else []
-                        skipped_count = len(supabase_records) - len(new_records)
-                        print(f"[+] Successfully synced Federal data to Supabase! Added {len(new_records)} new records (skipped {skipped_count} duplicates).")
-
-                        for rec in new_records:
-                            send_discord_content(rec)
-                else:
-                    print("[-] No IT/Cyber contracts found across scraped pages this run.")
-            else:
-                print(f"[+] Federal (SAM.gov) extraction complete: {len(supabase_records)} tech contracts ready for master orchestrator.")
-
         except Exception as e:
             print(f"\n[!] Error during extraction: {e}")
             send_discord_alert(f"SAM.gov scraper failed: {e}")
@@ -224,6 +194,50 @@ async def run_scraper(push_to_db: bool = True):
         finally:
             print("[*] Closing browser.")
             await browser.close()
+
+    # Release Chromium + Playwright Node driver memory before processing
+    gc.collect()
+
+    print(f"[*] Extracted {len(valid_opps)} raw contracts across {min(current_page, MAX_PAGES)} pages. Filtering for tech validation...")
+
+    supabase_records = []
+    for title, link_path in valid_opps:
+        title_lower = title.lower()
+
+        # Double-check against our regex to ensure it's a valid IT/Cyber lead
+        if any(re.search(pattern, title_lower) for pattern in tech_keywords):
+            full_link = "https://sam.gov" + str(link_path)
+
+            supabase_records.append({
+                "title": title,
+                "agency": "Federal Government (SAM)",
+                "closing_date": None,
+                "url": full_link,
+                "status": "New Lead"
+            })
+
+    supabase_records = list({r["url"]: r for r in supabase_records}.values())
+
+    if push_to_db:
+        if supabase_records:
+            if not SUPABASE_URL or not SUPABASE_KEY:
+                print("[!] Found IT/Cyber contracts, but SUPABASE_URL or SUPABASE_KEY is missing. Cannot push data.")
+            else:
+                print(f"[*] Found {len(supabase_records)} tech contracts! Pushing to Supabase...")
+                db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+                response = db_client.table(TABLE_NAME).upsert(
+                    supabase_records, on_conflict="url", ignore_duplicates=True
+                ).execute()
+                new_records = response.data if response and getattr(response, "data", None) else []
+                skipped_count = len(supabase_records) - len(new_records)
+                print(f"[+] Successfully synced Federal data to Supabase! Added {len(new_records)} new records (skipped {skipped_count} duplicates).")
+
+                for rec in new_records:
+                    send_discord_content(rec)
+        else:
+            print("[-] No IT/Cyber contracts found across scraped pages this run.")
+    else:
+        print(f"[+] Federal (SAM.gov) extraction complete: {len(supabase_records)} tech contracts ready for master orchestrator.")
 
     return supabase_records
 

@@ -9,22 +9,16 @@ from datetime import datetime
 from difflib import SequenceMatcher
 import requests
 from dotenv import load_dotenv
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
-from playwright_stealth import Stealth
-import anthropic
-from supabase import create_client, Client
 
 # Ensure sled-scraper directory is on sys.path for importing sledscraper
 SLED_SCRAPER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sled-scraper")
 if SLED_SCRAPER_DIR not in sys.path:
     sys.path.insert(0, SLED_SCRAPER_DIR)
 
-import pseo_generator
-
 # 1. Load environment variables
 load_dotenv(dotenv_path=".env")
 
-# 2. Initialize API clients & paths
+# 2. Initialize API paths (clients lazy-loaded to minimize parent orchestrator RSS under 512Mi)
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 TABLE_NAME = "contracts"
@@ -33,8 +27,24 @@ DISCORD_CONTENT_WEBHOOK_URL = os.getenv("DISCORD_CONTENT_WEBHOOK_URL")
 ERROR_LOG_PATH = "error_log.txt"
 ERROR_SCREENSHOT_PATH = "error_debug.png"
 
-client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY")) if os.getenv("ANTHROPIC_API_KEY") else None
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
+client = None
+supabase = None
+
+
+def _get_anthropic_client():
+    global client
+    if client is None and os.getenv("ANTHROPIC_API_KEY"):
+        import anthropic
+        client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    return client
+
+
+def _get_supabase_client():
+    global supabase
+    if supabase is None and SUPABASE_URL and SUPABASE_KEY:
+        from supabase import create_client
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    return supabase
 
 # Tech filter regex array as per project_rules.md data integrity protocol
 tech_keywords = [
@@ -231,6 +241,10 @@ def chunk_text(text, max_chars=15000):
     return [text[i:i+max_chars] for i in range(0, len(text), max_chars)]
 
 async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: bool = False):
+    from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+    from playwright_stealth import Stealth
+    import gc
+
     max_retries = 3 
     raw_text = ""
     esbd_lines_captured = []
@@ -259,14 +273,22 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                             '--no-first-run',
                             '--mute-audio',
                             '--renderer-process-limit=1',
-                            '--js-flags=--max-old-space-size=192',
+                            '--disk-cache-size=1',
+                            '--media-cache-size=1',
+                            '--js-flags=--max-old-space-size=128',
                         ],
                         ignore_default_args=["--enable-automation"]
                     )
                     
                     context = await browser.new_context(
                         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-                        viewport={"width": 1280, "height": 800}
+                        viewport={"width": 1024, "height": 600}
+                    )
+                    await context.route(
+                        "**/*",
+                        lambda route: route.abort()
+                        if route.request.resource_type in ("image", "media", "font")
+                        else route.continue_(),
                     )
                     
                     page = await context.new_page()
@@ -361,6 +383,8 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                 raise
             await asyncio.sleep(2)
 
+    gc.collect()
+    llm_client = _get_anthropic_client()
     raw_candidates = []
 
     # Process structured ESBD JSON payload containing full contract titles and exact responseDue dates
@@ -389,12 +413,12 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                 "contact_email": line.get("contactEmail") or "",
             })
 
-        if esbd_candidates and os.getenv("ANTHROPIC_API_KEY"):
+        if esbd_candidates and llm_client:
             try:
                 esbd_snippet = json.dumps(
                     [{"title": c["raw_title"], "closing_date": c["raw_due"], "contact_email": c["contact_email"]} for c in esbd_candidates]
                 )
-                response = await client.messages.create(
+                response = await llm_client.messages.create(
                     model="claude-sonnet-5-5",
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
@@ -427,7 +451,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
         else:
             raw_candidates.extend(esbd_candidates)
 
-    if raw_text:
+    elif raw_text and llm_client:
         # Extract from scraped page text via Claude AI extraction with strict B2B quality control schema
         text_chunks = chunk_text(raw_text, max_chars=15000)
         print(f"\nSplit text into {len(text_chunks)} chunks for processing...")
@@ -435,7 +459,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
         for i, chunk in enumerate(text_chunks):
             print(f"Processing chunk {i+1} of {len(text_chunks)}...")
             try:
-                response = await client.messages.create(
+                response = await llm_client.messages.create(
                     model="claude-sonnet-5-5",
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
@@ -519,7 +543,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
             return unique_records
 
         try:
-            db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+            db_client = _get_supabase_client()
             response = db_client.table(TABLE_NAME).upsert(
                 unique_records, on_conflict="url", ignore_duplicates=True
             ).execute()
@@ -714,7 +738,7 @@ async def run_master_orchestrator(
         send_discord_alert(error_msg)
         return []
 
-    db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+    db_client = _get_supabase_client()
 
     # Automatically purge any previously stored contracts in Supabase whose closing_date has passed
     try:
@@ -767,8 +791,11 @@ async def run_master_orchestrator(
         else:
             print("[*] No net-new contracts to dispatch to Discord this cycle.", flush=True)
 
+        _reclaim_os_memory()
+
         # Rebuild Programmatic SEO (pSEO) static directory & sitemap.xml from live Supabase contracts
         try:
+            import pseo_generator
             pseo_generator.generate_pseo_site()
         except Exception as pseo_err:
             pseo_msg = f"pSEO static generation error in mainscraper.py: {pseo_err}"
@@ -779,6 +806,8 @@ async def run_master_orchestrator(
             except Exception:
                 pass
             send_discord_alert(pseo_msg)
+
+        _reclaim_os_memory()
 
         # Enrich net-new solicitations into Tier 2 CaptureDesk Autopilot dossiers
         try:
