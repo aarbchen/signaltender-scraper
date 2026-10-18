@@ -19,12 +19,6 @@ SLED_SCRAPER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sle
 if SLED_SCRAPER_DIR not in sys.path:
     sys.path.insert(0, SLED_SCRAPER_DIR)
 
-import sam_scraper
-import sledscraper
-import va_scraper
-import ca_scraper
-import fl_scraper
-import md_scraper
 import pseo_generator
 
 # 1. Load environment variables
@@ -39,7 +33,7 @@ DISCORD_CONTENT_WEBHOOK_URL = os.getenv("DISCORD_CONTENT_WEBHOOK_URL")
 ERROR_LOG_PATH = "error_log.txt"
 ERROR_SCREENSHOT_PATH = "error_debug.png"
 
-client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY")) if os.getenv("ANTHROPIC_API_KEY") else None
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
 
 # Tech filter regex array as per project_rules.md data integrity protocol
@@ -808,4 +802,15 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    asyncio.run(run_master_orchestrator(args.url, args.selector, args.keyword))
+    try:
+        asyncio.run(run_master_orchestrator(args.url, args.selector, args.keyword))
+    except Exception as fatal_err:
+        fatal_msg = f"Master Orchestrator Fatal Crash: {fatal_err}"
+        print(f"[!] {fatal_msg}", flush=True)
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"\n[!] {fatal_msg}\n")
+        except Exception:
+            pass
+        send_discord_alert(fatal_msg)
+        raise
