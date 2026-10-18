@@ -255,7 +255,10 @@ def run_capturedesk_autopilot() -> None:
             payload_text = "\n\n".join(blocks)[:1950]
             r = requests.post(
                 DISCORD_CAPTUREDESK_WEBHOOK_URL,
-                json={"content": payload_text},
+                json={
+                    "username": "CaptureDesk Autopilot // Tier 2",
+                    "content": payload_text,
+                },
                 timeout=15,
             )
             r.raise_for_status()

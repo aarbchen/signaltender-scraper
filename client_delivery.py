@@ -164,9 +164,13 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
         message_content = "\n\n---\n\n".join(blocks)
 
         print(f"[*] Posting {label} batch {batch_index}/{len(batches)} ({len(batch)} lead(s)) to Discord...", flush=True)
+        payload = {
+            "username": "SignalWire Pro // Tier 1",
+            "content": message_content,
+        }
         response = requests.post(
             webhook_url,
-            json={"content": message_content},
+            json=payload,
             timeout=10,
         )
         if response.status_code == 429:
@@ -174,7 +178,7 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
             time.sleep(float(retry_after))
             response = requests.post(
                 webhook_url,
-                json={"content": message_content},
+                json=payload,
                 timeout=10,
             )
         response.raise_for_status()
