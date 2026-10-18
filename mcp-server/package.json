@@ -1,0 +1,41 @@
+{
+  "name": "@signaltender/mcp-server",
+  "version": "1.0.0",
+  "description": "Official Model Context Protocol (MCP) Server for SignalTender's 10 B2B, GovCon & LegalTech FastAPI Microservices (RFP Parsing, Contract Redlining, Historical CLIN Pricing, Live 7-Portal SLED/Federal RFPs, Shipley Compliance Matrix, FAR/DFARS/CMMC Scanner, Bid/No-Bid Pwin Matcher, NAICS/PSC/SIC Classifier, Shipley Proposal Writer, and Quote/Invoice/CLIN Table Extractor).",
+  "main": "index.js",
+  "bin": {
+    "signaltender-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "Inspector": "npx @modelcontextprotocol/inspector node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "govcon",
+    "rfp",
+    "procurement",
+    "legaltech",
+    "contract-parser",
+    "far-dfars",
+    "cmmc",
+    "naics",
+    "claude-desktop",
+    "cursor",
+    "signaltender",
+    "rapidapi"
+  ],
+  "author": "SignalTender (https://signaltender.net)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aarbchen/signaltender-scraper.git",
+    "directory": "mcp-server"
+  },
+  "homepage": "https://signaltender.net/apis.html",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

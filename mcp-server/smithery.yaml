@@ -1,0 +1,20 @@
+# Smithery.ai Registry Configuration for @signaltender/mcp-server
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - rapidapiKey
+    properties:
+      rapidapiKey:
+        type: string
+        description: "Your RapidAPI Key for SignalTender's 10 B2B & GovCon APIs (get a free Basic key at https://rapidapi.com/user/aarbchen or https://signaltender.net/apis.html)"
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['index.js'],
+      env: {
+        RAPIDAPI_KEY: config.rapidapiKey
+      }
+    })
+

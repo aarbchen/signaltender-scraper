@@ -1,0 +1,36 @@
+{
+  "353": {
+    "id": "353",
+    "title": "[K27-0034-81] District Court of Maryland for Allegany County AiPhone System - Due: 11/05/2026",
+    "agency": "Maryland Judiciary (AOC)",
+    "closing_date": "11/05/2026",
+    "source_url": "https://mdcourts.bonfirehub.com/opportunities/258449",
+    "dossier_url": "https://signaltender.net/contracts/rfp/k27-0034-81-district-court-of-maryland-for-allegany-county-aiphone-system-353.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT & Telecom: Business Application/Application Development",
+    "sba_size_standard": "$34.0M Annual Receipts",
+    "win_themes": [
+      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
+      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
+      "Fixed-price milestone predictability with senior cleared technical key personnel."
+    ],
+    "enriched_at": "2026-10-18T02:45:13.511584+00:00"
+  },
+  "352": {
+    "id": "352",
+    "title": "[RFP-27-012] Statewide Integrative Corrections Intelligence Platform - Due: 06/30/2027",
+    "agency": "Florida Department of Corrections (FDC)",
+    "closing_date": "06/30/2027",
+    "source_url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17031",
+    "dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-012-statewide-integrative-corrections-intelligence-platform-352.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT & Telecom: Business Application/Application Development",
+    "sba_size_standard": "$34.0M Annual Receipts",
+    "win_themes": [
+      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
+      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
+      "Fixed-price milestone predictability with senior cleared technical key personnel."
+    ],
+    "enriched_at": "2026-10-18T02:45:13.511797+00:00"
+  }
+}

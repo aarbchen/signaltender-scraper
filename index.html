@@ -316,12 +316,14 @@
               </div>
             </div>
 
-            <!-- Primary Whop Checkout CTA Card -->
-            <div class="pt-4">
-              <div class="p-6 rounded-xl bg-navy-900 border-2 border-sky-500/50 shadow-xl shadow-sky-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <!-- Primary Whop Checkout CTA Cards (Tier 1 SignalWire + Tier 2 CaptureDesk + Annual Options) -->
+            <div class="pt-4 space-y-3.5">
+              <!-- Tier 1: SignalWire Pro -->
+              <div class="p-5 rounded-xl bg-navy-900 border-2 border-sky-500/50 shadow-xl shadow-sky-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">ALL-ACCESS LIVE DISCORD WIRE (7 PORTALS)</span>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-semibold">TIER 1 // SIGNALWIRE PRO (7 PORTALS LIVE)</span>
+                    <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">ANNUAL: $990/YR (2 MOS FREE)</span>
                   </div>
                   <div class="mt-1 flex items-baseline space-x-1.5">
                     <span class="text-3xl font-extrabold text-white font-mono">$99</span>
@@ -333,12 +335,35 @@
                   href="https://whop.com/signaltender-net/signaltender-private-alerts"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all shrink-0"
+                  class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-lg shadow-sky-950/60 transition-all shrink-0"
                 >
-                  <span>Join Discord Wire</span>
+                  <span>Join SignalWire</span>
                   <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
+                </a>
+              </div>
+
+              <!-- Tier 2: CaptureDesk Autopilot ($399/mo | $3,490/yr) -->
+              <div class="p-5 rounded-xl bg-gradient-to-r from-navy-900 via-indigo-950/40 to-navy-900 border border-indigo-500/50 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-semibold">TIER 2 // CAPTUREDESK AUTOPILOT</span>
+                    <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-indigo-500/20 text-indigo-200 border border-indigo-500/40">ANNUAL: $3,490/YR</span>
+                  </div>
+                  <div class="mt-1 flex items-baseline space-x-1.5">
+                    <span class="text-2xl font-extrabold text-white font-mono">$399</span>
+                    <span class="text-xs font-mono text-slate-300">/ month &bull; Auto-Enriched Shipley Compliance, NAICS &amp; Pwin Dossiers</span>
+                  </div>
+                </div>
+
+                <a
+                  href="https://whop.com/signaltender-net/signaltender-private-alerts"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border border-indigo-400/40 shadow-lg transition-all shrink-0"
+                >
+                  <span>Launch CaptureDesk &rarr;</span>
                 </a>
               </div>
             </div>
@@ -1199,13 +1224,35 @@
             </div>
 
             <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto space-y-3 flex-1">
-              <div class="text-slate-400 text-[11px]"># Verify gateway connectivity &amp; RapidAPI key authentication:</div>
+              <div class="text-slate-400 text-[11px]"># 1. Verify gateway connectivity &amp; RapidAPI key authentication:</div>
               <pre class="text-slate-200"><code><span class="text-emerald-400">$</span> curl --request GET \
   --url <span class="text-amber-200">'https://b2b-contract-parser-api.onrender.com/v1/health'</span> \
   --header <span class="text-sky-300">'X-RapidAPI-Key: rpk_live_98a7f6d5c4b3a210...'</span> \
   --header <span class="text-sky-300">'Accept: application/json'</span></code></pre>
               <div class="border-t border-slate-800/80 pt-2.5">
                 <pre class="text-emerald-300 text-[11px]"><code>{ "status": "healthy", "service": "SignalTender FastAPI Node", "version": "1.0.0" }</code></pre>
+              </div>
+
+              <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE DESKTOP &bull; CURSOR &bull; WINDSURF)</span>
+                  <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px]">10 MCP TOOLS</span>
+                </div>
+                <div class="text-slate-400 text-[11px]"># 2. Add all 10 APIs to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
+                <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800"><code>{
+  "mcpServers": {
+    "signaltender": {
+      "command": "npx",
+      "args": ["-y", "@signaltender/mcp-server"],
+      "env": {
+        "RAPIDAPI_KEY": "rpk_live_98a7f6d5c4b3a210..."
+      }
+    }
+  }
+}</code></pre>
+                <div class="text-[11px] text-slate-400">
+                  Exposes all 10 SignalTender endpoints natively inside Claude Desktop, Cursor, Windsurf &amp; MCP registries.
+                </div>
               </div>
             </div>
           </div>
@@ -3559,7 +3606,10 @@
               '</div>' +
               '<div class="lg:col-span-4 space-y-6">' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 space-y-4">' +
-                  '<div class="text-xs font-mono text-sky-400 uppercase font-semibold">SIGNALWIRE PRO</div>' +
+                  '<div class="flex items-center justify-between">' +
+                    '<span class="text-xs font-mono text-sky-400 uppercase font-semibold">SIGNALWIRE PRO &bull; $99/MO</span>' +
+                    '<span class="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">$990/YR</span>' +
+                  '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
                     'Get every pre-vetted Federal (SAM.gov), DemandStar, and 5-State SLED (TX, VA, CA, FL, MD) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
@@ -3567,20 +3617,20 @@
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
                     '<li>&check; Direct One-Click Official Portal Links</li>' +
-                    '<li>&check; Instant Discord + Automated Feed Access</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
                   '</ul>' +
                   '<a href="https://whop.com/signaltender-net/signaltender-private-alerts" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
                     'Start Getting Leads &rarr;' +
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">DEVELOPER &amp; CAPTURE APIs (10 LIVE)</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">10 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Extract &amp; audit Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO clarification Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 10 RapidAPI microservices.' +
+                    'Extract &amp; audit Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO clarification Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 10 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
                   '<a href="#product-pricing-extractor" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 10 RapidAPI Microservices &rarr;' +
+                    'Explore 10 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +

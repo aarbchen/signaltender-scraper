@@ -396,13 +396,35 @@
           </div>
 
           <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto space-y-3 flex-1">
-            <div class="text-slate-400 text-[11px]"># Verify gateway connectivity &amp; RapidAPI key authentication:</div>
+            <div class="text-slate-400 text-[11px]"># 1. Verify gateway connectivity &amp; RapidAPI key authentication:</div>
             <pre class="text-slate-200"><code><span class="text-emerald-400">$</span> curl --request GET \
   --url <span class="text-amber-200">'https://b2b-contract-parser-api.onrender.com/v1/health'</span> \
   --header <span class="text-sky-300">'X-RapidAPI-Key: rpk_live_98a7f6d5c4b3a210...'</span> \
   --header <span class="text-sky-300">'Accept: application/json'</span></code></pre>
             <div class="border-t border-slate-800/80 pt-2.5">
               <pre class="text-emerald-300 text-[11px]"><code>{ "status": "healthy", "service": "SignalTender FastAPI Node", "version": "1.0.0" }</code></pre>
+            </div>
+
+            <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE DESKTOP &bull; CURSOR &bull; WINDSURF)</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px]">10 MCP TOOLS</span>
+              </div>
+              <div class="text-slate-400 text-[11px]"># 2. Add all 10 APIs to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
+              <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800"><code>{
+  "mcpServers": {
+    "signaltender": {
+      "command": "npx",
+      "args": ["-y", "@signaltender/mcp-server"],
+      "env": {
+        "RAPIDAPI_KEY": "rpk_live_98a7f6d5c4b3a210..."
+      }
+    }
+  }
+}</code></pre>
+              <div class="text-[11px] text-slate-400">
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span> &amp; <span class="text-slate-200">extract_pricing_schedule</span>.
+              </div>
             </div>
           </div>
         </div>

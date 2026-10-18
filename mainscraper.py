@@ -780,6 +780,20 @@ async def run_master_orchestrator(
                 pass
             send_discord_alert(pseo_msg)
 
+        # Enrich net-new solicitations into Tier 2 CaptureDesk Autopilot dossiers
+        try:
+            import capturedesk_autopilot
+            capturedesk_autopilot.run_capturedesk_autopilot()
+        except Exception as cd_err:
+            cd_msg = f"CaptureDesk Autopilot error in mainscraper.py: {cd_err}"
+            print(f"[!] {cd_msg}", flush=True)
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {cd_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(cd_msg)
+
         return new_records
 
     except Exception as e:
