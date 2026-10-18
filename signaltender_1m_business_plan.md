@@ -20,10 +20,10 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 
 | Revenue Pillar | Self-Serve Product | Price Point | Target Active Volume | Monthly Recurring Revenue (MRR) | Annualized Run Rate (ARR) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Tier 1: SignalWire Pro** | Real-Time Multi-State SLED + Federal Discord/Email Alert Wire (via Whop) | **$149 / mo** *(or $1,490/yr)* | **120 seats** | **$17,880** | **$214,560** |
-| **Tier 2: CaptureDesk Autopilot** | State/NAICS Filtered Webhook + **Automated Multi-API Capture Dossiers** per RFP | **$399 / mo** *(or $3,990/yr)* | **85 teams** | **$33,915** | **$406,980** |
-| **Tier 3: 10+ API & MCP Portfolio** | **10–12 Stateless B2B/GovCon APIs** on RapidAPI (`Pro` $49, `Ultra` $149, `Mega` $299) | **~$150 / mo avg** *(~23 subs per API)* | **230 API subscriptions** *(across 10 APIs)* | **$34,500** | **$414,000** |
-| **TOTAL** | **100% Self-Serve (Whop + RapidAPI + MCP)** | **~$198 Blended ARPU** | **435 Total Subscriptions** | **$86,295 / mo** | **$1,035,540 / yr** |
+| **Tier 1: SignalWire Pro** | Real-Time Multi-State SLED + Federal Discord/Email Alert Wire (via Stripe + Discord Bot) | **$99 / mo** *(or $990/yr)* | **180 seats** | **$17,820** | **$213,840** |
+| **Tier 2: CaptureDesk Autopilot** | `#capturedesk-autopilot` + **Automated Multi-API Capture Dossiers** per RFP (via Stripe + Discord Bot) | **$399 / mo** *(or $3,490/yr)* | **85 teams** | **$33,915** | **$406,980** |
+| **Tier 3: 10+ API & MCP Portfolio** | **10+ Stateless B2B/GovCon APIs** on RapidAPI (`Pro` $49, `Ultra` $149, `Mega` $299–$399) | **~$150 / mo avg** *(~23 subs per API)* | **230 API subscriptions** *(across 10+ APIs)* | **$34,500** | **$414,000** |
+| **TOTAL** | **100% Self-Serve (Stripe + RapidAPI + Official MCP Registry)** | **~$198 Blended ARPU** | **495 Total Subscriptions** | **$86,235 / mo** | **$1,034,820 / yr** |
 
 ---
 
@@ -52,16 +52,16 @@ flowchart LR
         A["7 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
     end
 
-    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (10 Live APIs)"]
+    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (10 Live APIs + /mcp)"]
         B --> C["API 04: Live Open RFP Feed<br/>(GET /v1/solicitations/live)"]
         D["APIs 01-03 (Live):<br/>Parser • Risk Redliner • CLIN Pricing"]
         E["APIs 05-10 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN"]
     end
 
     subgraph RevenueStreams["3. Three Compounding Zero-Touch Revenue Streams"]
-        B --> F["Tier 1: SignalWire ($149/mo)<br/>Whop Discord Wire + 68+ pSEO Pages"]
-        C & D & E --> G["Tier 2: CaptureDesk ($399/mo)<br/>Auto-Enriched RFP Dossiers via Internal API Calls"]
-        C & D & E --> H["Tier 3: RapidAPI + MCP Hub ($34.5k MRR)<br/>10 Independent Developer Storefronts"]
+        B --> F["Tier 1: SignalWire ($99/mo | $990/yr)<br/>Stripe + Discord Bot + 72 pSEO Pages"]
+        C & D & E --> G["Tier 2: CaptureDesk ($399/mo | $3,490/yr)<br/>Auto-Enriched RFP Dossiers in #capturedesk-autopilot"]
+        C & D & E --> H["Tier 3: RapidAPI + Official MCP Registry ($34.5k MRR)<br/>10 Developer Storefronts + Remote /mcp Server"]
     end
 ```
 
@@ -71,7 +71,7 @@ flowchart LR
 
 | Phase | Timeline | Primary Milestone | Weekly Time | Target MRR |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Foundation, pSEO & 10-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building 68+ static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** All **10 Stateless FastAPI Microservices (APIs 01–10)** live on Render, listed on RapidAPI, and integrated across `signaltender.net` | **~0.5 hrs/week** | **$0 – $2,500** |
-| **Phase 2: Cold Email Launch + CaptureDesk Autopilot** | **Nov – Month 3** | • Cold email domains finish warmup; launch `outreach_generator.py` campaigns (Instantly/Smartlead auto-sync ready)<br>• Chain APIs 01–10 internally to power the **$399/mo CaptureDesk Autopilot** tier on Whop | **~1.5 hrs/week** | **$5,000 – $25,000** |
-| **Phase 3: MCP Server Registry Distribution** | **Months 3 – 6** | • Bundle all 10 APIs into `@signaltender/mcp-server` so Claude Desktop, Cursor, and Windsurf users can discover and call your 10 endpoints natively via RapidAPI keys | **~1 hr/week** | **$25,000 – $50,000** |
-| **Phase 4: Compounding Scale & Affiliate Flywheel** | **Months 6 – 18** | • Scale Whop 30% recurring affiliate network + annual plans + additional SLED state portals / vertical APIs | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
+| **Phase 1: Foundation, pSEO & 10-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building 72 static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** All **10 Stateless FastAPI Microservices (APIs 01–10)** live on Render, verified `200 OK` on RapidAPI, with automated daily telemetry seeding (`seed_rapidapi_telemetry.py`) | **~0.5 hrs/week** | **$0 – $2,500** |
+| **Phase 2: CaptureDesk Autopilot + Stripe Checkout + Cold Email** | **ENGINE BUILT (Cold Email Launching Nov)** | • **DONE:** Native on-site Stripe checkout (`#checkout-tier1` & `#checkout-tier2`) with monthly (`$99`/`$399`) and annual (`$990`/`$3,490`) plans + automated `/v1/webhooks/stripe` Discord Bot role provisioning & revocation<br>• **DONE:** `capturedesk_autopilot.py` chaining APIs internally and dispatching Tier 2 dossiers to `#capturedesk-autopilot`<br>• **NEXT (Nov):** Cold email domains finish warmup; launch `outreach_generator.py` campaigns | **~1.5 hrs/week** | **$5,000 – $25,000** |
+| **Phase 3: MCP Server Registry Distribution** | **COMPLETED** | • **DONE:** Built `@signaltender/mcp-server` (both local stdio and 24/7 remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`)<br>• **DONE:** Submitted to Glama.ai and published (`status: active`) on the **Official MCP Registry (`io.github.aarbchen/signaltender-mcp`)** | **~0.5 hrs/week** | **$25,000 – $50,000** |
+| **Phase 4: Compounding Scale & Expansion** | **Months 6 – 18** | • Scale cold outbound volume + organic pSEO/RapidAPI/MCP traffic + additional SLED state portals & vertical APIs | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
