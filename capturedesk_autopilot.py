@@ -36,7 +36,7 @@ RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
 WHOP_TIER2_URL = os.getenv(
     "WHOP_TIER2_CHECKOUT_URL",
-    "https://whop.com/signaltender-net/signaltender-private-alerts",
+    "https://whop.com/signaltender-net/capturedesk-autopilot-tier-2",
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -24,7 +24,7 @@ WHOP_TIER1_URL = os.getenv(
 )
 WHOP_TIER2_URL = os.getenv(
     "WHOP_TIER2_CHECKOUT_URL",
-    "https://whop.com/signaltender-net/signaltender-private-alerts",
+    "https://whop.com/signaltender-net/capturedesk-autopilot-tier-2",
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -624,10 +624,13 @@ def generate_pseo_site() -> int:
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
                     <li>&check; Direct One-Click Official Portal Links</li>
-                    <li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>
+                    <li>&check; Tier 2 CaptureDesk ($399/mo | $2,490/yr) Auto-Dossiers</li>
                   </ul>
                   <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">
-                    Start Getting Leads &rarr;
+                    Start Tier 1 Leads ($99/mo) &rarr;
+                  </a>
+                  <a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">
+                    Launch Tier 2 CaptureDesk ($399/mo) &rarr;
                   </a>
                 </div>
 
@@ -1149,10 +1152,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
                     '<li>&check; Direct One-Click Official Portal Links</li>' +
-                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $2,490/yr) Auto-Dossiers</li>' +
                   '</ul>' +
                   '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
-                    'Start Getting Leads &rarr;' +
+                    'Start Tier 1 Leads ($99/mo) &rarr;' +
+                  '</a>' +
+                  '<a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Launch Tier 2 CaptureDesk ($399/mo) &rarr;' +
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +

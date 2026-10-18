@@ -6,7 +6,7 @@
     "closing_date": "11/05/2026",
     "source_url": "https://mdcourts.bonfirehub.com/opportunities/258449",
     "dossier_url": "https://signaltender.net/contracts/rfp/k27-0034-81-district-court-of-maryland-for-allegany-county-aiphone-system-353.html",
-    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_naics": "541512 \u2014 IT Systems Design",
     "primary_psc": "DA01 \u2014 IT & Telecom: Business Application/Application Development",
     "sba_size_standard": "$34.0M Annual Receipts",
     "win_themes": [
@@ -14,7 +14,7 @@
       "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
       "Fixed-price milestone predictability with senior cleared technical key personnel."
     ],
-    "enriched_at": "2026-10-18T02:45:13.511584+00:00"
+    "enriched_at": "2026-10-18T04:15:14.950654+00:00"
   },
   "352": {
     "id": "352",
@@ -31,6 +31,6 @@
       "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
       "Fixed-price milestone predictability with senior cleared technical key personnel."
     ],
-    "enriched_at": "2026-10-18T02:45:13.511797+00:00"
+    "enriched_at": "2026-10-18T04:16:07.345635+00:00"
   }
 }
