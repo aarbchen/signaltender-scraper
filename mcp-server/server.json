@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.aarbchen/signaltender-mcp",
+  "title": "SignalTender B2B, GovCon & LegalTech MCP Server",
+  "description": "B2B, GovCon & LegalTech MCP server for live RFPs, contract parsing, compliance & proposal tools.",
+  "websiteUrl": "https://signaltender.net/apis.html",
+  "repository": {
+    "url": "https://github.com/aarbchen/signaltender-scraper",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://b2b-contract-parser-api.onrender.com/mcp"
+    }
+  ]
+}
