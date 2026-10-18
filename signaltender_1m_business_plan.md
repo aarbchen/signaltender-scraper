@@ -27,7 +27,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 
 ---
 
-## 3. The 10-API Portfolio Roadmap (One FastAPI Gateway, 10 RapidAPI Storefronts)
+## 3. The 10-API Portfolio Roadmap (One FastAPI Gateway, 10 RapidAPI Storefronts — ALL 10 LIVE)
 
 | API # | Endpoint & RapidAPI Product Name | What It Does (Stateless Input -> Output) | Target RapidAPI Buyer |
 | :--- | :--- | :--- | :--- |
@@ -42,3 +42,36 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 | **09 (Live)** | `POST /v1/generate/rfp-response`<br>**AI RFP Response & Clarification Q&A Generator API** | Drafts a Shipley-compliant **Technical Proposal Section** from company context AND generates **strategic vendor clarification Q&A** to expose ambiguous or competitor-wired specs. | Proposal teams, capture managers & AI bid platforms |
 | **10 (Live)** | `POST /v1/extract/pricing-schedule`<br>**B2B Quote, Invoice & CLIN Table Extractor API** | Extracts messy multi-tier pricing tables, labor rate cards (LPTA/T&M), and BOM spreadsheets from unstructured vendor quotes into normalized JSON. | FinOps, procurement teams & ERP integrators |
 
+---
+
+## 4. How the Flywheel Connects All 3 Tiers Automatically
+
+```mermaid
+flowchart LR
+    subgraph DataLake["1. Autonomous 6-Hr Scraper Engine"]
+        A["7 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
+    end
+
+    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (10 Live APIs)"]
+        B --> C["API 04: Live Open RFP Feed<br/>(GET /v1/solicitations/live)"]
+        D["APIs 01-03 (Live):<br/>Parser • Risk Redliner • CLIN Pricing"]
+        E["APIs 05-10 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN"]
+    end
+
+    subgraph RevenueStreams["3. Three Compounding Zero-Touch Revenue Streams"]
+        B --> F["Tier 1: SignalWire ($149/mo)<br/>Whop Discord Wire + 68+ pSEO Pages"]
+        C & D & E --> G["Tier 2: CaptureDesk ($399/mo)<br/>Auto-Enriched RFP Dossiers via Internal API Calls"]
+        C & D & E --> H["Tier 3: RapidAPI + MCP Hub ($34.5k MRR)<br/>10 Independent Developer Storefronts"]
+    end
+```
+
+---
+
+## 5. Phased Execution Plan (< 2 Hours/Week Effort)
+
+| Phase | Timeline | Primary Milestone | Weekly Time | Target MRR |
+| :--- | :--- | :--- | :--- | :--- |
+| **Phase 1: Foundation, pSEO & 10-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building 68+ static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** All **10 Stateless FastAPI Microservices (APIs 01–10)** live on Render, listed on RapidAPI, and integrated across `signaltender.net` | **~0.5 hrs/week** | **$0 – $2,500** |
+| **Phase 2: Cold Email Launch + CaptureDesk Autopilot** | **Nov – Month 3** | • Cold email domains finish warmup; launch `outreach_generator.py` campaigns (Instantly/Smartlead auto-sync ready)<br>• Chain APIs 01–10 internally to power the **$399/mo CaptureDesk Autopilot** tier on Whop | **~1.5 hrs/week** | **$5,000 – $25,000** |
+| **Phase 3: MCP Server Registry Distribution** | **Months 3 – 6** | • Bundle all 10 APIs into `@signaltender/mcp-server` so Claude Desktop, Cursor, and Windsurf users can discover and call your 10 endpoints natively via RapidAPI keys | **~1 hr/week** | **$25,000 – $50,000** |
+| **Phase 4: Compounding Scale & Affiliate Flywheel** | **Months 6 – 18** | • Scale Whop 30% recurring affiliate network + annual plans + additional SLED state portals / vertical APIs | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
