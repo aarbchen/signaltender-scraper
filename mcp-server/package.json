@@ -1,7 +1,7 @@
 {
   "name": "@signaltender/mcp-server",
   "version": "1.0.0",
-  "description": "Official Model Context Protocol (MCP) Server for SignalTender's 10 B2B, GovCon & LegalTech FastAPI Microservices (RFP Parsing, Contract Redlining, Historical CLIN Pricing, Live 7-Portal SLED/Federal RFPs, Shipley Compliance Matrix, FAR/DFARS/CMMC Scanner, Bid/No-Bid Pwin Matcher, NAICS/PSC/SIC Classifier, Shipley Proposal Writer, and Quote/Invoice/CLIN Table Extractor).",
+  "description": "Official Model Context Protocol (MCP) Server for the SignalTender B2B, GovCon, LegalTech & FinOps API Ecosystem. Connects AI agents to live government RFP feeds, contract parsing, legal redlining, compliance matrices, regulatory clause scanning, capability matching, industry classification, proposal generation, and pricing intelligence.",
   "main": "index.js",
   "bin": {
     "signaltender-mcp": "./index.js"

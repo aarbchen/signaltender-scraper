@@ -1,7 +1,7 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/server.json",
   "name": "@signaltender/mcp-server",
-  "description": "Official Model Context Protocol (MCP) server for SignalTender's 10 stateless B2B, GovCon & LegalTech FastAPI microservices: RFP parsing, legal redlining, historical award CLIN pricing, live 7-portal SLED & Federal RFPs, Shipley compliance matrices, FAR/DFARS & CMMC 2.0 clause scanning, Bid/No-Bid Pwin matching, NAICS/SIC/PSC/UNSPSC classification, Shipley proposal drafting, and quote/invoice/CLIN table extraction.",
+  "description": "Official Model Context Protocol (MCP) server for the SignalTender B2B, GovCon, LegalTech & FinOps API Ecosystem. Connects AI agents to live government & municipal RFP feeds, contract parsing, legal clause redlining, compliance automation, industry taxonomy classification, proposal drafting, and procurement pricing intelligence.",
   "homepage": "https://signaltender.net/apis.html",
   "maintainers": [
     {

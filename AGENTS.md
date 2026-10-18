@@ -22,7 +22,9 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
    - Run `pseo_generator.py` to regenerate `/contracts` static pages, `sitemap.xml`, and the embedded SPA directory in `index.html`.
    - Commit and push changes to GitHub (`origin main`) so Render deploys automatically.
 
-3. **Core Engineering Guardrails:**
+3. **Core Engineering Guardrails & Evergreen Copy Rule:**
    - Never hardcode secrets or API keys; always load from `.env` via `os.getenv()`.
    - Log all caught exceptions to `error_log.txt` and alert via `send_discord_alert()`.
    - Never truncate existing working code when editing files.
+   - **Evergreen Copy Rule:** Never hardcode exact API counts (e.g., "10 APIs") or exhaustive tool lists in external directory submissions (Glama, MCP registries, RapidAPI profile blurbs), MCP manifests (`glama.json`, `package.json`), or page `<title>` / `<meta>` tags so that adding future APIs never makes existing listings look outdated.
+
