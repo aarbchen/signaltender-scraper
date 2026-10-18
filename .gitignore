@@ -15,6 +15,8 @@ __pycache__/
 
 # Logs, debug screenshots, and local data artifacts
 error_log.txt
+error_debug.png
+*.metadata.json
 *.png
 !favicon-32x32.png
 !favicon-192x192.png
