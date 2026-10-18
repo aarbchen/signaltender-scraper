@@ -884,6 +884,99 @@
           </div>
         </div>
 
+        <!-- Zero-Touch Enterprise Stack & CRM Integrations Showcase -->
+        <div id="integrations" class="mt-10 rounded-2xl bg-navy-900/90 border border-indigo-500/30 p-8 shadow-2xl space-y-6">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800 pb-6">
+            <div class="space-y-2 max-w-3xl">
+              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-mono text-emerald-400">
+                <span>// PLUG INTO WHATEVER SYSTEM YOU RUN &bull; ZERO CUSTOM ENGINEERING REQUIRED</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Works Natively With Slack, Microsoft Teams, Salesforce, HubSpot, Notion &amp; AI Agents
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Don't run your capture pipeline in Discord? Every SignalTender plan supports <span class="text-white font-semibold">Bring-Your-Own-Webhook</span> delivery and 1-click automation blueprints—routing live Federal &amp; SLED RFPs and AI Shipley Capture Dossiers straight into your existing CRM, chat workspace, or proposal database automatically.
+              </p>
+            </div>
+            <div class="shrink-0">
+              <a
+                href="#checkout"
+                class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl border border-indigo-400/40 shadow-lg transition-all"
+              >
+                Connect Your Webhook at Checkout &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs">
+            <!-- Card 1: Team Chat & Workspaces -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-2.5">
+              <div class="flex items-center justify-between font-mono">
+                <span class="text-sky-400 font-bold uppercase">// 01. TEAM WORKSPACES</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">NATIVE AUTO-FORMAT</span>
+              </div>
+              <div class="text-sm font-bold text-white">Slack, Microsoft Teams &amp; Discord</div>
+              <p class="text-slate-400 leading-relaxed">
+                Paste a <code class="font-mono text-slate-200">hooks.slack.com</code> or Microsoft Teams <code class="font-mono text-slate-200">webhook.office.com</code> URL at checkout. Our router automatically detects your platform and dispatches formatted RFP cards every 6 hours.
+              </p>
+            </div>
+
+            <!-- Card 2: Enterprise CRMs & Bid Databases -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-2.5">
+              <div class="flex items-center justify-between font-mono">
+                <span class="text-indigo-400 font-bold uppercase">// 02. CRM &amp; CAPTURE PIPELINES</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px]">1-CLICK BLUEPRINTS</span>
+              </div>
+              <div class="text-sm font-bold text-white">Salesforce, HubSpot, Notion &amp; Airtable</div>
+              <p class="text-slate-400 leading-relaxed">
+                Automatically create qualified CRM Opportunities/Deals pre-populated with issuing agency, closing date, NAICS/PSC codes, Shipley win themes, and direct government portal links.
+              </p>
+            </div>
+
+            <!-- Card 3: AI Agents & MCP Registry -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-2.5">
+              <div class="flex items-center justify-between font-mono">
+                <span class="text-amber-400 font-bold uppercase">// 03. AI AGENTS &amp; MCP</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px]">OFFICIAL REGISTRY</span>
+              </div>
+              <div class="text-sm font-bold text-white">Claude, Cursor, n8n, Make &amp; Zapier</div>
+              <p class="text-slate-400 leading-relaxed">
+                Verified on the Official Model Context Protocol Registry (<code class="font-mono text-amber-300">io.github.aarbchen/signaltender-mcp</code>) and Streamable HTTP (<code class="font-mono text-slate-200">/v1/mcp</code>) for autonomous AI capture workflows.
+              </p>
+            </div>
+          </div>
+
+          <!-- 1-Click Downloadable Blueprint Bar -->
+          <div class="pt-2 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+            <div class="text-slate-400">
+              DOWNLOAD 1-CLICK WORKFLOW TEMPLATES (JSON):
+            </div>
+            <div class="flex flex-wrap gap-2.5">
+              <a
+                href="integrations/signaltender_n8n_crm_workflow.json"
+                download="signaltender_n8n_crm_workflow.json"
+                class="inline-flex items-center px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 border border-slate-700 hover:border-sky-500/50 text-sky-300 transition-colors"
+              >
+                &darr; n8n CRM + Slack/Teams Workflow (.json)
+              </a>
+              <a
+                href="integrations/signaltender_make_blueprint.json"
+                download="signaltender_make_blueprint.json"
+                class="inline-flex items-center px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/50 text-indigo-300 transition-colors"
+              >
+                &darr; Make.com Scenario Blueprint (.json)
+              </a>
+              <a
+                href="integrations/signaltender_zapier_webhook_schema.json"
+                download="signaltender_zapier_webhook_schema.json"
+                class="inline-flex items-center px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 border border-slate-700 hover:border-emerald-500/50 text-emerald-300 transition-colors"
+              >
+                &darr; Zapier / HubSpot / Salesforce Schema (.json)
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -3829,17 +3922,77 @@
             </div>
           </div>
 
-          <!-- Optional Discord Username Input for Automatic Role Provisioning -->
-          <div class="max-w-md mx-auto pt-2">
-            <label for="checkout-discord-handle" class="block text-left text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
-              Your Discord Username (for instant role activation):
-            </label>
-            <input
-              id="checkout-discord-handle"
-              type="text"
-              placeholder="e.g. yourname or 18-digit Discord ID (optional)"
-              class="w-full px-4 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-sky-500 focus:outline-none text-sm font-mono text-white placeholder-slate-500"
-            />
+          <!-- Optional Discord Username Input + External Slack/Teams/CRM Webhook Connector -->
+          <div class="max-w-2xl mx-auto pt-3 space-y-3 text-left">
+            <div class="p-4 rounded-xl bg-navy-900/90 border border-slate-800 space-y-3">
+              <div>
+                <label for="checkout-discord-handle" class="block text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold mb-1.5">
+                  Option A // Discord Delivery — Enter Your Discord Username (Instant Role Activation):
+                </label>
+                <input
+                  id="checkout-discord-handle"
+                  type="text"
+                  placeholder="e.g. yourname or 18-digit Discord ID (optional)"
+                  class="w-full px-4 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-sm font-mono text-white placeholder-slate-500"
+                />
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/80">
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-300 font-semibold">
+                    Option B // Bring Your Own Webhook — Slack, Microsoft Teams, Salesforce, HubSpot, Zapier, Make or n8n:
+                  </span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">ZERO-TOUCH</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <input
+                    id="checkout-webhook-email"
+                    type="email"
+                    placeholder="Work email used at checkout"
+                    class="px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <select
+                    id="checkout-webhook-platform"
+                    aria-label="Destination Platform"
+                    class="px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
+                  >
+                    <option value="auto">Auto-Detect Platform</option>
+                    <option value="slack">Slack Incoming Webhook</option>
+                    <option value="teams">Microsoft Teams Webhook</option>
+                    <option value="hubspot">HubSpot Workflow Webhook</option>
+                    <option value="salesforce">Salesforce Flow / CRM</option>
+                    <option value="zapier">Zapier Catch Hook</option>
+                    <option value="make">Make.com Custom Webhook</option>
+                    <option value="n8n">n8n Webhook Node</option>
+                  </select>
+                  <select
+                    id="checkout-webhook-tier"
+                    aria-label="Target Plan Tier"
+                    class="px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
+                  >
+                    <option value="tier_2">Tier 2 // CaptureDesk ($399/mo)</option>
+                    <option value="tier_1">Tier 1 // SignalWire ($99/mo)</option>
+                  </select>
+                </div>
+                <div class="mt-2.5 flex flex-col sm:flex-row gap-2.5">
+                  <input
+                    id="checkout-webhook-url"
+                    type="url"
+                    placeholder="https://hooks.slack.com/services/... or https://*.webhook.office.com/... or CRM Webhook URL"
+                    class="flex-1 px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <button
+                    type="button"
+                    id="btn-test-webhook"
+                    onclick="window.registerExternalWebhookDestination()"
+                    class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all"
+                  >
+                    Save &amp; Send Test Dossier &rarr;
+                  </button>
+                </div>
+                <div id="checkout-webhook-status" class="hidden mt-2 text-xs font-mono"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -3857,7 +4010,7 @@
               <div>
                 <h2 class="text-2xl font-extrabold text-white">Real-Time 7-Portal RFP Alert Wire</h2>
                 <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Built for IT services, cloud, software, and cybersecurity contractors who want every actionable Federal, Municipal, and 5-State SLED solicitation pushed straight to Discord without portal noise.
+                  Built for IT services, cloud, software, and cybersecurity contractors who want every actionable Federal, Municipal, and 5-State SLED solicitation pushed straight to Discord, Slack, Microsoft Teams, or their CRM without portal noise.
                 </p>
               </div>
 
@@ -3881,7 +4034,7 @@
                   </li>
                   <li class="flex items-start space-x-2.5">
                     <span class="text-emerald-400 font-bold">&check;</span>
-                    <span><strong>6-Hour Automated Discord Dispatches:</strong> Instant access to <code class="font-mono text-white">#signalwire-live-contracts</code> and state-specific channels.</span>
+                    <span><strong>6-Hour Automated Dispatches:</strong> Instant access to <code class="font-mono text-white">#signalwire-live-contracts</code> in Discord plus optional Slack, Microsoft Teams, or CRM webhook delivery.</span>
                   </li>
                   <li class="flex items-start space-x-2.5">
                     <span class="text-emerald-400 font-bold">&check;</span>
@@ -3904,7 +4057,7 @@
                 <span id="cta-tier1-label">Continue to Secure Checkout ($99/mo) &rarr;</span>
               </button>
               <p class="text-center text-[11px] font-mono text-slate-400">
-                Instant Discord role activation &bull; Corporate PDF receipt &bull; Cancel anytime
+                Instant Discord &amp; Webhook activation &bull; Corporate PDF receipt &bull; Cancel anytime
               </p>
             </div>
           </div>
@@ -3920,7 +4073,7 @@
               <div>
                 <h2 class="text-2xl font-extrabold text-white">All-Access Wire + AI Capture Dossiers</h2>
                 <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Built for capture directors and proposal teams who want every solicitation pre-analyzed with AI Bid/No-Bid Pwin scoring, Shipley compliance matrices, FAR/DFARS risk audits, and CLIN pricing benchmarks in Discord.
+                  Built for capture directors and proposal teams who want every solicitation pre-analyzed with AI Bid/No-Bid Pwin scoring, Shipley compliance matrices, FAR/DFARS risk audits, and CLIN pricing benchmarks in Discord, Slack, Microsoft Teams, or Salesforce/HubSpot.
                 </p>
               </div>
 
@@ -3936,11 +4089,11 @@
               </div>
 
               <div class="space-y-3 text-xs sm:text-sm text-slate-200">
-                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-semibold">Everything in Tier 1, Plus Private CaptureDesk Discord Channels:</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-semibold">Everything in Tier 1, Plus Automated AI Capture Dossiers:</div>
                 <ul class="space-y-2.5">
                   <li class="flex items-start space-x-2.5">
                     <span class="text-indigo-400 font-bold">&check;</span>
-                    <span><strong>Private <code class="font-mono text-white">#capturedesk-autopilot</code> Discord Wire:</strong> Automated deep-dive capture dossiers posted alongside every qualified solicitation.</span>
+                    <span><strong>Private <code class="font-mono text-white">#capturedesk-autopilot</code> + CRM/Chat Push:</strong> Automated deep-dive capture dossiers posted to Discord and your connected Slack, Teams, or CRM webhook.</span>
                   </li>
                   <li class="flex items-start space-x-2.5">
                     <span class="text-indigo-400 font-bold">&check;</span>
@@ -3974,22 +4127,33 @@
 
         </div>
 
-        <!-- 3-Step Instant Discord Onboarding Strip -->
-        <div class="mt-14 p-6 sm:p-8 rounded-2xl bg-navy-900/70 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="space-y-1.5">
-            <div class="text-xs font-mono text-sky-400 font-bold">STEP 01 // SELECT PLAN</div>
-            <div class="text-sm font-bold text-white">Choose Monthly or Annual</div>
-            <p class="text-xs text-slate-400 leading-relaxed">Pick SignalWire Pro ($99/mo | $990/yr) or CaptureDesk Autopilot ($399/mo | $3,490/yr) and enter your Discord username above.</p>
+        <!-- 3-Step Instant Discord & CRM Onboarding Strip -->
+        <div class="mt-14 p-6 sm:p-8 rounded-2xl bg-navy-900/70 border border-slate-800 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="space-y-1.5">
+              <div class="text-xs font-mono text-sky-400 font-bold">STEP 01 // SELECT PLAN &amp; DESTINATION</div>
+              <div class="text-sm font-bold text-white">Discord, Slack, Teams or CRM</div>
+              <p class="text-xs text-slate-400 leading-relaxed">Enter your Discord username for instant server role provisioning, or paste a Slack, Microsoft Teams, or CRM webhook URL above.</p>
+            </div>
+            <div class="space-y-1.5">
+              <div class="text-xs font-mono text-sky-400 font-bold">STEP 02 // SECURE STRIPE CHECKOUT</div>
+              <div class="text-sm font-bold text-white">Pay via Corporate Card or ACH</div>
+              <p class="text-xs text-slate-400 leading-relaxed">Complete payment via Stripe with instant downloadable B2B PDF invoices for your accounting and expense team.</p>
+            </div>
+            <div class="space-y-1.5">
+              <div class="text-xs font-mono text-emerald-400 font-bold">STEP 03 // AUTOMATIC PROVISIONING</div>
+              <div class="text-sm font-bold text-white">Instant Live Feed Activation</div>
+              <p class="text-xs text-slate-400 leading-relaxed">Our webhook automatically activates your Discord role and connected Slack/Teams/CRM endpoints within 60 seconds.</p>
+            </div>
           </div>
-          <div class="space-y-1.5">
-            <div class="text-xs font-mono text-sky-400 font-bold">STEP 02 // SECURE STRIPE CHECKOUT</div>
-            <div class="text-sm font-bold text-white">Pay via Corporate Card or ACH</div>
-            <p class="text-xs text-slate-400 leading-relaxed">Complete payment via Stripe with instant downloadable B2B PDF invoices for your accounting and expense team.</p>
-          </div>
-          <div class="space-y-1.5">
-            <div class="text-xs font-mono text-emerald-400 font-bold">STEP 03 // AUTOMATIC DISCORD ROLE</div>
-            <div class="text-sm font-bold text-white">Instant Channel Activation</div>
-            <p class="text-xs text-slate-400 leading-relaxed">Our webhook automatically grants your Tier 1 or Tier 2 Discord role so you can start clicking live government bid links immediately.</p>
+
+          <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+            <span class="text-slate-400">PRE-BUILT CRM &amp; CHAT WORKFLOW BLUEPRINTS:</span>
+            <div class="flex flex-wrap gap-2">
+              <a href="integrations/signaltender_n8n_crm_workflow.json" download="signaltender_n8n_crm_workflow.json" class="px-3 py-1.5 rounded bg-navy-950 hover:bg-slate-800 border border-slate-700 text-sky-300">&darr; n8n CRM Blueprint</a>
+              <a href="integrations/signaltender_make_blueprint.json" download="signaltender_make_blueprint.json" class="px-3 py-1.5 rounded bg-navy-950 hover:bg-slate-800 border border-slate-700 text-indigo-300">&darr; Make.com Blueprint</a>
+              <a href="integrations/signaltender_zapier_webhook_schema.json" download="signaltender_zapier_webhook_schema.json" class="px-3 py-1.5 rounded bg-navy-950 hover:bg-slate-800 border border-slate-700 text-emerald-300">&darr; Zapier / HubSpot / Salesforce Schema</a>
+            </div>
           </div>
         </div>
 
@@ -4002,8 +4166,8 @@
               <p class="text-slate-400">You get 24/7 monitoring across SAM.gov (Federal), DemandStar (National Municipal), Virginia eVA, Texas SmartBuy ESBD, California Cal eProcure, Florida MFMP VIP, and Maryland eMMA &amp; Bonfire.</p>
             </div>
             <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800">
-              <div class="font-bold text-white mb-1">How do Tier 1 and Tier 2 work in Discord?</div>
-              <p class="text-slate-400">Both tiers are delivered inside our private Discord server. Tier 1 unlocks the live 7-portal RFP alert channels; Tier 2 additionally unlocks the <code class="font-mono text-indigo-300">#capturedesk-autopilot</code> channels with AI Shipley compliance matrices, Pwin scores, and CLIN pricing briefs.</p>
+              <div class="font-bold text-white mb-1">Can I pipe alerts into Slack, Microsoft Teams, Salesforce, or HubSpot?</div>
+              <p class="text-slate-400">Yes! In addition to instant private Discord server access, you can paste any Slack Incoming Webhook, Microsoft Teams Webhook, or Zapier/Make/n8n/CRM webhook URL above (or import our 1-click JSON blueprints) with zero custom code.</p>
             </div>
             <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800">
               <div class="font-bold text-white mb-1">Do I receive a corporate tax invoice?</div>
@@ -4156,15 +4320,93 @@
         }
       };
 
+      window.registerExternalWebhookDestination = function () {
+        var emailEl = document.getElementById('checkout-webhook-email');
+        var urlEl = document.getElementById('checkout-webhook-url');
+        var platEl = document.getElementById('checkout-webhook-platform');
+        var tierEl = document.getElementById('checkout-webhook-tier');
+        var discEl = document.getElementById('checkout-discord-handle');
+        var statusEl = document.getElementById('checkout-webhook-status');
+        var btnEl = document.getElementById('btn-test-webhook');
+
+        var email = emailEl ? emailEl.value.trim() : '';
+        var webhookUrl = urlEl ? urlEl.value.trim() : '';
+        var platform = platEl ? platEl.value : 'auto';
+        var tier = tierEl ? tierEl.value : 'tier_2';
+        var discordHandle = discEl ? discEl.value.trim().replace(/^@/, '') : '';
+
+        if (! statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!email || email.indexOf('@') === -1) {
+          statusEl.className = 'mt-2 text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter the work email address you will use at Stripe checkout.';
+          return;
+        }
+        if (!webhookUrl || webhookUrl.indexOf('https://') !== 0) {
+          statusEl.className = 'mt-2 text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter a valid HTTPS webhook URL (e.g., https://hooks.slack.com/... or https://*.webhook.office.com/...).';
+          return;
+        }
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Connecting & Sending Test...';
+        }
+        statusEl.className = 'mt-2 text-xs font-mono text-sky-400';
+        statusEl.textContent = 'Registering destination and dispatching live sample RFP dossier...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/register-destination', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            webhook_url: webhookUrl,
+            destination_type: platform,
+            discord_handle: discordHandle,
+            tier: tier,
+            send_test_ping: true
+          })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Save & Send Test Dossier →';
+            }
+            if (res.ok) {
+              statusEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+              statusEl.textContent = '✓ ' + (res.data.message || 'Webhook registered and test dossier dispatched!');
+            } else {
+              statusEl.className = 'mt-2 text-xs font-mono text-rose-400';
+              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not verify webhook URL.');
+            }
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Save & Send Test Dossier →';
+            }
+            statusEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+            statusEl.textContent = '✓ Destination saved locally for checkout activation.';
+          });
+      };
+
       window.launchSignalCheckout = function (tier) {
         var key = (tier === 'tier2' ? 'tier2_' : 'tier1_') + currentBilling;
         var baseUrl = window.SIGNAL_CHECKOUT_LINKS[key] || window.SIGNAL_CHECKOUT_LINKS.tier1_monthly;
         var handleInput = document.getElementById('checkout-discord-handle');
         var discordHandle = handleInput ? handleInput.value.trim().replace(/^@/, '') : '';
+        var emailInput = document.getElementById('checkout-webhook-email');
+        var prefillEmail = emailInput ? emailInput.value.trim() : '';
         var targetUrl = baseUrl;
         if (discordHandle && baseUrl.indexOf('buy.stripe.com') !== -1) {
           var sep = baseUrl.indexOf('?') === -1 ? '?' : '&';
-          targetUrl = baseUrl + sep + 'client_reference_id=' + encodeURIComponent(discordHandle);
+          targetUrl = targetUrl + sep + 'client_reference_id=' + encodeURIComponent(discordHandle);
+        }
+        if (prefillEmail && targetUrl.indexOf('buy.stripe.com') !== -1) {
+          var sep2 = targetUrl.indexOf('?') === -1 ? '?' : '&';
+          targetUrl = targetUrl + sep2 + 'prefilled_email=' + encodeURIComponent(prefillEmail);
         }
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
       };

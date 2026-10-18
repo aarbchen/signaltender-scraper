@@ -280,6 +280,8 @@ def generate_outreach():
         expired_skipped = 0
 
         for rec in records:
+            if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
+                continue
             title = str(rec.get("title") or "").strip()
             title_lower = title.lower()
             if not title:

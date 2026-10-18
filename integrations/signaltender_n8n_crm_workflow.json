@@ -1,0 +1,151 @@
+{
+  "name": "SignalTender — Automated GovCon RFP & AI Capture Dossier Pipeline (CRM + Slack/Teams)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "signaltender-rfp-ingest",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "b1f2e3d4-0001-4000-8000-000000000001",
+      "name": "SignalTender Incoming Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "signaltender-rfp-ingest"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://b2b-contract-parser-api.onrender.com/v1/solicitations/live",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "={{ $env.SIGNALTENDER_RAPIDAPI_KEY }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1f2e3d4-0002-4000-8000-000000000002",
+      "name": "Fetch Live Solicitations (SignalTender API #04)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 180]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://b2b-contract-parser-api.onrender.com/v1/generate/compliance-matrix",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-RapidAPI-Key",
+              "value": "={{ $env.SIGNALTENDER_RAPIDAPI_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"raw_text\": \"Solicitation: {{ $json.title }} | Issuing Agency: {{ $json.agency || $json.issuing_agency }} | Closing Date: {{ $json.closing_date }} | Source Portal: {{ $json.url || $json.dossier_url }} — Enterprise IT, Cloud & Cybersecurity Scope.\",\n  \"proposal_methodology\": \"shipley\"\n}",
+        "options": {}
+      },
+      "id": "b1f2e3d4-0003-4000-8000-000000000003",
+      "name": "Generate Shipley Compliance Matrix (SignalTender API #05)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [740, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.CRM_DEAL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"deal_name\": \"[GovCon RFP] {{ $node['SignalTender Incoming Webhook'].json.title || 'New Solicitation' }}\",\n  \"agency\": \"{{ $node['SignalTender Incoming Webhook'].json.agency || 'Federal / SLED Agency' }}\",\n  \"closing_date\": \"{{ $node['SignalTender Incoming Webhook'].json.closing_date || '' }}\",\n  \"dossier_url\": \"{{ $node['SignalTender Incoming Webhook'].json.dossier_url || '' }}\",\n  \"official_bid_url\": \"{{ $node['SignalTender Incoming Webhook'].json.source_url || $node['SignalTender Incoming Webhook'].json.url || '' }}\",\n  \"naics\": \"{{ $node['SignalTender Incoming Webhook'].json.primary_naics || '541512' }}\",\n  \"win_themes\": {{ JSON.stringify($json.recommended_win_themes || []) }},\n  \"pipeline_stage\": \"Qualified Capture Opportunity\"\n}",
+        "options": {}
+      },
+      "id": "b1f2e3d4-0004-4000-8000-000000000004",
+      "name": "Create CRM Deal (HubSpot / Salesforce / Pipedrive)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1020, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SLACK_OR_TEAMS_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"text\": \"⚡ *New SignalTender Capture OpportunitySynced to CRM*\\n*Solicitation:* {{ $node['SignalTender Incoming Webhook'].json.title }}\\n*Agency:* {{ $node['SignalTender Incoming Webhook'].json.agency }} | *Due:* {{ $node['SignalTender Incoming Webhook'].json.closing_date }}\\n*Dossier:* {{ $node['SignalTender Incoming Webhook'].json.dossier_url }}\"\n}",
+        "options": {}
+      },
+      "id": "b1f2e3d4-0005-4000-8000-000000000005",
+      "name": "Notify Capture Team (Slack / Microsoft Teams)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1020, 420]
+    }
+  ],
+  "connections": {
+    "SignalTender Incoming Webhook": {
+      "main": [
+        [
+          {
+            "node": "Generate Shipley Compliance Matrix (SignalTender API #05)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Live Solicitations (SignalTender API #04)": {
+      "main": [
+        [
+          {
+            "node": "Generate Shipley Compliance Matrix (SignalTender API #05)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Shipley Compliance Matrix (SignalTender API #05)": {
+      "main": [
+        [
+          {
+            "node": "Create CRM Deal (HubSpot / Salesforce / Pipedrive)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notify Capture Team (Slack / Microsoft Teams)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
+

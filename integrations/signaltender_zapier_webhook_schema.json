@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "provider": "SignalTender Procurement Intelligence (https://signaltender.net)",
+  "description": "Sample webhook payload and field mapping guide for Zapier Catch Hook, HubSpot Workflows, Salesforce Flow Outbound/Inbound Webhooks, Microsoft Teams Workflows, Slack Incoming Webhooks, Notion Databases, and Airtable Automations.",
+  "supported_destinations": [
+    {
+      "platform": "Slack",
+      "url_pattern": "https://hooks.slack.com/services/...",
+      "auto_formatted_by_signaltender": true,
+      "notes": "SignalTender automatically detects hooks.slack.com URLs and formats native Slack Block Kit + Markdown messages."
+    },
+    {
+      "platform": "Microsoft Teams",
+      "url_pattern": "https://*.webhook.office.com/... or https://*.logic.azure.com/...",
+      "auto_formatted_by_signaltender": true,
+      "notes": "SignalTender automatically detects Microsoft Teams / Power Automate URLs and sends Teams-compatible message cards."
+    },
+    {
+      "platform": "Zapier / Make / n8n / HubSpot / Salesforce / Notion / Airtable",
+      "url_pattern": "https://hooks.zapier.com/hooks/catch/... or any HTTPS endpoint",
+      "auto_formatted_by_signaltender": true,
+      "notes": "SignalTender sends both top-level `text` and `content` strings PLUS a structured JSON `contract` / `dossier` object for zero-code CRM field mapping."
+    }
+  ],
+  "sample_webhook_payload": {
+    "event": "signaltender.rfp_dossier.dispatched",
+    "tier": "tier_2",
+    "timestamp": "2026-10-18T19:30:00Z",
+    "text": "⚡ CAPTUREDESK AUTOPILOT DOSSIER // Solicitation: Enterprise Cloud & Zero-Trust Cybersecurity Modernization | Agency: Department of the Air Force | Closing: 2026-11-30 | NAICS: 541512 | Dossier: https://signaltender.net/contracts/rfp/sample-dossier.html",
+    "content": "⚡ **CAPTUREDESK AUTOPILOT DOSSIER** — Enterprise Cloud & Zero-Trust Cybersecurity Modernization",
+    "contract": {
+      "id": "200",
+      "title": "DISA Cybersecurity Service Provider (CSSP) / J34 External Vulnerability Scans (EVS)",
+      "agency": "Defense Information Systems Agency (DISA)",
+      "jurisdiction": "federal",
+      "vertical": "Cybersecurity & Zero-Trust",
+      "closing_date": "2026-11-30",
+      "official_bid_url": "https://sam.gov/opp/sample/view",
+      "dossier_url": "https://signaltender.net/contracts/rfp/disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-e-200.html",
+      "primary_naics": "541512 — Computer Systems Design Services",
+      "primary_psc": "DA01 — IT & Telecom: Business Application/Application Development",
+      "sba_size_standard": "$34.0M Annual Receipts",
+      "win_themes": [
+        "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
+        "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
+        "Fixed-price milestone predictability with senior cleared technical key personnel."
+      ]
+    }
+  },
+  "crm_field_mapping_guide": {
+    "Salesforce_Opportunity": {
+      "Name": "contract.title",
+      "Account_Agency__c": "contract.agency",
+      "CloseDate": "contract.closing_date",
+      "StageName": "'Qualification / Capture'",
+      "LeadSource": "'SignalTender Automated Wire'",
+      "NextStep": "contract.win_themes[0]",
+      "Description": "text",
+      "Official_Bid_URL__c": "contract.official_bid_url",
+      "SignalTender_Dossier_URL__c": "contract.dossier_url"
+    },
+    "HubSpot_Deal": {
+      "dealname": "contract.title",
+      "pipeline": "default",
+      "dealstage": "appointmentscheduled",
+      "closedate": "contract.closing_date",
+      "description": "text",
+      "govcon_agency": "contract.agency",
+      "naics_code": "contract.primary_naics",
+      "rfp_portal_url": "contract.official_bid_url"
+    }
+  }
+}
+

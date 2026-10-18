@@ -221,12 +221,16 @@ def run_capturedesk_autopilot() -> None:
         supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
         resp = (
             supabase.table(TABLE_NAME)
-            .select("id, title, agency, closing_date, url")
+            .select("id, title, agency, closing_date, url, status")
             .order("id", desc=True)
-            .limit(25)
+            .limit(40)
             .execute()
         )
-        rows = resp.data or []
+        rows = [
+            r for r in (resp.data or [])
+            if not str(r.get("url") or "").startswith("subscriber://")
+            and not str(r.get("status") or "").startswith("SUBSCRIBER_")
+        ]
         if not rows:
             print(" -> [CaptureDesk] No contracts found in Supabase.", flush=True)
             return
@@ -250,19 +254,50 @@ def run_capturedesk_autopilot() -> None:
             flush=True,
         )
 
-        if new_dossiers and DISCORD_CAPTUREDESK_WEBHOOK_URL:
+        if new_dossiers:
             blocks = [format_capturedesk_discord_embed(d) for d in new_dossiers]
             payload_text = "\n\n".join(blocks)[:1950]
-            r = requests.post(
-                DISCORD_CAPTUREDESK_WEBHOOK_URL,
-                json={
-                    "username": "CaptureDesk Autopilot // Tier 2",
-                    "content": payload_text,
-                },
-                timeout=15,
-            )
-            r.raise_for_status()
-            print(" -> [CaptureDesk] Dispatched Tier 2 dossiers to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
+
+            if DISCORD_CAPTUREDESK_WEBHOOK_URL:
+                r = requests.post(
+                    DISCORD_CAPTUREDESK_WEBHOOK_URL,
+                    json={
+                        "username": "CaptureDesk Autopilot // Tier 2",
+                        "content": payload_text,
+                    },
+                    timeout=15,
+                )
+                r.raise_for_status()
+                print(" -> [CaptureDesk] Dispatched Tier 2 dossiers to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
+
+            # Also dispatch to active Tier 2 subscriber external webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM)
+            try:
+                sub_resp = supabase.table(TABLE_NAME).select("title,status").eq("status", "SUBSCRIBER_ACTIVE").execute()
+                for srow in (sub_resp.data or []):
+                    meta = json.loads(str(srow.get("title") or "{}"))
+                    if str(meta.get("tier") or "") != "tier_2":
+                        continue
+                    w_url = str(meta.get("webhook_url") or "").strip()
+                    if not w_url.startswith("https://"):
+                        continue
+                    u_low = w_url.lower()
+                    for d in new_dossiers:
+                        d_text = format_capturedesk_discord_embed(d)
+                        if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
+                            ext_payload = {"text": d_text}
+                        elif "discord.com/api/webhooks" in u_low:
+                            ext_payload = {"username": "CaptureDesk Autopilot // Tier 2", "content": d_text}
+                        else:
+                            ext_payload = {
+                                "event": "signaltender.rfp_dossier.dispatched",
+                                "tier": "tier_2",
+                                "text": d_text,
+                                "content": d_text,
+                                "contract": d,
+                            }
+                        requests.post(w_url, json=ext_payload, timeout=10)
+            except Exception as sub_err:
+                log_error(f"External Tier 2 webhook dispatch warning: {sub_err}")
 
     except Exception as exc:
         send_discord_alert(f"CaptureDesk Autopilot failed: {exc}")

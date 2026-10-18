@@ -187,12 +187,68 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
     return True
 
 
+def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict]) -> int:
+    """
+    Dispatch newly discovered RFPs to any active subscriber external webhooks
+    (Slack, Microsoft Teams, Zapier, Make.com, n8n, HubSpot, Salesforce) stored
+    in Supabase with status='SUBSCRIBER_ACTIVE'.
+    """
+    import json
+    dispatched = 0
+    try:
+        sub_resp = supabase.table(TABLE_NAME).select("title,status").eq("status", "SUBSCRIBER_ACTIVE").execute()
+        sub_rows = sub_resp.data if sub_resp and getattr(sub_resp, "data", None) else []
+    except Exception:
+        sub_rows = []
+
+    if not sub_rows or not records:
+        return 0
+
+    blocks = [format_lead_block(rec) for rec in records[:10]]
+    combined_text = "\n\n---\n\n".join(blocks)[:1900]
+
+    for srow in sub_rows:
+        try:
+            meta = json.loads(str(srow.get("title") or "{}"))
+            w_url = str(meta.get("webhook_url") or "").strip()
+            if not w_url.startswith("https://"):
+                continue
+            u_low = w_url.lower()
+            if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
+                payload = {"text": combined_text}
+            elif "discord.com/api/webhooks" in u_low or "discordapp.com/api/webhooks" in u_low:
+                payload = {"username": "SignalWire Pro // Tier 1", "content": combined_text}
+            else:
+                payload = {
+                    "event": "signaltender.signalwire.batch",
+                    "text": combined_text,
+                    "content": combined_text,
+                    "contracts": [
+                        {
+                            "id": str(r.get("id") or ""),
+                            "title": r.get("title"),
+                            "agency": r.get("agency"),
+                            "closing_date": r.get("closing_date"),
+                            "official_bid_url": r.get("url"),
+                            "jurisdiction": classify_jurisdiction(r),
+                            "vertical": classify_vertical_tag(r),
+                        }
+                        for r in records[:25]
+                    ],
+                }
+            requests.post(w_url, json=payload, timeout=10)
+            dispatched += 1
+        except Exception as ext_err:
+            print(f"[!] External customer webhook warning: {ext_err}", flush=True)
+    return dispatched
+
+
 def deliver_leads(client_webhook_url: str = None) -> int:
     """
     Query Supabase for 'New Lead' contracts, format them into enriched Discord
     intelligence blocks (with pSEO Dossier + FastAPI links), route them to the
-    Master Client Discord Wire AND any configured state-specific Discord channels,
-    and update the status in Supabase to 'Delivered'.
+    Master Client Discord Wire, any configured state-specific Discord channels,
+    AND any active subscriber Slack/Teams/CRM webhooks, then update status to 'Delivered'.
     """
     target_webhook = client_webhook_url or CLIENT_DISCORD_WEBHOOK_URL
 
@@ -207,7 +263,10 @@ def deliver_leads(client_webhook_url: str = None) -> int:
 
         print(f"[*] Querying '{TABLE_NAME}' table for records with status='New Lead'...", flush=True)
         resp = supabase.table(TABLE_NAME).select("*").eq("status", "New Lead").execute()
-        records = resp.data if resp and getattr(resp, "data", None) else []
+        records = [
+            r for r in (resp.data if resp and getattr(resp, "data", None) else [])
+            if not str(r.get("url") or "").startswith("subscriber://")
+        ]
 
         if not records:
             print("[+] No 'New Lead' records found to deliver.", flush=True)
@@ -229,7 +288,12 @@ def deliver_leads(client_webhook_url: str = None) -> int:
                 except Exception as ch_err:
                     print(f"[!] State channel webhook ({j_key}) warning: {ch_err}", flush=True)
 
-        # 3. Update Supabase status from 'New Lead' to 'Delivered'
+        # 3. Route leads to any active subscriber external webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM)
+        ext_count = _dispatch_to_external_customer_webhooks(supabase, records)
+        if ext_count:
+            print(f"[+] Dispatched RFP batch to {ext_count} external customer Slack/Teams/CRM webhook(s).", flush=True)
+
+        # 4. Update Supabase status from 'New Lead' to 'Delivered'
         urls_delivered = [rec["url"] for rec in records if rec.get("url")]
         for i in range(0, len(urls_delivered), 50):
             chunk = urls_delivered[i : i + 50]

@@ -463,6 +463,8 @@ def generate_pseo_site() -> int:
         spam_ids_to_purge = []
 
         for idx, rec in enumerate(raw_records, 1):
+            if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
+                continue
             raw_title = str(rec.get("title") or "").strip()
             if not raw_title:
                 continue

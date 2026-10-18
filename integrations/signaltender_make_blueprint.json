@@ -1,0 +1,93 @@
+{
+  "name": "SignalTender — Live Federal & SLED RFP -> HubSpot / Salesforce / Slack / MS Teams Blueprint",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {},
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0,
+          "name": "SignalTender Outbound Webhook Trigger"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": {
+        "handleErrors": true,
+        "useNewZLibDeCompress": true
+      },
+      "mapper": {
+        "url": "https://b2b-contract-parser-api.onrender.com/v1/classify/naics-psc-nigp",
+        "serializeUrl": false,
+        "method": "post",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "name": "X-RapidAPI-Key",
+            "value": "{{YOUR_SIGNALTENDER_API_KEY}}"
+          }
+        ],
+        "bodyType": "raw",
+        "parseResponse": true,
+        "contentType": "application/json",
+        "data": "{\"description_text\": \"{{1.title}} - {{1.agency}}\", \"context_type\": \"rfp_or_sow_scope\", \"max_secondary_codes\": 2}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "name": "SignalTender API #08 — Auto-Classify NAICS & PSC"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": {
+        "handleErrors": true
+      },
+      "mapper": {
+        "url": "{{YOUR_SLACK_TEAMS_OR_CRM_WEBHOOK_URL}}",
+        "method": "post",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "data": "{\"text\": \"⚡ [SignalTender Capture Alert] {{1.title}} | Agency: {{1.agency}} | Due: {{1.closing_date}} | NAICS: {{2.data.primary_naics.code}} | Dossier: {{1.dossier_url}}\", \"deal_name\": \"{{1.title}}\", \"agency\": \"{{1.agency}}\", \"closing_date\": \"{{1.closing_date}}\", \"official_bid_url\": \"{{1.source_url}}\", \"dossier_url\": \"{{1.dossier_url}}\"}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0,
+          "name": "Push Deal & Alert to HubSpot / Salesforce / Slack / MS Teams"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false
+    }
+  }
+}
+
