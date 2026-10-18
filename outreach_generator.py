@@ -310,8 +310,8 @@ def generate_outreach():
         apollo_file = "apollo-contacts.csv"
         output_file = "campaign_leads.csv"
         whop_checkout_url = os.getenv(
-            "WHOP_CHECKOUT_URL",
-            "https://whop.com/signaltender-net/signaltender-private-alerts",
+            "STRIPE_CHECKOUT_URL",
+            f"{SITE_BASE_URL}/index.html#checkout",
         )
 
         if not os.path.exists(apollo_file):
