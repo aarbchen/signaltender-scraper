@@ -24,6 +24,7 @@ error_debug.png
 !favicon-192x192.png
 !apple-touch-icon.png
 !og-banner.png
+!contracts/*.png
 *.csv
 *.pdf
 sled-scraper/bids.json
