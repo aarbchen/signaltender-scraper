@@ -156,32 +156,24 @@
   <!-- =====================================================================
        SECTION 1: API ECOSYSTEM HERO + DIRECTORY INDEX + GATEWAY TERMINAL
        ===================================================================== -->
-  <section class="relative overflow-hidden pt-14 pb-20 border-b border-slate-800/80 bg-navy-900/30">
+  <section class="relative overflow-hidden pt-10 pb-16 border-b border-slate-800/80 bg-navy-900/30">
     <!-- Tactical Grid Backdrop -->
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b1a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b1a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- Header Row -->
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400 mb-4">
-            <span>// PRODUCTION GOVCON &amp; LEGAL TECH APIs &bull; INSTANT RAPIDAPI ACCESS</span>
-          </div>
-          <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Automate RFP Parsing, Contract Redlining &amp; Price-to-Win Research
-          </h1>
-          <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-            Save hundreds of engineering and legal-review hours. Plug our 10 production <span class="text-white font-medium">REST APIs</span> into your CRM, proposal software, or AI agents to extract structured JSON from messy RFPs, flag toxic legal clauses with ready-to-paste redlines, query historical federal award CLIN pricing, stream live multi-portal SLED &amp; Federal solicitations, generate Shipley compliance matrices, audit FAR/DFARS &amp; CMMC 2.0 flow-downs, score Bid/No-Bid Pwin alignment, classify NAICS/PSC/SIC/UNSPSC codes, draft evaluator-ready Shipley proposal responses with strategic Contracting Officer Q&amp;A questions, and extract normalized CLIN/quote/invoice pricing schedules with math verification. Start free on <span class="text-white font-mono">Basic</span> and scale seamlessly across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
-          </p>
+      <!-- Header Top Bar: Badge + Action Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400">
+          <span>// PRODUCTION GOVCON &amp; LEGAL TECH APIs &bull; INSTANT RAPIDAPI ACCESS</span>
         </div>
 
         <!-- Live OpenAPI Specification & RapidAPI Publisher Links -->
-        <div class="flex flex-wrap items-center gap-3 text-xs font-mono shrink-0">
+        <div class="flex flex-wrap items-center gap-2.5 text-xs font-mono">
           <button
             type="button"
             onclick="window.openApiSandbox('product-contract-parsing')"
-            class="inline-flex items-center px-4 py-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-semibold shadow-lg shadow-emerald-950/40 transition-all cursor-pointer"
+            class="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-semibold shadow-lg shadow-emerald-950/40 transition-all cursor-pointer"
           >
             <span>&#9654; Launch Interactive API Playground</span>
           </button>
@@ -189,7 +181,7 @@
             href="https://rapidapi.com/user/aarbchen"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-3.5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+            class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
           >
             <span>Publisher Profile (SignalTender) &nearr;</span>
           </a>
@@ -197,11 +189,21 @@
             href="https://b2b-contract-parser-api.onrender.com/docs"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-3.5 py-2.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 transition-colors"
+            class="inline-flex items-center px-3.5 py-2 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 transition-colors"
           >
             <span>OpenAPI /docs &nearr;</span>
           </a>
         </div>
+      </div>
+
+      <!-- Full-Width Hero Headline & Lead Copy -->
+      <div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          Automate RFP Parsing, Contract Redlining &amp; Price-to-Win Research
+        </h1>
+        <p class="mt-3.5 text-slate-300 text-base sm:text-lg leading-relaxed max-w-6xl">
+          Save hundreds of engineering and legal-review hours. Plug our production <span class="text-white font-medium">REST APIs</span> &amp; <span class="text-white font-medium">MCP Server</span> into your CRM, proposal software, or AI agents to shred RFPs into structured JSON, redline toxic clauses, benchmark federal CLIN pricing, generate Shipley compliance matrices &amp; proposal narratives, score Bid/No-Bid Pwin, and validate pricing schedules. Start free on <span class="text-white font-mono">Basic</span> and scale across <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> tiers.
+        </p>
       </div>
 
       <!-- 1-Click CRM & Automation Blueprint Bar -->
@@ -218,7 +220,7 @@
       </div>
 
       <!-- Quick-Jump Catalog Directory Index + Unified Gateway GET Health Check Terminal -->
-      <div class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
         <!-- Left (7 cols): Quick-Jump Catalog Directory Index -->
         <div class="lg:col-span-7 rounded-xl bg-navy-950 border border-slate-800 p-5 flex flex-col justify-between shadow-xl">
