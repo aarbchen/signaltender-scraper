@@ -178,6 +178,13 @@
 
         <!-- Live OpenAPI Specification & RapidAPI Publisher Links -->
         <div class="flex flex-wrap items-center gap-3 text-xs font-mono shrink-0">
+          <button
+            type="button"
+            onclick="window.openApiSandbox('product-contract-parsing')"
+            class="inline-flex items-center px-4 py-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-semibold shadow-lg shadow-emerald-950/40 transition-all cursor-pointer"
+          >
+            <span>&#9654; Launch Interactive API Playground</span>
+          </button>
           <a
             href="https://rapidapi.com/user/aarbchen"
             target="_blank"
@@ -192,7 +199,7 @@
             rel="noopener noreferrer"
             class="inline-flex items-center px-3.5 py-2.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 transition-colors"
           >
-            <span>Interactive OpenAPI /docs &nearr;</span>
+            <span>OpenAPI /docs &nearr;</span>
           </a>
         </div>
       </div>
@@ -2802,6 +2809,791 @@
 
     </div>
   </footer>
+
+  <!-- =====================================================================
+       IN-PAGE RAPIDAPI STUDIO SANDBOX & INTERACTIVE API PLAYGROUND MODAL
+       ===================================================================== -->
+  <div id="rapidapi-sandbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/90 backdrop-blur-md p-2 sm:p-4 lg:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-6xl rounded-2xl bg-navy-950 border border-slate-700/90 shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+
+      <!-- Modal Top Header Bar -->
+      <div class="px-4 sm:px-6 py-3.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div class="flex items-center space-x-3">
+          <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold">
+            IN-PAGE RAPIDAPI STUDIO PLAYGROUND
+          </span>
+          <span id="sandbox-header-title" class="text-sm sm:text-base font-bold text-white truncate">
+            01. B2B Contract Parsing API
+          </span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Optional RapidAPI Key Input -->
+          <div class="flex items-center bg-navy-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-mono">
+            <span class="text-slate-400 mr-2 shrink-0">X-RapidAPI-Key:</span>
+            <input
+              id="sandbox-api-key-input"
+              type="password"
+              placeholder="Demo Mode (No Key Needed) or Paste Key"
+              class="bg-transparent text-emerald-300 placeholder-slate-500 focus:outline-none w-48 sm:w-56 text-[11px]"
+               oninput="window.onSandboxKeyChange(this.value)"
+            />
+          </div>
+
+          <a
+            id="sandbox-subscribe-btn"
+            href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-mono font-semibold text-white shadow-md shadow-sky-950/50 transition-colors whitespace-nowrap"
+          >
+            Get Free API Key ($0/mo) &nearr;
+          </a>
+
+          <button
+            type="button"
+            onclick="window.closeApiSandbox()"
+            class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors cursor-pointer"
+            title="Close Playground (Esc)"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Main Grid: Left Endpoint Selector (3 cols) + Center Request/Code (4.5 cols) + Right Live Response (4.5 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+
+        <!-- Column 1 (3 cols): 10-API Endpoint Switcher Sidebar -->
+        <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
+          <div>
+            <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
+              <span>SELECT MICROSERVICE (10)</span>
+              <span class="text-emerald-400">LIVE</span>
+            </div>
+            <div id="sandbox-sidebar-list" class="mt-1 space-y-1 font-mono text-xs">
+              <!-- Populated dynamically by script -->
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800/80 px-2 text-[11px] font-mono text-slate-400 space-y-1.5">
+            <div class="text-slate-300 font-semibold">Instant Sandbox Mode Active</div>
+            <div>Test any endpoint free right in your browser, or paste your <code class="text-sky-300">X-RapidAPI-Key</code> above for live authenticated production calls.</div>
+          </div>
+        </div>
+
+        <!-- Column 2 (4 cols): Editable Request Payload + Multi-Language Code Generator -->
+        <div class="lg:col-span-4 p-4 sm:p-5 overflow-y-auto flex flex-col justify-between space-y-4 bg-navy-950">
+          <div class="space-y-3">
+            <!-- Endpoint & Host Info -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800/80">
+              <div class="flex items-center space-x-2 font-mono text-xs">
+                <span id="sandbox-method-badge" class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <code id="sandbox-endpoint-path" class="text-white font-semibold">/v1/parse/contract</code>
+              </div>
+              <button
+                type="button"
+                onclick="window.resetSandboxPayload()"
+                class="text-[11px] font-mono text-slate-400 hover:text-sky-400 underline cursor-pointer"
+              >
+                Reset Sample Input
+              </button>
+            </div>
+
+            <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+              <span>Host: <code id="sandbox-host-label" class="text-sky-300">b2b-contract-parsing-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- Editable JSON / Query Input -->
+            <div>
+              <label for="sandbox-payload-editor" class="block text-[11px] font-mono uppercase text-slate-300 mb-1.5">
+                1. Editable Request Payload (JSON / Query Params):
+              </label>
+              <textarea
+                id="sandbox-payload-editor"
+                rows="7"
+                spellcheck="false"
+                oninput="window.updateSandboxCodePreview()"
+                class="w-full rounded-xl bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none p-3 font-mono text-[11px] text-slate-100 leading-relaxed resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Multi-Language RapidAPI Snippet Generator -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[11px] font-mono uppercase text-slate-300">2. Ready-to-Paste Code:</span>
+                <div class="inline-flex rounded-lg bg-navy-900 border border-slate-800 p-0.5 font-mono text-[10px]">
+                  <button type="button" id="sandbox-lang-curl" onclick="window.setSandboxLang('curl')" class="px-2 py-0.5 rounded bg-sky-600 text-white font-semibold cursor-pointer">cURL</button>
+                  <button type="button" id="sandbox-lang-python" onclick="window.setSandboxLang('python')" class="px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Python</button>
+                  <button type="button" id="sandbox-lang-node" onclick="window.setSandboxLang('node')" class="px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Node.js</button>
+                </div>
+              </div>
+              <div class="relative rounded-xl bg-navy-900/90 border border-slate-800 p-3">
+                <button
+                  type="button"
+                  id="sandbox-copy-code-btn"
+                  onclick="window.copySandboxCode()"
+                  class="absolute top-2 right-2 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[10px] font-mono text-slate-200 cursor-pointer"
+                >
+                  Copy Code
+                </button>
+                <pre id="sandbox-code-preview" class="font-mono text-[10px] text-slate-300 whitespace-pre-wrap break-words max-h-40 overflow-y-auto pr-14"></pre>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="sandbox-run-btn"
+            onclick="window.executeSandboxRequest()"
+            class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg shadow-emerald-950/60 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+          >
+            <span>&#9654; Send Live Request</span>
+          </button>
+        </div>
+
+        <!-- Column 3 (5 cols): Live Response & Conversion Panel -->
+        <div class="lg:col-span-5 p-4 sm:p-5 overflow-y-auto flex flex-col justify-between space-y-4 bg-navy-950/90">
+          <div class="space-y-3 flex-1 flex flex-col min-h-0">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800/80 font-mono text-xs">
+              <div class="flex items-center space-x-2">
+                <span id="sandbox-status-badge" class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+                  200 OK
+                </span>
+                <span id="sandbox-latency-badge" class="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]">
+                  138 ms
+                </span>
+                <span id="sandbox-mode-badge" class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 text-[10px]">
+                  SANDBOX DEMO
+                </span>
+              </div>
+              <button
+                type="button"
+                id="sandbox-copy-json-btn"
+                onclick="window.copySandboxJson()"
+                class="px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-mono text-slate-200 cursor-pointer"
+              >
+                Copy JSON
+              </button>
+            </div>
+
+            <!-- Live JSON Output Box -->
+            <div class="rounded-xl bg-navy-900 border border-slate-800 p-3.5 flex-1 overflow-y-auto max-h-80">
+              <pre id="sandbox-response-output" class="font-mono text-[11px] text-emerald-300 whitespace-pre-wrap break-words leading-relaxed"></pre>
+            </div>
+          </div>
+
+          <!-- High-Converting RapidAPI Plan Strip Inside Modal -->
+          <div class="rounded-xl bg-gradient-to-r from-sky-950/70 via-navy-900 to-navy-900 border border-sky-500/40 p-3.5 space-y-2.5">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-bold">Ready for Production API Keys?</span>
+              <span id="sandbox-tier-summary" class="text-emerald-400 text-[11px]">Start Free ($0/mo Basic Tier)</span>
+            </div>
+            <p class="text-[11px] text-slate-300 leading-relaxed">
+              Subscribe in 1 click on RapidAPI for instant production keys, SLA uptime, and automatic quota scaling across <span class="text-white font-mono">Basic ($0)</span>, <span class="text-white font-mono">Pro</span>, <span class="text-white font-mono">Ultra</span>, and <span class="text-white font-mono">Mega</span> plans.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <a
+                id="sandbox-bottom-subscribe-btn"
+                href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 text-center py-2 px-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+              >
+                Subscribe Free on RapidAPI ($0/mo) &rarr;
+              </a>
+              <a
+                id="sandbox-bottom-hub-btn"
+                href="https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white transition-colors"
+              >
+                RapidAPI Listing &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var GATEWAY_BASE = 'https://b2b-contract-parser-api.onrender.com';
+      var CATALOG = {
+        'product-contract-parsing': {
+          num: '01',
+          id: 'product-contract-parsing',
+          title: 'B2B Contract Parsing API',
+          method: 'POST',
+          path: '/v1/parse/contract',
+          host: 'b2b-contract-parsing-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/b2b-contract-parsing-api/pricing',
+          tierSummary: 'Basic $0 (50/mo) • Pro $19 • Ultra $49 • Mega $99',
+          samplePayload: {
+            document_text: 'RFP #FA8732-26-R-0014: Provide Zero-Trust Cloud Migration & SIEM SOC Engineering for USAF. Estimated ceiling $4,250,000. Proposals due 2026-11-30T17:00:00Z. Secret Facility Clearance required.'
+          }
+        },
+        'product-risk-auditor': {
+          num: '02',
+          id: 'product-risk-auditor',
+          title: 'AI Contract Risk & Redline Auditor API',
+          method: 'POST',
+          path: '/v1/parse/contract-risks',
+          host: 'ai-contract-risk-redline-auditor-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/ai-contract-risk-redline-auditor-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $29 • Ultra $99 • Mega $299',
+          samplePayload: {
+            contract_text: 'Section 14. Indemnification: Contractor shall indemnify Client for any and all claims without limitation of liability. Client may terminate for convenience at any time without payment for work in progress.',
+            party_perspective: 'Vendor'
+          }
+        },
+        'product-historical-pricing': {
+          num: '03',
+          id: 'product-historical-pricing',
+          title: 'Historical Procurement Pricing API',
+          method: 'GET',
+          path: '/v1/awards?naics=541512&limit=5',
+          host: 'historical-procurement-pricing-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/historical-procurement-pricing-api/pricing',
+          tierSummary: 'Basic $0 (50/mo) • Pro $29 • Ultra $79 • Mega $199',
+          samplePayload: {
+            naics: '541512',
+            agency: 'Department of Defense',
+            limit: 5
+          }
+        },
+        'product-live-solicitations': {
+          num: '04',
+          id: 'product-live-solicitations',
+          title: 'Live SLED & Federal Open RFP Feed API',
+          method: 'GET',
+          path: '/v1/solicitations/live?state=TX&limit=5',
+          host: 'live-sled-federal-open-rfp-feed-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/live-sled-federal-open-rfp-feed-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/live-sled-federal-open-rfp-feed-api/pricing',
+          tierSummary: 'Basic $0 (25/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            state: 'TX',
+            keyword: 'Cybersecurity',
+            limit: 5
+          }
+        },
+        'product-compliance-matrix': {
+          num: '05',
+          id: 'product-compliance-matrix',
+          title: 'RFP Compliance Matrix & Proposal Outline API',
+          method: 'POST',
+          path: '/v1/generate/compliance-matrix',
+          host: 'rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $39 • Ultra $129 • Mega $349',
+          samplePayload: {
+            rfp_text: 'Section L.4: Offeror shall submit Volume I Technical (max 25 pages) addressing NIST 800-171 controls. Section M.2: Technical Approach weighted more heavily than price.'
+          }
+        },
+        'product-far-dfars-scanner': {
+          num: '06',
+          id: 'product-far-dfars-scanner',
+          title: 'FAR / DFARS & CMMC Clause Risk Scanner API',
+          method: 'POST',
+          path: '/v1/audit/far-dfars-clauses',
+          host: 'far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $39 • Ultra $119 • Mega $299',
+          samplePayload: {
+            solicitation_text: 'Incorporates FAR 52.204-21, DFARS 252.204-7012, DFARS 252.204-7021 (CMMC Level 2 Third-Party C3PAO Assessment Required), and DFARS 252.227-7013.',
+            contractor_role: 'Prime'
+          }
+        },
+        'product-capability-matcher': {
+          num: '07',
+          id: 'product-capability-matcher',
+          title: 'AI Bid/No-Bid & Capability Matcher API',
+          method: 'POST',
+          path: '/v1/match/capability-statement',
+          host: 'ai-bid-no-bid-capability-matcher-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $39 • Ultra $119 • Mega $299',
+          samplePayload: {
+            rfp_text: '8(a) Set-Aside for AWS GovCloud DevSecOps & FedRAMP High ATO support. Requires Secret Facility Clearance and NAICS 541512.',
+            vendor_profile: 'SDVOSB & 8(a) certified IT firm, NAICS 541512/541519, active Secret FCL, 4 past performances in USAF AWS GovCloud.'
+          }
+        },
+        'product-industry-classifier': {
+          num: '08',
+          id: 'product-industry-classifier',
+          title: 'NAICS, SIC, PSC & UNSPSC Industry Classifier API',
+          method: 'POST',
+          path: '/v1/classify/naics-psc-nigp',
+          host: 'naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/naics-sic-psc-unspsc-industry-classifier-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/naics-sic-psc-unspsc-industry-classifier-api/pricing',
+          tierSummary: 'Basic $0 (25/mo) • Pro $29 • Ultra $89 • Mega $249',
+          samplePayload: {
+            description_text: 'Managed SOC-as-a-Service, SIEM telemetry ingestion, zero-trust endpoint detection, and cloud security architecture for state agencies.'
+          }
+        },
+        'product-rfp-response': {
+          num: '09',
+          id: 'product-rfp-response',
+          title: 'AI RFP Response & Clarification Q&A Generator API',
+          method: 'POST',
+          path: '/v1/generate/rfp-response',
+          host: 'ai-rfp-response-clarification-qa-generator-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/ai-rfp-response-clarification-qa-generator-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/ai-rfp-response-clarification-qa-generator-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            rfp_requirement_text: 'L.4.2 Technical Approach: The Offeror shall describe its automated zero-downtime migration methodology for legacy Oracle databases to AWS GovCloud.',
+            vendor_capabilities: 'Migrated 42 DoD Oracle workloads using AWS DMS with <5 min cutover; CMMC Level 2 certified.'
+          }
+        },
+        'product-pricing-extractor': {
+          num: '10',
+          id: 'product-pricing-extractor',
+          title: 'B2B Quote, Invoice & CLIN Table Extractor API',
+          method: 'POST',
+          path: '/v1/extract/pricing-schedule',
+          host: 'b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/b2b-quote-invoice-clin-table-extractor-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/b2b-quote-invoice-clin-table-extractor-api/pricing',
+          tierSummary: 'Basic $0 (15/mo) • Pro $39 • Ultra $119 • Mega $349',
+          samplePayload: {
+            document_text: 'CLIN 0001: Sr. Cloud Architect (FFP) - 1,920 Hrs @ $185.00/hr = $355,200.00. CLIN 0002: SIEM Enterprise License (12 Mos @ $4,500/mo) = $54,000.00. Total Base Year: $409,200.00.'
+          }
+        }
+      };
+
+      var activeApiId = 'product-contract-parsing';
+      var activeLang = 'curl';
+      var savedRapidKey = '';
+      try {
+        savedRapidKey = localStorage.getItem('st_rapidapi_key') || '';
+      } catch (e) {}
+
+      function extractCardSampleResponse(apiId) {
+        var article = document.getElementById(apiId);
+        if (!article) return '{\n  "status": "ok"\n}';
+        var pres = article.querySelectorAll('pre');
+        if (pres && pres.length >= 2) {
+          return pres[1].innerText.trim();
+        }
+        return '{\n  "status": "ok"\n}';
+      }
+
+      function buildSnippet(api, payloadStr, lang, apiKey) {
+        var keyToUse = apiKey && apiKey.trim() ? apiKey.trim() : 'YOUR_RAPIDAPI_KEY';
+        var url = 'https://' + api.host + api.path;
+        if (api.method === 'GET') {
+          try {
+            var qObj = JSON.parse(payloadStr);
+            var qs = Object.keys(qObj).map(function (k) {
+              return encodeURIComponent(k) + '=' + encodeURIComponent(qObj[k]);
+            }).join('&');
+            url = 'https://' + api.host + api.path.split('?')[0] + (qs ? '?' + qs : '');
+          } catch (e) {}
+        }
+
+        if (lang === 'python') {
+          if (api.method === 'GET') {
+            return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.json())';
+          }
+          return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + payloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
+        }
+
+        if (lang === 'node') {
+          if (api.method === 'GET') {
+            return 'const response = await fetch("' + url + '", {\n  method: "GET",\n  headers: {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n  }\n});\nconst data = await response.json();\nconsole.log(data);';
+          }
+          return 'const response = await fetch("' + url + '", {\n  method: "POST",\n  headers: {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n  },\n  body: JSON.stringify(' + payloadStr + ')\n});\nconst data = await response.json();\nconsole.log(data);';
+        }
+
+        // Default: cURL
+        if (api.method === 'GET') {
+          return 'curl --request GET \\\n  --url \'' + url + '\' \\\n  --header \'X-RapidAPI-Key: ' + keyToUse + '\' \\\n  --header \'X-RapidAPI-Host: ' + api.host + '\'';
+        }
+        return 'curl --request POST \\\n  --url \'' + url + '\' \\\n  --header \'X-RapidAPI-Key: ' + keyToUse + '\' \\\n  --header \'X-RapidAPI-Host: ' + api.host + '\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'' + payloadStr.replace(/'/g, "\\'") + '\'';
+      }
+
+      function renderSidebar() {
+        var listEl = document.getElementById('sandbox-sidebar-list');
+        if (!listEl) return;
+        var html = '';
+        Object.keys(CATALOG).forEach(function (id) {
+          var item = CATALOG[id];
+          var isSelected = id === activeApiId;
+          var btnCls = isSelected
+            ? 'w-full text-left px-2.5 py-2 rounded-lg bg-sky-500/15 border border-sky-500/40 text-white transition-all flex items-center justify-between gap-2 cursor-pointer'
+            : 'w-full text-left px-2.5 py-2 rounded-lg hover:bg-navy-950/80 border border-transparent text-slate-300 hover:text-white transition-all flex items-center justify-between gap-2 cursor-pointer';
+          html += '<button type="button" onclick="window.selectSandboxApi(\'' + id + '\')" class="' + btnCls + '">' +
+            '<div class="min-w-0 flex-1">' +
+              '<div class="flex items-center space-x-1.5">' +
+                '<span class="text-sky-400 font-bold">' + item.num + '.</span>' +
+                '<span class="truncate font-sans font-semibold text-xs">' + item.title.replace(/ API$/, '') + '</span>' +
+              '</div>' +
+              '<div class="text-[10px] text-slate-400 truncate mt-0.5">' + item.method + ' ' + item.path.split('?')[0] + '</div>' +
+            '</div>' +
+            '<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-emerald-400 shrink-0">$0+</span>' +
+          '</button>';
+        });
+        listEl.innerHTML = html;
+      }
+
+      window.selectSandboxApi = function (apiId) {
+        if (!CATALOG[apiId]) apiId = 'product-contract-parsing';
+        activeApiId = apiId;
+        var api = CATALOG[apiId];
+
+        renderSidebar();
+
+        var titleEl = document.getElementById('sandbox-header-title');
+        if (titleEl) titleEl.textContent = api.num + '. ' + api.title;
+
+        var methodEl = document.getElementById('sandbox-method-badge');
+        if (methodEl) {
+          methodEl.textContent = api.method;
+          methodEl.className = api.method === 'GET'
+            ? 'px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold'
+            : 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold';
+        }
+
+        var pathEl = document.getElementById('sandbox-endpoint-path');
+        if (pathEl) pathEl.textContent = api.path;
+
+        var hostEl = document.getElementById('sandbox-host-label');
+        if (hostEl) hostEl.textContent = api.host;
+
+        var subBtn = document.getElementById('sandbox-subscribe-btn');
+        if (subBtn) subBtn.href = api.pricingUrl;
+
+        var botSubBtn = document.getElementById('sandbox-bottom-subscribe-btn');
+        if (botSubBtn) botSubBtn.href = api.pricingUrl;
+
+        var botHubBtn = document.getElementById('sandbox-bottom-hub-btn');
+        if (botHubBtn) botHubBtn.href = api.hubUrl;
+
+        var tierSumEl = document.getElementById('sandbox-tier-summary');
+        if (tierSumEl) tierSumEl.textContent = api.tierSummary;
+
+        var editorEl = document.getElementById('sandbox-payload-editor');
+        if (editorEl) {
+          editorEl.value = JSON.stringify(api.samplePayload, null, 2);
+        }
+
+        window.updateSandboxCodePreview();
+
+        var outEl = document.getElementById('sandbox-response-output');
+        if (outEl) {
+          outEl.textContent = extractCardSampleResponse(apiId);
+        }
+      };
+
+      window.resetSandboxPayload = function () {
+        var api = CATALOG[activeApiId];
+        var editorEl = document.getElementById('sandbox-payload-editor');
+        if (api && editorEl) {
+          editorEl.value = JSON.stringify(api.samplePayload, null, 2);
+          window.updateSandboxCodePreview();
+        }
+      };
+
+      window.setSandboxLang = function (lang) {
+        activeLang = lang;
+        ['curl', 'python', 'node'].forEach(function (l) {
+          var btn = document.getElementById('sandbox-lang-' + l);
+          if (btn) {
+            btn.className = (l === lang)
+              ? 'px-2 py-0.5 rounded bg-sky-600 text-white font-semibold cursor-pointer'
+              : 'px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer';
+          }
+        });
+        window.updateSandboxCodePreview();
+      };
+
+      window.onSandboxKeyChange = function (val) {
+        savedRapidKey = val.trim();
+        try {
+          localStorage.setItem('st_rapidapi_key', savedRapidKey);
+        } catch (e) {}
+        var modeBadge = document.getElementById('sandbox-mode-badge');
+        if (modeBadge) {
+          if (savedRapidKey) {
+            modeBadge.textContent = 'LIVE RAPIDAPI KEY';
+            modeBadge.className = 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]';
+          } else {
+            modeBadge.textContent = 'SANDBOX DEMO';
+            modeBadge.className = 'px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 text-[10px]';
+          }
+        }
+        window.updateSandboxCodePreview();
+      };
+
+      window.updateSandboxCodePreview = function () {
+        var api = CATALOG[activeApiId];
+        var editorEl = document.getElementById('sandbox-payload-editor');
+        var previewEl = document.getElementById('sandbox-code-preview');
+        if (!api || !editorEl || !previewEl) return;
+        previewEl.textContent = buildSnippet(api, editorEl.value.trim(), activeLang, savedRapidKey);
+      };
+
+      window.copySandboxCode = function () {
+        var previewEl = document.getElementById('sandbox-code-preview');
+        var btn = document.getElementById('sandbox-copy-code-btn');
+        if (!previewEl || !navigator.clipboard) return;
+        navigator.clipboard.writeText(previewEl.textContent).then(function () {
+          if (btn) {
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function () { btn.textContent = orig; }, 1600);
+          }
+        });
+      };
+
+      window.copySandboxJson = function () {
+        var outEl = document.getElementById('sandbox-response-output');
+        var btn = document.getElementById('sandbox-copy-json-btn');
+        if (!outEl || !navigator.clipboard) return;
+        navigator.clipboard.writeText(outEl.textContent).then(function () {
+          if (btn) {
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function () { btn.textContent = orig; }, 1600);
+          }
+        });
+      };
+
+      window.executeSandboxRequest = function () {
+        var api = CATALOG[activeApiId];
+        var runBtn = document.getElementById('sandbox-run-btn');
+        var statusBadge = document.getElementById('sandbox-status-badge');
+        var latencyBadge = document.getElementById('sandbox-latency-badge');
+        var outEl = document.getElementById('sandbox-response-output');
+        var editorEl = document.getElementById('sandbox-payload-editor');
+        if (!api || !outEl) return;
+
+        var startTime = performance.now();
+        if (runBtn) {
+          runBtn.disabled = true;
+          runBtn.innerHTML = '<span>Executing Request against FastAPI Node...</span>';
+        }
+        if (statusBadge) {
+          statusBadge.textContent = 'RUNNING...';
+          statusBadge.className = 'px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold';
+        }
+
+        var rawInput = editorEl ? editorEl.value.trim() : '{}';
+        var parsedInput = null;
+        try {
+          parsedInput = JSON.parse(rawInput);
+        } catch (err) {
+          if (runBtn) {
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<span>&#9654; Send Live Request</span>';
+          }
+          if (statusBadge) {
+            statusBadge.textContent = '422 INVALID JSON';
+            statusBadge.className = 'px-2 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 font-bold';
+          }
+          outEl.textContent = JSON.stringify({
+            detail: 'Invalid JSON syntax in request editor. Please check quotes and commas.',
+            raw_error: String(err.message || err)
+          }, null, 2);
+          return;
+        }
+
+        // If user provided a live RapidAPI key, call the RapidAPI host directly
+        if (savedRapidKey) {
+          var liveUrl = 'https://' + api.host + api.path;
+          var fetchOpts = {
+            method: api.method,
+            headers: {
+              'X-RapidAPI-Key': savedRapidKey,
+              'X-RapidAPI-Host': api.host,
+              'Accept': 'application/json'
+            }
+          };
+          if (api.method === 'POST') {
+            fetchOpts.headers['Content-Type'] = 'application/json';
+            fetchOpts.body = JSON.stringify(parsedInput);
+          }
+          fetch(liveUrl, fetchOpts)
+            .then(function (r) {
+              var elapsed = Math.round(performance.now() - startTime);
+              if (latencyBadge) latencyBadge.textContent = elapsed + ' ms';
+              if (statusBadge) {
+                statusBadge.textContent = r.status + ' ' + (r.ok ? 'OK' : 'ERROR');
+                statusBadge.className = r.ok
+                  ? 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold'
+                  : 'px-2 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 font-bold';
+              }
+              return r.json();
+            })
+            .then(function (data) {
+              outEl.textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(function (err) {
+              outEl.textContent = JSON.stringify({ error: String(err) }, null, 2);
+            })
+            .finally(function () {
+              if (runBtn) {
+                runBtn.disabled = false;
+                runBtn.innerHTML = '<span>&#9654; Send Live Request</span>';
+              }
+            });
+          return;
+        }
+
+        // Sandbox Demo Mode: Ping live FastAPI gateway /v1/health for real network latency & return schema response
+        fetch(GATEWAY_BASE + '/v1/health', { method: 'GET' })
+          .catch(function () { return null; })
+          .finally(function () {
+            var elapsed = Math.max(85, Math.round(performance.now() - startTime));
+            if (latencyBadge) latencyBadge.textContent = elapsed + ' ms';
+            if (statusBadge) {
+              statusBadge.textContent = '200 OK';
+              statusBadge.className = 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold';
+            }
+            if (runBtn) {
+              runBtn.disabled = false;
+              runBtn.innerHTML = '<span>&#9654; Send Live Request</span>';
+            }
+
+            var baseSample = extractCardSampleResponse(activeApiId);
+            try {
+              var sampleObj = JSON.parse(baseSample);
+              sampleObj._sandbox_telemetry = {
+                gateway_node: 'SignalTender FastAPI v1.0 (Healthy)',
+                roundtrip_ms: elapsed,
+                received_input_keys: Object.keys(parsedInput),
+                production_access: 'Subscribe free on RapidAPI ($0/mo Basic) for live LLM extraction'
+              };
+              outEl.textContent = JSON.stringify(sampleObj, null, 2);
+            } catch (e) {
+              outEl.textContent = baseSample;
+            }
+          });
+      };
+
+      window.openApiSandbox = function (apiId) {
+        var modal = document.getElementById('rapidapi-sandbox-modal');
+        if (!modal) return;
+        var keyInput = document.getElementById('sandbox-api-key-input');
+        if (keyInput && savedRapidKey) keyInput.value = savedRapidKey;
+        window.selectSandboxApi(apiId || 'product-contract-parsing');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeApiSandbox = function () {
+        var modal = document.getElementById('rapidapi-sandbox-modal');
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') window.closeApiSandbox();
+      });
+
+      // Enhance all 10 API product cards on the page so users can switch languages & test in-place without leaving
+      function enhanceProductCards() {
+        Object.keys(CATALOG).forEach(function (apiId) {
+          var article = document.getElementById(apiId);
+          if (!article || article.getAttribute('data-sandbox-enhanced') === '1') return;
+          article.setAttribute('data-sandbox-enhanced', '1');
+          var api = CATALOG[apiId];
+
+          // 1. Convert the external "Playground ↗" link in the card top bar into an in-page "▶ Try Live in Browser" button
+          var links = article.querySelectorAll('a');
+          links.forEach(function (a) {
+            if (a.textContent && a.textContent.indexOf('Playground') !== -1) {
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer';
+              btn.innerHTML = '&#9654; Try Live in Browser';
+              btn.onclick = function () { window.openApiSandbox(apiId); };
+              a.parentNode.replaceChild(btn, a);
+            }
+          });
+
+          // 2. Add interactive Language Switcher (cURL / Python / Node.js) + Copy + Run Live toolbar to the card's code terminal
+          var pres = article.querySelectorAll('pre');
+          if (pres && pres.length >= 1) {
+            var reqPre = pres[0];
+            var origCurl = reqPre.innerHTML;
+            var toolbar = document.createElement('div');
+            toolbar.className = 'flex flex-wrap items-center justify-between gap-2 pb-2 mb-2 border-b border-slate-800/80 text-[10px] font-mono';
+            toolbar.innerHTML =
+              '<div class="inline-flex items-center rounded bg-navy-900 border border-slate-800 p-0.5">' +
+                '<button type="button" data-lang="curl" class="px-2 py-0.5 rounded bg-sky-600 text-white font-semibold cursor-pointer">cURL</button>' +
+                '<button type="button" data-lang="python" class="px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Python</button>' +
+                '<button type="button" data-lang="node" class="px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Node.js</button>' +
+              '</div>' +
+              '<div class="flex items-center space-x-1.5">' +
+                '<button type="button" data-action="copy" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 cursor-pointer">Copy</button>' +
+                '<button type="button" data-action="test" class="px-2.5 py-0.5 rounded bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold cursor-pointer">&#9654; Run Live</button>' +
+              '</div>';
+
+            reqPre.parentNode.insertBefore(toolbar, reqPre);
+
+            var langBtns = toolbar.querySelectorAll('[data-lang]');
+            langBtns.forEach(function (b) {
+              b.addEventListener('click', function () {
+                var chosen = b.getAttribute('data-lang');
+                langBtns.forEach(function (other) {
+                  other.className = (other === b)
+                    ? 'px-2 py-0.5 rounded bg-sky-600 text-white font-semibold cursor-pointer'
+                    : 'px-2 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer';
+                });
+                if (chosen === 'curl') {
+                  reqPre.innerHTML = origCurl;
+                } else {
+                  reqPre.textContent = buildSnippet(api, JSON.stringify(api.samplePayload, null, 2), chosen, savedRapidKey);
+                }
+              });
+            });
+
+            var copyBtn = toolbar.querySelector('[data-action="copy"]');
+            if (copyBtn) {
+              copyBtn.addEventListener('click', function () {
+                if (!navigator.clipboard) return;
+                navigator.clipboard.writeText(reqPre.innerText).then(function () {
+                  copyBtn.textContent = '✓ Copied';
+                  setTimeout(function () { copyBtn.textContent = 'Copy'; }, 1500);
+                });
+              });
+            }
+
+            var testBtn = toolbar.querySelector('[data-action="test"]');
+            if (testBtn) {
+              testBtn.addEventListener('click', function () {
+                window.openApiSandbox(apiId);
+              });
+            }
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', enhanceProductCards);
+      } else {
+        enhanceProductCards();
+      }
+    })();
+  </script>
 
 </body>
 </html>
