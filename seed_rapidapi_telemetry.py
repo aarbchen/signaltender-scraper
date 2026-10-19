@@ -167,11 +167,30 @@ ENDPOINTS = [
             "audit_math_and_anomalies": True,
         },
     },
+    {
+        "id": "API 11",
+        "name": "GovCon Teaming Partner & Subcontracting Plan API",
+        "method": "POST",
+        "path": "/v1/generate/teaming-strategy",
+        "rapid_host": "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
+        "payload": {
+            "rfp_text": (
+                "SDVOSB Set-Aside (NAICS 541512, $18M ceiling). Requires AWS GovCloud DevSecOps (60%), "
+                "24x7 Tier-3 SOC with Top Secret FCL (25%), and ServiceNow ITSM (15%). Incorporates FAR 52.219-14."
+            ),
+            "bidder_capability_text": (
+                "Verified SDVOSB, Secret FCL, AWS GovCloud DevSecOps Prime past performance ($12M USAF). "
+                "Seeking TS-cleared SOC & ServiceNow sub."
+            ),
+            "set_aside_type": "SDVOSB",
+            "target_bidder_role": "PRIME_CONTRACTOR",
+        },
+    },
 ]
 
 
 def run_telemetry_seeder() -> None:
-    print(f"=== SignalTender 10-API Telemetry Seeder ===")
+    print(f"=== SignalTender Multi-API Telemetry Seeder ===")
     print(f"Gateway: {BASE_URL}")
 
     if not PROXY_SECRET and not RAPIDAPI_KEY:
