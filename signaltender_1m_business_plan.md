@@ -27,7 +27,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 
 ---
 
-## 3. The 10-API Portfolio Roadmap (One FastAPI Gateway, 10 RapidAPI Storefronts — ALL 10 LIVE)
+## 3. The 15-API Portfolio Roadmap (One FastAPI Gateway, 11+ RapidAPI Storefronts Live)
 
 | API # | Endpoint & RapidAPI Product Name | What It Does (Stateless Input -> Output) | Target RapidAPI Buyer |
 | :--- | :--- | :--- | :--- |
@@ -41,6 +41,11 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 | **08 (Live)** | `POST /v1/classify/naics-psc-nigp`<br>**NAICS, SIC, PSC & UNSPSC Industry Classifier API** | Maps any product description, SOW, or company website text to exact 6-digit **NAICS**, **SIC** (for KYB/FinTech lending), Federal **PSC**, and State **NIGP/UNSPSC** codes with confidence scores & SBA size standard thresholds. | FinTech KYB, ERP, and vendor-onboarding platforms |
 | **09 (Live)** | `POST /v1/generate/rfp-response`<br>**AI RFP Response & Clarification Q&A Generator API** | Drafts a Shipley-compliant **Technical Proposal Section** from company context AND generates **strategic vendor clarification Q&A** to expose ambiguous or competitor-wired specs. | Proposal teams, capture managers & AI bid platforms |
 | **10 (Live)** | `POST /v1/extract/pricing-schedule`<br>**B2B Quote, Invoice & CLIN Table Extractor API** | Extracts messy multi-tier pricing tables, labor rate cards (LPTA/T&M), and BOM spreadsheets from unstructured vendor quotes into normalized JSON. | FinOps, procurement teams & ERP integrators |
+| **11 (Live)** | `POST /v1/generate/teaming-strategy`<br>**GovCon Teaming Partner & Subcontracting Plan API** | Audits RFP requirements against a bidder's capability statement, calculates a legally compliant Prime/Sub workshare split under **13 CFR § 125.6 & FAR 52.219-14 (50% Rule)**, flags Ostensible Subcontractor risk, and drafts **FAR Subpart 9.6 Teaming Agreement clauses** + BD outreach emails. | GovCon capture teams, 8(a)/SDVOSB primes & teaming platforms |
+| **12 (Planned)** | `POST /v1/audit/security-questionnaire`<br>**SOC 2, FedRAMP & NIST 800-171 Security Questionnaire Responder API** | Maps vendor security posture to NIST 800-171 / CMMC 2.0 / FedRAMP / SIG Lite controls, calculates a **DoD SPRS Score (-203 to 110)**, and drafts audit-ready security questionnaire responses. | GRC platforms, SaaS deal desks & Defense DIB vendors |
+| **13 (Planned)** | `POST /v1/match/key-personnel`<br>**GovCon Key Personnel & LCAT Resume Tailoring API** | Scores candidate resumes against RFP Section L/M Key Personnel & GSA Labor Category (LCAT) requirements, rewrites experience into Shipley past-performance blocks, and generates a Letter of Commitment (LOC). | GovCon staffing agencies, HRTech & proposal writers |
+| **14 (Planned)** | `POST /v1/analyze/amendment-diff`<br>**RFP Amendment & Q&A Change-Impact Analyzer API** | Diffs base RFP text against SF-30 Amendments & Q&A logs to flag altered `shall`/`must` mandates, deadline extensions, CLIN updates, and invalidated proposal sections. | Proposal management platforms & capture teams |
+| **15 (Planned)** | `POST /v1/generate/past-performance`<br>**CPARS & Past Performance Volume Generator API** | Transforms raw project histories into Shipley Section L/M Past Performance citations with Relevance ratings (`Very Relevant`), Scope/Magnitude/Complexity matrices, and CPARS-aligned narratives. | Proposal consultants, GovCon primes & bid platforms |
 
 ---
 
@@ -52,16 +57,16 @@ flowchart LR
         A["7 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
     end
 
-    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (10 Live APIs + /mcp)"]
+    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (11 Live APIs + /mcp)"]
         B --> C["API 04: Live Open RFP Feed<br/>(GET /v1/solicitations/live)"]
         D["APIs 01-03 (Live):<br/>Parser • Risk Redliner • CLIN Pricing"]
-        E["APIs 05-10 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN"]
+        E["APIs 05-11 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN • Teaming Plan"]
     end
 
     subgraph RevenueStreams["3. Three Compounding Zero-Touch Revenue Streams"]
         B --> F["Tier 1: SignalWire ($99/mo | $990/yr)<br/>Stripe + Discord Bot + 72 pSEO Pages"]
         C & D & E --> G["Tier 2: CaptureDesk ($399/mo | $3,490/yr)<br/>Auto-Enriched RFP Dossiers in #capturedesk-autopilot"]
-        C & D & E --> H["Tier 3: RapidAPI + Official MCP Registry ($34.5k MRR)<br/>10 Developer Storefronts + Remote /mcp Server"]
+        C & D & E --> H["Tier 3: RapidAPI + Official MCP Registry ($34.5k MRR)<br/>11+ Developer Storefronts + Remote /mcp Server"]
     end
 ```
 
@@ -71,7 +76,8 @@ flowchart LR
 
 | Phase | Timeline | Primary Milestone | Weekly Time | Target MRR |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Foundation, pSEO & 10-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building 72 static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** All **10 Stateless FastAPI Microservices (APIs 01–10)** live on Render, verified `200 OK` on RapidAPI, with automated daily telemetry seeding (`seed_rapidapi_telemetry.py`) | **~0.5 hrs/week** | **$0 – $2,500** |
+| **Phase 1: Foundation, pSEO & 11-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** **11 Stateless FastAPI Microservices (APIs 01–11)** live on Render, verified `200 OK` on RapidAPI, with automated daily telemetry seeding (`seed_rapidapi_telemetry.py`) | **~0.5 hrs/week** | **$0 – $2,500** |
 | **Phase 2: CaptureDesk Autopilot + Stripe Checkout + Cold Email** | **ENGINE BUILT (Cold Email Launching Nov)** | • **DONE:** Native on-site Stripe checkout (`#checkout-tier1` & `#checkout-tier2`) with monthly (`$99`/`$399`) and annual (`$990`/`$3,490`) plans + automated `/v1/webhooks/stripe` Discord Bot role provisioning & revocation<br>• **DONE:** `capturedesk_autopilot.py` chaining APIs internally and dispatching Tier 2 dossiers to `#capturedesk-autopilot`<br>• **NEXT (Nov):** Cold email domains finish warmup; launch `outreach_generator.py` campaigns | **~1.5 hrs/week** | **$5,000 – $25,000** |
 | **Phase 3: MCP Server Registry Distribution** | **COMPLETED** | • **DONE:** Built `@signaltender/mcp-server` (both local stdio and 24/7 remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`)<br>• **DONE:** Submitted to Glama.ai and published (`status: active`) on the **Official MCP Registry (`io.github.aarbchen/signaltender-mcp`)** | **~0.5 hrs/week** | **$25,000 – $50,000** |
-| **Phase 4: Compounding Scale & Expansion** | **Months 6 – 18** | • Scale cold outbound volume + organic pSEO/RapidAPI/MCP traffic + additional SLED state portals & vertical APIs | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
+| **Phase 4: Compounding Scale & Expansion** | **Months 6 – 18** | • Scale cold outbound volume + organic pSEO/RapidAPI/MCP traffic + additional SLED state portals & vertical APIs (APIs 12–15) | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
+

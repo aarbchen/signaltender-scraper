@@ -16,3 +16,4 @@ startCommand:
         RAPIDAPI_KEY: config.rapidapiKey
       }
     })
+

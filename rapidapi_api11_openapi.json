@@ -1,0 +1,247 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Teaming Partner & Subcontracting Plan API",
+    "version": "1.0.0",
+    "description": "Stateless GovCon capture & legal compliance microservice that analyzes RFP requirements against a bidder's capability statement to identify capability/clearance/past-performance gaps, compute a compliant Prime/Subcontractor workshare split under 13 CFR § 125.6 and FAR 52.219-14 (the 50% Limitations on Subcontracting & Ostensible Subcontractor rule), draft ready-to-paste FAR Subpart 9.6 Teaming Agreement clauses, and generate a BD partner recruitment outreach template."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "Production Render Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/generate/teaming-strategy": {
+      "post": {
+        "tags": ["Proposal & Compliance Generation"],
+        "summary": "Generate a FAR/SBA-Compliant Teaming Strategy, 13 CFR 125.6 Workshare Split & Teaming Agreement Clauses",
+        "description": "Accepts RFP requirements and a bidder capability statement, identifies capability/clearance/past-performance gaps, computes a compliant Prime/Subcontractor workshare split under 13 CFR § 125.6 and FAR 52.219-14 (the 50% Limitations on Subcontracting & Ostensible Subcontractor rule), drafts ready-to-paste FAR Subpart 9.6 Teaming Agreement clauses, and generates a partner recruitment outreach template.",
+        "operationId": "generate_teaming_strategy_v1_generate_teaming_strategy_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamingStrategyRequest"
+              },
+              "example": {
+                "rfp_text": "SOLICITATION FA8732-26-R-0088 (SDVOSB Set-Aside | NAICS 541512): Enterprise Zero-Trust Cloud Migration, 24x7x365 Cleared SOC Monitoring (Top Secret Facility Clearance Required), and Legacy COBOL Mainframe Modernization. Section L/M requires 3 relevant past performance citations >$5M each and CMMC Level 2 certification.",
+                "bidder_capabilities": "Apex Cyber Defense LLC: Verified SDVOSB (NAICS 541512/541519), Secret Facility Clearance (no Top Secret FCL yet), CMMC Level 2 certified, 2 strong DoD Zero-Trust Cloud Migration past performances ($6.2M and $4.8M), but no legacy COBOL mainframe modernization experience.",
+                "set_aside_type": "sdvosb",
+                "bidder_role": "prime_seeking_subs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful GovCon Teaming Strategy, 13 CFR 125.6 Workshare Audit & Teaming Agreement Clauses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamingStrategyResponse"
+                },
+                "example": {
+                  "solicitation_title": "USAF Enterprise Zero-Trust Cloud Migration & Cleared SOC (FA8732-26-R-0088 | SDVOSB Set-Aside)",
+                  "recommended_teaming_structure": "SDVOSB Prime (56% Workshare) + 1 Top Secret Cleared Similarly Situated SDVOSB Sub (24%) + 1 Niche Mainframe Modernization Sub (20%)",
+                  "executive_teaming_rationale": "Apex Cyber Defense LLC qualifies as the SDVOSB Prime under NAICS 541512 and holds 2 of the 3 required >$5M cloud past performances plus CMMC Level 2. Recruiting a Top Secret-cleared SDVOSB subcontractor (24% workshare) satisfies the TS FCL requirement while pushing combined similarly situated SDVOSB performance to 80% (well above the 50% 13 CFR § 125.6 floor), leaving 20% for a specialized COBOL mainframe modernization subcontractor.",
+                  "limitations_on_subcontracting_audit": {
+                    "governing_regulation": "13 CFR § 125.6(a)(1) & FAR 52.219-14 / VAAR 852.219-73 (Services - 50% Rule)",
+                    "minimum_prime_plus_similarly_situated_pct": 50.0,
+                    "maximum_non_similarly_situated_sub_pct": 50.0,
+                    "recommended_prime_workshare_pct": 56.0,
+                    "recommended_subcontractor_workshare_pct": 44.0,
+                    "ostensible_subcontractor_risk_level": "LOW",
+                    "compliance_guardrails": [
+                      "Apex Cyber Defense (SDVOSB Prime) must employ the Key Personnel Program Manager directly on its W-2 payroll (13 CFR § 121.103(h)(3)).",
+                      "Combined SDVOSB workshare (56% Prime + 24% Similarly Situated SDVOSB Sub = 80%) exceeds the 50% statutory minimum with a 30% safety buffer.",
+                      "Do not rely exclusively on a single large-business incumbent subcontractor for all 3 past performance citations."
+                    ]
+                  },
+                  "capability_gaps_and_partner_archetypes": [
+                    {
+                      "gap_id": "GAP-01",
+                      "solicitation_requirement_summary": "24x7x365 Cleared SOC Monitoring requiring active Top Secret Facility Clearance (FCL) at time of proposal submission.",
+                      "gap_type": "FACILITY_OR_PERSONNEL_CLEARANCE",
+                      "ideal_partner_profile": "SBA VetCert-verified SDVOSB cybersecurity firm holding an active Top Secret FCL and at least 1 DoD SOC past performance >$5M.",
+                      "recommended_naics_or_certifications": ["NAICS 541512", "Top Secret FCL", "SBA VetCert SDVOSB", "CMMC Level 2"],
+                      "workshare_allocation_pct": 24.0
+                    },
+                    {
+                      "gap_id": "GAP-02",
+                      "solicitation_requirement_summary": "Legacy COBOL Mainframe Modernization and automated refactoring to cloud-native microservices.",
+                      "gap_type": "NICHE_TECHNICAL_CAPABILITY",
+                      "ideal_partner_profile": "Specialized Federal IT modernization contractor (Small or Large Business) with proven USAF/DoD COBOL-to-Java/Cloud refactoring references.",
+                      "recommended_naics_or_certifications": ["NAICS 541511", "AWS Mainframe Modernization Competency", "ISO 9001 / CMMI Level 3"],
+                      "workshare_allocation_pct": 20.0
+                    }
+                  ],
+                  "teaming_agreement_clauses": [
+                    {
+                      "clause_title": "Exhibit A: Binding Workshare & 13 CFR § 125.6 Compliance Allocation",
+                      "far_or_sba_reference": "FAR Subpart 9.6 & 13 CFR § 125.6",
+                      "recommended_legal_text": "Upon Prime Contract award, Prime Contractor shall award Subcontractor a firm workshare equal to twenty-four percent (24.0%) of total funded labor dollars across the Base and all exercised Option Periods, dedicated to CLIN 0002 (24x7x365 Top Secret SOC Operations). Both Parties warrant that aggregate subcontracts to non-similarly situated entities shall never exceed forty-nine percent (49.0%) of total contract revenues less pass-through materials in strict compliance with 13 CFR § 125.6.",
+                      "negotiation_note": "Specify workshare as a percentage of funded labor across specific CLINs rather than vague 'best efforts' language so the agreement is enforceable."
+                    },
+                    {
+                      "clause_title": "Solicitation Exclusivity & Non-Circumvention",
+                      "far_or_sba_reference": "FAR 9.602 / Commercial Teaming Standard",
+                      "recommended_legal_text": "Subcontractor agrees to team exclusively with Prime Contractor for Solicitation FA8732-26-R-0088 and shall not submit an independent prime proposal or participate on any competing offeror's team without Prime Contractor's prior written consent.",
+                      "negotiation_note": "Essential when sharing proprietary Price-to-Win rates and technical solution architectures with a cleared partner."
+                    }
+                  ],
+                  "partner_outreach_email_template": "Subject: Teaming Opportunity: USAF Zero-Trust & SOC (FA8732-26-R-0088 — SDVOSB Prime, 24% Guaranteed Workshare)\n\nHi [Partner Capture Lead],\n\nApex Cyber Defense LLC (verified SDVOSB, CMMC Level 2) is priming the upcoming USAF Enterprise Zero-Trust Cloud Migration & SOC solicitation (FA8732-26-R-0088). We bring 2 direct USAF cloud migration past performances ($6.2M & $4.8M) and are recruiting a Top Secret-cleared partner to lead the 24x7 SOC CLIN with a guaranteed 24% binding workshare in Exhibit A.\n\nAre you open to a 10-minute NDA/teaming check this week to review our Section L/M shred?"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": ["System Health"],
+        "summary": "Marketplace SLA & Gateway Health Check",
+        "description": "Public, zero-cost health check endpoint verifying FastAPI gateway readiness.",
+        "operationId": "health_check_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                },
+                "example": {
+                  "status": "healthy",
+                  "service": "SignalTender FastAPI Node",
+                  "version": "1.0.0"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SetAsideClassification": {
+        "type": "string",
+        "enum": ["full_and_open", "small_business", "sdvosb", "8a", "wosb_edwosb", "hubzone"]
+      },
+      "BidderTeamingRole": {
+        "type": "string",
+        "enum": ["prime_seeking_subs", "sub_seeking_prime", "joint_venture_mentor_protege"]
+      },
+      "CapabilityGapAndPartnerArchetype": {
+        "type": "object",
+        "required": [
+          "gap_id",
+          "solicitation_requirement_summary",
+          "gap_type",
+          "ideal_partner_profile",
+          "recommended_naics_or_certifications",
+          "workshare_allocation_pct"
+        ],
+        "properties": {
+          "gap_id": { "type": "string" },
+          "solicitation_requirement_summary": { "type": "string" },
+          "gap_type": { "type": "string" },
+          "ideal_partner_profile": { "type": "string" },
+          "recommended_naics_or_certifications": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "workshare_allocation_pct": { "type": "number" }
+        }
+      },
+      "LimitationsOnSubcontractingAudit": {
+        "type": "object",
+        "required": [
+          "governing_regulation",
+          "minimum_prime_plus_similarly_situated_pct",
+          "maximum_non_similarly_situated_sub_pct",
+          "recommended_prime_workshare_pct",
+          "recommended_subcontractor_workshare_pct",
+          "ostensible_subcontractor_risk_level",
+          "compliance_guardrails"
+        ],
+        "properties": {
+          "governing_regulation": { "type": "string" },
+          "minimum_prime_plus_similarly_situated_pct": { "type": "number" },
+          "maximum_non_similarly_situated_sub_pct": { "type": "number" },
+          "recommended_prime_workshare_pct": { "type": "number" },
+          "recommended_subcontractor_workshare_pct": { "type": "number" },
+          "ostensible_subcontractor_risk_level": { "type": "string" },
+          "compliance_guardrails": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "TeamingAgreementClauseBlock": {
+        "type": "object",
+        "required": [
+          "clause_title",
+          "far_or_sba_reference",
+          "recommended_legal_text",
+          "negotiation_note"
+        ],
+        "properties": {
+          "clause_title": { "type": "string" },
+          "far_or_sba_reference": { "type": "string" },
+          "recommended_legal_text": { "type": "string" },
+          "negotiation_note": { "type": "string" }
+        }
+      },
+      "TeamingStrategyRequest": {
+        "type": "object",
+        "required": ["rfp_text", "bidder_capabilities"],
+        "properties": {
+          "rfp_text": { "type": "string", "minLength": 25 },
+          "bidder_capabilities": { "type": "string", "minLength": 15 },
+          "set_aside_type": { "$ref": "#/components/schemas/SetAsideClassification", "default": "sdvosb" },
+          "bidder_role": { "$ref": "#/components/schemas/BidderTeamingRole", "default": "prime_seeking_subs" }
+        }
+      },
+      "TeamingStrategyResponse": {
+        "type": "object",
+        "required": [
+          "solicitation_title",
+          "recommended_teaming_structure",
+          "executive_teaming_rationale",
+          "limitations_on_subcontracting_audit",
+          "capability_gaps_and_partner_archetypes",
+          "teaming_agreement_clauses",
+          "partner_outreach_email_template"
+        ],
+        "properties": {
+          "solicitation_title": { "type": "string" },
+          "recommended_teaming_structure": { "type": "string" },
+          "executive_teaming_rationale": { "type": "string" },
+          "limitations_on_subcontracting_audit": { "$ref": "#/components/schemas/LimitationsOnSubcontractingAudit" },
+          "capability_gaps_and_partner_archetypes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CapabilityGapAndPartnerArchetype" }
+          },
+          "teaming_agreement_clauses": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TeamingAgreementClauseBlock" }
+          },
+          "partner_outreach_email_template": { "type": "string" }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "service", "version"],
+        "properties": {
+          "status": { "type": "string" },
+          "service": { "type": "string" },
+          "version": { "type": "string" }
+        }
+      }
+    }
+  }
+}
