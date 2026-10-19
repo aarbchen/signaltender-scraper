@@ -172,12 +172,206 @@ def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str
     return combined[:max_count]
 
 
+import hashlib
+
+
+STATE_DISPLAY_NAMES = {
+    "tx": "Texas",
+    "va": "Virginia",
+    "ca": "California",
+    "fl": "Florida",
+    "md": "Maryland",
+}
+
+
+def _pick_variant(seed_str: str, slot: int, options: list[str]) -> str:
+    """Deterministically select a phrase variant per prospect + slot to defeat bulk spam fingerprinting."""
+    digest = hashlib.sha256(f"{seed_str}::slot_{slot}".encode("utf-8")).hexdigest()
+    idx = int(digest[:8], 16) % len(options)
+    return options[idx]
+
+
+def build_two_step_outreach(
+    fname: str,
+    company: str,
+    email: str,
+    prospect_state: str,
+    bid_count: int,
+    payload_text: str,
+    site_base_url: str,
+    checkout_url: str,
+) -> dict[str, str]:
+    """
+    Generate anti-spam rotated 2-step cold email copy (Step 1: Deliverability-Safe Value Drop;
+    Step 2: Self-Serve Tier 1 $99/mo SignalWire + Tier 2 $399/mo CaptureDesk Autopilot)
+    plus native Instantly/Smartlead {{RANDOM | ...}} Spintax strings.
+    """
+    norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
+    region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
+    clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
+    seed = f"{email.lower().strip()}::{datetime.now().strftime('%Y-%m-%d')}"
+
+    # -------------------------------------------------------------------------
+    # STEP 1 (TOUCH 1): DELIVERABILITY-FIRST LIVE RFP DROP (Zero $ signs, 1 clean domain ref)
+    # -------------------------------------------------------------------------
+    subject_variants = [
+        f"{bid_count} open {region_label} IT bids for {company}",
+        f"{region_label} IT & cyber RFPs for {company}",
+        f"Active IT solicitations on the wire ({company})",
+        f"{fname} - {bid_count} open public-sector IT RFPs",
+        f"New {region_label} tech & cyber solicitations",
+        f"Saw {company} / {bid_count} open IT contracts",
+    ]
+    greetings = [
+        f"Hi {fname},",
+        f"Hey {fname},",
+        f"Hello {fname},",
+        f"{fname} -",
+    ]
+    openers = [
+        f"I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 5 state SLED portals (TX, VA, CA, FL, MD) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 5 state procurement portals (TX, VA, CA, FL, MD).",
+        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and state SLED portals.",
+        f"Our ingestion pipeline monitors Federal and 5 state procurement portals (TX, VA, CA, FL, MD) every 6 hours for high-signal IT & cyber solicitations.",
+        f"I track newly released Federal and state SLED technology solicitations across SAM.gov, DemandStar, TX, VA, CA, FL, and MD.",
+    ]
+    relevance_lines = [
+        f"Since {company} operates in the technology space, I pulled {bid_count} active solicitations that just hit the wire:",
+        f"Noticed {company}'s work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response:",
+        f"Thought these {bid_count} open solicitations from our latest 6-hour crawl might be relevant to {company}'s pipeline:",
+        f"Flagged {bid_count} open public-sector tech opportunities from today's feed that looked aligned with {company}:",
+        f"Wanted to share {bid_count} newly posted IT & security contracts that just cleared our noise filter for {company}:",
+    ]
+    value_props = [
+        f"Our classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.",
+        f"Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.",
+        f"We automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on {clean_domain}.",
+        f"Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on {clean_domain}.",
+        f"Each solicitation is de-duplicated every 6 hours and published with direct agency source links on {clean_domain}.",
+    ]
+    step1_ctas = [
+        f"You can view the full open directory at {clean_domain}/contracts — are you guys actively bidding public-sector IT right now, or should I take you off my radar?",
+        f"The live dossiers are indexed at {clean_domain}/contracts — is public-sector IT/cyber on {company}'s radar this quarter?",
+        f"You can inspect all open bids on {clean_domain} — worth sending over the direct agency links when new {region_label} IT scopes drop?",
+        f"All open solicitations are posted on {clean_domain}/contracts — let me know if {company} is pursuing state or federal IT work right now.",
+        f"You can browse the live wire at {clean_domain} — happy to point you to the raw RFP packages if any of these 3 fit your stack.",
+    ]
+    signoffs = [
+        "Best,\nSignalTender Procurement Desk",
+        "Regards,\nSignalTender Capture Intelligence",
+        "Cheers,\nSignalTender Procurement Wire",
+        "Best regards,\nSignalTender Intelligence Team",
+    ]
+
+    step1_subject = _pick_variant(seed, 1, subject_variants)
+    step1_body = (
+        f"{_pick_variant(seed, 2, greetings)}\n\n"
+        f"{_pick_variant(seed, 3, openers)} "
+        f"{_pick_variant(seed, 4, relevance_lines)}\n\n"
+        f"{payload_text}\n"
+        f"{_pick_variant(seed, 5, value_props)}\n\n"
+        f"{_pick_variant(seed, 6, step1_ctas)}\n\n"
+        f"{_pick_variant(seed, 7, signoffs)}"
+    )
+
+    # -------------------------------------------------------------------------
+    # STEP 2 (TOUCH 2 - DAY +3): SELF-SERVE TIER 1 ($99/mo) & TIER 2 ($399/mo) PITCH
+    # -------------------------------------------------------------------------
+    step2_intros = [
+        f"Quick follow-up in case {company} is building out its Federal or State SLED capture pipeline this quarter.",
+        f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
+        f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.",
+        f"Wanted to follow up one last time regarding our automated Federal and 5-State SLED procurement wire.",
+    ]
+    step2_tiers = [
+        (
+            f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
+            f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, FAR/DFARS/CMMC clause redlines, Bid/No-Bid Pwin scoring, and 10+ REST/MCP APIs."
+        ),
+        (
+            f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
+            f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 5-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
+            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, FAR/DFARS flow-down audits, Pwin scoring, and developer API access."
+        ),
+        (
+            f"If {company} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
+            f"- SignalWire Pro ($99/mo): Live 7-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
+            f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, toxic clause redlines, and Pwin capability matching on every solicitation."
+        ),
+    ]
+    step2_closers = [
+        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
+        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{checkout_url}\n\n100% self-serve, no demos required.",
+        f"Check out the live platform and instant checkout options right here:\n{checkout_url}\n\nIf public-sector IT isn't a focus for {company}, no worries at all—I won't follow up again.",
+    ]
+
+    step2_subject = f"Re: {step1_subject}"
+    step2_body = (
+        f"{_pick_variant(seed, 8, greetings)}\n\n"
+        f"{_pick_variant(seed, 9, step2_intros)}\n\n"
+        f"{_pick_variant(seed, 10, step2_tiers)}\n\n"
+        f"{_pick_variant(seed, 11, step2_closers)}\n\n"
+        f"{_pick_variant(seed, 12, signoffs)}"
+    )
+
+    # -------------------------------------------------------------------------
+    # NATIVE INSTANTLY / SMARTLEAD {{RANDOM | ...}} SPINTAX TEMPLATES
+    # -------------------------------------------------------------------------
+    spintax_subject_1 = (
+        f"{{{{RANDOM | {bid_count} open {region_label} IT bids for {company} | "
+        f"{region_label} IT & cyber RFPs for {company} | "
+        f"Active IT solicitations on the wire ({company}) | "
+        f"{fname} - {bid_count} open public-sector IT RFPs}}}}"
+    )
+    spintax_body_1 = (
+        f"{{{{RANDOM | Hi {fname}, | Hey {fname}, | Hello {fname},}}}}\n\n"
+        f"{{{{RANDOM | I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 5 state SLED portals (TX, VA, CA, FL, MD) every 6 hours. | "
+        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 5 state procurement portals (TX, VA, CA, FL, MD). | "
+        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and state SLED portals.}}}} "
+        f"{{{{RANDOM | Since {company} operates in the technology space, I pulled {bid_count} active solicitations that just hit the wire: | "
+        f"Noticed {company}'s work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response: | "
+        f"Thought these {bid_count} open solicitations from our latest 6-hour crawl might be relevant to {company}'s pipeline:}}}}\n\n"
+        f"{payload_text}\n"
+        f"{{{{RANDOM | Our classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | "
+        f"Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | "
+        f"We automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on {clean_domain}.}}}}\n\n"
+        f"{{{{RANDOM | You can view the full open directory at {clean_domain}/contracts — are you guys actively bidding public-sector IT right now, or should I take you off my radar? | "
+        f"The live dossiers are indexed at {clean_domain}/contracts — is public-sector IT/cyber on {company}'s radar this quarter? | "
+        f"You can inspect all open bids on {clean_domain} — worth sending over the direct agency links when new {region_label} IT scopes drop?}}}}\n\n"
+        f"{{{{RANDOM | Best, | Regards, | Cheers,}}}}\nSignalTender Procurement Desk"
+    )
+    spintax_body_2 = (
+        f"{{{{RANDOM | Hi {fname}, | Hey {fname},}}}}\n\n"
+        f"{{{{RANDOM | Quick follow-up in case {company} is building out its Federal or State SLED capture pipeline this quarter. | "
+        f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week. | "
+        f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.}}}}\n\n"
+        f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, FAR/DFARS/CMMC clause redlines, Bid/No-Bid Pwin scoring, and 10+ REST/MCP APIs.\n\n"
+        f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
+        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{checkout_url}\n\n"
+        f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}"
+    )
+
+    return {
+        "Subject Line": step1_subject,
+        "Email Body": step1_body,
+        "Followup Subject": step2_subject,
+        "Followup Body": step2_body,
+        "Spintax Subject 1": spintax_subject_1,
+        "Spintax Body 1": spintax_body_1,
+        "Spintax Body 2": spintax_body_2,
+        "Matched State": region_label,
+    }
+
+
 def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
     """
     Option C: Zero-Touch Cold Email API Sync.
-    Automatically pushes generated leads directly to Instantly.ai or Smartlead.ai
-    when INSTANTLY_API_KEY/INSTANTLY_CAMPAIGN_ID or SMARTLEAD_API_KEY/SMARTLEAD_CAMPAIGN_ID
-    are configured in .env.
+    Automatically pushes generated leads (including Step 1 + Step 2 + Spintax variables)
+    directly to Instantly.ai or Smartlead.ai when INSTANTLY_API_KEY/INSTANTLY_CAMPAIGN_ID
+    or SMARTLEAD_API_KEY/SMARTLEAD_CAMPAIGN_ID are configured in .env.
     """
     if not leads_payload:
         return
@@ -194,6 +388,12 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     "custom_variables": {
                         "subject_line": item["Subject Line"],
                         "email_body": item["Email Body"],
+                        "followup_subject": item.get("Followup Subject", ""),
+                        "followup_body": item.get("Followup Body", ""),
+                        "spintax_subject_1": item.get("Spintax Subject 1", ""),
+                        "spintax_body_1": item.get("Spintax Body 1", ""),
+                        "spintax_body_2": item.get("Spintax Body 2", ""),
+                        "matched_state": item.get("Matched State", ""),
                     },
                 }
                 for item in leads_payload
@@ -209,7 +409,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 timeout=30,
             )
             resp.raise_for_status()
-            print(f"[+] Successfully synced {len(instantly_leads)} leads to Instantly.ai!", flush=True)
+            print(f"[+] Successfully synced {len(instantly_leads)} leads (with 2-step + Spintax variables) to Instantly.ai!", flush=True)
         except Exception as inst_err:
             err_msg = f"Instantly.ai API sync warning: {inst_err}"
             print(f"[!] {err_msg}", flush=True)
@@ -227,6 +427,12 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     "custom_fields": {
                         "subject_line": item["Subject Line"],
                         "email_body": item["Email Body"],
+                        "followup_subject": item.get("Followup Subject", ""),
+                        "followup_body": item.get("Followup Body", ""),
+                        "spintax_subject_1": item.get("Spintax Subject 1", ""),
+                        "spintax_body_1": item.get("Spintax Body 1", ""),
+                        "spintax_body_2": item.get("Spintax Body 2", ""),
+                        "matched_state": item.get("Matched State", ""),
                     },
                 }
                 for item in leads_payload
@@ -244,7 +450,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 timeout=30,
             )
             resp.raise_for_status()
-            print(f"[+] Successfully synced {len(smartlead_leads)} leads to Smartlead.ai!", flush=True)
+            print(f"[+] Successfully synced {len(smartlead_leads)} leads (with 2-step + Spintax variables) to Smartlead.ai!", flush=True)
         except Exception as sl_err:
             err_msg = f"Smartlead.ai API sync warning: {sl_err}"
             print(f"[!] {err_msg}", flush=True)
@@ -320,7 +526,7 @@ def generate_outreach():
             print(f"[!] Please ensure your exported Apollo file is named '{apollo_file}' and is in D:\\Daas", flush=True)
             return
 
-        print("[*] Reading Apollo contacts and generating personalized zero-touch email payloads...", flush=True)
+        print("[*] Reading Apollo contacts and generating anti-spam Spintax 2-step sequences (Tier 1 $99/mo + Tier 2 $399/mo)...", flush=True)
 
         leads_for_api = []
 
@@ -335,7 +541,19 @@ def generate_outreach():
             email_key = "Email" if "Email" in headers else "Person Primary Email"
             state_key = next((h for h in ("State", "Company State", "Person State") if h in headers), None)
 
-            out_fieldnames = ["First Name", "Email", "Company", "Subject Line", "Email Body"]
+            out_fieldnames = [
+                "First Name",
+                "Email",
+                "Company",
+                "Subject Line",
+                "Email Body",
+                "Followup Subject",
+                "Followup Body",
+                "Spintax Subject 1",
+                "Spintax Body 1",
+                "Spintax Body 2",
+                "Matched State",
+            ]
             writer = csv.DictWriter(outfile, fieldnames=out_fieldnames)
             writer.writeheader()
 
@@ -353,31 +571,32 @@ def generate_outreach():
                 bid_count = len(matched_contracts)
                 payload_text = "".join(format_contract_line(i, r) for i, r in enumerate(matched_contracts, 1))
 
-                subject = f"Live IT/Cyber Contracts for {company}"
-
-                body = (
-                    f"Hi {fname},\n\n"
-                    f"I built a private intelligence feed that scrapes Federal (SAM.gov), DemandStar, and 5 State SLED portals (TX, VA, CA, FL, MD) in real-time. "
-                    f"I noticed {company} works in the tech space and wanted to send you {bid_count} live, active bids that just hit the wire:\n\n"
-                    f"{payload_text}\n"
-                    f"My automated system pulls high-value IT & cybersecurity RFPs every 6 hours and strips out 99% of commodity and renewal noise. "
-                    f"You can browse our public directory ({SITE_BASE_URL}/contracts/index.html) or get instant access to the live private Discord wire right here:\n\n"
-                    f"{whop_checkout_url}\n\n"
-                    f"No sales calls, no demos. $99/mo. Cancel anytime."
+                sequence_data = build_two_step_outreach(
+                    fname=fname,
+                    company=company,
+                    email=email,
+                    prospect_state=prospect_state,
+                    bid_count=bid_count,
+                    payload_text=payload_text,
+                    site_base_url=SITE_BASE_URL,
+                    checkout_url=whop_checkout_url,
                 )
 
                 lead_item = {
                     "First Name": fname,
                     "Email": email,
                     "Company": company,
-                    "Subject Line": subject,
-                    "Email Body": body,
+                    **sequence_data,
                 }
                 writer.writerow(lead_item)
                 leads_for_api.append(lead_item)
                 count += 1
 
-        print(f"[+] Success! Generated {count} personalized outreach emails in {output_file}.", flush=True)
+        print(
+            f"[+] Success! Generated {count} anti-spam rotated 2-step sequences "
+            f"(Step 1 Value Drop + Step 2 Tier 1 $99 / Tier 2 $399 Pitch) in {output_file}.",
+            flush=True,
+        )
 
         # Trigger Option C Zero-Touch Cold Email API Sync if credentials are set in .env
         sync_leads_to_cold_email_api(leads_for_api)
