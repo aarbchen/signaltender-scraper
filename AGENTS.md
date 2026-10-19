@@ -10,6 +10,7 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
      - `d:\Daas\index.html` (homepage API callout banner pill, `#page-apis` catalog view + pricing matrix, and `#product-...` hash in `apiPageHashes`).
      - `d:\Daas\pseo_generator.py` (update the live API count & sidebar/CTA links, then execute `.\daas_env\Scripts\python.exe pseo_generator.py` to regenerate `/contracts/rfp/*.html` static pages and the embedded SPA dossier script in `index.html`).
      - `d:\Daas\signaltender_1m_business_plan.md` (mark the API as `(Live)`).
+     - `d:\Daas\seed_rapidapi_telemetry.py` (register the new API's `rapid_host` and test payload, and once the `X-RapidAPI-Proxy-Secret` is provided, automatically run a live `200 OK` call through `https://<slug>.p.rapidapi.com` using `RAPIDAPI_KEY` from `.env` to seed the green `100% Service Level` telemetry badge on RapidAPI Hub).
    - Automatically generate and present all **3 RapidAPI Studio Listing Assets** in the same turn:
      1. OpenAPI 3.0.3 JSON specification file (`rapidapi_apiXX_openapi.json`).
      2. 500x500 PNG API Logo (`d:\Daas\apiXX_..._logo.png`).

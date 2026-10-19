@@ -17,6 +17,9 @@ python pseo_generator.py >> D:\Daas\error_log.txt 2>&1
 echo [*] Running Tier 2 CaptureDesk Autopilot Multi-API Dossier Enrichment...
 python capturedesk_autopilot.py >> D:\Daas\error_log.txt 2>&1
 
+echo [*] Seeding RapidAPI 200 OK Telemetry Across All API Storefronts...
+python seed_rapidapi_telemetry.py >> D:\Daas\error_log.txt 2>&1
+
 if exist "D:\Daas\apollo-contacts.csv" (
     echo [*] Refreshing Apollo Outreach Payload (campaign_leads.csv) from Supabase...
     python outreach_generator.py >> D:\Daas\error_log.txt 2>&1
