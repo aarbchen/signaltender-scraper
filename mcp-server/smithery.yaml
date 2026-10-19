@@ -8,7 +8,7 @@ startCommand:
     properties:
       rapidapiKey:
         type: string
-        description: "Your RapidAPI Key for SignalTender's 10 B2B & GovCon APIs (get a free Basic key at https://rapidapi.com/user/aarbchen or https://signaltender.net/apis.html)"
+        description: "Your RapidAPI Key for SignalTender's B2B & GovCon APIs (get a free Basic key at https://rapidapi.com/user/aarbchen or https://signaltender.net/apis.html)"
   commandFunction: |-
     (config) => ({
       command: 'node',

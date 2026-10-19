@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * SignalTender Official Model Context Protocol (MCP) Server (@signaltender/mcp-server)
- * Zero-dependency JSON-RPC 2.0 stdio server exposing all 10 SignalTender B2B & GovCon APIs
+ * Zero-dependency JSON-RPC 2.0 stdio server exposing the full SignalTender B2B & GovCon API catalog
  * to Claude Desktop, Cursor, Windsurf, Cline, and OpenAI/Anthropic Agent frameworks.
  *
  * Authentication via environment variables (no hardcoded keys):
@@ -30,7 +30,8 @@ const RAPIDAPI_HOSTS = {
   match_capability_statement: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
   classify_naics_psc_nigp: "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
   generate_rfp_response: "ai-rfp-response-clarification-q-a-generator-api.p.rapidapi.com",
-  extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com"
+  extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
+  generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -266,6 +267,35 @@ const TOOLS = [
       },
       required: ["document_text"]
     }
+  },
+  {
+    name: "generate_teaming_strategy",
+    description:
+      "API #11: Analyze an RFP and bidder capabilities to generate a 13 CFR 125.6 / FAR 52.219-14 Limitations on Subcontracting (50% Rule) workshare plan, capability gap & partner archetypes, FAR 9.6 Teaming Agreement clauses, and partner outreach emails.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        rfp_text: {
+          type: "string",
+          description: "Raw text from the RFP, Statement of Work (SOW), or Section L/M evaluation criteria."
+        },
+        bidder_capabilities: {
+          type: "string",
+          description: "Summary of the bidder's socioeconomic status, facility clearances, past performance, and technical capabilities."
+        },
+        set_aside_type: {
+          type: "string",
+          enum: ["full_and_open", "small_business", "sdvosb", "8a", "wosb_edwosb", "hubzone"],
+          default: "sdvosb"
+        },
+        bidder_role: {
+          type: "string",
+          enum: ["prime_seeking_subs", "sub_seeking_prime", "joint_venture_mentor_protege"],
+          default: "prime_seeking_subs"
+        }
+      },
+      required: ["rfp_text", "bidder_capabilities"]
+    }
   }
 ];
 
@@ -279,7 +309,8 @@ const ENDPOINT_MAP = {
   match_capability_statement: { method: "POST", path: "/v1/match/capability-statement" },
   classify_naics_psc_nigp: { method: "POST", path: "/v1/classify/naics-psc-nigp" },
   generate_rfp_response: { method: "POST", path: "/v1/generate/rfp-response" },
-  extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" }
+  extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" },
+  generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -312,7 +343,7 @@ async function callSignalTenderEndpoint(toolName, args) {
             {
               error: "Missing API credentials",
               message:
-                "Please set RAPIDAPI_KEY in your MCP server environment config. Get a free Basic key across all 10 SignalTender APIs at https://signaltender.net/apis.html or https://rapidapi.com/user/aarbchen"
+                "Please set RAPIDAPI_KEY in your MCP server environment config. Get a free Basic key across all SignalTender APIs at https://signaltender.net/apis.html or https://rapidapi.com/user/aarbchen"
             },
             null,
             2

@@ -1,21 +1,24 @@
 # Workspace Agent Rules (`AGENTS.md`)
 
 ## Mandatory Autonomous Integration & Website Sync Rule
-Whenever any new API, scraper, or feature addition is created and finished, you **MUST** complete full end-to-end integration and add it to the website (`d:\Daas\index.html` and `d:\Daas\apis.html`) automatically **without waiting for the user to ask**:
+Whenever any new API, scraper, or feature addition is created and finished, you **MUST** complete full end-to-end integration and add it to the website (`d:\Daas\index.html` and `d:\Daas\apis.html`) and both MCP servers automatically **without waiting for the user to ask**:
 
 1. **If a New API is Built or Updated (in `d:\Data API Ecosystem` or `d:\Daas`):**
-   - Wire the endpoint into the FastAPI gateway (`d:\Data API Ecosystem`), export Pydantic V2 schemas in `schemas/`, and add verification coverage in `test_live_api.py`.
-   - Immediately add the new API to **all** website & SEO surfaces in a single pass:
-     - `d:\Daas\apis.html` (nav badge count, hero endpoint count, Quick-Jump Directory row, full Product Module card, Cross-Catalog Pricing Matrix row, and footer link).
-     - `d:\Daas\index.html` (homepage API callout banner pill, `#page-apis` catalog view + pricing matrix, and `#product-...` hash in `apiPageHashes`).
+   - **FastAPI Gateway & Schemas (`d:\Data API Ecosystem`):** Wire the endpoint into the FastAPI gateway (`api/routers/` and `main.py` description), export Pydantic V2 schemas in `schemas/`, implement LLM extraction in `services/llm_parser.py`, and add live verification coverage in `test_live_api.py`.
+   - **Dual Model Context Protocol (MCP) Servers (Remote HTTP + Local STDIO/NPM):**
+     - `d:\Data API Ecosystem\api\routers\mcp.py`: Register the new tool in `MCP_TOOLS` and `TOOL_ROUTE_MAP` for the remote Streamable-HTTP MCP server (`/mcp`).
+     - `d:\Daas\mcp-server\index.js` & `d:\Daas\mcp-server\README.md`: Register the new tool's RapidAPI host in `RAPIDAPI_HOSTS`, schema in `TOOLS`, route in `ENDPOINT_MAP`, and table row in `mcp-server/README.md` for the NPM/Glama/Smithery STDIO MCP server (`@signaltender/mcp-server`).
+   - **Website, In-Page Studio Playground & pSEO (`d:\Daas`):** Immediately add the new API to **all** website & SEO surfaces in a single pass:
+     - `d:\Daas\apis.html` (nav badge count, hero endpoint count, MCP tool count + tool list, Quick-Jump Directory row, full Product Module card, Cross-Catalog Pricing Matrix row, footer link, and In-Page RapidAPI Studio Playground `<select id="sandbox-api-select">` + `CATALOG['product-...']` with exact Pydantic request schema fields).
+     - `d:\Daas\index.html` (homepage API callout banner pill, `#page-apis` catalog view + MCP tool count + pricing matrix, `#product-...` hash in `apiPageHashes`, and In-Page RapidAPI Studio Playground `<select id="sandbox-api-select">` + `CATALOG['product-...']`).
      - `d:\Daas\pseo_generator.py` (update the live API count & sidebar/CTA links, then execute `.\daas_env\Scripts\python.exe pseo_generator.py` to regenerate `/contracts/rfp/*.html` static pages and the embedded SPA dossier script in `index.html`).
      - `d:\Daas\signaltender_1m_business_plan.md` (mark the API as `(Live)`).
      - `d:\Daas\seed_rapidapi_telemetry.py` (register the new API's `rapid_host` and test payload, and once the `X-RapidAPI-Proxy-Secret` is provided, automatically run a live `200 OK` call through `https://<slug>.p.rapidapi.com` using `RAPIDAPI_KEY` from `.env` to seed the green `100% Service Level` telemetry badge on RapidAPI Hub).
-   - Automatically generate and present all **3 RapidAPI Studio Listing Assets** in the same turn:
+   - **RapidAPI Studio Listing Assets:** Automatically generate and present all **3 RapidAPI Studio Listing Assets** in the same turn:
      1. OpenAPI 3.0.3 JSON specification file (`rapidapi_apiXX_openapi.json`).
      2. 500x500 PNG API Logo (`d:\Daas\apiXX_..._logo.png`).
      3. Full copy-pasteable RapidAPI Long Description / README (Markdown).
-   - Commit and push changes to GitHub (`origin main`) in **both** `d:\Data API Ecosystem` and `d:\Daas` so Render and `signaltender.net` deploy automatically.
+   - **Zero-Touch Git Push:** Commit and push changes to GitHub (`origin main`) in **both** `d:\Data API Ecosystem` and `d:\Daas` so Render and `signaltender.net` deploy automatically.
 
 2. **If a New Scraper, Portal, or Feature is Built (in `d:\Daas`):**
    - Immediately integrate it into `mainscraper.py`, `pseo_generator.py`, `client_delivery.py`, `outreach_generator.py`, `run_all.bat`, and `run_scraper.bat`.
@@ -27,5 +30,4 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
    - Never hardcode secrets or API keys; always load from `.env` via `os.getenv()`.
    - Log all caught exceptions to `error_log.txt` and alert via `send_discord_alert()`.
    - Never truncate existing working code when editing files.
-   - **Evergreen Copy Rule:** Never hardcode exact API counts (e.g., "10 APIs") or exhaustive tool lists in external directory submissions (Glama, MCP registries, RapidAPI profile blurbs), MCP manifests (`glama.json`, `package.json`), or page `<title>` / `<meta>` tags so that adding future APIs never makes existing listings look outdated.
-
+   - **Evergreen Copy Rule:** Never hardcode exact API counts (e.g., "10 APIs") or exhaustive tool lists in external directory submissions (Glama, MCP registries, RapidAPI profile blurbs, `smithery.yaml`), MCP manifests (`glama.json`, `package.json`, `server.json`), or page `<title>` / `<meta>` tags so that adding future APIs never makes existing listings look outdated.

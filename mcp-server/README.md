@@ -1,10 +1,10 @@
 # `@signaltender/mcp-server` — Official SignalTender B2B & GovCon MCP Server
 
-Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI agents with **10 production B2B, GovCon & LegalTech microservices** from [SignalTender](https://signaltender.net/apis.html).
+Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI agents with **11 production B2B, GovCon & LegalTech microservices** from [SignalTender](https://signaltender.net/apis.html).
 
 ---
 
-## Included Tools (10 Live Endpoints)
+## Included Tools (11 Live Endpoints)
 
 | # | MCP Tool Name | Underlying FastAPI Endpoint | What It Does |
 | :--- | :--- | :--- | :--- |
@@ -18,12 +18,13 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **08** | `classify_naics_psc_nigp` | `POST /v1/classify/naics-psc-nigp` | Maps any SOW or vendor profile to 6-digit NAICS, 4-digit SIC, Federal PSC, and State NIGP/UNSPSC codes. |
 | **09** | `generate_rfp_response` | `POST /v1/generate/rfp-response` | Drafts evaluator-ready Shipley Technical Proposal sections + strategic Contracting Officer Q&A questions. |
 | **10** | `extract_pricing_schedule` | `POST /v1/extract/pricing-schedule` | Extracts multi-tier CLIN/SLIN schedules, GSA/T&M labor rate cards, and BOMs with line-item math audits. |
+| **11** | `generate_teaming_strategy` | `POST /v1/generate/teaming-strategy` | Generates 13 CFR § 125.6 (50% Rule) workshare splits, partner archetypes, and FAR 9.6 Teaming Agreement clauses. |
 
 ---
 
 ## Quick Setup (Claude Desktop / Cursor / Windsurf)
 
-1. Get your API key (free `Basic` tier available on all 10 APIs) from the [SignalTender RapidAPI Hub](https://rapidapi.com/user/aarbchen) or [signaltender.net/apis.html](https://signaltender.net/apis.html).
+1. Get your API key (free `Basic` tier available on all SignalTender APIs) from the [SignalTender RapidAPI Hub](https://rapidapi.com/user/aarbchen) or [signaltender.net/apis.html](https://signaltender.net/apis.html).
 2. Add the following to your `claude_desktop_config.json` or `.cursor/mcp.json`:
 
 ```json
