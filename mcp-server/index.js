@@ -34,7 +34,8 @@ const RAPIDAPI_HOSTS = {
   generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
   answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
   match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
-  analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com"
+  analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
+  generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -369,6 +370,29 @@ const TOOLS = [
       },
       required: ["base_solicitation_text", "amendment_or_qa_text"]
     }
+  },
+  {
+    name: "generate_cpars_past_performance",
+    description:
+      "API #15: Transform unstructured project histories, prior contract summaries, and CPARS evaluation excerpts into Shipley Section L/M Past Performance Volume III citations with DoD Source Selection Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS justifications, and Context-Challenge-Action-Result narratives.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        rfp_section_l_m_requirements: {
+          type: "string",
+          description: "Raw text from the target RFP Section L (Volume III Past Performance instructions, recency/dollar/scope thresholds), Section M (evaluation criteria), and Section C/PWS technical scope."
+        },
+        project_history_text: {
+          type: "string",
+          description: "Unstructured project histories, prior contract summaries, CPARS evaluation excerpts, or internal delivery notes to transform into Shipley Past Performance citations."
+        },
+        bidder_role_and_context: {
+          type: "string",
+          description: "Optional bidder context such as Prime vs. Subcontractor citation mix, Joint Venture / Mentor-Protege structure, or page-limit constraints."
+        }
+      },
+      required: ["rfp_section_l_m_requirements", "project_history_text"]
+    }
   }
 ];
 
@@ -386,7 +410,8 @@ const ENDPOINT_MAP = {
   generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" },
   answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" },
   match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" },
-  analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" }
+  analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" },
+  generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {

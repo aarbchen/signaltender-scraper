@@ -123,7 +123,7 @@
       <!-- Primary Multi-Page & Section Navigation -->
       <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">&larr; Main Platform</a>
-        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (14)</a>
+        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (15)</a>
         <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
         <a href="index.html#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
       </nav>
@@ -225,7 +225,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">14 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">15 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -237,7 +237,7 @@
                 <input
                   id="api-catalog-search"
                   type="text"
-                  placeholder="Search 13 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
+                  placeholder="Search 15 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
                 />
@@ -253,7 +253,7 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (14)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (15)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (3)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (3)</button>
@@ -487,6 +487,24 @@
                   <span class="text-cyan-400">&darr;</span>
                 </div>
               </a>
+
+              <!-- Directory Row 15 -->
+              <a href="#product-past-performance" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold shrink-0">15</span>
+                  <div class="min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-emerald-300 transition-colors truncate">CPARS &amp; Past Performance Volume Generator API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold shrink-0">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/past-performance &bull; Shipley Volume III Citations, DoD Relevance Matrix &amp; CPARS Narratives</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 text-[11px]">$0 &ndash; $399/mo</span>
+                  <span class="text-emerald-400">&darr;</span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -523,7 +541,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">14 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">15 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -538,7 +556,7 @@
   }
 }</code></pre>
               <div class="text-[11px] text-slate-400">
-                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> &amp; <span class="text-slate-200">match_key_personnel</span>.
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> &amp; <span class="text-slate-200">generate_cpars_past_performance</span>.
               </div>
             </div>
           </div>
@@ -570,10 +588,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">14 / 14 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">15 / 15 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (14)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (15)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -3062,6 +3080,182 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 15: CPARS & PAST PERFORMANCE VOLUME GENERATOR API
+           ================================================================= -->
+      <article id="product-past-performance" class="rounded-2xl bg-navy-950 border border-slate-800 hover:border-emerald-500/50 transition-all overflow-hidden shadow-2xl scroll-mt-24">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-gradient-to-r from-emerald-950/60 via-slate-900/90 to-slate-900/90 border-b border-emerald-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold">
+              PRODUCT 15 // PAST PERFORMANCE &amp; CPARS VOLUME III
+            </span>
+            <span class="px-2 py-0.5 rounded bg-emerald-400 text-navy-950 text-[10px] font-mono font-extrabold uppercase tracking-wider">
+              NEW RELEASE
+            </span>
+            <span class="font-mono text-xs text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">
+              POST /v1/generate/past-performance
+            </span>
+            <span class="hidden xl:inline text-xs font-mono text-slate-400">
+              Host: <code class="text-slate-300">cpars-past-performance-volume-generator-api.p.rapidapi.com</code>
+            </span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <a
+              href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-mono font-semibold text-white shadow-md shadow-emerald-950/50 transition-colors"
+            >
+              Subscribe on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body: 12-Col Grid (7 Cols Specs + Pricing | 5 Cols Live Payload) -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+          <!-- Left 7 Cols: Title, Features, Schema, & Product-Specific 4-Tier Pricing -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div>
+              <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                CPARS &amp; Past Performance Volume Generator API
+              </h2>
+              <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                Transform unstructured project histories, prior contract summaries, and CPARS evaluation excerpts into evaluator-ready <strong class="text-white">Shipley Section L/M Past Performance Volume III citations</strong> with <strong class="text-white">DoD Source Selection Relevance ratings (<code class="text-emerald-300 font-mono">VERY_RELEVANT</code>)</strong>, three-pillar <strong class="text-white">Scope / Magnitude / Complexity cross-walk matrices</strong>, <strong class="text-white">FAR 42.1503 5-Factor CPARS justifications</strong>, and <strong class="text-white">Context &rarr; Challenge &rarr; Action &rarr; Result narratives</strong>.
+              </p>
+
+              <!-- Product-Specific Features Grid -->
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">DoD Source Selection Table 4 &amp; 5 Scoring</div>
+                    <div class="text-slate-400 mt-0.5">Predicts portfolio <code class="text-emerald-300">SUBSTANTIAL_CONFIDENCE</code> and per-contract <code class="text-emerald-300">VERY_RELEVANT</code> ratings.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Scope, Magnitude &amp; Complexity Matrix</div>
+                    <div class="text-slate-400 mt-0.5">Cross-walks prior contract PWS tasks, dollar ceiling, FTE count, and DoD IL/FedRAMP clearances.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">FAR 42.1503 5-Factor CPARS Alignment</div>
+                    <div class="text-slate-400 mt-0.5">Structures Quality, Schedule, Cost Control, Management &amp; Small Business proof points.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Shipley Narratives &amp; Gap Mitigations</div>
+                    <div class="text-slate-400 mt-0.5">Drafts Context-Challenge-Action-Result citations plus FAR 15.305(a)(2) gap mitigations &amp; PPQ prep checklists.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 15 RapidAPI Tiers -->
+            <div class="pt-4 border-t border-slate-800/80">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                <span>CPARS &amp; PAST PERFORMANCE GENERATOR API &mdash; RAPIDAPI ACCESS TIERS</span>
+                <a href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api/pricing" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">View Plans &nearr;</a>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">10 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-emerald-400 uppercase font-semibold">PRO</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">200 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/40 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-emerald-300 uppercase font-semibold">ULTRA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-white font-semibold">1,000 req/mo</div>
+                    <div class="text-emerald-300 text-[10px]">+$0.15 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-emerald-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$399<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">4,000 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Dedicated Terminal Preview -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">RESPONSE // PastPerformanceGeneratorResponse</span>
+                <span class="text-emerald-400">SUBSTANTIAL CONFIDENCE &bull; 95/100</span>
+              </div>
+              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                <pre class="text-slate-200 whitespace-pre-wrap break-words text-[11px] mb-3 pb-3 border-b border-slate-800/80"><code><span class="text-emerald-400">$</span> curl --request POST \
+  --url <span class="text-amber-200">'https://cpars-past-performance-volume-generator-api.p.rapidapi.com/v1/generate/past-performance'</span> \
+  --header <span class="text-sky-300">'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY'</span> \
+  --header <span class="text-sky-300">'Content-Type: application/json'</span> \
+  --data <span class="text-emerald-300">'{"rfp_section_l_m_requirements":"RFP FA8726-26-R-0054: Section L.5 requires 3 citations within 5 yrs >= $12M TCV across AWS GovCloud IL5, Zero-Trust ICAM &amp; 24x7 Splunk SOC...","project_history_text":"Contract 1 (Prime): USSF SSC Cloud Enclave (FA8802-22-C-0019, $18.4M TCV, 34 FTEs, IL5 + Splunk SOC, CPARS Exceptional)..."}'</span></code></pre>
+                <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"volume_summary"</span>: {
+    <span class="text-sky-400">"overall_confidence_prediction"</span>: <span class="text-emerald-300">"SUBSTANTIAL_CONFIDENCE"</span>,
+    <span class="text-sky-400">"portfolio_relevance_score"</span>: <span class="text-emerald-400">95</span>,
+    <span class="text-sky-400">"recency_and_magnitude_compliance_summary"</span>: <span class="text-slate-200">"COMPLIANT: Exceeds $12M TCV floor &amp; 5-yr window"</span>
+  },
+  <span class="text-sky-400">"past_performance_citations"</span>: [
+    {
+      <span class="text-sky-400">"citation_id"</span>: <span class="text-slate-100">"PP-CITATION-01"</span>,
+      <span class="text-sky-400">"predicted_relevance_rating"</span>: <span class="text-emerald-300">"VERY_RELEVANT"</span>,
+      <span class="text-sky-400">"relevance_score"</span>: <span class="text-cyan-300">97</span>
+    }
+  ]
+}</code></pre>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">scope_magnitude_complexity</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-cyan-300">cpars_factor_alignment</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">relevance_gaps_and_mitigations[]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -3683,6 +3877,48 @@
                 </td>
               </tr>
 
+              <!-- Matrix Row 15: CPARS & Past Performance Volume Generator API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-emerald-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-sans font-bold text-sm text-white">CPARS &amp; Past Performance Volume API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="text-emerald-300 text-[11px] mt-0.5">POST /v1/generate/past-performance</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">Shipley Volume III Citations, Relevance Matrix &amp; CPARS</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-emerald-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-emerald-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -3799,6 +4035,9 @@
               <a href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">14. RFP Amendment &amp; Q&amp;A Change-Impact API (/v1/analyze/amendment-diff) &nearr;</a>
             </li>
             <li>
+              <a href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors">15. CPARS &amp; Past Performance Volume API (/v1/generate/past-performance) &nearr;</a>
+            </li>
+            <li>
               <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">Interactive OpenAPI Documentation (/docs) &nearr;</a>
             </li>
           </ul>
@@ -3902,14 +4141,14 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (14)</span>
+              <span>SELECT MICROSERVICE (15)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
               <input
                 id="sandbox-sidebar-search"
                 type="text"
-                placeholder="Filter 13 endpoints..."
+                placeholder="Filter 15 endpoints..."
                 oninput="window.filterSandboxSidebar(this.value)"
                 class="w-full px-2.5 py-1.5 rounded-lg bg-navy-950 border border-slate-800 focus:border-sky-500 focus:outline-none text-[11px] font-mono text-white placeholder-slate-500"
               />
@@ -4281,6 +4520,22 @@
             base_solicitation_text: "RFP FA8732-26-R-0018 (Base Solicitation): Section L.4: Proposals are due November 10, 2026 at 14:00 EST. Volume I Technical Approach shall not exceed 25 pages. Section C.3.1: The Contractor shall deploy a FedRAMP Moderate cloud data platform supporting 5,000 concurrent users. Section C.4.2: Key Personnel Lead Cloud Architect must hold an active Top Secret clearance and AWS Solutions Architect Professional certification. Section B CLIN 0001: Base Year Cloud Migration Engineering (Firm-Fixed-Price).",
             amendment_or_qa_text: "SF-30 AMENDMENT 0002 (Issued Oct 20, 2026): 1. Block 11: The proposal due date is hereby extended from November 10, 2026 to November 24, 2026 at 17:00 EST. 2. Section L.4 is revised to increase Volume I Technical Approach page limit from 25 pages to 35 pages. 3. Section C.3.1 is replaced in its entirety: The Contractor shall deploy a FedRAMP High and DoD IL5 authorized cloud data platform supporting 15,000 concurrent users with zero-trust microsegmentation. 4. Section B CLIN 0001 is converted from Firm-Fixed-Price (FFP) to Time-and-Materials (T&M) with a Not-to-Exceed (NTE) ceiling of $4,200,000. GOVERNMENT Q&A LOG — Q12: Will the Government accept a Secret clearance with an active Top Secret sponsorship for the Lead Cloud Architect? Answer Q12: Yes, an active Secret clearance with Top Secret adjudication in progress is acceptable at proposal submission. Q19: Does the Government require native SIEM telemetry forwarding into the agency's Splunk Cloud instance? Answer Q19: Yes, real-time STIG-compliant log forwarding to the agency Splunk Cloud environment is mandatory under Section C.3.1.",
             current_proposal_outline: "Volume I Technical (25 pages max): Sec 1.0 Executive Summary; Sec 2.0 FedRAMP Moderate Architecture (5,000 users); Sec 3.0 Key Personnel (Top Secret required at submission); Volume III Pricing: CLIN 0001 FFP Milestone Schedule."
+          }
+        },
+        'product-past-performance': {
+          num: '15',
+          id: 'product-past-performance',
+          title: 'CPARS & Past Performance Volume Generator API',
+          method: 'POST',
+          path: '/v1/generate/past-performance',
+          host: 'cpars-past-performance-volume-generator-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            rfp_section_l_m_requirements: "SOLICITATION FA8726-26-R-0054 (USAF Enterprise Cloud & Zero-Trust SOC Modernization): Section L.5 Volume III Past Performance requires up to 3 recent (within 5 years) citations >= $4M/yr ($12M Total Value), with at least 2 performed as Prime Contractor. Section M.3 evaluates Scope, Magnitude, and Complexity across PWS 3.1 AWS GovCloud IL5 Migration, PWS 3.2 Zero-Trust ICAM, and PWS 3.3 24x7x365 Cleared SOC & Splunk SIEM.",
+            project_history_text: "Contract 1 (Prime): U.S. Space Force SSC Enterprise Cloud Enclave (FA8802-22-C-0019, FFP/T&M, $18.4M Total, $6.1M/yr, 2022-2025, 34 FTEs, NAICS 541512). Migrated 42 mission apps to AWS GovCloud IL5, deployed Zero-Trust ICAM for 14,500 users, and ran 24x7 TS/SCI Splunk SOC. CPARS: Exceptional across all 5 factors (99.98% SLA, $420K FinOps savings). Contract 2 (Prime): DISA Defense Enclave Cyber Modernization (HC1028-23-F-0112, T&M, $13.2M Total, $4.4M/yr, 2023-Present, 26 FTEs). Automated STIG hardening, Zero-Trust microsegmentation, and cATO pipelines across 8,000 endpoints.",
+            bidder_role_and_context: "Prime Offeror submitting 2 DoD Prime contracts + 1 Major Subcontractor contract; Volume III page limit is 15 pages."
           }
         }
       };
@@ -4722,7 +4977,8 @@
         'product-teaming-strategy': { cat: 'capture', kw: '11 govcon teaming partner subcontracting plan 13 cfr 125.6 50% rule ostensible subcontractor far 9.6 /v1/generate/teaming-strategy' },
         'product-security-questionnaire': { cat: 'compliance', kw: '12 soc 2 fedramp nist 800-171 security questionnaire responder caiq sig hecvat sprs poa&m /v1/audit/security-questionnaire' },
         'product-key-personnel': { cat: 'capture', kw: '13 govcon key personnel lcat resume tailoring gsa mas oasis+ dod 8570 8140 clearance shipley bio letter of commitment loc /v1/match/key-personnel' },
-        'product-amendment-diff': { cat: 'rfp', kw: '14 rfp amendment q&a change-impact analyzer sf-30 sf30 mod addendum delta far 15.206 invalidated proposal section redraft /v1/analyze/amendment-diff' }
+        'product-amendment-diff': { cat: 'rfp', kw: '14 rfp amendment q&a change-impact analyzer sf-30 sf30 mod addendum delta far 15.206 invalidated proposal section redraft /v1/analyze/amendment-diff' },
+        'product-past-performance': { cat: 'capture', kw: '15 cpars past performance volume generator shipley section l section m very relevant substantial confidence scope magnitude complexity ppq /v1/generate/past-performance' }
       };
 
       var currentApiQuery = '';

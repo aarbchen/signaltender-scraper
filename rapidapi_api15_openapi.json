@@ -1,0 +1,401 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CPARS & Past Performance Volume Generator API",
+    "version": "1.0.0",
+    "description": "Stateless AI GovCon Past Performance Volume III & CPARS Narrative Engine. Transforms raw project histories and prior contract notes into Shipley Section L/M Past Performance citations with DoD Source Selection Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS justifications, and Context-Challenge-Action-Result narratives."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "SignalTender Production FastAPI Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/generate/past-performance": {
+      "post": {
+        "tags": [
+          "CPARS & Past Performance Volume Generator"
+        ],
+        "summary": "Generate CPARS & Past Performance Volume Citations",
+        "operationId": "Generate CPARS & Past Performance Volume Citations",
+        "description": "Transforms unstructured project descriptions, prior contract summaries, and CPARS evaluation excerpts into Shipley-compliant Section L/M Past Performance Volume III citations. Outputs DoD Source Selection Performance Confidence predictions ('Substantial Confidence'), contract-by-contract Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity cross-walk matrices, FAR 42.1503 5-Factor CPARS justifications, Context-Challenge-Action-Result narratives, and FAR 15.305(a)(2) relevance gap mitigations.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PastPerformanceGeneratorRequest"
+              },
+              "example": {
+                "bidder_role_and_context": "Prime Offeror submitting 3 Past Performance citations (2 DoD Prime contracts + 1 Federal Civilian Major Subcontractor contract); Volume III page limit is 15 pages total (5 pages per citation).",
+                "project_history_text": "Contract 1 (Prime): U.S. Space Force SSC Enterprise Cloud Enclave (Contract FA8802-22-C-0019, FFP/T&M Hybrid, $18.4M Total Value, $6.1M/yr, PoP 2022-2025, 34 FTEs, NAICS 541512). Migrated 42 legacy mission applications to AWS GovCloud DoD IL5, deployed Okta/Zero-Trust ICAM for 14,500 users, and operated a 24x7x365 Secret/TS-cleared SOC using Splunk Enterprise Security. CPARS ratings: Exceptional across Quality, Schedule, Cost Control, Management, and Small Business (achieved 99.98% uptime SLA and $420K cloud FinOps cost savings).\nContract 2 (Prime): DISA Defense Enclave Cyber Modernization (Task Order HC1028-23-F-0112, T&M, $13.2M Total Value, $4.4M/yr, PoP 2023-Present, 26 FTEs, NAICS 541512). Engineered automated STIG hardening, Zero-Trust microsegmentation, and Continuous ATO (cATO) pipelines across 8,000 endpoints; reduced critical vulnerability remediation MTTR from 14 days to 18 hours. CPARS: Exceptional in Quality/Management/Schedule, Very Good in Cost Control.\nContract 3 (Major Subcontractor \u2014 40% workshare): DHS CISA National Cyber Sensor Analytics (Contract 70RSAT21D00000044, CPFF, $9.6M Subcontract Value on $24M Prime Award, PoP 2021-2025, 19 FTEs). Led 24x7 Splunk SOAR playbook automation and high-volume threat telemetry ingestion (12 TB/day).",
+                "rfp_section_l_m_requirements": "SOLICITATION FA8726-26-R-0054 (USAF Enterprise Cloud & Zero-Trust SOC Modernization): Section L.5 Volume III Past Performance: Offerors shall submit up to three (3) recent and relevant Past Performance citations performed within the past five (5) years, each with an annual contract value >= $4,000,000 (or Total Contract Value >= $12,000,000). At least two (2) citations must be performed as a Prime Contractor. Section M.3 Evaluation Criteria (DoD Source Selection Procedures): Past Performance will be evaluated on Recency, Relevance (Scope, Magnitude, and Complexity across PWS 3.1 AWS GovCloud IL5 Migration, PWS 3.2 Zero-Trust ICAM & Microsegmentation, and PWS 3.3 24x7x365 Cleared SOC & Splunk SIEM Operations), and Quality of Performance (CPARS / PPQ ratings) to assign an overall Performance Confidence Assessment ('Substantial Confidence' highest)."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Shipley Past Performance Volume III Citations, Scope/Magnitude/Complexity Matrices & CPARS Narratives",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PastPerformanceGeneratorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CPARSFiveFactorAlignment": {
+        "description": "FAR 42.1503 Table 42-1 CPARS 5-Factor Evaluation alignment and quantified justification metrics.",
+        "properties": {
+          "quality_of_product_or_service": {
+            "description": "FAR 42.1503 Factor 1 rating ('EXCEPTIONAL', 'VERY_GOOD', 'SATISFACTORY', 'MARGINAL', or 'UNSATISFACTORY').",
+            "enum": [
+              "EXCEPTIONAL",
+              "VERY_GOOD",
+              "SATISFACTORY",
+              "MARGINAL",
+              "UNSATISFACTORY"
+            ],
+            "title": "Quality Of Product Or Service",
+            "type": "string"
+          },
+          "schedule_timeliness": {
+            "description": "FAR 42.1503 Factor 2 Schedule/Timeliness rating.",
+            "enum": [
+              "EXCEPTIONAL",
+              "VERY_GOOD",
+              "SATISFACTORY",
+              "MARGINAL",
+              "UNSATISFACTORY"
+            ],
+            "title": "Schedule Timeliness",
+            "type": "string"
+          },
+          "cost_control": {
+            "description": "FAR 42.1503 Factor 3 Cost Control rating (or 'SATISFACTORY'/'EXCEPTIONAL' equivalent for FFP cost savings).",
+            "enum": [
+              "EXCEPTIONAL",
+              "VERY_GOOD",
+              "SATISFACTORY",
+              "MARGINAL",
+              "UNSATISFACTORY"
+            ],
+            "title": "Cost Control",
+            "type": "string"
+          },
+          "business_relations_and_management": {
+            "description": "FAR 42.1503 Factor 4 Management, Key Personnel retention, and responsiveness rating.",
+            "enum": [
+              "EXCEPTIONAL",
+              "VERY_GOOD",
+              "SATISFACTORY",
+              "MARGINAL",
+              "UNSATISFACTORY"
+            ],
+            "title": "Business Relations And Management",
+            "type": "string"
+          },
+          "small_business_subcontracting": {
+            "description": "FAR 42.1503 Factor 5 Small Business Subcontracting utilization rating.",
+            "enum": [
+              "EXCEPTIONAL",
+              "VERY_GOOD",
+              "SATISFACTORY",
+              "MARGINAL",
+              "UNSATISFACTORY"
+            ],
+            "title": "Small Business Subcontracting",
+            "type": "string"
+          },
+          "cpars_justification_narrative": {
+            "description": "Evaluator-ready justification citing SLA percentages, on-time milestone delivery, cost savings, and COR/CO commendations.",
+            "title": "Cpars Justification Narrative",
+            "type": "string"
+          }
+        },
+        "required": [
+          "quality_of_product_or_service",
+          "schedule_timeliness",
+          "cost_control",
+          "business_relations_and_management",
+          "small_business_subcontracting",
+          "cpars_justification_narrative"
+        ],
+        "title": "CPARSFiveFactorAlignment",
+        "type": "object"
+      },
+      "PastPerformanceCitationItem": {
+        "description": "Complete Shipley Section L/M Past Performance Volume citation block for a single reference contract.",
+        "properties": {
+          "citation_id": {
+            "description": "Unique citation identifier (e.g., 'PP-CITATION-01', 'PP-CITATION-02').",
+            "title": "Citation Id",
+            "type": "string"
+          },
+          "contract_title_and_number": {
+            "description": "Contract/Task Order number and official program title.",
+            "title": "Contract Title And Number",
+            "type": "string"
+          },
+          "customer_agency_and_role": {
+            "description": "Buying agency/command and the bidder's role (e.g., 'U.S. Space Force SSC \u2014 Prime Contractor' or 'DHS CISA \u2014 Major Subcontractor').",
+            "title": "Customer Agency And Role",
+            "type": "string"
+          },
+          "contract_metadata_block": {
+            "description": "Formatted Section L header block containing Contract Type (FFP/T&M/CPFF), Total & Annual Value, Period of Performance, FTEs, and NAICS/PSC.",
+            "title": "Contract Metadata Block",
+            "type": "string"
+          },
+          "predicted_relevance_rating": {
+            "description": "Predicted DoD Source Selection Table 4 Relevance rating ('VERY_RELEVANT', 'RELEVANT', 'SOMEWHAT_RELEVANT', or 'NOT_RELEVANT').",
+            "enum": [
+              "VERY_RELEVANT",
+              "RELEVANT",
+              "SOMEWHAT_RELEVANT",
+              "NOT_RELEVANT"
+            ],
+            "title": "Predicted Relevance Rating",
+            "type": "string"
+          },
+          "relevance_score": {
+            "description": "0-100 Relevance score for this specific contract citation against the target RFP.",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Relevance Score",
+            "type": "integer"
+          },
+          "mapped_rfp_pws_sections": {
+            "description": "Specific target RFP Section C / PWS / SOW tasks proven by this contract citation.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Mapped Rfp Pws Sections",
+            "type": "array"
+          },
+          "scope_magnitude_complexity": {
+            "$ref": "#/components/schemas/ScopeMagnitudeComplexityMatrix",
+            "description": "Structured Scope, Magnitude, and Complexity evaluation breakdown."
+          },
+          "cpars_factor_alignment": {
+            "$ref": "#/components/schemas/CPARSFiveFactorAlignment",
+            "description": "FAR 42.1503 5-Factor CPARS quality rating breakdown and quantified justification."
+          },
+          "shipley_context_challenge_action_result_narrative": {
+            "description": "Ready-to-paste Shipley Past Performance narrative structured into Context, Technical/Operational Challenge, Solution Action, and Quantified Results.",
+            "title": "Shipley Context Challenge Action Result Narrative",
+            "type": "string"
+          }
+        },
+        "required": [
+          "citation_id",
+          "contract_title_and_number",
+          "customer_agency_and_role",
+          "contract_metadata_block",
+          "predicted_relevance_rating",
+          "relevance_score",
+          "scope_magnitude_complexity",
+          "cpars_factor_alignment",
+          "shipley_context_challenge_action_result_narrative"
+        ],
+        "title": "PastPerformanceCitationItem",
+        "type": "object"
+      },
+      "PastPerformanceVolumeSummary": {
+        "description": "Executive roll-up of the Past Performance Volume III portfolio, DoD Source Selection confidence prediction,\nand recency/magnitude gate verification.",
+        "properties": {
+          "target_solicitation_id": {
+            "description": "Identified target solicitation number and program title from Section L/M.",
+            "title": "Target Solicitation Id",
+            "type": "string"
+          },
+          "overall_confidence_prediction": {
+            "description": "Predicted Government Source Selection Performance Confidence Assessment rating under DoD Source Selection Procedures Table 5 ('SUBSTANTIAL_CONFIDENCE', 'SATISFACTORY_CONFIDENCE', 'NEUTRAL_CONFIDENCE', 'LIMITED_CONFIDENCE', or 'NO_CONFIDENCE').",
+            "enum": [
+              "SUBSTANTIAL_CONFIDENCE",
+              "SATISFACTORY_CONFIDENCE",
+              "NEUTRAL_CONFIDENCE",
+              "LIMITED_CONFIDENCE",
+              "NO_CONFIDENCE"
+            ],
+            "title": "Overall Confidence Prediction",
+            "type": "string"
+          },
+          "portfolio_relevance_score": {
+            "description": "Aggregate 0-100 Past Performance portfolio relevance and quality score against Section L/M criteria.",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Portfolio Relevance Score",
+            "type": "integer"
+          },
+          "recency_and_magnitude_compliance_summary": {
+            "description": "Audit confirming whether all submitted citations satisfy Section L recency windows, dollar value thresholds, and Prime/Sub ratio rules.",
+            "title": "Recency And Magnitude Compliance Summary",
+            "type": "string"
+          },
+          "volume_executive_introduction": {
+            "description": "Ready-to-paste Shipley Volume III Past Performance Executive Introduction summarizing why the team warrants a 'Substantial Confidence' rating.",
+            "title": "Volume Executive Introduction",
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_solicitation_id",
+          "overall_confidence_prediction",
+          "portfolio_relevance_score",
+          "recency_and_magnitude_compliance_summary",
+          "volume_executive_introduction"
+        ],
+        "title": "PastPerformanceVolumeSummary",
+        "type": "object"
+      },
+      "RelevanceGapAndMitigationItem": {
+        "description": "Identifies any Section L/M Past Performance relevance gaps across the citation portfolio and provides\nFAR 15.305(a)(2) mitigation strategies.",
+        "properties": {
+          "gap_id": {
+            "description": "Unique gap identifier (e.g., 'PP-GAP-01').",
+            "title": "Gap Id",
+            "type": "string"
+          },
+          "rfp_requirement_or_pws_area": {
+            "description": "Target RFP Section L/M threshold or PWS technical area where past performance coverage is partial or indirect.",
+            "title": "Rfp Requirement Or Pws Area",
+            "type": "string"
+          },
+          "identified_gap_description": {
+            "description": "Explanation of how a source selection evaluator might critique the citation portfolio on this requirement.",
+            "title": "Identified Gap Description",
+            "type": "string"
+          },
+          "mitigation_and_teaming_strategy": {
+            "description": "Actionable mitigation narrative leveraging Subcontractor alignment, Key Personnel experience under FAR 15.305(a)(2)(iii), or complexity equivalency.",
+            "title": "Mitigation And Teaming Strategy",
+            "type": "string"
+          }
+        },
+        "required": [
+          "gap_id",
+          "rfp_requirement_or_pws_area",
+          "identified_gap_description",
+          "mitigation_and_teaming_strategy"
+        ],
+        "title": "RelevanceGapAndMitigationItem",
+        "type": "object"
+      },
+      "ScopeMagnitudeComplexityMatrix": {
+        "description": "DoD Source Selection / FAR 15.305(a)(2) three-pillar Relevance comparison (Scope, Magnitude, Complexity).",
+        "properties": {
+          "scope_alignment_analysis": {
+            "description": "Direct mapping of prior contract technical tasks and deliverables to the target RFP's PWS/SOW functional areas.",
+            "title": "Scope Alignment Analysis",
+            "type": "string"
+          },
+          "magnitude_and_fte_comparison": {
+            "description": "Quantitative comparison of Total Contract Value, annual burn rate, FTE staffing count, and user/system volume against RFP thresholds.",
+            "title": "Magnitude And Fte Comparison",
+            "type": "string"
+          },
+          "complexity_and_environment_match": {
+            "description": "Comparison of security clearances, accreditation levels (FedRAMP/DoD IL/CMMC), operational tempo, and technical architecture complexity.",
+            "title": "Complexity And Environment Match",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_alignment_analysis",
+          "magnitude_and_fte_comparison",
+          "complexity_and_environment_match"
+        ],
+        "title": "ScopeMagnitudeComplexityMatrix",
+        "type": "object"
+      },
+      "PastPerformanceGeneratorRequest": {
+        "additionalProperties": false,
+        "description": "Inbound request schema for POST /v1/generate/past-performance.",
+        "example": {
+          "bidder_role_and_context": "Prime Offeror submitting 3 Past Performance citations (2 DoD Prime contracts + 1 Federal Civilian Major Subcontractor contract); Volume III page limit is 15 pages total (5 pages per citation).",
+          "project_history_text": "Contract 1 (Prime): U.S. Space Force SSC Enterprise Cloud Enclave (Contract FA8802-22-C-0019, FFP/T&M Hybrid, $18.4M Total Value, $6.1M/yr, PoP 2022-2025, 34 FTEs, NAICS 541512). Migrated 42 legacy mission applications to AWS GovCloud DoD IL5, deployed Okta/Zero-Trust ICAM for 14,500 users, and operated a 24x7x365 Secret/TS-cleared SOC using Splunk Enterprise Security. CPARS ratings: Exceptional across Quality, Schedule, Cost Control, Management, and Small Business (achieved 99.98% uptime SLA and $420K cloud FinOps cost savings).\nContract 2 (Prime): DISA Defense Enclave Cyber Modernization (Task Order HC1028-23-F-0112, T&M, $13.2M Total Value, $4.4M/yr, PoP 2023-Present, 26 FTEs, NAICS 541512). Engineered automated STIG hardening, Zero-Trust microsegmentation, and Continuous ATO (cATO) pipelines across 8,000 endpoints; reduced critical vulnerability remediation MTTR from 14 days to 18 hours. CPARS: Exceptional in Quality/Management/Schedule, Very Good in Cost Control.\nContract 3 (Major Subcontractor \u2014 40% workshare): DHS CISA National Cyber Sensor Analytics (Contract 70RSAT21D00000044, CPFF, $9.6M Subcontract Value on $24M Prime Award, PoP 2021-2025, 19 FTEs). Led 24x7 Splunk SOAR playbook automation and high-volume threat telemetry ingestion (12 TB/day).",
+          "rfp_section_l_m_requirements": "SOLICITATION FA8726-26-R-0054 (USAF Enterprise Cloud & Zero-Trust SOC Modernization): Section L.5 Volume III Past Performance: Offerors shall submit up to three (3) recent and relevant Past Performance citations performed within the past five (5) years, each with an annual contract value >= $4,000,000 (or Total Contract Value >= $12,000,000). At least two (2) citations must be performed as a Prime Contractor. Section M.3 Evaluation Criteria (DoD Source Selection Procedures): Past Performance will be evaluated on Recency, Relevance (Scope, Magnitude, and Complexity across PWS 3.1 AWS GovCloud IL5 Migration, PWS 3.2 Zero-Trust ICAM & Microsegmentation, and PWS 3.3 24x7x365 Cleared SOC & Splunk SIEM Operations), and Quality of Performance (CPARS / PPQ ratings) to assign an overall Performance Confidence Assessment ('Substantial Confidence' highest)."
+        },
+        "properties": {
+          "rfp_section_l_m_requirements": {
+            "description": "Raw text from the target RFP Section L (Volume III Past Performance instructions, recency/dollar/scope thresholds, Prime vs. Sub rules, page limits), Section M (Past Performance evaluation criteria), and Section C/PWS technical scope.",
+            "minLength": 20,
+            "title": "Rfp Section L M Requirements",
+            "type": "string"
+          },
+          "project_history_text": {
+            "description": "Unstructured project histories, prior contract summaries, CPARS evaluation excerpts, Subcontractor experience, or internal delivery notes to transform into Shipley Section L/M Past Performance citations.",
+            "minLength": 20,
+            "title": "Project History Text",
+            "type": "string"
+          },
+          "bidder_role_and_context": {
+            "type": "string",
+            "default": "Prime Offeror submitting 3 Past Performance citations (2 Prime contracts + 1 Major Subcontractor contract) for a Federal / DoD best-value trade-off solicitation.",
+            "description": "Optional bidder context such as Prime vs. Subcontractor citation mix, Joint Venture / Mentor-Protege structure, or Volume III page-limit constraints.",
+            "title": "Bidder Role And Context",
+            "nullable": true
+          }
+        },
+        "required": [
+          "rfp_section_l_m_requirements",
+          "project_history_text"
+        ],
+        "title": "PastPerformanceGeneratorRequest",
+        "type": "object"
+      },
+      "PastPerformanceGeneratorResponse": {
+        "description": "Outbound response schema for POST /v1/generate/past-performance.",
+        "properties": {
+          "volume_summary": {
+            "$ref": "#/components/schemas/PastPerformanceVolumeSummary",
+            "description": "Executive Past Performance Volume III summary, DoD Confidence rating prediction, and ready-to-paste Volume Introduction."
+          },
+          "past_performance_citations": {
+            "description": "List of Shipley-formatted Past Performance citations with Relevance ratings, Scope/Magnitude/Complexity matrices, and CPARS narratives.",
+            "items": {
+              "$ref": "#/components/schemas/PastPerformanceCitationItem"
+            },
+            "minItems": 1,
+            "title": "Past Performance Citations",
+            "type": "array"
+          },
+          "relevance_gaps_and_mitigations": {
+            "description": "Evaluator risk audit of potential Relevance gaps paired with FAR 15.305(a)(2) mitigation language.",
+            "items": {
+              "$ref": "#/components/schemas/RelevanceGapAndMitigationItem"
+            },
+            "title": "Relevance Gaps And Mitigations",
+            "type": "array"
+          },
+          "ppq_and_cor_interview_prep_checklist": {
+            "description": "Actionable checklist for preparing Past Performance Questionnaires (PPQs) and briefing Contracting Officer Representatives (CORs) before government reference checks.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Ppq And Cor Interview Prep Checklist",
+            "type": "array"
+          }
+        },
+        "required": [
+          "volume_summary",
+          "past_performance_citations"
+        ],
+        "title": "PastPerformanceGeneratorResponse",
+        "type": "object"
+      }
+    }
+  }
+}

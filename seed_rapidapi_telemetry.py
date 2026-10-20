@@ -255,6 +255,31 @@ ENDPOINTS = [
             ),
         },
     },
+    {
+        "id": "API 15",
+        "name": "CPARS & Past Performance Volume Generator API",
+        "method": "POST",
+        "path": "/v1/generate/past-performance",
+        "rapid_host": "cpars-past-performance-volume-generator-api.p.rapidapi.com",
+        "payload": {
+            "rfp_section_l_m_requirements": (
+                "SOLICITATION FA8726-26-R-0054 (USAF Enterprise Cloud & Zero-Trust SOC Modernization): "
+                "Section L.5 Volume III Past Performance requires up to 3 recent (within 5 years) citations >= $4M/yr ($12M Total Value), "
+                "with at least 2 performed as Prime Contractor. Section M.3 evaluates Scope, Magnitude, and Complexity across PWS 3.1 AWS GovCloud IL5 Migration, "
+                "PWS 3.2 Zero-Trust ICAM, and PWS 3.3 24x7x365 Cleared SOC & Splunk SIEM."
+            ),
+            "project_history_text": (
+                "Contract 1 (Prime): U.S. Space Force SSC Enterprise Cloud Enclave (FA8802-22-C-0019, FFP/T&M, $18.4M Total, $6.1M/yr, 2022-2025, 34 FTEs, NAICS 541512). "
+                "Migrated 42 mission apps to AWS GovCloud IL5, deployed Zero-Trust ICAM for 14,500 users, and ran 24x7 TS/SCI Splunk SOC. "
+                "CPARS: Exceptional across Quality, Schedule, Cost Control, Management, and Small Business (99.98% SLA, $420K FinOps savings). "
+                "Contract 2 (Prime): DISA Defense Enclave Cyber Modernization (HC1028-23-F-0112, T&M, $13.2M Total, $4.4M/yr, 2023-Present, 26 FTEs). "
+                "Automated STIG hardening, Zero-Trust microsegmentation, and cATO pipelines across 8,000 endpoints."
+            ),
+            "bidder_role_and_context": (
+                "Prime Offeror submitting 2 DoD Prime contracts + 1 Major Subcontractor contract; Volume III page limit is 15 pages."
+            ),
+        },
+    },
 ]
 
 

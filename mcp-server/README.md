@@ -22,6 +22,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **12** | `answer_security_questionnaire` | `POST /v1/audit/security-questionnaire` | Auto-answers SOC 2, FedRAMP, NIST 800-171 & CAIQ/SIG security questionnaires with control citations & POA&Ms. |
 | **13** | `match_key_personnel` | `POST /v1/match/key-personnel` | Audits candidate resumes against RFP Key Personnel & GSA LCAT requirements, rewrites Shipley bios, and drafts LOCs. |
 | **14** | `analyze_rfp_amendment_diff` | `POST /v1/analyze/amendment-diff` | Diffs base RFPs against SF-30 Amendments & Q&A logs to flag altered mandates, CLIN changes & invalidated proposal sections. |
+| **15** | `generate_cpars_past_performance` | `POST /v1/generate/past-performance` | Transforms raw project histories into Shipley Section L/M Past Performance Volume III citations, Scope/Magnitude/Complexity matrices & CPARS narratives. |
 
 ---
 
