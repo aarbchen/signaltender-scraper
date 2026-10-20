@@ -3,7 +3,8 @@
   "info": {
     "title": "CPARS & Past Performance Volume Generator API",
     "version": "1.0.0",
-    "description": "Stateless AI GovCon Past Performance Volume III & CPARS Narrative Engine. Transforms raw project histories and prior contract notes into Shipley Section L/M Past Performance citations with DoD Source Selection Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS justifications, and Context-Challenge-Action-Result narratives."
+    "description": "Stateless AI GovCon Past Performance Volume III & CPARS Narrative Engine. Transforms raw project histories and prior contract notes into Shipley Section L/M Past Performance citations with DoD Source Selection Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS justifications, and Context-Challenge-Action-Result narratives.",
+    "x-category": "Business"
   },
   "servers": [
     {
