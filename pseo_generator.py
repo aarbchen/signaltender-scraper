@@ -657,8 +657,8 @@ def generate_pseo_site() -> int:
                   <p class="text-xs text-slate-300 leading-relaxed">
                     Auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 12 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
-                  <a href="../../apis.html#product-security-questionnaire" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 12 APIs &amp; MCP Server &rarr;
+                  <a href="../../apis.html#product-key-personnel" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
+                    Explore 13 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -1199,8 +1199,8 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
                     'Auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 12 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
-                  '<a href="#product-security-questionnaire" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 12 APIs &amp; MCP Server &rarr;' +
+                  '<a href="#product-key-personnel" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 13 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +

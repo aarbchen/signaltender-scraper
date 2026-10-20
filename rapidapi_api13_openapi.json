@@ -1,0 +1,253 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Key Personnel & LCAT Resume Tailoring API",
+    "version": "1.0.0",
+    "description": "Stateless AI Key Personnel & GSA Labor Category (LCAT) Compliance Auditor, Degree/Experience Equivalency Evaluator, DoD 8570/8140 & Clearance Verifier, Shipley Proposal Biographical Sketch Rewriter, and Letter of Commitment (LOC) Generator."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "SignalTender Production FastAPI Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/match/key-personnel": {
+      "post": {
+        "tags": [
+          "Key Personnel & LCAT Compliance"
+        ],
+        "summary": "Match Key Personnel & Tailor LCAT Resume",
+        "operationId": "Match Key Personnel & Tailor LCAT Resume",
+        "description": "Audits a candidate's resume against RFP Section L/M Key Personnel and GSA MAS / OASIS+ / Alliant 3 Labor Category (LCAT) qualification requirements. Verifies years of experience, degree equivalency substitutions, security clearances, and DoD 8570/8140 certifications, rewrites experience into Shipley-compliant Key Personnel bio & bullet citations, and drafts a ready-to-sign Letter of Commitment (LOC).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KeyPersonnelMatchRequest"
+              },
+              "example": {
+                "lcat_or_rfp_requirements": "Section L.4.2 Key Personnel - Lead Zero-Trust Cloud Architect (GSA MAS SIN 54151S SME III): Must possess an active DoD Top Secret clearance, Master's degree in Computer Science or Information Assurance (or Bachelor's + 4 additional years of specialized experience), minimum 10 years of federal cloud architecture experience including 5 years leading AWS GovCloud / FedRAMP High migrations, and active DoD 8570 IAM Level III (CISSP or CISM) certification.",
+                "candidate_resume_text": "Jane Doe | Active Top Secret / SCI Clearance | Certifications: ISC2 CISSP, AWS Certified Solutions Architect - Professional, PMP. Education: B.S. in Computer Engineering, Virginia Tech (2011). Experience (14 yrs total): Principal Cloud Architect at Apex Defense Systems (2018-Present, 8 yrs) — Led 6 DoD and DISA IL5/FedRAMP High cloud migrations on AWS GovCloud and Kubernetes; Senior Systems Engineer at CyberCore Federal (2012-2018, 6 yrs) — Designed RMF / NIST 800-53 zero-trust enclaves for U.S. Navy SPAWAR.",
+                "allow_education_experience_substitution": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Key Personnel LCAT Scorecard, Shipley Resume Rewrite & Letter of Commitment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyPersonnelMatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LcatQualificationVerdict": {
+        "type": "string",
+        "enum": [
+          "FULLY_QUALIFIED_COMPLIANT",
+          "QUALIFIED_VIA_SUBSTITUTION",
+          "WAIVER_OR_CERT_PENDING",
+          "DISQUALIFIED_HARD_KNOCKOUT"
+        ],
+        "title": "LcatQualificationVerdict"
+      },
+      "LcatRequirementStatus": {
+        "type": "string",
+        "enum": [
+          "MET",
+          "MET_VIA_EQUIVALENCY",
+          "GAP_OR_WAIVER_NEEDED"
+        ],
+        "title": "LcatRequirementStatus"
+      },
+      "KeyPersonnelMatchRequest": {
+        "type": "object",
+        "required": [
+          "lcat_or_rfp_requirements",
+          "candidate_resume_text"
+        ],
+        "properties": {
+          "lcat_or_rfp_requirements": {
+            "type": "string",
+            "minLength": 20,
+            "title": "LCAT Or RFP Requirements",
+            "description": "Raw RFP Section L/M Key Personnel requirements, GSA MAS / OASIS+ Labor Category (LCAT) minimums, clearance mandates, and DoD 8570/8140 certification criteria."
+          },
+          "candidate_resume_text": {
+            "type": "string",
+            "minLength": 20,
+            "title": "Candidate Resume Text",
+            "description": "Candidate's raw resume, CV, security clearance level, certifications, education, and work history."
+          },
+          "allow_education_experience_substitution": {
+            "type": "boolean",
+            "default": true,
+            "title": "Allow Education Experience Substitution",
+            "description": "Whether standard GSA/FAR education-for-experience substitution rules may be applied when not prohibited by the solicitation."
+          }
+        },
+        "title": "KeyPersonnelMatchRequest"
+      },
+      "LcatComplianceAuditSummary": {
+        "type": "object",
+        "required": [
+          "required_years_experience",
+          "verified_candidate_years_experience",
+          "education_and_substitution_ruling",
+          "clearance_alignment_status",
+          "dod_8570_8140_and_certifications_status"
+        ],
+        "properties": {
+          "required_years_experience": {
+            "type": "string",
+            "title": "Required Years Experience"
+          },
+          "verified_candidate_years_experience": {
+            "type": "string",
+            "title": "Verified Candidate Years Experience"
+          },
+          "education_and_substitution_ruling": {
+            "type": "string",
+            "title": "Education And Substitution Ruling"
+          },
+          "clearance_alignment_status": {
+            "type": "string",
+            "title": "Clearance Alignment Status"
+          },
+          "dod_8570_8140_and_certifications_status": {
+            "type": "string",
+            "title": "DoD 8570 8140 And Certifications Status"
+          }
+        },
+        "title": "LcatComplianceAuditSummary"
+      },
+      "KeyPersonnelRequirementCheck": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "lcat_mandate",
+          "compliance_status",
+          "resume_evidence_and_audit_note"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "title": "Requirement Id"
+          },
+          "lcat_mandate": {
+            "type": "string",
+            "title": "LCAT Mandate"
+          },
+          "compliance_status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LcatRequirementStatus"
+              }
+            ],
+            "title": "Compliance Status"
+          },
+          "resume_evidence_and_audit_note": {
+            "type": "string",
+            "title": "Resume Evidence And Audit Note"
+          }
+        },
+        "title": "KeyPersonnelRequirementCheck"
+      },
+      "TailoredShipleyResumeProfile": {
+        "type": "object",
+        "required": [
+          "executive_key_personnel_bio",
+          "tailored_experience_citations",
+          "draft_letter_of_commitment"
+        ],
+        "properties": {
+          "executive_key_personnel_bio": {
+            "type": "string",
+            "title": "Executive Key Personnel Bio"
+          },
+          "tailored_experience_citations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Tailored Experience Citations"
+          },
+          "draft_letter_of_commitment": {
+            "type": "string",
+            "title": "Draft Letter Of Commitment"
+          }
+        },
+        "title": "TailoredShipleyResumeProfile"
+      },
+      "KeyPersonnelMatchResponse": {
+        "type": "object",
+        "required": [
+          "target_lcat_title",
+          "overall_qualification_score",
+          "qualification_verdict",
+          "lcat_compliance_audit",
+          "requirement_by_requirement_matrix",
+          "tailored_shipley_resume_profile"
+        ],
+        "properties": {
+          "target_lcat_title": {
+            "type": "string",
+            "title": "Target LCAT Title"
+          },
+          "overall_qualification_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "title": "Overall Qualification Score"
+          },
+          "qualification_verdict": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LcatQualificationVerdict"
+              }
+            ],
+            "title": "Qualification Verdict"
+          },
+          "lcat_compliance_audit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LcatComplianceAuditSummary"
+              }
+            ],
+            "title": "LCAT Compliance Audit"
+          },
+          "requirement_by_requirement_matrix": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyPersonnelRequirementCheck"
+            },
+            "title": "Requirement By Requirement Matrix"
+          },
+          "tailored_shipley_resume_profile": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TailoredShipleyResumeProfile"
+              }
+            ],
+            "title": "Tailored Shipley Resume Profile"
+          }
+        },
+        "title": "KeyPersonnelMatchResponse"
+      }
+    }
+  }
+}

@@ -32,7 +32,8 @@ const RAPIDAPI_HOSTS = {
   generate_rfp_response: "ai-rfp-response-clarification-q-a-generator-api.p.rapidapi.com",
   extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
   generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
-  answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com"
+  answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -321,6 +322,29 @@ const TOOLS = [
       },
       required: ["questionnaire_text", "security_posture_summary"]
     }
+  },
+  {
+    name: "match_key_personnel",
+    description:
+      "API #13: Audit candidate resumes against RFP Section L/M Key Personnel and GSA MAS / OASIS+ / Alliant 3 Labor Category (LCAT) qualification requirements, rewrite experience into Shipley Key Personnel bio & bullet citations, and generate a ready-to-sign Letter of Commitment (LOC).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        lcat_or_rfp_requirements: {
+          type: "string",
+          description: "Raw RFP Section L/M Key Personnel requirements, GSA LCAT minimums, clearance mandates, and DoD 8570/8140 certification criteria."
+        },
+        candidate_resume_text: {
+          type: "string",
+          description: "Candidate's raw resume, CV, security clearance level, certifications, education, and work history."
+        },
+        allow_education_experience_substitution: {
+          type: "boolean",
+          default: true
+        }
+      },
+      required: ["lcat_or_rfp_requirements", "candidate_resume_text"]
+    }
   }
 ];
 
@@ -336,7 +360,8 @@ const ENDPOINT_MAP = {
   generate_rfp_response: { method: "POST", path: "/v1/generate/rfp-response" },
   extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" },
   generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" },
-  answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" }
+  answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" },
+  match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {

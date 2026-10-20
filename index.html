@@ -1148,7 +1148,8 @@
               <a href="#product-rfp-response" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-blue-500/60 border border-blue-500/40 text-blue-300 transition-colors">09. AI RFP Response &amp; Clarification Q&amp;A API</a>
               <a href="#product-pricing-extractor" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-teal-500/60 border border-teal-500/40 text-teal-300 transition-colors">10. B2B Quote, Invoice &amp; CLIN Table Extractor API</a>
               <a href="#product-teaming-strategy" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">11. GovCon Teaming Partner &amp; Subcontracting Plan API</a>
-              <a href="#product-security-questionnaire" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-indigo-500/60 border border-indigo-500/40 text-indigo-300 transition-colors">12. SOC 2, FedRAMP &amp; NIST 800-171 Security Questionnaire API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-indigo-500 text-white text-[9px] font-bold uppercase">New</span></a>
+              <a href="#product-security-questionnaire" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-indigo-500/60 border border-indigo-500/40 text-indigo-300 transition-colors">12. SOC 2, FedRAMP &amp; NIST 800-171 Security Questionnaire API</a>
+              <a href="#product-key-personnel" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-amber-500/60 border border-amber-500/40 text-amber-300 transition-colors">13. GovCon Key Personnel &amp; LCAT Resume API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-amber-500 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
             </div>
           </div>
 
@@ -3594,6 +3595,137 @@
           </div>
         </article>
 
+        <!-- =================================================================
+             PRODUCT MODULE 13: GOVCON KEY PERSONNEL & LCAT RESUME TAILORING API
+             ================================================================= -->
+        <article id="product-key-personnel" class="rounded-2xl bg-navy-900/90 border-2 border-amber-500/40 overflow-hidden shadow-2xl relative">
+          <!-- Module Top Bar -->
+          <div class="px-6 py-4 bg-gradient-to-r from-amber-950/60 via-navy-950 to-navy-950 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                MODULE 13 &bull; NEW
+              </span>
+              <span class="text-xs font-mono text-slate-300">
+                HOST: <span class="text-white">govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com</span>
+              </span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs font-mono">
+              <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                GSA LCAT &bull; DOD 8570/8140 &bull; SHIPLEY BIO &amp; LOC
+              </span>
+              <a
+                href="https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-amber-300 hover:text-amber-200 underline font-semibold"
+              >
+                Open in RapidAPI &nearr;
+              </a>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-6 space-y-6">
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  GovCon Key Personnel &amp; LCAT Resume Tailoring API
+                </h3>
+                <p class="mt-2 text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Scores candidate resumes against <span class="text-white font-medium">RFP Section L/M Key Personnel &amp; GSA Labor Category (LCAT)</span> requirements, evaluates FAR/GSA degree-vs-experience equivalency substitutions, verifies security clearances &amp; <span class="text-white font-medium">DoD 8570/8140</span> certifications, rewrites experience into <span class="text-white font-medium">Shipley Key Personnel biographical sketches</span>, and drafts a ready-to-sign <span class="text-white font-medium">Letter of Commitment (LOC)</span>.
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Available Endpoints</div>
+                <div class="p-3 rounded-lg bg-navy-950 border border-amber-500/30 flex items-center justify-between font-mono text-xs">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">POST</span>
+                    <span class="text-white font-semibold">/v1/match/key-personnel</span>
+                  </div>
+                  <span class="text-slate-400 hidden sm:inline">LCAT Audit + Shipley Bio + LOC</span>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-navy-950 border border-amber-500/30">
+                <div class="flex items-center justify-between mb-2.5">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-amber-300">RapidAPI Subscription Tiers</span>
+                  <span class="text-[11px] font-mono text-slate-400">GovCon HRTech &amp; Proposal Staffing Engine</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center font-mono">
+                  <div class="p-2 rounded bg-navy-900 border border-slate-800">
+                    <div class="text-[10px] text-slate-400">BASIC</div>
+                    <div class="text-sm font-bold text-white">$0<span class="text-[10px] font-normal text-slate-400">/mo</span></div>
+                    <div class="text-[10px] text-slate-400">10 req/mo</div>
+                  </div>
+                  <div class="p-2 rounded bg-navy-900 border border-slate-800">
+                    <div class="text-[10px] text-amber-300">PRO</div>
+                    <div class="text-sm font-bold text-white">$49<span class="text-[10px] font-normal text-slate-400">/mo</span></div>
+                    <div class="text-[10px] text-slate-300">200 req/mo</div>
+                  </div>
+                  <div class="p-2 rounded bg-amber-500/15 border border-amber-500/40">
+                    <div class="text-[10px] text-amber-300 font-bold">ULTRA</div>
+                    <div class="text-sm font-bold text-white">$149<span class="text-[10px] font-normal text-slate-300">/mo</span></div>
+                    <div class="text-[10px] text-amber-200">1,000 req/mo</div>
+                  </div>
+                  <div class="p-2 rounded bg-navy-900 border border-slate-800">
+                    <div class="text-[10px] text-cyan-300">MEGA</div>
+                    <div class="text-sm font-bold text-white">$399<span class="text-[10px] font-normal text-slate-400">/mo</span></div>
+                    <div class="text-[10px] text-slate-300">4,000 req/mo</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  onclick="window.openApiSandbox('product-key-personnel')"
+                  class="inline-flex items-center px-4 py-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-semibold text-xs font-mono border border-emerald-500/40 transition-all cursor-pointer"
+                >
+                  &#9654; Test Live in Browser
+                </button>
+                <a
+                  href="https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs font-mono shadow-lg transition-all"
+                >
+                  <span>Subscribe on RapidAPI &rarr;</span>
+                </a>
+                <a
+                  href="https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api/pricing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 font-mono text-xs border border-slate-700 transition-colors"
+                >
+                  View Quota Plans &nearr;
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6">
+              <div class="rounded-xl bg-slate-950 border border-slate-800 overflow-hidden shadow-inner font-mono text-xs">
+                <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                  <span class="text-slate-300 font-semibold">POST /v1/match/key-personnel &mdash; Output Preview</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px]">
+                    KeyPersonnelMatchResponse
+                  </span>
+                </div>
+                <div class="p-4 sm:p-5 overflow-x-auto text-[11px] leading-relaxed text-slate-300">
+                  <pre class="text-amber-300"><code>{
+  "overall_qualification_score": 96,
+  "qualification_verdict": "QUALIFIED_VIA_SUBSTITUTION",
+  "lcat_compliance_audit": {
+    "verified_candidate_years_experience": "14 years total (8 yrs AWS GovCloud IL5)",
+    "education_and_substitution_ruling": "COMPLIANT — B.S. + 14 yrs satisfies Master's via BS+4 equivalency",
+    "dod_8570_8140_and_certifications_status": "COMPLIANT — Active CISSP satisfies IAM Level III"
+  }
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -4401,8 +4533,8 @@
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
                     'Auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 12 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
-                  '<a href="#product-security-questionnaire" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 12 APIs &amp; MCP Server &rarr;' +
+                  '<a href="#product-key-personnel" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 13 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
@@ -5264,6 +5396,7 @@
         '#product-pricing-extractor': true,
         '#product-teaming-strategy': true,
         '#product-security-questionnaire': true,
+        '#product-key-personnel': true,
         '#api-pricing-matrix': true
       };
 
@@ -5396,7 +5529,7 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
             <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (12)</span>
+              <span>SELECT MICROSERVICE (13)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div id="sandbox-sidebar-list" class="mt-1 space-y-1 font-mono text-xs">
@@ -5734,6 +5867,22 @@
             questionnaire_text: '1. Does your platform enforce phishing-resistant Multi-Factor Authentication (MFA) for all users accessing CUI? 2. How is customer data encrypted at rest and in transit (FIPS 140-2/140-3)? 3. Describe your SIEM audit log retention and DFARS 252.204-7012 incident reporting SLA.',
             security_posture_summary: 'AWS GovCloud & Commercial US-East, SOC 2 Type II certified, Okta FIDO2/WebAuthn MFA enforced, AES-256 KMS at rest, TLS 1.3 in transit, FIPS endpoints enabled on GovCloud ALB, Datadog SIEM 365-day retention.',
             target_framework: 'auto_detect'
+          }
+        },
+        'product-key-personnel': {
+          num: '13',
+          id: 'product-key-personnel',
+          title: 'GovCon Key Personnel & LCAT Resume Tailoring API',
+          method: 'POST',
+          path: '/v1/match/key-personnel',
+          host: 'govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            lcat_or_rfp_requirements: "Section L.4.2 Key Personnel - Lead Zero-Trust Cloud Architect (GSA MAS SIN 54151S SME III): Must possess an active DoD Top Secret clearance, Master's degree in Computer Science or Information Assurance (or Bachelor's + 4 additional years of specialized experience), minimum 10 years of federal cloud architecture experience including 5 years leading AWS GovCloud / FedRAMP High migrations, and active DoD 8570 IAM Level III (CISSP or CISM) certification.",
+            candidate_resume_text: "Jane Doe | Active Top Secret / SCI Clearance | Certifications: ISC2 CISSP, AWS Certified Solutions Architect - Professional, PMP. Education: B.S. in Computer Engineering, Virginia Tech (2011). Experience (14 yrs total): Principal Cloud Architect at Apex Defense Systems (2018-Present, 8 yrs) — Led 6 DoD and DISA IL5/FedRAMP High cloud migrations on AWS GovCloud and Kubernetes; Senior Systems Engineer at CyberCore Federal (2012-2018, 6 yrs) — Designed RMF / NIST 800-53 zero-trust enclaves for U.S. Navy SPAWAR.",
+            allow_education_experience_substitution: true
           }
         }
       };

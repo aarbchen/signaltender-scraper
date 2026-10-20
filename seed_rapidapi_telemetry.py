@@ -205,6 +205,29 @@ ENDPOINTS = [
             "target_framework": "auto_detect",
         },
     },
+    {
+        "id": "API 13",
+        "name": "GovCon Key Personnel & LCAT Resume Tailoring API",
+        "method": "POST",
+        "path": "/v1/match/key-personnel",
+        "rapid_host": "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
+        "payload": {
+            "lcat_or_rfp_requirements": (
+                "Section L.4.2 Key Personnel - Lead Zero-Trust Cloud Architect (GSA MAS SIN 54151S SME III): "
+                "Must possess an active DoD Top Secret clearance, Master's degree in Computer Science or Information Assurance "
+                "(or Bachelor's + 4 additional years of specialized experience), minimum 10 years of federal cloud architecture experience "
+                "including 5 years leading AWS GovCloud / FedRAMP High migrations, and active DoD 8570 IAM Level III (CISSP or CISM) certification."
+            ),
+            "candidate_resume_text": (
+                "Jane Doe | Active Top Secret / SCI Clearance | Certifications: ISC2 CISSP, AWS Certified Solutions Architect - Professional, PMP. "
+                "Education: B.S. in Computer Engineering, Virginia Tech (2011). "
+                "Experience (14 yrs total): Principal Cloud Architect at Apex Defense Systems (2018-Present, 8 yrs) — Led 6 DoD and DISA IL5/FedRAMP High "
+                "cloud migrations on AWS GovCloud and Kubernetes; Senior Systems Engineer at CyberCore Federal (2012-2018, 6 yrs) — Designed RMF / NIST 800-53 "
+                "zero-trust enclaves for U.S. Navy SPAWAR."
+            ),
+            "allow_education_experience_substitution": True,
+        },
+    },
 ]
 
 
