@@ -13,11 +13,15 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
      - `d:\Daas\index.html` (homepage API callout banner pill, `#page-apis` catalog view + MCP tool count + pricing matrix, `#product-...` hash in `apiPageHashes`, and In-Page RapidAPI Studio Playground `<select id="sandbox-api-select">` + `CATALOG['product-...']`).
      - `d:\Daas\pseo_generator.py` (update the live API count & sidebar/CTA links, then execute `.\daas_env\Scripts\python.exe pseo_generator.py` to regenerate `/contracts/rfp/*.html` static pages and the embedded SPA dossier script in `index.html`).
      - `d:\Daas\signaltender_1m_business_plan.md` (mark the API as `(Live)`).
-     - `d:\Daas\seed_rapidapi_telemetry.py` (register the new API's `rapid_host` and test payload, and once the `X-RapidAPI-Proxy-Secret` is provided, automatically run a live `200 OK` call through `https://<slug>.p.rapidapi.com` using `RAPIDAPI_KEY` from `.env` to seed the green `100% Service Level` telemetry badge on RapidAPI Hub).
+     - `d:\Daas\seed_rapidapi_telemetry.py` (register the new API's `rapid_host` and test payload, add its `X-RapidAPI-Proxy-Secret` to `.env` and Render `srv-db7c68a5b2lc73fce4vg`, and automatically run a live `200 OK` call through `https://<slug>.p.rapidapi.com` using `RAPIDAPI_KEY` from `.env` to seed the green `100% Service Level` telemetry badge on RapidAPI Hub).
+   - **Mandatory RapidAPI Green-Badge & Health-Check Verification Rule:** Whenever creating or updating an API on RapidAPI Studio (`https://rapidapi.com/gateway/graphql`), you **MUST** always ensure it gets both green badges automatically:
+     1. **Green Health Check Badge (`SUCCESS`):** Call `upsertApiHealthcheck(apiId, healthCheckUrl: "https://b2b-contract-parser-api.onrender.com/v1/health")` and verify that `apiHealthCheck.healthcheckStatus.status == "SUCCESS"`.
+     2. **Green `100% Service Level` Telemetry Badge (`200 OK`):** Wire the API's `X-RapidAPI-Proxy-Secret` into `d:\Data API Ecosystem\.env` and Render (`RAPIDAPI_PROXY_SECRET`), wait for the Render deploy to go live, and execute `seed_rapidapi_telemetry.py` through `https://<slug>.p.rapidapi.com` until the endpoint returns `200 OK`.
+     3. **Listing Completeness:** Ensure `visibility: "PUBLIC"`, 500x500 logo uploaded, Markdown `longDescription` populated, human-readable Title Case endpoint names (never `snake_case`), and all 4 pricing plans configured (`BASIC` `$0` `10/mo` hard limit + `10/hour` rate limit, `PRO` `$49` `200/mo`, `ULTRA` `$149` `1,000/mo` marked `recommended: true`, and `MEGA` `$399` `4,000/mo`).
    - **RapidAPI Studio Listing Assets:** Automatically generate and present all **3 RapidAPI Studio Listing Assets** in the same turn:
      1. OpenAPI 3.0.3 JSON specification file (`rapidapi_apiXX_openapi.json`).
      2. 500x500 PNG API Logo (`d:\Daas\apiXX_..._logo.png`).
-     3. Full copy-pasteable RapidAPI Long Description / README (Markdown).
+     3. Full copy-pasteable RapidAPI Long Description / README (Markdown, saved to `d:\Daas\rapidapi_apiXX_readme.md`).
    - **Zero-Touch Git Push:** Commit and push changes to GitHub (`origin main`) in **both** `d:\Data API Ecosystem` and `d:\Daas` so Render and `signaltender.net` deploy automatically.
 
 2. **If a New Scraper, Portal, or Feature is Built (in `d:\Daas`):**
