@@ -385,9 +385,17 @@ def _render_layout(
   </footer>
   <script>
     window.filterStaticContractsTable = function (qVal) {{
+      var anchorEl = document.getElementById('static-rfp-search') || document.activeElement;
+      var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
       var q = String(qVal || '').trim().toLowerCase();
       var tbody = document.querySelector('main table tbody');
       if (!tbody) return;
+      var tblWrap = tbody.closest('.overflow-x-auto') || tbody.parentElement;
+      if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
+        tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+        tblWrap.style.overflowAnchor = 'none';
+        tblWrap.setAttribute('data-locked-min-h', '1');
+      }}
       var rows = tbody.querySelectorAll('tr:not(#static-rfp-empty-row)');
       var shown = 0;
       for (var i = 0; i < rows.length; i++) {{
@@ -418,6 +426,16 @@ def _render_layout(
       }}
       if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
       else emptyRow.classList.add('hidden');
+      if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {{
+        var deltaY = anchorEl.getBoundingClientRect().top - anchorTopBefore;
+        if (Math.abs(deltaY) > 0.5) {{
+          var docEl = document.documentElement;
+          var prevB = docEl.style.scrollBehavior;
+          docEl.style.scrollBehavior = 'auto';
+          window.scrollBy(0, deltaY);
+          docEl.style.scrollBehavior = prevB;
+        }}
+      }}
     }};
   </script>
 </body>
@@ -1172,6 +1190,8 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
       window.filterContractsDirectory = function (qVal) {{
         var inp = document.getElementById('contracts-live-search');
+        var anchorEl = inp || document.activeElement;
+        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
         var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
         if (inp && inp.value !== qVal && qVal !== undefined) inp.value = qVal;
         var clearBtn = document.getElementById('contracts-live-clear');
@@ -1183,6 +1203,12 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         if (!root) return;
         var tbody = root.querySelector('table tbody');
         if (!tbody) return;
+        var tblWrap = tbody.closest('.overflow-x-auto') || tbody.parentElement;
+        if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
+          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+          tblWrap.style.overflowAnchor = 'none';
+          tblWrap.setAttribute('data-locked-min-h', '1');
+        }}
         var rows = tbody.querySelectorAll('tr:not(#contracts-live-empty)');
         var shown = 0;
         for (var i = 0; i < rows.length; i++) {{
@@ -1208,6 +1234,16 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         }}
         if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
         else emptyRow.classList.add('hidden');
+        if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {{
+          var deltaY = anchorEl.getBoundingClientRect().top - anchorTopBefore;
+          if (Math.abs(deltaY) > 0.5) {{
+            var docEl = document.documentElement;
+            var prevB = docEl.style.scrollBehavior;
+            docEl.style.scrollBehavior = 'auto';
+            window.scrollBy(0, deltaY);
+            docEl.style.scrollBehavior = prevB;
+          }}
+        }}
       }};
 
       window.renderContractsRoute = function (rawHash) {{

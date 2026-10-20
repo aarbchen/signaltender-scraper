@@ -261,7 +261,10 @@
               </div>
             </div>
 
-            <div class="mt-3 divide-y divide-slate-800/70 font-mono text-xs">
+            <div id="api-directory-list" class="mt-3 divide-y divide-slate-800/70 font-mono text-xs" style="overflow-anchor: none;">
+              <div id="api-dir-empty" class="hidden py-8 text-center text-xs font-mono text-slate-400">
+                No API endpoints matched your search. <button type="button" onclick="window.filterApiCatalog('', 'all')" class="text-sky-400 underline ml-1 cursor-pointer">Reset filter</button>
+              </div>
               <!-- Directory Row 01 -->
               <a href="#product-contract-parsing" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
                 <div class="flex items-center space-x-3 min-w-0 flex-1">
@@ -531,7 +534,7 @@
   <!-- =====================================================================
        SECTION 2: MODULAR API PRODUCT DOSSIERS (SELF-CONTAINED PER API)
        ===================================================================== -->
-  <section id="catalog-modules" class="py-20 border-b border-slate-800/80">
+  <section id="catalog-modules" class="py-20 border-b border-slate-800/80" style="min-height: 85vh; overflow-anchor: none;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       <!-- Synchronized Sticky Search & Category Filter Bar for Full API Dossier Cards -->
@@ -4463,6 +4466,19 @@
       var currentApiCat = 'all';
 
       window.filterApiCatalog = function (queryVal, catVal) {
+        var anchorEl = document.activeElement;
+        if (!anchorEl || (anchorEl.tagName !== 'INPUT' && anchorEl.tagName !== 'BUTTON')) {
+          anchorEl = document.getElementById('api-modules-search') || document.getElementById('api-catalog-search');
+        }
+        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
+
+        // Lock Quick-Jump Directory height before hiding any rows so filtering never shifts content below it
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && !dirList.getAttribute('data-locked-min-h') && dirList.offsetHeight > 0) {
+          dirList.style.minHeight = dirList.offsetHeight + 'px';
+          dirList.setAttribute('data-locked-min-h', '1');
+        }
+
         if (queryVal !== null && queryVal !== undefined) {
           currentApiQuery = String(queryVal);
         }
@@ -4487,15 +4503,17 @@
           }
         }
 
-        // Update category pill styles
+        // Update category pill styles without altering their vertical padding
         var pills = document.querySelectorAll('.api-cat-pill');
         for (var i = 0; i < pills.length; i++) {
           var p = pills[i];
           var pCat = p.getAttribute('data-api-cat');
+          var isBottomPill = p.closest && p.closest('#catalog-modules');
+          var sizeCls = isBottomPill ? 'px-2.5 py-1.5 rounded-lg' : 'px-2.5 py-1 rounded-md';
           if (pCat === currentApiCat) {
-            p.className = 'api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer';
+            p.className = 'api-cat-pill ' + sizeCls + ' bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer';
           } else {
-            p.className = 'api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer';
+            p.className = 'api-cat-pill ' + sizeCls + ' bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer';
           }
         }
 
@@ -4524,7 +4542,6 @@
           var dirLinks = document.querySelectorAll('a[href="#' + apiId + '"]');
           for (var j = 0; j < dirLinks.length; j++) {
             var link = dirLinks[j];
-            // Only hide rows inside the Quick-Jump Directory divide-y list
             if (link.parentElement && link.parentElement.className.indexOf('divide-y') !== -1) {
               if (isVisible) {
                 link.classList.remove('hidden');
@@ -4546,12 +4563,31 @@
           modBadge.textContent = matchedCount + ' / ' + totalCount + ' SHOWN';
         }
 
+        var emptyDir = document.getElementById('api-dir-empty');
+        if (emptyDir) {
+          if (matchedCount === 0) emptyDir.classList.remove('hidden');
+          else emptyDir.classList.add('hidden');
+        }
+
         var emptyMod = document.getElementById('api-modules-empty');
         if (emptyMod) {
           if (matchedCount === 0) {
             emptyMod.classList.remove('hidden');
           } else {
             emptyMod.classList.add('hidden');
+          }
+        }
+
+        // Keep the active search bar / filter pill locked at the exact same screen Y coordinate
+        if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {
+          var anchorTopAfter = anchorEl.getBoundingClientRect().top;
+          var deltaY = anchorTopAfter - anchorTopBefore;
+          if (Math.abs(deltaY) > 0.5) {
+            var docEl = document.documentElement;
+            var prevBehavior = docEl.style.scrollBehavior;
+            docEl.style.scrollBehavior = 'auto';
+            window.scrollBy(0, deltaY);
+            docEl.style.scrollBehavior = prevBehavior;
           }
         }
       };
