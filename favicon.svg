@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <rect x="0.5" y="0.5" width="23" height="23" rx="4.5" fill="#050811" stroke="#0e7490" stroke-width="1"/>
-  <g transform="translate(2, 2) scale(0.833333)">
-    <path fill="#00f5ff" d="M8 2h2v3h4V2h2v3h1a2 2 0 0 1 2 2v1h3v2h-3v4h3v2h-3v1a2 2 0 0 1-2 2h-1v3h-2v-3h-4v3H8v-3H7a2 2 0 0 1-2-2v-1H2v-2h3v-4H2V8h3V7a2 2 0 0 1 2-2h1V2zm-1 5v10h10V7H7zm2 2h6v6H9V9z"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#060A12"/>
+  <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="6"/>
+  <circle cx="32" cy="24" r="5" fill="#38BDF8"/>
+  <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-
