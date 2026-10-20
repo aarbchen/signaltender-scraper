@@ -139,7 +139,7 @@ def send_discord_alert(message: str):
         print("[!] Webhook URL not found in .env file.", flush=True)
         return
     try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"🚨 **SLED Scraper Alert:**\n{message}"}, timeout=10)
+        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] SLED Scraper Alert:**\n{message}"}, timeout=10)
         response.raise_for_status()
         print("[+] Discord alert sent successfully.", flush=True)
     except Exception as discord_err:

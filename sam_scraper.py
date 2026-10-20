@@ -26,7 +26,7 @@ def send_discord_alert(message):
         print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
         return
     try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"🚨 **Federal Pipeline Alert:**\n{message}"})
+        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] Federal Pipeline Alert:**\n{message}"})
         response.raise_for_status()
         print(" -> Discord alert sent successfully.", flush=True)
     except Exception as e:

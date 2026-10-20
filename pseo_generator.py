@@ -161,7 +161,7 @@ def send_discord_alert(message: str):
     try:
         requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"🚨 **pSEO Generator Alert:**\n{message}"},
+            json={"content": f"**[ALERT] pSEO Generator Alert:**\n{message}"},
             timeout=10,
         )
     except Exception as e:

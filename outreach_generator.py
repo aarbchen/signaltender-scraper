@@ -80,7 +80,7 @@ def send_discord_alert(message: str):
     try:
         response = requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"🚨 **Outreach Generator Alert:**\n{message}"},
+            json={"content": f"**[ALERT] Outreach Generator Alert:**\n{message}"},
             timeout=10,
         )
         response.raise_for_status()

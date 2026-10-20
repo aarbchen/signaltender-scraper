@@ -34,3 +34,4 @@
 - **GovCon Proposal & Capture Teams:** Instantly verify Key Personnel resumes against Section L/M and generate Shipley Volume I / Management Volume bios + Letters of Commitment in seconds.
 - **Cleared Staffing & Recruiting Agencies (ATS / HRTech):** Automate candidate-to-LCAT compliance screening across GSA MAS, OASIS+, Polaris, Alliant 3, and CIO-SP4 task orders.
 - **Prime Contractor Program Managers:** Audit subcontractor resumes prior to task order onboarding to ensure strict LCAT billing compliance.
+

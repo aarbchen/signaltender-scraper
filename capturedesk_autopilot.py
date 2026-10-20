@@ -63,7 +63,7 @@ def send_discord_alert(message: str) -> None:
     try:
         requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"🚨 **CaptureDesk Autopilot Alert:**\n{message}"},
+            json={"content": f"**[ALERT] CaptureDesk Autopilot:**\n{message}"},
             timeout=10,
         )
     except Exception as exc:
@@ -191,13 +191,13 @@ def enrich_contract_dossier(record: dict) -> dict:
 def format_capturedesk_discord_embed(dossier: dict) -> str:
     themes_formatted = "\n".join(f"  • {t}" for t in dossier.get("win_themes", [])[:3])
     return (
-        f"⚡ **CAPTUREDESK AUTOPILOT DOSSIER // TIER 2 ($399/MO)**\n"
+        f"**CAPTUREDESK AUTOPILOT DOSSIER // TIER 2 ($399/MO)**\n"
         f"**Solicitation:** {dossier['title']}\n"
         f"**Buyer Agency:** {dossier['agency']} | **Closing:** `{dossier['closing_date']}`\n"
         f"**AI Classification (API #08):** NAICS `{dossier['primary_naics']}` | PSC `{dossier['primary_psc']}` | SBA Size: `{dossier['sba_size_standard']}`\n"
         f"**Shipley Win Themes (API #05):**\n{themes_formatted}\n"
-        f"🔗 **Official Portal:** <{dossier['source_url']}>\n"
-        f"📄 **SignalTender Dossier:** <{dossier['dossier_url']}>\n"
+        f"**Official Portal:** <{dossier['source_url']}>\n"
+        f"**SignalTender Dossier:** <{dossier['dossier_url']}>\n"
         f"{'─' * 44}"
     )
 

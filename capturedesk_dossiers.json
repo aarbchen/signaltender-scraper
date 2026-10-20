@@ -32,5 +32,39 @@
       "Fixed-price milestone predictability with senior cleared technical key personnel."
     ],
     "enriched_at": "2026-10-18T04:16:07.345635+00:00"
+  },
+  "522": {
+    "id": "522",
+    "title": "N1515 League Management Platform System - Due: 11/16/2026",
+    "agency": "Arlington County Government",
+    "closing_date": "11/16/2026",
+    "source_url": "https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?PageTitle=SO%20Details&rfp_id_lot=130425&rfp_id_round=130425",
+    "dossier_url": "https://signaltender.net/contracts/rfp/n1515-league-management-platform-system-522.html",
+    "primary_naics": "541512 \u2014 IT Systems Design",
+    "primary_psc": "DA01 \u2014 IT & Telecom Services",
+    "sba_size_standard": "$34.0M Annual Receipts",
+    "win_themes": [
+      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
+      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
+      "Fixed-price milestone predictability with senior cleared technical key personnel."
+    ],
+    "enriched_at": "2026-10-20T03:30:43.994490+00:00"
+  },
+  "521": {
+    "id": "521",
+    "title": "Enterprise Media & Lecture Capture Software Solution - Due: 10/29/2026",
+    "agency": "Lone Star College, TX, Spring, Montgomery County, TX",
+    "closing_date": "10/29/2026",
+    "source_url": "https://www.demandstar.com/app/suppliers/bids/554105/details",
+    "dossier_url": "https://signaltender.net/contracts/rfp/enterprise-media-lecture-capture-software-solution-521.html",
+    "primary_naics": "541512 \u2014 IT Systems Design",
+    "primary_psc": "DA01 \u2014 IT & Telecom Services",
+    "sba_size_standard": "$34.0M Annual Receipts",
+    "win_themes": [
+      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
+      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
+      "Fixed-price milestone predictability with senior cleared technical key personnel."
+    ],
+    "enriched_at": "2026-10-20T03:31:08.895412+00:00"
   }
 }

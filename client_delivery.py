@@ -34,13 +34,13 @@ JURISDICTION_WEBHOOKS = {
 }
 
 JURISDICTION_LABELS = {
-    "federal": "🇺🇸 FEDERAL // SAM.GOV",
-    "texas": "🤠 TEXAS // ESBD",
-    "virginia": "🏛️ VIRGINIA // eVA",
-    "california": "🐻 CALIFORNIA // CAL EPROCURE",
-    "florida": "🌴 FLORIDA // MFMP VIP",
-    "maryland": "🦀 MARYLAND // EMMA & BONFIRE",
-    "municipal": "🏙️ MUNICIPAL // DEMANDSTAR",
+    "federal": "FEDERAL // SAM.GOV",
+    "texas": "TEXAS // ESBD",
+    "virginia": "VIRGINIA // eVA",
+    "california": "CALIFORNIA // CAL EPROCURE",
+    "florida": "FLORIDA // MFMP VIP",
+    "maryland": "MARYLAND // EMMA & BONFIRE",
+    "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
 ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
@@ -54,7 +54,7 @@ def send_discord_alert(message: str) -> None:
     try:
         response = requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"🚨 **Delivery Pipeline Alert:**\n{message}"},
+            json={"content": f"**[ALERT] Delivery Pipeline:**\n{message}"},
             timeout=10,
         )
         response.raise_for_status()
@@ -102,12 +102,12 @@ def classify_jurisdiction(record: dict) -> str:
 def classify_vertical_tag(record: dict) -> str:
     blob = f"{record.get('title', '')} {record.get('agency', '')}".lower()
     if any(k in blob for k in ("cyber", "infosec", "security", "siem", "soc", "zero trust", "firewall", "audit")):
-        return "🔒 Cybersecurity & Zero-Trust"
+        return "Cybersecurity & Zero-Trust"
     if any(k in blob for k in ("cloud", "aws", "azure", "saas", "data center", "server", "storage", "hosting")):
-        return "☁️ Cloud & Infrastructure"
+        return "Cloud & Infrastructure"
     if any(k in blob for k in ("network", "fiber", "broadband", "telecom", "wireless", "hardware", "audio/visual")):
-        return "🌐 Network, Telecom & Hardware"
-    return "💻 Enterprise Software, Data & AI"
+        return "Network, Telecom & Hardware"
+    return "Enterprise Software, Data & AI"
 
 
 def format_lead_block(record: dict) -> str:
@@ -119,7 +119,7 @@ def format_lead_block(record: dict) -> str:
     rec_id = str(record.get("id") or "")
 
     j_key = classify_jurisdiction(record)
-    j_badge = JURISDICTION_LABELS.get(j_key, "🇺🇸 FEDERAL // SAM.GOV")
+    j_badge = JURISDICTION_LABELS.get(j_key, "FEDERAL // SAM.GOV")
     vertical = classify_vertical_tag(record)
     slug = slugify_contract(title, fallback_id=rec_id)
     dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"

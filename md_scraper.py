@@ -153,7 +153,7 @@ def send_discord_alert(message: str):
     try:
         response = requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"🚨 **Maryland Procurement Scraper Alert:**\n{message}"},
+            json={"content": f"**[ALERT] Maryland Procurement Scraper Alert:**\n{message}"},
             timeout=10,
         )
         response.raise_for_status()
