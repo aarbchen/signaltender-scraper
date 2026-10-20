@@ -236,5 +236,42 @@
       </div>
     </div>
   </footer>
+  <script>
+    window.filterStaticContractsTable = function (qVal) {
+      var q = String(qVal || '').trim().toLowerCase();
+      var tbody = document.querySelector('main table tbody');
+      if (!tbody) return;
+      var rows = tbody.querySelectorAll('tr:not(#static-rfp-empty-row)');
+      var shown = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var txt = (rows[i].innerText || '').toLowerCase();
+        if (!q || txt.indexOf(q) !== -1) {
+          rows[i].classList.remove('hidden');
+          shown++;
+        } else {
+          rows[i].classList.add('hidden');
+        }
+      }
+      var badge = document.getElementById('static-rfp-count-badge');
+      if (badge) {
+        badge.textContent = shown + ' OF ' + rows.length + ' SHOWN';
+      }
+      var clearBtn = document.getElementById('static-rfp-clear-btn');
+      if (clearBtn) {
+        if (q) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+      var emptyRow = document.getElementById('static-rfp-empty-row');
+      if (!emptyRow) {
+        emptyRow = document.createElement('tr');
+        emptyRow.id = 'static-rfp-empty-row';
+        emptyRow.className = 'hidden';
+        emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query.</td>';
+        tbody.appendChild(emptyRow);
+      }
+      if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
+      else emptyRow.classList.add('hidden');
+    };
+  </script>
 </body>
 </html>
