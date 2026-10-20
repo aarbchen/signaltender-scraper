@@ -349,13 +349,20 @@ def _render_layout(
 
     <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="{root_prefix}index.html" class="inline-flex items-center gap-[4px] shrink-0">
-          <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
-            <circle cx="32" cy="24" r="5" fill="#38BDF8" />
-            <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
+        <a href="{root_prefix}index.html" class="inline-flex items-center shrink-0">
+          <div class="inline-flex items-center gap-[4px]">
+            <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
+              <circle cx="32" cy="24" r="5" fill="#38BDF8" />
+              <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
+          </div>
+          <span class="hidden sm:inline-block h-6 w-px bg-slate-800 mx-3 shrink-0"></span>
+          <div class="hidden sm:flex flex-col justify-center font-mono text-[10px] leading-[1.15] whitespace-nowrap">
+            <span class="text-sky-400 font-semibold tracking-wider">LIVE RFP INDEX</span>
+            <span class="text-slate-400 tracking-tight mt-0.5">7-PORTAL DIRECTORY</span>
+          </div>
         </a>
         <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
           <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1133,13 +1140,20 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
     <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        <a href="#overview" class="inline-flex items-center gap-[4px] shrink-0">
-          <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
-            <circle cx="32" cy="24" r="5" fill="#38BDF8" />
-            <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
+        <a href="#overview" class="inline-flex items-center shrink-0">
+          <div class="inline-flex items-center gap-[4px]">
+            <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
+              <circle cx="32" cy="24" r="5" fill="#38BDF8" />
+              <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
+          </div>
+          <span class="hidden sm:inline-block h-6 w-px bg-slate-800 mx-3 shrink-0"></span>
+          <div class="hidden sm:flex flex-col justify-center font-mono text-[10px] leading-[1.15] whitespace-nowrap">
+            <span class="text-sky-400 font-semibold tracking-wider">LIVE RFP INDEX</span>
+            <span class="text-slate-400 tracking-tight mt-0.5">7-PORTAL DIRECTORY</span>
+          </div>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
