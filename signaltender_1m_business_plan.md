@@ -27,7 +27,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 
 ---
 
-## 3. The 15-API Portfolio Roadmap (One FastAPI Gateway, 11+ RapidAPI Storefronts Live)
+## 3. The 15-API Portfolio Roadmap (One FastAPI Gateway, 12+ RapidAPI Storefronts Live)
 
 | API # | Endpoint & RapidAPI Product Name | What It Does (Stateless Input -> Output) | Target RapidAPI Buyer |
 | :--- | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 | **09 (Live)** | `POST /v1/generate/rfp-response`<br>**AI RFP Response & Clarification Q&A Generator API** | Drafts a Shipley-compliant **Technical Proposal Section** from company context AND generates **strategic vendor clarification Q&A** to expose ambiguous or competitor-wired specs. | Proposal teams, capture managers & AI bid platforms |
 | **10 (Live)** | `POST /v1/extract/pricing-schedule`<br>**B2B Quote, Invoice & CLIN Table Extractor API** | Extracts messy multi-tier pricing tables, labor rate cards (LPTA/T&M), and BOM spreadsheets from unstructured vendor quotes into normalized JSON. | FinOps, procurement teams & ERP integrators |
 | **11 (Live)** | `POST /v1/generate/teaming-strategy`<br>**GovCon Teaming Partner & Subcontracting Plan API** | Audits RFP requirements against a bidder's capability statement, calculates a legally compliant Prime/Sub workshare split under **13 CFR § 125.6 & FAR 52.219-14 (50% Rule)**, flags Ostensible Subcontractor risk, and drafts **FAR Subpart 9.6 Teaming Agreement clauses** + BD outreach emails. | GovCon capture teams, 8(a)/SDVOSB primes & teaming platforms |
-| **12 (Planned)** | `POST /v1/audit/security-questionnaire`<br>**SOC 2, FedRAMP & NIST 800-171 Security Questionnaire Responder API** | Maps vendor security posture to NIST 800-171 / CMMC 2.0 / FedRAMP / SIG Lite controls, calculates a **DoD SPRS Score (-203 to 110)**, and drafts audit-ready security questionnaire responses. | GRC platforms, SaaS deal desks & Defense DIB vendors |
+| **12 (Live)** | `POST /v1/audit/security-questionnaire`<br>**SOC 2, FedRAMP & NIST 800-171 Security Questionnaire Responder API** | Maps vendor security posture to NIST 800-171 / CMMC 2.0 / FedRAMP / SIG Lite controls, calculates a **DoD SPRS Score (-203 to 110)**, and drafts audit-ready security questionnaire responses + POA&Ms. | GRC platforms, SaaS deal desks & Defense DIB vendors |
 | **13 (Planned)** | `POST /v1/match/key-personnel`<br>**GovCon Key Personnel & LCAT Resume Tailoring API** | Scores candidate resumes against RFP Section L/M Key Personnel & GSA Labor Category (LCAT) requirements, rewrites experience into Shipley past-performance blocks, and generates a Letter of Commitment (LOC). | GovCon staffing agencies, HRTech & proposal writers |
 | **14 (Planned)** | `POST /v1/analyze/amendment-diff`<br>**RFP Amendment & Q&A Change-Impact Analyzer API** | Diffs base RFP text against SF-30 Amendments & Q&A logs to flag altered `shall`/`must` mandates, deadline extensions, CLIN updates, and invalidated proposal sections. | Proposal management platforms & capture teams |
 | **15 (Planned)** | `POST /v1/generate/past-performance`<br>**CPARS & Past Performance Volume Generator API** | Transforms raw project histories into Shipley Section L/M Past Performance citations with Relevance ratings (`Very Relevant`), Scope/Magnitude/Complexity matrices, and CPARS-aligned narratives. | Proposal consultants, GovCon primes & bid platforms |
@@ -57,16 +57,16 @@ flowchart LR
         A["7 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
     end
 
-    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (11 Live APIs + /mcp)"]
+    subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (12 Live APIs + /mcp)"]
         B --> C["API 04: Live Open RFP Feed<br/>(GET /v1/solicitations/live)"]
         D["APIs 01-03 (Live):<br/>Parser • Risk Redliner • CLIN Pricing"]
-        E["APIs 05-11 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN • Teaming Plan"]
+        E["APIs 05-12 (Live):<br/>Compliance • FAR/DFARS • Pwin • NAICS • RFP Draft • Quote/CLIN • Teaming • SecQuest"]
     end
 
     subgraph RevenueStreams["3. Three Compounding Zero-Touch Revenue Streams"]
         B --> F["Tier 1: SignalWire ($99/mo | $990/yr)<br/>Stripe + Discord Bot + 72 pSEO Pages"]
         C & D & E --> G["Tier 2: CaptureDesk ($399/mo | $3,490/yr)<br/>Auto-Enriched RFP Dossiers in #capturedesk-autopilot"]
-        C & D & E --> H["Tier 3: RapidAPI + Official MCP Registry ($34.5k MRR)<br/>11+ Developer Storefronts + Remote /mcp Server"]
+        C & D & E --> H["Tier 3: RapidAPI + Official MCP Registry ($34.5k MRR)<br/>12+ Developer Storefronts + Remote /mcp Server"]
     end
 ```
 

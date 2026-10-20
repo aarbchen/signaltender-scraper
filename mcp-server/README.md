@@ -1,10 +1,10 @@
 # `@signaltender/mcp-server` — Official SignalTender B2B & GovCon MCP Server
 
-Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI agents with **11 production B2B, GovCon & LegalTech microservices** from [SignalTender](https://signaltender.net/apis.html).
+Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI agents with **12 production B2B, GovCon & LegalTech microservices** from [SignalTender](https://signaltender.net/apis.html).
 
 ---
 
-## Included Tools (11 Live Endpoints)
+## Included Tools (12 Live Endpoints)
 
 | # | MCP Tool Name | Underlying FastAPI Endpoint | What It Does |
 | :--- | :--- | :--- | :--- |
@@ -19,6 +19,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **09** | `generate_rfp_response` | `POST /v1/generate/rfp-response` | Drafts evaluator-ready Shipley Technical Proposal sections + strategic Contracting Officer Q&A questions. |
 | **10** | `extract_pricing_schedule` | `POST /v1/extract/pricing-schedule` | Extracts multi-tier CLIN/SLIN schedules, GSA/T&M labor rate cards, and BOMs with line-item math audits. |
 | **11** | `generate_teaming_strategy` | `POST /v1/generate/teaming-strategy` | Generates 13 CFR § 125.6 (50% Rule) workshare splits, partner archetypes, and FAR 9.6 Teaming Agreement clauses. |
+| **12** | `answer_security_questionnaire` | `POST /v1/audit/security-questionnaire` | Auto-answers SOC 2, FedRAMP, NIST 800-171 & CAIQ/SIG security questionnaires with control citations & POA&Ms. |
 
 ---
 

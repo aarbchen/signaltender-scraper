@@ -186,6 +186,25 @@ ENDPOINTS = [
             "bidder_role": "prime_seeking_subs",
         },
     },
+    {
+        "id": "API 12",
+        "name": "SOC 2, FedRAMP & NIST 800-171 Security Questionnaire Responder API",
+        "method": "POST",
+        "path": "/v1/audit/security-questionnaire",
+        "rapid_host": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+        "payload": {
+            "questionnaire_text": (
+                "1. Does your platform enforce phishing-resistant Multi-Factor Authentication (MFA) for all users accessing CUI? "
+                "2. How is customer data encrypted at rest and in transit (FIPS 140-2/140-3)? "
+                "3. Describe your SIEM audit log retention and DFARS 252.204-7012 incident reporting SLA."
+            ),
+            "security_posture_summary": (
+                "AWS GovCloud & Commercial US-East, SOC 2 Type II certified, Okta FIDO2/WebAuthn MFA enforced, "
+                "AES-256 KMS at rest, TLS 1.3 in transit, FIPS endpoints enabled on GovCloud ALB, Datadog SIEM 365-day retention."
+            ),
+            "target_framework": "auto_detect",
+        },
+    },
 ]
 
 

@@ -31,7 +31,8 @@ const RAPIDAPI_HOSTS = {
   classify_naics_psc_nigp: "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
   generate_rfp_response: "ai-rfp-response-clarification-q-a-generator-api.p.rapidapi.com",
   extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
-  generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com"
+  generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
+  answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -296,6 +297,30 @@ const TOOLS = [
       },
       required: ["rfp_text", "bidder_capabilities"]
     }
+  },
+  {
+    name: "answer_security_questionnaire",
+    description:
+      "API #12: Auto-answer SOC 2, FedRAMP, NIST SP 800-171, CMMC 2.0, and CAIQ/SIG/HECVAT vendor security questionnaires with cross-framework control citations, DoD SPRS readiness metrics, evidence artifact recommendations, and Plan of Action & Milestones (POA&M) remediation items.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        questionnaire_text: {
+          type: "string",
+          description: "Raw security questionnaire items from an enterprise SIG/CAIQ/HECVAT spreadsheet or Federal RFP / SSP checklist."
+        },
+        security_posture_summary: {
+          type: "string",
+          description: "Summary of the vendor's cloud stack, certifications (SOC 2, ISO 27001, FedRAMP, CMMC), encryption, IAM/MFA, and logging controls."
+        },
+        target_framework: {
+          type: "string",
+          enum: ["auto_detect", "soc2_iso27001", "nist_800_171_cmmc", "fedramp_800_53", "caiq_sig_hecvat"],
+          default: "auto_detect"
+        }
+      },
+      required: ["questionnaire_text", "security_posture_summary"]
+    }
   }
 ];
 
@@ -310,7 +335,8 @@ const ENDPOINT_MAP = {
   classify_naics_psc_nigp: { method: "POST", path: "/v1/classify/naics-psc-nigp" },
   generate_rfp_response: { method: "POST", path: "/v1/generate/rfp-response" },
   extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" },
-  generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" }
+  generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" },
+  answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
