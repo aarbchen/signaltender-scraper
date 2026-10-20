@@ -1035,6 +1035,10 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         #    serve all State Hubs, Category Filters, and RFP Dossiers with zero 404s.
         _inject_spa_directory_into_index(enriched_contracts)
 
+        # 6. Run automated JS syntax, SPA runtime, and DOM parity verification
+        import verify_site_integrity
+        verify_site_integrity.main()
+
         print(
             f"[+] Programmatic SEO build complete! Generated {pages_built} static HTML pages in /contracts "
             f"({len(enriched_contracts)} individual RFP dossiers + 36 state/category hubs), updated sitemap.xml, "
