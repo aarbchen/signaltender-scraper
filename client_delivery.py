@@ -15,7 +15,7 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 TABLE_NAME = os.getenv("SUPABASE_TABLE_NAME", "contracts")
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
 
-# Master Client Discord Webhook + Optional State/Portal-Specific Webhooks (Option B)
+# Master Client Discord Webhook + Optional State/Portal-Specific Webhooks
 CLIENT_DISCORD_WEBHOOK_URL = (
     os.getenv("DISCORD_CONTENT_WEBHOOK_URL")
     or os.getenv("CLIENT_DISCORD_WEBHOOK_URL")
@@ -30,6 +30,8 @@ JURISDICTION_WEBHOOKS = {
     "california": os.getenv("DISCORD_CALIFORNIA_WEBHOOK_URL"),
     "florida": os.getenv("DISCORD_FLORIDA_WEBHOOK_URL"),
     "maryland": os.getenv("DISCORD_MARYLAND_WEBHOOK_URL"),
+    "new_york": os.getenv("DISCORD_NEW_YORK_WEBHOOK_URL"),
+    "illinois": os.getenv("DISCORD_ILLINOIS_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -40,6 +42,8 @@ JURISDICTION_LABELS = {
     "california": "CALIFORNIA // CAL EPROCURE",
     "florida": "FLORIDA // MFMP VIP",
     "maryland": "MARYLAND // EMMA & BONFIRE",
+    "new_york": "NEW YORK // NYSCR",
+    "illinois": "ILLINOIS // BIDBUY",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -70,8 +74,9 @@ def send_discord_alert(message: str) -> None:
 
 def slugify_contract(title: str, fallback_id: str = "") -> str:
     clean = re.sub(r"^\s*\[[A-Z]{2,4}\]\s*", "", str(title or "")).strip().lower()
+    clean = re.sub(r"\s*-\s*due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", clean, flags=re.IGNORECASE)
     slug = re.sub(r"[^a-z0-9]+", "-", clean).strip("-")
-    slug = re.sub(r"-{2,}", "-", slug)[:65].strip("-")
+    slug = re.sub(r"-{2,}", "-", slug)[:75].strip("-")
     if not slug:
         slug = "government-it-contract"
     if fallback_id:
@@ -84,9 +89,9 @@ def classify_jurisdiction(record: dict) -> str:
     agency = str(record.get("agency") or "").strip().lower()
     url = str(record.get("url") or "").strip().lower()
 
-    if title.startswith("[TX]") or "txsmartbuy" in url or "texas" in agency:
+    if title.startswith("[TX]") or "txsmartbuy" in url or "texas" in agency or ", tx" in agency:
         return "texas"
-    if title.startswith("[VA]") or "eva.virginia.gov" in url or "virginia" in agency:
+    if title.startswith("[VA]") or "eva.virginia.gov" in url or "cgieva.com" in url or "virginia" in agency or "arlington county" in agency:
         return "virginia"
     if title.startswith("[CA]") or "caleprocure" in url or "california" in agency:
         return "california"
@@ -94,6 +99,10 @@ def classify_jurisdiction(record: dict) -> str:
         return "florida"
     if title.startswith("[MD]") or "emma.maryland.gov" in url or "bonfirehub.com" in url or "maryland" in agency:
         return "maryland"
+    if title.startswith("[NY]") or "nyscr.ny.gov" in url or "new york" in agency:
+        return "new_york"
+    if title.startswith("[IL]") or "bidbuy.illinois.gov" in url or "illinois" in agency or "chicago" in agency:
+        return "illinois"
     if "demandstar.com" in url:
         return "municipal"
     return "federal"
@@ -101,7 +110,7 @@ def classify_jurisdiction(record: dict) -> str:
 
 def classify_vertical_tag(record: dict) -> str:
     blob = f"{record.get('title', '')} {record.get('agency', '')}".lower()
-    if any(k in blob for k in ("cyber", "infosec", "security", "siem", "soc", "zero trust", "firewall", "audit")):
+    if any(k in blob for k in ("cyber", "infosec", "security", "siem", "soc", "zero trust", "firewall", "audit", "rmf")):
         return "Cybersecurity & Zero-Trust"
     if any(k in blob for k in ("cloud", "aws", "azure", "saas", "data center", "server", "storage", "hosting")):
         return "Cloud & Infrastructure"
@@ -112,27 +121,30 @@ def classify_vertical_tag(record: dict) -> str:
 
 def format_lead_block(record: dict) -> str:
     """Format an individual Supabase contract record into an enriched Discord intelligence block."""
-    title = record.get("title") or "N/A"
-    agency = record.get("agency") or "N/A"
-    closing_date = record.get("closing_date")
-    link = record.get("url") or "N/A"
+    raw_title = str(record.get("title") or "N/A").strip()
+    clean_title = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", raw_title, flags=re.IGNORECASE).strip()
+    agency = str(record.get("agency") or "N/A").strip()
+    closing_date = str(record.get("closing_date") or "").strip()
+    if not closing_date:
+        m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", raw_title, flags=re.IGNORECASE)
+        closing_date = m_due.group(1) if m_due else "Open / See Official Portal"
+    link = str(record.get("url") or "N/A").strip()
     rec_id = str(record.get("id") or "")
 
     j_key = classify_jurisdiction(record)
     j_badge = JURISDICTION_LABELS.get(j_key, "FEDERAL // SAM.GOV")
     vertical = classify_vertical_tag(record)
-    slug = slugify_contract(title, fallback_id=rec_id)
+    slug = slugify_contract(raw_title, fallback_id=rec_id)
     dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"
 
     lines = [
         f"**[{j_badge}]** • `{vertical}`",
-        f"**Title:** {title}",
-        f"**Agency:** {agency}",
+        f"**Solicitation:** {clean_title}",
+        f"**Buyer Agency:** {agency} | **Closing Date:** `{closing_date}`",
+        f"**Official Portal:** <{link}>",
+        f"**SignalTender Dossier:** <{dossier_url}>",
+        f"{'─' * 44}",
     ]
-    if closing_date:
-        lines.append(f"**Closing Date:** `{closing_date}`")
-    lines.append(f"**Official Bid Link:** <{link}>")
-    lines.append(f"**SignalTender Dossier & AI Parser:** <{dossier_url}> | <{SITE_BASE_URL}/apis.html>")
     return "\n".join(lines)
 
 
@@ -147,7 +159,7 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
 
     for rec in records:
         block = format_lead_block(rec)
-        block_len = len(block) + 8
+        block_len = len(block) + 4
         if current_char_count + block_len > 1900 and current_batch:
             batches.append(current_batch)
             current_batch = [rec]
@@ -161,11 +173,11 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
 
     for batch_index, batch in enumerate(batches, start=1):
         blocks = [format_lead_block(rec) for rec in batch]
-        message_content = "\n\n---\n\n".join(blocks)
+        message_content = "\n\n".join(blocks)
 
         print(f"[*] Posting {label} batch {batch_index}/{len(batches)} ({len(batch)} lead(s)) to Discord...", flush=True)
         payload = {
-            "username": "SignalWire Pro // Tier 1",
+            "username": "SignalWire Pro",
             "content": message_content,
         }
         response = requests.post(
@@ -205,7 +217,7 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
         return 0
 
     blocks = [format_lead_block(rec) for rec in records[:10]]
-    combined_text = "\n\n---\n\n".join(blocks)[:1900]
+    combined_text = "\n\n".join(blocks)[:1900]
 
     for srow in sub_rows:
         try:
@@ -217,7 +229,7 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
             if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
                 payload = {"text": combined_text}
             elif "discord.com/api/webhooks" in u_low or "discordapp.com/api/webhooks" in u_low:
-                payload = {"username": "SignalWire Pro // Tier 1", "content": combined_text}
+                payload = {"username": "SignalWire Pro", "content": combined_text}
             else:
                 payload = {
                     "event": "signaltender.signalwire.batch",

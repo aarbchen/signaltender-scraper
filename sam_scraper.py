@@ -36,26 +36,29 @@ def send_discord_content(record: dict):
     if not DISCORD_CONTENT_WEBHOOK_URL:
         print(" -> WARNING: DISCORD_CONTENT_WEBHOOK_URL not found in .env file.", flush=True)
         return
-    title = record.get("title") or ""
-    agency = record.get("agency") or ""
-    closing_date = record.get("closing_date")
-    link = record.get("url") or ""
-
-    lines = [
-        f"**Title:** {title}",
-        f"**Agency:** {agency}",
-    ]
-    if closing_date:
-        lines.append(f"**Closing Date:** {closing_date}")
-    lines.append(f"**Link:** {link}")
-    message = "\n".join(lines)
-
     try:
-        response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json={"content": message}, timeout=10)
+        import client_delivery
+        message = client_delivery.format_lead_block(record)
+    except Exception:
+        raw_title = str(record.get("title") or "N/A").strip()
+        clean_title = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", raw_title, flags=re.IGNORECASE).strip()
+        agency = record.get("agency") or "N/A"
+        closing_date = record.get("closing_date") or "Open / See Official Portal"
+        link = record.get("url") or ""
+        message = (
+            f"**Solicitation:** {clean_title}\n"
+            f"**Buyer Agency:** {agency} | **Closing Date:** `{closing_date}`\n"
+            f"**Official Portal:** <{link}>\n"
+            f"{'─' * 44}"
+        )
+
+    payload = {"username": "SignalWire Pro", "content": message}
+    try:
+        response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json=payload, timeout=10)
         if response.status_code == 429:
             retry_after = response.json().get("retry_after", 1.0)
             time.sleep(float(retry_after))
-            response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json={"content": message}, timeout=10)
+            response = requests.post(DISCORD_CONTENT_WEBHOOK_URL, json=payload, timeout=10)
         response.raise_for_status()
         time.sleep(0.4)
     except Exception as e:
@@ -201,8 +204,23 @@ async def run_scraper(push_to_db: bool = True):
     print(f"[*] Extracted {len(valid_opps)} raw contracts across {min(current_page, MAX_PAGES)} pages. Filtering for tech validation...")
 
     supabase_records = []
+    sam_exclusions = [
+        r"^\s*\d{2,4}\s*--",
+        r"^\s*assorted\s+hardware\s*$",
+        r"interface\s+unit,\s*data",
+        r"missile\s+warning",
+        r"dc\s+and\s+ac\s+preferred\s+systems",
+        r"circuit\s+card\s+assembly",
+        r"cable\s+assembly",
+        r"wiring\s+harness",
+        r"\bink\b",
+        r"\btoner\b",
+        r"cartridge",
+    ]
     for title, link_path in valid_opps:
         title_lower = title.lower()
+        if any(re.search(ex, title_lower) for ex in sam_exclusions):
+            continue
 
         # Double-check against our regex to ensure it's a valid IT/Cyber lead
         if any(re.search(pattern, title_lower) for pattern in tech_keywords):

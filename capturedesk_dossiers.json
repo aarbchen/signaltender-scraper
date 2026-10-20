@@ -18,53 +18,74 @@
   },
   "352": {
     "id": "352",
-    "title": "[RFP-27-012] Statewide Integrative Corrections Intelligence Platform - Due: 06/30/2027",
+    "title": "[RFP-27-012] Statewide Integrative Corrections Intelligence Platform",
     "agency": "Florida Department of Corrections (FDC)",
+    "jurisdiction_badge": "FLORIDA // MFMP VIP",
+    "vertical": "Enterprise Software, Data & AI",
     "closing_date": "06/30/2027",
     "source_url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17031",
     "dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-012-statewide-integrative-corrections-intelligence-platform-352.html",
-    "primary_naics": "541512 \u2014 Computer Systems Design Services",
-    "primary_psc": "DA01 \u2014 IT & Telecom: Business Application/Application Development",
-    "sba_size_standard": "$34.0M Annual Receipts",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Software Development Services",
+    "primary_nigp": "918-29 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
     "win_themes": [
-      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
-      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
-      "Fixed-price milestone predictability with senior cleared technical key personnel."
+      "**Corrections-Native Intelligence Architecture:** Demonstrate purpose-built platform for law enforcement/corrections data integration with proven success on 3+ state DOC systems, emphasizing real-time offender tracking, inter-agency information sharing, and operational decision support\u2014directly addressing FDC's integrative mission.",
+      "**Compliance & Security Excellence:** Showcase dedicated federal/state corrections compliance expertise (CJIS, HIPAA, SOC 2 Type II certification) combined with Section 508/WCAG 2.1 AA accessibility pre-validation and 99.95%+ uptime SLA delivery on mission-critical public safety platforms.",
+      "**Phased Implementation & Change Management Mastery:** Present detailed, risk-mitigated rollout plan with dedicated transition resources, staff training infrastructure (both user and IT), and proven go-live support\u2014leveraging similar multi-facility statewide deployments to reduce execution risk on this high-stakes system."
     ],
-    "enriched_at": "2026-10-18T04:16:07.345635+00:00"
+    "evidence_needed": [
+      "Three signed client references from state/county Department of Corrections agencies deployed in past 5 years with quantified metrics: system uptime %, data integration completion timeline, end-user adoption rate, and corrections-specific use cases (e.g., offender intelligence aggregation, interdepartmental information sharing).",
+      "Current SOC 2 Type II audit report (dated within 18 months), CJIS compliance certification letter from state law enforcement authority, and accessibility compliance test report (VPAT or equivalent) documenting Section 508/WCAG 2.1 AA conformance across web and mobile interfaces."
+    ],
+    "enriched_at": "2026-10-20T18:53:15.632845+00:00"
   },
   "522": {
     "id": "522",
-    "title": "N1515 League Management Platform System - Due: 11/16/2026",
+    "title": "N1515 League Management Platform System",
     "agency": "Arlington County Government",
+    "jurisdiction_badge": "VIRGINIA // eVA",
+    "vertical": "Enterprise Software, Data & AI",
     "closing_date": "11/16/2026",
     "source_url": "https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?PageTitle=SO%20Details&rfp_id_lot=130425&rfp_id_round=130425",
     "dossier_url": "https://signaltender.net/contracts/rfp/n1515-league-management-platform-system-522.html",
-    "primary_naics": "541512 \u2014 IT Systems Design",
-    "primary_psc": "DA01 \u2014 IT & Telecom Services",
-    "sba_size_standard": "$34.0M Annual Receipts",
+    "primary_naics": "511210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "208-15 \u2014 Computer Software - Application Software",
+    "sba_size_standard": "$47.0M annual receipts",
     "win_themes": [
-      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
-      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
-      "Fixed-price milestone predictability with senior cleared technical key personnel."
+      "**Section 3.2 Compliance Excellence:** Demonstrate proven architecture delivering Section 508/WCAG 2.1 AA accessibility and enterprise-grade security controls (FedRAMP alignment, encryption standards, audit trails) that exceed Arlington County's baseline requirements through documented case studies.",
+      "**Section 3.1 Rapid Phased Deployment:** Showcase accelerated implementation methodology with modular architecture enabling go-live within 6 months, risk mitigation strategies for legacy system migration, and pre-built league management templates reducing customization cycles.",
+      "**Section 30% Past Performance Differentiator:** Highlight 3+ references from Virginia public sector or comparable government league/recreational management platforms with documented SLA uptime >99.5%, user adoption >90%, and measurable ROI within 12 months post-implementation."
     ],
-    "enriched_at": "2026-10-20T03:30:43.994490+00:00"
+    "evidence_needed": [
+      "**Technical Proof:** Independent security assessment report (SOC 2 Type II or FedRAMP Authority to Operate letter) and VPAT (Voluntary Product Accessibility Template) certification confirming WCAG 2.1 AA compliance across all platform modules with remediation timeline.",
+      "**Past Performance Documentation:** Three signed client reference letters from U.S. public sector agencies (government, education, or public recreation departments) within last 3 years detailing platform uptime metrics, user count supported, implementation duration, and quantified business outcomes (cost savings, user adoption rates)."
+    ],
+    "enriched_at": "2026-10-20T18:51:57.442882+00:00"
   },
   "521": {
     "id": "521",
-    "title": "Enterprise Media & Lecture Capture Software Solution - Due: 10/29/2026",
+    "title": "Enterprise Media & Lecture Capture Software Solution",
     "agency": "Lone Star College, TX, Spring, Montgomery County, TX",
+    "jurisdiction_badge": "TEXAS // ESBD",
+    "vertical": "Enterprise Software, Data & AI",
     "closing_date": "10/29/2026",
     "source_url": "https://www.demandstar.com/app/suppliers/bids/554105/details",
     "dossier_url": "https://signaltender.net/contracts/rfp/enterprise-media-lecture-capture-software-solution-521.html",
-    "primary_naics": "541512 \u2014 IT Systems Design",
-    "primary_psc": "DA01 \u2014 IT & Telecom Services",
-    "sba_size_standard": "$34.0M Annual Receipts",
+    "primary_naics": "511210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Software Maintenance and Support Services",
+    "primary_nigp": "208-79 \u2014 Computer Software, Educational/Instructional",
+    "sba_size_standard": "$47.0M annual receipts",
     "win_themes": [
-      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
-      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
-      "Fixed-price milestone predictability with senior cleared technical key personnel."
+      "**Enterprise Architecture & Security Excellence:** Deploy a scalable, cloud-native media capture platform meeting FERPA/HIPAA compliance, Section 508/WCAG 2.1 AA accessibility standards, and Lone Star College's security posture requirements with proven integration to existing LMS and institutional systems.",
+      "**Public Higher Education Track Record:** Demonstrate 3+ successful implementations at comparable Texas community colleges or public universities with documented 99.5%+ SLA uptime, user adoption metrics, and measurable ROI in lecture capture utilization and student learning outcomes.",
+      "**Phased Deployment & Change Management Excellence:** Present a structured 6-month implementation roadmap with defined go-live milestones, comprehensive faculty/staff training curriculum, dedicated project management, and proactive transition support ensuring minimal operational disruption across Spring campus."
     ],
-    "enriched_at": "2026-10-20T03:31:08.895412+00:00"
+    "evidence_needed": [
+      "Third-party SOC 2 Type II audit report or FedRAMP authorization confirming security controls, data encryption (in-transit/at-rest), and disaster recovery/business continuity capabilities meeting Texas public sector cybersecurity requirements.",
+      "Three customer reference letters from public community colleges or universities (preferably Texas ESBD-registered institutions) detailing lecture capture deployment scale, system uptime achievement, accessibility compliance validation, and training effectiveness with measurable adoption rates."
+    ],
+    "enriched_at": "2026-10-20T18:52:31.421514+00:00"
   }
 }
