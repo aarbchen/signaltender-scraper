@@ -40,33 +40,43 @@ def check_html_file(fpath: str) -> str:
 
     rel = os.path.relpath(fpath, BASE_DIR)
 
-    # 1. Check all inline <script> blocks with `node --check`
+    # 1. Strip <script> blocks for HTML-only checks while collecting inline scripts
+    scripts_to_check = []
     for idx, m in enumerate(re.finditer(r"<script([^>]*)>(.*?)</script>", txt, flags=re.S | re.I), 1):
         attrs, body = m.group(1), m.group(2)
         if "src=" in attrs or "application/ld+json" in attrs:
             continue
-        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
-            tf.write(body)
-            tname = tf.name
-        r = subprocess.run(["node", "--check", tname], capture_output=True, text=True)
-        os.remove(tname)
-        if r.returncode != 0:
-            fail(f"{rel}: JS SyntaxError in <script> #{idx}:\n{r.stderr}")
+        scripts_to_check.append((f"<script> #{idx}", body))
 
-    # 2. Strip <script> blocks for HTML-only checks
     html_only = re.sub(r"<script[^>]*>.*?</script>", "", txt, flags=re.S | re.I)
 
-    # 3. Check all HTML inline event handlers (`onclick`, `oninput`, `onchange`, `onsubmit`)
+    # 2. Collect all HTML inline event handlers (`onclick`, `oninput`, `onchange`, `onsubmit`)
     handlers = re.findall(r'\b(on(?:click|input|change|submit|keydown|keyup))="([^"]*)"', html_only)
     for h_type, h_code in handlers:
         js_code = h_code.replace("&quot;", '"').replace("&#39;", "'").replace("&amp;", "&")
-        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
-            tf.write(f"(function(event){{ {js_code} }})")
-            tname = tf.name
-        r = subprocess.run(["node", "--check", tname], capture_output=True, text=True)
-        os.remove(tname)
-        if r.returncode != 0:
-            fail(f'{rel}: Invalid inline handler {h_type}="{h_code}":\n{r.stderr}')
+        scripts_to_check.append((f'{h_type}="{h_code}"', f"(function(event){{\n{js_code}\n}})"))
+
+    # 3. Validate all scripts + handlers in a single fast Node.js vm.Script pass
+    import json
+    checker_js = (
+        "const vm = require('vm');\n"
+        f"const items = {json.dumps(scripts_to_check)};\n"
+        "for (const [label, code] of items) {\n"
+        "  try {\n"
+        "    new vm.Script(code, { filename: label });\n"
+        "  } catch (err) {\n"
+        "    console.error(label + ': ' + err.stack);\n"
+        "    process.exit(1);\n"
+        "  }\n"
+        "}\n"
+    )
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
+        tf.write(checker_js)
+        tname = tf.name
+    r = subprocess.run(["node", tname], capture_output=True, text=True)
+    os.remove(tname)
+    if r.returncode != 0:
+        fail(f"{rel}: JS SyntaxError:\n{r.stderr}")
 
     # 4. Check duplicate HTML IDs
     ids = re.findall(r'\bid="([^"]+)"', html_only)
@@ -135,8 +145,11 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         if dir_rows != expected_nums:
             fail(f"{label}: Quick-Jump Directory rows out of order or missing: found {dir_rows}, expected {expected_nums}")
 
-        # Verify Pricing Matrix rows match n_apis
-        matrix_m = re.search(r'id="api-pricing-matrix".*?<tbody>(.*?)</tbody>', txt, flags=re.S)
+        # Verify Pricing Matrix rows match n_apis and thead has exactly 1 row
+        thead_m = re.search(r'id="api-pricing-matrix".*?<thead[^>]*>(.*?)</thead>', txt, flags=re.S)
+        if not thead_m or len(re.findall(r"<tr\b", thead_m.group(1))) != 1:
+            fail(f"{label}: #api-pricing-matrix <thead> must have exactly 1 header row")
+        matrix_m = re.search(r'id="api-pricing-matrix".*?<tbody[^>]*>(.*?)</tbody>', txt, flags=re.S)
         if not matrix_m:
             fail(f"{label}: Missing #api-pricing-matrix tbody")
         matrix_rows = re.findall(r"<tr\b", matrix_m.group(1))
