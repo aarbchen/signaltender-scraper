@@ -46,6 +46,9 @@ BATCH_LIMIT = int(os.getenv("CAPTUREDESK_BATCH_LIMIT", "2"))
 RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/classify/naics-psc-nigp": "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
     "/v1/generate/compliance-matrix": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+    "/v1/audit/far-dfars-clauses": "far-dfars-cmmc-clause-flow-down-auditor-api.p.rapidapi.com",
+    "/v1/generate/teaming-strategy": "small-business-set-aside-subcontracting-calculator-api.p.rapidapi.com",
+    "/v1/generate/past-performance": "cpars-past-performance-volume-generator-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -328,6 +331,35 @@ def enrich_contract_dossier(record: dict) -> dict:
             f"**Relevant Public-Sector Past Performance:** Provide verifiable {j_badge.split('//')[0].strip()} reference deployments of comparable scope and user scale.",
         ]
 
+    blob_low = f"{clean_title} {agency}".lower()
+    if j_key == "federal":
+        if any(k in blob_low for k in ("dod", "defense", "army", "navy", "air force", "space force", "darpa", "disa")):
+            compliance_posture = "CMMC 2.0 Level 2 • NIST SP 800-171 Rev 2 • DFARS 252.204-7012 & FAR 52.204-21"
+        else:
+            compliance_posture = "FedRAMP Moderate / NIST SP 800-53 Rev 5 • FAR 52.204-21 • Section 508 VPAT"
+        teaming_posture = "13 CFR § 125.6 (50% Rule): Prime ≥50% labor | Target Sub: SDVOSB / 8(a) / WOSB (25%–35%) + 3 CPARS Refs"
+    elif j_key == "texas":
+        compliance_posture = "TX-RAMP Level 2 Certification • Texas DIR Security Controls • TAC 206 WCAG 2.1 AA VPAT"
+        teaming_posture = "TX HUB Subcontracting Plan (HSP Required >$100K): 26.0% Other Services HUB Goal + 3 TX/SLED Refs"
+    elif j_key == "virginia":
+        compliance_posture = "VITA SEC 530 Enterprise Cloud Standard • SOC 2 Type II • Virginia IT Accessibility Act VPAT"
+        teaming_posture = "Virginia DSBSD SWaM Plan: 42% Small, Women- & Minority-Owned (SWaM) Goal + 3 Public-Sector Refs"
+    elif j_key == "florida":
+        if any(k in blob_low for k in ("correction", "law enforcement", "police", "sheriff", "court", "justice", "fdc", "fdle")):
+            compliance_posture = "FBI CJIS Security Policy v5.9.4 • FAC 60GG-2 Cybersecurity • SOC 2 Type II + VPAT"
+        else:
+            compliance_posture = "Florida Digital Service FAC 60GG-2 Security • SOC 2 Type II • Section 508 / WCAG 2.1 AA"
+        teaming_posture = "FL OSD Certified Minority / Veteran Business Enterprise (CMBE/VBE) Teaming + 3 SLED Past Performance Refs"
+    elif j_key == "maryland":
+        compliance_posture = "Maryland DoIT IT Security Manual • SOC 2 Type II / NIST 800-53 • MD Non-Visual Access (NVA) VPAT"
+        teaming_posture = "Maryland MBE (15%–29% Sub Goal) + VSBE (1%–5% Veteran Goal) Participation + 3 Public-Sector Refs"
+    elif j_key == "california":
+        compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
+        teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
+    else:
+        compliance_posture = "SOC 2 Type II / NIST CSF 2.0 • Encryption in Transit/Rest • Section 508 / WCAG 2.1 AA VPAT"
+        teaming_posture = "Local SBE / MWBE Good-Faith Subcontracting (15%–25%) + 3 Public-Sector Past Performance Refs"
+
     return {
         "id": rec_id,
         "title": clean_title,
@@ -341,6 +373,8 @@ def enrich_contract_dossier(record: dict) -> dict:
         "primary_psc": primary_psc,
         "primary_nigp": primary_nigp,
         "sba_size_standard": sba_threshold,
+        "compliance_posture": compliance_posture,
+        "teaming_posture": teaming_posture,
         "win_themes": win_themes[:3],
         "evidence_needed": evidence_checklist[:2],
         "enriched_at": datetime.now(timezone.utc).isoformat(),
@@ -353,6 +387,11 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
     vertical = dossier.get("vertical") or classify_vertical_tag(dossier)
     themes_formatted = "\n".join(f"  • {t}" for t in dossier.get("win_themes", [])[:3])
     nigp_part = f" | NIGP `{dossier['primary_nigp']}`" if dossier.get("primary_nigp") else ""
+    posture_line = ""
+    if dossier.get("compliance_posture") or dossier.get("teaming_posture"):
+        c_pos = dossier.get("compliance_posture") or "SOC 2 Type II / Section 508 VPAT"
+        t_pos = dossier.get("teaming_posture") or "13 CFR § 125.6 (50% Rule) + 3 Past Performance Refs"
+        posture_line = f"**Cyber Compliance & Teaming Posture:** `{c_pos}` | `{t_pos}`\n"
     evidence_lines = ""
     if dossier.get("evidence_needed"):
         ev_formatted = "\n".join(f"  • {e}" for e in dossier["evidence_needed"][:2])
@@ -363,6 +402,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         f"**Solicitation:** {clean_title}\n"
         f"**Buyer Agency:** {dossier['agency']} | **Closing Date:** `{dossier['closing_date']}`\n"
         f"**Industry & Size Classification:** NAICS `{dossier['primary_naics']}` | PSC `{dossier['primary_psc']}`{nigp_part} | SBA Size: `{dossier['sba_size_standard']}`\n"
+        f"{posture_line}"
         f"**Tailored Shipley Win Strategy:**\n{themes_formatted}\n"
         f"{evidence_lines}"
         f"**Official Portal:** <{dossier['source_url']}>\n"

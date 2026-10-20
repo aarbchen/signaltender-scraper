@@ -14,7 +14,9 @@
       "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
       "Fixed-price milestone predictability with senior cleared technical key personnel."
     ],
-    "enriched_at": "2026-10-18T04:15:14.950654+00:00"
+    "enriched_at": "2026-10-18T04:15:14.950654+00:00",
+    "compliance_posture": "Maryland DoIT Security Manual \u2022 NIST 800-53 \u2022 MD NVA VPAT",
+    "teaming_posture": "Maryland MBE (15%\u201329% Goal) + VSBE (1%\u20135% Goal) + 3 Public Refs"
   },
   "352": {
     "id": "352",
@@ -38,7 +40,9 @@
       "Three signed client references from state/county Department of Corrections agencies deployed in past 5 years with quantified metrics: system uptime %, data integration completion timeline, end-user adoption rate, and corrections-specific use cases (e.g., offender intelligence aggregation, interdepartmental information sharing).",
       "Current SOC 2 Type II audit report (dated within 18 months), CJIS compliance certification letter from state law enforcement authority, and accessibility compliance test report (VPAT or equivalent) documenting Section 508/WCAG 2.1 AA conformance across web and mobile interfaces."
     ],
-    "enriched_at": "2026-10-20T18:53:15.632845+00:00"
+    "enriched_at": "2026-10-20T18:53:15.632845+00:00",
+    "compliance_posture": "FBI CJIS Security Policy v5.9.4 \u2022 FAC 60GG-2 \u2022 SOC 2 Type II + VPAT",
+    "teaming_posture": "FL OSD Certified Minority / Veteran (CMBE/VBE) Teaming + 3 SLED Refs"
   },
   "522": {
     "id": "522",
@@ -62,7 +66,9 @@
       "**Technical Proof:** Independent security assessment report (SOC 2 Type II or FedRAMP Authority to Operate letter) and VPAT (Voluntary Product Accessibility Template) certification confirming WCAG 2.1 AA compliance across all platform modules with remediation timeline.",
       "**Past Performance Documentation:** Three signed client reference letters from U.S. public sector agencies (government, education, or public recreation departments) within last 3 years detailing platform uptime metrics, user count supported, implementation duration, and quantified business outcomes (cost savings, user adoption rates)."
     ],
-    "enriched_at": "2026-10-20T18:51:57.442882+00:00"
+    "enriched_at": "2026-10-20T18:51:57.442882+00:00",
+    "compliance_posture": "VITA SEC 530 Cloud Standard \u2022 SOC 2 Type II \u2022 VA Accessibility VPAT",
+    "teaming_posture": "Virginia DSBSD SWaM Plan (42% Goal) + 3 Public-Sector Refs"
   },
   "521": {
     "id": "521",
@@ -86,6 +92,8 @@
       "Third-party SOC 2 Type II audit report or FedRAMP authorization confirming security controls, data encryption (in-transit/at-rest), and disaster recovery/business continuity capabilities meeting Texas public sector cybersecurity requirements.",
       "Three customer reference letters from public community colleges or universities (preferably Texas ESBD-registered institutions) detailing lecture capture deployment scale, system uptime achievement, accessibility compliance validation, and training effectiveness with measurable adoption rates."
     ],
-    "enriched_at": "2026-10-20T18:52:31.421514+00:00"
+    "enriched_at": "2026-10-20T18:52:31.421514+00:00",
+    "compliance_posture": "TX-RAMP Level 2 \u2022 Texas DIR Security \u2022 TAC 206 WCAG 2.1 AA VPAT",
+    "teaming_posture": "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Past Perf Refs"
   }
 }

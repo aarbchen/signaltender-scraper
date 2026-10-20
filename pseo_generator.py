@@ -528,6 +528,17 @@ def generate_pseo_site() -> int:
         seen_titles = set()
         spam_ids_to_purge = []
 
+        cached_dossiers = {}
+        dossier_cache_path = os.path.join(BASE_DIR, "capturedesk_dossiers.json")
+        if os.path.exists(dossier_cache_path):
+            try:
+                with open(dossier_cache_path, "r", encoding="utf-8") as df:
+                    loaded_d = json.load(df)
+                    if isinstance(loaded_d, dict):
+                        cached_dossiers = loaded_d
+            except Exception:
+                cached_dossiers = {}
+
         for idx, rec in enumerate(raw_records, 1):
             if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
                 continue
@@ -557,18 +568,75 @@ def generate_pseo_site() -> int:
             j_key = classify_jurisdiction(rec)
             cats = classify_categories(rec)
             due_str = due_dt.strftime("%Y-%m-%d") if due_dt else ""
+            clean_t = clean_display_title(raw_title)
+            agency_str = str(rec.get("agency") or "Government Agency").strip()
+
+            d_cached = cached_dossiers.get(rec_id, {}) if isinstance(cached_dossiers, dict) else {}
+            if d_cached.get("primary_naics"):
+                naics_display = str(d_cached["primary_naics"]).split("—")[0].strip() + " / 541512"
+            elif "cloud-infrastructure" in cats:
+                naics_display = "518210 / 541512"
+            elif "cybersecurity" in cats:
+                naics_display = "541519 / 541512"
+            else:
+                naics_display = "541512 / 541511"
+
+            raw_sba = str(d_cached.get("sba_size_standard") or "$34.0M")
+            sba_cap = raw_sba.split()[0] if raw_sba else "$34.0M"
+
+            blob_low = f"{clean_t} {agency_str}".lower()
+            if d_cached.get("compliance_posture"):
+                compliance_posture = str(d_cached["compliance_posture"])
+            elif j_key == "federal":
+                if any(k in blob_low for k in ("dod", "defense", "army", "navy", "air force", "space force", "darpa", "disa")):
+                    compliance_posture = "CMMC 2.0 L2 • NIST 800-171 • DFARS 252.204-7012"
+                else:
+                    compliance_posture = "FedRAMP Mod • FAR 52.204-21 • Section 508 VPAT"
+            elif j_key == "texas":
+                compliance_posture = "TX-RAMP Level 2 • DIR Security • TAC 206 VPAT"
+            elif j_key == "virginia":
+                compliance_posture = "VITA SEC 530 Cloud • SOC 2 Type II • VA VPAT"
+            elif j_key == "florida":
+                compliance_posture = "FL 60GG-2 / CJIS Security • SOC 2 Type II • VPAT"
+            elif j_key == "maryland":
+                compliance_posture = "MD DoIT Security • NIST 800-53 • MD NVA VPAT"
+            elif j_key == "california":
+                compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
+            else:
+                compliance_posture = "SOC 2 Type II • NIST CSF 2.0 • WCAG 2.1 AA VPAT"
+
+            if d_cached.get("teaming_posture"):
+                teaming_posture = str(d_cached["teaming_posture"])
+            elif j_key == "federal":
+                teaming_posture = "13 CFR § 125.6 (50% Rule) • 3 CPARS Vol. III Refs"
+            elif j_key == "texas":
+                teaming_posture = "TX HUB Plan (26.0% Goal) • 3 TX/SLED Past Perf Refs"
+            elif j_key == "virginia":
+                teaming_posture = "VA DSBSD SWaM (42% Goal) • 3 Public-Sector Refs"
+            elif j_key == "florida":
+                teaming_posture = "FL OSD CMBE/VBE Teaming • 3 SLED Past Perf Refs"
+            elif j_key == "maryland":
+                teaming_posture = "MD MBE (15–29%) + VSBE • 3 Public-Sector Refs"
+            elif j_key == "california":
+                teaming_posture = "CA DGS SB (5%) + DVBE • 3 State/Local Refs"
+            else:
+                teaming_posture = "Local SBE/MWBE Sub Plan • 3 Public-Sector Refs"
 
             enriched_contracts.append({
                 "id": rec_id,
                 "slug": slug,
                 "raw_title": raw_title,
-                "clean_title": clean_display_title(raw_title),
-                "agency": str(rec.get("agency") or "Government Agency").strip(),
-                "masked_agency": mask_agency_preview(str(rec.get("agency") or "Government Agency")),
+                "clean_title": clean_t,
+                "agency": agency_str,
+                "masked_agency": mask_agency_preview(agency_str),
                 "due_str": due_str,
                 "url": str(rec.get("url") or ""),
                 "jurisdiction": j_key,
                 "categories": cats,
+                "naics_display": naics_display,
+                "sba_cap": sba_cap,
+                "compliance_posture": compliance_posture,
+                "teaming_posture": teaming_posture,
             })
 
         if spam_ids_to_purge:
@@ -666,18 +734,26 @@ def generate_pseo_site() -> int:
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
                         <div class="text-[10px] text-sky-400 font-bold">01. AI CLASSIFICATION (API #08)</div>
-                        <div class="text-slate-200">NAICS <span class="text-white font-semibold">541512 / 541519</span> &bull; SBA Cap: <span class="text-emerald-400">$34.0M</span></div>
+                        <div class="text-slate-200">NAICS <span class="text-white font-semibold">{html.escape(c['naics_display'])}</span> &bull; SBA Cap: <span class="text-emerald-400">{html.escape(c['sba_cap'])}</span></div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
                         <div class="text-[10px] text-emerald-400 font-bold">02. CLIN LABOR BENCHMARKS (API #03)</div>
                         <div class="text-slate-200">Sr. Architect: <span class="text-emerald-400 font-bold">$162/hr</span> &bull; Lead Eng: <span class="text-emerald-400 font-bold">$146/hr</span></div>
+                      </div>
+                      <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
+                        <div class="text-[10px] text-indigo-400 font-bold">03. CYBER &amp; CLAUSE POSTURE (API #06 / #12)</div>
+                        <div class="text-slate-200">{html.escape(c['compliance_posture'])}</div>
+                      </div>
+                      <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
+                        <div class="text-[10px] text-amber-400 font-bold">04. TEAMING &amp; PAST PERFORMANCE (API #11 / #15)</div>
+                        <div class="text-slate-200">{html.escape(c['teaming_posture'])}</div>
                       </div>
                     </div>
 
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1">
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
-                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix &amp; FAR/DFARS Redlines:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06</span></div>
+                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
                       <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
@@ -723,10 +799,10 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">13 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">15 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 13 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 15 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
                   <a href="../../apis.html#product-past-performance" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
                     Explore 15 APIs &amp; MCP Server &rarr;
@@ -1113,6 +1189,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             "jurisdiction": c["jurisdiction"],
             "categories": c["categories"],
             "tags": tags[:2],
+            "naics_display": c["naics_display"],
+            "sba_cap": c["sba_cap"],
+            "compliance_posture": c["compliance_posture"],
+            "teaming_posture": c["teaming_posture"],
         })
 
     contracts_json = json.dumps(spa_contracts)
@@ -1348,17 +1428,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                     '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
                         '<div class="text-[10px] text-sky-400 font-bold">01. AI CLASSIFICATION (API #08)</div>' +
-                        '<div class="text-slate-200">NAICS <span class="text-white font-semibold">541512 / 541519</span> &bull; SBA Cap: <span class="text-emerald-400">$34.0M</span></div>' +
+                        '<div class="text-slate-200">NAICS <span class="text-white font-semibold">' + esc(item.naics_display || '541512 / 541519') + '</span> &bull; SBA Cap: <span class="text-emerald-400">' + esc(item.sba_cap || '$34.0M') + '</span></div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
                         '<div class="text-[10px] text-emerald-400 font-bold">02. CLIN LABOR BENCHMARKS (API #03)</div>' +
                         '<div class="text-slate-200">Sr. Architect: <span class="text-emerald-400 font-bold">$162/hr</span> &bull; Lead Eng: <span class="text-emerald-400 font-bold">$146/hr</span></div>' +
                       '</div>' +
+                      '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
+                        '<div class="text-[10px] text-indigo-400 font-bold">03. CYBER &amp; CLAUSE POSTURE (API #06 / #12)</div>' +
+                        '<div class="text-slate-200">' + esc(item.compliance_posture || 'SOC 2 Type II • NIST 800-171 • Section 508 VPAT') + '</div>' +
+                      '</div>' +
+                      '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
+                        '<div class="text-[10px] text-amber-400 font-bold">04. TEAMING &amp; PAST PERFORMANCE (API #11 / #15)</div>' +
+                        '<div class="text-slate-200">' + esc(item.teaming_posture || '13 CFR § 125.6 (50% Rule) • 3 Past Perf Refs') + '</div>' +
+                      '</div>' +
                     '</div>' +
                     '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
                       '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
                       '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
-                      '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix &amp; FAR/DFARS Redlines:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06</span></div>' +
+                      '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15</span></div>' +
                     '</div>' +
                     '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
                       '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
@@ -1399,10 +1487,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">13 LIVE APIs &amp; MCP SERVER</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">15 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 13 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
+                    'Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 15 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
                   '<a href="#product-past-performance" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
                     'Explore 15 APIs &amp; MCP Server &rarr;' +

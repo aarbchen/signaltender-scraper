@@ -514,7 +514,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.0.0"
+            version: "1.1.0"
           }
         }
       });
