@@ -33,7 +33,8 @@ const RAPIDAPI_HOSTS = {
   extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
   generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
   answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
-  match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com"
+  match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
+  analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -345,6 +346,29 @@ const TOOLS = [
       },
       required: ["lcat_or_rfp_requirements", "candidate_resume_text"]
     }
+  },
+  {
+    name: "analyze_rfp_amendment_diff",
+    description:
+      "API #14: Diff base RFP/SOW text against SF-30 Solicitation Amendments, SLED Addenda, and official Government Q&A clarification matrices to flag altered mandates, deadline extensions, CLIN pricing changes, and invalidated proposal sections.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        base_solicitation_text: {
+          type: "string",
+          description: "Raw text from the base RFP, Statement of Work (Section C), Instructions (Section L), Pricing Schedule (Section B), or Evaluation Criteria (Section M)."
+        },
+        amendment_or_qa_text: {
+          type: "string",
+          description: "Raw text from one or more SF-30 Solicitation Amendments, SLED Addenda, or official Government Q&A clarification matrices."
+        },
+        current_proposal_outline: {
+          type: "string",
+          description: "Optional summary of the bidder's existing proposal outline, page budget, or technical baseline to audit for invalidated sections."
+        }
+      },
+      required: ["base_solicitation_text", "amendment_or_qa_text"]
+    }
   }
 ];
 
@@ -361,7 +385,8 @@ const ENDPOINT_MAP = {
   extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" },
   generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" },
   answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" },
-  match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" }
+  match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" },
+  analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {

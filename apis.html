@@ -123,7 +123,7 @@
       <!-- Primary Multi-Page & Section Navigation -->
       <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">&larr; Main Platform</a>
-        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (13)</a>
+        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (14)</a>
         <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
         <a href="index.html#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
       </nav>
@@ -225,7 +225,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">13 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">14 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -253,7 +253,7 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (13)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (14)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (3)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (3)</button>
@@ -469,6 +469,24 @@
                   <span class="text-amber-400">&darr;</span>
                 </div>
               </a>
+
+              <!-- Directory Row 14 -->
+              <a href="#product-amendment-diff" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">14</span>
+                  <div class="min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors truncate">RFP Amendment &amp; Q&amp;A Change-Impact Analyzer API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-400 text-navy-950 font-bold shrink-0">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">POST /v1/analyze/amendment-diff &bull; SF-30 Amendment Diff, Q&amp;A Rulings &amp; Proposal Section Redrafter</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-200 text-[11px]">$0 &ndash; $399/mo</span>
+                  <span class="text-cyan-400">&darr;</span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -505,7 +523,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">13 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">14 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -552,10 +570,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">13 / 13 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">14 / 14 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (13)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (14)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -2860,6 +2878,190 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 14: RFP AMENDMENT & Q&A CHANGE-IMPACT ANALYZER API
+           ================================================================= -->
+      <article id="product-amendment-diff" class="scroll-mt-24 rounded-2xl bg-navy-950 border border-cyan-500/40 shadow-2xl overflow-hidden relative">
+        <!-- Top Module Strip -->
+        <div class="px-6 py-4 bg-gradient-to-r from-cyan-950/60 via-navy-900 to-navy-900 border-b border-cyan-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="px-2.5 py-1 text-xs font-mono font-bold uppercase rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+              API #14 &bull; SF-30 AMENDMENT DIFF, Q&amp;A IMPACT &amp; RED-TEAM REWRITER
+            </span>
+            <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-cyan-400 text-navy-950">
+              NEW RELEASE
+            </span>
+            <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+              POST /v1/analyze/amendment-diff
+            </span>
+            <span class="hidden sm:inline text-xs font-mono text-slate-400">
+              Host: <code class="text-slate-300">rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com</code>
+            </span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-amendment-diff')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-colors cursor-pointer"
+            >
+              &#9654; Test Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-xs font-mono font-bold text-navy-950 shadow-md shadow-cyan-950/50 transition-colors"
+            >
+              Subscribe on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body: 12-Col Grid -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+          <!-- Left 7 Cols: Specs & 4-Tier Pricing -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div>
+              <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                RFP Amendment &amp; Q&amp;A Change-Impact Analyzer API
+              </h2>
+              <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                Diffs base RFP/SOW text against <code class="text-cyan-300 font-mono">SF-30 Solicitation Amendments</code>, SLED Addenda, and official <code class="text-cyan-300 font-mono">Government Q&amp;A clarification matrices</code>. Flags altered <code class="text-cyan-300 font-mono">shall/must</code> mandates, deadline extensions, CLIN pricing model shifts, and de-facto requirements created by Q&amp;A answers, generates <strong class="text-white">FAR 15.206 SF-30 acknowledgment instructions</strong>, and writes ready-to-paste <strong class="text-white">Shipley redraft paragraphs</strong> for invalidated proposal sections.
+              </p>
+
+              <!-- Product-Specific Features Grid -->
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">SF-30 &amp; Section C/L/M Delta Tracking</div>
+                    <div class="text-slate-400 mt-0.5">Pinpoints modified shall mandates, page limit changes, deadline extensions, and CLIN pricing conversions.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Government Q&amp;A De-Facto Requirement Detector</div>
+                    <div class="text-slate-400 mt-0.5">Flags when Contracting Officer Q&amp;A responses introduce binding technical specs or relax LCAT rules.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">FAR 15.206 SF-30 Acknowledgment Guardrail</div>
+                    <div class="text-slate-400 mt-0.5">Outputs exact Block 15A&ndash;15C signature &amp; cover letter instructions to prevent administrative rejection.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Invalidated Proposal Section Redrafter</div>
+                    <div class="text-slate-400 mt-0.5">Audits your existing proposal outline and drafts ready-to-paste replacement copy for obsolete sections.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 14 RapidAPI Tiers -->
+            <div class="pt-4 border-t border-slate-800/80">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                <span>RFP AMENDMENT &amp; Q&amp;A ANALYZER API &mdash; RAPIDAPI ACCESS TIERS</span>
+                <a href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api/pricing" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">View Plans &nearr;</a>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">10 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-cyan-400 uppercase font-semibold">PRO</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">200 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/40 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-cyan-300 uppercase font-semibold">ULTRA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-white font-semibold">1,000 req/mo</div>
+                    <div class="text-cyan-300 text-[10px]">+$0.15 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-cyan-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$399<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">4,000 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Dedicated Terminal Preview -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">RESPONSE // AmendmentDiffResponse</span>
+                <span class="text-cyan-400">REWORK RISK: 82/100 &bull; SF-30 MOD 0002</span>
+              </div>
+              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                <pre class="text-slate-200 whitespace-pre-wrap break-words text-[11px] mb-3 pb-3 border-b border-slate-800/80"><code><span class="text-emerald-400">$</span> curl --request POST \
+  --url <span class="text-amber-200">'https://rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com/v1/analyze/amendment-diff'</span> \
+  --header <span class="text-sky-300">'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY'</span> \
+  --header <span class="text-sky-300">'Content-Type: application/json'</span> \
+  --data <span class="text-cyan-300">'{"base_solicitation_text":"RFP FA8732-26-R-0018: Due Nov 10, Vol I 25pp, FedRAMP Moderate 5k users, CLIN 0001 FFP...","amendment_or_qa_text":"SF-30 Mod 0002: Extended to Nov 24, Vol I 35pp, FedRAMP High/IL5 15k users, CLIN 0001 T&amp;M $4.2M NTE, Q19 Splunk STIG logs mandatory..."}'</span></code></pre>
+                <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"amendment_impact_summary"</span>: {
+    <span class="text-sky-400">"overall_change_severity"</span>: <span class="text-amber-300">"CRITICAL_REWRITE_REQUIRED"</span>,
+    <span class="text-sky-400">"rework_risk_score"</span>: <span class="text-cyan-400">82</span>,
+    <span class="text-sky-400">"updated_submission_deadline"</span>: <span class="text-emerald-300">"2026-11-24T17:00:00-05:00"</span>,
+    <span class="text-sky-400">"sf30_acknowledgment_instruction"</span>: <span class="text-slate-200">"Sign SF-30 Mod 0002 Blocks 15A-15C in Vol I Cover"</span>
+  },
+  <span class="text-sky-400">"requirement_and_clin_deltas"</span>: [
+    {
+      <span class="text-sky-400">"delta_id"</span>: <span class="text-slate-100">"DELTA-001"</span>,
+      <span class="text-sky-400">"change_type"</span>: <span class="text-cyan-300">"MODIFIED_SHALL_MANDATE"</span>,
+      <span class="text-sky-400">"affected_rfp_section"</span>: <span class="text-emerald-300">"Section C.3.1 (FedRAMP High / IL5)"</span>
+    }
+  ]
+}</code></pre>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-cyan-300">requirement_and_clin_deltas[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">qa_clarification_rulings[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">invalidated_proposal_sections[]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -3439,6 +3641,48 @@
                 </td>
               </tr>
 
+              <!-- Matrix Row 14: RFP Amendment & Q&A Change-Impact Analyzer API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-cyan-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-sans font-bold text-sm text-white">RFP Amendment &amp; Q&amp;A Change-Impact API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="text-cyan-300 text-[11px] mt-0.5">POST /v1/analyze/amendment-diff</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">SF-30 Amendment Diff, Q&amp;A Impact &amp; Section Redrafter</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-cyan-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-cyan-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-cyan-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-cyan-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -3552,6 +3796,9 @@
               <a href="https://rapidapi.com/aarbchen/api/govcon-key-personnel-lcat-resume-tailoring-api" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors">13. GovCon Key Personnel &amp; LCAT Resume API (/v1/match/key-personnel) &nearr;</a>
             </li>
             <li>
+              <a href="https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">14. RFP Amendment &amp; Q&amp;A Change-Impact API (/v1/analyze/amendment-diff) &nearr;</a>
+            </li>
+            <li>
               <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">Interactive OpenAPI Documentation (/docs) &nearr;</a>
             </li>
           </ul>
@@ -3655,7 +3902,7 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (13)</span>
+              <span>SELECT MICROSERVICE (14)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
@@ -4018,6 +4265,22 @@
             lcat_or_rfp_requirements: "Section L.4.2 Key Personnel - Lead Zero-Trust Cloud Architect (GSA MAS SIN 54151S SME III): Must possess an active DoD Top Secret clearance, Master's degree in Computer Science or Information Assurance (or Bachelor's + 4 additional years of specialized experience), minimum 10 years of federal cloud architecture experience including 5 years leading AWS GovCloud / FedRAMP High migrations, and active DoD 8570 IAM Level III (CISSP or CISM) certification.",
             candidate_resume_text: "Jane Doe | Active Top Secret / SCI Clearance | Certifications: ISC2 CISSP, AWS Certified Solutions Architect - Professional, PMP. Education: B.S. in Computer Engineering, Virginia Tech (2011). Experience (14 yrs total): Principal Cloud Architect at Apex Defense Systems (2018-Present, 8 yrs) — Led 6 DoD and DISA IL5/FedRAMP High cloud migrations on AWS GovCloud and Kubernetes; Senior Systems Engineer at CyberCore Federal (2012-2018, 6 yrs) — Designed RMF / NIST 800-53 zero-trust enclaves for U.S. Navy SPAWAR.",
             allow_education_experience_substitution: true
+          }
+        },
+        'product-amendment-diff': {
+          num: '14',
+          id: 'product-amendment-diff',
+          title: 'RFP Amendment & Q&A Change-Impact Analyzer API',
+          method: 'POST',
+          path: '/v1/analyze/amendment-diff',
+          host: 'rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/rfp-amendment-q-a-change-impact-analyzer-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            base_solicitation_text: "RFP FA8732-26-R-0018 (Base Solicitation): Section L.4: Proposals are due November 10, 2026 at 14:00 EST. Volume I Technical Approach shall not exceed 25 pages. Section C.3.1: The Contractor shall deploy a FedRAMP Moderate cloud data platform supporting 5,000 concurrent users. Section C.4.2: Key Personnel Lead Cloud Architect must hold an active Top Secret clearance and AWS Solutions Architect Professional certification. Section B CLIN 0001: Base Year Cloud Migration Engineering (Firm-Fixed-Price).",
+            amendment_or_qa_text: "SF-30 AMENDMENT 0002 (Issued Oct 20, 2026): 1. Block 11: The proposal due date is hereby extended from November 10, 2026 to November 24, 2026 at 17:00 EST. 2. Section L.4 is revised to increase Volume I Technical Approach page limit from 25 pages to 35 pages. 3. Section C.3.1 is replaced in its entirety: The Contractor shall deploy a FedRAMP High and DoD IL5 authorized cloud data platform supporting 15,000 concurrent users with zero-trust microsegmentation. 4. Section B CLIN 0001 is converted from Firm-Fixed-Price (FFP) to Time-and-Materials (T&M) with a Not-to-Exceed (NTE) ceiling of $4,200,000. GOVERNMENT Q&A LOG — Q12: Will the Government accept a Secret clearance with an active Top Secret sponsorship for the Lead Cloud Architect? Answer Q12: Yes, an active Secret clearance with Top Secret adjudication in progress is acceptable at proposal submission. Q19: Does the Government require native SIEM telemetry forwarding into the agency's Splunk Cloud instance? Answer Q19: Yes, real-time STIG-compliant log forwarding to the agency Splunk Cloud environment is mandatory under Section C.3.1.",
+            current_proposal_outline: "Volume I Technical (25 pages max): Sec 1.0 Executive Summary; Sec 2.0 FedRAMP Moderate Architecture (5,000 users); Sec 3.0 Key Personnel (Top Secret required at submission); Volume III Pricing: CLIN 0001 FFP Milestone Schedule."
           }
         }
       };
@@ -4458,7 +4721,8 @@
         'product-pricing-extractor': { cat: 'pricing', kw: '10 b2b quote invoice clin table extractor section b slin rate card bom math validation /v1/extract/pricing-schedule' },
         'product-teaming-strategy': { cat: 'capture', kw: '11 govcon teaming partner subcontracting plan 13 cfr 125.6 50% rule ostensible subcontractor far 9.6 /v1/generate/teaming-strategy' },
         'product-security-questionnaire': { cat: 'compliance', kw: '12 soc 2 fedramp nist 800-171 security questionnaire responder caiq sig hecvat sprs poa&m /v1/audit/security-questionnaire' },
-        'product-key-personnel': { cat: 'capture', kw: '13 govcon key personnel lcat resume tailoring gsa mas oasis+ dod 8570 8140 clearance shipley bio letter of commitment loc /v1/match/key-personnel' }
+        'product-key-personnel': { cat: 'capture', kw: '13 govcon key personnel lcat resume tailoring gsa mas oasis+ dod 8570 8140 clearance shipley bio letter of commitment loc /v1/match/key-personnel' },
+        'product-amendment-diff': { cat: 'rfp', kw: '14 rfp amendment q&a change-impact analyzer sf-30 sf30 mod addendum delta far 15.206 invalidated proposal section redraft /v1/analyze/amendment-diff' }
       };
 
       var currentApiQuery = '';

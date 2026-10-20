@@ -228,6 +228,33 @@ ENDPOINTS = [
             "allow_education_experience_substitution": True,
         },
     },
+    {
+        "id": "API 14",
+        "name": "RFP Amendment & Q&A Change-Impact Analyzer API",
+        "method": "POST",
+        "path": "/v1/analyze/amendment-diff",
+        "rapid_host": "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
+        "payload": {
+            "base_solicitation_text": (
+                "RFP FA8732-26-R-0018 (Base Solicitation): Section L.4: Proposals are due November 10, 2026 at 14:00 EST. "
+                "Volume I Technical Approach shall not exceed 25 pages. Section C.3.1: The Contractor shall deploy a FedRAMP Moderate "
+                "cloud data platform supporting 5,000 concurrent users. Section C.4.2: Key Personnel Lead Cloud Architect must hold an "
+                "active Top Secret clearance. Section B CLIN 0001: Base Year Cloud Migration Engineering (Firm-Fixed-Price)."
+            ),
+            "amendment_or_qa_text": (
+                "SF-30 AMENDMENT 0002 (Issued Oct 20, 2026): 1. Block 11: The proposal due date is extended from November 10, 2026 to "
+                "November 24, 2026 at 17:00 EST. 2. Section L.4 is revised to increase Volume I page limit from 25 pages to 35 pages. "
+                "3. Section C.3.1 is replaced: The Contractor shall deploy a FedRAMP High and DoD IL5 authorized cloud data platform "
+                "supporting 15,000 concurrent users. 4. Section B CLIN 0001 is converted from FFP to T&M ($4,200,000 NTE). "
+                "Q&A #12: Active Secret clearance with Top Secret adjudication in progress is acceptable at submission. "
+                "Q&A #19: Real-time STIG-compliant log forwarding to the agency Splunk Cloud environment is mandatory."
+            ),
+            "current_proposal_outline": (
+                "Volume I Technical (25 pages max): Sec 1.0 Executive Summary; Sec 2.0 FedRAMP Moderate Architecture (5,000 users); "
+                "Sec 3.0 Key Personnel (Top Secret required at submission); Volume III Pricing: CLIN 0001 FFP Schedule."
+            ),
+        },
+    },
 ]
 
 

@@ -1,0 +1,319 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "RFP Amendment & Q&A Change-Impact Analyzer API",
+    "version": "1.0.0",
+    "description": "Stateless AI SF-30 Solicitation Amendment & Government Q&A Change-Impact Diff Engine, FAR 15.206 Acknowledgment Auditor, Requirement/CLIN Delta Tracker, and Invalidated Proposal Section Redrafter."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "SignalTender Production FastAPI Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/analyze/amendment-diff": {
+      "post": {
+        "tags": [
+          "RFP Amendment & Q&A Diff"
+        ],
+        "summary": "Analyze RFP Amendment & Q&A Change Impact",
+        "operationId": "Analyze RFP Amendment & Q&A Change Impact",
+        "description": "Diffs base RFP/SOW text against SF-30 Solicitation Amendments, SLED Addenda, and official Government Q&A clarification matrices. Returns an executive rework risk score (0-100), mandatory FAR 15.206 SF-30 acknowledgment instructions, requirement/CLIN/deadline deltas, de-facto requirements created by Q&A answers, and invalidated proposal outline sections paired with ready-to-paste Shipley redraft language.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AmendmentDiffRequest"
+              },
+              "example": {
+                "base_solicitation_text": "RFP FA8732-26-R-0018 (Base Solicitation): Section L.4: Proposals are due November 10, 2026 at 14:00 EST. Volume I Technical Approach shall not exceed 25 pages. Section C.3.1: The Contractor shall deploy a FedRAMP Moderate cloud data platform supporting 5,000 concurrent users. Section C.4.2: Key Personnel Lead Cloud Architect must hold an active Top Secret clearance and AWS Solutions Architect Professional certification. Section B CLIN 0001: Base Year Cloud Migration Engineering (Firm-Fixed-Price).",
+                "amendment_or_qa_text": "SF-30 AMENDMENT 0002 (Issued Oct 20, 2026): 1. Block 11: The proposal due date is hereby extended from November 10, 2026 to November 24, 2026 at 17:00 EST. 2. Section L.4 is revised to increase Volume I Technical Approach page limit from 25 pages to 35 pages. 3. Section C.3.1 is replaced in its entirety: The Contractor shall deploy a FedRAMP High and DoD IL5 authorized cloud data platform supporting 15,000 concurrent users with zero-trust microsegmentation. 4. Section B CLIN 0001 is converted from Firm-Fixed-Price (FFP) to Time-and-Materials (T&M) with a Not-to-Exceed (NTE) ceiling of $4,200,000. GOVERNMENT Q&A LOG — Q12: Will the Government accept a Secret clearance with an active Top Secret sponsorship for the Lead Cloud Architect? Answer Q12: Yes, an active Secret clearance with Top Secret adjudication in progress is acceptable at proposal submission. Q19: Does the Government require native SIEM telemetry forwarding into the agency's Splunk Cloud instance? Answer Q19: Yes, real-time STIG-compliant log forwarding to the agency Splunk Cloud environment is mandatory under Section C.3.1.",
+                "current_proposal_outline": "Volume I Technical (25 pages max): Sec 1.0 Executive Summary; Sec 2.0 FedRAMP Moderate Architecture (5,000 users); Sec 3.0 Key Personnel (Top Secret required at submission); Volume III Pricing: CLIN 0001 FFP Milestone Schedule."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful SF-30 Amendment & Q&A Change-Impact Analysis, Deltas & Proposal Section Redrafts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AmendmentDiffResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AmendmentSeverityLevel": {
+        "type": "string",
+        "enum": [
+          "CRITICAL_REWRITE_REQUIRED",
+          "HIGH_SCOPE_OR_PRICING_SHIFT",
+          "MODERATE_COMPLIANCE_UPDATE",
+          "ADMINISTRATIVE_ONLY"
+        ],
+        "title": "AmendmentSeverityLevel"
+      },
+      "AmendmentChangeType": {
+        "type": "string",
+        "enum": [
+          "ADDED_REQUIREMENT",
+          "MODIFIED_SHALL_MANDATE",
+          "DELETED_OR_RELAXED_REQUIREMENT",
+          "CLIN_OR_PRICING_CHANGE",
+          "PAGE_LIMIT_OR_FORMAT_CHANGE",
+          "EVALUATION_CRITERIA_SHIFT",
+          "DEADLINE_EXTENSION"
+        ],
+        "title": "AmendmentChangeType"
+      },
+      "DeltaItemSeverity": {
+        "type": "string",
+        "enum": [
+          "CRITICAL",
+          "HIGH",
+          "MEDIUM",
+          "LOW"
+        ],
+        "title": "DeltaItemSeverity"
+      },
+      "AmendmentDiffRequest": {
+        "type": "object",
+        "required": [
+          "base_solicitation_text",
+          "amendment_or_qa_text"
+        ],
+        "properties": {
+          "base_solicitation_text": {
+            "type": "string",
+            "minLength": 20,
+            "title": "Base Solicitation Text",
+            "description": "Raw text from the base RFP, Statement of Work (Section C), Instructions (Section L), Pricing Schedule (Section B), or Evaluation Criteria (Section M)."
+          },
+          "amendment_or_qa_text": {
+            "type": "string",
+            "minLength": 20,
+            "title": "Amendment Or Q&A Text",
+            "description": "Raw text from one or more SF-30 Solicitation Amendments, SLED Addenda, or official Government Q&A clarification matrices."
+          },
+          "current_proposal_outline": {
+            "type": "string",
+            "default": "Volume I: Technical Approach & Architecture; Volume II: Management & Key Personnel Staffing; Volume III: Past Performance; Volume IV: CLIN Pricing & Basis of Estimate (BOE)",
+            "title": "Current Proposal Outline",
+            "description": "Optional summary of the bidder's existing proposal outline, page budget, or technical baseline to audit for invalidated sections."
+          }
+        },
+        "title": "AmendmentDiffRequest"
+      },
+      "AmendmentImpactSummary": {
+        "type": "object",
+        "required": [
+          "solicitation_and_amendment_id",
+          "overall_change_severity",
+          "rework_risk_score",
+          "sf30_acknowledgment_instruction",
+          "executive_delta_summary"
+        ],
+        "properties": {
+          "solicitation_and_amendment_id": {
+            "type": "string",
+            "title": "Solicitation And Amendment Id"
+          },
+          "overall_change_severity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AmendmentSeverityLevel"
+              }
+            ],
+            "title": "Overall Change Severity"
+          },
+          "rework_risk_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "title": "Rework Risk Score"
+          },
+          "original_submission_deadline": {
+            "type": "string",
+            "nullable": true,
+            "title": "Original Submission Deadline"
+          },
+          "updated_submission_deadline": {
+            "type": "string",
+            "nullable": true,
+            "title": "Updated Submission Deadline"
+          },
+          "sf30_acknowledgment_instruction": {
+            "type": "string",
+            "title": "SF-30 Acknowledgment Instruction"
+          },
+          "executive_delta_summary": {
+            "type": "string",
+            "title": "Executive Delta Summary"
+          }
+        },
+        "title": "AmendmentImpactSummary"
+      },
+      "AmendmentChangeItem": {
+        "type": "object",
+        "required": [
+          "delta_id",
+          "change_type",
+          "severity",
+          "affected_rfp_section",
+          "original_baseline_text",
+          "amended_requirement_text",
+          "proposal_action_required"
+        ],
+        "properties": {
+          "delta_id": {
+            "type": "string",
+            "title": "Delta Id"
+          },
+          "change_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AmendmentChangeType"
+              }
+            ],
+            "title": "Change Type"
+          },
+          "severity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeltaItemSeverity"
+              }
+            ],
+            "title": "Severity"
+          },
+          "affected_rfp_section": {
+            "type": "string",
+            "title": "Affected RFP Section"
+          },
+          "original_baseline_text": {
+            "type": "string",
+            "title": "Original Baseline Text"
+          },
+          "amended_requirement_text": {
+            "type": "string",
+            "title": "Amended Requirement Text"
+          },
+          "proposal_action_required": {
+            "type": "string",
+            "title": "Proposal Action Required"
+          }
+        },
+        "title": "AmendmentChangeItem"
+      },
+      "QaClarificationImpact": {
+        "type": "object",
+        "required": [
+          "qa_reference_id",
+          "vendor_question_summary",
+          "government_official_answer",
+          "creates_de_facto_requirement",
+          "competitive_and_solution_impact"
+        ],
+        "properties": {
+          "qa_reference_id": {
+            "type": "string",
+            "title": "Q&A Reference Id"
+          },
+          "vendor_question_summary": {
+            "type": "string",
+            "title": "Vendor Question Summary"
+          },
+          "government_official_answer": {
+            "type": "string",
+            "title": "Government Official Answer"
+          },
+          "creates_de_facto_requirement": {
+            "type": "boolean",
+            "title": "Creates De Facto Requirement"
+          },
+          "competitive_and_solution_impact": {
+            "type": "string",
+            "title": "Competitive And Solution Impact"
+          }
+        },
+        "title": "QaClarificationImpact"
+      },
+      "InvalidatedProposalSection": {
+        "type": "object",
+        "required": [
+          "proposal_section_ref",
+          "invalidation_reason",
+          "recommended_redraft_text"
+        ],
+        "properties": {
+          "proposal_section_ref": {
+            "type": "string",
+            "title": "Proposal Section Ref"
+          },
+          "invalidation_reason": {
+            "type": "string",
+            "title": "Invalidation Reason"
+          },
+          "recommended_redraft_text": {
+            "type": "string",
+            "title": "Recommended Redraft Text"
+          }
+        },
+        "title": "InvalidatedProposalSection"
+      },
+      "AmendmentDiffResponse": {
+        "type": "object",
+        "required": [
+          "amendment_impact_summary",
+          "requirement_and_clin_deltas",
+          "qa_clarification_rulings",
+          "invalidated_proposal_sections"
+        ],
+        "properties": {
+          "amendment_impact_summary": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AmendmentImpactSummary"
+              }
+            ],
+            "title": "Amendment Impact Summary"
+          },
+          "requirement_and_clin_deltas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AmendmentChangeItem"
+            },
+            "title": "Requirement And CLIN Deltas"
+          },
+          "qa_clarification_rulings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QaClarificationImpact"
+            },
+            "title": "Q&A Clarification Rulings"
+          },
+          "invalidated_proposal_sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvalidatedProposalSection"
+            },
+            "title": "Invalidated Proposal Sections"
+          }
+        },
+        "title": "AmendmentDiffResponse"
+      }
+    }
+  }
+}
+

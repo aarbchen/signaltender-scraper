@@ -4,7 +4,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 
 ---
 
-## Included Tools (13 Live Endpoints)
+## Included Tools
 
 | # | MCP Tool Name | Underlying FastAPI Endpoint | What It Does |
 | :--- | :--- | :--- | :--- |
@@ -21,6 +21,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **11** | `generate_teaming_strategy` | `POST /v1/generate/teaming-strategy` | Generates 13 CFR § 125.6 (50% Rule) workshare splits, partner archetypes, and FAR 9.6 Teaming Agreement clauses. |
 | **12** | `answer_security_questionnaire` | `POST /v1/audit/security-questionnaire` | Auto-answers SOC 2, FedRAMP, NIST 800-171 & CAIQ/SIG security questionnaires with control citations & POA&Ms. |
 | **13** | `match_key_personnel` | `POST /v1/match/key-personnel` | Audits candidate resumes against RFP Key Personnel & GSA LCAT requirements, rewrites Shipley bios, and drafts LOCs. |
+| **14** | `analyze_rfp_amendment_diff` | `POST /v1/analyze/amendment-diff` | Diffs base RFPs against SF-30 Amendments & Q&A logs to flag altered mandates, CLIN changes & invalidated proposal sections. |
 
 ---
 
