@@ -179,6 +179,7 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
         payload = {
             "username": "SignalWire Pro",
             "content": message_content,
+            "flags": 4,
         }
         response = requests.post(
             webhook_url,
@@ -216,8 +217,15 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
     if not sub_rows or not records:
         return 0
 
-    blocks = [format_lead_block(rec) for rec in records[:10]]
-    combined_text = "\n\n".join(blocks)[:1900]
+    blocks = []
+    char_total = 0
+    for rec in records[:10]:
+        b = format_lead_block(rec)
+        if char_total + len(b) + 4 > 1900 and blocks:
+            break
+        blocks.append(b)
+        char_total += len(b) + 4
+    combined_text = "\n\n".join(blocks)
 
     for srow in sub_rows:
         try:
@@ -229,7 +237,7 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
             if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
                 payload = {"text": combined_text}
             elif "discord.com/api/webhooks" in u_low or "discordapp.com/api/webhooks" in u_low:
-                payload = {"username": "SignalWire Pro", "content": combined_text}
+                payload = {"username": "SignalWire Pro", "content": combined_text, "flags": 4}
             else:
                 payload = {
                     "event": "signaltender.signalwire.batch",

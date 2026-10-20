@@ -381,11 +381,19 @@ def enrich_contract_dossier(record: dict) -> dict:
     }
 
 
+def _clip_bullet(text: str, max_len: int = 230) -> str:
+    s = re.sub(r"\s+", " ", str(text or "").strip())
+    if len(s) <= max_len:
+        return s
+    cut = s[: max_len - 1].rsplit(" ", 1)[0].rstrip(",;:-")
+    return f"{cut}…"
+
+
 def format_capturedesk_discord_embed(dossier: dict) -> str:
     clean_title = strip_due_suffix(dossier.get("title", ""))
     j_badge = dossier.get("jurisdiction_badge") or JURISDICTION_LABELS.get(classify_jurisdiction(dossier), "FEDERAL // SAM.GOV")
     vertical = dossier.get("vertical") or classify_vertical_tag(dossier)
-    themes_formatted = "\n".join(f"  • {t}" for t in dossier.get("win_themes", [])[:3])
+    themes_formatted = "\n".join(f"  • {_clip_bullet(t, 175)}" for t in dossier.get("win_themes", [])[:3])
     nigp_part = f" | NIGP `{dossier['primary_nigp']}`" if dossier.get("primary_nigp") else ""
     posture_line = ""
     if dossier.get("compliance_posture") or dossier.get("teaming_posture"):
@@ -394,10 +402,10 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         posture_line = f"**Cyber Compliance & Teaming Posture:** `{c_pos}` | `{t_pos}`\n"
     evidence_lines = ""
     if dossier.get("evidence_needed"):
-        ev_formatted = "\n".join(f"  • {e}" for e in dossier["evidence_needed"][:2])
+        ev_formatted = "\n".join(f"  • {_clip_bullet(e, 165)}" for e in dossier["evidence_needed"][:2])
         evidence_lines = f"**Required Proof & Proposal Evidence:**\n{ev_formatted}\n"
 
-    return (
+    body = (
         f"**[{j_badge}]** • `{vertical}`\n"
         f"**Solicitation:** {clean_title}\n"
         f"**Buyer Agency:** {dossier['agency']} | **Closing Date:** `{dossier['closing_date']}`\n"
@@ -405,10 +413,16 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         f"{posture_line}"
         f"**Tailored Shipley Win Strategy:**\n{themes_formatted}\n"
         f"{evidence_lines}"
+    )
+    footer = (
         f"**Official Portal:** <{dossier['source_url']}>\n"
         f"**SignalTender Dossier:** <{dossier['dossier_url']}>\n"
         f"{'─' * 44}"
     )
+    max_body_len = 1920 - len(footer)
+    if len(body) > max_body_len:
+        body = body[: max_body_len - 4].rsplit(" ", 1)[0] + "…\n"
+    return body + footer
 
 
 def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> None:
@@ -469,20 +483,34 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> Non
         )
 
         if new_dossiers:
-            blocks = [format_capturedesk_discord_embed(d) for d in new_dossiers]
-            payload_text = "\n\n".join(blocks)[:1950]
-
             if DISCORD_CAPTUREDESK_WEBHOOK_URL:
-                r = requests.post(
-                    DISCORD_CAPTUREDESK_WEBHOOK_URL,
-                    json={
-                        "username": "CaptureDesk Autopilot",
-                        "content": payload_text,
-                    },
-                    timeout=15,
-                )
-                r.raise_for_status()
-                print(" -> [CaptureDesk] Dispatched CaptureDesk dossiers to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
+                import time
+                for d in new_dossiers:
+                    single_block = format_capturedesk_discord_embed(d)
+                    r = requests.post(
+                        DISCORD_CAPTUREDESK_WEBHOOK_URL,
+                        json={
+                            "username": "CaptureDesk Autopilot",
+                            "content": single_block,
+                            "flags": 4,
+                        },
+                        timeout=15,
+                    )
+                    if r.status_code == 429:
+                        retry_after = r.json().get("retry_after", 1.5)
+                        time.sleep(float(retry_after))
+                        r = requests.post(
+                            DISCORD_CAPTUREDESK_WEBHOOK_URL,
+                            json={
+                                "username": "CaptureDesk Autopilot",
+                                "content": single_block,
+                                "flags": 4,
+                            },
+                            timeout=15,
+                        )
+                    r.raise_for_status()
+                    time.sleep(0.5)
+                print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # Also dispatch to active Tier 2 subscriber external webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM)
             try:
@@ -500,7 +528,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> Non
                         if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
                             ext_payload = {"text": d_text}
                         elif "discord.com/api/webhooks" in u_low:
-                            ext_payload = {"username": "CaptureDesk Autopilot", "content": d_text}
+                            ext_payload = {"username": "CaptureDesk Autopilot", "content": d_text, "flags": 4}
                         else:
                             ext_payload = {
                                 "event": "signaltender.rfp_dossier.dispatched",
