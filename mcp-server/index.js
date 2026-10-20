@@ -139,7 +139,7 @@ const TOOLS = [
         },
         proposal_methodology: {
           type: "string",
-          enum: ["shipley", "federal_standard", "commercial_agile"],
+          enum: ["shipley", "standard_b2b", "federal_far"],
           default: "shipley",
           description: "Proposal structuring methodology."
         }
@@ -185,7 +185,7 @@ const TOOLS = [
         },
         target_pursuit_role: {
           type: "string",
-          enum: ["prime_contractor", "subcontractor", "either_prime_or_sub"],
+          enum: ["prime_contractor", "subcontractor_or_jv", "either_prime_or_sub"],
           default: "either_prime_or_sub"
         }
       },
