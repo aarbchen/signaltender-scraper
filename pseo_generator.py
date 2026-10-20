@@ -140,10 +140,16 @@ COMMODITY_IT_EXCLUSIONS = [
     r"wts-mobile",
     r"software\s*support",
     r"software\s*subscription",
-    r"software\s*synergy",
+    r"software:?\s*synergy",
     r"25ecert",
     r"oms-500",
     r"virtual\s+printer\s+driver",
+    r"\bassorted\s+hardware\b",
+    r"^\d{2}--",
+    r"\baiphone\b",
+    r"\bdc\s+and\s+ac\s+preferred\s+systems\b",
+    r"\bmissile\s+warning\s+system\b",
+    r"\bf-5\s+aircraft\s+award\b",
 ]
 
 
@@ -516,6 +522,7 @@ def generate_pseo_site() -> int:
         today = datetime.now().date()
         enriched_contracts = []
         seen_slugs = set()
+        seen_titles = set()
         spam_ids_to_purge = []
 
         for idx, rec in enumerate(raw_records, 1):
@@ -533,6 +540,12 @@ def generate_pseo_site() -> int:
                 continue
 
             rec_id = str(rec.get("id") or idx)
+            norm_title = re.sub(r"[^a-z0-9]+", " ", clean_display_title(raw_title).lower()).strip()
+            if norm_title in seen_titles:
+                if rec.get("id"):
+                    spam_ids_to_purge.append(rec["id"])
+                continue
+            seen_titles.add(norm_title)
             slug = slugify(raw_title, fallback_id=rec_id)
             if slug in seen_slugs:
                 continue
@@ -767,7 +780,7 @@ def generate_pseo_site() -> int:
                 {html.escape(j_meta['headline'])}
               </h1>
               <p class="text-slate-300 text-sm sm:text-base max-w-3xl">
-                {html.escape(j_meta['description'])} Filtered automatically every 6 hours by SignalTender's 3-layer B2B quality control engine.
+                {html.escape(j_meta['description'])} Filtered automatically every 6 hours by SignalTender&apos;s 3-layer B2B quality control engine.
               </p>
               <div class="flex flex-wrap gap-2 pt-2">
                 {cat_pills_html}
@@ -1116,15 +1129,18 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     </div>
 
     <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <a href="#overview" class="flex items-center space-x-2 shrink-0">
-          <svg class="w-6 h-6 shrink-0" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="6" />
-            <circle cx="32" cy="24" r="5" fill="#38BDF8" />
-            <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <span class="text-lg font-bold tracking-tight text-white">SignalTender</span>
-          <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">LIVE RFP INDEX</span>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <a href="#overview" class="flex flex-col justify-center shrink-0">
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 shrink-0" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="6" />
+              <circle cx="32" cy="24" r="5" fill="#38BDF8" />
+              <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-lg font-bold tracking-tight text-white leading-none whitespace-nowrap">SignalTender</span>
+            <span class="inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-widest px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">LIVE RFP INDEX</span>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400 tracking-tight whitespace-nowrap mt-1">FEDERAL &amp; 5-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1136,7 +1152,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/maryland" class="hover:text-sky-400 transition-colors">Maryland</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
-        <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
+        <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
           Unlock All RFP Links &rarr;
         </a>
       </div>
@@ -1229,7 +1245,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           emptyRow = document.createElement('tr');
           emptyRow.id = 'contracts-live-empty';
           emptyRow.className = 'hidden';
-          emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query. <button type="button" onclick="window.filterContractsDirectory(\'\')" class="text-sky-400 underline ml-1 cursor-pointer">Reset filter</button></td>';
+          emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query. <button type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="text-sky-400 underline ml-1 cursor-pointer">Reset filter</button></td>';
           tbody.appendChild(emptyRow);
         }}
         if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
@@ -1338,7 +1354,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                       '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix &amp; FAR/DFARS Redlines:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06</span></div>' +
                     '</div>' +
                     '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
-                      '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
+                      '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
                         'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +
                       '</a>' +
                       '<a href="#product-compliance-matrix" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors">' +
@@ -1368,10 +1384,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                     '<li>&check; Direct One-Click Official Portal Links</li>' +
                     '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
                   '</ul>' +
-                  '<a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
+                  '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
                     'Start Tier 1 Leads ($99/mo) &rarr;' +
                   '</a>' +
-                  '<a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">' +
+                  '<a href="#checkout-tier2" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">' +
                     'Launch Tier 2 CaptureDesk ($399/mo) &rarr;' +
                   '</a>' +
                 '</div>' +
@@ -1430,7 +1446,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(\'\')" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -1480,7 +1496,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(\'\')" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -1495,6 +1511,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</table>' +
             '</div>' +
           '</div>';
+        if (window.__PENDING_CONTRACTS_SEARCH) {{
+          var pq = window.__PENDING_CONTRACTS_SEARCH;
+          window.__PENDING_CONTRACTS_SEARCH = '';
+          window.filterContractsDirectory(pq);
+        }}
       }};
     }})();
   </script>

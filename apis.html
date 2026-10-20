@@ -4607,6 +4607,17 @@
         }
       };
 
+      // Auto-unhide target API card if clicked via #hash while filtered
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="#product-"]') : null;
+        if (!a) return;
+        var targetId = a.getAttribute('href').slice(1);
+        var el = document.getElementById(targetId);
+        if (el && el.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
+          window.filterApiCatalog('', 'all');
+        }
+      });
+
       // "/" keyboard shortcut to focus API search or RFP search
       window.addEventListener('keydown', function (e) {
         if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes((document.activeElement || {}).tagName)) {
