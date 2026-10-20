@@ -18,7 +18,7 @@
         ],
         "summary": "Classify text into 6-digit NAICS, 4-digit SIC, Federal PSC & State UNSPSC/NIGP codes",
         "description": "Analyzes unstructured company descriptions, website 'About Us' text, RFP Statements of Work (SOWs), or product/service descriptions and returns exact 6-digit NAICS codes (with official SBA Small Business Size Standards), 4-digit SIC codes (for FinTech KYB & commercial underwriting), 4-character Federal PSC codes (for SAM.gov & FPDS), and 8-digit UNSPSC / 5-digit NIGP codes (for State SLED portals & ERPs).",
-        "operationId": "classify_naics_psc_nigp_endpoint_v1_classify_naics_psc_nigp_post",
+        "operationId": "Classify text into 6-digit NAICS, 4-digit SIC, Federal PSC & State UNSPSC/NIGP codes",
         "requestBody": {
           "required": true,
           "content": {
@@ -59,7 +59,7 @@
         ],
         "summary": "Health Check & Uptime SLA Monitor",
         "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
-        "operationId": "health_check_v1_health_get",
+        "operationId": "Health Check & Uptime SLA Monitor",
         "responses": {
           "200": {
             "description": "Service is healthy."

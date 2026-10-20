@@ -18,7 +18,7 @@
         ],
         "summary": "Evaluate RFP Bid/No-Bid Pwin score, capability gaps & tailored capture pitch",
         "description": "Compares raw RFP, SOW, or Sources Sought text against a vendor's capability statement and past performance profile. Returns a 0-100 Probability of Win (Pwin) score, granular dimension scoring (technical fit, past performance, clearances/certifications, set-aside eligibility), knockout disqualifiers, requirement-by-requirement gap remediation, subcontracting/teaming strategy, and a Shipley-aligned Executive Summary pitch.",
-        "operationId": "match_capability_statement_endpoint_v1_match_capability_statement_post",
+        "operationId": "Evaluate RFP Bid/No-Bid Pwin score, capability gaps & tailored capture pitch",
         "requestBody": {
           "required": true,
           "content": {
@@ -59,7 +59,7 @@
         ],
         "summary": "Health Check & Uptime SLA Monitor",
         "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
-        "operationId": "health_check_v1_health_get",
+        "operationId": "Health Check & Uptime SLA Monitor",
         "responses": {
           "200": {
             "description": "Service is healthy."

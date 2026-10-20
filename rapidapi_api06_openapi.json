@@ -18,7 +18,7 @@
         ],
         "summary": "Scan federal solicitations for FAR/DFARS clauses, flow-downs & CMMC/FedRAMP burden",
         "description": "Detects every Federal Acquisition Regulation (FAR 52.2xx), Defense Federal Acquisition Regulation Supplement (DFARS 252.2xx), and agency supplement clause in a solicitation or subcontract. Flags mandatory subcontractor flow-downs, evaluates CMMC 2.0 / NIST SP 800-171 / FedRAMP compliance profiles, highlights government IP/data rights traps, and scores overall compliance burden (0-100).",
-        "operationId": "audit_far_dfars_clauses_endpoint_v1_audit_far_dfars_clauses_post",
+        "operationId": "Scan federal solicitations for FAR/DFARS clauses, flow-downs & CMMC/FedRAMP burden",
         "requestBody": {
           "required": true,
           "content": {
@@ -59,7 +59,7 @@
         ],
         "summary": "Health Check & Uptime SLA Monitor",
         "description": "Unprotected health check endpoint for marketplace SLA monitoring.",
-        "operationId": "health_check_v1_health_get",
+        "operationId": "Health Check & Uptime SLA Monitor",
         "responses": {
           "200": {
             "description": "Service is healthy."
@@ -273,4 +273,3 @@
     }
   }
 }
-

@@ -18,7 +18,7 @@
           "Security Questionnaire & GRC Automation"
         ],
         "summary": "Auto-answer SOC 2, FedRAMP, NIST 800-171 & CAIQ/SIG security questionnaires with POA&M mapping",
-        "operationId": "audit_security_questionnaire_v1_audit_security_questionnaire_post",
+        "operationId": "Auto-answer SOC 2, FedRAMP, NIST 800-171 & CAIQ/SIG security questionnaires with POA&M mapping",
         "requestBody": {
           "required": true,
           "content": {
@@ -254,4 +254,3 @@
     }
   }
 }
-

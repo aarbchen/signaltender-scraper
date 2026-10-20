@@ -14,10 +14,12 @@
   "paths": {
     "/v1/generate/rfp-response": {
       "post": {
-        "tags": ["Proposal & Compliance Generation"],
+        "tags": [
+          "Proposal & Compliance Generation"
+        ],
         "summary": "Draft a Shipley Proposal Response Narrative and Strategic Contracting Officer Q&A Questions",
         "description": "Accepts an RFP requirement section (SOW/PWS/Section C/L/M) and the bidder's capability or past performance context, and generates an evaluator-ready, Shipley-compliant proposal response section (complete with win themes, Feature-Benefit-Proof blocks, requirement traceability subsections, and visual callout recommendations) plus strategic Contracting Officer clarification Q&A questions designed to expose incumbent biases and neutralize restrictive requirements.",
-        "operationId": "generate_rfp_response_v1_generate_rfp_response_post",
+        "operationId": "Draft a Shipley Proposal Response Narrative and Strategic Contracting Officer Q&A Questions",
         "requestBody": {
           "required": true,
           "content": {
@@ -122,10 +124,12 @@
     },
     "/v1/health": {
       "get": {
-        "tags": ["Monitoring"],
+        "tags": [
+          "Monitoring"
+        ],
         "summary": "SLA & Health Check",
         "description": "Unprotected health check endpoint for load balancers and RapidAPI SLA monitoring.",
-        "operationId": "health_check_v1_health_get",
+        "operationId": "SLA & Health Check",
         "responses": {
           "200": {
             "description": "Service is healthy"
@@ -162,7 +166,10 @@
       },
       "RfpResponseGeneratorRequest": {
         "type": "object",
-        "required": ["rfp_section_text", "company_context_and_capabilities"],
+        "required": [
+          "rfp_section_text",
+          "company_context_and_capabilities"
+        ],
         "properties": {
           "rfp_section_text": {
             "type": "string",
@@ -190,7 +197,11 @@
       },
       "FeatureBenefitProofBlock": {
         "type": "object",
-        "required": ["feature", "benefit", "proof_point"],
+        "required": [
+          "feature",
+          "benefit",
+          "proof_point"
+        ],
         "properties": {
           "feature": {
             "type": "string",
@@ -410,4 +421,3 @@
     }
   }
 }
-

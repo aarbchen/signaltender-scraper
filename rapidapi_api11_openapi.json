@@ -14,10 +14,12 @@
   "paths": {
     "/v1/generate/teaming-strategy": {
       "post": {
-        "tags": ["Proposal & Compliance Generation"],
+        "tags": [
+          "Proposal & Compliance Generation"
+        ],
         "summary": "Generate a FAR/SBA-Compliant Teaming Strategy, 13 CFR 125.6 Workshare Split & Teaming Agreement Clauses",
         "description": "Accepts RFP requirements and a bidder capability statement, identifies capability/clearance/past-performance gaps, computes a compliant Prime/Subcontractor workshare split under 13 CFR § 125.6 and FAR 52.219-14 (the 50% Limitations on Subcontracting & Ostensible Subcontractor rule), drafts ready-to-paste FAR Subpart 9.6 Teaming Agreement clauses, and generates a partner recruitment outreach template.",
-        "operationId": "generate_teaming_strategy_v1_generate_teaming_strategy_post",
+        "operationId": "Generate a FAR/SBA-Compliant Teaming Strategy, 13 CFR 125.6 Workshare Split & Teaming Agreement Clauses",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,7 +67,12 @@
                       "solicitation_requirement_summary": "24x7x365 Cleared SOC Monitoring requiring active Top Secret Facility Clearance (FCL) at time of proposal submission.",
                       "gap_type": "FACILITY_OR_PERSONNEL_CLEARANCE",
                       "ideal_partner_profile": "SBA VetCert-verified SDVOSB cybersecurity firm holding an active Top Secret FCL and at least 1 DoD SOC past performance >$5M.",
-                      "recommended_naics_or_certifications": ["NAICS 541512", "Top Secret FCL", "SBA VetCert SDVOSB", "CMMC Level 2"],
+                      "recommended_naics_or_certifications": [
+                        "NAICS 541512",
+                        "Top Secret FCL",
+                        "SBA VetCert SDVOSB",
+                        "CMMC Level 2"
+                      ],
                       "workshare_allocation_pct": 24.0
                     },
                     {
@@ -73,7 +80,11 @@
                       "solicitation_requirement_summary": "Legacy COBOL Mainframe Modernization and automated refactoring to cloud-native microservices.",
                       "gap_type": "NICHE_TECHNICAL_CAPABILITY",
                       "ideal_partner_profile": "Specialized Federal IT modernization contractor (Small or Large Business) with proven USAF/DoD COBOL-to-Java/Cloud refactoring references.",
-                      "recommended_naics_or_certifications": ["NAICS 541511", "AWS Mainframe Modernization Competency", "ISO 9001 / CMMI Level 3"],
+                      "recommended_naics_or_certifications": [
+                        "NAICS 541511",
+                        "AWS Mainframe Modernization Competency",
+                        "ISO 9001 / CMMI Level 3"
+                      ],
                       "workshare_allocation_pct": 20.0
                     }
                   ],
@@ -101,10 +112,12 @@
     },
     "/v1/health": {
       "get": {
-        "tags": ["System Health"],
+        "tags": [
+          "System Health"
+        ],
         "summary": "Marketplace SLA & Gateway Health Check",
         "description": "Public, zero-cost health check endpoint verifying FastAPI gateway readiness.",
-        "operationId": "health_check_v1_health_get",
+        "operationId": "Marketplace SLA & Gateway Health Check",
         "responses": {
           "200": {
             "description": "Service is healthy",
@@ -129,11 +142,22 @@
     "schemas": {
       "SetAsideClassification": {
         "type": "string",
-        "enum": ["full_and_open", "small_business", "sdvosb", "8a", "wosb_edwosb", "hubzone"]
+        "enum": [
+          "full_and_open",
+          "small_business",
+          "sdvosb",
+          "8a",
+          "wosb_edwosb",
+          "hubzone"
+        ]
       },
       "BidderTeamingRole": {
         "type": "string",
-        "enum": ["prime_seeking_subs", "sub_seeking_prime", "joint_venture_mentor_protege"]
+        "enum": [
+          "prime_seeking_subs",
+          "sub_seeking_prime",
+          "joint_venture_mentor_protege"
+        ]
       },
       "CapabilityGapAndPartnerArchetype": {
         "type": "object",
@@ -146,15 +170,27 @@
           "workshare_allocation_pct"
         ],
         "properties": {
-          "gap_id": { "type": "string" },
-          "solicitation_requirement_summary": { "type": "string" },
-          "gap_type": { "type": "string" },
-          "ideal_partner_profile": { "type": "string" },
+          "gap_id": {
+            "type": "string"
+          },
+          "solicitation_requirement_summary": {
+            "type": "string"
+          },
+          "gap_type": {
+            "type": "string"
+          },
+          "ideal_partner_profile": {
+            "type": "string"
+          },
           "recommended_naics_or_certifications": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
-          "workshare_allocation_pct": { "type": "number" }
+          "workshare_allocation_pct": {
+            "type": "number"
+          }
         }
       },
       "LimitationsOnSubcontractingAudit": {
@@ -169,15 +205,29 @@
           "compliance_guardrails"
         ],
         "properties": {
-          "governing_regulation": { "type": "string" },
-          "minimum_prime_plus_similarly_situated_pct": { "type": "number" },
-          "maximum_non_similarly_situated_sub_pct": { "type": "number" },
-          "recommended_prime_workshare_pct": { "type": "number" },
-          "recommended_subcontractor_workshare_pct": { "type": "number" },
-          "ostensible_subcontractor_risk_level": { "type": "string" },
+          "governing_regulation": {
+            "type": "string"
+          },
+          "minimum_prime_plus_similarly_situated_pct": {
+            "type": "number"
+          },
+          "maximum_non_similarly_situated_sub_pct": {
+            "type": "number"
+          },
+          "recommended_prime_workshare_pct": {
+            "type": "number"
+          },
+          "recommended_subcontractor_workshare_pct": {
+            "type": "number"
+          },
+          "ostensible_subcontractor_risk_level": {
+            "type": "string"
+          },
           "compliance_guardrails": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -190,20 +240,43 @@
           "negotiation_note"
         ],
         "properties": {
-          "clause_title": { "type": "string" },
-          "far_or_sba_reference": { "type": "string" },
-          "recommended_legal_text": { "type": "string" },
-          "negotiation_note": { "type": "string" }
+          "clause_title": {
+            "type": "string"
+          },
+          "far_or_sba_reference": {
+            "type": "string"
+          },
+          "recommended_legal_text": {
+            "type": "string"
+          },
+          "negotiation_note": {
+            "type": "string"
+          }
         }
       },
       "TeamingStrategyRequest": {
         "type": "object",
-        "required": ["rfp_text", "bidder_capabilities"],
+        "required": [
+          "rfp_text",
+          "bidder_capabilities"
+        ],
         "properties": {
-          "rfp_text": { "type": "string", "minLength": 25 },
-          "bidder_capabilities": { "type": "string", "minLength": 15 },
-          "set_aside_type": { "$ref": "#/components/schemas/SetAsideClassification", "default": "sdvosb" },
-          "bidder_role": { "$ref": "#/components/schemas/BidderTeamingRole", "default": "prime_seeking_subs" }
+          "rfp_text": {
+            "type": "string",
+            "minLength": 25
+          },
+          "bidder_capabilities": {
+            "type": "string",
+            "minLength": 15
+          },
+          "set_aside_type": {
+            "$ref": "#/components/schemas/SetAsideClassification",
+            "default": "sdvosb"
+          },
+          "bidder_role": {
+            "$ref": "#/components/schemas/BidderTeamingRole",
+            "default": "prime_seeking_subs"
+          }
         }
       },
       "TeamingStrategyResponse": {
@@ -218,31 +291,54 @@
           "partner_outreach_email_template"
         ],
         "properties": {
-          "solicitation_title": { "type": "string" },
-          "recommended_teaming_structure": { "type": "string" },
-          "executive_teaming_rationale": { "type": "string" },
-          "limitations_on_subcontracting_audit": { "$ref": "#/components/schemas/LimitationsOnSubcontractingAudit" },
+          "solicitation_title": {
+            "type": "string"
+          },
+          "recommended_teaming_structure": {
+            "type": "string"
+          },
+          "executive_teaming_rationale": {
+            "type": "string"
+          },
+          "limitations_on_subcontracting_audit": {
+            "$ref": "#/components/schemas/LimitationsOnSubcontractingAudit"
+          },
           "capability_gaps_and_partner_archetypes": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/CapabilityGapAndPartnerArchetype" }
+            "items": {
+              "$ref": "#/components/schemas/CapabilityGapAndPartnerArchetype"
+            }
           },
           "teaming_agreement_clauses": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/TeamingAgreementClauseBlock" }
+            "items": {
+              "$ref": "#/components/schemas/TeamingAgreementClauseBlock"
+            }
           },
-          "partner_outreach_email_template": { "type": "string" }
+          "partner_outreach_email_template": {
+            "type": "string"
+          }
         }
       },
       "HealthResponse": {
         "type": "object",
-        "required": ["status", "service", "version"],
+        "required": [
+          "status",
+          "service",
+          "version"
+        ],
         "properties": {
-          "status": { "type": "string" },
-          "service": { "type": "string" },
-          "version": { "type": "string" }
+          "status": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
         }
       }
     }
   }
 }
-

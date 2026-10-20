@@ -14,10 +14,12 @@
   "paths": {
     "/v1/extract/pricing-schedule": {
       "post": {
-        "tags": ["Pricing, CLIN & FinOps Extraction"],
+        "tags": [
+          "Pricing, CLIN & FinOps Extraction"
+        ],
         "summary": "Extract and Audit Multi-Tier Pricing Tables, Federal Section B CLINs, Rate Cards & BOMs",
         "description": "Accepts unstructured text from a Federal RFP Section B CLIN schedule, B2B vendor quote, commercial invoice, T&M labor rate card, or Bill of Materials (BOM) and returns a normalized JSON pricing schedule with Base vs. Option Year subtotals, per-line unit/extended math verification, and FinOps / Price-to-Win negotiation insights.",
-        "operationId": "extract_pricing_schedule_v1_extract_pricing_schedule_post",
+        "operationId": "Extract and Audit Multi-Tier Pricing Tables, Federal Section B CLINs, Rate Cards & BOMs",
         "requestBody": {
           "required": true,
           "content": {
@@ -207,7 +209,9 @@
       },
       "PricingScheduleExtractionRequest": {
         "type": "object",
-        "required": ["document_text"],
+        "required": [
+          "document_text"
+        ],
         "properties": {
           "document_text": {
             "type": "string",
@@ -450,4 +454,3 @@
     }
   }
 }
-
