@@ -123,6 +123,14 @@ JURISDICTIONS = {
         "headline": "Open North Carolina State (NC eVP / NCDIT), UNC & Raleigh/Charlotte IT Contracts",
         "description": "Live State of North Carolina electronic Vendor Portal (eVP / NCDIT), UNC System, Wake County (Raleigh), and Mecklenburg County (Charlotte) IT, cloud, SaaS, ERP, and cybersecurity solicitations.",
     },
+    "new_york": {
+        "name": "New York (NYC CROL, PASSPort & PANYNJ)",
+        "short": "New York",
+        "portal": "NYC CROL, PASSPort, Port Authority & NY Metro",
+        "badge_class": "bg-blue-500/10 text-blue-300 border-blue-500/30",
+        "headline": "Open New York State, NYC (CROL / PASSPort) & Port Authority IT Contracts",
+        "description": "Live New York City (City Record Online / PASSPort / OTI / H+H), Port Authority of NY & NJ (PANYNJ), Suffolk County, and Rockland County IT, cloud, cybersecurity, data analytics, and GIS solicitations.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -318,6 +326,17 @@ def classify_jurisdiction(rec: dict) -> str:
         or "guilfordcountync.gov" in url
     ):
         return "north_carolina"
+    if (
+        "a856-cityrecord.nyc.gov" in url
+        or "passport.cityofnewyork.us" in url
+        or "cityofnewyork.us" in url
+        or "panynj.bonfirehub.com" in url
+        or "suffolkcountyny.bonfirehub.com" in url
+        or "rocklandgov.bonfirehub.com" in url
+        or "nyscr.ny.gov" in url
+        or "ogs.ny.gov" in url
+    ):
+        return "new_york"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -337,6 +356,17 @@ def classify_jurisdiction(rec: dict) -> str:
         return "georgia"
     if title.startswith("[NC]") or "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency or "raleigh" in agency or "durham" in agency or "guilford" in agency:
         return "north_carolina"
+    if (
+        title.startswith("[NY]")
+        or "new york" in agency
+        or "nyc " in agency
+        or "(ny)" in agency
+        or "panynj" in agency
+        or "port authority of new york" in agency
+        or "suffolk county" in agency
+        or "rockland county" in agency
+    ):
+        return "new_york"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
@@ -453,7 +483,7 @@ def _render_layout(
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">12 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">13 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -475,7 +505,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 10-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 11-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
           <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -490,6 +520,7 @@ def _render_layout(
           <a href="{root_prefix}contracts/ohio/index.html" class="hover:text-sky-400 transition-colors">Ohio</a>
           <a href="{root_prefix}contracts/georgia/index.html" class="hover:text-sky-400 transition-colors">Georgia</a>
           <a href="{root_prefix}contracts/north_carolina/index.html" class="hover:text-sky-400 transition-colors">North Carolina</a>
+          <a href="{root_prefix}contracts/new_york/index.html" class="hover:text-sky-400 transition-colors">New York</a>
         </nav>
         <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
           Unlock All RFP Links &rarr;
@@ -731,6 +762,8 @@ def generate_pseo_site() -> int:
                 compliance_posture = "Georgia GTA SSG Security • StateRAMP / NIST 800-53 • GA VPAT"
             elif j_key == "north_carolina":
                 compliance_posture = "NCDIT Statewide Security (NIST 800-53) • StateRAMP / SOC 2 Type II • NC VPAT"
+            elif j_key == "new_york":
+                compliance_posture = "NYC OTI Cyber Policies / NYS ITS-S14-003 • SOC 2 Type II • NIST 800-53"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -758,6 +791,8 @@ def generate_pseo_site() -> int:
                 teaming_posture = "Georgia DOAS Small Business / MBE Sub Plan • GTA GETS Eligible"
             elif j_key == "north_carolina":
                 teaming_posture = "NC DOA HUB (10%+ Minority/Small Goal) • NCDIT ITSTC Eligible"
+            elif j_key == "new_york":
+                teaming_posture = "NYS Art. 15-A MWBE (30% Goal) + SDVOB (6%) • NYC M/WBE Local Law 1"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
@@ -958,7 +993,7 @@ def generate_pseo_site() -> int:
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 10-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 11-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
@@ -1253,7 +1288,7 @@ def generate_pseo_site() -> int:
 
         hub_html = _render_layout(
             page_title="Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender",
-            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC) IT, software, cloud, and cybersecurity RFPs.",
+            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT, software, cloud, and cybersecurity RFPs.",
             canonical_path="contracts/index.html",
             body_html=hub_body,
             root_prefix="../",
@@ -1337,6 +1372,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/ohio" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-lime-300">Ohio</a>
               <a href="#contracts/georgia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-fuchsia-300">Georgia</a>
               <a href="#contracts/north_carolina" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-violet-300">North Carolina</a>
+              <a href="#contracts/new_york" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-blue-300">New York</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -1388,7 +1424,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">12 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">13 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -1410,7 +1446,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 10-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 11-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1425,6 +1461,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/ohio" class="hover:text-sky-400 transition-colors">Ohio</a>
           <a href="#contracts/georgia" class="hover:text-sky-400 transition-colors">Georgia</a>
           <a href="#contracts/north_carolina" class="hover:text-sky-400 transition-colors">North Carolina</a>
+          <a href="#contracts/new_york" class="hover:text-sky-400 transition-colors">New York</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
         <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
@@ -1671,7 +1708,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 10-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 11-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +

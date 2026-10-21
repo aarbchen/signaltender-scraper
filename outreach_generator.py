@@ -90,6 +90,7 @@ STATE_ALIASES = {
     "oh": "oh", "ohio": "oh",
     "ga": "ga", "georgia": "ga",
     "nc": "nc", "north carolina": "nc", "north_carolina": "nc",
+    "ny": "ny", "new york": "ny", "new_york": "ny",
 }
 
 
@@ -185,6 +186,8 @@ def detect_contract_region(rec: dict) -> str:
         return "nc"
     if "ohiobuys.ohio.gov" in url or "ohioauditor.gov" in url or "morpc.org" in url or "franklincountyohio.gov" in url or "columbus.bonfirehub.com" in url:
         return "oh"
+    if "a856-cityrecord.nyc.gov" in url or "passport.cityofnewyork.us" in url or "panynj.bonfirehub.com" in url or "suffolkcountyny.bonfirehub.com" in url or "rocklandgov.bonfirehub.com" in url or "nyscr.ny.gov" in url or "ogs.ny.gov" in url:
+        return "ny"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -251,6 +254,8 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "Georgia GTA SSG Security • StateRAMP / NIST 800-53 • GA VPAT"
     elif reg == "nc":
         compliance_posture = "NCDIT Statewide Security (NIST 800-53) • StateRAMP / SOC 2 Type II • NC VPAT"
+    elif reg == "ny":
+        compliance_posture = "NYC OTI Cyber Policies / NYS ITS-S14-003 • SOC 2 Type II • NIST 800-53"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":

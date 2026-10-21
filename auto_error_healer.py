@@ -5,7 +5,7 @@ Solves the "screenshot feedback loop" problem permanently:
   1. Pulls any open runtime errors from the central cloud telemetry endpoint
      (`GET https://b2b-contract-parser-api.onrender.com/v1/telemetry/errors?status=open`)
      AND local `d:\\Daas\\error_log.txt`.
-  2. Audits all 12 scraper modules (`mainscraper.py`, `sledscraper.py`, `va_scraper.py`,
+  2. Audits all 13 scraper modules (`mainscraper.py`, `sledscraper.py`, `va_scraper.py`,
      `tx_scraper.py`, `ca_scraper.py`, `fl_scraper.py`, `md_scraper.py`, `il_scraper.py`,
      `pa_scraper.py`, `oh_scraper.py`, `ga_scraper.py`, `nc_scraper.py`) to verify:
      - Every state/municipal scraper defines `async def run_scraper(push_to_db: bool = True)`.
@@ -48,6 +48,7 @@ SCRAPER_MODULES = [
     "oh_scraper",
     "ga_scraper",
     "nc_scraper",
+    "ny_scraper",
 ]
 
 
@@ -116,7 +117,7 @@ def archive_local_error_log(resolution_note: str) -> None:
 
 def verify_scraper_contracts_and_rls_safety() -> list[str]:
     """
-    Static + dynamic contract audit across all 12 scrapers and pipeline scripts.
+    Static + dynamic contract audit across all 13 scrapers and pipeline scripts.
     Returns a list of violation descriptions (empty list = 100% healthy).
     """
     issues: list[str] = []
@@ -137,7 +138,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         except Exception as exc:
             issues.append(f"Failed to import {mod_name}: {exc}")
 
-    # 2. Verify all 12 scrapers do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
+    # 2. Verify all 13 scrapers do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
     for rel_path in [
         "mainscraper.py",
         "sled-scraper/sledscraper.py",
@@ -151,6 +152,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         "oh_scraper.py",
         "ga_scraper.py",
         "nc_scraper.py",
+        "ny_scraper.py",
     ]:
         full_p = BASE_DIR / rel_path
         if full_p.exists():
@@ -166,7 +168,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 async def run_live_smoke_tests() -> list[str]:
     """Run fast non-destructive smoke tests on ga_scraper and nc_scraper (`push_to_db=False`)."""
     smoke_issues: list[str] = []
-    for mod_name in ("ga_scraper", "nc_scraper"):
+    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper"):
         try:
             mod = importlib.import_module(mod_name)
             records = await mod.run_scraper(push_to_db=False)
@@ -214,7 +216,7 @@ def run_healer(clear_resolved: bool = False, run_smoke: bool = False) -> int:
     if total_problems == 0:
         print(
             "[PASS] Autonomous Error Telemetry & Scraper Contract Audit: 0 open errors (local + Render Cron), "
-            "12/12 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
+            "13/13 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
             flush=True,
         )
         return 0

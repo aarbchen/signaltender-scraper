@@ -110,6 +110,7 @@ def check_html_file(fpath: str) -> str:
             "#contracts/ohio",
             "#contracts/georgia",
             "#contracts/north_carolina",
+            "#contracts/new_york",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -292,19 +293,19 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
     for label, txt in (("index.html", index_txt), ("apis.html", apis_txt), ("pseo_generator.py", pseo_txt)):
         for sp in stale_patterns:
-            if sp in txt:
+            if re.search(rf"(?<![0-9>]){re.escape(sp)}", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
         expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
-        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,80}", txt):
+        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,120}", txt):
             snippet = m.group(0)
             for abbr in expected_abbrs:
                 if abbr not in snippet:
                     fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
 
         # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
-        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,200}", txt):
+        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,350}", txt):
             snippet = m.group(0)
             for sk in state_keys:
                 state_title = sk.replace("_", " ").title()
@@ -484,6 +485,7 @@ if (typeof window.selectInteractiveDossier !== 'function') {
 window.selectInteractiveDossier('ohio');
 window.selectInteractiveDossier('georgia');
 window.selectInteractiveDossier('north_carolina');
+window.selectInteractiveDossier('new_york');
 window.selectInteractiveDossier('federal');
 if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
   throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');

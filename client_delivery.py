@@ -159,6 +159,17 @@ def classify_jurisdiction(record: dict) -> str:
         or "guilfordcountync.gov" in url
     ):
         return "north_carolina"
+    if (
+        "a856-cityrecord.nyc.gov" in url
+        or "passport.cityofnewyork.us" in url
+        or "cityofnewyork.us" in url
+        or "panynj.bonfirehub.com" in url
+        or "suffolkcountyny.bonfirehub.com" in url
+        or "rocklandgov.bonfirehub.com" in url
+        or "nyscr.ny.gov" in url
+        or "ogs.ny.gov" in url
+    ):
+        return "new_york"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -178,6 +189,17 @@ def classify_jurisdiction(record: dict) -> str:
         return "georgia"
     if title.startswith("[NC]") or "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency or "raleigh" in agency or "durham" in agency or "guilford" in agency:
         return "north_carolina"
+    if (
+        title.startswith("[NY]")
+        or "new york" in agency
+        or "nyc " in agency
+        or "(ny)" in agency
+        or "panynj" in agency
+        or "port authority of new york" in agency
+        or "suffolk county" in agency
+        or "rockland county" in agency
+    ):
+        return "new_york"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:

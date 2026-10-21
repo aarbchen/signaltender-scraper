@@ -685,6 +685,7 @@ async def run_master_orchestrator(
         _run_source("Ohio SLED (Ohio Buys / Metro)", "import oh_scraper", "oh_scraper.run_scraper(push_to_db=False)"),
         _run_source("Georgia SLED (GPR / Team GA)", "import ga_scraper", "ga_scraper.run_scraper(push_to_db=False)"),
         _run_source("North Carolina SLED (NC eVP)", "import nc_scraper", "nc_scraper.run_scraper(push_to_db=False)"),
+        _run_source("New York SLED (NYC CROL / PASSPort / PANYNJ)", "import ny_scraper", "ny_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -701,6 +702,7 @@ async def run_master_orchestrator(
         "Ohio SLED (Ohio Buys / Metro)",
         "Georgia SLED (GPR / Team GA)",
         "North Carolina SLED (NC eVP)",
+        "New York SLED (NYC CROL / PASSPort / PANYNJ)",
     ]
     combined_records = []
 
@@ -838,8 +840,6 @@ async def run_master_orchestrator(
                 "url": u,
                 "status": str(r.get("status") or "New Lead").strip(),
             }
-            if r.get("contact_email"):
-                clean_row["contact_email"] = str(r.get("contact_email")).strip()
             net_new_candidates.append(clean_row)
 
         new_records = []
