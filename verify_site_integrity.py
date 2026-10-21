@@ -119,11 +119,13 @@ def check_html_file(fpath: str) -> str:
         if opens != closes:
             fail(f"{rel}: Tag imbalance for <{tag}>: open={opens}, close={closes}")
 
-    # 7. Check zero emojis
+    # 7. Check zero emojis and zero `data:` URI favicons (Google Search requires crawlable HTTP/HTTPS favicon URLs)
     emoji_re = re.compile(r"[\U0001F300-\U0001FAFF]")
     emojis = emoji_re.findall(txt)
     if emojis:
         fail(f"{rel}: Prohibited emojis found: {set(emojis)}")
+    if re.search(r'<link[^>]+rel="icon"[^>]+href="data:', txt, flags=re.I):
+        fail(f"{rel}: <link rel='icon'> uses a data: URI which Google Search rejects; use crawlable HTTPS URLs")
 
     return txt
 
