@@ -9,6 +9,8 @@ from datetime import datetime
 from difflib import SequenceMatcher
 import requests
 from dotenv import load_dotenv
+from error_telemetry import configure_utf8_stdio, report_error
+configure_utf8_stdio()
 
 # Ensure sled-scraper directory is on sys.path for importing sledscraper
 SLED_SCRAPER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sled-scraper")
@@ -155,11 +157,12 @@ def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> l
     return deduped
 
 def send_discord_alert(message):
+    report_error("mainscraper.py", str(message))
     if not DISCORD_WEBHOOK_URL:
         print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
         return
     try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] DaaS Pipeline Alert:**\n{message}"})
+        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] DaaS Pipeline Alert:**\n{message}", "flags": 4})
         response.raise_for_status()
         print(" -> Discord alert sent successfully.", flush=True)
     except Exception as e:
@@ -559,10 +562,17 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
 
         try:
             db_client = _get_supabase_client()
-            response = db_client.table(TABLE_NAME).upsert(
-                unique_records, on_conflict="url", ignore_duplicates=True
-            ).execute()
-            new_records = response.data if response and getattr(response, "data", None) else []
+            existing_resp = db_client.table(TABLE_NAME).select("url").execute()
+            existing_urls = {r.get("url") for r in (existing_resp.data or []) if r.get("url")}
+            net_new = [r for r in unique_records if r.get("url") not in existing_urls]
+            new_records = []
+            for row_item in net_new:
+                try:
+                    res = db_client.table(TABLE_NAME).insert(row_item).execute()
+                    if res and getattr(res, "data", None):
+                        new_records.extend(res.data)
+                except Exception:
+                    pass
             skipped_count = len(unique_records) - len(new_records)
             print(f"Success! {len(new_records)} new records were added to your Supabase '{TABLE_NAME}' table (skipped {skipped_count} duplicates).")
 
@@ -809,10 +819,44 @@ async def run_master_orchestrator(
 
     try:
         print(f"[*] Passing unified payload ({len(unified_payload)} contracts) through Supabase deduplication filter...", flush=True)
-        response = db_client.table(TABLE_NAME).upsert(
-            unified_payload, on_conflict="url", ignore_duplicates=True
-        ).execute()
-        new_records = response.data if response and getattr(response, "data", None) else []
+        existing_url_set = {
+            str(r.get("url") or "").strip()
+            for r in (locals().get("existing_rows") or [])
+            if r.get("url")
+        } - set(locals().get("expired_urls") or [])
+        net_new_candidates = []
+        seen_batch_urls = set()
+        for r in unified_payload:
+            u = str(r.get("url") or "").strip()
+            if not u or u in existing_url_set or u in seen_batch_urls:
+                continue
+            seen_batch_urls.add(u)
+            clean_row = {
+                "title": str(r.get("title") or "").strip(),
+                "agency": str(r.get("agency") or "Government Agency").strip(),
+                "closing_date": r.get("closing_date") or None,
+                "url": u,
+                "status": str(r.get("status") or "New Lead").strip(),
+            }
+            if r.get("contact_email"):
+                clean_row["contact_email"] = str(r.get("contact_email")).strip()
+            net_new_candidates.append(clean_row)
+
+        new_records = []
+        if net_new_candidates:
+            try:
+                response = db_client.table(TABLE_NAME).insert(net_new_candidates).execute()
+                new_records = response.data if response and getattr(response, "data", None) else net_new_candidates
+            except Exception:
+                # Per-row insert fallback so a single duplicate or constraint never aborts the batch
+                for row_item in net_new_candidates:
+                    try:
+                        res_single = db_client.table(TABLE_NAME).insert(row_item).execute()
+                        if res_single and getattr(res_single, "data", None):
+                            new_records.extend(res_single.data)
+                    except Exception:
+                        pass
+
         skipped_count = len(unified_payload) - len(new_records)
         print(
             f"[+] Unified Supabase sync complete! Added {len(new_records)} net-new records "

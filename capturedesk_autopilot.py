@@ -1,3 +1,5 @@
+from error_telemetry import configure_utf8_stdio, report_error
+configure_utf8_stdio()
 """
 SignalTender — CaptureDesk Autopilot Dossier Engine
 Automatically chains SignalTender's live FastAPI microservices (NAICS/PSC/SIC/NIGP Classifier
@@ -83,6 +85,7 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(message: str) -> None:
+    report_error("capturedesk_autopilot.py", str(message))
     """Send operational error alert to Discord webhook and log to error_log.txt."""
     log_error(message)
     if not DISCORD_WEBHOOK_URL:

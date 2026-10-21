@@ -1,3 +1,5 @@
+from error_telemetry import configure_utf8_stdio, report_error
+configure_utf8_stdio()
 import os
 import asyncio
 import re
@@ -243,9 +245,13 @@ async def run_scraper(push_to_db: bool = True):
             else:
                 print(f"[*] Found {len(supabase_records)} tech contracts! Pushing to Supabase...")
                 db_client = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
-                response = db_client.table(TABLE_NAME).upsert(
-                    supabase_records, on_conflict="url", ignore_duplicates=True
-                ).execute()
+                _existing = db_client.table(TABLE_NAME).select('url').execute()
+
+                _existing_urls = {r.get('url') for r in (_existing.data or []) if r.get('url')}
+
+                _net_new = [r for r in supabase_records if r.get('url') not in _existing_urls]
+
+                response = db_client.table(TABLE_NAME).insert(_net_new).execute() if _net_new else type('Obj', (), {'data': []})()
                 new_records = response.data if response and getattr(response, "data", None) else []
                 skipped_count = len(supabase_records) - len(new_records)
                 print(f"[+] Successfully synced Federal data to Supabase! Added {len(new_records)} new records (skipped {skipped_count} duplicates).")

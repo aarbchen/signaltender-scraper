@@ -1,3 +1,5 @@
+from error_telemetry import configure_utf8_stdio, report_error
+configure_utf8_stdio()
 import os
 import re
 import time
@@ -59,6 +61,7 @@ ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
 
 
 def send_discord_alert(message: str) -> None:
+    report_error("client_delivery.py", str(message))
     """Send system alert to Discord webhook and log errors as per project rules."""
     if not DISCORD_WEBHOOK_URL:
         print(" -> ERROR: Alert webhook URL not found in environment.", flush=True)

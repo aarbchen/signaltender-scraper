@@ -528,6 +528,10 @@ def main() -> int:
     check_tier_value_prop_and_capture_moat_parity(index_txt)
     check_spa_runtime(index_txt)
 
+    import auto_error_healer
+    if auto_error_healer.run_healer(clear_resolved=False, run_smoke=False) != 0:
+        fail("Autonomous Error Telemetry / Scraper Contract Audit reported unresolved errors! Run `python auto_error_healer.py` to inspect and fix.")
+
     print("[+] verify_site_integrity.py PASSED: All JS syntax, SPA routes, search locks, API/portal counts, telemetry bar, DOM IDs, and HTML tags verified.", flush=True)
     return 0
 

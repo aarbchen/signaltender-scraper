@@ -11,7 +11,9 @@ from datetime import datetime, timedelta, timezone
 import requests
 from dotenv import load_dotenv
 from supabase import create_client, Client
+from error_telemetry import configure_utf8_stdio, report_error
 
+configure_utf8_stdio()
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -38,11 +40,7 @@ def log_error(msg: str) -> None:
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     entry = f"[{timestamp}] [NC_SCRAPER] {msg}\n"
     print(entry.strip(), flush=True)
-    try:
-        with open("error_log.txt", "a", encoding="utf-8") as f:
-            f.write(entry)
-    except Exception:
-        pass
+    report_error("nc_scraper.py", msg)
 
 
 def send_discord_alert(msg: str) -> None:
@@ -203,61 +201,80 @@ def fetch_nc_evp_solicitations() -> list[dict]:
             leads.append({
                 "title": f"[{item['sol_id']}] {item['title']} - Due: {due_str}",
                 "agency": item["agency"],
+                "closing_date": due_str,
                 "url": item["url"],
+                "status": "New Lead",
             })
 
     return leads
 
 
-def run_nc_scraper() -> int:
+async def run_scraper(push_to_db: bool = True) -> list[dict]:
+    """
+    Async orchestrator entrypoint invoked by `mainscraper.py` (`await nc_scraper.run_scraper(push_to_db=False)`).
+    """
     print("[*] Starting North Carolina eVP (evp.nc.gov) & NC SLED IT/Cyber Scraper...", flush=True)
+    leads = fetch_nc_evp_solicitations()
+    normalized = [
+        {
+            "title": lead["title"],
+            "agency": lead["agency"],
+            "closing_date": lead.get("closing_date"),
+            "url": lead["url"],
+            "status": lead.get("status", "New Lead"),
+        }
+        for lead in leads
+    ]
+    print(f"[*] Retrieved {len(normalized)} North Carolina IT/Cyber/Cloud candidate solicitations.", flush=True)
+
+    if not push_to_db:
+        return normalized
+
     if not SUPABASE_URL or not SUPABASE_KEY:
         log_error("Missing SUPABASE_URL or SUPABASE_KEY in environment.")
-        return 0
+        return normalized
 
     try:
         supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
     except Exception as exc:
         log_error(f"Failed to initialize Supabase client: {exc}")
         send_discord_alert(f"Supabase init failed in nc_scraper.py: {exc}")
-        return 0
+        return normalized
 
-    try:
-        leads = fetch_nc_evp_solicitations()
-        print(f"[*] Retrieved {len(leads)} North Carolina IT/Cyber/Cloud candidate solicitations.", flush=True)
+    inserted = 0
+    for lead in normalized:
+        try:
+            existing = (
+                supabase.table("contracts")
+                .select("id")
+                .eq("url", lead["url"])
+                .limit(1)
+                .execute()
+            )
+            if existing.data:
+                continue
 
-        inserted = 0
-        for lead in leads:
-            try:
-                existing = (
-                    supabase.table("contracts")
-                    .select("id")
-                    .eq("url", lead["url"])
-                    .limit(1)
-                    .execute()
-                )
-                if existing.data:
-                    continue
+            record = {
+                "title": lead["title"],
+                "agency": lead["agency"],
+                "closing_date": lead.get("closing_date"),
+                "url": lead["url"],
+                "status": "New Lead",
+            }
+            supabase.table("contracts").insert(record).execute()
+            inserted += 1
+            print(f"  [+] Inserted NC Lead: {lead['title'][:85]}", flush=True)
+        except Exception as row_err:
+            log_error(f"Row insert error for {lead.get('url')}: {row_err}")
 
-                record = {
-                    "title": lead["title"],
-                    "agency": lead["agency"],
-                    "url": lead["url"],
-                    "status": "New Lead",
-                }
-                supabase.table("contracts").insert(record).execute()
-                inserted += 1
-                print(f"  [+] Inserted NC Lead: {lead['title'][:85]}", flush=True)
-            except Exception as row_err:
-                log_error(f"Row insert error for {lead.get('url')}: {row_err}")
+    print(f"[+] North Carolina Scraper complete! Inserted {inserted} new NC IT/Cyber lead(s).", flush=True)
+    return normalized
 
-        print(f"[+] North Carolina Scraper complete! Inserted {inserted} new NC IT/Cyber lead(s).", flush=True)
-        return inserted
-    except Exception as exc:
-        tb = traceback.format_exc()
-        log_error(f"Unhandled exception in run_nc_scraper:\n{tb}")
-        send_discord_alert(f"Unhandled error in nc_scraper.py: {exc}")
-        return 0
+
+def run_nc_scraper() -> int:
+    import asyncio
+    records = asyncio.run(run_scraper(push_to_db=True))
+    return len(records)
 
 
 if __name__ == "__main__":
