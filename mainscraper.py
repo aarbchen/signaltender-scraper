@@ -920,6 +920,14 @@ async def run_master_orchestrator(
                 pass
             send_discord_alert(tel_msg)
 
+        try:
+            import govcon_lead_harvester
+            govcon_lead_harvester.run_harvester()
+            import outreach_generator
+            outreach_generator.generate_outreach()
+        except Exception as out_err:
+            print(f"[!] Outreach generator warning in mainscraper.py: {out_err}", flush=True)
+
         return new_records
 
     except Exception as e:

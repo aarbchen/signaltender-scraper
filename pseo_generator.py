@@ -1234,7 +1234,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, and North Carolina.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, and New York.
           </p>
         </div>
 
@@ -1822,7 +1822,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, and North Carolina.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, and New York.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +

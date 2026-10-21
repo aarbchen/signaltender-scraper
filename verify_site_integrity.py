@@ -497,6 +497,13 @@ if (typeof window.updateCaptureRoiCalculator !== 'function') {
   throw new Error('window.updateCaptureRoiCalculator is undefined!');
 }
 window.updateCaptureRoiCalculator(6);
+if (typeof window.submitInboundLeadCapture !== 'function') {
+  throw new Error('window.submitInboundLeadCapture is undefined!');
+}
+const unlockedOk = window.submitInboundLeadCapture('capture@acmegovcyber.com', 'new_york', 'Acme GovCyber LLC');
+if (!unlockedOk || !document.getElementById('inbound-lead-results').innerHTML.includes('DOSSIER #01 UNLOCKED')) {
+  throw new Error('window.submitInboundLeadCapture failed to unlock and render 3 state RFP dossiers!');
+}
 """
     )
 

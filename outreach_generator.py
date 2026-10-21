@@ -709,6 +709,12 @@ def generate_outreach():
             flush=True,
         )
 
+        try:
+            import govcon_lead_harvester
+            govcon_lead_harvester.run_harvester()
+        except Exception as harv_err:
+            print(f"[!] GovCon Lead Harvester warning: {harv_err}", flush=True)
+
         apollo_file = "apollo-contacts.csv"
         output_file = "campaign_leads.csv"
         whop_checkout_url = os.getenv(

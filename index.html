@@ -1143,6 +1143,82 @@
           <!-- PSEO_HUB_BAR_END -->
         </div>
 
+        <!-- INBOUND GOVCON LEAD-CAPTURE FUNNEL: INSTANT STATE RFP DOSSIER UNLOCK -->
+        <div id="inbound-lead-capture-box" class="mt-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-navy-950 via-slate-900/95 to-indigo-950/40 border-2 border-sky-500/40 shadow-2xl space-y-5">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-sky-500/15 border border-sky-400/30 text-[11px] font-mono text-sky-300 font-semibold">
+                <span>// FREE INSTANT STATE DOSSIER UNLOCK &bull; 13 PORTALS ACTIVE</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                Unlock 3 Live Pre-Shredded IT &amp; Cybersecurity RFP Dossiers for Your State Free
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 max-w-3xl">
+                Enter your work email and pick your target portal (<span class="text-white font-medium">SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY</span>). Instantly view 3 active solicitations with NAICS/SBA size caps, IGCE Price-to-Win bands, and CMMC/RMF compliance matrices right on screen.
+              </p>
+            </div>
+            <div class="shrink-0 font-mono text-[11px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg">
+              &check; Instant In-Browser Access &bull; Zero Credit Card
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
+            <div class="sm:col-span-4">
+              <label for="inbound-lead-email" class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Work Email *</label>
+              <input
+                id="inbound-lead-email"
+                type="email"
+                placeholder="capture@yourgovconfirm.com"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-sky-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
+            <div class="sm:col-span-3">
+              <label for="inbound-lead-company" class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Company / GovCon Firm</label>
+              <input
+                id="inbound-lead-company"
+                type="text"
+                placeholder="Apex Cyber Solutions LLC"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-sky-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
+            <div class="sm:col-span-3">
+              <label for="inbound-lead-state" class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Target Portal / State</label>
+              <select
+                id="inbound-lead-state"
+                class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-sky-400 focus:outline-none text-xs font-mono text-white"
+              >
+                <option value="all">All 13 Federal &amp; SLED Portals</option>
+                <option value="federal">Federal (SAM.gov &amp; DoD/Civilian)</option>
+                <option value="virginia">Virginia (eVA Portal)</option>
+                <option value="texas">Texas (SmartBuy ESBD)</option>
+                <option value="california">California (Cal eProcure CSCR)</option>
+                <option value="florida">Florida (MyFloridaMarketPlace VIP)</option>
+                <option value="maryland">Maryland (eMMA &amp; Bonfire)</option>
+                <option value="illinois">Illinois (BidBuy eProcurement)</option>
+                <option value="pennsylvania">Pennsylvania (eMarketplace)</option>
+                <option value="ohio">Ohio (OhioBuys &amp; Bonfire)</option>
+                <option value="georgia">Georgia (GPR &amp; Team Georgia)</option>
+                <option value="north_carolina">North Carolina (NC eVP &amp; NCDIT)</option>
+                <option value="new_york">New York (NYC CROL, PASSPort &amp; PANYNJ)</option>
+                <option value="municipal">National Municipal (DemandStar)</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2 flex items-end">
+              <button
+                id="inbound-lead-submit-btn"
+                type="button"
+                onclick="window.submitInboundLeadCapture()"
+                class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all cursor-pointer whitespace-nowrap"
+              >
+                Unlock 3 Dossiers &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="inbound-lead-status" class="hidden text-xs font-mono pt-1"></div>
+          <div id="inbound-lead-results" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"></div>
+        </div>
+
       </div>
     </section>
 
@@ -6756,7 +6832,7 @@
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, and North Carolina.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, and New York.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
@@ -9314,6 +9390,116 @@
         setHtml('demo-lcat-3-rate', d.lcat3Rate);
         var linkEl = document.getElementById('demo-dossier-deep-link');
         if (linkEl) linkEl.setAttribute('href', d.hubHref);
+      };
+
+      window.submitInboundLeadCapture = function (emailArg, stateArg, companyArg) {
+        var emailInp = document.getElementById('inbound-lead-email');
+        var compInp = document.getElementById('inbound-lead-company');
+        var stateSel = document.getElementById('inbound-lead-state');
+        var statusEl = document.getElementById('inbound-lead-status');
+        var resultsEl = document.getElementById('inbound-lead-results');
+        var btnEl = document.getElementById('inbound-lead-submit-btn');
+
+        var email = String(emailArg !== undefined ? emailArg : (emailInp ? emailInp.value : '')).trim().toLowerCase();
+        var company = String(companyArg !== undefined ? companyArg : (compInp ? compInp.value : '')).trim();
+        var targetState = String(stateArg !== undefined ? stateArg : (stateSel ? stateSel.value : 'all')).trim().toLowerCase() || 'all';
+
+        if (!email || email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
+            statusEl.textContent = '[!] Please enter a valid work email address (e.g., capture@yourfirm.com) to unlock 3 live state dossiers.';
+          }
+          return false;
+        }
+
+        function escHtml(s) {
+          return String(s || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        }
+
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var matched = [];
+        if (targetState !== 'all') {
+          for (var i = 0; i < allContracts.length; i++) {
+            if (allContracts[i].jurisdiction === targetState) {
+              matched.push(allContracts[i]);
+              if (matched.length >= 3) break;
+            }
+          }
+        }
+        if (matched.length < 3) {
+          for (var j = 0; j < allContracts.length; j++) {
+            if (matched.indexOf(allContracts[j]) === -1) {
+              matched.push(allContracts[j]);
+              if (matched.length >= 3) break;
+            }
+          }
+        }
+
+        function renderDossierCards(items) {
+          if (!resultsEl) return;
+          var htmlCards = items.map(function (item, idx) {
+            var title = item.clean_title || item.title || 'Active Government IT Solicitation';
+            var agency = item.masked_agency || item.issuing_agency || item.agency || 'Government Agency';
+            var due = item.due_str || item.closing_date || 'Open / Rolling';
+            var slug = item.slug || '';
+            var naics = item.naics_display || 'NAICS 541512 / 541519';
+            var ptw = item.igce_ptw_posture || 'Wrap 1.82x • PTW -5.2% vs IGCE';
+            var href = slug ? ('#contracts/rfp/' + escHtml(slug)) : '#contracts';
+            return '<div class="p-4 rounded-xl bg-navy-900 border border-sky-500/40 flex flex-col justify-between space-y-3">' +
+              '<div class="space-y-2">' +
+                '<div class="flex items-center justify-between text-[10px] font-mono">' +
+                  '<span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">DOSSIER #0' + (idx + 1) + ' UNLOCKED</span>' +
+                  '<span class="text-amber-300">Due: ' + escHtml(due) + '</span>' +
+                '</div>' +
+                '<a href="' + href + '" class="block text-sm font-bold text-white hover:text-sky-400 transition-colors leading-snug">' + escHtml(title) + '</a>' +
+                '<div class="text-[11px] font-mono text-slate-400">Agency: <span class="text-slate-200">' + escHtml(agency) + '</span></div>' +
+                '<div class="p-2.5 rounded-lg bg-navy-950 border border-slate-800 text-[10px] font-mono text-slate-300 space-y-1">' +
+                  '<div class="text-sky-300 font-semibold">' + escHtml(naics) + '</div>' +
+                  '<div class="text-emerald-400">' + escHtml(ptw) + '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="pt-2 border-t border-slate-800 flex items-center justify-between gap-2">' +
+                '<a href="' + href + '" class="text-xs font-mono font-semibold text-sky-400 hover:text-sky-300">Open Full AI Dossier &rarr;</a>' +
+                '<a href="#checkout-tier2" class="text-[10px] font-mono text-indigo-300 hover:underline">Get All 13 Portals &rarr;</a>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+          resultsEl.innerHTML = htmlCards;
+          resultsEl.classList.remove('hidden');
+        }
+
+        renderDossierCards(matched);
+        if (statusEl) {
+          statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+          statusEl.innerHTML = '&check; Unlocked 3 live pre-shredded IT/Cyber RFP dossiers for <span class="text-white font-semibold">' + escHtml(email) + '</span> (' + escHtml(targetState.toUpperCase()) + '). Click any dossier below or <a href="#checkout-tier1" class="text-sky-400 underline">activate all 13 portals 24/7 ($99/mo)</a>.';
+        }
+
+        if (typeof fetch === 'function') {
+          if (btnEl) btnEl.textContent = 'Unlocked ✓';
+          try {
+            fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: email,
+                company: company,
+                target_state: targetState,
+                source_page: (window.location && window.location.href) ? window.location.href : 'https://signaltender.net/'
+              })
+            }).then(function (r) {
+              return r && r.ok ? r.json() : null;
+            }).then(function (data) {
+              if (data && Array.isArray(data.dossiers) && data.dossiers.length > 0 && matched.length === 0) {
+                renderDossierCards(data.dossiers);
+              }
+            }).catch(function () {});
+          } catch (e) {}
+        }
+        return true;
       };
 
       window.jumpToFullContractsSearch = function () {

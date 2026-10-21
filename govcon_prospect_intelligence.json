@@ -1,0 +1,149 @@
+{
+  "updated_at": "2026-10-21T20:34:44+00:00",
+  "total_apollo_contacts": 55,
+  "added_inbound_leads": 0,
+  "added_multistate_govcon_prospects": 30,
+  "state_distribution": {
+    "Michigan": 2,
+    "Massachusetts": 1,
+    "Unspecified": 1,
+    "Oregon": 1,
+    "California": 8,
+    "New York": 5,
+    "Illinois": 4,
+    "Texas": 5,
+    "Washington": 1,
+    "Wisconsin": 1,
+    "District of Columbia": 1,
+    "Pennsylvania": 3,
+    "Colorado": 2,
+    "North Carolina": 3,
+    "Maryland": 4,
+    "Virginia": 4,
+    "Florida": 3,
+    "Ohio": 3,
+    "Georgia": 3
+  },
+  "usaspending_naics_541512_top_recipients": [
+    {
+      "amount": 7257653495.34,
+      "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
+      "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
+      "code": "067641597",
+      "uei": "SMNWM6HN79X5",
+      "total_outlays": null
+    },
+    {
+      "amount": 6775554413.01,
+      "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
+      "name": "ACCENTURE FEDERAL SERVICES LLC",
+      "code": "139727148",
+      "uei": "C47BNA8GM833",
+      "total_outlays": null
+    },
+    {
+      "amount": 5742345877.42,
+      "recipient_id": "ffca72e5-fba2-798a-6969-2a6c45e9f985-C",
+      "name": "BOOZ ALLEN HAMILTON INC",
+      "code": "006928857",
+      "uei": "JCBMLGPE6Z71",
+      "total_outlays": null
+    },
+    {
+      "amount": 5718077634.08,
+      "recipient_id": "5ddb264f-234b-872c-2571-4731fde123c6-C",
+      "name": "LEIDOS, INC.",
+      "code": "833063105",
+      "uei": "UE9QJD4KK1L6",
+      "total_outlays": null
+    },
+    {
+      "amount": 3404072949.42,
+      "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
+      "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+      "code": "078883327",
+      "uei": "MMLKPW9JLX64",
+      "total_outlays": null
+    },
+    {
+      "amount": 3357908964.05,
+      "recipient_id": "28eee911-76af-7147-f760-4ec5f90bec2d-C",
+      "name": "CACI, INC. - FEDERAL",
+      "code": "114896066",
+      "uei": "N3PBJAVNKF61",
+      "total_outlays": null
+    },
+    {
+      "amount": 2752972713.05,
+      "recipient_id": "92663aec-4451-0476-502b-d8c6919e98e0-C",
+      "name": "DELOITTE CONSULTING LLP",
+      "code": "019121586",
+      "uei": "CKV2L9GZKJK3",
+      "total_outlays": null
+    },
+    {
+      "amount": 2716567670.56,
+      "recipient_id": "129fccb1-783c-9fd1-7b6d-6ddea65ace79-C",
+      "name": "PERATON INC.",
+      "code": "602938771",
+      "uei": "ZBPQEJVECCT4",
+      "total_outlays": null
+    },
+    {
+      "amount": 2228179040.84,
+      "recipient_id": "dbceb126-f729-60e7-d55a-ba235f519653-C",
+      "name": "THUNDERCAT TECHNOLOGY, LLC",
+      "code": "809887164",
+      "uei": "UER4AJLUB8D5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2227307930.8,
+      "recipient_id": "2a4d3db7-e268-7b36-3610-c75337f0b7e1-C",
+      "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+      "code": "089896737",
+      "uei": "H1KHJPJH9R51",
+      "total_outlays": null
+    },
+    {
+      "amount": 2119396996.21,
+      "recipient_id": "fd25b722-602d-ec58-3a7a-d6555b8d8ea7-C",
+      "name": "SALIENT CRGT, INC.",
+      "code": "849550983",
+      "uei": "Q5LJNF15T2R5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2084870353.05,
+      "recipient_id": "333909ba-42cf-a1ce-3959-1ede2882d7f6-C",
+      "name": "PERATON ENTERPRISE SOLUTIONS LLC",
+      "code": "077817617",
+      "uei": "MBSRAWAQ9559",
+      "total_outlays": null
+    },
+    {
+      "amount": 2023337843.49,
+      "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
+      "name": "CGI FEDERAL INC.",
+      "code": "145969783",
+      "uei": "TRKEP1HEBNS5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2015020695.18,
+      "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
+      "name": "FCN, INC.",
+      "code": "615378007",
+      "uei": "JEANDJTZ8HJ3",
+      "total_outlays": null
+    },
+    {
+      "amount": 1429448598.6,
+      "recipient_id": "625ff1da-e9a2-cbdc-c8b3-fdd521fd1efc-C",
+      "name": "MINBURN TECHNOLOGY GROUP, LLC",
+      "code": "965431815",
+      "uei": "WN8JFVZTBCA5",
+      "total_outlays": null
+    }
+  ]
+}
