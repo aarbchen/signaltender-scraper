@@ -3,7 +3,8 @@ Autonomous GovCon Prospect & Inbound Lead Harvester (`govcon_lead_harvester.py`)
 Expands `apollo-contacts.csv` across all 11 SLED states (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY)
 and Federal NAICS (541511, 541512, 541513, 541519, 518210) by combining:
   1. Live Inbound Funnel Prospects captured via `POST /v1/leads/capture` on `signaltender.net`
-     (stored in Supabase `contracts` with `status = SUBSCRIBER_INBOUND_LEAD`).
+     (fetched from both `https://b2b-contract-parser-api.onrender.com/v1/leads/list` and
+     Supabase `contracts` with `status = SUBSCRIBER_INBOUND_LEAD`).
   2. Live USAspending.gov API NAICS 541512 / 541519 Recipient Intelligence across our 11 SLED states.
   3. Multi-State Mid-Market GovCon IT, Cloud & Cybersecurity Contractor Directory covering every
      active SignalTender state portal (Virginia, Texas, California, Florida, Maryland, Illinois,
@@ -26,6 +27,10 @@ load_dotenv()
 
 SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
 SUPABASE_KEY = (os.getenv("SUPABASE_KEY") or "").strip()
+REMOTE_LEADS_LIST_URL = os.getenv(
+    "SIGNALTENDER_LEADS_LIST_URL",
+    "https://b2b-contract-parser-api.onrender.com/v1/leads/list",
+)
 APOLLO_CSV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "apollo-contacts.csv")
 INTEL_JSON_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "govcon_prospect_intelligence.json")
 
@@ -73,7 +78,7 @@ MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
         "Website": "https://potomaccyberdefense.com",
         "NAICS Codes": "541512, 541519",
         "Industry": "computer & network security",
-        "Keywords": "govcon, cmmc, zero trust, fedramp,rmf, virginia eva, sam.gov, cybersecurity",
+        "Keywords": "govcon, cmmc, zero trust, fedramp, rmf, virginia eva, sam.gov, cybersecurity",
     },
     {
         "First Name": "Elena",
@@ -102,7 +107,7 @@ MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
         "Keywords": "dod networks, c4isr, enterprise network modernization, virginia sled, cybersecurity",
     },
     {
-        "First Name": "priya",
+        "First Name": "Priya",
         "Last Name": "Natarajan",
         "Title": "Founder & CEO",
         "Company Name": "Arlington CivicTech & Analytics LLC",
@@ -273,7 +278,7 @@ MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
         "Website": "https://prairiestategovtech.com",
         "NAICS Codes": "541512, 541511",
         "Industry": "information technology & services",
-        "Keywords": "illinois bidbuy, doIt illinois, state rfp, legacy modernization, cloud saas",
+        "Keywords": "illinois bidbuy, doit illinois, state rfp, legacy modernization, cloud saas",
     },
     {
         "First Name": "Sonia",
@@ -465,64 +470,109 @@ MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
 ]
 
 
+def _meta_to_prospect_row(meta: Dict[str, Any]) -> Dict[str, str] | None:
+    email = str(meta.get("email") or "").strip().lower()
+    if not email or "@" not in email:
+        return None
+    first_name = str(meta.get("first_name") or "Capture Lead").strip()
+    company = str(meta.get("company") or "GovCon Capture Team").strip()
+    raw_state = str(meta.get("target_state") or "virginia").strip().lower()
+    full_state = STATE_CODE_TO_FULL.get(raw_state, "Virginia")
+    naics = str(meta.get("naics_focus") or "541512, 541519").strip()
+    return {
+        "First Name": first_name,
+        "Last Name": "",
+        "Title": "Inbound Capture Lead (Instant State Dossier Funnel)",
+        "Company Name": company,
+        "Email": email,
+        "City": "",
+        "State": full_state,
+        "Website": f"https://{email.split('@', 1)[1]}",
+        "NAICS Codes": naics,
+        "Industry": "information technology & services",
+        "Keywords": f"inbound dossier funnel, {raw_state}, govcon rfp",
+    }
+
+
 def fetch_inbound_leads_from_supabase() -> List[Dict[str, str]]:
     """
     Fetch any inbound GovCon prospects captured via `POST /v1/leads/capture`
-    (`status = SUBSCRIBER_INBOUND_LEAD` in Supabase `contracts`).
+    from both the remote Render `/v1/leads/list` endpoint and Supabase `contracts`
+    (`status = SUBSCRIBER_INBOUND_LEAD`), and ensure any remote leads are also
+    backed up in Supabase `contracts`.
     """
-    if not (SUPABASE_URL and SUPABASE_KEY):
-        return []
+    by_email: Dict[str, Dict[str, str]] = {}
+    raw_meta_by_email: Dict[str, Dict[str, Any]] = {}
 
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-    }
-    harvested: List[Dict[str, str]] = []
+    # 1. Query remote Render /v1/leads/list
     try:
-        resp = requests.get(
-            f"{SUPABASE_URL}/rest/v1/contracts",
-            params={
-                "status": "eq.SUBSCRIBER_INBOUND_LEAD",
-                "select": "id,title,agency,url,status",
-                "order": "id.desc",
-                "limit": "200",
-            },
-            headers=headers,
-            timeout=10,
-        )
-        if resp.status_code == 200 and isinstance(resp.json(), list):
-            for row in resp.json():
-                raw_title = str(row.get("title") or "").strip()
+        r_remote = requests.get(REMOTE_LEADS_LIST_URL, timeout=10)
+        if r_remote.status_code == 200:
+            payload = r_remote.json()
+            for item in payload.get("leads") or []:
+                if isinstance(item, dict):
+                    row = _meta_to_prospect_row(item)
+                    if row:
+                        by_email[row["Email"]] = row
+                        raw_meta_by_email[row["Email"]] = item
+    except Exception:
+        pass
+
+    # 2. Query Supabase contracts (status = SUBSCRIBER_INBOUND_LEAD)
+    if SUPABASE_URL and SUPABASE_KEY:
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Content-Type": "application/json",
+        }
+        existing_sb_emails = set()
+        try:
+            resp = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={
+                    "status": "eq.SUBSCRIBER_INBOUND_LEAD",
+                    "select": "id,title,agency,url,status",
+                    "order": "id.desc",
+                    "limit": "200",
+                },
+                headers=headers,
+                timeout=10,
+            )
+            if resp.status_code == 200 and isinstance(resp.json(), list):
+                for row in resp.json():
+                    raw_title = str(row.get("title") or "").strip()
+                    try:
+                        meta = json.loads(raw_title)
+                        if isinstance(meta, dict):
+                            prow = _meta_to_prospect_row(meta)
+                            if prow:
+                                existing_sb_emails.add(prow["Email"])
+                                by_email.setdefault(prow["Email"], prow)
+                    except Exception:
+                        continue
+        except Exception as exc:
+            report_error("govcon_lead_harvester.py", f"Supabase inbound lead fetch warning: {exc}", severity="WARNING")
+
+        # Back up any remote leads into Supabase contracts via RLS-safe SELECT + INSERT
+        for em, meta in raw_meta_by_email.items():
+            if em not in existing_sb_emails:
                 try:
-                    meta = json.loads(raw_title)
-                    if not isinstance(meta, dict):
-                        continue
-                    email = str(meta.get("email") or "").strip().lower()
-                    if not email or "@" not in email:
-                        continue
-                    first_name = str(meta.get("first_name") or "Capture Lead").strip()
-                    company = str(meta.get("company") or "GovCon Capture Team").strip()
-                    raw_state = str(meta.get("target_state") or "virginia").strip().lower()
-                    full_state = STATE_CODE_TO_FULL.get(raw_state, "Virginia")
-                    naics = str(meta.get("naics_focus") or "541512, 541519").strip()
-                    harvested.append({
-                        "First Name": first_name,
-                        "Last Name": "",
-                        "Title": "Inbound Capture Lead (Instant State Dossier Funnel)",
-                        "Company Name": company,
-                        "Email": email,
-                        "City": "",
-                        "State": full_state,
-                        "Website": f"https://{email.split('@', 1)[1]}",
-                        "NAICS Codes": naics,
-                        "Industry": "information technology & services",
-                        "Keywords": f"inbound dossier funnel, {raw_state}, govcon rfp",
-                    })
+                    requests.post(
+                        f"{SUPABASE_URL}/rest/v1/contracts",
+                        headers=headers,
+                        json={
+                            "title": json.dumps(meta),
+                            "agency": f"Inbound Lead: {meta.get('first_name', 'Lead')} | {meta.get('company', 'GovCon')} ({meta.get('target_state', 'all')})",
+                            "closing_date": "N/A",
+                            "url": f"subscriber://lead/{em}",
+                            "status": "SUBSCRIBER_INBOUND_LEAD",
+                        },
+                        timeout=8,
+                    )
                 except Exception:
-                    continue
-    except Exception as exc:
-        report_error("govcon_lead_harvester.py", f"Supabase inbound lead fetch warning: {exc}", severity="WARNING")
-    return harvested
+                    pass
+
+    return list(by_email.values())
 
 
 def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
@@ -559,7 +609,7 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
 def run_harvester() -> Dict[str, Any]:
     """
     Main entry point: merges existing `apollo-contacts.csv` rows with multi-state
-    GovCon IT/Cyber prospects and live Supabase inbound funnel leads, deduplicated by email.
+    GovCon IT/Cyber prospects and live Supabase/Render inbound funnel leads, deduplicated by email.
     """
     print("[*] Initializing Autonomous GovCon Prospect & Inbound Lead Harvester...", flush=True)
 
@@ -664,4 +714,3 @@ def run_harvester() -> Dict[str, Any]:
 
 if __name__ == "__main__":
     run_harvester()
-
