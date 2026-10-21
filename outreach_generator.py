@@ -11,6 +11,7 @@ except Exception:
 import json
 import re
 from datetime import datetime, date
+from urllib.parse import quote_plus
 import requests
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -407,11 +408,11 @@ def build_two_step_outreach(
         f"{fname} -",
     ]
     openers = [
-        f"I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 5 state SLED portals (TX, VA, CA, FL, MD) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 5 state procurement portals (TX, VA, CA, FL, MD).",
-        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and state SLED portals.",
-        f"Our ingestion pipeline monitors Federal and 5 state procurement portals (TX, VA, CA, FL, MD) every 6 hours for high-signal IT & cyber solicitations.",
-        f"I track newly released Federal and state SLED technology solicitations across SAM.gov, DemandStar, TX, VA, CA, FL, and MD.",
+        f"I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA).",
+        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and 12 state SLED portals.",
+        f"Our ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations.",
+        f"I track newly released Federal and 12-state SLED technology solicitations across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA.",
     ]
     relevance_lines = [
         f"Since {company} operates in the technology space, I pulled {bid_count} active solicitations that just hit the wire:",
@@ -427,12 +428,26 @@ def build_two_step_outreach(
         f"Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on {clean_domain}.",
         f"Each solicitation is de-duplicated every 6 hours and published with direct agency source links on {clean_domain}.",
     ]
+    tracking_qs = f"utm_source=outbound&co={quote_plus(company)}&fn={quote_plus(fname)}&st={quote_plus(norm_state or 'federal')}"
+    tracked_dossier_url = f"{ clean_domain }/contracts?{tracking_qs}"
+    if top_intel and top_intel.get("dossier_url"):
+        sep = "&" if "?" in top_intel["dossier_url"] else "?"
+        tracked_dossier_url = f"{top_intel['dossier_url']}{sep}{tracking_qs}"
+
+    if "#checkout" in checkout_url:
+        base_chk, hash_chk = checkout_url.split("#", 1)
+        sep_chk = "&" if "?" in base_chk else "?"
+        tracked_checkout_url = f"{base_chk}{sep_chk}{tracking_qs}#{hash_chk}"
+    else:
+        sep_chk = "&" if "?" in checkout_url else "?"
+        tracked_checkout_url = f"{checkout_url}{sep_chk}{tracking_qs}"
+
     step1_ctas = [
-        f"You can view the full open directory at {clean_domain}/contracts — are you guys actively bidding public-sector IT right now, or should I take you off my radar?",
-        f"The live dossiers are indexed at {clean_domain}/contracts — is public-sector IT/cyber on {company}'s radar this quarter?",
-        f"You can inspect all open bids on {clean_domain} — worth sending over the direct agency links when new {region_label} IT scopes drop?",
-        f"All open solicitations are posted on {clean_domain}/contracts — let me know if {company} is pursuing state or federal IT work right now.",
-        f"You can browse the live wire at {clean_domain} — happy to point you to the raw RFP packages if any of these 3 fit your stack.",
+        f"I put the pre-shredded compliance & pricing breakdown for #1 here: {tracked_dossier_url} — are you guys actively bidding public-sector IT right now, or should I take you off my radar?",
+        f"You can inspect the pre-shredded dossier for #1 at {tracked_dossier_url} — is public-sector IT/cyber on {company}'s radar this quarter?",
+        f"Here is the direct Section L/M & NAICS breakdown for the top solicitation: {tracked_dossier_url} — worth sending over future {region_label} IT scopes when they drop?",
+        f"The full compliance & teaming breakdown for #1 is posted at {tracked_dossier_url} — let me know if {company} is pursuing state or federal IT work right now.",
+        f"You can view the live dossier for #1 at {tracked_dossier_url} — happy to point you to the raw RFP packages if any of these 3 fit your stack.",
     ]
     signoffs = [
         "Best,\nSignalTender Procurement Desk",
@@ -459,7 +474,7 @@ def build_two_step_outreach(
         f"Quick follow-up in case {company} is building out its Federal or State SLED capture pipeline this quarter.",
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
         f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.",
-        f"Wanted to follow up one last time regarding our automated Federal and 5-State SLED procurement wire.",
+        f"Wanted to follow up one last time regarding our automated 14-portal Federal and 12-State SLED procurement wire.",
     ]
     intel_block = ""
     if top_intel:
@@ -468,33 +483,33 @@ def build_two_step_outreach(
             f"• Classification: NAICS {top_intel['primary_naics']} (SBA Cap: {top_intel['sba_size_standard']})\n"
             f"• Cyber & Clause Posture: {top_intel['compliance_posture']}\n"
             f"• Teaming & Past Performance: {top_intel['teaming_posture']}\n"
-            f"• Dossier Preview: {top_intel['dossier_url']}\n\n"
+            f"• Dossier Preview: {tracked_dossier_url}\n\n"
         )
 
     step2_tiers = [
         (
             f"{intel_block}"
             f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-            f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+            f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
             f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server)."
         ),
         (
             f"{intel_block}"
             f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
-            f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 5-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
+            f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 12-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
             f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 20 developer REST/MCP APIs."
         ),
         (
             f"{intel_block}"
             f"If {company} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
-            f"- SignalWire Pro ($99/mo): Live 7-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
+            f"- SignalWire Pro ($99/mo): Live 14-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
             f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, CPARS past performance citations, 13 CFR § 125.6 teaming calculators, and Pwin capability matching on every solicitation."
         ),
     ]
     step2_closers = [
-        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
-        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{checkout_url}\n\n100% self-serve, no demos required.",
-        f"Check out the live platform and instant checkout options right here:\n{checkout_url}\n\nIf public-sector IT isn't a focus for {company}, no worries at all—I won't follow up again.",
+        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{tracked_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
+        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{tracked_checkout_url}\n\n100% self-serve, no demos required.",
+        f"Check out the live platform and instant checkout options right here:\n{tracked_checkout_url}\n\nIf public-sector IT isn't a focus for {company}, no worries at all—I won't follow up again.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
@@ -538,11 +553,11 @@ def build_two_step_outreach(
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week. | "
         f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.}}}}\n\n"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server).\n\n"
         f"{intel_block}"
         f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
-        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{checkout_url}\n\n"
+        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{tracked_checkout_url}\n\n"
         f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}"
     )
 
@@ -555,7 +570,7 @@ def build_two_step_outreach(
         "Spintax Body 1": spintax_body_1,
         "Spintax Body 2": spintax_body_2,
         "Matched State": region_label,
-        "Top Contract Dossier URL": (top_intel or {}).get("dossier_url", f"{site_base_url}/contracts"),
+        "Top Contract Dossier URL": tracked_dossier_url,
         "Top Contract NAICS": (top_intel or {}).get("primary_naics", "541512 — Computer Systems Design Services"),
         "Top Contract Posture": f"{(top_intel or {}).get('compliance_posture', '')} | {(top_intel or {}).get('teaming_posture', '')}".strip(" |"),
     }
@@ -771,14 +786,29 @@ def generate_outreach():
             writer = csv.DictWriter(outfile, fieldnames=out_fieldnames)
             writer.writeheader()
 
+            raw_apollo_rows = list(reader)
+            # Prioritize "Not Catch-all" contacts first for the Oct 31 launch ramp to protect domain reputation
+            raw_apollo_rows.sort(
+                key=lambda r: 0 if str(r.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all" else 1
+            )
+
+            try:
+                from govcon_lead_harvester import verify_email_domain_mx, _load_mx_cache, _save_mx_cache
+                mx_cache = _load_mx_cache()
+            except Exception:
+                verify_email_domain_mx = None
+                mx_cache = {}
+
             count = 0
-            for row in reader:
+            for row in raw_apollo_rows:
                 fname = (row.get(first_name_key) or "").strip() or "There"
                 company = (row.get(company_key) or "").strip() or "your team"
                 email = (row.get(email_key) or "").strip()
                 prospect_state = (row.get(state_key) or "").strip() if state_key else ""
 
                 if not email:
+                    continue
+                if verify_email_domain_mx is not None and not verify_email_domain_mx(email, mx_cache):
                     continue
 
                 matched_contracts = select_contracts_for_prospect(tech_contracts, prospect_state, max_count=3)

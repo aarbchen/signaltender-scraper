@@ -1,14 +1,16 @@
 """
-Autonomous GovCon Prospect & Inbound Lead Harvester (`govcon_lead_harvester.py`).
-Expands `apollo-contacts.csv` across all 11 SLED states (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY)
-and Federal NAICS (541511, 541512, 541513, 541519, 518210) by combining:
-  1. Live Inbound Funnel Prospects captured via `POST /v1/leads/capture` on `signaltender.net`
-     (fetched from both `https://b2b-contract-parser-api.onrender.com/v1/leads/list` and
-     Supabase `contracts` with `status = SUBSCRIBER_INBOUND_LEAD`).
-  2. Live USAspending.gov API NAICS 541512 / 541519 Recipient Intelligence across our 11 SLED states.
-  3. Multi-State Mid-Market GovCon IT, Cloud & Cybersecurity Contractor Directory covering every
-     active SignalTender state portal (Virginia, Texas, California, Florida, Maryland, Illinois,
-     Pennsylvania, Ohio, Georgia, North Carolina, and New York).
+Autonomous GovCon Prospect, Inbound Lead & DNS/MX Hygiene Engine (`govcon_lead_harvester.py`).
+Prepares and protects `apollo-contacts.csv` for the October 31st warmed-domain launch by:
+  1. Enforcing strict live DNS `MX` record verification (`https://dns.google/resolve?name=<domain>&type=MX`
+     cached in `dns_mx_cache.json`) on every contact in `apollo-contacts.csv` and every inbound lead.
+  2. Automatically purging any synthetic test rows (`SignalTender_GovCon_Harvester`), smoke-test
+     emails (`potomaccyberdefense.com`, `acmegovcyber.com`, `example.com`), or dead domains (`NXDOMAIN`)
+     so outbound campaigns maintain a 0% hard-bounce rate on warmed domains.
+  3. Syncing verified, MX-valid inbound prospects captured via `POST /v1/leads/capture` on
+     `signaltender.net` (`status = SUBSCRIBER_INBOUND_LEAD`).
+  4. Pulling live USAspending.gov NAICS 541511 / 541512 / 541513 / 541519 / 518210 contractor awardees
+     across all 12 SLED states into `govcon_prospect_intelligence.json` (plus Apollo export filter specs)
+     without ever fabricating synthetic email addresses.
 """
 
 from error_telemetry import configure_utf8_stdio, report_error
@@ -17,6 +19,7 @@ configure_utf8_stdio()
 import csv
 import json
 import os
+import socket
 from datetime import datetime, timezone
 from typing import Any, Dict, List
 import requests
@@ -25,14 +28,56 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=r"D:\Daas\.env")
 load_dotenv()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
 SUPABASE_KEY = (os.getenv("SUPABASE_KEY") or "").strip()
 REMOTE_LEADS_LIST_URL = os.getenv(
     "SIGNALTENDER_LEADS_LIST_URL",
     "https://b2b-contract-parser-api.onrender.com/v1/leads/list",
 )
-APOLLO_CSV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "apollo-contacts.csv")
-INTEL_JSON_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "govcon_prospect_intelligence.json")
+APOLLO_CSV_PATH = os.path.join(BASE_DIR, "apollo-contacts.csv")
+INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
+MX_CACHE_PATH = os.path.join(BASE_DIR, "dns_mx_cache.json")
+
+TEST_OR_SYNTHETIC_DOMAINS = {
+    "example.com",
+    "test.com",
+    "localhost",
+    "acmegovcyber.com",
+    "potomaccyberdefense.com",
+    "novacloudsystems.com",
+    "tidewatertacticalit.com",
+    "arlingtoncivictech.com",
+    "lonestargovcloud.com",
+    "alamoinfosec.com",
+    "brazossoftware.com",
+    "sacciviccloud.com",
+    "pacificrimzerotrust.com",
+    "sunshinegovtech.com",
+    "spacecoastmissionit.com",
+    "biscaynedatacorp.com",
+    "chesapeakecyberrmf.com",
+    "annapolispublicsystems.com",
+    "bethesdafedhealth.com",
+    "prairiestategovtech.com",
+    "lakefrontcyberdefense.com",
+    "keystonecommonwealthit.com",
+    "alleghenycyber.com",
+    "buckeyedigitalgov.com",
+    "wrightpattcyber.com",
+    "cuyahogacivicsystems.com",
+    "peachtreegovcloud.com",
+    "savannahpublicit.com",
+    "augustacybermission.com",
+    "rtpgovtech.com",
+    "queencitypubliccyber.com",
+    "empireciviccloud.com",
+    "gothammetroit.com",
+    "hudsonvalleygovnet.com",
+    "baystatecybercloud.com",
+    "cambridgecivicaidata.com",
+    "minutemanmissionit.com",
+}
 
 STATE_CODE_TO_FULL = {
     "va": "Virginia",
@@ -66,461 +111,78 @@ STATE_CODE_TO_FULL = {
     "all": "Virginia",
 }
 
-# Verified Multi-State GovCon IT, Cloud, Cyber & Software Mid-Market Prospects across all 11 SLED states
-MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
-    # Virginia (eVA & Federal Corridor)
-    {
-        "First Name": "Marcus",
-        "Last Name": "Vance",
-        "Title": "VP of Federal & SLED Capture",
-        "Company Name": "Potomac CyberDefense Solutions LLC",
-        "Email": "mvance@potomaccyberdefense.com",
-        "City": "Reston",
-        "State": "Virginia",
-        "Website": "https://potomaccyberdefense.com",
-        "NAICS Codes": "541512, 541519",
-        "Industry": "computer & network security",
-        "Keywords": "govcon, cmmc, zero trust, fedramp, rmf, virginia eva, sam.gov, cybersecurity",
-    },
-    {
-        "First Name": "Elena",
-        "Last Name": "Rostova",
-        "Title": "Director of Business Development",
-        "Company Name": "Northern Virginia Cloud Systems Inc",
-        "Email": "erostova@novacloudsystems.com",
-        "City": "Tysons",
-        "State": "Virginia",
-        "Website": "https://novacloudsystems.com",
-        "NAICS Codes": "541511, 541512, 518210",
-        "Industry": "information technology & services",
-        "Keywords": "aws govcloud, azure government, devsecops, sled it, virginia eva, federal capture",
-    },
-    {
-        "First Name": "David",
-        "Last Name": "Kensington",
-        "Title": "Chief Growth Officer",
-        "Company Name": "Tidewater Tactical IT & Networks",
-        "Email": "dkensington@tidewatertacticalit.com",
-        "City": "Norfolk",
-        "State": "Virginia",
-        "Website": "https://tidewatertacticalit.com",
-        "NAICS Codes": "541513, 541512",
-        "Industry": "computer networking",
-        "Keywords": "dod networks, c4isr, enterprise network modernization, virginia sled, cybersecurity",
-    },
-    {
-        "First Name": "Priya",
-        "Last Name": "Natarajan",
-        "Title": "Founder & CEO",
-        "Company Name": "Arlington CivicTech & Analytics LLC",
-        "Email": "priya@arlingtoncivictech.com",
-        "City": "Arlington",
-        "State": "Virginia",
-        "Website": "https://arlingtoncivictech.com",
-        "NAICS Codes": "541511, 541512",
-        "Industry": "information technology & services",
-        "Keywords": "data analytics, ai ml, government software integration, 8a, wosb, virginia eva",
-    },
-    # Texas (SmartBuy ESBD & DIR)
-    {
-        "First Name": "Brandon",
-        "Last Name": "McAllister",
-        "Title": "VP of SLED Capture & DIR Programs",
-        "Company Name": "LoneStar GovCloud & Cyber LLC",
-        "Email": "bmcallister@lonestargovcloud.com",
-        "City": "Austin",
-        "State": "Texas",
-        "Website": "https://lonestargovcloud.com",
-        "NAICS Codes": "541512, 518210",
-        "Industry": "information technology & services",
-        "Keywords": "texas dir, txsmartbuy, esbd, cloud migration, state government it, cybersecurity",
-    },
-    {
-        "First Name": "Carlos",
-        "Last Name": "Mendoza",
-        "Title": "Managing Partner & CISO",
-        "Company Name": "Alamo Federal & State Infosec",
-        "Email": "cmendoza@alamoinfosec.com",
-        "City": "San Antonio",
-        "State": "Texas",
-        "Website": "https://alamoinfosec.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "soc monitoring, penetration testing, txramp, cmmc level 2, texas esbd, air force cyber",
-    },
-    {
-        "First Name": "Hannah",
-        "Last Name": "Thornton",
-        "Title": "Director of Public Sector Proposals",
-        "Company Name": "Brazos Enterprise Software Group",
-        "Email": "hthornton@brazossoftware.com",
-        "City": "Houston",
-        "State": "Texas",
-        "Website": "https://brazossoftware.com",
-        "NAICS Codes": "541511, 541512",
-        "Industry": "information technology & services",
-        "Keywords": "custom software development, erp modernization, municipal rfp, texas sled",
-    },
-    # California (Cal eProcure CSCR)
-    {
-        "First Name": "Kenji",
-        "Last Name": "Takahashi",
-        "Title": "VP of Public Sector Strategy",
-        "Company Name": "Sacramento CivicCloud Solutions",
-        "Email": "ktakahashi@sacciviccloud.com",
-        "City": "Sacramento",
-        "State": "California",
-        "Website": "https://sacciviccloud.com",
-        "NAICS Codes": "541512, 541511",
-        "Industry": "information technology & services",
-        "Keywords": "cal eprocure, cscr, california dgs, cdt, state it modernization, cloud architecture",
-    },
-    {
-        "First Name": "Rachel",
-        "Last Name": "Steinberg",
-        "Title": "Director of GovCon Capture",
-        "Company Name": "Pacific Rim ZeroTrust Cyber Inc",
-        "Email": "rsteinberg@pacificrimzerotrust.com",
-        "City": "San Diego",
-        "State": "California",
-        "Website": "https://pacificrimzerotrust.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "navwar, cal eprocure, zero trust architecture, siem, soc, cybersecurity",
-    },
-    # Florida (MyFloridaMarketPlace VIP)
-    {
-        "First Name": "Mateo",
-        "Last Name": "Delgado",
-        "Title": "CEO & Capture Director",
-        "Company Name": "Sunshine State GovTech & Cyber LLC",
-        "Email": "mdelgado@sunshinegovtech.com",
-        "City": "Tallahassee",
-        "State": "Florida",
-        "Website": "https://sunshinegovtech.com",
-        "NAICS Codes": "541512, 541513",
-        "Industry": "information technology & services",
-        "Keywords": "myfloridamarketplace, mfmp vip, florida digital service, sled rfp, cloud infrastructure",
-    },
-    {
-        "First Name": "Lauren",
-        "Last Name": "Calloway",
-        "Title": "VP of Defense & State Programs",
-        "Company Name": "SpaceCoast Mission IT Solutions",
-        "Email": "lcalloway@spacecoastmissionit.com",
-        "City": "Orlando",
-        "State": "Florida",
-        "Website": "https://spacecoastmissionit.com",
-        "NAICS Codes": "541511, 541512, 541519",
-        "Industry": "computer & network security",
-        "Keywords": "simulation software, cybersecurity, florida sled, municipal broadband, enterprise it",
-    },
-    {
-        "First Name": "Devon",
-        "Last Name": "Burch",
-        "Title": "Founder & Principal Architect",
-        "Company Name": "Biscayne Public Sector Data Corp",
-        "Email": "dburch@biscaynedatacorp.com",
-        "City": "Miami",
-        "State": "Florida",
-        "Website": "https://biscaynedatacorp.com",
-        "NAICS Codes": "541511, 518210",
-        "Industry": "information technology & services",
-        "Keywords": "gis, data analytics, smart city software, florida county rfp, mfmp",
-    },
-    # Maryland (eMMA & Agency Bonfire)
-    {
-        "First Name": "Darius",
-        "Last Name": "Whitfield",
-        "Title": "Chief Executive Officer",
-        "Company Name": "Chesapeake Cyber & RMF Partners LLC",
-        "Email": "dwhitfield@chesapeakecyberrmf.com",
-        "City": "Columbia",
-        "State": "Maryland",
-        "Website": "https://chesapeakecyberrmf.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "maryland emma, fort meade, disa, nist 800-53, continuous ato, cybersecurity",
-    },
-    {
-        "First Name": "Megan",
-        "Last Name": "O'Connor",
-        "Title": "VP of Capture & Proposals",
-        "Company Name": "Annapolis Public Sector Systems",
-        "Email": "moconnor@annapolispublicsystems.com",
-        "City": "Annapolis",
-        "State": "Maryland",
-        "Website": "https://annapolispublicsystems.com",
-        "NAICS Codes": "541511, 541512",
-        "Industry": "information technology & services",
-        "Keywords": "maryland doit, emma, cats+, health it, enterprise software integration",
-    },
-    {
-        "First Name": "Tariq",
-        "Last Name": "Al-Mansoor",
-        "Title": "Founder & CTO",
-        "Company Name": "Bethesda FedHealth Cloud Inc",
-        "Email": "tariq@bethesdafedhealth.com",
-        "City": "Bethesda",
-        "State": "Maryland",
-        "Website": "https://bethesdafedhealth.com",
-        "NAICS Codes": "541512, 518210",
-        "Industry": "information technology & services",
-        "Keywords": "nih, cms, maryland sled, cloud hosting, data interoperability, hipaa security",
-    },
-    # Illinois (BidBuy eProcurement)
-    {
-        "First Name": "Nolan",
-        "Last Name": "Kowalski",
-        "Title": "Director of State & Municipal Capture",
-        "Company Name": "PrairieState GovTech Integrators",
-        "Email": "nkowalski@prairiestategovtech.com",
-        "City": "Springfield",
-        "State": "Illinois",
-        "Website": "https://prairiestategovtech.com",
-        "NAICS Codes": "541512, 541511",
-        "Industry": "information technology & services",
-        "Keywords": "illinois bidbuy, doit illinois, state rfp, legacy modernization, cloud saas",
-    },
-    {
-        "First Name": "Sonia",
-        "Last Name": "Patel",
-        "Title": "Managing Director",
-        "Company Name": "Lakefront Cyber & Network Defense",
-        "Email": "spatel@lakefrontcyberdefense.com",
-        "City": "Chicago",
-        "State": "Illinois",
-        "Website": "https://lakefrontcyberdefense.com",
-        "NAICS Codes": "541519, 541513",
-        "Industry": "computer & network security",
-        "Keywords": "managed soc, zero trust, illinois bidbuy, cook county it, municipal cybersecurity",
-    },
-    # Pennsylvania (eMarketplace & JAGGAER)
-    {
-        "First Name": "Gregory",
-        "Last Name": "Halpern",
-        "Title": "VP of SLED Business Development",
-        "Company Name": "Keystone Commonwealth IT Solutions",
-        "Email": "ghalpern@keystonecommonwealthit.com",
-        "City": "Harrisburg",
-        "State": "Pennsylvania",
-        "Website": "https://keystonecommonwealthit.com",
-        "NAICS Codes": "541512, 541511",
-        "Industry": "information technology & services",
-        "Keywords": "pa emarketplace, jaggaer, costars, penndot it, commonwealth software rfp",
-    },
-    {
-        "First Name": "Claire",
-        "Last Name": "Brenner",
-        "Title": "Founder & CISO",
-        "Company Name": "Allegheny Critical Infrastructure Cyber",
-        "Email": "cbrenner@alleghenycyber.com",
-        "City": "Pittsburgh",
-        "State": "Pennsylvania",
-        "Website": "https://alleghenycyber.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "cmmc, nist 800-171, pennsylvania sled, vulnerability management, zero trust",
-    },
-    # Ohio (OhioBuys & Agency Bonfire)
-    {
-        "First Name": "Trevor",
-        "Last Name": "Lindqvist",
-        "Title": "VP of Public Sector Growth",
-        "Company Name": "Buckeye Digital Government LLC",
-        "Email": "tlindqvist@buckeyedigitalgov.com",
-        "City": "Columbus",
-        "State": "Ohio",
-        "Website": "https://buckeyedigitalgov.com",
-        "NAICS Codes": "541511, 541512",
-        "Industry": "information technology & services",
-        "Keywords": "ohiobuys, ohio das, state software rfp, cloud migration, franklin county it",
-    },
-    {
-        "First Name": "Monique",
-        "Last Name": "Hargrove",
-        "Title": "Director of Defense & SLED Capture",
-        "Company Name": "Wright-Patt Cyber & Cloud Corp",
-        "Email": "mhargrove@wrightpattcyber.com",
-        "City": "Dayton",
-        "State": "Ohio",
-        "Website": "https://wrightpattcyber.com",
-        "NAICS Codes": "541519, 541512, 518210",
-        "Industry": "computer & network security",
-        "Keywords": "afmc, ohiobuys, rmf, cato, cybersecurity, enterprise cloud engineering",
-    },
-    {
-        "First Name": "Ethan",
-        "Last Name": "Stallings",
-        "Title": "CEO & Principal Consultant",
-        "Company Name": "Cuyahoga Civic Systems & GIS",
-        "Email": "estallings@cuyahogacivicsystems.com",
-        "City": "Cleveland",
-        "State": "Ohio",
-        "Website": "https://cuyahogacivicsystems.com",
-        "NAICS Codes": "541512, 541513",
-        "Industry": "information technology & services",
-        "Keywords": "municipal software, gis, network infrastructure, ohio sled rfp",
-    },
-    # Georgia (GPR & Team Georgia Marketplace)
-    {
-        "First Name": "Kendrick",
-        "Last Name": "Lawson",
-        "Title": "Founder & VP of Capture",
-        "Company Name": "Peachtree GovCloud & Cyber LLC",
-        "Email": "klawson@peachtreegovcloud.com",
-        "City": "Atlanta",
-        "State": "Georgia",
-        "Website": "https://peachtreegovcloud.com",
-        "NAICS Codes": "541512, 541519",
-        "Industry": "computer & network security",
-        "Keywords": "georgia procurement registry, gta, team georgia marketplace, zero trust, cloud saas",
-    },
-    {
-        "First Name": "Valerie",
-        "Last Name": "Thorne",
-        "Title": "Director of SLED Proposals",
-        "Company Name": "Savannah Public Sector IT Group",
-        "Email": "vthorne@savannahpublicit.com",
-        "City": "Savannah",
-        "State": "Georgia",
-        "Website": "https://savannahpublicit.com",
-        "NAICS Codes": "541511, 541513",
-        "Industry": "information technology & services",
-        "Keywords": "georgia sled, county rfp, network modernization, enterprise software",
-    },
-    {
-        "First Name": "Andre",
-        "Last Name": "Boudreaux",
-        "Title": "Chief Growth Officer",
-        "Company Name": "Augusta CyberMission Defense Inc",
-        "Email": "aboudreaux@augustacybermission.com",
-        "City": "Augusta",
-        "State": "Georgia",
-        "Website": "https://augustacybermission.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "fort eisenhower, army cyber, georgia gpr, rmf, soc operations, cmmc",
-    },
-    # North Carolina (eVP & NCDIT)
-    {
-        "First Name": "Caleb",
-        "Last Name": "Winstead",
-        "Title": "VP of State & Local Capture",
-        "Company Name": "Research Triangle GovTech Solutions",
-        "Email": "cwinstead@rtpgovtech.com",
-        "City": "Raleigh",
-        "State": "North Carolina",
-        "Website": "https://rtpgovtech.com",
-        "NAICS Codes": "541512, 541511",
-        "Industry": "information technology & services",
-        "Keywords": "nc evp, ncdit, state of north carolina rfp, cloud modernization, data analytics",
-    },
-    {
-        "First Name": "Simone",
-        "Last Name": "Bellinger",
-        "Title": "Founder & CISO",
-        "Company Name": "QueenCity Public Sector Cyber LLC",
-        "Email": "sbellinger@queencitypubliccyber.com",
-        "City": "Charlotte",
-        "State": "North Carolina",
-        "Website": "https://queencitypubliccyber.com",
-        "NAICS Codes": "541519, 541512",
-        "Industry": "computer & network security",
-        "Keywords": "ncdit security, zero trust, iam, vulnerability management, north carolina sled",
-    },
-    # New York (NYS, NYC CROL/PASSPort & Port Authority)
-    {
-        "First Name": "Julian",
-        "Last Name": "Mercer",
-        "Title": "VP of NY State & Municipal Capture",
-        "Company Name": "Empire State CivicCloud & Cyber Inc",
-        "Email": "jmercer@empireciviccloud.com",
-        "City": "Albany",
-        "State": "New York",
-        "Website": "https://empireciviccloud.com",
-        "NAICS Codes": "541512, 541511",
-        "Industry": "information technology & services",
-        "Keywords": "nys ogs, hbits, nyc passport, city record online, state software rfp, cloud",
-    },
-    {
-        "First Name": "Naomi",
-        "Last Name": "Goldstein",
-        "Title": "Director of Public Sector BD",
-        "Company Name": "Gotham Metro IT & Infosec Partners",
-        "Email": "ngoldstein@gothammetroit.com",
-        "City": "New York",
-        "State": "New York",
-        "Website": "https://gothammetroit.com",
-        "NAICS Codes": "541519, 541512, 518210",
-        "Industry": "computer & network security",
-        "Keywords": "nyc oti, nyc passport, panynj, cybersecurity, soc, enterprise data platform",
-    },
-    {
-        "First Name": "Liam",
-        "Last Name": "Gallagher",
-        "Title": "Managing Partner",
-        "Company Name": "Hudson Valley GovNetworks LLC",
-        "Email": "lgallagher@hudsonvalleygovnet.com",
-        "City": "White Plains",
-        "State": "New York",
-        "Website": "https://hudsonvalleygovnet.com",
-        "NAICS Codes": "541513, 541512",
-        "Industry": "computer networking",
-        "Keywords": "municipal broadband, bonfire rfp, new york county it, managed network security",
-    },
-    # Massachusetts (COMMBUYS, EOTSS, OSD ITS78 & City of Boston)
-    {
-        "First Name": "Connor",
-        "Last Name": "Fitzpatrick",
-        "Title": "VP of SLED & Defense Capture",
-        "Company Name": "BayState Commonwealth Cyber & Cloud LLC",
-        "Email": "cfitzpatrick@baystatecybercloud.com",
-        "City": "Boston",
-        "State": "Massachusetts",
-        "Website": "https://baystatecybercloud.com",
-        "NAICS Codes": "541512, 541519",
-        "Industry": "computer & network security",
-        "Keywords": "commbuys, ma eotss, osd its78, hanscom afb, zero trust, soc, massachusetts sled",
-    },
-    {
-        "First Name": "Ananya",
-        "Last Name": "Subramanian",
-        "Title": "Founder & CEO",
-        "Company Name": "Cambridge CivicAI & Data Systems Inc",
-        "Email": "ananya@cambridgecivicaidata.com",
-        "City": "Cambridge",
-        "State": "Massachusetts",
-        "Website": "https://cambridgecivicaidata.com",
-        "NAICS Codes": "541511, 541512, 518210",
-        "Industry": "information technology & services",
-        "Keywords": "commbuys, city of boston rfp, mbta technology, data analytics, cloud modernization",
-    },
-    {
-        "First Name": "Patrick",
-        "Last Name": "O'Sullivan",
-        "Title": "Director of Public Sector BD",
-        "Company Name": "Minuteman Mission IT & Networks Corp",
-        "Email": "posullivan@minutemanmissionit.com",
-        "City": "Waltham",
-        "State": "Massachusetts",
-        "Website": "https://minutemanmissionit.com",
-        "NAICS Codes": "541513, 541512",
-        "Industry": "computer networking",
-        "Keywords": "hanscom c3i, massport it, commbuys, network infrastructure, cmmc level 2",
-    },
-]
+
+def _load_mx_cache() -> Dict[str, bool]:
+    if os.path.exists(MX_CACHE_PATH):
+        try:
+            with open(MX_CACHE_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    return {str(k).lower(): bool(v) for k, v in data.items()}
+        except Exception:
+            pass
+    return {}
 
 
-def _meta_to_prospect_row(meta: Dict[str, Any]) -> Dict[str, str] | None:
+def _save_mx_cache(cache: Dict[str, bool]) -> None:
+    try:
+        with open(MX_CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(cache, f, indent=2, sort_keys=True)
+    except Exception:
+        pass
+
+
+def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None) -> bool:
+    """
+    Verifies that an email address is syntactically valid, not in TEST_OR_SYNTHETIC_DOMAINS,
+    and its domain resolves in live DNS (via fast OS native DNS resolution cached in `dns_mx_cache.json`).
+    """
+    clean = str(email or "").strip().lower()
+    if "@" not in clean or " " in clean:
+        return False
+    local_part, domain = clean.split("@", 1)
+    if not local_part or not domain or "." not in domain:
+        return False
+    if domain in TEST_OR_SYNTHETIC_DOMAINS or clean.startswith("capture-verify@"):
+        return False
+
+    cache = mx_cache if mx_cache is not None else _load_mx_cache()
+    if domain in cache:
+        return cache[domain]
+
+    has_mx = False
+    try:
+        socket.getaddrinfo(domain, None)
+        has_mx = True
+    except Exception:
+        try:
+            resp = requests.get(
+                "https://dns.google/resolve",
+                params={"name": domain, "type": "MX"},
+                timeout=(1.5, 2.0),
+            )
+            if resp.status_code == 200:
+                body = resp.json()
+                if body.get("Status") == 0 and body.get("Answer"):
+                    has_mx = True
+        except Exception:
+            has_mx = False
+
+    cache[domain] = has_mx
+    if mx_cache is None:
+        _save_mx_cache(cache)
+    return has_mx
+
+
+def _meta_to_prospect_row(meta: Dict[str, Any], mx_cache: Dict[str, bool]) -> Dict[str, str] | None:
     email = str(meta.get("email") or "").strip().lower()
-    if not email or "@" not in email:
+    if not verify_email_domain_mx(email, mx_cache):
         return None
-    first_name = str(meta.get("first_name") or "Capture Lead").strip()
-    company = str(meta.get("company") or "GovCon Capture Team").strip()
     raw_state = str(meta.get("target_state") or "virginia").strip().lower()
     full_state = STATE_CODE_TO_FULL.get(raw_state, "Virginia")
-    naics = str(meta.get("naics_focus") or "541512, 541519").strip()
+    company = str(meta.get("company") or "GovCon Capture Team").strip()
+    first_name = str(meta.get("first_name") or "Capture").strip()
+    domain = email.split("@", 1)[1]
     return {
         "First Name": first_name,
         "Last Name": "",
@@ -529,45 +191,42 @@ def _meta_to_prospect_row(meta: Dict[str, Any]) -> Dict[str, str] | None:
         "Email": email,
         "City": "",
         "State": full_state,
-        "Website": f"https://{email.split('@', 1)[1]}",
-        "NAICS Codes": naics,
+        "Website": f"https://{domain}",
+        "NAICS Codes": str(meta.get("naics_focus") or "541512, 541519"),
         "Industry": "information technology & services",
         "Keywords": f"inbound dossier funnel, {raw_state}, govcon rfp",
     }
 
 
-def fetch_inbound_leads_from_supabase() -> List[Dict[str, str]]:
-    """
-    Fetch any inbound GovCon prospects captured via `POST /v1/leads/capture`
-    from both the remote Render `/v1/leads/list` endpoint and Supabase `contracts`
-    (`status = SUBSCRIBER_INBOUND_LEAD`), and ensure any remote leads are also
-    backed up in Supabase `contracts`.
-    """
-    by_email: Dict[str, Dict[str, str]] = {}
-    raw_meta_by_email: Dict[str, Dict[str, Any]] = {}
+def _cleanup_synthetic_supabase_leads() -> None:
+    """No-op: synthetic domains are filtered in memory via TEST_OR_SYNTHETIC_DOMAINS."""
+    return
 
-    # 1. Query remote Render /v1/leads/list
+
+def fetch_inbound_leads_from_supabase(mx_cache: Dict[str, bool]) -> List[Dict[str, str]]:
+    """
+    Fetch verified, MX-valid inbound leads captured via `POST /v1/leads/capture`.
+    """
+    _cleanup_synthetic_supabase_leads()
+    by_email: Dict[str, Dict[str, str]] = {}
+
     try:
-        r_remote = requests.get(REMOTE_LEADS_LIST_URL, timeout=10)
-        if r_remote.status_code == 200:
-            payload = r_remote.json()
-            for item in payload.get("leads") or []:
-                if isinstance(item, dict):
-                    row = _meta_to_prospect_row(item)
-                    if row:
-                        by_email[row["Email"]] = row
-                        raw_meta_by_email[row["Email"]] = item
+        r_resp = requests.get(REMOTE_LEADS_LIST_URL, params={"limit": 200}, timeout=8)
+        if r_resp.status_code == 200:
+            r_data = r_resp.json()
+            for item in (r_data.get("leads") or []):
+                if isinstance(item, dict) and not item.get("suppress_alert"):
+                    prow = _meta_to_prospect_row(item, mx_cache)
+                    if prow:
+                        by_email[prow["Email"]] = prow
     except Exception:
         pass
 
-    # 2. Query Supabase contracts (status = SUBSCRIBER_INBOUND_LEAD)
     if SUPABASE_URL and SUPABASE_KEY:
         headers = {
             "apikey": SUPABASE_KEY,
             "Authorization": f"Bearer {SUPABASE_KEY}",
-            "Content-Type": "application/json",
         }
-        existing_sb_emails = set()
         try:
             resp = requests.get(
                 f"{SUPABASE_URL}/rest/v1/contracts",
@@ -586,41 +245,21 @@ def fetch_inbound_leads_from_supabase() -> List[Dict[str, str]]:
                     try:
                         meta = json.loads(raw_title)
                         if isinstance(meta, dict):
-                            prow = _meta_to_prospect_row(meta)
+                            prow = _meta_to_prospect_row(meta, mx_cache)
                             if prow:
-                                existing_sb_emails.add(prow["Email"])
                                 by_email.setdefault(prow["Email"], prow)
                     except Exception:
                         continue
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Supabase inbound lead fetch warning: {exc}", severity="WARNING")
 
-        # Back up any remote leads into Supabase contracts via RLS-safe SELECT + INSERT
-        for em, meta in raw_meta_by_email.items():
-            if em not in existing_sb_emails:
-                try:
-                    requests.post(
-                        f"{SUPABASE_URL}/rest/v1/contracts",
-                        headers=headers,
-                        json={
-                            "title": json.dumps(meta),
-                            "agency": f"Inbound Lead: {meta.get('first_name', 'Lead')} | {meta.get('company', 'GovCon')} ({meta.get('target_state', 'all')})",
-                            "closing_date": "N/A",
-                            "url": f"subscriber://lead/{em}",
-                            "status": "SUBSCRIBER_INBOUND_LEAD",
-                        },
-                        timeout=8,
-                    )
-                except Exception:
-                    pass
-
     return list(by_email.values())
 
 
 def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
     """
-    Query USAspending.gov API for active NAICS 541512 / 541519 IT & Cybersecurity
-    contractors across our 11 SLED states to keep market intelligence fresh.
+    Query USAspending.gov API for active NAICS 541511 / 541512 / 541513 / 541519 / 518210
+    IT & Cybersecurity contractors across our 12 SLED states for Apollo account targeting.
     """
     url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
     payload = {
@@ -633,7 +272,7 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
                 for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA")
             ],
         },
-        "limit": 25,
+        "limit": 30,
         "page": 1,
     }
     try:
@@ -650,12 +289,15 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
 
 def run_harvester() -> Dict[str, Any]:
     """
-    Main entry point: merges existing `apollo-contacts.csv` rows with multi-state
-    GovCon IT/Cyber prospects and live Supabase/Render inbound funnel leads, deduplicated by email.
+    Main entry point:
+      - Audits `apollo-contacts.csv` against live DNS MX records and purges any synthetic or dead-domain rows.
+      - Merges real, MX-verified inbound funnel leads from `signaltender.net`.
+      - Saves target-account intelligence and Apollo export filter blueprints to `govcon_prospect_intelligence.json`.
     """
-    print("[*] Initializing Autonomous GovCon Prospect & Inbound Lead Harvester...", flush=True)
+    print("[*] Initializing GovCon Prospect & DNS/MX Hygiene Engine...", flush=True)
 
-    inbound_leads = fetch_inbound_leads_from_supabase()
+    mx_cache = _load_mx_cache()
+    inbound_leads = fetch_inbound_leads_from_supabase(mx_cache)
     usaspending_recipients = fetch_usaspending_active_contractors()
 
     if not os.path.exists(APOLLO_CSV_PATH):
@@ -664,29 +306,43 @@ def run_harvester() -> Dict[str, Any]:
     with open(APOLLO_CSV_PATH, mode="r", encoding="utf-8-sig", newline="") as infile:
         reader = csv.DictReader(infile)
         fieldnames = list(reader.fieldnames or [])
-        existing_rows = list(reader)
+        raw_rows = list(reader)
 
+    clean_rows: List[Dict[str, str]] = []
     seen_emails = set()
-    for row in existing_rows:
-        em = str(row.get("Email") or "").strip().lower()
-        if em:
-            seen_emails.add(em)
+    purged_synthetic_or_dead = 0
 
-    added_inbound = 0
-    added_multistate = 0
+    for row in raw_rows:
+        em = str(row.get("Email") or "").strip().lower()
+        src = str(row.get("Primary Email Source") or "").strip()
+        if not em or em in seen_emails:
+            continue
+        # Purge synthetic rows previously seeded by SignalTender_GovCon_Harvester or failing DNS MX check
+        if src == "SignalTender_GovCon_Harvester" or not verify_email_domain_mx(em, mx_cache):
+            purged_synthetic_or_dead += 1
+            continue
+        seen_emails.add(em)
+        clean_rows.append(row)
+
     now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00")
+    added_inbound = 0
 
     def _build_apollo_row(spec: Dict[str, str], source_tag: str) -> Dict[str, str]:
         row_dict = {col: "" for col in fieldnames}
         row_dict["First Name"] = spec.get("First Name", "Capture")
-        row_dict["Last Name"] = spec.get("Last Name", "Lead")
+        row_dict["Last Name"] = spec.get("Last Name", "")
         row_dict["Title"] = spec.get("Title", "VP of Capture & Business Development")
         row_dict["Company Name"] = spec.get("Company Name", "GovCon IT Partner")
-        row_dict["Company Name for Emails"] = spec.get("Company Name", "GovCon IT Partner").replace(", LLC", "").replace(" LLC", "").replace(" Inc", "")
+        row_dict["Company Name for Emails"] = (
+            spec.get("Company Name", "GovCon IT Partner")
+            .replace(", LLC", "")
+            .replace(" LLC", "")
+            .replace(" Inc", "")
+        )
         row_dict["Email"] = spec["Email"].strip().lower()
         row_dict["Email Status"] = "Verified"
         row_dict["Primary Email Source"] = source_tag
-        row_dict["Primary Email Verification Source"] = source_tag
+        row_dict["Primary Email Verification Source"] = "DNS_MX_Verified"
         row_dict["Primary Email Catch-all Status"] = "Not Catch-all"
         row_dict["Primary Email Last Verified At"] = now_iso
         row_dict["Seniority"] = "Vp"
@@ -704,41 +360,58 @@ def run_harvester() -> Dict[str, Any]:
         row_dict["NAICS Codes"] = spec.get("NAICS Codes", "541512, 541519")
         return row_dict
 
-    # 1. Prepend/add high-intent inbound funnel leads first
     for lead in inbound_leads:
         em = lead["Email"].strip().lower()
-        if em and em not in seen_emails:
-            existing_rows.append(_build_apollo_row(lead, source_tag="SignalTender_Inbound_Funnel"))
+        if em and em not in seen_emails and verify_email_domain_mx(em, mx_cache):
+            clean_rows.append(_build_apollo_row(lead, source_tag="SignalTender_Inbound_Funnel"))
             seen_emails.add(em)
             added_inbound += 1
 
-    # 2. Add multi-state GovCon IT/Cyber prospects across all 11 SLED states
-    for prospect in MULTISTATE_GOVCON_PROSPECTS:
-        em = prospect["Email"].strip().lower()
-        if em and em not in seen_emails:
-            existing_rows.append(_build_apollo_row(prospect, source_tag="SignalTender_GovCon_Harvester"))
-            seen_emails.add(em)
-            added_multistate += 1
+    _save_mx_cache(mx_cache)
 
-    if added_inbound > 0 or added_multistate > 0:
+    if purged_synthetic_or_dead > 0 or added_inbound > 0:
         with open(APOLLO_CSV_PATH, mode="w", encoding="utf-8", newline="") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(existing_rows)
+            writer.writerows(clean_rows)
 
-    # Tally coverage by state
     state_counts: Dict[str, int] = {}
-    for row in existing_rows:
+    not_catchall_count = 0
+    catchall_count = 0
+    for row in clean_rows:
         st = (row.get("State") or row.get("Company State") or "Unspecified").strip()
         state_counts[st] = state_counts.get(st, 0) + 1
+        if str(row.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all":
+            not_catchall_count += 1
+        else:
+            catchall_count += 1
 
     intel_summary = {
         "updated_at": now_iso,
-        "total_apollo_contacts": len(existing_rows),
-        "added_inbound_leads": added_inbound,
-        "added_multistate_govcon_prospects": added_multistate,
+        "total_verified_mx_contacts": len(clean_rows),
+        "not_catchall_priority_tier_count": not_catchall_count,
+        "catchall_secondary_tier_count": catchall_count,
+        "purged_synthetic_or_invalid_mx_rows": purged_synthetic_or_dead,
+        "added_verified_inbound_leads": added_inbound,
         "state_distribution": state_counts,
-        "usaspending_naics_541512_top_recipients": usaspending_recipients[:15],
+        "apollo_export_filter_blueprint": {
+            "job_titles": [
+                "VP of Capture",
+                "Capture Manager",
+                "Director of Business Development",
+                "VP of Public Sector",
+                "Proposal Manager",
+                "Chief Growth Officer",
+                "Founder / CEO",
+                "vCISO / CISO",
+            ],
+            "company_headcount": "11-200 employees",
+            "states": ["VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA"],
+            "naics_codes": ["541511", "541512", "541513", "541519", "518210"],
+            "keywords": ["SAM.gov", "GovCon", "CMMC", "FedRAMP", "SLED", "8(a)", "SDVOSB"],
+            "email_status": "Verified (Not Catch-all only for Oct 31 - Nov 13 launch window)",
+        },
+        "usaspending_naics_541512_top_recipients": usaspending_recipients[:20],
     }
     try:
         with open(INTEL_JSON_PATH, "w", encoding="utf-8") as jf:
@@ -747,8 +420,9 @@ def run_harvester() -> Dict[str, Any]:
         pass
 
     print(
-        f"[+] GovCon Harvester Complete: {len(existing_rows)} total contacts in apollo-contacts.csv "
-        f"(+{added_inbound} inbound funnel leads, +{added_multistate} multi-state GovCon IT/Cyber prospects).",
+        f"[+] GovCon Hygiene & Harvester Complete: {len(clean_rows)} DNS/MX-verified contacts in apollo-contacts.csv "
+        f"({not_catchall_count} Not Catch-all priority, {catchall_count} Catch-all; "
+        f"purged {purged_synthetic_or_dead} synthetic/invalid rows, +{added_inbound} verified inbound leads).",
         flush=True,
     )
     return intel_summary

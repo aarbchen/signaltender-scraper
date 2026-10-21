@@ -168,6 +168,27 @@
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center space-y-8">
 
+          <!-- Personalized Outbound Prospect Attribution Banner (Auto-Shown When ?co=... Present) -->
+          <div id="main-outbound-prospect-banner" class="hidden p-4 rounded-xl bg-gradient-to-r from-indigo-950/90 via-navy-900 to-sky-950/80 border border-indigo-500/50 shadow-xl text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">PREPARED FOR <span id="main-outbound-prospect-company" class="uppercase">YOUR CAPTURE TEAM</span></span>
+                <span id="main-outbound-prospect-state-pill" class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold">14-PORTAL BRIEFING</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                <span id="main-outbound-prospect-greeting" class="font-semibold text-white">Welcome</span> &mdash; Your personalized 14-portal Federal &amp; 12-State SLED capture briefing is unlocked below.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 shrink-0 font-mono text-xs">
+              <a href="#checkout-tier1" class="px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold border border-sky-400/40 transition-all">
+                Tier 1 Wire ($99/mo) &rarr;
+              </a>
+              <a href="#checkout-tier2" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all">
+                Tier 2 CaptureDesk ($399/mo) &rarr;
+              </a>
+            </div>
+          </div>
+
           <!-- Client-Benefit Badge -->
           <div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-mono text-sky-400">
             <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
@@ -7407,6 +7428,22 @@
           </div>
         </div>
 
+        <!-- Personalized Outbound Prospect Attribution Banner on Checkout -->
+        <div id="checkout-outbound-prospect-banner" class="hidden mt-6 p-4 rounded-xl bg-gradient-to-r from-indigo-950/90 via-navy-900 to-sky-950/80 border border-indigo-500/50 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">PREPARED FOR <span id="checkout-outbound-prospect-company" class="uppercase">YOUR CAPTURE TEAM</span></span>
+              <span id="checkout-outbound-prospect-state-pill" class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold">PRIORITY ONBOARDING</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+              <span id="checkout-outbound-prospect-greeting" class="font-semibold text-white">Welcome</span> &mdash; Activate your 6-hour Discord, Slack, Teams, or CRM dispatch below in under 60 seconds.
+            </p>
+          </div>
+          <div class="text-[11px] font-mono text-emerald-400 font-semibold shrink-0">
+            &check; Instant Role &amp; Webhook Provisioning Active
+          </div>
+        </div>
+
         <!-- Two-Column Plan Comparison & Checkout Cards -->
         <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
@@ -7576,6 +7613,96 @@
               class="inline-flex items-center justify-center px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold transition-colors"
             >
               Start Free on RapidAPI &nearr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Live Discord Feed Preview (#tier1-gov-leads vs #capturedesk-autopilot) & Risk-Reversal Strip -->
+        <div id="checkout-live-feed-preview" class="mt-10 p-6 sm:p-8 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-2xl space-y-6">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+            <div>
+              <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-sky-500/15 border border-sky-500/40 text-[11px] font-mono text-sky-300 font-bold mb-2">
+                <span>// INSIDE THE SUBSCRIBER CHANNELS: SEE EXACTLY WHAT LANDS EVERY 6 HOURS</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white">
+                Compare Live <code class="font-mono text-sky-400">#tier1-gov-leads</code> vs. <code class="font-mono text-indigo-400">#capturedesk-autopilot</code> Dispatches
+              </h3>
+              <p class="mt-1 text-xs sm:text-sm text-slate-400">
+                Both plans filter out 99.4% of non-IT commodity noise across all 14 portals and include clickable <code class="font-mono text-slate-300">/contracts/rfp/</code> dossiers plus direct government source links.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono shrink-0">
+              <span class="px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">&check; ZERO OPENGRAPH CLUTTER</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-200 border border-slate-700">6-HOUR AUTOMATED CADENCE</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Sample 1: Tier 1 (#tier1-gov-leads) -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-sky-500/40 flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-2.5">
+                  <span class="text-sky-400 font-bold">#tier1-gov-leads // TIER 1 ($99/MO)</span>
+                  <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[10px]">ACTIONABLE LEAD WIRE</span>
+                </div>
+                <div class="font-mono text-xs text-slate-200 space-y-2 leading-relaxed">
+                  <div class="text-emerald-400 font-bold">[NEW IT / CYBER SOLICITATION // VIRGINIA eVA]</div>
+                  <div class="text-white font-semibold">Enterprise Zero-Trust SOC &amp; Managed Detection (MDR) Engineering</div>
+                  <div class="text-slate-400">Agency: <span class="text-slate-200">Virginia Information Technologies Agency (VITA)</span> &bull; Due: <span class="text-amber-300">2026-11-18</span></div>
+                  <div class="p-2.5 rounded bg-navy-900 border border-slate-800 text-[11px] text-slate-300">
+                    &bull; <strong>NAICS / NIGP:</strong> 541512 / 541519 (Cybersecurity &amp; Cloud Integration)<br />
+                    &bull; <strong>Set-Aside / Vehicle:</strong> SWaM / Small Business Priority<br />
+                    &bull; <strong>Direct Links:</strong> Official State Portal Source + SignalTender Brief
+                  </div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">Best for BD teams tracking new bids fast</span>
+                <button type="button" onclick="window.launchSignalCheckout('tier1')" class="text-sky-400 hover:text-sky-300 font-bold">
+                  Select Tier 1 ($99/mo) &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Sample 2: Tier 2 (#capturedesk-autopilot) -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-indigo-500/50 flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-2.5">
+                  <span class="text-indigo-300 font-bold">#capturedesk-autopilot // TIER 2 ($399/MO)</span>
+                  <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-200 border border-indigo-500/40 text-[10px]">20-ENGINE AI DOSSIER</span>
+                </div>
+                <div class="font-mono text-xs text-slate-200 space-y-2 leading-relaxed">
+                  <div class="text-indigo-300 font-bold">[AUTOPILOT] SIGNALTENDER // CAPTUREDESK AI DOSSIER</div>
+                  <div class="text-white font-semibold">Enterprise Zero-Trust SOC &amp; Managed Detection (MDR) Engineering</div>
+                  <div class="p-2.5 rounded bg-navy-900 border border-indigo-500/30 text-[11px] text-slate-300 space-y-1">
+                    <div><span class="text-emerald-400 font-semibold">[Pwin: 84/100 STRONG BID]</span> &bull; Est. Ceiling: <span class="text-white font-semibold">$1.45M - $3.20M</span></div>
+                    <div>&bull; <strong>Shipley Section L/M Matrix:</strong> 14 mandatory SHALL requirements shredded</div>
+                    <div>&bull; <strong>RMF / CMMC 2.0 &amp; Teaming:</strong> NIST 800-53 Rev 5 SSP + 13 CFR &sect; 125.6 workshare</div>
+                    <div>&bull; <strong>IGCE &amp; GSA MAS PTW:</strong> SIN 54151HACS P50 Target $164/hr &bull; Wrap 1.78x</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-indigo-300">Replaces 40+ hrs/mo of manual RFP shredding</span>
+                <button type="button" onclick="window.launchSignalCheckout('tier2')" class="text-indigo-300 hover:text-indigo-200 font-bold">
+                  Select Tier 2 ($399/mo) &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- B2B Risk-Reversal & Procurement Guarantee Strip -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-950/40 via-navy-950 to-indigo-950/40 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                // ZERO-LOCK-IN B2B CAPTURE GUARANTEE &bull; CORPORATE TAX INVOICES INCLUDED
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300">
+                Cancel in 1 click anytime from the Stripe Customer Billing Portal. Every subscription includes downloadable corporate PDF tax receipts for Government BD expense reimbursement and instant Discord/Webhook onboarding.
+              </p>
+            </div>
+            <a href="#contracts" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono font-semibold text-white border border-slate-700 whitespace-nowrap transition-colors">
+              Browse 155+ Live RFPs &rarr;
             </a>
           </div>
         </div>
@@ -8014,6 +8141,31 @@
           });
       };
 
+      window.fireOutboundClickBeacon = function (eventType, extraPage) {
+        try {
+          if (typeof sessionStorage === 'undefined' || typeof fetch !== 'function') return;
+          var raw = sessionStorage.getItem('st_outbound_attrib');
+          if (!raw) return;
+          var attrib = JSON.parse(raw);
+          if (!attrib || (!attrib.co && !attrib.fn)) return;
+          var dedupKey = 'st_beacon_' + eventType + '_' + (attrib.co || '');
+          if (sessionStorage.getItem(dedupKey)) return;
+          sessionStorage.setItem(dedupKey, '1');
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/track-click', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              company: attrib.co || '',
+              first_name: attrib.fn || '',
+              target_state: attrib.st || 'federal',
+              event_type: eventType,
+              page_url: extraPage || ((window.location && window.location.href) ? window.location.href : 'https://signaltender.net/#checkout'),
+              utm_source: attrib.utm || 'outbound'
+            })
+          }).catch(function () {});
+        } catch (e) {}
+      };
+
       window.launchSignalCheckout = function (tier) {
         var key = (tier === 'tier2' ? 'tier2_' : 'tier1_') + currentBilling;
         var baseUrl = window.SIGNAL_CHECKOUT_LINKS[key] || window.SIGNAL_CHECKOUT_LINKS.tier1_monthly;
@@ -8029,6 +8181,9 @@
         if (prefillEmail && targetUrl.indexOf('buy.stripe.com') !== -1) {
           var sep2 = targetUrl.indexOf('?') === -1 ? '?' : '&';
           targetUrl = targetUrl + sep2 + 'prefilled_email=' + encodeURIComponent(prefillEmail);
+        }
+        if (typeof window.fireOutboundClickBeacon === 'function') {
+          window.fireOutboundClickBeacon('stripe_click', 'https://signaltender.net/#checkout-' + tier + '-' + currentBilling);
         }
         window.open(targetUrl, '_blank', 'noopener,noreferrer');
       };
@@ -8087,6 +8242,9 @@
           if (contractsPage) contractsPage.classList.add('hidden');
           if (checkoutPage) checkoutPage.classList.remove('hidden');
           document.title = 'SignalTender | Select Your GovCon Intelligence Plan & Checkout';
+          if (typeof window.fireOutboundClickBeacon === 'function') {
+            window.fireOutboundClickBeacon('checkout_view', (window.location && window.location.href) ? window.location.href : ('https://signaltender.net/' + hash));
+          }
           if (hash === '#checkout-annual') {
             window.setCheckoutBilling('annual');
           }
@@ -9889,7 +10047,7 @@
         renderDossierCards(matched);
         if (statusEl) {
           statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
-          statusEl.innerHTML = '&check; Unlocked 3 live pre-shredded IT/Cyber RFP dossiers for <span class="text-white font-semibold">' + escHtml(email) + '</span> (' + escHtml(targetState.toUpperCase()) + '). Click any dossier below or <a href="#checkout-tier1" class="text-sky-400 underline">activate all 13 portals 24/7 ($99/mo)</a>.';
+          statusEl.innerHTML = '&check; Unlocked 3 live pre-shredded IT/Cyber RFP dossiers for <span class="text-white font-semibold">' + escHtml(email) + '</span> (' + escHtml(targetState.toUpperCase()) + '). Click any dossier below or <a href="#checkout-tier1" class="text-sky-400 underline">activate all 14 portals 24/7 ($99/mo)</a>.';
         }
 
         if (typeof fetch === 'function') {
@@ -9915,6 +10073,64 @@
         }
         return true;
       };
+
+      (function initIndexOutboundAttribution() {
+        try {
+          var search = (window.location && window.location.search) ? window.location.search : '';
+          var params = typeof URLSearchParams !== 'undefined' ? new URLSearchParams(search) : null;
+          var co = params ? (params.get('co') || '') : '';
+          var fn = params ? (params.get('fn') || '') : '';
+          var st = params ? (params.get('st') || '') : '';
+          var utm = params ? (params.get('utm_source') || '') : '';
+
+          if (!co && typeof sessionStorage !== 'undefined') {
+            var cached = sessionStorage.getItem('st_outbound_attrib');
+            if (cached) {
+              try {
+                var parsed = JSON.parse(cached);
+                co = parsed.co || '';
+                fn = parsed.fn || '';
+                st = parsed.st || '';
+                utm = parsed.utm || '';
+              } catch (e) {}
+            }
+          } else if (co && typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem('st_outbound_attrib', JSON.stringify({ co: co, fn: fn, st: st, utm: utm || 'outbound' }));
+          }
+
+          if (co) {
+            var statePretty = st ? st.replace(/_/g, ' ').toUpperCase() : 'FEDERAL & 12-STATE SLED';
+            var mainBan = document.getElementById('main-outbound-prospect-banner');
+            var mainCo = document.getElementById('main-outbound-prospect-company');
+            var mainSt = document.getElementById('main-outbound-prospect-state-pill');
+            var mainGr = document.getElementById('main-outbound-prospect-greeting');
+            if (mainCo) mainCo.textContent = co;
+            if (mainSt) mainSt.textContent = statePretty + ' BRIEFING';
+            if (mainGr) mainGr.textContent = fn ? ('Prepared for ' + fn + ' (' + co + ')') : ('Prepared for ' + co);
+            if (mainBan) mainBan.classList.remove('hidden');
+
+            var chkBan = document.getElementById('checkout-outbound-prospect-banner');
+            var chkCo = document.getElementById('checkout-outbound-prospect-company');
+            var chkSt = document.getElementById('checkout-outbound-prospect-state-pill');
+            var chkGr = document.getElementById('checkout-outbound-prospect-greeting');
+            if (chkCo) chkCo.textContent = co;
+            if (chkSt) chkSt.textContent = statePretty + ' PRIORITY ACCESS';
+            if (chkGr) chkGr.textContent = fn ? ('Prepared for ' + fn + ' (' + co + ')') : ('Prepared for ' + co);
+            if (chkBan) chkBan.classList.remove('hidden');
+
+            var compInput = document.getElementById('inbound-lead-company');
+            if (compInput && !compInput.value) compInput.value = co;
+            var stSelect = document.getElementById('inbound-lead-state');
+            if (stSelect && st) stSelect.value = st.toLowerCase();
+
+            var curHash = (window.location && window.location.hash) ? window.location.hash : '';
+            var evType = (curHash.indexOf('#checkout') === 0) ? 'checkout_view' : 'dossier_view';
+            if (typeof window.fireOutboundClickBeacon === 'function') {
+              window.fireOutboundClickBeacon(evType, (window.location && window.location.href) ? window.location.href : 'https://signaltender.net/');
+            }
+          }
+        } catch (e) {}
+      })();
 
       window.jumpToFullContractsSearch = function () {
         var inp = document.getElementById('main-rfp-search');

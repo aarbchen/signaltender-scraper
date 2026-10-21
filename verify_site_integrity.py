@@ -507,6 +507,10 @@ const unlockedOk = window.submitInboundLeadCapture('capture@acmegovcyber.com', '
 if (!unlockedOk || !document.getElementById('inbound-lead-results').innerHTML.includes('DOSSIER #01 UNLOCKED')) {
   throw new Error('window.submitInboundLeadCapture failed to unlock and render 3 state RFP dossiers!');
 }
+if (typeof window.fireOutboundClickBeacon !== 'function') {
+  throw new Error('window.fireOutboundClickBeacon is undefined!');
+}
+window.fireOutboundClickBeacon('dossier_view', 'https://signaltender.net/');
 """
     )
 

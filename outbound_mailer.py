@@ -44,7 +44,7 @@ SMTP_USER = (os.getenv("SMTP_USER") or "").strip()
 SMTP_PASSWORD = (os.getenv("SMTP_PASSWORD") or "").strip()
 SMTP_FROM_NAME = (os.getenv("SMTP_FROM_NAME") or "SignalTender GovCon Capture Desk").strip()
 SMTP_FROM_EMAIL = (os.getenv("SMTP_FROM_EMAIL") or SMTP_USER or "capture@signaltender.net").strip()
-OUTBOUND_DAILY_LIMIT = int(os.getenv("OUTBOUND_DAILY_LIMIT") or "30")
+OUTBOUND_DAILY_LIMIT = int(os.getenv("OUTBOUND_DAILY_LIMIT") or "20")
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
 
 

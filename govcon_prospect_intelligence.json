@@ -1,28 +1,69 @@
 {
-  "updated_at": "2026-10-21T21:38:11+00:00",
-  "total_apollo_contacts": 60,
-  "added_inbound_leads": 0,
-  "added_multistate_govcon_prospects": 0,
+  "updated_at": "2026-10-21T21:54:37+00:00",
+  "total_verified_mx_contacts": 23,
+  "not_catchall_priority_tier_count": 17,
+  "catchall_secondary_tier_count": 6,
+  "purged_synthetic_or_invalid_mx_rows": 37,
+  "added_verified_inbound_leads": 0,
   "state_distribution": {
     "Michigan": 2,
-    "Massachusetts": 4,
+    "Massachusetts": 1,
     "Unspecified": 1,
     "Oregon": 1,
-    "California": 8,
-    "New York": 7,
-    "Illinois": 4,
-    "Texas": 5,
+    "California": 6,
+    "New York": 2,
+    "Texas": 2,
     "Washington": 1,
     "Wisconsin": 1,
     "District of Columbia": 1,
-    "Pennsylvania": 3,
+    "Illinois": 1,
     "Colorado": 2,
-    "North Carolina": 3,
-    "Maryland": 4,
-    "Virginia": 4,
-    "Florida": 3,
-    "Ohio": 3,
-    "Georgia": 3
+    "North Carolina": 1,
+    "Maryland": 1
+  },
+  "apollo_export_filter_blueprint": {
+    "job_titles": [
+      "VP of Capture",
+      "Capture Manager",
+      "Director of Business Development",
+      "VP of Public Sector",
+      "Proposal Manager",
+      "Chief Growth Officer",
+      "Founder / CEO",
+      "vCISO / CISO"
+    ],
+    "company_headcount": "11-200 employees",
+    "states": [
+      "VA",
+      "TX",
+      "CA",
+      "FL",
+      "MD",
+      "IL",
+      "PA",
+      "OH",
+      "GA",
+      "NC",
+      "NY",
+      "MA"
+    ],
+    "naics_codes": [
+      "541511",
+      "541512",
+      "541513",
+      "541519",
+      "518210"
+    ],
+    "keywords": [
+      "SAM.gov",
+      "GovCon",
+      "CMMC",
+      "FedRAMP",
+      "SLED",
+      "8(a)",
+      "SDVOSB"
+    ],
+    "email_status": "Verified (Not Catch-all only for Oct 31 - Nov 13 launch window)"
   },
   "usaspending_naics_541512_top_recipients": [
     {
@@ -143,6 +184,46 @@
       "name": "MINBURN TECHNOLOGY GROUP, LLC",
       "code": "965431815",
       "uei": "WN8JFVZTBCA5",
+      "total_outlays": null
+    },
+    {
+      "amount": 1382569276.64,
+      "recipient_id": "ceac1920-9ceb-17a6-9bf7-026817a02917-C",
+      "name": "MANTECH ADVANCED SYSTEMS INTERNATIONAL, INC.",
+      "code": "139627525",
+      "uei": "JY2BDT2K58Z6",
+      "total_outlays": null
+    },
+    {
+      "amount": 1188724254.53,
+      "recipient_id": "49aa319d-7bfb-ef1b-d43e-e82eed09d3bf-C",
+      "name": "CACI NSS, LLC",
+      "code": "080175220",
+      "uei": "EELEC8QCC3N8",
+      "total_outlays": null
+    },
+    {
+      "amount": 1159738142.59,
+      "recipient_id": "6ffc4386-853e-ef89-67e8-22c28ddcf15c-C",
+      "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+      "code": "835130485",
+      "uei": "VV9KH3L99VE3",
+      "total_outlays": null
+    },
+    {
+      "amount": 1130192280.14,
+      "recipient_id": "11a97fdb-cb3b-16d2-aa67-a0f7b265b4ae-C",
+      "name": "PALANTIR USG INC",
+      "code": "825284321",
+      "uei": "HNN4F9JZWDY8",
+      "total_outlays": null
+    },
+    {
+      "amount": 1109706816.72,
+      "recipient_id": "e0f8746a-9a3b-810a-257a-cae2d63868da-C",
+      "name": "NEW TECH SOLUTIONS, INC.",
+      "code": "020149303",
+      "uei": "XK11LLUL61A7",
       "total_outlays": null
     }
   ]
