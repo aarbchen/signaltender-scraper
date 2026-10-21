@@ -105,6 +105,7 @@ def check_html_file(fpath: str) -> str:
         "#contracts/california",
         "#contracts/florida",
         "#contracts/maryland",
+        "#contracts/illinois",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -180,6 +181,98 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         # Verify scroll-anchor protection on #catalog-modules
         if 'id="catalog-modules"' not in txt or "overflow-anchor: none" not in txt:
             fail(f"{label}: Missing overflow-anchor: none scroll-jump protection on #catalog-modules")
+
+
+def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
+    import json
+
+    jm = re.search(r"window\.SIGNALTENDER_JURISDICTIONS\s*=\s*(\{.*?\});", index_txt, flags=re.S)
+    if not jm:
+        fail("index.html: Missing window.SIGNALTENDER_JURISDICTIONS definition")
+    jurisdictions = json.loads(jm.group(1))
+    n_portals = len(jurisdictions)
+    state_keys = [k for k in jurisdictions.keys() if k not in ("federal", "municipal")]
+    n_states = len(state_keys)
+
+    # 1. Verify Top Telemetry Bar on #page-main
+    if f"{n_portals} GOVERNMENT PORTALS ACTIVE" not in index_txt:
+        fail(f"index.html: Top telemetry bar does not show '{n_portals} GOVERNMENT PORTALS ACTIVE'")
+
+    top_bar_m = re.search(
+        r"LIVE MONITORING:.*?GOVERNMENT PORTALS ACTIVE.*?<span[^>]*>\s*(SAM\.GOV.*?)</span>",
+        index_txt,
+        flags=re.S,
+    )
+    if not top_bar_m:
+        fail("index.html: Could not locate top telemetry bar portal ticker string")
+    ticker_text = top_bar_m.group(1)
+
+    state_abbrev_map = {
+        "texas": "TX",
+        "virginia": "VA",
+        "california": "CA",
+        "florida": "FL",
+        "maryland": "MD",
+        "illinois": "IL",
+        "new_york": "NY",
+    }
+    for sk in state_keys:
+        abbr = state_abbrev_map.get(sk, sk[:2].upper())
+        if abbr not in ticker_text:
+            fail(f"index.html: Top telemetry bar ticker '{ticker_text.strip()}' is missing portal abbreviation '{abbr}' for '{sk}'")
+        if f'data-rfp-portal="{sk}"' not in index_txt:
+            fail(f"index.html: Missing filter pill data-rfp-portal='{sk}' for active state portal '{sk}'")
+        if f"STATE // {abbr}" not in index_txt:
+            fail(f"index.html: Missing Section 4 portal card 'STATE // {abbr}' for active state portal '{sk}'")
+
+    # 2. Verify all portal & state counts across index.html
+    required_index_Phrases = [
+        f"{n_portals} PORTALS DE-NOISED 24/7",
+        f">{n_portals} Portals<",
+        f"({n_portals} PORTALS LIVE)",
+        f"All Portals ({n_portals})",
+        f"{n_portals} PREVIEW LEADS SHOWN",
+        f"// {n_portals} ACTIVE PROCUREMENT PORTALS",
+        f"LIVE GOVCON INTELLIGENCE WIRE &bull; <span class=\"text-emerald-400\">{n_portals} PORTALS ACTIVE</span>",
+        f"FEDERAL &amp; {n_states}-STATE SLED CONTRACT DIRECTORY",
+        f"All {n_portals} Active Procurement Portals:",
+        f"ALL {n_portals} FEDERAL &amp; SLED PORTAL MONITORS ACTIVE",
+        f"{n_portals}-Portal Unified REST Feed",
+        f"{n_portals} Federal, State SLED, and Municipal portals",
+    ]
+    for phrase in required_index_Phrases:
+        if phrase not in index_txt:
+            fail(f"index.html: Missing required portal-count phrase: '{phrase}'")
+
+    # 3. Verify API 04 portal count parity in apis.html
+    for phrase in (
+        f"{n_portals}-Portal Unified REST Feed",
+        f"{n_portals} Federal, State SLED, and Municipal portals",
+        f"{n_portals}-Portal AI-Vetted Open IT/Cyber Solicitations",
+        f"{n_portals}-Portal Filtered IT &amp; Cyber RFPs",
+    ):
+        if phrase not in apis_txt:
+            fail(f"apis.html: Missing required portal-count phrase: '{phrase}'")
+
+    # 4. Prohibit stale (n_portals - 1) or (n_states - 1) portal counts
+    stale_p = n_portals - 1
+    stale_s = n_states - 1
+    stale_patterns = [
+        f"{stale_p} GOVERNMENT PORTALS",
+        f"{stale_p} PORTALS ACTIVE",
+        f"{stale_p} ACTIVE PROCUREMENT PORTALS",
+        f"All Portals ({stale_p})",
+        f"{stale_p} PREVIEW LEADS SHOWN",
+        f"All {stale_p} Active Procurement Portals",
+        f"ALL {stale_p} FEDERAL",
+        f"{stale_p}-Portal",
+        f"{stale_s}-State SLED",
+        f"{stale_s}-STATE SLED",
+    ]
+    for label, txt in (("index.html", index_txt), ("apis.html", apis_txt)):
+        for sp in stale_patterns:
+            if sp in txt:
+                fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
 
 def check_spa_runtime(index_txt: str) -> None:
@@ -306,9 +399,10 @@ def main() -> int:
         check_html_file(rfp_samples[0])
 
     check_catalog_parity_and_ui(index_txt, apis_txt)
+    check_portal_parity_and_telemetry(index_txt, apis_txt)
     check_spa_runtime(index_txt)
 
-    print("[+] verify_site_integrity.py PASSED: All JS syntax, SPA routes, search locks, API counts, DOM IDs, and HTML tags verified.", flush=True)
+    print("[+] verify_site_integrity.py PASSED: All JS syntax, SPA routes, search locks, API/portal counts, telemetry bar, DOM IDs, and HTML tags verified.", flush=True)
     return 0
 
 
