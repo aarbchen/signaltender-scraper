@@ -87,6 +87,7 @@ STATE_ALIASES = {
     "pa": "pa", "pennsylvania": "pa",
     "oh": "oh", "ohio": "oh",
     "ga": "ga", "georgia": "ga",
+    "nc": "nc", "north carolina": "nc", "north_carolina": "nc",
 }
 
 
@@ -177,6 +178,8 @@ def detect_contract_region(rec: dict) -> str:
         return "pa"
     if "doas.state.ga.us" in url or "georgia.gov" in url or "ga.gov" in url or "forsythco.bonfirehub.com" in url or "fultonschools.bonfirehub.com" in url or "cobbk12.bonfirehub.com" in url or "itsmarta.com" in url:
         return "ga"
+    if "evp.nc.gov" in url or "nc.gov" in url or "unc.edu" in url or "ncsu.edu" in url or "wake.gov" in url or "mecknc.gov" in url or "charlottenc.gov" in url or "durhamnc.gov" in url or "guilfordcountync.gov" in url:
+        return "nc"
     if "ohiobuys.ohio.gov" in url or "ohioauditor.gov" in url or "morpc.org" in url or "franklincountyohio.gov" in url or "columbus.bonfirehub.com" in url:
         return "oh"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
@@ -197,6 +200,8 @@ def detect_contract_region(rec: dict) -> str:
         return "pa"
     if title.startswith("[GA]") or "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency:
         return "ga"
+    if title.startswith("[NC]") or "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency:
+        return "nc"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency:
         return "oh"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
@@ -239,6 +244,10 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "PA OA-ITB Security Policy • SOC 2 Type II • PA EIT VPAT"
     elif reg == "oh":
         compliance_posture = "Ohio DAS OIT Cloud Security • StateRAMP / NIST 800-53 • OH VPAT"
+    elif reg == "ga":
+        compliance_posture = "Georgia GTA SSG Security • StateRAMP / NIST 800-53 • GA VPAT"
+    elif reg == "nc":
+        compliance_posture = "NCDIT Statewide Security (NIST 800-53) • StateRAMP / SOC 2 Type II • NC VPAT"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":
@@ -328,6 +337,8 @@ STATE_DISPLAY_NAMES = {
     "il": "Illinois",
     "pa": "Pennsylvania",
     "oh": "Ohio",
+    "ga": "Georgia",
+    "nc": "North Carolina",
 }
 
 

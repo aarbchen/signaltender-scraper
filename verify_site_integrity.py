@@ -109,6 +109,7 @@ def check_html_file(fpath: str) -> str:
             "#contracts/pennsylvania",
             "#contracts/ohio",
             "#contracts/georgia",
+            "#contracts/north_carolina",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -220,6 +221,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "pennsylvania": "PA",
         "ohio": "OH",
         "georgia": "GA",
+        "north_carolina": "NC",
         "new_york": "NY",
     }
     for sk in state_keys:
@@ -481,7 +483,14 @@ if (typeof window.selectInteractiveDossier !== 'function') {
 }
 window.selectInteractiveDossier('ohio');
 window.selectInteractiveDossier('georgia');
+window.selectInteractiveDossier('north_carolina');
 window.selectInteractiveDossier('federal');
+if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
+  throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');
+}
+window.saveCompanyCaptureProfile();
+window.applyCompanyProfileToSandbox();
+window.shredRfpInStudio(firstSlug);
 if (typeof window.updateCaptureRoiCalculator !== 'function') {
   throw new Error('window.updateCaptureRoiCalculator is undefined!');
 }

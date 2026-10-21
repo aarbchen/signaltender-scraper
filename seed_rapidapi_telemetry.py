@@ -340,7 +340,7 @@ ENDPOINTS = [
         "method": "POST",
         "path": "/v1/generate/ato-rmf-package",
         "rapid_host": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
-        "payload": {
+                "payload": {
             "system_architecture_and_rfp_cyber_text": (
                 "SOLICITATION FA8726-26-R-0092 (USAF Mission Command Cloud & DevSecOps Modernization): "
                 "Section C.4 Cybersecurity & RMF Requirements: Contractor shall design, deploy, and maintain "
@@ -356,6 +356,29 @@ ENDPOINTS = [
             ),
             "target_authorization_framework": "dod_rmf_dodi_8510_01_cato",
             "target_impact_level": "IL5_CUI_NSS",
+        },
+    },
+    {
+        "id": "API 19",
+        "name": "GovCon Debriefing, FAR 15.506 & GAO Bid-Protest Analyzer API",
+        "method": "POST",
+        "path": "/v1/generate/debriefing-bid-protest",
+        "rapid_host": "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
+        "payload": {
+            "award_notice_or_debrief_text": (
+                "SOLICITATION FA8732-26-R-0094 (USAF Enterprise Zero-Trust & Cloud SIEM Modernization): "
+                "Notice of Unsuccessful Offeror & Post-Award Debriefing Slide Summary (Issued Oct 20, 2026): "
+                "Awardee: Apex Federal Solutions ($48.4M Total Evaluated Price; Technical/Management: Outstanding; Past Performance: Substantial Confidence). "
+                "Your Offer (Vanguard Cyber Defense): $42.1M Total Evaluated Price; Technical/Management: Acceptable (1 Significant Weakness assigned under "
+                "Subfactor 1.2 for 'lack of automated multi-region IL5 failover telemetry in Section 3.4'); Past Performance: Satisfactory Confidence."
+            ),
+            "rfp_section_m_and_bidder_context": (
+                "RFP Section M.2 Evaluation Criteria: Best-Value Tradeoff (FAR 15.101-1). Subfactor 1.2 requires 'automated regional failover orchestration within 15 minutes RTO' "
+                "and does NOT mandate active-active multi-region telemetry streaming. Our Technical Volume Section 3.4 (pp. 22-24, Figure 3-2) explicitly documented "
+                "automated Terraform + Route53 health-check failover across AWS GovCloud US-East and US-West achieving an 8-minute RTO."
+            ),
+            "procurement_jurisdiction": "dod_dfars_215_506_enhanced",
+            "analysis_mode": "unsuccessful_offeror_debrief_and_protest",
         },
     },
 ]

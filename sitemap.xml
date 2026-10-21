@@ -16,6 +16,66 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/durham-rfp-2026-074-smart-city-iot-water-telemetry-esri-enterprise-gis-715.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdor-47-2026-0019-integrated-tax-administration-saas-modernization-714.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/meck-rfp-269-2026-112-managed-detection-and-response-mdr-vulnerability-712.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/wake-rfp-2026-049-countywide-enterprise-resource-planning-erp-cloud-711.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncsu-2026-rfp-8821-enterprise-it-service-management-itsm-ai-virtual-agent-710.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/unc-ch-2026-rfp-3014-research-cloud-enclave-nist-800-171-cmmc-level-2-high-709.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdot-54-2026-0062-intelligent-transportation-systems-its-cloud-telemetry-708.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdhhs-30-2026-0118-nctracks-next-gen-medicaid-enterprise-data-warehouse-707.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdit-41-2026-0091-statewide-cloud-identity-governance-okta-entra-icam-706.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ncdit-41-2026-0084-enterprise-zero-trust-network-access-ztna-cloud-siem-705.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
     <loc>https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>daily</changefreq>
@@ -642,6 +702,31 @@
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/network-telecom.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/north_carolina/index.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/north_carolina/cybersecurity.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/north_carolina/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/north_carolina/software-development.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/north_carolina/network-telecom.html</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>daily</changefreq>
   </url>

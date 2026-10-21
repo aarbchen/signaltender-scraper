@@ -471,5 +471,65 @@
       "**Public-Sector Water/Utilities Reference:** Minimum 2 completed similar AI water operations platform deployments for municipal/county water authorities (within past 3 years) with signed reference letters confirming go-live achievement, uptime SLA performance >99%, and measurable ROI (cost savings or operational efficiency gain \u226515%)."
     ],
     "enriched_at": "2026-10-21T11:45:51.240616+00:00"
+  },
+  "716": {
+    "id": "716",
+    "title": "[GUILFORD-RFP-2026-205] Enterprise Network Switch Refresh, SD-WAN Fiber Backbone & Zero-Trust Campus Wi-Fi",
+    "agency": "Guilford County Government (Greensboro, NC)",
+    "jurisdiction_badge": "NORTH CAROLINA // NC eVP & METRO",
+    "vertical": "Network, Telecom & Hardware",
+    "closing_date": "11/08/2026",
+    "source_url": "https://evp.nc.gov/solicitations/?id=GUILFORD-RFP-2026-205",
+    "dossier_url": "https://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html",
+    "primary_naics": "423430 \u2014 Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+    "primary_psc": "7025 \u2014 ADP Input/Output and Storage Devices",
+    "primary_nigp": "208-11 \u2014 Network Hubs, Switches, and Routers",
+    "sba_size_standard": "400 employees",
+    "compliance_posture": "NCDIT Statewide Information Security Manual (NIST 800-53) \u2022 StateRAMP / SOC 2 Type II \u2022 NC Section 508 VPAT",
+    "teaming_posture": "NC DOA Office for Historically Underutilized Businesses (HUB 10%+ Goal) + NCDIT ITSTC Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.76x (Hybrid Site) \u2022 Target PTW: -6.0% vs. IGCE \u2022 Lead Network Arch $154/hr | Field Eng $128/hr",
+    "key_personnel_lcats": "Telecom Project Manager (PMP/BICSI, 8+ yrs) \u2022 Lead Network Infrastructure Engineer (CCNP/CCIE, 7+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Proven Public-Sector Network Expertise:** Demonstrate 3+ successful enterprise network modernizations for NC/Southeast government agencies with documented SD-WAN and zero-trust implementations, emphasizing uptime SLA performance (99.5%+) and security compliance certifications (FedRAMP, NIST 800-171).",
+      "**Risk-Mitigated Phased Deployment Model:** Present a detailed 12-18 month implementation roadmap with clear Phase gates (design validation \u2192 pilot deployment \u2192 full production rollout), minimizing business disruption and including proven rollback procedures specific to Guilford County's multi-campus infrastructure.",
+      "**Integrated Zero-Trust Architecture with Accessibility Compliance:** Showcase a comprehensive technical design combining modern switches, SD-WAN orchestration, and 802.1X/802.11ax Wi-Fi with documented Section 508/WCAG 2.1 AA accessibility controls, management dashboards, and staff training protocols that exceed baseline compliance."
+    ],
+    "evidence_needed": [
+      "**Reference Case Study + Performance Metrics:** Provide 2-3 completed government network refresh projects with customer contact validation, showing: network architecture diagrams, actual uptime metrics (SLA compliance reports), cybersecurity audit results, and quantified cost savings or efficiency gains (e.g., bandwidth optimization, mean-time-to-resolution improvements).",
+      "**Detailed Technical Compliance & SLA Documentation:** Submit architecture specification (switch models, SD-WAN platform certification, Wi-Fi 6E deployment topology) + written SLA guarantees (uptime percentage, incident response times, update windows), plus evidence of NIST 800-171 / FedRAMP alignment, Section 508 accessibility testing results, and 24/7 support staffing model with named key personnel."
+    ],
+    "enriched_at": "2026-10-21T18:56:11.834139+00:00"
+  },
+  "715": {
+    "id": "715",
+    "title": "[DURHAM-RFP-2026-074] Smart City IoT Water Telemetry, Esri Enterprise GIS Portal & Cloud Data Lake Architecture",
+    "agency": "City of Durham & Durham County (North Carolina)",
+    "jurisdiction_badge": "NORTH CAROLINA // NC eVP & METRO",
+    "vertical": "Cloud & Infrastructure",
+    "closing_date": "11/13/2026",
+    "source_url": "https://evp.nc.gov/solicitations/?id=DURHAM-RFP-2026-074",
+    "dossier_url": "https://signaltender.net/contracts/rfp/durham-rfp-2026-074-smart-city-iot-water-telemetry-esri-enterprise-gis-715.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 Information Technology Professional Services: Systems Development / Software Development Services",
+    "primary_nigp": "918-29 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "NCDIT Statewide Information Security Manual (NIST 800-53) \u2022 StateRAMP / SOC 2 Type II \u2022 NC Section 508 VPAT",
+    "teaming_posture": "NC DOA Office for Historically Underutilized Businesses (HUB 10%+ Goal) + NCDIT ITSTC Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.82x (Contractor-Site) \u2022 Target PTW: -5.2% vs. IGCE \u2022 Principal Cloud Arch $165/hr | DevSecOps $146/hr",
+    "key_personnel_lcats": "Program Manager (PMP, 10+ yrs) \u2022 Lead Cloud/DevSecOps Architect (AWS/Azure Pro + CISSP, 8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Proven Smart City IoT & GIS Integration Expertise:** Demonstrate 3+ completed deployments of Esri Enterprise GIS portals integrated with real-time IoT water telemetry systems for municipalities, emphasizing our track record reducing water loss by 15-25% and enabling predictive maintenance\u2014directly addressing the City's operational efficiency and resilience objectives.",
+      "**Secure, Compliant Cloud Data Lake Architecture:** Present our proprietary cloud-agnostic data lake design (AWS/Azure certified) meeting NC GITC security standards, WCAG 2.1 AA accessibility compliance, and 99.95% SLA uptime\u2014with audit documentation and third-party validation proving scalability for 10,000+ IoT sensors without performance degradation.",
+      "**Accelerated Phased Delivery & Risk Mitigation:** Outline our 12-month phased go-live (Pilot \u2192 City-Wide \u2192 County Integration) with embedded change management, hands-on training for 150+ city staff, and dedicated transition support\u2014backed by references from similar-sized municipal clients showing zero critical failures and 95%+ staff adoption rates post-launch."
+    ],
+    "evidence_needed": [
+      "**Signed Esri Enterprise Partner Agreement & GIS Portal Certification** \u2013 Current reseller/partner documentation proving authorized deployment capability, plus technical certification test results validating real-time IoT telemetry data ingestion into Esri platforms and WCAG 2.1 AA portal accessibility compliance verification.",
+      "**Cloud Data Lake Architecture Security Audit Report & SLA Guarantee** \u2013 Third-party SOC 2 Type II certification, penetration test summary (dated within 12 months), and signed SLA commitment letter guaranteeing 99.95% uptime with financial remedies\u2014plus 2-3 reference letters from NC public sector clients confirming successful deployment of similar scale/complexity."
+    ],
+    "enriched_at": "2026-10-21T18:56:46.755008+00:00"
   }
 }

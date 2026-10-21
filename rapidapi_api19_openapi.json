@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Post-Award Debriefing, FAR 15.506 Q&A & GAO Bid-Protest Analyzer API",
+    "version": "1.5.0",
+    "description": "Transforms Agency Unsuccessful Offeror Notices, FAR 15.506 / DFARS 215.506-70 Post-Award Debriefing slides, Source Selection Decision Documents (SSDDs), and RFP Section M criteria into strategic Contracting Officer debriefing questions, a GAO / COFC Bid-Protest Viability Scorecard (or Winning Awardee Intervenor Defense Brief), FASA Task-Order jurisdictional checks (FAR 16.505(a)(10)), and a strict CICA (31 U.S.C. 3553) automatic-stay deadline schedule."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "Production FastAPI Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/generate/debriefing-bid-protest": {
+      "post": {
+        "operationId": "Analyze Post-Award Debriefing, FAR 15.506 Questions & GAO Bid-Protest Merits",
+        "summary": "Generate FAR 15.506 Enhanced Debriefing Questions, GAO Bid-Protest Viability Scorecard & CICA Stay Deadlines",
+        "description": "Analyzes Agency Award Notices, FAR 15.506 / DFARS 215.506-70 Debriefing letters, and RFP Section M evaluation criteria to produce strategic debriefing questions, GAO/COFC bid-protest grounds (Unstated Evaluation Criteria, Disparate Treatment, Flawed Best-Value Tradeoff, Cost Realism Errors) or Winning Awardee Intervenor defenses, and strict CICA automatic-stay timelines.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DebriefingBidProtestRequest"
+              },
+              "example": {
+                "award_notice_or_debrief_text": "UNSUCCESSFUL OFFEROR NOTICE & POST-AWARD DEBRIEFING SUMMARY — Solicitation FA8732-26-R-0041 (USAF Cloud & Zero-Trust DevSecOps Modernization): Award made to Incumbent Defense Corp at $28.4M (Technical: Outstanding, Past Performance: Substantial Confidence). Your Proposal (Apex Cyber Federal, $22.9M — $5.5M lower price) received Technical: Acceptable (1 Weakness assigned under Subfactor 1B for not proposing an pre-existing ऑन-prem SCIF lab in Dayton, OH) and Past Performance: Satisfactory Confidence.",
+                "rfp_section_m_and_bidder_context": "Section M.2 Evaluation Criteria: Best-Value Tradeoff (Technical Approach > Past Performance > Cost/Price). Section C/L/M never required an on-prem Dayton SCIF lab (PWS 3.1 explicitly stated 100% remote AWS GovCloud IL5 delivery with quarterly TDY travel). Offeror submitted 3 USAF Prime IL5 Cloud DevSecOps contracts rated Exceptional in CPARS.",
+                "analysis_mode": "unsuccessful_offeror_debrief_and_protest",
+                "procurement_jurisdiction": "dod_dfars_215_506_enhanced"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Post-Award Debriefing & GAO Bid-Protest Analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebriefingBidProtestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DebriefingBidProtestRequest": {
+        "type": "object",
+        "required": [
+          "award_notice_or_debrief_text",
+          "rfp_section_m_and_bidder_context"
+        ],
+        "properties": {
+          "award_notice_or_debrief_text": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 100000,
+            "description": "Raw text from the Agency Unsuccessful Offeror Notice, Post-Award Debriefing letter/slides, Source Selection Decision Document (SSDD) excerpt, or competitor protest allegations."
+          },
+          "rfp_section_m_and_bidder_context": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 100000,
+            "description": "RFP Section L/M evaluation criteria, weighting hierarchy (Best-Value Tradeoff vs. LPTA), and summary of the bidder's submitted ratings, evaluated price, and proposal strengths/weaknesses."
+          },
+          "analysis_mode": {
+            "type": "string",
+            "enum": [
+              "unsuccessful_offeror_debrief_and_protest",
+              "winning_awardee_intervention_defense",
+              "pre_award_competitive_range_exclusion"
+            ],
+            "default": "unsuccessful_offeror_debrief_and_protest",
+            "description": "Analysis perspective mode."
+          },
+          "procurement_jurisdiction": {
+            "type": "string",
+            "enum": [
+              "federal_far_gao_cofc",
+              "dod_dfars_215_506_enhanced",
+              "gsa_mas_task_order_far_8_405_5",
+              "idid_gwac_task_order_far_16_505",
+              "state_sled_procurement_protest"
+            ],
+            "default": "dod_dfars_215_506_enhanced",
+            "description": "Governing procurement protest forum and jurisdiction."
+          }
+        }
+      },
+      "DebriefingBidProtestResponse": {
+        "type": "object",
+        "properties": {
+          "protest_viability_or_defense_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "recommended_executive_decision": {
+            "type": "string"
+          },
+          "task_order_jurisdictional_bar_check": {
+            "type": "string"
+          },
+          "statutory_deadline_calendar": {
+            "type": "object"
+          },
+          "far_15_506_debriefing_questions": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "protest_grounds_or_defense_matrix": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "ready_to_send_debrief_request_or_counsel_memo": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+

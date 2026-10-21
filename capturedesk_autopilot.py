@@ -52,6 +52,7 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/generate/past-performance": "cpars-past-performance-volume-generator-api.p.rapidapi.com",
     "/v1/generate/oral-presentation-prep": "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
     "/v1/generate/ato-rmf-package": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
+    "/v1/generate/debriefing-bid-protest": "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -66,6 +67,7 @@ JURISDICTION_LABELS = {
     "pennsylvania": "PENNSYLVANIA // eMARKETPLACE",
     "ohio": "OHIO // OHIOBUYS",
     "georgia": "GEORGIA // GPR & TEAM GA",
+    "north_carolina": "NORTH CAROLINA // NC eVP & METRO",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -138,6 +140,18 @@ def classify_jurisdiction(record: dict) -> str:
         or "itsmarta.com" in url
     ):
         return "georgia"
+    if (
+        "evp.nc.gov" in url
+        or "nc.gov" in url
+        or "unc.edu" in url
+        or "ncsu.edu" in url
+        or "wake.gov" in url
+        or "mecknc.gov" in url
+        or "charlottenc.gov" in url
+        or "durhamnc.gov" in url
+        or "guilfordcountync.gov" in url
+    ):
+        return "north_carolina"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -155,6 +169,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "pennsylvania"
     if title.startswith("[GA]") or "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency or "cobb county" in agency or "gwinnett" in agency or "dekalb" in agency:
         return "georgia"
+    if title.startswith("[NC]") or "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency or "raleigh" in agency or "durham" in agency or "guilford" in agency:
+        return "north_carolina"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
@@ -420,6 +436,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "georgia":
         compliance_posture = "Georgia Tech Authority (GTA) SSG Security • StateRAMP / NIST 800-53 • GA Section 508 VPAT"
         teaming_posture = "Georgia DOAS Small Business / Minority Subcontracting (MBE/VBE) + GTA GETS Alignment + 3 SLED Refs"
+    elif j_key == "north_carolina":
+        compliance_posture = "NCDIT Statewide Information Security Manual (NIST 800-53) • StateRAMP / SOC 2 Type II • NC Section 508 VPAT"
+        teaming_posture = "NC DOA Office for Historically Underutilized Businesses (HUB 10%+ Goal) + NCDIT ITSTC Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -491,7 +510,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
         posture_line = (
             f"**Cyber, RMF/cATO & Teaming Posture (API #06/#11/#12/#18):** `{c_pos}` | `{t_pos}`\n"
-            f"**IGCE Wrap-Rate, PTW, Key LCATs & Orals (API #13/#15/#16/#17):** `{ptw_pos}` | `{lcat_pos}`\n"
+            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals & Protest (API #13/#15/#16/#17/#19):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):

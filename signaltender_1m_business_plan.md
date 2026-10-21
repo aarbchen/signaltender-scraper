@@ -84,3 +84,4 @@ flowchart LR
 
 - **API #17 (Live):** GovCon Oral Presentation, Tech-Demo & Murder-Board Prep API (`POST /v1/generate/oral-presentation-prep`) + Portal #10 Ohio Buys (`oh_scraper.py`).
 - **API #18 (Live):** GovCon RMF, Continuous ATO (cATO), SSP & POA&M Generator API (`POST /v1/generate/ato-rmf-package`) + Portal #11 Georgia Procurement Registry (`ga_scraper.py`).
+- **API #19 (Live):** GovCon Debriefing, FAR 15.506 & GAO Bid-Protest Analyzer API (`POST /v1/generate/debriefing-bid-protest`) + Portal #12 North Carolina eVP (`nc_scraper.py`).

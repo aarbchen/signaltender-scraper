@@ -38,7 +38,8 @@ const RAPIDAPI_HOSTS = {
   generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com",
   generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
   generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
-  generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com"
+  generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
+  analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -250,7 +251,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 11-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 12-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -274,9 +275,10 @@ const TOOLS = [
             "pennsylvania",
             "ohio",
             "georgia",
+            "north_carolina",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1342,6 +1344,94 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "analyze_debriefing_bid_protest",
+    "title": "Analyze GovCon Post-Award Debriefing, FAR 15.506 Q&A & GAO Bid-Protest Viability",
+    "description": "Analyze an Unsuccessful Offeror Notice, SSEB evaluation scorecard, RFP Section M criteria, and submitted proposal excerpts to generate strategic FAR 15.506 / DFARS 252.215-7016 Enhanced Debriefing follow-up questions, a 0-100 GAO Bid-Protest Viability Score, a Go/No-Go protest recommendation, CICA 31 U.S.C. 3553 automatic stay deadline calculations, a 4-C.F.R. Part 21 Protest Grounds Matrix (Unstated Evaluation Criteria, Disparate Treatment, Flawed Best-Value Tradeoff, Misleading Discussions), and an Executive Recompete/Corrective-Action Playbook. This is a read-only, stateless post-award diagnostic and debriefing analysis call that provides structured procurement intelligence rather than formal legal representation (requires X-RapidAPI-Key; `unsuccessful_offeror_notice_and_debrief_text` accepts 30 to 100,000 characters, `rfp_section_m_and_submitted_proposal_excerpts` accepts 30 to 100,000 characters, optional `award_and_debrief_timeline_context` anchors the 10-day GAO filing and 5-day CICA stay clock, and `target_acquisition_regime` calibrates rules across DoD DFARS Enhanced Debriefings, Civilian FAR Part 15, FAR 16.505 Task Orders >$10M/$35M, and FAR 8.405-2 GSA MAS). Use this tool after contract award notification when preparing for a FAR 15.506 post-award debriefing or evaluating GAO/COFC bid-protest grounds; use `match_capability_statement` instead for pre-bid Gate-1 Bid/No-Bid Pwin scoring, or `analyze_rfp_amendment_diff` for pre-award SF-30 solicitation amendments.",
+    "annotations": {
+      "title": "Analyze GovCon Post-Award Debriefing, FAR 15.506 Q&A & GAO Bid-Protest Viability",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "unsuccessful_offeror_notice_and_debrief_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 100000,
+          "description": "Raw text from the Agency Notice of Unsuccessful Offeror, Pre-Award/Post-Award Debriefing slides or letter, Source Selection Decision Document (SSDD) redacted summary, and adjectival/price scores for the Awardee vs. your offer (30 to 100,000 characters)."
+        },
+        "rfp_section_m_and_submitted_proposal_excerpts": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 100000,
+          "description": "Relevant RFP Section L/M evaluation criteria, relative factor weights, and excerpts from your submitted proposal that directly address or refute the weaknesses or deficiencies cited by the Source Selection Evaluation Board (SSEB) (30 to 100,000 characters)."
+        },
+        "award_and_debrief_timeline_context": {
+          "type": "string",
+          "maxLength": 20000,
+          "description": "Optional timeline context including contract award notification date, date debriefing was requested, date written/oral debriefing was received, and whether DoD DFARS 252.215-7016 2-business-day Enhanced Debriefing Q&A remains open."
+        },
+        "target_acquisition_regime": {
+          "type": "string",
+          "enum": [
+            "dod_dfars_enhanced_debrief_far_15_506",
+            "civilian_far_15_506_negotiated",
+            "far_16_505_idid_task_order",
+            "far_8_405_gsa_fss_brief_explanation"
+          ],
+          "default": "dod_dfars_enhanced_debrief_far_15_506",
+          "description": "Governing acquisition regime: 'dod_dfars_enhanced_debrief_far_15_506' (default DoD Enhanced Post-Award Debriefing under DFARS 252.215-7016 & FAR 15.506), 'civilian_far_15_506_negotiated' (Civilian Agency FAR Part 15), 'far_16_505_idid_task_order' (IDIQ/GWAC Task Order under FAR 16.505(b)(6) with >$10M Civilian / >$35M DoD GAO protest threshold), or 'far_8_405_gsa_fss_brief_explanation' (GSA MAS Schedule order under FAR 8.405-2(d))."
+        }
+      },
+      "required": [
+        "unsuccessful_offeror_notice_and_debrief_text",
+        "rfp_section_m_and_submitted_proposal_excerpts"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "protest_viability_score": {
+          "type": "integer",
+          "description": "Quantitative GAO / Agency-Level Bid-Protest viability score from 0 to 100."
+        },
+        "protest_go_no_go_recommendation": {
+          "type": "string",
+          "description": "Strategic post-award recommendation (e.g., FILE_GAO_PROTEST_WITH_CICA_STAY, SUBMIT_ENHANCED_DEBRIEF_QUESTIONS_FIRST, DO_NOT_PROTEST_PIVOT_TO_RECOMPETE)."
+        },
+        "cica_automatic_stay_and_filing_deadlines": {
+          "type": "object",
+          "description": "Calculated CICA 31 U.S.C. 3553 automatic stay deadline (5 calendar days post-debrief close) and GAO 10-day timeliness deadline."
+        },
+        "sseb_scorecard_and_tradeoff_audit": {
+          "type": "object",
+          "description": "Comparative audit of Awardee vs. Bidder adjectival ratings, price premium, and FAR 15.308 Best-Value Tradeoff flaws."
+        },
+        "far_15_506_enhanced_debriefing_questions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Precision written questions for the Contracting Officer under FAR 15.506 / DFARS 252.215-7016."
+        },
+        "gao_protest_grounds_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Evaluated bid-protest grounds with GAO case-law precedents, RFP/proposal evidence, and competitive prejudice analysis."
+        },
+        "corrective_action_and_recompete_playbook": {
+          "type": "string",
+          "description": "Executive action plan for agency corrective action or positioning for task-order on-ramps and recompetes."
+        }
+      }
+    }
   }
 ];
 
@@ -1363,7 +1453,8 @@ const ENDPOINT_MAP = {
   generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" },
   generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" },
   generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" },
-  generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" }
+  generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" },
+  analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1466,7 +1557,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.4.0"
+            version: "1.5.0"
           }
         }
       });
