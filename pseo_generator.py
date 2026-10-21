@@ -131,6 +131,14 @@ JURISDICTIONS = {
         "headline": "Open New York State, NYC (CROL / PASSPort) & Port Authority IT Contracts",
         "description": "Live New York City (City Record Online / PASSPort / OTI / H+H), Port Authority of NY & NJ (PANYNJ), Suffolk County, and Rockland County IT, cloud, cybersecurity, data analytics, and GIS solicitations.",
     },
+    "massachusetts": {
+        "name": "Massachusetts (COMMBUYS & Boston)",
+        "short": "Massachusetts",
+        "portal": "MA COMMBUYS, EOTSS, OSD & City of Boston",
+        "badge_class": "bg-pink-500/10 text-pink-300 border-pink-500/30",
+        "headline": "Open Massachusetts State (COMMBUYS / EOTSS) & Boston IT Contracts",
+        "description": "Live Commonwealth of Massachusetts COMMBUYS (EOTSS, OSD ITS78/ITS80, Trial Court, MassTech, MBTA, Massport) and City of Boston IT, cloud, cybersecurity, AI, and software solicitations.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -337,6 +345,15 @@ def classify_jurisdiction(rec: dict) -> str:
         or "ogs.ny.gov" in url
     ):
         return "new_york"
+    if (
+        "commbuys.com" in url
+        or "mass.gov" in url
+        or "boston.gov" in url
+        or "mbta.com" in url
+        or "massport.com" in url
+        or "masstech.org" in url
+    ):
+        return "massachusetts"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -367,6 +384,18 @@ def classify_jurisdiction(rec: dict) -> str:
         or "rockland county" in agency
     ):
         return "new_york"
+    if (
+        title.startswith("[MA]")
+        or "massachusetts" in agency
+        or "(ma)" in agency
+        or "commbuys" in agency
+        or "city of boston" in agency
+        or "boston public" in agency
+        or "mbta" in agency
+        or "massport" in agency
+        or "eotss" in agency
+    ):
+        return "massachusetts"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
@@ -404,6 +433,7 @@ def _render_layout(
     body_html: str,
     json_ld: dict | None = None,
     root_prefix: str = "../",
+    default_state: str = "all",
 ) -> str:
     escaped_title = html.escape(page_title)
     escaped_desc = html.escape(meta_desc)
@@ -483,7 +513,7 @@ def _render_layout(
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">13 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -505,7 +535,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 11-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
           <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -521,6 +551,7 @@ def _render_layout(
           <a href="{root_prefix}contracts/georgia/index.html" class="hover:text-sky-400 transition-colors">Georgia</a>
           <a href="{root_prefix}contracts/north_carolina/index.html" class="hover:text-sky-400 transition-colors">North Carolina</a>
           <a href="{root_prefix}contracts/new_york/index.html" class="hover:text-sky-400 transition-colors">New York</a>
+          <a href="{root_prefix}contracts/massachusetts/index.html" class="hover:text-sky-400 transition-colors">Massachusetts</a>
         </nav>
         <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
           Unlock All RFP Links &rarr;
@@ -530,6 +561,63 @@ def _render_layout(
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {body_html}
+
+      <!-- Deliverable 2: State-Preselected Inbound Lead-Capture Funnel on All Static /contracts Pages -->
+      <section id="static-inbound-lead-box" class="mt-12 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900/95 to-indigo-950/80 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-5 space-y-2">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-mono text-emerald-300 uppercase tracking-wider">
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              Instant State RFP Dossier Drop &bull; Zero Credit Card
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              Unlock 3 Live Pre-Shredded IT &amp; Cyber RFP Dossiers Free
+            </h2>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Enter your work email and target jurisdiction. Our CaptureDesk engine will immediately unlock and email you <strong class="text-white">3 currently open IT/Cyber solicitations</strong> with pre-computed NAICS/SBA size caps, CMMC/NIST/StateRAMP posture, IGCE Price-to-Win bands, and direct official agency links.
+            </p>
+          </div>
+          <div class="lg:col-span-7">
+            <form id="static-lead-capture-form" onsubmit="event.preventDefault(); window.submitStaticLeadCapture();" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+              <div class="sm:col-span-4">
+                <label for="static-lead-email" class="sr-only">Work Email</label>
+                <input id="static-lead-email" type="email" required placeholder="capture@yourcompany.com" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />
+              </div>
+              <div class="sm:col-span-3">
+                <label for="static-lead-company" class="sr-only">Company Name</label>
+                <input id="static-lead-company" type="text" placeholder="Company / Prime LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />
+              </div>
+              <div class="sm:col-span-3">
+                <label for="static-lead-state" class="sr-only">Target Portal</label>
+                <select id="static-lead-state" data-default-state="{default_state}" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">
+                  <option value="all">All 14 Portals (Fed + 12 States)</option>
+                  <option value="federal">Federal (SAM.gov)</option>
+                  <option value="virginia">Virginia (eVA)</option>
+                  <option value="texas">Texas (SmartBuy ESBD)</option>
+                  <option value="california">California (Cal eProcure)</option>
+                  <option value="florida">Florida (MFMP VIP)</option>
+                  <option value="maryland">Maryland (eMMA &amp; Bonfire)</option>
+                  <option value="illinois">Illinois (BidBuy)</option>
+                  <option value="pennsylvania">Pennsylvania (eMarketplace)</option>
+                  <option value="ohio">Ohio (OhioBuys)</option>
+                  <option value="georgia">Georgia (GPR &amp; Team GA)</option>
+                  <option value="north_carolina">North Carolina (NC eVP)</option>
+                  <option value="new_york">New York (NYC CROL &amp; PASSPort)</option>
+                  <option value="massachusetts">Massachusetts (COMMBUYS &amp; Boston)</option>
+                  <option value="municipal">Municipal (DemandStar)</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <button id="static-lead-submit-btn" type="submit" class="w-full h-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold border border-emerald-400/30 transition-all cursor-pointer whitespace-nowrap">
+                  Unlock 3 &rarr;
+                </button>
+              </div>
+            </form>
+            <div id="static-lead-status" class="hidden mt-3 text-xs font-mono"></div>
+            <div id="static-lead-results" class="hidden mt-4 grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -764,6 +852,8 @@ def generate_pseo_site() -> int:
                 compliance_posture = "NCDIT Statewide Security (NIST 800-53) • StateRAMP / SOC 2 Type II • NC VPAT"
             elif j_key == "new_york":
                 compliance_posture = "NYC OTI Cyber Policies / NYS ITS-S14-003 • SOC 2 Type II • NIST 800-53"
+            elif j_key == "massachusetts":
+                compliance_posture = "MA EOTSS Enterprise Security (IS.000 / NIST 800-53) • SOC 2 Type II • MA VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -793,6 +883,8 @@ def generate_pseo_site() -> int:
                 teaming_posture = "NC DOA HUB (10%+ Minority/Small Goal) • NCDIT ITSTC Eligible"
             elif j_key == "new_york":
                 teaming_posture = "NYS Art. 15-A MWBE (30% Goal) + SDVOB (6%) • NYC M/WBE Local Law 1"
+            elif j_key == "massachusetts":
+                teaming_posture = "MA OSD SDP (1%–15% MBE/WBE/SDVOBE Commitment) • ITS78/ITS80 Eligible"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
@@ -936,7 +1028,7 @@ def generate_pseo_site() -> int:
                         <div class="text-slate-200">NAICS <span class="text-white font-semibold">{html.escape(c['naics_display'])}</span> &bull; SBA Cap: <span class="text-emerald-400">{html.escape(c['sba_cap'])}</span></div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE &amp; PTW BAND (API #03 / #16)</div>
+                        <div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE, PTW &amp; GSA MAS (API #03 / #16 / #20)</div>
                         <div class="text-slate-200">{html.escape(c['igce_ptw_posture'])}</div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
@@ -960,7 +1052,7 @@ def generate_pseo_site() -> int:
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1">
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
-                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19</span></div>
+                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
                       <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
@@ -993,7 +1085,7 @@ def generate_pseo_site() -> int:
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 11-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 12-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
@@ -1009,13 +1101,13 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">19 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">20 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 19 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 20 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
-                  <a href="../../apis.html#product-debriefing-protest" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 19 APIs &amp; MCP Server &rarr;
+                  <a href="../../apis.html#product-gsa-mas-offer" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
+                    Explore 20 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -1042,6 +1134,7 @@ def generate_pseo_site() -> int:
                 body_html=body_html,
                 json_ld=json_ld,
                 root_prefix="../../",
+                default_state=c["jurisdiction"],
             )
             with open(os.path.join(rfp_dir, f"{c['slug']}.html"), "w", encoding="utf-8") as f:
                 f.write(full_html)
@@ -1125,6 +1218,7 @@ def generate_pseo_site() -> int:
                 canonical_path=canonical_path,
                 body_html=body_html,
                 root_prefix="../../",
+                default_state=j_key,
             )
             with open(os.path.join(OUTPUT_DIR, j_key, "index.html"), "w", encoding="utf-8") as f:
                 f.write(full_html)
@@ -1201,6 +1295,7 @@ def generate_pseo_site() -> int:
                     canonical_path=jc_canonical,
                     body_html=jc_body,
                     root_prefix="../../",
+                    default_state=j_key,
                 )
                 with open(os.path.join(OUTPUT_DIR, j_key, f"{cat_key}.html"), "w", encoding="utf-8") as f:
                     f.write(jc_html)
@@ -1234,7 +1329,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, and New York.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, and Massachusetts.
           </p>
         </div>
 
@@ -1288,7 +1383,7 @@ def generate_pseo_site() -> int:
 
         hub_html = _render_layout(
             page_title="Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender",
-            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT, software, cloud, and cybersecurity RFPs.",
+            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT, software, cloud, and cybersecurity RFPs.",
             canonical_path="contracts/index.html",
             body_html=hub_body,
             root_prefix="../",
@@ -1373,6 +1468,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/georgia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-fuchsia-300">Georgia</a>
               <a href="#contracts/north_carolina" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-violet-300">North Carolina</a>
               <a href="#contracts/new_york" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-blue-300">New York</a>
+              <a href="#contracts/massachusetts" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-pink-300">Massachusetts</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -1424,7 +1520,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">13 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -1446,7 +1542,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 11-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1462,6 +1558,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/georgia" class="hover:text-sky-400 transition-colors">Georgia</a>
           <a href="#contracts/north_carolina" class="hover:text-sky-400 transition-colors">North Carolina</a>
           <a href="#contracts/new_york" class="hover:text-sky-400 transition-colors">New York</a>
+          <a href="#contracts/massachusetts" class="hover:text-sky-400 transition-colors">Massachusetts</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
         <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
@@ -1487,9 +1584,100 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           .replace(/"/g, '&quot;');
       }}
 
+      function renderLeadBox(prefState, prefLabel) {{
+        var stVal = prefState || 'all';
+        var stTitle = prefLabel ? ('Unlock 3 Live Pre-Shredded ' + esc(prefLabel) + ' IT/Cyber RFP Dossiers Free') : 'Unlock 3 Live Pre-Shredded IT &amp; Cyber RFP Dossiers Free';
+        var opts = [
+          ['all', 'All 14 Portals (Fed + 12 States)'],
+          ['federal', 'Federal (SAM.gov)'],
+          ['virginia', 'Virginia (eVA)'],
+          ['texas', 'Texas (SmartBuy ESBD)'],
+          ['california', 'California (Cal eProcure)'],
+          ['florida', 'Florida (MFMP VIP)'],
+          ['maryland', 'Maryland (eMMA & Bonfire)'],
+          ['illinois', 'Illinois (BidBuy)'],
+          ['pennsylvania', 'Pennsylvania (eMarketplace)'],
+          ['ohio', 'Ohio (OhioBuys)'],
+          ['georgia', 'Georgia (GPR & Team GA)'],
+          ['north_carolina', 'North Carolina (NC eVP)'],
+          ['new_york', 'New York (NYC CROL & PASSPort)'],
+          ['massachusetts', 'Massachusetts (COMMBUYS & Boston)'],
+          ['municipal', 'Municipal (DemandStar)']
+        ].map(function (pair) {{
+          var selAttr = pair[0] === stVal ? ' selected' : '';
+          return '<option value="' + pair[0] + '"' + selAttr + '>' + esc(pair[1]) + '</option>';
+        }}).join('');
+        return '<section id="spa-contracts-lead-box" class="mt-10 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900/95 to-indigo-950/80 border-2 border-emerald-500/40 p-6 sm:p-8 shadow-2xl">' +
+          '<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">' +
+            '<div class="lg:col-span-5 space-y-2">' +
+              '<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-mono text-emerald-300 uppercase tracking-wider">' +
+                '<span class="h-2 w-2 rounded-full bg-emerald-400"></span>Instant State RFP Dossier Drop &bull; Zero Credit Card' +
+              '</div>' +
+              '<h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">' + stTitle + '</h2>' +
+              '<p class="text-xs text-slate-300 leading-relaxed">Enter your work email and target jurisdiction to immediately unlock <strong class="text-white">3 open IT/Cyber solicitations</strong> with NAICS/SBA caps, CMMC/NIST/StateRAMP posture, IGCE Price-to-Win bands, and direct official agency links.</p>' +
+            '</div>' +
+            '<div class="lg:col-span-7">' +
+              '<form onsubmit="event.preventDefault(); window.submitSpaLeadCapture();" class="grid grid-cols-1 sm:grid-cols-12 gap-3">' +
+                '<div class="sm:col-span-4"><input id="spa-lead-email" type="email" required placeholder="capture@yourcompany.com" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
+                '<div class="sm:col-span-3"><input id="spa-lead-company" type="text" placeholder="Company / Prime LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
+                '<div class="sm:col-span-3"><select id="spa-lead-state" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">' + opts + '</select></div>' +
+                '<div class="sm:col-span-2"><button id="spa-lead-submit-btn" type="submit" class="w-full h-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold border border-emerald-400/30 transition-all cursor-pointer whitespace-nowrap">Unlock 3 &rarr;</button></div>' +
+              '</form>' +
+              '<div id="spa-lead-status" class="hidden mt-3 text-xs font-mono"></div>' +
+              '<div id="spa-lead-results" class="hidden mt-4 grid grid-cols-1 md:grid-cols-3 gap-3"></div>' +
+            '</div>' +
+          '</div>' +
+        '</section>';
+      }}
+
+      window.submitSpaLeadCapture = async function () {{
+        var emailEl = document.getElementById('spa-lead-email');
+        var compEl = document.getElementById('spa-lead-company');
+        var stateEl = document.getElementById('spa-lead-state');
+        var btnEl = document.getElementById('spa-lead-submit-btn');
+        var statusEl = document.getElementById('spa-lead-status');
+        var resultsEl = document.getElementById('spa-lead-results');
+        var email = (emailEl ? emailEl.value : '').trim();
+        var company = (compEl ? compEl.value : '').trim() || 'GovCon Capture Team';
+        var st = (stateEl ? stateEl.value : 'all').trim() || 'all';
+        if (!email || email.indexOf('@') === -1) {{
+          if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-amber-300'; statusEl.textContent = 'Please enter a valid work email address.'; }}
+          return;
+        }}
+        if (btnEl) {{ btnEl.disabled = true; btnEl.textContent = 'Unlocking...'; }}
+        if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-sky-400'; statusEl.textContent = 'Matching 3 live open solicitations & computing CaptureDesk dossiers...'; }}
+        try {{
+          var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
+            body: JSON.stringify({{ email: email, first_name: email.split('@')[0], company: company, target_state: st }})
+          }});
+          var data = await resp.json();
+          if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-emerald-400'; statusEl.textContent = data.message || 'Unlocked 3 live RFP dossiers below!'; }}
+          if (resultsEl && data.matched_dossiers && data.matched_dossiers.length) {{
+            resultsEl.className = 'mt-4 grid grid-cols-1 md:grid-cols-3 gap-3';
+            resultsEl.innerHTML = data.matched_dossiers.map(function (d) {{
+              var safeUrl = String(d.official_portal_url || d.dossier_url || '#').replace(/"/g, '&quot;');
+              return '<div class="p-3.5 rounded-xl bg-navy-950 border border-emerald-500/40 flex flex-col justify-between space-y-2 text-xs font-mono">' +
+                '<div>' +
+                  '<div class="text-[10px] text-emerald-400 font-bold uppercase">UNLOCKED &bull; NAICS ' + esc(d.naics || '541512') + '</div>' +
+                  '<div class="text-white font-sans font-bold text-xs mt-1 line-clamp-2">' + esc(d.title || 'Open IT Solicitation') + '</div>' +
+                  '<div class="text-slate-400 text-[11px] mt-1">' + esc(d.agency || 'Government Agency') + ' &bull; Due: <span class="text-amber-300">' + esc(d.closing_date || 'Open') + '</span></div>' +
+                '</div>' +
+                '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-3 py-1.5 rounded bg-emerald-600/20 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/40 text-[11px] transition-colors">Open Official Bid Portal &rarr;</a>' +
+              '</div>';
+            }}).join('');
+          }}
+        }} catch (err) {{
+          if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-amber-300'; statusEl.textContent = 'Saved your request! Browse the live dossiers above.'; }}
+        }} finally {{
+          if (btnEl) {{ btnEl.disabled = false; btnEl.textContent = 'Unlock 3 →'; }}
+        }}
+      }};
+
       function renderRows(list) {{
         if (!list || !list.length) {{
-          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 12 portals.</td></tr>';
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 14 portals.</td></tr>';
         }}
         var J = window.SIGNALTENDER_JURISDICTIONS;
         return list.map(function (c) {{
@@ -1656,7 +1844,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div class="text-slate-200">NAICS <span class="text-white font-semibold">' + esc(item.naics_display || '541512 / 541519') + '</span> &bull; SBA Cap: <span class="text-emerald-400">' + esc(item.sba_cap || '$34.0M') + '</span></div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE &amp; PTW BAND (API #03 / #16)</div>' +
+                        '<div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE, PTW &amp; GSA MAS (API #03 / #16 / #20)</div>' +
                         '<div class="text-slate-200">' + esc(item.igce_ptw_posture || 'Wrap 1.80x • PTW -5.5% vs IGCE • Sr. Arch $162/hr | Lead Eng $146/hr') + '</div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
@@ -1679,7 +1867,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                     '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
                       '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
                       '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
-                      '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19</span></div>' +
+                      '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>' +
                     '</div>' +
                     '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
                       '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
@@ -1708,7 +1896,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 11-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 12-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
@@ -1723,17 +1911,17 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">19 LIVE APIs &amp; MCP SERVER</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">20 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 19 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
+                    'Generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 20 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
-                  '<a href="#product-debriefing-protest" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 19 APIs &amp; MCP Server &rarr;' +
+                  '<a href="#product-gsa-mas-offer" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 20 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
-            '</div>';
+            '</div>' + renderLeadBox(item.jurisdiction, jm.short);
           return;
         }}
 
@@ -1791,7 +1979,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<tbody class="text-xs">' + renderRows(jList) + '</tbody>' +
                 '</table>' +
               '</div>' +
-            '</div>';
+            '</div>' + renderLeadBox(jKey, jmHub.short);
           return;
         }}
 
@@ -1822,7 +2010,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, and New York.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, and Massachusetts.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
@@ -1841,7 +2029,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                 '<tbody class="text-xs">' + renderRows(all) + '</tbody>' +
               '</table>' +
             '</div>' +
-          '</div>';
+          '</div>' + renderLeadBox('all', '');
         if (window.__PENDING_CONTRACTS_SEARCH) {{
           var pq = window.__PENDING_CONTRACTS_SEARCH;
           window.__PENDING_CONTRACTS_SEARCH = '';

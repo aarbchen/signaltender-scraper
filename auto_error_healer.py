@@ -49,6 +49,7 @@ SCRAPER_MODULES = [
     "ga_scraper",
     "nc_scraper",
     "ny_scraper",
+    "ma_scraper",
 ]
 
 
@@ -153,6 +154,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         "ga_scraper.py",
         "nc_scraper.py",
         "ny_scraper.py",
+        "ma_scraper.py",
     ]:
         full_p = BASE_DIR / rel_path
         if full_p.exists():
@@ -168,7 +170,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 async def run_live_smoke_tests() -> list[str]:
     """Run fast non-destructive smoke tests on ga_scraper and nc_scraper (`push_to_db=False`)."""
     smoke_issues: list[str] = []
-    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper"):
+    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper"):
         try:
             mod = importlib.import_module(mod_name)
             records = await mod.run_scraper(push_to_db=False)
@@ -216,7 +218,7 @@ def run_healer(clear_resolved: bool = False, run_smoke: bool = False) -> int:
     if total_problems == 0:
         print(
             "[PASS] Autonomous Error Telemetry & Scraper Contract Audit: 0 open errors (local + Render Cron), "
-            "13/13 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
+            "14/14 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
             flush=True,
         )
         return 0

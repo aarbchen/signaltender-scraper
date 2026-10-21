@@ -91,6 +91,7 @@ STATE_ALIASES = {
     "ga": "ga", "georgia": "ga",
     "nc": "nc", "north carolina": "nc", "north_carolina": "nc",
     "ny": "ny", "new york": "ny", "new_york": "ny",
+    "ma": "ma", "massachusetts": "ma",
 }
 
 
@@ -188,6 +189,8 @@ def detect_contract_region(rec: dict) -> str:
         return "oh"
     if "a856-cityrecord.nyc.gov" in url or "passport.cityofnewyork.us" in url or "panynj.bonfirehub.com" in url or "suffolkcountyny.bonfirehub.com" in url or "rocklandgov.bonfirehub.com" in url or "nyscr.ny.gov" in url or "ogs.ny.gov" in url:
         return "ny"
+    if "commbuys.com" in url or "mass.gov" in url or "boston.gov" in url or "mbta.com" in url or "massport.com" in url or "masstech.org" in url:
+        return "ma"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -210,6 +213,10 @@ def detect_contract_region(rec: dict) -> str:
         return "nc"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency:
         return "oh"
+    if title.startswith("[NY]") or "new york" in agency or "nyc " in agency or "panynj" in agency:
+        return "ny"
+    if title.startswith("[MA]") or "massachusetts" in agency or "commbuys" in agency or "city of boston" in agency or "mbta" in agency or "massport" in agency:
+        return "ma"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "md"
     return "fed"
@@ -256,6 +263,8 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "NCDIT Statewide Security (NIST 800-53) • StateRAMP / SOC 2 Type II • NC VPAT"
     elif reg == "ny":
         compliance_posture = "NYC OTI Cyber Policies / NYS ITS-S14-003 • SOC 2 Type II • NIST 800-53"
+    elif reg == "ma":
+        compliance_posture = "MA EOTSS Enterprise Security (NIST 800-53) • SOC 2 Type II • MA VPAT"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":
@@ -347,6 +356,8 @@ STATE_DISPLAY_NAMES = {
     "oh": "Ohio",
     "ga": "Georgia",
     "nc": "North Carolina",
+    "ny": "New York",
+    "ma": "Massachusetts",
 }
 
 
@@ -465,13 +476,13 @@ def build_two_step_outreach(
             f"{intel_block}"
             f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
             f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 15 REST/MCP APIs (@signaltender/mcp-server)."
+            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server)."
         ),
         (
             f"{intel_block}"
             f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
             f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 5-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
-            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 15 developer REST/MCP APIs."
+            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 20 developer REST/MCP APIs."
         ),
         (
             f"{intel_block}"
@@ -528,7 +539,7 @@ def build_two_step_outreach(
         f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.}}}}\n\n"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 15 REST/MCP APIs (@signaltender/mcp-server).\n\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server).\n\n"
         f"{intel_block}"
         f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
         f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{checkout_url}\n\n"
@@ -805,6 +816,13 @@ def generate_outreach():
 
         # Trigger Option C Zero-Touch Cold Email API Sync if credentials are set in .env
         sync_leads_to_cold_email_api(leads_for_api)
+
+        # Trigger Built-In Outbound Drip Mailer / Outbox Stager
+        try:
+            import outbound_mailer
+            outbound_mailer.run_outbound_mailer()
+        except Exception as mail_err:
+            print(f"[!] Outbound Mailer warning: {mail_err}", flush=True)
 
     except Exception as e:
         err_msg = f"outreach_generator.py error: {e}"

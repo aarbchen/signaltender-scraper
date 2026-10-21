@@ -55,6 +55,7 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/generate/oral-presentation-prep": "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
     "/v1/generate/ato-rmf-package": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
     "/v1/generate/debriefing-bid-protest": "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
+    "/v1/generate/gsa-mas-offer": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -70,6 +71,7 @@ JURISDICTION_LABELS = {
     "ohio": "OHIO // OHIOBUYS",
     "georgia": "GEORGIA // GPR & TEAM GA",
     "north_carolina": "NORTH CAROLINA // NC eVP & METRO",
+    "massachusetts": "MASSACHUSETTS // COMMBUYS & BOSTON",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -166,6 +168,15 @@ def classify_jurisdiction(record: dict) -> str:
         or "ogs.ny.gov" in url
     ):
         return "new_york"
+    if (
+        "commbuys.com" in url
+        or "mass.gov" in url
+        or "boston.gov" in url
+        or "mbta.com" in url
+        or "massport.com" in url
+        or "masstech.org" in url
+    ):
+        return "massachusetts"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -196,6 +207,18 @@ def classify_jurisdiction(record: dict) -> str:
         or "rockland county" in agency
     ):
         return "new_york"
+    if (
+        title.startswith("[MA]")
+        or "massachusetts" in agency
+        or "(ma)" in agency
+        or "commbuys" in agency
+        or "city of boston" in agency
+        or "boston public" in agency
+        or "mbta" in agency
+        or "massport" in agency
+        or "eotss" in agency
+    ):
+        return "massachusetts"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
@@ -464,6 +487,12 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "north_carolina":
         compliance_posture = "NCDIT Statewide Information Security Manual (NIST 800-53) • StateRAMP / SOC 2 Type II • NC Section 508 VPAT"
         teaming_posture = "NC DOA Office for Historically Underutilized Businesses (HUB 10%+ Goal) + NCDIT ITSTC Alignment + 3 SLED Refs"
+    elif j_key == "new_york":
+        compliance_posture = "NYS ITS-S14-003 / NYC OTI Cyber Policies (NIST 800-53) • SOC 2 Type II • NYS ICT Accessibility VPAT"
+        teaming_posture = "NYS Executive Law Article 15-A MWBE (30% Goal) + SDVOB (6% Goal) + OGS Umbrella / HBITS Alignment + 3 SLED Refs"
+    elif j_key == "massachusetts":
+        compliance_posture = "MA EOTSS Enterprise Information Security Standards (IS.000 / NIST 800-53) • SOC 2 Type II • MA EOTSS Accessibility VPAT"
+        teaming_posture = "MA OSD Supplier Diversity Program (SDP 1%–15% MBE/WBE/SDVOBE Commitment) + ITS78/ITS80 Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -535,7 +564,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
         posture_line = (
             f"**Cyber, RMF/cATO & Teaming Posture (API #06/#11/#12/#18):** `{c_pos}` | `{t_pos}`\n"
-            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals & Protest (API #13/#15/#16/#17/#19):** `{ptw_pos}` | `{lcat_pos}`\n"
+            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest & GSA MAS (API #13/#15/#16/#17/#19/#20):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):

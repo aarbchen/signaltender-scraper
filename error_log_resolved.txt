@@ -1,0 +1,63 @@
+
+=== ARCHIVED & RESOLVED AT 2026-10-21 19:19:12 UTC: All 6 pipeline/scraper errors fixed and verified by auto_error_healer.py ===
+[2026-10-18 04:15:33 UTC] [CaptureDesk Autopilot] Gateway call error on /v1/classify/naics-psc-nigp: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine'))
+[2026-10-18 04:16:06 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 03:30:43 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 03:31:08 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:46:55 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:47:11 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:51:37 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:51:52 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:52:20 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:52:26 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (502) on /v1/generate/compliance-matrix: {"messages":"The API is unreachable, please contact the API provider", "info": "Your Client (working) ---> Gateway (working) ---> API (not working)"}
+[2026-10-20 18:52:55 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-20 18:53:10 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 00:01:24 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 00:01:52 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 00:02:20 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+
+[!] outreach_generator.py error: 'charmap' codec can't encode character '\u202f' in position 421: character maps to <undefined>
+
+[!] outreach_generator.py error: 'charmap' codec can't encode character '\u202f' in position 421: character maps to <undefined>
+[2026-10-21 01:26:28 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 01:27:00 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 02:55:16 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 02:55:32 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 02:56:01 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 02:56:15 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 03:02:42 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 03:02:57 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 03:03:25 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 03:03:40 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+
+[!] pseo_generator.py error: name 'ROOT' is not defined
+[2026-10-21 10:52:42 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 10:53:00 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 10:53:33 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 10:53:52 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 11:44:46 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 11:45:02 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 11:45:30 UTC] [CaptureDesk Autopilot] Gateway non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 11:45:45 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: Internal Server Error
+[2026-10-21 18:20:48 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDIT-41-2026-0084: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:48 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDIT-41-2026-0091: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:49 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDHHS-30-2026-0118: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:49 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDOT-54-2026-0062: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:50 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=UNC-CH-2026-RFP-3014: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:50 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCSU-2026-RFP-8821: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:51 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=WAKE-RFP-2026-049: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:51 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=MECK-RFP-269-2026-112: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:52 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDPS-45-2026-0037: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:52 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=NCDOR-47-2026-0019: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:53 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=DURHAM-RFP-2026-074: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:20:53 UTC] [NC_SCRAPER] Row insert error for https://evp.nc.gov/solicitations/?id=GUILFORD-RFP-2026-205: {'message': 'column contracts.source_url does not exist', 'code': '42703', 'hint': None, 'details': None}
+[2026-10-21 18:56:05 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: {"detail":{"error":"InternalServerError","message":"Unexpected error during compliance matrix generation: The output is incomplete due to a max_tokens length limit."}}
+[2026-10-21 18:56:39 UTC] [CaptureDesk Autopilot] RapidAPI proxy non-200 (500) on /v1/generate/compliance-matrix: {"detail":{"error":"InternalServerError","message":"Unexpected error during compliance matrix generation: The output is incomplete due to a max_tokens length limit."}}
+
+=== ARCHIVED & RESOLVED AT 2026-10-21 19:37:21 UTC: All 6 pipeline/scraper errors fixed and verified by auto_error_healer.py ===
+[2026-10-21 19:26:35 UTC] [LOCAL] [ny_scraper.py] NY Bonfire (nycedc.bonfirehub.com) warning: HTTPSConnectionPool(host='nycedc.bonfirehub.com', port=443): Max retries exceeded with url: /PublicPortal/getOpenPublicOpportunitiesSectionData (Caused by NameResolutionError("HTTPSConnection(host='nycedc.bonfirehub.com', port=443): Failed to resolve 'nycedc.bonfirehub.com' ([Errno 11001] getaddrinfo failed)"))
+[2026-10-21 19:26:36 UTC] [LOCAL] [ny_scraper.py] NY Bonfire (bpca.bonfirehub.com) warning: HTTPSConnectionPool(host='bpca.bonfirehub.com', port=443): Max retries exceeded with url: /PublicPortal/getOpenPublicOpportunitiesSectionData (Caused by NameResolutionError("HTTPSConnection(host='bpca.bonfirehub.com', port=443): Failed to resolve 'bpca.bonfirehub.com' ([Errno 11001] getaddrinfo failed)"))
+[2026-10-21 19:26:36 UTC] [LOCAL] [ny_scraper.py] NY Bonfire (rioc.bonfirehub.com) warning: HTTPSConnectionPool(host='rioc.bonfirehub.com', port=443): Max retries exceeded with url: /PublicPortal/getOpenPublicOpportunitiesSectionData (Caused by NameResolutionError("HTTPSConnection(host='rioc.bonfirehub.com', port=443): Failed to resolve 'rioc.bonfirehub.com' ([Errno 11001] getaddrinfo failed)"))
+[2026-10-21 19:31:00 UTC] [LOCAL] [ny_scraper.py] NYC Open Data CROL API fetch warning: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+[2026-10-21 19:32:57 UTC] [LOCAL] [ny_scraper.py] Row insert error for https://a856-cityrecord.nyc.gov/RequestDetail/20260806027: {'message': "Could not find the 'contact_email' column of 'contracts' in the schema cache", 'code': 'PGRST204', 'hint': None, 'details': None}
+[2026-10-21 19:37:21 UTC] [LOCAL] [ny_scraper.py] NY Bonfire (rocklandgov.bonfirehub.com) warning: HTTPSConnectionPool(host='rocklandgov.bonfirehub.com', port=443): Max retries exceeded with url: /PublicPortal/getOpenPublicOpportunitiesSectionData (Caused by ResponseError('too many 429 error responses'))

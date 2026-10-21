@@ -38,6 +38,7 @@ JURISDICTION_WEBHOOKS = {
     "ohio": os.getenv("DISCORD_OHIO_WEBHOOK_URL"),
     "georgia": os.getenv("DISCORD_GEORGIA_WEBHOOK_URL"),
     "north_carolina": os.getenv("DISCORD_NORTH_CAROLINA_WEBHOOK_URL"),
+    "massachusetts": os.getenv("DISCORD_MASSACHUSETTS_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -54,6 +55,7 @@ JURISDICTION_LABELS = {
     "ohio": "OHIO // OHIOBUYS",
     "georgia": "GEORGIA // GPR & TEAM GA",
     "north_carolina": "NORTH CAROLINA // NC eVP & METRO",
+    "massachusetts": "MASSACHUSETTS // COMMBUYS & BOSTON",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -170,6 +172,15 @@ def classify_jurisdiction(record: dict) -> str:
         or "ogs.ny.gov" in url
     ):
         return "new_york"
+    if (
+        "commbuys.com" in url
+        or "mass.gov" in url
+        or "boston.gov" in url
+        or "mbta.com" in url
+        or "massport.com" in url
+        or "masstech.org" in url
+    ):
+        return "massachusetts"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -200,6 +211,18 @@ def classify_jurisdiction(record: dict) -> str:
         or "rockland county" in agency
     ):
         return "new_york"
+    if (
+        title.startswith("[MA]")
+        or "massachusetts" in agency
+        or "(ma)" in agency
+        or "commbuys" in agency
+        or "city of boston" in agency
+        or "boston public" in agency
+        or "mbta" in agency
+        or "massport" in agency
+        or "eotss" in agency
+    ):
+        return "massachusetts"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:

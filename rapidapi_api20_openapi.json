@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon GSA MAS Schedule, SIN Mapper & PRC Compliance API",
+    "version": "1.0.0",
+    "description": "Transforms commercial labor rate cards, software/SaaS SKUs, commercial discounting practices, and past project histories into a GSA Multiple Award Schedule (MAS) Large Category F (IT) eOffer / eMod package: Special Item Number (SIN) Mapping Matrix (`54151S`, `54151HACS`, `518210C`, `511210`, `OLM`), GSA Price Proposal Template (PPT) Rate Card with 0.75% Industrial Funding Fee (`Net / 0.9925`) & 5-Year GSAR 552.238-118 Economic Price Adjustment (EPA) escalation, Most Favored Customer (MFC) & Price Reductions Clause (`GSAR 552.238-81`) guardrails, CSP-1 vs. Transactional Data Reporting (TDR) analysis, and a ready-to-submit `SCP-FSS-001` narrative."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/gsa-mas-offer": {
+      "post": {
+        "summary": "Generate GSA MAS Schedule SIN Mapping, 0.75% IFF Rate Card & PRC Compliance Package",
+        "operationId": "Generate GSA MAS Schedule SIN Mapping, 0.75% IFF Rate Card & PRC Compliance Package",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "commercial_catalog_and_lcat_rates",
+                  "corporate_experience_and_project_context"
+                ],
+                "properties": {
+                  "commercial_catalog_and_lcat_rates": {
+                    "type": "string",
+                    "description": "Commercial Price List (CPL), LCAT titles/rates, software/cloud SKUs, and standard commercial discounting practices.",
+                    "example": "Commercial Price List (CPL) 2026: (1) Principal Zero-Trust Cloud Architect: $195.00/hr CPL (BS + 10 yrs, CISSP/AWS Pro); (2) Lead DevSecOps / Kubernetes Engineer: $172.00/hr CPL (BS + 7 yrs, CKA/Sec+); (3) Senior Cyber RMF / ISSO Analyst: $158.00/hr CPL (BS + 6 yrs, CAP/CISM). Commercial clients receive 4-6% volume discounts on orders > $250K; proposed GSA Net Discount is 8.0% off CPL before the 0.75% IFF."
+                  },
+                  "corporate_experience_and_project_context": {
+                    "type": "string",
+                    "description": "Past project experience (2+ years financial stability, SIN-specific projects), target GSA IT/Cyber SINs, and commercial customer classes.",
+                    "example": "Target GSA MAS Large Category F SINs: 54151S (IT Professional Services), 54151HACS (Highly Adaptive Cybersecurity Services), 518210C (Cloud & Cloud-Related IT Professional Services), and OLM. Completed Projects: (A) DISA Zero-Trust ICAM & Kubernetes Cloud Migration ($2.4M, 2024-2026); (B) DHS CISA Continuous Diagnostics & Mitigation SOC Engineering ($1.85M, 2025-2026)."
+                  },
+                  "pricing_disclosure_pathway": {
+                    "type": "string",
+                    "enum": [
+                      "CSP-1_Traditional_PRC",
+                      "TDR_Transactional_Data_Reporting",
+                      "Auto_Recommend"
+                    ],
+                    "default": "Auto_Recommend",
+                    "description": "GSA MAS pricing disclosure regime: 'CSP-1_Traditional_PRC', 'TDR_Transactional_Data_Reporting', or 'Auto_Recommend'."
+                  },
+                  "submission_type": {
+                    "type": "string",
+                    "enum": [
+                      "New_GSA_MAS_Offer",
+                      "Add_SIN_or_EPA_Price_Mod"
+                    ],
+                    "default": "New_GSA_MAS_Offer",
+                    "description": "Whether preparing an initial GSA eOffer ('New_GSA_MAS_Offer') or a GSA eMod SIN addition / EPA modification ('Add_SIN_or_EPA_Price_Mod')."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful GSA MAS Schedule Offer & PRC Compliance Package",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

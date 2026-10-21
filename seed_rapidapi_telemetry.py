@@ -377,8 +377,33 @@ ENDPOINTS = [
                 "and does NOT mandate active-active multi-region telemetry streaming. Our Technical Volume Section 3.4 (pp. 22-24, Figure 3-2) explicitly documented "
                 "automated Terraform + Route53 health-check failover across AWS GovCloud US-East and US-West achieving an 8-minute RTO."
             ),
-            "procurement_jurisdiction": "dod_dfars_215_506_enhanced",
+            "procurement_jurisdiction": "dod_dfars_215_506_enhanced",
+
             "analysis_mode": "unsuccessful_offeror_debrief_and_protest",
+        },
+    },
+    {
+        "id": "API 20",
+        "name": "GovCon GSA MAS Schedule, SIN Mapper & PRC Compliance API",
+        "method": "POST",
+        "path": "/v1/generate/gsa-mas-offer",
+        "rapid_host": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+        "payload": {
+            "commercial_catalog_and_lcat_rates": (
+                "Commercial Price List (CPL) 2026: "
+                "1) Principal Zero-Trust & Cloud Security Architect ($195/hr CPL, BS CS + CISSP/AWS Pro, 10 yrs exp); "
+                "2) Lead DevSecOps & Platform Engineer ($175/hr CPL, BS + CKA, 7 yrs exp); "
+                "3) Senior Cyber RMF / ISSO Analyst ($158/hr CPL, BS + CAP/CISM, 6 yrs exp). "
+                "Commercial clients receive 4-6% volume discounts on orders >$250K; proposed GSA Net Discount is 8.0% off CPL before the 0.75% IFF."
+            ),
+            "corporate_experience_and_project_context": (
+                "Target GSA MAS Large Category F SINs: 54151S (IT Professional Services), 54151HACS (Highly Adaptive Cybersecurity Services), "
+                "518210C (Cloud & Cloud-Related IT Professional Services), and OLM. "
+                "Completed Projects: (A) DISA Zero-Trust ICAM & Kubernetes Cloud Migration ($2.4M, 2024-2026); "
+                "(B) Virginia VITA Statewide Identity Governance, PAM & 24x7 MDR SOC ($2.1M, 2023-2026)."
+            ),
+            "pricing_disclosure_pathway": "Auto_Recommend",
+            "submission_type": "New_GSA_MAS_Offer",
         },
     },
 ]

@@ -39,7 +39,8 @@ const RAPIDAPI_HOSTS = {
   generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
   generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
   generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
-  analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com"
+  analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
+  generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -251,7 +252,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 12-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 14-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -276,9 +277,11 @@ const TOOLS = [
             "ohio",
             "georgia",
             "north_carolina",
+            "new_york",
+            "massachusetts",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1432,6 +1435,100 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_gsa_mas_offer",
+    "title": "Generate GSA MAS Schedule SIN Mapping, 0.75% IFF Rate Card & PRC Compliance Package",
+    "description": "Map commercial labor rate cards, software/cloud SKUs, commercial discounting practices, and past project histories into a GSA Multiple Award Schedule (MAS) Large Category F (IT) eOffer or eMod package containing a Special Item Number (SIN) mapping matrix (`54151S`, `54151HACS`, `518210C`, `511210`, `OLM`), a GSA Price Proposal Template (PPT) ceiling rate card grossed up for the 0.75% Industrial Funding Fee (`Net / 0.9925`) with 5-year GSAR 552.238-118 EPA escalation, GSAR 552.238-81 Price Reductions Clause (PRC) / Most Favored Customer (MFC) guardrails, CSP-1 vs. Transactional Data Reporting (TDR) pathway recommendations, and a ready-to-submit SCP-FSS-001 proposal narrative. This is a read-only, stateless, non-destructive compliance and pricing generator (requires X-RapidAPI-Key; `commercial_catalog_and_lcat_rates` accepts 20 to 45,000 characters and `corporate_experience_and_project_context` accepts 20 to 35,000 characters). Use this tool when preparing a GSA Multiple Award Schedule (MAS) eOffer, SIN addition eMod, or GSAR 552.238-81 Price Reductions Clause (PRC) / MFC audit; use `generate_igce_price_to_win` instead for single-RFP IGCE wrap-rate and Price-to-Win modeling, or `match_key_personnel` to tailor individual candidate resumes to LCAT minimums.",
+    "annotations": {
+      "title": "Generate GSA MAS Schedule SIN Mapping, 0.75% IFF Rate Card & PRC Compliance Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commercial_catalog_and_lcat_rates": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Commercial Price List (CPL), LCAT titles, hourly rates, minimum education/years of experience, software/SaaS SKUs, and standard commercial discounting practices (20 to 45,000 characters)."
+        },
+        "corporate_experience_and_project_context": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 35000,
+          "description": "Past project experience for SCP-FSS-001 Factor 4 (1-2 completed projects per target SIN), target GSA IT/Cyber SINs (`54151S`, `54151HACS`, `518210C`), and commercial customer classes (20 to 35,000 characters)."
+        },
+        "pricing_disclosure_pathway": {
+          "type": "string",
+          "enum": [
+            "CSP-1_Traditional_PRC",
+            "TDR_Transactional_Data_Reporting",
+            "Auto_Recommend"
+          ],
+          "default": "Auto_Recommend",
+          "description": "GSA MAS pricing disclosure pathway: 'CSP-1_Traditional_PRC' (traditional Commercial Sales Practices with Most Favored Customer tracking), 'TDR_Transactional_Data_Reporting' (GSAR 552.238-81 Alt I TDR exemption), or 'Auto_Recommend' (default)."
+        },
+        "submission_type": {
+          "type": "string",
+          "enum": [
+            "New_GSA_MAS_Offer",
+            "Add_SIN_or_EPA_Price_Mod"
+          ],
+          "default": "New_GSA_MAS_Offer",
+          "description": "Submission mode: 'New_GSA_MAS_Offer' (default, full SCP-FSS-001 eOffer package) or 'Add_SIN_or_EPA_Price_Mod' (GSA eMod SIN addition or GSAR 552.238-118 Economic Price Adjustment)."
+        }
+      },
+      "required": [
+        "commercial_catalog_and_lcat_rates",
+        "corporate_experience_and_project_context"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "gsa_mas_readiness_score": {
+          "type": "integer",
+          "description": "Overall GSA eOffer / eMod readiness score from 0 to 100."
+        },
+        "recommended_pricing_pathway": {
+          "type": "string",
+          "description": "Recommended GSA pricing disclosure regime (TDR vs. CSP-1 MFC) and rationale."
+        },
+        "iff_and_epa_pricing_summary": {
+          "type": "string",
+          "description": "Summary of 0.75% Industrial Funding Fee (`Net / 0.9925`) calculation and 5-year EPA escalation."
+        },
+        "sin_mapping_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Mapped GSA MAS SINs (`54151S`, `54151HACS`, `518210C`, `OLM`) with Factor 4 project narratives."
+        },
+        "gsa_lcat_iff_price_list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "GSA Price Proposal Template (PPT) rate card with CPL, Net, 0.75% IFF ceiling rate, and 5-year EPA progression."
+        },
+        "prc_and_mfc_compliance_guardrails": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "GSAR 552.238-81 Price Reductions Clause (PRC) and Most Favored Customer (MFC) safe-harbor guardrails."
+        },
+        "ready_to_submit_scp_fss_001_narrative": {
+          "type": "string",
+          "description": "Paste-ready SCP-FSS-001 Administrative, Technical, and Price Proposal narrative for GSA eOffer / eMod."
+        }
+      }
+    }
   }
 ];
 
@@ -1454,7 +1551,8 @@ const ENDPOINT_MAP = {
   generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" },
   generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" },
   generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" },
-  analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" }
+  analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" },
+  generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1557,7 +1655,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.5.0"
+            version: "1.6.0"
           }
         }
       });

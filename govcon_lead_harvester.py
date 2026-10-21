@@ -59,6 +59,8 @@ STATE_CODE_TO_FULL = {
     "ny": "New York",
     "new_york": "New York",
     "new york": "New York",
+    "ma": "Massachusetts",
+    "massachusetts": "Massachusetts",
     "federal": "Virginia",
     "municipal": "Texas",
     "all": "Virginia",
@@ -467,6 +469,46 @@ MULTISTATE_GOVCON_PROSPECTS: List[Dict[str, str]] = [
         "Industry": "computer networking",
         "Keywords": "municipal broadband, bonfire rfp, new york county it, managed network security",
     },
+    # Massachusetts (COMMBUYS, EOTSS, OSD ITS78 & City of Boston)
+    {
+        "First Name": "Connor",
+        "Last Name": "Fitzpatrick",
+        "Title": "VP of SLED & Defense Capture",
+        "Company Name": "BayState Commonwealth Cyber & Cloud LLC",
+        "Email": "cfitzpatrick@baystatecybercloud.com",
+        "City": "Boston",
+        "State": "Massachusetts",
+        "Website": "https://baystatecybercloud.com",
+        "NAICS Codes": "541512, 541519",
+        "Industry": "computer & network security",
+        "Keywords": "commbuys, ma eotss, osd its78, hanscom afb, zero trust, soc, massachusetts sled",
+    },
+    {
+        "First Name": "Ananya",
+        "Last Name": "Subramanian",
+        "Title": "Founder & CEO",
+        "Company Name": "Cambridge CivicAI & Data Systems Inc",
+        "Email": "ananya@cambridgecivicaidata.com",
+        "City": "Cambridge",
+        "State": "Massachusetts",
+        "Website": "https://cambridgecivicaidata.com",
+        "NAICS Codes": "541511, 541512, 518210",
+        "Industry": "information technology & services",
+        "Keywords": "commbuys, city of boston rfp, mbta technology, data analytics, cloud modernization",
+    },
+    {
+        "First Name": "Patrick",
+        "Last Name": "O'Sullivan",
+        "Title": "Director of Public Sector BD",
+        "Company Name": "Minuteman Mission IT & Networks Corp",
+        "Email": "posullivan@minutemanmissionit.com",
+        "City": "Waltham",
+        "State": "Massachusetts",
+        "Website": "https://minutemanmissionit.com",
+        "NAICS Codes": "541513, 541512",
+        "Industry": "computer networking",
+        "Keywords": "hanscom c3i, massport it, commbuys, network infrastructure, cmmc level 2",
+    },
 ]
 
 
@@ -588,7 +630,7 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
             "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210"]},
             "place_of_performance_locations": [
                 {"country": "USA", "state": st}
-                for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY")
+                for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA")
             ],
         },
         "limit": 25,
