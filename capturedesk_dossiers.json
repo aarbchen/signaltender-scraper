@@ -411,5 +411,65 @@
       "**Cloud Infrastructure SLA & Security Certification Portfolio:** AWS/Azure FedRAMP or StateRAMP authorization letter, SOC 2 Type II audit report dated within 12 months, and documented 99.9%+ uptime SLA guarantee with financial penalties\u2014proving operational resilience and compliance maturity for statewide mission-critical mobility data platform."
     ],
     "enriched_at": "2026-10-21T10:53:58.257195+00:00"
+  },
+  "702": {
+    "id": "702",
+    "title": "[PE-72200-NONST-2027-000000093] Enterprise Resource Planning (ERP) Software & Services",
+    "agency": "Rockdale County Board Of Commissioners (Georgia)",
+    "jurisdiction_badge": "GEORGIA // GPR & TEAM GA",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/19/2026",
+    "source_url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-72200-NONST-2027-000000093&sourceSystemType=gpr20",
+    "dossier_url": "https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html",
+    "primary_naics": "511210 \u2014 Software Publishers",
+    "primary_psc": "7A21 \u2014 ADP Equipment Software",
+    "primary_nigp": "208-11 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$47.0M annual receipts",
+    "compliance_posture": "Georgia Tech Authority (GTA) SSG Security \u2022 StateRAMP / NIST 800-53 \u2022 GA Section 508 VPAT",
+    "teaming_posture": "Georgia DOAS Small Business / Minority Subcontracting (MBE/VBE) + GTA GETS Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Section Heading: Technical Approach & Architecture (45%)** \u2014 Demonstrate proven cloud-native ERP platform architecture with certified Section 508/WCAG 2.1 AA accessibility compliance, API-first integration framework, and documented 99.9% uptime SLAs specifically validated for public-sector government operations.",
+      "**Section Heading: Past Performance on Similar Public-Sector Engagements (30%)** \u2014 Showcase minimum 3 recent (2022-2026) successful ERP implementations for comparable government entities (county/state), with customer references confirming on-time delivery, budget adherence, and measurable ROI within government IT environments.",
+      "**Section Heading: Management & Implementation Plan (25%)** \u2014 Present detailed phased deployment roadmap with risk mitigation strategies, dedicated government account team credentials, proven transition methodology, and structured training curriculum tailored to county staff skill levels with go-live contingency protocols."
+    ],
+    "evidence_needed": [
+      "**Accessibility & Security Certification** \u2014 Provide independent audit report (VPAT 2.4 or equivalent) confirming Section 508/WCAG 2.1 AA Level compliance, plus SOC 2 Type II certification or FedRAMP authorization demonstrating government-grade security controls and data handling.",
+      "**Public-Sector Reference Validation** \u2014 Supply 3 documented case studies from county/state government ERP deployments (2022\u20132026) including project scope, final budget variance, actual uptime metrics achieved post-go-live, and customer contact names/phone numbers for independent verification of claims."
+    ],
+    "enriched_at": "2026-10-21T11:45:07.897853+00:00"
+  },
+  "701": {
+    "id": "701",
+    "title": "[PE-66096-NONST-2026-000000217] 26RFP1645291A-ST AI Powered Digital Water Operations Platform",
+    "agency": "Fulton County Purchasing Dept (Georgia)",
+    "jurisdiction_badge": "GEORGIA // GPR & TEAM GA",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/13/2026",
+    "source_url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-66096-NONST-2026-000000217&sourceSystemType=gpr20",
+    "dossier_url": "https://signaltender.net/contracts/rfp/pe-66096-nonst-2026-000000217-26rfp1645291a-st-ai-powered-digital-water-701.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "918-29 \u2014 Computer Software, Application Software, Operating Systems, Software Maintenance",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Georgia Tech Authority (GTA) SSG Security \u2022 StateRAMP / NIST 800-53 \u2022 GA Section 508 VPAT",
+    "teaming_posture": "Georgia DOAS Small Business / Minority Subcontracting (MBE/VBE) + GTA GETS Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Section 3.2 Security & Compliance Excellence:** Demonstrate proven architecture for FedRAMP/Georgia data residency compliance with real-time AI model governance, automated Section 508/WCAG 2.1 AA accessibility validation, and zero-trust security framework\u2014directly addressing Fulton County's critical infrastructure protection requirements.",
+      "**Section 3.1 AI-Native Digital Water Operations:** Position end-to-end platform leveraging machine learning for predictive asset maintenance, real-time operational dashboards, and automated anomaly detection in water systems\u2014substantiating technical superiority (45% evaluation weight) with domain-specific AI differentiation versus legacy solutions.",
+      "**Section 3.3 De-Risk Implementation via Phased Transition:** Commit to clearly sequenced deployment (pilot\u2192scaling\u2192full operations) with certified change management, embedded county staff training, and guaranteed SLA uptime (specify 99.5%+)\u2014directly addressing Management/Implementation Plan scoring (25%) while ensuring adoption success on public-sector timeline."
+    ],
+    "evidence_needed": [
+      "**Compliance Certification Package:** Current FedRAMP Authorized Partner status OR Georgia Department of Administrative Services (DOAS) pre-approved cloud service provider listing, plus documented evidence of Section 508/WCAG 2.1 AA compliance testing results (VPAT 2.4 assessment) from independent accessibility audit firm conducted within 12 months.",
+      "**Public-Sector Water/Utilities Reference:** Minimum 2 completed similar AI water operations platform deployments for municipal/county water authorities (within past 3 years) with signed reference letters confirming go-live achievement, uptime SLA performance >99%, and measurable ROI (cost savings or operational efficiency gain \u226515%)."
+    ],
+    "enriched_at": "2026-10-21T11:45:51.240616+00:00"
   }
 }

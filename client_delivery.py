@@ -34,6 +34,7 @@ JURISDICTION_WEBHOOKS = {
     "illinois": os.getenv("DISCORD_ILLINOIS_WEBHOOK_URL"),
     "pennsylvania": os.getenv("DISCORD_PENNSYLVANIA_WEBHOOK_URL"),
     "ohio": os.getenv("DISCORD_OHIO_WEBHOOK_URL"),
+    "georgia": os.getenv("DISCORD_GEORGIA_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -48,6 +49,7 @@ JURISDICTION_LABELS = {
     "illinois": "ILLINOIS // BIDBUY",
     "pennsylvania": "PENNSYLVANIA // eMARKETPLACE",
     "ohio": "OHIO // OHIOBUYS",
+    "georgia": "GEORGIA // GPR & TEAM GA",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -130,6 +132,16 @@ def classify_jurisdiction(record: dict) -> str:
         or "akronohio.bonfirehub.com" in url
     ):
         return "ohio"
+    if (
+        "doas.state.ga.us" in url
+        or "georgia.gov" in url
+        or "ga.gov" in url
+        or "forsythco.bonfirehub.com" in url
+        or "fultonschools.bonfirehub.com" in url
+        or "cobbk12.bonfirehub.com" in url
+        or "itsmarta.com" in url
+    ):
+        return "georgia"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -145,6 +157,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
         return "pennsylvania"
+    if title.startswith("[GA]") or "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency or "cobb county" in agency or "gwinnett" in agency or "dekalb" in agency:
+        return "georgia"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:

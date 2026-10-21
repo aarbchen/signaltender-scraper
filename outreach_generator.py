@@ -86,6 +86,7 @@ STATE_ALIASES = {
     "il": "il", "illinois": "il",
     "pa": "pa", "pennsylvania": "pa",
     "oh": "oh", "ohio": "oh",
+    "ga": "ga", "georgia": "ga",
 }
 
 
@@ -174,6 +175,8 @@ def detect_contract_region(rec: dict) -> str:
         return "il"
     if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
         return "pa"
+    if "doas.state.ga.us" in url or "georgia.gov" in url or "ga.gov" in url or "forsythco.bonfirehub.com" in url or "fultonschools.bonfirehub.com" in url or "cobbk12.bonfirehub.com" in url or "itsmarta.com" in url:
+        return "ga"
     if "ohiobuys.ohio.gov" in url or "ohioauditor.gov" in url or "morpc.org" in url or "franklincountyohio.gov" in url or "columbus.bonfirehub.com" in url:
         return "oh"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
@@ -192,6 +195,8 @@ def detect_contract_region(rec: dict) -> str:
         return "il"
     if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
         return "pa"
+    if title.startswith("[GA]") or "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency:
+        return "ga"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency:
         return "oh"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:

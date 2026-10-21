@@ -334,6 +334,30 @@ ENDPOINTS = [
             "presentation_format_mode": "COMBINED_ORALS_TECH_DEMO_AND_QA",
         },
     },
+    {
+        "id": "API 18",
+        "name": "GovCon RMF, Continuous ATO (cATO), SSP & POA&M Generator API",
+        "method": "POST",
+        "path": "/v1/generate/ato-rmf-package",
+        "rapid_host": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
+        "payload": {
+            "system_architecture_and_rfp_cyber_text": (
+                "SOLICITATION FA8726-26-R-0092 (USAF Mission Command Cloud & DevSecOps Modernization): "
+                "Section C.4 Cybersecurity & RMF Requirements: Contractor shall design, deploy, and maintain "
+                "a Cloud-Native Mission Application hosted on AWS GovCloud (US-East/West) at DoD Impact Level 5 (IL5). "
+                "System processes Controlled Unclassified Information (CUI) and Mission-Critical Operational Telemetry. "
+                "Must achieve Interim Authority to Test (IATT) within 60 days and Full Continuous Authority to Operate (cATO) "
+                "under DoDI 8510.01 (RMF) and NIST SP 800-53 Rev 5 Moderate/High Overlay."
+            ),
+            "cloud_hosting_and_inherited_controls_context": (
+                "Hosted on AWS GovCloud (US) with FedRAMP High & DoD SRG IL5 Provisional Authorization (PA). "
+                "Platform layer uses Platform One BigBang Kubernetes (EKS) with Istio mTLS service mesh, "
+                "Keycloak CAC/PKI ICAM, GitLab CI/CD runners, Anchore/Trivy container scanning, and Splunk Cloud SIEM."
+            ),
+            "target_authorization_framework": "dod_rmf_dodi_8510_01_cato",
+            "target_impact_level": "IL5_CUI_NSS",
+        },
+    },
 ]
 
 

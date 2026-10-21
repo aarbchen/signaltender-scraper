@@ -11,7 +11,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **01** | `parse_b2b_contract` | `POST /v1/parse/contract` | Extracts parties, dates, contract value, deliverables, and governing law from unstructured RFPs & SOWs. |
 | **02** | `audit_contract_risks` | `POST /v1/parse/contract-risks` | Scores legal risk (`0-100`), quotes toxic clauses verbatim, and generates ready-to-paste fallback redlines. |
 | **03** | `search_historical_awards` | `POST /v1/awards/search` | Queries federal contract awards, incumbent primes, and historical CLIN pricing benchmarks. |
-| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA & OH. |
+| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH & GA. |
 | **05** | `generate_compliance_matrix` | `POST /v1/generate/compliance-matrix` | Builds a Shipley `shall`/`must` Compliance Checklist, Section L-to-M cross-reference, and Proposal Outline. |
 | **06** | `scan_far_dfars_clauses` | `POST /v1/audit/far-dfars-clauses` | Detects `FAR 52.2xx` & `DFARS 252.2xx` clauses, flags mandatory flow-downs, and scores CMMC 2.0 burden. |
 | **07** | `match_capability_statement` | `POST /v1/match/capability-statement` | Calculates a `0-100` Pwin (Probability of Win) score, Bid/No-Bid decision, gap analysis, and executive pitch. |
@@ -25,6 +25,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **15** | `generate_cpars_past_performance` | `POST /v1/generate/past-performance` | Transforms raw project histories into Shipley Section L/M Past Performance Volume III citations, Scope/Magnitude/Complexity matrices & CPARS narratives. |
 | **16** | `generate_igce_price_to_win` | `POST /v1/generate/price-to-win` | Builds Independent Government Cost Estimates (IGCE), Indirect Wrap-Rate calculators, GSA CALC+ LCAT rate cards & Price-to-Win (PTW) sensitivity models. |
 | **17** | `generate_oral_presentation_prep` | `POST /v1/generate/oral-presentation-prep` | Generates FAR 15.102 Oral Presentation slide decks, Key Personnel speaker scripts, Live Tech-Demo runbooks & SSEB Murder-Board Q&A coaching matrices. |
+| **18** | `generate_ato_rmf_package` | `POST /v1/generate/ato-rmf-package` | Generates NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), FIPS 199 categorization, SSP control inheritance matrices & eMASS POA&M packages. |
 
 ---
 

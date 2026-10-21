@@ -673,6 +673,7 @@ async def run_master_orchestrator(
         _run_source("Illinois SLED (BidBuy / CTA)", "import il_scraper", "il_scraper.run_scraper(push_to_db=False)"),
         _run_source("Pennsylvania SLED (PA eMarketplace)", "import pa_scraper", "pa_scraper.run_scraper(push_to_db=False)"),
         _run_source("Ohio SLED (Ohio Buys / Metro)", "import oh_scraper", "oh_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Georgia SLED (GPR / Team GA)", "import ga_scraper", "ga_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -687,6 +688,7 @@ async def run_master_orchestrator(
         "Illinois SLED (BidBuy / CTA)",
         "Pennsylvania SLED (PA eMarketplace)",
         "Ohio SLED (Ohio Buys / Metro)",
+        "Georgia SLED (GPR / Team GA)",
     ]
     combined_records = []
 

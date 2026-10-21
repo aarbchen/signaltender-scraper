@@ -1,6 +1,6 @@
 {
   "name": "@signaltender/mcp-server",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Official Model Context Protocol (MCP) Server for the SignalTender B2B, GovCon, LegalTech & FinOps API Ecosystem. Connects AI agents to live government RFP feeds, contract parsing, legal redlining, compliance matrices, regulatory clause scanning, capability matching, industry classification, proposal generation, and pricing intelligence.",
   "main": "index.js",
   "bin": {

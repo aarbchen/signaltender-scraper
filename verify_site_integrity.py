@@ -108,6 +108,7 @@ def check_html_file(fpath: str) -> str:
         "#contracts/illinois",
             "#contracts/pennsylvania",
             "#contracts/ohio",
+            "#contracts/georgia",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -218,6 +219,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "illinois": "IL",
         "pennsylvania": "PA",
         "ohio": "OH",
+        "georgia": "GA",
         "new_york": "NY",
     }
     for sk in state_keys:
@@ -478,7 +480,12 @@ if (typeof window.selectInteractiveDossier !== 'function') {
   throw new Error('window.selectInteractiveDossier is undefined!');
 }
 window.selectInteractiveDossier('ohio');
+window.selectInteractiveDossier('georgia');
 window.selectInteractiveDossier('federal');
+if (typeof window.updateCaptureRoiCalculator !== 'function') {
+  throw new Error('window.updateCaptureRoiCalculator is undefined!');
+}
+window.updateCaptureRoiCalculator(6);
 """
     )
 

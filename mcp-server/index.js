@@ -37,7 +37,8 @@ const RAPIDAPI_HOSTS = {
   analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
   generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com",
   generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
-  generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com"
+  generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
+  generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -249,7 +250,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 10-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 11-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -272,9 +273,10 @@ const TOOLS = [
             "illinois",
             "pennsylvania",
             "ohio",
+            "georgia",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1248,6 +1250,98 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_ato_rmf_package",
+    "title": "Generate GovCon RMF, Continuous ATO (cATO), SSP & POA&M Package",
+    "description": "Transform RFP cybersecurity clauses, system architecture descriptions, and cloud hosting baselines into a NIST SP 800-53 Rev 5 / DoDI 8510.01 RMF / FedRAMP / StateRAMP Authority to Operate (ATO & Continuous ATO) package with FIPS 199 / CNSSI 1253 security categorization, System Security Plan (SSP) control inheritance matrices, eMASS/CSAM-ready Plan of Action & Milestones (POA&M) schedules, Continuous Monitoring (ConMon) DevSecOps blueprints, and Shipley proposal narratives. This is a read-only, stateless generative authorization modeling call (requires X-RapidAPI-Key; `system_architecture_and_rfp_cyber_text` accepts 40 to 100,000 characters, `cloud_hosting_and_inherited_controls_context` accepts 20 to 80,000 characters, and `target_authorization_framework` and `target_impact_level` calibrate control baselines across DoD RMF IL2-IL6, FedRAMP, StateRAMP, and CMMC 2.0). Use this tool when building System Security Plans (SSPs), eMASS POA&M items, FIPS 199 categorizations, or cATO roadmaps for an ATO boundary; use `answer_security_questionnaire` instead to answer vendor security questionnaires and calculate a numeric DoD SPRS score (-203 to 110), or `scan_far_dfars_clauses` to audit FAR/DFARS solicitation clauses.",
+    "annotations": {
+      "title": "Generate GovCon RMF, Continuous ATO (cATO), SSP & POA&M Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "system_architecture_and_rfp_cyber_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Raw RFP Section C/L/M cybersecurity & ATO requirements, target system architecture, data types processed (CUI, CDI, ITAR, PHI, PII, CJIS), user communities, and interconnection boundaries (40 to 100,000 characters)."
+        },
+        "cloud_hosting_and_inherited_controls_context": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 80000,
+          "description": "Cloud Service Provider (CSP) enclave (AWS GovCloud, Azure Government, GCP Assured Workloads, on-prem), platform layer (Kubernetes, Platform One BigBang, Serverless), and existing security tooling (SIEM, SOAR, ICAM, SAST/DAST)."
+        },
+        "target_authorization_framework": {
+          "type": "string",
+          "enum": [
+            "dod_rmf_dodi_8510_01_cato",
+            "fedramp_rev5_agency_ato",
+            "stateramp_txramp_govramp",
+            "nist_800_171_cmmc_level_2"
+          ],
+          "default": "dod_rmf_dodi_8510_01_cato",
+          "description": "Target authorization framework: 'dod_rmf_dodi_8510_01_cato' (default DoD RMF & Continuous ATO), 'fedramp_rev5_agency_ato' (Civilian Federal Agency ATO / FedRAMP Rev 5), 'stateramp_txramp_govramp' (State SLED StateRAMP / TX-RAMP / GovRAMP), or 'nist_800_171_cmmc_level_2' (CMMC 2.0 Level 2)."
+        },
+        "target_impact_level": {
+          "type": "string",
+          "enum": [
+            "IL2_LOW",
+            "IL4_MODERATE_CUI",
+            "IL5_CUI_NSS",
+            "IL6_CLASSIFIED_HIGH",
+            "FEDRAMP_MODERATE",
+            "FEDRAMP_HIGH"
+          ],
+          "default": "IL5_CUI_NSS",
+          "description": "Target DoD Cloud Computing SRG Impact Level or FIPS 199 baseline: 'IL2_LOW', 'IL4_MODERATE_CUI', 'IL5_CUI_NSS' (default), 'IL6_CLASSIFIED_HIGH', 'FEDRAMP_MODERATE', or 'FEDRAMP_HIGH'."
+        }
+      },
+      "required": [
+        "system_architecture_and_rfp_cyber_text",
+        "cloud_hosting_and_inherited_controls_context"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "authorization_boundary_summary": {
+          "type": "string",
+          "description": "Executive summary of the system authorization boundary, hosting enclave, and target ATO pathway."
+        },
+        "fips_199_security_categorization": {
+          "type": "object",
+          "description": "FIPS 199 & CNSSI 1253 Confidentiality/Integrity/Availability categorization and overall high-water mark."
+        },
+        "control_inheritance_summary": {
+          "type": "string",
+          "description": "Estimated breakdown of Inherited CSP Controls vs. Hybrid Shared Controls vs. Customer-Implemented Controls."
+        },
+        "ssp_control_implementation_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "NIST SP 800-53 Rev 5 SSP control family implementation narratives, STIG mappings, and audit artifacts."
+        },
+        "emass_poam_remediation_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "eMASS / CSAM-ready POA&M entries with CAT I/II/III severity, compensating controls, and milestones."
+        },
+        "continuous_ato_conmon_blueprint": {
+          "type": "object",
+          "description": "Continuous ATO (cATO) DevSecOps pipeline gates, OSCAL automation, and ConMon cadence."
+        }
+      }
+    }
   }
 ];
 
@@ -1268,7 +1362,8 @@ const ENDPOINT_MAP = {
   analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" },
   generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" },
   generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" },
-  generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" }
+  generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" },
+  generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1371,7 +1466,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.3.0"
+            version: "1.4.0"
           }
         }
       });
