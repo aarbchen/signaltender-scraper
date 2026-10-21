@@ -40,358 +40,1040 @@ const RAPIDAPI_HOSTS = {
 
 const TOOLS = [
   {
-    name: "parse_b2b_contract",
-    description:
-      "API #01: Extract structured JSON (party names, effective/termination dates, total contract value, payment terms, deliverables, and governing law) from unstructured B2B contracts, SOWs, or RFPs.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        raw_text: {
-          type: "string",
-          description: "Raw unstructured text from a contract, Statement of Work (SOW), or RFP (min 50 chars)."
+    "name": "parse_b2b_contract",
+    "title": "Parse B2B Contract & RFP Metadata",
+    "description": "Extract structured contract metadata (contracting parties, effective and termination dates, total contract value, payment terms, key deliverables, security clearances, and governing law) from unstructured B2B contracts, Statements of Work (SOWs), or RFPs into normalized JSON. This is a read-only, stateless, non-destructive extraction call (requires X-RapidAPI-Key; accepts 50 to 100,000 characters in `raw_text`, and `document_type_hint` optionally biases extraction rules toward federal RFP, MSA, SOW, or NDA conventions). Use this tool when you need general commercial or header metadata from a contract; use `extract_pricing_schedule` instead for line-by-line CLIN/rate-card tables, `audit_contract_risks` for toxic clause redlining, or `generate_compliance_matrix` for Section C/L/M requirement shredding.",
+    "annotations": {
+      "title": "Parse B2B Contract & RFP Metadata",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "raw_text": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 100000,
+          "description": "Raw unstructured text from a B2B contract, Master Services Agreement (MSA), Statement of Work (SOW), or Request for Proposal (RFP) between 50 and 100,000 characters."
         },
-        document_type_hint: {
-          type: "string",
-          description: "Optional document type hint (e.g., 'RFP', 'MSA', 'SOW')."
+        "document_type_hint": {
+          "type": "string",
+          "enum": [
+            "RFP",
+            "MSA",
+            "SOW",
+            "NDA",
+            "SUBCONTRACT",
+            "AUTO"
+          ],
+          "default": "AUTO",
+          "description": "Optional document classification hint ('RFP', 'MSA', 'SOW', 'NDA', 'SUBCONTRACT', or 'AUTO') used to prioritize federal solicitation fields vs. commercial agreement terms."
         }
       },
-      required: ["raw_text"]
-    }
-  },
-  {
-    name: "audit_contract_risks",
-    description:
-      "API #02: Audit legal contracts (MSAs, NDAs, Subcontracts, SaaS agreements) for toxic clauses, score overall risk (0-100), and generate verbatim clause quotes with ready-to-paste fallback redline language.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        raw_text: {
-          type: "string",
-          description: "Full or partial contract text to audit for legal and commercial risks."
+      "required": [
+        "raw_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "document_type": {
+          "type": "string",
+          "description": "Detected contract or solicitation type."
         },
-        party_perspective: {
-          type: "string",
-          enum: ["vendor", "buyer", "neutral"],
-          default: "vendor",
-          description: "Negotiating perspective for redline generation ('vendor', 'buyer', or 'neutral')."
-        }
-      },
-      required: ["raw_text"]
-    }
-  },
-  {
-    name: "search_historical_awards",
-    description:
-      "API #03: Query historical federal contract awards, incumbent prime contractors, award ceilings, and CLIN pricing benchmarks by keyword, NAICS code, or agency.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        keywords: {
-          type: "string",
-          description: "Search keywords (e.g., 'zero trust', 'cloud migration', 'SIEM')."
+        "parties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Identified contracting parties or issuing agency."
         },
-        agency: {
-          type: "string",
-          description: "Optional agency name filter."
+        "effective_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO-8601 effective or posting date if present."
         },
-        naics_code: {
-          type: "string",
-          description: "Optional 6-digit NAICS code filter (e.g., '541512')."
-        }
-      },
-      required: ["keywords"]
-    }
-  },
-  {
-    name: "get_live_solicitations",
-    description:
-      "API #04: Stream live, AI-vetted open Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, DemandStar) IT, Cloud, and Cybersecurity RFPs from SignalTender's 7-portal procurement database.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        state: {
-          type: "string",
-          description: "Optional jurisdiction filter ('federal', 'virginia', 'texas', 'california', 'florida', 'maryland', 'municipal')."
+        "termination_or_due_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Contract expiration or proposal submission deadline."
         },
-        category: {
-          type: "string",
-          description: "Optional IT vertical filter ('cybersecurity', 'cloud-infrastructure', 'software-development', 'network-telecom')."
+        "total_contract_value": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ],
+          "description": "Extracted total contract ceiling or value."
         },
-        keyword: {
-          type: "string",
-          description: "Optional search keyword in solicitation title or agency."
+        "payment_terms": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Payment schedule, Net terms, or contract pricing type (FFP, T&M, CPFF)."
         },
-        limit: {
-          type: "integer",
-          default: 10,
-          description: "Max number of open solicitations to return (1-50)."
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Core technical and operational deliverables."
+        },
+        "governing_law": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Governing jurisdiction or acquisition regulation (e.g., FAR/DFARS, Delaware)."
         }
       }
     }
   },
   {
-    name: "generate_compliance_matrix",
-    description:
-      "API #05: Parse raw RFP Section C/L/M or SOW text into a Shipley-aligned shall/must Compliance Matrix, Section L-to-M cross-reference map, and hierarchical Proposal Outline with page allocations.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        raw_text: {
-          type: "string",
-          description: "Raw RFP Section C (SOW), Section L (Instructions), and/or Section M (Evaluation Criteria) text."
+    "name": "audit_contract_risks",
+    "title": "Audit Contract Risks & Generate Legal Redlines",
+    "description": "Audit commercial and B2B legal agreements (MSAs, NDAs, SaaS terms, subcontracts) to detect high-risk clauses, compute a 0-100 overall risk score, and generate verbatim clause quotes paired with ready-to-paste fallback redline language. This operation is read-only, stateless, and non-destructive (requires X-RapidAPI-Key; `raw_text` accepts 50 to 100,000 characters, and `party_perspective` shifts redline rewrites to protect the 'vendor', 'buyer', or 'neutral' counsel). Use this tool when reviewing commercial/legal terms (indemnification, liability caps, IP ownership, termination for convenience); use `scan_far_dfars_clauses` instead for federal FAR/DFARS/CMMC regulatory flow-down audits, or `parse_b2b_contract` for basic metadata extraction.",
+    "annotations": {
+      "title": "Audit Contract Risks & Generate Legal Redlines",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "raw_text": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 100000,
+          "description": "Full or partial legal contract text (MSA, NDA, subcontract, or SaaS agreement) to audit for commercial, IP, indemnification, and termination risks (50 to 100,000 characters)."
         },
-        proposal_methodology: {
-          type: "string",
-          enum: ["shipley", "standard_b2b", "federal_far"],
-          default: "shipley",
-          description: "Proposal structuring methodology."
+        "party_perspective": {
+          "type": "string",
+          "enum": [
+            "vendor",
+            "buyer",
+            "neutral"
+          ],
+          "default": "vendor",
+          "description": "Negotiating party perspective ('vendor' protects service provider liability/IP, 'buyer' strengthens customer remedies/SLAs, 'neutral' balances mutual terms)."
         }
       },
-      required: ["raw_text"]
+      "required": [
+        "raw_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "overall_risk_score": {
+          "type": "integer",
+          "description": "Composite contract risk score from 0 (low risk) to 100 (critical risk)."
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Qualitative risk tier (LOW, MODERATE, HIGH, CRITICAL)."
+        },
+        "flagged_clauses": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Detected risky clauses with verbatim quote, risk rationale, and recommended redline replacement."
+        }
+      }
     }
   },
   {
-    name: "scan_far_dfars_clauses",
-    description:
-      "API #06: Detect FAR (52.2xx) and DFARS (252.2xx) regulatory clauses in a solicitation, flag mandatory subcontractor flow-downs, and score CMMC 2.0 / NIST 800-171 / FedRAMP compliance burden.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        raw_text: {
-          type: "string",
-          description: "Solicitation Section I or subcontract flow-down text containing FAR/DFARS citations."
+    "name": "search_historical_awards",
+    "title": "Search Historical Federal Contract Awards & CLIN Pricing",
+    "description": "Query historical federal contract awards, incumbent prime contractors, award ceilings, and labor/CLIN pricing benchmarks filtered by keyword, agency, or 6-digit NAICS code. This is a read-only, deterministic database query (requires X-RapidAPI-Key; `keywords` is required and narrows scope descriptions, while optional `agency` and 6-digit `naics_code` filters intersect results and return up to 25 matching awards per call). Use this tool when researching past award prices, incumbent vendors, or Price-to-Win (PTW) benchmarks; use `get_live_solicitations` instead to find currently open RFPs available for bidding, or `classify_naics_psc_nigp` if you need to discover the right NAICS code first.",
+    "annotations": {
+      "title": "Search Historical Federal Contract Awards & CLIN Pricing",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "keywords": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 200,
+          "description": "Required technical or domain search keywords matched against award descriptions and CLIN titles (e.g., 'zero trust', 'cloud migration', 'SIEM')."
         },
-        contractor_role: {
-          type: "string",
-          enum: ["prime_contractor", "subcontractor", "commercial_item_vendor"],
-          default: "prime_contractor",
-          description: "Role of the contractor evaluating the clauses."
+        "agency": {
+          "type": "string",
+          "description": "Optional issuing federal or state agency name substring filter (e.g., 'Department of Defense', 'Veterans Affairs')."
+        },
+        "naics_code": {
+          "type": "string",
+          "pattern": "^[0-9]{6}$",
+          "description": "Optional exact 6-digit North American Industry Classification System (NAICS) code filter (e.g., '541512' for Computer Systems Design)."
         }
       },
-      required: ["raw_text"]
+      "required": [
+        "keywords"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "total_matches": {
+          "type": "integer",
+          "description": "Number of historical award records matching the query."
+        },
+        "awards": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "List of historical contract awards with recipient, agency, ceiling amount, NAICS, and labor/CLIN benchmarks."
+        }
+      }
     }
   },
   {
-    name: "match_capability_statement",
-    description:
-      "API #07: Compare an RFP against a company's Capability Statement & Past Performance to calculate a 0-100 Pwin (Probability of Win) Score, Bid/No-Bid decision, gap analysis, and tailored executive pitch.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        rfp_text: {
-          type: "string",
-          description: "Solicitation scope, mandatory qualifications, set-aside, and evaluation criteria."
+    "name": "get_live_solicitations",
+    "title": "Get Live Open Federal & State SLED RFPs",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 7-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "annotations": {
+      "title": "Get Live Open Federal & State SLED RFPs",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "federal",
+            "virginia",
+            "texas",
+            "california",
+            "florida",
+            "maryland",
+            "municipal"
+          ],
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', or 'municipal' for DemandStar)."
         },
-        company_capability_statement: {
-          type: "string",
-          description: "Vendor capability statement, socioeconomic certs, clearances, and past performance."
+        "category": {
+          "type": "string",
+          "enum": [
+            "cybersecurity",
+            "cloud-infrastructure",
+            "software-development",
+            "network-telecom"
+          ],
+          "description": "Optional technology vertical filter ('cybersecurity', 'cloud-infrastructure', 'software-development', or 'network-telecom')."
         },
-        target_pursuit_role: {
-          type: "string",
-          enum: ["prime_contractor", "subcontractor_or_jv", "either_prime_or_sub"],
-          default: "either_prime_or_sub"
+        "keyword": {
+          "type": "string",
+          "description": "Optional case-insensitive substring keyword matched against solicitation title and issuing buyer agency."
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 10,
+          "description": "Maximum number of open solicitations to return per request (integer between 1 and 50; defaults to 10)."
         }
-      },
-      required: ["rfp_text", "company_capability_statement"]
+      }
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "Number of open solicitations returned."
+        },
+        "solicitations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Active RFP records including id, title, agency, closing_date, jurisdiction, and official portal URL."
+        }
+      }
     }
   },
   {
-    name: "classify_naics_psc_nigp",
-    description:
-      "API #08: Map any product description, SOW, or company profile to exact 6-digit NAICS, 4-digit SIC (for KYB/FinTech), Federal PSC, and State NIGP/UNSPSC commodity codes with SBA size standards.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        description_text: {
-          type: "string",
-          description: "Company profile, product description, or Statement of Work text."
+    "name": "generate_compliance_matrix",
+    "title": "Generate Shipley RFP Compliance Matrix & Proposal Outline",
+    "description": "Shred unstructured RFP Section C (SOW/PWS), Section L (Instructions), and Section M (Evaluation Criteria) text into a numbered `shall`/`must` Requirements Traceability Matrix, Section L-to-M cross-reference map, and annotated Proposal Outline with page allocations. This is a read-only, stateless analysis operation (requires X-RapidAPI-Key; `raw_text` accepts 50 to 100,000 characters, and `proposal_methodology` selects 'shipley' [default Volume I-IV structure], 'federal_standard' [FAR 15.3], or 'commercial_agile' outline conventions). Use this tool first when shredding a base RFP into a compliance checklist and proposal outline; use `analyze_rfp_amendment_diff` instead when comparing an SF-30 amendment against a base RFP, or `generate_rfp_response` to draft the actual prose narrative for a specific section.",
+    "annotations": {
+      "title": "Generate Shipley RFP Compliance Matrix & Proposal Outline",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "raw_text": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 100000,
+          "description": "Raw RFP Section C (Statement of Work / PWS), Section L (Instructions to Offerors), and/or Section M (Evaluation Factors) text (50 to 100,000 characters)."
         },
-        context_type: {
-          type: "string",
-          enum: ["company_or_vendor_profile", "rfp_or_sow_scope", "product_or_service_catalog"],
-          default: "company_or_vendor_profile"
-        },
-        max_secondary_codes: {
-          type: "integer",
-          default: 3
+        "proposal_methodology": {
+          "type": "string",
+          "enum": [
+            "shipley",
+            "federal_standard",
+            "commercial_agile"
+          ],
+          "default": "shipley",
+          "description": "Proposal structuring methodology: 'shipley' (default evaluator-first Volume I-IV outline with win themes), 'federal_standard' (strict FAR Part 15 Section L/M mapping), or 'commercial_agile' (B2B solution deliverable sprints)."
         }
       },
-      required: ["description_text"]
+      "required": [
+        "raw_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "requirements_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Extracted mandatory shall/must requirements with priority, volume assignment, and verification evidence needed."
+        },
+        "proposal_outline": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Hierarchical proposal sections with mapped requirement IDs, win theme strategy, and page allocation."
+        }
+      }
     }
   },
   {
-    name: "generate_rfp_response",
-    description:
-      "API #09: Draft an evaluator-ready Shipley Technical Proposal Section (with Win Themes, Proof Points, and Risk Mitigations) AND generate strategic Vendor Clarification Q&A questions.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        rfp_section_text: {
-          type: "string",
-          description: "RFP Section C/L/M requirements to respond to."
+    "name": "scan_far_dfars_clauses",
+    "title": "Scan FAR / DFARS & CMMC Regulatory Flow-Down Clauses",
+    "description": "Scan solicitation Section I or subcontract flow-down text to identify every FAR (`52.2xx`) and DFARS (`252.2xx`) clause, flag mandatory subcontractor flow-downs, and score CMMC 2.0, NIST SP 800-171, and FedRAMP compliance burden. This is a read-only, stateless regulatory audit (requires X-RapidAPI-Key; `raw_text` accepts 30 to 100,000 characters, and `contractor_role` adjusts risk severity and flow-down obligations for a 'prime_contractor' [default], 'subcontractor', or 'commercial_item_vendor' under FAR Part 12). Use this tool specifically for federal acquisition regulation (FAR/DFARS/CMMC) clause compliance; use `audit_contract_risks` instead for commercial MSA/NDA legal redlining, or `answer_security_questionnaire` to draft control-by-control NIST 800-171 / SOC 2 questionnaire responses.",
+    "annotations": {
+      "title": "Scan FAR / DFARS & CMMC Regulatory Flow-Down Clauses",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "raw_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 100000,
+          "description": "Solicitation Section I, contract clause list, or subcontract agreement text containing FAR (`52.2xx`) or DFARS (`252.2xx`) citations (30 to 100,000 characters)."
         },
-        company_context_and_capabilities: {
-          type: "string",
-          description: "Bidder's technical capabilities, past performance metrics, and differentiators."
-        },
-        target_section_type: {
-          type: "string",
-          enum: ["technical_approach", "executive_summary", "management_and_staffing_plan", "past_performance_narrative"],
-          default: "technical_approach"
-        },
-        tone_and_methodology: {
-          type: "string",
-          enum: ["shipley_federal", "sled_state_municipal", "enterprise_commercial"],
-          default: "shipley_federal"
+        "contractor_role": {
+          "type": "string",
+          "enum": [
+            "prime_contractor",
+            "subcontractor",
+            "commercial_item_vendor"
+          ],
+          "default": "prime_contractor",
+          "description": "Bidder's contracting tier: 'prime_contractor' (evaluates full agency compliance and outbound flow-down duties), 'subcontractor' (flags over-broad prime flow-downs), or 'commercial_item_vendor' (filters against FAR 52.212-5 commercial item exemptions)."
         }
       },
-      required: ["rfp_section_text", "company_context_and_capabilities"]
+      "required": [
+        "raw_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "compliance_burden_score": {
+          "type": "integer",
+          "description": "Regulatory compliance complexity score from 0 to 100."
+        },
+        "detected_clauses": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Parsed FAR/DFARS clauses with mandatory flow-down status, risk level, and remediation guidance."
+        },
+        "cybersecurity_posture_summary": {
+          "type": "string",
+          "description": "Required CMMC 2.0, NIST SP 800-171, or FedRAMP authorization posture."
+        }
+      }
     }
   },
   {
-    name: "extract_pricing_schedule",
-    description:
-      "API #10: Extract multi-tier CLIN/SLIN pricing tables, GSA/T&M labor rate cards, and BOM spreadsheets from unstructured vendor quotes or Section B schedules into normalized JSON with line-by-line math verification.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        document_text: {
-          type: "string",
-          description: "Raw text or table content from a vendor quote, invoice, or Federal Section B CLIN schedule."
+    "name": "match_capability_statement",
+    "title": "Score Bid/No-Bid Pwin & Match Capability Statement",
+    "description": "Evaluate an RFP scope against a vendor's Capability Statement and past performance to compute a 0-100 Probability of Win (Pwin) score, a Gate-1 Bid/No-Bid recommendation, a technical/socioeconomic gap analysis, and a tailored executive pitch. This is a read-only, stateless capture scoring call (requires X-RapidAPI-Key; both `rfp_text` and `company_capability_statement` are required, while `target_pursuit_role` weights eligibility rules for 'prime_contractor', 'subcontractor', or 'either_prime_or_sub' [default]). Use this tool at Gate-1 capture qualification to decide whether to bid an opportunity; use `generate_teaming_strategy` instead if you already decided to bid and need a 13 CFR 125.6 (50% Rule) Prime/Sub workshare plan, or `match_key_personnel` to evaluate individual candidate resumes.",
+    "annotations": {
+      "title": "Score Bid/No-Bid Pwin & Match Capability Statement",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Target solicitation scope, mandatory technical qualifications, NAICS/set-aside designation, clearance requirements, and Section M evaluation criteria."
         },
-        expected_document_type: {
-          type: "string",
-          enum: ["auto_detect", "federal_section_b_clin_schedule", "gsa_or_tm_labor_rate_card", "b2b_vendor_quote_or_bom", "commercial_invoice"],
-          default: "auto_detect"
+        "company_capability_statement": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Vendor capability statement including core competencies, socioeconomic certifications (8(a), SDVOSB, WOSB, HUBZone), facility clearances, and past performance summary."
         },
-        audit_math_and_anomalies: {
-          type: "boolean",
-          default: true
+        "target_pursuit_role": {
+          "type": "string",
+          "enum": [
+            "prime_contractor",
+            "subcontractor",
+            "either_prime_or_sub"
+          ],
+          "default": "either_prime_or_sub",
+          "description": "Intended pursuit role: 'prime_contractor' enforces strict set-aside and past-performance minimums, 'subcontractor' scores niche workshare fit, and 'either_prime_or_sub' (default) recommends the highest-Pwin path."
         }
       },
-      required: ["document_text"]
+      "required": [
+        "rfp_text",
+        "company_capability_statement"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "pwin_score": {
+          "type": "integer",
+          "description": "Calculated Probability of Win (Pwin) score from 0 to 100."
+        },
+        "bid_recommendation": {
+          "type": "string",
+          "description": "Gate-1 recommendation (BID_AS_PRIME, BID_AS_SUB, TEAMING_REQUIRED, NO_BID)."
+        },
+        "strengths_and_discriminators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Matched vendor capabilities and competitive discriminators."
+        },
+        "capability_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Unmet RFP requirements or compliance blockers."
+        },
+        "tailored_executive_pitch": {
+          "type": "string",
+          "description": "Ready-to-use executive summary pitch aligned to the buyer agency."
+        }
+      }
     }
   },
   {
-    name: "generate_teaming_strategy",
-    description:
-      "API #11: Analyze an RFP and bidder capabilities to generate a 13 CFR 125.6 / FAR 52.219-14 Limitations on Subcontracting (50% Rule) workshare plan, capability gap & partner archetypes, FAR 9.6 Teaming Agreement clauses, and partner outreach emails.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        rfp_text: {
-          type: "string",
-          description: "Raw text from the RFP, Statement of Work (SOW), or Section L/M evaluation criteria."
+    "name": "classify_naics_psc_nigp",
+    "title": "Classify NAICS, SIC, Federal PSC & State NIGP/UNSPSC Codes",
+    "description": "Map any company profile, product description, or Statement of Work (SOW) into ranked 6-digit NAICS codes (with official SBA Small Business Size Standards in revenue or headcount), 4-digit SIC codes, 4-character Federal PSC codes, and State NIGP/UNSPSC commodity codes. This is a read-only, stateless taxonomy classification call (requires X-RapidAPI-Key; `description_text` is required, `context_type` tunes code selection for vendor KYB profiles vs. RFP scopes, and `max_secondary_codes` [1-5, default 3] controls how many secondary NAICS/PSC alternatives are returned alongside the primary code). Use this tool whenever you need industry, procurement, or KYB taxonomy codes and SBA small-business size caps; use `search_historical_awards` instead to query past contract awards once you have a NAICS code, or `parse_b2b_contract` to extract contract dates and dollar values.",
+    "annotations": {
+      "title": "Classify NAICS, SIC, Federal PSC & State NIGP/UNSPSC Codes",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "description_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 50000,
+          "description": "Unstructured text describing a company's offerings, a B2B product catalog, or a government RFP/SOW technical scope (20 to 50,000 characters)."
         },
-        bidder_capabilities: {
-          type: "string",
-          description: "Summary of the bidder's socioeconomic status, facility clearances, past performance, and technical capabilities."
+        "context_type": {
+          "type": "string",
+          "enum": [
+            "company_or_vendor_profile",
+            "rfp_or_sow_scope",
+            "product_or_service_catalog"
+          ],
+          "default": "company_or_vendor_profile",
+          "description": "Input context mode: 'company_or_vendor_profile' (default, optimizes for SAM.gov vendor registration & FinTech KYB SIC/NAICS), 'rfp_or_sow_scope' (optimizes for solicitation set-aside NAICS & Federal PSC), or 'product_or_service_catalog' (emphasizes NIGP/UNSPSC commodity codes)."
         },
-        set_aside_type: {
-          type: "string",
-          enum: ["full_and_open", "small_business", "sdvosb", "8a", "wosb_edwosb", "hubzone"],
-          default: "sdvosb"
-        },
-        bidder_role: {
-          type: "string",
-          enum: ["prime_seeking_subs", "sub_seeking_prime", "joint_venture_mentor_protege"],
-          default: "prime_seeking_subs"
+        "max_secondary_codes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 3,
+          "description": "Maximum number of secondary/alternative NAICS, PSC, and NIGP codes to return in addition to the top-ranked primary code (integer 1 to 5; defaults to 3)."
         }
       },
-      required: ["rfp_text", "bidder_capabilities"]
+      "required": [
+        "description_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "primary_naics": {
+          "type": "object",
+          "description": "Top-ranked 6-digit NAICS code, title, confidence score, and official SBA Small Business Size Standard."
+        },
+        "secondary_naics_codes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Up to max_secondary_codes alternative 6-digit NAICS classifications."
+        },
+        "sic_codes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Matched 4-digit Standard Industrial Classification (SIC) codes."
+        },
+        "federal_psc_codes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Matched 4-character Federal Product Service Codes (PSC)."
+        },
+        "state_unspsc_and_nigp_codes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Matched State SLED NIGP and 8-digit UNSPSC commodity codes."
+        }
+      }
     }
   },
   {
-    name: "answer_security_questionnaire",
-    description:
-      "API #12: Auto-answer SOC 2, FedRAMP, NIST SP 800-171, CMMC 2.0, and CAIQ/SIG/HECVAT vendor security questionnaires with cross-framework control citations, DoD SPRS readiness metrics, evidence artifact recommendations, and Plan of Action & Milestones (POA&M) remediation items.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        questionnaire_text: {
-          type: "string",
-          description: "Raw security questionnaire items from an enterprise SIG/CAIQ/HECVAT spreadsheet or Federal RFP / SSP checklist."
+    "name": "generate_rfp_response",
+    "title": "Draft Shipley Proposal Section & Vendor Clarification Q&A",
+    "description": "Draft an evaluator-ready Shipley proposal narrative (complete with Win Themes, Feature-Benefit-Proof blocks, and Risk Mitigations) AND a list of strategic Contracting Officer Clarification Q&A questions from an RFP section and company capabilities. This is a read-only, stateless composite generation call that always returns both the drafted narrative and the clarification questions in a single JSON payload (requires X-RapidAPI-Key; `target_section_type` selects the proposal section format, and `tone_and_methodology` customizes the writing style). Use this tool when writing Technical Approach, Executive Summary, or Management Plan prose; use `generate_compliance_matrix` instead to build a requirement checklist/outline first, or `generate_cpars_past_performance` for structured Volume III CPARS contract citations.",
+    "annotations": {
+      "title": "Draft Shipley Proposal Section & Vendor Clarification Q&A",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_section_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 80000,
+          "description": "Verbatim RFP Section C/PWS technical requirements, Section L instructions, or Section M evaluation criteria that the drafted proposal section must satisfy."
         },
-        security_posture_summary: {
-          type: "string",
-          description: "Summary of the vendor's cloud stack, certifications (SOC 2, ISO 27001, FedRAMP, CMMC), encryption, IAM/MFA, and logging controls."
+        "company_context_and_capabilities": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 80000,
+          "description": "Bidder's technical architecture, past performance metrics, SLAs, certifications, and competitive discriminators to weave into the narrative."
         },
-        target_framework: {
-          type: "string",
-          enum: ["auto_detect", "soc2_iso27001", "nist_800_171_cmmc", "fedramp_800_53", "caiq_sig_hecvat"],
-          default: "auto_detect"
+        "target_section_type": {
+          "type": "string",
+          "enum": [
+            "technical_approach",
+            "executive_summary",
+            "management_and_staffing_plan",
+            "past_performance_narrative"
+          ],
+          "default": "technical_approach",
+          "description": "Target proposal section structure: 'technical_approach' (default, solution architecture & requirement execution), 'executive_summary' (vision & discriminators), 'management_and_staffing_plan' (governance, transition & QA), or 'past_performance_narrative' (prose summary)."
+        },
+        "tone_and_methodology": {
+          "type": "string",
+          "default": "Shipley Proposal Methodology (Active Voice, Evaluator-First, Feature-Benefit-Proof)",
+          "description": "Editorial voice and methodology instruction applied to the prose draft (defaults to 'Shipley Proposal Methodology (Active Voice, Evaluator-First, Feature-Benefit-Proof)')."
         }
       },
-      required: ["questionnaire_text", "security_posture_summary"]
+      "required": [
+        "rfp_section_text",
+        "company_context_and_capabilities"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "section_title": {
+          "type": "string",
+          "description": "Compliance-mapped heading for the drafted proposal section."
+        },
+        "drafted_narrative_markdown": {
+          "type": "string",
+          "description": "Full Shipley-formatted proposal section prose in Markdown."
+        },
+        "win_themes_and_discriminators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key win themes and ghosting points embedded in the draft."
+        },
+        "strategic_clarification_questions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Strategic vendor Q&A questions to submit to the Contracting Officer to expose ambiguous or competitor-wired specs."
+        }
+      }
     }
   },
   {
-    name: "match_key_personnel",
-    description:
-      "API #13: Audit candidate resumes against RFP Section L/M Key Personnel and GSA MAS / OASIS+ / Alliant 3 Labor Category (LCAT) qualification requirements, rewrite experience into Shipley Key Personnel bio & bullet citations, and generate a ready-to-sign Letter of Commitment (LOC).",
-    inputSchema: {
-      type: "object",
-      properties: {
-        lcat_or_rfp_requirements: {
-          type: "string",
-          description: "Raw RFP Section L/M Key Personnel requirements, GSA LCAT minimums, clearance mandates, and DoD 8570/8140 certification criteria."
+    "name": "extract_pricing_schedule",
+    "title": "Extract Section B CLIN Pricing Tables, Quotes & Labor Rate Cards",
+    "description": "Extract multi-tier CLIN/SLIN pricing schedules, GSA/T&M labor rate cards, vendor quotes, and Bill of Materials (BOM) tables from unstructured text into normalized JSON with automated line-item math auditing. This is a read-only, stateless extraction call (requires X-RapidAPI-Key; `document_text` accepts 20 to 100,000 characters, `expected_document_type` optionally hints the table schema, and `audit_math_and_anomalies` [default true] verifies `quantity * unit_price == extended_price` and flags arithmetic discrepancies). Use this tool when parsing pricing tables, CLIN schedules, invoices, or labor rate cards; use `parse_b2b_contract` instead for general contract dates/parties/deliverables, or `search_historical_awards` to look up historical government award prices.",
+    "annotations": {
+      "title": "Extract Section B CLIN Pricing Tables, Quotes & Labor Rate Cards",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "document_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 100000,
+          "description": "Raw text or copied table content from a Federal Section B CLIN schedule, T&M labor rate card, B2B vendor quote, BOM, or invoice (20 to 100,000 characters)."
         },
-        candidate_resume_text: {
-          type: "string",
-          description: "Candidate's raw resume, CV, security clearance level, certifications, education, and work history."
+        "expected_document_type": {
+          "type": "string",
+          "enum": [
+            "auto_detect",
+            "federal_section_b_clin_schedule",
+            "gsa_or_tm_labor_rate_card",
+            "b2b_vendor_quote_or_bom",
+            "commercial_invoice"
+          ],
+          "default": "auto_detect",
+          "description": "Document schema hint: 'auto_detect' (default), 'federal_section_b_clin_schedule' (parses Base/Option Year CLINs & contract types like FFP/T&M), 'gsa_or_tm_labor_rate_card' (LCAT hourly rates), 'b2b_vendor_quote_or_bom', or 'commercial_invoice'."
         },
-        allow_education_experience_substitution: {
-          type: "boolean",
-          default: true
+        "audit_math_and_anomalies": {
+          "type": "boolean",
+          "default": true,
+          "description": "When true (default), cross-checks each line item (`quantity * unit_price == total_price`) and subtotal summation, returning any arithmetic mismatches in `math_discrepancies`."
         }
       },
-      required: ["lcat_or_rfp_requirements", "candidate_resume_text"]
+      "required": [
+        "document_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "detected_document_type": {
+          "type": "string",
+          "description": "Classified pricing document type."
+        },
+        "dominant_pricing_model": {
+          "type": "string",
+          "description": "Primary contract pricing structure (e.g., FIRM_FIXED_PRICE_FFP, TIME_AND_MATERIALS_TM)."
+        },
+        "line_items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Normalized CLIN/line items with quantity, unit, unit_price, extended_price, and period."
+        },
+        "calculated_grand_total": {
+          "type": "number",
+          "description": "Verified sum of all extracted line items."
+        },
+        "math_discrepancies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Flagged arithmetic errors or rate anomalies when audit_math_and_anomalies is enabled."
+        }
+      }
     }
   },
   {
-    name: "analyze_rfp_amendment_diff",
-    description:
-      "API #14: Diff base RFP/SOW text against SF-30 Solicitation Amendments, SLED Addenda, and official Government Q&A clarification matrices to flag altered mandates, deadline extensions, CLIN pricing changes, and invalidated proposal sections.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        base_solicitation_text: {
-          type: "string",
-          description: "Raw text from the base RFP, Statement of Work (Section C), Instructions (Section L), Pricing Schedule (Section B), or Evaluation Criteria (Section M)."
+    "name": "generate_teaming_strategy",
+    "title": "Generate 13 CFR 125.6 (50% Rule) Teaming & Subcontracting Plan",
+    "description": "Generate a legally compliant GovCon Teaming Strategy, a 13 CFR 125.6 & FAR 52.219-14 (Limitations on Subcontracting / 50% Rule) Prime/Sub workshare split, Ostensible Subcontractor risk audit, partner archetypes, FAR Subpart 9.6 Teaming Agreement clauses, and a BD outreach email. This is a read-only, stateless compliance and strategy generator (requires X-RapidAPI-Key; `set_aside_type` enforces SBA workshare ceilings for 'sdvosb' [default], '8a', 'wosb_edwosb', 'hubzone', 'small_business', or 'full_and_open', while `bidder_role` tailors outputs for 'prime_seeking_subs' [default], 'sub_seeking_prime', or 'joint_venture_mentor_protege'). Use this tool when structuring Prime/Sub workshare splits or recruiting teaming partners to fill capability gaps; use `match_capability_statement` instead for an initial single-vendor Bid/No-Bid Pwin score.",
+    "annotations": {
+      "title": "Generate 13 CFR 125.6 (50% Rule) Teaming & Subcontracting Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Raw RFP scope, PWS task areas, contract ceiling, security clearance requirements, and FAR 52.219-14 / set-aside instructions."
         },
-        amendment_or_qa_text: {
-          type: "string",
-          description: "Raw text from one or more SF-30 Solicitation Amendments, SLED Addenda, or official Government Q&A clarification matrices."
+        "bidder_capabilities": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 100000,
+          "description": "Bidder's socioeconomic status, self-performed technical domains, clearance level, and past performance strengths."
         },
-        current_proposal_outline: {
-          type: "string",
-          description: "Optional summary of the bidder's existing proposal outline, page budget, or technical baseline to audit for invalidated sections."
+        "set_aside_type": {
+          "type": "string",
+          "enum": [
+            "full_and_open",
+            "small_business",
+            "sdvosb",
+            "8a",
+            "wosb_edwosb",
+            "hubzone"
+          ],
+          "default": "sdvosb",
+          "description": "Solicitation set-aside designation ('sdvosb' [default], '8a', 'wosb_edwosb', 'hubzone', 'small_business', or 'full_and_open') used to enforce 13 CFR 125.6 similarly situated entity and 50% self-performance rules."
+        },
+        "bidder_role": {
+          "type": "string",
+          "enum": [
+            "prime_seeking_subs",
+            "sub_seeking_prime",
+            "joint_venture_mentor_protege"
+          ],
+          "default": "prime_seeking_subs",
+          "description": "Bidder's teaming posture: 'prime_seeking_subs' (default, allocates >=50% to Prime and defines sub gap archetypes), 'sub_seeking_prime' (positions bidder for 20-49% specialty workshare), or 'joint_venture_mentor_protege' (13 CFR 125.8 JV compliance)."
         }
       },
-      required: ["base_solicitation_text", "amendment_or_qa_text"]
+      "required": [
+        "rfp_text",
+        "bidder_capabilities"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "workshare_allocation": {
+          "type": "object",
+          "description": "Compliant Prime vs. Subcontractor percentage split under 13 CFR 125.6."
+        },
+        "ostensible_subcontractor_risk": {
+          "type": "string",
+          "description": "SBA 13 CFR 121.103(h)(3) affiliation risk assessment and mitigation steps."
+        },
+        "recommended_partner_archetypes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Ideal subcontractor or prime partner profiles to close capability gaps."
+        },
+        "teaming_agreement_clauses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ready-to-paste FAR Subpart 9.6 Teaming Agreement exclusivity and workshare clauses."
+        },
+        "partner_outreach_email": {
+          "type": "string",
+          "description": "Tailored business development outreach email to recruit teaming partners."
+        }
+      }
     }
   },
   {
-    name: "generate_cpars_past_performance",
-    description:
-      "API #15: Transform unstructured project histories, prior contract summaries, and CPARS evaluation excerpts into Shipley Section L/M Past Performance Volume III citations with DoD Source Selection Relevance ratings ('Very Relevant'), Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS justifications, and Context-Challenge-Action-Result narratives.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        rfp_section_l_m_requirements: {
-          type: "string",
-          description: "Raw text from the target RFP Section L (Volume III Past Performance instructions, recency/dollar/scope thresholds), Section M (evaluation criteria), and Section C/PWS technical scope."
+    "name": "answer_security_questionnaire",
+    "title": "Respond to SOC 2, FedRAMP, NIST 800-171 & CMMC Security Questionnaires",
+    "description": "Draft audit-ready responses to vendor security questionnaires (SOC 2, ISO 27001, FedRAMP Moderate/High, NIST SP 800-171 Rev 2/3, CMMC 2.0, CAIQ/SIG/HECVAT) with cross-framework control citations, an estimated DoD SPRS score (-203 to 110), required evidence artifacts, and POA&M remediation items for any control gaps. This is a read-only, stateless advisory responder (requires X-RapidAPI-Key; maps each question in `questionnaire_text` against the vendor's `security_posture_summary`, while `target_framework` selects 'auto_detect' [default] or locks control citations to a specific standard and flags any unsupported controls as 'Partially Met' or 'POA&M Required' rather than fabricating compliance). Use this tool when completing customer due-diligence questionnaires, SSP control tables, or DoD SPRS self-assessments; use `scan_far_dfars_clauses` instead to audit FAR/DFARS solicitation clauses, or `generate_compliance_matrix` for general RFP Section C/L/M requirements.",
+    "annotations": {
+      "title": "Respond to SOC 2, FedRAMP, NIST 800-171 & CMMC Security Questionnaires",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "questionnaire_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 100000,
+          "description": "Numbered or bulleted security questionnaire items from an enterprise SIG/CAIQ/HECVAT sheet, customer infosec assessment, or Federal RFP / NIST 800-171 SSP checklist."
         },
-        project_history_text: {
-          type: "string",
-          description: "Unstructured project histories, prior contract summaries, CPARS evaluation excerpts, or internal delivery notes to transform into Shipley Past Performance citations."
+        "security_posture_summary": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 100000,
+          "description": "Required summary of the vendor's actual security stack, cloud hosting (e.g., AWS GovCloud), active certifications (SOC 2 Type II, ISO 27001, FedRAMP), encryption (FIPS 140-3, AES-256), MFA/IAM, and SIEM logging."
         },
-        bidder_role_and_context: {
-          type: "string",
-          description: "Optional bidder context such as Prime vs. Subcontractor citation mix, Joint Venture / Mentor-Protege structure, or page-limit constraints."
+        "target_framework": {
+          "type": "string",
+          "enum": [
+            "auto_detect",
+            "soc2_iso27001",
+            "nist_800_171_cmmc",
+            "fedramp_800_53",
+            "caiq_sig_hecvat"
+          ],
+          "default": "auto_detect",
+          "description": "Compliance control mapping mode: 'auto_detect' (default, infers framework from questionnaire text), 'soc2_iso27001' (AICPA TSC & ISO 27001 Annex A), 'nist_800_171_cmmc' (110 CMMC 2.0 Level 2 controls + DoD SPRS score calculation), 'fedramp_800_53' (NIST SP 800-53 Rev 5), or 'caiq_sig_hecvat'."
         }
       },
-      required: ["rfp_section_l_m_requirements", "project_history_text"]
+      "required": [
+        "questionnaire_text",
+        "security_posture_summary"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "detected_framework": {
+          "type": "string",
+          "description": "Primary compliance standard applied to the responses."
+        },
+        "estimated_dod_sprs_score": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Calculated DoD SPRS score (-203 to 110) when NIST 800-171 / CMMC applies."
+        },
+        "question_responses": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Audit-ready answers with compliance status, control citations, and verification evidence."
+        },
+        "poam_remediation_items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Plan of Action and Milestones (POA&M) entries for partially met or unmet controls."
+        }
+      }
+    }
+  },
+  {
+    "name": "match_key_personnel",
+    "title": "Audit Key Personnel LCAT Qualifications & Tailor Shipley Resume + LOC",
+    "description": "Evaluate a candidate's resume against RFP Section L/M Key Personnel and GSA MAS / OASIS+ / Alliant 3 Labor Category (LCAT) requirements (years of experience, education, security clearance, DoD 8570/8140 certifications), rewrite relevant roles into a Shipley Key Personnel bio, and generate a ready-to-sign Letter of Commitment (LOC). This is a read-only, stateless qualification audit and resume formatter that does not store candidate PII (requires X-RapidAPI-Key; `allow_education_experience_substitution` [default true] applies standard federal GSA/OPM equivalency rules such as Bachelor's + 4 years = Master's when scoring eligibility). Use this tool when qualifying and formatting individual Key Personnel resumes for a proposal; use `match_capability_statement` instead to score overall company-level Bid/No-Bid Pwin, or `generate_cpars_past_performance` for company-level contract citations.",
+    "annotations": {
+      "title": "Audit Key Personnel LCAT Qualifications & Tailor Shipley Resume + LOC",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "lcat_or_rfp_requirements": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 80000,
+          "description": "Raw RFP Section L/M Key Personnel instructions, GSA MAS / GWAC Labor Category (LCAT) minimum qualifications, required security clearance, and mandatory DoD 8570/8140 certifications."
+        },
+        "candidate_resume_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Candidate's unstructured resume or CV including education degrees, active security clearances, professional certifications (CISSP, PMP, AWS, etc.), and chronological work history."
+        },
+        "allow_education_experience_substitution": {
+          "type": "boolean",
+          "default": true,
+          "description": "When true (default), applies standard federal GSA/OPM degree-for-experience substitution rules (e.g., Bachelor's + 4 additional years of specialized experience satisfies a Master's requirement) unless the RFP text explicitly prohibits substitutions."
+        }
+      },
+      "required": [
+        "lcat_or_rfp_requirements",
+        "candidate_resume_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "qualification_score": {
+          "type": "integer",
+          "description": "Candidate LCAT/Key Personnel compliance score from 0 to 100."
+        },
+        "compliance_verdict": {
+          "type": "string",
+          "description": "Eligibility status (FULLY_QUALIFIED, QUALIFIED_VIA_SUBSTITUTION, NON_COMPLIANT_GAP)."
+        },
+        "requirement_audit_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Line-by-line audit of education, years of experience, clearance, and certification mandates."
+        },
+        "tailored_shipley_resume_markdown": {
+          "type": "string",
+          "description": "Rewritten Shipley Key Personnel biographical sketch and compliance-mapped experience bullets."
+        },
+        "letter_of_commitment_loc": {
+          "type": "string",
+          "description": "Ready-to-sign Key Personnel Letter of Commitment (LOC) template."
+        }
+      }
+    }
+  },
+  {
+    "name": "analyze_rfp_amendment_diff",
+    "title": "Diff SF-30 RFP Amendments & Q&A Logs Against Base Solicitation",
+    "description": "Diff base RFP/SOW text against subsequent SF-30 Solicitation Amendments, SLED Addenda, and official Government Q&A logs to flag altered `shall`/`must` mandates, deadline extensions, page-limit revisions, CLIN pricing changes, de-facto Q&A requirements, and invalidated proposal sections with Shipley redraft language. This is a read-only, stateless change-impact analysis call (requires X-RapidAPI-Key; `base_solicitation_text` and `amendment_or_qa_text` accept up to 100,000 characters each, and providing optional `current_proposal_outline` enables targeted auditing of which specific drafted proposal volumes/pages are invalidated). Use this tool whenever an agency issues an SF-30 amendment, addendum, or Q&A response matrix after initial RFP release; use `generate_compliance_matrix` instead when shredding an initial base RFP for the first time.",
+    "annotations": {
+      "title": "Diff SF-30 RFP Amendments & Q&A Logs Against Base Solicitation",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "base_solicitation_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Original base RFP text from Section B (CLINs), Section C/PWS (Statement of Work), Section L (Instructions/Deadlines/Page Limits), or Section M (Evaluation Criteria)."
+        },
+        "amendment_or_qa_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Subsequent SF-30 Amendment text, state/local SLED Addendum text, or official Contracting Officer Q&A clarification matrix to diff against the base solicitation."
+        },
+        "current_proposal_outline": {
+          "type": "string",
+          "maxLength": 50000,
+          "description": "Optional summary of the bidder's in-progress proposal outline, volume page allocations, or technical baseline used to pinpoint exact sections that must be rewritten."
+        }
+      },
+      "required": [
+        "base_solicitation_text",
+        "amendment_or_qa_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "schedule_and_page_limit_changes": {
+          "type": "object",
+          "description": "Detected due-date extensions, page-limit updates, and administrative modifications."
+        },
+        "material_requirement_changes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Added, modified, or deleted shall/must requirements and de-facto Q&A mandates."
+        },
+        "invalidated_proposal_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Affected proposal sections with severity and ready-to-paste Shipley redraft language."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_cpars_past_performance",
+    "title": "Generate Shipley Volume III Past Performance & CPARS Citations",
+    "description": "Transform unstructured project histories, prior contract summaries, and CPARS excerpts into Shipley Section L/M Past Performance Volume III citations with predicted DoD Source Selection Relevance ('Very Relevant' to 'Not Relevant') and Performance Confidence ratings, Scope/Magnitude/Complexity matrices, FAR 42.1503 5-Factor CPARS narratives, and Context-Challenge-Action-Result (CCAR) blocks. This is a read-only, stateless generative evaluation call where relevance/confidence ratings are model-inferred against Section M criteria (requires X-RapidAPI-Key; `rfp_section_l_m_requirements` and `project_history_text` accept up to 100,000 characters, and optional `bidder_role_and_context` calibrates Prime vs. Subcontractor/JV attribution and page budgets). Use this tool when building Volume III Past Performance contract citations and CPARS questionnaires; use `generate_rfp_response` instead for Volume I Technical Approach prose, or `match_key_personnel` for individual staff resumes.",
+    "annotations": {
+      "title": "Generate Shipley Volume III Past Performance & CPARS Citations",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_section_l_m_requirements": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Target RFP Section L (Volume III Past Performance instructions, recency window, minimum annual/total dollar value, max citations), Section M (relevance evaluation criteria), and Section C/PWS core task areas."
+        },
+        "project_history_text": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 100000,
+          "description": "Unstructured prior contract summaries, internal project delivery notes, or official CPARS evaluation excerpts (contract numbers, agencies, dollar values, FTEs, KPIs, and technical accomplishments)."
+        },
+        "bidder_role_and_context": {
+          "type": "string",
+          "maxLength": 20000,
+          "description": "Optional pursuit context specifying Prime vs. Subcontractor citation mix, Joint Venture / SBA Mentor-Protege structure (13 CFR 125.8), or Volume III page-limit constraints."
+        }
+      },
+      "required": [
+        "rfp_section_l_m_requirements",
+        "project_history_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "overall_confidence_assessment": {
+          "type": "string",
+          "description": "Predicted DoD Source Selection Performance Confidence rating (e.g., Substantial Confidence)."
+        },
+        "tailored_citations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Shipley Volume III citations with Relevance rating, Scope/Magnitude/Complexity mapping, FAR 42.1503 5-factor CPARS narrative, and CCAR blocks."
+        },
+        "gap_mitigation_strategies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Shipley narrative mitigations for any recency, dollar-magnitude, or prime-role gaps."
+        }
+      }
     }
   }
 ];

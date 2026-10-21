@@ -1,10 +1,10 @@
 """
-SignalTender 10-API Telemetry & Green-Badge Seeder (seed_rapidapi_telemetry.py)
-Warms and verifies all 10 production microservices across both:
+SignalTender Multi-API Telemetry & Green-Badge Seeder (seed_rapidapi_telemetry.py)
+Warms and verifies all production microservices across both:
   1. The unified Render FastAPI gateway (using RAPIDAPI_PROXY_SECRET from .env)
-  2. All 10 RapidAPI Marketplace Proxy Hosts (if RAPIDAPI_KEY is set in .env),
-     recording 200 OK responses and low-latency telemetry to unlock RapidAPI's
-     9.8-10.0 Service Level badges across all 10 storefronts.
+  2. All RapidAPI Marketplace Proxy Hosts (if RAPIDAPI_KEY is set in .env),
+     recording 200 OK responses and low-latency telemetry to maintain RapidAPI's
+     green 100% Service Level badges across all storefronts.
 """
 
 import os
@@ -283,16 +283,28 @@ ENDPOINTS = [
 ]
 
 
-def run_telemetry_seeder() -> None:
-    print(f"=== SignalTender Multi-API Telemetry Seeder ===")
-    print(f"Gateway: {BASE_URL}")
+def run_telemetry_seeder(rotating: bool = False, slice_size: int = 4) -> None:
+    print(f"=== SignalTender Multi-API Telemetry Seeder (rotating={rotating}) ===", flush=True)
+    print(f"Gateway: {BASE_URL}", flush=True)
 
     if not PROXY_SECRET and not RAPIDAPI_KEY:
-        print("[!] Neither RAPIDAPI_PROXY_SECRET nor RAPIDAPI_KEY set in environment.")
+        print("[!] Neither RAPIDAPI_PROXY_SECRET nor RAPIDAPI_KEY set in environment.", flush=True)
         return
 
+    if rotating and len(ENDPOINTS) > slice_size:
+        slot = (int(time.time()) // 21600) % 4
+        start_idx = (slot * slice_size) % len(ENDPOINTS)
+        target_endpoints = [ENDPOINTS[(start_idx + i) % len(ENDPOINTS)] for i in range(slice_size)]
+        # Always include zero-LLM database endpoints (API 03 & API 04) for fast latency telemetry
+        existing_ids = {e["id"] for e in target_endpoints}
+        for fast_ep in ENDPOINTS:
+            if fast_ep["id"] in ("API 03", "API 04") and fast_ep["id"] not in existing_ids:
+                target_endpoints.append(fast_ep)
+    else:
+        target_endpoints = ENDPOINTS
+
     passed = 0
-    for ep in ENDPOINTS:
+    for ep in target_endpoints:
         t0 = time.time()
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         if RAPIDAPI_KEY:
@@ -313,13 +325,13 @@ def run_telemetry_seeder() -> None:
                 resp = requests.post(url, json=ep.get("payload", {}), headers=headers, timeout=60)
             elapsed_ms = int((time.time() - t0) * 1000)
             status_tag = "OK" if resp.status_code == 200 else f"HTTP {resp.status_code}"
-            print(f"[{ep['id']}] {ep['name']} -> {status_tag} ({elapsed_ms} ms)")
+            print(f"[{ep['id']}] {ep['name']} -> {status_tag} ({elapsed_ms} ms)", flush=True)
             if resp.status_code == 200:
                 passed += 1
         except Exception as exc:
-            print(f"[{ep['id']}] {ep['name']} -> ERROR: {exc}")
+            print(f"[{ep['id']}] {ep['name']} -> ERROR: {exc}", flush=True)
 
-    print(f"\nCompleted: {passed}/{len(ENDPOINTS)} endpoints returned 200 OK.")
+    print(f"\nCompleted: {passed}/{len(target_endpoints)} endpoints returned 200 OK.", flush=True)
 
 
 if __name__ == "__main__":

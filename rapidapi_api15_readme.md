@@ -140,3 +140,4 @@ print(response.json())
 ## Model Context Protocol (MCP) Integration
 
 This endpoint is natively registered in the SignalTender MCP Server (`@signaltender/mcp-server` on NPM and `https://b2b-contract-parser-api.onrender.com/mcp`) as the **`generate_cpars_past_performance`** tool for Claude Desktop, Cursor, Windsurf, and autonomous GovCon capture agents.
+
