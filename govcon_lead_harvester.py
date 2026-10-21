@@ -1,7 +1,6 @@
 """
 Autonomous GovCon Prospect, Website Crawler, Inbound Lead & DNS/MX Hygiene Engine (`govcon_lead_harvester.py`).
-Operates 100% autonomously on both local runs and Render Cron (`mainscraper.py` -> `outreach_generator.py`)
-WITHOUT requiring a paid Apollo.io subscription:
+Operates 100% autonomously on both local runs and Render Cron (`mainscraper.py` -> `outreach_generator.py`):
   1. Crawls live corporate websites (`/`, `/contact`, `/contact-us`, `/contracts`) of real U.S. Federal
      (SAM.gov / GSA MAS 54151S & 54151HACS / 8(a) STARS III / CIO-SP3) and 12-State SLED IT & Cybersecurity
      contractors across VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA to extract publicly published
@@ -10,8 +9,9 @@ WITHOUT requiring a paid Apollo.io subscription:
      awardees across all 12 SLED states.
   3. Syncs verified inbound leads captured via `POST /v1/leads/capture` on `signaltender.net`.
   4. Enforces strict live DNS `MX` record verification (`verify_email_domain_mx()`, cached in `dns_mx_cache.json`)
-     and purges any synthetic or dead-domain rows so outbound campaigns maintain a 0% hard-bounce rate.
-  5. Self-heals `apollo-contacts.csv` automatically on stateless Render Cron containers from
+     and permanently blocks/purges any synthetic domains or previously contacted non-responder emails
+     (`ALREADY_CONTACTED_LEGACY_EMAILS`).
+  5. Self-heals `govcon_contacts.csv` automatically on stateless Render Cron containers from
      `verified_public_govcon_contacts.json` + live website crawls + Supabase inbound leads.
 """
 
@@ -42,12 +42,13 @@ REMOTE_LEADS_LIST_URL = os.getenv(
     "SIGNALTENDER_LEADS_LIST_URL",
     "https://b2b-contract-parser-api.onrender.com/v1/leads/list",
 )
-APOLLO_CSV_PATH = os.path.join(BASE_DIR, "apollo-contacts.csv")
+GOVCON_CONTACTS_CSV_PATH = os.path.join(BASE_DIR, "govcon_contacts.csv")
+LEGACY_CSV_PATH = os.path.join(BASE_DIR, "apollo-contacts.csv")
 INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
 MX_CACHE_PATH = os.path.join(BASE_DIR, "dns_mx_cache.json")
 VERIFIED_PUBLIC_CONTACTS_PATH = os.path.join(BASE_DIR, "verified_public_govcon_contacts.json")
 
-DEFAULT_APOLLO_FIELDNAMES = [
+DEFAULT_CONTACT_FIELDNAMES = [
     "First Name",
     "Last Name",
     "Title",
@@ -57,63 +58,49 @@ DEFAULT_APOLLO_FIELDNAMES = [
     "Email Status",
     "Primary Email Source",
     "Primary Email Verification Source",
-    "Email Confidence",
     "Primary Email Catch-all Status",
     "Primary Email Last Verified At",
     "Seniority",
     "Departments",
-    "Contact Owner",
-    "Work Direct Phone",
-    "Home Phone",
-    "Mobile Phone",
-    "Corporate Phone",
-    "Other Phone",
     "Stage",
-    "Lists",
-    "Last Contacted",
-    "Account Owner",
-    "# Employees",
     "Industry",
     "Keywords",
-    "Person Linkedin Url",
     "Website",
-    "Company Linkedin Url",
-    "Facebook Url",
-    "Twitter Url",
     "City",
     "State",
     "Country",
-    "Company Address",
     "Company City",
     "Company State",
     "Company Country",
-    "Company Phone",
-    "Technologies",
-    "Annual Revenue",
-    "Total Funding",
-    "Latest Funding",
-    "Latest Funding Amount",
-    "Last Raised At",
-    "Subsidiary of",
-    "Email Sent",
-    "Email Open",
-    "Email Bounced",
-    "Replied",
-    "Demoed",
-    "Number of Retail Locations",
-    "Apollo Contact Id",
-    "Apollo Account Id",
-    "Secondary Email",
-    "Secondary Email Source",
-    "Secondary Email Status",
-    "Secondary Email Verification Source",
-    "Tertiary Email",
-    "Tertiary Email Source",
-    "Tertiary Email Status",
-    "Tertiary Email Verification Source",
-    "SIC Codes",
     "NAICS Codes",
 ]
+
+# Legacy contacts from the first list that were already emailed previously and never replied
+ALREADY_CONTACTED_LEGACY_EMAILS = {
+    "gostingert@fromthesummit.com",
+    "stephanie@stephaniefbrowne.com",
+    "micah@callahanmgmtco.com",
+    "lynn.oser@lkoinfo.com",
+    "ag@vishanti.net",
+    "zen@layer9.com",
+    "rcooper@coopermanagementconsulting.com",
+    "gevans@acruxconsulting.com",
+    "andrew.wills@eliteprotech.com",
+    "bob@alithi.com",
+    "nicole@missionamc.com",
+    "tessa@asset-mc.com",
+    "william.worthington@grizzlyshieldservices.com",
+    "andrew@argentum-ai.com",
+    "jerry.collinsii@gaciimgmtconsulting.com",
+    "sara@texspacecollective.org",
+    "moses@steamboatit.com",
+    "edunn@hamiltongardner.com",
+    "ajackson@ajconsultingcloud.com",
+    "victor.amaya@ciroai.us",
+    "davit@sophartinc.com",
+    "carolyn@wealthmanagementconsulting.com",
+    "kevin.holleran@hollasec.com",
+}
 
 TEST_OR_SYNTHETIC_DOMAINS = {
     "example.com",
@@ -218,16 +205,22 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     ("ThunderCat Technology", "thundercattech.com", "Tom", "Deierlein", "Co-Founder & CEO", "Reston", "Virginia", "541512, 541519"),
     ("Tria Federal", "triafed.com", "Tim", "Borque", "Chief Executive Officer", "Arlington", "Virginia", "541511, 541512"),
     ("Xcelerate Solutions", "xceleratesolutions.com", "Mark", "Dreux", "Chief Executive Officer", "McLean", "Virginia", "541512, 541519"),
-    ("ost Inc (Optimal Solutions & Technologies)", "ostglobal.com", "vijay", "narula", "Chief Executive Officer", "McLean", "Virginia", "541511, 541512"),
-    (" Karsun GovCon", "karsun-llc.com", "Sundar", "Vaidyanathan", "CEO & Co-Founder", "Herndon", "Virginia", "541511, 541512"),
+    ("OST Global", "ostglobal.com", "Vijay", "Narula", "Chief Executive Officer", "McLean", "Virginia", "541511, 541512"),
     ("stackArmor", "stackarmor.com", "Gaurav", "Pal", "Founder & FedRAMP ATO Principal", "Tysons", "Virginia", "541512, 541519"),
     ("TalaTek", "talatek.com", "Baan", "Alsinawi", "Founder & President (RMF & Cyber)", "Oakton", "Virginia", "541512, 541519"),
-    ("octo consulting", "octoconsulting.com", "Mehul", "Sanghani", "Founder & CEO", "Reston", "Virginia", "541511, 541512"),
     ("1901 Group", "1901group.com", "Sonu", "Singh", "Founder & FedRAMP Cloud Lead", "Reston", "Virginia", "541512, 518210"),
-    (" Karsun Cloud", "anika.systems", "Saj", "each", "Managing Principal", "Leesburg", "Virginia", "541511, 541512"),
-    ("makpar corporation", "makpar.com", "Seema", "khan", "Founder & CEO", "Chantilly", "Virginia", "541511, 541512"),
+    ("Anika Systems", "anika.systems", "Saj", "Each", "Managing Principal", "Leesburg", "Virginia", "541511, 541512"),
+    ("Makpar Corporation", "makpar.com", "Seema", "Khan", "Founder & CEO", "Chantilly", "Virginia", "541511, 541512"),
     ("Softrams", "softrams.com", "Atchut", "Kanuri", "Founder & CEO", "Leesburg", "Virginia", "541511, 541512"),
     ("TeraThink", "terathink.com", "Paul", "Garver", "President & CEO", "Reston", "Virginia", "541511, 541512"),
+    ("Valkyrie Enterprises", "valkyrie.com", "Gary", "Lisota", "President & CEO", "Virginia Beach", "Virginia", "541512, 541330"),
+    ("Solerity", "solerity.com", "binu", "machado", "President & CEO", "Reston", "Virginia", "541511, 541512"),
+    ("Alpha Omega Integration", "alphaomega.com", "Gautam", "Ijoor", "Founder & CEO", "Vienna", "Virginia", "541511, 541512"),
+    ("Ignite IT", "igniteit.com", "Chetan", "Singhal", "Founder & CEO", "Reston", "Virginia", "541511, 541512"),
+    ("Kreative Corporation", "kreativecorp.com", "Adnan", "Karim", "President & CEO", "Fairfax", "Virginia", "541511, 541512"),
+    ("SteerBridge Strategies", "steerbridge.com", "Rob", "Labbe", "Founder & CEO (SDVOSB IT)", "Vienna", "Virginia", "541511, 541512"),
+    ("Zolon Tech", "zolontech.com", "rocky", "gummadi", "President & CEO", "Herndon", "Virginia", "541511, 541512"),
+    ("Indev LLC", "indev.com", "Brett", "Harlem", "Managing Partner", "Fairfax", "Virginia", "541511, 541512"),
     # MARYLAND
     ("Nava PBC", "navapbc.com", "Rohan", "Bhobe", "Co-Founder & CEO", "Bethesda", "Maryland", "541511, 541512"),
     ("Ad Hoc LLC", "adhoc.team", "Greg", "Gershman", "Co-Founder & CEO", "Bethesda", "Maryland", "541511, 541512"),
@@ -242,10 +235,15 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     ("Immersive Concepts", "immersiveconcepts.com", "Cleve", "Mosby", "Founder & CEO", "Fulton", "Maryland", "541512, 541513"),
     ("NewWave Telecom & Technologies", "newwave.io", "Patrick", "Munis", "Founder & CEO", "Elkridge", "Maryland", "541511, 541512"),
     ("Optimal Solutions Group", "optimalsolutionsgroup.com", "Mark", "Turner", "President & CEO", "College Park", "Maryland", "541512, 541611"),
-    ("Data Computer Corporation of America", "dcca.com", "cone", "eklund", "VP Capture", "Ellicott City", "Maryland", "541511, 541512"),
-    ("Skyline Network Engineering", "skylinenet.net", "brian", "holmes", "President & SLED Director", "belcamp", "Maryland", "541512, 541513"),
+    ("Skyline Network Engineering", "skylinenet.net", "Brian", "Holmes", "President & SLED Director", "Belcamp", "Maryland", "541512, 541513"),
     ("Daly Computers (MD eMMA SLED)", "daly.com", "Ryan", "Daly", "President & SLED IT Director", "Clarksburg", "Maryland", "541512, 541513"),
     ("Enveil", "enveil.com", "Ellie", "Thacker", "Founder & CEO (Zero Reveal Cyber)", "Fulton", "Maryland", "541512, 541519"),
+    ("Praxis Engineering", "praxiseng.com", "Jonathan", "Cave", "VP of Cyber & Defense", "Annapolis Junction", "Maryland", "541511, 541512"),
+    ("22nd Century Technologies", "tscti.com", "Anil", "Sharma", "President (SLED & Federal IT)", "Rockville", "Maryland", "541511, 541512"),
+    ("A-TEK Inc", "atekinc.com", "Kathryn", "Freeland", "President & CEO", "Rockville", "Maryland", "541511, 541512"),
+    ("BCT LLC", "bct-llc.com", "Rich", "Walsh", "Chief Executive Officer (DoD Cyber)", "Columbia", "Maryland", "541512, 541519"),
+    ("Celerity Government Solutions", "celerity.com", "michael", "marcus", "Public Sector Practice Lead", "Bethesda", "Maryland", "541511, 541512"),
+    ("Data Networks (MD SLED)", "datanetworks.com", "Dave", "hadfield", "President & SLED Solutions Lead", "Hunt Valley", "Maryland", "541512, 541513"),
     # TEXAS
     ("Def-Logix", "def-logix.com", "Paul", "Limon", "Founder & President", "San Antonio", "Texas", "541512, 541519"),
     ("IPSens", "ipsens.net", "Cal", "Lai", "Chief Executive Officer", "San Antonio", "Texas", "541511, 541512"),
@@ -256,68 +254,84 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     ("Vintage IT Services (TX DIR)", "vintageits.com", "Raj", "Patel", "Managing Director (TX DIR SLED)", "Austin", "Texas", "541512, 518210"),
     ("GTS Technology Solutions (TX DIR)", "gtstechnologysolutions.com", "Laura", "Grant", "Chief Executive Officer (TX SmartBuy/DIR)", "Austin", "Texas", "541512, 541513"),
     ("Centre Technologies", "centretechnologies.com", "Chris", "Pace", "Founder & CEO (Texas SLED & Cyber)", "Houston", "Texas", "541512, 541519"),
-    ("Denim Group / Coalfire AppSec", "jungledisk.com", "Bret", "Piatt", "Cybersecurity Executive", "San Antonio", "Texas", "541512, 541519"),
-    ("B2Berc / Myers and Stauffer TX", "mslc.com", "Mark", "Stauffer", "Public Sector Healthcare IT Partner", "Austin", "Texas", "541511, 541512"),
+    ("Jungle Disk Cyber", "jungledisk.com", "Bret", "Piatt", "Cybersecurity Executive", "San Antonio", "Texas", "541512, 541519"),
+    ("Myers and Stauffer TX", "mslc.com", "Mark", "Stauffer", "Public Sector Healthcare IT Partner", "Austin", "Texas", "541511, 541512"),
     ("Catapult Systems", "catapultsystems.com", "David", "Fuess", "Public Sector Cloud VP", "Austin", "Texas", "541511, 541512"),
+    ("HTG / High Touch TX DIR", "hightouchtechnologies.com", "Derrick", "Mains", "Public Sector IT Director", "Dallas", "Texas", "541512, 541513"),
+    ("Infodat International (TX DIR)", "infodatinc.com", "Sam", "Merchant", "President & CEO (Texas SLED IT)", "Houston", "Texas", "541511, 541512"),
+    ("Sogeti / Neos Consulting (TX DIR)", "neosconsulting.com", "Karon", "Irby", "Founder & CEO (Austin SLED IT)", "Austin", "Texas", "541511, 541512"),
+    ("Kudelski Security TX", "kudelskisecurity.com", "Andrew", "Howard", "Chief Executive Officer", "Dallas", "Texas", "541512, 541519"),
     # CALIFORNIA
     ("Skylight Digital", "skylight.digital", "Chris", "Cairns", "Co-Founder & Partner", "San Francisco", "California", "541511, 541512"),
     ("CivicActions", "civicactions.com", "Henry", "Poole", "Co-Founder & Managing Director", "Lafayette", "California", "541511, 541512"),
     ("SymSoft Solutions", "symsoftsolutions.com", "Surinder", "Saini", "President & CEO", "Sacramento", "California", "541511, 541512"),
     ("Obsidian Security", "obsidiansecurity.com", "Hasan", "Imam", "Public Sector Cyber Director", "Newport Beach", "California", "541512, 541519"),
-    ("Nava California SLED", "eyelit.com", "Dan", "Purcell", "VP Public Sector", "Sacramento", "California", "541511, 541512"),
-    ("vasudeva / Sakti360", "r Systems.com", "Satinder", "Singh", "Sacramento SLED Practice Lead", "El Dorado Hills", "California", "541511, 541512"),
+    ("Eyelit GovTech", "eyelit.com", "Dan", "Purcell", "VP Public Sector", "Sacramento", "California", "541511, 541512"),
     ("Technology Crest Corporation (TCC)", "techcrest.com", "Manish", "Gaur", "President & CEO (Cal eProcure IT)", "Sacramento", "California", "541511, 541512"),
-    ("VAS / Visionary Integration Professionals (VIP)", "trustvip.com", "Jonna", "Ward", "Founder & CEO (Cal eProcure & Federal IT)", "Folsom", "California", "541511, 541512"),
+    ("Visionary Integration Professionals (VIP)", "trustvip.com", "Jonna", "Ward", "Founder & CEO (Cal eProcure & Federal IT)", "Folsom", "California", "541511, 541512"),
     ("Prosum GovTech", "prosum.com", "Ravi", "Chatwani", "Co-Founder & CEO", "El Segundo", "California", "541511, 541512"),
+    ("Astreya Public Sector", "astreya.com", "Edwin", "Miller", "Chief Executive Officer", "San Jose", "California", "541512, 541513"),
+    ("Sikich /PKF California SLED", "cpshr.us", "Jerry", "Greenwell", "Chief Executive Officer (CA Public Sector)", "Sacramento", "California", "541512, 541611"),
+    ("Sada Systems GovCloud", "sada.com", "Tony", "Safoian", "President & CEO (Google Public Sector Cloud)", "Los Angeles", "California", "518210, 541512"),
+    ("Keyrus / Pantheon Gov", "pantheon.io", "Zack", "Rosen", "Co-Founder & Public Sector WebOps", "San Francisco", "California", "518210, 541511"),
     # FLORIDA
     ("Avero Advisors", "averoadvisors.com", "Abhijit", "Verekar", "Founder & CEO", "Tampa", "Florida", "541512, 541611"),
     ("CloudHesive", "cloudhesive.com", "Jim", "Walker", "Chief Executive Officer", "Fort Lauderdale", "Florida", "541512, 518210"),
-    ("kyra solutions (FL MFMP VIP)", "kyrasolutions.com", "Pavan", "Ponnaganti", "Founder & CEO (Florida SLED & DOT IT)", "Lakeland", "Florida", "541511, 541512"),
-    ("inspired technologies (FL SLED)", "inspired-tech.net", "Craig", "Colton", "President (Tallahassee SLED IT)", "Tallahassee", "Florida", "541512, 541513"),
-    ("dsm technology consultants (FL State Cloud)", "dsm.net", "David", "Robinson", "President & CEO (Florida Government Cloud)", "Lakeland", "Florida", "518210, 541512"),
-    ("erp logic", "erplogic.com", "vijay", "kammela", "President", "Orlando", "Florida", "541511, 541512"),
+    ("Kyra Solutions (FL MFMP VIP)", "kyrasolutions.com", "Pavan", "Ponnaganti", "Founder & CEO (Florida SLED & DOT IT)", "Lakeland", "Florida", "541511, 541512"),
+    ("Inspired Technologies (FL SLED)", "inspired-tech.net", "Craig", "Colton", "President (Tallahassee SLED IT)", "Tallahassee", "Florida", "541512, 541513"),
+    ("DSM Technology Consultants", "dsm.net", "David", "Robinson", "President & CEO (Florida Government Cloud)", "Lakeland", "Florida", "518210, 541512"),
+    ("ERP Logic", "erplogic.com", "Vijay", "Kammela", "President", "Orlando", "Florida", "541511, 541512"),
+    (" AgileThought / 4th Source FL", "agilethought.com", "Manuel", "Senderos", "Chief Executive Officer", "Tampa", "Florida", "541511, 541512"),
+    (" B2Gnow / CollabraLink FL", "b2gnow.com", "Frank", "Begalke", "Public Sector Compliance SaaS Director", "Orlando", "Florida", "541511, 518210"),
+    ("Kforce Government Solutions", "kforcegov.com", "Joe", "Liberatore", "President", "Tampa", "Florida", "541511, 541512"),
     # ILLINOIS
     ("Wynndalco Enterprises", "wynndalco.com", "David", "Andalcio", "Founder & CEO", "Chicago", "Illinois", "541512, 541513"),
     ("Burwood Group", "burwood.com", "Jim", "Hart", "Public Sector Practice Lead", "Chicago", "Illinois", "541512, 518210"),
-    ("magenium solutions", "magenium.com", "tim", "byrne", "Managing Partner (IL IT & Cloud)", "glen ellyn", "Illinois", "541511, 541512"),
-    ("sikich govtech", "sikich.com", "chris", "geier", "CEO & Public Sector ERP/Cyber Lead", "naperville", "Illinois", "541512, 541519"),
-    ("system solutions inc (SSI)", "ssicago.com", "ali", "ebrahimi", "President (Illinois BidBuy & Cook County IT)", "northbrook", "Illinois", "541512, 541513"),
+    ("Magenium Solutions", "magenium.com", "Tim", "Byrne", "Managing Partner (IL IT & Cloud)", "Glen Ellyn", "Illinois", "541511, 541512"),
+    ("Sikich GovTech", "sikich.com", "Chris", "Geier", "CEO & Public Sector ERP/Cyber Lead", "Naperville", "Illinois", "541512, 541519"),
+    ("System Solutions Inc (SSI)", "ssicago.com", "Ali", "Ebrahimi", "President (Illinois BidBuy & Cook County IT)", "Northbrook", "Illinois", "541512, 541513"),
+    (" Forsythe / Ntirety IL", "ntirety.com", "Emil", "Sayegh", "President & CEO (Managed Cloud & Security)", "Chicago", "Illinois", "518210, 541519"),
+    (" Solstice / Kin + Carta Public Sector", "kinandcarta.com", "Kelly", "Manthey", "Chief Executive Officer", "Chicago", "Illinois", "541511, 541512"),
     # PENNSYLVANIA
     ("Custom Computer Specialists", "customonline.com", "Gregory", "Galarza", "President & CEO (SLED IT)", "Philadelphia", "Pennsylvania", "541512, 541513"),
-    ("kappe / kitware", "kitware.com", "lisa", "avila", "Chief Executive Officer (DoD & Federal AI/Software)", "clifton park", "New York", "541511, 541512"),
-    ("allegheny digital", "ert-inc.com", "jingli", "yang", "Chief Executive Officer", "philadelphia", "Pennsylvania", "541511, 541512"),
-    ("Buchart Horn IT / Gannett", "gfnet.com", "Bob", "Scaer", "Chief Executive Officer (PA Municipal & Transit IT)", "Harrisburg", "Pennsylvania", "541512, 541330"),
-    ("EvoGov Municipal Cloud", "evogov.com", "bill", "crane", "Founder & CEO (Municipal SLED Portals)", "Philadelphia", "Pennsylvania", "541511, 518210"),
+    ("ERT Inc", "ert-inc.com", "Jingli", "Yang", "Chief Executive Officer", "Philadelphia", "Pennsylvania", "541511, 541512"),
+    ("Gannett Fleming GeoTech", "gfnet.com", "Bob", "Scaer", "Chief Executive Officer (PA Municipal & Transit IT)", "Harrisburg", "Pennsylvania", "541512, 541330"),
+    ("EvoGov Municipal Cloud", "evogov.com", "Bill", "Crane", "Founder & CEO (Municipal SLED Portals)", "Philadelphia", "Pennsylvania", "541511, 518210"),
+    ("Kitware Federal", "kitware.com", "Lisa", "Avila", "Chief Executive Officer (DoD & Federal AI/Software)", "Clifton Park", "New York", "541511, 541512"),
+    (" NuPaths / Harrisburg IT", "nupaths.org", "Andy", "Petroski", "President (PA Workforce & SLED Tech)", "Harrisburg", "Pennsylvania", "541512"),
+    (" Synergetic Information Systems (PA DGS)", "synergeticsis.com", "Achilles", "Tzatzimakis", "President (PA eMarketplace IT)", "Camp Hill", "Pennsylvania", "541511, 541512"),
     # OHIO
     ("Mile Two LLC", "miletwo.us", "Jeff", "Graley", "Co-Founder & President", "Dayton", "Ohio", "541511, 541512"),
     ("Improving Ohio", "improving.com", "Curtis", "Hite", "Chief Executive Officer", "Columbus", "Ohio", "541511, 541512"),
     ("Infoverity", "infoverity.com", "Matt", "Wienke", "Co-Founder & President", "Dublin", "Ohio", "541511, 541512"),
     ("Ventech Solutions", "ventechsolutions.com", "Kirk", "Holdcraft", "President & CEO", "Columbus", "Ohio", "541511, 541512"),
     ("Azimuth Corporation", "azimuth-corp.com", "Valerie", "Rossi", "President & CEO (Wright-Patt & Ohio IT)", "Beavercreek", "Ohio", "541511, 541512"),
-    ("Segal / Pomeroy SLED", "pomeroy.com", "Kristi", "Nelson", "Chief Executive Officer", "Columbus", "Ohio", "541512, 541513"),
+    ("Pomeroy SLED", "pomeroy.com", "Kristi", "Nelson", "Chief Executive Officer", "Columbus", "Ohio", "541512, 541513"),
+    (" Expedient Ohio Cloud", "expedient.com", "Bryan", "Smith", "Chief Executive Officer", "Columbus", "Ohio", "518210, 541512"),
+    (" Segue Dayton AFMC", "seguetech.com", "Brian", "Callahan", "President & CEO (Wright-Patt DoD IT)", "Dayton", "Ohio", "541511, 541512"),
     # GEORGIA
     ("TechAnax", "techanax.com", "Byron", "Bright", "President & CEO", "Atlanta", "Georgia", "541512, 541513"),
-    ("Nichols Research / MacAulay-Brown", "alcaminow.com", "john", "doe", "VP", "Atlanta", "Georgia", "541512"),
     ("DefenseStorm Cyber", "defensestorm.com", "Steve", "Soukup", "Chief Executive Officer (Cybersecurity)", "Alpharetta", "Georgia", "541512, 541519"),
     ("Digital Hands", "digitalhands.com", "Charlotte", "Baker", "Chief Executive Officer (Managed SOC & SLED Cyber)", "Atlanta", "Georgia", "541512, 541519"),
     ("Pond & Company Federal IT", "pondco.com", "Bob", "Rahn", "President & CEO (Georgia & Federal Infrastructure IT)", "Peachtree Corners", "Georgia", "541512, 541330"),
+    (" Cox Business / RapidScale GovCloud", "rapidscale.net", "Duane", "DeCapite", "Public Sector Cloud Director", "Atlanta", "Georgia", "518210, 541512"),
     # NORTH CAROLINA
     ("Enquizit", "enquizit.com", "Tigger", "Bright", "Founder & Cloud Practice Lead", "Raleigh", "North Carolina", "518210, 541512"),
-    (" MethodSavvy / RoviSys Federal", "rovisys.com", "John", "Robertson", "President & CEO (Systems Integration)", "Raleigh", "North Carolina", "541512, 541330"),
-    ("SecurityFrag / BreachLock NC", "breachlock.com", "Seemant", "Sehgal", "Founder & CEO (Penetration Testing & PTaaS)", "Raleigh", "North Carolina", "541512, 541519"),
+    ("RoviSys Federal", "rovisys.com", "John", "Robertson", "President & CEO (Systems Integration)", "Raleigh", "North Carolina", "541512, 541330"),
+    ("BreachLock NC", "breachlock.com", "Seemant", "Sehgal", "Founder & CEO (Penetration Testing & PTaaS)", "Raleigh", "North Carolina", "541512, 541519"),
     ("Entrinsik (NC eVP Software)", "entrinsik.com", "Madhavi", "Gummadi", "Chief Executive Officer (Raleigh SLED BI & Analytics)", "Raleigh", "North Carolina", "541511, 541512"),
+    (" Zscaler / Raleigh SLED", "bandwidth.com", "David", "Morken", "Founder & CEO (GovComms & Emergency 911)", "Raleigh", "North Carolina", "517111, 541512"),
     # NEW YORK
     ("Radiant Digital", "radiant.digital", "Satish", "Grampurohit", "Co-Founder & Managing Director", "New York", "New York", "541511, 541512"),
     ("Spruce Technology", "sprucetech.com", "Srini", "Penumella", "Founder & President (NYC PASSPort & NYS OGS)", "New York", "New York", "541511, 541512"),
-    ("datamart / Derive Technologies (NYC PASSPort)", "derivetech.com", "Kirit", "Desai", "Co-Founder & SLED Healthcare/City IT Lead", "New York", "New York", "541512, 541513"),
-    ("DynTek / Emerald", "dyntek.com", "Ron", "Ben-Yishay", "President & SLED Cybersecurity Lead (NYS OGS)", "Albany", "New York", "541512, 541519"),
-    ("TAG Solutions (Albany SLED Cyber)", "tagsolutions.com", "pj", "sullivan", "President (NYS SLED IT & Unified Comms)", "Albany", "New York", "541512, 541519"),
+    ("Derive Technologies (NYC PASSPort)", "derivetech.com", "Kirit", "Desai", "Co-Founder & SLED Healthcare/City IT Lead", "New York", "New York", "541512, 541513"),
+    ("DynTek SLED", "dyntek.com", "Ron", "Ben-Yishay", "President & SLED Cybersecurity Lead (NYS OGS)", "Albany", "New York", "541512, 541519"),
+    ("TAG Solutions (Albany SLED Cyber)", "tagsolutions.com", "PJ", "Sullivan", "President (NYS SLED IT & Unified Comms)", "Albany", "New York", "541512, 541519"),
     # MASSACHUSETTS
     ("Rutter Networking Technologies", "rutter-net.com", "Rick", "Rutter", "President & CEO (MA COMMBUYS IT)", "Andover", "Massachusetts", "541512, 541513"),
     ("CyberSaint Security (MA NIST/CMMC)", "cybersaint.io", "Jerry", "Layden", "Chief Executive Officer (NIST 800-53 & CMMC Automation)", "Boston", "Massachusetts", "541512, 541519"),
     ("K logix Cybersecurity", "klogixsecurity.com", "Kevin", "Pouche", "Co-Founder & COO (Boston CISO Advisory)", "Brookline", "Massachusetts", "541512, 541519"),
-    ("Archibus / Eptura Public Sector", "archibus.com", "bill", "tobin", "Public Sector Facilities IT Lead", "Boston", "Massachusetts", "541511, 541512"),
-    ("Cradlepoint / Billiards", "axiscommunications.com", "larry", "newman", "Public Sector Safety Tech", "Chelmsford", "Massachusetts", "541512"),
+    ("Archibus Public Sector", "archibus.com", "Bill", "Tobin", "Public Sector Facilities IT Lead", "Boston", "Massachusetts", "541511, 541512"),
 ]
 
 BAD_LOCAL_PARTS = {
@@ -357,10 +371,12 @@ def _save_mx_cache(cache: Dict[str, bool]) -> None:
 def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None) -> bool:
     """
     Verifies that an email address is syntactically valid, not in TEST_OR_SYNTHETIC_DOMAINS,
-    and its domain resolves in live DNS (via fast OS native DNS resolution cached in `dns_mx_cache.json`).
+    not in ALREADY_CONTACTED_LEGACY_EMAILS, and its domain resolves in live DNS.
     """
     clean = str(email or "").strip().lower()
     if "@" not in clean or " " in clean:
+        return False
+    if clean in ALREADY_CONTACTED_LEGACY_EMAILS:
         return False
     local_part, domain = clean.split("@", 1)
     if not local_part or not domain or "." not in domain:
@@ -474,7 +490,7 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
 def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], mx_cache: Dict[str, bool]) -> List[Dict[str, str]]:
     """
     Autonomously crawls any uncrawled contractor domains in `GOVCON_CONTRACTOR_SEED_DIRECTORY`
-    to harvest publicly published corporate email addresses without requiring Apollo.io.
+    to harvest publicly published corporate email addresses.
     """
     existing_domains = set()
     for c in existing_contacts:
@@ -626,38 +642,48 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
 def run_harvester() -> Dict[str, Any]:
     """
     Main entry point (called automatically every 6 hours by `mainscraper.py` -> `outreach_generator.py`):
-      - Self-heals `apollo-contacts.csv` if missing on a fresh Render Cron container.
-      - Audits all contacts against live DNS MX records and purges any synthetic or dead-domain rows.
-      - Runs the zero-Apollo GovCon website crawler (`discover_and_crawl_govcon_websites`) and merges
+      - Removes any legacy `apollo-contacts.csv` file and writes clean `govcon_contacts.csv`.
+      - Purges all 23 previously emailed legacy non-responder addresses (`ALREADY_CONTACTED_LEGACY_EMAILS`).
+      - Runs the autonomous GovCon website crawler (`discover_and_crawl_govcon_websites`) and merges
         all verified public GovCon contacts (`verified_public_govcon_contacts.json`).
       - Merges real, MX-verified inbound funnel leads from `signaltender.net`.
     """
     print("[*] Initializing GovCon Prospect, Website Crawler & DNS/MX Hygiene Engine...", flush=True)
 
+    if os.path.exists(LEGACY_CSV_PATH):
+        try:
+            os.remove(LEGACY_CSV_PATH)
+        except Exception:
+            pass
+
     mx_cache = _load_mx_cache()
     inbound_leads = fetch_inbound_leads_from_supabase(mx_cache)
     usaspending_recipients = fetch_usaspending_active_contractors()
 
-    if os.path.exists(APOLLO_CSV_PATH):
-        with open(APOLLO_CSV_PATH, mode="r", encoding="utf-8-sig", newline="") as infile:
+    if os.path.exists(GOVCON_CONTACTS_CSV_PATH):
+        with open(GOVCON_CONTACTS_CSV_PATH, mode="r", encoding="utf-8-sig", newline="") as infile:
             reader = csv.DictReader(infile)
-            fieldnames = list(reader.fieldnames or DEFAULT_APOLLO_FIELDNAMES)
+            fieldnames = list(reader.fieldnames or DEFAULT_CONTACT_FIELDNAMES)
             raw_rows = list(reader)
     else:
-        fieldnames = list(DEFAULT_APOLLO_FIELDNAMES)
+        fieldnames = list(DEFAULT_CONTACT_FIELDNAMES)
         raw_rows = []
 
     clean_rows: List[Dict[str, str]] = []
     seen_emails = set()
-    purged_synthetic_or_dead = 0
+    purged_rows = 0
 
     for row in raw_rows:
         em = str(row.get("Email") or "").strip().lower()
         src = str(row.get("Primary Email Source") or "").strip()
         if not em or em in seen_emails:
             continue
-        if src == "SignalTender_GovCon_Harvester" or not verify_email_domain_mx(em, mx_cache):
-            purged_synthetic_or_dead += 1
+        if (
+            src in ("SignalTender_GovCon_Harvester", "Apollo")
+            or em in ALREADY_CONTACTED_LEGACY_EMAILS
+            or not verify_email_domain_mx(em, mx_cache)
+        ):
+            purged_rows += 1
             continue
         seen_emails.add(em)
         clean_rows.append(row)
@@ -665,7 +691,7 @@ def run_harvester() -> Dict[str, Any]:
     now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00")
     added_inbound = 0
 
-    def _build_apollo_row(spec: Dict[str, str], source_tag: str) -> Dict[str, str]:
+    def _build_contact_row(spec: Dict[str, str], source_tag: str) -> Dict[str, str]:
         row_dict = {col: "" for col in fieldnames}
         row_dict["First Name"] = spec.get("First Name", "Capture")
         row_dict["Last Name"] = spec.get("Last Name", "")
@@ -701,7 +727,7 @@ def run_harvester() -> Dict[str, Any]:
     for lead in inbound_leads:
         em = lead["Email"].strip().lower()
         if em and em not in seen_emails and verify_email_domain_mx(em, mx_cache):
-            clean_rows.append(_build_apollo_row(lead, source_tag="SignalTender_Inbound_Funnel"))
+            clean_rows.append(_build_contact_row(lead, source_tag="SignalTender_Inbound_Funnel"))
             seen_emails.add(em)
             added_inbound += 1
 
@@ -712,33 +738,13 @@ def run_harvester() -> Dict[str, Any]:
             with open(VERIFIED_PUBLIC_CONTACTS_PATH, "r", encoding="utf-8") as vf:
                 loaded = json.load(vf)
                 if isinstance(loaded, list):
-                    public_contacts = loaded
+                    public_contacts = [
+                        c for c in loaded
+                        if isinstance(c, dict)
+                        and str(c.get("Email") or "").strip().lower() not in ALREADY_CONTACTED_LEGACY_EMAILS
+                    ]
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
-
-    # Also ensure any existing verified rows from apollo-contacts.csv are persisted in verified_public_govcon_contacts.json
-    # so fresh Render Cron containers always have the full contact pool without needing gitignored CSVs
-    existing_public_emails = {str(c.get("Email") or "").strip().lower() for c in public_contacts if isinstance(c, dict)}
-    synced_existing_to_json = 0
-    for row in clean_rows:
-        em = str(row.get("Email") or "").strip().lower()
-        if em and em not in existing_public_emails:
-            public_contacts.append({
-                "First Name": row.get("First Name", "Capture"),
-                "Last Name": row.get("Last Name", ""),
-                "Title": row.get("Title", "Founder & CEO"),
-                "Company Name": row.get("Company Name", "GovCon IT Partner"),
-                "Email": em,
-                "City": row.get("City") or row.get("Company City") or "",
-                "State": row.get("State") or row.get("Company State") or "Virginia",
-                "Website": row.get("Website", ""),
-                "NAICS Codes": row.get("NAICS Codes") or "541511, 541512",
-                "Industry": row.get("Industry") or "information technology & services",
-                "Keywords": row.get("Keywords") or "govcon, sled rfp, sam.gov, cybersecurity, cloud, software",
-                "Primary Email Catch-all Status": row.get("Primary Email Catch-all Status") or "Not Catch-all",
-            })
-            existing_public_emails.add(em)
-            synced_existing_to_json += 1
 
     # Run autonomous website crawler for any uncrawled GovCon contractor domains
     public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
@@ -750,28 +756,26 @@ def run_harvester() -> Dict[str, Any]:
         em = str(spec.get("Email") or "").strip().lower()
         em = re.sub(r"^[0-9-]+", "", em)
         spec["Email"] = em
-        if any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS):
+        if em in ALREADY_CONTACTED_LEGACY_EMAILS or any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS):
             continue
         cleaned_public.append(spec)
         if em and em not in seen_emails and verify_email_domain_mx(em, mx_cache):
-            clean_rows.append(_build_apollo_row(spec, source_tag="GovCon_Website_Verified"))
+            clean_rows.append(_build_contact_row(spec, source_tag="GovCon_Website_Verified"))
             seen_emails.add(em)
             added_public_verified += 1
 
-    if synced_existing_to_json > 0 or len(cleaned_public) != len(public_contacts):
-        try:
-            with open(VERIFIED_PUBLIC_CONTACTS_PATH, "w", encoding="utf-8") as wf:
-                json.dump(cleaned_public, wf, indent=2)
-        except Exception:
-            pass
+    try:
+        with open(VERIFIED_PUBLIC_CONTACTS_PATH, "w", encoding="utf-8") as wf:
+            json.dump(cleaned_public, wf, indent=2)
+    except Exception:
+        pass
 
     _save_mx_cache(mx_cache)
 
-    if not os.path.exists(APOLLO_CSV_PATH) or purged_synthetic_or_dead > 0 or added_inbound > 0 or added_public_verified > 0:
-        with open(APOLLO_CSV_PATH, mode="w", encoding="utf-8", newline="") as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(clean_rows)
+    with open(GOVCON_CONTACTS_CSV_PATH, mode="w", encoding="utf-8", newline="") as outfile:
+        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(clean_rows)
 
     state_counts: Dict[str, int] = {}
     not_catchall_count = 0
@@ -789,7 +793,7 @@ def run_harvester() -> Dict[str, Any]:
         "total_verified_mx_contacts": len(clean_rows),
         "not_catchall_priority_tier_count": not_catchall_count,
         "catchall_secondary_tier_count": catchall_count,
-        "purged_synthetic_or_invalid_mx_rows": purged_synthetic_or_dead,
+        "purged_legacy_or_invalid_rows": purged_rows,
         "added_verified_inbound_leads": added_inbound,
         "added_website_harvested_govcon_contacts": added_public_verified,
         "state_distribution": state_counts,
@@ -802,9 +806,9 @@ def run_harvester() -> Dict[str, Any]:
         pass
 
     print(
-        f"[+] GovCon Hygiene & Harvester Complete: {len(clean_rows)} DNS/MX-verified contacts in apollo-contacts.csv "
+        f"[+] GovCon Hygiene & Harvester Complete: {len(clean_rows)} fresh DNS/MX-verified contacts in govcon_contacts.csv "
         f"({not_catchall_count} Not Catch-all priority, {catchall_count} Catch-all; "
-        f"+{added_public_verified} newly crawled website contacts, +{added_inbound} inbound leads).",
+        f"purged {purged_rows} legacy/invalid rows, +{added_inbound} inbound leads).",
         flush=True,
     )
     return intel_summary

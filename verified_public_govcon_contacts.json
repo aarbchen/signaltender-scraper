@@ -1,33 +1,5 @@
 [
   {
-    "First Name": "Glenn",
-    "Last Name": "Evans",
-    "Title": "Founder and CEO",
-    "Company Name": "Acrux Consulting",
-    "Email": "gevans@acruxconsulting.com",
-    "City": "Burlingame",
-    "State": "California",
-    "Website": "https://acruxconsulting.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, information technology & services",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Victor",
-    "Last Name": "Amaya",
-    "Title": "Founder & CEO",
-    "Company Name": "BitSage Network",
-    "Email": "victor.amaya@ciroai.us",
-    "City": "San Luis Obispo",
-    "State": "California",
-    "Website": "https://ciro.network",
-    "NAICS Codes": "334290",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, b2b, information technology & services",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Henry",
     "Last Name": "Poole",
     "Title": "Co-Founder & Managing Director",
@@ -39,34 +11,6 @@
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Jerry",
-    "Last Name": "Collins",
-    "Title": "Founder & CEO",
-    "Company Name": "G&ACII Management Consulting LLC",
-    "Email": "jerry.collinsii@gaciimgmtconsulting.com",
-    "City": "San Francisco",
-    "State": "California",
-    "Website": "https://gaciimgmtconsulting.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "management consulting",
-    "Keywords": "strategic vision, risk mitigation resiliency, cost optimization, innovation technology, collaboration partnerships, agility adaptability, customer centric engagement, operational metrics kpis, sustainability, continuous improvement, order management systems, transportation management systems, warehouse management systems, aiml, fractional leadership, strategic alignment, technology integration, business consulting & services, environmental services, renewables & environment, management consulting",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "William",
-    "Last Name": "Worthington",
-    "Title": "Chief Executive Officer and Co-Founder and CISO",
-    "Company Name": "Grizzly Information Security Solutions",
-    "Email": "william.worthington@grizzlyshieldservices.com",
-    "City": "Santa Maria",
-    "State": "California",
-    "Website": "https://grizzlyshieldservices.com",
-    "NAICS Codes": "541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "aws cloud, soc2, pci, security gap assessments, soc, policies procedures, iam, phi, pii, ciso advisory services, thirdparty security evaluations, siem, incidence response, information security, penetration testing, security maturity assessment, security roadmap, security program development, ciso services, iam management, it services, b2b, security compliance, real-time monitoring, cloud security, soc & monitoring, cybersecurity, security policy creation, system monitoring, security journey, security as a service, threat landscape awareness, services, consulting, threat landscape navigation, shared responsibility models, cost-effective security solutions, computer systems design and related services, security education and awareness, vulnerability assessment, saas, computer & network security, information technology & services, computer software",
-    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Hasan",
@@ -108,20 +52,6 @@
     "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Davit",
-    "Last Name": "Dabaghyan",
-    "Title": "Founder and CEO",
-    "Company Name": "Sophart, Inc",
-    "Email": "davit@sophartinc.com",
-    "City": "Los Angeles",
-    "State": "California",
-    "Website": "https://sophartinc.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, information technology & services",
-    "Primary Email Catch-all Status": "Catch-all"
-  },
-  {
     "First Name": "Surinder",
     "Last Name": "Saini",
     "Title": "President & CEO",
@@ -148,62 +78,6 @@
     "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Ashok",
-    "Last Name": "Ganesan",
-    "Title": "Founder/CEO",
-    "Company Name": "Vishanti Systems",
-    "Email": "ag@vishanti.net",
-    "City": "San Jose",
-    "State": "California",
-    "Website": "https://vishanti.net",
-    "NAICS Codes": "513210, 541512",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, b2b, saas, services, information technology & services, computer software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Moses",
-    "Last Name": "Mikaelyan",
-    "Title": "Owner and CEO",
-    "Company Name": "Steamboat IT",
-    "Email": "moses@steamboatit.com",
-    "City": "Steamboat Springs",
-    "State": "Colorado",
-    "Website": "https://steamboatit.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, information technology & services",
-    "Primary Email Catch-all Status": "Catch-all"
-  },
-  {
-    "First Name": "Carolyn",
-    "Last Name": "Armitage",
-    "Title": "Founder & CEO",
-    "Company Name": "Wealth Management Consulting, LLC",
-    "Email": "carolyn@wealthmanagementconsulting.com",
-    "City": "Denver",
-    "State": "Colorado",
-    "Website": "https://wealthmanagementconsulting.com",
-    "NAICS Codes": "54161",
-    "Industry": "financial services",
-    "Keywords": "strategic planning, ceo succession, executive leadership, legacy planning, succession solutions, change management, team management, ceo whisperer, bod advisory, an advisors advisor, wealth management, enterprise value, highperforming teams, integration, cultural shifts, mergers, compensation design, succession planning, equity plans, equity sharing, ria circle, study groups, roundtables, advisor community, valuation, consulting, financial management, buyer preparation, m, a, second opinion, retirement planning, executive leadership coaching, role refinement, management consulting services, industry thought leadership, financial services, management consulting, lean process improvements, compensation plans, executive coaching, board advisory, business valuation, conflict resolution workshops, due diligence, organizational transformation, business model trade-offs, merger guidance, fiduciary's fiduciary, business reorganization, wealth management consulting, turnaround situations, b2b, compensation and incentive design, professional services, partnership issues, performance management, valuation insights, mergers and acquisitions, ria strategic planning, wealth management industry, fractional ceo, workshops, lean process improvement, peer roundtable study groups, inorganic growth, talent retention, business growth strategies, cultural issues & conflict resolution, enterprise value enhancement, ria industry trends, firm valuation, teambuilding facilitation, fiduciary guidance, kpis, services, growth strategies, ria consulting, organic growth, contingency planning, leadership coaching, financial advisory, value drivers, conflict resolution, investment banking, leadership development, high-performing teams, succession options, finance, non-profit, investment management, professional training & coaching, mergers & acquisitions, financial consulting, capital markets, nonprofit organization management",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Tessa",
-    "Last Name": "Edison",
-    "Title": "Founder and CEO",
-    "Company Name": "ASSET Management Consulting",
-    "Email": "tessa@asset-mc.com",
-    "City": "Washington",
-    "State": "District of Columbia",
-    "Website": "https://asset-mc.com",
-    "NAICS Codes": "541613, 541430, 541820",
-    "Industry": "real estate",
-    "Keywords": "branding, social media auditing, affordable housing, workforce housing, public private partnerships, marketing, sports marketing, real estate marketing, social media, graphic design, community outreach strategy, visual storytelling, real estate branding, project branding, construction & real estate, brand management, infrastructure project branding, urban development storytelling, content creation, services, brand development, content marketing, website development, website design, social media management, real estate development, graphic design services, stakeholder communication, visual branding, event planning, event production, asset management branding, b2b, government, community engagement, narrative development, consulting, public-private partnership branding, content strategy, media amplification, marketing & advertising, consumer internet, consumers, internet, information technology & services, web development, web design, events services",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Abhijit",
     "Last Name": "Verekar",
     "Title": "Founder & CEO",
@@ -213,6 +87,19 @@
     "State": "Florida",
     "Website": "https://averoadvisors.com",
     "NAICS Codes": "541512, 541611",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, florida sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Frank",
+    "Last Name": "Begalke",
+    "Title": "Public Sector Compliance SaaS Director",
+    "Company Name": "B2Gnow / CollabraLink FL",
+    "Email": "sales@b2gnow.com",
+    "City": "Orlando",
+    "State": "Florida",
+    "Website": "https://b2gnow.com",
+    "NAICS Codes": "541511, 518210",
     "Industry": "information technology & services",
     "Keywords": "govcon, florida sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -282,20 +169,6 @@
     "Keywords": "govcon, georgia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Andrew",
-    "Last Name": "Sobko",
-    "Title": "Founder and CEO",
-    "Company Name": "Argentum AI",
-    "Email": "andrew@argentum-ai.com",
-    "City": "Chicago",
-    "State": "Illinois",
-    "Website": "https://argentum-ai.com",
-    "NAICS Codes": "518210",
-    "Industry": "computer networking",
-    "Keywords": "cloud computing artificial intelligence, computer networking products, b2b, services, information technology & services",
-    "Primary Email Catch-all Status": "Catch-all"
-  },
-  {
     "First Name": "Jim",
     "Last Name": "Hart",
     "Title": "Public Sector Practice Lead",
@@ -335,18 +208,17 @@
     "Keywords": "govcon, illinois sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Arnold",
-    "Last Name": "Jackson",
-    "Title": "Founder & CEO",
-    "Company Name": "AJ Management Consulting",
-    "Email": "ajackson@ajconsultingcloud.com",
-    "City": "Silver Spring",
+    "First Name": "Anil",
+    "Last Name": "Sharma",
+    "Title": "President (SLED & Federal IT)",
+    "Company Name": "22nd Century Technologies",
+    "Email": "info@tscti.com",
+    "City": "Rockville",
     "State": "Maryland",
-    "Website": "https://ajconsultingcloud.com",
-    "NAICS Codes": "541618",
+    "Website": "https://tscti.com",
+    "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
-    "Keywords": "cloud, gamification, digital transformation, mobility, new media, social media, strategy consulting, design, cloud mobility new media social media gamification, innovation, digital media, small & medium businesses, mobile commerce, brand marketing, e-commerce, consumer internet, sales and marketing, enterprise software, internet, information technology, software, software development, consulting, b2b, services, consumers, information technology & services, strategic consulting, management consulting, marketing & advertising, enterprises, computer software, sales & marketing",
-    "Primary Email Catch-all Status": "Catch-all"
+    "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Greg",
@@ -409,6 +281,19 @@
     "City": "Clarksburg",
     "State": "Maryland",
     "Website": "https://daly.com",
+    "NAICS Codes": "541512, 541513",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Dave",
+    "Last Name": "Hadfield",
+    "Title": "President & SLED Solutions Lead",
+    "Company Name": "Data Networks (MD SLED)",
+    "Email": "info@datanetworks.com",
+    "City": "Hunt Valley",
+    "State": "Maryland",
+    "Website": "https://datanetworks.com",
     "NAICS Codes": "541512, 541513",
     "Industry": "information technology & services",
     "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
@@ -583,76 +468,6 @@
     "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Stephanie",
-    "Last Name": "Browne",
-    "Title": "Founder/CEO",
-    "Company Name": "Talent Management Consulting Services, LLC",
-    "Email": "stephanie@stephaniefbrowne.com",
-    "City": "Oak Bluffs",
-    "State": "Massachusetts",
-    "Website": "https://stephaniefbrowne.com",
-    "NAICS Codes": "54161, 611430",
-    "Industry": "human resources",
-    "Keywords": "talent acquisition, career planning, csuite coaching, talent development, talent strategy, b2b, consulting",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Kevin",
-    "Last Name": "Holleran",
-    "Title": "vCISO | Founder | C.E.O.",
-    "Company Name": "Hollasec Information Security",
-    "Email": "kevin.holleran@hollasec.com",
-    "City": "Grand Rapids",
-    "State": "Michigan",
-    "Website": "https://hollasec.com",
-    "NAICS Codes": "541690, 541618",
-    "Industry": "computer & network security",
-    "Keywords": "chief information security officer, cyber security strategy, enterprise information risk, security in small to mid-size businesses, security culture, risk assessment, security awareness training, cybersecurity, consulting, information technology and services, services, security advisory, behavioral change, security awareness, security relationship building, data protection, security leadership coaching, security platform, security program management, security consulting, behavioral security change, ciso services, security governance, security compliance, b2b, penetration testing, security policies, leadership coaching, security metrics, security program governance, community-focused cybersecurity, security strategy, threat modeling, security risk quantification, security frameworks, cybersecurity consulting, risk management, regulatory compliance, management consulting, privacy program, cyber risk management, security leadership, security communication strategies, management consulting services, security awareness simulations, behavioral security, security program development, security training, security culture development, finance, non-profit, information technology & services, computer & network security, professional training & coaching, financial services, nonprofit organization management",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Travis",
-    "Last Name": "Gostinger",
-    "Title": "Owner & CEO",
-    "Company Name": "Summit Management Consulting, LLC",
-    "Email": "gostingert@fromthesummit.com",
-    "City": "Port Huron",
-    "State": "Michigan",
-    "Website": "https://fromthesummit.com",
-    "NAICS Codes": "61111, 611710, 541611",
-    "Industry": "education management",
-    "Keywords": "board training, strategic planning, management consulting, classroom management, team leadership model, education consulting, marketing for schools, student records management, financial reporting, consulting, personalized learning strategies, curriculum customization, data management, leadership training, student success, learning styles profiling, mission-based strategic planning, learning optimization, school branding and image, b2b, financial management, long-range planning, board governance, school compliance tools, staff recruitment and placement, student data analysis, student-centered learning, budget oversight, staff training, teacher training in classroom management, team building, board governance training, organizational effectiveness, financial stewardship, administrator mentoring, compliance and governance, elementary and secondary schools, services, school leadership, behavioral science in education, charter school management, curriculum development, learning environment improvement, budgeting and financial reporting, organizational development, vision casting, hr and benefits management, learning style profiles, education services, strategic planning tools, staff empowerment, educational leadership, leadership development, finance, education, professional training & coaching, financial services",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Rochelle",
-    "Last Name": "Cooper",
-    "Title": "CEO & Founder",
-    "Company Name": "Cooper Management Consulting (CMC)",
-    "Email": "rcooper@coopermanagementconsulting.com",
-    "City": "New York",
-    "State": "New York",
-    "Website": "https://coopermanagementconsulting.com",
-    "NAICS Codes": "541618, 611430",
-    "Industry": "professional training & coaching",
-    "Keywords": "executive coaching, leadership team building, stakeholder assessment, leadership development, creating high impact teams, womens leadership, leadership assessment, executive leadership development, executive readiness, talent development, succession planning, business consulting & services, leadership effectiveness, leadership growth, leadership influence mapping, leadership strategy, management consulting, cultural development, high potential coaching, leadership mindset, change management, leadership coaching tools, professional, scientific, and technical services, organizational change, services, leadership impact measurement, leadership influence development, leadership skills, leadership performance, organizational culture, performance improvement, coaching programs, high-impact teams, team alignment, team effectiveness, consulting, leadership impact, leadership skills assessment, leadership training, team building exercises, cultural agility training, 360 feedback, women's leadership programs, leadership success, executive presence coaching, executive influence, leadership influence scorecard, executive talent, management consulting services, offsite facilitation, cross-cultural leadership, leadership transformation, leadership influence assessment, global leader strength, leadership influence, leadership workshops, performance metrics, leadership influence strategies, stakeholder feedback, b2b, stakeholder engagement, global leadership, corporate training, leadership capability, professional training & coaching",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Zen",
-    "Last Name": "Yui",
-    "Title": "Founder, CEO",
-    "Company Name": "Layer 9 Networks",
-    "Email": "zen@layer9.com",
-    "City": "New York",
-    "State": "New York",
-    "Website": "https://layer9.com",
-    "NAICS Codes": "334290",
-    "Industry": "computer networking",
-    "Keywords": "computer networking products, b2b, information technology & services",
-    "Primary Email Catch-all Status": "Catch-all"
-  },
-  {
     "First Name": "Satish",
     "Last Name": "Grampurohit",
     "Title": "Co-Founder & Managing Director",
@@ -716,20 +531,6 @@
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Elizabeth",
-    "Last Name": "Dunn",
-    "Title": "Founder and CEO",
-    "Company Name": "Hamilton Gardner Management Consulting, LLC",
-    "Email": "edunn@hamiltongardner.com",
-    "City": "Charlotte",
-    "State": "North Carolina",
-    "Website": "https://hamiltongardner.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "management consulting",
-    "Keywords": "organizational transformation, change management, process automation, strategic planning, project management, business analysis, system integration, application integratioln, business intelligence, software design, software development, marketing communications, product development, digital marketing, training development, business consulting & services, productivity, analytics, information technology & services, marketing & advertising, public relations & communications, management consulting",
-    "Primary Email Catch-all Status": "Catch-all"
   },
   {
     "First Name": "John",
@@ -810,20 +611,6 @@
     "Keywords": "govcon, ohio sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Lynn",
-    "Last Name": "Oser",
-    "Title": "Founder & CEO",
-    "Company Name": "LKO Information Management Consulting, LLC",
-    "Email": "lynn.oser@lkoinfo.com",
-    "City": "Lake Oswego",
-    "State": "Oregon",
-    "Website": "https://lkoinformationmanagement.com",
-    "NAICS Codes": "54161",
-    "Industry": "information services",
-    "Keywords": "information management, data harmonization, experience management, financial reporting analysis, taxonomy development, client relationship management, emarketing, data steward outsourcing, lkoinfo, data quality improvement, system configuration, information delivery, external data integration, legal services, client data integration, data integration, information strategy development, management consulting, legal and law firm data management, information management consulting, b2b, data silos reduction, data strategy, data workflow automation, management consulting services, data consistency, data analytics, data governance policies, data classification, data architecture, metadata management, knowledge sharing, data quality management, data lifecycle management, taxonomy and governance policies, information strategy, data quality assurance, data governance best practices, research services, data governance tools, data silos elimination, consulting, experience and knowledge management, data leverage, knowledge management, data governance, research workflow optimization, data-driven decision making, data management frameworks, data management consulting, data optimization, data policy development, data system integration, information technology and services, data stewardship, data governance framework, services, legal, it management, information technology & services, online marketing, enterprise software, enterprises, computer software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Gregory",
     "Last Name": "Galarza",
     "Title": "President & CEO (SLED IT)",
@@ -846,6 +633,19 @@
     "State": "Pennsylvania",
     "Website": "https://evogov.com",
     "NAICS Codes": "541511, 518210",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, pennsylvania sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Andy",
+    "Last Name": "Petroski",
+    "Title": "President (PA Workforce & SLED Tech)",
+    "Company Name": "NuPaths / Harrisburg IT",
+    "Email": "info@nupaths.org",
+    "City": "Harrisburg",
+    "State": "Pennsylvania",
+    "Website": "https://nupaths.org",
+    "NAICS Codes": "541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, pennsylvania sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -874,20 +674,6 @@
     "NAICS Codes": "541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Andrew",
-    "Last Name": "Wills",
-    "Title": "CEO and Founder",
-    "Company Name": "Elite Pro Technology",
-    "Email": "andrew.wills@eliteprotech.com",
-    "City": "Dallas",
-    "State": "Texas",
-    "Website": "https://eliteprotech.com",
-    "NAICS Codes": "541511, 541512, 541513",
-    "Industry": "computer networking",
-    "Keywords": "support, network untangling, hipaa, network security, fullservice technology installation, voip, hipaa compliance, equipment installation, expert technology consultant, information security, cyber security, it services, managed it services, information technology, computer networking products, b2b, services, consulting, information technology & services, computer & network security",
-    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Wayne",
@@ -942,18 +728,17 @@
     "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Sara",
-    "Last Name": "Mitran",
-    "Title": "Executive Director",
-    "Company Name": "TexSpace Collective",
-    "Email": "sara@texspacecollective.org",
+    "First Name": "Karon",
+    "Last Name": "Irby",
+    "Title": "Founder & CEO (Austin SLED IT)",
+    "Company Name": "Sogeti / Neos Consulting (TX DIR)",
+    "Email": "info@neosconsulting.com",
     "City": "Austin",
     "State": "Texas",
-    "Website": "https://texspacecollective.org",
+    "Website": "https://neosconsulting.com",
     "NAICS Codes": "541511, 541512",
-    "Industry": "defense & space",
-    "Keywords": "defense & space manufacturing",
-    "Primary Email Catch-all Status": "Not Catch-all"
+    "Industry": "information technology & services",
+    "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Raj",
@@ -967,6 +752,19 @@
     "NAICS Codes": "541512, 518210",
     "Industry": "information technology & services",
     "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Gautam",
+    "Last Name": "Ijoor",
+    "Title": "Founder & CEO",
+    "Company Name": "Alpha Omega Integration",
+    "Email": "info@alphaomega.com",
+    "City": "Vienna",
+    "State": "Virginia",
+    "Website": "https://alphaomega.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Shery",
@@ -1006,20 +804,6 @@
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Micah",
-    "Last Name": "Callahan",
-    "Title": "Founder, CEO",
-    "Company Name": "Callahan Management Consulting",
-    "Email": "micah@callahanmgmtco.com",
-    "City": "",
-    "State": "Virginia",
-    "Website": "https://callahanmgmtco.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "management consulting",
-    "Keywords": "business consulting & services, management consulting",
-    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Urvashi",
@@ -1113,6 +897,19 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Chetan",
+    "Last Name": "Singhal",
+    "Title": "Founder & CEO",
+    "Company Name": "Ignite IT",
+    "Email": "events@igniteit.com",
+    "City": "Reston",
+    "State": "Virginia",
+    "Website": "https://igniteit.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Rene",
     "Last Name": "LaVigne",
     "Title": "President & CEO",
@@ -1134,6 +931,19 @@
     "City": "Chantilly",
     "State": "Virginia",
     "Website": "https://koniag-gs.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Adnan",
+    "Last Name": "Karim",
+    "Title": "President & CEO",
+    "Company Name": "Kreative Corporation",
+    "Email": "info@kreativecorp.com",
+    "City": "Fairfax",
+    "State": "Virginia",
+    "Website": "https://kreativecorp.com",
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
@@ -1204,6 +1014,19 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Binu",
+    "Last Name": "Machado",
+    "Title": "President & CEO",
+    "Company Name": "Solerity",
+    "Email": "partner@solerity.com",
+    "City": "Reston",
+    "State": "Virginia",
+    "Website": "https://solerity.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Matt",
     "Last Name": "McFadden",
     "Title": "Chief Executive Officer",
@@ -1213,6 +1036,19 @@
     "State": "Virginia",
     "Website": "https://steampunk.com",
     "NAICS Codes": "541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Rob",
+    "Last Name": "Labbe",
+    "Title": "Founder & CEO (SDVOSB IT)",
+    "Company Name": "SteerBridge Strategies",
+    "Email": "growth@steerbridge.com",
+    "City": "Vienna",
+    "State": "Virginia",
+    "Website": "https://steerbridge.com",
+    "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -1371,33 +1207,5 @@
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Bob",
-    "Last Name": "Colleran",
-    "Title": "Founder, CEO",
-    "Company Name": "Alithi Management Consulting",
-    "Email": "bob@alithi.com",
-    "City": "Seattle",
-    "State": "Washington",
-    "Website": "https://alithi.com",
-    "NAICS Codes": "54161",
-    "Industry": "management consulting",
-    "Keywords": "actionoriented execution, strategic cocreation, industry versatility, business consulting & services, b2b, public/private partnerships, telecommunications, portfolio design, government, consulting, cross-partisan engagement, digital transformation, program and project leadership, digital product development, advising, operational efficiency, management consulting, portfolio management, grant making, market research, cross-sector collaboration, implementation, systems integration, data analytics, rfp/rfi management, system integration, policy and advocacy, growth marketing, consulting services, system implementation, risk management, public policy, program leadership, cross-sector partnerships, policy consulting, growth strategies, technology consulting, coalition building, data analysis, policy advocacy, policy design, business intelligence, services, program management, nonprofit consulting, higher education, management consulting services, project management, organizational strategy, organizational effectiveness, strategy, data-driven decision making, healthcare, education, non-profit, analytics, information technology & services, education management, productivity, health care, health, wellness & fitness, hospital & health care, nonprofit organization management",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Nicole",
-    "Last Name": "Stickler",
-    "Title": "CEO & Founder",
-    "Company Name": "Mission Advisors Management Consulting, LLC",
-    "Email": "nicole@missionamc.com",
-    "City": "Milwaukee",
-    "State": "Wisconsin",
-    "Website": "https://missionamc.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "management consulting",
-    "Keywords": "business consulting & services, management consulting",
-    "Primary Email Catch-all Status": "Not Catch-all"
   }
 ]

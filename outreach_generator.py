@@ -741,22 +741,22 @@ def generate_outreach():
         except Exception as harv_err:
             print(f"[!] GovCon Lead Harvester warning: {harv_err}", flush=True)
 
-        apollo_file = "apollo-contacts.csv"
+        contacts_file = "govcon_contacts.csv"
         output_file = "campaign_leads.csv"
         whop_checkout_url = os.getenv(
             "STRIPE_CHECKOUT_URL",
             f"{SITE_BASE_URL}/index.html#checkout",
         )
 
-        if not os.path.exists(apollo_file):
-            print(f"[!] Please ensure your exported Apollo file is named '{apollo_file}' and is in D:\\Daas", flush=True)
+        if not os.path.exists(contacts_file):
+            print(f"[!] Missing '{contacts_file}' in D:\\Daas", flush=True)
             return
 
-        print("[*] Reading Apollo contacts and generating anti-spam Spintax 2-step sequences (Tier 1 $99/mo + Tier 2 $399/mo)...", flush=True)
+        print("[*] Reading verified GovCon contacts and generating anti-spam Spintax 2-step sequences (Tier 1 $99/mo + Tier 2 $399/mo)...", flush=True)
 
         leads_for_api = []
 
-        with open(apollo_file, mode="r", encoding="utf-8-sig") as infile, \
+        with open(contacts_file, mode="r", encoding="utf-8-sig") as infile, \
              open(output_file, mode="w", newline="", encoding="utf-8") as outfile:
 
             reader = csv.DictReader(infile)
@@ -786,9 +786,9 @@ def generate_outreach():
             writer = csv.DictWriter(outfile, fieldnames=out_fieldnames)
             writer.writeheader()
 
-            raw_apollo_rows = list(reader)
+            raw_contact_rows = list(reader)
             # Prioritize "Not Catch-all" contacts first for the Oct 31 launch ramp to protect domain reputation
-            raw_apollo_rows.sort(
+            raw_contact_rows.sort(
                 key=lambda r: 0 if str(r.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all" else 1
             )
 
@@ -800,7 +800,7 @@ def generate_outreach():
                 mx_cache = {}
 
             count = 0
-            for row in raw_apollo_rows:
+            for row in raw_contact_rows:
                 fname = (row.get(first_name_key) or "").strip() or "There"
                 company = (row.get(company_key) or "").strip() or "your team"
                 email = (row.get(email_key) or "").strip()
