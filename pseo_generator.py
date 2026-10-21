@@ -197,17 +197,23 @@ def parse_due_date(rec: dict) -> date | None:
 
 
 def clean_display_title(raw_title: str) -> str:
-    """Strip trailing '- Due: MM/DD/YYYY' from title for cleaner heading display."""
-    base = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", str(raw_title or ""), flags=re.IGNORECASE)
+    """Strip trailing '- Due: MM/DD/YYYY' and normalize encoding/spacing artifacts."""
+    base = str(raw_title or "").replace("\ufffd", "–")
+    base = re.sub(r"\bWeb-\s+Based\b", "Web-Based", base, flags=re.IGNORECASE)
+    base = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", base, flags=re.IGNORECASE)
+    base = re.sub(r"\s{2,}", " ", base)
     return base.strip()
 
 
 def slugify(text: str, fallback_id: str = "rfp") -> str:
     s = clean_display_title(text).lower()
     s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    s = re.sub(r"-{2,}", "-", s)
+    if len(s) > 75:
+        s = s[:75].rsplit("-", 1)[0].strip("-")
     if not s:
         return fallback_id
-    return f"{s[:75].rstrip('-')}-{fallback_id}"
+    return f"{s}-{fallback_id}"
 
 
 def classify_jurisdiction(rec: dict) -> str:
@@ -515,7 +521,7 @@ def generate_pseo_site() -> int:
         resp = (
             supabase.table(TABLE_NAME)
             .select("*")
-            .eq("status", "New Lead")
+            .in_("status", ["New Lead", "Delivered"])
             .order("id", desc=True)
             .limit(500)
             .execute()

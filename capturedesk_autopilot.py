@@ -94,22 +94,31 @@ def classify_jurisdiction(record: dict) -> str:
     agency = str(record.get("agency") or "").strip().lower()
     url = str(record.get("url") or record.get("source_url") or "").strip().lower()
 
-    if title.startswith("[TX]") or "txsmartbuy" in url or "texas" in agency or ", tx" in agency:
+    if "sam.gov" in url:
+        return "federal"
+    if "txsmartbuy.com" in url:
         return "texas"
-    if title.startswith("[VA]") or "eva.virginia.gov" in url or "cgieva.com" in url or "virginia" in agency or "arlington county" in agency:
+    if "eva.virginia.gov" in url or "cgieva.com" in url:
         return "virginia"
-    if title.startswith("[CA]") or "caleprocure" in url or "california" in agency:
+    if "caleprocure.ca.gov" in url:
         return "california"
-    if title.startswith("[FL]") or "myfloridamarketplace" in url or "florida" in agency:
+    if "myfloridamarketplace.com" in url:
         return "florida"
-    if title.startswith("[MD]") or "emma.maryland.gov" in url or "mdcourts.bonfirehub.com" in url or "maryland" in agency:
+    if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
-    if title.startswith("[NY]") or "nyscr.ny.gov" in url or "new york" in agency:
-        return "new_york"
-    if title.startswith("[IL]") or "bidbuy.illinois.gov" in url or "illinois" in agency or "chicago" in agency:
-        return "illinois"
     if "demandstar.com" in url:
         return "municipal"
+
+    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency:
+        return "texas"
+    if title.startswith("[VA]") or "virginia" in agency or "arlington county" in agency:
+        return "virginia"
+    if title.startswith("[CA]") or "california" in agency:
+        return "california"
+    if title.startswith("[FL]") or "florida" in agency:
+        return "florida"
+    if title.startswith("[MD]") or "maryland" in agency:
+        return "maryland"
     return "federal"
 
 
@@ -125,8 +134,12 @@ def classify_vertical_tag(record: dict) -> str:
 
 
 def strip_due_suffix(title: str) -> str:
-    """Remove trailing '- Due: MM/DD/YYYY' from display title so it is not duplicated next to Closing Date."""
-    return re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", str(title or "").strip(), flags=re.IGNORECASE).strip()
+    """Remove trailing '- Due: MM/DD/YYYY' and normalize encoding/spacing artifacts."""
+    s = str(title or "").replace("\ufffd", "–")
+    s = re.sub(r"\bWeb-\s+Based\b", "Web-Based", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s{2,}", " ", s)
+    return s.strip()
 
 
 def _call_gateway(endpoint: str, payload: dict) -> dict | None:
@@ -166,10 +179,11 @@ def _call_gateway(endpoint: str, payload: dict) -> dict | None:
 
 
 def slugify_contract(title: str, fallback_id: str = "") -> str:
-    clean = re.sub(r"^\s*\[[A-Z]{2,4}\]\s*", "", str(title or "")).strip().lower()
-    clean = re.sub(r"\s*-\s*due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", clean, flags=re.IGNORECASE)
+    clean = strip_due_suffix(title).lower()
     slug = re.sub(r"[^a-z0-9]+", "-", clean).strip("-")
-    slug = re.sub(r"-{2,}", "-", slug)[:75].strip("-")
+    slug = re.sub(r"-{2,}", "-", slug)
+    if len(slug) > 75:
+        slug = slug[:75].rsplit("-", 1)[0].strip("-")
     if not slug:
         slug = "government-it-contract"
     return f"{slug}-{fallback_id}" if fallback_id else slug

@@ -95,5 +95,83 @@
     "enriched_at": "2026-10-20T18:52:31.421514+00:00",
     "compliance_posture": "TX-RAMP Level 2 \u2022 Texas DIR Security \u2022 TAC 206 WCAG 2.1 AA VPAT",
     "teaming_posture": "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Past Perf Refs"
+  },
+  "630": {
+    "id": "630",
+    "title": "(Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300",
+    "agency": "City of Danville",
+    "jurisdiction_badge": "VIRGINIA // eVA",
+    "vertical": "Network, Telecom & Hardware",
+    "closing_date": "11/03/2026",
+    "source_url": "https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?PageTitle=SO%20Details&rfp_id_lot=129106&rfp_id_round=129106",
+    "dossier_url": "https://signaltender.net/contracts/rfp/re-bid-rfp-26-27-022-data-networking-aviation-training-facility-building-630.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "7A21 \u2014 Automatic Data Processing Equipment Components: Other (Communications)",
+    "primary_nigp": "918-29 \u2014 Computer Network Systems Design/Integration Services",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "VITA SEC 530 Enterprise Cloud Standard \u2022 SOC 2 Type II \u2022 Virginia IT Accessibility Act VPAT",
+    "teaming_posture": "Virginia DSBSD SWaM Plan: 42% Small, Women- & Minority-Owned (SWaM) Goal + 3 Public-Sector Refs",
+    "win_themes": [
+      "**Technical Architecture Excellence:** Design a resilient, scalable data networking infrastructure for Hangars 100&300 that exceeds Section 508/WCAG 2.1 AA compliance standards with redundant connectivity, proven aviation-grade equipment specifications, and documented failover protocols demonstrating 99.9% uptime SLA capability.",
+      "**Public-Sector Aviation Experience:** Showcase 3+ completed similar-scale networking projects for government aviation facilities or Tier-1 public infrastructure clients with documented performance metrics, security certifications (FedRAMP/FISMA), and client references validating on-time delivery and SLA compliance in mission-critical environments.",
+      "**Phased Implementation & Transition Mastery:** Present a detailed 4-phase deployment roadmap (design, staging, cutover, optimization) with risk mitigation strategies, dedicated transition management team, comprehensive staff training curriculum aligned to facility operations, and post-go-live support SLAs backed by similar project case studies."
+    ],
+    "evidence_needed": [
+      "Three signed client references from past 5 years documenting successful data networking deployments in government/public-sector aviation or similar facilities \u226510,000 sq ft, including project scope, budget adherence, uptime percentage achieved, and Section 508/WCAG compliance validation.",
+      "Detailed technical specification document or architecture diagram for comparable networking project showing: redundant WAN/LAN design, security controls (encryption, access management), Section 508 accessibility compliance mechanisms, SLA metrics achieved, and specific equipment models/vendors proposed for comparable hangar-scale facilities."
+    ],
+    "enriched_at": "2026-10-21T00:01:29.860823+00:00"
+  },
+  "619": {
+    "id": "619",
+    "title": "Request for Competitive Sealed Proposals - Unified Digital Experience (UDE)",
+    "agency": "City of San Antonio - M0152",
+    "jurisdiction_badge": "TEXAS // ESBD",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/19/2026",
+    "source_url": "https://www.txsmartbuy.com/esbd/6100019771",
+    "dossier_url": "https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Software Development Services",
+    "primary_nigp": "918-28 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "TX-RAMP Level 2 Certification \u2022 Texas DIR Security Controls \u2022 TAC 206 WCAG 2.1 AA VPAT",
+    "teaming_posture": "TX HUB Subcontracting Plan (HSP Required >$100K): 26.0% Other Services HUB Goal + 3 TX/SLED Refs",
+    "win_themes": [
+      "**Section 508/WCAG 2.1 AA Accessibility Excellence:** Demonstrate proven delivery of enterprise digital platforms achieving WCAG 2.1 AA compliance across all user interfaces with automated testing, remediation workflows, and accessibility centers of excellence supporting City of San Antonio's inclusive citizen engagement requirements.",
+      "**Phased Implementation & Risk Mitigation:** Present a detailed phased deployment roadmap with clear milestones, rollback procedures, and SLA uptime guarantees (99.5%+) backed by case studies of successful public-sector digital transformations completed on-time and under-budget with zero critical security incidents.",
+      "**Enterprise Architecture for Government Integration:** Showcase modular, API-first architecture enabling seamless integration with City of San Antonio legacy systems and statewide platforms, supported by reference customers in Texas ESBD ecosystem demonstrating measurable citizen adoption rates and operational efficiency gains."
+    ],
+    "evidence_needed": [
+      "Third-party WCAG 2.1 AA accessibility audit reports and automated compliance scanning results from 2+ similar government digital platforms implemented within past 24 months, including remediation timelines and ongoing monitoring protocols.",
+      "Customer reference letters from Texas public sector agencies (city/county government) documenting: phased implementation completion dates, SLA uptime achievement percentages, security certification compliance (SOC2 Type II or equivalent), and quantified user adoption/satisfaction metrics post-deployment."
+    ],
+    "enriched_at": "2026-10-21T00:01:57.262774+00:00"
+  },
+  "617": {
+    "id": "617",
+    "title": "B26OP04834 \u2013 Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options",
+    "agency": "Chicago Transit Authority, Chicago, Cook County, IL",
+    "jurisdiction_badge": "MUNICIPAL // DEMANDSTAR",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/20/2026",
+    "source_url": "https://www.demandstar.com/app/suppliers/bids/554635/details",
+    "dossier_url": "https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-617.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 Information Technology Professional Services: Software Development / Software Maintenance",
+    "primary_nigp": "208-11 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "SOC 2 Type II / NIST CSF 2.0 \u2022 Encryption in Transit/Rest \u2022 Section 508 / WCAG 2.1 AA VPAT",
+    "teaming_posture": "Local SBE / MWBE Good-Faith Subcontracting (15%\u201325%) + 3 Public-Sector Past Performance Refs",
+    "win_themes": [
+      "**Section 3.2 Compliance Excellence:** Demonstrate proven delivery of web-based EHS solutions meeting Chicago Transit Authority's stringent security standards, Section 508/WCAG 2.1 AA accessibility requirements, and guaranteed uptime SLAs through architecture documentation and compliance certifications.",
+      "**Section 3.1 Enterprise Integration Capability:** Showcase scalable, cloud-native EHS platform architecture with seamless integration to CTA's existing systems, data migration capabilities, and multi-tenant support proven across similar municipal transit/transportation public sector clients.",
+      "**Section 3.3 Phased Delivery & Change Management:** Present detailed 3-year implementation roadmap with defined phases, risk mitigation strategies, comprehensive training program, and transition plan backed by case studies from similar public-sector EHS deployments with measurable adoption metrics."
+    ],
+    "evidence_needed": [
+      "**Security & Accessibility Attestation:** Current SOC 2 Type II certification, WCAG 2.1 AA accessibility audit report (within 12 months), and documented uptime performance data (99.5%+ SLA achievement) from existing municipal EHS deployments.",
+      "**Public Sector Reference Performance:** Three detailed case studies from past 3 years implementing web-based EHS/compliance software for transit authorities, municipal agencies, or comparable public sector organizations, including client contact information, implementation timeline, final budget variance, and post-launch support metrics."
+    ],
+    "enriched_at": "2026-10-21T00:02:24.503942+00:00"
   }
 }
