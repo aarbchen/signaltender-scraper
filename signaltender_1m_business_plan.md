@@ -34,7 +34,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 | **01 (Live)** | `POST /v1/parse/contract`<br>**B2B Contract Parsing API** | Converts raw RFP/SOW text into structured `ContractExtraction` JSON (budget, deadline, deliverables, clearances). | CRM & GovCon SaaS developers |
 | **02 (Live)** | `POST /v1/parse/contract-risks`<br>**AI Contract Risk & Redline Auditor API** | Audits MSAs/NDAs/Subcontracts for toxic clauses and outputs verbatim quotes + ready-to-paste legal redlines. | LegalTech, CLM tools, Deal Desks |
 | **03 (Live)** | `POST /v1/awards/search`<br>**Historical Procurement Pricing API** | Queries federal contract awards, prime contractor win histories, and CLIN unit pricing by NAICS/UEI/keyword. | Price-to-Win (PTW) & BI analysts |
-| **04 (Live)** | `GET /v1/solicitations/live`<br>**Live SLED & Federal Open RFP Feed API** | Exposes your live, AI-vetted 7-portal Supabase `contracts` table via REST filters (`state`, `category`, `closing_after`). | AI sales agents & GovCon dashboards |
+| **04 (Live)** | `GET /v1/solicitations/live`<br>**Live SLED & Federal Open RFP Feed API** | Exposes your live, AI-vetted 8-portal Supabase `contracts` table via REST filters (`state`, `category`, `closing_after`). | AI sales agents & GovCon dashboards |
 | **05 (Live)** | `POST /v1/generate/compliance-matrix`<br>**RFP Compliance Matrix & Proposal Outline API** | Takes raw RFP Section C/L/M or SOW text and outputs a Shipley-aligned **`shall`/`must` Compliance Checklist**, Section L-to-M cross-reference mapping, and hierarchical **Proposal Outline** with page allocations & win themes. | Proposal automation software & bid writers |
 | **06 (Live)** | `POST /v1/audit/far-dfars-clauses`<br>**FAR / DFARS & CMMC Clause Risk Scanner API** | Detects every Federal Acquisition Regulation (`FAR 52.2xx` / `DFARS 252.2xx`) clause in a solicitation, flags flow-down mandates, and scores CMMC/FedRAMP compliance burden. | Defense contractors & compliance platforms |
 | **07 (Live)** | `POST /v1/match/capability-statement`<br>**AI Bid/No-Bid & Capability Matcher API** | Accepts `(rfp_text, company_past_performance)` and outputs a **0–100 Pwin (Probability of Win) Score**, gap analysis, and tailored executive summary pitch. | GovCon capture teams & AI SDRs |
@@ -54,7 +54,7 @@ Because all of your FastAPI microservices run on **one unified Render gateway** 
 ```mermaid
 flowchart LR
     subgraph DataLake["1. Autonomous 6-Hr Scraper Engine"]
-        A["7 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
+        A["8 Live Portals<br/>(SAM, DemandStar, TX, VA, CA, FL, MD, IL)"] --> B[("Supabase PostgreSQL<br/>contracts table")]
     end
 
     subgraph FastAPIGateway["2. Unified FastAPI Microservice Gateway (12 Live APIs + /mcp)"]
@@ -76,7 +76,7 @@ flowchart LR
 
 | Phase | Timeline | Primary Milestone | Weekly Time | Target MRR |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Foundation, pSEO & 11-API Portfolio** | **COMPLETED** | • **DONE:** 7 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** **11 Stateless FastAPI Microservices (APIs 01–11)** live on Render, verified `200 OK` on RapidAPI, with automated daily telemetry seeding (`seed_rapidapi_telemetry.py`) | **~0.5 hrs/week** | **$0 – $2,500** |
+| **Phase 1: Foundation, pSEO & 11-API Portfolio** | **COMPLETED** | • **DONE:** 8 State/Federal scrapers live & memory-isolated in `mainscraper.py`<br>• **DONE:** `pseo_generator.py` building static SEO pages + `sitemap.xml` (verified in Google Search Console)<br>• **DONE:** **11 Stateless FastAPI Microservices (APIs 01–11)** live on Render, verified `200 OK` on RapidAPI, with automated daily telemetry seeding (`seed_rapidapi_telemetry.py`) | **~0.5 hrs/week** | **$0 – $2,500** |
 | **Phase 2: CaptureDesk Autopilot + Stripe Checkout + Cold Email** | **ENGINE BUILT (Cold Email Launching Nov)** | • **DONE:** Native on-site Stripe checkout (`#checkout-tier1` & `#checkout-tier2`) with monthly (`$99`/`$399`) and annual (`$990`/`$3,490`) plans + automated `/v1/webhooks/stripe` Discord Bot role provisioning & revocation<br>• **DONE:** `capturedesk_autopilot.py` chaining APIs internally and dispatching Tier 2 dossiers to `#capturedesk-autopilot`<br>• **NEXT (Nov):** Cold email domains finish warmup; launch `outreach_generator.py` campaigns | **~1.5 hrs/week** | **$5,000 – $25,000** |
 | **Phase 3: MCP Server Registry Distribution** | **COMPLETED** | • **DONE:** Built `@signaltender/mcp-server` (both local stdio and 24/7 remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`)<br>• **DONE:** Submitted to Glama.ai and published (`status: active`) on the **Official MCP Registry (`io.github.aarbchen/signaltender-mcp`)** | **~0.5 hrs/week** | **$25,000 – $50,000** |
 | **Phase 4: Compounding Scale & Expansion** | **Months 6 – 18** | • Scale cold outbound volume + organic pSEO/RapidAPI/MCP traffic + additional SLED state portals & vertical APIs (APIs 12–15) | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |

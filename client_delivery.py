@@ -96,9 +96,11 @@ def slugify_contract(title: str, fallback_id: str = "") -> str:
 def classify_jurisdiction(record: dict) -> str:
     title = str(record.get("title") or "").strip()
     agency = str(record.get("agency") or "").strip().lower()
-    url = str(record.get("url") or "").strip().lower()
+    url = str(record.get("url") or record.get("source_url") or "").strip().lower()
 
-    if "sam.gov" in url:
+    if "demandstar.com" in url:
+        return "municipal"
+    if "sam.gov" in url or "sbir.gov" in url:
         return "federal"
     if "txsmartbuy.com" in url:
         return "texas"
@@ -108,12 +110,12 @@ def classify_jurisdiction(record: dict) -> str:
         return "california"
     if "myfloridamarketplace.com" in url:
         return "florida"
+    if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
+        return "illinois"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
-    if "demandstar.com" in url:
-        return "municipal"
 
-    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency:
+    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency or "ut md anderson" in agency:
         return "texas"
     if title.startswith("[VA]") or "virginia" in agency or "arlington county" in agency:
         return "virginia"
@@ -121,10 +123,13 @@ def classify_jurisdiction(record: dict) -> str:
         return "california"
     if title.startswith("[FL]") or "florida" in agency:
         return "florida"
-    if title.startswith("[MD]") or "maryland" in agency:
+    if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
+        return "illinois"
+    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
-    return "federal"
-
+    if "federal government" in agency:
+        return "federal"
+    return "municipal"
 
 def classify_vertical_tag(record: dict) -> str:
     blob = f"{record.get('title', '')} {record.get('agency', '')}".lower()

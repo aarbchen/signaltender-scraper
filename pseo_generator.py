@@ -81,6 +81,14 @@ JURISDICTIONS = {
         "headline": "Open Maryland State, Judiciary & County IT Solicitations",
         "description": "Live Maryland state, judiciary, and county technology, telecom, and systems integration contracts.",
     },
+    "illinois": {
+        "name": "Illinois (BidBuy & CTA)",
+        "short": "Illinois",
+        "portal": "Illinois BidBuy & Chicago/Cook County",
+        "badge_class": "bg-teal-500/10 text-teal-300 border-teal-500/30",
+        "headline": "Open Illinois State, DoIT & Chicago IT Contracts (BidBuy)",
+        "description": "Live Illinois BidBuy (DoIT, IDOT, CMS) and Chicago/Cook County solicitations for enterprise software, ERP, cloud, and telecom.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -221,22 +229,42 @@ def slugify(text: str, fallback_id: str = "rfp") -> str:
 
 
 def classify_jurisdiction(rec: dict) -> str:
-    url = str(rec.get("url") or "").lower()
-    agency = str(rec.get("agency") or "").lower()
-    if "sam.gov" in url or "federal government" in agency:
-        return "federal"
-    if "txsmartbuy.com" in url or "texas" in agency or "ut md anderson" in agency:
-        return "texas"
-    if "cgieva.com" in url or "virginia" in agency:
-        return "virginia"
-    if "caleprocure.ca.gov" in url or "california" in agency:
-        return "california"
-    if "myfloridamarketplace.com" in url or "florida" in agency:
-        return "florida"
-    if "maryland" in url or "bonfirehub.com" in url or "maryland" in agency or "prince george" in agency or "howard county" in agency:
-        return "maryland"
-    return "municipal"
+    title = str(rec.get("title") or "").strip()
+    agency = str(rec.get("agency") or "").strip().lower()
+    url = str(rec.get("url") or rec.get("source_url") or "").strip().lower()
 
+    if "demandstar.com" in url:
+        return "municipal"
+    if "sam.gov" in url or "sbir.gov" in url:
+        return "federal"
+    if "txsmartbuy.com" in url:
+        return "texas"
+    if "eva.virginia.gov" in url or "cgieva.com" in url:
+        return "virginia"
+    if "caleprocure.ca.gov" in url:
+        return "california"
+    if "myfloridamarketplace.com" in url:
+        return "florida"
+    if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
+        return "illinois"
+    if "emma.maryland.gov" in url or "bonfirehub.com" in url:
+        return "maryland"
+
+    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency or "ut md anderson" in agency:
+        return "texas"
+    if title.startswith("[VA]") or "virginia" in agency or "arlington county" in agency:
+        return "virginia"
+    if title.startswith("[CA]") or "california" in agency:
+        return "california"
+    if title.startswith("[FL]") or "florida" in agency:
+        return "florida"
+    if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
+        return "illinois"
+    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
+        return "maryland"
+    if "federal government" in agency:
+        return "federal"
+    return "municipal"
 
 def classify_categories(rec: dict) -> list[str]:
     title_lower = str(rec.get("title") or "").lower()
@@ -346,7 +374,7 @@ def _render_layout(
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">7 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">8 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -368,7 +396,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 5-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 6-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
           <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -378,6 +406,7 @@ def _render_layout(
           <a href="{root_prefix}contracts/california/index.html" class="hover:text-sky-400 transition-colors">California</a>
           <a href="{root_prefix}contracts/florida/index.html" class="hover:text-sky-400 transition-colors">Florida</a>
           <a href="{root_prefix}contracts/maryland/index.html" class="hover:text-sky-400 transition-colors">Maryland</a>
+          <a href="{root_prefix}contracts/illinois/index.html" class="hover:text-sky-400 transition-colors">Illinois</a>
         </nav>
         <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
           Unlock All RFP Links &rarr;
@@ -609,6 +638,8 @@ def generate_pseo_site() -> int:
                 compliance_posture = "FL 60GG-2 / CJIS Security • SOC 2 Type II • VPAT"
             elif j_key == "maryland":
                 compliance_posture = "MD DoIT Security • NIST 800-53 • MD NVA VPAT"
+            elif j_key == "illinois":
+                compliance_posture = "IL DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -626,6 +657,8 @@ def generate_pseo_site() -> int:
                 teaming_posture = "FL OSD CMBE/VBE Teaming • 3 SLED Past Perf Refs"
             elif j_key == "maryland":
                 teaming_posture = "MD MBE (15–29%) + VSBE • 3 Public-Sector Refs"
+            elif j_key == "illinois":
+                teaming_posture = "IL CEI BEP (20–30%) + VBP • 3 SLED Past Perf Refs"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • 3 State/Local Refs"
             else:
@@ -1033,7 +1066,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, and Maryland.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, and Illinois.
           </p>
         </div>
 
@@ -1166,6 +1199,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/california" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">California</a>
               <a href="#contracts/florida" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
               <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
+              <a href="#contracts/illinois" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-teal-300">Illinois</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -1214,7 +1248,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">7 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">8 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -1236,7 +1270,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 5-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 6-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1246,6 +1280,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/california" class="hover:text-sky-400 transition-colors">California</a>
           <a href="#contracts/florida" class="hover:text-sky-400 transition-colors">Florida</a>
           <a href="#contracts/maryland" class="hover:text-sky-400 transition-colors">Maryland</a>
+          <a href="#contracts/illinois" class="hover:text-sky-400 transition-colors">Illinois</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
         <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
@@ -1273,7 +1308,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
       function renderRows(list) {{
         if (!list || !list.length) {{
-          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 7 portals.</td></tr>';
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 8 portals.</td></tr>';
         }}
         var J = window.SIGNALTENDER_JURISDICTIONS;
         return list.map(function (c) {{
@@ -1595,7 +1630,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, and Maryland.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, and Illinois.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +

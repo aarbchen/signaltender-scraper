@@ -173,5 +173,57 @@
       "**Public Sector Reference Performance:** Three detailed case studies from past 3 years implementing web-based EHS/compliance software for transit authorities, municipal agencies, or comparable public sector organizations, including client contact information, implementation timeline, final budget variance, and post-launch support metrics."
     ],
     "enriched_at": "2026-10-21T00:02:24.503942+00:00"
+  },
+  "675": {
+    "id": "675",
+    "title": "B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options",
+    "agency": "Chicago Transit Authority (CTA)",
+    "jurisdiction_badge": "ILLINOIS // BIDBUY",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/02/2026",
+    "source_url": "https://transitchicago.bonfirehub.com/opportunities/256990",
+    "dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html",
+    "primary_naics": "511210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "208-11 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "900 employees",
+    "compliance_posture": "SOC 2 Type II / NIST CSF 2.0 \u2022 Encryption in Transit/Rest \u2022 Section 508 / WCAG 2.1 AA VPAT",
+    "teaming_posture": "Local SBE / MWBE Good-Faith Subcontracting (15%\u201325%) + 3 Public-Sector Past Performance Refs",
+    "win_themes": [
+      "**Section Heading: Enterprise Architecture Excellence** \u2014 Demonstrate proven expertise designing scalable, cloud-native docket management systems for public transit agencies with Section 508/WCAG 2.1 AA compliance built into core architecture, supported by case studies of similar CTA-scale deployments achieving 99.9% SLA uptime.",
+      "**Section Heading: Public-Sector Transformation Leadership** \u2014 Showcase 3+ recent successful implementations of document/workflow management systems for municipal transportation authorities, emphasizing on-time delivery, stakeholder change management, and security certifications (FedRAMP, SOC 2) that directly reduce CTA's compliance risk.",
+      "**Section Heading: Rapid Deployment with Zero Business Disruption** \u2014 Present a phased 6-month implementation roadmap with parallel legacy system operation, comprehensive staff training program (hands-on + self-paced), and dedicated transition management team ensuring CTA operational continuity while meeting all contractual SLA benchmarks."
+    ],
+    "evidence_needed": [
+      "**Technical Compliance Proof:** Detailed security architecture documentation (encryption standards, authentication protocols, backup/disaster recovery procedures) AND independent accessibility audit report (VPAT or AARA conformance statement) demonstrating Section 508/WCAG 2.1 AA Level AA compliance for similar systems already in production.",
+      "**Past Performance Validation:** Executed contracts (with reference letters from government clients) showing minimum 2 successful public-sector docket/document management implementations within last 4 years, including system uptime metrics, user adoption rates, and measurable cost savings or efficiency gains with similar organizational scale (250+ end-users)."
+    ],
+    "enriched_at": "2026-10-21T01:26:35.554021+00:00"
+  },
+  "674": {
+    "id": "674",
+    "title": "[27-448DOIT-ADMIN-B-52519] CDB Construction Management Automation and Modernization Solution RFP",
+    "agency": "State of Illinois (DoIT - Department of Innovation and Technology)",
+    "jurisdiction_badge": "ILLINOIS // BIDBUY",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/19/2026",
+    "source_url": "https://www.bidbuy.illinois.gov/bso/external/bidDetail.sda?docId=27-448DOIT-ADMIN-B-52519&external=true&parentUrl=close",
+    "dossier_url": "https://signaltender.net/contracts/rfp/27-448doit-admin-b-52519-cdb-construction-management-automation-and-674.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "208-11 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "SOC 2 Type II / NIST CSF 2.0 \u2022 Encryption in Transit/Rest \u2022 Section 508 / WCAG 2.1 AA VPAT",
+    "teaming_posture": "Local SBE / MWBE Good-Faith Subcontracting (15%\u201325%) + 3 Public-Sector Past Performance Refs",
+    "win_themes": [
+      "**Proven Public-Sector Construction Management Expertise:** Demonstrate 3+ successful implementations of construction management automation solutions for state/federal agencies, with documented evidence of on-time delivery, budget compliance, and measurable ROI in similar enterprise environments.",
+      "**Compliant, Scalable Architecture:** Present a technically rigorous design architecture that explicitly addresses Illinois DoIT security standards, Section 508/WCAG 2.1 AA accessibility compliance, and guaranteed 99.5%+ uptime SLA with redundancy and disaster recovery protocols.",
+      "**Accelerated Phased Delivery & Risk Mitigation:** Propose a structured 12-18 month phased rollout with clear go-live gates, dedicated change management, and proven staff continuity\u2014differentiating through early quick-wins in pilot modules to build stakeholder confidence and reduce implementation risk."
+    ],
+    "evidence_needed": [
+      "Certified compliance documentation (SOC 2 Type II, FedRAMP certification or equivalent) plus a detailed Section 508/WCAG 2.1 AA accessibility compliance matrix showing all interface components, keyboard navigation, and screen reader validation test results.",
+      "Three customer reference case studies from public-sector construction/infrastructure clients (state/federal level) with signed attestations confirming on-time delivery within \u00b110% of schedule, achieved uptime SLA performance, and post-implementation support satisfaction scores \u22654.2/5.0."
+    ],
+    "enriched_at": "2026-10-21T01:27:05.271412+00:00"
   }
 }

@@ -94,7 +94,9 @@ def classify_jurisdiction(record: dict) -> str:
     agency = str(record.get("agency") or "").strip().lower()
     url = str(record.get("url") or record.get("source_url") or "").strip().lower()
 
-    if "sam.gov" in url:
+    if "demandstar.com" in url:
+        return "municipal"
+    if "sam.gov" in url or "sbir.gov" in url:
         return "federal"
     if "txsmartbuy.com" in url:
         return "texas"
@@ -104,12 +106,12 @@ def classify_jurisdiction(record: dict) -> str:
         return "california"
     if "myfloridamarketplace.com" in url:
         return "florida"
+    if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
+        return "illinois"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
-    if "demandstar.com" in url:
-        return "municipal"
 
-    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency:
+    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency or "ut md anderson" in agency:
         return "texas"
     if title.startswith("[VA]") or "virginia" in agency or "arlington county" in agency:
         return "virginia"
@@ -117,10 +119,13 @@ def classify_jurisdiction(record: dict) -> str:
         return "california"
     if title.startswith("[FL]") or "florida" in agency:
         return "florida"
-    if title.startswith("[MD]") or "maryland" in agency:
+    if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
+        return "illinois"
+    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
-    return "federal"
-
+    if "federal government" in agency:
+        return "federal"
+    return "municipal"
 
 def classify_vertical_tag(record: dict) -> str:
     blob = f"{record.get('title', '')} {record.get('agency', '')}".lower()
@@ -367,6 +372,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "maryland":
         compliance_posture = "Maryland DoIT IT Security Manual • SOC 2 Type II / NIST 800-53 • MD Non-Visual Access (NVA) VPAT"
         teaming_posture = "Maryland MBE (15%–29% Sub Goal) + VSBE (1%–5% Veteran Goal) Participation + 3 Public-Sector Refs"
+    elif j_key == "illinois":
+        compliance_posture = "Illinois DoIT Enterprise Security Policy • SOC 2 Type II • IITAA 2.1 WCAG 2.1 AA VPAT"
+        teaming_posture = "Illinois CEI BEP (20%–30% Business Enterprise Goal) + VBP Veteran Participation + 3 SLED Past Perf Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"

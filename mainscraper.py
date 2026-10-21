@@ -670,6 +670,7 @@ async def run_master_orchestrator(
         _run_source("California SLED (Cal eProcure)", "import ca_scraper", "ca_scraper.run_scraper(push_to_db=False)"),
         _run_source("Florida SLED (MFMP VIP)", "import fl_scraper", "fl_scraper.run_scraper(push_to_db=False)"),
         _run_source("Maryland SLED (eMMA / Bonfire)", "import md_scraper", "md_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Illinois SLED (BidBuy / CTA)", "import il_scraper", "il_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -681,6 +682,7 @@ async def run_master_orchestrator(
         "California SLED (Cal eProcure)",
         "Florida SLED (MFMP VIP)",
         "Maryland SLED (eMMA / Bonfire)",
+        "Illinois SLED (BidBuy / CTA)",
     ]
     combined_records = []
 
