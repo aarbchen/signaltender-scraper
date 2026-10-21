@@ -256,26 +256,53 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         if phrase not in apis_txt:
             fail(f"apis.html: Missing required portal-count phrase: '{phrase}'")
 
-    # 4. Prohibit stale (n_portals - 1) or (n_states - 1) portal counts
-    stale_p = n_portals - 1
-    stale_s = n_states - 1
-    stale_patterns = [
-        f"{stale_p} GOVERNMENT PORTALS",
-        f"{stale_p} PORTALS ACTIVE",
-        f"{stale_p} ACTIVE PROCUREMENT PORTALS",
-        f"All Portals ({stale_p})",
-        f"{stale_p} PREVIEW LEADS SHOWN",
-        f"All {stale_p} Active Procurement Portals",
-        f"ALL {stale_p} FEDERAL",
-        f"{stale_p}-Portal",
-        f"{stale_s}-State SLED",
-        f"{stale_s}-STATE SLED",
-    ]
-    for label, txt in (("index.html", index_txt), ("apis.html", apis_txt)):
+    # 4. Prohibit ANY stale portal or state count (from 3 up to n_portals-1 / n_states-1) across index.html, apis.html, and pseo_generator.py
+    pseo_txt = (ROOT / "pseo_generator.py").read_text(encoding="utf-8")
+    stale_patterns = []
+    for kp in range(3, n_portals):
+        stale_patterns.extend([
+            f"{kp} GOVERNMENT PORTALS",
+            f"{kp} PORTALS ACTIVE",
+            f"{kp} PORTALS DE-NOISED",
+            f">{kp} Portals<",
+            f"({kp} PORTALS LIVE)",
+            f"{kp} ACTIVE PROCUREMENT PORTALS",
+            f"All Portals ({kp})",
+            f"{kp} PREVIEW LEADS SHOWN",
+            f"All {kp} Active Procurement Portals",
+            f"ALL {kp} FEDERAL",
+            f"{kp}-Portal",
+            f"{kp} Federal, State SLED, and Municipal portals",
+            f'"portals_monitored"</span>: <span class="text-emerald-300">{kp}</span>',
+        ])
+    for ks in range(3, n_states):
+        stale_patterns.extend([
+            f"{ks}-State SLED",
+            f"{ks}-STATE SLED",
+            f"{ks} State SLED",
+            f"{ks} major State SLED",
+        ])
+
+    for label, txt in (("index.html", index_txt), ("apis.html", apis_txt), ("pseo_generator.py", pseo_txt)):
         for sp in stale_patterns:
             if sp in txt:
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
+        # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
+        expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
+        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,80}", txt):
+            snippet = m.group(0)
+            for abbr in expected_abbrs:
+                if abbr not in snippet:
+                    fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
+
+        # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
+        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,200}", txt):
+            snippet = m.group(0)
+            for sk in state_keys:
+                state_title = sk.replace("_", " ").title()
+                if state_title not in snippet and state_abbrev_map.get(sk, "") not in snippet:
+                    fail(f"{label}: Prose portal list '{snippet.strip()}' is missing active state '{state_title}'")
 
 def check_spa_runtime(index_txt: str) -> None:
     scripts = [
