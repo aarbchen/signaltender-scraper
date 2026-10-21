@@ -532,6 +532,138 @@ def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], 
     return existing_contacts
 
 
+def _clean_usaspending_company_name(raw_name: str) -> Tuple[str, str]:
+    """
+    Cleans a USAspending recipient name like 'SECURIGENCE LLC' or 'MINBURN TECHNOLOGY GROUP, LLC'
+    into `(display_name, candidate_domain)` where `candidate_domain` is strict `fullwords.com`.
+    """
+    base = re.sub(r"\bDBA\b.*$", "", str(raw_name or "").upper()).strip()
+    stripped = re.sub(
+        r"\b(L\.?L\.?C\.?|INC\.?|INCORPORATED|CORP\.?|CORPORATION|COMPANY|CO\.?|LTD\.?|LIMITED LIABILITY COMPANY|LP|LLP|HOLDINGS|INTERNATIONAL)\b",
+        " ",
+        base,
+    )
+    words = [w.lower() for w in re.findall(r"[A-Z0-9]+", stripped) if len(w) > 1]
+    if not words:
+        return "", ""
+    joined = "".join(words)
+    if len(joined) < 5 or len(joined) > 25:
+        return "", ""
+    display = " ".join(w.upper() if len(w) <= 3 else w.capitalize() for w in words)
+    return display, f"{joined}.com"
+
+
+def discover_usaspending_small_business_websites(
+    existing_contacts: List[Dict[str, str]],
+    mx_cache: Dict[str, bool],
+    max_new_per_run: int = 35,
+) -> List[Dict[str, str]]:
+    """
+    Queries USAspending.gov for active Small Business IT & Cybersecurity contractors
+    (NAICS 541511, 541512, 541513, 541519, 518210) across all 12 SLED states,
+    crawls their official corporate websites to extract published contact emails,
+    and verifies live DNS MX records.
+    """
+    existing_domains = set()
+    for c in existing_contacts:
+        em = str(c.get("Email") or "").strip().lower()
+        if "@" in em:
+            existing_domains.add(em.split("@", 1)[1])
+        web = str(c.get("Website") or "").strip().lower().replace("https://", "").replace("http://", "").strip("/")
+        if web:
+            existing_domains.add(web)
+
+    states = [
+        ("VA", "Virginia"),
+        ("MD", "Maryland"),
+        ("TX", "Texas"),
+        ("CA", "California"),
+        ("FL", "Florida"),
+        ("IL", "Illinois"),
+        ("PA", "Pennsylvania"),
+        ("OH", "Ohio"),
+        ("GA", "Georgia"),
+        ("NC", "North Carolina"),
+        ("NY", "New York"),
+        ("MA", "Massachusetts"),
+    ]
+    # Rotate page 1..5 and a 2-state slice when >=120 contacts are already cached so each 6-hour cron run finishes in <10s
+    now_utc = datetime.now(timezone.utc)
+    day_idx = now_utc.timetuple().tm_yday
+    slot_idx = (day_idx * 4 + (now_utc.hour // 6)) % len(states)
+    if len(existing_contacts) >= 120:
+        active_states = [states[slot_idx], states[(slot_idx + 1) % len(states)]]
+        pages_to_check = [((day_idx % 5) + 1)]
+    else:
+        active_states = states
+        pages_to_check = [1, 2]
+
+    candidates: List[Tuple[str, str, str, str, str, str, str, str]] = []
+    url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
+
+    for st_code, st_full in active_states:
+        for pg in pages_to_check:
+            try:
+                resp = requests.post(
+                    url,
+                    json={
+                        "fields": ["Recipient Name", "Award Amount"],
+                        "filters": {
+                            "time_period": [{"start_date": "2024-01-01", "end_date": "2026-12-31"}],
+                            "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210"]},
+                            "recipient_type_names": ["small_business"],
+                            "place_of_performance_locations": [{"country": "USA", "state": st_code}],
+                        },
+                        "limit": 25,
+                        "page": pg,
+                    },
+                    timeout=8,
+                )
+                if resp.status_code == 200:
+                    for item in (resp.json().get("results") or []):
+                        raw_nm = str(item.get("name") or "").strip()
+                        disp, dom = _clean_usaspending_company_name(raw_nm)
+                        if disp and dom and dom not in existing_domains:
+                            existing_domains.add(dom)
+                            candidates.append((
+                                disp,
+                                dom,
+                                "Capture",
+                                "Team",
+                                f"Small Business IT & Cyber Capture Lead ({st_code})",
+                                "",
+                                st_full,
+                                "541511, 541512, 541519",
+                            ))
+            except Exception:
+                continue
+
+    if not candidates:
+        return existing_contacts
+
+    newly_found: List[Dict[str, str]] = []
+    with ThreadPoolExecutor(max_workers=24) as pool:
+        futs = [pool.submit(_crawl_single_contractor_site, item) for item in candidates[:160]]
+        for fut in as_completed(futs):
+            res = fut.result()
+            if res and verify_email_domain_mx(res["Email"], mx_cache):
+                newly_found.append(res)
+                if len(newly_found) >= max_new_per_run:
+                    break
+
+    if newly_found:
+        merged = list(existing_contacts) + newly_found
+        merged.sort(key=lambda x: (str(x.get("State") or ""), str(x.get("Company Name") or "")))
+        try:
+            with open(VERIFIED_PUBLIC_CONTACTS_PATH, "w", encoding="utf-8") as wf:
+                json.dump(merged, wf, indent=2)
+        except Exception:
+            pass
+        return merged
+
+    return existing_contacts
+
+
 def _meta_to_prospect_row(meta: Dict[str, Any], mx_cache: Dict[str, bool]) -> Dict[str, str] | None:
     email = str(meta.get("email") or "").strip().lower()
     if not verify_email_domain_mx(email, mx_cache):
@@ -746,8 +878,9 @@ def run_harvester() -> Dict[str, Any]:
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
 
-    # Run autonomous website crawler for any uncrawled GovCon contractor domains
+    # Run autonomous website crawler for any uncrawled GovCon contractor domains + USAspending Small Business awardees
     public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
+    public_contacts = discover_usaspending_small_business_websites(public_contacts, mx_cache)
 
     cleaned_public: List[Dict[str, str]] = []
     for spec in public_contacts:

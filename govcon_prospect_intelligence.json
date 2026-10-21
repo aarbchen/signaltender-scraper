@@ -1,24 +1,24 @@
 {
-  "updated_at": "2026-10-21T23:14:12+00:00",
-  "total_verified_mx_contacts": 93,
-  "not_catchall_priority_tier_count": 93,
+  "updated_at": "2026-10-21T23:27:16+00:00",
+  "total_verified_mx_contacts": 125,
+  "not_catchall_priority_tier_count": 125,
   "catchall_secondary_tier_count": 0,
   "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 93,
+  "added_website_harvested_govcon_contacts": 32,
   "state_distribution": {
-    "California": 6,
-    "Florida": 4,
+    "California": 14,
+    "Florida": 9,
     "Georgia": 3,
     "Illinois": 3,
-    "Maryland": 17,
+    "Maryland": 22,
     "Massachusetts": 3,
     "New York": 3,
     "North Carolina": 4,
     "Ohio": 4,
     "Pennsylvania": 3,
-    "Texas": 8,
-    "Virginia": 35
+    "Texas": 14,
+    "Virginia": 43
   },
   "usaspending_naics_541512_top_recipients": [
     {

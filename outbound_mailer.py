@@ -1,16 +1,21 @@
 """
-Built-In Zero-Cost Outbound Drip Sender & Welcome Dossier Mailer (`outbound_mailer.py`).
+Built-In Zero-Cost Outbound Drip Sender, Auto-Ramp Scheduler & Welcome Dossier Mailer (`outbound_mailer.py`).
 Dispatches personalized, state-matched 2-step GovCon RFP dossier sequences from
 `campaign_leads.csv` (and instant welcome dossiers for inbound leads) with:
-  - Multi-transport support:
-      1. Resend REST API (`RESEND_API_KEY` in `.env` — 3,000 free emails/mo)
-      2. Standard SMTP / Google Workspace / Gmail App Password / Zoho / Custom SMTP
-         (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL`)
-      3. Safe Outbox Staging (`outbox_ready_queue.json`) when credentials are not yet set
-  - Anti-spam deliverability guardrails:
-      - Configurable daily send cap (`OUTBOUND_DAILY_LIMIT`, default 30/day)
-      - Persistent deduplication & 3-day Step 1 -> Step 2 cadence (`sent_outreach_log.json`)
-      - RFC 8058 `List-Unsubscribe` headers & plain-text + HTML multipart formatting
+  1. Automatic Post-Warmup Volume Ramp (`compute_dynamic_daily_limit()`):
+     - Pre-Launch (Before Oct 31, 2026): Safe Warmup Guard (0 live sends; stages 20 in `outbox_ready_queue.json`).
+     - Days 1-3  (Oct 31 - Nov 2):  20 emails/day (max 5 per 6-hour cron run).
+     - Days 4-7  (Nov 3  - Nov 6):  30 emails/day (max 8 per 6-hour cron run).
+     - Days 8-14 (Nov 7  - Nov 13): 45 emails/day (max 12 per 6-hour cron run).
+     - Day 15+   (Nov 14+):         60 emails/day (max 15 per 6-hour cron run).
+  2. Stateless Render Cron Persistence via Supabase (`status = SUBSCRIBER_OUTBOUND_SENT_LOG`):
+     - Reads and logs every sent Step 1 and Step 2 email to both local `sent_outreach_log.json` and
+       Supabase (`SELECT` + RLS-safe `.insert()`) so 6-hour Render Cron containers never double-send
+       or exceed the 24-hour UTC daily cap.
+  3. Multi-Transport Support:
+     - Resend REST API (`RESEND_API_KEY`)
+     - Standard SMTP (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL`)
+     - Safe Outbox Staging (`outbox_ready_queue.json`)
 """
 
 from error_telemetry import configure_utf8_stdio, report_error
@@ -18,14 +23,15 @@ configure_utf8_stdio()
 
 import argparse
 import csv
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
 from email.message import EmailMessage
 import json
+import math
 import os
 import smtplib
 import ssl
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 import requests
 from dotenv import load_dotenv
 
@@ -37,6 +43,9 @@ CAMPAIGN_CSV_PATH = os.path.join(BASE_DIR, "campaign_leads.csv")
 SENT_LOG_PATH = os.path.join(BASE_DIR, "sent_outreach_log.json")
 OUTBOX_QUEUE_PATH = os.path.join(BASE_DIR, "outbox_ready_queue.json")
 
+SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
+SUPABASE_KEY = (os.getenv("SUPABASE_KEY") or "").strip()
+
 RESEND_API_KEY = (os.getenv("RESEND_API_KEY") or "").strip()
 SMTP_HOST = (os.getenv("SMTP_HOST") or "smtp.gmail.com").strip()
 SMTP_PORT = int(os.getenv("SMTP_PORT") or "587")
@@ -44,22 +53,108 @@ SMTP_USER = (os.getenv("SMTP_USER") or "").strip()
 SMTP_PASSWORD = (os.getenv("SMTP_PASSWORD") or "").strip()
 SMTP_FROM_NAME = (os.getenv("SMTP_FROM_NAME") or "SignalTender GovCon Capture Desk").strip()
 SMTP_FROM_EMAIL = (os.getenv("SMTP_FROM_EMAIL") or SMTP_USER or "capture@signaltender.net").strip()
-OUTBOUND_DAILY_LIMIT = int(os.getenv("OUTBOUND_DAILY_LIMIT") or "20")
+OUTBOUND_LAUNCH_DATE_STR = (os.getenv("OUTBOUND_LAUNCH_DATE") or "2026-10-31").strip()
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
+
+try:
+    from govcon_lead_harvester import ALREADY_CONTACTED_LEGACY_EMAILS
+except Exception:
+    ALREADY_CONTACTED_LEGACY_EMAILS = set()
+
+
+def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int, int, str]:
+    """
+    Returns `(daily_cap, per_cron_run_cap, phase_label)` based on the current UTC date
+    relative to `OUTBOUND_LAUNCH_DATE` (default `2026-10-31`), or honors explicit
+    `OUTBOUND_DAILY_LIMIT_OVERRIDE` if set in `.env`.
+    """
+    override = (os.getenv("OUTBOUND_DAILY_LIMIT_OVERRIDE") or "").strip()
+    if override.isdigit() and int(override) > 0:
+        d_cap = int(override)
+        return d_cap, max(1, math.ceil(d_cap / 4)), f"Manual Override ({d_cap}/day)"
+
+    now_dt = now_utc or datetime.now(timezone.utc)
+    today_d = now_dt.date()
+    try:
+        launch_d = date.fromisoformat(OUTBOUND_LAUNCH_DATE_STR)
+    except Exception:
+        launch_d = date(2026, 10, 31)
+
+    days_since_launch = (today_d - launch_d).days
+    if days_since_launch < 0:
+        # Before Oct 31 warmup completion: stage 20 in outbox, 0 live dispatch unless forced
+        return 20, 5, f"Pre-Launch Warmup Guard (Launches {launch_d.isoformat()} at 20/day)"
+    if days_since_launch <= 2:
+        # Days 1-3 (Oct 31 - Nov 2)
+        return 20, 5, f"Ramp Phase 1 (Day {days_since_launch + 1}: 20/day | 5/cron)"
+    if days_since_launch <= 6:
+        # Days 4-7 (Nov 3 - Nov 6)
+        return 30, 8, f"Ramp Phase 2 (Day {days_since_launch + 1}: 30/day | 8/cron)"
+    if days_since_launch <= 13:
+        # Days 8-14 (Nov 7 - Nov 13)
+        return 45, 12, f"Ramp Phase 3 (Day {days_since_launch + 1}: 45/day | 12/cron)"
+    # Day 15+ (Nov 14+)
+    return 60, 15, f"Full Warmed Cadence (Day {days_since_launch + 1}: 60/day | 15/cron)"
 
 
 def _load_sent_log() -> Dict[str, Any]:
+    """
+    Loads sent outreach state from local `sent_outreach_log.json` AND merges any
+    `SUBSCRIBER_OUTBOUND_SENT_LOG` rows from Supabase so stateless Render Cron containers
+    always have the full history of Step 1 and Step 2 sends.
+    """
+    data: Dict[str, Any] = {"sent": {}, "unsubscribed": []}
     if os.path.exists(SENT_LOG_PATH):
         try:
             with open(SENT_LOG_PATH, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                if isinstance(data, dict):
-                    data.setdefault("sent", {})
-                    data.setdefault("unsubscribed", [])
-                    return data
+                loaded = json.load(f)
+                if isinstance(loaded, dict):
+                    data["sent"] = dict(loaded.get("sent") or {})
+                    data["unsubscribed"] = list(loaded.get("unsubscribed") or [])
         except Exception:
             pass
-    return {"sent": {}, "unsubscribed": []}
+
+    if SUPABASE_URL and SUPABASE_KEY:
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+        }
+        try:
+            resp = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={
+                    "status": "eq.SUBSCRIBER_OUTBOUND_SENT_LOG",
+                    "select": "id,title,agency,url,status",
+                    "order": "id.asc",
+                    "limit": "2000",
+                },
+                headers=headers,
+                timeout=10,
+            )
+            if resp.status_code == 200 and isinstance(resp.json(), list):
+                for row in resp.json():
+                    raw_title = str(row.get("title") or "").strip()
+                    try:
+                        meta = json.loads(raw_title)
+                        if isinstance(meta, dict) and meta.get("email"):
+                            em = str(meta["email"]).strip().lower()
+                            step_num = int(meta.get("step") or 1)
+                            prev = data["sent"].get(em)
+                            if not prev or step_num >= int(prev.get("step") or 0):
+                                data["sent"][em] = {
+                                    "step": step_num,
+                                    "sent_at": str(meta.get("sent_at") or ""),
+                                    "company": str(meta.get("company") or ""),
+                                    "matched_state": str(meta.get("matched_state") or ""),
+                                    "dossier_url": str(meta.get("dossier_url") or ""),
+                                    "transport": str(meta.get("transport") or "supabase_log"),
+                                }
+                    except Exception:
+                        continue
+        except Exception as exc:
+            report_error("outbound_mailer.py", f"Supabase sent-log fetch warning: {exc}", severity="WARNING")
+
+    return data
 
 
 def _save_sent_log(data: Dict[str, Any]) -> None:
@@ -70,6 +165,47 @@ def _save_sent_log(data: Dict[str, Any]) -> None:
         pass
 
 
+def _record_sent_email_supabase(email: str, record: Dict[str, Any]) -> None:
+    """
+    Persists a sent Step 1 or Step 2 outreach event to Supabase (`status = SUBSCRIBER_OUTBOUND_SENT_LOG`)
+    using RLS-safe `SELECT` + `.insert()` (never `.upsert()`).
+    """
+    if not (SUPABASE_URL and SUPABASE_KEY):
+        return
+    clean_em = email.strip().lower()
+    step_num = int(record.get("step") or 1)
+    synthetic_url = f"subscriber://outbound-sent/{clean_em}/step-{step_num}"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
+    }
+    try:
+        chk = requests.get(
+            f"{SUPABASE_URL}/rest/v1/contracts",
+            params={"url": f"eq.{synthetic_url}", "select": "id"},
+            headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+            timeout=8,
+        )
+        if chk.status_code == 200 and isinstance(chk.json(), list) and len(chk.json()) > 0:
+            return
+        payload = {
+            "title": json.dumps({"email": clean_em, **record}),
+            "agency": f"OUTBOUND_STEP_{step_num}:{record.get('matched_state', 'ALL')}",
+            "url": synthetic_url,
+            "status": "SUBSCRIBER_OUTBOUND_SENT_LOG",
+        }
+        requests.post(
+            f"{SUPABASE_URL}/rest/v1/contracts",
+            headers=headers,
+            json=payload,
+            timeout=8,
+        )
+    except Exception as exc:
+        report_error("outbound_mailer.py", f"Supabase sent-log insert warning: {exc}", severity="WARNING")
+
+
 def send_single_email(
     to_email: str,
     subject: str,
@@ -77,12 +213,12 @@ def send_single_email(
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     """
-    Dispatch a single plain-text + HTML email via Resend API or SMTP,
+    Dispatch a single plain-text email via Resend API or SMTP,
     or stage it in `outbox_ready_queue.json` if credentials are not yet configured.
     """
     clean_to = str(to_email or "").strip().lower()
-    if not clean_to or "@" not in clean_to:
-        return {"status": "skipped", "reason": "invalid_email"}
+    if not clean_to or "@" not in clean_to or clean_to in ALREADY_CONTACTED_LEGACY_EMAILS:
+        return {"status": "skipped", "reason": "invalid_or_legacy_email"}
 
     if dry_run or (not RESEND_API_KEY and not (SMTP_USER and SMTP_PASSWORD)):
         return {
@@ -146,73 +282,106 @@ def send_single_email(
         return {"status": "error", "transport": "smtp", "detail": str(exc)}
 
 
-def run_outbound_drip(daily_limit: Optional[int] = None, dry_run: bool = False) -> Dict[str, Any]:
+def run_outbound_drip(
+    daily_limit: Optional[int] = None,
+    dry_run: bool = False,
+    force_send_before_launch: bool = False,
+) -> Dict[str, Any]:
     """
-    Processes `campaign_leads.csv`, determines which prospects are due for Step 1
-    (initial 3-RFP State Dossier value drop) or Step 2 (3+ days after Step 1),
-    and dispatches or stages up to `daily_limit` emails.
+    Processes `campaign_leads.csv`, determines which prospects are due for Step 2
+    (3+ days after Step 1) or Step 1 (initial 3-RFP State Dossier value drop),
+    enforces the automatic November volume ramp (`compute_dynamic_daily_limit`),
+    and dispatches or stages emails cleanly across 6-hour Render Cron runs.
     """
-    cap = daily_limit if daily_limit is not None else OUTBOUND_DAILY_LIMIT
+    now = datetime.now(timezone.utc)
+    now_iso = now.isoformat()
+    today_prefix = now.strftime("%Y-%m-%d")
+    three_days_ago = now - timedelta(days=3)
+
+    auto_daily_cap, per_cron_cap, ramp_phase_label = compute_dynamic_daily_limit(now)
+    daily_cap = daily_limit if daily_limit is not None else auto_daily_cap
+
+    try:
+        launch_d = date.fromisoformat(OUTBOUND_LAUNCH_DATE_STR)
+    except Exception:
+        launch_d = date(2026, 10, 31)
+    before_launch_date = (now.date() < launch_d) and not force_send_before_launch
+
     if not os.path.exists(CAMPAIGN_CSV_PATH):
         print(f"[!] {CAMPAIGN_CSV_PATH} not found. Run outreach_generator.py first.", flush=True)
         return {"status": "missing_csv", "processed": 0}
 
     sent_log = _load_sent_log()
     sent_map: Dict[str, Dict[str, Any]] = sent_log.get("sent", {})
-    unsubscribed = {str(u).lower() for u in (sent_log.get("unsubscribed") or [])}
+    unsubscribed = {str(u).lower() for u in (sent_log.get("unsubscribed") or [])} | set(ALREADY_CONTACTED_LEGACY_EMAILS)
+
+    # Count how many emails have ALREADY been sent in the current UTC calendar day
+    sent_today_count = sum(
+        1
+        for rec in sent_map.values()
+        if isinstance(rec, dict) and str(rec.get("sent_at") or "").startswith(today_prefix)
+    )
+    remaining_today_cap = max(0, daily_cap - sent_today_count)
+    # When sending live, pace across the 4 daily 6-hour cron runs (`per_cron_cap`); when staging in outbox, stage full `daily_cap`
+    live_credentials_present = bool(RESEND_API_KEY or (SMTP_USER and SMTP_PASSWORD))
+    effective_live_run_cap = min(remaining_today_cap, per_cron_cap if daily_limit is None else remaining_today_cap)
 
     with open(CAMPAIGN_CSV_PATH, mode="r", encoding="utf-8-sig", newline="") as f:
         rows = list(csv.DictReader(f))
 
-    now = datetime.now(timezone.utc)
-    now_iso = now.isoformat()
-    three_days_ago = now - timedelta(days=3)
-
-    live_credentials_present = bool(RESEND_API_KEY or (SMTP_USER and SMTP_PASSWORD))
-    staged_packets: List[Dict[str, Any]] = []
-    sent_count = 0
-    staged_count = 0
+    # Build candidate queue: prioritize due Step 2 follow-ups first, then fresh Step 1 value drops
+    step2_candidates: List[Tuple[int, Dict[str, str], str, str]] = []
+    step1_candidates: List[Tuple[int, Dict[str, str], str, str]] = []
 
     for row in rows:
-        if (sent_count + staged_count) >= cap:
-            break
-
         email = str(row.get("Email") or "").strip().lower()
         if not email or "@" not in email or email in unsubscribed:
             continue
-
-        fname = str(row.get("First Name") or "there").strip()
-        company = str(row.get("Company") or "your team").strip()
-        matched_state = str(row.get("Matched State") or "Federal & SLED").strip()
-        dossier_url = str(row.get("Top Contract Dossier URL") or "https://signaltender.net/#contracts").strip()
-
         prev = sent_map.get(email)
-        target_step = 0
-        subject = ""
-        body = ""
-
         if not prev:
-            target_step = 1
-            subject = str(row.get("Subject Line") or "").strip()
+            subj = str(row.get("Subject Line") or "").strip()
             body = str(row.get("Email Body") or "").strip()
+            if subj and body:
+                step1_candidates.append((1, row, subj, body))
         elif int(prev.get("step", 0)) == 1:
             last_sent_str = str(prev.get("sent_at") or "")
             try:
                 last_dt = datetime.fromisoformat(last_sent_str.replace("Z", "+00:00"))
                 if last_dt <= three_days_ago:
-                    target_step = 2
-                    subject = str(row.get("Followup Subject") or "").strip()
+                    subj = str(row.get("Followup Subject") or "").strip()
                     body = str(row.get("Followup Body") or "").strip()
+                    if subj and body:
+                        step2_candidates.append((2, row, subj, body))
             except Exception:
                 pass
 
-        if target_step == 0 or not subject or not body:
-            continue
+    ordered_candidates = step2_candidates + step1_candidates
+    staged_packets: List[Dict[str, Any]] = []
+    sent_count = 0
+    staged_count = 0
 
-        res = send_single_email(to_email=email, subject=subject, body_text=body, dry_run=dry_run)
+    should_stage_only = dry_run or before_launch_date or not live_credentials_present
+    batch_target = daily_cap if should_stage_only else effective_live_run_cap
+
+    for target_step, row, subject, body in ordered_candidates:
+        if (sent_count + staged_count) >= batch_target:
+            break
+
+        email = str(row.get("Email") or "").strip().lower()
+        fname = str(row.get("First Name") or "there").strip()
+        company = str(row.get("Company") or "your team").strip()
+        matched_state = str(row.get("Matched State") or "Federal & SLED").strip()
+        dossier_url = str(row.get("Top Contract Dossier URL") or "https://signaltender.net/#contracts").strip()
+
+        res = send_single_email(
+            to_email=email,
+            subject=subject,
+            body_text=body,
+            dry_run=should_stage_only,
+        )
         if res.get("status") == "sent":
             sent_count += 1
-            sent_map[email] = {
+            rec_obj = {
                 "step": target_step,
                 "sent_at": now_iso,
                 "company": company,
@@ -220,6 +389,8 @@ def run_outbound_drip(daily_limit: Optional[int] = None, dry_run: bool = False) 
                 "dossier_url": dossier_url,
                 "transport": res.get("transport"),
             }
+            sent_map[email] = rec_obj
+            _record_sent_email_supabase(email, rec_obj)
             time.sleep(1.2)
         elif res.get("status") == "staged_in_outbox":
             staged_count += 1
@@ -245,8 +416,12 @@ def run_outbound_drip(daily_limit: Optional[int] = None, dry_run: bool = False) 
                 json.dump(
                     {
                         "updated_at": now_iso,
+                        "launch_date": OUTBOUND_LAUNCH_DATE_STR,
+                        "ramp_phase": ramp_phase_label,
+                        "daily_cap": daily_cap,
+                        "per_6h_cron_cap": per_cron_cap,
                         "live_credentials_configured": live_credentials_present,
-                        "instructions": "Set RESEND_API_KEY or SMTP_USER + SMTP_PASSWORD in .env to auto-send this queue on every run.",
+                        "instructions": "Set RESEND_API_KEY or SMTP_USER + SMTP_PASSWORD in .env. Live sending automatically activates on OUTBOUND_LAUNCH_DATE (2026-10-31) and ramps 20 -> 30 -> 45 -> 60/day.",
                         "ready_count": len(staged_packets),
                         "emails": staged_packets,
                     },
@@ -256,18 +431,21 @@ def run_outbound_drip(daily_limit: Optional[int] = None, dry_run: bool = False) 
         except Exception:
             pass
 
-    mode_str = "LIVE DISPATCH" if (live_credentials_present and not dry_run) else "OUTBOX STAGING"
+    mode_str = "LIVE DISPATCH" if not should_stage_only else "OUTBOX STAGING"
     print(
-        f"[+] Outbound Mailer ({mode_str}): {sent_count} sent live, "
-        f"{staged_count} staged in outbox_ready_queue.json (Daily Cap: {cap}).",
+        f"[+] Outbound Mailer ({mode_str} | {ramp_phase_label}): {sent_count} sent live today ({sent_today_count + sent_count}/{daily_cap}), "
+        f"{staged_count} staged in outbox_ready_queue.json.",
         flush=True,
     )
     return {
         "status": "ok",
         "mode": mode_str,
+        "ramp_phase": ramp_phase_label,
         "sent_live": sent_count,
+        "sent_today_total": sent_today_count + sent_count,
         "staged_in_outbox": staged_count,
-        "daily_cap": cap,
+        "daily_cap": daily_cap,
+        "per_cron_cap": per_cron_cap,
     }
 
 
@@ -276,7 +454,8 @@ run_outbound_mailer = run_outbound_drip
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SignalTender Built-In Outbound Drip Mailer")
-    parser.add_argument("--limit", type=int, default=OUTBOUND_DAILY_LIMIT, help="Maximum emails to process in this batch")
+    parser.add_argument("--limit", type=int, default=None, help="Override daily email limit")
     parser.add_argument("--dry-run", action="store_true", help="Stage emails in outbox_ready_queue.json without sending")
+    parser.add_argument("--force-send", action="store_true", help="Allow live sending before OUTBOUND_LAUNCH_DATE")
     args = parser.parse_args()
-    run_outbound_drip(daily_limit=args.limit, dry_run=args.dry_run)
+    run_outbound_drip(daily_limit=args.limit, dry_run=args.dry_run, force_send_before_launch=args.force_send)
