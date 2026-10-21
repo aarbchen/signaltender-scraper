@@ -351,5 +351,65 @@
       "**Past Performance Reference with Quantified Metrics:** Customer reference letter from PA state agency or equivalent public-sector client documenting: (1) form management system or enterprise data platform project scope/complexity, (2) actual vs. planned delivery timeline, (3) achieved uptime/SLA performance percentage, and (4) Section 508/WCAG compliance certification status post-deployment."
     ],
     "enriched_at": "2026-10-21T03:03:45.460839+00:00"
+  },
+  "688": {
+    "id": "688",
+    "title": "CPH Telephonic & On-Demand Communications Network Platform (RFQ033851)",
+    "agency": "City of Columbus (OH)",
+    "jurisdiction_badge": "OHIO // OHIOBUYS",
+    "vertical": "Network, Telecom & Hardware",
+    "closing_date": "11/09/2026",
+    "source_url": "https://columbus.bonfirehub.com/opportunities/258013",
+    "dossier_url": "https://signaltender.net/contracts/rfp/cph-telephonic-on-demand-communications-network-platform-rfq033851-688.html",
+    "primary_naics": "517312 \u2014 Wireless Telecommunications Carriers (except Satellite)",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Telecommunications and Transmission Services (Telephone, Internet, and Video Services)",
+    "primary_nigp": "920-45 \u2014 Telecommunications Services",
+    "sba_size_standard": "1,500 employees",
+    "compliance_posture": "SOC 2 Type II / NIST CSF 2.0 \u2022 Encryption in Transit/Rest \u2022 Section 508 / WCAG 2.1 AA VPAT",
+    "teaming_posture": "Local SBE / MWBE Good-Faith Subcontracting (15%\u201325%) + 3 Public-Sector Past Performance Refs",
+    "igce_ptw_posture": "Wrap ~1.76x (Hybrid Site) \u2022 Target PTW: -6.0% vs. IGCE \u2022 Lead Network Arch $154/hr | Field Eng $128/hr",
+    "key_personnel_lcats": "Telecom Project Manager (PMP/BICSI, 8+ yrs) \u2022 Lead Network Infrastructure Engineer (CCNP/CCIE, 7+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Section 3.1 - CPH Platform Mastery:** Demonstrate proven architecture expertise in deploying unified telephonic & on-demand communications platforms for mid-sized municipal governments (250K+ population), emphasizing modular design that scales across emergency services, administrative, and citizen-facing channels.",
+      "**Section 3.2 - Security & Compliance Excellence:** Establish unmatched commitment to FedRAMP/CJIS security standards, Section 508/WCAG 2.1 AA accessibility certification, and industry-leading 99.95%+ uptime SLAs validated through recent municipal telecom case studies and third-party audit reports.",
+      "**Section M - Public Sector Track Record:** Showcase 3+ recent successful deployments (past 36 months) for comparable Ohio/Midwest municipalities with documented SLA attainment, zero critical security incidents, and measurable citizen adoption metrics that directly parallel Columbus operational requirements."
+    ],
+    "evidence_needed": [
+      "Third-party SOC 2 Type II audit report (dated within 12 months) + FedRAMP/CJIS certification letters confirming security controls; include architecture diagram showing Section 508/WCAG 2.1 AA compliance testing results and automated accessibility remediation logs.",
+      "Three reference letters from municipal customers (population 200K+) deployed within past 36 months with: (a) monthly uptime metrics demonstrating 99.9%+ availability; (b) signed SLA achievement attestations; (c) quantified user adoption rates and citizen satisfaction scores (NPS/CSAT); (d) documented transition/training completion timelines."
+    ],
+    "enriched_at": "2026-10-21T10:53:06.655283+00:00"
+  },
+  "687": {
+    "id": "687",
+    "title": "Gohio Commute Statewide Mobility SaaS Platform & Data Portal (RFP-GOHIO-2026-OARC)",
+    "agency": "Mid-Ohio Regional Planning Commission (MORPC) / OARC",
+    "jurisdiction_badge": "OHIO // OHIOBUYS",
+    "vertical": "Cloud & Infrastructure",
+    "closing_date": "11/13/2026",
+    "source_url": "https://www.morpc.org/wp-content/uploads/2026/09/RFP_Gohio_2026_OARC.pdf",
+    "dossier_url": "https://signaltender.net/contracts/rfp/gohio-commute-statewide-mobility-saas-platform-data-portal-rfp-gohio-2026-687.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 Information Technology Professional Services: Software Development / Software Maintenance (Note: verify against GSA PSC Manual; DA01 is IT Software Development)",
+    "primary_nigp": "920-45 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "SOC 2 Type II / NIST CSF 2.0 \u2022 Encryption in Transit/Rest \u2022 Section 508 / WCAG 2.1 AA VPAT",
+    "teaming_posture": "Local SBE / MWBE Good-Faith Subcontracting (15%\u201325%) + 3 Public-Sector Past Performance Refs",
+    "igce_ptw_posture": "Wrap ~1.82x (Contractor-Site) \u2022 Target PTW: -5.2% vs. IGCE \u2022 Principal Cloud Arch $165/hr | DevSecOps $146/hr",
+    "key_personnel_lcats": "Program Manager (PMP, 10+ yrs) \u2022 Lead Cloud/DevSecOps Architect (AWS/Azure Pro + CISSP, 8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Section 3.2 Security & Compliance Excellence:** Demonstrate proven FedRAMP/StateRAMP authorization, Section 508/WCAG 2.1 AA accessibility certification, and 99.9%+ SLA uptime track record on statewide mobility platforms\u2014positioning our cloud architecture as a zero-risk, audit-ready solution aligned with MORPC's federal/state compliance mandates.",
+      "**Section 3.1 Phased Deployment & Rapid Mobilization:** Showcase accelerated implementation methodology with modular cloud-native architecture delivering MVP within 90 days, reducing MORPC deployment risk and enabling quick stakeholder validation\u2014supported by 3+ successful public-sector SaaS transitions with measurable adoption metrics.",
+      "**Section M Technical Leadership & Public-Sector Domain Mastery:** Highlight specialized expertise in DOT/mobility data integration, GTFS/ITS protocol expertise, and dedicated state/local government account management\u2014proving superior capability to execute integrated commute analytics beyond generic SaaS vendors."
+    ],
+    "evidence_needed": [
+      "**WCAG 2.1 AA Accessibility & Section 508 Compliance Audit Report:** Third-party accessibility assessment (VPAT) or automated WCAG 2.1 AA conformance validation demonstrating all UI/portal components meet federal accessibility standards for diverse user populations\u2014required to satisfy Section 3.2 evaluation baseline.",
+      "**Cloud Infrastructure SLA & Security Certification Portfolio:** AWS/Azure FedRAMP or StateRAMP authorization letter, SOC 2 Type II audit report dated within 12 months, and documented 99.9%+ uptime SLA guarantee with financial penalties\u2014proving operational resilience and compliance maturity for statewide mission-critical mobility data platform."
+    ],
+    "enriched_at": "2026-10-21T10:53:58.257195+00:00"
   }
 }

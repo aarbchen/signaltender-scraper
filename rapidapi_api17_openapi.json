@@ -1,0 +1,342 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Oral Presentation, Tech-Demo & Murder-Board Prep API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Transforms RFP Section L/M oral presentation instructions, PWS scope, and Key Personnel profiles into a slide-by-slide Shipley Oral Presentation Deck Blueprint with verbatim speaker scripts, a step-by-step Live Technical Demonstration Runbook with offline failover contingencies, and an adversarial SSEB Murder-Board Q&A prep bank."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/oral-presentation-prep": {
+      "post": {
+        "summary": "Generate GovCon Oral Presentation, Tech-Demo & Murder-Board Prep",
+        "operationId": "Generate GovCon Oral Presentation, Tech-Demo & Murder-Board Prep",
+        "description": "Builds a slide-by-slide Shipley Oral Presentation Deck Blueprint, Live Tech-Demo Runbook, and adversarial SSEB Murder-Board Q&A bank.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OralPresentationPrepRequest"
+              },
+              "example": {
+                "rfp_oral_instructions_and_sow_text": "SOLICITATION 47QFCA-26-R-0088 (GSA FEDSIM / DoD Zero-Trust Cloud & AI SOC Modernization): Section L.8 Oral Presentation & Live Technical Demonstration Instructions: Offerors invited to Phase II Orals shall conduct a 90-minute interactive session before the Technical Evaluation Board (TEB): (1) 45-Minute Oral Technical & Management Presentation delivered solely by proposed Key Personnel (Program Manager, Principal Zero-Trust Cloud Architect, Lead AI/SOAR Engineer; no corporate BD executives permitted to speak); maximum 15 slides. (2) 20-Minute Live Technical Demonstration in an AWS GovCloud IL5 sandbox showing automated SIEM alert triage, MITRE ATT&CK correlation, and zero-downtime Kubernetes container quarantine. (3) 25-Minute On-the-Spot Murder-Board Q&A following a 15-minute caucus. Section M.2 Evaluation Factors: Technical Approach & Live Demo (Factor 1, Most Important), Key Personnel Mastery & Oral Communication (Factor 2), and 30-Day Transition-In Risk Mitigation (Factor 3).",
+                "bidder_solution_and_key_personnel_context": "Key Personnel: (1) Sarah Jenkins, PMP/CISSP (Program Manager, 14 yrs DoD FEDSIM PM experience, led 18-day zero-outage transition on USAF AOC); (2) Dr. Marcus Vance, AWS Pro / CISSP-ISSAP (Principal Zero-Trust Architect, designed DISA IL5 landing zones across 42,000 endpoints); (3) Elena Rostova, CISM / CKS (Lead AI/SOAR Engineer, built automated Splunk/CrowdStrike SOAR playbooks reducing MTTR from 42 mins to 3.4 mins). Solution Discriminators: Pre-accredited Infrastructure-as-Code (Terraform) FedRAMP High / DoD IL5 landing zone templates; 98.7% incumbent staff retention track record; live fallback local container replay if government conference room Wi-Fi blocks GovCloud VPN.",
+                "presentation_format": "far_15_102_oral_technical_proposal",
+                "total_session_minutes": 90
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Oral Presentation, Tech-Demo & Murder-Board Q&A prep generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OralPresentationPrepResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "summary": "Gateway Health & SLA Check",
+        "operationId": "Check Gateway Health Status",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MurderBoardQuestionRow": {
+        "description": "Adversarial SSEB / Contracting Officer Q&A question with gold-standard response.",
+        "properties": {
+          "question_id": {
+            "description": "Identifier for the Murder-Board question (e.g., 'MB-01').",
+            "title": "Question Id",
+            "type": "string"
+          },
+          "category": {
+            "description": "Evaluation risk domain targeted by the adversarial question.",
+            "enum": [
+              "TECHNICAL_ARCHITECTURE_RISK",
+              "TRANSITION_IN_AND_DAY_1_READINESS",
+              "KEY_PERSONNEL_RETENTION_AND_STAFFING",
+              "CYBERSECURITY_CMMC_ATO_COMPLIANCE",
+              "COST_REALISM_AND_SCOPE_CREEP"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "adversarial_evaluator_question": {
+            "description": "Tough, realistic question an SSEB evaluator, Contracting Officer, or incumbent-biased panelist is likely to ask.",
+            "title": "Adversarial Evaluator Question",
+            "type": "string"
+          },
+          "hidden_evaluator_concern": {
+            "description": "The underlying risk or Weakness the evaluator is probing for.",
+            "title": "Hidden Evaluator Concern",
+            "type": "string"
+          },
+          "recommended_responder_role": {
+            "description": "Which Key Personnel speaker should take the lead on answering this question.",
+            "title": "Recommended Responder Role",
+            "type": "string"
+          },
+          "gold_standard_answer_script": {
+            "description": "Concise, structured Answer-First -> Technical Proof -> Quantified Past Performance response script.",
+            "title": "Gold Standard Answer Script",
+            "type": "string"
+          },
+          "trap_to_avoid": {
+            "description": "Specific unsubstantiated promise, scope admission, or FAR 15.306 deficiency trap to avoid during live Q&A.",
+            "title": "Trap To Avoid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question_id",
+          "category",
+          "adversarial_evaluator_question",
+          "hidden_evaluator_concern",
+          "recommended_responder_role",
+          "gold_standard_answer_script",
+          "trap_to_avoid"
+        ],
+        "title": "MurderBoardQuestionRow",
+        "type": "object"
+      },
+      "OralSlideBlueprintRow": {
+        "description": "Single slide blueprint and speaker script mapped to Section L/M evaluation criteria.",
+        "properties": {
+          "slide_number": {
+            "description": "Sequential slide number in the oral presentation deck.",
+            "minimum": 1,
+            "title": "Slide Number",
+            "type": "integer"
+          },
+          "slide_title_and_action_caption": {
+            "description": "Evaluator-first Shipley action caption / slide title stating the core discriminator.",
+            "title": "Slide Title And Action Caption",
+            "type": "string"
+          },
+          "assigned_key_personnel_speaker": {
+            "description": "Key Personnel role responsible for presenting this slide (e.g., 'Program Manager (PMP)', 'Lead Zero-Trust Architect').",
+            "title": "Assigned Key Personnel Speaker",
+            "type": "string"
+          },
+          "time_allocation_minutes": {
+            "description": "Recommended speaking duration in minutes to stay within the agency timer.",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "title": "Time Allocation Minutes",
+            "type": "number"
+          },
+          "mapped_section_m_factor": {
+            "description": "RFP Section L/M evaluation factor or subfactor satisfied by this slide.",
+            "title": "Mapped Section M Factor",
+            "type": "string"
+          },
+          "visual_graphic_concept": {
+            "description": "High-impact diagram, architecture topology, or metric callout box to display on the slide.",
+            "title": "Visual Graphic Concept",
+            "type": "string"
+          },
+          "verbatim_speaker_script_and_proof_points": {
+            "description": "Structured verbatim talking points weaving Feature-Benefit-Proof metrics and ghosting discriminators.",
+            "title": "Verbatim Speaker Script And Proof Points",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slide_number",
+          "slide_title_and_action_caption",
+          "assigned_key_personnel_speaker",
+          "time_allocation_minutes",
+          "mapped_section_m_factor",
+          "visual_graphic_concept",
+          "verbatim_speaker_script_and_proof_points"
+        ],
+        "title": "OralSlideBlueprintRow",
+        "type": "object"
+      },
+      "TechDemoRunbookStep": {
+        "description": "Step-by-step live technical demonstration or coding challenge runbook entry.",
+        "properties": {
+          "step_sequence": {
+            "description": "Chronological step number in the live demo scenario.",
+            "minimum": 1,
+            "title": "Step Sequence",
+            "type": "integer"
+          },
+          "scenario_objective": {
+            "description": "User story, PWS task requirement, or technical challenge objective demonstrated in this step.",
+            "title": "Scenario Objective",
+            "type": "string"
+          },
+          "live_operator_actions": {
+            "description": "Exact UI clicks, CLI commands, API calls, or dashboard telemetry views shown live on screen.",
+            "title": "Live Operator Actions",
+            "type": "string"
+          },
+          "evaluator_takeaway_and_win_theme": {
+            "description": "What the narrator tells the Source Selection Evaluation Board (SSEB) to score a Strength.",
+            "title": "Evaluator Takeaway And Win Theme",
+            "type": "string"
+          },
+          "offline_failover_contingency": {
+            "description": "Pre-recorded backup artifact, sandbox snapshot, or failover step if live network/VPN connectivity drops during orals.",
+            "title": "Offline Failover Contingency",
+            "type": "string"
+          }
+        },
+        "required": [
+          "step_sequence",
+          "scenario_objective",
+          "live_operator_actions",
+          "evaluator_takeaway_and_win_theme",
+          "offline_failover_contingency"
+        ],
+        "title": "TechDemoRunbookStep",
+        "type": "object"
+      },
+      "OralPresentationPrepRequest": {
+        "description": "Input payload for POST /v1/generate/oral-presentation-prep.",
+        "example": {
+          "bidder_solution_and_key_personnel_context": "Key Personnel: (1) Sarah Jenkins, PMP/CISSP (Program Manager, 14 yrs DoD FEDSIM PM experience, led 18-day zero-outage transition on USAF AOC); (2) Dr. Marcus Vance, AWS Pro / CISSP-ISSAP (Principal Zero-Trust Architect, designed DISA IL5 landing zones across 42,000 endpoints); (3) Elena Rostova, CISM / CKS (Lead AI/SOAR Engineer, built automated Splunk/CrowdStrike SOAR playbooks reducing MTTR from 42 mins to 3.4 mins). Solution Discriminators: Pre-accredited Infrastructure-as-Code (Terraform) FedRAMP High / DoD IL5 landing zone templates; 98.7% incumbent staff retention track record; live fallback local container replay if government conference room Wi-Fi blocks GovCloud VPN.",
+          "presentation_format": "far_15_102_oral_technical_proposal",
+          "rfp_oral_instructions_and_sow_text": "SOLICITATION 47QFCA-26-R-0088 (GSA FEDSIM / DoD Zero-Trust Cloud & AI SOC Modernization): Section L.8 Oral Presentation & Live Technical Demonstration Instructions: Offerors invited to Phase II Orals shall conduct a 90-minute interactive session before the Technical Evaluation Board (TEB): (1) 45-Minute Oral Technical & Management Presentation delivered solely by proposed Key Personnel (Program Manager, Principal Zero-Trust Cloud Architect, Lead AI/SOAR Engineer; no corporate BD executives permitted to speak); maximum 15 slides. (2) 20-Minute Live Technical Demonstration in an AWS GovCloud IL5 sandbox showing automated SIEM alert triage, MITRE ATT&CK correlation, and zero-downtime Kubernetes container quarantine. (3) 25-Minute On-the-Spot Murder-Board Q&A following a 15-minute caucus. Section M.2 Evaluation Factors: Technical Approach & Live Demo (Factor 1, Most Important), Key Personnel Mastery & Oral Communication (Factor 2), and 30-Day Transition-In Risk Mitigation (Factor 3).",
+          "total_session_minutes": 90
+        },
+        "properties": {
+          "rfp_oral_instructions_and_sow_text": {
+            "description": "Raw RFP Section L oral presentation rules (time limits, slide caps, allowed speakers, caucus rules, live tech-demo scenarios), Section M evaluation factors, and Section C/PWS technical scope (40 to 100,000 characters).",
+            "maxLength": 100000,
+            "minLength": 40,
+            "title": "Rfp Oral Instructions And Sow Text",
+            "type": "string"
+          },
+          "bidder_solution_and_key_personnel_context": {
+            "description": "Proposed Key Personnel names/roles/clearances, technical architecture, past performance metrics, and competitive win themes to weave into the speaker scripts and Murder-Board Q&A answers.",
+            "maxLength": 100000,
+            "minLength": 30,
+            "title": "Bidder Solution And Key Personnel Context",
+            "type": "string"
+          },
+          "presentation_format": {
+            "default": "far_15_102_oral_technical_proposal",
+            "description": "Oral evaluation format: 'far_15_102_oral_technical_proposal' (default Federal FAR 15.102 / GSA FEDSIM Phase II Orals), 'live_technical_demo_and_coding_challenge' (hands-on tech demo & scenario execution), 'executive_key_personnel_orals_and_qna' (Key Personnel oral defense), or 'sled_finalist_vendor_interview' (State/Local BAFO interview).",
+            "enum": [
+              "far_15_102_oral_technical_proposal",
+              "live_technical_demo_and_coding_challenge",
+              "executive_key_personnel_orals_and_qna",
+              "sled_finalist_vendor_interview"
+            ],
+            "title": "Presentation Format",
+            "type": "string"
+          },
+          "total_session_minutes": {
+            "default": 90,
+            "description": "Total scheduled duration of the oral presentation, live demo, and Q&A session in minutes (15 to 240; defaults to 90).",
+            "maximum": 240,
+            "minimum": 15,
+            "title": "Total Session Minutes",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "rfp_oral_instructions_and_sow_text",
+          "bidder_solution_and_key_personnel_context"
+        ],
+        "title": "OralPresentationPrepRequest",
+        "type": "object"
+      },
+      "OralPresentationPrepResponse": {
+        "description": "Structured response payload for POST /v1/generate/oral-presentation-prep.",
+        "properties": {
+          "solicitation_and_format_summary": {
+            "description": "Identified solicitation title/ID, oral format, speaker restrictions, and Section M evaluation hierarchy.",
+            "title": "Solicitation And Format Summary",
+            "type": "string"
+          },
+          "recommended_time_budget_breakdown": {
+            "description": "Minute-by-minute time allocation across Opening/Intros, Core Technical Slides, Live Demo, Caucus Buffer, and Q&A.",
+            "title": "Recommended Time Budget Breakdown",
+            "type": "string"
+          },
+          "key_personnel_speaker_choreography": {
+            "description": "Rules of engagement and handoff choreography ensuring every Key Personnel speaker demonstrates deep technical mastery without talking over teammates.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Key Personnel Speaker Choreography",
+            "type": "array"
+          },
+          "slide_deck_blueprint": {
+            "description": "Slide-by-slide Shipley oral presentation blueprint with action captions, speaker assignments, visual concepts, and verbatim scripts.",
+            "items": {
+              "$ref": "#/components/schemas/OralSlideBlueprintRow"
+            },
+            "minItems": 4,
+            "title": "Slide Deck Blueprint",
+            "type": "array"
+          },
+          "live_tech_demo_runbook": {
+            "description": "Step-by-step live technical demonstration runbook with operator actions, evaluator strength callouts, and offline failover contingencies.",
+            "items": {
+              "$ref": "#/components/schemas/TechDemoRunbookStep"
+            },
+            "minItems": 2,
+            "title": "Live Tech Demo Runbook",
+            "type": "array"
+          },
+          "murder_board_qna_bank": {
+            "description": "Adversarial SSEB Murder-Board questions with hidden evaluator concerns, responder roles, gold-standard answers, and traps to avoid.",
+            "items": {
+              "$ref": "#/components/schemas/MurderBoardQuestionRow"
+            },
+            "minItems": 4,
+            "title": "Murder Board Qna Bank",
+            "type": "array"
+          },
+          "closing_evaluator_leave_behind_pitch": {
+            "description": "Final 60-second executive closing statement designed to anchor 'High Confidence / Multiple Significant Strengths' before the SSEB caucuses.",
+            "title": "Closing Evaluator Leave Behind Pitch",
+            "type": "string"
+          }
+        },
+        "required": [
+          "solicitation_and_format_summary",
+          "recommended_time_budget_breakdown",
+          "key_personnel_speaker_choreography",
+          "slide_deck_blueprint",
+          "live_tech_demo_runbook",
+          "murder_board_qna_bank",
+          "closing_evaluator_leave_behind_pitch"
+        ],
+        "title": "OralPresentationPrepResponse",
+        "type": "object"
+      }
+    }
+  }
+}

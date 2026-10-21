@@ -36,7 +36,8 @@ const RAPIDAPI_HOSTS = {
   match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
   analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
   generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com",
-  generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com"
+  generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
+  generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -248,7 +249,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 9-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 10-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -267,10 +268,13 @@ const TOOLS = [
             "texas",
             "california",
             "florida",
-            "maryland", "illinois", "pennsylvania",
+            "maryland",
+            "illinois",
+            "pennsylvania",
+            "ohio",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1158,6 +1162,92 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_oral_presentation_prep",
+    "title": "Build GovCon Oral Presentation Deck, Live Tech-Demo Runbook & Murder-Board Q&A",
+    "description": "Generate a FAR 15.102 & Shipley Phase-II Oral Presentation slide-by-slide blueprint, Key Personnel speaker-attributed talking points, a minute-by-minute Live Technical Demonstration / Scenario Challenge runbook with zero-downtime failover contingencies, an adversarial SSEB 'Murder Board' Q&A coaching matrix, and evaluator caucus takeaways from RFP Section L/M oral instructions. This is a read-only, stateless generative preparation call (requires X-RapidAPI-Key; `rfp_oral_instructions_and_sow_text` accepts 30 to 120,000 characters, `proposed_solution_and_key_personnel` maps slides strictly to eligible Key Personnel speakers, optional `known_incumbent_and_risk_areas` sharpens Murder-Board trap questions, and `presentation_format_mode` selects 'COMBINED_ORALS_TECH_DEMO_AND_QA' [default], 'EXECUTIVE_SLIDE_BRIEFING_AND_QA', 'LIVE_TECHNICAL_SCENARIO_CHALLENGE', or 'KEY_PERSONNEL_INTERVIEW_AND_CAUCUS'). Use this tool when preparing for Phase-II advisory down-select oral presentations, live technical demonstrations, or SSEB Q&A caucuses; use `generate_rfp_response` instead for written Volume I Technical Approach prose, or `match_key_personnel` for written Volume II resumes and Letters of Commitment.",
+    "annotations": {
+      "title": "Build GovCon Oral Presentation Deck, Live Tech-Demo Runbook & Murder-Board Q&A",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_oral_instructions_and_sow_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 120000,
+          "description": "Raw RFP Section L Oral Presentation / Live Tech-Demo rules (time limits, slide limits, speaker eligibility restrictions under FAR 15.102, live scenario prompts), Section M evaluation criteria, and PWS/SOW technical scope (30 to 120,000 characters)."
+        },
+        "proposed_solution_and_key_personnel": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 80000,
+          "description": "Proposed technical/management solution architecture, key discriminators, and named Key Personnel speakers (roles, clearances, domain expertise, and past performance proof points) who will present."
+        },
+        "known_incumbent_and_risk_areas": {
+          "type": "string",
+          "maxLength": 30000,
+          "description": "Optional competitive context, incumbent vulnerabilities, transition risks, or technical gaps where the Source Selection Evaluation Board (SSEB) is likely to probe during Murder-Board Q&A."
+        },
+        "presentation_format_mode": {
+          "type": "string",
+          "enum": [
+            "COMBINED_ORALS_TECH_DEMO_AND_QA",
+            "EXECUTIVE_SLIDE_BRIEFING_AND_QA",
+            "LIVE_TECHNICAL_SCENARIO_CHALLENGE",
+            "KEY_PERSONNEL_INTERVIEW_AND_CAUCUS"
+          ],
+          "default": "COMBINED_ORALS_TECH_DEMO_AND_QA",
+          "description": "Oral presentation format mode: 'COMBINED_ORALS_TECH_DEMO_AND_QA' (default, slide deck + live technical demo + Q&A), 'EXECUTIVE_SLIDE_BRIEFING_AND_QA' (Shipley slide deck + Q&A), 'LIVE_TECHNICAL_SCENARIO_CHALLENGE' (on-the-spot engineering problem/coding challenge), or 'KEY_PERSONNEL_INTERVIEW_AND_CAUCUS' (structured SSEB oral interview)."
+        }
+      },
+      "required": [
+        "rfp_oral_instructions_and_sow_text",
+        "proposed_solution_and_key_personnel"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "predicted_oral_confidence_rating": {
+          "type": "string",
+          "description": "Predicted DoD/Federal Source Selection Oral Confidence rating (e.g., High Confidence / Outstanding)."
+        },
+        "slide_deck_blueprint": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Slide-by-slide Shipley oral presentation deck with assigned Key Personnel speaker, time budget, visual layout, and talking points."
+        },
+        "live_tech_demo_runbook": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Minute-by-minute live technical demonstration runbook with operator actions, telemetry proof, and backup failover plans."
+        },
+        "murder_board_qa_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Adversarial SSEB Murder-Board questions paired with Answer-First-Elaborate-Anchor responses and trap-avoidance rules."
+        },
+        "evaluator_caucus_takeaways": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Verbatim strengths designed for SSEB evaluators to record on consensus scoring sheets."
+        }
+      }
+    }
   }
 ];
 
@@ -1177,7 +1267,8 @@ const ENDPOINT_MAP = {
   match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" },
   analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" },
   generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" },
-  generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" }
+  generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" },
+  generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1280,7 +1371,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.1.0"
+            version: "1.3.0"
           }
         }
       });

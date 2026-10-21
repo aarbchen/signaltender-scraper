@@ -50,6 +50,7 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/audit/far-dfars-clauses": "far-dfars-cmmc-clause-flow-down-auditor-api.p.rapidapi.com",
     "/v1/generate/teaming-strategy": "small-business-set-aside-subcontracting-calculator-api.p.rapidapi.com",
     "/v1/generate/past-performance": "cpars-past-performance-volume-generator-api.p.rapidapi.com",
+    "/v1/generate/oral-presentation-prep": "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -60,7 +61,9 @@ JURISDICTION_LABELS = {
     "florida": "FLORIDA // MFMP VIP",
     "maryland": "MARYLAND // EMMA & BONFIRE",
     "new_york": "NEW YORK // NYSCR",
-    "illinois": "ILLINOIS // BIDBUY", "pennsylvania": "PENNSYLVANIA // eMARKETPLACE",
+    "illinois": "ILLINOIS // BIDBUY",
+    "pennsylvania": "PENNSYLVANIA // eMARKETPLACE",
+    "ohio": "OHIO // OHIOBUYS",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -111,6 +114,18 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
         return "pennsylvania"
+    if (
+        "ohiobuys.ohio.gov" in url
+        or "ohioauditor.gov" in url
+        or "morpc.org" in url
+        or "franklincountyohio.gov" in url
+        or "columbus.bonfirehub.com" in url
+        or "cincinnati-oh.bonfirehub.com" in url
+        or "westerville.bonfirehub.com" in url
+        or "dps.bonfirehub.com" in url
+        or "akronohio.bonfirehub.com" in url
+    ):
+        return "ohio"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -126,6 +141,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
         return "pennsylvania"
+    if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
+        return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
     if "federal government" in agency:

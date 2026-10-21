@@ -32,6 +32,8 @@ JURISDICTION_WEBHOOKS = {
     "maryland": os.getenv("DISCORD_MARYLAND_WEBHOOK_URL"),
     "new_york": os.getenv("DISCORD_NEW_YORK_WEBHOOK_URL"),
     "illinois": os.getenv("DISCORD_ILLINOIS_WEBHOOK_URL"),
+    "pennsylvania": os.getenv("DISCORD_PENNSYLVANIA_WEBHOOK_URL"),
+    "ohio": os.getenv("DISCORD_OHIO_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -44,6 +46,8 @@ JURISDICTION_LABELS = {
     "maryland": "MARYLAND // EMMA & BONFIRE",
     "new_york": "NEW YORK // NYSCR",
     "illinois": "ILLINOIS // BIDBUY",
+    "pennsylvania": "PENNSYLVANIA // eMARKETPLACE",
+    "ohio": "OHIO // OHIOBUYS",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -114,6 +118,18 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
         return "pennsylvania"
+    if (
+        "ohiobuys.ohio.gov" in url
+        or "ohioauditor.gov" in url
+        or "morpc.org" in url
+        or "franklincountyohio.gov" in url
+        or "columbus.bonfirehub.com" in url
+        or "cincinnati-oh.bonfirehub.com" in url
+        or "westerville.bonfirehub.com" in url
+        or "dps.bonfirehub.com" in url
+        or "akronohio.bonfirehub.com" in url
+    ):
+        return "ohio"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -129,6 +145,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
         return "pennsylvania"
+    if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
+        return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
     if "federal government" in agency:

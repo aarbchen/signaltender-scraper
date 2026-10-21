@@ -81,3 +81,5 @@ flowchart LR
 | **Phase 3: MCP Server Registry Distribution** | **COMPLETED** | • **DONE:** Built `@signaltender/mcp-server` (both local stdio and 24/7 remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`)<br>• **DONE:** Submitted to Glama.ai and published (`status: active`) on the **Official MCP Registry (`io.github.aarbchen/signaltender-mcp`)** | **~0.5 hrs/week** | **$25,000 – $50,000** |
 | **Phase 4: Compounding Scale & Expansion** | **Months 6 – 18** | • Scale cold outbound volume + organic pSEO/RapidAPI/MCP traffic + additional SLED state portals & vertical APIs (APIs 12–15) | **< 1 hr/week** | **$86,000+ ($1M+ ARR)** |
 
+
+- **API #17 (Live):** GovCon Oral Presentation, Tech-Demo & Murder-Board Prep API (`POST /v1/generate/oral-presentation-prep`) + Portal #10 Ohio Buys (`oh_scraper.py`).

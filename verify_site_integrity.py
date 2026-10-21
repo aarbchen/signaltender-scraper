@@ -107,6 +107,7 @@ def check_html_file(fpath: str) -> str:
         "#contracts/maryland",
         "#contracts/illinois",
             "#contracts/pennsylvania",
+            "#contracts/ohio",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -216,6 +217,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "maryland": "MD",
         "illinois": "IL",
         "pennsylvania": "PA",
+        "ohio": "OH",
         "new_york": "NY",
     }
     for sk in state_keys:
@@ -400,6 +402,11 @@ window.openApiSandbox('product-key-personnel');
 window.closeApiSandbox();
 window.setCheckoutBilling('annual');
 window.setCheckoutBilling('monthly');
+if (typeof window.selectInteractiveDossier !== 'function') {
+  throw new Error('window.selectInteractiveDossier is undefined!');
+}
+window.selectInteractiveDossier('ohio');
+window.selectInteractiveDossier('federal');
 """
     )
 

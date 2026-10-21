@@ -309,6 +309,31 @@ ENDPOINTS = [
             ),
         },
     },
+    {
+        "id": "API 17",
+        "name": "GovCon Oral Presentation, Tech-Demo & Murder-Board Prep API",
+        "method": "POST",
+        "path": "/v1/generate/oral-presentation-prep",
+        "rapid_host": "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
+        "payload": {
+            "rfp_oral_instructions_and_sow_text": (
+                "SOLICITATION FA8732-26-R-0088 (USAF Zero-Trust Cloud & DevSecOps Modernization — Phase II Advisory Down-Select): "
+                "Section L.8 Phase II Oral Presentation & Live Technical Demonstration Instructions: "
+                "90-Minute Total Session (60-minute structured Oral Presentation + 15-minute Live Technical Demonstration "
+                "+ 15-minute interactive Government Q&A / Caucus). Maximum 18 slides. Only proposed Key Personnel may present."
+            ),
+            "bidder_solution_and_key_personnel_context": (
+                "Key Personnel Speakers: (1) Marcus Vance, PMP — Program Manager (TS/SCI); "
+                "(2) Elena Rostova, CISSP — Lead Zero-Trust Cloud Architect; "
+                "(3) Devon Brooks, CKA — DevSecOps & cATO Lead. "
+                "Technical Solution: Pre-hardened BigBang IL5 Kubernetes landing zone with automated STIG enforcement and 14-day Day-1 transition Playbook."
+            ),
+            "known_incumbent_and_risk_areas": (
+                "Challenger Small Business unseating a 5-year Large Business incumbent."
+            ),
+            "presentation_format_mode": "COMBINED_ORALS_TECH_DEMO_AND_QA",
+        },
+    },
 ]
 
 
