@@ -400,6 +400,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "pennsylvania":
         compliance_posture = "PA OA-ITB Security Policy • SOC 2 Type II / NIST 800-53 • PA EIT Accessibility VPAT"
         teaming_posture = "PA DGS BDISBO SDB/VBE Subcontracting Goal (15%–25%) + COSTARS/ITQ Alignment + 3 SLED Refs"
+    elif j_key == "ohio":
+        compliance_posture = "Ohio DAS OIT ITP-B.1 Cloud Security • SOC 2 Type II / NIST 800-53 • Ohio IT Accessibility VPAT"
+        teaming_posture = "Ohio DAS MBE (15% Set-Aside/Sub Goal) + EDGE Participation + STS033 Schedule + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -471,7 +474,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
         posture_line = (
             f"**Cyber Compliance & Teaming Posture (API #06/#11/#12):** `{c_pos}` | `{t_pos}`\n"
-            f"**IGCE Wrap-Rate, PTW & Key LCATs (API #13/#15/#16):** `{ptw_pos}` | `{lcat_pos}`\n"
+            f"**IGCE Wrap-Rate, PTW, Key LCATs & Orals (API #13/#15/#16/#17):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):

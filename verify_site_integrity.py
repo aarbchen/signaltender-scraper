@@ -307,6 +307,78 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
                 if state_title not in snippet and state_abbrev_map.get(sk, "") not in snippet:
                     fail(f"{label}: Prose portal list '{snippet.strip()}' is missing active state '{state_title}'")
 
+
+def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
+    """
+    Enforces that whenever ANY new API (1..N) or new Portal (1..P) is added to SignalTender,
+    all client-facing Tier 1 / Tier 2 value-proposition sections — especially #capture-moat
+    ("Why Basic Bid Aggregators Fail Capture Teams" / "What SignalTender's AI Capture Engine Delivers
+    With Every Lead"), the Hero Tier 2 CTA card, #checkout-card-tier2, the #page-checkout API
+    callout banner, and pseo_generator.py RFP dossiers — are updated in lockstep so clients
+    always see 100% of what they are getting.
+    """
+    import pseo_generator
+
+    n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
+    n_portals = len(pseo_generator.JURISDICTIONS)
+    state_keys = [k for k in pseo_generator.JURISDICTIONS.keys() if k not in ("federal", "municipal")]
+    n_states = len(state_keys)
+
+    # 1. Verify #capture-moat contains every API number (#01 .. #N) and current portal/state counts
+    m_moat = re.search(r'<section id="capture-moat".*?</section>', index_txt, flags=re.S)
+    if not m_moat:
+        fail("index.html: Missing <section id=\"capture-moat\">")
+    moat_html = m_moat.group(0)
+    for k in range(1, n_apis + 1):
+        tag = f"#{k:02d}"
+        if tag not in moat_html:
+            fail(f"index.html (#capture-moat): Missing reference to API {tag}. Always update #capture-moat when enhancing tiers/APIs!")
+    for req_moat_phrase in (
+        f"{n_portals}-PORTAL",
+        f"{n_portals} PORTALS",
+        f"{n_apis} AI ENGINES",
+        f"({n_apis} APIs)",
+        f"{n_portals} Federal &amp; {n_states}-State SLED Portals",
+        f"All {n_apis} AI Capture Modules",
+    ):
+        if req_moat_phrase not in moat_html:
+            fail(f"index.html (#capture-moat): Missing required tier value-prop phrase '{req_moat_phrase}'")
+
+    # 2. Verify Hero Tier 2 CTA card reflects N PORTALS + N-API SUITE
+    hero_phrase = f"TIER 2 // CAPTUREDESK AUTOPILOT ({n_portals} PORTALS + {n_apis}-API SUITE)"
+    if hero_phrase not in index_txt:
+        fail(f"index.html (Hero Tier 2 CTA): Missing '{hero_phrase}'")
+
+    # 3. Verify #checkout-card-tier2 contains every API number (#01 .. #N) and N PORTALS + N-API CAPTURE SUITE
+    m_t2 = re.search(r'<div id="checkout-card-tier2".*?<!-- \$0/mo Free Basic', index_txt, flags=re.S)
+    if not m_t2:
+        fail("index.html: Missing #checkout-card-tier2")
+    t2_html = m_t2.group(0)
+    for k in range(1, n_apis + 1):
+        tag = f"#{k:02d}"
+        if tag not in t2_html:
+            fail(f"index.html (#checkout-card-tier2): Missing reference to API {tag}. Always update #checkout-card-tier2 when enhancing tiers/APIs!")
+    for req_t2_phrase in (
+        f"{n_portals} PORTALS + {n_apis}-API CAPTURE SUITE",
+        f"All-Access {n_portals}-Portal Wire + {n_apis}-Engine AI Capture Dossiers",
+        f"Everything in Tier 1 (All {n_portals} Portals), Plus Full {n_apis}-Engine Capture Dossiers:",
+    ):
+        if req_t2_phrase not in t2_html:
+            fail(f"index.html (#checkout-card-tier2): Missing required tier value-prop phrase '{req_t2_phrase}'")
+
+    # 4. Verify #page-checkout Developer API Callout Banner references All N individual SignalTender microservices
+    callout_phrase = f"All {n_apis} individual SignalTender microservices"
+    if callout_phrase not in index_txt:
+        fail(f"index.html (#page-checkout API Callout): Missing '{callout_phrase}'")
+
+    # 5. Verify pseo_generator.py RFP dossier box references the latest API #N
+    with open(os.path.join(BASE_DIR, "pseo_generator.py"), "r", encoding="utf-8") as f:
+        pseo_src = f.read()
+    latest_tag = f"#{n_apis:02d}"
+    if latest_tag not in pseo_src:
+        fail(f"pseo_generator.py: RFP Dossier preview is missing latest API reference '{latest_tag}'")
+
+
 def check_spa_runtime(index_txt: str) -> None:
     scripts = [
         m.group(2)
@@ -437,6 +509,7 @@ def main() -> int:
 
     check_catalog_parity_and_ui(index_txt, apis_txt)
     check_portal_parity_and_telemetry(index_txt, apis_txt)
+    check_tier_value_prop_and_capture_moat_parity(index_txt)
     check_spa_runtime(index_txt)
 
     print("[+] verify_site_integrity.py PASSED: All JS syntax, SPA routes, search locks, API/portal counts, telemetry bar, DOM IDs, and HTML tags verified.", flush=True)
