@@ -38,6 +38,7 @@ REMOTE_LEADS_LIST_URL = os.getenv(
 APOLLO_CSV_PATH = os.path.join(BASE_DIR, "apollo-contacts.csv")
 INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
 MX_CACHE_PATH = os.path.join(BASE_DIR, "dns_mx_cache.json")
+VERIFIED_PUBLIC_CONTACTS_PATH = os.path.join(BASE_DIR, "verified_public_govcon_contacts.json")
 
 TEST_OR_SYNTHETIC_DOMAINS = {
     "example.com",
@@ -367,9 +368,37 @@ def run_harvester() -> Dict[str, Any]:
             seen_emails.add(em)
             added_inbound += 1
 
+    added_public_verified = 0
+    if os.path.exists(VERIFIED_PUBLIC_CONTACTS_PATH):
+        try:
+            with open(VERIFIED_PUBLIC_CONTACTS_PATH, "r", encoding="utf-8") as vf:
+                public_contacts = json.load(vf)
+            cleaned_public: List[Dict[str, str]] = []
+            if isinstance(public_contacts, list):
+                for spec in public_contacts:
+                    if not isinstance(spec, dict):
+                        continue
+                    em = str(spec.get("Email") or "").strip().lower()
+                    # Strip accidental leading phone digits before 'info@'
+                    if em.endswith("info@thundercattech.com"):
+                        em = "info@thundercattech.com"
+                        spec["Email"] = em
+                    if any(em.startswith(bad) for bad in ("employmentverifications@", "talent@", "careers@", "jobs@", "hr@", "emeasales@")):
+                        continue
+                    cleaned_public.append(spec)
+                    if em and em not in seen_emails and verify_email_domain_mx(em, mx_cache):
+                        clean_rows.append(_build_apollo_row(spec, source_tag="GovCon_Website_Verified"))
+                        seen_emails.add(em)
+                        added_public_verified += 1
+                if len(cleaned_public) != len(public_contacts):
+                    with open(VERIFIED_PUBLIC_CONTACTS_PATH, "w", encoding="utf-8") as wf:
+                        json.dump(cleaned_public, wf, indent=2)
+        except Exception as exc:
+            report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
+
     _save_mx_cache(mx_cache)
 
-    if purged_synthetic_or_dead > 0 or added_inbound > 0:
+    if purged_synthetic_or_dead > 0 or added_inbound > 0 or added_public_verified > 0:
         with open(APOLLO_CSV_PATH, mode="w", encoding="utf-8", newline="") as outfile:
             writer = csv.DictWriter(outfile, fieldnames=fieldnames)
             writer.writeheader()

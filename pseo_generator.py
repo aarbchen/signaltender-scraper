@@ -1560,6 +1560,10 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         with open(ROBOTS_PATH, "w", encoding="utf-8") as f:
             f.write(robots_txt)
 
+        indexnow_key = "8f9d2a4c6e1b3f5a7d0c9e2b4a6f8d1c"
+        with open(os.path.join(OUTPUT_DIR, f"{indexnow_key}.txt"), "w", encoding="utf-8") as f:
+            f.write(indexnow_key)
+
         # 5. Inject embedded SPA directory & dossier router into index.html
         #    so isolated single-HTML deployments (like signaltender.net on Render)
         #    serve all State Hubs, Category Filters, and RFP Dossiers with zero 404s.
