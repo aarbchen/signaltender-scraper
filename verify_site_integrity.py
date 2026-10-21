@@ -257,7 +257,8 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
             fail(f"apis.html: Missing required portal-count phrase: '{phrase}'")
 
     # 4. Prohibit ANY stale portal or state count (from 3 up to n_portals-1 / n_states-1) across index.html, apis.html, and pseo_generator.py
-    pseo_txt = (ROOT / "pseo_generator.py").read_text(encoding="utf-8")
+    with open(os.path.join(BASE_DIR, "pseo_generator.py"), "r", encoding="utf-8") as f:
+        pseo_txt = f.read()
     stale_patterns = []
     for kp in range(3, n_portals):
         stale_patterns.extend([
