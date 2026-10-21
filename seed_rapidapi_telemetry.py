@@ -280,6 +280,35 @@ ENDPOINTS = [
             ),
         },
     },
+    {
+        "id": "API 16",
+        "name": "GovCon IGCE, Wrap-Rate & Price-to-Win Modeler API",
+        "method": "POST",
+        "path": "/v1/generate/price-to-win",
+        "rapid_host": "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
+        "payload": {
+            "rfp_section_b_and_sow_text": (
+                "SOLICITATION FA8732-26-R-0041 (USAF Cloud & Zero-Trust DevSecOps Engineering): "
+                "Section B Schedule of Supplies/Services: 1-Year Base Period + Two (2) 1-Year Option Periods (36 Months Total PoP). "
+                "CLIN 0001: Enterprise Cloud Migration & Zero-Trust Engineering (Time-and-Materials / Labor Hour, 7 FTEs, 1,920 hrs/FTE/yr): "
+                "1x Program Manager (TS/SCI, 12+ yrs), 2x Principal Cloud/Zero-Trust Architects (TS/SCI, 10+ yrs, CISSP), "
+                "3x Senior DevSecOps Kubernetes Engineers (Secret, 7+ yrs), 1x Cyber RMF / Continuous ATO Lead (Secret, 8+ yrs, CAP/CISSP). "
+                "CLIN 0002: 24x7 Managed Security Operations Center (SOC) Tier-2/3 Monitoring (Firm-Fixed-Price, 3 FTEs, Secret). "
+                "CLIN 0003: Cloud FinOps Tooling & Travel ODCs (Cost Reimbursable, No Fee, Government Plug = $125,000/year). "
+                "Section M.4 Evaluation Criteria: Best-Value Tradeoff (Technical + Past Performance significantly more important than Cost/Price) "
+                "with FAR 52.222-46 Evaluation of Compensation for Professional Employees realism screening."
+            ),
+            "bidder_indirect_wrap_assumptions": (
+                "GSA MAS SIN 54151S & SIN 54151HACS Prime Contractor. Place of Performance: Contractor Site (Northern Virginia / NCR). "
+                "Indirect Rate Assumptions: Fringe 31.5%, Contractor-Site Overhead 24.0%, G&A 11.5% (Total Indirect Wrap ~ 1.818x before fee), "
+                "Target Profit/Fee: 8.5% on T&M, 10.5% on FFP. Subcontractor Material Handling / G&A on Subk: 4.0%. Annual Escalation: 3.25%/yr."
+            ),
+            "historical_benchmark_and_incumbent_context": (
+                "Incumbent is a Large Business defense integrator awarded $6.85M over 3 years ($2.28M/yr) under a legacy OASIS task order; "
+                "recompete is now a Small Business Set-Aside on GSA MAS."
+            ),
+        },
+    },
 ]
 
 

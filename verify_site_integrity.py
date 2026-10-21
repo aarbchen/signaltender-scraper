@@ -106,6 +106,7 @@ def check_html_file(fpath: str) -> str:
         "#contracts/florida",
         "#contracts/maryland",
         "#contracts/illinois",
+            "#contracts/pennsylvania",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -214,6 +215,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "florida": "FL",
         "maryland": "MD",
         "illinois": "IL",
+        "pennsylvania": "PA",
         "new_york": "NY",
     }
     for sk in state_keys:

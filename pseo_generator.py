@@ -89,6 +89,14 @@ JURISDICTIONS = {
         "headline": "Open Illinois State, DoIT & Chicago IT Contracts (BidBuy)",
         "description": "Live Illinois BidBuy (DoIT, IDOT, CMS) and Chicago/Cook County solicitations for enterprise software, ERP, cloud, and telecom.",
     },
+    "pennsylvania": {
+        "name": "Pennsylvania (PA eMarketplace)",
+        "short": "Pennsylvania",
+        "portal": "PA DGS eMarketplace & PhilaPort",
+        "badge_class": "bg-orange-500/10 text-orange-300 border-orange-500/30",
+        "headline": "Open Pennsylvania State (DGS eMarketplace) & PhilaPort IT Contracts",
+        "description": "Live Commonwealth of Pennsylvania DGS eMarketplace, PA JAGGAER, and Philadelphia Regional Port Authority IT, SaaS, cloud, and data solicitations.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -247,6 +255,8 @@ def classify_jurisdiction(rec: dict) -> str:
         return "florida"
     if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
         return "illinois"
+    if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
+        return "pennsylvania"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -260,6 +270,8 @@ def classify_jurisdiction(rec: dict) -> str:
         return "florida"
     if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
         return "illinois"
+    if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
+        return "pennsylvania"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
     if "federal government" in agency:
@@ -374,7 +386,7 @@ def _render_layout(
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">8 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">9 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -396,7 +408,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 6-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 7-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
           <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -407,6 +419,7 @@ def _render_layout(
           <a href="{root_prefix}contracts/florida/index.html" class="hover:text-sky-400 transition-colors">Florida</a>
           <a href="{root_prefix}contracts/maryland/index.html" class="hover:text-sky-400 transition-colors">Maryland</a>
           <a href="{root_prefix}contracts/illinois/index.html" class="hover:text-sky-400 transition-colors">Illinois</a>
+          <a href="{root_prefix}contracts/pennsylvania/index.html" class="hover:text-sky-400 transition-colors">Pennsylvania</a>
         </nav>
         <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
           Unlock All RFP Links &rarr;
@@ -640,6 +653,8 @@ def generate_pseo_site() -> int:
                 compliance_posture = "MD DoIT Security • NIST 800-53 • MD NVA VPAT"
             elif j_key == "illinois":
                 compliance_posture = "IL DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT"
+            elif j_key == "pennsylvania":
+                compliance_posture = "PA OA-ITB Security • SOC 2 Type II • PA EIT VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -648,21 +663,43 @@ def generate_pseo_site() -> int:
             if d_cached.get("teaming_posture"):
                 teaming_posture = str(d_cached["teaming_posture"])
             elif j_key == "federal":
-                teaming_posture = "13 CFR § 125.6 (50% Rule) • 3 CPARS Vol. III Refs"
+                teaming_posture = "13 CFR § 125.6 (50% Rule) • Low Ostensible Sub Risk"
             elif j_key == "texas":
-                teaming_posture = "TX HUB Plan (26.0% Goal) • 3 TX/SLED Past Perf Refs"
+                teaming_posture = "TX HUB Plan (26.0% Goal) • Prime ≥51% Core Scope"
             elif j_key == "virginia":
-                teaming_posture = "VA DSBSD SWaM (42% Goal) • 3 Public-Sector Refs"
+                teaming_posture = "VA DSBSD SWaM (42% Goal) • Prime ≥51% Core Scope"
             elif j_key == "florida":
-                teaming_posture = "FL OSD CMBE/VBE Teaming • 3 SLED Past Perf Refs"
+                teaming_posture = "FL OSD CMBE/VBE Teaming • Prime ≥51% Core Scope"
             elif j_key == "maryland":
-                teaming_posture = "MD MBE (15–29%) + VSBE • 3 Public-Sector Refs"
+                teaming_posture = "MD MBE (15–29%) + VSBE • Prime ≥51% Core Scope"
             elif j_key == "illinois":
-                teaming_posture = "IL CEI BEP (20–30%) + VBP • 3 SLED Past Perf Refs"
+                teaming_posture = "IL CEI BEP (20–30%) + VBP • Prime ≥51% Core Scope"
+            elif j_key == "pennsylvania":
+                teaming_posture = "PA BDISBO SDB/VBE (15–25%) • COSTARS/ITQ Eligible"
             elif j_key == "california":
-                teaming_posture = "CA DGS SB (5%) + DVBE • 3 State/Local Refs"
+                teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
-                teaming_posture = "Local SBE/MWBE Sub Plan • 3 Public-Sector Refs"
+                teaming_posture = "Local SBE/MWBE Sub Plan • Prime ≥51% Core Scope"
+
+            if d_cached.get("igce_ptw_posture"):
+                igce_ptw_posture = str(d_cached["igce_ptw_posture"])
+            elif "cybersecurity" in cats:
+                igce_ptw_posture = "Wrap 1.84x • PTW -4.5% vs IGCE • Arch $168/hr | SecOps $148/hr"
+            elif "cloud-infrastructure" in cats:
+                igce_ptw_posture = "Wrap 1.82x • PTW -5.2% vs IGCE • Cloud Arch $165/hr | DevSecOps $146/hr"
+            else:
+                igce_ptw_posture = "Wrap 1.80x • PTW -5.5% vs IGCE • Sr. Arch $162/hr | Lead Eng $146/hr"
+
+            if d_cached.get("key_personnel_lcats"):
+                key_personnel_lcats = str(d_cached["key_personnel_lcats"])
+            elif "cybersecurity" in cats:
+                key_personnel_lcats = "Program Manager (PMP/CISSP) • Lead Zero-Trust Architect (CISSP)"
+            elif "cloud-infrastructure" in cats:
+                key_personnel_lcats = "Program Manager (PMP) • Principal Cloud/DevSecOps Architect"
+            else:
+                key_personnel_lcats = "Engagement PM (PMP/CSM) • Lead Enterprise Systems Architect"
+
+            cpars_benchmark = str(d_cached.get("cpars_relevance_benchmark") or "Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)")
 
             enriched_contracts.append({
                 "id": rec_id,
@@ -679,6 +716,9 @@ def generate_pseo_site() -> int:
                 "sba_cap": sba_cap,
                 "compliance_posture": compliance_posture,
                 "teaming_posture": teaming_posture,
+                "igce_ptw_posture": igce_ptw_posture,
+                "key_personnel_lcats": key_personnel_lcats,
+                "cpars_benchmark": cpars_benchmark,
             })
 
         if spam_ids_to_purge:
@@ -779,16 +819,24 @@ def generate_pseo_site() -> int:
                         <div class="text-slate-200">NAICS <span class="text-white font-semibold">{html.escape(c['naics_display'])}</span> &bull; SBA Cap: <span class="text-emerald-400">{html.escape(c['sba_cap'])}</span></div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-emerald-400 font-bold">02. CLIN LABOR BENCHMARKS (API #03)</div>
-                        <div class="text-slate-200">Sr. Architect: <span class="text-emerald-400 font-bold">$162/hr</span> &bull; Lead Eng: <span class="text-emerald-400 font-bold">$146/hr</span></div>
+                        <div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE &amp; PTW BAND (API #03 / #16)</div>
+                        <div class="text-slate-200">{html.escape(c['igce_ptw_posture'])}</div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-indigo-400 font-bold">03. CYBER &amp; CLAUSE POSTURE (API #06 / #12)</div>
+                        <div class="text-[10px] text-indigo-400 font-bold">03. CYBER, CMMC &amp; SPRS POSTURE (API #06 / #12)</div>
                         <div class="text-slate-200">{html.escape(c['compliance_posture'])}</div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-amber-400 font-bold">04. TEAMING &amp; PAST PERFORMANCE (API #11 / #15)</div>
+                        <div class="text-[10px] text-amber-400 font-bold">04. 13 CFR &sect; 125.6 WORKSHARE &amp; TEAMING (API #11)</div>
                         <div class="text-slate-200">{html.escape(c['teaming_posture'])}</div>
+                      </div>
+                      <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
+                        <div class="text-[10px] text-cyan-400 font-bold">05. KEY PERSONNEL LCATs (API #13)</div>
+                        <div class="text-slate-200">{html.escape(c['key_personnel_lcats'])}</div>
+                      </div>
+                      <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
+                        <div class="text-[10px] text-purple-300 font-bold">06. CPARS RELEVANCE BENCHMARK (API #15)</div>
+                        <div class="text-slate-200">{html.escape(c['cpars_benchmark'])}</div>
                       </div>
                     </div>
 
@@ -825,7 +873,7 @@ def generate_pseo_site() -> int:
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 6-State SLED (TX, VA, CA, FL, MD, IL) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 7-State SLED (TX, VA, CA, FL, MD, IL, PA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
@@ -841,13 +889,13 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">15 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">16 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 15 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 16 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
-                  <a href="../../apis.html#product-past-performance" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 15 APIs &amp; MCP Server &rarr;
+                  <a href="../../apis.html#product-price-to-win" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
+                    Explore 16 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -1066,7 +1114,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, and Illinois.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, and Pennsylvania.
           </p>
         </div>
 
@@ -1200,6 +1248,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/florida" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
               <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
               <a href="#contracts/illinois" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-teal-300">Illinois</a>
+              <a href="#contracts/pennsylvania" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-orange-300">Pennsylvania</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -1236,6 +1285,9 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             "sba_cap": c["sba_cap"],
             "compliance_posture": c["compliance_posture"],
             "teaming_posture": c["teaming_posture"],
+            "igce_ptw_posture": c["igce_ptw_posture"],
+            "key_personnel_lcats": c["key_personnel_lcats"],
+            "cpars_benchmark": c["cpars_benchmark"],
         })
 
     contracts_json = json.dumps(spa_contracts)
@@ -1248,7 +1300,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
         <div class="flex items-center space-x-2.5">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">8 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">9 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-slate-400">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -1270,7 +1322,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 6-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 7-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
           <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
@@ -1281,6 +1333,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/florida" class="hover:text-sky-400 transition-colors">Florida</a>
           <a href="#contracts/maryland" class="hover:text-sky-400 transition-colors">Maryland</a>
           <a href="#contracts/illinois" class="hover:text-sky-400 transition-colors">Illinois</a>
+          <a href="#contracts/pennsylvania" class="hover:text-sky-400 transition-colors">Pennsylvania</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
         <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
@@ -1308,7 +1361,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
       function renderRows(list) {{
         if (!list || !list.length) {{
-          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 8 portals.</td></tr>';
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 9 portals.</td></tr>';
         }}
         var J = window.SIGNALTENDER_JURISDICTIONS;
         return list.map(function (c) {{
@@ -1475,16 +1528,24 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div class="text-slate-200">NAICS <span class="text-white font-semibold">' + esc(item.naics_display || '541512 / 541519') + '</span> &bull; SBA Cap: <span class="text-emerald-400">' + esc(item.sba_cap || '$34.0M') + '</span></div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-emerald-400 font-bold">02. CLIN LABOR BENCHMARKS (API #03)</div>' +
-                        '<div class="text-slate-200">Sr. Architect: <span class="text-emerald-400 font-bold">$162/hr</span> &bull; Lead Eng: <span class="text-emerald-400 font-bold">$146/hr</span></div>' +
+                        '<div class="text-[10px] text-emerald-400 font-bold">02. IGCE, WRAP-RATE &amp; PTW BAND (API #03 / #16)</div>' +
+                        '<div class="text-slate-200">' + esc(item.igce_ptw_posture || 'Wrap 1.80x • PTW -5.5% vs IGCE • Sr. Arch $162/hr | Lead Eng $146/hr') + '</div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-indigo-400 font-bold">03. CYBER &amp; CLAUSE POSTURE (API #06 / #12)</div>' +
+                        '<div class="text-[10px] text-indigo-400 font-bold">03. CYBER, CMMC &amp; SPRS POSTURE (API #06 / #12)</div>' +
                         '<div class="text-slate-200">' + esc(item.compliance_posture || 'SOC 2 Type II • NIST 800-171 • Section 508 VPAT') + '</div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-amber-400 font-bold">04. TEAMING &amp; PAST PERFORMANCE (API #11 / #15)</div>' +
-                        '<div class="text-slate-200">' + esc(item.teaming_posture || '13 CFR § 125.6 (50% Rule) • 3 Past Perf Refs') + '</div>' +
+                        '<div class="text-[10px] text-amber-400 font-bold">04. 13 CFR &sect; 125.6 WORKSHARE &amp; TEAMING (API #11)</div>' +
+                        '<div class="text-slate-200">' + esc(item.teaming_posture || '13 CFR § 125.6 (50% Rule) • Low Ostensible Sub Risk') + '</div>' +
+                      '</div>' +
+                      '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
+                        '<div class="text-[10px] text-cyan-400 font-bold">05. KEY PERSONNEL LCATs (API #13)</div>' +
+                        '<div class="text-slate-200">' + esc(item.key_personnel_lcats || 'Engagement PM (PMP) • Lead Enterprise Systems Architect') + '</div>' +
+                      '</div>' +
+                      '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
+                        '<div class="text-[10px] text-purple-300 font-bold">06. CPARS RELEVANCE BENCHMARK (API #15)</div>' +
+                        '<div class="text-slate-200">' + esc(item.cpars_benchmark || 'Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)') + '</div>' +
                       '</div>' +
                     '</div>' +
                     '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
@@ -1516,7 +1577,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 6-State SLED (TX, VA, CA, FL, MD, IL) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 7-State SLED (TX, VA, CA, FL, MD, IL, PA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
@@ -1531,13 +1592,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">15 LIVE APIs &amp; MCP SERVER</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">16 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 15 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
+                    'Generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 16 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
-                  '<a href="#product-past-performance" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 15 APIs &amp; MCP Server &rarr;' +
+                  '<a href="#product-price-to-win" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
+                    'Explore 16 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
@@ -1630,7 +1691,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, and Illinois.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, and Pennsylvania.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +

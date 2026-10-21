@@ -122,7 +122,7 @@
       <!-- Primary Multi-Page & Section Navigation -->
       <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
         <a href="index.html" class="hover:text-white transition-colors">&larr; Main Platform</a>
-        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (15)</a>
+        <a href="#catalog-modules" class="text-white font-semibold">API Catalog (16)</a>
         <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
         <a href="index.html#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
       </nav>
@@ -224,7 +224,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">15 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">16 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -236,7 +236,7 @@
                 <input
                   id="api-catalog-search"
                   type="text"
-                  placeholder="Search 15 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
+                  placeholder="Search 16 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
                 />
@@ -252,7 +252,7 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (15)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (16)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (3)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (3)</button>
@@ -315,7 +315,7 @@
                   <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">04</span>
                   <div class="min-w-0">
                     <div class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors truncate">Live SLED &amp; Federal Open RFP Feed API</div>
-                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 8-Portal AI-Vetted Open IT/Cyber Solicitations</div>
+                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 9-Portal AI-Vetted Open IT/Cyber Solicitations</div>
                   </div>
                 </div>
                 <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
@@ -504,6 +504,24 @@
                   <span class="text-emerald-400">&darr;</span>
                 </div>
               </a>
+
+              <!-- Directory Row 16 -->
+              <a href="#product-price-to-win" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold shrink-0">16</span>
+                  <div class="min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-emerald-300 transition-colors truncate">GovCon IGCE, Wrap-Rate &amp; Price-to-Win Modeler API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold shrink-0">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/price-to-win &bull; IGCE Baseline, Indirect Wrap-Rate Calculator, GSA CALC+ Rate Card &amp; PTW Matrix</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 text-[11px]">$0 &ndash; $399/mo</span>
+                  <span class="text-emerald-400">&darr;</span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -540,7 +558,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">15 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">16 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -555,7 +573,7 @@
   }
 }</code></pre>
               <div class="text-[11px] text-slate-400">
-                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> &amp; <span class="text-slate-200">generate_cpars_past_performance</span>.
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> &amp; <span class="text-slate-200">generate_igce_price_to_win</span>.
               </div>
             </div>
           </div>
@@ -587,10 +605,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">15 / 15 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">16 / 16 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (15)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (16)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -1183,7 +1201,7 @@
                 Live SLED &amp; Federal Open RFP Feed API
               </h2>
               <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
-                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">8 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, and IL BidBuy) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
+                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">9 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, and PA eMarketplace) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
               </p>
 
               <!-- Product-Specific Features Grid -->
@@ -1191,8 +1209,8 @@
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
                   <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
                   <div>
-                    <div class="font-semibold text-white">8-Portal Unified REST Feed</div>
-                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, and IL in one schema.</div>
+                    <div class="font-semibold text-white">9-Portal Unified REST Feed</div>
+                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, and PA in one schema.</div>
                   </div>
                 </div>
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
@@ -3255,6 +3273,178 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 16: GOVCON IGCE, WRAP-RATE & PRICE-TO-WIN MODELER API
+           ================================================================= -->
+      <article id="product-price-to-win" class="rounded-2xl bg-navy-950 border border-slate-800 hover:border-emerald-500/50 transition-all overflow-hidden shadow-2xl scroll-mt-24">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-gradient-to-r from-emerald-950/60 via-slate-900/90 to-slate-900/90 border-b border-emerald-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold">
+              PRODUCT 16 // IGCE, WRAP-RATE &amp; PRICE-TO-WIN MODELER
+            </span>
+            <span class="px-2 py-0.5 rounded bg-emerald-400 text-navy-950 text-[10px] font-mono font-extrabold uppercase tracking-wider">
+              NEW RELEASE
+            </span>
+            <span class="font-mono text-xs text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">
+              POST /v1/generate/price-to-win
+            </span>
+            <span class="hidden xl:inline text-xs font-mono text-slate-400">
+              Host: <code class="text-slate-300">govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com</code>
+            </span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-mono font-semibold text-white shadow-md shadow-emerald-950/50 transition-colors"
+            >
+              Subscribe on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body: 12-Col Grid (7 Cols Specs + Pricing | 5 Cols Live Payload) -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+          <!-- Left 7 Cols: Title, Features, Schema, & Product-Specific 4-Tier Pricing -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div>
+              <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                GovCon IGCE, Wrap-Rate &amp; Price-to-Win Modeler API
+              </h2>
+              <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+                Transform raw <strong class="text-white">RFP Section B CLIN structures</strong>, <strong class="text-white">PWS/SOW level-of-effort &amp; LCAT staffing requirements</strong>, and historical award benchmarks into an audit-ready <strong class="text-white">Independent Government Cost Estimate (IGCE)</strong>, compounded <strong class="text-white">Indirect Wrap-Rate breakdown (Fringe / Overhead / G&amp;A / Fee)</strong>, <strong class="text-white">GSA CALC+ LCAT rate card</strong>, <strong class="text-white">4-Scenario Price-to-Win (PTW) matrix</strong>, and <strong class="text-white">Shipley Volume IV Basis of Estimate (BOE) narrative</strong>.
+              </p>
+
+              <!-- Product-Specific Features Grid -->
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Compounded Wrap-Rate Calculator</div>
+                    <div class="text-slate-400 mt-0.5">Models Fringe, Contractor/Gov-Site Overhead, G&amp;A, and Fee (<code class="text-emerald-300">1 + F &times; 1 + OH &times; 1 + G&amp;A</code>).</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">Bottom-Up GSA CALC+ LCAT Rate Card</div>
+                    <div class="text-slate-400 mt-0.5">Maps every RFP role to GSA MAS SIN 54151S medians, unburdened direct wage, and burdened bill rate.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">FAR 15.404-1 Cost Realism Guardrails</div>
+                    <div class="text-slate-400 mt-0.5">Flags Most Probable Cost (MPC) upward adjustment risks and FAR 52.222-46 professional compensation floors.</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
+                  <span class="text-emerald-400 font-mono font-bold mt-0.5">&check;</span>
+                  <div>
+                    <div class="font-semibold text-white">4-Scenario PTW &amp; Volume IV BOE Prose</div>
+                    <div class="text-slate-400 mt-0.5">Outputs LPTA Floor, Target PTW, Incumbent Benchmark &amp; IGCE Ceiling plus ready-to-paste Volume IV BOE narrative.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 16 RapidAPI Tiers -->
+            <div class="pt-4 border-t border-slate-800/80">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+                <span>GOVCON IGCE &amp; PRICE-TO-WIN MODELER API &mdash; RAPIDAPI ACCESS TIERS</span>
+                <a href="https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api/pricing" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">View Plans &nearr;</a>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">10 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-emerald-400 uppercase font-semibold">PRO</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">200 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/40 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-emerald-300 uppercase font-semibold">ULTRA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-white font-semibold">1,000 req/mo</div>
+                    <div class="text-emerald-300 text-[10px]">+$0.15 / extra</div>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-emerald-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$399<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">4,000 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Dedicated Terminal Preview -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">RESPONSE // PriceToWinModelerResponse</span>
+                <span class="text-emerald-400">OPTIMAL PTW BAND &bull; -5.4% VS IGCE</span>
+              </div>
+              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                <pre class="text-slate-200 whitespace-pre-wrap break-words text-[11px] mb-3 pb-3 border-b border-slate-800/80"><code><span class="text-emerald-400">$</span> curl --request POST \
+  --url <span class="text-amber-200">'https://govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com/v1/generate/price-to-win'</span> \
+  --header <span class="text-sky-300">'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY'</span> \
+  --header <span class="text-sky-300">'Content-Type: application/json'</span> \
+  --data <span class="text-emerald-300">'{"rfp_section_b_and_sow_text":"SOLICITATION FA8732-26-R-0041: Base + 2 Option Yrs (36 Mos). CLIN 0001 T&amp;M Cloud/Zero-Trust Engineering (7 FTEs, 1,920 hrs/yr)...","bidder_indirect_wrap_assumptions":"Fringe 31.5%, OH 24.0%, G&amp;A 11.5%, Fee 9.0%"}'</span></code></pre>
+                <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"recommended_price_to_win_usd"</span>: <span class="text-emerald-300">6428400.0</span>,
+  <span class="text-sky-400">"independent_government_cost_estimate_igce_usd"</span>: <span class="text-cyan-300">6795000.0</span>,
+  <span class="text-sky-400">"ptw_discount_vs_igce_pct"</span>: <span class="text-emerald-400">-5.4</span>,
+  <span class="text-sky-400">"cost_realism_and_price_reasonableness_posture"</span>: <span class="text-emerald-300">"OPTIMAL_COMPETITIVE_BAND"</span>,
+  <span class="text-sky-400">"wrap_rate_calculator_breakdown"</span>: {
+    <span class="text-sky-400">"compounded_wrap_multiplier_without_fee"</span>: <span class="text-slate-100">1.818</span>,
+    <span class="text-sky-400">"fully_burdened_wrap_multiplier_with_fee"</span>: <span class="text-emerald-300">1.982</span>
+  }
+}</code></pre>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">lcat_rate_card_and_fte_buildup[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-cyan-300">ptw_sensitivity_scenarios[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">section_b_cost_narrative_and_boe_summary</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -3429,7 +3619,7 @@
                     <span class="font-sans font-bold text-sm text-white">Live SLED &amp; Federal Open RFP Feed API</span>
                   </div>
                   <div class="text-cyan-300 text-[11px] mt-0.5">GET /v1/solicitations/live</div>
-                  <div class="font-sans text-[11px] text-slate-400 mt-1">8-Portal Filtered IT &amp; Cyber RFPs</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">9-Portal Filtered IT &amp; Cyber RFPs</div>
                 </td>
                 <td class="py-5 px-4">
                   <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
@@ -3918,6 +4108,48 @@
                 </td>
               </tr>
 
+              <!-- Matrix Row 16: GovCon IGCE, Wrap-Rate & Price-to-Win Modeler API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-emerald-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-sans font-bold text-sm text-white">GovCon IGCE, Wrap-Rate &amp; Price-to-Win API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="text-emerald-300 text-[11px] mt-0.5">POST /v1/generate/price-to-win</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">IGCE Baseline, Indirect Wrap-Rate, GSA CALC+ Rate Card &amp; PTW</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-slate-500 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-emerald-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-emerald-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -3940,7 +4172,7 @@
             // TURNKEY CAPTURE ALERTS &bull; NO CODING REQUIRED
           </div>
           <h3 class="text-xl font-bold text-white">
-            Want Live Federal, Municipal &amp; 6-State SLED Contract Alerts Without Writing Code?
+            Want Live Federal, Municipal &amp; 7-State SLED Contract Alerts Without Writing Code?
           </h3>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
             Our <strong class="text-slate-200">All-Access Discord Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, and Maryland eMMA IT &amp; cybersecurity opportunities straight to your team.
@@ -4035,6 +4267,9 @@
             </li>
             <li>
               <a href="https://rapidapi.com/aarbchen/api/cpars-past-performance-volume-generator-api" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors">15. CPARS &amp; Past Performance Volume API (/v1/generate/past-performance) &nearr;</a>
+            </li>
+            <li>
+              <a href="https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors">16. GovCon IGCE, Wrap-Rate &amp; Price-to-Win API (/v1/generate/price-to-win) &nearr;</a>
             </li>
             <li>
               <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="hover:text-sky-400 transition-colors">Interactive OpenAPI Documentation (/docs) &nearr;</a>
@@ -4140,14 +4375,14 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (15)</span>
+              <span>SELECT MICROSERVICE (16)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
               <input
                 id="sandbox-sidebar-search"
                 type="text"
-                placeholder="Filter 15 endpoints..."
+                placeholder="Filter 16 endpoints..."
                 oninput="window.filterSandboxSidebar(this.value)"
                 class="w-full px-2.5 py-1.5 rounded-lg bg-navy-950 border border-slate-800 focus:border-sky-500 focus:outline-none text-[11px] font-mono text-white placeholder-slate-500"
               />
@@ -4535,6 +4770,23 @@
             rfp_section_l_m_requirements: "SOLICITATION FA8726-26-R-0054 (USAF Enterprise Cloud & Zero-Trust SOC Modernization): Section L.5 Volume III Past Performance requires up to 3 recent (within 5 years) citations >= $4M/yr ($12M Total Value), with at least 2 performed as Prime Contractor. Section M.3 evaluates Scope, Magnitude, and Complexity across PWS 3.1 AWS GovCloud IL5 Migration, PWS 3.2 Zero-Trust ICAM, and PWS 3.3 24x7x365 Cleared SOC & Splunk SIEM.",
             project_history_text: "Contract 1 (Prime): U.S. Space Force SSC Enterprise Cloud Enclave (FA8802-22-C-0019, FFP/T&M, $18.4M Total, $6.1M/yr, 2022-2025, 34 FTEs, NAICS 541512). Migrated 42 mission apps to AWS GovCloud IL5, deployed Zero-Trust ICAM for 14,500 users, and ran 24x7 TS/SCI Splunk SOC. CPARS: Exceptional across all 5 factors (99.98% SLA, $420K FinOps savings). Contract 2 (Prime): DISA Defense Enclave Cyber Modernization (HC1028-23-F-0112, T&M, $13.2M Total, $4.4M/yr, 2023-Present, 26 FTEs). Automated STIG hardening, Zero-Trust microsegmentation, and cATO pipelines across 8,000 endpoints.",
             bidder_role_and_context: "Prime Offeror submitting 2 DoD Prime contracts + 1 Major Subcontractor contract; Volume III page limit is 15 pages."
+          }
+        },
+        'product-price-to-win': {
+          num: '16',
+          id: 'product-price-to-win',
+          title: 'GovCon IGCE, Wrap-Rate & Price-to-Win Modeler API',
+          method: 'POST',
+          path: '/v1/generate/price-to-win',
+          host: 'govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-igce-wrap-rate-price-to-win-modeler-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            rfp_section_b_and_sow_text: "SOLICITATION FA8732-26-R-0041 (USAF Cloud & Zero-Trust DevSecOps Engineering): Section B Schedule of Supplies/Services: 1-Year Base Period + Two (2) 1-Year Option Periods (36 Months Total PoP). CLIN 0001: Enterprise Cloud Migration & Zero-Trust Engineering (Time-and-Materials / Labor Hour, 7 FTEs, 1,920 hrs/FTE/yr): 1x Program Manager (TS/SCI, 12+ yrs), 2x Principal Cloud/Zero-Trust Architects (TS/SCI, 10+ yrs, CISSP), 3x Senior DevSecOps Kubernetes Engineers (Secret, 7+ yrs), 1x Cyber RMF / Continuous ATO Lead (Secret, 8+ yrs, CAP/CISSP). CLIN 0002: 24x7 Managed Security Operations Center (SOC) Tier-2/3 Monitoring (Firm-Fixed-Price, 3 FTEs, Secret). CLIN 0003: Cloud FinOps Tooling & Travel ODCs (Cost Reimbursable, No Fee, Government Plug = $125,000/year). Section M.4 Evaluation Criteria: Best-Value Tradeoff (Technical + Past Performance significantly more important than Cost/Price) with FAR 52.222-46 Evaluation of Compensation for Professional Employees realism screening.",
+            bidder_indirect_wrap_assumptions: "GSA MAS SIN 54151S & SIN 54151HACS Prime Contractor. Place of Performance: Contractor Site (Northern Virginia / NCR). Indirect Rate Assumptions: Fringe 31.5%, Contractor-Site Overhead 24.0%, G&A 11.5% (Total Indirect Wrap ~ 1.818x before fee), Target Profit/Fee: 8.5% on T&M, 10.5% on FFP. Annual Escalation: 3.25%/yr.",
+            historical_benchmark_and_incumbent_context: "Incumbent is a Large Business defense integrator awarded $6.85M over 3 years ($2.28M/yr) under a legacy OASIS task order; recompete is now a Small Business Set-Aside on GSA MAS.",
+            evaluation_methodology: "BEST_VALUE_TRADEOFF"
           }
         }
       };
@@ -4966,7 +5218,7 @@
         'product-contract-parsing': { cat: 'rfp', kw: '01 b2b contract parsing rfp sow extraction json deliverables ceiling deadline /v1/parse/contract' },
         'product-risk-auditor': { cat: 'compliance', kw: '02 ai contract risk redline auditor legal indemnification liability termination /v1/parse/contract-risks' },
         'product-historical-pricing': { cat: 'pricing', kw: '03 historical procurement pricing sam.gov federal awards clin labor rates incumbent /v1/awards/search /v1/awards/contractor' },
-        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois /v1/solicitations/live' },
+        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania /v1/solicitations/live' },
         'product-compliance-matrix': { cat: 'rfp', kw: '05 rfp compliance matrix proposal outline shipley section l section m shall must checklist /v1/generate/compliance-matrix' },
         'product-far-dfars-scanner': { cat: 'compliance', kw: '06 far dfars cmmc clause risk scanner dod flow-downs cas nist 800-171 cui /v1/audit/far-dfars-clauses' },
         'product-capability-matcher': { cat: 'capture', kw: '07 ai bid no-bid capability matcher pwin score gap analysis past performance /v1/match/capability-statement' },
@@ -4977,7 +5229,8 @@
         'product-security-questionnaire': { cat: 'compliance', kw: '12 soc 2 fedramp nist 800-171 security questionnaire responder caiq sig hecvat sprs poa&m /v1/audit/security-questionnaire' },
         'product-key-personnel': { cat: 'capture', kw: '13 govcon key personnel lcat resume tailoring gsa mas oasis+ dod 8570 8140 clearance shipley bio letter of commitment loc /v1/match/key-personnel' },
         'product-amendment-diff': { cat: 'rfp', kw: '14 rfp amendment q&a change-impact analyzer sf-30 sf30 mod addendum delta far 15.206 invalidated proposal section redraft /v1/analyze/amendment-diff' },
-        'product-past-performance': { cat: 'capture', kw: '15 cpars past performance volume generator shipley section l section m very relevant substantial confidence scope magnitude complexity ppq /v1/generate/past-performance' }
+        'product-past-performance': { cat: 'capture', kw: '15 cpars past performance volume generator shipley section l section m very relevant substantial confidence scope magnitude complexity ppq /v1/generate/past-performance' },
+        'product-price-to-win': { cat: 'data', kw: '16 govcon igce wrap-rate price-to-win modeler ptw fringe overhead g&a fee gsa calc+ lcat rate card section b clin boe basis of estimate far 15.404-1 cost realism /v1/generate/price-to-win' }
       };
 
       var currentApiQuery = '';

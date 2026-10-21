@@ -112,6 +112,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "florida"
     if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
         return "illinois"
+    if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
+        return "pennsylvania"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -125,6 +127,8 @@ def classify_jurisdiction(record: dict) -> str:
         return "florida"
     if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
         return "illinois"
+    if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
+        return "pennsylvania"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "maryland"
     if "federal government" in agency:

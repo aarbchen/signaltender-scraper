@@ -84,6 +84,7 @@ STATE_ALIASES = {
     "fl": "fl", "florida": "fl",
     "md": "md", "maryland": "md",
     "il": "il", "illinois": "il",
+    "pa": "pa", "pennsylvania": "pa",
 }
 
 
@@ -170,6 +171,8 @@ def detect_contract_region(rec: dict) -> str:
         return "fl"
     if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
         return "il"
+    if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
+        return "pa"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -184,6 +187,8 @@ def detect_contract_region(rec: dict) -> str:
         return "fl"
     if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
         return "il"
+    if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
+        return "pa"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "md"
     return "fed"
@@ -220,6 +225,8 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "Maryland DoIT Security • NIST 800-53 • MD NVA VPAT"
     elif reg == "il":
         compliance_posture = "Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT"
+    elif reg == "pa":
+        compliance_posture = "PA OA-ITB Security Policy • SOC 2 Type II • PA EIT VPAT"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":

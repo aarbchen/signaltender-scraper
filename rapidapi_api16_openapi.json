@@ -1,0 +1,465 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon IGCE, Wrap-Rate & Price-to-Win Modeler API",
+    "version": "1.0.0",
+    "description": "Transforms RFP Section B CLIN structures, PWS/SOW level-of-effort & LCAT staffing requirements, and historical award benchmarks into an Independent Government Cost Estimate (IGCE), compounded Indirect Wrap-Rate breakdown (Fringe / Overhead / G&A / Fee), GSA CALC+ LCAT rate card, Multi-Year CLIN pricing schedule, 4-scenario Price-to-Win (PTW) sensitivity matrix, and Shipley Volume IV Basis of Estimate (BOE) narrative.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/price-to-win": {
+      "post": {
+        "summary": "Generate GovCon IGCE, Wrap-Rate & Price-to-Win Model",
+        "operationId": "Generate GovCon IGCE, Wrap-Rate & Price-to-Win Model",
+        "description": "Builds an Independent Government Cost Estimate (IGCE), compounded Indirect Wrap-Rate breakdown, GSA CALC+ aligned LCAT rate card, Section B CLIN schedule, and 4-tier Price-to-Win (PTW) model.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceToWinModelerRequest"
+              },
+              "example": {
+                "rfp_section_b_and_sow_text": "SOLICITATION W52P1J-26-R-0088 (U.S. Army Enterprise Cloud & DevSecOps Engineering): Section B CLIN Structure: Base Year (12 Months) + Four (4) 12-Month Option Years (5-Year Total PoP). CLIN 0001 (FFP): Core Cloud Platform & Zero-Trust DevSecOps Engineering (18 FTEs total: 1 Program Manager [TS/SCI, 1,920 hrs/yr], 3 Principal Cloud Architects [TS/SCI, 1,920 hrs/yr], 8 Senior DevSecOps / Kubernetes Engineers [Secret, 1,920 hrs/yr], 4 Cybersecurity ISSO / RMF Analysts [Secret, 1,920 hrs/yr], 2 Cloud FinOps & Automation Specialists [Secret, 1,920 hrs/yr]). CLIN 0002 (Cost-Reimbursable No-Fee): Other Direct Costs (ODCs) & Travel ceiling fixed at $185,000/year. Place of Performance: Contractor-site (80% remote/NCR Washington DC metro locality) + 20% Fort Belvoir, VA.",
+                "historical_benchmark_and_incumbent_context": "Incumbent task order was awarded in 2021 at $24.8M over 5 years ($4.96M/yr) for 16 FTEs under GSA MAS SIN 54151S. Current GSA CALC+ NCR medians for cleared DevSecOps/Cloud roles range from $148/hr to $215/hr burdened.",
+                "bidder_indirect_wrap_assumptions": "Contractor-site indirect rates: Fringe 29.5%, Overhead 18.0%, G&A 11.5%, Target FFP Profit/Fee 9.0%. Productive year = 1,920 billable hours/FTE. Annual Option Year labor escalation = 3.0%/year.",
+                "evaluation_methodology": "BEST_VALUE_TRADEOFF"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful IGCE, Wrap-Rate, and Price-to-Win model generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceToWinModelerResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "summary": "Gateway Health & SLA Check",
+        "operationId": "Check Gateway Health Status",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CLINPeriodPricingItem": {
+        "description": "Section B CLIN pricing schedule item across Base and Option Years.",
+        "properties": {
+          "clin_number": {
+            "description": "CLIN identifier (e.g., 'CLIN 0001', 'CLIN 1001', 'CLIN 0002').",
+            "title": "Clin Number",
+            "type": "string"
+          },
+          "clin_description": {
+            "description": "CLIN title and scope summary.",
+            "title": "Clin Description",
+            "type": "string"
+          },
+          "contract_type": {
+            "description": "CLIN contract type (e.g., 'FFP', 'T&M', 'CPFF', 'Cost-Reimbursable No-Fee ODC').",
+            "title": "Contract Type",
+            "type": "string"
+          },
+          "period_label": {
+            "description": "Contract period label (e.g., 'Base Year (Months 1-12)', 'Option Year 1 (Months 13-24)').",
+            "title": "Period Label",
+            "type": "string"
+          },
+          "estimated_period_total_usd": {
+            "description": "Extended dollar amount for this CLIN and period.",
+            "minimum": 0.0,
+            "title": "Estimated Period Total Usd",
+            "type": "number"
+          }
+        },
+        "required": [
+          "clin_number",
+          "clin_description",
+          "contract_type",
+          "period_label",
+          "estimated_period_total_usd"
+        ],
+        "title": "CLINPeriodPricingItem",
+        "type": "object"
+      },
+      "LCATRateCardBuildUpItem": {
+        "description": "Bottom-up labor category (LCAT) salary, wrap, and GSA CALC+ benchmark item.",
+        "properties": {
+          "lcat_title": {
+            "description": "Solicitation Labor Category (LCAT) title (e.g., 'Principal Cloud Architect [Key]').",
+            "title": "Lcat Title",
+            "type": "string"
+          },
+          "gsa_calc_comparable_category": {
+            "description": "Mapped GSA MAS SIN 54151S / CALC+ comparable labor category title and education/experience tier.",
+            "title": "Gsa Calc Comparable Category",
+            "type": "string"
+          },
+          "clearance_and_locality_adjustment": {
+            "description": "Security clearance premium (e.g., Secret / TS/SCI) and BLS/OPM geographic locality applied.",
+            "title": "Clearance And Locality Adjustment",
+            "type": "string"
+          },
+          "fte_count": {
+            "description": "Number of Full-Time Equivalents (FTEs) allocated to this LCAT.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Fte Count",
+            "type": "number"
+          },
+          "annual_hours_per_fte": {
+            "default": 1920,
+            "description": "Annual billable hours per FTE for this LCAT.",
+            "maximum": 2080,
+            "minimum": 100,
+            "title": "Annual Hours Per Fte",
+            "type": "integer"
+          },
+          "direct_unburdened_hourly_rate_usd": {
+            "description": "Base unburdened direct hourly wage ($/hr) derived from salary divided by 2,080 standard hours.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Direct Unburdened Hourly Rate Usd",
+            "type": "number"
+          },
+          "fully_burdened_bill_rate_usd": {
+            "description": "Proposed Base Year fully burdened hourly bill rate ($/hr) after applying the wrap multiplier.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Fully Burdened Bill Rate Usd",
+            "type": "number"
+          },
+          "gsa_calc_market_median_rate_usd": {
+            "description": "Comparable GSA CALC+ / market median burdened hourly rate ($/hr) for price reasonableness comparison.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Gsa Calc Market Median Rate Usd",
+            "type": "number"
+          },
+          "base_year_extended_cost_usd": {
+            "description": "Extended Base Year cost for this LCAT (FTEs * annual_hours * fully_burdened_bill_rate_usd).",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Base Year Extended Cost Usd",
+            "type": "number"
+          },
+          "rate_realism_rationale": {
+            "description": "Justification of why this direct and burdened rate satisfies FAR 15.404-1 price reasonableness and cost realism.",
+            "title": "Rate Realism Rationale",
+            "type": "string"
+          }
+        },
+        "required": [
+          "lcat_title",
+          "gsa_calc_comparable_category",
+          "clearance_and_locality_adjustment",
+          "fte_count",
+          "direct_unburdened_hourly_rate_usd",
+          "fully_burdened_bill_rate_usd",
+          "gsa_calc_market_median_rate_usd",
+          "base_year_extended_cost_usd",
+          "rate_realism_rationale"
+        ],
+        "title": "LCATRateCardBuildUpItem",
+        "type": "object"
+      },
+      "PTWSensitivityScenario": {
+        "description": "Price-to-Win sensitivity scenario across competitive postures.",
+        "properties": {
+          "scenario_label": {
+            "description": "Scenario tier ('AGGRESSIVE_LPTA_FLOOR', 'RECOMMENDED_TARGET_PTW', 'INCUMBENT_DEFENSIVE_BENCHMARK', 'IGCE_CEILING_ESTIMATE').",
+            "enum": [
+              "AGGRESSIVE_LPTA_FLOOR",
+              "RECOMMENDED_TARGET_PTW",
+              "INCUMBENT_DEFENSIVE_BENCHMARK",
+              "IGCE_CEILING_ESTIMATE"
+            ],
+            "title": "Scenario Label",
+            "type": "string"
+          },
+          "total_evaluated_price_usd": {
+            "description": "Total evaluated price ($ USD) across the full Period of Performance under this scenario.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Total Evaluated Price Usd",
+            "type": "number"
+          },
+          "effective_blended_hourly_rate_usd": {
+            "description": "Effective blended fully burdened hourly rate ($/hr) across all labor categories.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Effective Blended Hourly Rate Usd",
+            "type": "number"
+          },
+          "estimated_pwin_impact_pct": {
+            "description": "Estimated Probability of Win (Pwin %) on the price/cost evaluation factor at this price point.",
+            "maximum": 100,
+            "minimum": 0,
+            "title": "Estimated Pwin Impact Pct",
+            "type": "integer"
+          },
+          "evaluator_tradeoff_assessment": {
+            "description": "Analysis of how the Source Selection Evaluation Board (SSEB) / Cost/Price Chair will score this price point.",
+            "title": "Evaluator Tradeoff Assessment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenario_label",
+          "total_evaluated_price_usd",
+          "effective_blended_hourly_rate_usd",
+          "estimated_pwin_impact_pct",
+          "evaluator_tradeoff_assessment"
+        ],
+        "title": "PTWSensitivityScenario",
+        "type": "object"
+      },
+      "WrapRateBreakdown": {
+        "description": "Compounded indirect wrap-rate breakdown (Fringe -> Overhead -> G&A -> Fee).",
+        "properties": {
+          "fringe_rate_pct": {
+            "description": "Fringe benefits percentage applied to direct labor (e.g., 29.5%).",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Fringe Rate Pct",
+            "type": "number"
+          },
+          "overhead_rate_pct": {
+            "description": "Overhead percentage (Contractor-site or Government-site) applied to Direct Labor + Fringe.",
+            "maximum": 150.0,
+            "minimum": 0.0,
+            "title": "Overhead Rate Pct",
+            "type": "number"
+          },
+          "general_and_administrative_ga_pct": {
+            "description": "General & Administrative (G&A) percentage applied to total cost input.",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "General And Administrative Ga Pct",
+            "type": "number"
+          },
+          "target_fee_or_profit_pct": {
+            "description": "Target profit/fee percentage (e.g., 7.0%\u201310.0% FFP/T&M or 5.0%\u20138.0% CPFF).",
+            "maximum": 50.0,
+            "minimum": 0.0,
+            "title": "Target Fee Or Profit Pct",
+            "type": "number"
+          },
+          "compounded_wrap_multiplier_without_fee": {
+            "description": "Compounded cost wrap multiplier before fee: (1 + Fringe) * (1 + OH) * (1 + G&A).",
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "title": "Compounded Wrap Multiplier Without Fee",
+            "type": "number"
+          },
+          "fully_burdened_wrap_multiplier_with_fee": {
+            "description": "Total fully burdened wrap multiplier including fee: cost_wrap * (1 + Fee).",
+            "maximum": 4.5,
+            "minimum": 1.0,
+            "title": "Fully Burdened Wrap Multiplier With Fee",
+            "type": "number"
+          },
+          "annual_productive_hours_per_fte": {
+            "default": 1920,
+            "description": "Annual productive billable hours per FTE (typically 1,880 or 1,920 hours after PTO/holidays).",
+            "maximum": 2080,
+            "minimum": 1500,
+            "title": "Annual Productive Hours Per Fte",
+            "type": "integer"
+          },
+          "annual_option_year_escalation_pct": {
+            "default": 3.0,
+            "description": "Annual labor escalation percentage applied across Option Years (e.g., 3.0%).",
+            "maximum": 15.0,
+            "minimum": 0.0,
+            "title": "Annual Option Year Escalation Pct",
+            "type": "number"
+          },
+          "wrap_structure_justification": {
+            "description": "Audit-ready explanation of how the indirect wrap multiplier was compounded and benchmarked.",
+            "title": "Wrap Structure Justification",
+            "type": "string"
+          }
+        },
+        "required": [
+          "fringe_rate_pct",
+          "overhead_rate_pct",
+          "general_and_administrative_ga_pct",
+          "target_fee_or_profit_pct",
+          "compounded_wrap_multiplier_without_fee",
+          "fully_burdened_wrap_multiplier_with_fee",
+          "wrap_structure_justification"
+        ],
+        "title": "WrapRateBreakdown",
+        "type": "object"
+      },
+      "PriceToWinModelerRequest": {
+        "additionalProperties": false,
+        "description": "Inbound request schema for POST /v1/generate/price-to-win.",
+        "example": {
+          "bidder_indirect_wrap_assumptions": "Contractor-site indirect rates: Fringe 29.5%, Overhead 18.0%, G&A 11.5%, Target FFP Profit/Fee 9.0%. Productive year = 1,920 billable hours/FTE. Annual Option Year labor escalation = 3.0%/year.",
+          "evaluation_methodology": "BEST_VALUE_TRADEOFF",
+          "historical_benchmark_and_incumbent_context": "Incumbent task order was awarded in 2021 at $24.8M over 5 years ($4.96M/yr) for 16 FTEs under GSA MAS SIN 54151S. Current GSA CALC+ NCR medians for cleared DevSecOps/Cloud roles range from $148/hr to $215/hr burdened.",
+          "rfp_section_b_and_sow_text": "SOLICITATION W52P1J-26-R-0088 (U.S. Army Enterprise Cloud & DevSecOps Engineering): Section B CLIN Structure: Base Year (12 Months) + Four (4) 12-Month Option Years (5-Year Total PoP). CLIN 0001 (FFP): Core Cloud Platform & Zero-Trust DevSecOps Engineering (18 FTEs total: 1 Program Manager [TS/SCI, 1,920 hrs/yr], 3 Principal Cloud Architects [TS/SCI, 1,920 hrs/yr], 8 Senior DevSecOps / Kubernetes Engineers [Secret, 1,920 hrs/yr], 4 Cybersecurity ISSO / RMF Analysts [Secret, 1,920 hrs/yr], 2 Cloud FinOps & Automation Specialists [Secret, 1,920 hrs/yr]). CLIN 0002 (Cost-Reimbursable No-Fee): Other Direct Costs (ODCs) & Travel ceiling fixed at $185,000/year. Place of Performance: Contractor-site (80% remote/NCR Washington DC metro locality) + 20% Fort Belvoir, VA."
+        },
+        "properties": {
+          "rfp_section_b_and_sow_text": {
+            "description": "Raw RFP Section B (Supplies/Services and Prices/Costs), PWS/SOW level-of-effort & LCAT staffing requirements, contract type (FFP, T&M, Labor-Hour, CPFF), Period of Performance (Base + Option Years), and Place of Performance.",
+            "maxLength": 120000,
+            "minLength": 30,
+            "title": "Rfp Section B And Sow Text",
+            "type": "string"
+          },
+          "historical_benchmark_and_incumbent_context": {
+            "maxLength": 60000,
+            "type": "string",
+            "default": null,
+            "description": "Optional incumbent contract value, FPDS/USAspending historical award benchmarks, GSA MAS CALC+ ceiling rates, or known agency budget ceilings to anchor the IGCE and Price-to-Win model.",
+            "title": "Historical Benchmark And Incumbent Context",
+            "nullable": true
+          },
+          "bidder_indirect_wrap_assumptions": {
+            "maxLength": 25000,
+            "type": "string",
+            "default": null,
+            "description": "Optional bidder indirect rate assumptions (Fringe %, Overhead %, G&A %, Target Fee/Profit %, annual productive hours per FTE such as 1,880 or 1,920, and annual Option Year escalation %).",
+            "title": "Bidder Indirect Wrap Assumptions",
+            "nullable": true
+          },
+          "evaluation_methodology": {
+            "default": "BEST_VALUE_TRADEOFF",
+            "description": "Source selection evaluation methodology: 'BEST_VALUE_TRADEOFF' (FAR 15.101-1), 'LPTA_LOWEST_PRICE_TECHNICALLY_ACCEPTABLE' (FAR 15.101-2), 'HIGHEST_TECHNICALLY_RATED_FAIR_REASONABLE_PRICE', or 'COST_REALISM_CPFF' (FAR 15.404-1(d)).",
+            "enum": [
+              "BEST_VALUE_TRADEOFF",
+              "LPTA_LOWEST_PRICE_TECHNICALLY_ACCEPTABLE",
+              "HIGHEST_TECHNICALLY_RATED_FAIR_REASONABLE_PRICE",
+              "COST_REALISM_CPFF"
+            ],
+            "title": "Evaluation Methodology",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rfp_section_b_and_sow_text"
+        ],
+        "title": "PriceToWinModelerRequest",
+        "type": "object"
+      },
+      "PriceToWinModelerResponse": {
+        "description": "Outbound response schema for POST /v1/generate/price-to-win.",
+        "properties": {
+          "solicitation_pricing_overview": {
+            "description": "Executive summary of contract structure, total FTEs, Period of Performance, and pricing strategy.",
+            "title": "Solicitation Pricing Overview",
+            "type": "string"
+          },
+          "recommended_price_to_win_usd": {
+            "description": "Recommended total evaluated Price-to-Win ($ USD) across Base + all Option Years.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Recommended Price To Win Usd",
+            "type": "number"
+          },
+          "independent_government_cost_estimate_igce_usd": {
+            "description": "Estimated Independent Government Cost Estimate (IGCE) baseline ($ USD) across the full PoP.",
+            "minimum": 0.0,
+            "exclusiveMinimum": true,
+            "title": "Independent Government Cost Estimate Igce Usd",
+            "type": "number"
+          },
+          "ptw_discount_vs_igce_pct": {
+            "description": "Percentage difference between recommended Price-to-Win and the estimated IGCE (e.g., -6.4 represents a 6.4% discount below IGCE).",
+            "title": "Ptw Discount Vs Igce Pct",
+            "type": "number"
+          },
+          "cost_realism_and_price_reasonableness_posture": {
+            "description": "FAR 15.404-1 Price Reasonableness & Cost Realism risk classification.",
+            "enum": [
+              "OPTIMAL_COMPETITIVE_BAND",
+              "MODERATE_COMPRESSION_RISK",
+              "HIGH_UNREALISTIC_LOW_COST_RISK",
+              "ABOVE_IGCE_UNCOMPETITIVE_RISK"
+            ],
+            "title": "Cost Realism And Price Reasonableness Posture",
+            "type": "string"
+          },
+          "wrap_rate_calculator_breakdown": {
+            "$ref": "#/components/schemas/WrapRateBreakdown"
+          },
+          "lcat_rate_card_and_fte_buildup": {
+            "description": "Bottom-up LCAT staffing, unburdened direct wage, burdened bill rate, and GSA CALC+ benchmark table.",
+            "items": {
+              "$ref": "#/components/schemas/LCATRateCardBuildUpItem"
+            },
+            "minItems": 1,
+            "title": "Lcat Rate Card And Fte Buildup",
+            "type": "array"
+          },
+          "clin_period_of_performance_schedule": {
+            "description": "Section B CLIN pricing schedule across Base Year and Option Years.",
+            "items": {
+              "$ref": "#/components/schemas/CLINPeriodPricingItem"
+            },
+            "minItems": 1,
+            "title": "Clin Period Of Performance Schedule",
+            "type": "array"
+          },
+          "ptw_sensitivity_scenarios": {
+            "description": "Competitive Price-to-Win sensitivity matrix (Aggressive Floor, Recommended Target PTW, Incumbent Benchmark, IGCE Ceiling).",
+            "items": {
+              "$ref": "#/components/schemas/PTWSensitivityScenario"
+            },
+            "minItems": 2,
+            "title": "Ptw Sensitivity Scenarios",
+            "type": "array"
+          },
+          "section_b_cost_narrative_and_boe_summary": {
+            "description": "Ready-to-paste Shipley Volume IV Price/Cost Narrative and Basis of Estimate (BOE) justification.",
+            "title": "Section B Cost Narrative And Boe Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "solicitation_pricing_overview",
+          "recommended_price_to_win_usd",
+          "independent_government_cost_estimate_igce_usd",
+          "ptw_discount_vs_igce_pct",
+          "cost_realism_and_price_reasonableness_posture",
+          "wrap_rate_calculator_breakdown",
+          "lcat_rate_card_and_fte_buildup",
+          "clin_period_of_performance_schedule",
+          "ptw_sensitivity_scenarios",
+          "section_b_cost_narrative_and_boe_summary"
+        ],
+        "title": "PriceToWinModelerResponse",
+        "type": "object"
+      }
+    }
+  }
+}

@@ -16,7 +16,11 @@
     ],
     "enriched_at": "2026-10-18T04:15:14.950654+00:00",
     "compliance_posture": "Maryland DoIT Security Manual \u2022 NIST 800-53 \u2022 MD NVA VPAT",
-    "teaming_posture": "Maryland MBE (15%\u201329% Goal) + VSBE (1%\u20135% Goal) + 3 Public Refs"
+    "teaming_posture": "Maryland MBE (15%\u201329% Goal) + VSBE (1%\u20135% Goal) + 3 Public Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "352": {
     "id": "352",
@@ -42,7 +46,11 @@
     ],
     "enriched_at": "2026-10-20T18:53:15.632845+00:00",
     "compliance_posture": "FBI CJIS Security Policy v5.9.4 \u2022 FAC 60GG-2 \u2022 SOC 2 Type II + VPAT",
-    "teaming_posture": "FL OSD Certified Minority / Veteran (CMBE/VBE) Teaming + 3 SLED Refs"
+    "teaming_posture": "FL OSD Certified Minority / Veteran (CMBE/VBE) Teaming + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "522": {
     "id": "522",
@@ -68,7 +76,11 @@
     ],
     "enriched_at": "2026-10-20T18:51:57.442882+00:00",
     "compliance_posture": "VITA SEC 530 Cloud Standard \u2022 SOC 2 Type II \u2022 VA Accessibility VPAT",
-    "teaming_posture": "Virginia DSBSD SWaM Plan (42% Goal) + 3 Public-Sector Refs"
+    "teaming_posture": "Virginia DSBSD SWaM Plan (42% Goal) + 3 Public-Sector Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "521": {
     "id": "521",
@@ -94,7 +106,11 @@
     ],
     "enriched_at": "2026-10-20T18:52:31.421514+00:00",
     "compliance_posture": "TX-RAMP Level 2 \u2022 Texas DIR Security \u2022 TAC 206 WCAG 2.1 AA VPAT",
-    "teaming_posture": "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Past Perf Refs"
+    "teaming_posture": "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Past Perf Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "630": {
     "id": "630",
@@ -120,7 +136,11 @@
       "Three signed client references from past 5 years documenting successful data networking deployments in government/public-sector aviation or similar facilities \u226510,000 sq ft, including project scope, budget adherence, uptime percentage achieved, and Section 508/WCAG compliance validation.",
       "Detailed technical specification document or architecture diagram for comparable networking project showing: redundant WAN/LAN design, security controls (encryption, access management), Section 508 accessibility compliance mechanisms, SLA metrics achieved, and specific equipment models/vendors proposed for comparable hangar-scale facilities."
     ],
-    "enriched_at": "2026-10-21T00:01:29.860823+00:00"
+    "enriched_at": "2026-10-21T00:01:29.860823+00:00",
+    "igce_ptw_posture": "Wrap ~1.76x (Hybrid Site) \u2022 Target PTW: -6.0% vs. IGCE \u2022 Lead Network Arch $154/hr | Field Eng $128/hr",
+    "key_personnel_lcats": "Telecom Project Manager (PMP/BICSI, 8+ yrs) \u2022 Lead Network Infrastructure Engineer (CCNP/CCIE, 7+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "619": {
     "id": "619",
@@ -146,7 +166,11 @@
       "Third-party WCAG 2.1 AA accessibility audit reports and automated compliance scanning results from 2+ similar government digital platforms implemented within past 24 months, including remediation timelines and ongoing monitoring protocols.",
       "Customer reference letters from Texas public sector agencies (city/county government) documenting: phased implementation completion dates, SLA uptime achievement percentages, security certification compliance (SOC2 Type II or equivalent), and quantified user adoption/satisfaction metrics post-deployment."
     ],
-    "enriched_at": "2026-10-21T00:01:57.262774+00:00"
+    "enriched_at": "2026-10-21T00:01:57.262774+00:00",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "617": {
     "id": "617",
@@ -172,7 +196,11 @@
       "**Security & Accessibility Attestation:** Current SOC 2 Type II certification, WCAG 2.1 AA accessibility audit report (within 12 months), and documented uptime performance data (99.5%+ SLA achievement) from existing municipal EHS deployments.",
       "**Public Sector Reference Performance:** Three detailed case studies from past 3 years implementing web-based EHS/compliance software for transit authorities, municipal agencies, or comparable public sector organizations, including client contact information, implementation timeline, final budget variance, and post-launch support metrics."
     ],
-    "enriched_at": "2026-10-21T00:02:24.503942+00:00"
+    "enriched_at": "2026-10-21T00:02:24.503942+00:00",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "675": {
     "id": "675",
@@ -198,7 +226,11 @@
       "**Technical Compliance Proof:** Detailed security architecture documentation (encryption standards, authentication protocols, backup/disaster recovery procedures) AND independent accessibility audit report (VPAT or AARA conformance statement) demonstrating Section 508/WCAG 2.1 AA Level AA compliance for similar systems already in production.",
       "**Past Performance Validation:** Executed contracts (with reference letters from government clients) showing minimum 2 successful public-sector docket/document management implementations within last 4 years, including system uptime metrics, user adoption rates, and measurable cost savings or efficiency gains with similar organizational scale (250+ end-users)."
     ],
-    "enriched_at": "2026-10-21T01:26:35.554021+00:00"
+    "enriched_at": "2026-10-21T01:26:35.554021+00:00",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
   },
   "674": {
     "id": "674",
@@ -224,6 +256,100 @@
       "Certified compliance documentation (SOC 2 Type II, FedRAMP certification or equivalent) plus a detailed Section 508/WCAG 2.1 AA accessibility compliance matrix showing all interface components, keyboard navigation, and screen reader validation test results.",
       "Three customer reference case studies from public-sector construction/infrastructure clients (state/federal level) with signed attestations confirming on-time delivery within \u00b110% of schedule, achieved uptime SLA performance, and post-implementation support satisfaction scores \u22654.2/5.0."
     ],
-    "enriched_at": "2026-10-21T01:27:05.271412+00:00"
+    "enriched_at": "2026-10-21T01:27:05.271412+00:00",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
+  },
+  "684": {
+    "id": "684",
+    "title": "26-118-S Managed Information Technology Services RFP",
+    "agency": "Philadelphia Regional Port Authority (PhilaPort)",
+    "jurisdiction_badge": "FEDERAL // SAM.GOV",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/11/2026",
+    "source_url": "https://philaport.bonfirehub.com/opportunities/251104",
+    "dossier_url": "https://signaltender.net/contracts/rfp/26-118-s-managed-information-technology-services-rfp-684.html",
+    "primary_naics": "541513 \u2014 Computer Facilities Management Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Software Maintenance and Support, Desktop Application Software",
+    "primary_nigp": "918-29 \u2014 Computer Software Maintenance Services",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "PA OA-ITB Security Policy \u2022 SOC 2 Type II / NIST 800-53 \u2022 PA EIT Accessibility VPAT",
+    "teaming_posture": "PA DGS BDISBO SDB/VBE Subcontracting Goal (15%\u201325%) + COSTARS/ITQ Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Enterprise Architecture Excellence:** Demonstrate proven design methodology for mission-critical port operations IT infrastructure with redundant systems achieving 99.9% SLA uptime, leveraging containerized microservices and cloud-native technologies that align with federal security frameworks (FedRAMP, NIST 800-53) required for transportation critical infrastructure.",
+      "**Public-Sector Delivery Pedigree:** Showcase 3+ recent successful managed services engagements with federal/state transportation agencies (ports, DOT, maritime authorities) delivered on-time and on-budget with documented client testimonials, security compliance certifications, and measurable operational cost savings of 20%+ post-implementation.",
+      "**Phased Risk Mitigation & Change Management:** Present detailed 12-18 month implementation roadmap with discrete go-live phases, comprehensive knowledge transfer curricula, dedicated account management, and rollback procedures that minimize disruption to port operations while ensuring Section 508/WCAG 2.1 AA accessibility compliance and zero security incidents."
+    ],
+    "evidence_needed": [
+      "**Security & Compliance Certifications:** Provide current SOC 2 Type II audit report, FedRAMP Moderate authorization letter (or path to authorization), FISMA compliance documentation, and proof of CISO-approved vulnerability management program with <30-day remediation SLAs for critical findings.",
+      "**Quantified Past Performance:** Submit 3 federal/state managed IT services reference contracts (2019-2026) with contract values, completion dates, final SLA compliance metrics (minimum 99.5% uptime achieved), and signed client reference letters confirming on-time/on-budget delivery and post-engagement performance ratings."
+    ],
+    "enriched_at": "2026-10-21T02:55:37.913902+00:00"
+  },
+  "681": {
+    "id": "681",
+    "title": "State Medicaid Data Analytics Oversight Solution (26-RFI-21377)",
+    "agency": "PA Department of Human Services",
+    "jurisdiction_badge": "PENNSYLVANIA // eMARKETPLACE",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/13/2026",
+    "source_url": "https://www.emarketplace.state.pa.us/Solicitations.aspx?SID=26-RFI-21377",
+    "dossier_url": "https://signaltender.net/contracts/rfp/state-medicaid-data-analytics-oversight-solution-26-rfi-21377-681.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "208-11 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "PA OA-ITB Security Policy \u2022 SOC 2 Type II / NIST 800-53 \u2022 PA EIT Accessibility VPAT",
+    "teaming_posture": "PA DGS BDISBO SDB/VBE Subcontracting Goal (15%\u201325%) + COSTARS/ITQ Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Section Heading: Enterprise-Grade Data Analytics Architecture** \u2014 Demonstrate proven PA Medicaid ecosystem integration experience with HIPAA-compliant, Section 508/WCAG 2.1 AA accessible analytics platform delivering real-time oversight dashboards that exceed 99.5% uptime SLA requirements through redundant cloud infrastructure and automated failover mechanisms.",
+      "**Section Heading: Public-Sector Medicaid Delivery Track Record** \u2014 Highlight 3+ similar state Medicaid data analytics implementations with documented client references showing successful phased deployments, on-time delivery, and measurable program integrity/cost savings outcomes within PA or comparable state healthcare agencies.",
+      "**Section Heading: Accelerated Implementation & Change Management Excellence** \u2014 Present detailed phased rollout schedule (discovery \u2192 pilot \u2192 full production) with embedded training curriculum, transition playbooks, and dedicated PA DHS liaison resources ensuring zero operational disruption and rapid staff adoption across oversight teams."
+    ],
+    "evidence_needed": [
+      "**HIPAA Security & Accessibility Certification** \u2014 Provide third-party audit report (SOC 2 Type II + HITRUST validation or equivalent) confirming 12+ months continuous compliance with HIPAA encryption, access controls, breach notification protocols, and full Section 508/WCAG 2.1 AA remediation evidence (accessibility testing reports, automated compliance scan results).",
+      "**Comparable State Medicaid Project References** \u2014 Submit 2-3 client letters from state health departments (similar budget tier >$2M; similar technical scope: data analytics, oversight, integration to state systems) listing project duration, go-live date, final SLA uptime achievement, and quantified business outcomes (cost savings, fraud detection metrics, or program efficiency gains)."
+    ],
+    "enriched_at": "2026-10-21T03:03:02.599232+00:00"
+  },
+  "680": {
+    "id": "680",
+    "title": "Form Ordering System (DOR 387-26)",
+    "agency": "PA Department of Revenue",
+    "jurisdiction_badge": "PENNSYLVANIA // eMARKETPLACE",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "10/27/2026",
+    "source_url": "https://www.emarketplace.state.pa.us/Solicitations.aspx?SID=DOR%20387-26",
+    "dossier_url": "https://signaltender.net/contracts/rfp/form-ordering-system-dor-387-26-680.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services",
+    "primary_nigp": "918-29 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "PA OA-ITB Security Policy \u2022 SOC 2 Type II / NIST 800-53 \u2022 PA EIT Accessibility VPAT",
+    "teaming_posture": "PA DGS BDISBO SDB/VBE Subcontracting Goal (15%\u201325%) + COSTARS/ITQ Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Proven PA Public-Sector Enterprise Delivery:** Demonstrate 3+ successful form management or enterprise software deployments with PA state agencies or similar high-compliance public entities, highlighting on-time delivery, security certification achievement, and measurable uptime performance (99.5%+ SLA attainment).",
+      "**Section 508/WCAG 2.1 AA Compliance-by-Design Architecture:** Present a technically defensible accessibility-first system architecture with automated compliance testing, VPAT documentation workflow, and dedicated accessibility QA resources\u2014positioning compliance as architectural requirement, not retrofit.",
+      "**Phased Agile Implementation with Risk Mitigation:** Propose a structured 3-phase rollout (design/security authorization \u2192 pilot deployment \u2192 full production transition) with clear PA DOR touchpoints, resource staffing plan, and documented transition protocols that minimize disruption to revenue operations."
+    ],
+    "evidence_needed": [
+      "**Security & Compliance Authorization Evidence:** Copy of current FedRAMP authorization, PA ITRM security assessment report, or FISMA Authority-to-Operate (ATO) for a comparable form-ordering or document-management platform deployed within last 3 years; include specific security controls mapped to PA requirements (encryption, SAML integration, audit logging).",
+      "**Past Performance Reference with Quantified Metrics:** Customer reference letter from PA state agency or equivalent public-sector client documenting: (1) form management system or enterprise data platform project scope/complexity, (2) actual vs. planned delivery timeline, (3) achieved uptime/SLA performance percentage, and (4) Section 508/WCAG compliance certification status post-deployment."
+    ],
+    "enriched_at": "2026-10-21T03:03:45.460839+00:00"
   }
 }

@@ -35,7 +35,8 @@ const RAPIDAPI_HOSTS = {
   answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
   match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
   analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
-  generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com"
+  generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com",
+  generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -247,7 +248,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 7-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 9-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -266,10 +267,10 @@ const TOOLS = [
             "texas",
             "california",
             "florida",
-            "maryland",
+            "maryland", "illinois", "pennsylvania",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1075,6 +1076,88 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_igce_price_to_win",
+    "title": "Build GovCon IGCE, Indirect Wrap-Rate & Price-to-Win (PTW) Model",
+    "description": "Model an Independent Government Cost Estimate (IGCE), compounded Indirect Wrap-Rate breakdown (Fringe, Overhead, G&A, and Fee/Profit), GSA CALC+ aligned LCAT rate card, multi-year Section B CLIN pricing schedule, 4-scenario Price-to-Win (PTW) sensitivity matrix, and Shipley Volume IV Basis of Estimate (BOE) narrative from RFP Section B/SOW text. This is a read-only, stateless financial modeling and estimation call (requires X-RapidAPI-Key; `rfp_section_b_and_sow_text` accepts 30 to 120,000 characters, optional `historical_benchmark_and_incumbent_context` and `bidder_indirect_wrap_assumptions` anchor indirect multipliers and incumbent baselines, and `evaluation_methodology` calibrates FAR 15.101-1 Best-Value Tradeoff vs. LPTA or FAR 15.404-1(d) Cost Realism). Use this tool when building forward-looking Volume IV Price/Cost models, wrap-rate build-ups, and Price-to-Win targets; use `search_historical_awards` instead to query past FPDS/SAM award records, or `extract_pricing_schedule` to parse an existing vendor quote or invoice table.",
+    "annotations": {
+      "title": "Build GovCon IGCE, Indirect Wrap-Rate & Price-to-Win (PTW) Model",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_section_b_and_sow_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 120000,
+          "description": "Raw RFP Section B (Supplies or Services and Prices/Costs), PWS/SOW level-of-effort & LCAT staffing requirements, contract type (FFP, T&M, Labor-Hour, CPFF), Period of Performance (Base + Option Years), and Place of Performance (Contractor-site vs. Government-site)."
+        },
+        "historical_benchmark_and_incumbent_context": {
+          "type": "string",
+          "maxLength": 60000,
+          "description": "Optional incumbent contract value, FPDS/USAspending historical award benchmarks, GSA MAS SIN 54151S CALC+ ceiling rates, or known agency budget ceilings to anchor the IGCE and Price-to-Win model."
+        },
+        "bidder_indirect_wrap_assumptions": {
+          "type": "string",
+          "maxLength": 25000,
+          "description": "Optional bidder indirect rate assumptions (Fringe %, Overhead %, G&A %, Target Fee/Profit %, annual productive hours per FTE such as 1,880 or 1,920, and annual Option Year escalation %)."
+        },
+        "evaluation_methodology": {
+          "type": "string",
+          "enum": [
+            "BEST_VALUE_TRADEOFF",
+            "LPTA_LOWEST_PRICE_TECHNICALLY_ACCEPTABLE",
+            "HIGHEST_TECHNICALLY_RATED_FAIR_REASONABLE_PRICE",
+            "COST_REALISM_CPFF"
+          ],
+          "default": "BEST_VALUE_TRADEOFF",
+          "description": "Source selection evaluation methodology: 'BEST_VALUE_TRADEOFF' (FAR 15.101-1), 'LPTA_LOWEST_PRICE_TECHNICALLY_ACCEPTABLE' (FAR 15.101-2), 'HIGHEST_TECHNICALLY_RATED_FAIR_REASONABLE_PRICE', or 'COST_REALISM_CPFF' (FAR 15.404-1(d))."
+        }
+      },
+      "required": [
+        "rfp_section_b_and_sow_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "recommended_price_to_win_usd": {
+          "type": "number",
+          "description": "Recommended total evaluated Price-to-Win ($ USD) across Base and all Option Years."
+        },
+        "independent_government_cost_estimate_igce_usd": {
+          "type": "number",
+          "description": "Estimated Independent Government Cost Estimate (IGCE) baseline ($ USD) across the full PoP."
+        },
+        "cost_realism_and_price_reasonableness_posture": {
+          "type": "string",
+          "description": "FAR 15.404-1 Price Reasonableness and Cost Realism risk posture."
+        },
+        "wrap_rate_calculator_breakdown": {
+          "type": "object",
+          "description": "Compounded Fringe, Overhead, G&A, and Fee/Profit wrap-rate breakdown."
+        },
+        "lcat_rate_card_and_fte_buildup": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Bottom-up LCAT staffing, unburdened direct wage, burdened bill rate, and GSA CALC+ benchmark table."
+        },
+        "ptw_sensitivity_scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "4-scenario Price-to-Win sensitivity matrix with Pwin impact and SSEB tradeoff analysis."
+        }
+      }
+    }
   }
 ];
 
@@ -1093,7 +1176,8 @@ const ENDPOINT_MAP = {
   answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" },
   match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" },
   analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" },
-  generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" }
+  generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" },
+  generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
