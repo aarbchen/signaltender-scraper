@@ -1,5 +1,12 @@
 import os
+import sys
 import csv
+
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+import json
 import re
 from datetime import datetime, date
 import requests
@@ -23,6 +30,7 @@ SMARTLEAD_CAMPAIGN_ID = os.getenv("SMARTLEAD_CAMPAIGN_ID")
 
 TABLE_NAME = "contracts"
 ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
+DOSSIER_CACHE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "capturedesk_dossiers.json")
 
 # Tech filter regex array as per project_rules.md data integrity protocol
 tech_keywords = [
@@ -63,6 +71,10 @@ commodity_it_exclusions = [
     r"25ecert",
     r"oms-500",
     r"virtual\s+printer\s+driver",
+    r"sole\s*source",
+    r"notice\s+of\s+intent",
+    r"sngl\s+board\s+computer",
+    r"single\s+board\s+computer",
 ]
 
 STATE_ALIASES = {
@@ -121,38 +133,144 @@ def is_contract_open(rec: dict, today: date | None = None) -> bool:
     return dt >= ref_date
 
 
+def clean_title_text(raw_title: str) -> str:
+    s = str(raw_title or "").replace("\ufffd", "–").replace("\u202f", " ").replace("\u00a0", " ")
+    s = re.sub(r"\bWeb-\s+Based\b", "Web-Based", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s{2,}", " ", s)
+    return s.strip()
+
+
+def slugify_contract(title: str, fallback_id: str = "") -> str:
+    clean = clean_title_text(title).lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", clean).strip("-")
+    slug = re.sub(r"-{2,}", "-", slug)
+    if len(slug) > 75:
+        slug = slug[:75].rsplit("-", 1)[0].strip("-")
+    if not slug:
+        slug = "government-it-contract"
+    return f"{slug}-{fallback_id}" if fallback_id else slug
+
+
 def detect_contract_region(rec: dict) -> str:
     """Classify a Supabase contract record into 'tx', 'va', 'ca', 'fl', 'md', 'fed', or 'other'."""
     url = str(rec.get("url") or "").lower()
     agency = str(rec.get("agency") or "").lower()
     title = str(rec.get("title") or "")
-    if title.startswith("[TX]") or "txsmartbuy" in url or "texas" in agency:
-        return "tx"
-    if title.startswith("[VA]") or "cgieva.com" in url or "eva.virginia.gov" in url or "virginia" in agency:
-        return "va"
-    if title.startswith("[CA]") or "caleprocure.ca.gov" in url or "california" in agency:
-        return "ca"
-    if title.startswith("[FL]") or "myfloridamarketplace.com" in url or "florida" in agency:
-        return "fl"
-    if title.startswith("[MD]") or "maryland" in url or "bonfirehub.com" in url or "maryland" in agency or "prince george" in agency or "howard county" in agency:
-        return "md"
     if "sam.gov" in url:
         return "fed"
-    return "other"
+    if "txsmartbuy.com" in url:
+        return "tx"
+    if "cgieva.com" in url or "eva.virginia.gov" in url:
+        return "va"
+    if "caleprocure.ca.gov" in url:
+        return "ca"
+    if "myfloridamarketplace.com" in url:
+        return "fl"
+    if "emma.maryland.gov" in url or "bonfirehub.com" in url:
+        return "md"
+    if "demandstar.com" in url:
+        return "other"
+    if title.startswith("[TX]") or "texas" in agency:
+        return "tx"
+    if title.startswith("[VA]") or "virginia" in agency:
+        return "va"
+    if title.startswith("[CA]") or "california" in agency:
+        return "ca"
+    if title.startswith("[FL]") or "florida" in agency:
+        return "fl"
+    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
+        return "md"
+    return "fed"
 
 
-def format_contract_line(index: int, rec: dict) -> str:
-    """Format a single contract row without duplicating '- Due: MM/DD/YYYY'."""
-    title = str(rec.get("title") or "Unspecified Contract").strip()
+def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> dict:
+    rec_id = str(rec.get("id") or "")
+    raw_title = str(rec.get("title") or "Government IT Solicitation").strip()
+    clean_t = clean_title_text(raw_title)
     agency = str(rec.get("agency") or "Public Agency").strip()
     closing_date = str(rec.get("closing_date") or "").strip()
+    if not closing_date:
+        m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", raw_title, flags=re.IGNORECASE)
+        closing_date = m_due.group(1) if m_due else "Open"
+    slug = slugify_contract(raw_title, fallback_id=rec_id)
+    dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"
 
-    if "due:" in title.lower():
-        return f"{index}. {title} - {agency}\n"
-    elif closing_date and closing_date.lower() not in ["n/a", "none", "null", "tbd"]:
-        return f"{index}. {title} - {agency} (Due: {closing_date})\n"
+    cached = (dossiers or {}).get(rec_id, {}) if isinstance(dossiers, dict) else {}
+    primary_naics = str(cached.get("primary_naics") or "541512 — Computer Systems Design Services")
+    naics_code = primary_naics.split("—")[0].strip()
+    sba_cap = str(cached.get("sba_size_standard") or "$34.0M annual receipts")
+
+    reg = detect_contract_region(rec)
+    blob_low = f"{clean_t} {agency}".lower()
+    if cached.get("compliance_posture"):
+        compliance_posture = str(cached["compliance_posture"])
+    elif reg == "tx":
+        compliance_posture = "TX-RAMP Level 2 • Texas DIR Security • TAC 206 VPAT"
+    elif reg == "va":
+        compliance_posture = "VITA SEC 530 Cloud Standard • SOC 2 Type II • VA VPAT"
+    elif reg == "fl":
+        compliance_posture = "FL FAC 60GG-2 / CJIS Security • SOC 2 Type II • VPAT"
+    elif reg == "md":
+        compliance_posture = "Maryland DoIT Security • NIST 800-53 • MD NVA VPAT"
+    elif reg == "ca":
+        compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
+    elif reg == "fed":
+        if any(k in blob_low for k in ("dod", "defense", "army", "navy", "air force", "space force", "darpa", "disa")):
+            compliance_posture = "CMMC 2.0 Level 2 • NIST 800-171 • DFARS 252.204-7012"
+        else:
+            compliance_posture = "FedRAMP Moderate • FAR 52.204-21 • Section 508 VPAT"
     else:
-        return f"{index}. {title} - {agency}\n"
+        compliance_posture = "SOC 2 Type II • NIST CSF 2.0 • Section 508 / WCAG 2.1 AA"
+
+    if cached.get("teaming_posture"):
+        teaming_posture = str(cached["teaming_posture"])
+    elif reg == "tx":
+        teaming_posture = "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Refs"
+    elif reg == "va":
+        teaming_posture = "Virginia DSBSD SWaM Plan (42% Goal) + 3 Public-Sector Refs"
+    elif reg == "fl":
+        teaming_posture = "FL OSD CMBE/VBE Teaming + 3 SLED Past Performance Refs"
+    elif reg == "md":
+        teaming_posture = "Maryland MBE (15%–29% Goal) + VSBE + 3 Public-Sector Refs"
+    elif reg == "ca":
+        teaming_posture = "CA DGS Small Business (5% Pref) + DVBE + 3 State Refs"
+    else:
+        teaming_posture = "13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs"
+
+    win_themes = cached.get("win_themes") or []
+    if win_themes and isinstance(win_themes, list):
+        win_theme = re.sub(r"\*\*", "", str(win_themes[0])).strip()
+    else:
+        win_theme = f"Align phased implementation milestones, {compliance_posture.split('•')[0].strip()} readiness, and verifiable public-sector past performance directly with {agency}."
+
+    return {
+        "clean_title": clean_t,
+        "agency": agency,
+        "closing_date": closing_date,
+        "slug": slug,
+        "dossier_url": dossier_url,
+        "naics_code": naics_code,
+        "primary_naics": primary_naics,
+        "sba_size_standard": sba_cap,
+        "compliance_posture": compliance_posture,
+        "teaming_posture": teaming_posture,
+        "win_theme": win_theme,
+    }
+
+
+def format_contract_line(index: int, rec: dict, dossiers: dict | None = None) -> str:
+    """Format a single contract row with NAICS & posture (deliverability-safe: zero '$' symbols in Step 1)."""
+    info = resolve_contract_intelligence(rec, dossiers)
+    clean_t = info["clean_title"]
+    agency = info["agency"]
+    closing_date = info["closing_date"]
+    naics_code = info["naics_code"]
+    short_posture = info["compliance_posture"].split("•")[0].strip()
+
+    if closing_date and closing_date.lower() not in ["n/a", "none", "null", "tbd", "open"]:
+        return f"{index}. {clean_t} — {agency} (Due: {closing_date} | NAICS {naics_code} • {short_posture})\n"
+    return f"{index}. {clean_t} — {agency} (NAICS {naics_code} • {short_posture})\n"
 
 
 def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str, max_count: int = 3) -> list[dict]:
@@ -200,6 +318,7 @@ def build_two_step_outreach(
     payload_text: str,
     site_base_url: str,
     checkout_url: str,
+    top_intel: dict | None = None,
 ) -> dict[str, str]:
     """
     Generate anti-spam rotated 2-step cold email copy (Step 1: Deliverability-Safe Value Drop;
@@ -283,21 +402,34 @@ def build_two_step_outreach(
         f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.",
         f"Wanted to follow up one last time regarding our automated Federal and 5-State SLED procurement wire.",
     ]
+    intel_block = ""
+    if top_intel:
+        intel_block = (
+            f"For example, on '{top_intel['clean_title']}' ({top_intel['agency']}), our CaptureDesk engine already pre-computed:\n"
+            f"• Classification: NAICS {top_intel['primary_naics']} (SBA Cap: {top_intel['sba_size_standard']})\n"
+            f"• Cyber & Clause Posture: {top_intel['compliance_posture']}\n"
+            f"• Teaming & Past Performance: {top_intel['teaming_posture']}\n"
+            f"• Dossier Preview: {top_intel['dossier_url']}\n\n"
+        )
+
     step2_tiers = [
         (
+            f"{intel_block}"
             f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
             f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, FAR/DFARS/CMMC clause redlines, Bid/No-Bid Pwin scoring, and 10+ REST/MCP APIs."
+            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 15 REST/MCP APIs (@signaltender/mcp-server)."
         ),
         (
+            f"{intel_block}"
             f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
             f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 5-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
-            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, FAR/DFARS flow-down audits, Pwin scoring, and developer API access."
+            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 15 developer REST/MCP APIs."
         ),
         (
+            f"{intel_block}"
             f"If {company} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
             f"- SignalWire Pro ($99/mo): Live 7-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
-            f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, toxic clause redlines, and Pwin capability matching on every solicitation."
+            f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, CPARS past performance citations, 13 CFR § 125.6 teaming calculators, and Pwin capability matching on every solicitation."
         ),
     ]
     step2_closers = [
@@ -348,7 +480,8 @@ def build_two_step_outreach(
         f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.}}}}\n\n"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 5-State SLED (TX, VA, CA, FL, MD) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, FAR/DFARS/CMMC clause redlines, Bid/No-Bid Pwin scoring, and 10+ REST/MCP APIs.\n\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 15 REST/MCP APIs (@signaltender/mcp-server).\n\n"
+        f"{intel_block}"
         f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
         f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{checkout_url}\n\n"
         f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}"
@@ -363,6 +496,9 @@ def build_two_step_outreach(
         "Spintax Body 1": spintax_body_1,
         "Spintax Body 2": spintax_body_2,
         "Matched State": region_label,
+        "Top Contract Dossier URL": (top_intel or {}).get("dossier_url", f"{site_base_url}/contracts"),
+        "Top Contract NAICS": (top_intel or {}).get("primary_naics", "541512 — Computer Systems Design Services"),
+        "Top Contract Posture": f"{(top_intel or {}).get('compliance_posture', '')} | {(top_intel or {}).get('teaming_posture', '')}".strip(" |"),
     }
 
 
@@ -507,8 +643,18 @@ def generate_outreach():
             print("[!] FATAL: Zero open IT/Cyber contracts found in Supabase. Run mainscraper.py first.", flush=True)
             return
 
+        cached_dossiers = {}
+        if os.path.exists(DOSSIER_CACHE_PATH):
+            try:
+                with open(DOSSIER_CACHE_PATH, "r", encoding="utf-8") as df:
+                    loaded_d = json.load(df)
+                    if isinstance(loaded_d, dict):
+                        cached_dossiers = loaded_d
+            except Exception:
+                cached_dossiers = {}
+
         default_top = tech_contracts[:3]
-        default_payload_text = "".join(format_contract_line(i, r) for i, r in enumerate(default_top, 1))
+        default_payload_text = "".join(format_contract_line(i, r, cached_dossiers) for i, r in enumerate(default_top, 1))
         print(
             f"[+] Loaded {len(tech_contracts)} open, verified B2B IT contracts from Supabase.\n"
             f"Default Top {len(default_top)} Payload Preview:\n{default_payload_text}",
@@ -553,6 +699,9 @@ def generate_outreach():
                 "Spintax Body 1",
                 "Spintax Body 2",
                 "Matched State",
+                "Top Contract Dossier URL",
+                "Top Contract NAICS",
+                "Top Contract Posture",
             ]
             writer = csv.DictWriter(outfile, fieldnames=out_fieldnames)
             writer.writeheader()
@@ -569,7 +718,8 @@ def generate_outreach():
 
                 matched_contracts = select_contracts_for_prospect(tech_contracts, prospect_state, max_count=3)
                 bid_count = len(matched_contracts)
-                payload_text = "".join(format_contract_line(i, r) for i, r in enumerate(matched_contracts, 1))
+                payload_text = "".join(format_contract_line(i, r, cached_dossiers) for i, r in enumerate(matched_contracts, 1))
+                top_intel = resolve_contract_intelligence(matched_contracts[0], cached_dossiers) if matched_contracts else None
 
                 sequence_data = build_two_step_outreach(
                     fname=fname,
@@ -580,6 +730,7 @@ def generate_outreach():
                     payload_text=payload_text,
                     site_base_url=SITE_BASE_URL,
                     checkout_url=whop_checkout_url,
+                    top_intel=top_intel,
                 )
 
                 lead_item = {

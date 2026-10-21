@@ -150,6 +150,10 @@ COMMODITY_IT_EXCLUSIONS = [
     r"\bdc\s+and\s+ac\s+preferred\s+systems\b",
     r"\bmissile\s+warning\s+system\b",
     r"\bf-5\s+aircraft\s+award\b",
+    r"sole\s*source",
+    r"notice\s+of\s+intent",
+    r"sngl\s+board\s+computer",
+    r"single\s+board\s+computer",
 ]
 
 

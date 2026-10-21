@@ -80,6 +80,10 @@ commodity_it_exclusions = [
     r"circuit\s+card\s+assembly",
     r"cable\s+assembly",
     r"wiring\s+harness",
+    r"sole\s*source",
+    r"notice\s+of\s+intent",
+    r"sngl\s+board\s+computer",
+    r"single\s+board\s+computer",
 ]
 
 B2B_EXTRACTION_SYSTEM_PROMPT = (
