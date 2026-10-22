@@ -1723,6 +1723,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             "raw_title": c["raw_title"],
             "agency": c["agency"],
             "masked_agency": c["masked_agency"],
+            "url": c["url"],
             "due_str": c["due_str"] or "Open / See Portal",
             "jurisdiction": c["jurisdiction"],
             "categories": c["categories"],
@@ -2101,11 +2102,23 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div class="text-slate-200">' + esc(item.cpars_benchmark || 'Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)') + '</div>' +
                       '</div>' +
                     '</div>' +
-                    '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
-                      '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
-                      '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
-                      '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>' +
-                    '</div>' +
+                    (function () {{
+                      var isUnl = false;
+                      try {{ isUnl = Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active'))); }} catch (e) {{}}
+                      var realBidUrl = item.url || ('https://portal.government.gov/solicitation/view/' + item.id);
+                      if (isUnl && item.url) {{
+                        return '<div class="space-y-2 text-xs font-mono text-slate-300 pt-1">' +
+                          '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <a href="' + esc(realBidUrl) + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold underline hover:text-emerald-300">' + esc(realBidUrl) + ' &nearr;</a></div>' +
+                          '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="text-white font-semibold">' + esc(item.agency) + '</span></div>' +
+                          '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="text-sky-300">Ready ? click &quot;Run Live Pwin &amp; Shred in Studio&quot; below</span></div>' +
+                        '</div>';
+                      }}
+                      return '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
+                        '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
+                        '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
+                        '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>' +
+                      '</div>';
+                    }})() +
                     '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
                       '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
                         'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +

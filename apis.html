@@ -6080,14 +6080,13 @@
 
         // If user provided a live RapidAPI key, call the RapidAPI host directly
         if (savedRapidKey) {
-          var liveUrl = 'https://' + api.host + api.path;
+          var isDirectKey = savedRapidKey.indexOf('st_live_') === 0;
+          var liveUrl = isDirectKey ? (GATEWAY_BASE + api.path) : ('https://' + api.host + api.path);
           var fetchOpts = {
             method: api.method,
-            headers: {
-              'X-RapidAPI-Key': savedRapidKey,
-              'X-RapidAPI-Host': api.host,
-              'Accept': 'application/json'
-            }
+            headers: isDirectKey
+              ? { 'X-SignalTender-Key': savedRapidKey, 'Accept': 'application/json' }
+              : { 'X-RapidAPI-Key': savedRapidKey, 'X-RapidAPI-Host': api.host, 'Accept': 'application/json' }
           };
           if (api.method === 'POST') {
             fetchOpts.headers['Content-Type'] = 'application/json';
