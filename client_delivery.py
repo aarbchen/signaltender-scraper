@@ -353,6 +353,21 @@ def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -
                 s.login(smtp_user, smtp_pass)
                 s.send_message(msg)
             return True
+        inst_key = os.getenv("INSTANTLY_API_KEY", "").strip()
+        inst_sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
+        if inst_key and inst_sub_cid:
+            r = requests.post(
+                "https://api.instantly.ai/api/v2/leads",
+                headers={"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"},
+                json={
+                    "campaign": inst_sub_cid,
+                    "email": to_email,
+                    "skip_if_in_campaign": False,
+                    "custom_variables": {"subject_line": subject, "email_body": clean_body},
+                },
+                timeout=10,
+            )
+            return r.status_code in (200, 201)
     except Exception:
         pass
     return False
