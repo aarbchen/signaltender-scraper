@@ -2,7 +2,7 @@
 SignalTender LinkedIn Company Page Asset Generator & Automated Promotional Post Engine (`linkedin_autoposter.py`).
 
 1. Generates the official evergreen LinkedIn Company Cover Banner (`d:\\Daas\\linkedin_company_banner.png`,
-   2256x382 2x retina for LinkedIn's 1128x191 company cover spec) and 500x500 Company Logo.
+   4512x764 4x retina for LinkedIn's 1128x191 company cover spec) and 500x500 Company Logo.
 2. Pulls live, pre-vetted Federal (SAM.gov) and State SLED IT/Cybersecurity RFPs from Supabase
    and generates a rotating queue of high-converting LinkedIn Company Page promotional posts
    (`d:\\Daas\\linkedin_ready_posts.json`).
@@ -86,187 +86,97 @@ BANNER_HTML = """<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1128px; height: 191px; }
   body {
-    width: 1128px;
-    height: 191px;
-    background: radial-gradient(circle at 82% 50%, rgba(56, 189, 248, 0.18) 0%, rgba(16, 185, 129, 0.08) 38%, rgba(11, 17, 32, 1) 72%),
-                linear-gradient(135deg, #060a12 0%, #0b1120 55%, #0f172a 100%);
-    font-family: 'Inter', sans-serif;
-    color: #f8fafc;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 36px 0 155px;
     position: relative;
     overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    background:
+      radial-gradient(ellipse 520px 260px at 92% 50%, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0) 70%),
+      radial-gradient(ellipse 420px 220px at 38% 120%, rgba(16, 185, 129, 0.14) 0%, rgba(16, 185, 129, 0) 70%),
+      linear-gradient(120deg, #050912 0%, #0a1222 55%, #0d1a30 100%);
   }
-  .grid-bg {
+  .accent {
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #38bdf8 0%, #10b981 55%, #38bdf8 100%);
+  }
+  /* Large, low-contrast radar mark on the right: thick strokes survive LinkedIn JPEG compression */
+  .radar {
     position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
-    background-size: 24px 24px;
-    pointer-events: none;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.16;
   }
-  .top-bar {
+  /* Content starts at x=300 to stay clear of the company logo, which overlaps the lower-left corner */
+  .content {
     position: absolute;
-    top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, #38bdf8 0%, #10b981 50%, #6366f1 100%);
+    left: 300px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  .left {
-    position: relative;
-    z-index: 2;
-    max-width: 560px;
-  }
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
-    font-weight: 600;
-    color: #34d399;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 8px #10b981;
-  }
-  .brand-row {
+  .kicker {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 5px;
-  }
-  .brand-name {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-    line-height: 1.05;
-  }
-  .brand-tag {
+    gap: 9px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    color: #38bdf8;
-    margin-left: 4px;
-  }
-  .headline {
-    font-size: 13.5px;
-    font-weight: 600;
-    color: #e2e8f0;
-    line-height: 1.35;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #34d399;
     margin-bottom: 10px;
   }
-  .headline span {
-    color: #38bdf8;
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #10b981; }
+  h1 {
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
   }
-  .badges {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px;
-  }
-  .badge {
-    padding: 3.5px 8px;
-    border-radius: 5px;
-    background: rgba(15, 23, 42, 0.88);
-    border: 1px solid rgba(51, 65, 85, 0.95);
+  h1 .hl { color: #38bdf8; }
+  .sub {
+    margin-top: 12px;
+    font-size: 19px;
+    font-weight: 600;
     color: #cbd5e1;
+    letter-spacing: -0.005em;
   }
-  .badge strong { color: #38bdf8; }
-  .right-card {
-    position: relative;
-    z-index: 2;
-    width: 345px;
-    background: rgba(11, 17, 32, 0.94);
-    border: 1px solid rgba(56, 189, 248, 0.38);
-    border-radius: 10px;
-    padding: 11px 14px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
-    font-family: 'JetBrains Mono', monospace;
+  .sub .sep { color: #38bdf8; padding: 0 7px; }
+  .cta {
+    position: absolute;
+    right: 36px;
+    bottom: 28px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: #0284c7;
+    border: 2px solid #38bdf8;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
   }
-  .card-hdr {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 6px;
-    margin-bottom: 6px;
-    border-bottom: 1px solid rgba(51, 65, 85, 0.8);
-    font-size: 9px;
-    color: #94a3b8;
-  }
-  .card-hdr span.status {
-    color: #34d399;
-    font-weight: 700;
-  }
-  .row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 9.5px;
-    padding: 3px 0;
-    border-bottom: 1px dashed rgba(51, 65, 85, 0.45);
-  }
-  .row:last-child { border-bottom: none; }
-  .row .k { color: #94a3b8; }
-  .row .v { color: #f8fafc; font-weight: 600; }
-  .row .v.em { color: #34d399; }
-  .row .v.sky { color: #38bdf8; }
-  .row .v.ind { color: #a5b4fc; }
 </style>
 </head>
 <body>
-  <div class="grid-bg"></div>
-  <div class="top-bar"></div>
-  <div class="left">
-    <div class="pill"><span class="dot"></span>FEDERAL &amp; STATE SLED PROCUREMENT WIRE &bull; 99.4% NOISE STRIPPED</div>
-    <div class="brand-row">
-      <svg width="26" height="26" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
-        <circle cx="32" cy="24" r="5" fill="#38BDF8" />
-        <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <div class="brand-name">SignalTender</div>
-      <div class="brand-tag">CAPTUREDESK AI &amp; MCP</div>
-    </div>
-    <div class="headline">
-      Autonomous <span>SAM.gov &amp; State SLED IT/Cyber</span> RFP Intelligence, Shipley Capture Dossiers &amp; GovCon APIs
-    </div>
-    <div class="badges">
-      <div class="badge"><strong>6-HR</strong> LIVE RFP WIRE</div>
-      <div class="badge"><strong>SHIPLEY</strong> L/M &amp; CPARS AI</div>
-      <div class="badge"><strong>CMMC / RMF / GSA</strong></div>
-      <div class="badge"><strong>signaltender.net</strong></div>
-    </div>
+  <div class="accent"></div>
+  <svg class="radar" width="300" height="300" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
+    <circle cx="32" cy="24" r="5" fill="#38BDF8" />
+    <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  <div class="content">
+    <div class="kicker"><span class="dot"></span>LIVE &middot; SAM.GOV + STATE SLED &middot; EVERY 6 HOURS</div>
+    <h1>Government IT &amp; Cyber RFPs,<br><span class="hl">Pre-Shredded by AI.</span></h1>
+    <div class="sub">AI Capture Dossiers<span class="sep">&bull;</span>CMMC<span class="sep">&bull;</span>GovCon APIs &amp; MCP</div>
   </div>
-  <div class="right-card">
-    <div class="card-hdr">
-      <span>// CAPTUREDESK AI DOSSIER ENGINE</span>
-      <span class="status">200 OK LIVE</span>
-    </div>
-    <div class="row"><span class="k">01. PORTAL COVERAGE</span><span class="v sky">SAM.gov + State SLED</span></div>
-    <div class="row"><span class="k">02. PROPOSAL SHREDDING</span><span class="v em">Sec L/M &bull; SF-30 &bull; CPARS</span></div>
-    <div class="row"><span class="k">03. CYBER &amp; ATO POSTURE</span><span class="v ind">CMMC 2.0 &bull; NIST RMF/cATO</span></div>
-    <div class="row"><span class="k">04. PRICING &amp; TEAMING</span><span class="v em">IGCE PTW &bull; 13 CFR 125.6</span></div>
-    <div class="row"><span class="k">05. AGENT &amp; API ACCESS</span><span class="v sky">REST + @signaltender/mcp</span></div>
-  </div>
+  <div class="cta">signaltender.net &rarr;</div>
 </body>
 </html>
 """
@@ -276,8 +186,9 @@ async def render_linkedin_banner_async() -> str:
     from playwright.async_api import async_playwright
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page(viewport={"width": 1128, "height": 191}, device_scale_factor=2)
+        page = await browser.new_page(viewport={"width": 1128, "height": 191}, device_scale_factor=4)
         await page.set_content(BANNER_HTML, wait_until="networkidle")
+        await page.evaluate("document.fonts.ready")
         await page.screenshot(path=BANNER_PATH, full_page=False)
         await browser.close()
     return BANNER_PATH
@@ -286,7 +197,7 @@ async def render_linkedin_banner_async() -> str:
 def generate_linkedin_banner() -> str:
     try:
         asyncio.run(render_linkedin_banner_async())
-        print(f"[+] Generated LinkedIn Company Banner (2256x382 retina): {BANNER_PATH}", flush=True)
+        print(f"[+] Generated LinkedIn Company Banner (4512x764 4x retina): {BANNER_PATH}", flush=True)
     except Exception as err:
         report_error("linkedin_autoposter.py", f"Banner render warning: {err}")
     return BANNER_PATH
