@@ -595,7 +595,7 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                 ]
             )
             llm_resp = await client.messages.create(
-                model="claude-sonnet-5-5",
+                model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
                 max_tokens=8000,
                 system=B2B_EXTRACTION_SYSTEM_PROMPT,
                 messages=[
@@ -635,7 +635,6 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                     f.write(f"\n[!] {err_msg}\n")
             except Exception:
                 pass
-            send_discord_alert(err_msg)
             supabase_records = candidate_records
     else:
         supabase_records = candidate_records

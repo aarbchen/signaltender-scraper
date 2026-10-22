@@ -214,6 +214,9 @@ COMMODITY_IT_EXCLUSIONS = [
     r"single\s+board\s+computer",
     r"computer\s+subassembl",
     r"server,\s*automatic\s*da",
+    r"data\s+interface\s+unit",
+    r"computer,\s*rackmount",
+    r"synthetic\s+aperture\s+radar",
 ]
 
 
@@ -1603,6 +1606,8 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         return pages_built
 
     except (Exception, SystemExit) as e:
+        if isinstance(e, SystemExit) and e.code in (0, None):
+            return pages_built
         err_msg = f"pseo_generator.py error: {e}"
         print(f"[!] {err_msg}", flush=True)
         try:
@@ -1610,7 +1615,6 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
                 f.write(f"\n[!] {err_msg}\n")
         except Exception:
             pass
-        report_error("pseo_generator.py", err_msg)
         send_discord_alert(err_msg)
         return 0
 

@@ -338,8 +338,83 @@ BAD_LOCAL_PARTS = {
     "privacy", "legal", "abuse", "dmca", "noreply", "no-reply", "donotreply",
     "webmaster", "postmaster", "security", "careers", "jobs", "hr", "recruiting",
     "talent", "employmentverifications", "emeasales", "support", "helpdesk",
-    "billing", "accounts", "unsubscribe", "media", "press",
+    "billing", "accounts", "unsubscribe", "media", "press", "firstname", "lastname",
+    "first.last", "yourname", "example", "user", "email",
 }
+
+ROLE_LOCAL_PARTS = {
+    "info", "sales", "contact", "hello", "contracts", "bd", "bizdev", "growth",
+    "partner", "partners", "engage", "inquiries", "information", "contactus",
+    "contact-us", "vasales", "kgsinfo", "stars3", "mdc", "labs", "events",
+    "ipsecureinc",
+}
+
+COMPANY_CLEAN_OVERRIDES = {
+    "vas / visionary integration professionals (vip)": "Visionary Integration Professionals",
+    "visionary integration professionals (vip)": "Visionary Integration Professionals",
+    "b2gnow / collabralink fl": "B2Gnow",
+    "inspired technologies (fl sled)": "Inspired Technologies",
+    "sikich govtech": "Sikich",
+    "daly computers (md emma sled)": "Daly Computers",
+    "data networks (md sled)": "Data Networks",
+    "cybersaint security (ma nist/cmmc)": "CyberSaint Security",
+    "kappe / kitware": "Kitware",
+    "kitware federal": "Kitware",
+    "entrinsik (nc evp software)": "Entrinsik",
+    "methodsavvy / rovisys federal": "RoviSys Federal",
+    "securityfrag / breachlock nc": "BreachLock",
+    "breachlock nc": "BreachLock",
+    "improving ohio": "Improving",
+    "evogov municipal cloud": "EvoGov",
+    "nupaths / harrisburg it": "NuPaths",
+    "sogeti / neos consulting (tx dir)": "Neos Consulting",
+    "vintage it services (tx dir)": "Vintage IT Services",
+    "makpar corporation": "Makpar",
+    "ost inc (optimal solutions & technologies)": "OST Global",
+    "ost (optimal solutions & technologies)": "OST Global",
+    "decisiveinstincts": "Decisive Instincts",
+    "nextech lintech": "LinTech Global",
+    "vsolvit": "VSolvit",
+    "esimplicity": "eSimplicity",
+    "microhealth": "MicroHealth",
+    "agilerank": "AgileRank",
+    "prosum govtech": "Prosum",
+    "defensestorm cyber": "DefenseStorm",
+}
+
+
+def clean_company_display_name(raw_company: str) -> str:
+    s = str(raw_company or "").strip()
+    if not s:
+        return "your team"
+    low = s.lower()
+    if low in COMPANY_CLEAN_OVERRIDES:
+        return COMPANY_CLEAN_OVERRIDES[low]
+    # Strip trailing parenthetical CRM notes like (FL SLED), (TX DIR), (MD eMMA SLED)
+    s = re.sub(r"\s*\([^)]*\)\s*$", "", s).strip()
+    if " / " in s:
+        parts = [p.strip() for p in s.split(" / ") if p.strip()]
+        s = parts[-1] if len(parts[-1]) >= 4 else parts[0]
+    s = re.sub(r",?\s*\b(L\.?L\.?C\.?|Inc\.?|Corporation|Corp\.?)\b\s*$", "", s, flags=re.IGNORECASE).strip()
+    return s or str(raw_company).strip()
+
+
+def sync_person_name_with_email(first_name: str, last_name: str, email: str) -> Tuple[str, str]:
+    fn = str(first_name or "").strip()
+    ln = str(last_name or "").strip()
+    em = str(email or "").strip().lower()
+    if "@" not in em:
+        return fn, ln
+    local = em.split("@", 1)[0].strip()
+    if local in ROLE_LOCAL_PARTS or local in BAD_LOCAL_PARTS:
+        return fn, ln
+    if "." in local:
+        parts = [p for p in local.split(".") if p.isalpha() and len(p) >= 2]
+        if len(parts) >= 2:
+            return parts[0].capitalize(), parts[-1].capitalize()
+    elif local.isalpha() and 3 <= len(local) <= 12 and fn.lower() in ("capture", "team", "there", ""):
+        return local.capitalize(), ln
+    return fn, ln
 
 PREFERRED_KEYWORDS = (
     "capture", "bd", "gov", "contracts", "proposals", "rfp", "sled", "federal",
@@ -814,13 +889,23 @@ def run_harvester() -> Dict[str, Any]:
         src = str(row.get("Primary Email Source") or "").strip()
         if not em or em in seen_emails:
             continue
+        local_part = em.split("@", 1)[0] if "@" in em else ""
+        dom_part = em.split("@", 1)[1] if "@" in em else ""
         if (
             src in ("SignalTender_GovCon_Harvester", "Apollo")
             or em in ALREADY_CONTACTED_LEGACY_EMAILS
+            or local_part in BAD_LOCAL_PARTS
+            or dom_part in ("group.com", "alvarez.com")
             or not verify_email_domain_mx(em, mx_cache)
         ):
             purged_rows += 1
             continue
+        fn_sync, ln_sync = sync_person_name_with_email(row.get("First Name", ""), row.get("Last Name", ""), em)
+        comp_clean = clean_company_display_name(row.get("Company Name") or row.get("Company Name for Emails") or "")
+        row["First Name"] = fn_sync
+        row["Last Name"] = ln_sync
+        row["Company Name"] = comp_clean
+        row["Company Name for Emails"] = comp_clean
         seen_emails.add(em)
         clean_rows.append(row)
 
@@ -829,17 +914,15 @@ def run_harvester() -> Dict[str, Any]:
 
     def _build_contact_row(spec: Dict[str, str], source_tag: str) -> Dict[str, str]:
         row_dict = {col: "" for col in fieldnames}
-        row_dict["First Name"] = spec.get("First Name", "Capture")
-        row_dict["Last Name"] = spec.get("Last Name", "")
+        em_clean = spec["Email"].strip().lower()
+        fn_sync, ln_sync = sync_person_name_with_email(spec.get("First Name", "Capture"), spec.get("Last Name", ""), em_clean)
+        comp_clean = clean_company_display_name(spec.get("Company Name", "GovCon IT Partner"))
+        row_dict["First Name"] = fn_sync or "Capture"
+        row_dict["Last Name"] = ln_sync
         row_dict["Title"] = spec.get("Title", "VP of Capture & Business Development")
-        row_dict["Company Name"] = spec.get("Company Name", "GovCon IT Partner")
-        row_dict["Company Name for Emails"] = (
-            spec.get("Company Name", "GovCon IT Partner")
-            .replace(", LLC", "")
-            .replace(" LLC", "")
-            .replace(" Inc", "")
-        )
-        row_dict["Email"] = spec["Email"].strip().lower()
+        row_dict["Company Name"] = comp_clean
+        row_dict["Company Name for Emails"] = comp_clean
+        row_dict["Email"] = em_clean
         row_dict["Email Status"] = "Verified"
         row_dict["Primary Email Source"] = source_tag
         row_dict["Primary Email Verification Source"] = "DNS_MX_Verified"
@@ -894,8 +977,18 @@ def run_harvester() -> Dict[str, Any]:
         em = str(spec.get("Email") or "").strip().lower()
         em = re.sub(r"^[0-9-]+", "", em)
         spec["Email"] = em
-        if em in ALREADY_CONTACTED_LEGACY_EMAILS or any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS):
+        dom_part = em.split("@", 1)[1] if "@" in em else ""
+        if (
+            em in ALREADY_CONTACTED_LEGACY_EMAILS
+            or dom_part in ("group.com", "alvarez.com")
+            or any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS)
+        ):
             continue
+        fn_sync, ln_sync = sync_person_name_with_email(spec.get("First Name", ""), spec.get("Last Name", ""), em)
+        comp_clean = clean_company_display_name(spec.get("Company Name", ""))
+        spec["First Name"] = fn_sync or "Capture"
+        spec["Last Name"] = ln_sync
+        spec["Company Name"] = comp_clean
         cleaned_public.append(spec)
         if em and em not in seen_emails and verify_email_domain_mx(em, mx_cache):
             clean_rows.append(_build_contact_row(spec, source_tag="GovCon_Website_Verified"))

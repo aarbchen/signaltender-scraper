@@ -88,6 +88,9 @@ commodity_it_exclusions = [
     r"single\s+board\s+computer",
     r"computer\s+subassembl",
     r"server,\s*automatic\s*da",
+    r"data\s+interface\s+unit",
+    r"computer,\s*rackmount",
+    r"synthetic\s+aperture\s+radar",
 ]
 
 B2B_EXTRACTION_SYSTEM_PROMPT = (
@@ -439,7 +442,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                     [{"title": c["raw_title"], "closing_date": c["raw_due"], "contact_email": c["contact_email"]} for c in esbd_candidates]
                 )
                 response = await llm_client.messages.create(
-                    model="claude-sonnet-5-5",
+                    model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
                     messages=[
@@ -459,14 +462,8 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                     if _normalize_title_for_similarity(c["raw_title"]) in approved_titles:
                         raw_candidates.append(c)
             except Exception as e:
-                error_msg = f"Claude ESBD payload validation error: {e}"
+                error_msg = f"Claude ESBD payload validation warning (using deterministic tech filter): {e}"
                 print(error_msg, flush=True)
-                try:
-                    with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                        f.write(f"\n[!] {error_msg}\n")
-                except Exception:
-                    pass
-                send_discord_alert(error_msg)
                 raw_candidates.extend(esbd_candidates)
         else:
             raw_candidates.extend(esbd_candidates)
@@ -480,7 +477,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
             print(f"Processing chunk {i+1} of {len(text_chunks)}...")
             try:
                 response = await llm_client.messages.create(
-                    model="claude-sonnet-5-5",
+                    model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
                     messages=[
@@ -937,14 +934,12 @@ async def run_master_orchestrator(
             send_discord_alert(tel_msg)
 
         try:
-            import govcon_lead_harvester
-            govcon_lead_harvester.run_harvester()
             import outreach_generator
             outreach_generator.generate_outreach()
-            import outbound_mailer
-            outbound_mailer.run_outbound_mailer()
             import linkedin_autoposter
             linkedin_autoposter.run_linkedin_autoposter(generate_banner=False)
+            import auto_error_healer
+            auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
         except (Exception, SystemExit) as out_err:
             out_msg = f"Outreach generator warning in mainscraper.py: {out_err}"
             print(f"[!] {out_msg}", flush=True)

@@ -100,3 +100,4 @@ Every SignalTender capture engine is available as a stateless JSON microservice 
 - **Live Federal & SLED RFP Directory:** [https://signaltender.net/contracts/](https://signaltender.net/contracts/)
 - **Interactive API Studio & Documentation:** [https://signaltender.net/apis.html](https://signaltender.net/apis.html)
 - **Official MCP Registry ID:** `io.github.aarbchen/signaltender-mcp`
+

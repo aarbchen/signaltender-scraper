@@ -75,9 +75,17 @@ commodity_it_exclusions = [
     r"oms-500",
     r"virtual\s+printer\s+driver",
     r"sole\s*source",
+    r"single\s*source",
+    r"-ss-\d",
     r"notice\s+of\s+intent",
+    r"intent\s+to\s+award",
     r"sngl\s+board\s+computer",
     r"single\s+board\s+computer",
+    r"computer\s+subassembl",
+    r"server,\s*automatic\s*da",
+    r"data\s+interface\s+unit",
+    r"computer,\s*rackmount",
+    r"synthetic\s+aperture\s+radar",
 ]
 
 STATE_ALIASES = {
@@ -312,34 +320,153 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
     }
 
 
+ACRONYM_TOKENS = {
+    "IT", "AI", "ML", "RFP", "RFQ", "RFI", "ITN", "IFB", "IVR", "SAAS", "PAAS",
+    "IAAS", "SOC", "SIEM", "EDR", "XDR", "MDR", "MFA", "SSO", "IAM", "PAM",
+    "GIS", "ERP", "CRM", "LMS", "CMS", "CAD", "RMS", "EHR", "EMR", "HIPAA",
+    "CJIS", "NIST", "CMMC", "RMF", "ATO", "FEDRAMP", "STATERAMP", "TX-RAMP",
+    "SWAM", "DBE", "MBE", "WBE", "SDVOSB", "VOSB", "HUB", "SLED", "DOD", "DGS",
+    "HSMV", "FLHSMV", "FDOT", "TXDOT", "VDOT", "CALTRANS", "DOAS", "NCDIT",
+    "OIT", "DIR", "VIP", "MFMP", "EMMA", "EVA", "ESBD", "OGS", "PASSPORT",
+    "NYC", "NYS", "MBTA", "CTA", "MARTA", "WMATA", "AWS", "VPN", "DNS", "WAN",
+    "LAN", "SD-WAN", "VOIP", "PBX", "SIP", "API", "SQL", "ETL", "BI", "II",
+    "III", "IV", "USA", "US", "VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH",
+    "GA", "NC", "NY", "MA",
+}
+
+LOWER_PARTICLES = {"a", "an", "and", "as", "at", "by", "for", "from", "in", "of", "on", "or", "the", "to", "via", "with"}
+
+
+def format_human_title_for_email(raw_title: str) -> str:
+    """
+    Convert raw portal solicitation titles into clean, human-readable project titles for cold outreach:
+      - Strips leading bracketed solicitation codes (`[0000040452]`, `[RFQ-007-26]`, `[BPM055148]`, `RFx `)
+      - Strips cross-state cooperative parenthetical clutter like `(Florida State University ITN #6769-4)`
+      - Smart Title-Cases screaming ALL-CAPS titles while preserving GovCon/IT acronyms (`IT`, `AI`, `CJIS`, `SaaS`, etc.)
+    """
+    s = clean_title_text(raw_title)
+    # Strip leading bracketed IDs or state prefixes e.g. [0000040452], [RFQ-007-26], [TX], 26RFP1645291A-ST, RFP828 -
+    while True:
+        new_s = re.sub(r"^\s*\[[^\]]+\]\s*", "", s)
+        new_s = re.sub(r"^\s*(?:RFx|RFP|RFQ|ITN|IFB|RFI)\s*[-:#]?\s*\d+[A-Za-z0-9_-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
+        new_s = re.sub(r"^\s*\d{2,4}(?:RFP|RFQ|ITN|IFB|RFI)[A-Za-z0-9_-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
+        new_s = re.sub(r"^\s*(?:RFx|RFP|RFQ|ITN|IFB|RFI)\s+(?=[A-Z0-9])", "", new_s, flags=re.IGNORECASE)
+        if new_s == s:
+            break
+        s = new_s.strip()
+
+    # Strip noisy cooperative cross-state parenthetical tags
+    s = re.sub(r"\s*\([^)]*(?:ITN|RFP|RFQ|Solicitation|Contract)\s*#[^)]*\)", "", s, flags=re.IGNORECASE).strip()
+    s = re.sub(r"\s*—\s*Sourcewell.*$", "", s, flags=re.IGNORECASE).strip()
+
+    # Check if title is predominantly screaming ALL-CAPS
+    alpha_chars = [c for c in s if c.isalpha()]
+    upper_ratio = (sum(1 for c in alpha_chars if c.isupper()) / len(alpha_chars)) if alpha_chars else 0.0
+    if upper_ratio > 0.68:
+        words = s.split()
+        out_words = []
+        for idx, w in enumerate(words):
+            m = re.match(r"^([^A-Za-z0-9]*)([A-Za-z0-9/-]+)([^A-Za-z0-9]*)$", w)
+            if not m:
+                out_words.append(w)
+                continue
+            pre, core, post = m.groups()
+            core_up = core.upper()
+            if core_up == "SAAS":
+                fixed = "SaaS"
+            elif core_up in ACRONYM_TOKENS:
+                fixed = core_up
+            elif idx > 0 and core_up.lower() in LOWER_PARTICLES:
+                fixed = core_up.lower()
+            elif "-" in core:
+                fixed = "-".join(p.upper() if p.upper() in ACRONYM_TOKENS else p.capitalize() for p in core.split("-"))
+            elif "/" in core:
+                fixed = "/".join(p.upper() if p.upper() in ACRONYM_TOKENS else p.capitalize() for p in core.split("/"))
+            else:
+                fixed = core.capitalize()
+            out_words.append(f"{pre}{fixed}{post}")
+        s = " ".join(out_words)
+
+    return s.strip(" -–—") or clean_title_text(raw_title)
+
+
+def clean_agency_for_email(raw_agency: str) -> str:
+    ag = str(raw_agency or "Public Agency").strip()
+    if ag == "Federal Government (SAM)":
+        return "Federal (SAM.gov)"
+    if ag == "DGS - Statewide Procurement":
+        return "California DGS Statewide Procurement"
+    ag = re.sub(r"\s*\((?:Georgia|North Carolina|Ohio|New York|Massachusetts|Pennsylvania|Illinois|Maryland|Florida|California|Virginia|Texas)\)\s*$", "", ag, flags=re.IGNORECASE).strip()
+    ag = re.sub(r"\bOf\b", "of", ag)
+    return ag
+
+
 def format_contract_line(index: int, rec: dict, dossiers: dict | None = None) -> str:
-    """Format a single contract row with NAICS & posture (deliverability-safe: zero '$' symbols in Step 1)."""
+    """Format a single contract row with human-readable title, agency, NAICS & posture (zero '$' symbols in Step 1)."""
     info = resolve_contract_intelligence(rec, dossiers)
-    clean_t = info["clean_title"]
-    agency = info["agency"]
+    human_title = format_human_title_for_email(info["clean_title"])
+    agency = clean_agency_for_email(info["agency"])
     closing_date = info["closing_date"]
     naics_code = info["naics_code"]
     short_posture = info["compliance_posture"].split("•")[0].strip()
 
     if closing_date and closing_date.lower() not in ["n/a", "none", "null", "tbd", "open"]:
-        return f"{index}. {clean_t} — {agency} (Due: {closing_date} | NAICS {naics_code} • {short_posture})\n"
-    return f"{index}. {clean_t} — {agency} (NAICS {naics_code} • {short_posture})\n"
+        return f"{index}. {human_title} — {agency} (Due: {closing_date} | NAICS {naics_code} • {short_posture})\n"
+    return f"{index}. {human_title} — {agency} (NAICS {naics_code} • {short_posture})\n"
+
+
+def _contract_runway_score(rec: dict, today: date | None = None) -> tuple[int, int]:
+    """
+    Rank contracts so outbound prospects always see solicitations with healthy response runway (>=5 days out)
+    ahead of same-day/next-day expiring bids.
+    """
+    ref = today or datetime.now().date()
+    dt = parse_contract_date(rec.get("closing_date") or "", rec.get("title") or "")
+    rec_id = int(rec.get("id") or 0) if str(rec.get("id") or "").isdigit() else 0
+    if dt is None:
+        return (1, rec_id)
+    days_left = (dt - ref).days
+    if days_left >= 10:
+        return (3, rec_id)
+    if days_left >= 5:
+        return (2, rec_id)
+    if days_left >= 2:
+        return (1, rec_id)
+    return (0, rec_id)
 
 
 def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str, max_count: int = 3) -> list[dict]:
     """
-    Prioritize contracts matching the prospect's state + Federal (SAM.gov) contracts,
-    then backfill with the freshest remaining B2B IT contracts up to max_count.
+    Prioritize contracts matching the prospect's state + Federal (SAM.gov) contracts
+    that have healthy response runway (>=5 days before closing), then backfill up to max_count.
     """
+    today = datetime.now().date()
     norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
     if not norm_state:
-        return all_contracts[:max_count]
+        ranked_all = sorted(all_contracts, key=lambda c: _contract_runway_score(c, today), reverse=True)
+        return ranked_all[:max_count]
 
-    state_matches = [c for c in all_contracts if detect_contract_region(c) == norm_state]
-    fed_matches = [c for c in all_contracts if detect_contract_region(c) == "fed"]
-    other_matches = [c for c in all_contracts if detect_contract_region(c) not in (norm_state, "fed")]
+    state_matches = sorted(
+        [c for c in all_contracts if detect_contract_region(c) == norm_state],
+        key=lambda c: _contract_runway_score(c, today),
+        reverse=True,
+    )
+    fed_matches = sorted(
+        [c for c in all_contracts if detect_contract_region(c) == "fed"],
+        key=lambda c: _contract_runway_score(c, today),
+        reverse=True,
+    )
+    other_matches = sorted(
+        [c for c in all_contracts if detect_contract_region(c) not in (norm_state, "fed")],
+        key=lambda c: _contract_runway_score(c, today),
+        reverse=True,
+    )
 
-    combined = state_matches + fed_matches + other_matches
+    # Prefer state contracts with >=2 days runway first; if a state only has same-day closing bids, blend in Federal SAM.gov bids
+    fresh_state = [c for c in state_matches if _contract_runway_score(c, today)[0] >= 1]
+    stale_state = [c for c in state_matches if _contract_runway_score(c, today)[0] == 0]
+
+    combined = fresh_state + fed_matches + stale_state + other_matches
     return combined[:max_count]
 
 
@@ -360,6 +487,46 @@ STATE_DISPLAY_NAMES = {
     "ny": "New York",
     "ma": "Massachusetts",
 }
+
+STATE_PORTAL_LABELS = {
+    "tx": "Texas ESBD/DIR, DemandStar, and SAM.gov",
+    "va": "Virginia eVA, DemandStar, and SAM.gov",
+    "ca": "California Cal eProcure, DemandStar, and SAM.gov",
+    "fl": "Florida MFMP VIP, DemandStar, and SAM.gov",
+    "md": "Maryland eMMA, county Bonfire portals, and SAM.gov",
+    "il": "Illinois BidBuy, Chicago/Cook County portals, and SAM.gov",
+    "pa": "PA DGS eMarketplace, PhilaPort, and SAM.gov",
+    "oh": "OhioBuys, Columbus/Franklin County portals, and SAM.gov",
+    "ga": "Georgia DOAS GPR, Atlanta metro portals, and SAM.gov",
+    "nc": "North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov",
+    "ny": "NYS Contract Reporter, NYC PASSPort, and SAM.gov",
+    "ma": "Massachusetts COMMBUYS, Boston/MBTA portals, and SAM.gov",
+}
+
+GENERIC_PERSON_NAMES = {
+    "capture", "team", "there", "info", "sales", "contact", "hello",
+    "contracts", "partner", "partners", "growth", "bd", "bizdev", "admin", "",
+}
+
+
+def clean_company_for_copy(raw_company: str) -> str:
+    """Clean company name for natural, human-sounding email subject lines and body prose."""
+    try:
+        from govcon_lead_harvester import clean_company_display_name
+        s = clean_company_display_name(raw_company)
+    except Exception:
+        s = str(raw_company or "").strip()
+    s = re.sub(r"\s*\([^)]*\)\s*$", "", s).strip()
+    s = re.sub(r",?\s*\b(L\.?L\.?C\.?|Inc\.?|Corporation|Corp\.?|P\.?B\.?C\.?)\b\s*$", "", s, flags=re.IGNORECASE).strip()
+    return s or "your team"
+
+
+def possessive_company(comp: str) -> str:
+    """Return proper English possessive (`CivicActions'` vs `CloudHesive's`)."""
+    c = str(comp or "your team").strip()
+    if c.lower() == "your team":
+        return "your team's"
+    return f"{c}'" if c.endswith(("s", "S")) else f"{c}'s"
 
 
 def _pick_variant(seed_str: str, slot: int, options: list[str]) -> str:
@@ -387,73 +554,84 @@ def build_two_step_outreach(
     """
     norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
     region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
+    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 12 state SLED portals")
     clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
     seed = f"{email.lower().strip()}::{datetime.now().strftime('%Y-%m-%d')}"
 
+    clean_comp = clean_company_for_copy(company)
+    comp_possessive = possessive_company(clean_comp)
+    clean_fname = str(fname or "").strip()
+    is_generic_name = clean_fname.lower() in GENERIC_PERSON_NAMES
+
     # -------------------------------------------------------------------------
-    # STEP 1 (TOUCH 1): DELIVERABILITY-FIRST LIVE RFP DROP (Zero $ signs, 1 clean domain ref)
+    # STEP 1 (TOUCH 1): DELIVERABILITY-FIRST LIVE RFP DROP (Zero $ signs, 1 clean canonical URL)
     # -------------------------------------------------------------------------
+    person_or_comp_subj = (
+        f"{clean_comp} — {bid_count} open {region_label} IT RFPs"
+        if is_generic_name
+        else f"{clean_fname} — {bid_count} open {region_label} IT RFPs"
+    )
     subject_variants = [
-        f"{bid_count} open {region_label} IT bids for {company}",
-        f"{region_label} IT & cyber RFPs for {company}",
-        f"Active IT solicitations on the wire ({company})",
-        f"{fname} - {bid_count} open public-sector IT RFPs",
-        f"New {region_label} tech & cyber solicitations",
-        f"Saw {company} / {bid_count} open IT contracts",
+        f"{bid_count} open {region_label} IT bids for {clean_comp}",
+        f"{region_label} IT & cyber RFPs for {clean_comp}",
+        f"Open {region_label} IT solicitations ({clean_comp})",
+        person_or_comp_subj,
+        f"New {region_label} tech & cyber solicitations for {clean_comp}",
+        f"{clean_comp} / {bid_count} open public-sector IT contracts",
     ]
-    greetings = [
-        f"Hi {fname},",
-        f"Hey {fname},",
-        f"Hello {fname},",
-        f"{fname} -",
-    ]
+    if is_generic_name:
+        greetings = [
+            f"Hi {clean_comp} team,",
+            f"Hello {clean_comp} team,",
+            f"Hey {clean_comp} team,",
+        ]
+    else:
+        greetings = [
+            f"Hi {clean_fname},",
+            f"Hey {clean_fname},",
+            f"Hello {clean_fname},",
+            f"{clean_fname} —",
+        ]
+
     openers = [
-        f"I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA).",
-        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and 12 state SLED portals.",
-        f"Our ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations.",
-        f"I track newly released Federal and 12-state SLED technology solicitations across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA.",
+        f"I run an automated procurement monitor that tracks {portal_focus} (plus 11 other state SLED portals) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 11 additional state procurement portals every 6 hours.",
+        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.",
+        f"Our ingestion pipeline monitors {portal_focus} every 6 hours for net-new IT, cloud, and cybersecurity solicitations.",
+        f"I track newly released public-sector technology solicitations across {portal_focus} (14 federal and state portals total).",
     ]
     relevance_lines = [
-        f"Since {company} operates in the technology space, I pulled {bid_count} active solicitations that just hit the wire:",
-        f"Noticed {company}'s work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response:",
-        f"Thought these {bid_count} open solicitations from our latest 6-hour crawl might be relevant to {company}'s pipeline:",
-        f"Flagged {bid_count} open public-sector tech opportunities from today's feed that looked aligned with {company}:",
-        f"Wanted to share {bid_count} newly posted IT & security contracts that just cleared our noise filter for {company}:",
+        f"Since {clean_comp} delivers public-sector technology, I pulled {bid_count} active solicitations from our latest crawl:",
+        f"Noticed {comp_possessive} work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response:",
+        f"Thought these {bid_count} open solicitations from today's 6-hour crawl might fit {comp_possessive} capture pipeline:",
+        f"Flagged {bid_count} open public-sector tech opportunities from today's wire that looked aligned with {clean_comp}:",
+        f"Wanted to share {bid_count} newly posted IT & security contracts that just cleared our noise filter for {clean_comp}:",
     ]
     value_props = [
-        f"Our classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.",
-        f"Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.",
-        f"We automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on {clean_domain}.",
-        f"Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on {clean_domain}.",
-        f"Each solicitation is de-duplicated every 6 hours and published with direct agency source links on {clean_domain}.",
+        "Our classifier strips out 99% of commodity hardware, toner,sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.",
+        "Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.",
+        "Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.",
+        "Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.",
     ]
-    tracking_qs = f"utm_source=outbound&co={quote_plus(company)}&fn={quote_plus(fname)}&st={quote_plus(norm_state or 'federal')}"
-    tracked_dossier_url = f"{ clean_domain }/contracts?{tracking_qs}"
-    if top_intel and top_intel.get("dossier_url"):
-        sep = "&" if "?" in top_intel["dossier_url"] else "?"
-        tracked_dossier_url = f"{top_intel['dossier_url']}{sep}{tracking_qs}"
 
-    if "#checkout" in checkout_url:
-        base_chk, hash_chk = checkout_url.split("#", 1)
-        sep_chk = "&" if "?" in base_chk else "?"
-        tracked_checkout_url = f"{base_chk}{sep_chk}{tracking_qs}#{hash_chk}"
-    else:
-        sep_chk = "&" if "?" in checkout_url else "?"
-        tracked_checkout_url = f"{checkout_url}{sep_chk}{tracking_qs}"
+    # Use clean canonical URLs without exposed UTM query strings in plain-text emails
+    clean_dossier_url = f"https://{clean_domain}/contracts"
+    if top_intel and top_intel.get("dossier_url"):
+        clean_dossier_url = top_intel["dossier_url"].split("?")[0]
+
+    clean_checkout_url = f"https://{clean_domain}/#checkout"
 
     step1_ctas = [
-        f"I put the pre-shredded compliance & pricing breakdown for #1 here: {tracked_dossier_url} — are you guys actively bidding public-sector IT right now, or should I take you off my radar?",
-        f"You can inspect the pre-shredded dossier for #1 at {tracked_dossier_url} — is public-sector IT/cyber on {company}'s radar this quarter?",
-        f"Here is the direct Section L/M & NAICS breakdown for the top solicitation: {tracked_dossier_url} — worth sending over future {region_label} IT scopes when they drop?",
-        f"The full compliance & teaming breakdown for #1 is posted at {tracked_dossier_url} — let me know if {company} is pursuing state or federal IT work right now.",
-        f"You can view the live dossier for #1 at {tracked_dossier_url} — happy to point you to the raw RFP packages if any of these 3 fit your stack.",
+        f"I posted the pre-shredded Section L/M & compliance breakdown for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list?",
+        f"You can inspect the pre-shredded capture dossier for #1 here:\n{clean_dossier_url}\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter?",
+        f"Here is the direct Section L/M, NAICS & teaming breakdown for #1:\n{clean_dossier_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire?",
+        f"The full compliance & teaming dossier for #1 is live at:\n{clean_dossier_url}\n\nLet me know if {clean_comp} is pursuing state or federal IT bids this quarter.",
+        f"You can view the live capture dossier for #1 at:\n{clean_dossier_url}\n\nHappy to send the raw agency RFP packages if any of these {bid_count} fit your stack.",
     ]
     signoffs = [
-        "Best,\nAaron Chen\nSignalTender Capture Desk",
-        "Regards,\nAaron Chen\nSignalTender Procurement Desk",
-        "Cheers,\nAaron Chen\nSignalTender Procurement Wire",
-        "Best regards,\nAaron Chen\nSignalTender Intelligence Team",
+        "Best,\nAaron Chen\nFounder, SignalTender",
+        "Regards,\nAaron Chen\nFounder, SignalTender",
+        "Best regards,\nAaron Chen\nFounder, SignalTender",
     ]
 
     step1_subject = _pick_variant(seed, 1, subject_variants)
@@ -462,7 +640,7 @@ def build_two_step_outreach(
         f"{_pick_variant(seed, 3, openers)} "
         f"{_pick_variant(seed, 4, relevance_lines)}\n\n"
         f"{payload_text}\n"
-        f"{_pick_variant(seed, 5, value_props)}\n\n"
+        f"{_pick_variant(seed, 5, value_props).replace(',sole-source', ', sole-source')}\n\n"
         f"{_pick_variant(seed, 6, step1_ctas)}\n\n"
         f"{_pick_variant(seed, 7, signoffs)}"
     )
@@ -471,25 +649,27 @@ def build_two_step_outreach(
     # STEP 2 (TOUCH 2 - DAY +3): SELF-SERVE TIER 1 ($99/mo) & TIER 2 ($399/mo) PITCH
     # -------------------------------------------------------------------------
     step2_intros = [
-        f"Quick follow-up in case {company} is building out its Federal or State SLED capture pipeline this quarter.",
+        f"Quick follow-up in case {clean_comp} is expanding its {region_label} capture pipeline this quarter.",
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
-        f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.",
+        f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.",
         f"Wanted to follow up one last time regarding our automated 14-portal Federal and 12-State SLED procurement wire.",
     ]
     intel_block = ""
     if top_intel:
+        human_top_title = format_human_title_for_email(top_intel["clean_title"])
+        human_top_agency = clean_agency_for_email(top_intel["agency"])
         intel_block = (
-            f"For example, on '{top_intel['clean_title']}' ({top_intel['agency']}), our CaptureDesk engine already pre-computed:\n"
+            f"For example, on '{human_top_title}' ({human_top_agency}), our CaptureDesk engine already pre-computed:\n"
             f"• Classification: NAICS {top_intel['primary_naics']} (SBA Cap: {top_intel['sba_size_standard']})\n"
             f"• Cyber & Clause Posture: {top_intel['compliance_posture']}\n"
             f"• Teaming & Past Performance: {top_intel['teaming_posture']}\n"
-            f"• Dossier Preview: {tracked_dossier_url}\n\n"
+            f"• Live Dossier: {clean_dossier_url}\n\n"
         )
 
     step2_tiers = [
         (
             f"{intel_block}"
-            f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
+            f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
             f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
             f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server)."
         ),
@@ -501,15 +681,15 @@ def build_two_step_outreach(
         ),
         (
             f"{intel_block}"
-            f"If {company} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
+            f"If {clean_comp} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
             f"- SignalWire Pro ($99/mo): Live 14-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
             f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, CPARS past performance citations, 13 CFR § 125.6 teaming calculators, and Pwin capability matching on every solicitation."
         ),
     ]
     step2_closers = [
-        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{tracked_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
-        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{tracked_checkout_url}\n\n100% self-serve, no demos required.",
-        f"Check out the live platform and instant checkout options right here:\n{tracked_checkout_url}\n\nIf public-sector IT isn't a focus for {company}, no worries at all—I won't follow up again.",
+        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{clean_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
+        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
+        f"Check out the live platform and instant checkout options right here:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
@@ -524,41 +704,47 @@ def build_two_step_outreach(
     # -------------------------------------------------------------------------
     # NATIVE INSTANTLY / SMARTLEAD {{RANDOM | ...}} SPINTAX TEMPLATES
     # -------------------------------------------------------------------------
+    spintax_greeting = (
+        f"{{{{RANDOM | Hi {clean_comp} team, | Hello {clean_comp} team,}}}}"
+        if is_generic_name
+        else f"{{{{RANDOM | Hi {clean_fname}, | Hey {clean_fname}, | Hello {clean_fname},}}}}"
+    )
     spintax_subject_1 = (
-        f"{{{{RANDOM | {bid_count} open {region_label} IT bids for {company} | "
-        f"{region_label} IT & cyber RFPs for {company} | "
-        f"Active IT solicitations on the wire ({company}) | "
-        f"{fname} - {bid_count} open public-sector IT RFPs}}}}"
+        f"{{{{RANDOM | {bid_count} open {region_label} IT bids for {clean_comp} | "
+        f"{region_label} IT & cyber RFPs for {clean_comp} | "
+        f"Open {region_label} IT solicitations ({clean_comp}) | "
+        f"{person_or_comp_subj}}}}}"
     )
     spintax_body_1 = (
-        f"{{{{RANDOM | Hi {fname}, | Hey {fname}, | Hello {fname},}}}}\n\n"
-        f"{{{{RANDOM | I run an automated procurement monitor that tracks SAM.gov, DemandStar, and 5 state SLED portals (TX, VA, CA, FL, MD) every 6 hours. | "
-        f"We maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 5 state procurement portals (TX, VA, CA, FL, MD). | "
-        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and state SLED portals.}}}} "
-        f"{{{{RANDOM | Since {company} operates in the technology space, I pulled {bid_count} active solicitations that just hit the wire: | "
-        f"Noticed {company}'s work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response: | "
-        f"Thought these {bid_count} open solicitations from our latest 6-hour crawl might be relevant to {company}'s pipeline:}}}}\n\n"
+        f"{spintax_greeting}\n\n"
+        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 11 other state SLED portals) every 6 hours. | "
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 11 additional state procurement portals every 6 hours. | "
+        f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.}}}} "
+        f"{{{{RANDOM | Since {clean_comp} delivers public-sector technology, I pulled {bid_count} active solicitations from our latest crawl: | "
+        f"Noticed {comp_possessive} work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response: | "
+        f"Thought these {bid_count} open solicitations from today's 6-hour crawl might fit {comp_possessive} capture pipeline:}}}}\n\n"
         f"{payload_text}\n"
-        f"{{{{RANDOM | Our classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | "
+        f"{{{{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | "
         f"Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | "
-        f"We automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on {clean_domain}.}}}}\n\n"
-        f"{{{{RANDOM | You can view the full open directory at {clean_domain}/contracts — are you guys actively bidding public-sector IT right now, or should I take you off my radar? | "
-        f"The live dossiers are indexed at {clean_domain}/contracts — is public-sector IT/cyber on {company}'s radar this quarter? | "
-        f"You can inspect all open bids on {clean_domain} — worth sending over the direct agency links when new {region_label} IT scopes drop?}}}}\n\n"
-        f"{{{{RANDOM | Best, | Regards, | Cheers,}}}}\nSignalTender Procurement Desk"
+        f"Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}}}\n\n"
+        f"{{{{RANDOM | I posted the pre-shredded Section L/M & compliance breakdown for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list? | "
+        f"You can inspect the pre-shredded capture dossier for #1 here:\n{clean_dossier_url}\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter? | "
+        f"Here is the direct Section L/M, NAICS & teaming breakdown for #1:\n{clean_dossier_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire?}}}}\n\n"
+        f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )
     spintax_body_2 = (
-        f"{{{{RANDOM | Hi {fname}, | Hey {fname},}}}}\n\n"
-        f"{{{{RANDOM | Quick follow-up in case {company} is building out its Federal or State SLED capture pipeline this quarter. | "
+        f"{spintax_greeting}\n\n"
+        f"{{{{RANDOM | Quick follow-up in case {clean_comp} is expanding its {region_label} capture pipeline this quarter. | "
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week. | "
-        f"Circling back with one quick note in case your team tracks government IT & cybersecurity bids.}}}}\n\n"
-        f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
+        f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}}}\n\n"
+        f"{intel_block}"
+        f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server).\n\n"
-        f"{intel_block}"
         f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
-        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{tracked_checkout_url}\n\n"
-        f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}"
+        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{clean_checkout_url}\n\n"
+        f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}\n\n"
+        f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )
 
     return {
@@ -570,7 +756,7 @@ def build_two_step_outreach(
         "Spintax Body 1": spintax_body_1,
         "Spintax Body 2": spintax_body_2,
         "Matched State": region_label,
-        "Top Contract Dossier URL": tracked_dossier_url,
+        "Top Contract Dossier URL": clean_dossier_url,
         "Top Contract NAICS": (top_intel or {}).get("primary_naics", "541512 — Computer Systems Design Services"),
         "Top Contract Posture": f"{(top_intel or {}).get('compliance_posture', '')} | {(top_intel or {}).get('teaming_posture', '')}".strip(" |"),
     }
@@ -627,6 +813,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
             # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
             existing_inst_emails = set()
+            existing_inst_ids = {}
             starting_after = None
             for _ in range(10):
                 list_body = {"campaign": INSTANTLY_CAMPAIGN_ID, "limit": 100}
@@ -644,11 +831,60 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 items = l_json.get("items") or []
                 for it in items:
                     em = str(it.get("email") or "").strip().lower()
+                    lid = str(it.get("id") or "").strip()
                     if em:
                         existing_inst_emails.add(em)
+                        if lid:
+                            existing_inst_ids[em] = lid
                 starting_after = l_json.get("next_starting_after")
                 if not starting_after or len(items) < 100:
                     break
+
+            valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload}
+            for stale_em, stale_id in list(existing_inst_ids.items()):
+                if stale_em not in valid_email_set:
+                    try:
+                        requests.delete(
+                            f"https://api.instantly.ai/api/v2/leads/{stale_id}",
+                            headers=inst_headers,
+                            timeout=10,
+                        )
+                        existing_inst_emails.discard(stale_em)
+                    except Exception:
+                        pass
+
+            if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" and existing_inst_ids:
+                print(f"[*] Refreshing custom_variables on {len(existing_inst_ids)} existing Instantly.ai leads...", flush=True)
+                updated_ok = 0
+                for item in leads_payload:
+                    em_key = str(item.get("Email") or "").strip().lower()
+                    lid = existing_inst_ids.get(em_key)
+                    if not lid:
+                        continue
+                    patch_payload = {
+                        "first_name": item["First Name"],
+                        "company_name": clean_company_for_copy(item["Company"]),
+                        "custom_variables": {
+                            "subject_line": item["Subject Line"],
+                            "email_body": item["Email Body"],
+                            "followup_subject": item.get("Followup Subject", ""),
+                            "followup_body": item.get("Followup Body", ""),
+                            "spintax_subject_1": item.get("Spintax Subject 1", ""),
+                            "spintax_body_1": item.get("Spintax Body 1", ""),
+                            "spintax_body_2": item.get("Spintax Body 2", ""),
+                            "matched_state": item.get("Matched State", ""),
+                            "top_dossier_url": item.get("Top Contract Dossier URL", ""),
+                        },
+                    }
+                    r_patch = requests.patch(
+                        f"https://api.instantly.ai/api/v2/leads/{lid}",
+                        headers=inst_headers,
+                        json=patch_payload,
+                        timeout=12,
+                    )
+                    if 200 <= r_patch.status_code < 300:
+                        updated_ok += 1
+                print(f"[+] Updated {updated_ok}/{len(existing_inst_ids)} existing leads in Instantly.ai V2.", flush=True)
 
             new_leads_to_push = [
                 item for item in leads_payload
