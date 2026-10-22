@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-10-22T02:07:26.340913+00:00",
+  "company_profile": {
+    "name": "SignalTender",
+    "slug": "signaltender",
+    "public_url": "https://www.linkedin.com/company/signaltender/",
+    "admin_url": "https://www.linkedin.com/company/146880945/admin/dashboard/",
+    "organization_urn": "urn:li:organization:146880945",
+    "website": "https://signaltender.net/",
+    "industry": "Information Services",
+    "company_size": "2-10 employees",
+    "company_type": "Privately Held",
+    "tagline": "Real-time Federal & State SLED IT/Cyber RFP intelligence, AI capture dossiers, and GovCon REST & MCP APIs.",
+    "description": "SignalTender is an autonomous Government Contracting (GovCon) and State/Local/Education (SLED) IT & Cybersecurity procurement intelligence platform and developer API ecosystem.\n\nLegacy GovCon bid aggregators charge $15,000+ per year for noisy keyword dumps filled with commodity office supplies, hardware part replacements, and maintenance renewals\u2014leaving lean capture teams to spend 40+ hours manually shredding 150-page PDFs.\n\nSignalTender's 3-layer AI quality control engine monitors Federal (SAM.gov), municipal, and major State SLED procurement portals every 6 hours, stripping 99.4% of commodity noise and delivering actionable B2B software, cloud, data, and cybersecurity solicitations.\n\nWHAT SIGNALTENDER DELIVERS:\n\u2022 SignalWire Pro ($99/mo): Real-time 6-hour Federal & State SLED IT/Cyber RFP alerts routed directly to Discord, Slack, Microsoft Teams, or custom CRM webhooks.\n\u2022 CaptureDesk Autopilot ($399/mo): Pre-computed AI capture dossiers on every solicitation\u2014including Shipley Section L/M Compliance Matrices, Bid/No-Bid Pwin (0-100) capability scoring, FAR/DFARS & CMMC 2.0 flow-down redlines, 13 CFR \u00a7 125.6 (50% Rule) small-business workshare plans, IGCE wrap-rate & Price-to-Win models, CPARS Volume III past performance citations, SF-30 amendment diffs, NIST 800-53 RMF / Continuous ATO (cATO) packages, FAR 15.102 Oral Presentation murder-board prep, FAR 15.506 Post-Award Debriefing & GAO Bid-Protest analysis, and GSA MAS Schedule SIN mapping.\n\u2022 GovCon REST APIs & Model Context Protocol (MCP) Server (@signaltender/mcp-server): Plug live government contract intelligence and proposal automation directly into Claude Desktop, Cursor, Windsurf, and custom AI capture agents.\n\n100% self-serve. Zero annual lock-ins or sales calls. Explore live open IT/Cyber RFPs and test the interactive API playground at https://signaltender.net",
+    "specialties": [
+      "Government Contracting (GovCon)",
+      "State SLED Procurement",
+      "SAM.gov RFP Intelligence",
+      "Shipley Proposal Automation",
+      "CMMC 2.0 & NIST 800-171 Compliance",
+      "Model Context Protocol (MCP)",
+      "AI Capture Management",
+      "Price-to-Win & IGCE Modeling",
+      "GSA MAS Schedule Compliance",
+      "Cybersecurity Solicitations"
+    ]
+  },
+  "banner_path": "D:\\Daas\\linkedin_company_banner.png",
+  "api_status": "STAGED_FOR_LINKEDIN",
+  "posts": [
+    {
+      "id": "post_01_pinned_platform_launch",
+      "category": "Pinned Platform Overview",
+      "scheduled_slot": "PUBLISHED LIVE (https://www.linkedin.com/feed/update/urn:li:share:7518850401417297920?actorCompanyId=146880945)",
+      "published": true,
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7518850401417297920?actorCompanyId=146880945",
+      "text": "Why do lean GovCon and State SLED capture teams still pay $15,000+/year for legacy bid aggregators\u2014only to spend 40 hours manually shredding 150-page PDFs?\n\nWe built SignalTender to replace noisy keyword alerts and manual proposal prep with an autonomous 6-hour Federal & State SLED IT/Cybersecurity intelligence wire.\n\nWhat SignalTender delivers out of the box:\n1. 99.4% Commodity Noise Stripped: Our 3-layer AI filter automatically drops printer toner, hardware part replacements, sole-source notices, and maintenance renewals across SAM.gov, DemandStar, and major State SLED portals.\n2. Pre-Shredded CaptureDesk AI Dossiers: Every open solicitation includes NAICS & SBA size standards, Shipley Section L/M compliance matrices, FAR/DFARS & CMMC 2.0 redlines, 13 CFR 125.6 (50% Rule) teaming workshare math, IGCE wrap-rate & Price-to-Win bands, and CPARS Past Performance Volume III citations.\n3. Native REST APIs & MCP Server (@signaltender/mcp-server): Connect live government RFP intelligence and proposal shredding directly into Claude Desktop, Cursor, or your internal capture workflows.\n\nZero annual lock-ins. Zero sales calls. Instant 60-second self-serve activation.\n\nExplore the live Federal & State SLED IT/Cyber contract directory or unlock 3 free pre-shredded dossiers for your state:\nhttps://signaltender.net/contracts/\n\n#GovCon #SLED #SAMgov #Cybersecurity #GovernmentContracting #CMMC #ProposalManagement #CaptureManagement #MCP"
+    },
+    {
+      "id": "post_02_live_rfp_briefing",
+      "category": "Live Federal & State SLED RFP Briefing",
+      "scheduled_slot": "PUBLISHED LIVE (https://www.linkedin.com/feed/update/urn:li:share:7518850978813743104?actorCompanyId=146880945)",
+      "published": true,
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7518850978813743104?actorCompanyId=146880945",
+      "text": "LIVE GOVCON & STATE SLED IT/CYBER BRIEFING\n\nHere are 3 active, pre-vetted government software, cloud, and cybersecurity solicitations our autonomous scraper pipeline indexed and shredded today:\n\n1. [Ohio] Shared Micromobility Data Management (RFQ033920)\n   \u2022 Issuing Agency: City of Columbus (OH) (Due: 11/18/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/shared-micromobility-data-management-rfq033920-849.html\n\n2. [Pennsylvania] Learning Management System (25-RFP-12233)\n   \u2022 Issuing Agency: PA Department of Human Services (Due: 11/02/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/learning-management-system-25-rfp-12233-848.html\n\n3. [Illinois] B26OP04834 \u2013 Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options\n   \u2022 Issuing Agency: Chicago Transit Authority (CTA) (Due: 11/20/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-847.html\n\nEvery dossier includes pre-computed NAICS/SBA caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 teaming workshare guardrails, and IGCE Price-to-Win bands.\n\nBrowse all live open solicitations or route real-time alerts to your Discord, Slack, Teams, or CRM webhook:\nhttps://signaltender.net\n\n#GovCon #RFP #StateSLED #ITContracting #Cybersecurity #CloudComputing #SmallBusinessGovCon"
+    },
+    {
+      "id": "post_03_mcp_and_developer_apis",
+      "category": "AI Agents & MCP Developer Spotlight",
+      "scheduled_slot": "SCHEDULED IN LINKEDIN (Sat, Oct 24, 2026 at 10:00 AM CDT)",
+      "scheduled": true,
+      "text": "Your AI coding and capture assistants (Claude Desktop, Cursor, Windsurf) can now shred government RFPs, audit FAR/DFARS flow-downs, and model IGCE Price-to-Win natively via the Model Context Protocol (MCP).\n\nWith @signaltender/mcp-server and the SignalTender GovCon API Suite, capture engineers and proposal teams can:\n\u2022 Shred raw Section L/M/C RFP text into a Shipley compliance matrix in seconds\n\u2022 Audit FAR 52.227-14 IP rights, DFARS 252.204-7012 / CMMC 2.0 flow-downs, and termination risks\n\u2022 Compute 13 CFR 125.6 (50% Rule) small-business workshare splits & ostensible subcontractor risk\n\u2022 Generate CPARS Volume III Past Performance narratives, NIST 800-53 RMF/cATO SSPs, FAR 15.102 Oral Presentation slides, and GSA MAS SIN mappings\n\nTest every endpoint live in our browser-based API Studio (zero login required):\nhttps://signaltender.net/apis.html\n\n#ModelContextProtocol #MCP #GovConAI #ProposalWriting #CMMC #FedRAMP #GSA #B2BAPIs"
+    },
+    {
+      "id": "post_04_sled_moat_vs_sam_gov",
+      "category": "Capture Strategy & SLED Moat",
+      "scheduled_slot": "SCHEDULED IN LINKEDIN (Tue, Oct 27, 2026 at 10:00 AM CDT)",
+      "scheduled": true,
+      "text": "90% of small-to-midsize IT & cybersecurity contractors fight over the exact same crowded SAM.gov task orders\u2014while high-margin State SLED RFPs receive 70% fewer bids.\n\nWhy? Because State SLED procurement is fragmented across dozens of separate portals (Virginia eVA, Texas SmartBuy ESBD, California Cal eProcure, Florida MFMP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, OhioBuys, Georgia GPR, North Carolina eVP, New York CROL/PASSPort, Massachusetts COMMBUYS, and municipal DemandStar).\n\nChecking those portals manually every morning takes hours. SignalTender unifies Federal and State SLED IT/Cyber monitoring into a single 6-hour feed\u2014complete with state-specific MBE/HUB/SWaM/DVBE teaming posture and StateRAMP/TX-RAMP compliance checks.\n\nUnlock 3 free pre-shredded RFP dossiers for your target state in 10 seconds:\nhttps://signaltender.net/#inbound-lead-capture-box\n\n#SLED #StateProcurement #GovCon #ITServices #Cybersecurity #SmallBusiness #CaptureManagement"
+    },
+    {
+      "id": "post_05_pricing_and_compliance_automation",
+      "category": "Proposal & Pricing Engineering",
+      "scheduled_slot": "SCHEDULED IN LINKEDIN (Fri, Oct 30, 2026 at 10:00 AM CDT)",
+      "scheduled": true,
+      "text": "The 3 bottlenecks that kill GovCon proposal velocity before Red Team review:\n\n1. Missing a mandatory Requirement in Section L/M or an SF-30 Amendment change\n2. Guessing on Indirect Wrap-Rates (Fringe / Overhead / G&A) and Price-to-Win against GSA CALC+ ceilings\n3. Scrambling to map Key Personnel resumes, CPARS citations, and 13 CFR 125.6 workshare caps 48 hours before submission\n\nSignalTender CaptureDesk Autopilot pre-computes these deliverables automatically on every open solicitation\u2014so your capture lead starts at 80% draft completion on Day 1.\n\nCompare SignalWire Pro ($99/mo) and CaptureDesk Autopilot ($399/mo) at:\nhttps://signaltender.net/#checkout\n\n#ProposalManagement #Shipley #PriceToWin #GovCon #FederalContracting #Cybersecurity #CaptureDesk"
+    }
+  ]
+}

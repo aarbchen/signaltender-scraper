@@ -943,6 +943,8 @@ async def run_master_orchestrator(
             outreach_generator.generate_outreach()
             import outbound_mailer
             outbound_mailer.run_outbound_mailer()
+            import linkedin_autoposter
+            linkedin_autoposter.run_linkedin_autoposter(generate_banner=False)
         except (Exception, SystemExit) as out_err:
             out_msg = f"Outreach generator warning in mainscraper.py: {out_err}"
             print(f"[!] {out_msg}", flush=True)
