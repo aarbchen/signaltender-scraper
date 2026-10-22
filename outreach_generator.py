@@ -1099,10 +1099,23 @@ def generate_outreach():
             writer.writeheader()
 
             raw_contact_rows = list(reader)
-            # Prioritize "Not Catch-all" contacts first for the Oct 31 launch ramp to protect domain reputation
-            raw_contact_rows.sort(
-                key=lambda r: 0 if str(r.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all" else 1
-            )
+
+            def _lead_priority_key(r: dict) -> tuple[int, int, int]:
+                catchall_rank = 0 if str(r.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all" else 1
+                em_local = str(r.get(email_key) or "").strip().lower().split("@", 1)[0]
+                fn_low = str(r.get(first_name_key) or "").strip().lower()
+                # Rank 0: personal firstname.lastname@ or dedicated capture/contracts/BD/growth inbox
+                if "." in em_local or any(k in em_local for k in ("contract", "capture", "bd", "bizdev", "growth", "partner", "stars", "gov", "engage")):
+                    inbox_rank = 0
+                elif any(k in em_local for k in ("sales", "hello", "contact")):
+                    inbox_rank = 1
+                else:
+                    inbox_rank = 2
+                person_rank = 1 if fn_low in GENERIC_PERSON_NAMES else 0
+                return (catchall_rank, inbox_rank, person_rank)
+
+            # Prioritize "Not Catch-all" + named/capture/contracts decision-maker inboxes first for the Oct 31 launch ramp
+            raw_contact_rows.sort(key=_lead_priority_key)
 
             try:
                 from govcon_lead_harvester import verify_email_domain_mx, _load_mx_cache, _save_mx_cache

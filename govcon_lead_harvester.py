@@ -529,6 +529,8 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
         f"https://{domain}/contact",
         f"https://{domain}/contact-us",
         f"https://{domain}/contracts",
+        f"https://{domain}/contract-vehicles",
+        f"https://{domain}/government",
     ):
         try:
             r = requests.get(u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
@@ -965,8 +967,8 @@ def run_harvester() -> Dict[str, Any]:
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
 
-    # Run autonomous website crawler when building initial pool (<120 contacts) or when explicitly requested
-    if len(public_contacts) < 120 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
+    # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
+    if len(public_contacts) < 2500 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
         public_contacts = discover_usaspending_small_business_websites(public_contacts, mx_cache)
 

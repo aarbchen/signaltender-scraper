@@ -155,6 +155,8 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         "nc_scraper.py",
         "ny_scraper.py",
         "ma_scraper.py",
+        "capturedesk_autopilot.py",
+        "outbound_reply_responder.py",
     ]:
         full_p = BASE_DIR / rel_path
         if full_p.exists():
@@ -163,7 +165,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                 issues.append(
                     f"{rel_path} still contains `.upsert(` which triggers Supabase PostgREST RLS 42501; use SELECT + `.insert(`."
                 )
-            if "claude-sonnet-4" in src or "claude-haiku-4" in src:
+            if any(m in src for m in ("claude-sonnet-4", "claude-haiku-4", "claude-haiku-5", "claude-3-")):
                 issues.append(
                     f"{rel_path} still contains a legacy 4.x model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
                 )

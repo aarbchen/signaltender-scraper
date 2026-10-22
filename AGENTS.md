@@ -44,7 +44,8 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
    - Run `pseo_generator.py` to regenerate `/contracts` static pages, `sitemap.xml`, and the embedded SPA directory in `index.html`.
    - Run `.\daas_env\Scripts\python.exe verify_site_integrity.py`, then commit and push changes to GitHub (`origin main`) so Render deploys automatically.
 
-3. **Core Engineering Guardrails & Evergreen Copy Rule:**
+3. **Core Engineering Guardrails, Latest Frontier Model Rule & Evergreen Copy Rule:**
+   - **Mandatory Latest Frontier Model Rule (`claude-sonnet-5-5`):** Always use the latest frontier Anthropic model (`claude-sonnet-5-5`, or `claude-opus-5-5` when specified) across all scrapers, `capturedesk_autopilot.py`, `outbound_reply_responder.py`, and `d:\Data API Ecosystem` (`services/llm_parser.py` and `core/config.py`). **NEVER** use outdated, retired, or lower-tier models (`claude-3-*`, `claude-sonnet-4*`, `claude-haiku-4*`, `claude-haiku-5*`). Enforce this automatically in `auto_error_healer.py`.
    - Never hardcode secrets or API keys; always load from `.env` via `os.getenv()`.
    - Log all caught exceptions to `error_log.txt` and alert via `send_discord_alert()`.
    - Never truncate existing working code when editing files.
