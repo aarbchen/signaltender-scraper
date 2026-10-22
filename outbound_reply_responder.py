@@ -70,7 +70,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"Here is the live directory of pre-shredded Federal & 12-State SLED IT/Cyber dossiers (with direct agency RFP links, Section L/M matrices, and NAICS/SBA caps):\n"
         f"{SITE_BASE_URL}/contracts\n\n"
         f"If your team wants every new solicitation delivered automatically every 6 hours, we have two instant self-serve options (no sales calls or annual contracts):\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 14-portal Federal & State SLED IT/Cyber alerts via Email, Slack, Teams, Discord, or Webhook.\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 14-portal Federal & State SLED IT/Cyber alerts via Discord, Slack, Microsoft Teams, or CRM Webhook.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full AI Section L/M compliance matrices, CPARS Volume III past performance citations, SF-30 amendment diffs, and 20 REST/MCP APIs on every lead.\n\n"
         f"You can activate instant access in 60 seconds here:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
