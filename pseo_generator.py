@@ -212,6 +212,8 @@ COMMODITY_IT_EXCLUSIONS = [
     r"notice\s+of\s+intent",
     r"sngl\s+board\s+computer",
     r"single\s+board\s+computer",
+    r"computer\s+subassembl",
+    r"server,\s*automatic\s*da",
 ]
 
 

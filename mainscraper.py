@@ -86,6 +86,8 @@ commodity_it_exclusions = [
     r"notice\s+of\s+intent",
     r"sngl\s+board\s+computer",
     r"single\s+board\s+computer",
+    r"computer\s+subassembl",
+    r"server,\s*automatic\s*da",
 ]
 
 B2B_EXTRACTION_SYSTEM_PROMPT = (
