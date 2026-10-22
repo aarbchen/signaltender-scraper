@@ -29,6 +29,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def fail(msg: str) -> None:
     print(f"[FAIL] {msg}", flush=True)
+    try:
+        from error_telemetry import report_error
+        report_error('verify_site_integrity.py', f'verify_site_integrity.py FAIL: {msg[:900]}')
+    except Exception:
+        pass
     raise SystemExit(1)
 
 

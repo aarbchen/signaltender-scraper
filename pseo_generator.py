@@ -901,12 +901,21 @@ def generate_pseo_site() -> int:
         resp = (
             supabase.table(TABLE_NAME)
             .select("*")
-            .in_("status", ["New Lead", "Delivered"])
+            .in_("status", ["New Lead", "Delivered", "NEW"])
             .order("id", desc=True)
             .limit(500)
             .execute()
         )
         raw_records = resp.data if resp and getattr(resp, "data", None) else []
+        if not raw_records:
+            resp_fallback = (
+                supabase.table(TABLE_NAME)
+                .select("*")
+                .order("id", desc=True)
+                .limit(500)
+                .execute()
+            )
+            raw_records = resp_fallback.data if resp_fallback and getattr(resp_fallback, "data", None) else []
 
         today = datetime.now().date()
         enriched_contracts = []
@@ -1588,7 +1597,7 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         )
         return pages_built
 
-    except Exception as e:
+    except (Exception, SystemExit) as e:
         err_msg = f"pseo_generator.py error: {e}"
         print(f"[!] {err_msg}", flush=True)
         try:
@@ -1596,6 +1605,7 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
                 f.write(f"\n[!] {err_msg}\n")
         except Exception:
             pass
+        report_error("pseo_generator.py", err_msg)
         send_discord_alert(err_msg)
         return 0
 
@@ -1666,6 +1676,17 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             "key_personnel_lcats": c["key_personnel_lcats"],
             "cpars_benchmark": c["cpars_benchmark"],
         })
+
+    if not spa_contracts:
+        m_existing = re.search(r"window\.SIGNALTENDER_CONTRACTS\s*=\s*(\[.*?\]);\s*window\.SIGNALTENDER_JURISDICTIONS", index_html, flags=re.S)
+        if m_existing:
+            try:
+                existing_list = json.loads(m_existing.group(1))
+                if isinstance(existing_list, list) and existing_list:
+                    print(f"[!] Warning: Supabase returned 0 enriched contracts; preserving {len(existing_list)} embedded SPA contracts in index.html.", flush=True)
+                    spa_contracts = existing_list
+            except Exception:
+                pass
 
     contracts_json = json.dumps(spa_contracts)
     jurisdictions_json = json.dumps(JURISDICTIONS)

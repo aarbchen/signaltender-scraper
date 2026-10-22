@@ -845,21 +845,30 @@ async def run_master_orchestrator(
             net_new_candidates.append(clean_row)
 
         new_records = []
+        insert_errors = []
         if net_new_candidates:
             try:
                 response = db_client.table(TABLE_NAME).insert(net_new_candidates).execute()
                 new_records = response.data if response and getattr(response, "data", None) else net_new_candidates
-            except Exception:
+            except Exception as batch_ins_err:
+                insert_errors.append(str(batch_ins_err))
                 # Per-row insert fallback so a single duplicate or constraint never aborts the batch
                 for row_item in net_new_candidates:
                     try:
                         res_single = db_client.table(TABLE_NAME).insert(row_item).execute()
                         if res_single and getattr(res_single, "data", None):
                             new_records.extend(res_single.data)
-                    except Exception:
-                        pass
+                    except Exception as single_ins_err:
+                        if len(insert_errors) < 3:
+                            insert_errors.append(str(single_ins_err))
 
-        skipped_count = len(unified_payload) - len(new_records)
+        if net_new_candidates and not new_records and insert_errors:
+            ins_warn = f"Master Orchestrator Supabase insert failed for {len(net_new_candidates)} candidates: {insert_errors[0]}"
+            print(f"[!] {ins_warn}", flush=True)
+            report_error("mainscraper.py", ins_warn)
+            send_discord_alert(ins_warn)
+
+        skipped_count = len(unified_payload) - len(net_new_candidates)
         print(
             f"[+] Unified Supabase sync complete! Added {len(new_records)} net-new records "
             f"(skipped {skipped_count} duplicates).",
@@ -880,7 +889,7 @@ async def run_master_orchestrator(
         try:
             import pseo_generator
             pseo_generator.generate_pseo_site()
-        except Exception as pseo_err:
+        except (Exception, SystemExit) as pseo_err:
             pseo_msg = f"pSEO static generation error in mainscraper.py: {pseo_err}"
             print(f"[!] {pseo_msg}", flush=True)
             try:
@@ -888,6 +897,7 @@ async def run_master_orchestrator(
                     f.write(f"\n[!] {pseo_msg}\n")
             except Exception:
                 pass
+            report_error("mainscraper.py", pseo_msg)
             send_discord_alert(pseo_msg)
 
         _reclaim_os_memory()
@@ -896,7 +906,7 @@ async def run_master_orchestrator(
         try:
             import capturedesk_autopilot
             capturedesk_autopilot.run_capturedesk_autopilot()
-        except Exception as cd_err:
+        except (Exception, SystemExit) as cd_err:
             cd_msg = f"CaptureDesk Autopilot error in mainscraper.py: {cd_err}"
             print(f"[!] {cd_msg}", flush=True)
             try:
@@ -904,6 +914,7 @@ async def run_master_orchestrator(
                     f.write(f"\n[!] {cd_msg}\n")
             except Exception:
                 pass
+            report_error("mainscraper.py", cd_msg)
             send_discord_alert(cd_msg)
 
         _reclaim_os_memory()
@@ -912,7 +923,7 @@ async def run_master_orchestrator(
         try:
             import seed_rapidapi_telemetry
             seed_rapidapi_telemetry.run_telemetry_seeder(rotating=True, slice_size=4)
-        except Exception as tel_err:
+        except (Exception, SystemExit) as tel_err:
             tel_msg = f"RapidAPI telemetry seeder error in mainscraper.py: {tel_err}"
             print(f"[!] {tel_msg}", flush=True)
             try:
@@ -920,6 +931,7 @@ async def run_master_orchestrator(
                     f.write(f"\n[!] {tel_msg}\n")
             except Exception:
                 pass
+            report_error("mainscraper.py", tel_msg)
             send_discord_alert(tel_msg)
 
         try:
@@ -929,12 +941,14 @@ async def run_master_orchestrator(
             outreach_generator.generate_outreach()
             import outbound_mailer
             outbound_mailer.run_outbound_mailer()
-        except Exception as out_err:
-            print(f"[!] Outreach generator warning in mainscraper.py: {out_err}", flush=True)
+        except (Exception, SystemExit) as out_err:
+            out_msg = f"Outreach generator warning in mainscraper.py: {out_err}"
+            print(f"[!] {out_msg}", flush=True)
+            report_error("mainscraper.py", out_msg)
 
         return new_records
 
-    except Exception as e:
+    except (Exception, SystemExit) as e:
         error_msg = f"Master Orchestrator Supabase Upload Error: {e}"
         print(f"[!] {error_msg}", flush=True)
         try:
@@ -942,6 +956,7 @@ async def run_master_orchestrator(
                 f.write(f"\n[!] {error_msg}\n")
         except Exception:
             pass
+        report_error("mainscraper.py", error_msg)
         send_discord_alert(error_msg)
         return []
 
@@ -956,7 +971,9 @@ if __name__ == "__main__":
     
     try:
         asyncio.run(run_master_orchestrator(args.url, args.selector, args.keyword))
-    except Exception as fatal_err:
+    except BaseException as fatal_err:
+        if isinstance(fatal_err, KeyboardInterrupt):
+            raise
         fatal_msg = f"Master Orchestrator Fatal Crash: {fatal_err}"
         print(f"[!] {fatal_msg}", flush=True)
         try:
@@ -964,5 +981,6 @@ if __name__ == "__main__":
                 f.write(f"\n[!] {fatal_msg}\n")
         except Exception:
             pass
+        report_error("mainscraper.py", fatal_msg)
         send_discord_alert(fatal_msg)
         raise
