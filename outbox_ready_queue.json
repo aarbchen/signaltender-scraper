@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21T23:35:53.933698+00:00",
+  "updated_at": "2026-10-22T00:16:31.234456+00:00",
   "launch_date": "2026-10-31",
   "ramp_phase": "Pre-Launch Warmup Guard (Launches 2026-10-31 at 20/day)",
   "daily_cap": 20,
@@ -17,7 +17,7 @@
       "subject": "Active IT solicitations on the wire (CivicActions)",
       "body": "Henry -\n\nOur ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations. Thought these 3 open solicitations from our latest 6-hour crawl might be relevant to CivicActions's pipeline:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nYou can view the live dossier for #1 at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=CivicActions&fn=Henry&st=ca \u2014 happy to point you to the raw RFP packages if any of these 3 fit your stack.\n\nRegards,\nSignalTender Capture Intelligence",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=CivicActions&fn=Henry&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -28,7 +28,7 @@
       "subject": "Active IT solicitations on the wire (Obsidian Security)",
       "body": "Hasan -\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Noticed Obsidian Security's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nYou can view the live dossier for #1 at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Obsidian+Security&fn=Hasan&st=ca \u2014 happy to point you to the raw RFP packages if any of these 3 fit your stack.\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Obsidian+Security&fn=Hasan&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -39,7 +39,7 @@
       "subject": "California & Federal IT & cyber RFPs for Prosum GovTech",
       "body": "Hey Ravi,\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Flagged 3 open public-sector tech opportunities from today's feed that looked aligned with Prosum GovTech:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Prosum+GovTech&fn=Ravi&st=ca \u2014 let me know if Prosum GovTech is pursuing state or federal IT work right now.\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Prosum+GovTech&fn=Ravi&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -50,7 +50,7 @@
       "subject": "Saw Skylight Digital / 3 open IT contracts",
       "body": "Hi Chris,\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Noticed Skylight Digital's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Skylight+Digital&fn=Chris&st=ca \u2014 let me know if Skylight Digital is pursuing state or federal IT work right now.\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=Skylight+Digital&fn=Chris&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -61,7 +61,7 @@
       "subject": "Saw SymSoft Solutions / 3 open IT contracts",
       "body": "Surinder -\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Noticed SymSoft Solutions's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=SymSoft+Solutions&fn=Surinder&st=ca \u2014 let me know if SymSoft Solutions is pursuing state or federal IT work right now.\n\nRegards,\nSignalTender Capture Intelligence",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=SymSoft+Solutions&fn=Surinder&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -72,7 +72,7 @@
       "subject": "Active IT solicitations on the wire (VAS / Visionary Integration Professionals (VIP))",
       "body": "Hello Jonna,\n\nOur ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations. Since VAS / Visionary Integration Professionals (VIP) operates in the technology space, I pulled 3 active solicitations that just hit the wire:\n\n1. [0000040452] RFx Premier Artificial Intelligence (AI) Systems & Services (Florida State University ITN #6769-4) \u2014 DGS - Statewide Procurement (Due: 10/21/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=VAS+%2F+Visionary+Integration+Professionals+%28VIP%29&fn=Jonna&st=ca \u2014 let me know if VAS / Visionary Integration Professionals (VIP) is pursuing state or federal IT work right now.\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000040452-rfx-premier-artificial-intelligence-ai-systems-services-florida-267.html?utm_source=outbound&co=VAS+%2F+Visionary+Integration+Professionals+%28VIP%29&fn=Jonna&st=ca",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -83,7 +83,7 @@
       "subject": "Saw Avero Advisors / 3 open IT contracts",
       "body": "Hi Abhijit,\n\nOur ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations. Since Avero Advisors operates in the technology space, I pulled 3 active solicitations that just hit the wire:\n\n1. [26-0007] Investment Analytics Software \u2014 Citizens Property Insurance Corporation (Due: 11/12/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. [RFQ-007-26] OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 11/02/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. [FLHSMV-SS-009-27 AD] Interactive Voice Response (IVR) System Replacement \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 10/22/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nHere is the direct Section L/M & NAICS breakdown for the top solicitation: https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=Avero+Advisors&fn=Abhijit&st=fl \u2014 worth sending over future Florida & Federal IT scopes when they drop?\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=Avero+Advisors&fn=Abhijit&st=fl",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -94,7 +94,7 @@
       "subject": "Frank - 3 open public-sector IT RFPs",
       "body": "Hey Frank,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and 12 state SLED portals. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for B2Gnow / CollabraLink FL:\n\n1. [26-0007] Investment Analytics Software \u2014 Citizens Property Insurance Corporation (Due: 11/12/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. [RFQ-007-26] OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 11/02/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. [FLHSMV-SS-009-27 AD] Interactive Voice Response (IVR) System Replacement \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 10/22/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nHere is the direct Section L/M & NAICS breakdown for the top solicitation: https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=B2Gnow+%2F+CollabraLink+FL&fn=Frank&st=fl \u2014 worth sending over future Florida & Federal IT scopes when they drop?\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=B2Gnow+%2F+CollabraLink+FL&fn=Frank&st=fl",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -105,7 +105,7 @@
       "subject": "New Florida & Federal tech & cyber solicitations",
       "body": "Hello Jim,\n\nI track newly released Federal and 12-state SLED technology solicitations across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for CloudHesive:\n\n1. [26-0007] Investment Analytics Software \u2014 Citizens Property Insurance Corporation (Due: 11/12/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. [RFQ-007-26] OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 11/02/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. [FLHSMV-SS-009-27 AD] Interactive Voice Response (IVR) System Replacement \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 10/22/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nWe automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on signaltender.net.\n\nI put the pre-shredded compliance & pricing breakdown for #1 here: https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=CloudHesive&fn=Jim&st=fl \u2014 are you guys actively bidding public-sector IT right now, or should I take you off my radar?\n\nBest regards,\nSignalTender Intelligence Team",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=CloudHesive&fn=Jim&st=fl",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -116,7 +116,7 @@
       "subject": "Saw inspired technologies (FL SLED) / 3 open IT contracts",
       "body": "Hi Craig,\n\nWe maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for inspired technologies (FL SLED):\n\n1. [26-0007] Investment Analytics Software \u2014 Citizens Property Insurance Corporation (Due: 11/12/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. [RFQ-007-26] OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 11/02/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. [FLHSMV-SS-009-27 AD] Interactive Voice Response (IVR) System Replacement \u2014 Department of Highway Safety and Motor Vehicles (HSMV) (Due: 10/22/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nWe automatically filter out COTS renewals and non-technical clutter, indexing the clean solicitation dossiers on signaltender.net.\n\nHere is the direct Section L/M & NAICS breakdown for the top solicitation: https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=inspired+technologies+%28FL+SLED%29&fn=Craig&st=fl \u2014 worth sending over future Florida & Federal IT scopes when they drop?\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html?utm_source=outbound&co=inspired+technologies+%28FL+SLED%29&fn=Craig&st=fl",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -127,7 +127,7 @@
       "subject": "3 open Georgia & Federal IT bids for DefenseStorm Cyber",
       "body": "Steve -\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Thought these 3 open solicitations from our latest 6-hour crawl might be relevant to DefenseStorm Cyber's pipeline:\n\n1. [PE-72200-NONST-2027-000000093] Enterprise Resource Planning (ERP) Software & Services \u2014 Rockdale County Board Of Commissioners (Georgia) (Due: 11/19/2026 | NAICS 511210 \u2022 Georgia Tech Authority (GTA) SSG Security)\n2. [PE-66096-NONST-2026-000000217] 26RFP1645291A-ST AI Powered Digital Water Operations Platform \u2014 Fulton County Purchasing Dept (Georgia) (Due: 11/13/2026 | NAICS 541511 \u2022 Georgia Tech Authority (GTA) SSG Security)\n3. [PE-29016-NONST-2027-000000075] RFP828 - Interactive Web Mapping and Dashboard Application Development \u2014 Atlanta Regional Commission (Georgia) (Due: 11/06/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=DefenseStorm+Cyber&fn=Steve&st=ga \u2014 let me know if DefenseStorm Cyber is pursuing state or federal IT work right now.\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=DefenseStorm+Cyber&fn=Steve&st=ga",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -138,7 +138,7 @@
       "subject": "Georgia & Federal IT & cyber RFPs for Digital Hands",
       "body": "Charlotte -\n\nWe maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA). Since Digital Hands operates in the technology space, I pulled 3 active solicitations that just hit the wire:\n\n1. [PE-72200-NONST-2027-000000093] Enterprise Resource Planning (ERP) Software & Services \u2014 Rockdale County Board Of Commissioners (Georgia) (Due: 11/19/2026 | NAICS 511210 \u2022 Georgia Tech Authority (GTA) SSG Security)\n2. [PE-66096-NONST-2026-000000217] 26RFP1645291A-ST AI Powered Digital Water Operations Platform \u2014 Fulton County Purchasing Dept (Georgia) (Due: 11/13/2026 | NAICS 541511 \u2022 Georgia Tech Authority (GTA) SSG Security)\n3. [PE-29016-NONST-2027-000000075] RFP828 - Interactive Web Mapping and Dashboard Application Development \u2014 Atlanta Regional Commission (Georgia) (Due: 11/06/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nThe full compliance & teaming breakdown for #1 is posted at https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=Digital+Hands&fn=Charlotte&st=ga \u2014 let me know if Digital Hands is pursuing state or federal IT work right now.\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=Digital+Hands&fn=Charlotte&st=ga",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -149,7 +149,7 @@
       "subject": "Saw TechAnax / 3 open IT contracts",
       "body": "Byron -\n\nWe maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA). Since TechAnax operates in the technology space, I pulled 3 active solicitations that just hit the wire:\n\n1. [PE-72200-NONST-2027-000000093] Enterprise Resource Planning (ERP) Software & Services \u2014 Rockdale County Board Of Commissioners (Georgia) (Due: 11/19/2026 | NAICS 511210 \u2022 Georgia Tech Authority (GTA) SSG Security)\n2. [PE-66096-NONST-2026-000000217] 26RFP1645291A-ST AI Powered Digital Water Operations Platform \u2014 Fulton County Purchasing Dept (Georgia) (Due: 11/13/2026 | NAICS 541511 \u2022 Georgia Tech Authority (GTA) SSG Security)\n3. [PE-29016-NONST-2027-000000075] RFP828 - Interactive Web Mapping and Dashboard Application Development \u2014 Atlanta Regional Commission (Georgia) (Due: 11/06/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on signaltender.net.\n\nYou can view the live dossier for #1 at https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=TechAnax&fn=Byron&st=ga \u2014 happy to point you to the raw RFP packages if any of these 3 fit your stack.\n\nBest regards,\nSignalTender Intelligence Team",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html?utm_source=outbound&co=TechAnax&fn=Byron&st=ga",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -160,7 +160,7 @@
       "subject": "3 open Illinois & Federal IT bids for Burwood Group",
       "body": "Hi Jim,\n\nWe maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA). Thought these 3 open solicitations from our latest 6-hour crawl might be relevant to Burwood Group's pipeline:\n\n1. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options \u2014 Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 \u2022 SOC 2 Type II / NIST CSF 2.0)\n2. [26-418DCFS-PROCU-B-53611] Federal Revenue Enhancement and Claiming Systems Support Services \u2014 State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n3. [27-494DOT-FINAD-B-54339] Re-Bid Freight Data & Forecasting IFB \u2014 State of Illinois (DOT - Transportation) (Due: 10/22/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n\nEach solicitation is de-duplicated every 6 hours and published with direct agency source links on signaltender.net.\n\nI put the pre-shredded compliance & pricing breakdown for #1 here: https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=Burwood+Group&fn=Jim&st=il \u2014 are you guys actively bidding public-sector IT right now, or should I take you off my radar?\n\nRegards,\nSignalTender Capture Intelligence",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=Burwood+Group&fn=Jim&st=il",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -171,7 +171,7 @@
       "subject": "Saw Wynndalco Enterprises / 3 open IT contracts",
       "body": "Hi David,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across SAM.gov, DemandStar, and 12 state SLED portals. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Wynndalco Enterprises:\n\n1. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options \u2014 Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 \u2022 SOC 2 Type II / NIST CSF 2.0)\n2. [26-418DCFS-PROCU-B-53611] Federal Revenue Enhancement and Claiming Systems Support Services \u2014 State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n3. [27-494DOT-FINAD-B-54339] Re-Bid Freight Data & Forecasting IFB \u2014 State of Illinois (DOT - Transportation) (Due: 10/22/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can view the live dossier for #1 at https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=Wynndalco+Enterprises&fn=David&st=il \u2014 happy to point you to the raw RFP packages if any of these 3 fit your stack.\n\nRegards,\nSignalTender Capture Intelligence",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=Wynndalco+Enterprises&fn=David&st=il",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -182,7 +182,7 @@
       "subject": "Chris - 3 open public-sector IT RFPs",
       "body": "Chris -\n\nOur ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations. Flagged 3 open public-sector tech opportunities from today's feed that looked aligned with sikich govtech:\n\n1. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options \u2014 Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 \u2022 SOC 2 Type II / NIST CSF 2.0)\n2. [26-418DCFS-PROCU-B-53611] Federal Revenue Enhancement and Claiming Systems Support Services \u2014 State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n3. [27-494DOT-FINAD-B-54339] Re-Bid Freight Data & Forecasting IFB \u2014 State of Illinois (DOT - Transportation) (Due: 10/22/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on signaltender.net.\n\nYou can inspect the pre-shredded dossier for #1 at https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=sikich+govtech&fn=Chris&st=il \u2014 is public-sector IT/cyber on sikich govtech's radar this quarter?\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html?utm_source=outbound&co=sikich+govtech&fn=Chris&st=il",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -193,7 +193,7 @@
       "subject": "Maryland & Federal IT & cyber RFPs for 22nd Century Technologies",
       "body": "Hi Anil,\n\nWe maintain a live public-sector RFP engine covering Federal (SAM.gov), municipal (DemandStar), and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for 22nd Century Technologies:\n\n1. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications, Network, Engineering, Cybersecurity, and Information Technology Services (CNECTS), aka \"Connects\" \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nHere is the direct Section L/M & NAICS breakdown for the top solicitation: https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=22nd+Century+Technologies&fn=Anil&st=md \u2014 worth sending over future Maryland & Federal IT scopes when they drop?\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=22nd+Century+Technologies&fn=Anil&st=md",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -204,7 +204,7 @@
       "subject": "Maryland & Federal IT & cyber RFPs for Ad Hoc LLC",
       "body": "Greg -\n\nOur ingestion pipeline monitors Federal and 12 state procurement portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours for high-signal IT & cyber solicitations. Since Ad Hoc LLC operates in the technology space, I pulled 3 active solicitations that just hit the wire:\n\n1. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications, Network, Engineering, Cybersecurity, and Information Technology Services (CNECTS), aka \"Connects\" \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nI put the pre-shredded compliance & pricing breakdown for #1 here: https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=Ad+Hoc+LLC&fn=Greg&st=md \u2014 are you guys actively bidding public-sector IT right now, or should I take you off my radar?\n\nBest,\nSignalTender Procurement Desk",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=Ad+Hoc+LLC&fn=Greg&st=md",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -215,7 +215,7 @@
       "subject": "3 open Maryland & Federal IT bids for Bellese Technologies",
       "body": "Hi Kutty,\n\nI track newly released Federal and 12-state SLED technology solicitations across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA. Noticed Bellese Technologies's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications, Network, Engineering, Cybersecurity, and Information Technology Services (CNECTS), aka \"Connects\" \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nOur classifier strips out 99% of commodity hardware, toner, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can inspect the pre-shredded dossier for #1 at https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=Bellese+Technologies&fn=Kutty&st=md \u2014 is public-sector IT/cyber on Bellese Technologies's radar this quarter?\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=Bellese+Technologies&fn=Kutty&st=md",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     },
     {
       "step": 1,
@@ -226,7 +226,7 @@
       "subject": "Saw CoreSphere LLC / 3 open IT contracts",
       "body": "Hey Buster,\n\nI run an automated procurement monitor that tracks SAM.gov, DemandStar, and 12 state SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) every 6 hours. Noticed CoreSphere LLC's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Cyber Security Engineering and Risk Management Framework Support \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Communications and Information Capabilities Secure Software-as-a-Service (SaaS) Data Platform Support Services \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. Communications, Network, Engineering, Cybersecurity, and Information Technology Services (CNECTS), aka \"Connects\" \u2014 Federal Government (SAM) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work on signaltender.net.\n\nI put the pre-shredded compliance & pricing breakdown for #1 here: https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=CoreSphere+LLC&fn=Buster&st=md \u2014 are you guys actively bidding public-sector IT right now, or should I take you off my radar?\n\nCheers,\nSignalTender Procurement Wire",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-640.html?utm_source=outbound&co=CoreSphere+LLC&fn=Buster&st=md",
-      "staged_at": "2026-10-21T23:35:53.933698+00:00"
+      "staged_at": "2026-10-22T00:16:31.234456+00:00"
     }
   ]
 }

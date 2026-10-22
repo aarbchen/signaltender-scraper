@@ -586,42 +586,118 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
     if not leads_payload:
         return
 
-    # 1. Instantly.ai REST API Integration
+    # 1. Instantly.ai V2 REST API Integration (Auto-Lead Sync + November Daily Limit Ramp + Oct 31 Auto-Activation)
     if INSTANTLY_API_KEY and INSTANTLY_CAMPAIGN_ID:
         try:
-            print(f"[*] Pushing {len(leads_payload)} leads directly to Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID}...", flush=True)
-            instantly_leads = [
-                {
-                    "email": item["Email"],
-                    "first_name": item["First Name"],
-                    "company_name": item["Company"],
-                    "custom_variables": {
-                        "subject_line": item["Subject Line"],
-                        "email_body": item["Email Body"],
-                        "followup_subject": item.get("Followup Subject", ""),
-                        "followup_body": item.get("Followup Body", ""),
-                        "spintax_subject_1": item.get("Spintax Subject 1", ""),
-                        "spintax_body_1": item.get("Spintax Body 1", ""),
-                        "spintax_body_2": item.get("Spintax Body 2", ""),
-                        "matched_state": item.get("Matched State", ""),
-                    },
-                }
-                for item in leads_payload
-            ]
-            resp = requests.post(
-                "https://api.instantly.ai/api/v1/lead/add",
-                json={
-                    "api_key": INSTANTLY_API_KEY,
-                    "campaign_id": INSTANTLY_CAMPAIGN_ID,
-                    "skip_if_in_workspace": True,
-                    "leads": instantly_leads,
-                },
-                timeout=30,
+            from datetime import timezone
+            import outbound_mailer
+
+            inst_headers = {
+                "Authorization": f"Bearer {INSTANTLY_API_KEY}",
+                "Content-Type": "application/json",
+            }
+            now_utc = datetime.now(timezone.utc)
+            daily_cap, _, ramp_label = outbound_mailer.compute_dynamic_daily_limit(now_utc)
+
+            # Sync dynamic daily_limit (20 -> 30 -> 45 -> 60/day) and check campaign status
+            camp_resp = requests.get(
+                f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}",
+                headers=inst_headers,
+                timeout=15,
             )
-            resp.raise_for_status()
-            print(f"[+] Successfully synced {len(instantly_leads)} leads (with 2-step + Spintax variables) to Instantly.ai!", flush=True)
+            if camp_resp.status_code == 200:
+                camp_data = camp_resp.json()
+                if int(camp_data.get("daily_limit") or 0) != daily_cap:
+                    requests.patch(
+                        f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}",
+                        headers=inst_headers,
+                        json={"daily_limit": daily_cap},
+                        timeout=15,
+                    )
+                # Auto-activate campaign on or after October 31, 2026 if currently in Draft (status == 0)
+                if now_utc.date() >= date(2026, 10, 31) and int(camp_data.get("status") or 0) == 0:
+                    act_resp = requests.post(
+                        f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}/activate",
+                        headers=inst_headers,
+                        json={},
+                        timeout=15,
+                    )
+                    if 200 <= act_resp.status_code < 300:
+                        print(f"[+] Auto-activated Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID} for Oct 31 launch!", flush=True)
+
+            # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
+            existing_inst_emails = set()
+            starting_after = None
+            for _ in range(10):
+                list_body = {"campaign": INSTANTLY_CAMPAIGN_ID, "limit": 100}
+                if starting_after:
+                    list_body["starting_after"] = starting_after
+                l_resp = requests.post(
+                    "https://api.instantly.ai/api/v2/leads/list",
+                    headers=inst_headers,
+                    json=list_body,
+                    timeout=15,
+                )
+                if l_resp.status_code != 200:
+                    break
+                l_json = l_resp.json()
+                items = l_json.get("items") or []
+                for it in items:
+                    em = str(it.get("email") or "").strip().lower()
+                    if em:
+                        existing_inst_emails.add(em)
+                starting_after = l_json.get("next_starting_after")
+                if not starting_after or len(items) < 100:
+                    break
+
+            new_leads_to_push = [
+                item for item in leads_payload
+                if str(item.get("Email") or "").strip().lower() not in existing_inst_emails
+            ]
+            if new_leads_to_push:
+                print(
+                    f"[*] Pushing {len(new_leads_to_push)} new verified leads to Instantly.ai V2 campaign {INSTANTLY_CAMPAIGN_ID} ({ramp_label})...",
+                    flush=True,
+                )
+                pushed_ok = 0
+                for item in new_leads_to_push:
+                    lead_payload = {
+                        "campaign": INSTANTLY_CAMPAIGN_ID,
+                        "email": item["Email"].strip().lower(),
+                        "first_name": item["First Name"],
+                        "company_name": item["Company"],
+                        "skip_if_in_workspace": True,
+                        "custom_variables": {
+                            "subject_line": item["Subject Line"],
+                            "email_body": item["Email Body"],
+                            "followup_subject": item.get("Followup Subject", ""),
+                            "followup_body": item.get("Followup Body", ""),
+                            "spintax_subject_1": item.get("Spintax Subject 1", ""),
+                            "spintax_body_1": item.get("Spintax Body 1", ""),
+                            "spintax_body_2": item.get("Spintax Body 2", ""),
+                            "matched_state": item.get("Matched State", ""),
+                            "top_dossier_url": item.get("Top Contract Dossier URL", ""),
+                        },
+                    }
+                    r_add = requests.post(
+                        "https://api.instantly.ai/api/v2/leads",
+                        headers=inst_headers,
+                        json=lead_payload,
+                        timeout=12,
+                    )
+                    if 200 <= r_add.status_code < 300:
+                        pushed_ok += 1
+                print(
+                    f"[+] Synced {pushed_ok}/{len(new_leads_to_push)} new leads to Instantly.ai V2 (Total in campaign: {len(existing_inst_emails) + pushed_ok} | Daily Limit: {daily_cap}).",
+                    flush=True,
+                )
+            else:
+                print(
+                    f"[+] Instantly.ai V2 campaign {INSTANTLY_CAMPAIGN_ID} already up to date ({len(existing_inst_emails)} leads | {ramp_label}).",
+                    flush=True,
+                )
         except Exception as inst_err:
-            err_msg = f"Instantly.ai API sync warning: {inst_err}"
+            err_msg = f"Instantly.ai V2 API sync warning: {inst_err}"
             print(f"[!] {err_msg}", flush=True)
             send_discord_alert(err_msg)
 
