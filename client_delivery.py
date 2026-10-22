@@ -323,6 +323,41 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
     return True
 
 
+def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -> bool:
+    """Send 6-hour SignalWire RFP briefing email to active subscribers when RESEND_API_KEY or SMTP_* is configured."""
+    resend_key = os.getenv("RESEND_API_KEY", "").strip()
+    smtp_user = os.getenv("SMTP_USER", "").strip()
+    smtp_pass = os.getenv("SMTP_PASSWORD", "").strip()
+    from_email = os.getenv("SMTP_FROM_EMAIL", smtp_user or "aaron@getsignaltender.com").strip()
+    subject = f"SignalTender 6-Hour GovCon RFP Wire ({count} New IT/Cyber Solicitations)"
+    clean_body = body_text.replace("**", "").replace("`", "") + f"\n\nFull Live Directory & Unlocked Dossiers: {SITE_BASE_URL}/contracts\n"
+    try:
+        if resend_key:
+            r = requests.post(
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
+                json={"from": f"SignalTender Capture Wire <{from_email}>", "to": [to_email], "subject": subject, "text": clean_body},
+                timeout=10,
+            )
+            return r.status_code in (200, 201)
+        elif smtp_user and smtp_pass:
+            import smtplib, ssl
+            from email.message import EmailMessage
+            msg = EmailMessage()
+            msg["Subject"] = subject
+            msg["From"] = f"SignalTender Capture Wire <{from_email}>"
+            msg["To"] = to_email
+            msg.set_content(clean_body)
+            with smtplib.SMTP(os.getenv("SMTP_HOST", "smtp.gmail.com"), int(os.getenv("SMTP_PORT") or "587"), timeout=10) as s:
+                s.starttls(context=ssl.create_default_context())
+                s.login(smtp_user, smtp_pass)
+                s.send_message(msg)
+            return True
+    except Exception:
+        pass
+    return False
+
+
 def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict]) -> int:
     """
     Dispatch newly discovered RFPs to any active subscriber external webhooks
@@ -353,6 +388,9 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
     for srow in sub_rows:
         try:
             meta = json.loads(str(srow.get("title") or "{}"))
+            sub_email = str(meta.get("email") or "").strip().lower()
+            if sub_email and "@" in sub_email:
+                _send_subscriber_email_briefing(sub_email, combined_text, len(records))
             w_url = str(meta.get("webhook_url") or "").strip()
             if not w_url.startswith("https://"):
                 continue

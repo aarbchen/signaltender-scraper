@@ -211,8 +211,8 @@
                     </div>
 
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1">
-                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/68198412</span></div>
-                      <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">PA Department of Human Services - Procurement Division</span></div>
+                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="https://www.emarketplace.state.pa.us/Solicitations.aspx?SID=26-RFI-21377" class="blur-sm select-none">https://portal.government.gov/solicitation/view/68198412</span></div>
+                      <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">PA Department of Human Services - Procurement Division</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
@@ -445,23 +445,30 @@
             statusEl.className = 'mt-3 text-xs font-mono text-emerald-400';
             statusEl.textContent = 'Unlocked ' + list.length + ' live pre-shredded RFP dossiers (and queued your email copy):';
           }
+          try { if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); } catch (e) {}
           if (resultsEl && list.length > 0) {
             resultsEl.classList.remove('hidden');
             resultsEl.innerHTML = list.map(function (d) {
               var titleSafe = String(d.title || 'Open Solicitation').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               var agencySafe = String(d.issuing_agency || 'Government Agency').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               var dueSafe = String(d.closing_date || 'Open').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-              var urlSafe = String(d.dossier_url || '../../contracts/index.html').replace(/"/g, '&quot;');
-              return '<a href="' + urlSafe + '" class="p-3.5 rounded-xl bg-navy-950 hover:bg-slate-900 border border-emerald-500/40 transition-all flex flex-col justify-between">' +
+              var rawDossier = String(d.dossier_url || '../../contracts/index.html');
+              var sep = rawDossier.indexOf('?') === -1 ? '?unlocked=1' : '&unlocked=1';
+              var urlSafe = (rawDossier + sep).replace(/"/g, '&quot;');
+              var bidUrlSafe = String(d.official_bid_url || rawDossier).replace(/"/g, '&quot;');
+              return '<div class="p-3.5 rounded-xl bg-navy-950 hover:bg-slate-900 border border-emerald-500/40 transition-all flex flex-col justify-between">' +
                 '<div>' +
                   '<div class="text-[10px] font-mono text-emerald-400 uppercase">' + agencySafe + '</div>' +
-                  '<div class="text-xs font-bold text-white mt-1 line-clamp-2">' + titleSafe + '</div>' +
+                  '<a href="' + urlSafe + '" class="text-xs font-bold text-white hover:text-sky-400 mt-1 line-clamp-2 block">' + titleSafe + '</a>' +
                 '</div>' +
                 '<div class="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">' +
                   '<span class="text-amber-300">Due: ' + dueSafe + '</span>' +
-                  '<span class="text-sky-400">Open Dossier &rarr;</span>' +
+                  '<span class="flex items-center gap-2">' +
+                    '<a href="' + bidUrlSafe + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">Portal &nearr;</a>' +
+                    '<a href="' + urlSafe + '" class="text-sky-400 hover:underline">Dossier &rarr;</a>' +
+                  '</span>' +
                 '</div>' +
-              '</a>';
+              '</div>';
             }).join('');
           }
         })
@@ -521,6 +528,21 @@
               utm_source: utm
             })
           }).catch(function () {});
+        }
+        var isUnlocked = params.get('unlocked') === '1' || Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active')));
+        if (isUnlocked) {
+          var urlMask = document.getElementById('dossier-bid-url-mask');
+          var agMask = document.getElementById('dossier-agency-mask');
+          if (urlMask) {
+            var realU = urlMask.getAttribute('data-real-url') || '';
+            urlMask.className = 'text-emerald-400 font-semibold';
+            if (realU && realU.indexOf('http') === 0) {
+              urlMask.innerHTML = '<a href="' + realU.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realU.replace(/</g, '&lt;') + ' &nearr;</a>';
+            }
+          }
+          if (agMask) {
+            agMask.className = 'text-white font-semibold';
+          }
         }
       } catch (e) {}
     })();

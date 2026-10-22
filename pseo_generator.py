@@ -761,23 +761,30 @@ def _render_layout(
             statusEl.className = 'mt-3 text-xs font-mono text-emerald-400';
             statusEl.textContent = 'Unlocked ' + list.length + ' live pre-shredded RFP dossiers (and queued your email copy):';
           }}
+          try {{ if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); }} catch (e) {{}}
           if (resultsEl && list.length > 0) {{
             resultsEl.classList.remove('hidden');
             resultsEl.innerHTML = list.map(function (d) {{
               var titleSafe = String(d.title || 'Open Solicitation').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               var agencySafe = String(d.issuing_agency || 'Government Agency').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               var dueSafe = String(d.closing_date || 'Open').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-              var urlSafe = String(d.dossier_url || '{root_prefix}contracts/index.html').replace(/"/g, '&quot;');
-              return '<a href="' + urlSafe + '" class="p-3.5 rounded-xl bg-navy-950 hover:bg-slate-900 border border-emerald-500/40 transition-all flex flex-col justify-between">' +
+              var rawDossier = String(d.dossier_url || '{root_prefix}contracts/index.html');
+              var sep = rawDossier.indexOf('?') === -1 ? '?unlocked=1' : '&unlocked=1';
+              var urlSafe = (rawDossier + sep).replace(/"/g, '&quot;');
+              var bidUrlSafe = String(d.official_bid_url || rawDossier).replace(/"/g, '&quot;');
+              return '<div class="p-3.5 rounded-xl bg-navy-950 hover:bg-slate-900 border border-emerald-500/40 transition-all flex flex-col justify-between">' +
                 '<div>' +
                   '<div class="text-[10px] font-mono text-emerald-400 uppercase">' + agencySafe + '</div>' +
-                  '<div class="text-xs font-bold text-white mt-1 line-clamp-2">' + titleSafe + '</div>' +
+                  '<a href="' + urlSafe + '" class="text-xs font-bold text-white hover:text-sky-400 mt-1 line-clamp-2 block">' + titleSafe + '</a>' +
                 '</div>' +
                 '<div class="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">' +
                   '<span class="text-amber-300">Due: ' + dueSafe + '</span>' +
-                  '<span class="text-sky-400">Open Dossier &rarr;</span>' +
+                  '<span class="flex items-center gap-2">' +
+                    '<a href="' + bidUrlSafe + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">Portal &nearr;</a>' +
+                    '<a href="' + urlSafe + '" class="text-sky-400 hover:underline">Dossier &rarr;</a>' +
+                  '</span>' +
                 '</div>' +
-              '</a>';
+              '</div>';
             }}).join('');
           }}
         }})
@@ -837,6 +844,21 @@ def _render_layout(
               utm_source: utm
             }})
           }}).catch(function () {{}});
+        }}
+        var isUnlocked = params.get('unlocked') === '1' || Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active')));
+        if (isUnlocked) {{
+          var urlMask = document.getElementById('dossier-bid-url-mask');
+          var agMask = document.getElementById('dossier-agency-mask');
+          if (urlMask) {{
+            var realU = urlMask.getAttribute('data-real-url') || '';
+            urlMask.className = 'text-emerald-400 font-semibold';
+            if (realU && realU.indexOf('http') === 0) {{
+              urlMask.innerHTML = '<a href="' + realU.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realU.replace(/</g, '&lt;') + ' &nearr;</a>';
+            }}
+          }}
+          if (agMask) {{
+            agMask.className = 'text-white font-semibold';
+          }}
         }}
       }} catch (e) {{}}
     }})();
@@ -1053,23 +1075,51 @@ def generate_pseo_site() -> int:
             else:
                 teaming_posture = "Local SBE/MWBE Sub Plan • Prime ≥51% Core Scope"
 
+            locality_delta = {
+                "federal": 8, "new_york": 10, "california": 9, "massachusetts": 7, "virginia": 6, "maryland": 6,
+                "illinois": 3, "pennsylvania": 2, "texas": 1, "florida": 0, "ohio": -2, "georgia": 0, "north_carolina": -1, "municipal": -2,
+            }.get(j_key, 0)
+            id_jitter = (sum(ord(ch) for ch in rec_id) % 5) - 2
             if d_cached.get("igce_ptw_posture"):
                 igce_ptw_posture = str(d_cached["igce_ptw_posture"])
-            elif "cybersecurity" in cats:
-                igce_ptw_posture = "Wrap 1.84x • PTW -4.5% vs IGCE • Arch $168/hr | SecOps $148/hr"
-            elif "cloud-infrastructure" in cats:
-                igce_ptw_posture = "Wrap 1.82x • PTW -5.2% vs IGCE • Cloud Arch $165/hr | DevSecOps $146/hr"
+            elif any(w in blob_low for w in ("servicenow", "itsm", "help desk", "service desk")):
+                r1, r2 = 158 + locality_delta + id_jitter, 134 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.79x ? PTW -5.4% vs IGCE ? ITSM Arch ${r1}/hr | Platform Eng ${r2}/hr"
+            elif any(w in blob_low for w in ("siem", "soc", "vulnerability", "penetration", "zero trust", "cmmc", "edr", "firewall", "cyber")):
+                r1, r2 = 172 + locality_delta + id_jitter, 151 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.85x ? PTW -4.2% vs IGCE ? SecArch ${r1}/hr | Sr. SOC Eng ${r2}/hr"
+            elif any(w in blob_low for w in ("gis", "geospatial", "esri", "mapping")):
+                r1, r2 = 152 + locality_delta + id_jitter, 132 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.77x ? PTW -5.8% vs IGCE ? GIS Solutions Arch ${r1}/hr | Spatial Dev ${r2}/hr"
+            elif any(w in blob_low for w in ("erp", "peoplesoft", "workday", "oracle", "sap", "financial", "modernization")):
+                r1, r2 = 169 + locality_delta + id_jitter, 149 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.83x ? PTW -4.8% vs IGCE ? Principal ERP Arch ${r1}/hr | Functional Lead ${r2}/hr"
+            elif any(w in blob_low for w in ("network", "cisco", "sd-wan", "broadband", "fiber", "wireless", "telecom")):
+                r1, r2 = 156 + locality_delta + id_jitter, 136 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.78x ? PTW -5.6% vs IGCE ? Sr. Network Arch ${r1}/hr | CCIE Lead ${r2}/hr"
+            elif "cloud-infrastructure" in cats or any(w in blob_low for w in ("cloud", "aws", "azure", "hosting", "datacenter")):
+                r1, r2 = 166 + locality_delta + id_jitter, 147 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.82x ? PTW -5.0% vs IGCE ? Cloud Arch ${r1}/hr | DevSecOps Lead ${r2}/hr"
             else:
-                igce_ptw_posture = "Wrap 1.80x • PTW -5.5% vs IGCE • Sr. Arch $162/hr | Lead Eng $146/hr"
+                r1, r2 = 161 + locality_delta + id_jitter, 142 + locality_delta + id_jitter
+                igce_ptw_posture = f"Wrap 1.80x ? PTW -5.3% vs IGCE ? Solutions Arch ${r1}/hr | Lead Software Eng ${r2}/hr"
 
             if d_cached.get("key_personnel_lcats"):
                 key_personnel_lcats = str(d_cached["key_personnel_lcats"])
-            elif "cybersecurity" in cats:
-                key_personnel_lcats = "Program Manager (PMP/CISSP) • Lead Zero-Trust Architect (CISSP)"
+            elif any(w in blob_low for w in ("servicenow", "itsm", "help desk", "service desk")):
+                key_personnel_lcats = "ITSM Program Manager (ITIL v4/PMP) ? Lead Platform Architect"
+            elif any(w in blob_low for w in ("siem", "soc", "vulnerability", "penetration", "zero trust", "cmmc", "edr", "cyber")):
+                key_personnel_lcats = "Cyber Program Manager (PMP/CISSP) ? Lead SecOps / Zero-Trust Architect (CISSP)"
+            elif any(w in blob_low for w in ("gis", "geospatial", "esri", "mapping")):
+                key_personnel_lcats = "Geospatial Program Lead (GISP/PMP) ? Principal Enterprise GIS Architect"
+            elif any(w in blob_low for w in ("erp", "peoplesoft", "workday", "oracle", "sap", "modernization")):
+                key_personnel_lcats = "ERP Transformation Director (PMP) ? Lead Enterprise Integration Architect"
+            elif any(w in blob_low for w in ("network", "cisco", "sd-wan", "broadband", "wireless", "telecom")):
+                key_personnel_lcats = "Infrastructure PM (PMP) ? Principal Network Security Engineer (CCIE/CCNP)"
             elif "cloud-infrastructure" in cats:
-                key_personnel_lcats = "Program Manager (PMP) • Principal Cloud/DevSecOps Architect"
+                key_personnel_lcats = "Cloud Delivery PM (PMP) ? Principal Cloud & DevSecOps Architect (AWS/Azure)"
             else:
-                key_personnel_lcats = "Engagement PM (PMP/CSM) • Lead Enterprise Systems Architect"
+                key_personnel_lcats = "Engagement Program Manager (PMP/CSM) ? Lead Enterprise Systems Architect"
 
             cpars_benchmark = str(d_cached.get("cpars_relevance_benchmark") or "Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)")
 
@@ -1213,8 +1263,8 @@ def generate_pseo_site() -> int:
                     </div>
 
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1">
-                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
-                      <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
+                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="{html.escape(c['url'], quote=True)}" class="blur-sm select-none">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
+                      <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
