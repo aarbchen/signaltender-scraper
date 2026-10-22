@@ -507,7 +507,7 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                 for r in candidate_records
             ]
             llm_resp = await client.messages.create(
-                model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
+                model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5"),
                 max_tokens=2048,
                 system=B2B_EXTRACTION_SYSTEM_PROMPT,
                 messages=[

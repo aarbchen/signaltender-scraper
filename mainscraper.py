@@ -442,7 +442,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                     [{"title": c["raw_title"], "closing_date": c["raw_due"], "contact_email": c["contact_email"]} for c in esbd_candidates]
                 )
                 response = await llm_client.messages.create(
-                    model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
+                    model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5"),
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
                     messages=[
@@ -477,7 +477,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
             print(f"Processing chunk {i+1} of {len(text_chunks)}...")
             try:
                 response = await llm_client.messages.create(
-                    model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
+                    model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5"),
                     max_tokens=8000,
                     system=B2B_EXTRACTION_SYSTEM_PROMPT,
                     messages=[

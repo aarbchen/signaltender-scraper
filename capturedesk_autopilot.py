@@ -415,7 +415,7 @@ def enrich_contract_dossier(record: dict) -> dict:
                     "content-type": "application/json",
                 },
                 json={
-                    "model": os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"),
+                    "model": os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5"),
                     "max_tokens": 700,
                     "system": (
                         "Return ONLY valid JSON with two keys: "

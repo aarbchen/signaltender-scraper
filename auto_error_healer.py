@@ -163,9 +163,9 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                 issues.append(
                     f"{rel_path} still contains `.upsert(` which triggers Supabase PostgREST RLS 42501; use SELECT + `.insert(`."
                 )
-            if "claude-sonnet-5-5" in src:
+            if "claude-sonnet-4" in src or "claude-haiku-4" in src:
                 issues.append(
-                    f"{rel_path} still contains invalid model ID `claude-sonnet-5-5`; use `os.getenv('ANTHROPIC_MODEL', 'claude-haiku-4-5-20251001')`."
+                    f"{rel_path} still contains a legacy 4.x model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
                 )
 
     return issues
