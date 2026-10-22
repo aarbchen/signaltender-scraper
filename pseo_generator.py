@@ -1084,42 +1084,42 @@ def generate_pseo_site() -> int:
                 igce_ptw_posture = str(d_cached["igce_ptw_posture"])
             elif any(w in blob_low for w in ("servicenow", "itsm", "help desk", "service desk")):
                 r1, r2 = 158 + locality_delta + id_jitter, 134 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.79x ? PTW -5.4% vs IGCE ? ITSM Arch ${r1}/hr | Platform Eng ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.79x • PTW -5.4% vs IGCE • ITSM Arch ${r1}/hr | Platform Eng ${r2}/hr"
             elif any(w in blob_low for w in ("siem", "soc", "vulnerability", "penetration", "zero trust", "cmmc", "edr", "firewall", "cyber")):
                 r1, r2 = 172 + locality_delta + id_jitter, 151 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.85x ? PTW -4.2% vs IGCE ? SecArch ${r1}/hr | Sr. SOC Eng ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.85x • PTW -4.2% vs IGCE • SecArch ${r1}/hr | Sr. SOC Eng ${r2}/hr"
             elif any(w in blob_low for w in ("gis", "geospatial", "esri", "mapping")):
                 r1, r2 = 152 + locality_delta + id_jitter, 132 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.77x ? PTW -5.8% vs IGCE ? GIS Solutions Arch ${r1}/hr | Spatial Dev ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.77x • PTW -5.8% vs IGCE • GIS Solutions Arch ${r1}/hr | Spatial Dev ${r2}/hr"
             elif any(w in blob_low for w in ("erp", "peoplesoft", "workday", "oracle", "sap", "financial", "modernization")):
                 r1, r2 = 169 + locality_delta + id_jitter, 149 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.83x ? PTW -4.8% vs IGCE ? Principal ERP Arch ${r1}/hr | Functional Lead ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch ${r1}/hr | Functional Lead ${r2}/hr"
             elif any(w in blob_low for w in ("network", "cisco", "sd-wan", "broadband", "fiber", "wireless", "telecom")):
                 r1, r2 = 156 + locality_delta + id_jitter, 136 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.78x ? PTW -5.6% vs IGCE ? Sr. Network Arch ${r1}/hr | CCIE Lead ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.78x • PTW -5.6% vs IGCE • Sr. Network Arch ${r1}/hr | CCIE Lead ${r2}/hr"
             elif "cloud-infrastructure" in cats or any(w in blob_low for w in ("cloud", "aws", "azure", "hosting", "datacenter")):
                 r1, r2 = 166 + locality_delta + id_jitter, 147 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.82x ? PTW -5.0% vs IGCE ? Cloud Arch ${r1}/hr | DevSecOps Lead ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.82x • PTW -5.0% vs IGCE • Cloud Arch ${r1}/hr | DevSecOps Lead ${r2}/hr"
             else:
                 r1, r2 = 161 + locality_delta + id_jitter, 142 + locality_delta + id_jitter
-                igce_ptw_posture = f"Wrap 1.80x ? PTW -5.3% vs IGCE ? Solutions Arch ${r1}/hr | Lead Software Eng ${r2}/hr"
+                igce_ptw_posture = f"Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch ${r1}/hr | Lead Software Eng ${r2}/hr"
 
             if d_cached.get("key_personnel_lcats"):
                 key_personnel_lcats = str(d_cached["key_personnel_lcats"])
             elif any(w in blob_low for w in ("servicenow", "itsm", "help desk", "service desk")):
-                key_personnel_lcats = "ITSM Program Manager (ITIL v4/PMP) ? Lead Platform Architect"
+                key_personnel_lcats = "ITSM Program Manager (ITIL v4/PMP) • Lead Platform Architect"
             elif any(w in blob_low for w in ("siem", "soc", "vulnerability", "penetration", "zero trust", "cmmc", "edr", "cyber")):
-                key_personnel_lcats = "Cyber Program Manager (PMP/CISSP) ? Lead SecOps / Zero-Trust Architect (CISSP)"
+                key_personnel_lcats = "Cyber Program Manager (PMP/CISSP) • Lead SecOps / Zero-Trust Architect (CISSP)"
             elif any(w in blob_low for w in ("gis", "geospatial", "esri", "mapping")):
-                key_personnel_lcats = "Geospatial Program Lead (GISP/PMP) ? Principal Enterprise GIS Architect"
+                key_personnel_lcats = "Geospatial Program Lead (GISP/PMP) • Principal Enterprise GIS Architect"
             elif any(w in blob_low for w in ("erp", "peoplesoft", "workday", "oracle", "sap", "modernization")):
-                key_personnel_lcats = "ERP Transformation Director (PMP) ? Lead Enterprise Integration Architect"
+                key_personnel_lcats = "ERP Transformation Director (PMP) • Lead Enterprise Integration Architect"
             elif any(w in blob_low for w in ("network", "cisco", "sd-wan", "broadband", "wireless", "telecom")):
-                key_personnel_lcats = "Infrastructure PM (PMP) ? Principal Network Security Engineer (CCIE/CCNP)"
+                key_personnel_lcats = "Infrastructure PM (PMP) • Principal Network Security Engineer (CCIE/CCNP)"
             elif "cloud-infrastructure" in cats:
-                key_personnel_lcats = "Cloud Delivery PM (PMP) ? Principal Cloud & DevSecOps Architect (AWS/Azure)"
+                key_personnel_lcats = "Cloud Delivery PM (PMP) • Principal Cloud & DevSecOps Architect (AWS/Azure)"
             else:
-                key_personnel_lcats = "Engagement Program Manager (PMP/CSM) ? Lead Enterprise Systems Architect"
+                key_personnel_lcats = "Engagement Program Manager (PMP/CSM) • Lead Enterprise Systems Architect"
 
             cpars_benchmark = str(d_cached.get("cpars_relevance_benchmark") or "Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)")
 
@@ -2110,7 +2110,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         return '<div class="space-y-2 text-xs font-mono text-slate-300 pt-1">' +
                           '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <a href="' + esc(realBidUrl) + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold underline hover:text-emerald-300">' + esc(realBidUrl) + ' &nearr;</a></div>' +
                           '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="text-white font-semibold">' + esc(item.agency) + '</span></div>' +
-                          '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="text-sky-300">Ready ? click &quot;Run Live Pwin &amp; Shred in Studio&quot; below</span></div>' +
+                          '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="text-sky-300">Ready — click &quot;Run Live Pwin &amp; Shred in Studio&quot; below</span></div>' +
                         '</div>';
                       }}
                       return '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
