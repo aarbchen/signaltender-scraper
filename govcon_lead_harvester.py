@@ -504,8 +504,10 @@ def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], 
     uncrawled = []
     for item in GOVCON_CONTRACTOR_SEED_DIRECTORY:
         dom = item[1].strip().lower()
-        if dom and " " not in dom and dom not in existing_domains:
+        cache_key = f"crawled:{dom}"
+        if dom and " " not in dom and dom not in existing_domains and not mx_cache.get(cache_key):
             existing_domains.add(dom)
+            mx_cache[cache_key] = True
             uncrawled.append(item)
 
     if not uncrawled:
@@ -623,8 +625,10 @@ def discover_usaspending_small_business_websites(
                     for item in (resp.json().get("results") or []):
                         raw_nm = str(item.get("name") or "").strip()
                         disp, dom = _clean_usaspending_company_name(raw_nm)
-                        if disp and dom and dom not in existing_domains:
+                        cache_key = f"crawled:{dom}"
+                        if disp and dom and dom not in existing_domains and not mx_cache.get(cache_key):
                             existing_domains.add(dom)
+                            mx_cache[cache_key] = True
                             candidates.append((
                                 disp,
                                 dom,
@@ -878,9 +882,10 @@ def run_harvester() -> Dict[str, Any]:
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
 
-    # Run autonomous website crawler for any uncrawled GovCon contractor domains + USAspending Small Business awardees
-    public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
-    public_contacts = discover_usaspending_small_business_websites(public_contacts, mx_cache)
+    # Run autonomous website crawler when building initial pool (<120 contacts) or when explicitly requested
+    if len(public_contacts) < 120 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
+        public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
+        public_contacts = discover_usaspending_small_business_websites(public_contacts, mx_cache)
 
     cleaned_public: List[Dict[str, str]] = []
     for spec in public_contacts:

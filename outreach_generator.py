@@ -450,10 +450,10 @@ def build_two_step_outreach(
         f"You can view the live dossier for #1 at {tracked_dossier_url} — happy to point you to the raw RFP packages if any of these 3 fit your stack.",
     ]
     signoffs = [
-        "Best,\nSignalTender Procurement Desk",
-        "Regards,\nSignalTender Capture Intelligence",
-        "Cheers,\nSignalTender Procurement Wire",
-        "Best regards,\nSignalTender Intelligence Team",
+        "Best,\nAaron Chen\nSignalTender Capture Desk",
+        "Regards,\nAaron Chen\nSignalTender Procurement Desk",
+        "Cheers,\nAaron Chen\nSignalTender Procurement Wire",
+        "Best regards,\nAaron Chen\nSignalTender Intelligence Team",
     ]
 
     step1_subject = _pick_variant(seed, 1, subject_variants)
