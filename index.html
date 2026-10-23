@@ -130,6 +130,7 @@
           <a href="#contract-directory" class="hover:text-white transition-colors">Live Contract Feed</a>
           <a href="#integrations" class="hover:text-white transition-colors">CRM &amp; Slack/Teams</a>
           <a href="#checkout" class="hover:text-white transition-colors">Pricing &amp; Plans</a>
+          <a href="#account" class="hover:text-emerald-400 transition-colors font-mono text-xs text-slate-200">Client Portal</a>
           <a href="#apis" class="inline-flex items-center whitespace-nowrap space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
             <span>Developer APIs</span>
             <span>&rarr;</span>
@@ -138,6 +139,12 @@
 
         <!-- Header CTAs -->
         <div class="flex items-center space-x-3 shrink-0">
+          <a
+            href="#account"
+            class="md:hidden inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono text-emerald-400 bg-slate-900 rounded-lg border border-slate-800"
+          >
+            Account
+          </a>
           <a
             href="#apis"
             class="md:hidden inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
@@ -1754,6 +1761,7 @@
           <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (20)</a>
           <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
           <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
+          <a href="#account" class="hover:text-emerald-400 transition-colors font-mono text-xs text-slate-200">Client Portal</a>
         </nav>
 
         <!-- Header CTAs -->
@@ -7303,6 +7311,9 @@
         </a>
 
         <div class="flex items-center space-x-3">
+          <a href="#account" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/40 text-xs font-mono text-emerald-300 transition-colors">
+            Client Account Portal &rarr;
+          </a>
           <a href="#overview" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors">
             &larr; Return to Live Wire
           </a>
@@ -7520,6 +7531,11 @@
                   </button>
                 </div>
                 <div id="checkout-email-briefing-status" class="hidden mt-1.5 text-xs font-mono"></div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                <span class="text-slate-400">Want an account to manage your subscription, API key &amp; all 3 delivery mediums in one dashboard?</span>
+                <a href="#account" class="text-emerald-400 hover:text-emerald-300 font-bold">Open Client Account Portal &rarr;</a>
               </div>
             </div>
           </div>
@@ -8013,6 +8029,509 @@
   </div>
 
   <!-- =====================================================================
+       PAGE 5 VIEW: CLIENT ACCOUNT, SUBSCRIPTION & DISTRIBUTION PORTAL (#account)
+       ===================================================================== -->
+  <div id="page-account" class="hidden">
+
+    <!-- Top Security & Account Bar -->
+    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-2.5">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          <span class="font-mono text-slate-300">CLIENT ACCOUNT PORTAL &bull; <span class="text-emerald-400">SUBSCRIPTION &amp; DISTRIBUTION SETTINGS</span></span>
+        </div>
+        <div class="flex items-center space-x-4 font-mono text-slate-400">
+          <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
+          <span>|</span>
+          <a href="#checkout" class="hover:text-sky-400 transition-colors">Plans &amp; Pricing</a>
+          <span>|</span>
+          <a href="#apis" class="hover:text-sky-400 transition-colors">Developer APIs</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Header (Account View) -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <a href="#overview" class="flex flex-col justify-center shrink-0">
+          <div class="inline-flex items-center gap-[4px]">
+            <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="15" stroke="#F8FAFC" stroke-width="5.6" />
+              <circle cx="32" cy="24" r="5" fill="#38BDF8" />
+              <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
+            <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">CLIENT PORTAL</span>
+          </div>
+          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">SUBSCRIPTION &amp; DISTRIBUTION MANAGEMENT</span>
+        </a>
+
+        <div class="flex items-center space-x-3">
+          <a href="#contracts" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-emerald-300 transition-colors">
+            Open RFP Directory &rarr;
+          </a>
+          <a href="#overview" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors">
+            &larr; Return to Live Wire
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section class="relative py-14 lg:py-20 border-b border-slate-800/80 min-h-[75vh]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+        <!-- Hero Header -->
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
+            <span>// SELF-SERVE SUBSCRIPTION, API KEY &amp; MULTI-MEDIUM DELIVERY CONTROL</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Client Account &amp; Distribution Portal
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Sign in or register your account to manage your subscription plan, retrieve your Enterprise API key, and switch or combine Discord, Slack/Teams/CRM Webhooks, and 6-Hour Email Briefings at any time.
+          </p>
+        </div>
+
+        <!-- ===============================================================
+             VIEW 1: LOGGED-OUT AUTHENTICATION PANEL (SIGN IN / REGISTER)
+             =============================================================== -->
+        <div id="account-auth-panel" class="max-w-xl mx-auto rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="inline-flex rounded-xl bg-navy-950 p-1 border border-slate-800 text-xs font-mono">
+              <button
+                type="button"
+                id="btn-account-tab-login"
+                onclick="window.switchAccountAuthTab('login')"
+                class="px-4 py-2 rounded-lg bg-sky-600 text-white font-bold transition-all"
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                id="btn-account-tab-register"
+                onclick="window.switchAccountAuthTab('register')"
+                class="px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all"
+              >
+                Create Account
+              </button>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">256-Bit PBKDF2-SHA256 Auth</span>
+          </div>
+
+          <!-- Sign In Form -->
+          <div id="account-form-login" class="space-y-4">
+            <div class="space-y-1.5">
+              <label for="account-login-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address</label>
+              <input
+                id="account-login-email"
+                type="email"
+                placeholder="you@company.com"
+                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
+              <input
+                id="account-login-password"
+                type="password"
+                placeholder="Enter your password (6+ characters)"
+                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Already subscribed via Stripe? Enter your checkout email and choose a password (6+ characters) on your first sign-in to claim your account.
+            </p>
+            <button
+              type="button"
+              id="btn-account-login-submit"
+              onclick="window.submitAccountLogin()"
+              class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all"
+            >
+              Sign In to Client Portal &rarr;
+            </button>
+          </div>
+
+          <!-- Create Account Form -->
+          <div id="account-form-register" class="hidden space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1.5">
+                <label for="account-reg-name" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Full Name</label>
+                <input
+                  id="account-reg-name"
+                  type="text"
+                  placeholder="Marcus Vance"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-reg-company" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Company / Agency</label>
+                <input
+                  id="account-reg-company"
+                  type="text"
+                  placeholder="Potomac CyberDefense LLC"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1.5">
+                <label for="account-reg-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address *</label>
+                <input
+                  id="account-reg-email"
+                  type="email"
+                  placeholder="you@company.com"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-reg-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password (6+ Chars) *</label>
+                <input
+                  id="account-reg-password"
+                  type="password"
+                  placeholder="Create a password"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1.5">
+                <label for="account-reg-tier" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Preferred Plan Tier</label>
+                <select
+                  id="account-reg-tier"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-slate-200"
+                >
+                  <option value="tier_2">Tier 2 // CaptureDesk Autopilot ($399/mo)</option>
+                  <option value="tier_1">Tier 1 // SignalWire Pro ($99/mo)</option>
+                </select>
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-reg-discord" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Discord Handle (Optional)</label>
+                <input
+                  id="account-reg-discord"
+                  type="text"
+                  placeholder="@username or 18-digit ID"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+            </div>
+            <div class="space-y-1.5">
+              <label for="account-reg-webhook" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Slack / Teams / CRM Webhook URL (Optional)</label>
+              <input
+                id="account-reg-webhook"
+                type="url"
+                placeholder="https://hooks.slack.com/services/... or https://*.webhook.office.com/..."
+                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
+            <label class="flex items-center space-x-2.5 text-xs font-mono text-slate-200 cursor-pointer">
+              <input id="account-reg-email-briefings" type="checkbox" class="rounded bg-navy-950 border-slate-700 text-emerald-500 focus:ring-0" />
+              <span>Enable 6-Hour Email Briefings</span>
+            </label>
+            <button
+              type="button"
+              id="btn-account-reg-submit"
+              onclick="window.submitAccountRegister()"
+              class="w-full py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/40 shadow-lg transition-all"
+            >
+              Create Client Account &rarr;
+            </button>
+          </div>
+
+          <div id="account-auth-status" class="hidden text-xs font-mono pt-1"></div>
+        </div>
+
+        <!-- ===============================================================
+             VIEW 2: LOGGED-IN ACCOUNT & DISTRIBUTION MANAGEMENT DASHBOARD
+             =============================================================== -->
+        <div id="account-dashboard-panel" class="hidden space-y-8">
+
+          <!-- Top Account Identity & Session Bar -->
+          <div class="p-5 rounded-2xl bg-navy-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+                <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-bold" id="account-user-email-badge">client@company.com</span>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold" id="account-status-pill">ACTIVE SUBSCRIBER</span>
+              </div>
+              <div class="text-sm font-bold text-white" id="account-user-summary">SignalTender Client Account</div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
+              <button
+                type="button"
+                onclick="window.refreshClientAccount()"
+                class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+              >
+                Sync Account Status
+              </button>
+              <button
+                type="button"
+                onclick="window.logoutClientAccount()"
+                class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 border border-slate-700 transition-colors"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 1: SUBSCRIPTION PLAN & BILLING MANAGEMENT -->
+          <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN &amp; ACCESS</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white" id="account-plan-badge">Tier 2 // CaptureDesk Autopilot ($399/mo)</h2>
+                <p class="mt-1 text-xs sm:text-sm text-slate-300" id="account-plan-description">
+                  Manage your plan tier, launch un-blurred 14-portal RFP directory access, or upgrade/cancel anytime.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
+                <a
+                  href="#contracts"
+                  class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 transition-all"
+                >
+                  Open Un-Blurred RFP Directory &rarr;
+                </a>
+                <button
+                  type="button"
+                  onclick="window.launchAccountCheckout('tier1')"
+                  class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold border border-sky-400/40 transition-all"
+                >
+                  Activate / Switch Tier 1 ($99/mo) &rarr;
+                </button>
+                <button
+                  type="button"
+                  onclick="window.launchAccountCheckout('tier2')"
+                  class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all"
+                >
+                  Activate / Upgrade Tier 2 ($399/mo) &rarr;
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
+              <div>
+                Corporate PDF tax receipts are issued automatically on every billing cycle. No annual lock-in on monthly plans.
+              </div>
+              <button
+                type="button"
+                id="btn-account-cancel-sub"
+                onclick="window.cancelClientAccountSubscription()"
+                class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-rose-950/60 text-rose-400 border border-rose-500/30 font-semibold whitespace-nowrap transition-colors"
+              >
+                Cancel Subscription
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 2: DISTRIBUTION MEDIUMS & DELIVERY SETTINGS -->
+          <div class="rounded-2xl bg-navy-900 border-2 border-indigo-500/40 shadow-2xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">02 // DISTRIBUTION MEDIUMS &amp; DELIVERY SETTINGS</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white">Manage How Your Team Receives 6-Hour Dispatches</h2>
+                <p class="mt-1 text-xs sm:text-sm text-slate-300">
+                  Enable, switch, pause, or combine Discord, Slack/Microsoft Teams/CRM Webhooks, and 6-Hour Email Briefings whenever you see fit. Changes take effect immediately.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] shrink-0">
+                <span id="account-pill-discord" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Discord: Not Set</span>
+                <span id="account-pill-webhook" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Webhook: Paused</span>
+                <span id="account-pill-email" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Email: Paused</span>
+              </div>
+            </div>
+
+            <!-- Medium A: Private Discord Server & Role -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div class="text-xs font-mono font-bold text-sky-400">MEDIUM 1 // PRIVATE DISCORD SERVER &amp; ROLE ACCESS</div>
+                  <p class="text-xs text-slate-400 mt-0.5">
+                    Grants automatic access to <code class="font-mono text-slate-200">#tier1-gov-leads</code> (Tier 1 &amp; 2) and <code class="font-mono text-indigo-300">#capturedesk-autopilot</code> (Tier 2).
+                  </p>
+                </div>
+                <a
+                  href="https://discord.gg/signaltender"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 text-xs font-mono font-semibold"
+                >
+                  Open Discord Server &nearr;
+                </a>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2.5">
+                <input
+                  id="account-dist-discord"
+                  type="text"
+                  placeholder="Discord username (e.g. @johndoe) or 18-digit User ID"
+                  class="flex-1 px-3.5 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({discordOnly: true})"
+                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap transition-all"
+                >
+                  Save &amp; Activate Role
+                </button>
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({clearDiscord: true})"
+                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all"
+                >
+                  Disconnect Discord
+                </button>
+              </div>
+            </div>
+
+            <!-- Medium B: Slack, Microsoft Teams & CRM Webhook -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div class="text-xs font-mono font-bold text-indigo-300">MEDIUM 2 // SLACK, MICROSOFT TEAMS &amp; CRM WEBHOOK</div>
+                  <p class="text-xs text-slate-400 mt-0.5">
+                    Tier 1 receives Section I (14-Portal Live Wire); Tier 2 receives a single unified payload with Section I (20-API CaptureDesk Dossiers) + Section II (14-Portal Live Wire).
+                  </p>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <select
+                  id="account-dist-platform"
+                  aria-label="Webhook Platform"
+                  class="px-3.5 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
+                >
+                  <option value="auto">Auto-Detect Platform</option>
+                  <option value="slack">Slack Incoming Webhook</option>
+                  <option value="teams">Microsoft Teams Webhook</option>
+                  <option value="hubspot">HubSpot Workflow Webhook</option>
+                  <option value="salesforce">Salesforce Flow / CRM</option>
+                  <option value="zapier">Zapier Catch Hook</option>
+                  <option value="make">Make.com Custom Webhook</option>
+                  <option value="n8n">n8n Webhook Node</option>
+                </select>
+                <input
+                  id="account-dist-webhook"
+                  type="url"
+                  placeholder="https://hooks.slack.com/services/... or https://*.webhook.office.com/... or CRM URL"
+                  class="sm:col-span-2 px-3.5 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                />
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({webhookOnly: true, sendTestPing: true})"
+                  class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all"
+                >
+                  Save Webhook &amp; Send Test Ping
+                </button>
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({clearWebhook: true})"
+                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all"
+                >
+                  Pause Webhook
+                </button>
+              </div>
+            </div>
+
+            <!-- Medium C: 6-Hour Email Briefings -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-1 max-w-2xl">
+                <div class="text-xs font-mono font-bold text-emerald-400">MEDIUM 3 // 6-HOUR EXECUTIVE EMAIL BRIEFINGS</div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Dispatched to your account email (<span id="account-dist-email-target" class="text-slate-200 font-mono">you@company.com</span>). Tier 1 receives the 14-Portal Live RFP Wire; Tier 2 receives the unified Section I (20-API CaptureDesk Dossiers) + Section II (14-Portal Live Wire) briefing.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({emailBriefings: true})"
+                  class="px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 whitespace-nowrap transition-all"
+                >
+                  Enable Email Briefings
+                </button>
+                <button
+                  type="button"
+                  onclick="window.saveAccountDistribution({emailBriefings: false})"
+                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 whitespace-nowrap transition-all"
+                >
+                  Pause Email Briefings
+                </button>
+              </div>
+            </div>
+
+            <div id="account-dist-status" class="hidden text-xs font-mono"></div>
+          </div>
+
+          <!-- CARD 3: TIER 2 ENTERPRISE API KEY, MCP ACCESS & PROFILE SETTINGS -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
+              <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">03 // ENTERPRISE API KEY &amp; MCP SERVER ACCESS</div>
+              <h3 class="text-lg font-extrabold text-white">Direct REST Gateway &amp; Studio Playground Key</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Tier 2 CaptureDesk Autopilot subscribers receive a direct <code class="font-mono text-emerald-300">X-SignalTender-Key</code> for all 20 REST endpoints at <code class="font-mono text-slate-200">https://b2b-contract-parser-api.onrender.com</code> and the In-Page Studio Playground.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-2.5">
+                <input
+                  id="account-api-key-value"
+                  type="text"
+                  readonly
+                  value="Activate Tier 2 ($399/mo) to provision your st_live_... Enterprise API Key"
+                  class="flex-1 px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-emerald-300"
+                />
+                <button
+                  type="button"
+                  onclick="window.copyAccountApiKey()"
+                  class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 whitespace-nowrap transition-all"
+                >
+                  Copy API Key
+                </button>
+                <a
+                  href="#apis"
+                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap text-center transition-all"
+                >
+                  Studio Playground &rarr;
+                </a>
+              </div>
+              <div id="account-apikey-status" class="hidden text-xs font-mono text-emerald-400"></div>
+            </div>
+
+            <div class="lg:col-span-5 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
+              <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">04 // PROFILE &amp; PASSWORD</div>
+              <div class="space-y-2.5">
+                <input
+                  id="account-profile-name"
+                  type="text"
+                  placeholder="Full Name"
+                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                />
+                <input
+                  id="account-profile-company"
+                  type="text"
+                  placeholder="Company / Organization"
+                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                />
+                <input
+                  id="account-profile-password"
+                  type="password"
+                  placeholder="New Password (leave blank to keep current)"
+                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                />
+                <button
+                  type="button"
+                  onclick="window.saveAccountProfile()"
+                  class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all"
+                >
+                  Save Profile &amp; Password
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
        SHARED PROFESSIONAL FOOTER (WORKS ACROSS ALL PAGES)
        ===================================================================== -->
   <footer class="bg-navy-950 pt-16 pb-12">
@@ -8049,6 +8568,9 @@
             </li>
             <li>
               <a href="#checkout" class="text-sky-400 hover:text-sky-300 transition-colors">Checkout: Tier 1 ($99/mo) &amp; Tier 2 ($399/mo | $3,490/yr) &rarr;</a>
+            </li>
+            <li>
+              <a href="#account" class="text-emerald-400 hover:text-emerald-300 transition-colors">Client Account Portal: Subscription &amp; Delivery Settings &rarr;</a>
             </li>
             <li>
               <a href="#contracts" class="text-emerald-400 hover:text-emerald-300 transition-colors">Directory: All State &amp; Federal RFP Hubs &rarr;</a>
@@ -8462,6 +8984,490 @@
         '#checkout-annual': true
       };
 
+      var accountHashes = {
+        '#account': true
+      };
+
+      var currentAccountProfile = null;
+
+      window.switchAccountAuthTab = function (tab) {
+        var btnLogin = document.getElementById('btn-account-tab-login');
+        var btnReg = document.getElementById('btn-account-tab-register');
+        var formLogin = document.getElementById('account-form-login');
+        var formReg = document.getElementById('account-form-register');
+        var statusEl = document.getElementById('account-auth-status');
+        if (statusEl) statusEl.classList.add('hidden');
+        if (tab === 'register') {
+          if (btnReg) btnReg.className = 'px-4 py-2 rounded-lg bg-emerald-600 text-white font-bold transition-all';
+          if (btnLogin) btnLogin.className = 'px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
+          if (formLogin) formLogin.classList.add('hidden');
+          if (formReg) formReg.classList.remove('hidden');
+        } else {
+          if (btnLogin) btnLogin.className = 'px-4 py-2 rounded-lg bg-sky-600 text-white font-bold transition-all';
+          if (btnReg) btnReg.className = 'px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
+          if (formReg) formReg.classList.add('hidden');
+          if (formLogin) formLogin.classList.remove('hidden');
+        }
+      };
+
+      window.renderAccountDashboard = function (data) {
+        if (!data || !data.email) return;
+        currentAccountProfile = data;
+        try {
+          if (data.session_token) {
+            localStorage.setItem('st_account_session_token', data.session_token);
+          }
+          localStorage.setItem('st_account_profile', JSON.stringify(data));
+          if (data.active) {
+            localStorage.setItem('st_subscriber_unlocked', '1');
+            localStorage.setItem('st_subscriber_email', data.email);
+            localStorage.setItem('st_subscriber_tier', data.tier || 'tier_1');
+            if (data.api_key) {
+              localStorage.setItem('st_subscriber_api_key', data.api_key);
+            }
+          }
+        } catch (e) {}
+
+        var authPanel = document.getElementById('account-auth-panel');
+        var dashPanel = document.getElementById('account-dashboard-panel');
+        if (authPanel) authPanel.classList.add('hidden');
+        if (dashPanel) dashPanel.classList.remove('hidden');
+
+        var emailBadge = document.getElementById('account-user-email-badge');
+        if (emailBadge) emailBadge.textContent = data.email;
+
+        var statusPill = document.getElementById('account-status-pill');
+        if (statusPill) {
+          if (data.subscription_status === 'active') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold';
+            statusPill.textContent = 'ACTIVE SUBSCRIBER';
+          } else if (data.subscription_status === 'canceled') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30 font-bold';
+            statusPill.textContent = 'CANCELED';
+          } else {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold';
+            statusPill.textContent = 'PENDING PLAN ACTIVATION';
+          }
+        }
+
+        var userSummary = document.getElementById('account-user-summary');
+        if (userSummary) {
+          var parts = [];
+          if (data.full_name) parts.push(data.full_name);
+          if (data.company) parts.push(data.company);
+          userSummary.textContent = parts.length ? parts.join(' • ') : ('Account: ' + data.email);
+        }
+
+        var planBadge = document.getElementById('account-plan-badge');
+        if (planBadge) planBadge.textContent = data.tier_label || 'No Active Plan';
+
+        var planDesc = document.getElementById('account-plan-description');
+        if (planDesc) {
+          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+            planDesc.textContent = 'Full access to all 14 Federal & 12-State SLED portals, 20-API CaptureDesk Autopilot dossiers, un-blurred RFP links, and Enterprise API Key.';
+          } else if (data.subscription_status === 'active') {
+            planDesc.textContent = 'Active Tier 1 SignalWire Pro access across all 14 Federal & 12-State SLED portals and un-blurred RFP directory links. Upgrade to Tier 2 anytime for 20-API CaptureDesk dossiers.';
+          } else {
+            planDesc.textContent = 'Your account is set up and your distribution preferences are saved. Activate Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime to begin receiving 6-hour dispatches.';
+          }
+        }
+
+        var cancelBtn = document.getElementById('btn-account-cancel-sub');
+        if (cancelBtn) {
+          if (data.subscription_status === 'active') {
+            cancelBtn.classList.remove('hidden');
+          } else {
+            cancelBtn.classList.add('hidden');
+          }
+        }
+
+        var discInput = document.getElementById('account-dist-discord');
+        if (discInput) discInput.value = data.discord_handle || '';
+        var whInput = document.getElementById('account-dist-webhook');
+        if (whInput) whInput.value = data.webhook_url || '';
+        var platSel = document.getElementById('account-dist-platform');
+        if (platSel && data.destination_type) platSel.value = data.destination_type;
+        var emailTarget = document.getElementById('account-dist-email-target');
+        if (emailTarget) emailTarget.textContent = data.email;
+
+        var pillDiscord = document.getElementById('account-pill-discord');
+        if (pillDiscord) {
+          if (data.discord_handle) {
+            pillDiscord.className = 'px-2.5 py-1 rounded bg-sky-500/15 text-sky-300 border border-sky-500/40 font-semibold';
+            pillDiscord.textContent = 'Discord: @' + data.discord_handle;
+          } else {
+            pillDiscord.className = 'px-2.5 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700';
+            pillDiscord.textContent = 'Discord: Not Set';
+          }
+        }
+
+        var pillWebhook = document.getElementById('account-pill-webhook');
+        if (pillWebhook) {
+          if (data.webhook_url) {
+            pillWebhook.className = 'px-2.5 py-1 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/40 font-semibold';
+            pillWebhook.textContent = 'Webhook: ' + String(data.destination_type || 'Active').toUpperCase();
+          } else {
+            pillWebhook.className = 'px-2.5 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700';
+            pillWebhook.textContent = 'Webhook: Paused';
+          }
+        }
+
+        var pillEmail = document.getElementById('account-pill-email');
+        if (pillEmail) {
+          if (data.email_briefings_enabled) {
+            pillEmail.className = 'px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 font-semibold';
+            pillEmail.textContent = 'Email Briefings: Enabled';
+          } else {
+            pillEmail.className = 'px-2.5 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700';
+            pillEmail.textContent = 'Email Briefings: Paused';
+          }
+        }
+
+        var apiKeyInput = document.getElementById('account-api-key-value');
+        if (apiKeyInput) {
+          apiKeyInput.value = data.api_key || 'Activate Tier 2 ($399/mo) to provision your st_live_... Enterprise API Key';
+        }
+
+        var profName = document.getElementById('account-profile-name');
+        if (profName) profName.value = data.full_name || '';
+        var profComp = document.getElementById('account-profile-company');
+        if (profComp) profComp.value = data.company || '';
+      };
+
+      window.submitAccountLogin = function () {
+        var emailEl = document.getElementById('account-login-email');
+        var pwEl = document.getElementById('account-login-password');
+        var statusEl = document.getElementById('account-auth-status');
+        var btnEl = document.getElementById('btn-account-login-submit');
+        var email = emailEl ? emailEl.value.trim() : '';
+        var password = pwEl ? pwEl.value.trim() : '';
+
+        if (!statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!email || email.indexOf('@') === -1 || password.length < 6) {
+          statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+          statusEl.textContent = 'Please enter a valid work email and a password of at least 6 characters.';
+          return;
+        }
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Signing In...';
+        }
+        statusEl.className = 'text-xs font-mono text-sky-400 pt-1';
+        statusEl.textContent = 'Authenticating account...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Sign In to Client Portal →';
+            }
+            if (res.ok) {
+              statusEl.classList.add('hidden');
+              window.renderAccountDashboard(res.data);
+            } else {
+              statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
+              statusEl.textContent = res.data.detail || 'Could not sign in.';
+            }
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Sign In to Client Portal →';
+            }
+            statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
+            statusEl.textContent = 'Network error while connecting to authentication server.';
+          });
+      };
+
+      window.submitAccountRegister = function () {
+        var nameEl = document.getElementById('account-reg-name');
+        var compEl = document.getElementById('account-reg-company');
+        var emailEl = document.getElementById('account-reg-email');
+        var pwEl = document.getElementById('account-reg-password');
+        var tierEl = document.getElementById('account-reg-tier');
+        var discEl = document.getElementById('account-reg-discord');
+        var whEl = document.getElementById('account-reg-webhook');
+        var ebEl = document.getElementById('account-reg-email-briefings');
+        var statusEl = document.getElementById('account-auth-status');
+        var btnEl = document.getElementById('btn-account-reg-submit');
+
+        var email = emailEl ? emailEl.value.trim() : '';
+        var password = pwEl ? pwEl.value.trim() : '';
+
+        if (!statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!email || email.indexOf('@') === -1 || password.length < 6) {
+          statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+          statusEl.textContent = 'Please enter a valid work email and a password of at least 6 characters.';
+          return;
+        }
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Creating Account...';
+        }
+        statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+        statusEl.textContent = 'Creating your SignalTender client account...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            full_name: nameEl ? nameEl.value.trim() : '',
+            company: compEl ? compEl.value.trim() : '',
+            tier: tierEl ? tierEl.value : 'tier_2',
+            discord_handle: discEl ? discEl.value.trim().replace(/^@/, '') : '',
+            webhook_url: whEl ? whEl.value.trim() : '',
+            email_briefings_enabled: ebEl ? !!ebEl.checked : false
+          })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Create Client Account →';
+            }
+            if (res.ok) {
+              statusEl.classList.add('hidden');
+              window.renderAccountDashboard(res.data);
+            } else {
+              statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
+              statusEl.textContent = res.data.detail || 'Could not register account.';
+            }
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Create Client Account →';
+            }
+            statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
+            statusEl.textContent = 'Network error while creating account.';
+          });
+      };
+
+      window.refreshClientAccount = function () {
+        var token = '';
+        try {
+          token = localStorage.getItem('st_account_session_token') || '';
+        } catch (e) {}
+        if (!token) return;
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/me', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_token: token })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok && res.data && res.data.email) {
+              window.renderAccountDashboard(res.data);
+            } else if (!res.ok) {
+              window.logoutClientAccount();
+            }
+          })
+          .catch(function () {});
+      };
+
+      window.saveAccountDistribution = function (opts) {
+        var options = opts || {};
+        var token = '';
+        try {
+          token = localStorage.getItem('st_account_session_token') || '';
+        } catch (e) {}
+        var statusEl = document.getElementById('account-dist-status');
+        if (!statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!token) {
+          statusEl.className = 'text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please sign in again to update your distribution settings.';
+          return;
+        }
+
+        var discInput = document.getElementById('account-dist-discord');
+        var whInput = document.getElementById('account-dist-webhook');
+        var platSel = document.getElementById('account-dist-platform');
+
+        var payload = {
+          session_token: token,
+          destination_type: platSel ? platSel.value : 'auto',
+          clear_discord: !!options.clearDiscord,
+          clear_webhook: !!options.clearWebhook,
+          send_test_ping: !!options.sendTestPing
+        };
+        if (options.clearDiscord) {
+          payload.discord_handle = '';
+        } else if (discInput) {
+          payload.discord_handle = discInput.value.trim().replace(/^@/, '');
+        }
+        if (options.clearWebhook) {
+          payload.webhook_url = '';
+        } else if (whInput && (options.webhookOnly || whInput.value.trim())) {
+          payload.webhook_url = whInput.value.trim();
+        }
+        if (typeof options.emailBriefings === 'boolean') {
+          payload.email_briefings_enabled = options.emailBriefings;
+        }
+
+        statusEl.className = 'text-xs font-mono text-sky-400';
+        statusEl.textContent = 'Updating distribution settings...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              window.renderAccountDashboard(res.data);
+              statusEl.className = 'text-xs font-mono text-emerald-400';
+              statusEl.textContent = '✓ ' + (res.data.message || 'Distribution settings updated.');
+            } else {
+              statusEl.className = 'text-xs font-mono text-rose-400';
+              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update distribution settings.');
+            }
+          })
+          .catch(function () {
+            statusEl.className = 'text-xs font-mono text-rose-400';
+            statusEl.textContent = 'Network error while saving settings.';
+          });
+      };
+
+      window.saveAccountProfile = function () {
+        var token = '';
+        try {
+          token = localStorage.getItem('st_account_session_token') || '';
+        } catch (e) {}
+        if (!token) return;
+        var nameEl = document.getElementById('account-profile-name');
+        var compEl = document.getElementById('account-profile-company');
+        var pwEl = document.getElementById('account-profile-password');
+        var statusEl = document.getElementById('account-dist-status');
+
+        var payload = {
+          session_token: token,
+          full_name: nameEl ? nameEl.value.trim() : '',
+          company: compEl ? compEl.value.trim() : ''
+        };
+        if (pwEl && pwEl.value.trim().length >= 6) {
+          payload.new_password = pwEl.value.trim();
+        }
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              if (pwEl) pwEl.value = '';
+              window.renderAccountDashboard(res.data);
+              if (statusEl) {
+                statusEl.classList.remove('hidden');
+                statusEl.className = 'text-xs font-mono text-emerald-400';
+                statusEl.textContent = '✓ Account profile saved.';
+              }
+            }
+          })
+          .catch(function () {});
+      };
+
+      window.copyAccountApiKey = function () {
+        var el = document.getElementById('account-api-key-value');
+        var statusEl = document.getElementById('account-apikey-status');
+        if (!el || !el.value || el.value.indexOf('st_live_') !== 0) {
+          if (statusEl) {
+            statusEl.classList.remove('hidden');
+            statusEl.textContent = 'Activate Tier 2 ($399/mo) to generate your st_live_... Enterprise API Key.';
+          }
+          return;
+        }
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(el.value);
+          }
+        } catch (e) {}
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.textContent = '✓ Copied Enterprise API Key to clipboard!';
+        }
+      };
+
+      window.launchAccountCheckout = function (tier) {
+        var key = (tier === 'tier2' ? 'tier2_' : 'tier1_') + currentBilling;
+        var baseUrl = window.SIGNAL_CHECKOUT_LINKS[key] || window.SIGNAL_CHECKOUT_LINKS.tier1_monthly;
+        var prefillEmail = (currentAccountProfile && currentAccountProfile.email) ? currentAccountProfile.email : '';
+        var discordHandle = (currentAccountProfile && currentAccountProfile.discord_handle) ? currentAccountProfile.discord_handle : '';
+        var targetUrl = baseUrl;
+        if (discordHandle && targetUrl.indexOf('buy.stripe.com') !== -1) {
+          var sep = targetUrl.indexOf('?') === -1 ? '?' : '&';
+          targetUrl = targetUrl + sep + 'client_reference_id=' + encodeURIComponent(discordHandle);
+        }
+        if (prefillEmail && targetUrl.indexOf('buy.stripe.com') !== -1) {
+          var sep2 = targetUrl.indexOf('?') === -1 ? '?' : '&';
+          targetUrl = targetUrl + sep2 + 'prefilled_email=' + encodeURIComponent(prefillEmail);
+        }
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      };
+
+      window.cancelClientAccountSubscription = function () {
+        var token = '';
+        try {
+          token = localStorage.getItem('st_account_session_token') || '';
+        } catch (e) {}
+        if (!token) return;
+        var statusEl = document.getElementById('account-dist-status');
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.className = 'text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Canceling subscription and stopping automated dispatches...';
+        }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/cancel', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_token: token })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              try {
+                localStorage.removeItem('st_subscriber_unlocked');
+                localStorage.removeItem('st_subscriber_api_key');
+              } catch (e) {}
+              window.renderAccountDashboard(res.data);
+              if (statusEl) {
+                statusEl.className = 'text-xs font-mono text-slate-300';
+                statusEl.textContent = '✓ ' + (res.data.message || 'Subscription canceled.');
+              }
+            }
+          })
+          .catch(function () {});
+      };
+
+      window.logoutClientAccount = function () {
+        currentAccountProfile = null;
+        try {
+          localStorage.removeItem('st_account_session_token');
+          localStorage.removeItem('st_account_profile');
+        } catch (e) {}
+        var authPanel = document.getElementById('account-auth-panel');
+        var dashPanel = document.getElementById('account-dashboard-panel');
+        if (dashPanel) dashPanel.classList.add('hidden');
+        if (authPanel) authPanel.classList.remove('hidden');
+      };
+
       function instantScrollToTop() {
         var docEl = document.documentElement;
         var prev = docEl.style.scrollBehavior;
@@ -8476,11 +9482,32 @@
         var apisPage = document.getElementById('page-apis');
         var contractsPage = document.getElementById('page-contracts');
         var checkoutPage = document.getElementById('page-checkout');
+        var accountPage = document.getElementById('page-account');
 
-        if (checkoutHashes[hash]) {
+        if (accountHashes[hash]) {
           mainPage.classList.add('hidden');
           apisPage.classList.add('hidden');
           if (contractsPage) contractsPage.classList.add('hidden');
+          if (checkoutPage) checkoutPage.classList.add('hidden');
+          if (accountPage) accountPage.classList.remove('hidden');
+          document.title = 'SignalTender | Client Account & Distribution Settings Portal';
+          try {
+            var cachedRaw = localStorage.getItem('st_account_profile');
+            var savedTok = localStorage.getItem('st_account_session_token');
+            if (cachedRaw && savedTok) {
+              var cachedObj = JSON.parse(cachedRaw);
+              if (cachedObj && cachedObj.email) {
+                window.renderAccountDashboard(cachedObj);
+              }
+              window.refreshClientAccount();
+            }
+          } catch (e) {}
+          instantScrollToTop();
+        } else if (checkoutHashes[hash]) {
+          mainPage.classList.add('hidden');
+          apisPage.classList.add('hidden');
+          if (contractsPage) contractsPage.classList.add('hidden');
+          if (accountPage) accountPage.classList.add('hidden');
           if (checkoutPage) checkoutPage.classList.remove('hidden');
           document.title = 'SignalTender | Select Your GovCon Intelligence Plan & Checkout';
           if (typeof window.fireOutboundClickBeacon === 'function') {
@@ -8509,6 +9536,7 @@
           mainPage.classList.add('hidden');
           apisPage.classList.add('hidden');
           if (checkoutPage) checkoutPage.classList.add('hidden');
+          if (accountPage) accountPage.classList.add('hidden');
           if (contractsPage) {
             contractsPage.classList.remove('hidden');
             if (typeof window.renderContractsRoute === 'function') {
@@ -8521,6 +9549,7 @@
           mainPage.classList.add('hidden');
           if (contractsPage) contractsPage.classList.add('hidden');
           if (checkoutPage) checkoutPage.classList.add('hidden');
+          if (accountPage) accountPage.classList.add('hidden');
           apisPage.classList.remove('hidden');
           document.title = 'SignalTender | Developer Data API Catalog & RapidAPI Microservices';
           if (hash === '#apis') {
@@ -8540,6 +9569,7 @@
           apisPage.classList.add('hidden');
           if (contractsPage) contractsPage.classList.add('hidden');
           if (checkoutPage) checkoutPage.classList.add('hidden');
+          if (accountPage) accountPage.classList.add('hidden');
           mainPage.classList.remove('hidden');
           document.title = 'SignalTender | Real-Time Federal & State SLED IT Contract Alerts';
           if (hash === '#overview' || hash === '#') {

@@ -104,6 +104,7 @@ def check_html_file(fpath: str) -> str:
         "#checkout-tier1",
         "#checkout-tier2",
         "#checkout-annual",
+        "#account",
         "#contracts/federal",
         "#contracts/texas",
         "#contracts/virginia",
@@ -516,6 +517,26 @@ if (typeof window.fireOutboundClickBeacon !== 'function') {
   throw new Error('window.fireOutboundClickBeacon is undefined!');
 }
 window.fireOutboundClickBeacon('dossier_view', 'https://signaltender.net/');
+if (typeof window.switchAccountAuthTab !== 'function' || typeof window.renderAccountDashboard !== 'function') {
+  throw new Error('Client Account Portal functions (switchAccountAuthTab / renderAccountDashboard) are undefined!');
+}
+window.switchAccountAuthTab('register');
+window.switchAccountAuthTab('login');
+window.renderAccountDashboard({
+  email: 'capture@acmegovcyber.com',
+  full_name: 'Marcus Vance',
+  company: 'Acme GovCyber LLC',
+  subscription_status: 'active',
+  active: true,
+  tier: 'tier_2',
+  tier_label: 'Tier 2 // CaptureDesk Autopilot ($399/mo)',
+  api_key: 'st_live_test_key',
+  discord_handle: 'marcus_vance',
+  webhook_url: 'https://hooks.slack.com/services/T00/B00/X00',
+  destination_type: 'slack',
+  email_briefings_enabled: true
+});
+window.logoutClientAccount();
 """
     )
 
