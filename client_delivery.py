@@ -323,26 +323,421 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
     return True
 
 
-def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -> bool:
-    """Send 6-hour SignalWire RFP briefing email ONLY to active subscribers who opted in (`email_briefings_enabled: True`)."""
+def _resolve_dossiers_for_cycle(records: list[dict], passed_dossiers: list[dict] | None = None) -> list[dict]:
+    """Load or resolve the CaptureDesk Autopilot 20-API dossiers corresponding to the current 6-hour cycle."""
+    if passed_dossiers:
+        return list(passed_dossiers)
+    import json
+    dossier_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "capturedesk_dossiers.json")
+    cached: dict = {}
+    if os.path.exists(dossier_path):
+        try:
+            with open(dossier_path, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+                if isinstance(loaded, dict):
+                    cached = loaded
+        except Exception:
+            cached = {}
+
+    matched: list[dict] = []
+    seen_urls: set[str] = set()
+    rec_urls = {str(r.get("url") or "").strip() for r in (records or []) if r.get("url")}
+    rec_ids = {str(r.get("id") or "").strip() for r in (records or []) if r.get("id")}
+
+    for rid in rec_ids:
+        if rid in cached and isinstance(cached[rid], dict):
+            d = cached[rid]
+            u = str(d.get("source_url") or "")
+            if u not in seen_urls:
+                matched.append(d)
+                seen_urls.add(u)
+
+    if len(matched) < 2 and cached:
+        all_dossiers = [v for v in cached.values() if isinstance(v, dict)]
+        all_dossiers.sort(key=lambda x: str(x.get("enriched_at") or ""), reverse=True)
+        for d in all_dossiers:
+            u = str(d.get("source_url") or "")
+            if u in rec_urls and u not in seen_urls:
+                matched.append(d)
+                seen_urls.add(u)
+        for d in all_dossiers:
+            if len(matched) >= 3:
+                break
+            u = str(d.get("source_url") or "")
+            if u not in seen_urls:
+                matched.append(d)
+                seen_urls.add(u)
+
+    return matched[:3]
+
+
+def format_subscriber_email_briefing(
+    tier: str,
+    records: list[dict],
+    dossiers: list[dict] | None = None,
+    to_email: str = "",
+) -> tuple[str, str, str]:
+    """
+    Build an organized, executive-formatted 6-hour email briefing tailored by subscription tier:
+      - Tier 1 (`tier_1` / SignalWire Pro):
+          Section I: 14-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
+      - Tier 2 (`tier_2` / CaptureDesk Autopilot):
+          Single Unified 6-Hour Email combining BOTH:
+            Section I: CaptureDesk Autopilot 20-API Executive Dossiers (8-part pre-shredded capture memos)
+            Section II: Complete 14-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+    Returns `(subject, plain_text_body, html_body)`.
+    """
+    from datetime import datetime, timezone
+    from html import escape
     from urllib.parse import quote_plus
+
+    norm_tier = "tier_1" if str(tier or "").strip().lower() in ("tier_1", "tier1", "pro", "signalwire") else "tier_2"
+    cycle_ts = datetime.now(timezone.utc).strftime("%b %d, %Y • %H:%M UTC")
+    disable_url = (
+        f"https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings"
+        f"?email={quote_plus(to_email)}&enabled=false"
+    )
+    resolved_dossiers = _resolve_dossiers_for_cycle(records, dossiers) if norm_tier == "tier_2" else []
+    wire_items = (records or [])[:15]
+    total_wire = len(records or [])
+
+    fed_count = sum(1 for r in (records or []) if classify_jurisdiction(r) == "federal")
+    muni_count = sum(1 for r in (records or []) if classify_jurisdiction(r) == "municipal")
+    sled_count = max(0, total_wire - fed_count - muni_count)
+
+    if norm_tier == "tier_1":
+        subject = (
+            f"[SignalTender // Tier 1 Wire] 6-Hour GovCon RFP Briefing — "
+            f"{total_wire} Vetted IT & Cyber Solicitations ({cycle_ts})"
+        )
+    else:
+        subject = (
+            f"[SignalTender // Tier 2 Autopilot] 6-Hour Executive Capture Briefing — "
+            f"{len(resolved_dossiers)} CaptureDesk 20-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+        )
+
+    # -------------------------------------------------------------------------
+    # 1. Structured Executive Plain-Text Briefing
+    # -------------------------------------------------------------------------
+    lines: list[str] = []
+    rule_heavy = "=" * 78
+    rule_light = "-" * 78
+
+    lines.append(rule_heavy)
+    if norm_tier == "tier_1":
+        lines.append("SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE BRIEFING")
+        lines.append(f"Cycle Timestamp : {cycle_ts}")
+        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (14 Federal, State SLED & Municipal Portals)")
+        lines.append(
+            f"Cycle Summary   : {total_wire} Newly Vetted High-Signal IT/Cyber RFPs "
+            f"(Federal: {fed_count} | 12-State SLED: {sled_count} | Municipal: {muni_count})"
+        )
+    else:
+        lines.append("SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING")
+        lines.append(f"Cycle Timestamp : {cycle_ts}")
+        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (14 Portals + 20-API Capture Suite)")
+        lines.append(
+            f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 20-API CaptureDesk Dossiers + "
+            f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
+        )
+        lines.append(rule_light)
+        lines.append("TABLE OF CONTENTS (UNIFIED SINGLE-EMAIL BRIEFING)")
+        lines.append(
+            f"  • SECTION I   : CAPTUREDESK AUTOPILOT 20-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
+        )
+        lines.append(
+            f"  • SECTION II  : COMPLETE 14-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
+        )
+        lines.append("  • SECTION III : TIER 2 ENTERPRISE API, MCP & SELF-SERVICE DELIVERY CONTROLS")
+    lines.append(rule_heavy)
+    lines.append("")
+
+    if norm_tier == "tier_2" and resolved_dossiers:
+        lines.append("SECTION I // CAPTUREDESK AUTOPILOT 20-API EXECUTIVE DOSSIERS")
+        lines.append("Pre-shredded Bid/No-Go memos, IGCE/Wrap/PTW models, CMMC/NIST/RMF gates, and Shipley win themes.")
+        lines.append(rule_light)
+        for idx, d in enumerate(resolved_dossiers, start=1):
+            d_title = clean_title_text(str(d.get("title") or "Government IT Solicitation"))
+            d_agency = str(d.get("agency") or "Government Agency").strip()
+            d_due = str(d.get("closing_date") or "Open / See Official Portal").strip()
+            d_badge = str(d.get("jurisdiction_badge") or "FEDERAL // SAM.GOV").strip()
+            d_vert = str(d.get("vertical") or "Enterprise Software, Data & AI").strip()
+            d_naics = str(d.get("primary_naics") or "541512")
+            d_psc = str(d.get("primary_psc") or "D399")
+            d_nigp = str(d.get("primary_nigp") or "")
+            d_sba = str(d.get("sba_size_standard") or "$34.0M")
+            d_comp = str(d.get("compliance_posture") or "SOC 2 Type II / NIST 800-53 / Section 508 VPAT")
+            d_team = str(d.get("teaming_posture") or "13 CFR § 125.6 (50% Rule) + 3 Past Performance Refs")
+            d_ptw = str(d.get("igce_ptw_posture") or "Wrap ~1.80x • Target PTW: -5.5% vs. IGCE")
+            d_lcat = str(d.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect")
+            d_cpars = str(d.get("cpars_relevance_benchmark") or "Substantial Confidence Target • 3 Very Relevant Refs")
+            d_ost = str(d.get("ostensible_sub_risk") or "LOW RISK (13 CFR § 121.103(h)(3))")
+            d_src = str(d.get("source_url") or "")
+            d_url = str(d.get("dossier_url") or f"{SITE_BASE_URL}/contracts")
+            if "?unlocked=1" not in d_url:
+                d_url = f"{d_url}?unlocked=1"
+
+            nigp_str = f" | NIGP: {d_nigp}" if d_nigp else ""
+            lines.append(f"[DOSSIER #{idx:02d}] [{d_badge}] • {d_vert}")
+            lines.append(f"  1. Solicitation Title   : {d_title}")
+            lines.append(f"     Issuing Buyer Agency : {d_agency}  |  Closing Date: {d_due}")
+            lines.append(
+                f"  2. Classification (#02) : NAICS {d_naics} | PSC {d_psc}{nigp_str} | SBA Size: {d_sba}"
+            )
+            lines.append(f"     Ostensible Sub (#11) : {d_ost}")
+            lines.append(f"  3. Cyber & RMF (#06/#18): {d_comp}")
+            lines.append(f"  4. IGCE, PTW & MAS (#16): {d_ptw}")
+            lines.append(f"  5. Key LCATs & CPARS    : {d_lcat} | {d_cpars}")
+            lines.append(f"  6. Teaming Mandate (#11): {d_team}")
+            themes = [str(t).replace("**", "").strip() for t in (d.get("win_themes") or [])[:3] if t]
+            if themes:
+                lines.append("  7. Tailored Shipley Section L/M Win Strategy (#05/#17/#19):")
+                for t_item in themes:
+                    lines.append(f"       - {t_item}")
+            ev_list = [str(e).replace("**", "").strip() for e in (d.get("evidence_needed") or [])[:2] if e]
+            if ev_list:
+                lines.append("     Required Proposal Evidence:")
+                for e_item in ev_list:
+                    lines.append(f"       - {e_item}")
+            lines.append(f"  8. Official Portal URL  : {d_src}")
+            lines.append(f"     20-API Web Dossier   : {d_url}")
+            lines.append(rule_light)
+        lines.append("")
+
+    wire_section_title = (
+        "SECTION II // COMPLETE 14-PORTAL LIVE RFP ALERT WIRE"
+        if norm_tier == "tier_2"
+        else "SECTION I // 14-PORTAL LIVE RFP ALERT WIRE"
+    )
+    lines.append(wire_section_title)
+    lines.append(
+        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 14 government portals."
+    )
+    lines.append(rule_light)
+
+    for idx, rec in enumerate(wire_items, start=1):
+        raw_title = str(rec.get("title") or "N/A").strip()
+        clean_title = clean_title_text(raw_title)
+        agency = str(rec.get("agency") or "Government Agency").strip()
+        closing_date = str(rec.get("closing_date") or "").strip()
+        if not closing_date:
+            m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", raw_title, flags=re.IGNORECASE)
+            closing_date = m_due.group(1) if m_due else "Open / See Official Portal"
+        link = str(rec.get("url") or "N/A").strip()
+        rec_id = str(rec.get("id") or "")
+        j_key = classify_jurisdiction(rec)
+        j_badge = JURISDICTION_LABELS.get(j_key, "FEDERAL // SAM.GOV")
+        vertical = classify_vertical_tag(rec)
+        slug = slugify_contract(raw_title, fallback_id=rec_id)
+        dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html?unlocked=1"
+
+        lines.append(f"[{idx:02d}] [{j_badge}] • {vertical}")
+        lines.append(f"     Solicitation    : {clean_title}")
+        lines.append(f"     Buyer Agency    : {agency}  |  Closing Date: {closing_date}")
+        lines.append(f"     Official Portal : {link}")
+        lines.append(f"     Unlocked Brief  : {dossier_url}")
+        lines.append(rule_light)
+
+    lines.append("")
+    ctrl_section_title = (
+        "SECTION III // TIER 2 ENTERPRISE API, MCP & DELIVERY CONTROLS"
+        if norm_tier == "tier_2"
+        else "SECTION II // SUBSCRIBER DIRECTORY & DELIVERY CONTROLS"
+    )
+    lines.append(ctrl_section_title)
+    lines.append(f"  • Full 14-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
+    if norm_tier == "tier_2":
+        lines.append(f"  • 20-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
+        lines.append("  • Remote Streamable-HTTP MCP Server          : https://b2b-contract-parser-api.onrender.com/mcp")
+    lines.append(f"  • Manage Discord / Webhook / Email Settings  : {SITE_BASE_URL}/#checkout")
+    lines.append(f"  • 1-Click Turn OFF 6-Hour Email Briefings    : {disable_url}")
+    lines.append(rule_heavy)
+
+    plain_body = "\n".join(lines)
+
+    # -------------------------------------------------------------------------
+    # 2. Executive HTML Briefing (for Resend & SMTP clients)
+    # -------------------------------------------------------------------------
+    tier_pill = (
+        "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)"
+        if norm_tier == "tier_2"
+        else "TIER 1 // SIGNALWIRE PRO (14-PORTAL LIVE RFP WIRE)"
+    )
+    tier_accent = "#6366f1" if norm_tier == "tier_2" else "#0ea5e9"
+
+    dossier_html_cards = []
+    if norm_tier == "tier_2" and resolved_dossiers:
+        for idx, d in enumerate(resolved_dossiers, start=1):
+            d_title = escape(clean_title_text(str(d.get("title") or "Government IT Solicitation")))
+            d_agency = escape(str(d.get("agency") or "Government Agency").strip())
+            d_due = escape(str(d.get("closing_date") or "Open / See Official Portal").strip())
+            d_badge = escape(str(d.get("jurisdiction_badge") or "FEDERAL // SAM.GOV").strip())
+            d_vert = escape(str(d.get("vertical") or "Enterprise Software, Data & AI").strip())
+            d_naics = escape(str(d.get("primary_naics") or "541512"))
+            d_psc = escape(str(d.get("primary_psc") or "D399"))
+            d_sba = escape(str(d.get("sba_size_standard") or "$34.0M"))
+            d_comp = escape(str(d.get("compliance_posture") or "SOC 2 Type II / NIST 800-53"))
+            d_team = escape(str(d.get("teaming_posture") or "13 CFR § 125.6 (50% Rule)"))
+            d_ptw = escape(str(d.get("igce_ptw_posture") or "Wrap ~1.80x • Target PTW: -5.5% vs. IGCE"))
+            d_lcat = escape(str(d.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Architect"))
+            d_src = escape(str(d.get("source_url") or "#"))
+            raw_durl = str(d.get("dossier_url") or f"{SITE_BASE_URL}/contracts")
+            if "?unlocked=1" not in raw_durl:
+                raw_durl = f"{raw_durl}?unlocked=1"
+            d_url = escape(raw_durl)
+            themes_li = "".join(
+                f"<li style='margin-bottom:4px;'>{escape(str(t).replace('**', '').strip())}</li>"
+                for t in (d.get("win_themes") or [])[:3]
+                if t
+            )
+            dossier_html_cards.append(
+                f"""
+                <div style="border:1px solid #312e81;background:#0f172a;border-radius:10px;padding:16px;margin-bottom:14px;">
+                  <div style="font-family:monospace;font-size:11px;color:#a5b4fc;margin-bottom:6px;">
+                    <strong>[DOSSIER #{idx:02d}] {d_badge}</strong> &bull; {d_vert}
+                  </div>
+                  <div style="font-size:15px;font-weight:700;color:#ffffff;margin-bottom:6px;">{d_title}</div>
+                  <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
+                    <strong>Buyer Agency:</strong> {d_agency} &nbsp;|&nbsp; <strong>Closing Date:</strong> <span style="color:#34d399;font-family:monospace;">{d_due}</span>
+                  </div>
+                  <table style="width:100%;border-collapse:collapse;font-size:12px;color:#e2e8f0;margin-bottom:10px;">
+                    <tr><td style="padding:4px 0;color:#94a3b8;width:190px;">Taxonomic &amp; SBA Size (#02):</td><td style="padding:4px 0;font-family:monospace;">NAICS {d_naics} | PSC {d_psc} | SBA Size {d_sba}</td></tr>
+                    <tr><td style="padding:4px 0;color:#94a3b8;">Cyber &amp; RMF Gates (#06/#18):</td><td style="padding:4px 0;">{d_comp}</td></tr>
+                    <tr><td style="padding:4px 0;color:#94a3b8;">IGCE, Wrap &amp; PTW (#16/#20):</td><td style="padding:4px 0;color:#6ee7b7;">{d_ptw}</td></tr>
+                    <tr><td style="padding:4px 0;color:#94a3b8;">Key Personnel LCATs (#13):</td><td style="padding:4px 0;">{d_lcat}</td></tr>
+                    <tr><td style="padding:4px 0;color:#94a3b8;">Teaming &amp; Sub Goal (#11):</td><td style="padding:4px 0;">{d_team}</td></tr>
+                  </table>
+                  <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
+                    <strong style="color:#a5b4fc;">Tailored Shipley Section L/M Win Strategy (#05/#17/#19):</strong>
+                    <ul style="margin:6px 0 0 18px;padding:0;">{themes_li}</ul>
+                  </div>
+                  <div style="margin-top:10px;">
+                    <a href="{d_src}" style="display:inline-block;padding:7px 12px;background:#1e293b;color:#38bdf8;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;border:1px solid #334155;margin-right:8px;">Official Portal Bid &nearr;</a>
+                    <a href="{d_url}" style="display:inline-block;padding:7px 12px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;font-weight:700;">Open Full 20-API Dossier &rarr;</a>
+                  </div>
+                </div>
+                """
+            )
+
+    wire_html_rows = []
+    for idx, rec in enumerate(wire_items, start=1):
+        raw_title = str(rec.get("title") or "N/A").strip()
+        clean_title = escape(clean_title_text(raw_title))
+        agency = escape(str(rec.get("agency") or "Government Agency").strip())
+        closing_date = str(rec.get("closing_date") or "").strip()
+        if not closing_date:
+            m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", raw_title, flags=re.IGNORECASE)
+            closing_date = m_due.group(1) if m_due else "Open / See Official Portal"
+        closing_date = escape(closing_date)
+        link = escape(str(rec.get("url") or "#").strip())
+        rec_id = str(rec.get("id") or "")
+        j_key = classify_jurisdiction(rec)
+        j_badge = escape(JURISDICTION_LABELS.get(j_key, "FEDERAL // SAM.GOV"))
+        vertical = escape(classify_vertical_tag(rec))
+        slug = slugify_contract(raw_title, fallback_id=rec_id)
+        dossier_url = escape(f"{SITE_BASE_URL}/contracts/rfp/{slug}.html?unlocked=1")
+
+        wire_html_rows.append(
+            f"""
+            <div style="border:1px solid #1e293b;background:#0f172a;border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+              <div style="font-family:monospace;font-size:11px;color:#38bdf8;margin-bottom:4px;">
+                <strong>[{idx:02d}] {j_badge}</strong> &bull; <span style="color:#94a3b8;">{vertical}</span>
+              </div>
+              <div style="font-size:14px;font-weight:600;color:#f8fafc;margin-bottom:4px;">{clean_title}</div>
+              <div style="font-size:12px;color:#cbd5e1;margin-bottom:8px;">
+                <strong>Buyer:</strong> {agency} &nbsp;|&nbsp; <strong>Due:</strong> <span style="color:#34d399;font-family:monospace;">{closing_date}</span>
+              </div>
+              <div>
+                <a href="{link}" style="color:#38bdf8;font-size:12px;font-family:monospace;text-decoration:none;margin-right:14px;">Official Government Portal &nearr;</a>
+                <a href="{dossier_url}" style="color:#a5b4fc;font-size:12px;font-family:monospace;text-decoration:none;">Unlocked SignalTender Brief &rarr;</a>
+              </div>
+            </div>
+            """
+        )
+
+    section_i_html = ""
+    if norm_tier == "tier_2" and dossier_html_cards:
+        section_i_html = f"""
+        <div style="margin-top:18px;margin-bottom:22px;">
+          <div style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid #312e81;padding-bottom:6px;margin-bottom:12px;">
+            SECTION I // CAPTUREDESK AUTOPILOT 20-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} PACKAGES)
+          </div>
+          {''.join(dossier_html_cards)}
+        </div>
+        """
+
+    wire_header_label = (
+        f"SECTION II // COMPLETE 14-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        if norm_tier == "tier_2"
+        else f"SECTION I // 14-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+    )
+
+    html_body = f"""
+    <div style="background:#020617;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:24px;max-width:760px;margin:0 auto;border-radius:12px;border:1px solid #1e293b;">
+      <div style="border-bottom:2px solid {tier_accent};padding-bottom:14px;margin-bottom:16px;">
+        <div style="font-family:monospace;font-size:11px;color:{tier_accent};font-weight:700;letter-spacing:0.06em;">{escape(tier_pill)}</div>
+        <h2 style="margin:6px 0 4px 0;font-size:20px;color:#ffffff;">SignalTender 6-Hour GovCon Capture Briefing</h2>
+        <div style="font-size:12px;color:#94a3b8;font-family:monospace;">
+          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 12-State SLED: {sled_count} | Municipal: {muni_count}
+        </div>
+      </div>
+      {section_i_html}
+      <div style="margin-top:14px;margin-bottom:20px;">
+        <div style="font-family:monospace;font-size:12px;font-weight:700;color:#38bdf8;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid #1e293b;padding-bottom:6px;margin-bottom:12px;">
+          {escape(wire_header_label)}
+        </div>
+        {''.join(wire_html_rows)}
+      </div>
+      <div style="border-top:1px solid #1e293b;padding-top:14px;font-size:12px;color:#94a3b8;line-height:1.6;">
+        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 14-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery &amp; Email Settings</a></div>
+        <div style="margin-top:6px;">You are receiving this 6-hour briefing because you opted in. <a href="{escape(disable_url)}" style="color:#f87171;">1-Click Turn OFF 6-Hour Email Briefings</a> anytime.</div>
+      </div>
+    </div>
+    """.strip()
+
+    return subject, plain_body, html_body
+
+
+def _send_subscriber_email_briefing(
+    to_email: str,
+    records: list[dict],
+    tier: str = "tier_2",
+    dossiers: list[dict] | None = None,
+) -> bool:
+    """
+    Send an organized, tier-specific 6-hour briefing email ONLY to active subscribers
+    who opted in (`email_briefings_enabled: True`).
+    Tier 2 subscribers receive BOTH CaptureDesk Autopilot 20-API Dossiers (Section I)
+    and the Complete 14-Portal Live RFP Alert Wire (Section II) in the same single email.
+    """
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     smtp_user = os.getenv("SMTP_USER", "").strip()
     smtp_pass = os.getenv("SMTP_PASSWORD", "").strip()
     from_email = os.getenv("SMTP_FROM_EMAIL", smtp_user or "aaron@getsignaltender.com").strip()
-    subject = f"SignalTender 6-Hour GovCon RFP Wire ({count} New IT/Cyber Solicitations)"
-    disable_url = f"https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings?email={quote_plus(to_email)}&enabled=false"
-    clean_body = (
-        body_text.replace("**", "").replace("`", "")
-        + f"\n\nFull Live Directory & Unlocked Dossiers: {SITE_BASE_URL}/contracts\n"
-        + f"Manage or Turn Off 6-Hour Email Briefings Anytime: {SITE_BASE_URL}/#checkout (1-Click Off: {disable_url})\n"
+
+    subject, plain_body, html_body = format_subscriber_email_briefing(
+        tier=tier,
+        records=records,
+        dossiers=dossiers,
+        to_email=to_email,
+    )
+    sender_label = (
+        "SignalTender CaptureDesk Autopilot"
+        if str(tier or "").strip().lower() not in ("tier_1", "tier1", "pro", "signalwire")
+        else "SignalTender Live RFP Wire"
     )
     try:
         if resend_key:
             r = requests.post(
                 "https://api.resend.com/emails",
                 headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
-                json={"from": f"SignalTender Capture Wire <{from_email}>", "to": [to_email], "subject": subject, "text": clean_body},
+                json={
+                    "from": f"{sender_label} <{from_email}>",
+                    "to": [to_email],
+                    "subject": subject,
+                    "text": plain_body,
+                    "html": html_body,
+                },
                 timeout=10,
             )
             return r.status_code in (200, 201)
@@ -351,9 +746,10 @@ def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -
             from email.message import EmailMessage
             msg = EmailMessage()
             msg["Subject"] = subject
-            msg["From"] = f"SignalTender Capture Wire <{from_email}>"
+            msg["From"] = f"{sender_label} <{from_email}>"
             msg["To"] = to_email
-            msg.set_content(clean_body)
+            msg.set_content(plain_body)
+            msg.add_alternative(html_body, subtype="html")
             with smtplib.SMTP(os.getenv("SMTP_HOST", "smtp.gmail.com"), int(os.getenv("SMTP_PORT") or "587"), timeout=10) as s:
                 s.starttls(context=ssl.create_default_context())
                 s.login(smtp_user, smtp_pass)
@@ -369,7 +765,7 @@ def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -
                     "campaign": inst_sub_cid,
                     "email": to_email,
                     "skip_if_in_campaign": False,
-                    "custom_variables": {"subject_line": subject, "email_body": clean_body},
+                    "custom_variables": {"subject_line": subject, "email_body": plain_body},
                 },
                 timeout=10,
             )
@@ -379,11 +775,17 @@ def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -
     return False
 
 
-def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict]) -> int:
+def _dispatch_to_external_customer_webhooks(
+    supabase: Client,
+    records: list[dict],
+    dossiers: list[dict] | None = None,
+) -> int:
     """
     Dispatch newly discovered RFPs to any active subscriber external webhooks
-    (Slack, Microsoft Teams, Zapier, Make.com, n8n, HubSpot, Salesforce) stored
-    in Supabase with status='SUBSCRIBER_ACTIVE'.
+    (Slack, Microsoft Teams, Zapier, Make.com, n8n, HubSpot, Salesforce) AND
+    dispatch tier-specific 6-Hour Email Briefings (with Tier 2 combining both
+    CaptureDesk Autopilot 20-API Dossiers and the Live RFP Alert Wire in one email)
+    stored in Supabase with status='SUBSCRIBER_ACTIVE'.
     """
     import json
     dispatched = 0
@@ -411,11 +813,17 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
             if str(srow.get("status") or "") != "SUBSCRIBER_ACTIVE":
                 continue
             meta = json.loads(str(srow.get("title") or "{}"))
-            if str(meta.get("status") or "") == "canceled" or str(meta.get("tier") or "") == "canceled":
+            sub_tier = str(meta.get("tier") or "tier_2").strip().lower()
+            if str(meta.get("status") or "") == "canceled" or sub_tier == "canceled":
                 continue
             sub_email = str(meta.get("email") or "").strip().lower()
             if sub_email and "@" in sub_email and bool(meta.get("email_briefings_enabled", False)):
-                _send_subscriber_email_briefing(sub_email, combined_text, len(records))
+                _send_subscriber_email_briefing(
+                    to_email=sub_email,
+                    records=records,
+                    tier=sub_tier,
+                    dossiers=dossiers,
+                )
             w_url = str(meta.get("webhook_url") or "").strip()
             if not w_url.startswith("https://"):
                 continue

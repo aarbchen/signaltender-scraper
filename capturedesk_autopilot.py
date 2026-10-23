@@ -591,10 +591,10 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
     return body + footer
 
 
-def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> None:
+def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> list[dict]:
     if not SUPABASE_URL or not SUPABASE_KEY:
         print(" -> [CaptureDesk] SUPABASE_URL or SUPABASE_KEY not set; skipping.", flush=True)
-        return
+        return []
 
     try:
         existing_dossiers: dict = {}
@@ -622,7 +622,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> Non
         ]
         if not rows:
             print(" -> [CaptureDesk] No contracts found in Supabase.", flush=True)
-            return
+            return []
 
         new_dossiers = []
         for row in rows:
@@ -709,8 +709,11 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> Non
             except Exception as sub_err:
                 log_error(f"External Tier 2 webhook dispatch warning: {sub_err}")
 
+        return new_dossiers
+
     except Exception as exc:
         send_discord_alert(f"CaptureDesk Autopilot failed: {exc}")
+        return []
 
 
 if __name__ == "__main__":

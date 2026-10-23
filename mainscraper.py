@@ -902,9 +902,10 @@ async def run_master_orchestrator(
         _reclaim_os_memory()
 
         # Enrich net-new solicitations into Tier 2 CaptureDesk Autopilot dossiers
+        new_dossiers = []
         try:
             import capturedesk_autopilot
-            capturedesk_autopilot.run_capturedesk_autopilot()
+            new_dossiers = capturedesk_autopilot.run_capturedesk_autopilot() or []
         except (Exception, SystemExit) as cd_err:
             cd_msg = f"CaptureDesk Autopilot error in mainscraper.py: {cd_err}"
             print(f"[!] {cd_msg}", flush=True)
@@ -915,6 +916,17 @@ async def run_master_orchestrator(
                 pass
             report_error("mainscraper.py", cd_msg)
             send_discord_alert(cd_msg)
+
+        if new_records:
+            try:
+                import client_delivery
+                client_delivery._dispatch_to_external_customer_webhooks(
+                    db_client,
+                    new_records,
+                    dossiers=new_dossiers,
+                )
+            except Exception as sub_disp_err:
+                print(f"[!] Subscriber webhook/email dispatch warning: {sub_disp_err}", flush=True)
 
         _reclaim_os_memory()
 
