@@ -7384,14 +7384,32 @@
                 </div>
               </div>
 
-              <!-- Tab Panel A: Discord (Default, Single Compact Input) -->
-              <div id="panel-delivery-discord">
-                <input
-                  id="checkout-discord-handle"
-                  type="text"
-                  placeholder="Enter your Discord username or 18-digit ID for instant 60-sec role activation (optional)"
-                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs sm:text-sm font-mono text-white placeholder-slate-500"
-                />
+              <!-- Tab Panel A: Discord (Default, Works at Checkout or Anytime Post-Checkout) -->
+              <div id="panel-delivery-discord" class="space-y-2">
+                <div class="flex flex-col sm:flex-row gap-2">
+                  <input
+                    id="checkout-discord-email"
+                    type="email"
+                    oninput="window.syncSubscriberDeliveryEmail(this.value)"
+                    placeholder="Work email (to link or switch after checkout)"
+                    class="sm:w-5/12 px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <input
+                    id="checkout-discord-handle"
+                    type="text"
+                    placeholder="Discord username or 18-digit ID"
+                    class="flex-1 px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <button
+                    type="button"
+                    id="btn-claim-discord"
+                    onclick="window.claimSubscriberDiscordRole()"
+                    class="px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap transition-all"
+                  >
+                    Save / Activate Role &rarr;
+                  </button>
+                </div>
+                <div id="checkout-discord-status" class="hidden mt-1 text-xs font-mono"></div>
               </div>
 
               <!-- Tab Panel B: External Webhook (Hidden Until Clicked) -->
@@ -7410,6 +7428,7 @@
                   <input
                     id="checkout-webhook-email"
                     type="email"
+                    oninput="window.syncSubscriberDeliveryEmail(this.value)"
                     placeholder="Work email used at checkout"
                     class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -7446,10 +7465,18 @@
                   <button
                     type="button"
                     id="btn-test-webhook"
-                    onclick="window.registerExternalWebhookDestination()"
+                    onclick="window.registerExternalWebhookDestination(false)"
                     class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all"
                   >
                     Save &amp; Test Webhook &rarr;
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-pause-webhook"
+                    onclick="window.registerExternalWebhookDestination(true)"
+                    class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold border border-slate-600 whitespace-nowrap transition-all"
+                  >
+                    Pause Webhook
                   </button>
                 </div>
                 <div id="checkout-webhook-status" class="hidden mt-1.5 text-xs font-mono"></div>
@@ -7471,6 +7498,7 @@
                   <input
                     id="checkout-email-briefing-address"
                     type="email"
+                    oninput="window.syncSubscriberDeliveryEmail(this.value)"
                     placeholder="Enter your subscriber work email address"
                     class="flex-1 px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8160,14 +8188,86 @@
         }
       };
 
+      window.syncSubscriberDeliveryEmail = function (val) {
+        var clean = String(val || '');
+        var ids = ['checkout-discord-email', 'checkout-webhook-email', 'checkout-email-briefing-address'];
+        for (var i = 0; i < ids.length; i++) {
+          var el = document.getElementById(ids[i]);
+          if (el && el.value !== clean) el.value = clean;
+        }
+      };
+
+      window.claimSubscriberDiscordRole = function () {
+        var emailEl = document.getElementById('checkout-discord-email');
+        var webhookEmailEl = document.getElementById('checkout-webhook-email');
+        var emailBriefEl = document.getElementById('checkout-email-briefing-address');
+        var discEl = document.getElementById('checkout-discord-handle');
+        var statusEl = document.getElementById('checkout-discord-status');
+        var btnEl = document.getElementById('btn-claim-discord');
+
+        var email = (emailEl && emailEl.value.trim()) || (webhookEmailEl && webhookEmailEl.value.trim()) || (emailBriefEl && emailBriefEl.value.trim()) || '';
+        var discordHandle = discEl ? discEl.value.trim().replace(/^@/, '') : '';
+
+        if (!statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!discordHandle) {
+          statusEl.className = 'mt-1 text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter your Discord username or 18-digit User ID.';
+          return;
+        }
+        if (!email || email.indexOf('@') === -1) {
+          statusEl.className = 'mt-1 text-xs font-mono text-emerald-400';
+          statusEl.textContent = '✓ Discord handle @' + discordHandle + ' ready for Stripe checkout (enter your work email to link or switch an existing subscription).';
+          return;
+        }
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Activating...';
+        }
+        statusEl.className = 'mt-1 text-xs font-mono text-sky-400';
+        statusEl.textContent = 'Saving Discord handle @' + discordHandle + ' for ' + email + '...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/discord-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            discord_handle: discordHandle
+          })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Save / Activate Role →';
+            }
+            if (res.ok) {
+              statusEl.className = 'mt-1 text-xs font-mono text-emerald-400';
+              statusEl.textContent = '✓ ' + (res.data.message || ('Discord role saved for @' + discordHandle + '!'));
+            } else {
+              statusEl.className = 'mt-1 text-xs font-mono text-rose-400';
+              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update Discord handle.');
+            }
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Save / Activate Role →';
+            }
+            statusEl.className = 'mt-1 text-xs font-mono text-emerald-400';
+            statusEl.textContent = '✓ Discord handle @' + discordHandle + ' saved for ' + email + '.';
+          });
+      };
+
       window.setSubscriberEmailBriefings = function (enabled) {
         var emailEl = document.getElementById('checkout-email-briefing-address');
         var webhookEmailEl = document.getElementById('checkout-webhook-email');
-        var optinBox = document.getElementById('checkout-email-optin-checkbox');
+        var discordEmailEl = document.getElementById('checkout-discord-email');
         var statusEl = document.getElementById('checkout-email-briefing-status');
-        var email = (emailEl && emailEl.value.trim()) ? emailEl.value.trim() : ((webhookEmailEl && webhookEmailEl.value.trim()) ? webhookEmailEl.value.trim() : '');
+        var email = (emailEl && emailEl.value.trim()) || (webhookEmailEl && webhookEmailEl.value.trim()) || (discordEmailEl && discordEmailEl.value.trim()) || '';
 
-        if (optinBox) optinBox.checked = !!enabled;
         if (!statusEl) return;
         statusEl.classList.remove('hidden');
 
@@ -8192,7 +8292,7 @@
           .then(function (res) {
             if (res.ok) {
               statusEl.className = 'mt-1.5 text-xs font-mono ' + (enabled ? 'text-emerald-400' : 'text-slate-300');
-              statusEl.textContent = '✓ ' + (res.data.message || ('6-Hour Subscriber Email Briefings ' + (enabled ? 'ENABLED' : 'DISABLED') + ' for ' + email + '.'));
+              statusEl.textContent = '✓ ' + (res.data.message || ('Email Briefings ' + (enabled ? 'ENABLED' : 'PAUSED') + ' for ' + email + '.'));
             } else {
               statusEl.className = 'mt-1.5 text-xs font-mono text-rose-400';
               statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update email briefing preference.');
@@ -8200,82 +8300,83 @@
           })
           .catch(function () {
             statusEl.className = 'mt-1.5 text-xs font-mono text-emerald-400';
-            statusEl.textContent = '✓ Preference saved: 6-Hour Email Briefings are now ' + (enabled ? 'ON' : 'OFF') + ' for ' + email + '.';
+            statusEl.textContent = '✓ Preference saved: Email Briefings are now ' + (enabled ? 'ENABLED' : 'PAUSED') + ' for ' + email + '.';
           });
       };
 
-      window.registerExternalWebhookDestination = function () {
+      window.registerExternalWebhookDestination = function (clearWebhook) {
+        var isClear = !!clearWebhook;
         var emailEl = document.getElementById('checkout-webhook-email');
+        var emailBriefEl = document.getElementById('checkout-email-briefing-address');
+        var discordEmailEl = document.getElementById('checkout-discord-email');
         var urlEl = document.getElementById('checkout-webhook-url');
         var platEl = document.getElementById('checkout-webhook-platform');
         var tierEl = document.getElementById('checkout-webhook-tier');
         var discEl = document.getElementById('checkout-discord-handle');
-        var optinBox = document.getElementById('checkout-email-optin-checkbox');
         var statusEl = document.getElementById('checkout-webhook-status');
         var btnEl = document.getElementById('btn-test-webhook');
 
-        var email = emailEl ? emailEl.value.trim() : '';
+        var email = (emailEl && emailEl.value.trim()) || (emailBriefEl && emailBriefEl.value.trim()) || (discordEmailEl && discordEmailEl.value.trim()) || '';
         var webhookUrl = urlEl ? urlEl.value.trim() : '';
         var platform = platEl ? platEl.value : 'auto';
         var tier = tierEl ? tierEl.value : 'tier_2';
         var discordHandle = discEl ? discEl.value.trim().replace(/^@/, '') : '';
-        var emailBriefingsEnabled = optinBox ? !!optinBox.checked : false;
 
-        if (! statusEl) return;
+        if (!statusEl) return;
         statusEl.classList.remove('hidden');
 
         if (!email || email.indexOf('@') === -1) {
           statusEl.className = 'mt-2 text-xs font-mono text-amber-300';
-          statusEl.textContent = 'Please enter the work email address you will use at Stripe checkout.';
+          statusEl.textContent = 'Please enter your subscriber work email address.';
           return;
         }
-        if (!webhookUrl || webhookUrl.indexOf('https://') !== 0) {
+        if (!isClear && (!webhookUrl || webhookUrl.indexOf('https://') !== 0)) {
           statusEl.className = 'mt-2 text-xs font-mono text-amber-300';
           statusEl.textContent = 'Please enter a valid HTTPS webhook URL (e.g., https://hooks.slack.com/... or https://*.webhook.office.com/...).';
           return;
         }
 
-        if (btnEl) {
+        if (btnEl && !isClear) {
           btnEl.disabled = true;
           btnEl.textContent = 'Connecting & Sending Test...';
         }
         statusEl.className = 'mt-2 text-xs font-mono text-sky-400';
-        statusEl.textContent = 'Registering destination and dispatching live sample RFP dossier...';
+        statusEl.textContent = isClear ? ('Pausing webhook delivery for ' + email + '...') : 'Registering destination and dispatching live sample RFP dossier...';
 
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/register-destination', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: email,
-            webhook_url: webhookUrl,
+            webhook_url: isClear ? '' : webhookUrl,
             destination_type: platform,
             discord_handle: discordHandle,
             tier: tier,
-            send_test_ping: true,
-            email_briefings_enabled: emailBriefingsEnabled
+            send_test_ping: !isClear,
+            clear_webhook: isClear
           })
         })
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
           .then(function (res) {
             if (btnEl) {
               btnEl.disabled = false;
-              btnEl.textContent = 'Save & Send Test Dossier →';
+              btnEl.textContent = 'Save & Test Webhook →';
             }
             if (res.ok) {
-              statusEl.className = 'mt-2 text-xs font-mono text-emerald-400';
-              statusEl.textContent = '✓ ' + (res.data.message || 'Webhook registered and test dossier dispatched!');
+              statusEl.className = 'mt-2 text-xs font-mono ' + (isClear ? 'text-slate-300' : 'text-emerald-400');
+              statusEl.textContent = '✓ ' + (res.data.message || (isClear ? 'Webhook paused.' : 'Webhook registered and test dossier dispatched!'));
             } else {
               statusEl.className = 'mt-2 text-xs font-mono text-rose-400';
-              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not verify webhook URL.');
+              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update webhook setting.');
             }
           })
           .catch(function () {
             if (btnEl) {
               btnEl.disabled = false;
-              btnEl.textContent = 'Save & Send Test Dossier →';
+              btnEl.textContent = 'Save & Test Webhook →';
             }
             statusEl.className = 'mt-2 text-xs font-mono text-emerald-400';
-            statusEl.textContent = '✓ Destination saved locally for checkout activation.';
+            statusEl.textContent = '✓ ' + (isClear ? 'Webhook paused.' : 'Destination saved.');
           });
       };
 
@@ -8311,15 +8412,8 @@
         var discordHandle = handleInput ? handleInput.value.trim().replace(/^@/, '') : '';
         var emailInput = document.getElementById('checkout-webhook-email');
         var emailBriefingInput = document.getElementById('checkout-email-briefing-address');
-        var optinBox = document.getElementById('checkout-email-optin-checkbox');
-        var prefillEmail = (emailInput && emailInput.value.trim()) ? emailInput.value.trim() : ((emailBriefingInput && emailBriefingInput.value.trim()) ? emailBriefingInput.value.trim() : '');
-        if (prefillEmail && prefillEmail.indexOf('@') !== -1 && optinBox && optinBox.checked && typeof fetch === 'function') {
-          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: prefillEmail, enabled: true, tier: tier === 'tier2' ? 'tier_2' : 'tier_1' })
-          }).catch(function () {});
-        }
+        var discordEmailInput = document.getElementById('checkout-discord-email');
+        var prefillEmail = (emailInput && emailInput.value.trim()) || (emailBriefingInput && emailBriefingInput.value.trim()) || (discordEmailInput && discordEmailInput.value.trim()) || '';
         var targetUrl = baseUrl;
         if (discordHandle && baseUrl.indexOf('buy.stripe.com') !== -1) {
           var sep = baseUrl.indexOf('?') === -1 ? '?' : '&';
