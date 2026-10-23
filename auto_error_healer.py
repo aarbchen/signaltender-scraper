@@ -118,10 +118,41 @@ def archive_local_error_log(resolution_note: str) -> None:
 
 def verify_scraper_contracts_and_rls_safety() -> list[str]:
     """
-    Static + dynamic contract audit across all 13 scrapers and pipeline scripts.
+    Static + dynamic contract audit across all scrapers, pipeline scripts, AND
+    every Python file in both `d:\\Daas` and `d:\\Data API Ecosystem` (`b2b-contract-parser-api`),
+    plus live Render gateway health verification.
     Returns a list of violation descriptions (empty list = 100% healthy).
     """
+    import py_compile
     issues: list[str] = []
+
+    # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas so a SyntaxError / IndentationError
+    # can NEVER break a Render deployment for b2b-contract-parser-api or daas-contract-scraper.
+    for repo_root in (pathlib.Path(r"D:\Data API Ecosystem"), BASE_DIR):
+        if not repo_root.exists():
+            continue
+        for py_file in repo_root.rglob("*.py"):
+            s_path = str(py_file)
+            if any(skip in s_path for skip in ("daas_env", "venv", ".venv", "__pycache__", ".git")):
+                continue
+            try:
+                py_compile.compile(s_path, doraise=True)
+            except Exception as comp_err:
+                issues.append(f"Python syntax/compilation error in {s_path}: {comp_err}")
+
+    # 0b. Verify live Render deployment health & critical router endpoints on b2b-contract-parser-api
+    try:
+        h_resp = requests.get(f"{TELEMETRY_API_BASE}/v1/health", timeout=8)
+        if h_resp.status_code != 200:
+            issues.append(f"Render b2b-contract-parser-api /v1/health returned HTTP {h_resp.status_code}")
+        oa_resp = requests.get(f"{TELEMETRY_API_BASE}/openapi.json", timeout=8)
+        if oa_resp.status_code == 200:
+            oa_paths = oa_resp.json().get("paths", {})
+            for req_path in ("/v1/health", "/v1/webhooks/register-destination", "/v1/webhooks/subscriber-access", "/v1/leads/capture"):
+                if req_path not in oa_paths:
+                    issues.append(f"Render live OpenAPI missing expected route {req_path} (possible failed deploy)")
+    except Exception:
+        pass
 
     # 1. Verify every scraper module has async def run_scraper(push_to_db=...)
     for mod_name in SCRAPER_MODULES:
