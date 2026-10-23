@@ -8295,7 +8295,7 @@
                 id="btn-account-login-submit"
                 class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all cursor-pointer"
               >
-                Log In to Account Console &rarr;
+                Sign In to Your Account &rarr;
               </button>
               <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
                 <span class="text-slate-400">Don&apos;t have an account yet?</span>
@@ -8425,7 +8425,7 @@
                   <span>FOUNDER &amp; ADMIN CONSOLE // CLIENT PORTAL VIEW SWITCHER</span>
                 </div>
                 <p class="text-xs text-slate-300">
-                  Signed in with Founder/Admin privileges. Toggle the preview buttons on the right to inspect how the Client Portal renders for each account tier.
+                  Signed in with Founder/Admin privileges (invisible to customers). Click any tier button on the right to preview how the Client Portal looks for that tier: <strong id="account-admin-preview-status" class="text-emerald-300 font-mono">Viewing: Tier 2 Autopilot ($399/mo)</strong>
                 </p>
               </div>
               <div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
@@ -8508,15 +8508,17 @@
                 </a>
                 <button
                   type="button"
+                  id="btn-account-upgrade-t1"
                   onclick="window.launchAccountCheckout('tier1')"
-                  class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold border border-sky-400/40 transition-all"
+                  class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold border border-sky-400/40 transition-all cursor-pointer"
                 >
                   Activate Tier 1 ($99/mo) &rarr;
                 </button>
                 <button
                   type="button"
+                  id="btn-account-upgrade-t2"
                   onclick="window.launchAccountCheckout('tier2')"
-                  class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all"
+                  class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all cursor-pointer"
                 >
                   Activate Tier 2 ($399/mo) &rarr;
                 </button>
@@ -8832,10 +8834,10 @@
           <div class="font-mono text-[11px] text-slate-200 uppercase tracking-wider font-semibold">Account &amp; Plans</div>
           <ul class="space-y-2.5 text-slate-400">
             <li>
-              <a href="#account" class="hover:text-white transition-colors">Client Account Console</a>
+              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('login');}" class="hover:text-white transition-colors">Sign In</a>
             </li>
             <li>
-              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('login');}" class="hover:text-white transition-colors">Sign In / Register</a>
+              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('register');}" class="hover:text-white transition-colors">Create Free Account</a>
             </li>
             <li>
               <a href="#checkout-tier1" class="hover:text-white transition-colors">Tier 1 SignalWire ($99/mo)</a>
@@ -9358,15 +9360,18 @@
 
         var statusPill = document.getElementById('account-status-pill');
         if (statusPill) {
-          if (data.subscription_status === 'active') {
-            statusPill.className = 'px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold';
-            statusPill.textContent = 'ACTIVE SUBSCRIBER';
+          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold';
+            statusPill.textContent = 'ACTIVE // TIER 2 AUTOPILOT ($399/MO)';
+          } else if (data.subscription_status === 'active') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold';
+            statusPill.textContent = 'ACTIVE // TIER 1 SIGNALWIRE ($99/MO)';
           } else if (data.subscription_status === 'canceled') {
             statusPill.className = 'px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30 font-bold';
             statusPill.textContent = 'CANCELED — FREE EXPLORER';
           } else {
             statusPill.className = 'px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold';
-            statusPill.textContent = 'FREE EXPLORER ACCOUNT';
+            statusPill.textContent = 'FREE EXPLORER ACCOUNT ($0/MO)';
           }
         }
 
@@ -9389,6 +9394,25 @@
             planDesc.textContent = 'Active Tier 1 SignalWire Pro access across all 14 Federal & 12-State SLED portals and un-blurred RFP directory links. Upgrade to Tier 2 anytime for 20-API CaptureDesk dossiers.';
           } else {
             planDesc.textContent = 'Free Explorer Account ($0/mo) active. Explore the 14-portal RFP directory, test all 20 AI APIs in the interactive sandbox, and pre-configure your Discord, Webhook, and Email channels. Activate Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime to start live 6-hour dispatches.';
+          }
+        }
+
+        var btnUpT1 = document.getElementById('btn-account-upgrade-t1');
+        var btnUpT2 = document.getElementById('btn-account-upgrade-t2');
+        if (btnUpT1 && btnUpT2) {
+          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+            btnUpT1.classList.add('hidden');
+            btnUpT2.classList.remove('hidden');
+            btnUpT2.textContent = 'Switch / Manage Billing Plan →';
+          } else if (data.subscription_status === 'active') {
+            btnUpT1.classList.add('hidden');
+            btnUpT2.classList.remove('hidden');
+            btnUpT2.textContent = 'Upgrade to Tier 2 ($399/mo) →';
+          } else {
+            btnUpT1.classList.remove('hidden');
+            btnUpT1.textContent = 'Activate Tier 1 ($99/mo) →';
+            btnUpT2.classList.remove('hidden');
+            btnUpT2.textContent = 'Activate Tier 2 ($399/mo) →';
           }
         }
 
@@ -9454,6 +9478,74 @@
         if (profComp) profComp.value = data.company || '';
       };
 
+      var adminSavedApiKey = 'st_live_d1ebd3f4c881a4923e8f02bc9401a8e27c11';
+
+      window.switchAdminPortalPreview = function (mode) {
+        var baseProf = currentAccountProfile;
+        if (!baseProf) {
+          try {
+            var rawP = localStorage.getItem('st_account_profile');
+            if (rawP) baseProf = JSON.parse(rawP);
+          } catch (e) {}
+        }
+        if (!baseProf) {
+          baseProf = {
+            email: 'admin@signaltender.net',
+            full_name: 'Aaron Chen (Founder & Admin)',
+            company: 'SignalTender HQ',
+            is_admin: true
+          };
+        }
+        if (baseProf.api_key && baseProf.api_key.indexOf('st_live_') === 0) {
+          adminSavedApiKey = baseProf.api_key;
+        }
+        var clone = JSON.parse(JSON.stringify(baseProf));
+        clone.is_admin = true;
+        var bT2 = document.getElementById('btn-admin-view-tier2');
+        var bT1 = document.getElementById('btn-admin-view-tier1');
+        var bFree = document.getElementById('btn-admin-view-free');
+        var statusLbl = document.getElementById('account-admin-preview-status');
+        if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer';
+        if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer';
+        if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer';
+
+        if (mode === 'free') {
+          clone.subscription_status = 'pending';
+          clone.active = false;
+          clone.tier = 'free';
+          clone.tier_label = 'Free Explorer Account ($0/mo)';
+          clone.api_key = '';
+          if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer shadow-lg';
+          if (statusLbl) {
+            statusLbl.className = 'text-emerald-300 font-mono';
+            statusLbl.textContent = 'Viewing: Free Explorer ($0/mo)';
+          }
+        } else if (mode === 'tier_1') {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_1';
+          clone.tier_label = 'Tier 1 // SignalWire Pro ($99/mo)';
+          clone.api_key = '';
+          if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 transition-all cursor-pointer shadow-lg';
+          if (statusLbl) {
+            statusLbl.className = 'text-sky-300 font-mono';
+            statusLbl.textContent = 'Viewing: Tier 1 SignalWire ($99/mo)';
+          }
+        } else {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_2';
+          clone.tier_label = 'Founder & Admin // Tier 2 CaptureDesk Autopilot ($399/mo)';
+          clone.api_key = adminSavedApiKey;
+          if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer shadow-lg';
+          if (statusLbl) {
+            statusLbl.className = 'text-indigo-300 font-mono';
+            statusLbl.textContent = 'Viewing: Tier 2 Autopilot ($399/mo)';
+          }
+        }
+        window.renderAccountDashboard(clone);
+      };
+
       window.submitAccountLogin = function () {
         var emailEl = document.getElementById('account-login-email');
         var pwEl = document.getElementById('account-login-password');
@@ -9477,42 +9569,6 @@
         }
         statusEl.className = 'text-xs font-mono text-sky-400 pt-1';
         statusEl.textContent = 'Authenticating account...';
-
-        window.switchAdminPortalPreview = function (mode) {
-          if (!currentAccountProfile) return;
-          var clone = JSON.parse(JSON.stringify(currentAccountProfile));
-          clone.is_admin = true;
-          var bT2 = document.getElementById('btn-admin-view-tier2');
-          var bT1 = document.getElementById('btn-admin-view-tier1');
-          var bFree = document.getElementById('btn-admin-view-free');
-          if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer';
-          if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer';
-          if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer';
-
-          if (mode === 'free') {
-            clone.subscription_status = 'pending';
-            clone.active = false;
-            clone.tier = 'tier_2';
-            clone.tier_label = 'Free Explorer Account ($0/mo)';
-            clone.api_key = '';
-            if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer';
-          } else if (mode === 'tier_1') {
-            clone.subscription_status = 'active';
-            clone.active = true;
-            clone.tier = 'tier_1';
-            clone.tier_label = 'Tier 1 // SignalWire Pro ($99/mo)';
-            clone.api_key = '';
-            if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 transition-all cursor-pointer';
-          } else {
-            clone.subscription_status = 'active';
-            clone.active = true;
-            clone.tier = 'tier_2';
-            clone.tier_label = 'Founder & Admin // Tier 2 CaptureDesk Autopilot ($399/mo)';
-            clone.api_key = clone.api_key || 'st_live_d1ebd3f4c881a4923e8f02bc9401a8e27c11';
-            if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer';
-          }
-          window.renderAccountDashboard(clone);
-        };
 
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/login', {
           method: 'POST',

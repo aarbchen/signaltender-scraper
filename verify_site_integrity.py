@@ -198,8 +198,8 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
             if req_footer not in txt:
                 fail(f"{label}: Missing 4-column Enterprise footer heading '{req_footer}'")
-        if "Main: Live Discord Alert Wire" in txt or "Page 2: Developer Data API Catalog" in txt:
-            fail(f"{label}: Contains legacy unorganized footer labels")
+        if "Main: Live Discord Alert Wire" in txt or "Page 2: Developer Data API Catalog" in txt or "Client Account Console" in txt:
+            fail(f"{label}: Contains legacy or internal Client Account Console footer labels")
 
     if 'id="header-auth-user-label" class="truncate max-w-[110px]"' not in index_txt or "clearAutofilledSearchInputs" not in index_txt:
         fail("index.html: Missing bounded #header-auth-user-label width or clearAutofilledSearchInputs() protection")
@@ -546,6 +546,21 @@ window.renderAccountDashboard({
   destination_type: 'slack',
   email_briefings_enabled: true
 });
+if (typeof window.switchAdminPortalPreview !== 'function') {
+  throw new Error('window.switchAdminPortalPreview is undefined at top level!');
+}
+window.switchAdminPortalPreview('tier_1');
+if (document.getElementById('account-plan-badge').textContent.indexOf('Tier 1') === -1) {
+  throw new Error('switchAdminPortalPreview(tier_1) did not update #account-plan-badge!');
+}
+window.switchAdminPortalPreview('free');
+if (document.getElementById('account-plan-badge').textContent.indexOf('Free Explorer') === -1) {
+  throw new Error('switchAdminPortalPreview(free) did not update #account-plan-badge!');
+}
+window.switchAdminPortalPreview('tier_2');
+if (document.getElementById('account-plan-badge').textContent.indexOf('Tier 2') === -1) {
+  throw new Error('switchAdminPortalPreview(tier_2) did not update #account-plan-badge!');
+}
 window.logoutClientAccount();
 """
     )
