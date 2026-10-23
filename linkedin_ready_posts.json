@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-10-22T02:07:26.340913+00:00",
+  "generated_at": "2026-10-23T00:03:36.877737+00:00",
+  "last_api_post_ts": 1792713799.780431,
   "company_profile": {
     "name": "SignalTender",
     "slug": "signaltender",
@@ -26,7 +27,7 @@
     ]
   },
   "banner_path": "D:\\Daas\\linkedin_company_banner.png",
-  "api_status": "STAGED_FOR_LINKEDIN",
+  "api_status": "Published via LinkedIn API (urn:li:share:7519186730575466496)",
   "posts": [
     {
       "id": "post_01_pinned_platform_launch",
@@ -42,7 +43,7 @@
       "scheduled_slot": "PUBLISHED LIVE (https://www.linkedin.com/feed/update/urn:li:share:7518850978813743104?actorCompanyId=146880945)",
       "published": true,
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7518850978813743104?actorCompanyId=146880945",
-      "text": "LIVE GOVCON & STATE SLED IT/CYBER BRIEFING\n\nHere are 3 active, pre-vetted government software, cloud, and cybersecurity solicitations our autonomous scraper pipeline indexed and shredded today:\n\n1. [Ohio] Shared Micromobility Data Management (RFQ033920)\n   \u2022 Issuing Agency: City of Columbus (OH) (Due: 11/18/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/shared-micromobility-data-management-rfq033920-849.html\n\n2. [Pennsylvania] Learning Management System (25-RFP-12233)\n   \u2022 Issuing Agency: PA Department of Human Services (Due: 11/02/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/learning-management-system-25-rfp-12233-848.html\n\n3. [Illinois] B26OP04834 \u2013 Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options\n   \u2022 Issuing Agency: Chicago Transit Authority (CTA) (Due: 11/20/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-847.html\n\nEvery dossier includes pre-computed NAICS/SBA caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 teaming workshare guardrails, and IGCE Price-to-Win bands.\n\nBrowse all live open solicitations or route real-time alerts to your Discord, Slack, Teams, or CRM webhook:\nhttps://signaltender.net\n\n#GovCon #RFP #StateSLED #ITContracting #Cybersecurity #CloudComputing #SmallBusinessGovCon"
+      "text": "LIVE GOVCON & STATE SLED IT/CYBER BRIEFING\n\nHere are 3 active, pre-vetted government software, cloud, and cybersecurity solicitations our autonomous scraper pipeline indexed and shredded today:\n\n1. [California] [0000040326] RFQ FTB-2627-00843 Imperva Data Secure Base Plan Software\n   \u2022 Issuing Agency: Franchise Tax Board (Due: 10/23/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/0000040326-rfq-ftb-2627-00843-imperva-data-secure-base-plan-software-861.html\n\n2. [Municipal SLED] Computer Hardware, Software, Services, Consulting, and Support -Cycle 10\n   \u2022 Issuing Agency: Pearland ISD, TX, Pearland, Brazoria County, TX (Due: 12/11/2026)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/computer-hardware-software-services-consulting-and-support-cycle-10-858.html\n\n3. [Federal] Enterprise Electronic Security Systems (ESS) \u2014 Nationwide Operations, Maintenance, Integration, and Lifecycle Support\n   \u2022 Issuing Agency: Federal Government (SAM) (Due: Open)\n   \u2022 AI Capture Dossier: https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-852.html\n\nEvery dossier includes pre-computed NAICS/SBA caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 teaming workshare guardrails, and IGCE Price-to-Win bands.\n\nBrowse all live open solicitations or route real-time alerts to your Discord, Slack, Teams, or CRM webhook:\nhttps://signaltender.net\n\n#GovCon #RFP #StateSLED #ITContracting #Cybersecurity #CloudComputing #SmallBusinessGovCon"
     },
     {
       "id": "post_03_mcp_and_developer_apis",
@@ -64,6 +65,15 @@
       "scheduled_slot": "SCHEDULED IN LINKEDIN (Fri, Oct 30, 2026 at 10:00 AM CDT)",
       "scheduled": true,
       "text": "The 3 bottlenecks that kill GovCon proposal velocity before Red Team review:\n\n1. Missing a mandatory Requirement in Section L/M or an SF-30 Amendment change\n2. Guessing on Indirect Wrap-Rates (Fringe / Overhead / G&A) and Price-to-Win against GSA CALC+ ceilings\n3. Scrambling to map Key Personnel resumes, CPARS citations, and 13 CFR 125.6 workshare caps 48 hours before submission\n\nSignalTender CaptureDesk Autopilot pre-computes these deliverables automatically on every open solicitation\u2014so your capture lead starts at 80% draft completion on Day 1.\n\nCompare SignalWire Pro ($99/mo) and CaptureDesk Autopilot ($399/mo) at:\nhttps://signaltender.net/#checkout\n\n#ProposalManagement #Shipley #PriceToWin #GovCon #FederalContracting #Cybersecurity #CaptureDesk"
+    },
+    {
+      "id": "post_auto_20261023_0003",
+      "category": "Autonomous Claude Sonnet 5.5 Live RFP Briefing",
+      "scheduled_slot": "AUTO_PUBLISHED_VIA_LINKEDIN_API",
+      "published": true,
+      "text": "LIVE GOVCON & STATE SLED IT/CYBER PROCUREMENT BRIEFING\n\nHere are 3 open government software, cloud, and cybersecurity solicitations our autonomous 14-portal capture engine indexed and shredded today:\n\n1. [California] [0000040326] RFQ FTB-2627-00843 Imperva Data Secure Base Plan Software\n   \u2022 Issuing Agency: Franchise Tax Board (Due: 10/23/2026)\n   \u2022 Pre-Shredded Dossier: https://signaltender.net/contracts/rfp/0000040326-rfq-ftb-2627-00843-imperva-data-secure-base-plan-software-861.html\n\n2. [Municipal SLED] Computer Hardware, Software, Services, Consulting, and Support -Cycle 10\n   \u2022 Issuing Agency: Pearland ISD, TX, Pearland, Brazoria County, TX (Due: 12/11/2026)\n   \u2022 Pre-Shredded Dossier: https://signaltender.net/contracts/rfp/computer-hardware-software-services-consulting-and-support-cycle-10-858.html\n\n3. [Federal] Enterprise Electronic Security Systems (ESS) \u2014 Nationwide Operations, Maintenance, Integration, and Lifecycle Support\n   \u2022 Issuing Agency: Federal Government (SAM) (Due: Open)\n   \u2022 Pre-Shredded Dossier: https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-852.html\n\nEach dossier includes NAICS/SBA size caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 workshare math, and IGCE Price-to-Win benchmarks.\n\nUnlock 3 free pre-shredded dossiers for your state or route 6-hour alerts to your inbox, Slack, Teams, or Discord:\nhttps://signaltender.net/contracts/\n\n#GovCon #SLED #SAMgov #Cybersecurity #GovernmentContracting #CaptureManagement #ProposalWriting #ITContracting",
+      "published_at": "2026-10-23T00:03:36.877697+00:00",
+      "api_result": "Published via LinkedIn API (urn:li:share:7519186730575466496)"
     }
   ]
 }

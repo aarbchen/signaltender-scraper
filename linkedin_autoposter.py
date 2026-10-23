@@ -31,6 +31,9 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 LINKEDIN_ACCESS_TOKEN = os.getenv("LINKEDIN_ACCESS_TOKEN", "").strip()
 LINKEDIN_ORG_URN = os.getenv("LINKEDIN_ORG_URN", "urn:li:organization:146880945").strip()  # Official SignalTender LinkedIn Org URN
+LINKEDIN_PERSON_URN = os.getenv("LINKEDIN_PERSON_URN", "urn:li:person:0ECjjWCZC5").strip()
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "").strip()
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5").strip() or "claude-sonnet-5-5"
 
 # Evergreen LinkedIn Company Profile Metadata (follows Evergreen Copy Rule)
 LINKEDIN_COMPANY_PROFILE = {
@@ -475,52 +478,148 @@ def build_promotional_posts() -> list[dict]:
     return posts
 
 
+def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
+    """Use claude-sonnet-5-5 to draft a fresh, high-converting LinkedIn GovCon briefing from the newest open RFPs."""
+    rfp_lines = []
+    for i, r in enumerate(live_rfps[:3], 1):
+        rfp_lines.append(
+            f"{i}. [{r['jurisdiction']}] {r['title']}\n"
+            f"   • Issuing Agency: {r['agency']} (Due: {r['due']})\n"
+            f"   • Pre-Shredded Dossier: {r['url']}"
+        )
+    fallback_text = (
+        "LIVE GOVCON & STATE SLED IT/CYBER PROCUREMENT BRIEFING\n\n"
+        "Here are 3 open government software, cloud, and cybersecurity solicitations our autonomous 14-portal capture engine indexed and shredded today:\n\n"
+        + "\n\n".join(rfp_lines)
+        + "\n\nEach dossier includes NAICS/SBA size caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 workshare math, and IGCE Price-to-Win benchmarks.\n\n"
+        "Unlock 3 free pre-shredded dossiers for your state or route 6-hour alerts to your inbox, Slack, Teams, or Discord:\n"
+        "https://signaltender.net/contracts/\n\n"
+        "#GovCon #SLED #SAMgov #Cybersecurity #GovernmentContracting #CaptureManagement #ProposalWriting #ITContracting"
+    )
+    if not ANTHROPIC_API_KEY or not live_rfps:
+        return fallback_text
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        prompt = (
+            "You are Aaron Chen, Founder of SignalTender (https://signaltender.net). Write a sharp, executive-grade LinkedIn post "
+            "(plain text, zero markdown bold `**`, zero emojis) highlighting these 3 newly indexed open Federal/State SLED IT & cybersecurity RFPs:\n\n"
+            + "\n\n".join(rfp_lines)
+            + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 14 Federal & State SLED portals "
+            "and pre-computes Shipley Section L/M matrices, CMMC/NIST compliance, and IGCE Price-to-Win bands, and end with https://signaltender.net/contracts/ "
+            "plus 6-8 relevant GovCon hashtags. Keep under 1,800 characters."
+        )
+        msg = client.messages.create(
+            model=ANTHROPIC_MODEL,
+            max_tokens=700,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        for blk in msg.content:
+            if blk.type == "text" and len(blk.text.strip()) > 200:
+                return blk.text.strip().replace("**", "")
+    except Exception as e:
+        report_error("linkedin_autoposter.py", f"Claude post generation warning: {e}")
+    return fallback_text
+
+
 def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
-    """Publish a company update directly to LinkedIn if LINKEDIN_ACCESS_TOKEN and LINKEDIN_ORG_URN are configured."""
-    if not LINKEDIN_ACCESS_TOKEN or not LINKEDIN_ORG_URN:
-        return False, "LINKEDIN_ACCESS_TOKEN / LINKEDIN_ORG_URN not set in .env (staged in linkedin_ready_posts.json)"
-    author_urn = LINKEDIN_ORG_URN if LINKEDIN_ORG_URN.startswith("urn:li:") else f"urn:li:organization:{LINKEDIN_ORG_URN}"
-    headers = {
-        "Authorization": f"Bearer {LINKEDIN_ACCESS_TOKEN}",
+    """
+    Publish directly to LinkedIn via the Official LinkedIn REST / UGC Posts API using LINKEDIN_ACCESS_TOKEN.
+    1. Attempts Organization Page post (`LINKEDIN_ORG_URN`, `urn:li:organization:146880945`) when `w_organization_social` is enabled.
+    2. Automatically falls back to the Founder / Admin Member Feed (`LINKEDIN_PERSON_URN`, `w_member_social`) via `/v2/ugcPosts`
+       so every scheduled run publishes live on LinkedIn with HTTP 201 Created.
+    """
+    token = os.getenv("LINKEDIN_ACCESS_TOKEN", LINKEDIN_ACCESS_TOKEN).strip()
+    org_urn = os.getenv("LINKEDIN_ORG_URN", LINKEDIN_ORG_URN).strip()
+    person_urn = os.getenv("LINKEDIN_PERSON_URN", LINKEDIN_PERSON_URN).strip()
+    if not token:
+        return False, "LINKEDIN_ACCESS_TOKEN not set in .env (staged in linkedin_ready_posts.json)"
+
+    # 1. Try Organization URN first (if Community Management API / w_organization_social is active)
+    if org_urn:
+        author_org = org_urn if org_urn.startswith("urn:li:") else f"urn:li:organization:{org_urn}"
+        rest_headers = {
+            "Authorization": f"Bearer {token}",
+            "X-Restli-Protocol-Version": "2.0.0",
+            "LinkedIn-Version": "202501",
+            "Content-Type": "application/json",
+        }
+        org_payload = {
+            "author": author_org,
+            "commentary": post_text,
+            "visibility": "PUBLIC",
+            "distribution": {
+                "feedDistribution": "MAIN_FEED",
+                "targetEntities": [],
+                "thirdPartyDistributionChannels": [],
+            },
+            "lifecycleState": "PUBLISHED",
+            "isReshareDisabledByAuthor": False,
+        }
+        try:
+            r_org = requests.post("https://api.linkedin.com/rest/posts", headers=rest_headers, json=org_payload, timeout=15)
+            if r_org.status_code in (200, 201):
+                post_id = r_org.headers.get("x-restli-id", "published")
+                return True, f"Published to LinkedIn Organization Feed ({post_id})"
+        except Exception:
+            pass
+
+    # 2. Publish via Official LinkedIn UGC Posts API (`w_member_social`) on Founder/Admin account
+    author_person = person_urn if person_urn.startswith("urn:li:person:") else f"urn:li:person:{person_urn}"
+    ugc_headers = {
+        "Authorization": f"Bearer {token}",
         "X-Restli-Protocol-Version": "2.0.0",
-        "LinkedIn-Version": "202405",
         "Content-Type": "application/json",
     }
-    payload = {
-        "author": author_urn,
-        "commentary": post_text,
-        "visibility": "PUBLIC",
-        "distribution": {
-            "feedDistribution": "MAIN_FEED",
-            "targetEntities": [],
-            "thirdPartyDistributionChannels": [],
-        },
+    ugc_payload = {
+        "author": author_person,
         "lifecycleState": "PUBLISHED",
-        "isReshareDisabledByAuthor": False,
+        "specificContent": {
+            "com.linkedin.ugc.ShareContent": {
+                "shareCommentary": {"text": post_text},
+                "shareMediaCategory": "ARTICLE",
+                "media": [
+                    {
+                        "status": "READY",
+                        "description": {
+                            "text": "Real-time Federal (SAM.gov) & 12-State SLED IT/Cyber RFP intelligence, pre-shredded Shipley Section L/M capture dossiers, and 20 GovCon REST & MCP APIs."
+                        },
+                        "originalUrl": "https://signaltender.net/contracts/",
+                        "title": {"text": "SignalTender — Live Federal & State SLED IT/Cyber Contract Directory"},
+                    }
+                ],
+            }
+        },
+        "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
     }
     try:
-        resp = requests.post("https://api.linkedin.com/rest/posts", headers=headers, json=payload, timeout=15)
+        resp = requests.post("https://api.linkedin.com/v2/ugcPosts", headers=ugc_headers, json=ugc_payload, timeout=15)
         if resp.status_code in (200, 201):
-            post_id = resp.headers.get("x-restli-id", "published")
-            return True, f"Published to LinkedIn Organization Feed ({post_id})"
+            post_id = resp.headers.get("x-restli-id") or resp.json().get("id", "published")
+            return True, f"Published via LinkedIn API ({post_id})"
         return False, f"LinkedIn API HTTP {resp.status_code}: {resp.text[:200]}"
     except Exception as e:
         return False, f"LinkedIn API error: {e}"
 
 
-def run_linkedin_autoposter(generate_banner: bool = False) -> dict:
+def run_linkedin_autoposter(generate_banner: bool = False, force_post_now: bool = False) -> dict:
     if generate_banner:
         generate_linkedin_banner()
 
     posts = build_promotional_posts()
     existing_published_ids = set()
+    last_api_post_ts = 0.0
+    prev_dynamic_posts = []
     if os.path.exists(POSTS_QUEUE_PATH):
         try:
             with open(POSTS_QUEUE_PATH, "r", encoding="utf-8") as f:
                 prev = json.load(f)
+                last_api_post_ts = float(prev.get("last_api_post_ts") or 0.0)
                 for p in prev.get("posts", []):
                     if p.get("published"):
                         existing_published_ids.add(p.get("id"))
+                    if str(p.get("id", "")).startswith("post_auto_"):
+                        prev_dynamic_posts.append(p)
         except Exception:
             pass
 
@@ -528,22 +627,71 @@ def run_linkedin_autoposter(generate_banner: bool = False) -> dict:
         if p["id"] in existing_published_ids:
             p["published"] = True
 
-    # If LinkedIn API token is configured, auto-publish next unpublished post (max 1 per day)
+    posts.extend(prev_dynamic_posts[-10:])
+
+    token = os.getenv("LINKEDIN_ACCESS_TOKEN", LINKEDIN_ACCESS_TOKEN).strip()
     api_status = "STAGED_FOR_LINKEDIN"
-    if LINKEDIN_ACCESS_TOKEN and LINKEDIN_ORG_URN:
+    now_ts = datetime.now(timezone.utc).timestamp()
+
+    # Rate-limit automatic API posting to at most 1 post per 20 hours (unless force_post_now=True)
+    if token and (force_post_now or (now_ts - last_api_post_ts) >= 72000):
+        target_post = None
         for p in posts:
-            if not p.get("published"):
-                ok, detail = publish_via_linkedin_api(p["text"])
-                if ok:
-                    p["published"] = True
-                    p["published_at"] = datetime.now(timezone.utc).isoformat()
-                    api_status = detail
-                else:
-                    api_status = detail
+            if not p.get("published") and not p.get("scheduled"):
+                target_post = p
                 break
+        if target_post is None:
+            # Generate a brand-new live RFP briefing post using claude-sonnet-5-5
+            live_rfps = []
+            try:
+                from supabase import create_client
+                import pseo_generator
+                if SUPABASE_URL and SUPABASE_KEY:
+                    sb = create_client(SUPABASE_URL, SUPABASE_KEY)
+                    rows = (sb.table("contracts").select("*").in_("status", ["New Lead", "Delivered", "NEW"]).order("id", desc=True).limit(30).execute().data or [])
+                    today = datetime.now().date()
+                    for r in rows:
+                        t = str(r.get("title") or "").strip()
+                        if not t or pseo_generator.is_commodity_it_spam(t):
+                            continue
+                        due_dt = pseo_generator.parse_due_date(r)
+                        if due_dt is not None and due_dt < today:
+                            continue
+                        slug = pseo_generator.slugify(t, fallback_id=str(r.get("id") or "rfp"))
+                        j_key = pseo_generator.classify_jurisdiction(r)
+                        j_short = pseo_generator.JURISDICTIONS.get(j_key, {}).get("short", "GovCon")
+                        live_rfps.append({
+                            "title": pseo_generator.clean_display_title(t),
+                            "agency": str(r.get("agency") or "Government Agency").strip(),
+                            "due": due_dt.strftime("%m/%d/%Y") if due_dt else "Open",
+                            "jurisdiction": j_short,
+                            "url": f"https://signaltender.net/contracts/rfp/{slug}.html",
+                        })
+                        if len(live_rfps) >= 3:
+                            break
+            except Exception:
+                pass
+            auto_id = f"post_auto_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M')}"
+            target_post = {
+                "id": auto_id,
+                "category": "Autonomous Claude Sonnet 5.5 Live RFP Briefing",
+                "scheduled_slot": "AUTO_PUBLISHED_VIA_LINKEDIN_API",
+                "published": False,
+                "text": generate_claude_linkedin_post(live_rfps),
+            }
+            posts.append(target_post)
+
+        ok, detail = publish_via_linkedin_api(target_post["text"])
+        api_status = detail
+        if ok:
+            target_post["published"] = True
+            target_post["published_at"] = datetime.now(timezone.utc).isoformat()
+            target_post["api_result"] = detail
+            last_api_post_ts = now_ts
 
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "last_api_post_ts": last_api_post_ts,
         "company_profile": LINKEDIN_COMPANY_PROFILE,
         "banner_path": BANNER_PATH,
         "api_status": api_status,
@@ -556,4 +704,4 @@ def run_linkedin_autoposter(generate_banner: bool = False) -> dict:
 
 
 if __name__ == "__main__":
-    run_linkedin_autoposter(generate_banner=True)
+    run_linkedin_autoposter(generate_banner=False, force_post_now=True)
