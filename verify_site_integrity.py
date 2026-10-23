@@ -194,6 +194,16 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         if 'id="catalog-modules"' not in txt or "overflow-anchor: none" not in txt:
             fail(f"{label}: Missing overflow-anchor: none scroll-jump protection on #catalog-modules")
 
+        # Verify 4-column Enterprise SaaS footer and zero legacy footer labels
+        for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
+            if req_footer not in txt:
+                fail(f"{label}: Missing 4-column Enterprise footer heading '{req_footer}'")
+        if "Main: Live Discord Alert Wire" in txt or "Page 2: Developer Data API Catalog" in txt:
+            fail(f"{label}: Contains legacy unorganized footer labels")
+
+    if 'id="header-auth-user-label" class="truncate max-w-[110px]"' not in index_txt or "clearAutofilledSearchInputs" not in index_txt:
+        fail("index.html: Missing bounded #header-auth-user-label width or clearAutofilledSearchInputs() protection")
+
 
 def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
     import json
