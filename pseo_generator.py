@@ -502,6 +502,10 @@ def _render_layout(
     }}
   </script>
   <style>
+    html, body {{
+      overflow-x: hidden;
+      max-width: 100%;
+    }}
     span[class*="border"],
     span[class*="rounded"]:not(.animate-ping) {{
       display: inline-flex;
@@ -512,15 +516,15 @@ def _render_layout(
   </style>
   {ld_script}
 </head>
-<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
+<body class="bg-navy-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
   <div>
-    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
+    <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
         </div>
-        <div class="flex items-center space-x-4 font-mono text-slate-400">
+        <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
           <span>|</span>
           <a href="{root_prefix}apis.html" class="hover:text-sky-400 transition-colors">Developer APIs</a>
@@ -528,8 +532,8 @@ def _render_layout(
       </div>
     </div>
 
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
         <a href="{root_prefix}index.html" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -542,8 +546,19 @@ def _render_layout(
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
-          <a href="{root_prefix}contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
+            <a href="{root_prefix}index.html#login" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="{root_prefix}index.html#signup" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+          </div>
+          <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
+            Unlock All RFP Links &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-800/70 bg-navy-900/60">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
+          <a href="{root_prefix}contracts/index.html" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="{root_prefix}contracts/federal/index.html" class="hover:text-sky-400 transition-colors">Federal</a>
           <a href="{root_prefix}contracts/texas/index.html" class="hover:text-sky-400 transition-colors">Texas</a>
           <a href="{root_prefix}contracts/virginia/index.html" class="hover:text-sky-400 transition-colors">Virginia</a>
@@ -558,9 +573,6 @@ def _render_layout(
           <a href="{root_prefix}contracts/new_york/index.html" class="hover:text-sky-400 transition-colors">New York</a>
           <a href="{root_prefix}contracts/massachusetts/index.html" class="hover:text-sky-400 transition-colors">Massachusetts</a>
         </nav>
-        <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
-          Unlock All RFP Links &rarr;
-        </a>
       </div>
     </header>
 
@@ -1754,13 +1766,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
     contracts_view_html = f"""<!-- PSEO_CONTRACTS_VIEW_START -->
   <div id="page-contracts" class="hidden">
-    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
+    <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
         </div>
-        <div class="flex items-center space-x-4 font-mono text-slate-400">
+        <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
           <span>|</span>
           <a href="#apis" class="hover:text-sky-400 transition-colors">Developer APIs</a>
@@ -1768,8 +1780,8 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       </div>
     </div>
 
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1782,8 +1794,19 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <nav class="hidden md:flex items-center space-x-5 text-xs font-mono text-slate-300">
-          <a href="#contracts" class="hover:text-sky-400 transition-colors">All Portals</a>
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
+            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+          </div>
+          <a href="#checkout-tier1" class="inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
+            Unlock All RFP Links &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-800/70 bg-navy-900/60">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
+          <a href="#contracts" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="#contracts/federal" class="hover:text-sky-400 transition-colors">Federal</a>
           <a href="#contracts/texas" class="hover:text-sky-400 transition-colors">Texas</a>
           <a href="#contracts/virginia" class="hover:text-sky-400 transition-colors">Virginia</a>
@@ -1799,9 +1822,6 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/massachusetts" class="hover:text-sky-400 transition-colors">Massachusetts</a>
           <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
-        <a href="#checkout-tier1" class="inline-flex items-center px-4 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0">
-          Unlock All RFP Links &rarr;
-        </a>
       </div>
     </header>
 

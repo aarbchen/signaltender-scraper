@@ -61,6 +61,10 @@
       overflow-x: hidden;
       max-width: 100%;
     }
+    header {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
     /* Global safeguard: prevent any bordered or rounded badge/pill span from rendering as
        multi-line inline boxes whose top/bottom borders cross through wrapped text */
     span[class*="border"],
@@ -108,7 +112,7 @@
   <!-- =====================================================================
        STICKY NAVIGATION HEADER
        ===================================================================== -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+  <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
       <!-- Brand Identity -->
       <a href="index.html" class="flex flex-col justify-center shrink-0">

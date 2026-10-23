@@ -52,6 +52,10 @@
     }
   </script>
   <style>
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
     span[class*="border"],
     span[class*="rounded"]:not(.animate-ping) {
       display: inline-flex;
@@ -62,15 +66,15 @@
   </style>
   
 </head>
-<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
+<body class="bg-navy-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
   <div>
-    <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5">
+    <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
         </div>
-        <div class="flex items-center space-x-4 font-mono text-slate-400">
+        <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="../index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
           <span>|</span>
           <a href="../apis.html" class="hover:text-sky-400 transition-colors">Developer APIs</a>
@@ -78,8 +82,8 @@
       </div>
     </div>
 
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
         <a href="../index.html" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,8 +96,19 @@
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-300 whitespace-nowrap">
-          <a href="../contracts/index.html" class="hover:text-sky-400 transition-colors">All Portals</a>
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
+            <a href="../index.html#login" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="../index.html#signup" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+          </div>
+          <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
+            Unlock All RFP Links &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-800/70 bg-navy-900/60">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
+          <a href="../contracts/index.html" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="../contracts/federal/index.html" class="hover:text-sky-400 transition-colors">Federal</a>
           <a href="../contracts/texas/index.html" class="hover:text-sky-400 transition-colors">Texas</a>
           <a href="../contracts/virginia/index.html" class="hover:text-sky-400 transition-colors">Virginia</a>
@@ -108,9 +123,6 @@
           <a href="../contracts/new_york/index.html" class="hover:text-sky-400 transition-colors">New York</a>
           <a href="../contracts/massachusetts/index.html" class="hover:text-sky-400 transition-colors">Massachusetts</a>
         </nav>
-        <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-4 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
-          Unlock All RFP Links &rarr;
-        </a>
       </div>
     </header>
 
@@ -142,13 +154,13 @@
       
         <div class="mb-10 space-y-4">
           <div class="inline-flex items-center px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
-            // LIVE GOVCON DIRECTORY &bull; 124 VERIFIED OPEN IT SOLICITATIONS
+            // LIVE GOVCON DIRECTORY &bull; 130 VERIFIED OPEN IT SOLICITATIONS
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore 124 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, and Massachusetts.
+            Explore 130 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, and Massachusetts.
           </p>
         </div>
 
@@ -161,7 +173,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live pre-vetted federal government IT, software, cloud migration, and cybersecurity solicitations extracted from SAM.gov.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">22 Open Leads</span>
+                <span class="text-emerald-400">24 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -209,7 +221,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Florida Vendor Information Portal (MFMP VIP) IT invitations to negotiate (ITNs), RFPs, and agency technology bids.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">6 Open Leads</span>
+                <span class="text-emerald-400">5 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -245,7 +257,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Commonwealth of Pennsylvania DGS eMarketplace, PA JAGGAER, and Philadelphia Regional Port Authority IT, SaaS, cloud, and data solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">7 Open Leads</span>
+                <span class="text-emerald-400">8 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -269,7 +281,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live State of Georgia Procurement Registry (DOAS GPR / Team Georgia Marketplace), Fulton County, Atlanta Regional Commission, and Georgia Regents IT, cloud, AI, SaaS, ERP, and cybersecurity solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">14 Open Leads</span>
+                <span class="text-emerald-400">15 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -317,7 +329,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live municipal, county, and public university IT and software solicitations monitored across the DemandStar SLED network.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">4 Open Leads</span>
+                <span class="text-emerald-400">7 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -362,6 +374,258 @@
               </thead>
               <tbody class="text-xs">
                 
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30">
+              GEORGIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/pe-40300-rfi-2027-000000008-do-not-use-test-for-erp-id-issue-872.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [PE-40300-RFI-2027-000000008] DO Not Use - Test for ERP ID Issue
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Administrative Services, [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-10-30
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/pe-40300-rfi-2027-000000008-do-not-use-test-for-erp-id-issue-872.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30">
+              GEORGIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/pe-77023-nonst-2027-000000791-iwq-101926-provision-of-siteimprove-platform-871.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [PE-77023-NONST-2027-000000791] IWQ 101926 Provision of Siteimprove Platform Licenses and Support
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Gwinnett County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-10-23
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/pe-77023-nonst-2027-000000791-iwq-101926-provision-of-siteimprove-platform-871.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-orange-500/10 text-orange-300 border-orange-500/30">
+              PENNSYLVANIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/secure-and-confidential-data-capturing-dor-0478-26-870.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Secure And Confidential Data Capturing (DOR 0478-26)
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            PA Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-06
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/secure-and-confidential-data-capturing-dor-0478-26-870.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-teal-500/10 text-teal-300 border-teal-500/30">
+              ILLINOIS
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/27-494dot-finad-b-54339-re-bid-freight-data-forecasting-ifb-869.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [27-494DOT-FINAD-B-54339] Re-Bid Freight Data &amp; Forecasting IFB
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-10-30
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/27-494dot-finad-b-54339-re-bid-freight-data-forecasting-ifb-869.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-purple-500/10 text-purple-300 border-purple-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-ds-2026-4132-next-generation-911-ng911-cloud-cad-rms-emergency-gis-867.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [RFP-DS-2026-4132] Next-Generation 911 (NG911) Cloud CAD/RMS &amp; Emergency GIS Dispatch Platform
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            King County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-17
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/rfp-ds-2026-4132-next-generation-911-ng911-cloud-cad-rms-emergency-gis-867.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-purple-500/10 text-purple-300 border-purple-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [RFP-DS-2026-4119] 24x7 Managed Detection &amp; Response (MDR), Municipal SOC &amp; Zero-Trust Network Segmentation
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Broward County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-13
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-purple-500/10 text-purple-300 border-purple-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-ds-2026-4108-enterprise-cloud-erp-utility-billing-saas-citizen-payment-865.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [RFP-DS-2026-4108] Enterprise Cloud ERP, Utility Billing SaaS &amp; Citizen Payment Portal Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            City of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-10
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/rfp-ds-2026-4108-enterprise-cloud-erp-utility-billing-saas-citizen-payment-865.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/enterprise-it-support-services-j-a-863.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Enterprise IT Support Services J&amp;A
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/enterprise-it-support-services-j-a-863.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/cbm-software-and-analytics-development-cbm-862.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              CBM+ SOFTWARE AND ANALYTICS DEVELOPMENT (CBM+)
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/cbm-software-and-analytics-development-cbm-862.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
@@ -2184,34 +2448,6 @@
 
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30">
-              GEORGIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/pe-77023-nonst-2027-000000791-iwq-101926-provision-of-siteimprove-platform-689.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [PE-77023-NONST-2027-000000791] IWQ 101926 Provision of Siteimprove Platform Licenses and Support
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Gwinnett County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-22
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/pe-77023-nonst-2027-000000791-iwq-101926-provision-of-siteimprove-platform-689.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-lime-500/10 text-lime-300 border-lime-500/30">
               OHIO
             </span>
@@ -2637,34 +2873,6 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="rfp/27-494dot-finad-b-54339-re-bid-freight-data-forecasting-ifb-669.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [27-494DOT-FINAD-B-54339] Re-Bid Freight Data &amp; Forecasting IFB
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-22
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/27-494dot-finad-b-54339-re-bid-freight-data-forecasting-ifb-669.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-teal-500/10 text-teal-300 border-teal-500/30">
-              ILLINOIS
-            </span>
-          </td>
-          <td class="py-4 px-5">
             <a href="rfp/27-510cpogs-cpogs-b-54510-jpmc-sourcewell-rfp-110426-digital-procurement-668.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [27-510CPOGS-CPOGS-B-54510] JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods
             </a>
@@ -2960,202 +3168,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="rfp/sponsored-programs-administration-software-as-a-service-520.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
-              FEDERAL
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/rfi-cyberspace-operations-forces-and-support-cof-ii-508.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              RFI - CYBERSPACE OPERATIONS FORCES AND SUPPORT (COF) II
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Federal Government [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            Open / Rolling
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/rfi-cyberspace-operations-forces-and-support-cof-ii-508.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
-              FEDERAL
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/request-for-information-rfi-kc-46-software-integration-laboratory-507.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              Request for Information (RFI) KC-46 Software Integration Laboratory Operations and Sustainment (O&amp;S)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Federal Government [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            Open / Rolling
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/request-for-information-rfi-kc-46-software-integration-laboratory-507.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border-cyan-500/30">
-              FLORIDA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26-0007-investment-analytics-software-504.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26-0007] Investment Analytics Software
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Citizens Property [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-12
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26-0007-investment-analytics-software-504.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border-cyan-500/30">
-              FLORIDA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/rfq-007-26-off-duty-detail-management-software-for-florida-highway-patrol-502.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [RFQ-007-26] OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Department of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-02
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/rfq-007-26-off-duty-detail-management-software-for-florida-highway-patrol-502.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
-              FEDERAL
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/tax-software-and-support-480.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              Tax Software and Support
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Federal Government [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            Open / Rolling
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/tax-software-and-support-480.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border-cyan-500/30">
-              FLORIDA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/flhsmv-ss-009-27-ad-interactive-voice-response-ivr-system-replacement-475.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [FLHSMV-SS-009-27 AD] Interactive Voice Response (IVR) System Replacement
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Department of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-22
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/flhsmv-ss-009-27-ad-interactive-voice-response-ivr-system-replacement-475.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border-indigo-500/30">
-              TEXAS
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/artificial-intelligence-agent-testing-and-evaluation-platform-441.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              Artificial Intelligence Agent Testing and Evaluation Platform
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Teacher Retirement [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-26
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/artificial-intelligence-agent-testing-and-evaluation-platform-441.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
