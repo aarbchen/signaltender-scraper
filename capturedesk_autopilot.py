@@ -682,8 +682,10 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> Non
             try:
                 sub_resp = supabase.table(TABLE_NAME).select("title,status").eq("status", "SUBSCRIBER_ACTIVE").execute()
                 for srow in (sub_resp.data or []):
+                    if str(srow.get("status") or "") != "SUBSCRIBER_ACTIVE":
+                        continue
                     meta = json.loads(str(srow.get("title") or "{}"))
-                    if str(meta.get("tier") or "") != "tier_2":
+                    if str(meta.get("status") or "") == "canceled" or str(meta.get("tier") or "") != "tier_2":
                         continue
                     w_url = str(meta.get("webhook_url") or "").strip()
                     if not w_url.startswith("https://"):

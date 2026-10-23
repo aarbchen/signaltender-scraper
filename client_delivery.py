@@ -408,7 +408,11 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
 
     for srow in sub_rows:
         try:
+            if str(srow.get("status") or "") != "SUBSCRIBER_ACTIVE":
+                continue
             meta = json.loads(str(srow.get("title") or "{}"))
+            if str(meta.get("status") or "") == "canceled" or str(meta.get("tier") or "") == "canceled":
+                continue
             sub_email = str(meta.get("email") or "").strip().lower()
             if sub_email and "@" in sub_email and bool(meta.get("email_briefings_enabled", False)):
                 _send_subscriber_email_briefing(sub_email, combined_text, len(records))
