@@ -217,6 +217,8 @@ COMMODITY_IT_EXCLUSIONS = [
     r"data\s+interface\s+unit",
     r"computer,\s*rackmount",
     r"synthetic\s+aperture\s+radar",
+    r"\bdo\s+not\s+use\b",
+    r"\btest\s+for\s+erp\b",
 ]
 
 

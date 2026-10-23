@@ -63,7 +63,7 @@ NOISE_EXCLUSION_RE = re.compile(
     r"solid\s+waste|turf\s+replacement|auditorium\s+seating|window\s+blinds|painting\s+services|"
     r"furniture|pursuit\s+vehicles|medical\s+supplies|pharmaceutical|spanish\s+interpreter|"
     r"clock\s+exhibit|bacnet\s+building|building\s+automation\s+upgrade|a/v\s+system|"
-    r"data\s+cabling|ebook\s+&\s+digital\s+content"
+    r"data\s+cabling|ebook\s+&\s+digital\s+content|do\s+not\s+use|test\s+for\s+erp"
     r")\b",
     re.IGNORECASE,
 )

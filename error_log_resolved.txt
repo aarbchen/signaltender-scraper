@@ -71,3 +71,26 @@
 
 === ARCHIVED & RESOLVED AT 2026-10-22 20:16:33 UTC: Auto-healed & verified by auto_error_healer.py (14/14 scrapers & pipeline contracts healthy; cleared 1 local + 0 remote warning(s)) ===
 [!] Cal eProcure Playwright TimeoutError (possible rate-limit or UI stall): Page.wait_for_function: Timeout 45000ms exceeded.
+
+=== ARCHIVED & RESOLVED AT 2026-10-23 00:27:57 UTC: Auto-healed & verified by auto_error_healer.py (14/14 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote warning(s)) ===
+[2026-10-23 00:26:36 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Autonomous Error Telemetry / Scraper Contract Audit reported unresolved errors! Run `python auto_error_healer.py` to inspect and fix.
+
+=== ARCHIVED & RESOLVED AT 2026-10-23 18:04:39 UTC: Auto-healed & verified by auto_error_healer.py (14/14 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote warning(s)) ===
+[2026-10-23 17:59:55 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing 4-column Enterprise footer heading 'Procurement Platform'
+
+=== ARCHIVED & RESOLVED AT 2026-10-23 22:38:20 UTC: Auto-healed & verified by auto_error_healer.py (14/14 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote warning(s)) ===
+[2026-10-23 22:36:46 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmp5ukj44q5.js:1471
+        if (picker && picker.options.length <= 1 && allContracts.length) {
+                                     ^
+
+TypeError: Cannot read properties of undefined (reading 'length')
+    at window.initAccountBidBoard (C:\Users\jouan\AppData\Local\Temp\tmp5ukj44q5.js:1471:38)
+    at window.renderAccountDashboard (C:\Users\jouan\AppData\Local\Temp\tmp5ukj44q5.js:1242:16)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmp5ukj44q5.js:3976:8)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as r
