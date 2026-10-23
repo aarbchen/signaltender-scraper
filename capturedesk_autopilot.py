@@ -678,36 +678,18 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                     time.sleep(0.5)
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
-            # Also dispatch to active Tier 2 subscriber external webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM)
-            try:
-                sub_resp = supabase.table(TABLE_NAME).select("title,status").eq("status", "SUBSCRIBER_ACTIVE").execute()
-                for srow in (sub_resp.data or []):
-                    if str(srow.get("status") or "") != "SUBSCRIBER_ACTIVE":
-                        continue
-                    meta = json.loads(str(srow.get("title") or "{}"))
-                    if str(meta.get("status") or "") == "canceled" or str(meta.get("tier") or "") != "tier_2":
-                        continue
-                    w_url = str(meta.get("webhook_url") or "").strip()
-                    if not w_url.startswith("https://"):
-                        continue
-                    u_low = w_url.lower()
-                    for d in new_dossiers:
-                        d_text = format_capturedesk_discord_embed(d)
-                        if "hooks.slack.com" in u_low or "webhook.office.com" in u_low or "logic.azure.com" in u_low:
-                            ext_payload = {"text": d_text}
-                        elif "discord.com/api/webhooks" in u_low:
-                            ext_payload = {"username": "CaptureDesk Autopilot", "content": d_text, "flags": 4}
-                        else:
-                            ext_payload = {
-                                "event": "signaltender.rfp_dossier.dispatched",
-                                "tier": "tier_2",
-                                "text": d_text,
-                                "content": d_text,
-                                "contract": d,
-                            }
-                        requests.post(w_url, json=ext_payload, timeout=10)
-            except Exception as sub_err:
-                log_error(f"External Tier 2 webhook dispatch warning: {sub_err}")
+            # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
+            # unified Section I (CaptureDesk Dossiers) + Section II (14-Portal Live Wire) payload via client_delivery.py.
+            if __name__ == "__main__":
+                try:
+                    import client_delivery
+                    client_delivery._dispatch_to_external_customer_webhooks(
+                        supabase,
+                        rows[:12],
+                        dossiers=new_dossiers,
+                    )
+                except Exception as sub_err:
+                    log_error(f"External Tier 2 webhook dispatch warning: {sub_err}")
 
         return new_dossiers
 
