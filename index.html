@@ -57,6 +57,10 @@
     }
   </script>
   <style>
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
     /* Global safeguard: prevent any bordered or rounded badge/pill span from rendering as
        multi-line inline boxes whose top/bottom borders cross through wrapped text */
     span[class*="border"],
@@ -69,7 +73,7 @@
   </style>
 </head>
 
-<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200">
+<body class="bg-navy-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-200">
 
   <!-- =====================================================================
        PAGE 1 VIEW: MAIN FLAGSHIP GOVCON PROCUREMENT WIRE & DIRECTORY
@@ -89,16 +93,16 @@
               LIVE MONITORING: <span class="text-emerald-400 font-medium">14 GOVERNMENT PORTALS ACTIVE</span>
             </span>
           </div>
-          <span class="hidden xl:inline text-slate-600">|</span>
-          <span class="hidden xl:inline font-mono text-slate-400 truncate">
+          <span class="hidden 2xl:inline text-slate-600">|</span>
+          <span class="hidden 2xl:inline-block max-w-[460px] font-mono text-slate-400 truncate align-bottom">
             SAM.GOV &bull; DEMANDSTAR &bull; VA eVA &bull; TX ESBD &bull; CA Cal eProcure &bull; FL MFMP &bull; MD eMMA &bull; IL BidBuy &bull; PA eMarketplace &bull; OH OhioBuys &bull; GA GPR &bull; NC eVP &bull; NY CROL &bull; MA COMMBUYS
           </span>
         </div>
-        <div class="flex items-center space-x-4 font-mono text-slate-400 shrink-0 whitespace-nowrap">
-          <a href="#apis" class="hidden sm:inline hover:text-sky-400 transition-colors">
+        <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0 whitespace-nowrap">
+          <a href="#apis" class="hidden md:inline hover:text-sky-400 transition-colors">
             DEVELOPER API CATALOG &rarr;
           </a>
-          <span class="hidden sm:inline text-slate-700">|</span>
+          <span class="hidden md:inline text-slate-700">|</span>
           <a href="#checkout" class="text-sky-400 hover:text-sky-300 transition-colors">
             GET LIVE RFP ALERTS ($99/MO) &rarr;
           </a>
@@ -108,7 +112,7 @@
 
     <!-- Sticky Navigation Header (Main Page) -->
     <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
         <!-- Brand Identity -->
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
@@ -123,40 +127,64 @@
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">REAL-TIME IT &amp; CYBER RFP ALERTS</span>
         </a>
 
-        <!-- Primary Navigation -->
-        <nav class="hidden md:flex items-center space-x-6 lg:space-x-7 text-sm font-medium text-slate-300 whitespace-nowrap">
+        <!-- Primary Product Navigation -->
+        <nav class="hidden xl:flex items-center gap-4 2xl:gap-6 text-[13px] font-medium text-slate-300 whitespace-nowrap">
           <a href="#discord-terminal" class="hover:text-white transition-colors">Live Alert Wire</a>
           <a href="#capture-moat" class="text-indigo-300 hover:text-white transition-colors font-semibold">AI Capture Dossiers</a>
-          <a href="#contract-directory" class="hover:text-white transition-colors">Live Contract Feed</a>
-          <a href="#integrations" class="hover:text-white transition-colors">CRM &amp; Slack/Teams</a>
-          <a href="#checkout" class="hover:text-white transition-colors">Pricing &amp; Plans</a>
-          <a href="#account" class="hover:text-emerald-400 transition-colors font-mono text-xs text-slate-200">Client Portal</a>
-          <a href="#apis" class="inline-flex items-center whitespace-nowrap space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
+          <a href="#contract-directory" class="hover:text-white transition-colors">Contract Feed</a>
+          <a href="#integrations" class="hover:text-white transition-colors">Integrations</a>
+          <a href="#checkout" class="hover:text-white transition-colors">Pricing</a>
+          <a href="#apis" class="inline-flex items-center whitespace-nowrap space-x-1 px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
             <span>Developer APIs</span>
             <span>&rarr;</span>
           </a>
         </nav>
 
-        <!-- Header CTAs -->
-        <div class="flex items-center space-x-3 shrink-0">
-          <a
-            href="#account"
-            class="md:hidden inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono text-emerald-400 bg-slate-900 rounded-lg border border-slate-800"
-          >
-            Account
-          </a>
+        <!-- Dedicated Right-Side Auth & Action Cluster -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
           <a
             href="#apis"
-            class="md:hidden inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
+            class="xl:hidden hidden sm:inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
           >
             APIs &rarr;
           </a>
+
+          <!-- Guest Auth Cluster: Log In & Sign Up -->
+          <div id="header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800">
+            <a
+              href="#account"
+              onclick="window.openClientPortal('login')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
+            >
+              Log In
+            </a>
+            <a
+              href="#account"
+              onclick="window.openClientPortal('register')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
+            >
+              Sign Up
+            </a>
+          </div>
+
+          <!-- Logged-In Account Console Pill -->
+          <div id="header-auth-user" class="hidden items-center sm:pl-2.5 sm:border-l sm:border-slate-800">
+            <a
+              href="#account"
+              class="inline-flex items-center gap-2 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all"
+            >
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              <span id="header-auth-user-label">Account Console</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+
           <a
             href="#checkout"
-            class="inline-flex items-center justify-center whitespace-nowrap px-4 py-2.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
+            class="inline-flex items-center justify-center whitespace-nowrap px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
           >
-            <span>Start Getting Leads</span>
-            <svg class="ml-2 -mr-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <span>Get Leads</span>
+            <svg class="ml-1.5 -mr-0.5 h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
@@ -1754,32 +1782,47 @@
         </a>
 
         <!-- API Catalog Navigation -->
-        <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
+        <nav class="hidden xl:flex items-center gap-5 text-[13px] font-medium text-slate-300 whitespace-nowrap">
           <a href="#overview" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors font-mono text-xs">
             <span>&larr; Main Platform</span>
           </a>
           <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (20)</a>
           <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
           <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
-          <a href="#account" class="hover:text-emerald-400 transition-colors font-mono text-xs text-slate-200">Client Portal</a>
         </nav>
 
-        <!-- Header CTAs -->
-        <div class="flex items-center space-x-3">
+        <!-- Header CTAs & Dedicated Auth Cluster -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
           <a
             href="#overview"
-            class="md:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-slate-200 bg-slate-900 rounded-lg border border-slate-800"
+            class="xl:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-slate-200 bg-slate-900 rounded-lg border border-slate-800"
           >
             &larr; Home
           </a>
+          <div class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800">
+            <a
+              href="#account"
+              onclick="window.openClientPortal('login')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
+            >
+              Log In
+            </a>
+            <a
+              href="#account"
+              onclick="window.openClientPortal('register')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
+            >
+              Sign Up
+            </a>
+          </div>
           <a
             href="https://rapidapi.com/user/aarbchen"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
+            class="inline-flex items-center justify-center whitespace-nowrap px-3.5 py-2 text-xs sm:text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all"
           >
-            <span>RapidAPI Publisher Hub</span>
-            <svg class="ml-2 -mr-0.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <span>RapidAPI Hub</span>
+            <svg class="ml-1.5 -mr-0.5 h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
@@ -8077,183 +8120,265 @@
       </div>
     </header>
 
-    <section class="relative py-14 lg:py-20 border-b border-slate-800/80 min-h-[75vh]">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section class="relative overflow-hidden py-12 lg:py-16 border-b border-slate-800/80 min-h-[78vh]">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b18_1px,transparent_1px),linear-gradient(to_bottom,#1e293b18_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[820px] h-[340px] bg-sky-500/10 blur-[130px] rounded-full pointer-events-none"></div>
 
-        <!-- Hero Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-3">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
-            <span>// SELF-SERVE SUBSCRIPTION, API KEY &amp; MULTI-MEDIUM DELIVERY CONTROL</span>
-          </div>
-          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Client Account &amp; Distribution Portal
-          </h1>
-          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Sign in or register your account to manage your subscription plan, retrieve your Enterprise API key, and switch or combine Discord, Slack/Teams/CRM Webhooks, and 6-Hour Email Briefings at any time.
-          </p>
-        </div>
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
         <!-- ===============================================================
-             VIEW 1: LOGGED-OUT AUTHENTICATION PANEL (SIGN IN / REGISTER)
+             VIEW 1: ENTERPRISE SPLIT-SCREEN AUTH CONSOLE (LOG IN / SIGN UP)
              =============================================================== -->
-        <div id="account-auth-panel" class="max-w-xl mx-auto rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-            <div class="inline-flex rounded-xl bg-navy-950 p-1 border border-slate-800 text-xs font-mono">
-              <button
-                type="button"
-                id="btn-account-tab-login"
-                onclick="window.switchAccountAuthTab('login')"
-                class="px-4 py-2 rounded-lg bg-sky-600 text-white font-bold transition-all"
-              >
-                Sign In
-              </button>
-              <button
-                type="button"
-                id="btn-account-tab-register"
-                onclick="window.switchAccountAuthTab('register')"
-                class="px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all"
-              >
-                Create Account
-              </button>
-            </div>
-            <span class="text-[11px] font-mono text-slate-400">256-Bit PBKDF2-SHA256 Auth</span>
-          </div>
+        <div id="account-auth-panel" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
 
-          <!-- Sign In Form -->
-          <div id="account-form-login" class="space-y-4">
-            <div class="space-y-1.5">
-              <label for="account-login-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address</label>
-              <input
-                id="account-login-email"
-                type="email"
-                placeholder="you@company.com"
-                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-              />
+          <!-- Left Column (5 cols): Enterprise Value Proposition for Free & Paid Accounts -->
+          <div class="lg:col-span-5 space-y-6 pt-2">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
+              <span>// FREE EXPLORER ACCOUNT &bull; NO CREDIT CARD REQUIRED</span>
             </div>
-            <div class="space-y-1.5">
-              <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
-              <input
-                id="account-login-password"
-                type="password"
-                placeholder="Enter your password (6+ characters)"
-                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-              />
-            </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">
-              Already subscribed via Stripe? Enter your checkout email and choose a password (6+ characters) on your first sign-in to claim your account.
-            </p>
-            <button
-              type="button"
-              id="btn-account-login-submit"
-              onclick="window.submitAccountLogin()"
-              class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all"
-            >
-              Sign In to Client Portal &rarr;
-            </button>
-          </div>
 
-          <!-- Create Account Form -->
-          <div id="account-form-register" class="hidden space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="space-y-1.5">
-                <label for="account-reg-name" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Full Name</label>
-                <input
-                  id="account-reg-name"
-                  type="text"
-                  placeholder="Marcus Vance"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-                />
+            <div class="space-y-3">
+              <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                Your Command Center for GovCon Capture &amp; Delivery.
+              </h1>
+              <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                Potential clients can create a <strong class="text-white">Free Explorer Account</strong> anytime without subscribing. Save your capability profile, explore AI-shredded Federal &amp; 12-State SLED dossiers, and configure your delivery mediums in one workspace.
+              </p>
+            </div>
+
+            <div class="space-y-3.5">
+              <div class="p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex items-start space-x-3.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold shrink-0">
+                  01
+                </div>
+                <div class="space-y-0.5">
+                  <div class="text-xs font-mono font-bold text-white">Free Explorer Workspace ($0/mo)</div>
+                  <p class="text-xs text-slate-400 leading-relaxed">
+                    Create an account with zero subscription required. Save your NAICS codes, clearances, and set-asides, unlock 3 sample state RFP dossiers, and test all 20 APIs in the Studio Playground.
+                  </p>
+                </div>
               </div>
-              <div class="space-y-1.5">
-                <label for="account-reg-company" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Company / Agency</label>
-                <input
-                  id="account-reg-company"
-                  type="text"
-                  placeholder="Potomac CyberDefense LLC"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-                />
+
+              <div class="p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex items-start space-x-3.5">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-300 font-mono text-xs font-bold shrink-0">
+                  02
+                </div>
+                <div class="space-y-0.5">
+                  <div class="text-xs font-mono font-bold text-white">Multi-Medium Distribution Hub</div>
+                  <p class="text-xs text-slate-400 leading-relaxed">
+                    Configure, switch, pause, or combine <strong class="text-slate-200">Private Discord Roles</strong>, <strong class="text-slate-200">Slack / Microsoft Teams / CRM Webhooks</strong>, and <strong class="text-slate-200">6-Hour Email Briefings</strong> whenever you see fit.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex items-start space-x-3.5">
+                <div class="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 font-mono text-xs font-bold shrink-0">
+                  03
+                </div>
+                <div class="space-y-0.5">
+                  <div class="text-xs font-mono font-bold text-white">1-Click Plan &amp; API Key Control</div>
+                  <p class="text-xs text-slate-400 leading-relaxed">
+                    Activate or upgrade to <strong class="text-sky-300">Tier 1 ($99/mo)</strong> or <strong class="text-indigo-300">Tier 2 ($399/mo)</strong> whenever your team is ready, retrieve your <code class="font-mono text-emerald-300">st_live_...</code> API key, or cancel in 1 click.
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+            <div class="pt-1 flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-500">
+              <span>PBKDF2-SHA256 ENCRYPTED AUTH</span>
+              <span>&bull;</span>
+              <span>14 PORTALS</span>
+              <span>&bull;</span>
+              <span>20 AI ENGINES</span>
+            </div>
+          </div>
+
+          <!-- Right Column (7 cols): Glassmorphic Auth Card -->
+          <div class="lg:col-span-7 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+              <div class="inline-flex rounded-xl bg-navy-950 p-1 border border-slate-800 text-xs font-mono">
+                <button
+                  type="button"
+                  id="btn-account-tab-login"
+                  onclick="window.switchAccountAuthTab('login')"
+                  class="px-5 py-2 rounded-lg bg-sky-600 text-white font-bold transition-all"
+                >
+                  Log In
+                </button>
+                <button
+                  type="button"
+                  id="btn-account-tab-register"
+                  onclick="window.switchAccountAuthTab('register')"
+                  class="px-5 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all"
+                >
+                  Sign Up &mdash; Free Account
+                </button>
+              </div>
+              <span class="px-2.5 py-1 rounded bg-slate-900 text-slate-400 border border-slate-800 text-[11px] font-mono">
+                Instant Access
+              </span>
+            </div>
+
+            <!-- Log In Form -->
+            <div id="account-form-login" class="space-y-4">
+              <div>
+                <h2 class="text-xl font-bold text-white">Log in to your SignalTender account</h2>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  Access your distribution settings, saved preferences, and subscription console.
+                </p>
+              </div>
               <div class="space-y-1.5">
-                <label for="account-reg-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address *</label>
+                <label for="account-login-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address</label>
                 <input
-                  id="account-reg-email"
+                  id="account-login-email"
                   type="email"
                   placeholder="you@company.com"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
               </div>
               <div class="space-y-1.5">
-                <label for="account-reg-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password (6+ Chars) *</label>
+                <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
                 <input
-                  id="account-reg-password"
+                  id="account-login-password"
                   type="password"
-                  placeholder="Create a password"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  placeholder="Enter your password (6+ characters)"
+                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
               </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="space-y-1.5">
-                <label for="account-reg-tier" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Preferred Plan Tier</label>
-                <select
-                  id="account-reg-tier"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-slate-200"
-                >
-                  <option value="tier_2">Tier 2 // CaptureDesk Autopilot ($399/mo)</option>
-                  <option value="tier_1">Tier 1 // SignalWire Pro ($99/mo)</option>
-                </select>
+              <div class="p-3 rounded-lg bg-navy-950/90 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                <strong class="text-slate-200">Subscribed via Stripe Checkout?</strong> Enter the email you used at checkout and choose a password (6+ characters) on your first login to claim your account.
               </div>
-              <div class="space-y-1.5">
-                <label for="account-reg-discord" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Discord Handle (Optional)</label>
-                <input
-                  id="account-reg-discord"
-                  type="text"
-                  placeholder="@username or 18-digit ID"
-                  class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-                />
+              <button
+                type="button"
+                id="btn-account-login-submit"
+                onclick="window.submitAccountLogin()"
+                class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all"
+              >
+                Log In to Account Console &rarr;
+              </button>
+              <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400">Don&apos;t have an account yet?</span>
+                <button type="button" onclick="window.switchAccountAuthTab('register')" class="text-emerald-400 hover:text-emerald-300 font-bold">
+                  Create Free Account &rarr;
+                </button>
               </div>
             </div>
-            <div class="space-y-1.5">
-              <label for="account-reg-webhook" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Slack / Teams / CRM Webhook URL (Optional)</label>
-              <input
-                id="account-reg-webhook"
-                type="url"
-                placeholder="https://hooks.slack.com/services/... or https://*.webhook.office.com/..."
-                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
-              />
-            </div>
-            <label class="flex items-center space-x-2.5 text-xs font-mono text-slate-200 cursor-pointer">
-              <input id="account-reg-email-briefings" type="checkbox" class="rounded bg-navy-950 border-slate-700 text-emerald-500 focus:ring-0" />
-              <span>Enable 6-Hour Email Briefings</span>
-            </label>
-            <button
-              type="button"
-              id="btn-account-reg-submit"
-              onclick="window.submitAccountRegister()"
-              class="w-full py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/40 shadow-lg transition-all"
-            >
-              Create Client Account &rarr;
-            </button>
-          </div>
 
-          <div id="account-auth-status" class="hidden text-xs font-mono pt-1"></div>
+            <!-- Sign Up (Free Account) Form -->
+            <div id="account-form-register" class="hidden space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h2 class="text-xl font-bold text-white">Create your free SignalTender account</h2>
+                  <p class="text-xs text-slate-400 mt-0.5">
+                    No subscription or credit card required. Explore the platform and save your delivery settings anytime.
+                  </p>
+                </div>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono font-bold">
+                  FREE FOREVER TIER
+                </span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="space-y-1.5">
+                  <label for="account-reg-name" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Full Name</label>
+                  <input
+                    id="account-reg-name"
+                    type="text"
+                    placeholder="Marcus Vance"
+                    class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label for="account-reg-company" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Company / Organization</label>
+                  <input
+                    id="account-reg-company"
+                    type="text"
+                    placeholder="Potomac CyberDefense LLC"
+                    class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="space-y-1.5">
+                  <label for="account-reg-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address *</label>
+                  <input
+                    id="account-reg-email"
+                    type="email"
+                    placeholder="you@company.com"
+                    class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label for="account-reg-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Create Password (6+ Chars) *</label>
+                  <input
+                    id="account-reg-password"
+                    type="password"
+                    placeholder="Minimum 6 characters"
+                    class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-navy-950/80 border border-slate-800 space-y-3">
+                <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                  Optional: Pre-Save Delivery Preferences (Can Be Changed Anytime Inside Your Account)
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    id="account-reg-discord"
+                    type="text"
+                    placeholder="Discord username (optional)"
+                    class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <input
+                    id="account-reg-webhook"
+                    type="url"
+                    placeholder="Slack / Teams / CRM Webhook URL (optional)"
+                    class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                </div>
+                <input id="account-reg-tier" type="hidden" value="tier_2" />
+                <label class="flex items-center space-x-2.5 text-xs font-mono text-slate-300 cursor-pointer">
+                  <input id="account-reg-email-briefings" type="checkbox" class="rounded bg-navy-900 border-slate-700 text-emerald-500 focus:ring-0" />
+                  <span>Enable 6-Hour Executive Email Briefings</span>
+                </label>
+              </div>
+              <button
+                type="button"
+                id="btn-account-reg-submit"
+                onclick="window.submitAccountRegister()"
+                class="w-full py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/40 shadow-lg transition-all"
+              >
+                Create Free Account &rarr;
+              </button>
+              <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400">Already have an account?</span>
+                <button type="button" onclick="window.switchAccountAuthTab('login')" class="text-sky-400 hover:text-sky-300 font-bold">
+                  Log In &rarr;
+                </button>
+              </div>
+            </div>
+
+            <div id="account-auth-status" class="hidden text-xs font-mono pt-1"></div>
+          </div>
         </div>
 
         <!-- ===============================================================
-             VIEW 2: LOGGED-IN ACCOUNT & DISTRIBUTION MANAGEMENT DASHBOARD
+             VIEW 2: LOGGED-IN ACCOUNT & DISTRIBUTION MANAGEMENT CONSOLE
              =============================================================== -->
         <div id="account-dashboard-panel" class="hidden space-y-8">
 
           <!-- Top Account Identity & Session Bar -->
-          <div class="p-5 rounded-2xl bg-navy-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="space-y-1">
-              <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
-                <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-bold" id="account-user-email-badge">client@company.com</span>
-                <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold" id="account-status-pill">ACTIVE SUBSCRIBER</span>
+          <div class="p-5 sm:p-6 rounded-2xl bg-navy-900 border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+              <div id="account-user-avatar" class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-indigo-500/20 border border-sky-500/40 flex items-center justify-center font-mono text-base font-extrabold text-sky-300 shrink-0">
+                ST
               </div>
-              <div class="text-sm font-bold text-white" id="account-user-summary">SignalTender Client Account</div>
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+                  <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-bold" id="account-user-email-badge">client@company.com</span>
+                  <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold" id="account-status-pill">FREE EXPLORER ACCOUNT</span>
+                </div>
+                <div class="text-base font-bold text-white" id="account-user-summary">SignalTender Client Account</div>
+              </div>
             </div>
             <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
               <button
@@ -8261,14 +8386,14 @@
                 onclick="window.refreshClientAccount()"
                 class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
               >
-                Sync Account Status
+                Sync Status
               </button>
               <button
                 type="button"
                 onclick="window.logoutClientAccount()"
                 class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 border border-slate-700 transition-colors"
               >
-                Sign Out
+                Log Out
               </button>
             </div>
           </div>
@@ -8277,10 +8402,10 @@
           <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN &amp; ACCESS</div>
-                <h2 class="text-xl sm:text-2xl font-extrabold text-white" id="account-plan-badge">Tier 2 // CaptureDesk Autopilot ($399/mo)</h2>
+                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN &amp; WORKSPACE TIER</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white" id="account-plan-badge">Free Explorer Account ($0/mo)</h2>
                 <p class="mt-1 text-xs sm:text-sm text-slate-300" id="account-plan-description">
-                  Manage your plan tier, launch un-blurred 14-portal RFP directory access, or upgrade/cancel anytime.
+                  Your free account is active. You can pre-configure all distribution mediums below and upgrade to Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime for automated 6-hour dispatches and un-blurred portal links.
                 </p>
               </div>
               <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
@@ -8288,34 +8413,34 @@
                   href="#contracts"
                   class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 transition-all"
                 >
-                  Open Un-Blurred RFP Directory &rarr;
+                  Open RFP Directory &rarr;
                 </a>
                 <button
                   type="button"
                   onclick="window.launchAccountCheckout('tier1')"
                   class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold border border-sky-400/40 transition-all"
                 >
-                  Activate / Switch Tier 1 ($99/mo) &rarr;
+                  Activate Tier 1 ($99/mo) &rarr;
                 </button>
                 <button
                   type="button"
                   onclick="window.launchAccountCheckout('tier2')"
                   class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all"
                 >
-                  Activate / Upgrade Tier 2 ($399/mo) &rarr;
+                  Activate Tier 2 ($399/mo) &rarr;
                 </button>
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
               <div>
-                Corporate PDF tax receipts are issued automatically on every billing cycle. No annual lock-in on monthly plans.
+                Corporate PDF tax receipts are issued automatically on paid plans. No annual lock-in on monthly plans.
               </div>
               <button
                 type="button"
                 id="btn-account-cancel-sub"
                 onclick="window.cancelClientAccountSubscription()"
-                class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-rose-950/60 text-rose-400 border border-rose-500/30 font-semibold whitespace-nowrap transition-colors"
+                class="hidden px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-rose-950/60 text-rose-400 border border-rose-500/30 font-semibold whitespace-nowrap transition-colors"
               >
                 Cancel Subscription
               </button>
@@ -8329,7 +8454,7 @@
                 <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">02 // DISTRIBUTION MEDIUMS &amp; DELIVERY SETTINGS</div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-white">Manage How Your Team Receives 6-Hour Dispatches</h2>
                 <p class="mt-1 text-xs sm:text-sm text-slate-300">
-                  Enable, switch, pause, or combine Discord, Slack/Microsoft Teams/CRM Webhooks, and 6-Hour Email Briefings whenever you see fit. Changes take effect immediately.
+                  Enable, switch, pause, or combine Discord, Slack/Microsoft Teams/CRM Webhooks, and 6-Hour Email Briefings whenever you see fit. Changes save to your account immediately.
                 </p>
               </div>
               <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] shrink-0">
@@ -8985,10 +9110,48 @@
       };
 
       var accountHashes = {
-        '#account': true
+        '#account': true,
+        '#login': true,
+        '#signup': true
       };
 
       var currentAccountProfile = null;
+
+      window.openClientPortal = function (mode) {
+        if (mode === 'register') {
+          window.switchAccountAuthTab('register');
+        } else if (mode === 'login') {
+          window.switchAccountAuthTab('login');
+        }
+        if (window.location.hash !== '#account') {
+          window.location.hash = '#account';
+        } else {
+          syncPageRoute();
+        }
+      };
+
+      window.syncHeaderAuthUI = function (profile) {
+        var guestEl = document.getElementById('header-auth-guest');
+        var userEl = document.getElementById('header-auth-user');
+        var labelEl = document.getElementById('header-auth-user-label');
+        if (profile && profile.email) {
+          if (guestEl) guestEl.classList.add('hidden');
+          if (userEl) {
+            userEl.classList.remove('hidden');
+            userEl.classList.add('flex');
+          }
+          if (labelEl) {
+            var shortName = profile.full_name || profile.email.split('@')[0] || 'Account Console';
+            labelEl.textContent = shortName;
+          }
+        } else {
+          if (guestEl) guestEl.classList.remove('hidden');
+          if (userEl) {
+            userEl.classList.add('hidden');
+            userEl.classList.remove('flex');
+          }
+        }
+      };
 
       window.switchAccountAuthTab = function (tab) {
         var btnLogin = document.getElementById('btn-account-tab-login');
@@ -8998,13 +9161,13 @@
         var statusEl = document.getElementById('account-auth-status');
         if (statusEl) statusEl.classList.add('hidden');
         if (tab === 'register') {
-          if (btnReg) btnReg.className = 'px-4 py-2 rounded-lg bg-emerald-600 text-white font-bold transition-all';
-          if (btnLogin) btnLogin.className = 'px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
+          if (btnReg) btnReg.className = 'flex-1 px-4 py-2.5 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow';
+          if (btnLogin) btnLogin.className = 'flex-1 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
           if (formLogin) formLogin.classList.add('hidden');
           if (formReg) formReg.classList.remove('hidden');
         } else {
-          if (btnLogin) btnLogin.className = 'px-4 py-2 rounded-lg bg-sky-600 text-white font-bold transition-all';
-          if (btnReg) btnReg.className = 'px-4 py-2 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
+          if (btnLogin) btnLogin.className = 'flex-1 px-4 py-2.5 rounded-lg bg-sky-600 text-white font-bold transition-all shadow';
+          if (btnReg) btnReg.className = 'flex-1 px-4 py-2.5 rounded-lg text-slate-300 hover:text-white font-semibold transition-all';
           if (formReg) formReg.classList.add('hidden');
           if (formLogin) formLogin.classList.remove('hidden');
         }
@@ -9028,10 +9191,26 @@
           }
         } catch (e) {}
 
+        window.syncHeaderAuthUI(data);
+
         var authPanel = document.getElementById('account-auth-panel');
         var dashPanel = document.getElementById('account-dashboard-panel');
         if (authPanel) authPanel.classList.add('hidden');
         if (dashPanel) dashPanel.classList.remove('hidden');
+
+        var avatarEl = document.getElementById('account-user-avatar');
+        if (avatarEl) {
+          var initials = 'ST';
+          if (data.full_name && data.full_name.trim()) {
+            var words = data.full_name.trim().split(/\s+/);
+            initials = words.length > 1
+              ? (words[0].charAt(0) + words[words.length - 1].charAt(0)).toUpperCase()
+              : words[0].substring(0, 2).toUpperCase();
+          } else if (data.email) {
+            initials = data.email.substring(0, 2).toUpperCase();
+          }
+          avatarEl.textContent = initials;
+        }
 
         var emailBadge = document.getElementById('account-user-email-badge');
         if (emailBadge) emailBadge.textContent = data.email;
@@ -9043,10 +9222,10 @@
             statusPill.textContent = 'ACTIVE SUBSCRIBER';
           } else if (data.subscription_status === 'canceled') {
             statusPill.className = 'px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30 font-bold';
-            statusPill.textContent = 'CANCELED';
+            statusPill.textContent = 'CANCELED — FREE EXPLORER';
           } else {
-            statusPill.className = 'px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold';
-            statusPill.textContent = 'PENDING PLAN ACTIVATION';
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold';
+            statusPill.textContent = 'FREE EXPLORER ACCOUNT';
           }
         }
 
@@ -9059,7 +9238,7 @@
         }
 
         var planBadge = document.getElementById('account-plan-badge');
-        if (planBadge) planBadge.textContent = data.tier_label || 'No Active Plan';
+        if (planBadge) planBadge.textContent = data.tier_label || 'Free Explorer Account ($0/mo)';
 
         var planDesc = document.getElementById('account-plan-description');
         if (planDesc) {
@@ -9068,7 +9247,7 @@
           } else if (data.subscription_status === 'active') {
             planDesc.textContent = 'Active Tier 1 SignalWire Pro access across all 14 Federal & 12-State SLED portals and un-blurred RFP directory links. Upgrade to Tier 2 anytime for 20-API CaptureDesk dossiers.';
           } else {
-            planDesc.textContent = 'Your account is set up and your distribution preferences are saved. Activate Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime to begin receiving 6-hour dispatches.';
+            planDesc.textContent = 'Free Explorer Account ($0/mo) active. Explore the 14-portal RFP directory, test all 20 AI APIs in the interactive sandbox, and pre-configure your Discord, Webhook, and Email channels. Activate Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime to start live 6-hour dispatches.';
           }
         }
 
@@ -9236,7 +9415,7 @@
           .then(function (res) {
             if (btnEl) {
               btnEl.disabled = false;
-              btnEl.textContent = 'Create Client Account →';
+              btnEl.textContent = 'Create Free Client Account →';
             }
             if (res.ok) {
               statusEl.classList.add('hidden');
@@ -9249,7 +9428,7 @@
           .catch(function () {
             if (btnEl) {
               btnEl.disabled = false;
-              btnEl.textContent = 'Create Client Account →';
+              btnEl.textContent = 'Create Free Client Account →';
             }
             statusEl.className = 'text-xs font-mono text-rose-400 pt-1';
             statusEl.textContent = 'Network error while creating account.';
@@ -9462,6 +9641,7 @@
           localStorage.removeItem('st_account_session_token');
           localStorage.removeItem('st_account_profile');
         } catch (e) {}
+        window.syncHeaderAuthUI(null);
         var authPanel = document.getElementById('account-auth-panel');
         var dashPanel = document.getElementById('account-dashboard-panel');
         if (dashPanel) dashPanel.classList.add('hidden');
@@ -9491,6 +9671,11 @@
           if (checkoutPage) checkoutPage.classList.add('hidden');
           if (accountPage) accountPage.classList.remove('hidden');
           document.title = 'SignalTender | Client Account & Distribution Settings Portal';
+          if (hash === '#signup') {
+            window.switchAccountAuthTab('register');
+          } else if (hash === '#login') {
+            window.switchAccountAuthTab('login');
+          }
           try {
             var cachedRaw = localStorage.getItem('st_account_profile');
             var savedTok = localStorage.getItem('st_account_session_token');
@@ -9593,6 +9778,17 @@
           setTimeout(syncPageRoute, 0);
         }
       });
+
+      try {
+        var initCachedRaw = localStorage.getItem('st_account_profile');
+        var initSavedTok = localStorage.getItem('st_account_session_token');
+        if (initCachedRaw && initSavedTok) {
+          var initObj = JSON.parse(initCachedRaw);
+          if (initObj && initObj.email) {
+            window.syncHeaderAuthUI(initObj);
+          }
+        }
+      } catch (e) {}
 
       window.addEventListener('hashchange', syncPageRoute);
       window.addEventListener('DOMContentLoaded', syncPageRoute);
