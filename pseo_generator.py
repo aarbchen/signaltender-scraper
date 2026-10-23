@@ -521,7 +521,7 @@ def _render_layout(
 <body class="bg-navy-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
   <div>
     <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
@@ -535,7 +535,7 @@ def _render_layout(
     </div>
 
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <a href="{root_prefix}index.html" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -548,10 +548,18 @@ def _render_layout(
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
-            <a href="{root_prefix}index.html#login" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="{root_prefix}index.html#signup" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="{root_prefix}index.html#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="{root_prefix}contracts/index.html" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="{root_prefix}index.html#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        </nav>
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
+          <div class="flex items-center gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800">
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
           <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
             Unlock All RFP Links &rarr;
@@ -1822,7 +1830,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     contracts_view_html = f"""<!-- PSEO_CONTRACTS_VIEW_START -->
   <div id="page-contracts" class="hidden">
     <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
@@ -1836,7 +1844,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     </div>
 
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1849,10 +1857,26 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
-            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        </nav>
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
+          <div id="contracts-header-auth-guest" class="flex items-center gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
+            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+          </div>
+          <div id="contracts-header-auth-user" class="hidden items-center pr-2 border-r border-slate-800 shrink-0">
+            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="contracts-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span class="shrink-0">&rarr;</span>
+            </a>
           </div>
           <a href="#checkout-tier1" class="inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
             Unlock All RFP Links &rarr;

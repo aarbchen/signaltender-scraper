@@ -534,6 +534,7 @@ window.switchAccountAuthTab('register');
 window.switchAccountAuthTab('login');
 window.renderAccountDashboard({
   email: 'capture@acmegovcyber.com',
+  is_admin: false,
   full_name: 'Marcus Vance',
   company: 'Acme GovCyber LLC',
   subscription_status: 'active',
@@ -546,8 +547,27 @@ window.renderAccountDashboard({
   destination_type: 'slack',
   email_briefings_enabled: true
 });
-if (typeof window.switchAdminPortalPreview !== 'function') {
-  throw new Error('window.switchAdminPortalPreview is undefined at top level!');
+if (document.getElementById('account-admin-bar').innerHTML !== '') {
+  throw new Error('Non-admin user must never have admin bar HTML rendered in DOM!');
+}
+if (window.switchAdminPortalPreview('tier_1') !== false) {
+  throw new Error('Non-admin user must be blocked from calling switchAdminPortalPreview!');
+}
+window.renderAccountDashboard({
+  email: 'admin@signaltender.net',
+  is_admin: true,
+  full_name: 'Aaron Chen (Founder & Admin)',
+  company: 'SignalTender HQ',
+  subscription_status: 'active',
+  active: true,
+  tier: 'tier_2',
+  tier_label: 'Founder & Admin // Tier 2 CaptureDesk Autopilot ($399/mo)',
+  api_key: 'st_live_admin_key',
+  discord_handle: 'aarbchen',
+  email_briefings_enabled: true
+});
+if (document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER &amp; ADMIN CONSOLE') === -1 && document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER & ADMIN CONSOLE') === -1) {
+  throw new Error('Admin user did not receive #account-admin-bar switcher!');
 }
 window.switchAdminPortalPreview('tier_1');
 if (document.getElementById('account-plan-badge').textContent.indexOf('Tier 1') === -1) {

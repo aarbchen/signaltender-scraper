@@ -86,19 +86,19 @@
 
     <!-- Top Telemetry / Status Bar (Main Page) -->
     <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
           <div class="flex items-center space-x-2.5 shrink-0">
             <span class="relative flex h-2 w-2 shrink-0">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span class="font-mono text-slate-300 tracking-tight whitespace-nowrap">
+            <span class="font-mono text-[11px] sm:text-xs text-slate-300 tracking-tight">
               LIVE MONITORING: <span class="text-emerald-400 font-medium">14 GOVERNMENT PORTALS ACTIVE</span>
             </span>
           </div>
           <span class="hidden 2xl:inline text-slate-600">|</span>
-          <span class="hidden 2xl:inline-block max-w-[460px] font-mono text-slate-400 truncate align-bottom">
+          <span class="hidden 2xl:inline-block max-w-[560px] font-mono text-slate-400 truncate align-bottom">
             SAM.GOV &bull; DEMANDSTAR &bull; VA eVA &bull; TX ESBD &bull; CA Cal eProcure &bull; FL MFMP &bull; MD eMMA &bull; IL BidBuy &bull; PA eMarketplace &bull; OH OhioBuys &bull; GA GPR &bull; NC eVP &bull; NY CROL &bull; MA COMMBUYS
           </span>
         </div>
@@ -116,7 +116,7 @@
 
     <!-- Sticky Navigation Header (Main Page) -->
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2 sm:gap-3">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <!-- Brand Identity -->
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
@@ -131,28 +131,18 @@
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">REAL-TIME IT &amp; CYBER RFP ALERTS</span>
         </a>
 
-        <!-- Primary Product Navigation -->
-        <nav class="hidden lg:flex items-center gap-3 xl:gap-5 text-xs font-medium text-slate-300 whitespace-nowrap shrink-0">
-          <a href="#discord-terminal" class="hover:text-white transition-colors">Live Wire</a>
-          <a href="#capture-moat" class="text-indigo-300 hover:text-white transition-colors font-semibold">AI Dossiers</a>
-          <a href="#contract-directory" class="hover:text-white transition-colors">RFP Feed</a>
-          <a href="#integrations" class="hover:text-white transition-colors">Integrations</a>
-          <a href="#checkout" class="hover:text-white transition-colors">Pricing</a>
-          <a href="#apis" class="inline-flex items-center whitespace-nowrap space-x-1 px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
-            <span>APIs</span>
-            <span>&rarr;</span>
-          </a>
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
 
         <!-- Dedicated Right-Side Auth & Action Cluster -->
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <a
-            href="#apis"
-            class="lg:hidden hidden sm:inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono text-sky-400 bg-slate-900 rounded-lg border border-slate-800"
-          >
-            APIs &rarr;
-          </a>
-
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
           <!-- Guest Auth Cluster: Log In & Sign Up -->
           <div id="header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
             <a
@@ -193,6 +183,17 @@
             </svg>
           </a>
         </div>
+      </div>
+      <!-- Compact Mobile / Tablet Navigation Bar (<1024px) -->
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-4 py-2 grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-[11px] font-mono text-center">
+          <a href="#overview" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Live Wire</a>
+          <a href="#capture-moat" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">AI Dossiers</a>
+          <a href="#contracts" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">RFP Directory</a>
+          <a href="#apis" class="px-2 py-1.5 rounded-md bg-navy-950 text-sky-400 border border-slate-800 font-semibold truncate">20 APIs</a>
+          <a href="#integrations" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Integrations</a>
+          <a href="#checkout" class="px-2 py-1.5 rounded-md bg-navy-950 text-emerald-300 border border-slate-800 font-semibold truncate">Pricing</a>
+        </nav>
       </div>
     </header>
 
@@ -1742,7 +1743,7 @@
 
     <!-- Top Telemetry / Status Bar (API Catalog Page) -->
     <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] sm:text-xs">
         <div class="flex items-center space-x-3">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -1770,7 +1771,7 @@
 
     <!-- Sticky Navigation Header (API Catalog Page) -->
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2 sm:gap-3">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <!-- Brand Identity -->
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
@@ -1785,24 +1786,18 @@
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">DEVELOPER &amp; AGENTIC MICROSERVICES</span>
         </a>
 
-        <!-- API Catalog Navigation -->
-        <nav class="hidden xl:flex items-center gap-5 text-[13px] font-medium text-slate-300 whitespace-nowrap">
-          <a href="#overview" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors font-mono text-xs">
-            <span>&larr; Main Platform</span>
-          </a>
-          <a href="#catalog-modules" class="text-sky-400 font-semibold">API Catalog (20)</a>
-          <a href="#api-pricing-matrix" class="hover:text-white transition-colors">Tier &amp; Quota Matrix</a>
-          <a href="#discord-terminal" class="hover:text-white transition-colors">Discord Wire ($99/mo)</a>
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
 
         <!-- Header CTAs & Dedicated Auth Cluster -->
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <a
-            href="#overview"
-            class="xl:hidden inline-flex items-center justify-center px-3 py-2 text-xs font-mono text-slate-200 bg-slate-900 rounded-lg border border-slate-800"
-          >
-            &larr; Home
-          </a>
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
           <div id="apis-header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
             <a
               href="#account"
@@ -1841,6 +1836,17 @@
             </svg>
           </a>
         </div>
+      </div>
+      <!-- Compact Mobile / Tablet Navigation Bar (<1024px) -->
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-4 py-2 grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-[11px] font-mono text-center">
+          <a href="#overview" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Live Wire</a>
+          <a href="#capture-moat" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">AI Dossiers</a>
+          <a href="#contracts" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">RFP Directory</a>
+          <a href="#apis" class="px-2 py-1.5 rounded-md bg-navy-950 text-sky-400 border border-slate-800 font-semibold truncate">20 APIs</a>
+          <a href="#integrations" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Integrations</a>
+          <a href="#checkout" class="px-2 py-1.5 rounded-md bg-navy-950 text-emerald-300 border border-slate-800 font-semibold truncate">Pricing</a>
+        </nav>
       </div>
     </header>
 
@@ -6806,7 +6812,7 @@
   <!-- PSEO_CONTRACTS_VIEW_START -->
   <div id="page-contracts" class="hidden">
     <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">14 PORTALS ACTIVE</span></span>
@@ -6820,7 +6826,7 @@
     </div>
 
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -6833,10 +6839,26 @@
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 12-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div class="hidden sm:flex items-center gap-1.5 pr-2 border-r border-slate-800">
-            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-semibold text-slate-300 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        </nav>
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
+          <div id="contracts-header-auth-guest" class="flex items-center gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
+            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+          </div>
+          <div id="contracts-header-auth-user" class="hidden items-center pr-2 border-r border-slate-800 shrink-0">
+            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="contracts-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span class="shrink-0">&rarr;</span>
+            </a>
           </div>
           <a href="#checkout-tier1" class="inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
             Unlock All RFP Links &rarr;
@@ -7362,7 +7384,7 @@
 
     <!-- Top Security & Provisioning Bar -->
     <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center space-x-2.5">
           <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">256-BIT TLS ENCRYPTED B2B CHECKOUT &bull; <span class="text-emerald-400">INSTANT DISCORD ROLE PROVISIONING</span></span>
@@ -7376,8 +7398,8 @@
     </div>
 
     <!-- Sticky Header (Checkout View) -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7386,19 +7408,63 @@
               <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
-            <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">GOVCON INTEL</span>
+            <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">PLANS &amp; PRICING</span>
           </div>
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">REAL-TIME IT &amp; CYBER RFP ALERTS</span>
         </a>
 
-        <div class="flex items-center space-x-3">
-          <a href="#account" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/40 text-xs font-mono text-emerald-300 transition-colors">
-            Client Account Portal &rarr;
-          </a>
-          <a href="#overview" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors">
-            &larr; Return to Live Wire
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        </nav>
+
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
+          <div id="checkout-header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
+            <a
+              href="#account"
+              onclick="window.openClientPortal('login')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
+            >
+              Log In
+            </a>
+            <a
+              href="#account"
+              onclick="window.openClientPortal('register')"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
+            >
+              Sign Up
+            </a>
+          </div>
+          <div id="checkout-header-auth-user" class="hidden items-center sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
+            <a
+              href="#account"
+              class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]"
+            >
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="checkout-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span class="shrink-0">&rarr;</span>
+            </a>
+          </div>
+          <a href="#contracts" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-sky-400 font-semibold transition-colors">
+            RFP Directory &rarr;
           </a>
         </div>
+      </div>
+      <!-- Compact Mobile / Tablet Navigation Bar (<1024px) -->
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-4 py-2 grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-[11px] font-mono text-center">
+          <a href="#overview" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Live Wire</a>
+          <a href="#capture-moat" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">AI Dossiers</a>
+          <a href="#contracts" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">RFP Directory</a>
+          <a href="#apis" class="px-2 py-1.5 rounded-md bg-navy-950 text-sky-400 border border-slate-800 font-semibold truncate">20 APIs</a>
+          <a href="#integrations" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Integrations</a>
+          <a href="#checkout" class="px-2 py-1.5 rounded-md bg-navy-950 text-emerald-300 border border-slate-800 font-semibold truncate">Pricing</a>
+        </nav>
       </div>
     </header>
 
@@ -8116,7 +8182,7 @@
 
     <!-- Top Security & Account Bar -->
     <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center space-x-2.5">
           <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
           <span class="font-mono text-slate-300">CLIENT ACCOUNT PORTAL &bull; <span class="text-emerald-400">SUBSCRIPTION &amp; DISTRIBUTION SETTINGS</span></span>
@@ -8132,8 +8198,8 @@
     </div>
 
     <!-- Sticky Header (Account View) -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8147,14 +8213,35 @@
           <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">SUBSCRIPTION &amp; DISTRIBUTION MANAGEMENT</span>
         </a>
 
-        <div class="flex items-center space-x-3">
-          <a href="#contracts" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-emerald-300 transition-colors">
+        <!-- Full-Width Organized Site Navigation Bar -->
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-1.5 mx-2 xl:mx-5 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live Wire</a>
+          <a href="#capture-moat" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">AI Dossiers</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog (20)</a>
+          <a href="#integrations" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Integrations</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        </nav>
+
+        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
+          <a href="#contracts" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-emerald-300 font-semibold transition-colors">
             Open RFP Directory &rarr;
           </a>
-          <a href="#overview" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono text-slate-200 transition-colors">
-            &larr; Return to Live Wire
+          <a href="#checkout" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 border border-sky-400/30 text-xs font-mono font-semibold text-white transition-colors">
+            Plans &amp; Pricing &rarr;
           </a>
         </div>
+      </div>
+      <!-- Compact Mobile / Tablet Navigation Bar (<1024px) -->
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-4 py-2 grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-[11px] font-mono text-center">
+          <a href="#overview" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Live Wire</a>
+          <a href="#capture-moat" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">AI Dossiers</a>
+          <a href="#contracts" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">RFP Directory</a>
+          <a href="#apis" class="px-2 py-1.5 rounded-md bg-navy-950 text-sky-400 border border-slate-800 font-semibold truncate">20 APIs</a>
+          <a href="#integrations" class="px-2 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Integrations</a>
+          <a href="#checkout" class="px-2 py-1.5 rounded-md bg-navy-950 text-emerald-300 border border-slate-800 font-semibold truncate">Pricing</a>
+        </nav>
       </div>
     </header>
 
@@ -8416,46 +8503,8 @@
              =============================================================== -->
         <div id="account-dashboard-panel" class="hidden space-y-8">
 
-          <!-- Founder & Admin Preview Mode Switcher (Visible for Admin Accounts) -->
-          <div id="account-admin-bar" class="hidden p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950/90 via-navy-900 to-emerald-950/80 border-2 border-indigo-500/50 shadow-2xl">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <div class="space-y-1">
-                <div class="inline-flex items-center gap-2 text-[11px] font-mono text-indigo-300 uppercase tracking-wider font-bold">
-                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                  <span>FOUNDER &amp; ADMIN CONSOLE // CLIENT PORTAL VIEW SWITCHER</span>
-                </div>
-                <p class="text-xs text-slate-300">
-                  Signed in with Founder/Admin privileges (invisible to customers). Click any tier button on the right to preview how the Client Portal looks for that tier: <strong id="account-admin-preview-status" class="text-emerald-300 font-mono">Viewing: Tier 2 Autopilot ($399/mo)</strong>
-                </p>
-              </div>
-              <div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
-                <button
-                  type="button"
-                  id="btn-admin-view-tier2"
-                  onclick="window.switchAdminPortalPreview('tier_2')"
-                  class="px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer"
-                >
-                  View As: Tier 2 Autopilot ($399/mo)
-                </button>
-                <button
-                  type="button"
-                  id="btn-admin-view-tier1"
-                  onclick="window.switchAdminPortalPreview('tier_1')"
-                  class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer"
-                >
-                  View As: Tier 1 Wire ($99/mo)
-                </button>
-                <button
-                  type="button"
-                  id="btn-admin-view-free"
-                  onclick="window.switchAdminPortalPreview('free')"
-                  class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer"
-                >
-                  View As: Free Explorer ($0/mo)
-                </button>
-              </div>
-            </div>
-          </div>
+          <!-- Admin Preview Container (Empty in DOM for non-admins; dynamically populated only for verified admin session) -->
+          <div id="account-admin-bar" class="hidden" aria-hidden="true"></div>
 
           <!-- Top Account Identity & Session Bar -->
           <div class="p-5 sm:p-6 rounded-2xl bg-navy-900 border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -9679,10 +9728,16 @@
         }
       };
 
+      function isStrictAdminAccount(profile) {
+        if (!profile || !profile.email) return false;
+        var em = String(profile.email).trim().toLowerCase();
+        return (profile.is_admin === true) && (em === 'admin@signaltender.net' || em === 'aaron@getsignaltender.com');
+      }
+
       window.syncHeaderAuthUI = function (profile) {
-        var guestIds = ['header-auth-guest', 'apis-header-auth-guest'];
-        var userIds = ['header-auth-user', 'apis-header-auth-user'];
-        var labelIds = ['header-auth-user-label', 'apis-header-auth-user-label'];
+        var guestIds = ['header-auth-guest', 'apis-header-auth-guest', 'contracts-header-auth-guest', 'checkout-header-auth-guest'];
+        var userIds = ['header-auth-user', 'apis-header-auth-user', 'contracts-header-auth-user', 'checkout-header-auth-user'];
+        var labelIds = ['header-auth-user-label', 'apis-header-auth-user-label', 'contracts-header-auth-user-label', 'checkout-header-auth-user-label'];
         if (profile && profile.email) {
           var cleanName = String(profile.full_name || '').replace(/\s*\([^)]*\)/g, '').trim();
           var firstWord = cleanName ? cleanName.split(/\s+/)[0] : '';
@@ -9778,12 +9833,35 @@
         }
 
         var adminBar = document.getElementById('account-admin-bar');
-        var isAdminAccount = !!(data.is_admin || data.email === 'aaron@getsignaltender.com' || data.email === 'admin@signaltender.net');
+        var isAdminAccount = isStrictAdminAccount(data);
         if (adminBar) {
           if (isAdminAccount) {
-            adminBar.classList.remove('hidden');
+            if (!adminBar.innerHTML || adminBar.innerHTML.indexOf('btn-admin-view-tier2') === -1) {
+              adminBar.innerHTML =
+                '<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">' +
+                  '<div class="space-y-1">' +
+                    '<div class="inline-flex items-center gap-2 text-[11px] font-mono text-indigo-300 uppercase tracking-wider font-bold">' +
+                      '<span class="h-2 w-2 rounded-full bg-emerald-400"></span>' +
+                      '<span>FOUNDER &amp; ADMIN CONSOLE // CLIENT PORTAL VIEW SWITCHER</span>' +
+                    '</div>' +
+                    '<p class="text-xs text-slate-300">' +
+                      'Signed in with Founder/Admin privileges (strictly hidden from all non-admin accounts). Click any tier button on the right to preview how the Client Portal looks for that tier: ' +
+                      '<strong id="account-admin-preview-status" class="text-emerald-300 font-mono">Viewing: Tier 2 Autopilot ($399/mo)</strong>' +
+                    '</p>' +
+                  '</div>' +
+                  '<div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">' +
+                    '<button type="button" id="btn-admin-view-tier2" onclick="window.switchAdminPortalPreview(&apos;tier_2&apos;)" class="px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer">View As: Tier 2 Autopilot ($399/mo)</button>' +
+                    '<button type="button" id="btn-admin-view-tier1" onclick="window.switchAdminPortalPreview(&apos;tier_1&apos;)" class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer">View As: Tier 1 Wire ($99/mo)</button>' +
+                    '<button type="button" id="btn-admin-view-free" onclick="window.switchAdminPortalPreview(&apos;free&apos;)" class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer">View As: Free Explorer ($0/mo)</button>' +
+                  '</div>' +
+                '</div>';
+            }
+            adminBar.className = 'p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950/90 via-navy-900 to-emerald-950/80 border-2 border-indigo-500/50 shadow-2xl';
+            adminBar.setAttribute('aria-hidden', 'false');
           } else {
-            adminBar.classList.add('hidden');
+            adminBar.innerHTML = '';
+            adminBar.className = 'hidden';
+            adminBar.setAttribute('aria-hidden', 'true');
           }
         }
 
@@ -9965,7 +10043,7 @@
         // Populate Company Capture Vault
         var cp = (data.company_profile && typeof data.company_profile === 'object') ? data.company_profile : {};
         var ueiEl = document.getElementById('account-vault-uei');
-        if (ueiEl && cp.uei_cage !== undefined) ueiEl.value = cp.uei_cage;
+        if (ueiEl) ueiEl.value = cp.uei_cage ? String(cp.uei_cage) : '';
         var vNaicsEl = document.getElementById('account-vault-naics');
         if (vNaicsEl && cp.primary_naics) vNaicsEl.value = cp.primary_naics;
         var vSetEl = document.getElementById('account-vault-setaside');
@@ -10509,7 +10587,7 @@
         }
       };
 
-      var adminSavedApiKey = 'st_live_d1ebd3f4c881a4923e8f02bc9401a8e27c11';
+      var adminSavedApiKey = '';
 
       window.switchAdminPortalPreview = function (mode) {
         var baseProf = currentAccountProfile;
@@ -10519,19 +10597,34 @@
             if (rawP) baseProf = JSON.parse(rawP);
           } catch (e) {}
         }
-        if (!baseProf) {
-          baseProf = {
-            email: 'admin@signaltender.net',
-            full_name: 'Aaron Chen (Founder & Admin)',
-            company: 'SignalTender HQ',
-            is_admin: true
-          };
+        if (!isStrictAdminAccount(baseProf)) {
+          return false;
         }
         if (baseProf.api_key && baseProf.api_key.indexOf('st_live_') === 0) {
           adminSavedApiKey = baseProf.api_key;
         }
         var clone = JSON.parse(JSON.stringify(baseProf));
         clone.is_admin = true;
+        if (mode === 'free') {
+          clone.subscription_status = 'pending';
+          clone.active = false;
+          clone.tier = 'free';
+          clone.tier_label = 'Free Explorer Account ($0/mo)';
+          clone.api_key = '';
+        } else if (mode === 'tier_1') {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_1';
+          clone.tier_label = 'Tier 1 // SignalWire Pro ($99/mo)';
+          clone.api_key = '';
+        } else {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_2';
+          clone.tier_label = 'Founder & Admin // Tier 2 CaptureDesk Autopilot ($399/mo)';
+          clone.api_key = adminSavedApiKey || 'st_live_admin_session';
+        }
+        window.renderAccountDashboard(clone);
         var bT2 = document.getElementById('btn-admin-view-tier2');
         var bT1 = document.getElementById('btn-admin-view-tier1');
         var bFree = document.getElementById('btn-admin-view-free');
@@ -10539,42 +10632,26 @@
         if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer';
         if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer';
         if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer';
-
         if (mode === 'free') {
-          clone.subscription_status = 'pending';
-          clone.active = false;
-          clone.tier = 'free';
-          clone.tier_label = 'Free Explorer Account ($0/mo)';
-          clone.api_key = '';
           if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-emerald-300 font-mono';
             statusLbl.textContent = 'Viewing: Free Explorer ($0/mo)';
           }
         } else if (mode === 'tier_1') {
-          clone.subscription_status = 'active';
-          clone.active = true;
-          clone.tier = 'tier_1';
-          clone.tier_label = 'Tier 1 // SignalWire Pro ($99/mo)';
-          clone.api_key = '';
           if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-sky-300 font-mono';
             statusLbl.textContent = 'Viewing: Tier 1 SignalWire ($99/mo)';
           }
         } else {
-          clone.subscription_status = 'active';
-          clone.active = true;
-          clone.tier = 'tier_2';
-          clone.tier_label = 'Founder & Admin // Tier 2 CaptureDesk Autopilot ($399/mo)';
-          clone.api_key = adminSavedApiKey;
           if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-indigo-300 font-mono';
             statusLbl.textContent = 'Viewing: Tier 2 Autopilot ($399/mo)';
           }
         }
-        window.renderAccountDashboard(clone);
+        return true;
       };
 
       window.submitAccountLogin = function () {
@@ -10901,11 +10978,18 @@
 
       window.logoutClientAccount = function () {
         currentAccountProfile = null;
+        adminSavedApiKey = '';
         try {
           localStorage.removeItem('st_account_session_token');
           localStorage.removeItem('st_account_profile');
         } catch (e) {}
         window.syncHeaderAuthUI(null);
+        var adminBar = document.getElementById('account-admin-bar');
+        if (adminBar) {
+          adminBar.innerHTML = '';
+          adminBar.className = 'hidden';
+          adminBar.setAttribute('aria-hidden', 'true');
+        }
         var authPanel = document.getElementById('account-auth-panel');
         var dashPanel = document.getElementById('account-dashboard-panel');
         if (dashPanel) dashPanel.classList.add('hidden');
