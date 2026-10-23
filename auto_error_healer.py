@@ -201,6 +201,13 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                     f"{rel_path} still contains a legacy 4.x model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
                 )
 
+    # 3. Verify linkedin_autoposter.py strictly targets SignalTender Company Page (urn:li:organization:146880945) and NEVER a personal profile
+    li_path = BASE_DIR / "linkedin_autoposter.py"
+    if li_path.exists():
+        li_src = li_path.read_text(encoding="utf-8", errors="replace")
+        if "LINKEDIN_PERSON_URN" in li_src or '"author": author_person' in li_src:
+            issues.append("linkedin_autoposter.py must NEVER target a personal profile (`LINKEDIN_PERSON_URN`); only `urn:li:organization:146880945` is allowed.")
+
     return issues
 
 

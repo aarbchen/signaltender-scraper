@@ -30,8 +30,8 @@ POSTS_QUEUE_PATH = os.path.join(BASE_DIR, "linkedin_ready_posts.json")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 LINKEDIN_ACCESS_TOKEN = os.getenv("LINKEDIN_ACCESS_TOKEN", "").strip()
-LINKEDIN_ORG_URN = os.getenv("LINKEDIN_ORG_URN", "urn:li:organization:146880945").strip()  # Official SignalTender LinkedIn Org URN
-LINKEDIN_PERSON_URN = os.getenv("LINKEDIN_PERSON_URN", "urn:li:person:0ECjjWCZC5").strip()
+# Strictly locked to the official SignalTender Company Page (NEVER a personal urn:li:person profile)
+LINKEDIN_ORG_URN = "urn:li:organization:146880945"
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "").strip()
 ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5").strip() or "claude-sonnet-5-5"
 
@@ -502,7 +502,8 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
         import anthropic
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
         prompt = (
-            "You are Aaron Chen, Founder of SignalTender (https://signaltender.net). Write a sharp, executive-grade LinkedIn post "
+            "You are the official SignalTender Company Page (https://www.linkedin.com/company/signaltender/ | https://signaltender.net). "
+            "Write a sharp, executive-grade LinkedIn Company Page post "
             "(plain text, zero markdown bold `**`, zero emojis) highlighting these 3 newly indexed open Federal/State SLED IT & cybersecurity RFPs:\n\n"
             + "\n\n".join(rfp_lines)
             + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 14 Federal & State SLED portals "
@@ -524,55 +525,53 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
 
 def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
     """
-    Publish directly to LinkedIn via the Official LinkedIn REST / UGC Posts API using LINKEDIN_ACCESS_TOKEN.
-    1. Attempts Organization Page post (`LINKEDIN_ORG_URN`, `urn:li:organization:146880945`) when `w_organization_social` is enabled.
-    2. Automatically falls back to the Founder / Admin Member Feed (`LINKEDIN_PERSON_URN`, `w_member_social`) via `/v2/ugcPosts`
-       so every scheduled run publishes live on LinkedIn with HTTP 201 Created.
+    Publish ONLY to the official SignalTender LinkedIn Company Page (`urn:li:organization:146880945`).
+    NEVER publishes to any personal member profile (`urn:li:person:...`).
     """
     token = os.getenv("LINKEDIN_ACCESS_TOKEN", LINKEDIN_ACCESS_TOKEN).strip()
-    org_urn = os.getenv("LINKEDIN_ORG_URN", LINKEDIN_ORG_URN).strip()
-    person_urn = os.getenv("LINKEDIN_PERSON_URN", LINKEDIN_PERSON_URN).strip()
     if not token:
         return False, "LINKEDIN_ACCESS_TOKEN not set in .env (staged in linkedin_ready_posts.json)"
 
-    # 1. Try Organization URN first (if Community Management API / w_organization_social is active)
-    if org_urn:
-        author_org = org_urn if org_urn.startswith("urn:li:") else f"urn:li:organization:{org_urn}"
-        rest_headers = {
-            "Authorization": f"Bearer {token}",
-            "X-Restli-Protocol-Version": "2.0.0",
-            "LinkedIn-Version": "202501",
-            "Content-Type": "application/json",
-        }
-        org_payload = {
-            "author": author_org,
-            "commentary": post_text,
-            "visibility": "PUBLIC",
-            "distribution": {
-                "feedDistribution": "MAIN_FEED",
-                "targetEntities": [],
-                "thirdPartyDistributionChannels": [],
-            },
-            "lifecycleState": "PUBLISHED",
-            "isReshareDisabledByAuthor": False,
-        }
-        try:
-            r_org = requests.post("https://api.linkedin.com/rest/posts", headers=rest_headers, json=org_payload, timeout=15)
-            if r_org.status_code in (200, 201):
-                post_id = r_org.headers.get("x-restli-id", "published")
-                return True, f"Published to LinkedIn Organization Feed ({post_id})"
-        except Exception:
-            pass
+    # Hard-locked strictly to the official SignalTender Company Page URN
+    author_org = "urn:li:organization:146880945"
+    if not author_org.startswith("urn:li:organization:"):
+        return False, "Blocked: Only SignalTender Company Page (urn:li:organization:146880945) is permitted"
 
-    # 2. Publish via Official LinkedIn UGC Posts API (`w_member_social`) on Founder/Admin account
-    author_person = person_urn if person_urn.startswith("urn:li:person:") else f"urn:li:person:{person_urn}"
+    # 1. Try LinkedIn REST Posts API for Organization Page (`urn:li:organization:146880945`)
+    rest_headers = {
+        "Authorization": f"Bearer {token}",
+        "X-Restli-Protocol-Version": "2.0.0",
+        "LinkedIn-Version": "202501",
+        "Content-Type": "application/json",
+    }
+    org_payload = {
+        "author": author_org,
+        "commentary": post_text,
+        "visibility": "PUBLIC",
+        "distribution": {
+            "feedDistribution": "MAIN_FEED",
+            "targetEntities": [],
+            "thirdPartyDistributionChannels": [],
+        },
+        "lifecycleState": "PUBLISHED",
+        "isReshareDisabledByAuthor": False,
+    }
+    try:
+        r_org = requests.post("https://api.linkedin.com/rest/posts", headers=rest_headers, json=org_payload, timeout=15)
+        if r_org.status_code in (200, 201):
+            post_id = r_org.headers.get("x-restli-id", "published")
+            return True, f"Published to SignalTender Company Page ({post_id})"
+    except Exception:
+        pass
+
+    # 2. Try LinkedIn UGC Posts API for Organization Page (`urn:li:organization:146880945` ONLY — never urn:li:person)
     ugc_headers = {
         "Authorization": f"Bearer {token}",
         "X-Restli-Protocol-Version": "2.0.0",
         "Content-Type": "application/json",
     }
     ugc_payload = {
-        "author": author_person,
+        "author": author_org,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
@@ -596,10 +595,13 @@ def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
         resp = requests.post("https://api.linkedin.com/v2/ugcPosts", headers=ugc_headers, json=ugc_payload, timeout=15)
         if resp.status_code in (200, 201):
             post_id = resp.headers.get("x-restli-id") or resp.json().get("id", "published")
-            return True, f"Published via LinkedIn API ({post_id})"
-        return False, f"LinkedIn API HTTP {resp.status_code}: {resp.text[:200]}"
+            return True, f"Published to SignalTender Company Page ({post_id})"
+        return (
+            False,
+            f"Staged for SignalTender Company Page (urn:li:organization:146880945; awaiting w_organization_social scope — personal profile posting disabled)",
+        )
     except Exception as e:
-        return False, f"LinkedIn API error: {e}"
+        return False, f"LinkedIn Organization API error: {e}"
 
 
 def run_linkedin_autoposter(generate_banner: bool = False, force_post_now: bool = False) -> dict:
