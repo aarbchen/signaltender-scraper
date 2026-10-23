@@ -324,13 +324,19 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
 
 
 def _send_subscriber_email_briefing(to_email: str, body_text: str, count: int) -> bool:
-    """Send 6-hour SignalWire RFP briefing email to active subscribers when RESEND_API_KEY or SMTP_* is configured."""
+    """Send 6-hour SignalWire RFP briefing email ONLY to active subscribers who opted in (`email_briefings_enabled: True`)."""
+    from urllib.parse import quote_plus
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     smtp_user = os.getenv("SMTP_USER", "").strip()
     smtp_pass = os.getenv("SMTP_PASSWORD", "").strip()
     from_email = os.getenv("SMTP_FROM_EMAIL", smtp_user or "aaron@getsignaltender.com").strip()
     subject = f"SignalTender 6-Hour GovCon RFP Wire ({count} New IT/Cyber Solicitations)"
-    clean_body = body_text.replace("**", "").replace("`", "") + f"\n\nFull Live Directory & Unlocked Dossiers: {SITE_BASE_URL}/contracts\n"
+    disable_url = f"https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings?email={quote_plus(to_email)}&enabled=false"
+    clean_body = (
+        body_text.replace("**", "").replace("`", "")
+        + f"\n\nFull Live Directory & Unlocked Dossiers: {SITE_BASE_URL}/contracts\n"
+        + f"Manage or Turn Off 6-Hour Email Briefings Anytime: {SITE_BASE_URL}/#checkout (1-Click Off: {disable_url})\n"
+    )
     try:
         if resend_key:
             r = requests.post(
@@ -404,7 +410,7 @@ def _dispatch_to_external_customer_webhooks(supabase: Client, records: list[dict
         try:
             meta = json.loads(str(srow.get("title") or "{}"))
             sub_email = str(meta.get("email") or "").strip().lower()
-            if sub_email and "@" in sub_email:
+            if sub_email and "@" in sub_email and bool(meta.get("email_briefings_enabled", False)):
                 _send_subscriber_email_briefing(sub_email, combined_text, len(records))
             w_url = str(meta.get("webhook_url") or "").strip()
             if not w_url.startswith("https://"):

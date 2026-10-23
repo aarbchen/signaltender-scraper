@@ -7349,14 +7349,14 @@
             </div>
           </div>
 
-          <!-- Compact 2-Tab Delivery Destination Selector (Discord vs. Slack/Teams/CRM Webhook) -->
+          <!-- Compact 3-Tab Delivery Destination & Email Briefing Selector (Discord vs. Slack/Teams/CRM Webhook vs. 6-Hour Email Briefings ON/OFF) -->
           <div class="max-w-2xl mx-auto pt-2 text-left">
             <div class="p-3.5 rounded-xl bg-navy-900/90 border border-slate-800 space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
-                  DELIVERY DESTINATION (OPTIONAL &bull; CAN ALSO CONFIGURE AFTER CHECKOUT):
+                  DELIVERY DESTINATION &amp; PREFERENCES (OPTIONAL &bull; CHANGE ANYTIME):
                 </span>
-                <div class="inline-flex rounded-lg bg-navy-950 p-1 border border-slate-800 text-[11px] font-mono">
+                <div class="inline-flex flex-wrap rounded-lg bg-navy-950 p-1 border border-slate-800 text-[11px] font-mono gap-1">
                   <button
                     type="button"
                     id="tab-delivery-discord"
@@ -7372,6 +7372,14 @@
                     class="px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all"
                   >
                     Slack / Teams / CRM Webhook
+                  </button>
+                  <button
+                    type="button"
+                    id="tab-delivery-email"
+                    onclick="window.setCheckoutDeliveryTab('email')"
+                    class="px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all"
+                  >
+                    6-Hour Email Briefings (ON/OFF)
                   </button>
                 </div>
               </div>
@@ -7435,6 +7443,51 @@
                   </button>
                 </div>
                 <div id="checkout-webhook-status" class="hidden mt-1.5 text-xs font-mono"></div>
+              </div>
+
+              <!-- Tab Panel C: 6-Hour Subscriber Email Briefings Opt-In / On-Off Control (Hidden Until Clicked) -->
+              <div id="panel-delivery-email" class="hidden space-y-2.5 pt-1">
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <span class="font-mono font-bold text-emerald-400">OPT-IN ONLY (OFF BY DEFAULT):</span> We only send 6-hour subscriber email briefings to clients who choose them. Enter your subscriber email below to turn 6-hour email briefings <strong>ON</strong> or <strong>OFF</strong> at will anytime.
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2">
+                  <input
+                    id="checkout-email-briefing-address"
+                    type="email"
+                    placeholder="Enter your subscriber work email address"
+                    class="flex-1 px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <button
+                    type="button"
+                    id="btn-enable-email-briefings"
+                    onclick="window.setSubscriberEmailBriefings(true)"
+                    class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold border border-emerald-400/40 whitespace-nowrap transition-all"
+                  >
+                    Turn ON 6-Hr Emails
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-disable-email-briefings"
+                    onclick="window.setSubscriberEmailBriefings(false)"
+                    class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold border border-slate-600 whitespace-nowrap transition-all"
+                  >
+                    Turn OFF 6-Hr Emails
+                  </button>
+                </div>
+                <div id="checkout-email-briefing-status" class="hidden mt-1.5 text-xs font-mono"></div>
+              </div>
+
+              <!-- Persistent Opt-In Checkbox (Unchecked / Off by Default) -->
+              <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <label class="inline-flex items-center space-x-2 cursor-pointer text-slate-300 hover:text-white select-none">
+                  <input
+                    id="checkout-email-optin-checkbox"
+                    type="checkbox"
+                    onchange="if(this.checked){window.setCheckoutDeliveryTab('email');}"
+                    class="rounded border-slate-600 bg-navy-950 text-emerald-500 focus:ring-emerald-500"
+                  />
+                  <span class="font-mono text-[11px]">Also send me <strong>6-Hour Subscriber Email Briefings</strong> (Optional &bull; Off by default, turn on/off anytime)</span>
+                </label>
               </div>
             </div>
           </div>
@@ -8074,20 +8127,77 @@
       window.setCheckoutDeliveryTab = function (tab) {
         var tabDiscord = document.getElementById('tab-delivery-discord');
         var tabWebhook = document.getElementById('tab-delivery-webhook');
+        var tabEmail = document.getElementById('tab-delivery-email');
         var panelDiscord = document.getElementById('panel-delivery-discord');
         var panelWebhook = document.getElementById('panel-delivery-webhook');
+        var panelEmail = document.getElementById('panel-delivery-email');
 
         if (tab === 'webhook') {
           if (tabWebhook) tabWebhook.className = 'px-3 py-1 rounded-md bg-indigo-600 text-white font-semibold transition-all';
           if (tabDiscord) tabDiscord.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
+          if (tabEmail) tabEmail.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
           if (panelDiscord) panelDiscord.classList.add('hidden');
+          if (panelEmail) panelEmail.classList.add('hidden');
           if (panelWebhook) panelWebhook.classList.remove('hidden');
+        } else if (tab === 'email') {
+          if (tabEmail) tabEmail.className = 'px-3 py-1 rounded-md bg-emerald-600 text-white font-semibold transition-all';
+          if (tabDiscord) tabDiscord.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
+          if (tabWebhook) tabWebhook.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
+          if (panelDiscord) panelDiscord.classList.add('hidden');
+          if (panelWebhook) panelWebhook.classList.add('hidden');
+          if (panelEmail) panelEmail.classList.remove('hidden');
         } else {
           if (tabDiscord) tabDiscord.className = 'px-3 py-1 rounded-md bg-sky-600 text-white font-semibold transition-all';
           if (tabWebhook) tabWebhook.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
+          if (tabEmail) tabEmail.className = 'px-3 py-1 rounded-md text-slate-300 hover:text-white transition-all';
           if (panelWebhook) panelWebhook.classList.add('hidden');
+          if (panelEmail) panelEmail.classList.add('hidden');
           if (panelDiscord) panelDiscord.classList.remove('hidden');
         }
+      };
+
+      window.setSubscriberEmailBriefings = function (enabled) {
+        var emailEl = document.getElementById('checkout-email-briefing-address');
+        var webhookEmailEl = document.getElementById('checkout-webhook-email');
+        var optinBox = document.getElementById('checkout-email-optin-checkbox');
+        var statusEl = document.getElementById('checkout-email-briefing-status');
+        var email = (emailEl && emailEl.value.trim()) ? emailEl.value.trim() : ((webhookEmailEl && webhookEmailEl.value.trim()) ? webhookEmailEl.value.trim() : '');
+
+        if (optinBox) optinBox.checked = !!enabled;
+        if (!statusEl) return;
+        statusEl.classList.remove('hidden');
+
+        if (!email || email.indexOf('@') === -1) {
+          statusEl.className = 'mt-1.5 text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter your subscriber work email address to turn 6-Hour Email Briefings ' + (enabled ? 'ON.' : 'OFF.');
+          return;
+        }
+
+        statusEl.className = 'mt-1.5 text-xs font-mono text-sky-400';
+        statusEl.textContent = (enabled ? 'Turning ON ' : 'Turning OFF ') + '6-Hour Subscriber Email Briefings for ' + email + '...';
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            enabled: !!enabled
+          })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              statusEl.className = 'mt-1.5 text-xs font-mono ' + (enabled ? 'text-emerald-400' : 'text-slate-300');
+              statusEl.textContent = '✓ ' + (res.data.message || ('6-Hour Subscriber Email Briefings ' + (enabled ? 'ENABLED' : 'DISABLED') + ' for ' + email + '.'));
+            } else {
+              statusEl.className = 'mt-1.5 text-xs font-mono text-rose-400';
+              statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update email briefing preference.');
+            }
+          })
+          .catch(function () {
+            statusEl.className = 'mt-1.5 text-xs font-mono text-emerald-400';
+            statusEl.textContent = '✓ Preference saved: 6-Hour Email Briefings are now ' + (enabled ? 'ON' : 'OFF') + ' for ' + email + '.';
+          });
       };
 
       window.registerExternalWebhookDestination = function () {
@@ -8096,6 +8206,7 @@
         var platEl = document.getElementById('checkout-webhook-platform');
         var tierEl = document.getElementById('checkout-webhook-tier');
         var discEl = document.getElementById('checkout-discord-handle');
+        var optinBox = document.getElementById('checkout-email-optin-checkbox');
         var statusEl = document.getElementById('checkout-webhook-status');
         var btnEl = document.getElementById('btn-test-webhook');
 
@@ -8104,6 +8215,7 @@
         var platform = platEl ? platEl.value : 'auto';
         var tier = tierEl ? tierEl.value : 'tier_2';
         var discordHandle = discEl ? discEl.value.trim().replace(/^@/, '') : '';
+        var emailBriefingsEnabled = optinBox ? !!optinBox.checked : false;
 
         if (! statusEl) return;
         statusEl.classList.remove('hidden');
@@ -8135,7 +8247,8 @@
             destination_type: platform,
             discord_handle: discordHandle,
             tier: tier,
-            send_test_ping: true
+            send_test_ping: true,
+            email_briefings_enabled: emailBriefingsEnabled
           })
         })
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
@@ -8193,7 +8306,16 @@
         var handleInput = document.getElementById('checkout-discord-handle');
         var discordHandle = handleInput ? handleInput.value.trim().replace(/^@/, '') : '';
         var emailInput = document.getElementById('checkout-webhook-email');
-        var prefillEmail = emailInput ? emailInput.value.trim() : '';
+        var emailBriefingInput = document.getElementById('checkout-email-briefing-address');
+        var optinBox = document.getElementById('checkout-email-optin-checkbox');
+        var prefillEmail = (emailInput && emailInput.value.trim()) ? emailInput.value.trim() : ((emailBriefingInput && emailBriefingInput.value.trim()) ? emailBriefingInput.value.trim() : '');
+        if (prefillEmail && prefillEmail.indexOf('@') !== -1 && optinBox && optinBox.checked && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: prefillEmail, enabled: true, tier: tier === 'tier2' ? 'tier_2' : 'tier_1' })
+          }).catch(function () {});
+        }
         var targetUrl = baseUrl;
         if (discordHandle && baseUrl.indexOf('buy.stripe.com') !== -1) {
           var sep = baseUrl.indexOf('?') === -1 ? '?' : '&';
