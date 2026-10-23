@@ -67,8 +67,8 @@
     }
     /* Global safeguard: prevent any bordered or rounded badge/pill span from rendering as
        multi-line inline boxes whose top/bottom borders cross through wrapped text */
-    span[class*="border"],
-    span[class*="rounded"]:not(.animate-ping) {
+    span[class*="border"]:not(.hidden),
+    span[class*="rounded"]:not(.animate-ping):not(.hidden) {
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
@@ -132,14 +132,14 @@
         </a>
 
         <!-- Primary Product Navigation -->
-        <nav class="hidden xl:flex items-center gap-3 2xl:gap-5 text-xs 2xl:text-[13px] font-medium text-slate-300 whitespace-nowrap min-w-0">
+        <nav class="hidden xl:flex items-center gap-2.5 2xl:gap-5 text-xs font-medium text-slate-300 whitespace-nowrap shrink-0">
           <a href="#discord-terminal" class="hover:text-white transition-colors">Live Alert Wire</a>
           <a href="#capture-moat" class="text-indigo-300 hover:text-white transition-colors font-semibold">AI Capture Dossiers</a>
           <a href="#contract-directory" class="hover:text-white transition-colors">Contract Feed</a>
           <a href="#integrations" class="hover:text-white transition-colors">Integrations</a>
           <a href="#checkout" class="hover:text-white transition-colors">Pricing</a>
           <a href="#apis" class="inline-flex items-center whitespace-nowrap space-x-1 px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 transition-colors font-mono text-xs">
-            <span>Developer APIs</span>
+            <span class="hidden 2xl:inline">Developer </span><span>APIs</span>
             <span>&rarr;</span>
           </a>
         </nav>
@@ -154,32 +154,32 @@
           </a>
 
           <!-- Guest Auth Cluster: Log In & Sign Up -->
-          <div id="header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800">
+          <div id="header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
             <a
               href="#account"
               onclick="window.openClientPortal('login')"
-              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
             >
               Log In
             </a>
             <a
               href="#account"
               onclick="window.openClientPortal('register')"
-              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
             >
               Sign Up
             </a>
           </div>
 
-          <!-- Logged-In Account Console Pill -->
-          <div id="header-auth-user" class="hidden items-center sm:pl-2.5 sm:border-l sm:border-slate-800">
+          <!-- Logged-In Account Console Pill (Bounded Width, Never Overlaps Nav) -->
+          <div id="header-auth-user" class="hidden items-center sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
             <a
               href="#account"
-              class="inline-flex items-center gap-2 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all"
+              class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]"
             >
-              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-              <span id="header-auth-user-label">Account Console</span>
-              <span>&rarr;</span>
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span class="shrink-0">&rarr;</span>
             </a>
           </div>
 
@@ -1803,20 +1803,30 @@
           >
             &larr; Home
           </a>
-          <div class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800">
+          <div id="apis-header-auth-guest" class="flex items-center gap-1.5 sm:gap-2 sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
             <a
               href="#account"
               onclick="window.openClientPortal('login')"
-              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg border border-transparent hover:border-slate-800 transition-all"
             >
               Log In
             </a>
             <a
               href="#account"
               onclick="window.openClientPortal('register')"
-              class="inline-flex items-center justify-center whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
+              class="inline-flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-all"
             >
               Sign Up
+            </a>
+          </div>
+          <div id="apis-header-auth-user" class="hidden items-center sm:pl-2.5 sm:border-l sm:border-slate-800 shrink-0">
+            <a
+              href="#account"
+              class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]"
+            >
+              <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="apis-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span class="shrink-0">&rarr;</span>
             </a>
           </div>
           <a
@@ -1903,7 +1913,12 @@
                 </svg>
                 <input
                   id="api-catalog-search"
-                  type="text"
+                  type="search"
+                  name="st_api_catalog_search_nofill"
+                  autocomplete="off"
+                  data-lpignore="true"
+                  data-1p-ignore="true"
+                  data-form-type="other"
                   placeholder="Search 20 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
@@ -2333,7 +2348,12 @@
             </svg>
             <input
               id="api-modules-search"
-              type="text"
+              type="search"
+              name="st_api_modules_search_nofill"
+              autocomplete="off"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
               placeholder="Filter API dossiers (CMMC, LCAT, CLIN, SOC 2, /v1/match)..."
               oninput="window.filterApiCatalog(this.value, null)"
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
@@ -6985,7 +7005,13 @@
         var inp = document.getElementById('contracts-live-search');
         var anchorEl = inp || document.activeElement;
         var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
-        var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+        var rawQ = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim();
+        if (rawQ.indexOf('@') !== -1) {
+          rawQ = '';
+          qVal = '';
+          if (inp) inp.value = '';
+        }
+        var q = rawQ.toLowerCase();
         if (inp && inp.value !== qVal && qVal !== undefined) inp.value = qVal;
         var clearBtn = document.getElementById('contracts-live-clear');
         if (clearBtn) {
@@ -7254,7 +7280,7 @@
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -7304,7 +7330,7 @@
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="text" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -8231,8 +8257,8 @@
               </span>
             </div>
 
-            <!-- Log In Form -->
-            <div id="account-form-login" class="space-y-4">
+            <!-- Log In Form (Default) -->
+            <form id="account-form-login" onsubmit="event.preventDefault(); window.submitAccountLogin();" class="space-y-4" autocomplete="on">
               <div>
                 <h2 class="text-xl font-bold text-white">Log in to your SignalTender account</h2>
                 <p class="text-xs text-slate-400 mt-0.5">
@@ -8243,7 +8269,9 @@
                 <label for="account-login-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address</label>
                 <input
                   id="account-login-email"
+                  name="username"
                   type="email"
+                  autocomplete="username"
                   placeholder="you@company.com"
                   class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
@@ -8252,7 +8280,9 @@
                 <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
                 <input
                   id="account-login-password"
+                  name="password"
                   type="password"
+                  autocomplete="current-password"
                   placeholder="Enter your password (6+ characters)"
                   class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
@@ -8261,10 +8291,9 @@
                 <strong class="text-slate-200">Subscribed via Stripe Checkout?</strong> Enter the email you used at checkout and choose a password (6+ characters) on your first login to claim your account.
               </div>
               <button
-                type="button"
+                type="submit"
                 id="btn-account-login-submit"
-                onclick="window.submitAccountLogin()"
-                class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all"
+                class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all cursor-pointer"
               >
                 Log In to Account Console &rarr;
               </button>
@@ -8274,10 +8303,10 @@
                   Create Free Account &rarr;
                 </button>
               </div>
-            </div>
+            </form>
 
             <!-- Sign Up (Free Account) Form -->
-            <div id="account-form-register" class="hidden space-y-4">
+            <form id="account-form-register" onsubmit="event.preventDefault(); window.submitAccountRegister();" class="hidden space-y-4" autocomplete="on">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 class="text-xl font-bold text-white">Create your free SignalTender account</h2>
@@ -8294,7 +8323,9 @@
                   <label for="account-reg-name" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Full Name</label>
                   <input
                     id="account-reg-name"
+                    name="name"
                     type="text"
+                    autocomplete="name"
                     placeholder="Marcus Vance"
                     class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8303,7 +8334,9 @@
                   <label for="account-reg-company" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Company / Organization</label>
                   <input
                     id="account-reg-company"
+                    name="organization"
                     type="text"
+                    autocomplete="organization"
                     placeholder="Potomac CyberDefense LLC"
                     class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8314,7 +8347,9 @@
                   <label for="account-reg-email" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Work Email Address *</label>
                   <input
                     id="account-reg-email"
+                    name="email"
                     type="email"
+                    autocomplete="username"
                     placeholder="you@company.com"
                     class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8323,7 +8358,9 @@
                   <label for="account-reg-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Create Password (6+ Chars) *</label>
                   <input
                     id="account-reg-password"
+                    name="new_password"
                     type="password"
+                    autocomplete="new-password"
                     placeholder="Minimum 6 characters"
                     class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8337,12 +8374,14 @@
                   <input
                     id="account-reg-discord"
                     type="text"
+                    autocomplete="off"
                     placeholder="Discord username (optional)"
                     class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
                   <input
                     id="account-reg-webhook"
                     type="url"
+                    autocomplete="off"
                     placeholder="Slack / Teams / CRM Webhook URL (optional)"
                     class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                   />
@@ -8354,10 +8393,9 @@
                 </label>
               </div>
               <button
-                type="button"
+                type="submit"
                 id="btn-account-reg-submit"
-                onclick="window.submitAccountRegister()"
-                class="w-full py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/40 shadow-lg transition-all"
+                class="w-full py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/40 shadow-lg transition-all cursor-pointer"
               >
                 Create Free Account &rarr;
               </button>
@@ -8367,7 +8405,7 @@
                   Log In &rarr;
                 </button>
               </div>
-            </div>
+            </form>
 
             <div id="account-auth-status" class="hidden text-xs font-mono pt-1"></div>
           </div>
@@ -8673,33 +8711,36 @@
 
             <div class="lg:col-span-5 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
               <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">04 // PROFILE &amp; PASSWORD</div>
-              <div class="space-y-2.5">
+              <form onsubmit="event.preventDefault(); window.saveAccountProfile();" class="space-y-2.5" autocomplete="off">
+                <input type="email" name="username" autocomplete="username" class="hidden" tabindex="-1" aria-hidden="true" />
                 <input
                   id="account-profile-name"
                   type="text"
+                  autocomplete="off"
                   placeholder="Full Name"
                   class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
                 />
                 <input
                   id="account-profile-company"
                   type="text"
+                  autocomplete="off"
                   placeholder="Company / Organization"
                   class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
                 />
                 <input
                   id="account-profile-password"
                   type="password"
+                  autocomplete="new-password"
                   placeholder="New Password (leave blank to keep current)"
                   class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
                 />
                 <button
-                  type="button"
-                  onclick="window.saveAccountProfile()"
-                  class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all"
+                  type="submit"
+                  class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all cursor-pointer"
                 >
                   Save Profile &amp; Password
                 </button>
-              </div>
+              </form>
             </div>
           </div>
 
@@ -9184,24 +9225,40 @@
       };
 
       window.syncHeaderAuthUI = function (profile) {
-        var guestEl = document.getElementById('header-auth-guest');
-        var userEl = document.getElementById('header-auth-user');
-        var labelEl = document.getElementById('header-auth-user-label');
+        var guestIds = ['header-auth-guest', 'apis-header-auth-guest'];
+        var userIds = ['header-auth-user', 'apis-header-auth-user'];
+        var labelIds = ['header-auth-user-label', 'apis-header-auth-user-label'];
         if (profile && profile.email) {
-          if (guestEl) guestEl.classList.add('hidden');
-          if (userEl) {
-            userEl.classList.remove('hidden');
-            userEl.classList.add('flex');
+          var cleanName = String(profile.full_name || '').replace(/\s*\([^)]*\)/g, '').trim();
+          var firstWord = cleanName ? cleanName.split(/\s+/)[0] : '';
+          var shortLabel = firstWord || String(profile.email.split('@')[0] || 'Account').slice(0, 12);
+          if (shortLabel.length > 12) shortLabel = shortLabel.slice(0, 12);
+          for (var i = 0; i < guestIds.length; i++) {
+            var gEl = document.getElementById(guestIds[i]);
+            if (gEl) gEl.classList.add('hidden');
           }
-          if (labelEl) {
-            var shortName = profile.full_name || profile.email.split('@')[0] || 'Account Console';
-            labelEl.textContent = shortName;
+          for (var j = 0; j < userIds.length; j++) {
+            var uEl = document.getElementById(userIds[j]);
+            if (uEl) {
+              uEl.classList.remove('hidden');
+              uEl.classList.add('flex');
+            }
+          }
+          for (var k = 0; k < labelIds.length; k++) {
+            var lEl = document.getElementById(labelIds[k]);
+            if (lEl) lEl.textContent = shortLabel;
           }
         } else {
-          if (guestEl) guestEl.classList.remove('hidden');
-          if (userEl) {
-            userEl.classList.add('hidden');
-            userEl.classList.remove('flex');
+          for (var m = 0; m < guestIds.length; m++) {
+            var gmEl = document.getElementById(guestIds[m]);
+            if (gmEl) gmEl.classList.remove('hidden');
+          }
+          for (var n = 0; n < userIds.length; n++) {
+            var unEl = document.getElementById(userIds[n]);
+            if (unEl) {
+              unEl.classList.add('hidden');
+              unEl.classList.remove('flex');
+            }
           }
         }
       };
@@ -9755,7 +9812,27 @@
         docEl.style.scrollBehavior = prev;
       }
 
+      function clearAutofilledSearchInputs() {
+        var searchIds = ['api-catalog-search', 'api-modules-search', 'main-rfp-search', 'contracts-live-search'];
+        for (var i = 0; i < searchIds.length; i++) {
+          var sEl = document.getElementById(searchIds[i]);
+          if (sEl && sEl.value && sEl.value.indexOf('@') !== -1) {
+            sEl.value = '';
+            if (searchIds[i] === 'api-catalog-search' || searchIds[i] === 'api-modules-search') {
+              if (typeof window.filterApiCatalog === 'function') window.filterApiCatalog('', null);
+            } else if (searchIds[i] === 'main-rfp-search') {
+              if (typeof window.filterMainRfpTable === 'function') window.filterMainRfpTable('', null);
+            } else if (searchIds[i] === 'contracts-live-search') {
+              if (typeof window.filterContractsDirectory === 'function') window.filterContractsDirectory('');
+            }
+          }
+        }
+      }
+
       function syncPageRoute() {
+        clearAutofilledSearchInputs();
+        setTimeout(clearAutofilledSearchInputs, 120);
+        setTimeout(clearAutofilledSearchInputs, 450);
         var hash = window.location.hash || '#overview';
         var mainPage = document.getElementById('page-main');
         var apisPage = document.getElementById('page-apis');
@@ -9919,7 +9996,11 @@
             <span class="text-slate-400 mr-2 shrink-0">X-RapidAPI-Key:</span>
             <input
               id="sandbox-api-key-input"
-              type="password"
+              type="text"
+              name="st_sandbox_rapidapi_key_nofill"
+              autocomplete="off"
+              data-lpignore="true"
+              data-1p-ignore="true"
               placeholder="Demo Mode (No Key Needed) or Paste Key"
               class="bg-transparent text-emerald-300 placeholder-slate-500 focus:outline-none w-48 sm:w-56 text-[11px]"
               oninput="window.onSandboxKeyChange(this.value)"
@@ -11018,7 +11099,11 @@
         }
 
         if (queryVal !== null && queryVal !== undefined) {
-          currentApiQuery = String(queryVal);
+          var candidateQ = String(queryVal);
+          if (candidateQ.indexOf('@') !== -1) {
+            candidateQ = '';
+          }
+          currentApiQuery = candidateQ;
         }
         if (catVal !== null && catVal !== undefined) {
           currentApiCat = String(catVal);
@@ -11185,7 +11270,11 @@
             tblWrap.setAttribute('data-locked-min-h', '1');
           }
         }
-        if (qVal !== null && qVal !== undefined) mainRfpQuery = String(qVal);
+        if (qVal !== null && qVal !== undefined) {
+          var candMainQ = String(qVal);
+          if (candMainQ.indexOf('@') !== -1) candMainQ = '';
+          mainRfpQuery = candMainQ;
+        }
         if (portalVal !== null && portalVal !== undefined) mainRfpPortal = String(portalVal);
 
         var inp = document.getElementById('main-rfp-search');

@@ -67,8 +67,8 @@
     }
     /* Global safeguard: prevent any bordered or rounded badge/pill span from rendering as
        multi-line inline boxes whose top/bottom borders cross through wrapped text */
-    span[class*="border"],
-    span[class*="rounded"]:not(.animate-ping) {
+    span[class*="border"]:not(.hidden),
+    span[class*="rounded"]:not(.animate-ping):not(.hidden) {
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
@@ -258,7 +258,12 @@
                 </svg>
                 <input
                   id="api-catalog-search"
-                  type="text"
+                  type="search"
+                  name="st_api_catalog_search_nofill"
+                  autocomplete="off"
+                  data-lpignore="true"
+                  data-1p-ignore="true"
+                  data-form-type="other"
                   placeholder="Search 20 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
@@ -690,7 +695,12 @@
             </svg>
             <input
               id="api-modules-search"
-              type="text"
+              type="search"
+              name="st_api_modules_search_nofill"
+              autocomplete="off"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
               placeholder="Filter API dossiers (CMMC, LCAT, CLIN, SOC 2, /v1/match)..."
               oninput="window.filterApiCatalog(this.value, null)"
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
@@ -5304,7 +5314,11 @@
             <span class="text-slate-400 mr-2 shrink-0">X-RapidAPI-Key:</span>
             <input
               id="sandbox-api-key-input"
-              type="password"
+              type="text"
+              name="st_sandbox_rapidapi_key_nofill"
+              autocomplete="off"
+              data-lpignore="true"
+              data-1p-ignore="true"
               placeholder="Demo Mode (No Key Needed) or Paste Key"
               class="bg-transparent text-emerald-300 placeholder-slate-500 focus:outline-none w-48 sm:w-56 text-[11px]"
                oninput="window.onSandboxKeyChange(this.value)"
@@ -6409,7 +6423,11 @@
         }
 
         if (queryVal !== null && queryVal !== undefined) {
-          currentApiQuery = String(queryVal);
+          var candidateQ = String(queryVal);
+          if (candidateQ.indexOf('@') !== -1) {
+            candidateQ = '';
+          }
+          currentApiQuery = candidateQ;
         }
         if (catVal !== null && catVal !== undefined) {
           currentApiCat = String(catVal);
