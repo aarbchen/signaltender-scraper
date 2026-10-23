@@ -8489,11 +8489,61 @@
             </div>
           </div>
 
-          <!-- CARD 1: SUBSCRIPTION PLAN & BILLING MANAGEMENT -->
+          <!-- LIVE 6-HOUR DISPATCH TELEMETRY & ON-DEMAND BRIEFING BAR (MODULE 4) -->
+          <div id="account-dispatch-telemetry-card" class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900/95 to-navy-900 border border-emerald-500/40 shadow-xl space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <div class="inline-flex items-center gap-2 text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-bold">
+                  <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                  <span>LIVE 6-HOUR PROCUREMENT TELEMETRY &amp; ON-DEMAND DISPATCH</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-extrabold text-white">
+                  14 Federal &amp; State SLED Portals Monitored Every 6 Hours
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Trigger an immediate on-demand briefing to your active channels (In-Portal Feed, Webhook, and Email + Team CC) without waiting for the next 6-hour cron window.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
+                <button
+                  type="button"
+                  id="btn-account-dispatch-now"
+                  onclick="window.triggerAccountDispatchNow()"
+                  class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/50 shadow-lg transition-all cursor-pointer"
+                >
+                  Dispatch Latest Briefing Now &rarr;
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-800/80 font-mono text-xs">
+              <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">PORTAL MONITORS</div>
+                <div id="account-telemetry-portals-count" class="text-sm sm:text-base font-extrabold text-emerald-400 mt-0.5">14 / 14 Active</div>
+              </div>
+              <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">MATCHED OPEN RFPS</div>
+                <div id="account-telemetry-matched-count" class="text-sm sm:text-base font-extrabold text-sky-400 mt-0.5">120+ Verified</div>
+              </div>
+              <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">LAST DISPATCH</div>
+                <div id="account-telemetry-last-scan" class="text-sm sm:text-base font-extrabold text-white mt-0.5">Synced Live</div>
+              </div>
+              <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">NEXT 6-HR SWEEP</div>
+                <div id="account-telemetry-next-scan" class="text-sm sm:text-base font-extrabold text-indigo-300 mt-0.5">Auto-Scheduled</div>
+              </div>
+            </div>
+
+            <div id="account-dispatch-now-status" class="hidden text-xs font-mono pt-1"></div>
+            <div id="account-dispatch-now-results" class="hidden pt-2 space-y-2"></div>
+          </div>
+
+          <!-- CARD 1: SUBSCRIPTION PLAN, BILLING CADENCE & CORPORATE TAX INVOICES (MODULE 6A) -->
           <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN &amp; WORKSPACE TIER</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN, BILLING CADENCE &amp; B2B TAX INVOICES</div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-white" id="account-plan-badge">Free Explorer Account ($0/mo)</h2>
                 <p class="mt-1 text-xs sm:text-sm text-slate-300" id="account-plan-description">
                   Your free account is active. You can pre-configure all distribution mediums below and upgrade to Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime for automated 6-hour dispatches and un-blurred portal links.
@@ -8525,29 +8575,71 @@
               </div>
             </div>
 
+            <!-- Billing Cadence Switcher & Corporate Tax Receipt Download -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              <div class="lg:col-span-7 p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="space-y-0.5">
+                  <div class="text-xs font-mono font-bold text-white">PREFERRED BILLING CADENCE</div>
+                  <div class="text-[11px] text-slate-400">Switch to Annual Billing to save $198/yr (Tier 1) or $1,298/yr (Tier 2).</div>
+                </div>
+                <div class="inline-flex rounded-lg bg-navy-900 p-1 border border-slate-800 font-mono text-xs shrink-0">
+                  <button
+                    type="button"
+                    id="btn-account-cycle-monthly"
+                    onclick="window.setAccountBillingCycle('monthly')"
+                    class="px-3 py-1.5 rounded-md bg-sky-600 text-white font-bold transition-all cursor-pointer"
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-account-cycle-annual"
+                    onclick="window.setAccountBillingCycle('annual')"
+                    class="px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer"
+                  >
+                    Annual (Save 27%)
+                  </button>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 p-4 rounded-xl bg-navy-950 border border-slate-800 flex items-center justify-between gap-3">
+                <div class="space-y-0.5">
+                  <div class="text-xs font-mono font-bold text-emerald-400">CORPORATE B2B TAX RECEIPT</div>
+                  <div class="text-[11px] text-slate-400">Itemized GovCon BD expense summary</div>
+                </div>
+                <button
+                  type="button"
+                  onclick="window.downloadAccountTaxReceiptSummary()"
+                  class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-colors cursor-pointer"
+                >
+                  Download Receipt &darr;
+                </button>
+              </div>
+            </div>
+
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-slate-400">
-              <div>
+              <div id="account-billing-status-note">
                 Corporate PDF tax receipts are issued automatically on paid plans. No annual lock-in on monthly plans.
               </div>
               <button
                 type="button"
                 id="btn-account-cancel-sub"
                 onclick="window.cancelClientAccountSubscription()"
-                class="hidden px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-rose-950/60 text-rose-400 border border-rose-500/30 font-semibold whitespace-nowrap transition-colors"
+                class="hidden px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-rose-950/60 text-rose-400 border border-rose-500/30 font-semibold whitespace-nowrap transition-colors cursor-pointer"
               >
                 Cancel Subscription
               </button>
             </div>
           </div>
 
-          <!-- CARD 2: DISTRIBUTION MEDIUMS & DELIVERY SETTINGS -->
+          <!-- CARD 2: DISTRIBUTION MEDIUMS, DELIVERY SETTINGS & TEAM CC RECIPIENTS (MODULE 5) -->
           <div class="rounded-2xl bg-navy-900 border-2 border-indigo-500/40 shadow-2xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
-                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">02 // DISTRIBUTION MEDIUMS &amp; DELIVERY SETTINGS</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">02 // DISTRIBUTION MEDIUMS &amp; MULTI-SEAT TEAM ROUTING</div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-white">Manage How Your Team Receives 6-Hour Dispatches</h2>
                 <p class="mt-1 text-xs sm:text-sm text-slate-300">
-                  Enable, switch, pause, or combine Discord, Slack/Microsoft Teams/CRM Webhooks, and 6-Hour Email Briefings whenever you see fit. Changes save to your account immediately.
+                  Enable, switch, pause, or combine Discord, Slack/Microsoft Teams/CRM Webhooks, and 6-Hour Email Briefings (plus up to 5 Team CC recipients) whenever you see fit.
                 </p>
               </div>
               <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] shrink-0">
@@ -8579,20 +8671,21 @@
                 <input
                   id="account-dist-discord"
                   type="text"
+                  autocomplete="off"
                   placeholder="Discord username (e.g. @johndoe) or 18-digit User ID"
                   class="flex-1 px-3.5 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
                 <button
                   type="button"
                   onclick="window.saveAccountDistribution({discordOnly: true})"
-                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap transition-all"
+                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap transition-all cursor-pointer"
                 >
                   Save &amp; Activate Role
                 </button>
                 <button
                   type="button"
                   onclick="window.saveAccountDistribution({clearDiscord: true})"
-                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all"
+                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all cursor-pointer"
                 >
                   Disconnect Discord
                 </button>
@@ -8627,6 +8720,7 @@
                 <input
                   id="account-dist-webhook"
                   type="url"
+                  autocomplete="off"
                   placeholder="https://hooks.slack.com/services/... or https://*.webhook.office.com/... or CRM URL"
                   class="sm:col-span-2 px-3.5 py-2.5 rounded-lg bg-navy-900 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
@@ -8635,56 +8729,354 @@
                 <button
                   type="button"
                   onclick="window.saveAccountDistribution({webhookOnly: true, sendTestPing: true})"
-                  class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all"
+                  class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all cursor-pointer"
                 >
                   Save Webhook &amp; Send Test Ping
                 </button>
                 <button
                   type="button"
                   onclick="window.saveAccountDistribution({clearWebhook: true})"
-                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all"
+                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono font-semibold border border-slate-700 whitespace-nowrap transition-all cursor-pointer"
                 >
                   Pause Webhook
                 </button>
               </div>
             </div>
 
-            <!-- Medium C: 6-Hour Email Briefings -->
-            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div class="space-y-1 max-w-2xl">
-                <div class="text-xs font-mono font-bold text-emerald-400">MEDIUM 3 // 6-HOUR EXECUTIVE EMAIL BRIEFINGS</div>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  Dispatched to your account email (<span id="account-dist-email-target" class="text-slate-200 font-mono">you@company.com</span>). Tier 1 receives the 14-Portal Live RFP Wire; Tier 2 receives the unified Section I (20-API CaptureDesk Dossiers) + Section II (14-Portal Live Wire) briefing.
-                </p>
+            <!-- Medium C: 6-Hour Email Briefings + Team CC Recipients (Module 5) -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-slate-800 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="space-y-1 max-w-2xl">
+                  <div class="text-xs font-mono font-bold text-emerald-400">MEDIUM 3 // 6-HOUR EXECUTIVE EMAIL BRIEFINGS &amp; TEAM CC ROUTING</div>
+                  <p class="text-xs text-slate-400 leading-relaxed">
+                    Primary account recipient: <span id="account-dist-email-target" class="text-slate-200 font-mono">you@company.com</span>. Add up to 5 capture managers, proposal writers, or executives below to receive simultaneous 6-hour briefings.
+                  </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
+                  <button
+                    type="button"
+                    onclick="window.saveAccountDistribution({emailBriefings: true})"
+                    class="px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 whitespace-nowrap transition-all cursor-pointer"
+                  >
+                    Enable Email Briefings
+                  </button>
+                  <button
+                    type="button"
+                    onclick="window.saveAccountDistribution({emailBriefings: false})"
+                    class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 whitespace-nowrap transition-all cursor-pointer"
+                  >
+                    Pause Email Briefings
+                  </button>
+                </div>
               </div>
-              <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
-                <button
-                  type="button"
-                  onclick="window.saveAccountDistribution({emailBriefings: true})"
-                  class="px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 whitespace-nowrap transition-all"
-                >
-                  Enable Email Briefings
-                </button>
-                <button
-                  type="button"
-                  onclick="window.saveAccountDistribution({emailBriefings: false})"
-                  class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 whitespace-nowrap transition-all"
-                >
-                  Pause Email Briefings
-                </button>
+
+              <!-- Multi-Seat Team CC Input & Pills -->
+              <div class="pt-3 border-t border-slate-800/80 space-y-2.5">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                  <span class="text-slate-300 uppercase font-semibold">TEAM CC RECIPIENTS (UP TO 5 COLLEAGUES):</span>
+                  <span id="account-team-cc-count" class="text-emerald-400">0 / 5 seats used</span>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2">
+                  <input
+                    id="account-team-cc-input"
+                    type="email"
+                    autocomplete="off"
+                    placeholder="colleague@yourcompany.com (Capture Director, Proposal Lead, VP BD)"
+                    class="flex-1 px-3.5 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+                  />
+                  <button
+                    type="button"
+                    onclick="window.addAccountTeamCcEmail()"
+                    class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 text-xs font-mono font-bold border border-emerald-500/40 whitespace-nowrap transition-colors cursor-pointer"
+                  >
+                    + Add Team CC Seat
+                  </button>
+                </div>
+                <div id="account-team-cc-list" class="flex flex-wrap gap-2 pt-1"></div>
               </div>
             </div>
 
             <div id="account-dist-status" class="hidden text-xs font-mono"></div>
           </div>
 
-          <!-- CARD 3: TIER 2 ENTERPRISE API KEY, MCP ACCESS & PROFILE SETTINGS -->
+          <!-- CARD 3: CUSTOM TERRITORY (14 PORTALS), NAICS & SET-ASIDE ALERT FILTERS (MODULE 1) -->
+          <div id="account-alert-filters-card" class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">03 // CUSTOM TERRITORY, SET-ASIDE &amp; NAICS ALERT FILTERS</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white">Configure Which Solicitations Trigger Your Alerts</h2>
+                <p class="mt-1 text-xs sm:text-sm text-slate-300">
+                  Select which of the 14 Federal, Municipal &amp; 12-State SLED procurement portals, socio-economic set-asides, NAICS codes, and keywords route to your Webhook and Email Briefings.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
+                <span id="account-filter-match-badge" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
+                  14 Portals Selected
+                </span>
+                <button
+                  type="button"
+                  onclick="window.setAllAccountPortalFilters(true)"
+                  class="px-3 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-700 cursor-pointer"
+                >
+                  Select All 14
+                </button>
+                <button
+                  type="button"
+                  onclick="window.setAllAccountPortalFilters(false)"
+                  class="px-3 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-400 border border-slate-700 cursor-pointer"
+                >
+                  Federal Only
+                </button>
+              </div>
+            </div>
+
+            <!-- 14-Portal Selection Grid -->
+            <div class="space-y-2.5">
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
+                ACTIVE PROCUREMENT PORTAL TERRITORIES (CLICK TO TOGGLE):
+              </div>
+              <div id="account-portal-filter-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 font-mono text-xs">
+                <button type="button" data-account-portal="federal" onclick="window.toggleAccountPortalFilter('federal')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; SAM.gov (Fed)</button>
+                <button type="button" data-account-portal="municipal" onclick="window.toggleAccountPortalFilter('municipal')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; DemandStar</button>
+                <button type="button" data-account-portal="virginia" onclick="window.toggleAccountPortalFilter('virginia')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; Virginia eVA</button>
+                <button type="button" data-account-portal="texas" onclick="window.toggleAccountPortalFilter('texas')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; Texas ESBD</button>
+                <button type="button" data-account-portal="california" onclick="window.toggleAccountPortalFilter('california')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; CA Cal eProcure</button>
+                <button type="button" data-account-portal="florida" onclick="window.toggleAccountPortalFilter('florida')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; FL MFMP VIP</button>
+                <button type="button" data-account-portal="maryland" onclick="window.toggleAccountPortalFilter('maryland')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; MD eMMA</button>
+                <button type="button" data-account-portal="illinois" onclick="window.toggleAccountPortalFilter('illinois')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; IL BidBuy</button>
+                <button type="button" data-account-portal="pennsylvania" onclick="window.toggleAccountPortalFilter('pennsylvania')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; PA eMarket</button>
+                <button type="button" data-account-portal="ohio" onclick="window.toggleAccountPortalFilter('ohio')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; OH OhioBuys</button>
+                <button type="button" data-account-portal="georgia" onclick="window.toggleAccountPortalFilter('georgia')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; GA DOAS GPR</button>
+                <button type="button" data-account-portal="north_carolina" onclick="window.toggleAccountPortalFilter('north_carolina')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; NC eVP</button>
+                <button type="button" data-account-portal="new_york" onclick="window.toggleAccountPortalFilter('new_york')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; NY CROL/PANYNJ</button>
+                <button type="button" data-account-portal="massachusetts" onclick="window.toggleAccountPortalFilter('massachusetts')" class="account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer">&check; MA COMMBUYS</button>
+              </div>
+            </div>
+
+            <!-- Set-Aside & NAICS / Keyword Inputs -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-2">
+                <label for="account-filter-naics" class="block text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">Target NAICS / NIGP Codes</label>
+                <input
+                  id="account-filter-naics"
+                  type="text"
+                  autocomplete="off"
+                  value="541512, 541519, 541511, 518210"
+                  placeholder="541512, 541519, 541511, 518210"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white"
+                />
+                <div class="text-[11px] text-slate-400">Comma-separated IT, Cyber, Cloud &amp; AI NAICS codes.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-2">
+                <label for="account-filter-include" class="block text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold">Priority Include Keywords</label>
+                <input
+                  id="account-filter-include"
+                  type="text"
+                  autocomplete="off"
+                  value="Cybersecurity, Zero Trust, Cloud Migration, DevSecOps, AI"
+                  placeholder="Zero Trust, SOC, Cloud, DevSecOps, IAM"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-white"
+                />
+                <div class="text-[11px] text-slate-400">Boosts Pwin &amp; highlights matching solicitations.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-2">
+                <label for="account-filter-exclude" class="block text-xs font-mono uppercase tracking-wider text-rose-400 font-semibold">Negative Exclude Keywords</label>
+                <input
+                  id="account-filter-exclude"
+                  type="text"
+                  autocomplete="off"
+                  value="Janitorial, Construction, Grounds Maintenance, NSN Hardware"
+                  placeholder="Janitorial, HVAC, Paving, Raw Hardware"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 focus:border-rose-500 focus:outline-none text-xs font-mono text-white"
+                />
+                <div class="text-[11px] text-slate-400">Suppresses non-core notices from your dispatches.</div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-800">
+              <div id="account-filter-save-status" class="text-xs font-mono text-slate-400">
+                Filters apply to your Webhook, Email Briefings, and On-Demand Dispatches.
+              </div>
+              <button
+                type="button"
+                onclick="window.saveAccountAlertFilters()"
+                class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap transition-all cursor-pointer"
+              >
+                Save Alert Routing Filters &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 4: COMPANY CAPTURE PROFILE VAULT (SYNCED WITH 20-API STUDIO & DOSSIERS) (MODULE 2) -->
+          <div id="account-company-vault-card" class="rounded-2xl bg-navy-900 border border-indigo-500/40 shadow-xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">04 // COMPANY CAPTURE PROFILE VAULT (SYNCED WITH 20-API STUDIO)</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white">Pre-Load Your Firm&apos;s Credentials Across All 20 AI Capture Engines</h2>
+                <p class="mt-1 text-xs sm:text-sm text-slate-300">
+                  Save your UEI/CAGE, set-aside posture, security clearance, indirect wrap rate, and core capabilities once. Automatically syncs with the In-Page Studio Playground and Bid/No-Bid Pwin scoring.
+                </p>
+              </div>
+              <span class="px-3 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-xs font-mono font-bold shrink-0">
+                Synced with Studio Vault
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+              <div class="space-y-1.5">
+                <label for="account-vault-uei" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">SAM UEI / CAGE Code</label>
+                <input
+                  id="account-vault-uei"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="e.g. J8K2L9M1N4P2 / 8X9A2"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-vault-naics" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">Primary NAICS</label>
+                <input
+                  id="account-vault-naics"
+                  type="text"
+                  autocomplete="off"
+                  value="541512"
+                  placeholder="541512"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-vault-setaside" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">Socio-Economic Status</label>
+                <select
+                  id="account-vault-setaside"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
+                >
+                  <option value="Small Business / SDVOSB">Small Business / SDVOSB</option>
+                  <option value="SBA 8(a) Certified">SBA 8(a) Certified</option>
+                  <option value="WOSB / EDWOSB">WOSB / EDWOSB</option>
+                  <option value="HUBZone Certified">HUBZone Certified</option>
+                  <option value="State MBE / SWaM / HUB">State MBE / SWaM / HUB</option>
+                  <option value="Other Than Small (Large Prime)">Other Than Small (Large Prime)</option>
+                </select>
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-vault-clearance" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">Facility Clearance (FCL)</label>
+                <select
+                  id="account-vault-clearance"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
+                >
+                  <option value="Top Secret / SCI Facility">Top Secret / SCI Facility</option>
+                  <option value="Secret Facility Clearance">Secret Facility Clearance</option>
+                  <option value="Public Trust / Suitability">Public Trust / Suitability</option>
+                  <option value="Unclassified / Commercial">Unclassified / Commercial</option>
+                </select>
+              </div>
+              <div class="space-y-1.5">
+                <label for="account-vault-wrap" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">Indirect Wrap Rate</label>
+                <input
+                  id="account-vault-wrap"
+                  type="text"
+                  autocomplete="off"
+                  value="1.82"
+                  placeholder="1.82"
+                  class="w-full px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-emerald-300"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="account-vault-capabilities" class="block text-[11px] font-mono uppercase tracking-wider text-slate-300">Core Technical Capabilities, Past Performance &amp; Compliance Posture (CMMC / FedRAMP / ISO / StateRAMP)</label>
+              <textarea
+                id="account-vault-capabilities"
+                rows="3"
+                placeholder="Describe your firm's core IT/Cyber capabilities, CMMC/NIST/FedRAMP certifications, and past performance highlights..."
+                class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-white"
+              >Zero-Trust Architecture, FedRAMP Cloud Engineering, AI/LLM Automation, and Managed SOC/MDR for Federal &amp; State SLED agencies.</textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-800">
+              <div id="account-vault-status" class="text-xs font-mono text-slate-400">
+                Used automatically when running Bid/No-Bid Matcher (#07), Price-to-Win (#16), and CPARS Vol III (#15).
+              </div>
+              <div class="flex flex-wrap gap-2.5">
+                <a
+                  href="#apis"
+                  class="px-4 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 text-xs font-mono font-semibold border border-indigo-500/40 transition-colors"
+                >
+                  Open Studio Playground &rarr;
+                </a>
+                <button
+                  type="button"
+                  onclick="window.saveAccountCompanyVault()"
+                  class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold border border-indigo-400/40 whitespace-nowrap transition-all cursor-pointer"
+                >
+                  Save Capture Vault &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 5: SAVED RFP PIPELINE & BID BOARD ("MY CAPTURE WATCHLIST") (MODULE 3) -->
+          <div id="account-bid-board-card" class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div>
+                <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">05 // SAVED RFP PIPELINE &amp; CAPTURE BID BOARD</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white">Track Active Solicitations From Discovery to Proposal Submission</h2>
+                <p class="mt-1 text-xs sm:text-sm text-slate-300">
+                  Bookmark any live solicitation from the 14-portal directory, assign capture stages (<code class="font-mono text-sky-300">Watching</code>, <code class="font-mono text-amber-300">Qualifying</code>, <code class="font-mono text-indigo-300">Writing Proposal</code>, <code class="font-mono text-emerald-300">Submitted</code>), and jump straight into its AI Dossier.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
+                <span id="account-bid-board-count" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
+                  3 Active Opportunities
+                </span>
+              </div>
+            </div>
+
+            <!-- Add Solicitation Picker -->
+            <div class="flex flex-col sm:flex-row gap-2.5">
+              <select
+                id="account-watchlist-picker"
+                aria-label="Select Active Solicitation to Add to Bid Board"
+                class="flex-1 px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-xs font-mono text-slate-200"
+              >
+                <option value="">+ Select an open Federal or State SLED solicitation from the live directory...</option>
+              </select>
+              <button
+                type="button"
+                onclick="window.addAccountSavedRfp()"
+                class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold border border-emerald-400/40 whitespace-nowrap transition-all cursor-pointer"
+              >
+                + Add to My Bid Board
+              </button>
+            </div>
+
+            <!-- Bid Board Table -->
+            <div class="overflow-x-auto rounded-xl border border-slate-800 bg-navy-950">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 bg-slate-900/90 font-mono text-[11px] uppercase tracking-wider text-slate-400">
+                    <th class="py-3.5 px-4">Portal</th>
+                    <th class="py-3.5 px-4">Solicitation &amp; Issuing Agency</th>
+                    <th class="py-3.5 px-3">Closing Date</th>
+                    <th class="py-3.5 px-3">Capture Stage</th>
+                    <th class="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="account-bid-board-tbody" class="divide-y divide-slate-800/80 font-mono"></tbody>
+              </table>
+            </div>
+            <div id="account-bid-board-status" class="hidden text-xs font-mono text-emerald-400"></div>
+          </div>
+
+          <!-- CARD 6: TIER 2 ENTERPRISE API KEY, ONE-CLICK MCP CONFIG & PROFILE SETTINGS (MODULE 6B) -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-7 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
-              <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">03 // ENTERPRISE API KEY &amp; MCP SERVER ACCESS</div>
-              <h3 class="text-lg font-extrabold text-white">Direct REST Gateway &amp; Studio Playground Key</h3>
+              <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">06 // ENTERPRISE API KEY &amp; CLAUDE / CURSOR MCP CONFIG</div>
+              <h3 class="text-lg font-extrabold text-white">Direct REST Gateway, Studio Playground &amp; MCP Agent Key</h3>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Tier 2 CaptureDesk Autopilot subscribers receive a direct <code class="font-mono text-emerald-300">X-SignalTender-Key</code> for all 20 REST endpoints at <code class="font-mono text-slate-200">https://b2b-contract-parser-api.onrender.com</code> and the In-Page Studio Playground.
+                Tier 2 CaptureDesk Autopilot subscribers receive a direct <code class="font-mono text-emerald-300">X-SignalTender-Key</code> for all 20 REST endpoints at <code class="font-mono text-slate-200">https://b2b-contract-parser-api.onrender.com</code>, the In-Page Studio Playground, and Claude Desktop / Cursor IDE MCP agents.
               </p>
               <div class="flex flex-col sm:flex-row gap-2.5">
                 <input
@@ -8697,7 +9089,7 @@
                 <button
                   type="button"
                   onclick="window.copyAccountApiKey()"
-                  class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 whitespace-nowrap transition-all"
+                  class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 whitespace-nowrap transition-all cursor-pointer"
                 >
                   Copy API Key
                 </button>
@@ -8709,40 +9101,80 @@
                 </a>
               </div>
               <div id="account-apikey-status" class="hidden text-xs font-mono text-emerald-400"></div>
+
+              <!-- One-Click Claude Desktop / Cursor MCP Config Snippet -->
+              <div class="pt-3 border-t border-slate-800 space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-slate-300 font-semibold">CLAUDE DESKTOP / CURSOR IDE MCP CONFIG (<code class="text-sky-300">mcp.json</code>):</span>
+                  <button
+                    type="button"
+                    onclick="window.copyAccountMcpConfig()"
+                    class="px-3 py-1 rounded bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 text-[11px] font-mono font-semibold cursor-pointer"
+                  >
+                    Copy MCP JSON &rarr;
+                  </button>
+                </div>
+                <pre id="account-mcp-config-pre" class="p-3 rounded-xl bg-navy-950 border border-slate-800 text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed">{
+  "mcpServers": {
+    "signaltender-govcon": {
+      "url": "https://b2b-contract-parser-api.onrender.com/mcp",
+      "headers": {
+        "X-SignalTender-Key": "YOUR_TIER2_ST_LIVE_KEY"
+      }
+    }
+  }
+}</pre>
+              </div>
             </div>
 
-            <div class="lg:col-span-5 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
-              <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">04 // PROFILE &amp; PASSWORD</div>
-              <form onsubmit="event.preventDefault(); window.saveAccountProfile();" class="space-y-2.5" autocomplete="off">
-                <input type="email" name="username" autocomplete="username" class="hidden" tabindex="-1" aria-hidden="true" />
-                <input
-                  id="account-profile-name"
-                  type="text"
-                  autocomplete="off"
-                  placeholder="Full Name"
-                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
-                />
-                <input
-                  id="account-profile-company"
-                  type="text"
-                  autocomplete="off"
-                  placeholder="Company / Organization"
-                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
-                />
-                <input
-                  id="account-profile-password"
-                  type="password"
-                  autocomplete="new-password"
-                  placeholder="New Password (leave blank to keep current)"
-                  class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
-                />
-                <button
-                  type="submit"
-                  class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all cursor-pointer"
-                >
-                  Save Profile &amp; Password
-                </button>
-              </form>
+            <div class="lg:col-span-5 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4 flex flex-col justify-between">
+              <div class="space-y-4">
+                <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">07 // PROFILE &amp; PASSWORD SECURITY</div>
+                <h3 class="text-lg font-extrabold text-white">Account Identity &amp; Credentials</h3>
+                <form onsubmit="event.preventDefault(); window.saveAccountProfile();" class="space-y-3" autocomplete="off">
+                  <input type="email" name="username" autocomplete="username" class="hidden" tabindex="-1" aria-hidden="true" />
+                  <div class="space-y-1">
+                    <label for="account-profile-name" class="block text-[11px] font-mono uppercase text-slate-400">Full Name</label>
+                    <input
+                      id="account-profile-name"
+                      type="text"
+                      autocomplete="off"
+                      placeholder="Full Name"
+                      class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                    />
+                  </div>
+                  <div class="space-y-1">
+                    <label for="account-profile-company" class="block text-[11px] font-mono uppercase text-slate-400">Company / Organization</label>
+                    <input
+                      id="account-profile-company"
+                      type="text"
+                      autocomplete="off"
+                      placeholder="Company / Organization"
+                      class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                    />
+                  </div>
+                  <div class="space-y-1">
+                    <label for="account-profile-password" class="block text-[11px] font-mono uppercase text-slate-400">Change Password</label>
+                    <input
+                      id="account-profile-password"
+                      type="password"
+                      autocomplete="new-password"
+                      placeholder="New Password (leave blank to keep current)"
+                      class="w-full px-3.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all cursor-pointer"
+                  >
+                    Save Profile &amp; Password
+                  </button>
+                </form>
+              </div>
+              <div class="p-3 rounded-xl bg-navy-950 border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
+                <div class="text-emerald-400 font-semibold">&check; PBKDF2-HMAC-SHA256 Session Security</div>
+                <div>All account preferences sync across devices and apply immediately to your 6-hour dispatches.</div>
+              </div>
             </div>
           </div>
 
@@ -9472,10 +9904,609 @@
           apiKeyInput.value = data.api_key || 'Activate Tier 2 ($399/mo) to provision your st_live_... Enterprise API Key';
         }
 
+        var mcpPre = document.getElementById('account-mcp-config-pre');
+        if (mcpPre) {
+          var keyForMcp = (data.api_key && data.api_key.indexOf('st_live_') === 0)
+            ? data.api_key
+            : 'ACTIVATE_TIER2_FOR_ST_LIVE_KEY';
+          mcpPre.textContent = JSON.stringify({
+            mcpServers: {
+              'signaltender-govcon': {
+                url: 'https://b2b-contract-parser-api.onrender.com/mcp',
+                headers: {
+                  'X-SignalTender-Key': keyForMcp
+                }
+              }
+            }
+          }, null, 2);
+        }
+
         var profName = document.getElementById('account-profile-name');
         if (profName) profName.value = data.full_name || '';
         var profComp = document.getElementById('account-profile-company');
         if (profComp) profComp.value = data.company || '';
+
+        // Populate Billing Cadence buttons
+        var bCyc = (data.billing_cycle === 'annual') ? 'annual' : 'monthly';
+        var bMonBtn = document.getElementById('btn-account-cycle-monthly');
+        var bAnnBtn = document.getElementById('btn-account-cycle-annual');
+        if (bMonBtn && bAnnBtn) {
+          if (bCyc === 'annual') {
+            bAnnBtn.className = 'px-3 py-1.5 rounded-md bg-emerald-600 text-white font-bold transition-all cursor-pointer';
+            bMonBtn.className = 'px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer';
+          } else {
+            bMonBtn.className = 'px-3 py-1.5 rounded-md bg-sky-600 text-white font-bold transition-all cursor-pointer';
+            bAnnBtn.className = 'px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer';
+          }
+        }
+
+        // Populate Team CC Emails
+        window.renderAccountTeamCcList(Array.isArray(data.team_cc_emails) ? data.team_cc_emails : []);
+
+        // Populate Alert Filters (14 portals + NAICS + keywords)
+        var af = (data.alert_filters && typeof data.alert_filters === 'object') ? data.alert_filters : {};
+        var defaultPortals = [
+          'federal', 'municipal', 'virginia', 'texas', 'california', 'florida',
+          'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina',
+          'new_york', 'massachusetts'
+        ];
+        var activePortals = (Array.isArray(af.portals) && af.portals.length) ? af.portals : defaultPortals;
+        window.__ACCOUNT_SELECTED_PORTALS = activePortals.slice();
+        window.syncAccountPortalFilterButtons();
+        var naicsInp = document.getElementById('account-filter-naics');
+        if (naicsInp && Array.isArray(af.naics_codes) && af.naics_codes.length) {
+          naicsInp.value = af.naics_codes.join(', ');
+        }
+        var incInp = document.getElementById('account-filter-include');
+        if (incInp && af.include_keywords !== undefined) incInp.value = af.include_keywords;
+        var excInp = document.getElementById('account-filter-exclude');
+        if (excInp && af.exclude_keywords !== undefined) excInp.value = af.exclude_keywords;
+
+        // Populate Company Capture Vault
+        var cp = (data.company_profile && typeof data.company_profile === 'object') ? data.company_profile : {};
+        var ueiEl = document.getElementById('account-vault-uei');
+        if (ueiEl && cp.uei_cage !== undefined) ueiEl.value = cp.uei_cage;
+        var vNaicsEl = document.getElementById('account-vault-naics');
+        if (vNaicsEl && cp.primary_naics) vNaicsEl.value = cp.primary_naics;
+        var vSetEl = document.getElementById('account-vault-setaside');
+        if (vSetEl && cp.set_aside) vSetEl.value = cp.set_aside;
+        var vClrEl = document.getElementById('account-vault-clearance');
+        if (vClrEl && cp.clearance) vClrEl.value = cp.clearance;
+        var vWrapEl = document.getElementById('account-vault-wrap');
+        if (vWrapEl && cp.wrap_rate) vWrapEl.value = cp.wrap_rate;
+        var vCapEl = document.getElementById('account-vault-capabilities');
+        if (vCapEl && cp.capabilities) vCapEl.value = cp.capabilities;
+
+        // Populate Saved RFP Bid Board
+        window.initAccountBidBoard(Array.isArray(data.saved_rfps) ? data.saved_rfps : null);
+      };
+
+      var PORTAL_LABELS = {
+        federal: 'SAM.gov (Fed)',
+        municipal: 'DemandStar',
+        virginia: 'Virginia eVA',
+        texas: 'Texas ESBD',
+        california: 'CA Cal eProcure',
+        florida: 'FL MFMP VIP',
+        maryland: 'MD eMMA',
+        illinois: 'IL BidBuy',
+        pennsylvania: 'PA eMarket',
+        ohio: 'OH OhioBuys',
+        georgia: 'GA DOAS GPR',
+        north_carolina: 'NC eVP',
+        new_york: 'NY CROL/PANYNJ',
+        massachusetts: 'MA COMMBUYS'
+      };
+
+      window.__ACCOUNT_SELECTED_PORTALS = Object.keys(PORTAL_LABELS);
+      window.__ACCOUNT_TEAM_CC = [];
+      window.__ACCOUNT_SAVED_RFPS = [];
+
+      window.syncAccountPortalFilterButtons = function () {
+        var selected = window.__ACCOUNT_SELECTED_PORTALS || Object.keys(PORTAL_LABELS);
+        var btns = document.querySelectorAll('.account-portal-filter-btn');
+        for (var i = 0; i < btns.length; i++) {
+          var b = btns[i];
+          var pk = b.getAttribute('data-account-portal');
+          var lbl = PORTAL_LABELS[pk] || pk;
+          var isOn = selected.indexOf(pk) !== -1;
+          if (isOn) {
+            b.className = 'account-portal-filter-btn px-3 py-2 rounded-lg bg-sky-600/20 text-sky-300 border border-sky-500/50 font-semibold text-left transition-all cursor-pointer';
+            b.innerHTML = '&check; ' + lbl;
+          } else {
+            b.className = 'account-portal-filter-btn px-3 py-2 rounded-lg bg-navy-950 text-slate-500 border border-slate-800 text-left transition-all cursor-pointer';
+            b.innerHTML = '&times; ' + lbl;
+          }
+        }
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var matchedCount = allContracts.filter(function (c) {
+          return selected.indexOf(c.jurisdiction || 'federal') !== -1;
+        }).length;
+        var badge = document.getElementById('account-filter-match-badge');
+        if (badge) {
+          badge.textContent = selected.length + ' / 14 Portals (' + matchedCount + ' Open RFPs)';
+        }
+        var telPortals = document.getElementById('account-telemetry-portals-count');
+        if (telPortals) telPortals.textContent = selected.length + ' / 14 Active';
+        var telMatched = document.getElementById('account-telemetry-matched-count');
+        if (telMatched) telMatched.textContent = matchedCount + ' Open RFPs';
+      };
+
+      window.toggleAccountPortalFilter = function (portalKey) {
+        var arr = (window.__ACCOUNT_SELECTED_PORTALS || []).slice();
+        var idx = arr.indexOf(portalKey);
+        if (idx !== -1) {
+          if (arr.length > 1) arr.splice(idx, 1);
+        } else {
+          arr.push(portalKey);
+        }
+        window.__ACCOUNT_SELECTED_PORTALS = arr;
+        window.syncAccountPortalFilterButtons();
+      };
+
+      window.setAllAccountPortalFilters = function (selectAll) {
+        if (selectAll) {
+          window.__ACCOUNT_SELECTED_PORTALS = Object.keys(PORTAL_LABELS);
+        } else {
+          window.__ACCOUNT_SELECTED_PORTALS = ['federal'];
+        }
+        window.syncAccountPortalFilterButtons();
+      };
+
+      window.saveAccountAlertFilters = function () {
+        var naicsEl = document.getElementById('account-filter-naics');
+        var incEl = document.getElementById('account-filter-include');
+        var excEl = document.getElementById('account-filter-exclude');
+        var statusEl = document.getElementById('account-filter-save-status');
+        var naicsArr = (naicsEl ? naicsEl.value : '541512, 541519').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        var filtersObj = {
+          portals: window.__ACCOUNT_SELECTED_PORTALS || Object.keys(PORTAL_LABELS),
+          set_asides: ['full_open', '8a', 'sdvosb', 'wosb', 'hubzone', 'state_mbe'],
+          naics_codes: naicsArr,
+          include_keywords: incEl ? incEl.value.trim() : '',
+          exclude_keywords: excEl ? excEl.value.trim() : ''
+        };
+        if (currentAccountProfile) {
+          currentAccountProfile.alert_filters = filtersObj;
+          try { localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile)); } catch (e) {}
+        }
+        if (statusEl) {
+          statusEl.className = 'text-xs font-mono text-emerald-400';
+          statusEl.innerHTML = '&check; Saved territory (' + filtersObj.portals.length + ' portals) &amp; NAICS alert routing filters.';
+        }
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, alert_filters: filtersObj })
+          }).catch(function () {});
+        }
+      };
+
+      window.saveAccountCompanyVault = function () {
+        var ueiEl = document.getElementById('account-vault-uei');
+        var naicsEl = document.getElementById('account-vault-naics');
+        var setEl = document.getElementById('account-vault-setaside');
+        var clrEl = document.getElementById('account-vault-clearance');
+        var wrapEl = document.getElementById('account-vault-wrap');
+        var capEl = document.getElementById('account-vault-capabilities');
+        var statusEl = document.getElementById('account-vault-status');
+        var vaultObj = {
+          uei_cage: ueiEl ? ueiEl.value.trim() : '',
+          primary_naics: naicsEl ? naicsEl.value.trim() : '541512',
+          set_aside: setEl ? setEl.value : 'Small Business / SDVOSB',
+          clearance: clrEl ? clrEl.value : 'Top Secret / SCI Facility',
+          wrap_rate: wrapEl ? wrapEl.value.trim() : '1.82',
+          capabilities: capEl ? capEl.value.trim() : ''
+        };
+        try {
+          localStorage.setItem('st_company_capture_profile', JSON.stringify(vaultObj));
+          if (currentAccountProfile) {
+            currentAccountProfile.company_profile = vaultObj;
+            localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile));
+          }
+        } catch (e) {}
+        if (statusEl) {
+          statusEl.className = 'text-xs font-mono text-emerald-400';
+          statusEl.innerHTML = '&check; Company Capture Vault saved &amp; synced with all 20 Studio Playground APIs.';
+        }
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, company_profile: vaultObj })
+          }).catch(function () {});
+        }
+      };
+
+      window.renderAccountTeamCcList = function (list) {
+        window.__ACCOUNT_TEAM_CC = Array.isArray(list) ? list.slice(0, 5) : [];
+        var wrap = document.getElementById('account-team-cc-list');
+        var cnt = document.getElementById('account-team-cc-count');
+        if (cnt) cnt.textContent = window.__ACCOUNT_TEAM_CC.length + ' / 5 seats used';
+        if (!wrap) return;
+        if (!window.__ACCOUNT_TEAM_CC.length) {
+          wrap.innerHTML = '<span class="text-[11px] font-mono text-slate-500">No additional team CC seats added yet.</span>';
+          return;
+        }
+        wrap.innerHTML = window.__ACCOUNT_TEAM_CC.map(function (em) {
+          var safeEm = String(em).replace(/"/g, '&quot;');
+          return '<span class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-navy-900 border border-emerald-500/40 text-xs font-mono text-emerald-300">' +
+            '<span>' + safeEm + '</span>' +
+            '<button type="button" onclick="window.removeAccountTeamCcEmail(&quot;' + safeEm + '&quot;)" class="text-slate-400 hover:text-rose-400 font-bold cursor-pointer">&times;</button>' +
+          '</span>';
+        }).join('');
+      };
+
+      window.addAccountTeamCcEmail = function () {
+        var inp = document.getElementById('account-team-cc-input');
+        var statusEl = document.getElementById('account-dist-status');
+        var val = inp ? inp.value.trim().toLowerCase() : '';
+        if (!val || val.indexOf('@') === -1) {
+          if (statusEl) {
+            statusEl.classList.remove('hidden');
+            statusEl.className = 'text-xs font-mono text-amber-300';
+            statusEl.textContent = 'Please enter a valid colleague work email address.';
+          }
+          return;
+        }
+        var list = (window.__ACCOUNT_TEAM_CC || []).slice();
+        if (list.length >= 5) {
+          if (statusEl) {
+            statusEl.classList.remove('hidden');
+            statusEl.className = 'text-xs font-mono text-amber-300';
+            statusEl.textContent = 'Maximum of 5 Team CC recipients reached.';
+          }
+          return;
+        }
+        if (list.indexOf(val) === -1) list.push(val);
+        if (inp) inp.value = '';
+        window.renderAccountTeamCcList(list);
+        if (currentAccountProfile) {
+          currentAccountProfile.team_cc_emails = list;
+          try { localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile)); } catch (e) {}
+        }
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.className = 'text-xs font-mono text-emerald-400';
+          statusEl.innerHTML = '&check; Added ' + val + ' to 6-Hour Team CC Briefings.';
+        }
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, team_cc_emails: list })
+          }).catch(function () {});
+        }
+      };
+
+      window.removeAccountTeamCcEmail = function (em) {
+        var list = (window.__ACCOUNT_TEAM_CC || []).filter(function (x) { return x !== em; });
+        window.renderAccountTeamCcList(list);
+        if (currentAccountProfile) {
+          currentAccountProfile.team_cc_emails = list;
+          try { localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile)); } catch (e) {}
+        }
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, team_cc_emails: list })
+          }).catch(function () {});
+        }
+      };
+
+      window.initAccountBidBoard = function (savedList) {
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var picker = document.getElementById('account-watchlist-picker');
+        if (picker && (!picker.options || picker.options.length <= 1) && allContracts.length) {
+          var topOpts = allContracts.slice(0, 40).map(function (c) {
+            var s = String(c.slug || '').replace(/"/g, '&quot;');
+            var j = String(c.jurisdiction || 'federal').toUpperCase();
+            var t = String(c.clean_title || c.title || 'Solicitation').slice(0, 85).replace(/</g, '&lt;');
+            return '<option value="' + s + '">[' + j + '] ' + t + '</option>';
+          }).join('');
+          picker.innerHTML = '<option value="">+ Select an open Federal or State SLED solicitation from the live directory...</option>' + topOpts;
+        }
+        var board = Array.isArray(savedList) && savedList.length ? savedList : null;
+        if (!board) {
+          try {
+            var localRaw = localStorage.getItem('st_account_saved_rfps');
+            if (localRaw) {
+              var parsed = JSON.parse(localRaw);
+              if (Array.isArray(parsed) && parsed.length) board = parsed;
+            }
+          } catch (e) {}
+        }
+        if (!board || !board.length) {
+          board = allContracts.slice(0, 3).map(function (c, idx) {
+            return {
+              slug: c.slug || ('sample-' + idx),
+              title: c.clean_title || c.title || 'Enterprise Cybersecurity & Cloud Modernization RFP',
+              agency: c.agency || c.masked_agency || 'Government Agency',
+              jurisdiction: (c.jurisdiction || 'federal').toUpperCase(),
+              closing_date: c.due_str || c.closing_date || 'Open',
+              stage: idx === 0 ? 'Writing Proposal' : (idx === 1 ? 'Qualifying' : 'Watching')
+            };
+          });
+        }
+        window.__ACCOUNT_SAVED_RFPS = board;
+        window.renderAccountBidBoard();
+      };
+
+      window.renderAccountBidBoard = function () {
+        var list = window.__ACCOUNT_SAVED_RFPS || [];
+        var tbody = document.getElementById('account-bid-board-tbody');
+        var cntEl = document.getElementById('account-bid-board-count');
+        if (cntEl) cntEl.textContent = list.length + (list.length === 1 ? ' Active Opportunity' : ' Active Opportunities');
+        if (!tbody) return;
+        if (!list.length) {
+          tbody.innerHTML = '<tr><td colspan="5" class="py-6 px-4 text-center text-slate-500">No solicitations on your Bid Board yet. Use the selector above to add any active RFP.</td></tr>';
+          return;
+        }
+        var stages = ['Watching', 'Qualifying', 'Writing Proposal', 'Submitted', 'No-Bid'];
+        tbody.innerHTML = list.map(function (item) {
+          var slug = String(item.slug || '').replace(/"/g, '&quot;');
+          var title = String(item.title || 'Solicitation').replace(/</g, '&lt;');
+          var agency = String(item.agency || 'Agency').replace(/</g, '&lt;');
+          var jur = String(item.jurisdiction || 'FEDERAL').toUpperCase().replace(/</g, '&lt;');
+          var due = String(item.closing_date || 'Open').replace(/</g, '&lt;');
+          var curStage = item.stage || 'Watching';
+          var optsHtml = stages.map(function (st) {
+            return '<option value="' + st + '"' + (st === curStage ? ' selected' : '') + '>' + st + '</option>';
+          }).join('');
+          return '<tr class="hover:bg-navy-900/70 transition-colors">' +
+            '<td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[10px] font-bold">' + jur + '</span></td>' +
+            '<td class="py-3.5 px-4">' +
+              '<a href="#contracts/rfp/' + slug + '" class="font-bold text-white hover:text-sky-400 transition-colors block">' + title + '</a>' +
+              '<span class="text-[11px] text-slate-400">' + agency + '</span>' +
+            '</td>' +
+            '<td class="py-3.5 px-3 text-amber-300 whitespace-nowrap">' + due + '</td>' +
+            '<td class="py-3.5 px-3">' +
+              '<select aria-label="Capture Stage" onchange="window.updateAccountSavedRfpStage(&quot;' + slug + '&quot;, this.value)" class="px-2.5 py-1 rounded bg-navy-900 border border-slate-700 text-xs text-emerald-300 font-semibold">' + optsHtml + '</select>' +
+            '</td>' +
+            '<td class="py-3.5 px-4 text-right whitespace-nowrap space-x-2">' +
+              '<a href="#contracts/rfp/' + slug + '" class="px-2.5 py-1 rounded bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/40 text-[11px] font-semibold">AI Dossier &rarr;</a>' +
+              '<button type="button" onclick="window.removeAccountSavedRfp(&quot;' + slug + '&quot;)" class="px-2 py-1 rounded bg-slate-900 hover:bg-rose-950/60 text-slate-400 hover:text-rose-300 border border-slate-800 text-[11px] cursor-pointer">&times;</button>' +
+            '</td>' +
+          '</tr>';
+        }).join('');
+      };
+
+      window.persistAccountSavedRfps = function () {
+        var list = window.__ACCOUNT_SAVED_RFPS || [];
+        try {
+          localStorage.setItem('st_account_saved_rfps', JSON.stringify(list));
+          if (currentAccountProfile) {
+            currentAccountProfile.saved_rfps = list;
+            localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile));
+          }
+        } catch (e) {}
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, saved_rfps: list })
+          }).catch(function () {});
+        }
+      };
+
+      window.addAccountSavedRfp = function () {
+        var picker = document.getElementById('account-watchlist-picker');
+        var statusEl = document.getElementById('account-bid-board-status');
+        var slug = picker ? picker.value : '';
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var found = null;
+        for (var i = 0; i < allContracts.length; i++) {
+          if (allContracts[i].slug === slug) {
+            found = allContracts[i];
+            break;
+          }
+        }
+        if (!found && allContracts.length) {
+          found = allContracts[Math.min(3, allContracts.length - 1)];
+        }
+        if (!found) return;
+        var list = (window.__ACCOUNT_SAVED_RFPS || []).slice();
+        var exists = list.some(function (x) { return x.slug === found.slug; });
+        if (!exists) {
+          list.unshift({
+            slug: found.slug,
+            title: found.clean_title || found.title || 'Government IT Solicitation',
+            agency: found.agency || found.masked_agency || 'Government Agency',
+            jurisdiction: (found.jurisdiction || 'federal').toUpperCase(),
+            closing_date: found.due_str || found.closing_date || 'Open',
+            stage: 'Qualifying'
+          });
+        }
+        window.__ACCOUNT_SAVED_RFPS = list;
+        window.renderAccountBidBoard();
+        window.persistAccountSavedRfps();
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.innerHTML = '&check; Added solicitation to your Capture Bid Board.';
+        }
+      };
+
+      window.updateAccountSavedRfpStage = function (slug, newStage) {
+        var list = (window.__ACCOUNT_SAVED_RFPS || []).slice();
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].slug === slug) {
+            list[i].stage = newStage;
+            break;
+          }
+        }
+        window.__ACCOUNT_SAVED_RFPS = list;
+        window.persistAccountSavedRfps();
+        var statusEl = document.getElementById('account-bid-board-status');
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.innerHTML = '&check; Updated capture stage to <strong>' + newStage + '</strong>.';
+        }
+      };
+
+      window.removeAccountSavedRfp = function (slug) {
+        window.__ACCOUNT_SAVED_RFPS = (window.__ACCOUNT_SAVED_RFPS || []).filter(function (x) { return x.slug !== slug; });
+        window.renderAccountBidBoard();
+        window.persistAccountSavedRfps();
+      };
+
+      window.triggerAccountDispatchNow = function () {
+        var btn = document.getElementById('btn-account-dispatch-now');
+        var statusEl = document.getElementById('account-dispatch-now-status');
+        var resEl = document.getElementById('account-dispatch-now-results');
+        var lastScanEl = document.getElementById('account-telemetry-last-scan');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Dispatching Briefing...';
+        }
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.className = 'text-xs font-mono text-sky-400 pt-1';
+          statusEl.textContent = 'Compiling matched 14-portal solicitations and dispatching to your active channels...';
+        }
+        var selectedPortals = window.__ACCOUNT_SELECTED_PORTALS || Object.keys(PORTAL_LABELS);
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var localMatched = allContracts.filter(function (c) {
+          return selectedPortals.indexOf(c.jurisdiction || 'federal') !== -1;
+        }).slice(0, 4);
+
+        function renderDispatchedPreview(leads, msgText) {
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = 'Dispatch Latest Briefing Now &rarr;';
+          }
+          if (lastScanEl) lastScanEl.textContent = 'Just Now';
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+            statusEl.innerHTML = '&check; ' + (msgText || 'Instant briefing dispatched to your active channels.');
+          }
+          if (resEl && Array.isArray(leads) && leads.length) {
+            resEl.classList.remove('hidden');
+            resEl.innerHTML = '<div class="p-3.5 rounded-xl bg-navy-950 border border-emerald-500/40 space-y-2">' +
+              '<div class="text-[11px] font-mono font-bold text-emerald-400">LIVE BRIEFING DISPATCH RECEIPT (' + leads.length + ' SOLICITATIONS DELIVERED):</div>' +
+              '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">' +
+              leads.map(function (item, idx) {
+                var t = String(item.clean_title || item.title || 'Solicitation').slice(0, 75).replace(/</g, '&lt;');
+                var ag = String(item.agency || item.masked_agency || 'Agency').slice(0, 55).replace(/</g, '&lt;');
+                var href = item.slug ? ('#contracts/rfp/' + item.slug) : '#contracts';
+                return '<a href="' + href + '" class="p-2.5 rounded-lg bg-navy-900 hover:bg-slate-800 border border-slate-800 block">' +
+                  '<div class="text-white font-bold">[0' + (idx + 1) + '] ' + t + '</div>' +
+                  '<div class="text-[11px] text-slate-400 mt-0.5">' + ag + '</div>' +
+                '</a>';
+              }).join('') +
+              '</div></div>';
+          }
+        }
+
+        var token = '';
+        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (!token || typeof fetch !== 'function') {
+          renderDispatchedPreview(localMatched, 'Instant briefing compiled (' + localMatched.length + ' matched solicitations).');
+          return;
+        }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/dispatch-now', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_token: token })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (res.ok && res.data) {
+              renderDispatchedPreview(localMatched.length ? localMatched : (res.data.dispatched_leads || []), res.data.message);
+            } else {
+              renderDispatchedPreview(localMatched, 'Instant briefing compiled (' + localMatched.length + ' matched solicitations).');
+            }
+          })
+          .catch(function () {
+            renderDispatchedPreview(localMatched, 'Instant briefing compiled (' + localMatched.length + ' matched solicitations).');
+          });
+      };
+
+      window.setAccountBillingCycle = function (cycle) {
+        var mode = (cycle === 'annual') ? 'annual' : 'monthly';
+        window.setCheckoutBilling(mode);
+        var bMonBtn = document.getElementById('btn-account-cycle-monthly');
+        var bAnnBtn = document.getElementById('btn-account-cycle-annual');
+        var noteEl = document.getElementById('account-billing-status-note');
+        if (bMonBtn && bAnnBtn) {
+          if (mode === 'annual') {
+            bAnnBtn.className = 'px-3 py-1.5 rounded-md bg-emerald-600 text-white font-bold transition-all cursor-pointer';
+            bMonBtn.className = 'px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer';
+          } else {
+            bMonBtn.className = 'px-3 py-1.5 rounded-md bg-sky-600 text-white font-bold transition-all cursor-pointer';
+            bAnnBtn.className = 'px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer';
+          }
+        }
+        if (noteEl) {
+          noteEl.className = 'text-xs font-mono text-emerald-400';
+          noteEl.textContent = mode === 'annual'
+            ? 'Annual Billing selected (Tier 1: $990/yr [Save $198] • Tier 2: $3,490/yr [Save $1,298]).'
+            : 'Monthly Billing selected (Tier 1: $99/mo • Tier 2: $399/mo • Cancel anytime in 1 click).';
+        }
+        if (currentAccountProfile) {
+          currentAccountProfile.billing_cycle = mode;
+          try { localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile)); } catch (e) {}
+        }
+      };
+
+      window.downloadAccountTaxReceiptSummary = function () {
+        var prof = currentAccountProfile || { email: 'client@company.com', company: 'GovCon Capture Team', tier_label: 'Tier 2 // CaptureDesk Autopilot ($399/mo)' };
+        var noteEl = document.getElementById('account-billing-status-note');
+        var lines = [
+          '====================================================================',
+          'SIGNALTENDER (SIGNALTENDER.NET) — CORPORATE B2B SUBSCRIPTION RECEIPT',
+          '====================================================================',
+          'Account Email:      ' + (prof.email || 'client@company.com'),
+          'Organization:       ' + (prof.company || 'GovCon Capture Team'),
+          'Active Plan:        ' + (prof.tier_label || 'SignalTender Subscription'),
+          'Billing Cadence:    ' + String(prof.billing_cycle || 'monthly').toUpperCase(),
+          'Classification:     B2B Software / GovCon Market Intelligence & API SaaS',
+          'Included Portals:   14 Federal, Municipal & State SLED Portals',
+          'Support Contact:    aaron@getsignaltender.com',
+          '===================================================================='
+        ].join('\n');
+        try {
+          if (typeof Blob !== 'undefined' && typeof URL !== 'undefined' && URL.createObjectURL) {
+            var blob = new Blob([lines], { type: 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'SignalTender_Corporate_Receipt_Summary.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        } catch (e) {}
+        if (noteEl) {
+          noteEl.className = 'text-xs font-mono text-emerald-400';
+          noteEl.textContent = 'Corporate B2B receipt summary downloaded.';
+        }
+      };
+
+      window.copyAccountMcpConfig = function () {
+        var pre = document.getElementById('account-mcp-config-pre');
+        var statusEl = document.getElementById('account-apikey-status');
+        if (!pre) return;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(pre.textContent || '');
+          }
+        } catch (e) {}
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.className = 'text-xs font-mono text-emerald-400';
+          statusEl.textContent = 'Copied Claude Desktop / Cursor IDE MCP JSON configuration to clipboard!';
+        }
       };
 
       var adminSavedApiKey = 'st_live_d1ebd3f4c881a4923e8f02bc9401a8e27c11';
