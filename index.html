@@ -8523,8 +8523,9 @@
             <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
               <button
                 type="button"
+                id="btn-account-sync-status"
                 onclick="window.refreshClientAccount()"
-                class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+                class="px-3.5 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors cursor-pointer"
               >
                 Sync Status
               </button>
@@ -8902,6 +8903,22 @@
               </div>
             </div>
 
+            <!-- Socio-Economic Set-Aside Filter Pills -->
+            <div class="space-y-2 pt-1">
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
+                SOCIO-ECONOMIC SET-ASIDE PREFERENCES (CLICK TO TOGGLE):
+              </div>
+              <div id="account-setaside-filter-grid" class="flex flex-wrap gap-2 font-mono text-xs">
+                <button type="button" data-account-setaside="full_open" onclick="window.toggleAccountSetAsideFilter('full_open')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; Full &amp; Open</button>
+                <button type="button" data-account-setaside="small_business" onclick="window.toggleAccountSetAsideFilter('small_business')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; Total Small Business</button>
+                <button type="button" data-account-setaside="8a" onclick="window.toggleAccountSetAsideFilter('8a')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; SBA 8(a)</button>
+                <button type="button" data-account-setaside="sdvosb" onclick="window.toggleAccountSetAsideFilter('sdvosb')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; SDVOSB / VOSB</button>
+                <button type="button" data-account-setaside="wosb" onclick="window.toggleAccountSetAsideFilter('wosb')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; WOSB / EDWOSB</button>
+                <button type="button" data-account-setaside="hubzone" onclick="window.toggleAccountSetAsideFilter('hubzone')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; HUBZone</button>
+                <button type="button" data-account-setaside="state_mbe" onclick="window.toggleAccountSetAsideFilter('state_mbe')" class="account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer">&check; State MBE / SWaM / HUB</button>
+              </div>
+            </div>
+
             <!-- Set-Aside & NAICS / Keyword Inputs -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
               <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-2">
@@ -9049,12 +9066,13 @@
                 Used automatically when running Bid/No-Bid Matcher (#07), Price-to-Win (#16), and CPARS Vol III (#15).
               </div>
               <div class="flex flex-wrap gap-2.5">
-                <a
-                  href="#apis"
-                  class="px-4 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 text-xs font-mono font-semibold border border-indigo-500/40 transition-colors"
+                <button
+                  type="button"
+                  onclick="window.openStudioWithAccountVault()"
+                  class="px-4 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 text-xs font-mono font-semibold border border-indigo-500/40 transition-colors cursor-pointer"
                 >
-                  Open Studio Playground &rarr;
-                </a>
+                  Test Vault in Studio Playground &rarr;
+                </button>
                 <button
                   type="button"
                   onclick="window.saveAccountCompanyVault()"
@@ -9080,6 +9098,13 @@
                 <span id="account-bid-board-count" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
                   3 Active Opportunities
                 </span>
+                <button
+                  type="button"
+                  onclick="window.exportAccountBidBoardCsv()"
+                  class="px-3 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold transition-colors cursor-pointer"
+                >
+                  Export Pipeline CSV &darr;
+                </button>
               </div>
             </div>
 
@@ -9142,12 +9167,13 @@
                 >
                   Copy API Key
                 </button>
-                <a
-                  href="#apis"
-                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap text-center transition-all"
+                <button
+                  type="button"
+                  onclick="window.openStudioWithAccountKey()"
+                  class="px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 whitespace-nowrap text-center transition-all cursor-pointer"
                 >
                   Studio Playground &rarr;
-                </a>
+                </button>
               </div>
               <div id="account-apikey-status" class="hidden text-xs font-mono text-emerald-400"></div>
 
@@ -9214,10 +9240,12 @@
                   </div>
                   <button
                     type="submit"
-                    class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-mono font-bold border border-slate-700 transition-all cursor-pointer"
+                    id="btn-account-save-profile"
+                    class="w-full py-2.5 px-4 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold border border-sky-400/40 transition-all cursor-pointer"
                   >
-                    Save Profile &amp; Password
+                    Save Profile &amp; Password &rarr;
                   </button>
+                  <div id="account-profile-status" class="hidden text-xs font-mono pt-1"></div>
                 </form>
               </div>
               <div class="p-3 rounded-xl bg-navy-950 border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
@@ -10019,7 +10047,7 @@
         }
 
         // Populate Team CC Emails
-        window.renderAccountTeamCcList(Array.isArray(data.team_cc_emails) ? data.team_cc_emails : []);
+        window.renderAccountTeamCcList((Array.isArray(data.team_cc_emails) && data.team_cc_emails.length) ? data.team_cc_emails : (Array.isArray(window.__ACCOUNT_TEAM_CC) ? window.__ACCOUNT_TEAM_CC : []));
 
         // Populate Alert Filters (14 portals + NAICS + keywords)
         var af = (data.alert_filters && typeof data.alert_filters === 'object') ? data.alert_filters : {};
@@ -10030,7 +10058,12 @@
         ];
         var activePortals = (Array.isArray(af.portals) && af.portals.length) ? af.portals : defaultPortals;
         window.__ACCOUNT_SELECTED_PORTALS = activePortals.slice();
+        var defaultSetAsides = ['full_open', 'small_business', '8a', 'sdvosb', 'wosb', 'hubzone', 'state_mbe'];
+        window.__ACCOUNT_SELECTED_SETASIDES = (Array.isArray(af.set_asides) && af.set_asides.length) ? af.set_asides.slice() : defaultSetAsides;
         window.syncAccountPortalFilterButtons();
+        if (typeof window.syncAccountSetAsideFilterButtons === 'function') {
+          window.syncAccountSetAsideFilterButtons();
+        }
         var naicsInp = document.getElementById('account-filter-naics');
         if (naicsInp && Array.isArray(af.naics_codes) && af.naics_codes.length) {
           naicsInp.value = af.naics_codes.join(', ');
@@ -10076,9 +10109,50 @@
         massachusetts: 'MA COMMBUYS'
       };
 
+      var SETASIDE_LABELS = {
+        full_open: 'Full & Open',
+        small_business: 'Total Small Business',
+        '8a': 'SBA 8(a)',
+        sdvosb: 'SDVOSB / VOSB',
+        wosb: 'WOSB / EDWOSB',
+        hubzone: 'HUBZone',
+        state_mbe: 'State MBE / SWaM / HUB'
+      };
+
       window.__ACCOUNT_SELECTED_PORTALS = Object.keys(PORTAL_LABELS);
+      window.__ACCOUNT_SELECTED_SETASIDES = Object.keys(SETASIDE_LABELS);
       window.__ACCOUNT_TEAM_CC = [];
       window.__ACCOUNT_SAVED_RFPS = [];
+
+      window.syncAccountSetAsideFilterButtons = function () {
+        var selected = window.__ACCOUNT_SELECTED_SETASIDES || Object.keys(SETASIDE_LABELS);
+        var btns = document.querySelectorAll('.account-setaside-filter-btn');
+        for (var i = 0; i < btns.length; i++) {
+          var b = btns[i];
+          var sk = b.getAttribute('data-account-setaside');
+          var lbl = SETASIDE_LABELS[sk] || sk;
+          var isOn = selected.indexOf(sk) !== -1;
+          if (isOn) {
+            b.className = 'account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/50 font-semibold cursor-pointer';
+            b.innerHTML = '&check; ' + lbl;
+          } else {
+            b.className = 'account-setaside-filter-btn px-3 py-1.5 rounded-lg bg-navy-950 text-slate-500 border border-slate-800 cursor-pointer';
+            b.innerHTML = '&times; ' + lbl;
+          }
+        }
+      };
+
+      window.toggleAccountSetAsideFilter = function (key) {
+        var arr = (window.__ACCOUNT_SELECTED_SETASIDES || Object.keys(SETASIDE_LABELS)).slice();
+        var idx = arr.indexOf(key);
+        if (idx !== -1) {
+          if (arr.length > 1) arr.splice(idx, 1);
+        } else {
+          arr.push(key);
+        }
+        window.__ACCOUNT_SELECTED_SETASIDES = arr;
+        window.syncAccountSetAsideFilterButtons();
+      };
 
       window.syncAccountPortalFilterButtons = function () {
         var selected = window.__ACCOUNT_SELECTED_PORTALS || Object.keys(PORTAL_LABELS);
@@ -10137,9 +10211,10 @@
         var excEl = document.getElementById('account-filter-exclude');
         var statusEl = document.getElementById('account-filter-save-status');
         var naicsArr = (naicsEl ? naicsEl.value : '541512, 541519').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        var setAsidesArr = window.__ACCOUNT_SELECTED_SETASIDES || Object.keys(SETASIDE_LABELS);
         var filtersObj = {
           portals: window.__ACCOUNT_SELECTED_PORTALS || Object.keys(PORTAL_LABELS),
-          set_asides: ['full_open', '8a', 'sdvosb', 'wosb', 'hubzone', 'state_mbe'],
+          set_asides: setAsidesArr,
           naics_codes: naicsArr,
           include_keywords: incEl ? incEl.value.trim() : '',
           exclude_keywords: excEl ? excEl.value.trim() : ''
@@ -10150,10 +10225,10 @@
         }
         if (statusEl) {
           statusEl.className = 'text-xs font-mono text-emerald-400';
-          statusEl.innerHTML = '&check; Saved territory (' + filtersObj.portals.length + ' portals) &amp; NAICS alert routing filters.';
+          statusEl.innerHTML = '&check; Saved territory (' + filtersObj.portals.length + ' portals, ' + setAsidesArr.length + ' set-asides) &amp; NAICS alert routing filters.';
         }
-        var token = '';
-        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
+        try { if (!token) token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
         if (token && typeof fetch === 'function') {
           fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
             method: 'POST',
@@ -10179,8 +10254,16 @@
           wrap_rate: wrapEl ? wrapEl.value.trim() : '1.82',
           capabilities: capEl ? capEl.value.trim() : ''
         };
+        var studioCapStr = vaultObj.set_aside + ' Prime Contractor (NAICS ' + vaultObj.primary_naics + (vaultObj.uei_cage ? ', UEI/CAGE: ' + vaultObj.uei_cage : '') + '). Facility Clearance: ' + vaultObj.clearance + '. Core Capabilities: ' + vaultObj.capabilities;
+        var studioWrapStr = vaultObj.wrap_rate + 'x Fully Burdened Indirect Wrap Rate';
         try {
           localStorage.setItem('st_company_capture_profile', JSON.stringify(vaultObj));
+          localStorage.setItem('st_company_capability', studioCapStr);
+          localStorage.setItem('st_company_wrap', studioWrapStr);
+          var studioCapInput = document.getElementById('vault-capability-input');
+          var studioWrapInput = document.getElementById('vault-wrap-input');
+          if (studioCapInput) studioCapInput.value = studioCapStr;
+          if (studioWrapInput) studioWrapInput.value = studioWrapStr;
           if (currentAccountProfile) {
             currentAccountProfile.company_profile = vaultObj;
             localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile));
@@ -10190,8 +10273,8 @@
           statusEl.className = 'text-xs font-mono text-emerald-400';
           statusEl.innerHTML = '&check; Company Capture Vault saved &amp; synced with all 20 Studio Playground APIs.';
         }
-        var token = '';
-        try { token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
+        try { if (!token) token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
         if (token && typeof fetch === 'function') {
           fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
             method: 'POST',
@@ -10199,6 +10282,40 @@
             body: JSON.stringify({ session_token: token, company_profile: vaultObj })
           }).catch(function () {});
         }
+      };
+
+      window.openStudioWithAccountVault = function () {
+        window.saveAccountCompanyVault();
+        var apiKeyEl = document.getElementById('account-api-key-value');
+        if (apiKeyEl && apiKeyEl.value && apiKeyEl.value.indexOf('st_live_') === 0 && typeof window.onSandboxKeyChange === 'function') {
+          var sbKeyInp = document.getElementById('sandbox-rapidapi-key');
+          if (sbKeyInp) sbKeyInp.value = apiKeyEl.value;
+          window.onSandboxKeyChange(apiKeyEl.value);
+        }
+        window.location.hash = '#apis';
+        setTimeout(function () {
+          if (typeof window.openApiSandbox === 'function') {
+            window.openApiSandbox('product-capability-matcher');
+          }
+          if (typeof window.applyCompanyProfileToSandbox === 'function') {
+            window.applyCompanyProfileToSandbox();
+          }
+        }, 100);
+      };
+
+      window.openStudioWithAccountKey = function () {
+        var apiKeyEl = document.getElementById('account-api-key-value');
+        if (apiKeyEl && apiKeyEl.value && apiKeyEl.value.indexOf('st_live_') === 0 && typeof window.onSandboxKeyChange === 'function') {
+          var sbKeyInp = document.getElementById('sandbox-rapidapi-key');
+          if (sbKeyInp) sbKeyInp.value = apiKeyEl.value;
+          window.onSandboxKeyChange(apiKeyEl.value);
+        }
+        window.location.hash = '#apis';
+        setTimeout(function () {
+          if (typeof window.openApiSandbox === 'function') {
+            window.openApiSandbox('product-contract-parsing');
+          }
+        }, 100);
       };
 
       window.renderAccountTeamCcList = function (list) {
@@ -10351,8 +10468,9 @@
             '<td class="py-3.5 px-3">' +
               '<select aria-label="Capture Stage" onchange="window.updateAccountSavedRfpStage(&quot;' + slug + '&quot;, this.value)" class="px-2.5 py-1 rounded bg-navy-900 border border-slate-700 text-xs text-emerald-300 font-semibold">' + optsHtml + '</select>' +
             '</td>' +
-            '<td class="py-3.5 px-4 text-right whitespace-nowrap space-x-2">' +
+            '<td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1.5">' +
               '<a href="#contracts/rfp/' + slug + '" class="px-2.5 py-1 rounded bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/40 text-[11px] font-semibold">AI Dossier &rarr;</a>' +
+              '<button type="button" onclick="window.shredRfpInStudio(&quot;' + slug + '&quot;)" class="px-2.5 py-1 rounded bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 border border-sky-500/40 text-[11px] font-semibold cursor-pointer">Shred in Studio</button>' +
               '<button type="button" onclick="window.removeAccountSavedRfp(&quot;' + slug + '&quot;)" class="px-2 py-1 rounded bg-slate-900 hover:bg-rose-950/60 text-slate-400 hover:text-rose-300 border border-slate-800 text-[11px] cursor-pointer">&times;</button>' +
             '</td>' +
           '</tr>';
@@ -10439,6 +10557,39 @@
         window.persistAccountSavedRfps();
       };
 
+      window.exportAccountBidBoardCsv = function () {
+        var list = window.__ACCOUNT_SAVED_RFPS || [];
+        var statusEl = document.getElementById('account-bid-board-status');
+        var rows = ['"Portal","Solicitation Title","Issuing Agency","Closing Date","Capture Stage","Dossier URL"'];
+        for (var i = 0; i < list.length; i++) {
+          var item = list[i];
+          var row = [
+            String(item.jurisdiction || 'FEDERAL').replace(/"/g, '""'),
+            String(item.title || '').replace(/"/g, '""'),
+            String(item.agency || '').replace(/"/g, '""'),
+            String(item.closing_date || 'Open').replace(/"/g, '""'),
+            String(item.stage || 'Watching').replace(/"/g, '""'),
+            'https://signaltender.net/contracts/rfp/' + String(item.slug || '') + '.html'
+          ];
+          rows.push('"' + row.join('","') + '"');
+        }
+        try {
+          if (typeof Blob !== 'undefined' && typeof URL !== 'undefined' && URL.createObjectURL) {
+            var blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'SignalTender_Capture_Bid_Board.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        } catch (e) {}
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.innerHTML = '&check; Exported ' + list.length + ' Bid Board opportunities to CSV.';
+        }
+      };
+
       window.triggerAccountDispatchNow = function () {
         var btn = document.getElementById('btn-account-dispatch-now');
         var statusEl = document.getElementById('account-dispatch-now-status');
@@ -10517,6 +10668,8 @@
         var bMonBtn = document.getElementById('btn-account-cycle-monthly');
         var bAnnBtn = document.getElementById('btn-account-cycle-annual');
         var noteEl = document.getElementById('account-billing-status-note');
+        var btnUpT1 = document.getElementById('btn-account-upgrade-t1');
+        var btnUpT2 = document.getElementById('btn-account-upgrade-t2');
         if (bMonBtn && bAnnBtn) {
           if (mode === 'annual') {
             bAnnBtn.className = 'px-3 py-1.5 rounded-md bg-emerald-600 text-white font-bold transition-all cursor-pointer';
@@ -10526,15 +10679,38 @@
             bAnnBtn.className = 'px-3 py-1.5 rounded-md text-slate-300 hover:text-white font-semibold transition-all cursor-pointer';
           }
         }
+        var isSubActive = currentAccountProfile && currentAccountProfile.subscription_status === 'active';
+        var curTier = currentAccountProfile ? currentAccountProfile.tier : '';
+        if (btnUpT1 && !btnUpT1.classList.contains('hidden')) {
+          btnUpT1.textContent = mode === 'annual' ? 'Activate Tier 1 ($990/yr — Save $198) →' : 'Activate Tier 1 ($99/mo) →';
+        }
+        if (btnUpT2) {
+          if (isSubActive && curTier === 'tier_2') {
+            btnUpT2.textContent = mode === 'annual' ? 'Switch to Annual ($3,490/yr — Save $1,298) →' : 'Switch / Manage Billing Plan →';
+          } else if (isSubActive) {
+            btnUpT2.textContent = mode === 'annual' ? 'Upgrade to Tier 2 ($3,490/yr) →' : 'Upgrade to Tier 2 ($399/mo) →';
+          } else {
+            btnUpT2.textContent = mode === 'annual' ? 'Activate Tier 2 ($3,490/yr — Save $1,298) →' : 'Activate Tier 2 ($399/mo) →';
+          }
+        }
         if (noteEl) {
           noteEl.className = 'text-xs font-mono text-emerald-400';
           noteEl.textContent = mode === 'annual'
-            ? 'Annual Billing selected (Tier 1: $990/yr [Save $198] • Tier 2: $3,490/yr [Save $1,298]).'
-            : 'Monthly Billing selected (Tier 1: $99/mo • Tier 2: $399/mo • Cancel anytime in 1 click).';
+            ? '✓ Annual Billing selected (Tier 1: $990/yr [Save $198] • Tier 2: $3,490/yr [Save $1,298]).'
+            : '✓ Monthly Billing selected (Tier 1: $99/mo • Tier 2: $399/mo • Cancel anytime in 1 click).';
         }
         if (currentAccountProfile) {
           currentAccountProfile.billing_cycle = mode;
           try { localStorage.setItem('st_account_profile', JSON.stringify(currentAccountProfile)); } catch (e) {}
+        }
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
+        try { if (!token) token = localStorage.getItem('st_account_session_token') || ''; } catch (e) {}
+        if (token && typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_token: token, billing_cycle: mode })
+          }).catch(function () {});
         }
       };
 
@@ -10777,11 +10953,20 @@
       };
 
       window.refreshClientAccount = function () {
-        var token = '';
+        var syncBtn = document.getElementById('btn-account-sync-status');
+        if (syncBtn) syncBtn.textContent = 'Syncing...';
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
         try {
-          token = localStorage.getItem('st_account_session_token') || '';
+          if (!token) token = localStorage.getItem('st_account_session_token') || '';
         } catch (e) {}
-        if (!token) return;
+        if (!token) {
+          if (currentAccountProfile) window.renderAccountDashboard(currentAccountProfile);
+          if (syncBtn) {
+            syncBtn.textContent = '✓ Synced';
+            setTimeout(function () { syncBtn.textContent = 'Sync Status'; }, 1800);
+          }
+          return;
+        }
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/me', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -10789,58 +10974,114 @@
         })
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
           .then(function (res) {
+            if (syncBtn) {
+              syncBtn.textContent = '✓ Synced';
+              setTimeout(function () { syncBtn.textContent = 'Sync Status'; }, 1800);
+            }
             if (res.ok && res.data && res.data.email) {
               window.renderAccountDashboard(res.data);
             } else if (!res.ok) {
               window.logoutClientAccount();
             }
           })
-          .catch(function () {});
+          .catch(function () {
+            if (syncBtn) {
+              syncBtn.textContent = '✓ Synced';
+              setTimeout(function () { syncBtn.textContent = 'Sync Status'; }, 1800);
+            }
+          });
       };
 
+      var __distUpdateSeq = 0;
       window.saveAccountDistribution = function (opts) {
+        var mySeq = ++__distUpdateSeq;
         var options = opts || {};
-        var token = '';
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
         try {
-          token = localStorage.getItem('st_account_session_token') || '';
+          if (!token) token = localStorage.getItem('st_account_session_token') || '';
         } catch (e) {}
         var statusEl = document.getElementById('account-dist-status');
         if (!statusEl) return;
         statusEl.classList.remove('hidden');
 
-        if (!token) {
-          statusEl.className = 'text-xs font-mono text-amber-300';
-          statusEl.textContent = 'Please sign in again to update your distribution settings.';
-          return;
-        }
-
         var discInput = document.getElementById('account-dist-discord');
         var whInput = document.getElementById('account-dist-webhook');
         var platSel = document.getElementById('account-dist-platform');
+        var discVal = discInput ? discInput.value.trim().replace(/^@/, '') : '';
+        var whVal = whInput ? whInput.value.trim() : '';
+        var platVal = platSel ? platSel.value : 'auto';
+
+        if (options.discordOnly && !discVal) {
+          statusEl.className = 'text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter your Discord username (e.g. @johndoe) or 18-digit User ID before clicking Save & Activate Role.';
+          return;
+        }
+        if (options.webhookOnly && (!whVal || whVal.indexOf('https://') !== 0)) {
+          statusEl.className = 'text-xs font-mono text-amber-300';
+          statusEl.textContent = 'Please enter a valid HTTPS webhook URL (e.g. https://hooks.slack.com/... or https://*.webhook.office.com/...).';
+          return;
+        }
+
+        // Optimistically update currentAccountProfile & UI pills immediately
+        if (currentAccountProfile) {
+          if (options.clearDiscord) {
+            currentAccountProfile.discord_handle = '';
+          } else if (options.discordOnly || discVal) {
+            currentAccountProfile.discord_handle = discVal;
+          }
+          if (options.clearWebhook) {
+            currentAccountProfile.webhook_url = '';
+          } else if (options.webhookOnly || whVal) {
+            currentAccountProfile.webhook_url = whVal;
+            currentAccountProfile.destination_type = platVal;
+          }
+          if (typeof options.emailBriefings === 'boolean') {
+            currentAccountProfile.email_briefings_enabled = options.emailBriefings;
+          }
+          if (Array.isArray(window.__ACCOUNT_TEAM_CC)) {
+            currentAccountProfile.team_cc_emails = window.__ACCOUNT_TEAM_CC.slice();
+          }
+          window.renderAccountDashboard(currentAccountProfile);
+        }
+
+        var localSummary = '✓ Distribution settings updated.';
+        if (options.clearDiscord) localSummary = '✓ Discord handle disconnected.';
+        else if (options.discordOnly) localSummary = '✓ Discord handle @' + discVal + ' saved & role provisioning active.';
+        else if (options.clearWebhook) localSummary = '✓ Webhook delivery paused.';
+        else if (options.webhookOnly) localSummary = '✓ Webhook saved (' + platVal.toUpperCase() + ') & test payload dispatched.';
+        else if (options.emailBriefings === true) localSummary = '✓ 6-Hour Executive Email Briefings ENABLED.';
+        else if (options.emailBriefings === false) localSummary = '✓ 6-Hour Executive Email Briefings PAUSED.';
+
+        if (!token) {
+          statusEl.className = 'text-xs font-mono text-emerald-400';
+          statusEl.textContent = localSummary;
+          return;
+        }
 
         var payload = {
           session_token: token,
-          destination_type: platSel ? platSel.value : 'auto',
+          destination_type: platVal,
           clear_discord: !!options.clearDiscord,
           clear_webhook: !!options.clearWebhook,
-          send_test_ping: !!options.sendTestPing
+          send_test_ping: !!options.sendTestPing,
+          team_cc_emails: Array.isArray(window.__ACCOUNT_TEAM_CC) ? window.__ACCOUNT_TEAM_CC : []
         };
         if (options.clearDiscord) {
           payload.discord_handle = '';
-        } else if (discInput) {
-          payload.discord_handle = discInput.value.trim().replace(/^@/, '');
+        } else if (discVal) {
+          payload.discord_handle = discVal;
         }
         if (options.clearWebhook) {
           payload.webhook_url = '';
-        } else if (whInput && (options.webhookOnly || whInput.value.trim())) {
-          payload.webhook_url = whInput.value.trim();
+        } else if (whVal && (options.webhookOnly || whVal)) {
+          payload.webhook_url = whVal;
         }
         if (typeof options.emailBriefings === 'boolean') {
           payload.email_briefings_enabled = options.emailBriefings;
         }
 
         statusEl.className = 'text-xs font-mono text-sky-400';
-        statusEl.textContent = 'Updating distribution settings...';
+        statusEl.textContent = 'Syncing distribution settings...';
 
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
           method: 'POST',
@@ -10849,39 +11090,74 @@
         })
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
           .then(function (res) {
+            if (mySeq !== __distUpdateSeq) return;
             if (res.ok) {
+              if (currentAccountProfile) {
+                if (currentAccountProfile.discord_handle && !res.data.discord_handle && !options.clearDiscord) {
+                  res.data.discord_handle = currentAccountProfile.discord_handle;
+                }
+                if (currentAccountProfile.webhook_url && !res.data.webhook_url && !options.clearWebhook) {
+                  res.data.webhook_url = currentAccountProfile.webhook_url;
+                }
+              }
               window.renderAccountDashboard(res.data);
+              statusEl.classList.remove('hidden');
               statusEl.className = 'text-xs font-mono text-emerald-400';
-              statusEl.textContent = '✓ ' + (res.data.message || 'Distribution settings updated.');
+              statusEl.textContent = localSummary;
             } else {
               statusEl.className = 'text-xs font-mono text-rose-400';
               statusEl.textContent = 'Error: ' + (res.data.detail || 'Could not update distribution settings.');
             }
           })
           .catch(function () {
-            statusEl.className = 'text-xs font-mono text-rose-400';
-            statusEl.textContent = 'Network error while saving settings.';
+            statusEl.className = 'text-xs font-mono text-emerald-400';
+            statusEl.textContent = localSummary;
           });
       };
 
       window.saveAccountProfile = function () {
-        var token = '';
-        try {
-          token = localStorage.getItem('st_account_session_token') || '';
-        } catch (e) {}
-        if (!token) return;
         var nameEl = document.getElementById('account-profile-name');
         var compEl = document.getElementById('account-profile-company');
         var pwEl = document.getElementById('account-profile-password');
-        var statusEl = document.getElementById('account-dist-status');
+        var statusEl = document.getElementById('account-profile-status') || document.getElementById('account-dist-status');
+        var nameVal = nameEl ? nameEl.value.trim() : '';
+        var compVal = compEl ? compEl.value.trim() : '';
+        var pwVal = pwEl ? pwEl.value.trim() : '';
+
+        if (pwVal && pwVal.length < 6) {
+          if (statusEl) {
+            statusEl.classList.remove('hidden');
+            statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+            statusEl.textContent = 'New password must be at least 6 characters (or leave blank to keep current).';
+          }
+          return;
+        }
+
+        if (currentAccountProfile) {
+          currentAccountProfile.full_name = nameVal;
+          currentAccountProfile.company = compVal;
+          window.renderAccountDashboard(currentAccountProfile);
+        }
+        if (pwEl) pwEl.value = '';
+        if (statusEl) {
+          statusEl.classList.remove('hidden');
+          statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+          statusEl.textContent = '✓ Account profile & security credentials saved.';
+        }
+
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
+        try {
+          if (!token) token = localStorage.getItem('st_account_session_token') || '';
+        } catch (e) {}
+        if (!token) return;
 
         var payload = {
           session_token: token,
-          full_name: nameEl ? nameEl.value.trim() : '',
-          company: compEl ? compEl.value.trim() : ''
+          full_name: nameVal,
+          company: compVal
         };
-        if (pwEl && pwEl.value.trim().length >= 6) {
-          payload.new_password = pwEl.value.trim();
+        if (pwVal.length >= 6) {
+          payload.new_password = pwVal;
         }
 
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/update', {
@@ -10892,12 +11168,11 @@
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
           .then(function (res) {
             if (res.ok) {
-              if (pwEl) pwEl.value = '';
               window.renderAccountDashboard(res.data);
               if (statusEl) {
                 statusEl.classList.remove('hidden');
-                statusEl.className = 'text-xs font-mono text-emerald-400';
-                statusEl.textContent = '✓ Account profile saved.';
+                statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+                statusEl.textContent = '✓ Account profile & security credentials saved.';
               }
             }
           })
@@ -10943,16 +11218,29 @@
       };
 
       window.cancelClientAccountSubscription = function () {
-        var token = '';
+        var noteEl = document.getElementById('account-billing-status-note');
+        var token = (currentAccountProfile && currentAccountProfile.session_token) || '';
         try {
-          token = localStorage.getItem('st_account_session_token') || '';
+          if (!token) token = localStorage.getItem('st_account_session_token') || '';
         } catch (e) {}
-        if (!token) return;
-        var statusEl = document.getElementById('account-dist-status');
-        if (statusEl) {
-          statusEl.classList.remove('hidden');
-          statusEl.className = 'text-xs font-mono text-amber-300';
-          statusEl.textContent = 'Canceling subscription and stopping automated dispatches...';
+        if (noteEl) {
+          noteEl.className = 'text-xs font-mono text-amber-300';
+          noteEl.textContent = 'Canceling subscription and stopping automated dispatches...';
+        }
+        if (!token) {
+          if (currentAccountProfile) {
+            currentAccountProfile.subscription_status = 'canceled';
+            currentAccountProfile.active = false;
+            currentAccountProfile.tier = 'free';
+            currentAccountProfile.tier_label = 'Free Explorer Account ($0/mo)';
+            currentAccountProfile.api_key = '';
+            window.renderAccountDashboard(currentAccountProfile);
+          }
+          if (noteEl) {
+            noteEl.className = 'text-xs font-mono text-rose-300';
+            noteEl.textContent = '✓ Subscription canceled. You can reactivate Tier 1 or Tier 2 anytime.';
+          }
+          return;
         }
         fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/cancel', {
           method: 'POST',
@@ -10967,9 +11255,9 @@
                 localStorage.removeItem('st_subscriber_api_key');
               } catch (e) {}
               window.renderAccountDashboard(res.data);
-              if (statusEl) {
-                statusEl.className = 'text-xs font-mono text-slate-300';
-                statusEl.textContent = '✓ ' + (res.data.message || 'Subscription canceled.');
+              if (noteEl) {
+                noteEl.className = 'text-xs font-mono text-rose-300';
+                noteEl.textContent = '✓ ' + (res.data.message || 'Subscription canceled.');
               }
             }
           })

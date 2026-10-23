@@ -582,16 +582,23 @@ if (document.getElementById('account-plan-badge').textContent.indexOf('Tier 2') 
   throw new Error('switchAdminPortalPreview(tier_2) did not update #account-plan-badge!');
 }
 window.toggleAccountPortalFilter('virginia');
+window.toggleAccountSetAsideFilter('sdvosb');
 window.saveAccountAlertFilters();
 window.saveAccountCompanyVault();
+window.openStudioWithAccountVault();
+window.openStudioWithAccountKey();
 document.getElementById('account-team-cc-input').value = 'bd@acmegovcyber.com';
 window.addAccountTeamCcEmail();
+window.saveAccountDistribution({});
 window.addAccountSavedRfp();
 window.updateAccountSavedRfpStage(firstSlug, 'Writing Proposal');
 window.triggerAccountDispatchNow();
 window.setAccountBillingCycle('annual');
 window.setAccountBillingCycle('monthly');
 window.copyAccountMcpConfig();
+document.getElementById('account-profile-name').value = 'Commander Alex Vance';
+window.saveAccountProfile();
+window.refreshClientAccount();
 window.logoutClientAccount();
 """
     )
