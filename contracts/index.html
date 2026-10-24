@@ -63,7 +63,16 @@
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
-      line-height: 1.2;
+      line-height: 1.25;
+      max-width: 100%;
+    }
+    @media (max-width: 639px) {
+      span[class*="border"]:not(.hidden),
+      span[class*="rounded"]:not(.animate-ping):not(.hidden) {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
     }
   </style>
   
@@ -115,11 +124,11 @@
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
-          <a href="../index.html#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
-          <a href="../contracts/index.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">RFP Directory</a>
-          <a href="../apis.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">APIs</a>
-          <a href="../index.html#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+          <a href="../index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+          <a href="../contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
+          <a href="../apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
+          <a href="../index.html#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>

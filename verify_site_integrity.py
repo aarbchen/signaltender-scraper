@@ -857,6 +857,110 @@ def check_conversion_and_distribution_surfaces(index_txt: str) -> None:
         fail("mcp-server/index.js: Missing direct X-SignalTender-Key routing for Tier 2 st_live_... API keys")
 
 
+def check_mobile_viewport_overflow() -> None:
+    """
+    Renders index.html (all SPA routes + RFP dossier + API Sandbox modal), apis.html,
+    and /contracts/**/*.html in headless Chromium at 375x812 (iPhone viewport) and fails
+    if any visible button, badge, pill, endpoint code, heading, or card extends past the
+    mobile screen edge or clips button/badge text.
+    """
+    from pathlib import Path
+    from playwright.sync_api import sync_playwright
+
+    js_scan = """
+    () => {
+      const vw = window.innerWidth;
+      const issues = [];
+      const all = document.querySelectorAll('a, button, span, code, h1, h2, h3, h4, p, div, section, article, table, input, select');
+      for (const el of all) {
+        const style = window.getComputedStyle(el);
+        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) continue;
+        if (style.pointerEvents === 'none' && el.tagName.toLowerCase() === 'div' && (el.className || '').includes('blur-')) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) continue;
+
+        const scrollParent = el.closest('.overflow-x-auto');
+        if (scrollParent && scrollParent !== el) {
+          const spRect = scrollParent.getBoundingClientRect();
+          if (spRect.right <= vw + 1.5 && spRect.left >= -1.5) continue;
+        }
+
+        if (rect.right > vw + 1.5 || rect.left < -1.5) {
+          const tag = el.tagName.toLowerCase();
+          const cls = (el.className && typeof el.className === 'string') ? el.className : '';
+          const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
+          issues.push(`${tag} [PAST_SCREEN left=${Math.round(rect.left)} right=${Math.round(rect.right)} vw=${vw}] "${txt}" (${cls.slice(0, 80)})`);
+        } else if (['a', 'button', 'span', 'code', 'h1', 'h2', 'h3'].includes(el.tagName.toLowerCase())) {
+          if (el.scrollWidth > el.clientWidth + 3 && style.overflowX !== 'auto' && style.overflowX !== 'scroll') {
+            const tag = el.tagName.toLowerCase();
+            const cls = (el.className && typeof el.className === 'string') ? el.className : '';
+            const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
+            issues.push(`${tag} [CLIPPED_BOX scrollW=${el.scrollWidth} clientW=${el.clientWidth}] "${txt}" (${cls.slice(0, 80)})`);
+          }
+        }
+      }
+      return issues;
+    }
+    """
+
+    base_p = Path(BASE_DIR)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(viewport={"width": 375, "height": 812}, is_mobile=True)
+        page = context.new_page()
+
+        index_uri = (base_p / "index.html").as_uri()
+        page.goto(f"{index_uri}#contracts", wait_until="domcontentloaded")
+        page.wait_for_timeout(150)
+        first_slug = page.evaluate("window.SIGNALTENDER_CONTRACTS && window.SIGNALTENDER_CONTRACTS[0] ? window.SIGNALTENDER_CONTRACTS[0].slug : ''")
+
+        routes = [
+            "#overview",
+            "#apis",
+            "#contracts",
+            "#contracts/federal",
+            f"#contracts/rfp/{first_slug}",
+            "#checkout",
+            "#account",
+            "#status",
+            "#privacy",
+        ]
+        for route in routes:
+            page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
+            page.wait_for_timeout(120)
+            issues = page.evaluate(js_scan)
+            if issues:
+                browser.close()
+                fail(f"Mobile 375px viewport overflow on index.html{route}: {issues[:3]}")
+
+        page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
+        page.wait_for_timeout(120)
+        issues = page.evaluate(js_scan)
+        if issues:
+            browser.close()
+            fail(f"Mobile 375px viewport overflow on apis.html: {issues[:3]}")
+
+        c_index = base_p / "contracts" / "index.html"
+        if c_index.exists():
+            page.goto(c_index.as_uri(), wait_until="domcontentloaded")
+            page.wait_for_timeout(100)
+            issues = page.evaluate(js_scan)
+            if issues:
+                browser.close()
+                fail(f"Mobile 375px viewport overflow on contracts/index.html: {issues[:3]}")
+
+        rfp_samples = glob.glob(str(base_p / "contracts" / "rfp" / "*.html"))
+        if rfp_samples:
+            page.goto(Path(rfp_samples[0]).as_uri(), wait_until="domcontentloaded")
+            page.wait_for_timeout(100)
+            issues = page.evaluate(js_scan)
+            if issues:
+                browser.close()
+                fail(f"Mobile 375px viewport overflow on contracts/rfp sample: {issues[:3]}")
+
+        browser.close()
+
+
 def main() -> int:
     index_path = os.path.join(BASE_DIR, "index.html")
     apis_path = os.path.join(BASE_DIR, "apis.html")
@@ -878,6 +982,7 @@ def main() -> int:
     check_tier_value_prop_and_capture_moat_parity(index_txt)
     check_conversion_and_distribution_surfaces(index_txt)
     check_spa_runtime(index_txt)
+    check_mobile_viewport_overflow()
 
     import auto_error_healer
     if auto_error_healer.run_healer(clear_resolved=True, run_smoke=False) != 0:

@@ -539,7 +539,16 @@ def _render_layout(
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
-      line-height: 1.2;
+      line-height: 1.25;
+      max-width: 100%;
+    }}
+    @media (max-width: 639px) {{
+      span[class*="border"]:not(.hidden),
+      span[class*="rounded"]:not(.animate-ping):not(.hidden) {{
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }}
     }}
   </style>
   {ld_script}
@@ -591,11 +600,11 @@ def _render_layout(
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
-          <a href="{root_prefix}index.html#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
-          <a href="{root_prefix}contracts/index.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">RFP Directory</a>
-          <a href="{root_prefix}apis.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">APIs</a>
-          <a href="{root_prefix}index.html#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+          <a href="{root_prefix}index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
+          <a href="{root_prefix}index.html#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
@@ -1985,10 +1994,10 @@ def generate_pseo_site() -> int:
                       </div>
                     </div>
 
-                    <div class="space-y-2 text-xs font-mono text-slate-400 pt-1">
-                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="{html.escape(c['url'], quote=True)}" class="blur-sm select-none">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
+                    <div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">
+                      <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="{html.escape(c['url'], quote=True)}" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
-                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
+                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
                       <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
@@ -2544,11 +2553,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
-          <a href="#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
-          <a href="#contracts" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">RFP Directory</a>
-          <a href="#apis" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">APIs</a>
-          <a href="#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+          <a href="#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+          <a href="#contracts" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
+          <a href="#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
@@ -2908,16 +2917,16 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                       try {{ isUnl = Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active'))); }} catch (e) {{}}
                       var realBidUrl = item.url || ('https://portal.government.gov/solicitation/view/' + item.id);
                       if (isUnl && item.url) {{
-                        return '<div class="space-y-2 text-xs font-mono text-slate-300 pt-1">' +
-                          '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <a href="' + esc(realBidUrl) + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold underline hover:text-emerald-300">' + esc(realBidUrl) + ' &nearr;</a></div>' +
+                        return '<div class="space-y-2 text-xs font-mono text-slate-300 pt-1 break-words">' +
+                          '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <a href="' + esc(realBidUrl) + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold underline hover:text-emerald-300 break-all">' + esc(realBidUrl) + ' &nearr;</a></div>' +
                           '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="text-white font-semibold">' + esc(item.agency) + '</span></div>' +
                           '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="text-sky-300">Ready — click &quot;Run Live Pwin &amp; Shred in Studio&quot; below</span></div>' +
                         '</div>';
                       }}
-                      return '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1">' +
-                        '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
+                      return '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">' +
+                        '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
                         '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
-                        '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>' +
+                        '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>' +
                       '</div>';
                     }})() +
                     '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +

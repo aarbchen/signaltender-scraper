@@ -75,7 +75,36 @@
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
-      line-height: 1.2;
+      line-height: 1.25;
+      max-width: 100%;
+    }
+    @media (max-width: 639px) {
+      span[class*="border"]:not(.hidden),
+      span[class*="rounded"]:not(.animate-ping):not(.hidden) {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      article[id^="product-"] > div:first-of-type {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      article[id^="product-"] > div:first-of-type > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        max-width: 100%;
+      }
+      #api-directory-list a > div:last-child > span:first-child {
+        display: none !important;
+      }
+      #api-directory-list a span.truncate,
+      #page-main a span.truncate,
+      #rapidapi-sandbox-modal span.truncate {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+      }
     }
   </style>
 </head>
@@ -170,11 +199,11 @@
     </div>
     <!-- Compact Mobile Navigation Bar (<1024px) -->
     <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-      <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
-        <a href="index.html#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
-        <a href="contracts/index.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">RFP Directory</a>
-        <a href="apis.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">APIs</a>
-        <a href="index.html#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
+      <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+        <a href="index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+        <a href="contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">RFP Directory</a>
+        <a href="apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">APIs</a>
+        <a href="index.html#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
       </nav>
     </div>
   </header>
@@ -3927,7 +3956,7 @@
 
         <!-- Module Top Bar -->
         <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center space-x-3">
+          <div class="flex flex-wrap items-center gap-2">
             <span class="px-2.5 py-1 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 text-xs font-mono font-bold">
               API 19 // DEBRIEFING &amp; GAO PROTEST
             </span>
@@ -6771,12 +6800,20 @@
           var api = CATALOG[apiId];
 
           // 1. Convert the external "Playground ↗" link in the card top bar into an in-page "▶ Try Live in Browser" button
+          var existingTestBtns = article.querySelectorAll('button[onclick*="openApiSandbox"]');
           var links = article.querySelectorAll('a');
           links.forEach(function (a) {
             if (a.textContent && a.textContent.indexOf('Playground') !== -1) {
+              if (a.parentNode && a.parentNode.className) {
+                a.parentNode.className = 'flex flex-wrap items-center gap-2';
+              }
+              if (existingTestBtns && existingTestBtns.length > 0) {
+                a.parentNode.removeChild(a);
+                return;
+              }
               var btn = document.createElement('button');
               btn.type = 'button';
-              btn.className = 'px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer';
+              btn.className = 'px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap';
               btn.innerHTML = '&#9654; Try Live in Browser';
               btn.onclick = function () { window.openApiSandbox(apiId); };
               a.parentNode.replaceChild(btn, a);
