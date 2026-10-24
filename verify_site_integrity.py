@@ -224,6 +224,10 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         fail("index.html: Redundant inline #overview-section-directory must be removed in favor of #page-section-sidebar-root")
     if 'id="page-section-sidebar-root"' not in index_txt or 'id="page-section-sidebar-root"' not in apis_txt:
         fail("Missing collapsible #page-section-sidebar-root in index.html or apis.html")
+    if re.search(r'class="(?:trust-tab-btn|dossier-demo-pill)[^"]*"[^>]*>\s*\d{2}\.', index_txt):
+        fail("index.html: Tab/switcher buttons (.trust-tab-btn / .dossier-demo-pill) must never use '01.' numeric prefixes")
+    if "num: '01', id:" in index_txt or "num: '01', id:" in apis_txt or "var SIDEBAR_ICONS =" not in index_txt or "var SIDEBAR_ICONS =" not in apis_txt:
+        fail("Sidebar items must use clean SVG icons (SIDEBAR_ICONS / icon: '...'), never numeric '01'..'08' badges")
 
 
 def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:

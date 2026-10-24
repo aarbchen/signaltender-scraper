@@ -397,9 +397,7 @@
               Platform Overview
             </div>
             <div class="text-[10px] font-mono text-slate-500 flex items-center gap-1.5">
-              <span>ON THIS PAGE</span>
-              <span>&bull;</span>
-              <span id="page-sidebar-tab-count" class="text-sky-400">06</span>
+              <span>SECTION NAVIGATOR</span><span id="page-sidebar-tab-count" class="hidden"></span>
             </div>
           </div>
         </div>
@@ -726,128 +724,160 @@
         var railEl = document.getElementById('page-sidebar-rail-icons');
         var pagesEl = document.getElementById('page-sidebar-pages-list');
         var titleEl = document.getElementById('page-sidebar-title');
-        var countEl = document.getElementById('page-sidebar-tab-count');
         if (!listEl) return [];
+
+        var SIDEBAR_ICONS = {
+          pulse: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+          shield: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+          chat: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
+          flag: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>',
+          doc: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path stroke-linecap="round" stroke-linejoin="round" d="M14 2v6h6M16 13H8M16 17H8"/></svg>',
+          lock: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>',
+          cpu: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>',
+          table: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 9h18M3 15h18M9 9v12"/></svg>',
+          globe: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
+          link: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>',
+          sliders: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>',
+          folder: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>',
+          card: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M1 10h22"/></svg>',
+          bolt: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+          code: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+          chart: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M18 20V10M12 20V4M6 20v-6"/></svg>',
+          help: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>',
+          user: '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>'
+        };
 
         var mainPage = document.getElementById('page-main');
         var apisPage = document.getElementById('page-apis');
         var contractsPage = document.getElementById('page-contracts');
         var checkoutPage = document.getElementById('page-checkout');
         var accountPage = document.getElementById('page-account');
+        var trustPage = document.getElementById('page-trust');
 
         var currentPageKey = 'overview';
         var pageTitle = 'Platform Overview';
         var rawItems = [];
 
-        if (accountPage && !accountPage.classList.contains('hidden')) {
+        if (trustPage && !trustPage.classList.contains('hidden')) {
+          currentPageKey = 'trust';
+          pageTitle = 'Trust, Status & Support';
+          rawItems = [
+            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 14 portals operational', color: 'text-emerald-400', action: 'trust_status' },
+            { icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' },
+            { icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' },
+            { icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' },
+            { icon: 'doc', id: 'trust-panel-terms', label: 'Terms of Service & SLA', kw: 'terms of service legal sla cancellation disclaimer', color: 'text-slate-300', action: 'trust_terms' },
+            { icon: 'lock', id: 'trust-panel-privacy', label: 'Privacy Policy & DPA', kw: 'privacy policy dpa zero retention subprocessors gdpr', color: 'text-emerald-400', action: 'trust_privacy' }
+          ];
+        } else if (accountPage && !accountPage.classList.contains('hidden')) {
           currentPageKey = 'account';
           var dashPanel = document.getElementById('account-dashboard-panel');
           if (dashPanel && !dashPanel.classList.contains('hidden')) {
             pageTitle = 'Client Account Portal';
             rawItems = [
-              { num: '01', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
-              { num: '02', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
-              { num: '03', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
-              { num: '04', id: 'account-alert-filters-card', label: '14-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
-              { num: '05', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
-              { num: '06', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
-              { num: '07', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
-              { num: '08', id: 'account-profile-name', label: 'Profile & Password Security', kw: 'name company password security logout', color: 'text-slate-300' }
+              { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
+              { icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
+              { icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'account-alert-filters-card', label: '14-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
+              { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
+              { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
+              { icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
+              { icon: 'shield', id: 'account-profile-name', label: 'Profile & Password Security', kw: 'name company password security logout', color: 'text-slate-300' }
             ];
           } else {
             pageTitle = 'Account Sign In / Sign Up';
             rawItems = [
-              { num: '01', id: 'account-auth-panel', label: 'Free Explorer Benefits', kw: 'free explorer benefits features', color: 'text-emerald-400' },
-              { num: '02', id: 'account-form-login', label: 'Sign In to Account', kw: 'login sign in password', color: 'text-sky-400', action: 'auth_login' },
-              { num: '03', id: 'account-form-register', label: 'Create Free Account ($0)', kw: 'register sign up free account', color: 'text-emerald-400', action: 'auth_register' }
+              { icon: 'bolt', id: 'account-auth-panel', label: 'Free Explorer Benefits', kw: 'free explorer benefits features', color: 'text-emerald-400' },
+              { icon: 'lock', id: 'account-form-login', label: 'Sign In to Account', kw: 'login sign in password', color: 'text-sky-400', action: 'auth_login' },
+              { icon: 'user', id: 'account-form-register', label: 'Create Free Account ($0)', kw: 'register sign up free account', color: 'text-emerald-400', action: 'auth_register' }
             ];
           }
         } else if (checkoutPage && !checkoutPage.classList.contains('hidden')) {
           currentPageKey = 'checkout';
           pageTitle = 'Plans & B2B Checkout';
           rawItems = [
-            { num: '01', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
-            { num: '02', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' },
-            { num: '03', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' },
-            { num: '04', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' },
-            { num: '05', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
-            { num: '06', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
+            { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
+            { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' },
+            { icon: 'cpu', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' },
+            { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' },
+            { icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
+            { icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
           ];
         } else if (contractsPage && !contractsPage.classList.contains('hidden')) {
           currentPageKey = 'contracts';
           pageTitle = 'Live RFP Directory';
           if (document.getElementById('contracts-rfp-ai-shred-card')) {
             rawItems = [
-              { num: '01', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
-              { num: '02', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
-              { num: '03', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
-              { num: '04', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+              { icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
+              { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { num: '01', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
-              { num: '02', id: 'contracts-live-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
-              { num: '03', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+              { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'table', id: 'contracts-live-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           }
         } else if ((apisPage && !apisPage.classList.contains('hidden')) || (!mainPage && document.getElementById('api-directory-list'))) {
           currentPageKey = 'apis';
           pageTitle = 'API & MCP Catalog';
           rawItems = [
-            { num: '01', id: 'api-directory-list', label: 'Quick-Jump API Directory', kw: 'directory index table search endpoints', color: 'text-sky-400' },
-            { num: '02', id: 'rapidapi-sandbox-modal', label: 'Interactive Studio Playground', kw: 'sandbox test try live api playground json', color: 'text-emerald-400', action: 'sandbox' },
-            { num: '03', id: 'catalog-modules', label: 'Endpoint Specs & Schemas', kw: 'modules cards schemas request response curl', color: 'text-indigo-300' },
-            { num: '04', id: 'api-pricing-matrix', label: 'Tier & Quota Pricing Matrix', kw: 'pricing plans basic pro ultra mega rate limits', color: 'text-amber-300' }
+            { icon: 'table', id: 'api-directory-list', label: 'Quick-Jump API Directory', kw: 'directory index table search endpoints', color: 'text-sky-400' },
+            { icon: 'bolt', id: 'rapidapi-sandbox-modal', label: 'Interactive Studio Playground', kw: 'sandbox test try live api playground json', color: 'text-emerald-400', action: 'sandbox' },
+            { icon: 'code', id: 'catalog-modules', label: 'Endpoint Specs & Schemas', kw: 'modules cards schemas request response curl', color: 'text-indigo-300' },
+            { icon: 'card', id: 'api-pricing-matrix', label: 'Tier & Quota Pricing Matrix', kw: 'pricing plans basic pro ultra mega rate limits', color: 'text-amber-300' }
           ];
         } else if (document.getElementById('static-inbound-lead-box')) {
           currentPageKey = 'contracts';
           pageTitle = 'Live RFP Directory';
           if (document.getElementById('static-rfp-ai-shred-card')) {
             rawItems = [
-              { num: '01', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
-              { num: '02', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
-              { num: '03', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
-              { num: '04', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+              { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
+              { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { num: '01', id: 'static-contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
-              { num: '02', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
-              { num: '03', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+              { icon: 'globe', id: 'static-contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           }
         } else {
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            { num: '01', id: 'overview', label: 'Hero & 14-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
-            { num: '02', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
-            { num: '03', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
-            { num: '04', id: 'contract-directory', label: '14-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
-            { num: '05', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
-            { num: '06', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
+            { icon: 'pulse', id: 'overview', label: 'Hero & 14-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
+            { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
+            { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
+            { icon: 'table', id: 'contract-directory', label: '14-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
+            { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
+            { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
           ];
         }
 
         if (titleEl) titleEl.textContent = pageTitle;
-        if (countEl) countEl.textContent = (rawItems.length < 10 ? '0' : '') + rawItems.length;
 
         var html = '';
         var railHtml = '';
         for (var i = 0; i < rawItems.length; i++) {
           var it = rawItems[i];
           var actArg = it.action ? (', &quot;' + it.action + '&quot;') : '';
-          var searchBlob = (it.num + ' ' + it.label + ' ' + (it.kw || '')).replace(/"/g, '&quot;');
+          var searchBlob = (it.label + ' ' + (it.kw || '')).replace(/"/g, '&quot;');
+          var svgIcon = SIDEBAR_ICONS[it.icon] || SIDEBAR_ICONS.pulse;
           html += '<button type="button" data-sidebar-sec="' + it.id + '" data-sidebar-search="' + searchBlob + '" onclick="window.triggerSidebarSectionJump(&quot;' + it.id + '&quot;' + actArg + ')" class="w-full px-2.5 py-2 rounded-lg hover:bg-slate-800/75 text-slate-300 hover:text-white flex items-center justify-between gap-2 text-left transition-colors cursor-pointer group">' +
             '<span class="flex items-center gap-2.5 min-w-0">' +
-              '<span class="text-[10px] font-mono font-semibold ' + it.color + ' w-4 shrink-0">' + it.num + '</span>' +
+              '<span class="' + it.color + ' w-4 h-4 flex items-center justify-center shrink-0">' + svgIcon + '</span>' +
               '<span class="truncate text-xs font-medium group-hover:text-sky-300 transition-colors">' + it.label + '</span>' +
             '</span>' +
             '<span class="text-slate-600 group-hover:text-sky-400 text-xs shrink-0">&rsaquo;</span>' +
           '</button>';
 
-          railHtml += '<button type="button" title="' + it.num + '. ' + it.label.replace(/"/g, '&quot;') + '" onclick="window.triggerSidebarSectionJump(&quot;' + it.id + '&quot;' + actArg + ')" class="w-8 h-8 rounded-full hover:bg-slate-800/80 text-slate-500 hover:text-sky-400 flex items-center justify-center font-mono text-[10px] font-semibold transition-colors cursor-pointer">' +
-            it.num +
+          railHtml += '<button type="button" title="' + it.label.replace(/"/g, '&quot;') + '" aria-label="' + it.label.replace(/"/g, '&quot;') + '" onclick="window.triggerSidebarSectionJump(&quot;' + it.id + '&quot;' + actArg + ')" class="w-8 h-8 rounded-full hover:bg-slate-800/80 text-slate-400 hover:text-sky-400 flex items-center justify-center transition-colors cursor-pointer">' +
+            svgIcon +
           '</button>';
         }
         listEl.innerHTML = html;
@@ -855,19 +885,23 @@
 
         if (pagesEl) {
           var allPages = [
-            { key: 'overview', label: 'Platform Overview', kw: 'home main hero wire overview' },
-            { key: 'contracts', label: 'Live RFP Directory', kw: 'contracts rfps solicitations federal sled states' },
-            { key: 'apis', label: 'API & MCP Catalog', kw: 'apis endpoints rest mcp developer rapidapi' },
-            { key: 'checkout', label: 'Plans & B2B Checkout', kw: 'pricing plans tier 1 tier 2 checkout subscribe' },
-            { key: 'account', label: 'Client Account Portal', kw: 'account login sign up dashboard vault filters' },
-            { key: 'trust', label: 'Status, Trust & Support', kw: 'status security contact feedback terms privacy sla' }
+            { key: 'overview', icon: 'pulse', label: 'Platform Overview', kw: 'home main hero wire overview' },
+            { key: 'contracts', icon: 'table', label: 'Live RFP Directory', kw: 'contracts rfps solicitations federal sled states' },
+            { key: 'apis', icon: 'code', label: 'API & MCP Catalog', kw: 'apis endpoints rest mcp developer rapidapi' },
+            { key: 'checkout', icon: 'card', label: 'Plans & B2B Checkout', kw: 'pricing plans tier 1 tier 2 checkout subscribe' },
+            { key: 'account', icon: 'user', label: 'Client Account Portal', kw: 'account login sign up dashboard vault filters' },
+            { key: 'trust', icon: 'shield', label: 'Status, Trust & Support', kw: 'status security contact feedback terms privacy sla' }
           ];
           var pHtml = '';
           for (var pIdx = 0; pIdx < allPages.length; pIdx++) {
             var pg = allPages[pIdx];
             if (pg.key === currentPageKey) continue;
+            var pgIcon = SIDEBAR_ICONS[pg.icon] || SIDEBAR_ICONS.pulse;
             pHtml += '<button type="button" data-sidebar-page="' + pg.key + '" data-sidebar-search="' + (pg.label + ' ' + pg.kw) + '" onclick="window.triggerSidebarPageNav(&quot;' + pg.key + '&quot;)" class="w-full px-2.5 py-1.5 rounded-lg hover:bg-slate-800/75 text-slate-400 hover:text-white flex items-center justify-between gap-2 text-left transition-colors cursor-pointer group">' +
-              '<span class="truncate text-xs group-hover:text-sky-300 transition-colors">' + pg.label + '</span>' +
+              '<span class="flex items-center gap-2.5 min-w-0">' +
+                '<span class="text-slate-500 group-hover:text-sky-400 w-4 h-4 flex items-center justify-center shrink-0 transition-colors">' + pgIcon + '</span>' +
+                '<span class="truncate text-xs group-hover:text-sky-300 transition-colors">' + pg.label + '</span>' +
+              '</span>' +
               '<span class="text-slate-600 group-hover:text-sky-400 text-xs shrink-0">&rarr;</span>' +
             '</button>';
           }
