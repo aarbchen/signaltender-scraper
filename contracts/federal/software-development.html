@@ -877,7 +877,7 @@
     <!-- Desktop Closed State: Quiet Gemini-Style Slim Left Icon Rail (44px wide, flush left) -->
     <div
       id="page-sidebar-tab"
-      class="hidden lg:flex fixed left-0 top-20 bottom-0 w-11 z-40 flex-col items-center justify-between py-3 bg-[#060a14]/90 backdrop-blur-md border-r border-slate-800/60"
+      class="hidden lg:flex fixed left-0 top-36 bottom-0 w-11 z-40 flex-col items-center justify-between py-3 bg-[#060a14]/90 backdrop-blur-md border-r border-slate-800/60"
     >
       <div class="flex flex-col items-center gap-1.5">
         <button
@@ -1300,6 +1300,27 @@
         return ok;
       };
 
+      window.syncSidebarTopOffset = function () {
+        var tabEl = document.getElementById('page-sidebar-tab');
+        if (!tabEl) return;
+        var headers = document.querySelectorAll('header');
+        var maxBottom = 0;
+        for (var i = 0; i < headers.length; i++) {
+          var h = headers[i];
+          if (h.offsetParent !== null && h.getBoundingClientRect) {
+            var rect = h.getBoundingClientRect();
+            if (rect.height > 0 && rect.bottom > maxBottom) {
+              maxBottom = rect.bottom;
+            }
+          }
+        }
+        if (maxBottom > 0) {
+          tabEl.style.top = Math.max(64, Math.round(maxBottom)) + 'px';
+        }
+      };
+      window.addEventListener('scroll', window.syncSidebarTopOffset, { passive: true });
+      window.addEventListener('resize', window.syncSidebarTopOffset);
+
       window.renderPageSectionSidebar = function () {
         var listEl = document.getElementById('page-sidebar-items');
         var railEl = document.getElementById('page-sidebar-rail-icons');
@@ -1487,6 +1508,10 @@
             '</button>';
           }
           pagesEl.innerHTML = pHtml;
+        }
+        if (typeof window.syncSidebarTopOffset === 'function') {
+          window.syncSidebarTopOffset();
+          setTimeout(window.syncSidebarTopOffset, 40);
         }
         return rawItems;
       };
