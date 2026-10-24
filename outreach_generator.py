@@ -620,6 +620,7 @@ def build_two_step_outreach(
         clean_dossier_url = top_intel["dossier_url"].split("?")[0]
 
     clean_checkout_url = f"https://{clean_domain}/#checkout"
+    clean_portal_url = f"https://{clean_domain}/#signup"
 
     step1_ctas = [
         f"I posted the pre-shredded Section L/M & compliance breakdown for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list?",
@@ -687,9 +688,9 @@ def build_two_step_outreach(
         ),
     ]
     step2_closers = [
-        f"You can test our interactive API playground or activate instant access in 60 seconds here:\n{clean_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
-        f"Explore the live contract directory or start a month-to-month plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
-        f"Check out the live platform and instant checkout options right here:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
+        f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate full 6-hour dispatches (Tier 1 $99/mo or Tier 2 $399/mo) in 60 seconds at:\n{clean_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 20 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo) or CaptureDesk ($399/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
+        f"Set up a Free Explorer Account ($0/mo, no card required) to bookmark bids and save your capability profile here:\n{clean_portal_url}\n\nOr view instant Tier 1 ($99/mo) & Tier 2 ($399/mo) activation options at:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
@@ -741,8 +742,10 @@ def build_two_step_outreach(
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server).\n\n"
-        f"{{{{RANDOM | You can test our interactive API playground or activate instant access in 60 seconds here: | "
-        f"Explore the live contract directory or start a month-to-month plan anytime at:}}}}\n{clean_checkout_url}\n\n"
+        f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 20 AI APIs at:}}}}\n{clean_portal_url}\n\n"
+        f"{{{{RANDOM | Or activate full 6-hour dispatches in 60 seconds here: | "
+        f"Or start a month-to-month Tier 1 ($99/mo) or Tier 2 ($399/mo) plan anytime at:}}}}\n{clean_checkout_url}\n\n"
         f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}\n\n"
         f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )

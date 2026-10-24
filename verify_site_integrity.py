@@ -105,6 +105,8 @@ def check_html_file(fpath: str) -> str:
         "#checkout-tier2",
         "#checkout-annual",
         "#account",
+        "#signup",
+        "#login",
         "#contracts/federal",
         "#contracts/texas",
         "#contracts/virginia",
@@ -203,6 +205,10 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
 
     if 'id="header-auth-user-label" class="truncate max-w-[110px]"' not in index_txt or "clearAutofilledSearchInputs" not in index_txt:
         fail("index.html: Missing bounded #header-auth-user-label width or clearAutofilledSearchInputs() protection")
+    if 'id="overview-section-directory"' in index_txt:
+        fail("index.html: Redundant inline #overview-section-directory must be removed in favor of #page-section-sidebar-root")
+    if 'id="page-section-sidebar-root"' not in index_txt or 'id="page-section-sidebar-root"' not in apis_txt:
+        fail("Missing collapsible #page-section-sidebar-root in index.html or apis.html")
 
 
 def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
@@ -603,6 +609,20 @@ window.logoutClientAccount();
 if (typeof window.jumpToPageSection !== 'function' || !window.jumpToPageSection('integrations') || !window.jumpToPageSection('capture-moat')) {
   throw new Error('window.jumpToPageSection failed to jump to in-page sections!');
 }
+if (typeof window.togglePageSectionSidebar !== 'function' || typeof window.renderPageSectionSidebar !== 'function') {
+  throw new Error('Collapsible Page Section Sidebar functions (togglePageSectionSidebar / renderPageSectionSidebar) are undefined!');
+}
+document.getElementById('page-account').classList.add('hidden');
+document.getElementById('page-checkout').classList.add('hidden');
+document.getElementById('page-contracts').classList.add('hidden');
+document.getElementById('page-apis').classList.add('hidden');
+document.getElementById('page-main').classList.remove('hidden');
+window.togglePageSectionSidebar(true);
+window.renderPageSectionSidebar();
+if (!document.getElementById('page-sidebar-items').innerHTML || document.getElementById('page-sidebar-items').innerHTML.length < 50) {
+  throw new Error('Page Section Sidebar failed to populate sections!');
+}
+window.togglePageSectionSidebar(false);
 """
     )
 

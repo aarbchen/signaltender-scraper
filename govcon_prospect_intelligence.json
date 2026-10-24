@@ -1,28 +1,28 @@
 {
-  "updated_at": "2026-10-22T20:16:42+00:00",
-  "total_verified_mx_contacts": 124,
-  "not_catchall_priority_tier_count": 124,
+  "updated_at": "2026-10-24T00:55:40+00:00",
+  "total_verified_mx_contacts": 130,
+  "not_catchall_priority_tier_count": 130,
   "catchall_secondary_tier_count": 0,
   "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 0,
+  "added_website_harvested_govcon_contacts": 6,
   "state_distribution": {
     "California": 14,
     "Florida": 9,
     "Georgia": 3,
     "Illinois": 4,
-    "Maryland": 22,
+    "Maryland": 25,
     "Massachusetts": 3,
     "New York": 3,
     "North Carolina": 4,
     "Ohio": 4,
     "Pennsylvania": 3,
     "Texas": 14,
-    "Virginia": 41
+    "Virginia": 44
   },
   "usaspending_naics_541512_top_recipients": [
     {
-      "amount": 7260772607.31,
+      "amount": 7267975198.02,
       "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
       "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
       "code": "067641597",
@@ -30,7 +30,7 @@
       "total_outlays": null
     },
     {
-      "amount": 6776925302.36,
+      "amount": 6776758115.7,
       "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
       "name": "ACCENTURE FEDERAL SERVICES LLC",
       "code": "139727148",
@@ -38,7 +38,7 @@
       "total_outlays": null
     },
     {
-      "amount": 5755860881.24,
+      "amount": 5751003565.96,
       "recipient_id": "ffca72e5-fba2-798a-6969-2a6c45e9f985-C",
       "name": "BOOZ ALLEN HAMILTON INC",
       "code": "006928857",
@@ -46,7 +46,7 @@
       "total_outlays": null
     },
     {
-      "amount": 5720419486.37,
+      "amount": 5726696528.92,
       "recipient_id": "5ddb264f-234b-872c-2571-4731fde123c6-C",
       "name": "LEIDOS, INC.",
       "code": "833063105",
@@ -54,7 +54,7 @@
       "total_outlays": null
     },
     {
-      "amount": 3449396239.94,
+      "amount": 3449401038.97,
       "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
       "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
       "code": "078883327",
@@ -62,7 +62,7 @@
       "total_outlays": null
     },
     {
-      "amount": 3357908586.5,
+      "amount": 3357991960.92,
       "recipient_id": "28eee911-76af-7147-f760-4ec5f90bec2d-C",
       "name": "CACI, INC. - FEDERAL",
       "code": "114896066",
@@ -78,7 +78,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2716567509.98,
+      "amount": 2719467509.98,
       "recipient_id": "129fccb1-783c-9fd1-7b6d-6ddea65ace79-C",
       "name": "PERATON INC.",
       "code": "602938771",
@@ -110,7 +110,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2119396996.21,
+      "amount": 2121438999.07,
       "recipient_id": "fd25b722-602d-ec58-3a7a-d6555b8d8ea7-C",
       "name": "SALIENT CRGT, INC.",
       "code": "849550983",
@@ -118,19 +118,19 @@
       "total_outlays": null
     },
     {
-      "amount": 2023405149.25,
-      "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
-      "name": "CGI FEDERAL INC.",
-      "code": "145969783",
-      "uei": "TRKEP1HEBNS5",
-      "total_outlays": null
-    },
-    {
-      "amount": 2021042404.13,
+      "amount": 2024409999.78,
       "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
       "name": "FCN, INC.",
       "code": "615378007",
       "uei": "JEANDJTZ8HJ3",
+      "total_outlays": null
+    },
+    {
+      "amount": 2023764281.47,
+      "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
+      "name": "CGI FEDERAL INC.",
+      "code": "145969783",
+      "uei": "TRKEP1HEBNS5",
       "total_outlays": null
     },
     {
@@ -142,7 +142,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1382569383.88,
+      "amount": 1389569383.88,
       "recipient_id": "ceac1920-9ceb-17a6-9bf7-026817a02917-C",
       "name": "MANTECH ADVANCED SYSTEMS INTERNATIONAL, INC.",
       "code": "139627525",
@@ -158,7 +158,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1159738142.59,
+      "amount": 1159633571.82,
       "recipient_id": "6ffc4386-853e-ef89-67e8-22c28ddcf15c-C",
       "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
       "code": "835130485",
@@ -166,7 +166,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1130192280.14,
+      "amount": 1130365520.14,
       "recipient_id": "11a97fdb-cb3b-16d2-aa67-a0f7b265b4ae-C",
       "name": "PALANTIR USG INC",
       "code": "825284321",
@@ -174,7 +174,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1110518269.26,
+      "amount": 1112219617.18,
       "recipient_id": "e0f8746a-9a3b-810a-257a-cae2d63868da-C",
       "name": "NEW TECH SOLUTIONS, INC.",
       "code": "020149303",

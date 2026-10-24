@@ -69,10 +69,12 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"Appreciate the quick reply!\n\n"
         f"Here is the live directory of pre-shredded Federal & 12-State SLED IT/Cyber dossiers (with direct agency RFP links, Section L/M matrices, and NAICS/SBA caps):\n"
         f"{SITE_BASE_URL}/contracts\n\n"
-        f"If your team wants every new solicitation delivered automatically every 6 hours, we have two instant self-serve options (no sales calls or annual contracts):\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 14-portal Federal & State SLED IT/Cyber alerts via Discord, Slack, Microsoft Teams, or CRM Webhook.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full AI Section L/M compliance matrices, CPARS Volume III past performance citations, SF-30 amendment diffs, and 20 REST/MCP APIs on every lead.\n\n"
-        f"You can activate instant access in 60 seconds here:\n"
+        f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save your state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 20 AI Capture APIs:\n"
+        f"{SITE_BASE_URL}/#signup\n\n"
+        f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (no sales calls or annual lock-ins):\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 14-portal Federal & State SLED IT/Cyber alerts via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 20-Engine AI Section L/M compliance matrices, CPARS Volume III past performance citations, IGCE Price-to-Win models, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
+        f"Activate instant access anytime here:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"
     )
@@ -91,10 +93,11 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
             f"Classify their reply into JSON with keys:\n"
             f"- \"intent\": one of \"POSITIVE_INTEREST\", \"QUESTION\", \"OUT_OF_OFFICE\", or \"UNSUBSCRIBE\".\n"
             f"- \"reply_body\": if POSITIVE_INTEREST or QUESTION, write a concise, natural plain-text reply from Aaron Chen "
-            f"(Founder, SignalTender) that directly answers their note, gives them the live RFP directory & dossier link "
-            f"({SITE_BASE_URL}/contracts), and briefly shares the self-serve Tier 1 SignalWire Pro ($99/mo) and Tier 2 "
-            f"CaptureDesk Autopilot ($399/mo) instant checkout link ({SITE_BASE_URL}/#checkout). Zero emojis, zero markdown bold (**). "
-            f"Output strictly valid JSON."
+            f"(Founder, SignalTender) that directly answers their note, gives them:\n"
+            f"  1) The live RFP directory & dossier link ({SITE_BASE_URL}/contracts)\n"
+            f"  2) The Free Explorer Account sign-up link ({SITE_BASE_URL}/#signup — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
+            f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo) and Tier 2 CaptureDesk Autopilot ($399/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
+            f"Zero emojis, zero markdown bold (**). Output strictly valid JSON."
         )
         resp = client.messages.create(
             model=ANTHROPIC_MODEL,
@@ -187,7 +190,7 @@ def run_reply_responder() -> dict:
                                     f"**[HOT OUTBOUND REPLY — AUTO-ANSWERED BY CLAUDE SONNET 5.5]**\n"
                                     f"• **Prospect:** `{from_email}` (`{intent}`)\n"
                                     f"• **Their Reply:** {reply_text[:300]}\n"
-                                    f"• **Auto-Sent Response:** Delivered `/contracts` dossier directory + `/#checkout` self-serve activation link."
+                                    f"• **Auto-Sent Response:** Delivered `/contracts` dossier directory + `/#signup` Free Explorer Portal + `/#checkout` activation link."
                                 ),
                                 "flags": 4,
                             },

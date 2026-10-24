@@ -148,17 +148,20 @@
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
+            <a id="prospect-banner-free-btn" href="../../index.html#signup" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold border border-emerald-400/30 transition-all">
+              Free Account ($0/mo) &rarr;
+            </a>
             <a id="prospect-banner-t1-btn" href="../../index.html#checkout-tier1" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold border border-sky-400/30 transition-all">
               Tier 1 Wire ($99/mo) &rarr;
             </a>
-            <a id="prospect-banner-t2-btn" href="../../index.html#checkout-tier2" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold border border-emerald-400/30 transition-all">
+            <a id="prospect-banner-t2-btn" href="../../index.html#checkout-tier2" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold border border-indigo-400/30 transition-all">
               Tier 2 Autopilot ($399/mo) &rarr;
             </a>
           </div>
         </div>
       </div>
       
-                <div class="mb-6 text-xs font-mono text-slate-400 flex items-center gap-2">
+                <div id="static-contracts-top-section" class="mb-6 text-xs font-mono text-slate-400 flex items-center gap-2">
                   <a href="../index.html" class="hover:text-sky-400">All Contracts</a>
                   <span>/</span>
                   <a href="index.html" class="hover:text-sky-400">Illinois (BidBuy &amp; CTA)</a>
@@ -173,7 +176,7 @@
                     Browse 0 open cybersecurity &amp; infosec solicitations from Illinois BidBuy &amp; Chicago/Cook County.
                   </p>
                 </div>
-                <div class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
+                <div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
               <div class="p-4 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="relative flex-1 flex items-center">
                   <svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -281,6 +284,74 @@
     </main>
   </div>
 
+  <!-- =====================================================================
+       UNIVERSAL COLLAPSIBLE FLOATING LEFT SIDEBAR DIRECTORY (ALL PAGES)
+       ===================================================================== -->
+  <aside id="page-section-sidebar-root" aria-label="On-Page Section Directory" class="fixed left-0 top-36 sm:top-40 z-40 select-none">
+    <!-- Closed State: Compact Docked Side Pill Tab -->
+    <button
+      type="button"
+      id="page-sidebar-tab"
+      onclick="window.togglePageSectionSidebar(true)"
+      title="Open On-Page Section Directory"
+      class="flex items-center gap-2 pl-2.5 pr-3.5 py-2.5 rounded-r-xl bg-navy-900/95 hover:bg-slate-800 text-slate-100 hover:text-sky-300 border border-l-0 border-sky-500/40 shadow-2xl shadow-navy-950/90 backdrop-blur-md transition-all cursor-pointer group"
+    >
+      <span class="h-2 w-2 rounded-full bg-sky-400 group-hover:scale-110 transition-transform shrink-0"></span>
+      <span class="font-mono text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">Sections</span>
+      <span id="page-sidebar-tab-count" class="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-bold">06</span>
+      <span class="font-mono text-sky-400 text-xs font-bold group-hover:translate-x-0.5 transition-transform">&rsaquo;</span>
+    </button>
+
+    <!-- Open State: Collapsible Slide-Out Section Directory Drawer -->
+    <div
+      id="page-sidebar-drawer"
+      class="hidden w-72 sm:w-80 max-h-[calc(100vh-11rem)] flex-col rounded-r-2xl bg-navy-950/95 backdrop-blur-xl border border-l-0 border-slate-700/90 shadow-2xl shadow-black/90 overflow-hidden"
+    >
+      <!-- Drawer Header -->
+      <div class="px-4 py-3 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between gap-2 shrink-0">
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-sky-400 font-bold">
+            <span class="h-2 w-2 rounded-full bg-sky-400 shrink-0"></span>
+            <span>ON THIS PAGE</span>
+          </div>
+          <div id="page-sidebar-title" class="text-xs font-mono font-bold text-white truncate mt-0.5">
+            Platform Overview
+          </div>
+        </div>
+        <button
+          type="button"
+          id="page-sidebar-close-btn"
+          onclick="window.togglePageSectionSidebar(false)"
+          title="Collapse Section Directory"
+          class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-mono text-[11px] font-semibold transition-colors cursor-pointer shrink-0"
+        >
+          &lsaquo; Hide
+        </button>
+      </div>
+
+      <!-- Scrollable Section Items List -->
+      <div id="page-sidebar-items" class="p-2.5 space-y-1 overflow-y-auto flex-1 font-mono text-xs"></div>
+
+      <!-- Drawer Footer -->
+      <div class="px-3.5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between gap-2 text-[11px] font-mono shrink-0">
+        <button
+          type="button"
+          onclick="document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0, 0);"
+          class="text-slate-300 hover:text-sky-400 font-semibold transition-colors cursor-pointer"
+        >
+          &uarr; Top of Page
+        </button>
+        <button
+          type="button"
+          onclick="window.togglePageSectionSidebar(false)"
+          class="text-slate-400 hover:text-white transition-colors cursor-pointer"
+        >
+          Close &times;
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <footer class="bg-navy-950 border-t border-slate-800/80 pt-14 pb-10 mt-16 text-slate-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-800/80">
@@ -349,6 +420,213 @@
     </div>
   </footer>
   <script>
+
+    window.jumpToPageSection = function (sectionId) {
+      if (!sectionId) return false;
+      var cleanId = String(sectionId).replace(/^#/, '');
+      var el = document.getElementById(cleanId);
+      if (!el) return false;
+      var docEl = document.documentElement;
+      docEl.style.scrollBehavior = 'auto';
+      var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
+      var currentY = window.pageYOffset || docEl.scrollTop || 0;
+      var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
+      window.scrollTo(0, targetY);
+      return true;
+    };
+
+      window.__PAGE_SIDEBAR_OPEN = false;
+
+      window.togglePageSectionSidebar = function (forceState) {
+        var tab = document.getElementById('page-sidebar-tab');
+        var drawer = document.getElementById('page-sidebar-drawer');
+        if (!tab || !drawer) return false;
+        var nextState = (typeof forceState === 'boolean') ? forceState : !window.__PAGE_SIDEBAR_OPEN;
+        window.__PAGE_SIDEBAR_OPEN = nextState;
+        if (nextState) {
+          tab.classList.add('hidden');
+          drawer.classList.remove('hidden');
+          drawer.classList.add('flex');
+          if (typeof window.renderPageSectionSidebar === 'function') {
+            window.renderPageSectionSidebar();
+          }
+        } else {
+          drawer.classList.add('hidden');
+          drawer.classList.remove('flex');
+          tab.classList.remove('hidden');
+        }
+        return nextState;
+      };
+
+      window.triggerSidebarSectionJump = function (secId, customAction) {
+        if (customAction === 'sandbox') {
+          if (typeof window.openApiSandbox === 'function') {
+            window.openApiSandbox('product-contract-parsing');
+          }
+          if (window.innerWidth && window.innerWidth < 1024) {
+            window.togglePageSectionSidebar(false);
+          }
+          return true;
+        }
+        if (customAction === 'auth_login') {
+          if (typeof window.switchAccountAuthTab === 'function') {
+            window.switchAccountAuthTab('login');
+          }
+        } else if (customAction === 'auth_register') {
+          if (typeof window.switchAccountAuthTab === 'function') {
+            window.switchAccountAuthTab('register');
+          }
+        }
+        var targetEl = document.getElementById(secId);
+        if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
+          window.filterApiCatalog('', 'all');
+        }
+        var ok = window.jumpToPageSection(secId);
+        if (window.innerWidth && window.innerWidth < 1024) {
+          window.togglePageSectionSidebar(false);
+        }
+        return ok;
+      };
+
+      window.renderPageSectionSidebar = function () {
+        var listEl = document.getElementById('page-sidebar-items');
+        var titleEl = document.getElementById('page-sidebar-title');
+        var countEl = document.getElementById('page-sidebar-tab-count');
+        if (!listEl) return [];
+
+        var mainPage = document.getElementById('page-main');
+        var apisPage = document.getElementById('page-apis');
+        var contractsPage = document.getElementById('page-contracts');
+        var checkoutPage = document.getElementById('page-checkout');
+        var accountPage = document.getElementById('page-account');
+
+        var pageTitle = 'Platform Overview';
+        var rawItems = [];
+
+        if (accountPage && !accountPage.classList.contains('hidden')) {
+          var dashPanel = document.getElementById('account-dashboard-panel');
+          if (dashPanel && !dashPanel.classList.contains('hidden')) {
+            pageTitle = 'Client Account Portal';
+            rawItems = [
+              { num: '00', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', color: 'text-emerald-400' },
+              { num: '01', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', color: 'text-sky-400' },
+              { num: '02', id: 'account-pill-discord', label: 'Distribution & Team CC', color: 'text-indigo-300' },
+              { num: '03', id: 'account-alert-filters-card', label: '14-Portal & NAICS Filters', color: 'text-sky-400' },
+              { num: '04', id: 'account-company-vault-card', label: 'Company Capture Vault', color: 'text-indigo-300' },
+              { num: '05', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', color: 'text-emerald-400' },
+              { num: '06', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', color: 'text-amber-300' },
+              { num: '07', id: 'account-profile-name', label: 'Profile & Password Security', color: 'text-slate-300' }
+            ];
+          } else {
+            pageTitle = 'Account Sign In / Sign Up';
+            rawItems = [
+              { num: '01', id: 'account-auth-panel', label: 'Free Explorer Benefits', color: 'text-emerald-400' },
+              { num: '02', id: 'account-form-login', label: 'Sign In to Account', color: 'text-sky-400', action: 'auth_login' },
+              { num: '03', id: 'account-form-register', label: 'Create Free Account ($0)', color: 'text-emerald-400', action: 'auth_register' }
+            ];
+          }
+        } else if (checkoutPage && !checkoutPage.classList.contains('hidden')) {
+          pageTitle = 'Plans & B2B Checkout';
+          rawItems = [
+            { num: '01', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', color: 'text-sky-400' },
+            { num: '02', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', color: 'text-sky-400' },
+            { num: '03', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', color: 'text-indigo-300' },
+            { num: '04', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', color: 'text-emerald-400' },
+            { num: '05', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', color: 'text-amber-300' },
+            { num: '06', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', color: 'text-slate-300' }
+          ];
+        } else if (contractsPage && !contractsPage.classList.contains('hidden')) {
+          pageTitle = 'Live RFP Directory';
+          if (document.getElementById('contracts-rfp-ai-shred-card')) {
+            rawItems = [
+              { num: '01', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', color: 'text-sky-400' },
+              { num: '02', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', color: 'text-indigo-300' },
+              { num: '03', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', color: 'text-emerald-400' },
+              { num: '04', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', color: 'text-amber-300' }
+            ];
+          } else {
+            rawItems = [
+              { num: '01', id: 'contracts-top-section', label: 'Portal & Category Hubs', color: 'text-sky-400' },
+              { num: '02', id: 'contracts-live-table-card', label: 'Live RFP Search & Table', color: 'text-emerald-400' },
+              { num: '03', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', color: 'text-amber-300' }
+            ];
+          }
+        } else if ((apisPage && !apisPage.classList.contains('hidden')) || (!mainPage && document.getElementById('api-directory-list'))) {
+          pageTitle = '20-API & MCP Catalog';
+          rawItems = [
+            { num: '00', id: 'api-directory-list', label: 'Quick-Jump Index & Search', color: 'text-sky-400' },
+            { num: 'UI', id: 'rapidapi-sandbox-modal', label: 'Launch Studio Playground', color: 'text-emerald-400', action: 'sandbox' },
+            { num: '01', id: 'product-contract-parsing', label: 'B2B Contract Parsing API', color: 'text-sky-400' },
+            { num: '02', id: 'product-risk-auditor', label: 'Contract Risk Auditor API', color: 'text-rose-400' },
+            { num: '03', id: 'product-historical-pricing', label: 'Historical Award Pricing', color: 'text-emerald-400' },
+            { num: '04', id: 'product-live-solicitations', label: '14-Portal Live RFP Feed', color: 'text-cyan-400' },
+            { num: '05', id: 'product-compliance-matrix', label: 'Shipley Compliance Matrix', color: 'text-amber-400' },
+            { num: '06', id: 'product-far-dfars-scanner', label: 'FAR/DFARS & CMMC Scanner', color: 'text-indigo-300' },
+            { num: '07', id: 'product-capability-matcher', label: 'Bid/No-Bid Pwin Matcher', color: 'text-emerald-400' },
+            { num: '08', id: 'product-industry-classifier', label: 'NAICS/PSC/NIGP Classifier', color: 'text-purple-300' },
+            { num: '09', id: 'product-proposal-drafter', label: 'Proposal Draft & Q&A API', color: 'text-sky-400' },
+            { num: '10', id: 'product-clin-extractor', label: 'Section B CLIN Extractor', color: 'text-teal-300' },
+            { num: '11', id: 'product-teaming-planner', label: '13 CFR 125.6 Teaming Plan', color: 'text-amber-300' },
+            { num: '12', id: 'product-security-questionnaire', label: 'Security Questionnaire AI', color: 'text-cyan-300' },
+            { num: '13', id: 'product-key-personnel', label: 'Key Personnel LCAT Tailor', color: 'text-indigo-300' },
+            { num: '14', id: 'product-amendment-differ', label: 'SF-30 Amendment Diff API', color: 'text-rose-300' },
+            { num: '15', id: 'product-cpars-generator', label: 'CPARS & Past Perf Vol. III', color: 'text-emerald-300' },
+            { num: '16', id: 'product-price-to-win', label: 'IGCE Wrap & Price-to-Win', color: 'text-sky-300' },
+            { num: '17', id: 'product-orals-prep', label: 'Orals & Murder-Board Prep', color: 'text-amber-300' },
+            { num: '18', id: 'product-rmf-ato', label: 'NIST 800-53 RMF & cATO', color: 'text-indigo-300' },
+            { num: '19', id: 'product-debrief-protest', label: 'Debrief & GAO Bid-Protest', color: 'text-rose-300' },
+            { num: '20', id: 'product-gsa-mas-offer', label: 'GSA MAS SIN & PRC API', color: 'text-emerald-400' },
+            { num: '21', id: 'api-pricing-matrix', label: 'Tier & Quota Pricing Matrix', color: 'text-sky-400' }
+          ];
+        } else if (document.getElementById('static-inbound-lead-box')) {
+          pageTitle = 'Live RFP Directory';
+          if (document.getElementById('static-rfp-ai-shred-card')) {
+            rawItems = [
+              { num: '01', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', color: 'text-sky-400' },
+              { num: '02', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', color: 'text-indigo-300' },
+              { num: '03', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', color: 'text-emerald-400' },
+              { num: '04', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', color: 'text-amber-300' }
+            ];
+          } else {
+            rawItems = [
+              { num: '01', id: 'static-contracts-top-section', label: 'Portal & Category Hubs', color: 'text-sky-400' },
+              { num: '02', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', color: 'text-emerald-400' },
+              { num: '03', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', color: 'text-amber-300' }
+            ];
+          }
+        } else {
+          pageTitle = 'Platform Overview';
+          rawItems = [
+            { num: '01', id: 'overview', label: 'Hero & 14-Portal Overview', color: 'text-sky-400' },
+            { num: '02', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', color: 'text-sky-400' },
+            { num: '03', id: 'capture-moat', label: 'AI Capture Dossiers (20 APIs)', color: 'text-indigo-300' },
+            { num: '04', id: 'contract-directory', label: '14-Portal Live RFP Table', color: 'text-emerald-400' },
+            { num: '05', id: 'coverage', label: 'Portal Coverage & ROI', color: 'text-sky-400' },
+            { num: '06', id: 'integrations', label: 'CRM, Slack & Webhooks', color: 'text-amber-300' }
+          ];
+        }
+
+        if (titleEl) titleEl.textContent = pageTitle;
+        if (countEl) countEl.textContent = (rawItems.length < 10 ? '0' : '') + rawItems.length;
+
+        var html = '';
+        for (var i = 0; i < rawItems.length; i++) {
+          var it = rawItems[i];
+          var actArg = it.action ? (', &quot;' + it.action + '&quot;') : '';
+          html += '<button type="button" data-sidebar-sec="' + it.id + '" onclick="window.triggerSidebarSectionJump(&quot;' + it.id + '&quot;' + actArg + ')" class="w-full px-3 py-2 rounded-xl bg-navy-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-800/90 hover:border-sky-500/40 flex items-center justify-between gap-2.5 text-left transition-colors cursor-pointer group">' +
+            '<span class="flex items-center gap-2.5 min-w-0">' +
+              '<span class="px-1.5 py-0.5 rounded bg-navy-950 border border-slate-800 text-[10px] font-bold ' + it.color + ' shrink-0">' + it.num + '</span>' +
+              '<span class="truncate text-xs font-medium group-hover:text-sky-300 transition-colors">' + it.label + '</span>' +
+            '</span>' +
+            '<span class="text-slate-500 group-hover:text-sky-400 text-xs shrink-0">&rarr;</span>' +
+          '</button>';
+        }
+        listEl.innerHTML = html;
+        return rawItems;
+      };
+
+    window.renderPageSectionSidebar();
+
     window.filterStaticContractsTable = function (qVal) {
       var anchorEl = document.getElementById('static-rfp-search') || document.activeElement;
       var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
