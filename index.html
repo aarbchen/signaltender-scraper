@@ -11058,50 +11058,71 @@
         var qInp = document.getElementById('concierge-question');
         if (topSel && topic) topSel.value = topic;
         if (qInp && questionText) qInp.value = questionText;
-        window.submitAiConciergeContact();
+        window.submitAiConciergeContact(true);
       };
 
       function buildLocalConciergeFallback(topic, qText) {
         var q = String(qText || '').trim().toLowerCase();
         if (/^(hi|hello|hey|greetings|good\s+(morning|afternoon|evening)|yo|sup|test|testing)[!.?\s]*$/i.test(q)) {
           return {
-            answer: 'Hello! Welcome to the SignalTender AI Support Concierge. I can help you right away with:\n• Plans & Pricing: Free Explorer ($0/mo), Tier 1 SignalWire Pro ($99/mo), or Tier 2 CaptureDesk Autopilot ($399/mo).\n• Portal & State SLED Coverage: 6-hour automated RFP monitoring across 15 Federal, Municipal, and State SLED portals.\n• APIs & MCP Integration: Connecting all 20 GovCon AI microservices to Claude Desktop, Cursor, Windsurf, or REST pipelines.\n• Billing & Security: Instant 1-click self-serve cancellation, corporate B2B receipts, and zero-data-retention security.\n\nType your question above (for example, "What is included in Tier 2?" or "How do I set up Slack alerts?") and I will answer it right here.',
-            actions: [
-              { label: 'Compare Tier 1 ($99) vs Tier 2 ($399)', href: '#checkout' },
-              { label: 'Browse Live 15-Portal RFP Directory', href: '#contracts' },
-              { label: 'Explore 21-API Catalog & MCP', href: '#apis' }
-            ]
-          };
-        }
-        if (topic === 'billing_and_cancellation' || q.indexOf('cancel') !== -1 || q.indexOf('receipt') !== -1 || q.indexOf('invoice') !== -1) {
-          return {
-            answer: '• Instant 1-Click Self-Serve Cancellation: Log into the Client Account Portal (#account -> Section 02) and click Cancel Subscription. Recurring billing and automated dispatches stop immediately with zero emails or phone calls required.\n• Corporate Tax Receipts: Click Download B2B Receipt Summary inside #account anytime for an instant corporate receipt.\n• Monthly & Annual Switching: Switch between Monthly ($99 / $399) and Annual ($990/yr [Save $198] / $3,490/yr [Save $1,298] with Card & US Bank ACH) in 1 click.',
+            answer: 'Hello! Welcome to the SignalTender AI Support Concierge. How can I help you today?\n• Unsubscribe, pause email briefings, or cancel a subscription in 1 click (#account)\n• Compare Free Explorer ($0/mo), Tier 1 SignalWire Pro ($99/mo), and Tier 2 CaptureDesk Autopilot ($399/mo)\n• Check 15-portal Federal & 13-State SLED coverage or configure Slack/Teams/Discord/Email alerts\n• Connect our 21 GovCon APIs & MCP server to Claude Desktop, Cursor, or Windsurf\n\nType any question above and I will answer it directly.',
             actions: [
               { label: 'Open Client Account Portal (#account)', href: '#account' },
-              { label: 'View Plans & B2B Checkout (#checkout)', href: '#checkout' }
+              { label: 'Compare Tier 1 ($99) vs Tier 2 ($399)', href: '#checkout' },
+              { label: 'Browse Live 15-Portal RFP Directory', href: '#contracts' }
             ]
           };
         }
-        if (topic === 'api_and_mcp_integration' || q.indexOf('mcp') !== -1 || q.indexOf('api') !== -1 || q.indexOf('claude') !== -1 || q.indexOf('cursor') !== -1) {
+        if (/unsubscribe|cancel|stop email|opt out|opt-out|pause|refund|invoice|receipt|ach|stripe|billing|downgrade|charge|delete account|close account/i.test(q)) {
           return {
-            answer: '• Enterprise API Key (st_live_...): Active Tier 2 ($399/mo) subscribers receive a production st_live_... key inside #account (Section 07).\n• Claude Desktop, Cursor & Windsurf MCP: Run npx -y @signaltender/mcp-server or connect to https://b2b-contract-parser-api.onrender.com/mcp to expose all 20 GovCon tools natively in your IDE.\n• Individual Endpoints on RapidAPI: Every microservice is also available individually on RapidAPI starting at $0/mo (Basic tier).',
+            answer: 'You can unsubscribe from emails or cancel a paid subscription in 1 click with zero lock-in:\n• Unsubscribe from Email Briefings: Click the 1-click Unsubscribe link at the bottom of any SignalTender email, or open the Client Account Portal (#account -> Section 03: Alert Delivery Channels) to toggle off 6-Hour Email Briefings or click Pause All Dispatches.\n• Cancel a Paid Subscription (Tier 1 or Tier 2): Log into #account, go to Section 02 (Plan, Billing & Receipts), and click Cancel Subscription. Recurring billing and automated dispatches stop immediately with zero phone calls or emails required.\n• Corporate Tax Receipts: Click Download B2B Receipt Summary inside #account (Section 02) anytime.',
+            actions: [
+              { label: 'Manage Alerts or Cancel in #account', href: '#account' },
+              { label: 'Review Cancellation & SLA Terms (#terms)', href: '#terms' },
+              { label: 'Read Privacy & Opt-Out Policy (#privacy)', href: '#privacy' }
+            ]
+          };
+        }
+        if (/slack|teams|discord|webhook|filter|naics|set-aside|login|password|vault/i.test(q)) {
+          return {
+            answer: 'You can customize your alert channels, territory filters, and Company Capture Vault anytime inside the Client Account Portal (#account):\n• Multi-Channel Delivery (Section 03): Route 6-hour RFP briefings to Discord, Slack, Microsoft Teams, Generic Webhook, and/or Email (plus up to 10 team CC addresses), or pause dispatches in 1 click.\n• Territory & Set-Aside Filters (Section 04): Filter incoming solicitations by any of our 15 portals, set-aside types (8(a), SDVOSB, HUBZone, WOSB, Small Business), and custom keywords.\n• Company Capture Vault (Section 05): Save your UEI/CAGE, NAICS codes, security clearances, and wrap rate to auto-populate PWin and Price-to-Win models.',
+            actions: [
+              { label: 'Configure Alerts & Filters (#account)', href: '#account' },
+              { label: 'Browse Live 15-Portal RFP Directory', href: '#contracts' },
+              { label: 'Create Free Explorer Account ($0)', href: '#signup' }
+            ]
+          };
+        }
+        if (/mcp|rapidapi|claude|cursor|windsurf|st_live|swagger|openapi|sdk|api/i.test(q)) {
+          return {
+            answer: '• Enterprise API Key (st_live_...): Active Tier 2 ($399/mo) subscribers receive a production st_live_... key inside #account (Section 07).\n• Claude Desktop, Cursor & Windsurf MCP: Run npx -y @signaltender/mcp-server or connect to https://b2b-contract-parser-api.onrender.com/mcp to expose all 21 GovCon tools natively in your IDE.\n• Individual Endpoints on RapidAPI: Every microservice is also available individually on RapidAPI starting at $0/mo (Basic tier).',
             actions: [
               { label: 'Open 21-API Catalog & Studio Playground (#apis)', href: '#apis' },
               { label: 'Retrieve API Key & MCP Config (#account)', href: '#account' }
             ]
           };
         }
-        if (topic === 'security_and_compliance' || q.indexOf('retain') !== -1 || q.indexOf('train') !== -1 || q.indexOf('security') !== -1) {
+        if (/retain|retention|train|security|privacy|cui|itar|soc|fedramp|gdpr|rls|dpa/i.test(q)) {
           return {
-            answer: '• Stateless Zero-Data-Retention AI: Documents submitted to our 20 APIs are processed in volatile memory over TLS 1.3, purged immediately upon response completion, and NEVER used to train foundation models.\n• Database & Billing Security: Persistence tables enforce PostgreSQL Row-Level Security (RLS), passwords use salted PBKDF2-HMAC-SHA256, and payments are processed by Stripe (PCI-DSS Level 1).',
+            answer: '• Stateless Zero-Data-Retention AI: Documents submitted to our 21 APIs are processed in volatile memory over TLS 1.3, purged immediately upon response completion, and NEVER used to train foundation models.\n• Database & Billing Security: Persistence tables enforce PostgreSQL Row-Level Security (RLS), passwords use salted PBKDF2-HMAC-SHA256, and payments are processed by Stripe (PCI-DSS Level 1).',
             actions: [
               { label: 'Review Security & Trust Center (#security)', href: '#security' },
               { label: 'Read Privacy & Zero-Retention DPA (#privacy)', href: '#privacy' }
             ]
           };
         }
+        if (/portal|state|sled|sam\.gov|demandstar|virginia|texas|california|florida|maryland|illinois|pennsylvania|ohio|georgia|carolina|new york|massachusetts|new jersey|washington|michigan/i.test(q)) {
+          return {
+            answer: 'SignalTender continuously monitors 15 Federal, National Municipal, and State SLED portals every 6 hours:\n• Federal & National: SAM.gov (Federal), SBIR.gov, and DemandStar (National Municipal).\n• 13 State SLED Portals: Virginia (eVA), Texas (ESBD), California (Cal eProcure), Florida (MFMP VIP), Maryland (eMMA), Illinois (BidBuy), Pennsylvania (eMarketplace), Ohio (OhioBuys), Georgia (DOAS GPR), North Carolina (NC eVP), New York (NYC CROL / PASSPort / PANYNJ), Massachusetts (COMMBUYS & MBTA), and New Jersey (NJSTART & Treasury DPP).\n• Need Another State? Submit your target state in the Secure Feedback & Portal Request tab (#feedback).',
+            actions: [
+              { label: 'Browse Live 15-Portal RFP Directory', href: '#contracts' },
+              { label: 'Request a New State Portal (#feedback)', href: '#feedback' },
+              { label: 'Configure Territory Filters (#account)', href: '#account' }
+            ]
+          };
+        }
         return {
-          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 21 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 15 Federal & 13-State SLED portals delivered to Discord, Slack, Teams, Email, or Webhook.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr): Everything in Tier 1 PLUS full 21-API pre-shredded CaptureDesk AI Dossiers (Shipley matrices, CMMC/RMF audits, PWin, IGCE Price-to-Win, CPARS, GSA MAS SINs) and a production st_live_... Enterprise API Key.',
+          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 21 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 15 Federal & 13-State SLED portals delivered to Discord, Slack, Teams, Email, or Webhook.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr): Everything in Tier 1 PLUS full 21-API pre-shredded CaptureDesk AI Dossiers (Shipley matrices, CMMC/RMF audits, PWin, IGCE Price-to-Win, CPARS, GSA MAS SINs, Sources Sought/RFI) and a production st_live_... Enterprise API Key.',
           actions: [
             { label: 'Create Free Explorer Account ($0)', href: '#signup' },
             { label: 'Compare Tier 1 ($99) vs Tier 2 ($399)', href: '#checkout' },
@@ -11110,7 +11131,7 @@
         };
       }
 
-      window.submitAiConciergeContact = function () {
+      window.submitAiConciergeContact = function (isPresetClick) {
         var hpEl = document.getElementById('concierge-honeypot');
         var topEl = document.getElementById('concierge-topic');
         var emEl = document.getElementById('concierge-email');
@@ -11150,7 +11171,10 @@
             badgeEl.className = 'text-emerald-400 font-bold';
             badgeEl.textContent = '✓ AI CONCIERGE RESPONSE' + (inquiryId ? (' (' + inquiryId + ')') : '');
           }
-          txtEl.textContent = ansText;
+          var cleanAns = String(ansText || '')
+            .replace(/\*\*([^*]+)\*\*/g, '$1')
+            .replace(/`([^`]+)`/g, '$1');
+          txtEl.textContent = cleanAns;
           if (actEl) {
             var acts = Array.isArray(actionsList) ? actionsList : [];
             actEl.innerHTML = acts.map(function (a) {
@@ -11163,15 +11187,23 @@
         }
 
         var isSimpleGreeting = /^(hi|hello|hey|greetings|good\s+(morning|afternoon|evening)|yo|sup|test|testing)[!.?\s]*$/i.test(cleanQ);
-        renderConciergeOutput(localFallback.answer, localFallback.actions, '');
         if (isSimpleGreeting || typeof fetch !== 'function') {
+          renderConciergeOutput(localFallback.answer, localFallback.actions, '');
           return true;
         }
 
-        if (badgeEl) {
-          badgeEl.className = 'text-indigo-400 font-bold animate-pulse';
-          badgeEl.textContent = '⟳ GENERATING TAILORED AI CONCIERGE ANSWER...';
+        if (isPresetClick) {
+          renderConciergeOutput(localFallback.answer, localFallback.actions, '');
+        } else if (boxEl && txtEl) {
+          boxEl.classList.remove('hidden');
+          if (badgeEl) {
+            badgeEl.className = 'text-indigo-400 font-bold animate-pulse';
+            badgeEl.textContent = '⟳ GENERATING AI CONCIERGE RESPONSE...';
+          }
+          txtEl.textContent = 'Analyzing your question and preparing a tailored answer...';
+          if (actEl) actEl.innerHTML = '';
         }
+
         if (btnEl) {
           btnEl.disabled = true;
           btnEl.textContent = 'Generating AI Concierge Response...';
