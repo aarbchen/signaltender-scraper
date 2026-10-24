@@ -1677,57 +1677,216 @@
         </div>
 
         <!-- Developer / Legal Tech API Ecosystem Callout Banner -->
-        <div class="rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-navy-900 border border-slate-800 p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-          <div class="max-w-3xl space-y-2">
-            <div class="inline-flex items-center space-x-2 text-xs font-mono text-sky-400">
-              <span>// DEVELOPER &amp; LEGAL TECH REST APIs &bull; $0/MO FREE BASIC &amp; $19/MO PRO TIERS AVAILABLE</span>
+        <div class="rounded-2xl bg-gradient-to-b from-navy-900 via-slate-900/95 to-navy-900 border border-slate-800 p-6 sm:p-8 lg:p-10 shadow-2xl space-y-6">
+          <!-- Top Header & CTA Row -->
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-800/90">
+            <div class="max-w-3xl space-y-2.5">
+              <div class="inline-flex flex-wrap items-center gap-2 text-[11px] font-mono">
+                <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-bold">20 REST &amp; MCP MICROSERVICES</span>
+                <span class="text-slate-400">// $0/MO FREE BASIC &bull; $49/MO PRO &bull; TIER 2 ENTERPRISE INCLUDED</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Building Custom GovCon Software or Proposal Automation?
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Call our individual <span class="text-white font-semibold">stateless REST APIs</span> or connect via <span class="text-sky-300 font-mono">Model Context Protocol (MCP)</span> to shred RFPs into typed JSON, audit legal risk with fallback redlines, benchmark federal CLIN labor rates, and generate Shipley compliance matrices on demand.
+              </p>
             </div>
-            <h3 class="text-2xl font-bold text-white tracking-tight">
-              Building Custom GovCon Software or Proposal Automation?
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
-              Call our individual <span class="text-white font-medium">REST APIs</span> on demand to parse RFPs into JSON, audit legal risk with fallback redlines, benchmark federal CLIN labor rates, and generate Shipley compliance matrices in milliseconds.
-            </p>
-            <div class="pt-2 flex flex-wrap gap-2 font-mono text-[11px]">
-              <a href="#product-contract-parsing" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-sky-500/50 border border-slate-800 text-sky-300 transition-colors">B2B Contract Parsing API</a>
-              <a href="#product-risk-auditor" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-rose-500/60 border border-rose-500/30 text-rose-300 transition-colors">AI Risk &amp; Redline Auditor API</a>
-              <a href="#product-historical-pricing" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/50 border border-slate-800 text-emerald-300 transition-colors">Historical Procurement Pricing API</a>
-              <a href="#product-live-solicitations" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-cyan-500/60 border border-cyan-500/30 text-cyan-300 transition-colors">Live SLED &amp; Federal Open RFP Feed API</a>
-              <a href="#product-compliance-matrix" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-amber-500/60 border border-amber-500/30 text-amber-300 transition-colors">RFP Compliance Matrix &amp; Outline API</a>
-              <a href="#product-far-dfars-scanner" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-indigo-500/60 border border-indigo-500/40 text-indigo-300 transition-colors">FAR / DFARS &amp; CMMC Scanner API</a>
-              <a href="#product-capability-matcher" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-teal-500/60 border border-teal-500/40 text-teal-300 transition-colors">AI Bid/No-Bid &amp; Capability Matcher API</a>
-              <a href="#product-industry-classifier" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-purple-500/60 border border-purple-500/40 text-purple-300 transition-colors">NAICS, SIC, PSC &amp; UNSPSC Classifier API</a>
-              <a href="#product-rfp-response" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-blue-500/60 border border-blue-500/40 text-blue-300 transition-colors">AI RFP Response &amp; Clarification Q&amp;A API</a>
-              <a href="#product-pricing-extractor" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-teal-500/60 border border-teal-500/40 text-teal-300 transition-colors">B2B Quote, Invoice &amp; CLIN Table Extractor API</a>
-              <a href="#product-teaming-strategy" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">GovCon Teaming Partner &amp; Subcontracting Plan API</a>
-              <a href="#product-security-questionnaire" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-indigo-500/60 border border-indigo-500/40 text-indigo-300 transition-colors">SOC 2, FedRAMP &amp; NIST 800-171 Security Questionnaire API</a>
-              <a href="#product-key-personnel" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-amber-500/60 border border-amber-500/40 text-amber-300 transition-colors">GovCon Key Personnel &amp; LCAT Resume API</a>
-              <a href="#product-amendment-diff" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-cyan-500/60 border border-cyan-500/40 text-cyan-300 transition-colors">RFP Amendment &amp; Q&amp;A Change-Impact API</a>
-              <a href="#product-past-performance" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">CPARS &amp; Past Performance Volume API</a>
-              <a href="#product-price-to-win" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">GovCon IGCE, Wrap-Rate &amp; Price-to-Win API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
-              <a href="#product-oral-presentation" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-sky-500/60 border border-sky-500/40 text-sky-300 transition-colors">GovCon Oral Presentation &amp; Murder-Board API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-sky-400 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
-              <a href="#product-ato-rmf" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">GovCon RMF, Continuous ATO, SSP &amp; POA&amp;M API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
-              <a href="#product-debriefing-protest" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-rose-500/60 border border-rose-500/40 text-rose-300 transition-colors">GovCon Debriefing, FAR 15.506 &amp; GAO Bid-Protest API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-rose-400 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
-              <a href="#product-gsa-mas-offer" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded bg-navy-950 hover:border-emerald-500/60 border border-emerald-500/40 text-emerald-300 transition-colors">GovCon GSA MAS Schedule, SIN Mapper &amp; PRC API <span class="ml-1.5 px-1.5 py-0.2 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase">New</span></a>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+              <button
+                type="button"
+                onclick="window.openApiSandbox('product-contract-parsing')"
+                class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-bold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-xl border border-emerald-500/40 shadow-lg transition-all cursor-pointer whitespace-nowrap"
+              >
+                <span>&#9654; Test APIs Live In-Browser</span>
+              </button>
+              <a
+                href="#apis"
+                class="inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-bold text-white bg-sky-600 hover:bg-sky-500 rounded-xl border border-sky-400/40 shadow-lg shadow-sky-600/20 transition-all whitespace-nowrap"
+              >
+                <span>Explore Developer API Catalog</span>
+                <svg class="ml-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onclick="window.openApiSandbox('product-contract-parsing')"
-              class="inline-flex items-center justify-center px-5 py-3.5 text-sm font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 shadow-lg transition-all cursor-pointer"
-            >
-              <span>&#9654; Test APIs Live In-Browser</span>
-            </button>
-            <a
-              href="#apis"
-              class="inline-flex items-center justify-center px-6 py-3.5 text-sm font-mono font-semibold text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-sky-500/40 shadow-lg transition-all"
-            >
-              <span>Explore Developer API Catalog</span>
-              <svg class="ml-2 h-4 w-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+          <!-- Uniform 4-Column Categorized Microservice Directory Grid (5x4 = 20 Equal Cells) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono text-xs">
+            <a href="#product-contract-parsing" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-sky-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 text-[10px] font-bold shrink-0">#01</span>
+                <span class="text-slate-200 group-hover:text-white truncate">B2B Contract Parsing</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-sky-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-risk-auditor" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-rose-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 text-[10px] font-bold shrink-0">#02</span>
+                <span class="text-slate-200 group-hover:text-white truncate">AI Risk &amp; Redline Auditor</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-rose-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-historical-pricing" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#03</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Historical Pricing Benchmark</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-emerald-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-live-solicitations" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-cyan-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-[10px] font-bold shrink-0">#04</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Live 14-Portal RFP Feed</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-cyan-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-compliance-matrix" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-amber-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold shrink-0">#05</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Shipley Compliance Matrix</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-amber-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-far-dfars-scanner" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-indigo-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 text-[10px] font-bold shrink-0">#06</span>
+                <span class="text-slate-200 group-hover:text-white truncate">FAR / DFARS &amp; CMMC Scanner</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-indigo-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-capability-matcher" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-teal-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-teal-500/15 text-teal-400 border border-teal-500/30 text-[10px] font-bold shrink-0">#07</span>
+                <span class="text-slate-200 group-hover:text-white truncate">AI Bid/No-Bid Matcher</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-teal-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-industry-classifier" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-purple-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 text-[10px] font-bold shrink-0">#08</span>
+                <span class="text-slate-200 group-hover:text-white truncate">NAICS, PSC &amp; UNSPSC Classifier</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-purple-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-rfp-response" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-blue-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 border border-blue-500/30 text-[10px] font-bold shrink-0">#09</span>
+                <span class="text-slate-200 group-hover:text-white truncate">RFP Response &amp; Q&amp;A Writer</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-blue-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-pricing-extractor" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-teal-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-teal-500/15 text-teal-400 border border-teal-500/30 text-[10px] font-bold shrink-0">#10</span>
+                <span class="text-slate-200 group-hover:text-white truncate">CLIN &amp; Pricing Table Extractor</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-teal-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-teaming-strategy" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#11</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Teaming &amp; 13 CFR 125.6 Plan</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-emerald-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-security-questionnaire" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-indigo-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 text-[10px] font-bold shrink-0">#12</span>
+                <span class="text-slate-200 group-hover:text-white truncate">SOC 2, FedRAMP &amp; NIST 800-171</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-indigo-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-key-personnel" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-amber-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold shrink-0">#13</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Key Personnel &amp; LCAT Resume</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-amber-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-amendment-diff" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-cyan-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-[10px] font-bold shrink-0">#14</span>
+                <span class="text-slate-200 group-hover:text-white truncate">SF-30 Amendment &amp; Q&amp;A Diff</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-cyan-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-past-performance" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#15</span>
+                <span class="text-slate-200 group-hover:text-white truncate">CPARS &amp; Past Performance</span>
+              </div>
+              <span class="text-slate-600 group-hover:text-emerald-400 shrink-0">&rarr;</span>
+            </a>
+
+            <a href="#product-price-to-win" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#16</span>
+                <span class="text-slate-200 group-hover:text-white truncate">IGCE, Wrap-Rate &amp; PTW Model</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase shrink-0">New</span>
+            </a>
+
+            <a href="#product-oral-presentation" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-sky-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 text-[10px] font-bold shrink-0">#17</span>
+                <span class="text-slate-200 group-hover:text-white truncate">Oral Pitch &amp; Murder-Board</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-sky-400 text-navy-950 text-[9px] font-bold uppercase shrink-0">New</span>
+            </a>
+
+            <a href="#product-ato-rmf" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#18</span>
+                <span class="text-slate-200 group-hover:text-white truncate">RMF, Continuous ATO &amp; SSP</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase shrink-0">New</span>
+            </a>
+
+            <a href="#product-debriefing-protest" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-rose-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 text-[10px] font-bold shrink-0">#19</span>
+                <span class="text-slate-200 group-hover:text-white truncate">FAR 15.506 Debrief &amp; Protest</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-rose-400 text-navy-950 text-[9px] font-bold uppercase shrink-0">New</span>
+            </a>
+
+            <a href="#product-gsa-mas-offer" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-emerald-500/50 transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold shrink-0">#20</span>
+                <span class="text-slate-200 group-hover:text-white truncate">GSA MAS SIN Mapper &amp; PRC</span>
+              </div>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase shrink-0">New</span>
+            </a>
+          </div>
+
+          <!-- Bottom Quick Integration Strip -->
+          <div class="pt-2 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-400 border-t border-slate-800/60">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span><strong class="text-emerald-400">&check; Zero-Retention AI:</strong> Stateless JSON over TLS 1.3</span>
+              <span class="text-slate-700">&bull;</span>
+              <span><strong class="text-sky-400">&check; Dual Auth:</strong> <code class="text-slate-300">X-SignalTender-Key</code> or <code class="text-slate-300">X-RapidAPI-Key</code></span>
+              <span class="text-slate-700">&bull;</span>
+              <span><strong class="text-indigo-300">&check; IDE Ready:</strong> <code class="text-slate-300">npx -y @signaltender/mcp-server</code></span>
+            </div>
+            <a href="https://b2b-contract-parser-api.onrender.com/docs" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
+              View OpenAPI 3.0 Docs &nearr;
             </a>
           </div>
         </div>
