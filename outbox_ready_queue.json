@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24T00:59:40.455733+00:00",
+  "updated_at": "2026-10-24T02:11:10.167136+00:00",
   "launch_date": "2026-10-31",
   "ramp_phase": "Pre-Launch Warmup Guard (Launches 2026-10-31 at 20/day)",
   "daily_cap": 20,
@@ -17,7 +17,7 @@
       "subject": "Open Georgia & Federal IT solicitations (TechAnax)",
       "body": "Hi Byron,\n\nI run an automated procurement monitor that tracks Georgia DOAS GPR, Atlanta metro portals, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Since TechAnax delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. Enterprise Resource Planning (ERP) Software & Services \u2014 Rockdale County Board of Commissioners (Due: 11/19/2026 | NAICS 511210 \u2022 Georgia Tech Authority (GTA) SSG Security)\n2. AI Powered Digital Water Operations Platform \u2014 Fulton County Purchasing Dept (Due: 11/13/2026 | NAICS 541511 \u2022 Georgia Tech Authority (GTA) SSG Security)\n3. Interactive Web Mapping and Dashboard Application Development \u2014 Atlanta Regional Commission (Due: 11/06/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n\nEach solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html\n\nAre you actively bidding Georgia & Federal IT work right now, or should I take you off my list?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -28,7 +28,7 @@
       "subject": "Stefanie \u2014 3 open Illinois & Federal IT RFPs",
       "body": "Hi Stefanie,\n\nWe maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 11 additional state procurement portals every 6 hours. Since Sikich delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options \u2014 Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 \u2022 SOC 2 Type II / NIST CSF 2.0)\n2. Federal Revenue Enhancement and Claiming Systems Support Services \u2014 State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods \u2014 State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n\nEach solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.\n\nHere is the direct Section L/M, NAICS & teaming breakdown for #1:\nhttps://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html\n\nWorth sending over future Illinois & Federal IT scopes when they hit the wire?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -39,7 +39,7 @@
       "subject": "Sparksoft / 3 open public-sector IT contracts",
       "body": "Hello Stephen,\n\nI track newly released public-sector technology solicitations across Maryland eMMA, county Bonfire portals, and SAM.gov (14 federal and state portals total). Since Sparksoft delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. SPECIAL NOTICE: 91st Cyber Operations Center Progressive-Design-Build OT \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Request for Information (RFI) for Group 1 and Group 2 Unmanned Aircraft System (Uas) Training, Mission Planning, Mission Rehearsal, Simulation, and Qualification Management Systems \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. DA01--RFI Action Only Healthcare Data Auditing Billing and Coding Optimization Software \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nThe full compliance & teaming dossier for #1 is live at:\nhttps://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-897.html\n\nLet me know if Sparksoft is pursuing state or federal IT bids this quarter.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-897.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -50,7 +50,7 @@
       "subject": "Lisa \u2014 3 open New York & Federal IT RFPs",
       "body": "Hello Lisa,\n\nI track newly released public-sector technology solicitations across NYS Contract Reporter, NYC PASSPort, and SAM.gov (14 federal and state portals total). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Kitware:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nYou can inspect the pre-shredded capture dossier for #1 here:\nhttps://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html\n\nIs New York & Federal IT/cyber on Kitware's radar this quarter?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -61,7 +61,7 @@
       "subject": "3 open North Carolina & Federal IT bids for Enquizit",
       "body": "Hi Tigger,\n\nWe maintain a live public-sector RFP engine covering North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov and 11 additional state procurement portals every 6 hours. Noticed Enquizit's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Enterprise Network Switch Refresh, SD-WAN Fiber Backbone & Zero-Trust Campus Wi-Fi \u2014 Guilford County Government (Greensboro, NC) (Due: 11/08/2026 | NAICS 423430 \u2022 NCDIT Statewide Information Security Manual (NIST 800-53))\n2. Smart City IoT Water Telemetry, Esri Enterprise GIS Portal & Cloud Data Lake Architecture \u2014 City of Durham & Durham County (Due: 11/13/2026 | NAICS 541512 \u2022 NCDIT Statewide Information Security Manual (NIST 800-53))\n3. Integrated Tax Administration SaaS Modernization, Document OCR & Fraud Detection Engine \u2014 NC Department of Revenue (NCDOR) (Due: 11/06/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -72,7 +72,7 @@
       "subject": "New North Carolina & Federal tech & cyber solicitations for RoviSys Federal",
       "body": "Hey Chris,\n\nI track newly released public-sector technology solicitations across North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (14 federal and state portals total). Noticed RoviSys Federal's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Enterprise Network Switch Refresh, SD-WAN Fiber Backbone & Zero-Trust Campus Wi-Fi \u2014 Guilford County Government (Greensboro, NC) (Due: 11/08/2026 | NAICS 423430 \u2022 NCDIT Statewide Information Security Manual (NIST 800-53))\n2. Smart City IoT Water Telemetry, Esri Enterprise GIS Portal & Cloud Data Lake Architecture \u2014 City of Durham & Durham County (Due: 11/13/2026 | NAICS 541512 \u2022 NCDIT Statewide Information Security Manual (NIST 800-53))\n3. Integrated Tax Administration SaaS Modernization, Document OCR & Fraud Detection Engine \u2014 NC Department of Revenue (NCDOR) (Due: 11/06/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can inspect the pre-shredded capture dossier for #1 here:\nhttps://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html\n\nIs North Carolina & Federal IT/cyber on RoviSys Federal's radar this quarter?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -83,7 +83,7 @@
       "subject": "MindPoint Group / 3 open public-sector IT contracts",
       "body": "Hey Patti,\n\nI run an automated procurement monitor that tracks Virginia eVA, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with MindPoint Group:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nAre you actively bidding Virginia & Federal IT work right now, or should I take you off my list?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -94,7 +94,7 @@
       "subject": "New Virginia & Federal tech & cyber solicitations for NetImpact Strategies",
       "body": "Hi Kavita,\n\nOur ingestion pipeline monitors Virginia eVA, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for NetImpact Strategies:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nAre you actively bidding Virginia & Federal IT work right now, or should I take you off my list?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -105,7 +105,7 @@
       "subject": "Binu \u2014 3 open Virginia & Federal IT RFPs",
       "body": "Hi Binu,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Virginia eVA, DemandStar, and SAM.gov. Thought these 3 open solicitations from today's 6-hour crawl might fit Solerity's capture pipeline:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nAre you actively bidding Virginia & Federal IT work right now, or should I take you off my list?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -116,7 +116,7 @@
       "subject": "SteerBridge Strategies / 3 open public-sector IT contracts",
       "body": "Hi Rob,\n\nOur ingestion pipeline monitors Virginia eVA, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with SteerBridge Strategies:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can inspect the pre-shredded capture dossier for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nIs Virginia & Federal IT/cyber on SteerBridge Strategies' radar this quarter?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -127,7 +127,7 @@
       "subject": "TechnoMile / 3 open public-sector IT contracts",
       "body": "Hello Cary,\n\nOur ingestion pipeline monitors Virginia eVA, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed TechnoMile's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nHere is the direct Section L/M, NAICS & teaming breakdown for #1:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nWorth sending over future Virginia & Federal IT scopes when they hit the wire?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -138,7 +138,7 @@
       "subject": "Kamran \u2014 3 open Virginia & Federal IT RFPs",
       "body": "Hey Kamran,\n\nI track newly released public-sector technology solicitations across Virginia eVA, DemandStar, and SAM.gov (14 federal and state portals total). Thought these 3 open solicitations from today's 6-hour crawl might fit TekSynap's capture pipeline:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can inspect the pre-shredded capture dossier for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nIs Virginia & Federal IT/cyber on TekSynap's radar this quarter?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -149,7 +149,7 @@
       "subject": "Regency Consulting / 3 open public-sector IT contracts",
       "body": "Jennifer \u2014\n\nI run an automated procurement monitor that tracks Texas ESBD/DIR, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Regency Consulting:\n\n1. Request for Competitive Sealed Proposals - Unified Digital Experience (UDE) \u2014 City of San Antonio - M0152 (Due: 11/19/2026 | NAICS 541511 \u2022 TX-RAMP Level 2 Certification)\n2. Hazardous Weather Notification System \u2014 Texas A&M University System - 710 (Due: 11/20/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 10/26/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nEach solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.\n\nYou can inspect the pre-shredded capture dossier for #1 here:\nhttps://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html\n\nIs Texas & Federal IT/cyber on Regency Consulting's radar this quarter?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
@@ -160,73 +160,73 @@
       "subject": "Betina \u2014 3 open Virginia & Federal IT RFPs",
       "body": "Hello Betina,\n\nOur ingestion pipeline monitors Virginia eVA, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed MicroHealth's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nThe full compliance & teaming dossier for #1 is live at:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nLet me know if MicroHealth is pursuing state or federal IT bids this quarter.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
-      "to_email": "stars3@nextechlintech.com",
-      "first_name": "Capture",
-      "company": "LinTech Global",
+      "to_email": "growth@exygy.com",
+      "first_name": "Zach",
+      "company": "Exygy CivicTech",
       "matched_state": "California & Federal",
-      "subject": "LinTech Global / 3 open public-sector IT contracts",
-      "body": "Hello LinTech Global team,\n\nI track newly released public-sector technology solicitations across California Cal eProcure, DemandStar, and SAM.gov (14 federal and state portals total). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for LinTech Global:\n\n1. Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering \u2014 Department of Transportation (Caltrans) (Due: 11/30/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Statewide Artificial Intelligence (GenAI) Data Platform & Cloud Modernization IT Consulting \u2014 California DGS Statewide Procurement (Due: 12/04/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. Enterprise Cloud Security Operations, SIEM Monitoring & Zero Trust Architecture Services \u2014 California Department of Technology (CDT) (Due: 11/24/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nHere is the direct Section L/M, NAICS & teaming breakdown for #1:\nhttps://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html\n\nWorth sending over future California & Federal IT scopes when they hit the wire?\n\nBest,\nAaron Chen\nFounder, SignalTender",
+      "subject": "Zach \u2014 3 open California & Federal IT RFPs",
+      "body": "Hi Zach,\n\nOur ingestion pipeline monitors California Cal eProcure, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Thought these 3 open solicitations from today's 6-hour crawl might fit Exygy CivicTech's capture pipeline:\n\n1. Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering \u2014 Department of Transportation (Caltrans) (Due: 11/30/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Statewide Artificial Intelligence (GenAI) Data Platform & Cloud Modernization IT Consulting \u2014 California DGS Statewide Procurement (Due: 12/04/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. Enterprise Cloud Security Operations, SIEM Monitoring & Zero Trust Architecture Services \u2014 California Department of Technology (CDT) (Due: 11/24/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nThe full compliance & teaming dossier for #1 is live at:\nhttps://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html\n\nLet me know if Exygy CivicTech is pursuing state or federal IT bids this quarter.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
-      "to_email": "contracts@esimplicity.com",
-      "first_name": "Capture",
-      "company": "eSimplicity",
+      "to_email": "partner@vectra.ai",
+      "first_name": "Hitesh",
+      "company": "Vectra AI Federal",
+      "matched_state": "California & Federal",
+      "subject": "New California & Federal tech & cyber solicitations for Vectra AI Federal",
+      "body": "Hey Hitesh,\n\nI run an automated procurement monitor that tracks California Cal eProcure, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Noticed Vectra AI Federal's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering \u2014 Department of Transportation (Caltrans) (Due: 11/30/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Statewide Artificial Intelligence (GenAI) Data Platform & Cloud Modernization IT Consulting \u2014 California DGS Statewide Procurement (Due: 12/04/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. Enterprise Cloud Security Operations, SIEM Monitoring & Zero Trust Architecture Services \u2014 California Department of Technology (CDT) (Due: 11/24/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nBest,\nAaron Chen\nFounder, SignalTender",
+      "top_dossier_url": "https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html",
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
+    },
+    {
+      "step": 1,
+      "to_email": "partnerships@clarity.com",
+      "first_name": "Partnerships",
+      "company": "Clarity Innovations",
       "matched_state": "Maryland & Federal",
-      "subject": "Open Maryland & Federal IT solicitations (eSimplicity)",
-      "body": "Hi eSimplicity team,\n\nI run an automated procurement monitor that tracks Maryland eMMA, county Bonfire portals, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with eSimplicity:\n\n1. SPECIAL NOTICE: 91st Cyber Operations Center Progressive-Design-Build OT \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Request for Information (RFI) for Group 1 and Group 2 Unmanned Aircraft System (Uas) Training, Mission Planning, Mission Rehearsal, Simulation, and Qualification Management Systems \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. DA01--RFI Action Only Healthcare Data Auditing Billing and Coding Optimization Software \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-897.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
+      "subject": "New Maryland & Federal tech & cyber solicitations for Clarity Innovations",
+      "body": "Hi Partnerships,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Maryland eMMA, county Bonfire portals, and SAM.gov. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with Clarity Innovations:\n\n1. SPECIAL NOTICE: 91st Cyber Operations Center Progressive-Design-Build OT \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n2. Request for Information (RFI) for Group 1 and Group 2 Unmanned Aircraft System (Uas) Training, Mission Planning, Mission Rehearsal, Simulation, and Qualification Management Systems \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n3. DA01--RFI Action Only Healthcare Data Auditing Billing and Coding Optimization Software \u2014 Federal (SAM.gov) (NAICS 541512 \u2022 FedRAMP Moderate)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-897.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-897.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
-      "to_email": "bizdev@sentrillion.com",
-      "first_name": "Capture",
-      "company": "Sentrillion",
+      "to_email": "john.konkus@woolpert.com",
+      "first_name": "John",
+      "company": "Woolpert Digital Innovations",
+      "matched_state": "Ohio & Federal",
+      "subject": "John \u2014 3 open Ohio & Federal IT RFPs",
+      "body": "Hey John,\n\nOur ingestion pipeline monitors OhioBuys, Columbus/Franklin County portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Woolpert Digital Innovations:\n\n1. Shared Micromobility Data Management (RFQ033920) \u2014 City of Columbus (OH) (Due: 11/18/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n2. CPH Telephonic & On-Demand Communications Network Platform (RFQ033851) \u2014 City of Columbus (OH) (Due: 11/09/2026 | NAICS 517312 \u2022 SOC 2 Type II / NIST CSF 2.0)\n3. Gohio Commute Statewide Mobility SaaS Platform & Data Portal (RFP-GOHIO-2026-OARC) \u2014 Mid-Ohio Regional Planning Commission (MORPC) / OARC (Due: 11/13/2026 | NAICS 541511 \u2022 SOC 2 Type II / NIST CSF 2.0)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nHere is the direct Section L/M, NAICS & teaming breakdown for #1:\nhttps://signaltender.net/contracts/rfp/shared-micromobility-data-management-rfq033920-849.html\n\nWorth sending over future Ohio & Federal IT scopes when they hit the wire?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
+      "top_dossier_url": "https://signaltender.net/contracts/rfp/shared-micromobility-data-management-rfq033920-849.html",
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
+    },
+    {
+      "step": 1,
+      "to_email": "yoseph.habtemariam@spycloud.com",
+      "first_name": "Yoseph",
+      "company": "SpyCloud Cyber",
       "matched_state": "Texas & Federal",
-      "subject": "Sentrillion / 3 open public-sector IT contracts",
-      "body": "Hey Sentrillion team,\n\nOur ingestion pipeline monitors Texas ESBD/DIR, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Since Sentrillion delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. Request for Competitive Sealed Proposals - Unified Digital Experience (UDE) \u2014 City of San Antonio - M0152 (Due: 11/19/2026 | NAICS 541511 \u2022 TX-RAMP Level 2 Certification)\n2. Hazardous Weather Notification System \u2014 Texas A&M University System - 710 (Due: 11/20/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 10/26/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nEach solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nBest,\nAaron Chen\nFounder, SignalTender",
+      "subject": "Yoseph \u2014 3 open Texas & Federal IT RFPs",
+      "body": "Hi Yoseph,\n\nI run an automated procurement monitor that tracks Texas ESBD/DIR, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Thought these 3 open solicitations from today's 6-hour crawl might fit SpyCloud Cyber's capture pipeline:\n\n1. Request for Competitive Sealed Proposals - Unified Digital Experience (UDE) \u2014 City of San Antonio - M0152 (Due: 11/19/2026 | NAICS 541511 \u2022 TX-RAMP Level 2 Certification)\n2. Hazardous Weather Notification System \u2014 Texas A&M University System - 710 (Due: 11/20/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 10/26/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nEverything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html\n\nAre you actively bidding Texas & Federal IT work right now, or should I take you off my list?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     },
     {
       "step": 1,
-      "to_email": "contracts@atpgov.com",
-      "first_name": "Capture",
-      "company": "ATP GOV",
-      "matched_state": "Illinois & Federal",
-      "subject": "Open Illinois & Federal IT solicitations (ATP GOV)",
-      "body": "Hi ATP GOV team,\n\nI track newly released public-sector technology solicitations across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (14 federal and state portals total). Since ATP GOV delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options \u2014 Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 \u2022 SOC 2 Type II / NIST CSF 2.0)\n2. Federal Revenue Enhancement and Claiming Systems Support Services \u2014 State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods \u2014 State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 \u2022 Illinois DoIT Security)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nHere is the direct Section L/M, NAICS & teaming breakdown for #1:\nhttps://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html\n\nWorth sending over future Illinois & Federal IT scopes when they hit the wire?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
-      "top_dossier_url": "https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
-    },
-    {
-      "step": 1,
-      "to_email": "contact@civicactions.com",
-      "first_name": "Henry",
-      "company": "CivicActions",
-      "matched_state": "California & Federal",
-      "subject": "Henry \u2014 3 open California & Federal IT RFPs",
-      "body": "Henry \u2014\n\nI run an automated procurement monitor that tracks California Cal eProcure, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with CivicActions:\n\n1. Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering \u2014 Department of Transportation (Caltrans) (Due: 11/30/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Statewide Artificial Intelligence (GenAI) Data Platform & Cloud Modernization IT Consulting \u2014 California DGS Statewide Procurement (Due: 12/04/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. Enterprise Cloud Security Operations, SIEM Monitoring & Zero Trust Architecture Services \u2014 California Department of Technology (CDT) (Due: 11/24/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nOur classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html\n\nAre you actively bidding California & Federal IT work right now, or should I take you off my list?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
-      "top_dossier_url": "https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
-    },
-    {
-      "step": 1,
-      "to_email": "sales@obsidiansecurity.com",
-      "first_name": "Hasan",
-      "company": "Obsidian Security",
-      "matched_state": "California & Federal",
-      "subject": "3 open California & Federal IT bids for Obsidian Security",
-      "body": "Hello Hasan,\n\nI run an automated procurement monitor that tracks California Cal eProcure, DemandStar, and SAM.gov (plus 11 other state SLED portals) every 6 hours. Noticed Obsidian Security's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering \u2014 Department of Transportation (Caltrans) (Due: 11/30/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. Statewide Artificial Intelligence (GenAI) Data Platform & Cloud Modernization IT Consulting \u2014 California DGS Statewide Procurement (Due: 12/04/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. Enterprise Cloud Security Operations, SIEM Monitoring & Zero Trust Architecture Services \u2014 California Department of Technology (CDT) (Due: 11/24/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nUnlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.\n\nYou can view the live capture dossier for #1 at:\nhttps://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html\n\nHappy to send the raw agency RFP packages if any of these 3 fit your stack.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
-      "top_dossier_url": "https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html",
-      "staged_at": "2026-10-24T00:59:40.455733+00:00"
+      "to_email": "contracts@metrostar.com",
+      "first_name": "Ali",
+      "company": "MetroStar Systems",
+      "matched_state": "Virginia & Federal",
+      "subject": "New Virginia & Federal tech & cyber solicitations for MetroStar Systems",
+      "body": "Ali \u2014\n\nWe maintain a live public-sector RFP engine covering Virginia eVA, DemandStar, and SAM.gov and 11 additional state procurement portals every 6 hours. Thought these 3 open solicitations from today's 6-hour crawl might fit MetroStar Systems' capture pipeline:\n\n1. SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services \u2014 Prince William County Service Authority (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. (Re-Bid) RFP-26-27-022 Data Networking Aviation Training Facility Building Hangars 100&300 \u2014 City of Danville (Due: 11/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Enterprise Cloud Standard)\n\nEach solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.\n\nI posted the pre-shredded Section L/M & compliance breakdown for #1 here:\nhttps://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html\n\nAre you actively bidding Virginia & Federal IT work right now, or should I take you off my list?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
+      "top_dossier_url": "https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html",
+      "staged_at": "2026-10-24T02:11:10.167136+00:00"
     }
   ]
 }

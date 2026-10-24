@@ -332,6 +332,160 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     ("CyberSaint Security (MA NIST/CMMC)", "cybersaint.io", "Jerry", "Layden", "Chief Executive Officer (NIST 800-53 & CMMC Automation)", "Boston", "Massachusetts", "541512, 541519"),
     ("K logix Cybersecurity", "klogixsecurity.com", "Kevin", "Pouche", "Co-Founder & COO (Boston CISO Advisory)", "Brookline", "Massachusetts", "541512, 541519"),
     ("Archibus Public Sector", "archibus.com", "Bill", "Tobin", "Public Sector Facilities IT Lead", "Boston", "Massachusetts", "541511, 541512"),
+    # EXPANDED 12-STATE & FEDERAL IT / CYBER / CLOUD SEED DIRECTORY
+    # VIRGINIA & DMV FEDERAL IT
+    ("Agile Defense", "agiledefense.com", "Rick", "Wagner", "Chief Executive Officer", "Reston", "Virginia", "541511, 541512"),
+    (" Karsun Solutions", "karsun-llc.com", "Sundar", "Vaidyanathan", "Co-Founder & CEO", "Herndon", "Virginia", "541511, 541512"),
+    ("excella", "excella.com", "Burton", "White", "Co-Founder & Managing Partner", "Arlington", "Virginia", "541511, 541512"),
+    (" Octo / IBM Federal", "octoconsulting.com", "Mehul", "Sanghani", "Founder & Public Sector Innovation Lead", "Reston", "Virginia", "541511, 541512"),
+    ("B3 Group", "b3groupinc.com", "Dwight", "Hunt", "President & CEO (SDVOSB Health IT)", "Herndon", "Virginia", "541511, 541512"),
+    (" Favor TechConsulting (FTC)", "ftc-llc.com", " Vaseem", "Anjum", "Founder & CEO", "Richmond", "Virginia", "541511, 541512"),
+    (" Definitive Logic", "definitivelogic.com", "Paul", "Burke", "Founder & CEO", "Arlington", "Virginia", "541511, 541512"),
+    ("Buchanan & Edwards", "buchanan-edwards.com", "Eric", "Olson", "Chief Executive Officer", "Arlington", "Virginia", "541511, 541512"),
+    (" Highlight Technologies", "highlighttech.com", "Rebecca", "Andino", "Founder & CEO", "Fairfax", "Virginia", "541511, 541512"),
+    (" A Square Group (ASG)", "a2-g.com", "Sardha", "Perera", "President & CEO", "Vienna", "Virginia", "541511, 541512"),
+    (" Amyx Inc", "amyxinternet.com", "William", "Schaefer", "President & CEO (Cyber & Enterprise IT)", "Reston", "Virginia", "541512, 541519"),
+    (" IntelliDyne", "intellidyne.com", "Robert", "Grey", "Chief Executive Officer", "Falls Church", "Virginia", "541512, 541513"),
+    (" Metaphase Consulting", "metaphaseconsulting.com", "Brett", "McLaren", "Founder & CEO", "Reston", "Virginia", "541511, 541512"),
+    (" Electrosoft Services", "electrosoft-inc.com", "Sarbari", "Gupta", "Founder & CEO (Federal Cybersecurity)", "Reston", "Virginia", "541512, 541519"),
+    (" Gunnison Consulting Group", "gunnisonconsulting.com", "Gil", "Dussek", "Chief Executive Officer", "Alexandria", "Virginia", "541511, 541512"),
+    (" SeKON Enterprise", "sekon.com", "Matt", "Logsdon", "President & CEO (Health & Defense IT)", "Reston", "Virginia", "541511, 541512"),
+    (" Spatial Front", "spatialfront.com", "Amy", "Gao", "Founder & CEO", "sterling", "Virginia", "541511, 541512"),
+    (" VivSoft Technologies", "vivsoft.io", "Navin", "Gunalan", "Founder & CEO (DoD Platform One & DevSecOps)", "Reston", "Virginia", "541511, 541512"),
+    (" Guidehouse Digital", "guidehouse.com", "Scott", "McIntyre", "Chief Executive Officer", "McLean", "Virginia", "541512, 541611"),
+    (" MetroStar Systems", "metrostar.com", "Ali", "Reza", "Co-Founder & CEO", "Reston", "Virginia", "541511, 541512"),
+    (" IntelliBridge", "intellibridge.us", "Cass", "Panciocco", "President & CEO", "McLean", "Virginia", "541511, 541512"),
+    (" Radiant Solutions / Criterion Systems", "criterionsystems.com", "Promod", "Sharma", "President & CEO (Federal Cyber)", "Vienna", "Virginia", "541512, 541519"),
+    (" Sev1Tech", "sev1tech.com", "Bob", "Lohfeld", "Chief Executive Officer", "Woodbridge", "Virginia", "541512, 541513"),
+    (" Clarity Innovations", "clarityinnovations.com", "Wes", "Daniels", "President & DoD Cyber Lead", "Columbia", "Maryland", "541511, 541512"),
+    (" Next Phase Solutions", "npsi.us", "Lisa", "Wolfe", "Founder & CEO (CMS & Federal IT)", "Columbia", "Maryland", "541511, 541512"),
+    (" Fearless Digital", "fearless.tech", "Delali", "Dzirasa", "Founder & CEO", "Baltimore", "Maryland", "541511, 541512"),
+    (" Aquia Inc", "aquia.us", "Chris", "Hughes", "Co-Founder & CISO (Cloud & Cyber)", "Baltimore", "Maryland", "541512, 541519"),
+    (" MasterPeace Solutions", "masterpeacesolutions.com", "Joe", "Carabetta", "President (Ft Meade Cyber Engineering)", "Columbia", "Maryland", "541511, 541512"),
+    (" CyberPoint International", "cyberpointllc.com", "Karl", "Gumtow", "Founder & CEO (Maryland Cyber)", "Baltimore", "Maryland", "541512, 541519"),
+    (" Audacious Inquiry", "ainq.com", "Chris", "Brandt", "Managing Partner (Health IT)", "Baltimore", "Maryland", "541511, 541512"),
+    (" Dragos Security", "dragos.com", "Robert", "Lee", "Founder & CEO (OT/ICS Cybersecurity)", "Hanover", "Maryland", "541512, 541519"),
+    (" IronNet Cyber", "ironnet.com", "Keith", "Alexander", "Founder & Public Sector Cyber Lead", "Fulton", "Maryland", "541512, 541519"),
+    (" ZeroFOX Cyber", "zerofox.com", "James", "Foster", "Founder & CEO (External Threat Intel)", "Baltimore", "Maryland", "541512, 541519"),
+    (" TrustedQA", "trustedqa.com", "Paul", "Garvey", "President & CEO", "Reston", "Virginia", "541511, 541512"),
+    (" Cloudburst Security", "cloudburstsecurity.com", "forrest", "browning", "President (Cybersecurity)", "Herndon", "Virginia", "541512, 541519"),
+    (" Sealing Technologies (SealingTech)", "sealingtech.com", "Ed", "Sealing", "Founder & CEO (Defensive Cyber Ops)", "Columbia", "Maryland", "541512, 541519"),
+    (" Patriot Technologies", "patriot-tech.com", "Steve", "Keating", "President (Maryland & Federal IT)", "Frederick", "Maryland", "541512, 541519"),
+    (" Chesapeake Technology International", "cti-md.com", "Dustin", "Crigger", "Chief Executive Officer", "California", "Maryland", "541511, 541512"),
+    (" Harkcon Inc", "harkcon.com", "Kevin", "Harkins", "Chief Executive Officer", "Fredericksburg", "Virginia", "541512, 541611"),
+    (" Rosslyn Data Technologies", "rosslyndatatech.com", "Paul", "Watts", "Chief Executive Officer", "Portsmouth", "Virginia", "541511, 518210"),
+    (" Marathon TS", "marathonts.com", "Kip", "voytek", "President & Federal IT Director", "Kilmarnock", "Virginia", "541511, 541512"),
+    (" Segue Technologies", "seguetech.com", "Ron", "Novak", "Executive VP (Federal & SLED IT)", "Arlington", "Virginia", "541511, 541512"),
+    (" Spry Methods", "sprymethods.com", "Ted", "Steffens", "President & CEO (Cyber & Enterprise IT)", "McLean", "Virginia", "541512, 541519"),
+    (" Centuria Corporation", "centuria.com", "Kevin", "Dermody", "Chief Executive Officer (SDVOSB IT)", "Reston", "Virginia", "541511, 541512"),
+    (" ProSphere Tek", "prospheretek.com", "Robert", "Phoo", "President & CEO (SDVOSB IT)", "Alexandria", "Virginia", "541511, 541512"),
+    (" Obsidian Global", "obsidianglobal.com", "First", "Capture", "VP of Capture", "Washington", "Virginia", "541511, 541512"),
+    ("ByteCubed", "bytecubed.com", "Lena", " Trudeau", "Executive Partner", "Arlington", "Virginia", "541511, 541512"),
+    (" Soliel LLC", "soliel-llc.com", "gull", "dahri", "President & CEO (8a STARS III / Cyber)", "Vienna", "Virginia", "541512, 541519"),
+    (" Tekouth", "tekouth.com", "Capture", "Team", "Public Sector Capture", "Herndon", "Virginia", "541511, 541512"),
+    # TEXAS SLED (TX DIR / ESBD)
+    (" Weaver GovCon & Cyber", "weaver.com", "John", "Mackel", "CEO & Public Sector Cyber Advisory", "Houston", "Texas", "541512, 541611"),
+    (" Solid Border Security (TX DIR)", "solidborder.com", "Ed", "Nothing", "President (Texas DIR Cybersecurity)", "San Antonio", "Texas", "541512, 541519"),
+    (" DirSec Inc (TX DIR Cyber)", "dirsec.com", "monica", "b", "Public Sector Cyber Director", "Dallas", "Texas", "541512, 541519"),
+    (" Luna Data Solutions (TX DIR)", "lunadatasolutions.com", "dana", "luna", "Founder & CEO (Austin SLED IT)", "Austin", "Texas", "541511, 541512"),
+    (" Cooper Consulting Company (TX DIR)", "cooperconsulting.com", "Melynda", "Cooper", "Founder & CEO (Texas SLED IT)", "Austin", "Texas", "541511, 541512"),
+    (" Bansar Technologies (TX DIR)", "bansar.com", "Subbu", "Venkata", "President (Texas DIR SLED IT)", "Austin", "Texas", "541511, 541512"),
+    (" Abacus Technical Services (TX DIR)", "abacustechnical.com", "Brian", "Abacus", "Managing Director (Texas SLED IT)", "Dallas", "Texas", "541511, 541512"),
+    (" TEKsystems Public Sector TX", "teksystems.com", "Jay", "Alvather", "President", "Austin", "Texas", "541511, 541512"),
+    (" Sense Corp Public Sector", "sensecorp.com", "Keaton", "McCracken", "SVP Public Sector (Texas SLED)", "Austin", "Texas", "541511, 541512"),
+    (" Valkyrie Intelligence TX", "valkyrie.ai", "Charlie", "Burgoyne", "Founder & CEO (Applied AI & Gov)", "Austin", "Texas", "541511, 541715"),
+    (" SparkCognition / Avathon", "avathon.com", "Pervinder", "Johar", "Chief Executive Officer (Defense & Gov AI)", "Austin", "Texas", "541511, 541512"),
+    (" Critical Start MDR", "criticalstart.com", "Rob", "Davis", "Founder & CEO (Managed Cyber & MDR)", "Plano", "Texas", "541512, 541519"),
+    (" Halcyon Ransomware Defense", "halcyon.ai", "Jon", "Miller", "Co-Founder & CEO", "Austin", "Texas", "541512, 541519"),
+    (" SpyCloud Cyber", "spycloud.com", "Ted", "Ross", "Co-Founder & CEO (Public Sector Identity)", "Austin", "Texas", "541512, 541519"),
+    (" Digital Defense / HelpSystems", "digitaldefense.com", "Larry", "Hurtado", "President (San Antonio Cyber)", "San Antonio", "Texas", "541512, 541519"),
+    (" Denim Group / Coalfire AppSec", "coalfire.com", "Tom", "McAndrew", "Chief Executive Officer (FedRAMP & CMMC 3PAO)", "Dallas", "Texas", "541512, 541519"),
+    # CALIFORNIA SLED (Cal eProcure / TDDC)
+    (" Exygy CivicTech", "exygy.com", "Zach", "Berke", "Managing Partner (California Civic Digital)", "San Francisco", "California", "541511, 541512"),
+    (" Cambria Solutions", "cambriasolutions.com", "Robert", "Rodrigue", "Chief Executive Officer (Sacramento SLED IT)", "Sacramento", "California", "541511, 541512"),
+    (" Taborda Solutions (CA SLED)", "tabordasolutions.com", "Jeff", "beling", "President (Cal eProcure IT)", "Folsom", "California", "541511, 541512"),
+    (" Enterprise Networking Solutions (ENS)", "ens-inc.com", "Chad", "P", "President (Rancho Cordova SLED IT)", "Rancho Cordova", "California", "541512, 541513"),
+    (" Natoma Technologies (CA SLED)", "natomatech.com", "Dave", "Slawson", "President (Sacramento State IT)", "Sacramento", "California", "541511, 541512"),
+    ("Vasudeva / Tekberry CA", "tekberry.com", "Brad", "Sawyer", "President", "San Jose", "California", "541511, 541512"),
+    (" Presidio West SLED", "presidio.com", "Bob", "Cagnazzi", "Chief Executive Officer", "Sacramento", "California", "541512, 541513"),
+    (" Anomali Threat Intel", "anomali.com", "Ahmed", "abdeljabbar", "Public Sector Cyber Lead", "Redwood City", "California", "541512, 541519"),
+    (" SentinelOne Public Sector", "sentinelone.com", "Tomer", "Weingarten", "CEO & FedRAMP/Gov Cyber", "Mountain View", "California", "541512, 541519"),
+    (" Vectra AI Federal", "vectra.ai", "Hitesh", "Sheth", "President & CEO (AI Network Detection)", "San Jose", "California", "541512, 541519"),
+    (" Abnormal Security Gov", "abnormalsecurity.com", "Evan", "Reiser", "Co-Founder & CEO (Gov Cloud Email Security)", "San Francisco", "California", "541512, 541519"),
+    (" Second Front Systems", "secondfront.com", "Tyler", "Sweatt", "Chief Executive Officer (Game Warden DoD Cloud)", "San Francisco", "California", "541511, 518210"),
+    (" Defense Unicorns", "defenseunicorns.com", "Rob", "Slaughter", "Co-Founder & CEO (DoD Airgap DevSecOps)", "Los Angeles", "California", "541511, 541512"),
+    (" Rebellion Defense", "rebelliondefense.com", "Ben", "FitzGerald", "Chief Strategy Officer", "San Francisco", "California", "541511, 541512"),
+    # FLORIDA SLED (MFMP VIP)
+    (" Cole Engineering Services", "coleengineering.com", "bryan", "cole", "President (Orlando Simulation & DoD IT)", "Orlando", "Florida", "541511, 541512"),
+    (" ReliaQuest Cyber", "reliaquest.com", "Brian", "Murphy", "Founder & CEO (Tampa MDR & SOC)", "Tampa", "Florida", "541512, 541519"),
+    (" GuidePoint Security", "guidepointsecurity.com", "Michael", "Volkert", "Managing Partner (Federal & SLED Cyber)", "Tampa", "Florida", "541512, 541519"),
+    (" ThreatLocker Zero Trust", "threatlocker.com", "Danny", "Jenkins", "Co-Founder & CEO (Orlando Zero Trust)", "Orlando", "Florida", "541512, 541519"),
+    ("SimSpace Cyber Ranges", "simspace.com", "William", "Hutchison", "Chief Executive Officer", "Orlando", "Florida", "541512, 541519"),
+    (" Metova Federal", "metova.com", "GB", "C", "President (Cyber Ranges & Mobile IT)", "St Petersburg", "Florida", "541511, 541512"),
+    (" ProTech / Tallahassee SLED", "protechfl.com", "Capture", "Team", "Florida SLED IT Capture", "Tallahassee", "Florida", "541511, 541512"),
+    (" Infinity Software Development (FL SLED)", "infinity-software.com", "Tom", "b", "President (Tallahassee State IT)", "Tallahassee", "Florida", "541511, 541512"),
+    # ILLINOIS SLED (BidBuy / Cook County / CTA)
+    (" Clarity Partners (Chicago SLED IT)", "claritypartners.com", "David", "namkung", "Managing Partner (Chicago & IL Public Sector IT)", "Chicago", "Illinois", "541511, 541512"),
+    (" Bronner Group (Chicago Gov Consulting)", "bronnergroup.com", "Gila", "Bronner", "Founder & CEO (Chicago & IL Municipal IT)", "Chicago", "Illinois", "541512, 541611"),
+    ("Catalyst Consulting Group (Chicago SLED)", "catconsult.com", "Arvind", "Talwar", "Founder & Managing Partner (City of Chicago & State IT)", "Chicago", "Illinois", "541511, 541512"),
+    (" Heartland Business Systems (IL SLED)", "hbs.net", "Peter", "Helander", "Chief Executive Officer (Midwest SLED IT & Cyber)", "Lisle", "Illinois", "541512, 541513"),
+    (" Impact Networking Managed IT", "impactmybiz.com", "Frank", "Cucco", "Chief Executive Officer (Chicago Managed IT & Cyber)", "Lake Forest", "Illinois", "541512, 541519"),
+    (" Trustwave Government", "trustwave.com", "Eric", "Harmon", "Chief Executive Officer (Chicago MDR & Gov Cyber)", "Chicago", "Illinois", "541512, 541519"),
+    (" Solstice / Perficient Chicago", "perficient.com", "Tom", "Hogan", "Chief Executive Officer", "Chicago", "Illinois", "541511, 541512"),
+    # PENNSYLVANIA SLED (DGS eMarketplace / COSTARS)
+    (" Celerity PA SLED", "celerity.com", "Capture", "Team", "Harrisburg Public Sector Practice", "Harrisburg", "Pennsylvania", "541511, 541512"),
+    (" Computer Aid Inc (CAI Public Sector)", "cai.io", "Tom", "Salvaggio", "President (Allentown & Harrisburg SLED IT)", "Allentown", "Pennsylvania", "541511, 541512"),
+    (" Softwriters / Armada PA", "softwriters.com", "Scott", "T", "Chief Executive Officer (Pittsburgh Healthcare IT)", "Pittsburgh", "Pennsylvania", "541511, 541512"),
+    (" Aspirant Consulting Pittsburgh", "aspirant.com", "Mike", "McClaine", "Chief Executive Officer", "Pittsburgh", "Pennsylvania", "541512, 541611"),
+    (" Truefit Innovation", "truefit.io", "Darrin", "Grove", "Founder & CEO (Pittsburgh Software)", "Pittsburgh", "Pennsylvania", "541511, 541512"),
+    (" GreyCastle Security", "greycastlesecurity.com", "Reg", "Harnish", "Cybersecurity Practice Lead", "Philadelphia", "Pennsylvania", "541512, 541519"),
+    (" IntegraOne (PA COSTARS IT)", "integraone.com", "linford", "m", "President (Allentown & Harrisburg SLED Cyber/Net)", "Allentown", "Pennsylvania", "541512, 541513"),
+    (" Weidenhammer Systems (PA SLED)", "hammer.net", "John", "Weidenhammer", "President (Reading & PA Municipal IT)", "Reading", "Pennsylvania", "541511, 541512"),
+    # OHIO SLED (OhioBuys / Wright-Patt)
+    (" Riverside Research Dayton", "riversideresearch.org", "Steven", "Omick", "President & CEO (Dayton AI & Cyber)", "Beavercreek", "Ohio", "541512, 541715"),
+    (" Radiance Technologies Ohio", "radiancetech.com", "Bill", "Bailey", "Chief Executive Officer (Wright-Patt Cyber)", "Beavercreek", "Ohio", "541512, 541715"),
+    (" Centauri / KBR Dayton", " centauricorp.com", "Capture", "Team", "Wright-Patt Capture", "Dayton", "Ohio", "541512"),
+    (" Peerless Technologies (Wright-Patt IT)", "epeerless.com", "Michael", "Bridges", "Founder & President (Dayton Federal & OH IT)", "Fairborn", "Ohio", "541511, 541512"),
+    (" Woolpert Digital Innovations", "woolpert.com", "Neil", "Churman", "President & CEO (Dayton Geospatial & Cloud IT)", "Dayton", "Ohio", "541512, 541370"),
+    (" CareWorks Tech /ingley Ohio", "resultant.com", "Mark", "Caswell", "Chief Executive Officer (Public Sector Data & IT)", "Columbus", "Ohio", "541511, 541512"),
+    (" CBTS (Cincinnati Bell Tech SLED)", "cbts.com", "Jeff", "Lackey", "President & CEO (Ohio SLED Cloud & Cyber)", "Cincinnati", "Ohio", "541512, 518210"),
+    (" MCPc Secure Technology", "mcpc.com", "Andy", "Jones", "Chief Executive Officer (Cleveland SLED Cyber)", "Cleveland", "Ohio", "541512, 541519"),
+    (" TrustedSec Cyber", "trustedsec.com", "David", "Kennedy", "Founder (Ohio Offensive Cyber & CMMC)", "Fairlawn", "Ohio", "541512, 541519"),
+    # GEORGIA SLED (DOAS GPR / Atlanta)
+    (" Secureworks Gov", "secureworks.com", "Wendy", "Thomas", "Chief Executive Officer (Atlanta XDR & Incident Response)", "Atlanta", "Georgia", "541512, 541519"),
+    (" Alert Logic / Fortra", "alertlogic.com", "Capture", "Team", "Managed Cloud Security", "Atlanta", "Georgia", "541512, 541519"),
+    (" KMS Technology Atlanta", "kms-technology.com", "Leo", "Tucker", "Chief Executive Officer", "Atlanta", "Georgia", "541511, 541512"),
+    (" CapTech Atlanta Public Sector", "captechconsulting.com", "Kevin", "McQueen", "Chief Executive Officer (State & Local IT)", "Atlanta", "Georgia", "541511, 541512"),
+    (" Cherry Bekaert Digital & CMMC", "cbh.com", "Michelle", "Thompson", "CEO & GovCon CMMC Practice", "Atlanta", "Georgia", "541512, 541611"),
+    (" Aprio GovCon & CMMC", "aprio.com", "Richard", "Kopelman", "CEO & CMMC 3PAO Advisory", "Atlanta", "Georgia", "541512, 541611"),
+    (" Morris Technology / ProLogic ITS (GA SLED)", "prologicits.com", "Don", "McGowan", "Founder & CEO (Georgia Municipal & Public Safety IT)", "Acworth", "Georgia", "541512, 541513"),
+    # NORTH CAROLINA SLED (NC eVP / RTP)
+    (" Method Savvy / Walk West RTP", "walkwest.com", "Donald", "Thompson", "Public Sector Digital Strategy", "Raleigh", "North Carolina", "541511, 541512"),
+    (" Three Wire Systems NC", "threewiresystems.com", "Dan", "Frank", "Founder & CEO (VetTech & DoD IT)", "Raleigh", "North Carolina", "541512, 541519"),
+    (" Segra Public Sector Fiber & Cloud", "segra.com", "Kevin", "Hart", "Chief Executive Officer (NC & VA SLED Network/Cloud)", "Charlotte", "North Carolina", "517111, 518210"),
+    (" Peak 10 / Flexential GovCloud", "flexential.com", "Chris", "Downie", "Chief Executive Officer (Charlotte Hybrid Cloud)", "Charlotte", "North Carolina", "518210, 541512"),
+    (" SoftPro Public Sector", "softprocorp.com", "Joyce", "Weiland", "President (Raleigh Government Software)", "Raleigh", "North Carolina", "541511, 541512"),
+    (" DeviceSolutions RTP", "devicesolutions.net", "Bob", "W", "Chief Executive Officer (RTP Embedded & IoT Engineering)", "Morrisville", "North Carolina", "541511, 541512"),
+    # NEW YORK SLED (NYS OGS / NYC PASSPort)
+    (" CMA Consulting Services (Albany NYS OGS)", "cma.com", "Kay", "Stafford", "Founder & CEO (Latham NYS Medicaid & Health IT)", "Latham", "New York", "541511, 541512"),
+    (" GCOM Software / Voyatek (Albany SLED)", "voyatek.com", "Kamal", "Bherwani", "Chief Executive Officer (Albany State & Local GovTech)", "Albany", "New York", "541511, 541512"),
+    (" MVP Consulting Plus (Albany NYS OGS)", "mvpconsultingplus.com", "lu", "s", "President (Albany NYS HBITS & IT)", "Albany", "New York", "541511, 541512"),
+    (" Currier McCabe & Associates", "curriermccabe.com", "Capture", "Team", "NYS SLED IT", "Latham", "New York", "541511, 541512"),
+    (" Logical Net (Albany GovCloud)", "logical.net", "Vince", "C", "President (Schenectady NYS Managed Cloud & Cyber)", "Schenectady", "New York", "518210, 541512"),
+    (" BlueVoyant Cyber", "bluevoyant.com", "Jim", "Rosenthal", "Co-Founder & CEO (NYC MDR & Supply Chain Defense)", "New York", "New York", "541512, 541519"),
+    (" Claroty OT/Cyber", "claroty.com", "Yaniv", "Vardi", "Chief Executive Officer (NYC Critical Infrastructure Cyber)", "New York", "New York", "541512, 541519"),
+    (" Wiz GovCloud", "wiz.io", "Assaf", "Rappaport", "Co-Founder & CEO (FedRAMP Cloud Security)", "New York", "New York", "541512, 518210"),
+    (" Trail of Bits Security", "trailofbits.com", "Dan", "Guido", "Co-Founder & CEO (NYC DARPA & DoD Cyber R&D)", "New York", "New York", "541512, 541715"),
+    # MASSACHUSETTS SLED (COMMBUYS / Boston / Hanscom AFB)
+    (" MITRE / Bedford Cyber Partners", "pionsystems.com", "Capture", "Team", "Hanscom AFB IT", "Bedford", "Massachusetts", "541512"),
+    (" Oasis Systems (Hanscom AFB IT)", "oasissystems.com", "Tom", "Daly", "Chief Executive Officer (Lexington DoD & FAA IT)", "Lexington", "Massachusetts", "541511, 541512"),
+    (" Odyssey Systems Consulting (Hanscom AFB)", "odysseyconsult.com", "Tom", "N", "Chief Executive Officer (Wakefield USAF C4ISR & IT)", "Wakefield", "Massachusetts", "541512, 541330"),
+    (" Torchlight AI / Boston GovTech", " rapid7.com", "Corey", "Thomas", "CEO (Boston Vulnerability & SOC)", "Boston", "Massachusetts", "541512, 541519"),
+    (" Recorded Future Threat Intel", "recordedfuture.com", "Christopher", "Ahlberg", "Co-Founder & CEO (Somerville Public Sector Threat Intel)", "Somerville", "Massachusetts", "541512, 541519"),
+    (" Bitsight Cyber Ratings", "bitsight.com", "Steve", "harvey", "Chief Executive Officer (Boston Third-Party Cyber Risk)", "Boston", "Massachusetts", "541512, 541519"),
+    (" Imprivata Public Sector IAM", "imprivata.com", "Fran", "Rosch", "Chief Executive Officer (Waltham Healthcare & Gov IAM)", "Waltham", "Massachusetts", "541512, 541519"),
+    (" Nasuni GovCloud", "nasuni.com", "Paul", "Flanagan", "Chief Executive Officer (Boston Hybrid Cloud Storage)", "Boston", "Massachusetts", "518210, 541512"),
+    (" Carousel / NWN Carousel (MA COMMBUYS)", "nwncarousel.com", "Jim", "Sullivan", "President & CEO (Waltham COMMBUYS SLED Cloud & Comms)", "Waltham", "Massachusetts", "541512, 541513"),
 ]
 
 BAD_LOCAL_PARTS = {
@@ -522,20 +676,31 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
     }
     found = set()
     email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(domain), re.I)
+    mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
 
     for u in (
         f"https://{domain}",
         f"https://www.{domain}",
         f"https://{domain}/contact",
         f"https://{domain}/contact-us",
+        f"https://{domain}/about",
+        f"https://{domain}/about-us",
         f"https://{domain}/contracts",
         f"https://{domain}/contract-vehicles",
         f"https://{domain}/government",
+        f"https://{domain}/privacy-policy",
+        f"https://{domain}/privacy",
     ):
         try:
             r = requests.get(u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
             if r.status_code == 200 and r.text:
-                for m in email_re.findall(r.text):
+                decoded = (
+                    r.text.replace("&#64;", "@")
+                    .replace("&#x40;", "@")
+                    .replace("%40", "@")
+                    .replace("&#46;", ".")
+                )
+                for m in list(mailto_re.findall(decoded)) + list(email_re.findall(decoded)):
                     clean = m.strip().lower().rstrip(".")
                     clean = re.sub(r"^[0-9-]+", "", clean)
                     if _score_candidate_email(clean, domain) > 0:
@@ -591,7 +756,7 @@ def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], 
         return existing_contacts
 
     newly_found: List[Dict[str, str]] = []
-    with ThreadPoolExecutor(max_workers=20) as pool:
+    with ThreadPoolExecutor(max_workers=24) as pool:
         futs = [pool.submit(_crawl_single_contractor_site, item) for item in uncrawled]
         for fut in as_completed(futs):
             res = fut.result()
@@ -611,37 +776,47 @@ def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], 
     return existing_contacts
 
 
-def _clean_usaspending_company_name(raw_name: str) -> Tuple[str, str]:
+def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
     """
     Cleans a USAspending recipient name like 'SECURIGENCE LLC' or 'MINBURN TECHNOLOGY GROUP, LLC'
-    into `(display_name, candidate_domain)` where `candidate_domain` is strict `fullwords.com`.
+    into `(display_name, [candidate_domains])` so multi-word GovCon contractors are matched
+    whether their domain is `fullwords.com`, `firsttwo.com`, or `firstwordtech.com`.
     """
     base = re.sub(r"\bDBA\b.*$", "", str(raw_name or "").upper()).strip()
     stripped = re.sub(
-        r"\b(L\.?L\.?C\.?|INC\.?|INCORPORATED|CORP\.?|CORPORATION|COMPANY|CO\.?|LTD\.?|LIMITED LIABILITY COMPANY|LP|LLP|HOLDINGS|INTERNATIONAL)\b",
+        r"\b(L\.?L\.?C\.?|INC\.?|INCORPORATED|CORP\.?|CORPORATION|COMPANY|CO\.?|LTD\.?|LIMITED LIABILITY COMPANY|LP|LLP|HOLDINGS|INTERNATIONAL|GROUP)\b",
         " ",
         base,
     )
     words = [w.lower() for w in re.findall(r"[A-Z0-9]+", stripped) if len(w) > 1]
     if not words:
-        return "", ""
-    joined = "".join(words)
-    if len(joined) < 5 or len(joined) > 25:
-        return "", ""
+        return "", []
     display = " ".join(w.upper() if len(w) <= 3 else w.capitalize() for w in words)
-    return display, f"{joined}.com"
+
+    cands = []
+    joined_all = "".join(words)
+    if 5 <= len(joined_all) <= 28:
+        cands.append(f"{joined_all}.com")
+    if len(words) >= 2:
+        first_two = "".join(words[:2])
+        if 5 <= len(first_two) <= 24 and f"{first_two}.com" not in cands:
+            cands.append(f"{first_two}.com")
+    if len(words[0]) >= 5 and words[0] not in ("american", "national", "global", "united", "federal", "general", "premier", "advanced", "strategic", "dynamic", "innovative", "integrated", "digital", "enterprise"):
+        if f"{words[0]}.com" not in cands:
+            cands.append(f"{words[0]}.com")
+    return display, cands[:2]
 
 
 def discover_usaspending_small_business_websites(
     existing_contacts: List[Dict[str, str]],
     mx_cache: Dict[str, bool],
-    max_new_per_run: int = 35,
+    max_new_per_run: int = 60,
 ) -> List[Dict[str, str]]:
     """
-    Queries USAspending.gov for active Small Business IT & Cybersecurity contractors
-    (NAICS 541511, 541512, 541513, 541519, 518210) across all 12 SLED states,
-    crawls their official corporate websites to extract published contact emails,
-    and verifies live DNS MX records.
+    Queries USAspending.gov for active Small Business & Mid-Tier IT, Cloud, AI & Cybersecurity
+    contractors (NAICS 541511, 541512, 541513, 541519, 518210, 541611, 541330, 541715) across all
+    12 SLED states, advancing a persistent per-state page cursor (`cursor_usaspending:<ST>`) on every
+    6-hour run so the harvester continuously discovers new contractors instead of re-checking page 1.
     """
     existing_domains = set()
     for c in existing_contacts:
@@ -666,34 +841,41 @@ def discover_usaspending_small_business_websites(
         ("NY", "New York"),
         ("MA", "Massachusetts"),
     ]
-    # Rotate page 1..5 and a 2-state slice when >=120 contacts are already cached so each 6-hour cron run finishes in <10s
-    now_utc = datetime.now(timezone.utc)
-    day_idx = now_utc.timetuple().tm_yday
-    slot_idx = (day_idx * 4 + (now_utc.hour // 6)) % len(states)
-    if len(existing_contacts) >= 120:
-        active_states = [states[slot_idx], states[(slot_idx + 1) % len(states)]]
-        pages_to_check = [((day_idx % 5) + 1)]
-    else:
+
+    deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 180
+    if deep_harvest:
         active_states = states
-        pages_to_check = [1, 2]
+        pages_per_state = 3
+    else:
+        now_utc = datetime.now(timezone.utc)
+        slot_idx = ((now_utc.timetuple().tm_yday * 4) + (now_utc.hour // 6)) % len(states)
+        active_states = [states[(slot_idx + i) % len(states)] for i in range(4)]
+        pages_per_state = 2
 
     candidates: List[Tuple[str, str, str, str, str, str, str, str]] = []
     url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
 
     for st_code, st_full in active_states:
-        for pg in pages_to_check:
+        # Track next page cursor in mx_cache keys `page_cursor:<ST>:<idx>`
+        start_pg = 1
+        for p_try in range(1, 35):
+            if not mx_cache.get(f"usaspending_pg:{st_code}:{p_try}"):
+                start_pg = p_try
+                break
+        for pg in range(start_pg, min(start_pg + pages_per_state, 35)):
+            mx_cache[f"usaspending_pg:{st_code}:{pg}"] = True
             try:
                 resp = requests.post(
                     url,
                     json={
                         "fields": ["Recipient Name", "Award Amount"],
                         "filters": {
-                            "time_period": [{"start_date": "2024-01-01", "end_date": "2026-12-31"}],
-                            "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210"]},
+                            "time_period": [{"start_date": "2023-01-01", "end_date": "2026-12-31"}],
+                            "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210", "541611"]},
                             "recipient_type_names": ["small_business"],
                             "place_of_performance_locations": [{"country": "USA", "state": st_code}],
                         },
-                        "limit": 25,
+                        "limit": 50,
                         "page": pg,
                     },
                     timeout=8,
@@ -701,21 +883,22 @@ def discover_usaspending_small_business_websites(
                 if resp.status_code == 200:
                     for item in (resp.json().get("results") or []):
                         raw_nm = str(item.get("name") or "").strip()
-                        disp, dom = _clean_usaspending_company_name(raw_nm)
-                        cache_key = f"crawled:{dom}"
-                        if disp and dom and dom not in existing_domains and not mx_cache.get(cache_key):
-                            existing_domains.add(dom)
-                            mx_cache[cache_key] = True
-                            candidates.append((
-                                disp,
-                                dom,
-                                "Capture",
-                                "Team",
-                                f"Small Business IT & Cyber Capture Lead ({st_code})",
-                                "",
-                                st_full,
-                                "541511, 541512, 541519",
-                            ))
+                        disp, dom_cands = _candidate_domains_for_recipient(raw_nm)
+                        for dom in dom_cands:
+                            cache_key = f"crawled:{dom}"
+                            if disp and dom and dom not in existing_domains and not mx_cache.get(cache_key):
+                                existing_domains.add(dom)
+                                mx_cache[cache_key] = True
+                                candidates.append((
+                                    disp,
+                                    dom,
+                                    "Capture",
+                                    "Team",
+                                    f"Small Business IT & Cyber Capture Lead ({st_code})",
+                                    "",
+                                    st_full,
+                                    "541511, 541512, 541519",
+                                ))
             except Exception:
                 continue
 
@@ -723,8 +906,8 @@ def discover_usaspending_small_business_websites(
         return existing_contacts
 
     newly_found: List[Dict[str, str]] = []
-    with ThreadPoolExecutor(max_workers=24) as pool:
-        futs = [pool.submit(_crawl_single_contractor_site, item) for item in candidates[:160]]
+    with ThreadPoolExecutor(max_workers=28) as pool:
+        futs = [pool.submit(_crawl_single_contractor_site, item) for item in candidates[:280]]
         for fut in as_completed(futs):
             res = fut.result()
             if res and verify_email_domain_mx(res["Email"], mx_cache):
