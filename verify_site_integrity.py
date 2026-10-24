@@ -364,12 +364,14 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
 def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
     """
-    Enforces that whenever ANY new API (1..N) or new Portal (1..P) is added to SignalTender,
-    all client-facing Tier 1 / Tier 2 value-proposition sections — especially #capture-moat
-    ("Why Basic Bid Aggregators Fail Capture Teams" / "What SignalTender's AI Capture Engine Delivers
-    With Every Lead"), the Hero Tier 2 CTA card, #checkout-card-tier2, the #page-checkout API
-    callout banner, and pseo_generator.py RFP dossiers — are updated in lockstep so clients
-    always see 100% of what they are getting.
+    Enforces that:
+      1. New Portals (1..P) are always reflected across Tier 1 and Tier 2 value propositions.
+      2. ONLY APIs marked `connect_to_tier2_autopilot: true` in `daily_expansion_roadmap.json`
+         (plus the baseline #01..#20 suite) are connected to `#capture-moat`, `#checkout-card-tier2`,
+         and `pseo_generator.py` RFP dossiers.
+      3. Specialized / post-award / niche APIs (`connect_to_tier2_autopilot: false`) MUST NOT
+         be stuffed into `#capture-moat` or `#checkout-card-tier2` (preventing client feature bloat),
+         and instead belong solely in the On-Demand Developer Catalog (`#page-apis` and `apis.html`).
     """
     import pseo_generator
 
@@ -378,44 +380,68 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
     state_keys = [k for k in pseo_generator.JURISDICTIONS.keys() if k not in ("federal", "municipal")]
     n_states = len(state_keys)
 
-    # 1. Verify #capture-moat contains every API number (#01 .. #N) and current portal/state counts
+    tier2_api_nums = list(range(1, 21))
+    excluded_tier2_api_nums = []
+    roadmap_path = os.path.join(BASE_DIR, "daily_expansion_roadmap.json")
+    if os.path.exists(roadmap_path):
+        with open(roadmap_path, "r", encoding="utf-8") as rf:
+            rm_data = json.load(rf)
+        for item in rm_data.get("items", []):
+            api_num = item.get("api", {}).get("api_number")
+            if not api_num or api_num > n_apis:
+                continue
+            if item.get("api", {}).get("connect_to_tier2_autopilot", False):
+                if api_num not in tier2_api_nums:
+                    tier2_api_nums.append(api_num)
+            else:
+                excluded_tier2_api_nums.append(api_num)
+
+    n_tier2_apis = len(tier2_api_nums)
+
+    # 1. Verify #capture-moat contains every Tier-2-relevant API number and excludes non-Tier-2 APIs
     m_moat = re.search(r'<section id="capture-moat".*?</section>', index_txt, flags=re.S)
     if not m_moat:
         fail("index.html: Missing <section id=\"capture-moat\">")
     moat_html = m_moat.group(0)
-    for k in range(1, n_apis + 1):
+    for k in tier2_api_nums:
         tag = f"#{k:02d}"
         if tag not in moat_html:
-            fail(f"index.html (#capture-moat): Missing reference to API {tag}. Always update #capture-moat when enhancing tiers/APIs!")
+            fail(f"index.html (#capture-moat): Missing reference to Tier-2-relevant API {tag}.")
+    for k_ex in excluded_tier2_api_nums:
+        tag_ex = f"#{k_ex:02d}"
+        if tag_ex in moat_html:
+            fail(f"index.html (#capture-moat): Found non-Tier-2 API {tag_ex} in #capture-moat! Do not bloat Tier 2 with connect_to_tier2_autopilot=false APIs.")
     for req_moat_phrase in (
         f"{n_portals}-PORTAL",
         f"{n_portals} PORTALS",
-        f"{n_apis} AI ENGINES",
-        f"({n_apis} APIs)",
+        f"{n_tier2_apis} AI ENGINES",
         f"{n_portals} Federal &amp; {n_states}-State SLED Portals",
-        f"All {n_apis} AI Capture Modules",
     ):
         if req_moat_phrase not in moat_html:
             fail(f"index.html (#capture-moat): Missing required tier value-prop phrase '{req_moat_phrase}'")
 
-    # 2. Verify Hero Tier 2 CTA card reflects N PORTALS + N-API SUITE
-    hero_phrase = f"TIER 2 // CAPTUREDESK AUTOPILOT ({n_portals} PORTALS + {n_apis}-API SUITE)"
+    # 2. Verify Hero Tier 2 CTA card reflects N PORTALS + n_tier2_apis-API SUITE
+    hero_phrase = f"TIER 2 // CAPTUREDESK AUTOPILOT ({n_portals} PORTALS + {n_tier2_apis}-API SUITE)"
     if hero_phrase not in index_txt:
         fail(f"index.html (Hero Tier 2 CTA): Missing '{hero_phrase}'")
 
-    # 3. Verify #checkout-card-tier2 contains every API number (#01 .. #N) and N PORTALS + N-API CAPTURE SUITE
+    # 3. Verify #checkout-card-tier2 contains every Tier-2-relevant API number and excludes non-Tier-2 APIs
     m_t2 = re.search(r'<div id="checkout-card-tier2".*?<!-- \$0/mo Free Basic', index_txt, flags=re.S)
     if not m_t2:
         fail("index.html: Missing #checkout-card-tier2")
     t2_html = m_t2.group(0)
-    for k in range(1, n_apis + 1):
+    for k in tier2_api_nums:
         tag = f"#{k:02d}"
         if tag not in t2_html:
-            fail(f"index.html (#checkout-card-tier2): Missing reference to API {tag}. Always update #checkout-card-tier2 when enhancing tiers/APIs!")
+            fail(f"index.html (#checkout-card-tier2): Missing reference to Tier-2-relevant API {tag}.")
+    for k_ex in excluded_tier2_api_nums:
+        tag_ex = f"#{k_ex:02d}"
+        if tag_ex in t2_html:
+            fail(f"index.html (#checkout-card-tier2): Found non-Tier-2 API {tag_ex} in #checkout-card-tier2! Do not bloat Tier 2 with connect_to_tier2_autopilot=false APIs.")
     for req_t2_phrase in (
-        f"{n_portals} PORTALS + {n_apis}-API CAPTURE SUITE",
-        f"All-Access {n_portals}-Portal Wire + {n_apis}-Engine AI Capture Dossiers",
-        f"Everything in Tier 1 (All {n_portals} Portals), Plus Full {n_apis}-Engine Capture Dossiers:",
+        f"{n_portals} PORTALS + {n_tier2_apis}-API CAPTURE SUITE",
+        f"All-Access {n_portals}-Portal Wire + {n_tier2_apis}-Engine AI Capture Dossiers",
+        f"Everything in Tier 1 (All {n_portals} Portals), Plus Full {n_tier2_apis}-Engine Capture Dossiers:",
     ):
         if req_t2_phrase not in t2_html:
             fail(f"index.html (#checkout-card-tier2): Missing required tier value-prop phrase '{req_t2_phrase}'")
@@ -425,12 +451,12 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
     if callout_phrase not in index_txt:
         fail(f"index.html (#page-checkout API Callout): Missing '{callout_phrase}'")
 
-    # 5. Verify pseo_generator.py RFP dossier box references the latest API #N
+    # 5. Verify pseo_generator.py RFP dossier box references the latest Tier-2-relevant API
     with open(os.path.join(BASE_DIR, "pseo_generator.py"), "r", encoding="utf-8") as f:
         pseo_src = f.read()
-    latest_tag = f"#{n_apis:02d}"
-    if latest_tag not in pseo_src:
-        fail(f"pseo_generator.py: RFP Dossier preview is missing latest API reference '{latest_tag}'")
+    latest_tier2_tag = f"#{max(tier2_api_nums):02d}"
+    if latest_tier2_tag not in pseo_src:
+        fail(f"pseo_generator.py: RFP Dossier preview is missing latest Tier-2-relevant API reference '{latest_tier2_tag}'")
 
 
 def check_spa_runtime(index_txt: str) -> None:

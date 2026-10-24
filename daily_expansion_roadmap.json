@@ -49,7 +49,8 @@
         "rapidapi_slug": "govcon-sources-sought-rfi-set-aside-shaper-api",
         "title": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
         "category": "capture",
-        "summary": "Analyzes agency Sources Sought / RFI notices against vendor capabilities to generate a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a)/SDVOSB/HUBZone/WOSB), NAICS recommendation, and persuasive RFI response narrative."
+        "summary": "Analyzes agency Sources Sought / RFI notices against vendor capabilities to generate a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a)/SDVOSB/HUBZone/WOSB), NAICS recommendation, and persuasive RFI response narrative.",
+        "connect_to_tier2_autopilot": true
       },
       "completed_at": "2026-10-24T14:25:00Z"
     },
@@ -78,7 +79,8 @@
         "rapidapi_slug": "govcon-oci-far-9-5-mitigation-plan-generator-api",
         "title": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
         "category": "compliance",
-        "summary": "Audits existing prime/sub awards against a new solicitation for Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity (FAR Subpart 9.5) and outputs a complete firewall & OCI Mitigation Plan."
+        "summary": "Audits existing prime/sub awards against a new solicitation for Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity (FAR Subpart 9.5) and outputs a complete firewall & OCI Mitigation Plan.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -106,7 +108,8 @@
         "rapidapi_slug": "sbir-sttr-phase-i-iii-commercialization-plan-api",
         "title": "SBIR / STTR Phase I\u2013III Technical Volume & Commercialization Plan API",
         "category": "capture",
-        "summary": "Converts R&D specs into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1\u20139 progression matrix, Phase III Dual-Use Commercialization Plan, and DFARS 252.227-7018 SBIR Data Rights assertions."
+        "summary": "Converts R&D specs into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1\u20139 progression matrix, Phase III Dual-Use Commercialization Plan, and DFARS 252.227-7018 SBIR Data Rights assertions.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -134,7 +137,8 @@
         "rapidapi_slug": "govcon-section-508-wcag-2-2-vpat-generator-api",
         "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
         "category": "compliance",
-        "summary": "Audits software/SaaS products against Revised Section 508 (36 CFR 1194), WCAG 2.2 AA, and state accessibility mandates to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table + remediation roadmap."
+        "summary": "Audits software/SaaS products against Revised Section 508 (36 CFR 1194), WCAG 2.2 AA, and state accessibility mandates to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table + remediation roadmap.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -162,7 +166,8 @@
         "rapidapi_slug": "govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api",
         "title": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
         "category": "compliance",
-        "summary": "Evaluates BOMs and sub-tier suppliers against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM attestation."
+        "summary": "Evaluates BOMs and sub-tier suppliers against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM attestation.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -190,7 +195,8 @@
         "rapidapi_slug": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api",
         "title": "GovCon Quality Assurance Surveillance Plan (QASP), PWS SLA & KPI Matrix API",
         "category": "capture",
-        "summary": "Extracts PWS deliverables under FAR Subpart 37.6 and generates a Performance Requirements Summary (PRS) Table, QASP, Acceptable Quality Levels (AQLs), and SLA incentive/deduction formulas."
+        "summary": "Extracts PWS deliverables under FAR Subpart 37.6 and generates a Performance Requirements Summary (PRS) Table, QASP, Acceptable Quality Levels (AQLs), and SLA incentive/deduction formulas.",
+        "connect_to_tier2_autopilot": true
       }
     },
     {
@@ -217,7 +223,8 @@
         "rapidapi_slug": "govcon-30-60-90-day-phase-in-transition-plan-api",
         "title": "GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture API",
         "category": "capture",
-        "summary": "Generates a risk-mitigated 30/60/90-Day Phase-In/Out Transition Plan with WBS milestones, EO 14055 / SCA Incumbent Right-of-First-Refusal retention scripts, clearance crossover timelines, and FAR 52.237-3 checklists."
+        "summary": "Generates a risk-mitigated 30/60/90-Day Phase-In/Out Transition Plan with WBS milestones, EO 14055 / SCA Incumbent Right-of-First-Refusal retention scripts, clearance crossover timelines, and FAR 52.237-3 checklists.",
+        "connect_to_tier2_autopilot": true
       }
     },
     {
@@ -244,7 +251,8 @@
         "rapidapi_slug": "dcaa-pre-award-sf1408-accounting-system-auditor-api",
         "title": "DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Auditor API",
         "category": "pricing",
-        "summary": "Audits a contractor's chart of accounts, timekeeping, and Fringe/OH/G&A pools against all 18 DCAA SF 1408 Criteria and FAR Part 31 Cost Principles (unallowable cost segregation under FAR 31.205)."
+        "summary": "Audits a contractor's chart of accounts, timekeeping, and Fringe/OH/G&A pools against all 18 DCAA SF 1408 Criteria and FAR Part 31 Cost Principles (unallowable cost segregation under FAR 31.205).",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -271,7 +279,8 @@
         "rapidapi_slug": "dod-ota-10-usc-4022-prototype-white-paper-api",
         "title": "DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper API",
         "category": "capture",
-        "summary": "Transforms commercial capabilities into a consortium-ready DoD OTA Prototype White Paper (DIU, C5ISR, SOSSEC, SpEC), validates 10 U.S.C. 4022 nontraditional defense contractor / 1/3 cost-share rules, and builds a Payable Milestone ROM."
+        "summary": "Transforms commercial capabilities into a consortium-ready DoD OTA Prototype White Paper (DIU, C5ISR, SOSSEC, SpEC), validates 10 U.S.C. 4022 nontraditional defense contractor / 1/3 cost-share rules, and builds a Payable Milestone ROM.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -299,7 +308,8 @@
         "rapidapi_slug": "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api",
         "title": "DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation Analyzer API",
         "category": "compliance",
-        "summary": "Parses DD Form 254 and corporate cap-table ownership against 32 CFR Part 117 (NISPOM) to extract COMSEC/SIPRNet/JWICS safeguarding requirements, evaluate SF 328 FOCI risk, and recommend the exact DCSA mitigation agreement."
+        "summary": "Parses DD Form 254 and corporate cap-table ownership against 32 CFR Part 117 (NISPOM) to extract COMSEC/SIPRNet/JWICS safeguarding requirements, evaluate SF 328 FOCI risk, and recommend the exact DCSA mitigation agreement.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -327,7 +337,8 @@
         "rapidapi_slug": "far-52-219-9-subcontracting-plan-esrs-calculator-api",
         "title": "FAR 52.219-9 Subcontracting Plan & eSRS Goal Calculator API",
         "category": "capture",
-        "summary": "Generates a compliant FAR 52.219-9 Small Business Subcontracting Plan and DFARS 252.219-7003 SBPCD with exact dollar/percentage goals across SB, SDB/8(a), WOSB, HUBZone, and SDVOSB tiers."
+        "summary": "Generates a compliant FAR 52.219-9 Small Business Subcontracting Plan and DFARS 252.219-7003 SBPCD with exact dollar/percentage goals across SB, SDB/8(a), WOSB, HUBZone, and SDVOSB tiers.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -354,7 +365,8 @@
         "rapidapi_slug": "dfars-252-227-7013-7014-7017-data-rights-assertion-api",
         "title": "FAR 52.227-14 & DFARS 252.227-7013/7014 IP & Technical Data Rights API",
         "category": "compliance",
-        "summary": "Audits software modules, AI models, and deliverables by funding source to generate a formatted DFARS 252.227-7017 Data Rights Assertion Table (Unlimited, GPR, Limited Rights, Restricted Rights, or Commercial License)."
+        "summary": "Audits software modules, AI models, and deliverables by funding source to generate a formatted DFARS 252.227-7017 Data Rights Assertion Table (Unlimited, GPR, Limited Rights, Restricted Rights, or Commercial License).",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -381,7 +393,8 @@
         "rapidapi_slug": "govcon-shipley-black-hat-incumbent-ghosting-api",
         "title": "GovCon Black-Hat Competitive Intelligence, Incumbent Vulnerability & Ghosting API",
         "category": "capture",
-        "summary": "Runs a structured Shipley Black-Hat Review comparing the bidder against incumbents and likely competitors, identifying recompete vulnerabilities and drafting ethical Section L/M ghosting statements."
+        "summary": "Runs a structured Shipley Black-Hat Review comparing the bidder against incumbents and likely competitors, identifying recompete vulnerabilities and drafting ethical Section L/M ghosting statements.",
+        "connect_to_tier2_autopilot": true
       }
     },
     {
@@ -408,7 +421,8 @@
         "rapidapi_slug": "govcon-cpars-self-assessment-14-day-rebuttal-api",
         "title": "GovCon CPARS Self-Assessment, Interim Evaluation & 14-Day Rebuttal API",
         "category": "capture",
-        "summary": "Converts contract SLA metrics and COR logs into high-scoring FAR 42.1503 CPARS Self-Assessment Narratives or drafts a fact-based 14-Day CPARS Rebuttal to upgrade unfair Marginal/Satisfactory ratings."
+        "summary": "Converts contract SLA metrics and COR logs into high-scoring FAR 42.1503 CPARS Self-Assessment Narratives or drafts a fact-based 14-Day CPARS Rebuttal to upgrade unfair Marginal/Satisfactory ratings.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -435,7 +449,8 @@
         "rapidapi_slug": "govcon-rea-constructive-change-cda-claim-api",
         "title": "GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API",
         "category": "pricing",
-        "summary": "Analyzes post-award scope creep, government delay, or stop-work orders under FAR 52.243-1/2/3 and the Contract Disputes Act (41 U.S.C. 7101) to draft a legally structured REA with quantum cost breakdown and Eichleay overhead."
+        "summary": "Analyzes post-award scope creep, government delay, or stop-work orders under FAR 52.243-1/2/3 and the Contract Disputes Act (41 U.S.C. 7101) to draft a legally structured REA with quantum cost breakdown and Eichleay overhead.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -463,7 +478,8 @@
         "rapidapi_slug": "sba-mentor-protege-13-cfr-125-8-joint-venture-api",
         "title": "SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement Compliance API",
         "category": "capture",
-        "summary": "Audits and generates SBA All-Small Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 128.402), validating the mandatory 40% Prot\u00e9g\u00e9 workshare, Managing Venturer controls, and affiliation safe harbors."
+        "summary": "Audits and generates SBA All-Small Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 128.402), validating the mandatory 40% Prot\u00e9g\u00e9 workshare, Managing Venturer controls, and affiliation safe harbors.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -490,7 +506,8 @@
         "rapidapi_slug": "govcon-sca-far-52-222-41-wage-determination-mapper-api",
         "title": "Service Contract Act (SCA / FAR 52.222-41) & Davis-Bacon Wage Determination Mapper API",
         "category": "pricing",
-        "summary": "Maps RFP labor categories to DOL SAM.gov Wage Determination (WD) occupation codes, computes Health & Welfare (H&W) fringe obligations, Vacation/Holiday accruals, EO 14026 minimum wage floors, and FAR 52.222-43 price adjustment entitlements."
+        "summary": "Maps RFP labor categories to DOL SAM.gov Wage Determination (WD) occupation codes, computes Health & Welfare (H&W) fringe obligations, Vacation/Holiday accruals, EO 14026 minimum wage floors, and FAR 52.222-43 price adjustment entitlements.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -518,7 +535,8 @@
         "rapidapi_slug": "govcon-evms-ansi-748-ipmdr-variance-narrative-api",
         "title": "GovCon Earned Value Management System (EVMS / EIA-748) & IPMDR Variance Narrative API",
         "category": "pricing",
-        "summary": "Calculates CPI, SPI, CV, SV, TCPI, and EAC across WBS control accounts under DFARS 252.234-7002 and EIA-748, generating ready-to-submit IPMDR Format 5 Root-Cause Variance Analysis & Corrective Action narratives."
+        "summary": "Calculates CPI, SPI, CV, SV, TCPI, and EAC across WBS control accounts under DFARS 252.234-7002 and EIA-748, generating ready-to-submit IPMDR Format 5 Root-Cause Variance Analysis & Corrective Action narratives.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -545,7 +563,8 @@
         "rapidapi_slug": "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api",
         "title": "Cost Accounting Standards (CAS / 48 CFR 9904) Coverage & DS-1 Disclosure Auditor API",
         "category": "pricing",
-        "summary": "Determines Modified vs. Full CAS applicability ($2M trigger / $50M threshold under FAR 52.230-1..6), audits CAS 401/402/405/410/418 compliance, and drafts CASB DS-1 Disclosure Statement sections."
+        "summary": "Determines Modified vs. Full CAS applicability ($2M trigger / $50M threshold under FAR 52.230-1..6), audits CAS 401/402/405/410/418 compliance, and drafts CASB DS-1 Disclosure Statement sections.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -572,7 +591,8 @@
         "rapidapi_slug": "govcon-itar-usml-ear-ccl-tcp-export-control-api",
         "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance API",
         "category": "compliance",
-        "summary": "Classifies defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP)."
+        "summary": "Classifies defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP).",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -599,7 +619,8 @@
         "rapidapi_slug": "dod-cdrl-dd-form-1423-did-schedule-tracker-api",
         "title": "DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor API",
         "category": "compliance",
-        "summary": "Extracts all Contract Data Requirements List (CDRL / DD Form 1423) items from DoD RFPs, maps Data Item Descriptions (DIDs), Block 4 authority, submission frequencies, inspection/acceptance codes, and builds a WBS Data Delivery Calendar."
+        "summary": "Extracts all Contract Data Requirements List (CDRL / DD Form 1423) items from DoD RFPs, maps Data Item Descriptions (DIDs), Block 4 authority, submission frequencies, inspection/acceptance codes, and builds a WBS Data Delivery Calendar.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -626,7 +647,8 @@
         "rapidapi_slug": "far-6-302-13-501-sole-source-ja-lsj-generator-api",
         "title": "FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter API",
         "category": "capture",
-        "summary": "Drafts a complete 12-Part FAR 6.303-2 Justification & Approval (J&A), FAR 8.405-6 Limited Sources Justification (LSJ), or FAR 16.505(b)(2) Fair Opportunity Exception package for Contracting Officers."
+        "summary": "Drafts a complete 12-Part FAR 6.303-2 Justification & Approval (J&A), FAR 8.405-6 Limited Sources Justification (LSJ), or FAR 16.505(b)(2) Fair Opportunity Exception package for Contracting Officers.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -654,7 +676,8 @@
         "rapidapi_slug": "dfars-252-204-7012-dibnet-72hr-incident-report-api",
         "title": "DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package API",
         "category": "compliance",
-        "summary": "Evaluates CUI/CDI security incidents against DFARS 252.204-7012, CISA CIRCIA, and FedRAMP incident SLAs, generating a structured 72-hour DoD DIBNet ICF report, 90-day forensic media preservation checklist, and subcontractor flow-down notifications."
+        "summary": "Evaluates CUI/CDI security incidents against DFARS 252.204-7012, CISA CIRCIA, and FedRAMP incident SLAs, generating a structured 72-hour DoD DIBNet ICF report, 90-day forensic media preservation checklist, and subcontractor flow-down notifications.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -681,7 +704,8 @@
         "rapidapi_slug": "doe-dear-48-cfr-952-970-national-lab-compliance-api",
         "title": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor API",
         "category": "compliance",
-        "summary": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers."
+        "summary": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -708,7 +732,8 @@
         "rapidapi_slug": "far-16-505-oasis-polaris-sewp-task-order-shaper-api",
         "title": "GWAC / IDIQ Task Order Fair Opportunity (FAR 16.505) & Pool Selection Optimizer API",
         "category": "capture",
-        "summary": "Matches task order TORFPs across OASIS+, GSA Polaris, 8(a) STARS III, VETS 2, NASA SEWP, and NITAAC CIO-SP3/4 against vendor contract pools, scoring self-scoring scorecard matrices and drafting rapid 5-day TORFP responses."
+        "summary": "Matches task order TORFPs across OASIS+, GSA Polaris, 8(a) STARS III, VETS 2, NASA SEWP, and NITAAC CIO-SP3/4 against vendor contract pools, scoring self-scoring scorecard matrices and drafting rapid 5-day TORFP responses.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -735,7 +760,8 @@
         "rapidapi_slug": "far-52-245-1-dfars-piee-gfp-property-management-api",
         "title": "Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan API",
         "category": "compliance",
-        "summary": "Audits GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, generating a DCMA-ready Property Management System Plan (PMSP), PIEE GFP Module reporting workflow, and IUID marking checklist."
+        "summary": "Audits GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, generating a DCMA-ready Property Management System Plan (PMSP), PIEE GFP Module reporting workflow, and IUID marking checklist.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -762,7 +788,8 @@
         "rapidapi_slug": "dod-oconus-sofa-dba-sync-spot-deployment-compliance-api",
         "title": "DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance API",
         "category": "compliance",
-        "summary": "Evaluates Pacific/OCONUS defense IT solicitations for Status of Forces Agreement (SOFA) TESA/TDY accreditation, FAR 52.228-3 Defense Base Act (DBA) insurance wraps, DFARS 252.225-7040 SPOT synchronization, and COLA/Post Allowance rate structures."
+        "summary": "Evaluates Pacific/OCONUS defense IT solicitations for Status of Forces Agreement (SOFA) TESA/TDY accreditation, FAR 52.228-3 Defense Base Act (DBA) insurance wraps, DFARS 252.225-7040 SPOT synchronization, and COLA/Post Allowance rate structures.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -789,7 +816,8 @@
         "rapidapi_slug": "dod-32-cfr-2002-dodi-5200-48-cui-marking-plan-api",
         "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan API",
         "category": "compliance",
-        "summary": "Analyzes deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A\u2013F), and a CUI Sanitization & Spill Response SOP."
+        "summary": "Analyzes deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A\u2013F), and a CUI Sanitization & Spill Response SOP.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -816,7 +844,8 @@
         "rapidapi_slug": "naspo-sourcewell-omnia-tips-sled-coop-piggyback-api",
         "title": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper API",
         "category": "capture",
-        "summary": "Evaluates state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP."
+        "summary": "Evaluates state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -844,7 +873,8 @@
         "rapidapi_slug": "far-part-48-52-248-1-vecp-shared-savings-proposal-api",
         "title": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler API",
         "category": "pricing",
-        "summary": "Transforms cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty."
+        "summary": "Transforms cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -871,7 +901,8 @@
         "rapidapi_slug": "far-52-203-13-business-ethics-oig-disclosure-auditor-api",
         "title": "FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure API",
         "category": "compliance",
-        "summary": "Audits compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion."
+        "summary": "Audits compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -898,7 +929,8 @@
         "rapidapi_slug": "dod-fedramp-moderate-equivalency-memorandum-boe-api",
         "title": "DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor API",
         "category": "compliance",
-        "summary": "Audits cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency Memorandum (100% 3PAO assessment, zero unmitigated high/moderate POA&Ms, KSIs) and generates a complete Cloud Equivalency Body of Evidence (BoE) checklist."
+        "summary": "Audits cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency Memorandum (100% 3PAO assessment, zero unmitigated high/moderate POA&Ms, KSIs) and generates a complete Cloud Equivalency Body of Evidence (BoE) checklist.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -925,7 +957,8 @@
         "rapidapi_slug": "federal-ai-governance-omb-m-24-10-nist-ai-rmf-api",
         "title": "Federal AI Governance, OMB M-24-10/M-24-18 & NIST AI RMF 1.0 Compliance Package API",
         "category": "compliance",
-        "summary": "Evaluates AI/ML/LLM solutions proposed for federal and SLED agencies against OMB Memoranda M-24-10 & M-24-18, NIST AI RMF 1.0 (Govern, Map, Measure, Manage), and DoD Responsible AI (RAI) Toolkit, outputting a Safety-Impact Classification & Model Card."
+        "summary": "Evaluates AI/ML/LLM solutions proposed for federal and SLED agencies against OMB Memoranda M-24-10 & M-24-18, NIST AI RMF 1.0 (Govern, Map, Measure, Manage), and DoD Responsible AI (RAI) Toolkit, outputting a Safety-Impact Classification & Model Card.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -952,7 +985,8 @@
         "rapidapi_slug": "far-part-49-sf-1435-1436-t4c-settlement-proposal-api",
         "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator API",
         "category": "pricing",
-        "summary": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal."
+        "summary": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal.",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -980,7 +1014,8 @@
         "rapidapi_slug": "far-42-1204-govcon-m-a-novation-agreement-package-api",
         "title": "GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package API",
         "category": "compliance",
-        "summary": "Generates a complete FAR 42.1204 Three-Party Novation Agreement package for GovCon asset/stock acquisitions, auditing anti-assignment exceptions (41 U.S.C. 6305), SAM.gov UEI/CAGE transfer checklists, and SBA recertification triggers under 13 CFR 121.404(g)."
+        "summary": "Generates a complete FAR 42.1204 Three-Party Novation Agreement package for GovCon asset/stock acquisitions, auditing anti-assignment exceptions (41 U.S.C. 6305), SAM.gov UEI/CAGE transfer checklists, and SBA recertification triggers under 13 CFR 121.404(g).",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -1007,7 +1042,8 @@
         "rapidapi_slug": "sseb-color-team-pink-red-gold-proposal-scorer-api",
         "title": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer API",
         "category": "capture",
-        "summary": "Simulates a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites."
+        "summary": "Simulates a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites.",
+        "connect_to_tier2_autopilot": true
       }
     },
     {
@@ -1035,7 +1071,8 @@
         "rapidapi_slug": "gsa-fas-srp-tdr-iff-cav-ioa-audit-reconciler-api",
         "title": "GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler API",
         "category": "pricing",
-        "summary": "Audits commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule sales, calculate quarterly 0.75% IFF remittance, validate Transactional Data Reporting (TDR) 16-field data elements, and prepare for a GSA IOA Contractor Assistance Visit (CAV)."
+        "summary": "Audits commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule sales, calculate quarterly 0.75% IFF remittance, validate Transactional Data Reporting (TDR) 16-field data elements, and prepare for a GSA IOA Contractor Assistance Visit (CAV).",
+        "connect_to_tier2_autopilot": false
       }
     },
     {
@@ -1063,7 +1100,8 @@
         "rapidapi_slug": "far-16-401-cpaf-cpif-award-fee-board-presentation-api",
         "title": "FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer API",
         "category": "pricing",
-        "summary": "Models CPAF, CPIF, and FPIF share-ratio curves (overrun/underrun ceiling geometry under FAR 16.401) and transforms periodic performance metrics into an Award-Fee Evaluation Board (AFEB) self-assessment presentation to maximize unearned/rollover fee pools."
+        "summary": "Models CPAF, CPIF, and FPIF share-ratio curves (overrun/underrun ceiling geometry under FAR 16.401) and transforms periodic performance metrics into an Award-Fee Evaluation Board (AFEB) self-assessment presentation to maximize unearned/rollover fee pools.",
+        "connect_to_tier2_autopilot": false
       }
     }
   ]
