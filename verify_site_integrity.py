@@ -600,6 +600,9 @@ document.getElementById('account-profile-name').value = 'Commander Alex Vance';
 window.saveAccountProfile();
 window.refreshClientAccount();
 window.logoutClientAccount();
+if (typeof window.jumpToPageSection !== 'function' || !window.jumpToPageSection('integrations') || !window.jumpToPageSection('capture-moat')) {
+  throw new Error('window.jumpToPageSection failed to jump to in-page sections!');
+}
 """
     )
 
