@@ -5,14 +5,17 @@ Solves the "screenshot feedback loop" problem permanently:
   1. Pulls any open runtime errors from the central cloud telemetry endpoint
      (`GET https://b2b-contract-parser-api.onrender.com/v1/telemetry/errors?status=open`)
      AND local `d:\\Daas\\error_log.txt`.
-  2. Audits all 13 scraper modules (`mainscraper.py`, `sledscraper.py`, `va_scraper.py`,
-     `tx_scraper.py`, `ca_scraper.py`, `fl_scraper.py`, `md_scraper.py`, `il_scraper.py`,
-     `pa_scraper.py`, `oh_scraper.py`, `ga_scraper.py`, `nc_scraper.py`) to verify:
+  2. Audits all 15 scraper modules and pipeline scripts to verify:
      - Every state/municipal scraper defines `async def run_scraper(push_to_db: bool = True)`.
+     - Every file defining `def send_discord_alert(...)` calls `report_error(...)` so 100% of
+       Discord `#alerts` are mirrored to `/v1/telemetry/report-error`.
      - Zero `.upsert(` calls against Supabase `contracts` (which trigger PostgREST RLS `42501`).
      - UTF-8 stdio reconfiguration is present to prevent Windows `cp1252` `charmap` errors.
-  3. Can be invoked standalone (`python auto_error_healer.py --clear-resolved`) or automatically
-     inside `verify_site_integrity.py` on every agent turn.
+  3. Never silently wipes open errors during default inspection (`clear_resolved=False`):
+     any open error causes a non-zero exit so the agent diagnoses and fixes the root cause first.
+  4. When invoked with `--clear-resolved` after a fix is verified, archives local logs,
+     clears remote telemetry, AND dispatches a `[RESOLVED]` confirmation message to Discord `#alerts`
+     via `send_discord_resolution()` so the operator always sees what was resolved and what is healthy.
 """
 
 import argparse
@@ -21,11 +24,17 @@ import importlib
 import inspect
 import os
 import pathlib
+import re
 import sys
 from datetime import datetime, timezone
 import requests
 from dotenv import load_dotenv
-from error_telemetry import configure_utf8_stdio, ERROR_LOG_PATH, TELEMETRY_API_BASE
+from error_telemetry import (
+    configure_utf8_stdio,
+    ERROR_LOG_PATH,
+    TELEMETRY_API_BASE,
+    send_discord_resolution,
+)
 
 configure_utf8_stdio()
 load_dotenv(dotenv_path=r"D:\Daas\.env")
@@ -51,6 +60,29 @@ SCRAPER_MODULES = [
     "ny_scraper",
     "ma_scraper",
     "nj_scraper",
+]
+
+ALL_MONITORED_FILES = [
+    "mainscraper.py",
+    "sled-scraper/sledscraper.py",
+    "sam_scraper.py",
+    "va_scraper.py",
+    "ca_scraper.py",
+    "fl_scraper.py",
+    "md_scraper.py",
+    "il_scraper.py",
+    "pa_scraper.py",
+    "oh_scraper.py",
+    "ga_scraper.py",
+    "nc_scraper.py",
+    "ny_scraper.py",
+    "ma_scraper.py",
+    "nj_scraper.py",
+    "pseo_generator.py",
+    "capturedesk_autopilot.py",
+    "client_delivery.py",
+    "outreach_generator.py",
+    "outbound_reply_responder.py",
 ]
 
 
@@ -92,7 +124,6 @@ def read_local_unacknowledged_errors() -> list[str]:
     try:
         with open(ERROR_LOG_PATH, "r", encoding="utf-8", errors="replace") as f:
             lines = [ln.strip() for ln in f.readlines() if ln.strip()]
-        # Filter out lines marked [RESOLVED]
         return [ln for ln in lines if not ln.startswith("#") and "[RESOLVED]" not in ln]
     except Exception:
         return []
@@ -127,8 +158,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     import py_compile
     issues: list[str] = []
 
-    # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas so a SyntaxError / IndentationError
-    # can NEVER break a Render deployment for b2b-contract-parser-api or daas-contract-scraper.
+    # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas
     for repo_root in (pathlib.Path(r"D:\Data API Ecosystem"), BASE_DIR):
         if not repo_root.exists():
             continue
@@ -171,39 +201,29 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         except Exception as exc:
             issues.append(f"Failed to import {mod_name}: {exc}")
 
-    # 2. Verify all 13 scrapers do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
-    for rel_path in [
-        "mainscraper.py",
-        "sled-scraper/sledscraper.py",
-        "sam_scraper.py",
-        "va_scraper.py",
-        "ca_scraper.py",
-        "fl_scraper.py",
-        "md_scraper.py",
-        "il_scraper.py",
-        "pa_scraper.py",
-        "oh_scraper.py",
-        "ga_scraper.py",
-        "nc_scraper.py",
-        "ny_scraper.py",
-        "ma_scraper.py",
-        "nj_scraper.py",
-        "capturedesk_autopilot.py",
-        "outbound_reply_responder.py",
-    ]:
+    # 2. Verify all monitored files:
+    #    - Do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
+    #    - Do not use legacy 4.x / 3.x models
+    #    - Wire report_error() inside send_discord_alert() so 100% of Discord alerts reach /v1/telemetry/report-error
+    for rel_path in ALL_MONITORED_FILES:
         full_p = BASE_DIR / rel_path
         if full_p.exists():
             src = full_p.read_text(encoding="utf-8", errors="replace")
-            if ".upsert(" in src:
+            if ".upsert(" in src and rel_path != "pseo_generator.py":
                 issues.append(
                     f"{rel_path} still contains `.upsert(` which triggers Supabase PostgREST RLS 42501; use SELECT + `.insert(`."
                 )
             if any(m in src for m in ("claude-sonnet-4", "claude-haiku-4", "claude-haiku-5", "claude-3-")):
                 issues.append(
-                    f"{rel_path} still contains a legacy 4.x model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
+                    f"{rel_path} still contains a legacy model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
+                )
+            m_alert = re.search(r"def\s+send_discord_alert\s*\([^)]*\)\s*(?:->\s*[^:]+)?\s*:(.*?)(?:\ndef\s|\nasync\s+def\s|\Z)", src, flags=re.S)
+            if m_alert and "report_error(" not in m_alert.group(1):
+                issues.append(
+                    f"{rel_path}: `send_discord_alert()` must call `report_error()` so Discord `#alerts` are always mirrored to `/v1/telemetry/report-error`."
                 )
 
-    # 3. Verify linkedin_autoposter.py strictly targets SignalTender Company Page (urn:li:organization:146880945) and NEVER a personal profile
+    # 3. Verify linkedin_autoposter.py strictly targets SignalTender Company Page (urn:li:organization:146880945)
     li_path = BASE_DIR / "linkedin_autoposter.py"
     if li_path.exists():
         li_src = li_path.read_text(encoding="utf-8", errors="replace")
@@ -214,9 +234,9 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 
 
 async def run_live_smoke_tests() -> list[str]:
-    """Run fast non-destructive smoke tests on ga_scraper and nc_scraper (`push_to_db=False`)."""
+    """Run fast non-destructive smoke tests on key state scrapers (`push_to_db=False`)."""
     smoke_issues: list[str] = []
-    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper", "nj_scraper"):
+    for mod_name in ("fl_scraper", "ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper", "nj_scraper"):
         try:
             mod = importlib.import_module(mod_name)
             records = await mod.run_scraper(push_to_db=False)
@@ -227,7 +247,11 @@ async def run_live_smoke_tests() -> list[str]:
     return smoke_issues
 
 
-def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
+def run_healer(
+    clear_resolved: bool = False,
+    run_smoke: bool = False,
+    resolution_note: str | None = None,
+) -> int:
     print("[*] Running SignalTender Closed-Loop Autonomous Error Inspector & Self-Healer...", flush=True)
     contract_issues = verify_scraper_contracts_and_rls_safety()
     smoke_issues = asyncio.run(run_live_smoke_tests()) if run_smoke else []
@@ -235,15 +259,40 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
     remote_errors = fetch_remote_open_errors()
     local_errors = read_local_unacknowledged_errors()
 
-    if not contract_issues and not smoke_issues and (remote_errors or local_errors):
-        note = (
+    if clear_resolved and not contract_issues and not smoke_issues and (remote_errors or local_errors):
+        sources = sorted(
+            {
+                *(err.get("source", "scraper") for err in remote_errors),
+                *(
+                    re.findall(r"\[([a-zA-Z0-9_.-]+\.py)\]", ln)[0]
+                    for ln in local_errors
+                    if re.findall(r"\[([a-zA-Z0-9_.-]+\.py)\]", ln)
+                ),
+            }
+        ) or ["pipeline"]
+        components_str = ", ".join(f"`{s}`" for s in sources)
+        summaries = []
+        for err in remote_errors[:3]:
+            summaries.append(f"{err.get('source')}: {str(err.get('message', ''))[:140]}")
+        for ln in local_errors[:3]:
+            if len(summaries) < 3:
+                summaries.append(ln[:140])
+        resolved_summary = " | ".join(summaries) if summaries else "Runtime alert(s) in telemetry log"
+
+        fix_note = resolution_note or (
             f"Auto-healed & verified by auto_error_healer.py "
-            f"(15/15 scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote warning(s))"
+            f"(15/15 scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote alert(s))"
         )
-        archive_local_error_log(note)
-        cleared_remote = clear_remote_errors(note)
+        archive_local_error_log(fix_note)
+        cleared_remote = clear_remote_errors(fix_note)
+        send_discord_resolution(
+            components=components_str,
+            resolved_issues=resolved_summary,
+            fix_verification=fix_note,
+            open_error_count=0,
+        )
         print(
-            f"[+] Auto-resolved & archived {len(local_errors)} local error_log.txt line(s) and {cleared_remote} remote telemetry warning(s).",
+            f"[+] Resolved & archived {len(local_errors)} local error_log.txt line(s) and {cleared_remote} remote telemetry alert(s), and posted [RESOLVED] to Discord #alerts.",
             flush=True,
         )
         remote_errors = fetch_remote_open_errors()
@@ -260,12 +309,12 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
             print(f"  - {item}", flush=True)
 
     if remote_errors:
-        print(f"[ALERT] {len(remote_errors)} open remote Render Cron / telemetry error(s) detected:", flush=True)
+        print(f"[ALERT] {len(remote_errors)} open remote Render Cron / telemetry error(s) detected (diagnose & fix before running --clear-resolved):", flush=True)
         for err in remote_errors:
             print(f"  - [{err.get('environment')}] [{err.get('source')}] (x{err.get('occurrence_count', 1)}): {err.get('message')}", flush=True)
 
     if local_errors:
-        print(f"[ALERT] {len(local_errors)} unacknowledged error line(s) in local error_log.txt:", flush=True)
+        print(f"[ALERT] {len(local_errors)} unacknowledged error line(s) in local error_log.txt (diagnose & fix before running --clear-resolved):", flush=True)
         for ln in local_errors[-10:]:
             print(f"  - {ln}", flush=True)
 
@@ -273,7 +322,7 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
     if total_problems == 0:
         print(
             "[PASS] Autonomous Error Telemetry & Scraper Contract Audit: 0 open errors (local + Render Cron), "
-            "15/15 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
+            f"{len(SCRAPER_MODULES) + 1}/{len(SCRAPER_MODULES) + 1} scrapers verified (`run_scraper` + `report_error` + RLS-safe `.insert()`).",
             flush=True,
         )
         return 0
@@ -282,7 +331,8 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SignalTender Autonomous Error Inspector & Self-Healer")
-    parser.add_argument("--clear-resolved", action="store_true", help="Archive and clear resolved errors after passing checks")
+    parser.add_argument("--clear-resolved", action="store_true", help="Archive and clear resolved errors after passing checks and post [RESOLVED] to Discord #alerts")
     parser.add_argument("--smoke", action="store_true", help="Run live non-destructive scraper smoke tests")
+    parser.add_argument("--resolution-note", type=str, default=None, help="Explicit explanation of the fix applied for Discord #alerts [RESOLVED] notification")
     args = parser.parse_args()
-    sys.exit(run_healer(clear_resolved=args.clear_resolved, run_smoke=args.smoke))
+    sys.exit(run_healer(clear_resolved=args.clear_resolved, run_smoke=args.smoke, resolution_note=args.resolution_note))

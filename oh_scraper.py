@@ -145,6 +145,7 @@ def log_error(message: str) -> None:
 
 
 def send_discord_alert(message: str) -> None:
+    report_error("oh_scraper.py", message)
     log_error(message)
     if not DISCORD_WEBHOOK_URL:
         return

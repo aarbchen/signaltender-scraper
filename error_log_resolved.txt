@@ -189,3 +189,33 @@ Node.js v26.7.0
 [2026-10-24 14:29:31 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: pseo_generator.py: Found stale portal/state count string '14-Portal' (expected 15 portals / 13 states)
 [2026-10-24 14:30:54 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: pseo_generator.py: Found stale portal/state count string '14-Portal' (expected 15 portals / 13 states)
 [2026-10-24 14:33:35 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: pseo_generator.py: Found stale portal/state count string '14-Portal' (expected 15 portals / 13 states)
+
+=== ARCHIVED & RESOLVED AT 2026-10-24 16:15:29 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 26 local + 2 remote warning(s)) ===
+[2026-10-24 16:11:52 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmpzr5zp627.js:1873
+          statusEl.innerHTML = '&check; Company Capture Vault saved &amp; synced with all ' + Object.keys(CATALOG).length + ' Studio Playground APIs.';
+                                                                                                          ^
+
+ReferenceError: CATALOG is not defined
+    at window.saveAccountCompanyVault (C:\Users\jouan\AppData\Local\Temp\tmpzr5zp627.js:1873:107)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpzr5zp627.js:5186:8)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module
+[2026-10-24 16:13:20 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmp05kal8zi.js:1873
+          statusEl.innerHTML = '&check; Company Capture Vault saved &amp; synced with all ' + Object.keys(CATALOG).length + ' Studio Playground APIs.';
+                                                                                                          ^
+
+ReferenceError: CATALOG is not defined
+    at window.saveAccountCompanyVault (C:\Users\jouan\AppData\Local\Temp\tmp05kal8zi.js:1873:107)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmp05kal8zi.js:5186:8)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module

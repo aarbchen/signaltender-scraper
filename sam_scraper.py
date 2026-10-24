@@ -24,6 +24,7 @@ TABLE_NAME = "contracts"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
 
 def send_discord_alert(message):
+    report_error("sam_scraper.py", message)
     if not DISCORD_WEBHOOK_URL:
         print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
         return

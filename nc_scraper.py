@@ -44,6 +44,7 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(msg: str) -> None:
+    report_error("nc_scraper.py", msg)
     if not DISCORD_WEBHOOK_URL:
         return
     try:

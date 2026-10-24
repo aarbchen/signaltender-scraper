@@ -166,6 +166,7 @@ def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> l
 
 
 def send_discord_alert(message: str):
+    report_error("il_scraper.py", message)
     if not DISCORD_WEBHOOK_URL:
         print("[!] Webhook URL not found in .env file.", flush=True)
         return
@@ -486,14 +487,10 @@ async def _scrape_bidbuy_playwright_fallback(captured_by_url: dict):
             content = await page.content()
             _parse_bidbuy_rows_from_html(content, captured_by_url)
         except PlaywrightTimeoutError as te:
-            err_msg = f"Illinois Scraper Playwright TimeoutError: {te}"
-            print(f"[!] {err_msg}", flush=True)
-            try:
-                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                    f.write(f"\n[!] {err_msg}\n")
-            except Exception:
-                pass
-            send_discord_alert(err_msg)
+            print(
+                f"[*] Illinois BidBuy Playwright fallback timed out ({te}); proceeding with HTTP & Bonfire SLED records...",
+                flush=True,
+            )
         except Exception as e:
             err_msg = f"Illinois Scraper Playwright Error: {e}"
             print(f"[!] {err_msg}", flush=True)

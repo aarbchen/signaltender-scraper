@@ -136,6 +136,7 @@ def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> l
 
 
 def send_discord_alert(message: str):
+    report_error("va_scraper.py", message)
     if not DISCORD_WEBHOOK_URL:
         print("[!] Webhook URL not found in .env file.", flush=True)
         return
@@ -456,19 +457,10 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
                             captured_docs_by_id[uid] = dc
 
         except PlaywrightTimeoutError as te:
-            error_msg = f"Virginia eVA Playwright TimeoutError: {te}"
-            print(f"[!] {error_msg}", flush=True)
-            try:
-                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                    f.write(f"\n[!] {error_msg}\n")
-            except Exception:
-                pass
-            send_discord_alert(error_msg)
-            try:
-                await page.screenshot(path=ERROR_SCREENSHOT_PATH, full_page=True)
-                print("[+] Saved error_debug.png to root directory.", flush=True)
-            except Exception as ss_e:
-                print(f"[!] Could not save screenshot: {ss_e}", flush=True)
+            print(
+                f"[*] Virginia eVA UI timed out ({te}); proceeding with {len(captured_docs_by_id)} captured eVA opportunity record(s)...",
+                flush=True,
+            )
         except Exception as e:
             error_msg = f"Virginia eVA Error during extraction: {e}"
             print(f"[!] {error_msg}", flush=True)

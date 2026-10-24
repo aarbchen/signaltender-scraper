@@ -77,6 +77,7 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(msg: str) -> None:
+    report_error("ga_scraper.py", msg)
     webhook_url = os.getenv("DISCORD_WEBHOOK_URL") or os.getenv("DISCORD_ERROR_WEBHOOK_URL")
     if not webhook_url:
         return

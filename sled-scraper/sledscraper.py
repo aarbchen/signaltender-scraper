@@ -141,6 +141,7 @@ def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> l
     return deduped
 
 def send_discord_alert(message: str):
+    report_error("sledscraper.py", message)
     if not DISCORD_WEBHOOK_URL:
         print("[!] Webhook URL not found in .env file.", flush=True)
         return
