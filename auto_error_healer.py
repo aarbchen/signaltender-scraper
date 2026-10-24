@@ -185,21 +185,34 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     except Exception:
         pass
 
-    # 1. Verify every scraper module has async def run_scraper(push_to_db=...)
+    # 1. Verify every scraper module defines `async def run_scraper(push_to_db=...)` via fast AST inspection
+    import ast
     for mod_name in SCRAPER_MODULES:
+        mod_path = (SLED_DIR / f"{mod_name}.py") if mod_name == "sledscraper" else (BASE_DIR / f"{mod_name}.py")
+        if not mod_path.exists():
+            issues.append(f"{mod_name}.py file not found at {mod_path}")
+            continue
         try:
-            mod = importlib.import_module(mod_name)
-            fn = getattr(mod, "run_scraper", None)
-            if fn is None:
+            tree = ast.parse(mod_path.read_text(encoding="utf-8", errors="replace"), filename=str(mod_path))
+            found_async = False
+            found_sync = False
+            has_push_param = False
+            for node in tree.body:
+                if isinstance(node, ast.AsyncFunctionDef) and node.name == "run_scraper":
+                    found_async = True
+                    arg_names = [a.arg for a in node.args.args] + [a.arg for a in node.args.kwonlyargs]
+                    if "push_to_db" in arg_names:
+                        has_push_param = True
+                elif isinstance(node, ast.FunctionDef) and node.name == "run_scraper":
+                    found_sync = True
+            if not found_async and not found_sync:
                 issues.append(f"{mod_name}.py is missing `run_scraper(push_to_db: bool = True)`")
-                continue
-            if not inspect.iscoroutinefunction(fn):
+            elif found_sync and not found_async:
                 issues.append(f"{mod_name}.run_scraper must be an `async def` coroutine function")
-            sig = inspect.signature(fn)
-            if "push_to_db" not in sig.parameters:
+            elif not has_push_param:
                 issues.append(f"{mod_name}.run_scraper is missing the `push_to_db` parameter")
         except Exception as exc:
-            issues.append(f"Failed to import {mod_name}: {exc}")
+            issues.append(f"Failed to parse AST for {mod_name}.py: {exc}")
 
     # 2. Verify all monitored files:
     #    - Do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
