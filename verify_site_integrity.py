@@ -157,6 +157,14 @@ def check_html_file(fpath: str) -> str:
     if re.search(r"Claude\s+Sonnet|Claude\s+Opus|Claude\s+Haiku|claude-sonnet-|claude-opus-|claude-haiku-|INSTANT-KB", txt, flags=re.I):
         fail(f"{rel}: Public HTML/JS must never expose internal LLM model names (e.g. Claude Sonnet) or internal INSTANT-KB labels")
 
+    # 8. Check compact 2-row mobile sticky <header> (no multi-row grid-cols-2 mobile nav, no flex-wrap or state bars inside sticky <header>)
+    for hdr_m in re.finditer(r"<header\b[^>]*>(.*?)</header>", html_only, flags=re.S):
+        hdr_inner = hdr_m.group(1)
+        if "grid-cols-2" in hdr_inner:
+            fail(f"{rel}: Sticky <header> uses 'grid-cols-2' in Mobile Site Navigation; must use single-row 'grid-cols-4'")
+        if "All Portals" in hdr_inner or "flex-wrap" in hdr_inner:
+            fail(f"{rel}: Sticky <header> must stay compact on mobile (no 'flex-wrap' or multi-line State Hub bar inside <header>)")
+
     return txt
 
 

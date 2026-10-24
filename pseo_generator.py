@@ -546,7 +546,7 @@ def _render_layout(
 </head>
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
   <div>
-    <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
+    <div class="hidden sm:block w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -561,7 +561,7 @@ def _render_layout(
     </div>
 
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
-      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 h-12 sm:h-20 flex flex-nowrap items-center justify-between gap-2">
         <a href="{root_prefix}index.html" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -570,9 +570,9 @@ def _render_layout(
               <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
-            <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
+            <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
           <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
@@ -580,44 +580,67 @@ def _render_layout(
           <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
           <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
-        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
-          <div class="flex items-center gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800">
-            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-3 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
+          <div class="flex items-center gap-1 sm:gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800">
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
-          <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
+          <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
             Unlock All RFP Links &rarr;
           </a>
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] font-mono text-center">
-          <a href="{root_prefix}index.html#overview" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Overview</a>
-          <a href="{root_prefix}contracts/index.html" class="px-2.5 py-1.5 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold truncate">RFP Directory</a>
-          <a href="{root_prefix}apis.html" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">APIs</a>
-          <a href="{root_prefix}index.html#checkout" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Plans &amp; Pricing</a>
-        </nav>
-      </div>
-      <div class="border-t border-slate-800/70 bg-navy-900/60">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
-          <a href="{root_prefix}contracts/index.html" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
-          <a href="{root_prefix}contracts/federal/index.html" class="hover:text-sky-400 transition-colors">Federal</a>
-          <a href="{root_prefix}contracts/texas/index.html" class="hover:text-sky-400 transition-colors">Texas</a>
-          <a href="{root_prefix}contracts/virginia/index.html" class="hover:text-sky-400 transition-colors">Virginia</a>
-          <a href="{root_prefix}contracts/california/index.html" class="hover:text-sky-400 transition-colors">California</a>
-          <a href="{root_prefix}contracts/florida/index.html" class="hover:text-sky-400 transition-colors">Florida</a>
-          <a href="{root_prefix}contracts/maryland/index.html" class="hover:text-sky-400 transition-colors">Maryland</a>
-          <a href="{root_prefix}contracts/illinois/index.html" class="hover:text-sky-400 transition-colors">Illinois</a>
-          <a href="{root_prefix}contracts/pennsylvania/index.html" class="hover:text-sky-400 transition-colors">Pennsylvania</a>
-          <a href="{root_prefix}contracts/ohio/index.html" class="hover:text-sky-400 transition-colors">Ohio</a>
-          <a href="{root_prefix}contracts/georgia/index.html" class="hover:text-sky-400 transition-colors">Georgia</a>
-          <a href="{root_prefix}contracts/north_carolina/index.html" class="hover:text-sky-400 transition-colors">North Carolina</a>
-          <a href="{root_prefix}contracts/new_york/index.html" class="hover:text-sky-400 transition-colors">New York</a>
-          <a href="{root_prefix}contracts/massachusetts/index.html" class="hover:text-sky-400 transition-colors">Massachusetts</a>
-          <a href="{root_prefix}contracts/new_jersey/index.html" class="hover:text-sky-400 transition-colors">New Jersey</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
+          <a href="{root_prefix}index.html#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">APIs</a>
+          <a href="{root_prefix}index.html#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
+
+    <div class="border-b border-slate-800/70 bg-navy-900/60">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
+        <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
+        <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
+          <option value="{root_prefix}contracts/index.html">Portal: All (15)</option>
+          <option value="{root_prefix}contracts/federal/index.html">Federal (SAM.gov)</option>
+          <option value="{root_prefix}contracts/texas/index.html">Texas (ESBD)</option>
+          <option value="{root_prefix}contracts/virginia/index.html">Virginia (eVA)</option>
+          <option value="{root_prefix}contracts/california/index.html">California</option>
+          <option value="{root_prefix}contracts/florida/index.html">Florida (MFMP)</option>
+          <option value="{root_prefix}contracts/maryland/index.html">Maryland (eMMA)</option>
+          <option value="{root_prefix}contracts/illinois/index.html">Illinois (BidBuy)</option>
+          <option value="{root_prefix}contracts/pennsylvania/index.html">Pennsylvania</option>
+          <option value="{root_prefix}contracts/ohio/index.html">Ohio (OhioBuys)</option>
+          <option value="{root_prefix}contracts/georgia/index.html">Georgia (GPR)</option>
+          <option value="{root_prefix}contracts/north_carolina/index.html">North Carolina</option>
+          <option value="{root_prefix}contracts/new_york/index.html">New York (CROL)</option>
+          <option value="{root_prefix}contracts/massachusetts/index.html">Massachusetts</option>
+          <option value="{root_prefix}contracts/new_jersey/index.html">New Jersey</option>
+          <option value="{root_prefix}contracts/municipal/index.html">Municipal</option>
+        </select>
+        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
+          <a href="{root_prefix}contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
+          <a href="{root_prefix}contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
+          <a href="{root_prefix}contracts/texas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
+          <a href="{root_prefix}contracts/virginia/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Virginia</a>
+          <a href="{root_prefix}contracts/california/index.html" class="shrink-0 hover:text-sky-400 transition-colors">California</a>
+          <a href="{root_prefix}contracts/florida/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Florida</a>
+          <a href="{root_prefix}contracts/maryland/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Maryland</a>
+          <a href="{root_prefix}contracts/illinois/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Illinois</a>
+          <a href="{root_prefix}contracts/pennsylvania/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Pennsylvania</a>
+          <a href="{root_prefix}contracts/ohio/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Ohio</a>
+          <a href="{root_prefix}contracts/georgia/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Georgia</a>
+          <a href="{root_prefix}contracts/north_carolina/index.html" class="shrink-0 hover:text-sky-400 transition-colors">North Carolina</a>
+          <a href="{root_prefix}contracts/new_york/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New York</a>
+          <a href="{root_prefix}contracts/massachusetts/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Massachusetts</a>
+          <a href="{root_prefix}contracts/new_jersey/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New Jersey</a>
+          <a href="{root_prefix}contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
+        </nav>
+      </div>
+    </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div id="outbound-prospect-banner" class="hidden mb-8 rounded-2xl bg-gradient-to-r from-emerald-950/90 via-navy-900 to-sky-950/90 border-2 border-emerald-500/50 p-4 sm:p-5 shadow-2xl">
@@ -2468,7 +2491,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
     contracts_view_html = f"""<!-- PSEO_CONTRACTS_VIEW_START -->
   <div id="page-contracts" class="hidden">
-    <div class="w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
+    <div class="hidden sm:block w-full max-w-full overflow-x-hidden border-b border-slate-800/80 bg-navy-900/90 text-xs">
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -2483,7 +2506,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     </div>
 
     <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/90 border-b border-slate-800/80">
-      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 h-12 sm:h-20 flex flex-nowrap items-center justify-between gap-2">
         <a href="#overview" class="flex flex-col justify-center shrink-0">
           <div class="inline-flex items-center gap-[4px]">
             <svg class="w-[21px] h-[21px] shrink-0 -translate-y-[1px]" viewBox="6 5 52 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2492,9 +2515,9 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
-            <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
+            <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <!-- Full-Width Organized Site Navigation Bar -->
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
@@ -2503,54 +2526,76 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#apis" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
           <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
-        <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
-          <div id="contracts-header-auth-guest" class="flex items-center gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
-            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
+          <div id="contracts-header-auth-guest" class="flex items-center gap-1 sm:gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
+            <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
-          <div id="contracts-header-auth-user" class="hidden items-center pr-2 border-r border-slate-800 shrink-0">
-            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]">
+          <div id="contracts-header-auth-user" class="hidden items-center sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
+            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]">
               <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
               <span id="contracts-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
               <span class="shrink-0">&rarr;</span>
             </a>
           </div>
-          <a href="#checkout-tier1" class="inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
+          <a href="#checkout-tier1" class="hidden sm:inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
             Unlock All RFP Links &rarr;
           </a>
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] font-mono text-center">
-          <a href="#overview" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Overview</a>
-          <a href="#contracts" class="px-2.5 py-1.5 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold truncate">RFP Directory</a>
-          <a href="#apis" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">APIs</a>
-          <a href="#checkout" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Plans &amp; Pricing</a>
-        </nav>
-      </div>
-      <div class="border-t border-slate-800/70 bg-navy-900/60">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
-          <a href="#contracts" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
-          <a href="#contracts/federal" class="hover:text-sky-400 transition-colors">Federal</a>
-          <a href="#contracts/texas" class="hover:text-sky-400 transition-colors">Texas</a>
-          <a href="#contracts/virginia" class="hover:text-sky-400 transition-colors">Virginia</a>
-          <a href="#contracts/california" class="hover:text-sky-400 transition-colors">California</a>
-          <a href="#contracts/florida" class="hover:text-sky-400 transition-colors">Florida</a>
-          <a href="#contracts/maryland" class="hover:text-sky-400 transition-colors">Maryland</a>
-          <a href="#contracts/illinois" class="hover:text-sky-400 transition-colors">Illinois</a>
-          <a href="#contracts/pennsylvania" class="hover:text-sky-400 transition-colors">Pennsylvania</a>
-          <a href="#contracts/ohio" class="hover:text-sky-400 transition-colors">Ohio</a>
-          <a href="#contracts/georgia" class="hover:text-sky-400 transition-colors">Georgia</a>
-          <a href="#contracts/north_carolina" class="hover:text-sky-400 transition-colors">North Carolina</a>
-          <a href="#contracts/new_york" class="hover:text-sky-400 transition-colors">New York</a>
-          <a href="#contracts/massachusetts" class="hover:text-sky-400 transition-colors">Massachusetts</a>
-          <a href="#contracts/new_jersey" class="hover:text-sky-400 transition-colors">New Jersey</a>
-          <a href="#contracts/municipal" class="hover:text-sky-400 transition-colors">Municipal</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
+          <a href="#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
+          <a href="#contracts" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">RFP Directory</a>
+          <a href="#apis" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">APIs</a>
+          <a href="#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
 
-    <main id="contracts-dynamic-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-[65vh]"></main>
+    <div class="border-b border-slate-800/70 bg-navy-900/60">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
+        <label for="mobile-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
+        <select id="mobile-contracts-portal-select" onchange="if(this.value) window.location.hash=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
+          <option value="#contracts">Portal: All (15)</option>
+          <option value="#contracts/federal">Federal (SAM.gov)</option>
+          <option value="#contracts/texas">Texas (ESBD)</option>
+          <option value="#contracts/virginia">Virginia (eVA)</option>
+          <option value="#contracts/california">California</option>
+          <option value="#contracts/florida">Florida (MFMP)</option>
+          <option value="#contracts/maryland">Maryland (eMMA)</option>
+          <option value="#contracts/illinois">Illinois (BidBuy)</option>
+          <option value="#contracts/pennsylvania">Pennsylvania</option>
+          <option value="#contracts/ohio">Ohio (OhioBuys)</option>
+          <option value="#contracts/georgia">Georgia (GPR)</option>
+          <option value="#contracts/north_carolina">North Carolina</option>
+          <option value="#contracts/new_york">New York (CROL)</option>
+          <option value="#contracts/massachusetts">Massachusetts</option>
+          <option value="#contracts/new_jersey">New Jersey</option>
+          <option value="#contracts/municipal">Municipal</option>
+        </select>
+        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
+          <a href="#contracts" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
+          <a href="#contracts/federal" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
+          <a href="#contracts/texas" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
+          <a href="#contracts/virginia" class="shrink-0 hover:text-sky-400 transition-colors">Virginia</a>
+          <a href="#contracts/california" class="shrink-0 hover:text-sky-400 transition-colors">California</a>
+          <a href="#contracts/florida" class="shrink-0 hover:text-sky-400 transition-colors">Florida</a>
+          <a href="#contracts/maryland" class="shrink-0 hover:text-sky-400 transition-colors">Maryland</a>
+          <a href="#contracts/illinois" class="shrink-0 hover:text-sky-400 transition-colors">Illinois</a>
+          <a href="#contracts/pennsylvania" class="shrink-0 hover:text-sky-400 transition-colors">Pennsylvania</a>
+          <a href="#contracts/ohio" class="shrink-0 hover:text-sky-400 transition-colors">Ohio</a>
+          <a href="#contracts/georgia" class="shrink-0 hover:text-sky-400 transition-colors">Georgia</a>
+          <a href="#contracts/north_carolina" class="shrink-0 hover:text-sky-400 transition-colors">North Carolina</a>
+          <a href="#contracts/new_york" class="shrink-0 hover:text-sky-400 transition-colors">New York</a>
+          <a href="#contracts/massachusetts" class="shrink-0 hover:text-sky-400 transition-colors">Massachusetts</a>
+          <a href="#contracts/new_jersey" class="shrink-0 hover:text-sky-400 transition-colors">New Jersey</a>
+          <a href="#contracts/municipal" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
+        </nav>
+      </div>
+    </div>
+
+    <main id="contracts-dynamic-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-[65vh]"></main>
   </div>
 
   <script>
@@ -2764,6 +2809,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         var all = window.SIGNALTENDER_CONTRACTS || [];
         var J = window.SIGNALTENDER_JURISDICTIONS || {{}};
         var C = window.SIGNALTENDER_CATEGORIES || {{}};
+        var selPortal = document.getElementById('mobile-contracts-portal-select');
+        if (selPortal) {{
+          selPortal.value = (parts[1] && parts[1] !== 'rfp' && J[parts[1]]) ? ('#contracts/' + parts[1]) : '#contracts';
+        }}
 
         // Case 1: Individual RFP Dossier (#contracts/rfp/<slug>)
         if (parts[1] === 'rfp' && parts[2]) {{

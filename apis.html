@@ -85,7 +85,7 @@
   <!-- =====================================================================
        TOP TELEMETRY / STATUS BAR
        ===================================================================== -->
-  <div class="border-b border-slate-800/80 bg-navy-900/90 text-xs">
+  <div class="hidden sm:block border-b border-slate-800/80 bg-navy-900/90 text-xs">
     <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] sm:text-xs">
       <div class="flex items-center space-x-3">
         <span class="relative flex h-2 w-2">
@@ -116,7 +116,7 @@
        STICKY NAVIGATION HEADER
        ===================================================================== -->
   <header class="sticky top-0 z-50 w-full max-w-full overflow-x-hidden backdrop-blur-md bg-navy-950/85 border-b border-slate-800/80">
-    <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 h-12 sm:h-20 flex flex-nowrap items-center justify-between gap-2">
       <!-- Brand Identity -->
       <a href="index.html" class="flex flex-col justify-center shrink-0">
         <div class="inline-flex items-center gap-[4px]">
@@ -126,9 +126,9 @@
             <path d="M10 54L32 42L54 54" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
-          <span class="ml-1.5 inline-flex items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">API CATALOG</span>
+          <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">API CATALOG</span>
         </div>
-        <span class="text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">DEVELOPER &amp; AGENTIC MICROSERVICES</span>
+        <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">DEVELOPER &amp; AGENTIC MICROSERVICES</span>
       </a>
 
       <!-- Full-Width Organized Site Navigation Bar -->
@@ -140,17 +140,17 @@
       </nav>
 
       <!-- Header CTAs + Dedicated Auth Cluster -->
-      <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 pt-2 sm:pt-0 border-t border-slate-800/70 sm:border-t-0 shrink-0">
-        <div class="flex items-center gap-1.5 pl-1 sm:pl-2 sm:border-l sm:border-slate-800 shrink-0">
+      <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
+        <div class="flex items-center gap-1 sm:gap-1.5 sm:pl-2 sm:border-l sm:border-slate-800 shrink-0">
           <a
             href="index.html#account"
-            class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900/90 rounded-lg transition-colors whitespace-nowrap"
+            class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900/90 rounded-lg transition-colors whitespace-nowrap"
           >
             Log In
           </a>
           <a
             href="index.html#account"
-            class="inline-flex items-center justify-center px-2.5 py-2 text-xs font-mono font-bold text-emerald-300 hover:text-white bg-emerald-500/10 hover:bg-emerald-600 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap"
+            class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 hover:text-white bg-emerald-500/10 hover:bg-emerald-600 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap"
           >
             Sign Up
           </a>
@@ -159,7 +159,7 @@
           href="https://rapidapi.com/user/aarbchen"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-3.5 py-2 text-xs sm:text-[13px] font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all whitespace-nowrap"
+          class="hidden sm:inline-flex items-center justify-center px-3.5 py-2 text-xs sm:text-[13px] font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 shadow-lg shadow-sky-950/50 transition-all whitespace-nowrap"
         >
           <span>RapidAPI Hub</span>
           <svg class="ml-1.5 -mr-0.5 h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -170,11 +170,11 @@
     </div>
     <!-- Compact Mobile Navigation Bar (<1024px) -->
     <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-      <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-4 py-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] font-mono text-center">
-        <a href="index.html#overview" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Overview</a>
-        <a href="contracts/index.html" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">RFP Directory</a>
-        <a href="apis.html" class="px-2.5 py-1.5 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold truncate">APIs</a>
-        <a href="index.html#checkout" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Plans &amp; Pricing</a>
+      <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-mono text-center">
+        <a href="index.html#overview" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Overview</a>
+        <a href="contracts/index.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">RFP Directory</a>
+        <a href="apis.html" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight truncate">APIs</a>
+        <a href="index.html#checkout" class="px-1.5 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight truncate">Plans &amp; Pricing</a>
       </nav>
     </div>
   </header>
