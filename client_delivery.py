@@ -453,7 +453,7 @@ def format_subscriber_email_briefing(
     else:
         lines.append("SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (14 Portals + 21-API Capture Suite)")
+        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (15 Portals + 21-API Capture Suite)")
         lines.append(
             f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 21-API CaptureDesk Dossiers + "
             f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
