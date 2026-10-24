@@ -1,7 +1,7 @@
 # SignalTender Pre-Oct 31 Organic Distribution & Conversion Playbook
 
-**Generated:** `2026-10-24 19:33 UTC`
-**Live Indexed Solicitations:** `143 Open IT & Cybersecurity RFPs across 14 Government Portals`
+**Generated:** `2026-10-24 19:53 UTC`
+**Live Indexed Solicitations:** `145 Open IT & Cybersecurity RFPs across 14 Government Portals`
 **Platform Lock:** `15 Portals (Federal + 13 State SLED) & 20 B2B/GovCon AI Capture APIs`
 
 ---
@@ -21,11 +21,11 @@ Here are 3 live State SLED & Municipal IT/Cybersecurity solicitations our 15-por
   - Classification: 541512 / 541511
   - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $168/hr | Lead Software Eng $149/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/rfi-2000004463-computerized-maintenance-management-system-cmms-900.html
-- **[25DPP01151] T2949 Fiscal Intermediary & Financial Claims Processing Software Platform — NJDHS**
-  - Agency: New Jersey Department of Human Services / DPP (NJSTART) | Due: 2026-11-24
-  - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $168/hr | Functional Lead $148/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917.html
+- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
+  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
 - **Request for Competitive Sealed Proposals - Unified Digital Experience (UDE)**
   - Agency: City of San Antonio - M0152 | Due: 2026-11-19
   - Classification: 541511 / 541512
@@ -69,7 +69,7 @@ Every dossier includes:
 - FAR/DFARS/CMMC 2.0 & NIST 800-53 Rev 5 RMF/cATO posture
 - GSA MAS Large Category F SIN (54151S / 54151HACS / 518210C) & P50 LCAT rate benchmarks
 
-Browse all 143+ open Federal & 13-State SLED IT contracts live:
+Browse all 145+ open Federal & 13-State SLED IT contracts live:
 https://signaltender.net/contracts/
 ```
 
@@ -84,11 +84,11 @@ If your BD team only checks SAM.gov on Monday mornings, you are missing high-mar
   - Classification: 541519 / 541512
   - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $180/hr | Sr. SOC Eng $159/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html
-- **[EXP2693] Licensing and Enforcement Information Database System (LEIDS)**
-  - Agency: Department of Health (DOH) | Due: 2026-10-28
-  - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $161/hr | Lead Software Eng $142/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/exp2693-licensing-and-enforcement-information-database-system-leids-904.html
+- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
+  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
 - **REQUEST FOR INFORMATION (RFI) FOR GROUP 1 AND GROUP 2 UNMANNED AIRCRAFT SYSTEM (UAS) TRAINING, MISSION PLANNING, MISSION REHEARSAL, SIMULATION, AND QUALIFICATION MANAGEMENT SYSTEMS**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541512 / 541511
@@ -158,7 +158,7 @@ https://signaltender.net/apis.html
 ## Part 2: 4 High-Signal Reddit & Community Threads
 
 ### 1. `r/govcontracting` — State SLED vs. SAM.gov Capture Playbook
-- **Title:** `We indexed 143 open IT & cybersecurity RFPs across SAM.gov + 13 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) — here is where competition is lowest right now`
+- **Title:** `We indexed 145 open IT & cybersecurity RFPs across SAM.gov + 13 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) — here is where competition is lowest right now`
 - **Body:**
 ```markdown
 Over the past few months we built an automated scraper + Shipley capture parser across 14 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, and MA COMMBUYS).
@@ -175,18 +175,18 @@ Here are a few live open solicitations from today's run with full pre-computed c
   - Classification: 541512 / 541511
   - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $168/hr | Lead Software Eng $149/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/rfi-2000004463-computerized-maintenance-management-system-cmms-900.html
-- **[25DPP01151] T2949 Fiscal Intermediary & Financial Claims Processing Software Platform — NJDHS**
-  - Agency: New Jersey Department of Human Services / DPP (NJSTART) | Due: 2026-11-24
-  - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $168/hr | Functional Lead $148/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917.html
+- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
+  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
 - **Request for Competitive Sealed Proposals - Unified Digital Experience (UDE)**
   - Agency: City of San Antonio - M0152 | Due: 2026-11-19
   - Classification: 541511 / 541512
   - IGCE / PTW Posture: Wrap ~1.80x (Contractor-Site) • Target PTW: -5.5% vs. IGCE • Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html
 
-Full searchable directory of all 143 open Federal & 13-State SLED IT contracts:
+Full searchable directory of all 145 open Federal & 13-State SLED IT contracts:
 https://signaltender.net/contracts/
 ```
 
@@ -228,11 +228,11 @@ For security consultancies, vCISO practices, and pen-testing firms tracking publ
   - Classification: 541519 / 541512
   - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $180/hr | Sr. SOC Eng $159/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html
-- **[EXP2693] Licensing and Enforcement Information Database System (LEIDS)**
-  - Agency: Department of Health (DOH) | Due: 2026-10-28
-  - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $161/hr | Lead Software Eng $142/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/exp2693-licensing-and-enforcement-information-database-system-leids-904.html
+- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
+  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
 - **REQUEST FOR INFORMATION (RFI) FOR GROUP 1 AND GROUP 2 UNMANNED AIRCRAFT SYSTEM (UAS) TRAINING, MISSION PLANNING, MISSION REHEARSAL, SIMULATION, AND QUALIFICATION MANAGEMENT SYSTEMS**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541512 / 541511
@@ -250,7 +250,7 @@ https://signaltender.net/contracts/cybersecurity/
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
 It exposes 21 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 14 Federal & State SLED portals)
+- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 15 Federal & State SLED portals)
 - `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
 - `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
 - `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)

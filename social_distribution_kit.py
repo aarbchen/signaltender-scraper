@@ -232,7 +232,7 @@ https://signaltender.net/contracts/cybersecurity/
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
 It exposes 21 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 14 Federal & State SLED portals)
+- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 15 Federal & State SLED portals)
 - `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
 - `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
 - `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
