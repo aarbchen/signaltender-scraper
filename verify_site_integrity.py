@@ -107,6 +107,16 @@ def check_html_file(fpath: str) -> str:
         "#account",
         "#signup",
         "#login",
+        "#status",
+        "#security",
+        "#trust",
+        "#contact",
+        "#support",
+        "#feedback",
+        "#terms",
+        "#privacy",
+        "#dpa",
+        "#sla",
         "#contracts/federal",
         "#contracts/texas",
         "#contracts/virginia",
@@ -200,6 +210,9 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
             if req_footer not in txt:
                 fail(f"{label}: Missing 4-column Enterprise footer heading '{req_footer}'")
+        for req_trust_link in ("System Status (99.95% SLA)", "Security &amp; Zero-Retention Trust", "Instant AI Support Concierge", "Submit Feedback / Request Portal", "Terms of Service", "Privacy Policy &amp; DPA"):
+            if req_trust_link not in txt:
+                fail(f"{label}: Missing footer trust/legal link '{req_trust_link}'")
         if "https://x.com/SignalTenderX" not in txt or "https://www.linkedin.com/company/signaltender/" not in txt:
             fail(f"{label}: Missing official LinkedIn or X (@SignalTenderX) link in footer")
         if "Main: Live Discord Alert Wire" in txt or "Page 2: Developer Data API Catalog" in txt or "Client Account Console" in txt:
@@ -625,6 +638,31 @@ if (!document.getElementById('page-sidebar-items').innerHTML || document.getElem
   throw new Error('Page Section Sidebar failed to populate sections!');
 }
 window.togglePageSectionSidebar(false);
+if (typeof window.switchTrustTab !== 'function' || typeof window.submitAiConciergeContact !== 'function' || typeof window.submitHardenedFeedbackForm !== 'function') {
+  throw new Error('Enterprise Trust, AI Concierge & Hardened Feedback functions are undefined!');
+}
+window.switchTrustTab('status');
+window.switchTrustTab('security');
+window.switchTrustTab('terms');
+window.switchTrustTab('privacy');
+window.switchTrustTab('contact');
+window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Tier 1 ($99/mo) and Tier 2 ($399/mo)?');
+if (!document.getElementById('concierge-answer-text').textContent || document.getElementById('concierge-answer-text').textContent.indexOf('Tier 1') === -1) {
+  throw new Error('AI Support Concierge failed to render instant on-screen answer!');
+}
+document.getElementById('concierge-question').value = '<script>alert(1)</script>';
+if (window.submitAiConciergeContact() !== false) {
+  throw new Error('WAF sanitizer failed to block malicious <script> payload in AI Concierge!');
+}
+window.switchTrustTab('feedback');
+document.getElementById('feedback-message').value = '<script>evil()</script>';
+if (window.submitHardenedFeedbackForm() !== false) {
+  throw new Error('WAF sanitizer failed to block malicious <script> payload in Feedback form!');
+}
+document.getElementById('feedback-message').value = 'Please add Washington WEBS and Michigan SIGMA state portals to the 6-hour SLED scraper.';
+if (window.submitHardenedFeedbackForm() !== true) {
+  throw new Error('Hardened Feedback form rejected clean plain-text portal request!');
+}
 """
     )
 

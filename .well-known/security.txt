@@ -1,0 +1,8 @@
+# SignalTender Enterprise Security Disclosure Policy (RFC 9116)
+# Official Domain: https://signaltender.net
+Contact: https://signaltender.net/#security
+Policy: https://signaltender.net/#security
+Acknowledgments: https://signaltender.net/#security
+Preferred-Languages: en
+Canonical: https://signaltender.net/.well-known/security.txt
+Expires: 2027-12-31T23:59:59.000Z

@@ -3508,6 +3508,23 @@
           </ul>
         </div>
       </div>
+      <div class="py-5 border-b border-slate-800/80 flex flex-col lg:flex-row lg:items-center justify-between gap-4 text-xs font-mono">
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-slate-300">
+          <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Trust, Support &amp; Governance:</span>
+          <a href="../index.html#status" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+            <span>System Status (99.95% SLA)</span>
+          </a>
+          <a href="../index.html#security" class="text-slate-300 hover:text-sky-400 transition-colors">Security &amp; Zero-Retention Trust</a>
+          <a href="../index.html#contact" class="text-slate-300 hover:text-indigo-300 transition-colors">Instant AI Support Concierge</a>
+          <a href="../index.html#feedback" class="text-slate-300 hover:text-amber-300 transition-colors">Submit Feedback / Request Portal</a>
+          <a href="../index.html#terms" class="text-slate-400 hover:text-white transition-colors">Terms of Service</a>
+          <a href="../index.html#privacy" class="text-slate-400 hover:text-white transition-colors">Privacy Policy &amp; DPA</a>
+        </div>
+        <div class="text-[11px] text-slate-500">
+          <span>WAF Protected &bull; PCI-DSS Level 1 (Stripe) &bull; PostgreSQL RLS</span>
+        </div>
+      </div>
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
         <div>&copy; 2026 SignalTender (signaltender.net). All rights reserved.</div>
         <div class="flex items-center space-x-2 text-slate-400">
@@ -3629,6 +3646,7 @@
           else if (pageKey === 'apis') window.location.hash = '#apis';
           else if (pageKey === 'checkout') window.location.hash = '#checkout';
           else if (pageKey === 'account') window.location.hash = '#account';
+          else if (pageKey === 'trust') window.location.hash = '#status';
           return true;
         }
         if (pageKey === 'overview') window.location.href = rootPrefix + 'index.html#overview';
@@ -3636,6 +3654,7 @@
         else if (pageKey === 'apis') window.location.href = rootPrefix + 'apis.html';
         else if (pageKey === 'checkout') window.location.href = rootPrefix + 'index.html#checkout';
         else if (pageKey === 'account') window.location.href = rootPrefix + 'index.html#account';
+        else if (pageKey === 'trust') window.location.href = rootPrefix + 'index.html#status';
         return true;
       };
 
@@ -3803,7 +3822,8 @@
             { key: 'contracts', label: 'Live RFP Directory', kw: 'contracts rfps solicitations federal sled states' },
             { key: 'apis', label: 'API & MCP Catalog', kw: 'apis endpoints rest mcp developer rapidapi' },
             { key: 'checkout', label: 'Plans & B2B Checkout', kw: 'pricing plans tier 1 tier 2 checkout subscribe' },
-            { key: 'account', label: 'Client Account Portal', kw: 'account login sign up dashboard vault filters' }
+            { key: 'account', label: 'Client Account Portal', kw: 'account login sign up dashboard vault filters' },
+            { key: 'trust', label: 'Status, Trust & Support', kw: 'status security contact feedback terms privacy sla' }
           ];
           var pHtml = '';
           for (var pIdx = 0; pIdx < allPages.length; pIdx++) {
