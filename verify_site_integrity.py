@@ -188,15 +188,60 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         if len(matrix_rows) != n_apis:
             fail(f"{label}: #api-pricing-matrix has {len(matrix_rows)} rows, expected {n_apis}")
 
-        # Verify badge counts match n_apis
+        # Verify badge counts match n_apis and top navigation bars use evergreen labels ('API Catalog' on desktop, 'APIs' on mobile)
         if ">API Catalog</a>" not in txt:
-            fail(f"{label}: Nav link '>API Catalog</a>' missing")
+            fail(f"{label}: Desktop nav link '>API Catalog</a>' missing")
+        if 'aria-label="Mobile Site Navigation"' not in txt or ">APIs</a>" not in txt:
+            fail(f"{label}: Mobile nav link '>APIs</a>' inside Mobile Site Navigation missing")
+        if re.search(r">\d+\s+APIs</a>", txt):
+            fail(f"{label}: Navigation links must never contain a hardcoded API count (use '>APIs</a>' on mobile and '>API Catalog</a>' on desktop)")
         if f"{n_apis} LIVE ENDPOINTS" not in txt:
             fail(f"{label}: Directory badge '{n_apis} LIVE ENDPOINTS' does not match {n_apis} APIs")
         if f"{n_apis} MCP TOOLS" not in txt:
             fail(f"{label}: MCP badge '{n_apis} MCP TOOLS' does not match {n_apis} APIs")
         if f"{n_apis} / {n_apis} SHOWN" not in txt:
             fail(f"{label}: Modules counter badge '{n_apis} / {n_apis} SHOWN' does not match {n_apis} APIs")
+        if f"Search {n_apis} APIs" not in txt:
+            fail(f"{label}: Search input placeholder 'Search {n_apis} APIs' does not match {n_apis} APIs")
+        if f"All ({n_apis})</button>" not in txt:
+            fail(f"{label}: Category filter pill 'All ({n_apis})</button>' does not match {n_apis} APIs")
+        if f"SELECT MICROSERVICE ({n_apis})" not in txt:
+            fail(f"{label}: Studio Playground header 'SELECT MICROSERVICE ({n_apis})' does not match {n_apis} APIs")
+        if f"Filter {n_apis} endpoints..." not in txt:
+            fail(f"{label}: Studio Playground filter placeholder 'Filter {n_apis} endpoints...' does not match {n_apis} APIs")
+
+        # Prohibit any stale catalog API count (from 10 up to n_apis - 1)
+        for ka in range(10, n_apis):
+            stale_api_phrases = [
+                f"{ka} LIVE ENDPOINTS",
+                f"{ka} MCP TOOLS",
+                f"{ka} / {ka} SHOWN",
+                f"All ({ka})</button>",
+                f"Search {ka} APIs",
+                f"Filter {ka} endpoints",
+                f"SELECT MICROSERVICE ({ka})",
+                f"{ka} REST &amp; MCP MICROSERVICES",
+                f"All {ka} individual SignalTender microservices",
+                f"Explore {ka} APIs",
+                f"Test All {ka} APIs",
+                f"test all {ka} AI APIs",
+                f"test all {ka} APIs",
+                f"{ka} Studio Playground APIs",
+                f"FastAPI Microservice Gateway ({ka} APIs)",
+                f"{ka} APIs, RapidAPI &amp; MCP Server",
+                f"Exposes all {ka} SignalTender endpoints",
+                f"for all {ka} REST",
+                f"{ka} LIVE APIs &amp; MCP SERVER",
+                f"SignalTender&apos;s {ka} APIs",
+                f"submitted to our {ka} APIs",
+                f"sent to our {ka} REST/MCP endpoints",
+                f"connect all {ka} GovCon APIs",
+                f"Open {ka}-API Catalog",
+                f"Explore {ka}-API Catalog",
+            ]
+            for sap in stale_api_phrases:
+                if re.search(rf"(?<![0-9]){re.escape(sap)}", txt):
+                    fail(f"{label}: Found stale API count string '{sap}' (expected {n_apis} APIs)")
 
         # Verify #api-modules-count-badge is NOT inside the relative <input> wrapper (prevents text overlap)
         bad_overlap = re.search(
@@ -342,7 +387,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
     for label, txt in (("index.html", index_txt), ("apis.html", apis_txt), ("pseo_generator.py", pseo_txt)):
         for sp in stale_patterns:
-            if re.search(rf"(?<![0-9>]){re.escape(sp)}", txt):
+            if re.search(rf"(?<![0-9]){re.escape(sp)}", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations

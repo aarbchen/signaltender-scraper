@@ -590,6 +590,14 @@ def _render_layout(
           </a>
         </div>
       </div>
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] font-mono text-center">
+          <a href="{root_prefix}index.html#overview" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="px-2.5 py-1.5 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold truncate">RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">APIs</a>
+          <a href="{root_prefix}index.html#checkout" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Plans &amp; Pricing</a>
+        </nav>
+      </div>
       <div class="border-t border-slate-800/70 bg-navy-900/60">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
           <a href="{root_prefix}contracts/index.html" class="text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
@@ -980,7 +988,7 @@ def _render_layout(
         <div>&copy; {datetime.now().year} SignalTender (signaltender.net). All rights reserved.</div>
         <div class="flex items-center space-x-2 text-slate-400">
           <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span>ALL 14 FEDERAL &amp; SLED PORTAL MONITORS ACTIVE</span>
+          <span>ALL {len(JURISDICTIONS)} FEDERAL &amp; SLED PORTAL MONITORS ACTIVE</span>
         </div>
       </div>
     </div>
@@ -2511,6 +2519,14 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             Unlock All RFP Links &rarr;
           </a>
         </div>
+      </div>
+      <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
+        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-4 py-2 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] font-mono text-center">
+          <a href="#overview" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Overview</a>
+          <a href="#contracts" class="px-2.5 py-1.5 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold truncate">RFP Directory</a>
+          <a href="#apis" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">APIs</a>
+          <a href="#checkout" class="px-2.5 py-1.5 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 truncate">Plans &amp; Pricing</a>
+        </nav>
       </div>
       <div class="border-t border-slate-800/70 bg-navy-900/60">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] font-mono text-slate-300">
