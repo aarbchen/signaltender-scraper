@@ -373,6 +373,7 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
          be stuffed into `#capture-moat` or `#checkout-card-tier2` (preventing client feature bloat),
          and instead belong solely in the On-Demand Developer Catalog (`#page-apis` and `apis.html`).
     """
+    import json
     import pseo_generator
 
     n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
