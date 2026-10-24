@@ -618,20 +618,29 @@ def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None) 
         return cache[domain]
 
     has_mx = False
+    parked_mx_tokens = ("parklogic.com", "sedoparking.com", "above.com", "bodis.com", "eftydns.com", "parkingcrew.net")
     try:
-        socket.getaddrinfo(domain, None)
-        has_mx = True
+        resp = requests.get(
+            "https://dns.google/resolve",
+            params={"name": domain, "type": "MX"},
+            timeout=(1.5, 2.0),
+        )
+        if resp.status_code == 200:
+            body = resp.json()
+            answers = body.get("Answer") or []
+            valid_mx = [
+                str(a.get("data") or "").strip().lower()
+                for a in answers
+                if int(a.get("type") or 0) == 15
+                and str(a.get("data") or "").strip() not in ("", "0 .", ".")
+                and not any(pk in str(a.get("data") or "").lower() for pk in parked_mx_tokens)
+            ]
+            if body.get("Status") == 0 and valid_mx:
+                has_mx = True
     except Exception:
         try:
-            resp = requests.get(
-                "https://dns.google/resolve",
-                params={"name": domain, "type": "MX"},
-                timeout=(1.5, 2.0),
-            )
-            if resp.status_code == 200:
-                body = resp.json()
-                if body.get("Status") == 0 and body.get("Answer"):
-                    has_mx = True
+            socket.getaddrinfo(domain, None)
+            has_mx = True
         except Exception:
             has_mx = False
 
@@ -661,7 +670,47 @@ def _score_candidate_email(em: str, domain: str) -> int:
     return score
 
 
-def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str, str]) -> Dict[str, str] | None:
+PARKED_PAGE_MARKERS = (
+    "hugedomains",
+    "sedoparking",
+    "afternic",
+    "dan.com",
+    "domain is for sale",
+    "buy this domain",
+    "godaddy.com/forsale",
+    "parkingcrew",
+    "this domain may be for sale",
+)
+
+TECH_GOVCON_PAGE_SIGNALS = (
+    "technology",
+    "software",
+    "cyber",
+    "cloud",
+    "federal",
+    "government",
+    "consulting",
+    "solutions",
+    "systems",
+    "engineering",
+    "data",
+    "network",
+    "security",
+    "digital",
+    "agency",
+    "contract",
+    "naics",
+    "gsa",
+    "dod",
+    "it services",
+    "managed services",
+)
+
+
+def _crawl_single_contractor_site(
+    item: Tuple[str, str, str, str, str, str, str, str],
+    require_tech_signal: bool = False,
+) -> Dict[str, str] | None:
     comp, domain, fn, ln, title, city, state, naics = item
     domain = domain.strip().lower()
     if " " in domain or not domain:
@@ -675,6 +724,7 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     }
     found = set()
+    has_tech_signal = not require_tech_signal
     email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(domain), re.I)
     mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
 
@@ -694,6 +744,11 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
         try:
             r = requests.get(u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
             if r.status_code == 200 and r.text:
+                low_html = r.text.lower()
+                if any(pk in low_html for pk in PARKED_PAGE_MARKERS):
+                    return None
+                if not has_tech_signal and any(sig in low_html for sig in TECH_GOVCON_PAGE_SIGNALS):
+                    has_tech_signal = True
                 decoded = (
                     r.text.replace("&#64;", "@")
                     .replace("&#x40;", "@")
@@ -705,12 +760,12 @@ def _crawl_single_contractor_site(item: Tuple[str, str, str, str, str, str, str,
                     clean = re.sub(r"^[0-9-]+", "", clean)
                     if _score_candidate_email(clean, domain) > 0:
                         found.add(clean)
-                if found:
+                if found and has_tech_signal:
                     break
         except Exception:
             continue
 
-    if not found:
+    if not found or not has_tech_signal:
         return None
 
     best_em = sorted(found, key=lambda x: _score_candidate_email(x, domain), reverse=True)[0]
@@ -907,7 +962,7 @@ def discover_usaspending_small_business_websites(
 
     newly_found: List[Dict[str, str]] = []
     with ThreadPoolExecutor(max_workers=28) as pool:
-        futs = [pool.submit(_crawl_single_contractor_site, item) for item in candidates[:280]]
+        futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in candidates[:280]]
         for fut in as_completed(futs):
             res = fut.result()
             if res and verify_email_domain_mx(res["Email"], mx_cache):

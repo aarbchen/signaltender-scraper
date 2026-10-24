@@ -65,13 +65,18 @@ except Exception:
 def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int, int, str]:
     """
     Returns `(daily_cap, per_cron_run_cap, phase_label)` based on the current UTC date
-    relative to `OUTBOUND_LAUNCH_DATE` (default `2026-10-31`), or honors explicit
-    `OUTBOUND_DAILY_LIMIT_OVERRIDE` if set in `.env`.
+    relative to `OUTBOUND_LAUNCH_DATE` (default `2026-10-31`) and `OUTBOUND_MAILBOX_COUNT`
+    (default `2` for `aaron@getsignaltender.com` + `aaron@trysignaltender.com`), or honors
+    explicit `OUTBOUND_DAILY_LIMIT_OVERRIDE` if set in `.env`.
     """
     override = (os.getenv("OUTBOUND_DAILY_LIMIT_OVERRIDE") or "").strip()
     if override.isdigit() and int(override) > 0:
         d_cap = int(override)
         return d_cap, max(1, math.ceil(d_cap / 4)), f"Manual Override ({d_cap}/day)"
+
+    mb_raw = (os.getenv("OUTBOUND_MAILBOX_COUNT") or "2").strip()
+    mailbox_count = max(1, int(mb_raw)) if mb_raw.isdigit() else 2
+    scale_factor = mailbox_count / 2.0
 
     now_dt = now_utc or datetime.now(timezone.utc)
     today_d = now_dt.date()
@@ -83,18 +88,28 @@ def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int
     days_since_launch = (today_d - launch_d).days
     if days_since_launch < 0:
         # Before Oct 31 warmup completion: stage 20 in outbox, 0 live dispatch unless forced
-        return 20, 5, f"Pre-Launch Warmup Guard (Launches {launch_d.isoformat()} at 20/day)"
+        d_cap = max(10, int(round(20 * scale_factor)))
+        c_cap = max(1, math.ceil(d_cap / 4))
+        return d_cap, c_cap, f"Pre-Launch Warmup Guard (Launches {launch_d.isoformat()} at {d_cap}/day across {mailbox_count} mailboxes)"
     if days_since_launch <= 2:
         # Days 1-3 (Oct 31 - Nov 2)
-        return 20, 5, f"Ramp Phase 1 (Day {days_since_launch + 1}: 20/day | 5/cron)"
+        d_cap = max(10, int(round(20 * scale_factor)))
+        c_cap = max(1, math.ceil(d_cap / 4))
+        return d_cap, c_cap, f"Ramp Phase 1 (Day {days_since_launch + 1}: {d_cap}/day | {c_cap}/cron across {mailbox_count} mailboxes)"
     if days_since_launch <= 6:
         # Days 4-7 (Nov 3 - Nov 6)
-        return 30, 8, f"Ramp Phase 2 (Day {days_since_launch + 1}: 30/day | 8/cron)"
+        d_cap = max(15, int(round(30 * scale_factor)))
+        c_cap = max(1, math.ceil(d_cap / 4))
+        return d_cap, c_cap, f"Ramp Phase 2 (Day {days_since_launch + 1}: {d_cap}/day | {c_cap}/cron across {mailbox_count} mailboxes)"
     if days_since_launch <= 13:
         # Days 8-14 (Nov 7 - Nov 13)
-        return 45, 12, f"Ramp Phase 3 (Day {days_since_launch + 1}: 45/day | 12/cron)"
+        d_cap = max(22, int(round(45 * scale_factor)))
+        c_cap = max(1, math.ceil(d_cap / 4))
+        return d_cap, c_cap, f"Ramp Phase 3 (Day {days_since_launch + 1}: {d_cap}/day | {c_cap}/cron across {mailbox_count} mailboxes)"
     # Day 15+ (Nov 14+)
-    return 60, 15, f"Full Warmed Cadence (Day {days_since_launch + 1}: 60/day | 15/cron)"
+    d_cap = max(30, int(round(60 * scale_factor)))
+    c_cap = max(1, math.ceil(d_cap / 4))
+    return d_cap, c_cap, f"Full Warmed Cadence (Day {days_since_launch + 1}: {d_cap}/day | {c_cap}/cron across {mailbox_count} mailboxes)"
 
 
 def _load_sent_log() -> Dict[str, Any]:
