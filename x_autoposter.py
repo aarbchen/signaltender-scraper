@@ -29,6 +29,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ERROR_LOG_PATH = os.path.join(BASE_DIR, "error_log.txt")
 POSTED_CACHE_PATH = os.path.join(BASE_DIR, "posted_x_rfps.json")
+READY_QUEUE_PATH = os.path.join(BASE_DIR, "x_ready_posts.json")
 INDEX_HTML_PATH = os.path.join(BASE_DIR, "index.html")
 
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
@@ -284,15 +285,50 @@ def run_x_autoposter(max_posts: int = 1, dry_run: bool = False) -> dict:
     preferred = [c for c in unposted if c.get("jurisdiction") != last_j] or unposted
     selected = preferred[: max(1, max_posts)]
 
+    # Always write a fresh 10-post rotating queue to x_ready_posts.json
+    ready_queue = []
+    seen_j = set()
+    for c in unposted:
+        jk = c.get("jurisdiction", "federal")
+        if jk not in seen_j or len(ready_queue) >= 8:
+            seen_j.add(jk)
+            ready_queue.append(
+                {
+                    "slug": c.get("slug"),
+                    "jurisdiction": jk,
+                    "title": c.get("clean_title"),
+                    "due_date": c.get("due_str"),
+                    "dossier_url": f"{SITE_BASE_URL}/contracts/rfp/{c.get('slug')}.html",
+                    "tweet_text": format_rfp_x_post(c),
+                }
+            )
+        if len(ready_queue) >= 10:
+            break
+    try:
+        with open(READY_QUEUE_PATH, "w", encoding="utf-8") as qf:
+            json.dump(
+                {
+                    "account": "@SignalTenderX",
+                    "profile_url": "https://x.com/SignalTenderX",
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                    "posts": ready_queue,
+                },
+                qf,
+                indent=2,
+                ensure_ascii=False,
+            )
+    except Exception:
+        pass
+
     creds = get_x_credentials()
     has_creds = all(creds.values())
 
     if not has_creds and not dry_run:
         print(
-            "[X Autoposter] X API credentials (X_API_KEY / X_ACCESS_TOKEN) not yet set in .env; skipping live X post.",
+            "[X Autoposter] X API credentials (X_API_KEY / X_ACCESS_TOKEN) not yet set in .env; saved ready queue to x_ready_posts.json.",
             flush=True,
         )
-        return {"status": "skipped_no_credentials", "posted": 0}
+        return {"status": "queued_no_credentials", "posted": 0, "queued": len(ready_queue)}
 
     posted_count = 0
     results = []
@@ -320,6 +356,13 @@ def run_x_autoposter(max_posts: int = 1, dry_run: bool = False) -> dict:
             print(f"[X Autoposter] Published RFP to X (tweet_id={tweet_id}): {item['slug']}", flush=True)
             results.append({"slug": item["slug"], "tweet_id": tweet_id})
         else:
+            status_code = resp_data.get("status_code") if isinstance(resp_data, dict) else None
+            if status_code in (402, 403, 429):
+                print(
+                    f"[X Autoposter] X API returned HTTP {status_code} (quota/credits gate); saved {len(ready_queue)} ready posts to x_ready_posts.json.",
+                    flush=True,
+                )
+                return {"status": f"queued_http_{status_code}", "posted": 0, "queued": len(ready_queue)}
             err_msg = f"X API post failed for {item['slug']}: {resp_data}"
             log_error(err_msg)
             print(f"[X Autoposter] {err_msg}", flush=True)
