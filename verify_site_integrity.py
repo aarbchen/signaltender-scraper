@@ -200,6 +200,8 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
             if req_footer not in txt:
                 fail(f"{label}: Missing 4-column Enterprise footer heading '{req_footer}'")
+        if "https://x.com/SignalTenderX" not in txt or "https://www.linkedin.com/company/signaltender/" not in txt:
+            fail(f"{label}: Missing official LinkedIn or X (@SignalTenderX) link in footer")
         if "Main: Live Discord Alert Wire" in txt or "Page 2: Developer Data API Catalog" in txt or "Client Account Console" in txt:
             fail(f"{label}: Contains legacy or internal Client Account Console footer labels")
 

@@ -952,6 +952,8 @@ async def run_master_orchestrator(
             outbound_reply_responder.run_reply_responder()
             import linkedin_autoposter
             linkedin_autoposter.run_linkedin_autoposter(generate_banner=False)
+            import x_autoposter
+            x_autoposter.run_x_autoposter(max_posts=1)
             import auto_error_healer
             auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
         except (Exception, SystemExit) as out_err:
