@@ -1,8 +1,16 @@
 {
   "account": "@SignalTenderX",
   "profile_url": "https://x.com/SignalTenderX",
-  "updated_at": "2026-10-24T04:05:07.866216+00:00",
+  "updated_at": "2026-10-24T19:33:28.474372+00:00",
   "posts": [
+    {
+      "slug": "25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917",
+      "jurisdiction": "new_jersey",
+      "title": "[25DPP01151] T2949 Fiscal Intermediary & Financial Claims Processing Software Platform — NJDHS",
+      "due_date": "2026-11-24",
+      "dossier_url": "https://signaltender.net/contracts/rfp/25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917.html",
+      "tweet_text": "[LIVE RFP // NEW JERSEY // NJSTART]\n[25DPP01151] T2949 Fiscal Intermediary & Financial Claims Processing Software Platform — NJDHS\nNAICS 541512 | Due: 2026-11-24\nDossier: https://signaltender.net/contracts/rfp/25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917.html\n#GovCon #RFP #Cybersecurity"
+    },
     {
       "slug": "exp2693-licensing-and-enforcement-information-database-system-leids-904",
       "jurisdiction": "florida",
@@ -74,14 +82,6 @@
       "due_date": "2026-11-17",
       "dossier_url": "https://signaltender.net/contracts/rfp/rfp-ds-2026-4132-next-generation-911-ng911-cloud-cad-rms-emergency-gis-867.html",
       "tweet_text": "[LIVE RFP // MUNICIPAL // DEMANDSTAR]\n[RFP-DS-2026-4132] Next-Generation 911 (NG911) Cloud CAD/RMS & Emergency GIS Dispatch Platform\nNAICS 518210 | Due: 2026-11-17\nDossier: https://signaltender.net/contracts/rfp/rfp-ds-2026-4132-next-generation-911-ng911-cloud-cad-rms-emergency-gis-867.html\n#GovCon #RFP #Cybersecurity"
-    },
-    {
-      "slug": "rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866",
-      "jurisdiction": "municipal",
-      "title": "[RFP-DS-2026-4119] 24x7 Managed Detection & Response (MDR), Municipal SOC & Zero-Trust Network Segmentation",
-      "due_date": "2026-11-13",
-      "dossier_url": "https://signaltender.net/contracts/rfp/rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866.html",
-      "tweet_text": "[LIVE RFP // MUNICIPAL // DEMANDSTAR]\n[RFP-DS-2026-4119] 24x7 Managed Detection & Response (MDR), Municipal SOC & Zero-Trust Network Segmentation\nNAICS 541519 | Due: 2026-11-13\nDossier: https://signaltender.net/contracts/rfp/rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866.html\n#GovCon #RFP #Cybersecurity"
     }
   ]
 }

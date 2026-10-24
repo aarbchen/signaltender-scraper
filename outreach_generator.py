@@ -203,7 +203,7 @@ def detect_contract_region(rec: dict) -> str:
         return "ma"
     if "njstart.gov" in url or "nj.gov" in url or "njtransit.com" in url or "rutgers.edu" in url:
         return "nj"
-    if "emma.maryland.gov" in url or "bonfirehub.com" in url:
+    if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
         return "other"
@@ -231,7 +231,7 @@ def detect_contract_region(rec: dict) -> str:
         return "ma"
     if title.startswith("[NJ]") or "new jersey" in agency or "(nj)" in agency or "njstart" in agency or "nj transit" in agency or "rutgers" in agency:
         return "nj"
-    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
+    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
         return "md"
     return "fed"
 
@@ -255,7 +255,7 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
 
     reg = detect_contract_region(rec)
     blob_low = f"{clean_t} {agency}".lower()
-    if cached.get("compliance_posture"):
+    if cached.get("compliance_posture") and not (reg != "md" and "Maryland" in str(cached.get("compliance_posture"))):
         compliance_posture = str(cached["compliance_posture"])
     elif reg == "tx":
         compliance_posture = "TX-RAMP Level 2 • Texas DIR Security • TAC 206 VPAT"
@@ -291,7 +291,7 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
     else:
         compliance_posture = "SOC 2 Type II • NIST CSF 2.0 • Section 508 / WCAG 2.1 AA"
 
-    if cached.get("teaming_posture"):
+    if cached.get("teaming_posture") and not (reg != "md" and "Maryland" in str(cached.get("teaming_posture"))):
         teaming_posture = str(cached["teaming_posture"])
     elif reg == "tx":
         teaming_posture = "TX HUB Subcontracting Plan (26.0% Goal) + 3 TX/SLED Refs"
@@ -509,6 +509,7 @@ STATE_PORTAL_LABELS = {
     "nc": "North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov",
     "ny": "NYS Contract Reporter, NYC PASSPort, and SAM.gov",
     "ma": "Massachusetts COMMBUYS, Boston/MBTA portals, and SAM.gov",
+    "nj": "New Jersey NJSTART, Treasury DPP/OIT portals, and SAM.gov",
 }
 
 GENERIC_PERSON_NAMES = {
@@ -562,7 +563,7 @@ def build_two_step_outreach(
     """
     norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
     region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
-    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 12 state SLED portals")
+    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 13 state SLED portals")
     clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
     seed = f"{email.lower().strip()}::{datetime.now().strftime('%Y-%m-%d')}"
 
@@ -602,11 +603,11 @@ def build_two_step_outreach(
         ]
 
     openers = [
-        f"I run an automated procurement monitor that tracks {portal_focus} (plus 11 other state SLED portals) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 11 additional state procurement portals every 6 hours.",
+        f"I run an automated procurement monitor that tracks {portal_focus} (plus 12 other state SLED portals) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 12 additional state procurement portals every 6 hours.",
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.",
         f"Our ingestion pipeline monitors {portal_focus} every 6 hours for net-new IT, cloud, and cybersecurity solicitations.",
-        f"I track newly released public-sector technology solicitations across {portal_focus} (14 federal and state portals total).",
+        f"I track newly released public-sector technology solicitations across {portal_focus} (15 federal and state portals total).",
     ]
     relevance_lines = [
         f"Since {clean_comp} delivers public-sector technology, I pulled {bid_count} active solicitations from our latest crawl:",
@@ -661,7 +662,7 @@ def build_two_step_outreach(
         f"Quick follow-up in case {clean_comp} is expanding its {region_label} capture pipeline this quarter.",
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
         f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.",
-        f"Wanted to follow up one last time regarding our automated 14-portal Federal and 12-State SLED procurement wire.",
+        f"Wanted to follow up one last time regarding our automated 15-portal Federal and 13-State SLED procurement wire.",
     ]
     intel_block = ""
     if top_intel:
@@ -679,25 +680,25 @@ def build_two_step_outreach(
         (
             f"{intel_block}"
             f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-            f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+            f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 13-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
             f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 21 REST/MCP APIs (@signaltender/mcp-server)."
         ),
         (
             f"{intel_block}"
             f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
-            f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 12-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
+            f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 13-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
             f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 21 developer REST/MCP APIs."
         ),
         (
             f"{intel_block}"
             f"If {clean_comp} wants to automate bid discovery and proposal prep without annual lock-ins, we offer two instant self-serve tiers:\n\n"
-            f"- SignalWire Pro ($99/mo): Live 14-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
+            f"- SignalWire Pro ($99/mo): Live 15-portal Federal & SLED IT/Cyber RFP feed via Discord, Slack, Teams, or custom webhook.\n"
             f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, CPARS past performance citations, 13 CFR § 125.6 teaming calculators, and Pwin capability matching on every solicitation."
         ),
     ]
     step2_closers = [
         f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate full 6-hour dispatches (Tier 1 $99/mo or Tier 2 $399/mo) in 60 seconds at:\n{clean_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 20 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo) or CaptureDesk ($399/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 21 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo) or CaptureDesk ($399/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
         f"Set up a Free Explorer Account ($0/mo, no card required) to bookmark bids and save your capability profile here:\n{clean_portal_url}\n\nOr view instant Tier 1 ($99/mo) & Tier 2 ($399/mo) activation options at:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
     ]
 
@@ -726,8 +727,8 @@ def build_two_step_outreach(
     )
     spintax_body_1 = (
         f"{spintax_greeting}\n\n"
-        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 11 other state SLED portals) every 6 hours. | "
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 11 additional state procurement portals every 6 hours. | "
+        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 12 other state SLED portals) every 6 hours. | "
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 12 additional state procurement portals every 6 hours. | "
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.}}}} "
         f"{{{{RANDOM | Since {clean_comp} delivers public-sector technology, I pulled {bid_count} active solicitations from our latest crawl: | "
         f"Noticed {comp_possessive} work in the space and wanted to pass along {bid_count} live IT/cyber bids currently open for response: | "
@@ -748,10 +749,10 @@ def build_two_step_outreach(
         f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}}}\n\n"
         f"{intel_block}"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 13-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 21 REST/MCP APIs (@signaltender/mcp-server).\n\n"
         f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 20 AI APIs at:}}}}\n{clean_portal_url}\n\n"
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 21 AI APIs at:}}}}\n{clean_portal_url}\n\n"
         f"{{{{RANDOM | Or activate full 6-hour dispatches in 60 seconds here: | "
         f"Or start a month-to-month Tier 1 ($99/mo) or Tier 2 ($399/mo) plan anytime at:}}}}\n{clean_checkout_url}\n\n"
         f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, no demos required.}}}}\n\n"

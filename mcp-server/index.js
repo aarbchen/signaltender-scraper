@@ -18,6 +18,7 @@ const BASE_URL = (
 ).replace(/\/+$/, "");
 
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || "";
+const SIGNALTENDER_API_KEY = process.env.SIGNALTENDER_API_KEY || "";
 const RAPIDAPI_PROXY_SECRET = process.env.RAPIDAPI_PROXY_SECRET || "";
 
 const RAPIDAPI_HOSTS = {
@@ -1658,6 +1659,9 @@ async function callSignalTenderEndpoint(toolName, args) {
   if (RAPIDAPI_PROXY_SECRET) {
     url = new URL(`${BASE_URL}${route.path}`);
     headers["X-RapidAPI-Proxy-Secret"] = RAPIDAPI_PROXY_SECRET;
+  } else if (SIGNALTENDER_API_KEY || RAPIDAPI_KEY.startsWith("st_live_")) {
+    url = new URL(`${BASE_URL}${route.path}`);
+    headers["X-SignalTender-Key"] = SIGNALTENDER_API_KEY || RAPIDAPI_KEY;
   } else if (RAPIDAPI_KEY) {
     const rapidHost = RAPIDAPI_HOSTS[toolName];
     url = new URL(`https://${rapidHost}${route.path}`);

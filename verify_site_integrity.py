@@ -758,6 +758,97 @@ if (window.submitHardenedFeedbackForm() !== true) {
         fail(f"Headless SPA runtime check failed:\n{r.stderr}")
 
 
+def check_conversion_and_distribution_surfaces(index_txt: str) -> None:
+    """
+    Enforces 100% portal (n_portals), state (n_states), and API (n_apis) parity across all
+    customer-facing conversion, outbound cold email, reply responder, subscriber delivery,
+    social distribution, and backend router surfaces so customers never see stale counts or missing states.
+    """
+    import pseo_generator
+
+    n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
+    n_portals = len(pseo_generator.JURISDICTIONS)
+    state_keys = [k for k in pseo_generator.JURISDICTIONS.keys() if k not in ("federal", "municipal")]
+    n_states = len(state_keys)
+
+    stale_portal_tokens = []
+    for kp in range(3, n_portals):
+        stale_portal_tokens.extend([
+            f"{kp}-Portal",
+            f"{kp}-portal",
+            f"{kp} Portals",
+            f"{kp} portals",
+            f"{kp} government portals",
+            f"{kp} Federal &",
+            f"{kp} federal and state portals",
+        ])
+    stale_state_tokens = []
+    for ks in range(3, n_states):
+        stale_state_tokens.extend([
+            f"{ks}-State SLED",
+            f"{ks}-STATE SLED",
+            f"{ks} State SLED",
+            f"{ks} state SLED",
+        ])
+    for ko in range(3, n_states - 1):
+        stale_state_tokens.extend([
+            f"plus {ko} other state SLED portals",
+            f"and {ko} additional state procurement portals",
+        ])
+    stale_api_tokens = []
+    for ka in range(10, n_apis):
+        stale_api_tokens.extend([
+            f"All {ka} REST APIs",
+            f"test all {ka} AI",
+            f"{ka} GovCon REST & MCP APIs",
+            f"{ka}-Tool Official MCP",
+            f"{ka} stateless GovCon",
+        ])
+
+    surfaces_to_audit = [
+        ("outreach_generator.py", os.path.join(BASE_DIR, "outreach_generator.py")),
+        ("outbound_reply_responder.py", os.path.join(BASE_DIR, "outbound_reply_responder.py")),
+        ("client_delivery.py", os.path.join(BASE_DIR, "client_delivery.py")),
+        ("linkedin_autoposter.py", os.path.join(BASE_DIR, "linkedin_autoposter.py")),
+        ("x_autoposter.py", os.path.join(BASE_DIR, "x_autoposter.py")),
+        ("social_distribution_kit.py", os.path.join(BASE_DIR, "social_distribution_kit.py")),
+        ("campaign_leads.csv", os.path.join(BASE_DIR, "campaign_leads.csv")),
+        ("outbox_ready_queue.json", os.path.join(BASE_DIR, "outbox_ready_queue.json")),
+        ("mcp-server/index.js", os.path.join(BASE_DIR, "mcp-server", "index.js")),
+        ("api/routers/leads.py", r"d:\Data API Ecosystem\api\routers\leads.py"),
+        ("api/routers/stripe_webhook.py", r"d:\Data API Ecosystem\api\routers\stripe_webhook.py"),
+        ("api/routers/solicitations.py", r"d:\Data API Ecosystem\api\routers\solicitations.py"),
+        ("api/routers/mcp.py", r"d:\Data API Ecosystem\api\routers\mcp.py"),
+    ]
+
+    loaded_texts = {}
+    for label, fpath in surfaces_to_audit:
+        if not os.path.exists(fpath):
+            continue
+        with open(fpath, "r", encoding="utf-8", errors="replace") as f:
+            txt = f.read()
+        loaded_texts[label] = txt
+        for tok in stale_portal_tokens + stale_state_tokens + stale_api_tokens:
+            if re.search(rf"(?<![0-9]){re.escape(tok)}", txt):
+                fail(
+                    f"{label}: Found stale customer-facing count '{tok}' "
+                    f"(expected {n_portals} portals / {n_states} states / {n_apis} APIs). "
+                    f"Update {label} and regenerate campaign_leads.csv / outbox_ready_queue.json."
+                )
+
+    # Verify every active state key is registered in leads.py, stripe_webhook.py, solicitations.py, and x_autoposter.py
+    for state_key in state_keys:
+        for req_surface in ("api/routers/leads.py", "api/routers/stripe_webhook.py", "api/routers/solicitations.py", "x_autoposter.py"):
+            if req_surface in loaded_texts and f'"{state_key}"' not in loaded_texts[req_surface] and f"'{state_key}'" not in loaded_texts[req_surface]:
+                fail(f"{req_surface}: Missing active state key '{state_key}' in conversion/distribution map")
+
+    # Verify MCP servers support st_live_ / X-SignalTender-Key routing
+    if "api/routers/mcp.py" in loaded_texts and "X-SignalTender-Key" not in loaded_texts["api/routers/mcp.py"]:
+        fail("api/routers/mcp.py: Missing direct X-SignalTender-Key routing for Tier 2 st_live_... API keys")
+    if "mcp-server/index.js" in loaded_texts and "X-SignalTender-Key" not in loaded_texts["mcp-server/index.js"]:
+        fail("mcp-server/index.js: Missing direct X-SignalTender-Key routing for Tier 2 st_live_... API keys")
+
+
 def main() -> int:
     index_path = os.path.join(BASE_DIR, "index.html")
     apis_path = os.path.join(BASE_DIR, "apis.html")
@@ -777,6 +868,7 @@ def main() -> int:
     check_catalog_parity_and_ui(index_txt, apis_txt)
     check_portal_parity_and_telemetry(index_txt, apis_txt)
     check_tier_value_prop_and_capture_moat_parity(index_txt)
+    check_conversion_and_distribution_surfaces(index_txt)
     check_spa_runtime(index_txt)
 
     import auto_error_healer

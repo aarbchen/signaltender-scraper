@@ -67,13 +67,13 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
 
     default_reply = (
         f"Appreciate the quick reply!\n\n"
-        f"Here is the live directory of pre-shredded Federal & 12-State SLED IT/Cyber dossiers (with direct agency RFP links, Section L/M matrices, and NAICS/SBA caps):\n"
+        f"Here is the live directory of pre-shredded Federal & 13-State SLED IT/Cyber dossiers (with direct agency RFP links, Section L/M matrices, and NAICS/SBA caps):\n"
         f"{SITE_BASE_URL}/contracts\n\n"
-        f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save your state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 20 AI Capture APIs:\n"
+        f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save your state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 21 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
         f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (no sales calls or annual lock-ins):\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 14-portal Federal & State SLED IT/Cyber alerts via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 20-Engine AI Section L/M compliance matrices, CPARS Volume III past performance citations, IGCE Price-to-Win models, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 15-portal Federal & State SLED IT/Cyber alerts via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, CPARS Volume III past performance citations, IGCE Price-to-Win models, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
         f"Activate instant access anytime here:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"

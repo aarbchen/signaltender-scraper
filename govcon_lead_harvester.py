@@ -2,7 +2,7 @@
 Autonomous GovCon Prospect, Website Crawler, Inbound Lead & DNS/MX Hygiene Engine (`govcon_lead_harvester.py`).
 Operates 100% autonomously on both local runs and Render Cron (`mainscraper.py` -> `outreach_generator.py`):
   1. Crawls live corporate websites (`/`, `/contact`, `/contact-us`, `/contracts`) of real U.S. Federal
-     (SAM.gov / GSA MAS 54151S & 54151HACS / 8(a) STARS III / CIO-SP3) and 12-State SLED IT & Cybersecurity
+     (SAM.gov / GSA MAS 54151S & 54151HACS / 8(a) STARS III / CIO-SP3) and 13-State SLED IT & Cybersecurity
      contractors across VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA to extract publicly published
      business development, capture, contracts, sales, and executive email addresses (`*@<domain>`).
   2. Queries USAspending.gov's public API for active NAICS 541511 / 541512 / 541513 / 541519 / 518210
@@ -177,7 +177,7 @@ STATE_CODE_TO_FULL = {
     "all": "Virginia",
 }
 
-# Real U.S. Federal & 12-State SLED IT, Cloud & Cybersecurity Contractors
+# Real U.S. Federal & 13-State SLED IT, Cloud & Cybersecurity Contractors
 # (GSA MAS 54151S/54151HACS, 8(a) STARS III, VETS 2, CIO-SP3, and State SLED IT vehicles)
 GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, str]] = [
     # VIRGINIA

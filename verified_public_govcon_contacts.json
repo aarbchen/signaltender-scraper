@@ -195,19 +195,6 @@
     "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Capture",
-    "Last Name": "Team",
-    "Title": "Small Business IT & Cyber Capture Lead (CA)",
-    "Company Name": "VSolvit",
-    "Email": "info@vsolvit.com",
-    "City": "",
-    "State": "California",
-    "Website": "https://vsolvit.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
     "First Name": "Brad",
     "Last Name": "Sawyer",
     "Title": "President",
@@ -217,6 +204,19 @@
     "State": "California",
     "Website": "https://tekberry.com",
     "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (CA)",
+    "Company Name": "VSolvit",
+    "Email": "info@vsolvit.com",
+    "City": "",
+    "State": "California",
+    "Website": "https://vsolvit.com",
+    "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -1040,6 +1040,19 @@
     "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Corey",
+    "Last Name": "Thomas",
+    "Title": "CEO (Boston Vulnerability & SOC)",
+    "Company Name": "Boston GovTech",
+    "Email": "apacsales@rapid7.com",
+    "City": "Boston",
+    "State": "Massachusetts",
+    "Website": "https://rapid7.com",
+    "NAICS Codes": "541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Jerry",
     "Last Name": "Layden",
     "Title": "Chief Executive Officer (NIST 800-53 & CMMC Automation)",
@@ -1092,17 +1105,30 @@
     "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Corey",
-    "Last Name": "Thomas",
-    "Title": "CEO (Boston Vulnerability & SOC)",
-    "Company Name": "Boston GovTech",
-    "Email": "apacsales@rapid7.com",
-    "City": "Boston",
-    "State": "Massachusetts",
-    "Website": "https://rapid7.com",
-    "NAICS Codes": "541512, 541519",
+    "First Name": "Mick",
+    "Last Name": "Slattery",
+    "Title": "Chief Executive Officer (NJ Managed Workplace & SLED IT)",
+    "Company Name": "CompuCom Systems NJ",
+    "Email": "%7c01%7csherisse.egbochuku@compucom.com",
+    "City": "Moorestown",
+    "State": "New Jersey",
+    "Website": "https://compucom.com",
+    "NAICS Codes": "541512, 541513",
     "Industry": "information technology & services",
-    "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
+    "Keywords": "govcon, new jersey sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Siby",
+    "Last Name": "Vadakekkara",
+    "Title": "Founder & CEO (Piscataway AI & Enterprise Cloud)",
+    "Company Name": "Marlabs Digital & GovCloud",
+    "Email": "contact@marlabs.com",
+    "City": "Piscataway",
+    "State": "New Jersey",
+    "Website": "https://marlabs.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new jersey sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Kay",
@@ -1127,19 +1153,6 @@
     "State": "New York",
     "Website": "https://claroty.com",
     "NAICS Codes": "541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Kamal",
-    "Last Name": "Bherwani",
-    "Title": "Chief Executive Officer (Albany State & Local GovTech)",
-    "Company Name": "Voyatek",
-    "Email": "info@voyatek.com",
-    "City": "Albany",
-    "State": "New York",
-    "Website": "https://voyatek.com",
-    "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -1191,6 +1204,19 @@
     "City": "New York",
     "State": "New York",
     "Website": "https://sprucetech.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Kamal",
+    "Last Name": "Bherwani",
+    "Title": "Chief Executive Officer (Albany State & Local GovTech)",
+    "Company Name": "Voyatek",
+    "Email": "info@voyatek.com",
+    "City": "Albany",
+    "State": "New York",
+    "Website": "https://voyatek.com",
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
@@ -1248,19 +1274,6 @@
     "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Donald",
-    "Last Name": "Thompson",
-    "Title": "Public Sector Digital Strategy",
-    "Company Name": "Walk West RTP",
-    "Email": "hello@walkwest.com",
-    "City": "Raleigh",
-    "State": "North Carolina",
-    "Website": "https://walkwest.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
     "First Name": "Chris",
     "Last Name": "Downie",
     "Title": "Chief Executive Officer (Charlotte Hybrid Cloud)",
@@ -1295,6 +1308,19 @@
     "City": "Raleigh",
     "State": "North Carolina",
     "Website": "https://softprocorp.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Donald",
+    "Last Name": "Thompson",
+    "Title": "Public Sector Digital Strategy",
+    "Company Name": "Walk West RTP",
+    "Email": "hello@walkwest.com",
+    "City": "Raleigh",
+    "State": "North Carolina",
+    "Website": "https://walkwest.com",
     "NAICS Codes": "541511, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
