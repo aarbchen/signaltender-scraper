@@ -11,7 +11,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **01** | `parse_b2b_contract` | `POST /v1/parse/contract` | Extracts parties, dates, contract value, deliverables, and governing law from unstructured RFPs & SOWs. |
 | **02** | `audit_contract_risks` | `POST /v1/parse/contract-risks` | Scores legal risk (`0-100`), quotes toxic clauses verbatim, and generates ready-to-paste fallback redlines. |
 | **03** | `search_historical_awards` | `POST /v1/awards/search` | Queries federal contract awards, incumbent primes, and historical CLIN pricing benchmarks. |
-| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY & MA. |
+| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA & NJ. |
 | **05** | `generate_compliance_matrix` | `POST /v1/generate/compliance-matrix` | Builds a Shipley `shall`/`must` Compliance Checklist, Section L-to-M cross-reference, and Proposal Outline. |
 | **06** | `scan_far_dfars_clauses` | `POST /v1/audit/far-dfars-clauses` | Detects `FAR 52.2xx` & `DFARS 252.2xx` clauses, flags mandatory flow-downs, and scores CMMC 2.0 burden. |
 | **07** | `match_capability_statement` | `POST /v1/match/capability-statement` | Calculates a `0-100` Pwin (Probability of Win) score, Bid/No-Bid decision, gap analysis, and executive pitch. |
@@ -28,6 +28,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **18** | `generate_ato_rmf_package` | `POST /v1/generate/ato-rmf-package` | Generates NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), FIPS 199 categorization, SSP control inheritance matrices & eMASS POA&M packages. |
 | **19** | `analyze_debriefing_bid_protest` | `POST /v1/generate/debriefing-bid-protest` | Analyzes Unsuccessful Offeror Notices, SSEB scorecards & Section M criteria to generate FAR 15.506 Enhanced Debriefing Q&A, CICA stay deadlines & GAO Bid-Protest grounds. |
 | **20** | `generate_gsa_mas_offer` | `POST /v1/generate/gsa-mas-offer` | Maps commercial rate cards & SKUs into GSA MAS Large Category F SINs (`54151S`, `54151HACS`, `518210C`), 0.75% IFF ceiling rates, GSAR 552.238-81 PRC guardrails & SCP-FSS-001 narratives. |
+| **21** | `generate_sources_sought_response` | `POST /v1/generate/sources-sought-response` | Generates FAR Part 10 Sources Sought & RFI capability matrices, FAR 19.502-2 Rule-of-Two small business set-aside justifications, NAICS/PSC sizing & Contracting Officer shaping questions. |
 
 ---
 

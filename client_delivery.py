@@ -39,6 +39,7 @@ JURISDICTION_WEBHOOKS = {
     "georgia": os.getenv("DISCORD_GEORGIA_WEBHOOK_URL"),
     "north_carolina": os.getenv("DISCORD_NORTH_CAROLINA_WEBHOOK_URL"),
     "massachusetts": os.getenv("DISCORD_MASSACHUSETTS_WEBHOOK_URL"),
+    "new_jersey": os.getenv("DISCORD_NEW_JERSEY_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -56,6 +57,7 @@ JURISDICTION_LABELS = {
     "georgia": "GEORGIA // GPR & TEAM GA",
     "north_carolina": "NORTH CAROLINA // NC eVP & METRO",
     "massachusetts": "MASSACHUSETTS // COMMBUYS & BOSTON",
+    "new_jersey": "NEW JERSEY // NJSTART & TREASURY DPP",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -181,6 +183,13 @@ def classify_jurisdiction(record: dict) -> str:
         or "masstech.org" in url
     ):
         return "massachusetts"
+    if (
+        "njstart.gov" in url
+        or "nj.gov" in url
+        or "njtransit.com" in url
+        or "rutgers.edu" in url
+    ):
+        return "new_jersey"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "maryland"
 
@@ -223,6 +232,15 @@ def classify_jurisdiction(record: dict) -> str:
         or "eotss" in agency
     ):
         return "massachusetts"
+    if (
+        title.startswith("[NJ]")
+        or "new jersey" in agency
+        or "(nj)" in agency
+        or "njstart" in agency
+        or "nj transit" in agency
+        or "rutgers" in agency
+    ):
+        return "new_jersey"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:

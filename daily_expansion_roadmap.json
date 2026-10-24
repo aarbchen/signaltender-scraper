@@ -1,0 +1,438 @@
+{
+  "schema_version": "1.0",
+  "description": "Deterministic 15-Day Autonomous API & State SLED Scraper Expansion Queue for SignalTender. Each daily scheduled run selects the first item with status == 'pending', builds and integrates the scraper + API end-to-end across d:\\Data API Ecosystem and d:\\Daas, runs auto_error_healer.py + verify_site_integrity.py until 100% green, marks the item 'completed', and pushes to GitHub.",
+  "items": [
+    {
+      "day": 1,
+      "status": "completed",
+      "completed_at": "2026-10-24T14:25:00Z",
+      "portal": {
+        "portal_number": 15,
+        "state_code": "nj",
+        "state_name": "New Jersey",
+        "short_ticker": "NJ NJSTART",
+        "portal_label": "New Jersey NJSTART & Treasury OIT",
+        "scraper_file": "nj_scraper.py",
+        "primary_sources": [
+          "https://www.njstart.gov",
+          "https://www.state.nj.us/treasury/purchase/",
+          "USAspending / SAM.gov NJ place-of-performance IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 21,
+        "method": "POST",
+        "route": "/v1/generate/sources-sought-response",
+        "router_file": "sources_sought.py",
+        "product_id": "product-sources-sought-response",
+        "mcp_tool_name": "generate_sources_sought_response",
+        "rapidapi_slug": "govcon-sources-sought-rfi-set-aside-shaper-api",
+        "title": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
+        "category": "capture",
+        "summary": "Analyzes agency Sources Sought / RFI notices against vendor capabilities to generate a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a)/SDVOSB/HUBZone/WOSB), NAICS recommendation, and persuasive RFI response narrative."
+      }
+    },
+    {
+      "day": 2,
+      "status": "pending",
+      "portal": {
+        "portal_number": 16,
+        "state_code": "wa",
+        "state_name": "Washington",
+        "short_ticker": "WA WEBS",
+        "portal_label": "Washington WEBS & WaTech DES",
+        "scraper_file": "wa_scraper.py",
+        "primary_sources": [
+          "https://pr-webs-vendor.des.wa.gov",
+          "https://des.wa.gov/sell/bid-opportunities",
+          "King County / Seattle IT & USAspending WA IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 22,
+        "method": "POST",
+        "route": "/v1/generate/oci-mitigation-plan",
+        "router_file": "oci_mitigation.py",
+        "product_id": "product-oci-mitigation-plan",
+        "mcp_tool_name": "generate_oci_mitigation_plan",
+        "rapidapi_slug": "govcon-oci-conflict-of-interest-mitigation-api",
+        "title": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
+        "category": "compliance",
+        "summary": "Audits existing prime/sub awards against a new RFP for Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity under FAR Subpart 9.5, and generates a firewall & OCI Mitigation Plan."
+      }
+    },
+    {
+      "day": 3,
+      "status": "pending",
+      "portal": {
+        "portal_number": 17,
+        "state_code": "mi",
+        "state_name": "Michigan",
+        "short_ticker": "MI SIGMA",
+        "portal_label": "Michigan SIGMA VSS & DTMB",
+        "scraper_file": "mi_scraper.py",
+        "primary_sources": [
+          "https://sigma.michigan.gov/webapp/PRDVSS2X1/AltSelfService",
+          "https://www.michigan.gov/dtmb/procurement",
+          "Detroit / Wayne County IT & USAspending MI IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 23,
+        "method": "POST",
+        "route": "/v1/generate/sbir-sttr-commercialization",
+        "router_file": "sbir_sttr.py",
+        "product_id": "product-sbir-sttr-commercialization",
+        "mcp_tool_name": "generate_sbir_sttr_commercialization",
+        "rapidapi_slug": "govcon-sbir-sttr-phase-commercialization-api",
+        "title": "SBIR / STTR Phase I-III Technical Volume & Commercialization Plan API",
+        "category": "capture",
+        "summary": "Transforms R&D tech specs into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1-9 progression matrix, Phase III Dual-Use Commercialization Plan, and DFARS 252.227-7018 SBIR Data Rights assertions."
+      }
+    },
+    {
+      "day": 4,
+      "status": "pending",
+      "portal": {
+        "portal_number": 18,
+        "state_code": "co",
+        "state_name": "Colorado",
+        "short_ticker": "CO VSS",
+        "portal_label": "Colorado VSS & Governor's OIT",
+        "scraper_file": "co_scraper.py",
+        "primary_sources": [
+          "https://codpa-vss.cloud.cgifederal.com",
+          "https://osc.colorado.gov/spco/state-purchasing-and-contracts-office",
+          "Denver Metro / Space Force Colorado Springs IT & USAspending CO IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 24,
+        "method": "POST",
+        "route": "/v1/audit/section-508-vpat",
+        "router_file": "section_508_vpat.py",
+        "product_id": "product-section-508-vpat",
+        "mcp_tool_name": "audit_section_508_vpat",
+        "rapidapi_slug": "govcon-section-508-wcag-vpat-accessibility-api",
+        "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance Generator API",
+        "category": "compliance",
+        "summary": "Audits software/SaaS products against Revised Section 508 (36 CFR 1194), WCAG 2.2 Level AA, and state accessibility rules (TX TAC 206, CA Gov Code 7405) to generate a complete VPAT 2.5 Conformance Table and remediation plan."
+      }
+    },
+    {
+      "day": 5,
+      "status": "pending",
+      "portal": {
+        "portal_number": 19,
+        "state_code": "az",
+        "state_name": "Arizona",
+        "short_ticker": "AZ APP",
+        "portal_label": "Arizona APP (Procure.AZ.gov)",
+        "scraper_file": "az_scraper.py",
+        "primary_sources": [
+          "https://app.az.gov/page.aspx/en/rfp/request_browse_public",
+          "https://spo.az.gov",
+          "Maricopa County / Phoenix Bonfire & USAspending AZ IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 25,
+        "method": "POST",
+        "route": "/v1/audit/supply-chain-scrm",
+        "router_file": "supply_chain_scrm.py",
+        "product_id": "product-supply-chain-scrm",
+        "mcp_tool_name": "audit_supply_chain_scrm",
+        "rapidapi_slug": "govcon-supply-chain-scrm-ndaa889-taa-auditor-api",
+        "title": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
+        "category": "compliance",
+        "summary": "Audits hardware/software BOMs and sub-tier vendors against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA Section 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM Attestation."
+      }
+    },
+    {
+      "day": 6,
+      "status": "pending",
+      "portal": {
+        "portal_number": 20,
+        "state_code": "mn",
+        "state_name": "Minnesota",
+        "short_ticker": "MN SWIFT",
+        "portal_label": "Minnesota SWIFT & MNIT Services",
+        "scraper_file": "mn_scraper.py",
+        "primary_sources": [
+          "https://mn.gov/admin/osp/government/procurements/",
+          "https://osp.admin.mn.gov",
+          "Hennepin County / Twin Cities Metro & USAspending MN IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 26,
+        "method": "POST",
+        "route": "/v1/generate/quality-assurance-qasp",
+        "router_file": "qasp_generator.py",
+        "product_id": "product-quality-assurance-qasp",
+        "mcp_tool_name": "generate_quality_assurance_qasp",
+        "rapidapi_slug": "govcon-qasp-prs-pws-sla-matrix-generator-api",
+        "title": "GovCon Quality Assurance Surveillance Plan (QASP), PWS SLA & KPI Matrix API",
+        "category": "capture",
+        "summary": "Extracts Performance Work Statement (PWS) deliverables under FAR Subpart 37.6 and generates a Performance Requirements Summary (PRS) table, Quality Assurance Surveillance Plan (QASP), AQL thresholds, and SLA metrics."
+      }
+    },
+    {
+      "day": 7,
+      "status": "pending",
+      "portal": {
+        "portal_number": 21,
+        "state_code": "tn",
+        "state_name": "Tennessee",
+        "short_ticker": "TN EDISON",
+        "portal_label": "Tennessee Edison CPO & STS",
+        "scraper_file": "tn_scraper.py",
+        "primary_sources": [
+          "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/event-list.html",
+          "Nashville / Davidson County & USAspending TN IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 27,
+        "method": "POST",
+        "route": "/v1/generate/phase-in-transition-plan",
+        "router_file": "transition_plan.py",
+        "product_id": "product-phase-in-transition-plan",
+        "mcp_tool_name": "generate_phase_in_transition_plan",
+        "rapidapi_slug": "govcon-phase-in-transition-incumbent-capture-api",
+        "title": "GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture API",
+        "category": "capture",
+        "summary": "Generates a 30/60/90-Day Contract Phase-In & Phase-Out Transition Plan with WBS milestones, Executive Order 14055 / SCA incumbent staff retention playbooks, clearance crossover schedules, and FAR 52.237-3 Continuity of Services checklists."
+      }
+    },
+    {
+      "day": 8,
+      "status": "pending",
+      "portal": {
+        "portal_number": 22,
+        "state_code": "in",
+        "state_name": "Indiana",
+        "short_ticker": "IN IDOA",
+        "portal_label": "Indiana IDOA & IOT Buy Indiana",
+        "scraper_file": "in_scraper.py",
+        "primary_sources": [
+          "https://www.in.gov/idoa/procurement/current-business-opportunities/",
+          "Indianapolis / Marion County & NSWC Crane / USAspending IN IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 28,
+        "method": "POST",
+        "route": "/v1/audit/dcaa-accounting-sf1408",
+        "router_file": "dcaa_sf1408.py",
+        "product_id": "product-dcaa-accounting-sf1408",
+        "mcp_tool_name": "audit_dcaa_accounting_sf1408",
+        "rapidapi_slug": "govcon-dcaa-sf1408-accounting-indirect-rate-api",
+        "title": "DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Compliance Auditor API",
+        "category": "pricing",
+        "summary": "Audits a contractor's chart of accounts, timekeeping, labor distribution, and indirect rate pools (Fringe, Overhead, G&A) against all 18 DCAA SF 1408 Pre-Award Survey Criteria and FAR Part 31 Cost Principles."
+      }
+    },
+    {
+      "day": 9,
+      "status": "pending",
+      "portal": {
+        "portal_number": 23,
+        "state_code": "mo",
+        "state_name": "Missouri",
+        "short_ticker": "MO BUYS",
+        "portal_label": "MissouriBUYS & OA-ITSD",
+        "scraper_file": "mo_scraper.py",
+        "primary_sources": [
+          "https://missouribuys.mo.gov",
+          "https://oa.mo.gov/purchasing/bidding-contracts",
+          "St. Louis NGA / Kansas City & USAspending MO IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 29,
+        "method": "POST",
+        "route": "/v1/generate/ota-white-paper",
+        "router_file": "ota_prototype.py",
+        "product_id": "product-ota-white-paper",
+        "mcp_tool_name": "generate_ota_white_paper",
+        "rapidapi_slug": "dod-ota-other-transaction-prototype-whitepaper-api",
+        "title": "DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper & ROM API",
+        "category": "capture",
+        "summary": "Transforms commercial capabilities into a consortium-ready DoD OTA Prototype White Paper (DIU, C5ISR, SOSSEC, SpEC), validates 10 U.S.C. 4022 nontraditional defense contractor (NDC) / 1/3 cost-share compliance, and builds a Payable Milestone Schedule + ROM."
+      }
+    },
+    {
+      "day": 10,
+      "status": "pending",
+      "portal": {
+        "portal_number": 24,
+        "state_code": "wi",
+        "state_name": "Wisconsin",
+        "short_ticker": "WI ESUPPLIER",
+        "portal_label": "Wisconsin eSupplier & DOA DET",
+        "scraper_file": "wi_scraper.py",
+        "primary_sources": [
+          "https://esupplier.wi.gov",
+          "https://vendornet.wi.gov",
+          "Madison / Milwaukee County & USAspending WI IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 30,
+        "method": "POST",
+        "route": "/v1/audit/foci-dd254-clearance",
+        "router_file": "foci_dd254.py",
+        "product_id": "product-foci-dd254-clearance",
+        "mcp_tool_name": "audit_foci_dd254_clearance",
+        "rapidapi_slug": "govcon-dcsa-dd254-foci-facility-clearance-api",
+        "title": "DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation Analyzer API",
+        "category": "compliance",
+        "summary": "Parses DD Form 254 and corporate ownership/cap-table data against 32 CFR Part 117 (NISPOM) to extract COMSEC/SIPRNet/JWICS safeguarding mandates, score SF 328 FOCI risk, and recommend the exact DCSA mitigation instrument (SCA, SSA, or Proxy Agreement)."
+      }
+    },
+    {
+      "day": 11,
+      "status": "pending",
+      "portal": {
+        "portal_number": 25,
+        "state_code": "sc",
+        "state_name": "South Carolina",
+        "short_ticker": "SC SCBO",
+        "portal_label": "South Carolina SCBO & SFAA",
+        "scraper_file": "sc_scraper.py",
+        "primary_sources": [
+          "https://scbo.sc.gov",
+          "https://procurement.sc.gov",
+          "Charleston NIWC Atlantic / Columbia & USAspending SC IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 31,
+        "method": "POST",
+        "route": "/v1/generate/small-business-participation",
+        "router_file": "sb_subcontracting.py",
+        "product_id": "product-small-business-participation",
+        "mcp_tool_name": "generate_small_business_participation",
+        "rapidapi_slug": "govcon-far-52-219-9-subcontracting-plan-esrs-api",
+        "title": "FAR 52.219-9 Individual / Commercial Subcontracting Plan & eSRS Goal Calculator API",
+        "category": "compliance",
+        "summary": "Generates a compliant FAR 52.219-9 Small Business Subcontracting Plan and DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD) with exact dollar/percentage goals across SB, SDB/8(a), WOSB, HUBZone, and SDVOSB tiers."
+      }
+    },
+    {
+      "day": 12,
+      "status": "pending",
+      "portal": {
+        "portal_number": 26,
+        "state_code": "or",
+        "state_name": "Oregon",
+        "short_ticker": "OR BUYS",
+        "portal_label": "OregonBuys & EIS State IT",
+        "scraper_file": "or_scraper.py",
+        "primary_sources": [
+          "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml",
+          "https://www.oregon.gov/das/Procurement",
+          "Portland Metro / Multnomah County & USAspending OR IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 32,
+        "method": "POST",
+        "route": "/v1/generate/data-rights-assertion-table",
+        "router_file": "data_rights.py",
+        "product_id": "product-data-rights-assertion-table",
+        "mcp_tool_name": "generate_data_rights_assertion_table",
+        "rapidapi_slug": "govcon-dfars-technical-data-rights-ip-assertion-api",
+        "title": "FAR 52.227-14 & DFARS 252.227-7013/7014 IP & Technical Data Rights Assertion API",
+        "category": "compliance",
+        "summary": "Audits software modules, AI weights, and engineering deliverables by funding source to generate a DFARS 252.227-7017 Data Rights Assertion Table (Unlimited, Government Purpose Rights, Limited Rights, Restricted Rights, or Commercial License)."
+      }
+    },
+    {
+      "day": 13,
+      "status": "pending",
+      "portal": {
+        "portal_number": 27,
+        "state_code": "ct",
+        "state_name": "Connecticut",
+        "short_ticker": "CT CTSOURCE",
+        "portal_label": "Connecticut CTsource & DAS BITS",
+        "scraper_file": "ct_scraper.py",
+        "primary_sources": [
+          "https://portal.ct.gov/DAS/CTSource/BidBoard",
+          "https://webprocure.proactiscloud.com",
+          "Hartford / Groton Defense IT & USAspending CT IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 33,
+        "method": "POST",
+        "route": "/v1/generate/capture-black-hat-review",
+        "router_file": "black_hat_review.py",
+        "product_id": "product-capture-black-hat-review",
+        "mcp_tool_name": "generate_capture_black_hat_review",
+        "rapidapi_slug": "govcon-black-hat-incumbent-ghosting-capture-api",
+        "title": "GovCon Black-Hat Competitive Intelligence, Incumbent Vulnerability & Ghosting API",
+        "category": "capture",
+        "summary": "Runs a Shipley Black-Hat Competitive Review comparing the bidder against incumbents and likely competitors, surfacing recompete vulnerabilities and drafting ethical Section L/M ghosting statements."
+      }
+    },
+    {
+      "day": 14,
+      "status": "pending",
+      "portal": {
+        "portal_number": 28,
+        "state_code": "ut",
+        "state_name": "Utah",
+        "short_ticker": "UT U3P",
+        "portal_label": "Utah U3P & DTS State Tech",
+        "scraper_file": "ut_scraper.py",
+        "primary_sources": [
+          "https://purchasing.utah.gov/for-vendors/current-bids/",
+          "Hill AFB / Salt Lake Silicon Slopes Defense IT & USAspending UT IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 34,
+        "method": "POST",
+        "route": "/v1/generate/post-award-cpar-rebuttal",
+        "router_file": "cpars_rebuttal.py",
+        "product_id": "product-post-award-cpar-rebuttal",
+        "mcp_tool_name": "generate_post_award_cpar_rebuttal",
+        "rapidapi_slug": "govcon-cpars-self-assessment-14day-rebuttal-api",
+        "title": "GovCon CPARS Self-Assessment, Interim Evaluation & 14-Day Rebuttal Generator API",
+        "category": "capture",
+        "summary": "Converts contract SLA metrics and COR logs into FAR 42.1503 CPARS Self-Assessment narratives or drafts a fact-based 14-Day CPARS Rebuttal to upgrade unfair Marginal/Satisfactory ratings to Very Good/Exceptional."
+      }
+    },
+    {
+      "day": 15,
+      "status": "pending",
+      "portal": {
+        "portal_number": 29,
+        "state_code": "nv",
+        "state_name": "Nevada",
+        "short_ticker": "NV EPRO",
+        "portal_label": "NevadaEPro & Clark County IT",
+        "scraper_file": "nv_scraper.py",
+        "primary_sources": [
+          "https://nevadaepro.com/bso/view/search/external/advancedSearchBid.xhtml",
+          "Las Vegas / Nellis AFB / Clark County Bonfire & USAspending NV IT/Cyber"
+        ]
+      },
+      "api": {
+        "api_number": 35,
+        "method": "POST",
+        "route": "/v1/generate/rea-equitable-adjustment",
+        "router_file": "rea_claim.py",
+        "product_id": "product-rea-equitable-adjustment",
+        "mcp_tool_name": "generate_rea_equitable_adjustment",
+        "rapidapi_slug": "govcon-rea-equitable-adjustment-cda-claim-api",
+        "title": "GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API",
+        "category": "compliance",
+        "summary": "Analyzes post-award scope creep, government delay, or stop-work orders under FAR 52.243-1/2/3 and the Contract Disputes Act (41 U.S.C. 7101) to draft a Request for Equitable Adjustment (REA) with quantum cost entitlement and Eichleay overhead."
+      }
+    }
+  ]
+}

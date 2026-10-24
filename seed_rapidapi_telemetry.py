@@ -406,6 +406,29 @@ ENDPOINTS = [
             "submission_type": "New_GSA_MAS_Offer",
         },
     },
+    {
+        "id": "API 21",
+        "name": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
+        "method": "POST",
+        "path": "/v1/generate/sources-sought-response",
+        "rapid_host": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+        "payload": {
+            "sources_sought_or_rfi_notice_text": (
+                "SOURCES SOUGHT / RFI NOTICE ID: FA8726-27-RFI-0019 (USAF AFLCMC / Hanscom AFB). "
+                "The Government is conducting FAR Part 10 market research to determine small business capability "
+                "and set-aside viability for Enterprise Zero-Trust Identity, Credential, and Access Management (ICAM), "
+                "24x7 Managed Detection and Response (MDR) SOC telemetry, and DoD IL5 Cloud DevSecOps migration. "
+                "Anticipated NAICS: 541512 ($34.0M)."
+            ),
+            "vendor_capability_and_socioeconomic_profile": (
+                "Aegis Federal Cyber & Cloud LLC (UEI: K9M4N8P2Q1R5 | CAGE: 8X9A2) is an SBA-certified SDVOSB and 8(a) "
+                "Program participant under NAICS 541512, 541519, and 518210. Contract Vehicles: GSA MAS SIN 54151HACS & 54151S. "
+                "Past Performance: USAF Air Mobility Command IL5 Zero-Trust ICAM ($4.8M, Prime, Exceptional CPARS); "
+                "DISA 24x7 Splunk SOAR & Endpoint MDR Telemetry ($3.6M, Prime). Top Secret FCL."
+            ),
+            "target_set_aside_preference": "SDVOSB_Set_Aside",
+        },
+    },
 ]
 
 

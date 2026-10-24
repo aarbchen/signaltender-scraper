@@ -686,6 +686,7 @@ async def run_master_orchestrator(
         _run_source("North Carolina SLED (NC eVP)", "import nc_scraper", "nc_scraper.run_scraper(push_to_db=False)"),
         _run_source("New York SLED (NYC CROL / PASSPort / PANYNJ)", "import ny_scraper", "ny_scraper.run_scraper(push_to_db=False)"),
         _run_source("Massachusetts SLED (COMMBUYS / Boston)", "import ma_scraper", "ma_scraper.run_scraper(push_to_db=False)"),
+        _run_source("New Jersey SLED (NJSTART / Treasury DPP)", "import nj_scraper", "nj_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -704,6 +705,7 @@ async def run_master_orchestrator(
         "North Carolina SLED (NC eVP)",
         "New York SLED (NYC CROL / PASSPort / PANYNJ)",
         "Massachusetts SLED (COMMBUYS / Boston)",
+        "New Jersey SLED (NJSTART / Treasury DPP)",
     ]
     combined_records = []
 

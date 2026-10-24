@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Transforms raw SAM.gov or SLED Sources Sought notices, Requests for Information (RFIs), and vendor capability profiles into a FAR Part 10 / 19.502-2 Rule-of-Two Set-Aside Shaping Assessment (SDVOSB, 8(a), HUBZone, WOSB, Total SB), requirement-by-requirement Capability Alignment Matrix, Acquisition Shaping Recommendations (NAICS, contract vehicles, evaluation factors, restrictive requirement removals), and a paste-ready Sources Sought / RFI Capability Statement."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/sources-sought-response": {
+      "post": {
+        "summary": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+        "operationId": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sources_sought_notice_text",
+                  "company_capabilities_and_vehicles"
+                ],
+                "properties": {
+                  "sources_sought_notice_text": {
+                    "type": "string",
+                    "description": "Raw SAM.gov or SLED Sources Sought notice, Request for Information (RFI), draft SOW/PWS scope, and market research questions.",
+                    "example": "SOURCES SOUGHT / RFI W15P7T-26-R-0412 (U.S. Army CECOM Enterprise Zero-Trust Cloud & DevSecOps Modernization): Market research under FAR Part 10 to determine Small Business (SDVOSB / 8(a) / HUBZone) capability under NAICS 541512 ($34.0M size standard). Scope: (1) Migrate 18 legacy C5ISR applications to AWS GovCloud IL5 with continuous ATO (cATO); (2) Operate 24x7 DevSecOps CI/CD pipelines and automated STIG compliance; (3) Provide cleared TS/SCI Cloud & Cyber engineering personnel at Aberdeen Proving Ground, MD."
+                  },
+                  "company_capabilities_and_vehicles": {
+                    "type": "string",
+                    "description": "Vendor core competencies, socio-economic certifications (8(a), SDVOSB, HUBZone, WOSB, Small Business), NAICS codes, contract vehicles (GSA MAS, OASIS+, 8(a) STARS III, CIO-SP3, SEWP), clearances, and past performance.",
+                    "example": "Vanguard Cyber Defense LLC (UEI: K8M4N9P2Q7R1 | CAGE: 8X9A2) — SBA Verified SDVOSB & 8(a) Certified Small Business under NAICS 541512, 541519, 541511. Contract Vehicles: GSA MAS SIN 54151S / 54151HACS / 518210C, 8(a) STARS III, Army ITES-3S. Facility Clearance: Top Secret FCL; 42 TS/SCI cleared cloud & cyber engineers. Past Performance: (1) USAF Kessel Run IL5 DevSecOps & cATO ($14.2M Prime, 2024-2026); (2) DISA Enterprise Zero-Trust ICAM & AWS GovCloud Migration ($9.8M Prime, 2023-2026)."
+                  },
+                  "target_set_aside_goal": {
+                    "type": "string",
+                    "enum": [
+                      "Auto_Recommend",
+                      "Total_Small_Business",
+                      "8a_Set_Aside_or_Sole_Source",
+                      "SDVOSB_Set_Aside",
+                      "WOSB_EDWOSB_Set_Aside",
+                      "HUBZone_Set_Aside",
+                      "Full_and_Open_Unrestricted"
+                    ],
+                    "default": "Auto_Recommend",
+                    "description": "Desired FAR Part 19 socio-economic set-aside outcome to advocate for in the Contracting Officer market research package."
+                  },
+                  "desired_contract_vehicle_and_naics": {
+                    "type": "string",
+                    "default": "Auto-Recommend Optimal Vehicle & NAICS",
+                    "description": "Optional preferred GWAC/IDIQ vehicle (e.g., GSA MAS 54151HACS, 8(a) STARS III, OASIS+ SB) and target NAICS code to shape the acquisition toward."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

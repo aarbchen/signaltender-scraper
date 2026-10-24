@@ -135,7 +135,7 @@
       <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
         <a href="index.html#overview" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
         <a href="contracts/index.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Live RFP Directory</a>
-        <a href="apis.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">API Catalog (20)</a>
+        <a href="apis.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">API Catalog</a>
         <a href="index.html#checkout" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
       </nav>
 
@@ -244,7 +244,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">20 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">21 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -261,7 +261,7 @@
                   data-lpignore="true"
                   data-1p-ignore="true"
                   data-form-type="other"
-                  placeholder="Search 20 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
+                  placeholder="Search 21 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
                 />
@@ -277,11 +277,11 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (20)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (21)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (3)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (4)</button>
-                <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (5)</button>
+                <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (6)</button>
               </div>
             </div>
 
@@ -340,7 +340,7 @@
                   <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">04</span>
                   <div class="min-w-0">
                     <div class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors truncate">Live SLED &amp; Federal Open RFP Feed API</div>
-                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 14-Portal AI-Vetted Open IT/Cyber Solicitations</div>
+                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 15-Portal AI-Vetted Open IT/Cyber Solicitations</div>
                   </div>
                 </div>
                 <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
@@ -615,6 +615,23 @@
                   <span class="text-emerald-400">&darr;</span>
                 </div>
               </a>
+              <!-- Directory Row 21 -->
+              <a href="#product-sources-sought-response" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold shrink-0">21</span>
+                  <div class="min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-amber-300 transition-colors truncate">GovCon Sources Sought, RFI &amp; Set-Aside Shaping Responder API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-400 text-navy-950 font-bold shrink-0">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/sources-sought-response &bull; FAR Part 10 Capability Matrix, FAR 19.502-2 Rule-of-Two Set-Aside Shaping &amp; CO Questions</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded bg-amber-950/40 border border-amber-500/30 text-amber-200 text-[11px]">$0 &ndash; $399/mo</span>
+                  <span class="text-amber-400">&darr;</span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -651,7 +668,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">20 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">21 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -666,7 +683,7 @@
   }
 }</code></pre>
               <div class="text-[11px] text-slate-400">
-                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> &amp; <span class="text-slate-200">generate_gsa_mas_offer</span>.
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> , <span class="text-slate-200">generate_gsa_mas_offer</span> &amp; <span class="text-slate-200">generate_sources_sought_response</span>.
               </div>
             </div>
           </div>
@@ -703,10 +720,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">20 / 20 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">21 / 21 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (20)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (21)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -1299,7 +1316,7 @@
                 Live SLED &amp; Federal Open RFP Feed API
               </h2>
               <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
-                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">14 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, and MA COMMBUYS) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
+                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">15 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, MA COMMBUYS, and NJ NJSTART) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
               </p>
 
               <!-- Product-Specific Features Grid -->
@@ -1307,8 +1324,8 @@
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
                   <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
                   <div>
-                    <div class="font-semibold text-white">14-Portal Unified REST Feed</div>
-                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, and MA in one schema.</div>
+                    <div class="font-semibold text-white">15-Portal Unified REST Feed</div>
+                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, and NJ in one schema.</div>
                   </div>
                 </div>
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
@@ -1401,7 +1418,7 @@
               <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
                 <pre class="text-slate-300"><code>{
   <span class="text-sky-400">"total_count"</span>: <span class="text-cyan-300">2</span>,
-  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">14</span>,
+  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">15</span>,
   <span class="text-sky-400">"solicitations"</span>: [
     {
       <span class="text-sky-400">"solicitation_id"</span>: <span class="text-slate-100">"230"</span>,
@@ -4224,6 +4241,169 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 21: GOVCON SOURCES SOUGHT, RFI & SET-ASIDE SHAPING RESPONDER API
+           ================================================================= -->
+      <article id="product-sources-sought-response" class="rounded-2xl bg-navy-950 border-2 border-amber-500/50 hover:border-amber-400/80 transition-all overflow-hidden shadow-2xl scroll-mt-24">
+
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-gradient-to-r from-amber-950/50 via-slate-900/90 to-slate-900/90 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-400 text-navy-950 uppercase">
+              NEW API 21
+            </span>
+            <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+              API 21 // SOURCES SOUGHT, RFI &amp; RULE-OF-TWO SHAPING
+            </span>
+            <span class="px-2.5 py-1 text-xs font-mono font-semibold rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+              POST /v1/generate/sources-sought-response
+            </span>
+            <span class="hidden sm:inline text-xs font-mono text-slate-400">
+              Host: <code class="text-slate-300">ai-bid-no-bid-capability-matcher-api.p.rapidapi.com</code>
+            </span>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <a
+              href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-xs font-mono font-semibold text-white shadow-lg shadow-amber-950/50 transition-all"
+            >
+              Subscribe on RapidAPI &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          <!-- Left 7 Cols: Specs + 4 Pricing Tiers -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                GovCon Sources Sought, RFI &amp; Set-Aside Shaping Responder API
+              </h3>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Over 70% of federal and state SLED set-aside decisions (<span class="text-white font-semibold">8(a), SDVOSB, WOSB/EDWOSB, HUBZone, and Total Small Business</span>) are locked in during <span class="text-white font-semibold">FAR Part 10 Market Research</span> before the formal RFP is ever released. This endpoint transforms a government <span class="text-white font-semibold">Sources Sought Notice, Request for Information (RFI), or draft PWS</span> and your capability profile into a complete <span class="text-white font-semibold">RFI Capability Matrix</span>, a <span class="text-white font-semibold">FAR 19.502-2 Rule-of-Two Set-Aside Justification</span>, <span class="text-white font-semibold">NAICS/PSC Size-Standard Shaping Arguments</span>, and a ready-to-submit <span class="text-white font-semibold">Sources Sought Cover Letter &amp; Technical Narrative</span>.
+              </p>
+
+              <!-- Capability Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-mono">
+                <div class="p-3 rounded-lg bg-navy-900/80 border border-slate-800/90">
+                  <div class="text-amber-400 font-semibold">01. FAR 19.502-2 Rule-of-Two Shaping</div>
+                  <div class="text-slate-400 mt-1">Builds formal market-research evidence proving two or more capable small/socio-economic primes exist to lock in an 8(a), SDVOSB, WOSB, or HUBZone set-aside.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/80 border border-slate-800/90">
+                  <div class="text-sky-400 font-semibold">02. NAICS, SBA Size Cap &amp; GWAC Steering</div>
+                  <div class="text-slate-400 mt-1">Recommends optimal NAICS/PSC codes (e.g., 541512 $34M vs. 541519 150-emp ITVAR) and steers the CO toward your GSA MAS SINs, OASIS+, or SEWP V vehicles.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/80 border border-slate-800/90">
+                  <div class="text-emerald-400 font-semibold">03. Incumbent Lock-In Neutralization Q&amp;A</div>
+                  <div class="text-slate-400 mt-1">Generates strategic Contracting Officer shaping questions that challenge restrictive brand-name specs, excessive clearance gates, or incumbent-only past performance traps.</div>
+                </div>
+                <div class="p-3 rounded-lg bg-navy-900/80 border border-slate-800/90">
+                  <div class="text-purple-400 font-semibold">04. Ready-to-Submit RFI Response Package</div>
+                  <div class="text-slate-400 mt-1">Outputs a requirement-by-requirement capability matrix plus a complete, paste-ready Sources Sought cover letter, UEI/CAGE table, and technical response narrative.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">
+                RapidAPI Subscription Tiers (GovCon Sources Sought, RFI &amp; Set-Aside Shaping API)
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase">BASIC</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$0<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">10 req/mo</div>
+                    <div class="text-emerald-400 text-[10px]">Hard Limit ($0)</div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-sky-400 uppercase font-semibold">PRO</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$49<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">200 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-amber-950/30 border-2 border-amber-500/60 flex flex-col justify-between relative">
+                  <div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] text-amber-300 uppercase font-bold">ULTRA</span>
+                      <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-400 text-navy-950 font-bold">BEST</span>
+                    </div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$149<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-amber-500/30 text-[11px]">
+                    <div class="text-white font-semibold">1,000 req/mo</div>
+                    <div class="text-amber-300 text-[10px]">+$0.15 / extra</div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-navy-900 border border-amber-500/30 flex flex-col justify-between">
+                  <div>
+                    <div class="text-[10px] text-purple-300 uppercase font-semibold">MEGA</div>
+                    <div class="mt-1 text-xl font-extrabold text-white">$399<span class="text-[11px] font-normal text-slate-400">/mo</span></div>
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                    <div class="text-slate-200 font-semibold">4,000 req/mo</div>
+                    <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Dedicated Terminal Preview -->
+          <div class="lg:col-span-5 flex">
+            <div class="w-full rounded-xl bg-navy-900/90 border border-slate-800 overflow-hidden flex flex-col">
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400">RESPONSE // SourcesSoughtResponse</span>
+                <span class="text-amber-400">FAR 19.502-2 &bull; RULE OF TWO</span>
+              </div>
+              <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
+                <pre class="text-slate-200 whitespace-pre-wrap break-words text-[11px] mb-3 pb-3 border-b border-slate-800/80"><code><span class="text-emerald-400">$</span> curl --request POST   --url <span class="text-amber-200">'https://ai-bid-no-bid-capability-matcher-api.p.rapidapi.com/v1/generate/sources-sought-response'</span>   --header <span class="text-sky-300">'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY'</span>   --header <span class="text-sky-300">'Content-Type: application/json'</span>   --data <span class="text-emerald-300">'{"sources_sought_or_rfi_notice_text":"SOURCES SOUGHT FA8726-27-RFI-0019: USAF seeks market research for Enterprise Zero-Trust ICAM, 24x7 SOC & IL5 Cloud DevSecOps...","vendor_capability_and_socioeconomic_profile":"SDVOSB & SBA 8(a) Certified Prime. Active GSA MAS SIN 54151HACS & 518210C. 3 DoD IL5 Zero-Trust past performance contracts ($14.2M)..."}'</span></code></pre>
+                <pre class="text-slate-300"><code>{
+  <span class="text-sky-400">"shaping_confidence_score"</span>: <span class="text-emerald-400">94</span>,
+  <span class="text-sky-400">"recommended_set_aside_determination"</span>: <span class="text-amber-300">"SDVOSB Set-Aside (FAR 19.1405 Rule-of-Two Met)"</span>,
+  <span class="text-sky-400">"recommended_naics_and_psc"</span>: {
+    <span class="text-sky-400">"recommended_naics_code"</span>: <span class="text-emerald-300">"541512"</span>,
+    <span class="text-sky-400">"sba_size_standard"</span>: <span class="text-slate-100">"$34.0M"</span>
+  },
+  <span class="text-sky-400">"rule_of_two_set_aside_justification"</span>: {
+    <span class="text-sky-400">"recommended_contract_vehicle"</span>: <span class="text-sky-300">"GSA MAS SIN 54151HACS (Small Business Pool)"</span>
+  }
+}</code></pre>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[10px]">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">rule_of_two_set_aside_justification</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">rfi_requirement_alignment_matrix[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">ready_to_submit_sources_sought_narrative</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -4398,7 +4578,7 @@
                     <span class="font-sans font-bold text-sm text-white">Live SLED &amp; Federal Open RFP Feed API</span>
                   </div>
                   <div class="text-cyan-300 text-[11px] mt-0.5">GET /v1/solicitations/live</div>
-                  <div class="font-sans text-[11px] text-slate-400 mt-1">14-Portal Filtered IT &amp; Cyber RFPs</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">15-Portal Filtered IT &amp; Cyber RFPs</div>
                 </td>
                 <td class="py-5 px-4">
                   <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
@@ -5102,6 +5282,51 @@
                 </td>
               </tr>
 
+              <!-- Matrix Row 21: GovCon Sources Sought, RFI & Set-Aside Shaping Responder API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-amber-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">21</span>
+                    <a href="#product-sources-sought-response" class="text-sm font-sans font-bold text-white hover:text-amber-400 transition-colors">
+                      GovCon Sources Sought, RFI &amp; Set-Aside Shaping Responder API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-amber-300 text-[11px]">POST /v1/generate/sources-sought-response</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">FAR Part 10 RFI Capability Matrix, FAR 19.502-2 Rule-of-Two Set-Aside Shaping &amp; CO Questions</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-amber-500/5 border-x border-amber-500/20">
+                  <div class="text-base font-extrabold text-amber-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-amber-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -5124,10 +5349,10 @@
             // TURNKEY CAPTURE ALERTS &bull; NO CODING REQUIRED
           </div>
           <h3 class="text-xl font-bold text-white">
-            Want Live Federal, Municipal &amp; 12-State SLED Contract Alerts Without Writing Code?
+            Want Live Federal, Municipal &amp; 13-State SLED Contract Alerts Without Writing Code?
           </h3>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
-            Our <strong class="text-slate-200">All-Access Discord Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, and Massachusetts COMMBUYS &amp; Boston IT &amp; cybersecurity opportunities straight to your team.
+            Our <strong class="text-slate-200">All-Access Discord Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, Massachusetts COMMBUYS &amp; Boston, and New Jersey NJSTART &amp; Treasury DPP IT &amp; cybersecurity opportunities straight to your team.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-3 shrink-0">
@@ -5277,6 +5502,7 @@
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">RMF, Continuous ATO &amp; SSP API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Debriefing &amp; GAO Bid-Protest API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GSA MAS Schedule &amp; SIN Mapper API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Sources Sought &amp; RFI Set-Aside Shaping API &nearr;</a></li>
         </ul>
       </div>
 
@@ -5574,14 +5800,14 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (20)</span>
+              <span>SELECT MICROSERVICE (21)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
               <input
                 id="sandbox-sidebar-search"
                 type="text"
-                placeholder="Filter 20 endpoints..."
+                placeholder="Filter 21 endpoints..."
                 oninput="window.filterSandboxSidebar(this.value)"
                 class="w-full px-2.5 py-1.5 rounded-lg bg-navy-950 border border-slate-800 focus:border-sky-500 focus:outline-none text-[11px] font-mono text-white placeholder-slate-500"
               />
@@ -6094,6 +6320,22 @@
             pricing_disclosure_pathway: "Auto_Recommend",
             submission_type: "New_GSA_MAS_Offer"
           }
+        },
+        'product-sources-sought-response': {
+          num: '21',
+          id: 'product-sources-sought-response',
+          title: 'GovCon Sources Sought, RFI & Set-Aside Shaping Responder API',
+          method: 'POST',
+          path: '/v1/generate/sources-sought-response',
+          host: 'ai-bid-no-bid-capability-matcher-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            sources_sought_or_rfi_notice_text: "SOURCES SOUGHT / RFI NOTICE ID: FA8726-27-RFI-0019 (USAF AFLCMC / Hanscom AFB). The Government is conducting FAR Part 10 market research to determine small business capability and set-aside viability for Enterprise Zero-Trust Identity, Credential, and Access Management (ICAM), 24x7 Managed Detection and Response (MDR) SOC telemetry, and DoD IL5 Cloud DevSecOps migration. Anticipated NAICS: 541512 ($34.0M). Respondents shall demonstrate: (1) Experience migrating legacy enclave applications to AWS GovCloud IL5 with Continuous ATO (cATO); (2) Automated NIST 800-53 Rev 5 / CMMC Level 2 continuous monitoring; and (3) Recommendations on set-aside category (8(a), SDVOSB, WOSB, HUBZone, or Total Small Business) and preferred contract vehicle.",
+            vendor_capability_and_socioeconomic_profile: "Aegis Federal Cyber & Cloud LLC (UEI: K9M4N8P2Q1R5 | CAGE: 8X9A2) is an SBA-certified Service-Disabled Veteran-Owned Small Business (SDVOSB) and 8(a) Program participant under NAICS 541512, 541519, and 518210. Contract Vehicles: GSA MAS SIN 54151HACS & 54151S, OASIS+ Small Business, and AWS GovCloud Partner. Past Performance: (1) USAF Air Mobility Command IL5 Zero-Trust ICAM & Okta/Ping Federation ($4.8M, Prime, Exceptional CPARS); (2) DISA 24x7 Splunk SOAR & Endpoint MDR Telemetry ($3.6M, Prime). Facility Clearance: Top Secret FCL; 28 cleared DevSecOps & CISSP engineers.",
+            target_set_aside_preference: "SDVOSB_Set_Aside"
+          }
         }
       };
 
@@ -6605,7 +6847,7 @@
         'product-contract-parsing': { cat: 'rfp', kw: '01 b2b contract parsing rfp sow extraction json deliverables ceiling deadline /v1/parse/contract' },
         'product-risk-auditor': { cat: 'compliance', kw: '02 ai contract risk redline auditor legal indemnification liability termination /v1/parse/contract-risks' },
         'product-historical-pricing': { cat: 'pricing', kw: '03 historical procurement pricing sam.gov federal awards clin labor rates incumbent /v1/awards/search /v1/awards/contractor' },
-        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys /v1/solicitations/live' },
+        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys new jersey njstart /v1/solicitations/live' },
         'product-compliance-matrix': { cat: 'rfp', kw: '05 rfp compliance matrix proposal outline shipley section l section m shall must checklist /v1/generate/compliance-matrix' },
         'product-far-dfars-scanner': { cat: 'compliance', kw: '06 far dfars cmmc clause risk scanner dod flow-downs cas nist 800-171 cui /v1/audit/far-dfars-clauses' },
         'product-capability-matcher': { cat: 'capture', kw: '07 ai bid no-bid capability matcher pwin score gap analysis past performance /v1/match/capability-statement' },
@@ -6621,7 +6863,8 @@
         'product-oral-presentation': { cat: 'capture', kw: '17 govcon oral presentation tech-demo murder-board prep far 15.102 sseb high confidence slide deck speaker script live demo fail-safe q&a caucus /v1/generate/oral-presentation-prep' },
         'product-ato-rmf': { cat: 'audit', kw: '18 govcon rmf continuous ato cato ssp poa&m generator nist 800-53 rev 5 fips 199 cnssi 1253 emass csam fedramp stateramp il5 disa stig oscal /v1/generate/ato-rmf-package' },
         'product-debriefing-protest': { cat: 'capture', kw: '19 govcon debriefing far 15.506 gao bid-protest analyzer dfars 252.215-7016 dod enhanced debriefing 5-day cica stay cofc corrective action /v1/generate/debriefing-bid-protest' },
-        'product-gsa-mas-offer': { cat: 'pricing', kw: '20 govcon gsa mas schedule sin mapper prc compliance 54151s 54151hacs 518210c 0.75% iff rate card gsar 552.238-81 csp-1 tdr scp-fss-001 /v1/generate/gsa-mas-offer' }
+        'product-gsa-mas-offer': { cat: 'pricing', kw: '20 govcon gsa mas schedule sin mapper prc compliance 54151s 54151hacs 518210c 0.75% iff rate card gsar 552.238-81 csp-1 tdr scp-fss-001 /v1/generate/gsa-mas-offer' },
+        'product-sources-sought-response': { cat: 'capture', kw: '21 govcon sources sought rfi set-aside shaping responder far part 10 far 19.502-2 rule of two 8a sdvosb wosb hubzone naics psc market research /v1/generate/sources-sought-response' }
       };
 
       var currentApiQuery = '';
@@ -6997,7 +7240,7 @@
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 14 portals operational', color: 'text-emerald-400', action: 'trust_status' },
+            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 15 portals operational', color: 'text-emerald-400', action: 'trust_status' },
             { icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' },
             { icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' },
             { icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' },
@@ -7013,7 +7256,7 @@
               { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
               { icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
               { icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
-              { icon: 'sliders', id: 'account-alert-filters-card', label: '14-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
+              { icon: 'sliders', id: 'account-alert-filters-card', label: '15-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
               { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
               { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
               { icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
@@ -7044,7 +7287,7 @@
           if (document.getElementById('contracts-rfp-ai-shred-card')) {
             rawItems = [
               { icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
-              { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
               { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -7070,7 +7313,7 @@
           if (document.getElementById('static-rfp-ai-shred-card')) {
             rawItems = [
               { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
-              { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 20-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
               { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -7085,10 +7328,10 @@
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            { icon: 'pulse', id: 'overview', label: 'Hero & 14-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
+            { icon: 'pulse', id: 'overview', label: 'Hero & 15-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
             { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
             { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
-            { icon: 'table', id: 'contract-directory', label: '14-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
+            { icon: 'table', id: 'contract-directory', label: '15-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
             { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
             { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
           ];

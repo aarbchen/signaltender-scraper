@@ -101,6 +101,7 @@ STATE_ALIASES = {
     "nc": "nc", "north carolina": "nc", "north_carolina": "nc",
     "ny": "ny", "new york": "ny", "new_york": "ny",
     "ma": "ma", "massachusetts": "ma",
+    "nj": "nj", "new jersey": "nj", "new_jersey": "nj",
 }
 
 
@@ -200,6 +201,8 @@ def detect_contract_region(rec: dict) -> str:
         return "ny"
     if "commbuys.com" in url or "mass.gov" in url or "boston.gov" in url or "mbta.com" in url or "massport.com" in url or "masstech.org" in url:
         return "ma"
+    if "njstart.gov" in url or "nj.gov" in url or "njtransit.com" in url or "rutgers.edu" in url:
+        return "nj"
     if "emma.maryland.gov" in url or "bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -226,6 +229,8 @@ def detect_contract_region(rec: dict) -> str:
         return "ny"
     if title.startswith("[MA]") or "massachusetts" in agency or "commbuys" in agency or "city of boston" in agency or "mbta" in agency or "massport" in agency:
         return "ma"
+    if title.startswith("[NJ]") or "new jersey" in agency or "(nj)" in agency or "njstart" in agency or "nj transit" in agency or "rutgers" in agency:
+        return "nj"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency:
         return "md"
     return "fed"
@@ -274,6 +279,8 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "NYC OTI Cyber Policies / NYS ITS-S14-003 • SOC 2 Type II • NIST 800-53"
     elif reg == "ma":
         compliance_posture = "MA EOTSS Enterprise Security (NIST 800-53) • SOC 2 Type II • MA VPAT"
+    elif reg == "nj":
+        compliance_posture = "NJ OIT Statewide Cyber Policy (NIST 800-53) • SOC 2 Type II • NJ Treasury DPP"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":
@@ -486,6 +493,7 @@ STATE_DISPLAY_NAMES = {
     "nc": "North Carolina",
     "ny": "New York",
     "ma": "Massachusetts",
+    "nj": "New Jersey",
 }
 
 STATE_PORTAL_LABELS = {
@@ -672,13 +680,13 @@ def build_two_step_outreach(
             f"{intel_block}"
             f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
             f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server)."
+            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 21 REST/MCP APIs (@signaltender/mcp-server)."
         ),
         (
             f"{intel_block}"
             f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP intelligence at 90% less than legacy platforms:\n\n"
             f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 12-State SLED IT/Cyber contract alerts delivered to your Discord, Slack, Teams, or CRM webhook.\n"
-            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 20 developer REST/MCP APIs."
+            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, CPARS Volume III past performance generators, SF-30 amendment diffs, security questionnaire responders, and 21 developer REST/MCP APIs."
         ),
         (
             f"{intel_block}"
@@ -741,7 +749,7 @@ def build_two_step_outreach(
         f"{intel_block}"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 12-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA) IT/Cyber alerts routed to Discord, Slack, MS Teams, or Webhook.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 20 REST/MCP APIs (@signaltender/mcp-server).\n\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, CPARS Past Performance Volume III citations, SF-30 Amendment Diffs, 13 CFR § 125.6 (50% Rule) Teaming Plans, FAR/DFARS/CMMC redlines, and 21 REST/MCP APIs (@signaltender/mcp-server).\n\n"
         f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
         f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 20 AI APIs at:}}}}\n{clean_portal_url}\n\n"
         f"{{{{RANDOM | Or activate full 6-hour dispatches in 60 seconds here: | "

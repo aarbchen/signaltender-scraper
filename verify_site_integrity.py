@@ -130,6 +130,7 @@ def check_html_file(fpath: str) -> str:
             "#contracts/north_carolina",
             "#contracts/new_york",
             "#contracts/massachusetts",
+            "#contracts/new_jersey",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -153,6 +154,8 @@ def check_html_file(fpath: str) -> str:
         fail(f"{rel}: <link rel='icon'> uses a data: URI which Google Search rejects; use crawlable HTTPS URLs")
     if "apple-touch-icon.png?v=" not in txt or "favicon.svg?v=" not in txt:
         fail(f"{rel}: Favicon / apple-touch-icon links must include a ?v= cache-busting query parameter for mobile browsers")
+    if re.search(r"Claude\s+Sonnet|Claude\s+Opus|Claude\s+Haiku|claude-sonnet-|claude-opus-|claude-haiku-|INSTANT-KB", txt, flags=re.I):
+        fail(f"{rel}: Public HTML/JS must never expose internal LLM model names (e.g. Claude Sonnet) or internal INSTANT-KB labels")
 
     return txt
 
@@ -186,8 +189,8 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             fail(f"{label}: #api-pricing-matrix has {len(matrix_rows)} rows, expected {n_apis}")
 
         # Verify badge counts match n_apis
-        if f"API Catalog ({n_apis})" not in txt:
-            fail(f"{label}: Nav link 'API Catalog ({n_apis})' does not match {n_apis} APIs")
+        if ">API Catalog</a>" not in txt:
+            fail(f"{label}: Nav link '>API Catalog</a>' missing")
         if f"{n_apis} LIVE ENDPOINTS" not in txt:
             fail(f"{label}: Directory badge '{n_apis} LIVE ENDPOINTS' does not match {n_apis} APIs")
         if f"{n_apis} MCP TOOLS" not in txt:
@@ -269,6 +272,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "north_carolina": "NC",
         "new_york": "NY",
         "massachusetts": "MA",
+        "new_jersey": "NJ",
     }
     for sk in state_keys:
         abbr = state_abbrev_map.get(sk, sk[:2].upper())
@@ -532,6 +536,7 @@ window.selectInteractiveDossier('georgia');
 window.selectInteractiveDossier('north_carolina');
 window.selectInteractiveDossier('new_york');
 window.selectInteractiveDossier('massachusetts');
+window.selectInteractiveDossier('new_jersey');
 window.selectInteractiveDossier('federal');
 if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
   throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');

@@ -169,6 +169,9 @@ STATE_CODE_TO_FULL = {
     "new york": "New York",
     "ma": "Massachusetts",
     "massachusetts": "Massachusetts",
+    "nj": "New Jersey",
+    "new_jersey": "New Jersey",
+    "new jersey": "New Jersey",
     "federal": "Virginia",
     "municipal": "Texas",
     "all": "Virginia",
@@ -486,6 +489,11 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     (" Imprivata Public Sector IAM", "imprivata.com", "Fran", "Rosch", "Chief Executive Officer (Waltham Healthcare & Gov IAM)", "Waltham", "Massachusetts", "541512, 541519"),
     (" Nasuni GovCloud", "nasuni.com", "Paul", "Flanagan", "Chief Executive Officer (Boston Hybrid Cloud Storage)", "Boston", "Massachusetts", "518210, 541512"),
     (" Carousel / NWN Carousel (MA COMMBUYS)", "nwncarousel.com", "Jim", "Sullivan", "President & CEO (Waltham COMMBUYS SLED Cloud & Comms)", "Waltham", "Massachusetts", "541512, 541513"),
+    # NEW JERSEY SLED (NJSTART / Treasury DPP / Picatinny / NJ TRANSIT)
+    (" CompuCom Systems NJ", "compucom.com", "Mick", "Slattery", "Chief Executive Officer (NJ Managed Workplace & SLED IT)", "Moorestown", "New Jersey", "541512, 541513"),
+    (" Shi International Public Sector (NJSTART)", "shi.com", "Thai", "Lee", "President & CEO (Somerset NJSTART M4002 Software & Cloud)", "Somerset", "New Jersey", "541512, 518210"),
+    (" Trigyn Technologies (NJ SLED & UN IT)", "trigyn.com", "Tom", "Gordon", "Senior VP Public Sector (Edison NJ State & Municipal IT)", "Edison", "New Jersey", "541511, 541512"),
+    (" Marlabs Digital & GovCloud", "marlabs.com", "Siby", "Vadakekkara", "Founder & CEO (Piscataway AI & Enterprise Cloud)", "Piscataway", "New Jersey", "541511, 541512"),
 ]
 
 BAD_LOCAL_PARTS = {
@@ -895,6 +903,7 @@ def discover_usaspending_small_business_websites(
         ("NC", "North Carolina"),
         ("NY", "New York"),
         ("MA", "Massachusetts"),
+        ("NJ", "New Jersey"),
     ]
 
     deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 180
@@ -1072,7 +1081,7 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
             "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210"]},
             "place_of_performance_locations": [
                 {"country": "USA", "state": st}
-                for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA")
+                for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA", "NJ")
             ],
         },
         "limit": 30,

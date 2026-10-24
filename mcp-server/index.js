@@ -40,7 +40,8 @@ const RAPIDAPI_HOSTS = {
   generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
   generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
   analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
-  generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com"
+  generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -252,7 +253,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 14-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 15-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -279,9 +280,10 @@ const TOOLS = [
             "north_carolina",
             "new_york",
             "massachusetts",
+            "new_jersey",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1529,6 +1531,91 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_sources_sought_response",
+    "title": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+    "description": "Transform a government Sources Sought Notice, Request for Information (RFI), or draft PWS/SOW and a contractor's capability profile into a FAR Part 10 market-research response package containing a requirement-by-requirement capability matrix, a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a), SDVOSB, WOSB/EDWOSB, HUBZone, or Total Small Business), NAICS/PSC size-standard recommendations, incumbent/competitor lock-in neutralization questions, and a paste-ready Sources Sought cover letter and technical response narrative. This is a read-only, stateless, non-destructive capture-shaping generator (requires X-RapidAPI-Key; `sources_sought_or_rfi_notice_text` accepts 20 to 45,000 characters and `vendor_capability_and_socioeconomic_profile` accepts 20 to 35,000 characters). Use this tool when responding to pre-RFP Sources Sought notices or RFIs to influence set-aside determination, NAICS code selection, and contract vehicle choice; use `generate_rfp_response` instead when drafting final proposal volumes for a formal solicitation, or `match_capability_statement` for a fast Bid/No-Bid Pwin score.",
+    "annotations": {
+      "title": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sources_sought_or_rfi_notice_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Full text of the government Sources Sought Notice, Request for Information (RFI), Market Research Questionnaire, or draft PWS/SOW (20 to 45,000 characters)."
+        },
+        "vendor_capability_and_socioeconomic_profile": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 35000,
+          "description": "Contractor's core technical capabilities, past performance citations, socio-economic certifications (8(a), SDVOSB, WOSB, HUBZone, Small Business), active contract vehicles (GSA MAS, OASIS+, SEWP, CIO-SP3), UEI/CAGE, and clearance posture (20 to 35,000 characters)."
+        },
+        "target_set_aside_preference": {
+          "type": "string",
+          "enum": [
+            "8a_Sole_Source_or_Competitive",
+            "SDVOSB_Set_Aside",
+            "HUBZone_Set_Aside",
+            "WOSB_EDWOSB_Set_Aside",
+            "Total_Small_Business_Rule_of_Two",
+            "Auto_Recommend"
+          ],
+          "default": "Auto_Recommend",
+          "description": "Preferred FAR Part 19 set-aside pathway to justify to the Contracting Officer and OSDBU, or 'Auto_Recommend'."
+        }
+      },
+      "required": [
+        "sources_sought_or_rfi_notice_text",
+        "vendor_capability_and_socioeconomic_profile"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "shaping_confidence_score": {
+          "type": "integer",
+          "description": "Confidence score (0-100) that the contractor's response demonstrates full technical capability and supports the target acquisition strategy."
+        },
+        "recommended_set_aside_determination": {
+          "type": "string",
+          "description": "Recommended FAR Part 19 set-aside classification supported by Rule-of-Two evidence."
+        },
+        "recommended_naics_and_psc": {
+          "type": "object",
+          "description": "Recommended NAICS code, SBA size standard, PSC code, and strategic sizing justification."
+        },
+        "rule_of_two_set_aside_justification": {
+          "type": "object",
+          "description": "FAR 19.502-2 Rule-of-Two market research argument and suggested GWAC/Schedule vehicle."
+        },
+        "rfi_requirement_alignment_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Requirement-by-requirement alignment mapping each RFI/PWS area to contractor capabilities and past performance."
+        },
+        "strategic_shaping_questions_for_co": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Strategic questions for the Contracting Officer to neutralize incumbent lock-in and shape Section L/M."
+        },
+        "ready_to_submit_sources_sought_narrative": {
+          "type": "string",
+          "description": "Complete, paste-ready Sources Sought / RFI cover letter, administrative data table, capability narrative, and set-aside recommendation."
+        }
+      }
+    }
   }
 ];
 
@@ -1552,7 +1639,8 @@ const ENDPOINT_MAP = {
   generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" },
   generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" },
   analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" },
-  generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" }
+  generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" },
+  generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1655,7 +1743,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.6.0"
+            version: "1.7.0"
           }
         }
       });

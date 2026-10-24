@@ -50,6 +50,7 @@ SCRAPER_MODULES = [
     "nc_scraper",
     "ny_scraper",
     "ma_scraper",
+    "nj_scraper",
 ]
 
 
@@ -186,6 +187,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         "nc_scraper.py",
         "ny_scraper.py",
         "ma_scraper.py",
+        "nj_scraper.py",
         "capturedesk_autopilot.py",
         "outbound_reply_responder.py",
     ]:
@@ -214,7 +216,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 async def run_live_smoke_tests() -> list[str]:
     """Run fast non-destructive smoke tests on ga_scraper and nc_scraper (`push_to_db=False`)."""
     smoke_issues: list[str] = []
-    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper"):
+    for mod_name in ("ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper", "nj_scraper"):
         try:
             mod = importlib.import_module(mod_name)
             records = await mod.run_scraper(push_to_db=False)
@@ -236,7 +238,7 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
     if not contract_issues and not smoke_issues and (remote_errors or local_errors):
         note = (
             f"Auto-healed & verified by auto_error_healer.py "
-            f"(14/14 scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote warning(s))"
+            f"(15/15 scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote warning(s))"
         )
         archive_local_error_log(note)
         cleared_remote = clear_remote_errors(note)
@@ -271,7 +273,7 @@ def run_healer(clear_resolved: bool = True, run_smoke: bool = False) -> int:
     if total_problems == 0:
         print(
             "[PASS] Autonomous Error Telemetry & Scraper Contract Audit: 0 open errors (local + Render Cron), "
-            "14/14 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
+            "15/15 scrapers verified (`run_scraper` + RLS-safe `.insert()`).",
             flush=True,
         )
         return 0
