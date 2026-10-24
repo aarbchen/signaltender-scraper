@@ -151,6 +151,8 @@ def check_html_file(fpath: str) -> str:
         fail(f"{rel}: Prohibited emojis found: {set(emojis)}")
     if re.search(r'<link[^>]+rel="icon"[^>]+href="data:', txt, flags=re.I):
         fail(f"{rel}: <link rel='icon'> uses a data: URI which Google Search rejects; use crawlable HTTPS URLs")
+    if "apple-touch-icon.png?v=" not in txt or "favicon.svg?v=" not in txt:
+        fail(f"{rel}: Favicon / apple-touch-icon links must include a ?v= cache-busting query parameter for mobile browsers")
 
     return txt
 
