@@ -237,7 +237,7 @@ def send_discord_alert(message: str):
     try:
         requests.post(
             DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] pSEO Generator Alert:**\n{message}"},
+            json={"content": f"**[ALERT] pSEO Generator Alert:**\n{message}", "flags": 4},
             timeout=10,
         )
     except Exception as e:
@@ -457,13 +457,14 @@ def _render_layout(
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{escaped_title}</title>
   <meta name="description" content="{escaped_desc}" />
-  <link rel="icon" type="image/png" sizes="96x96" href="https://signaltender.net/contracts/favicon-96x96.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://signaltender.net/contracts/favicon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="https://signaltender.net/contracts/favicon-48x48.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://signaltender.net/contracts/favicon-32x32.png" />
-  <link rel="icon" type="image/svg+xml" href="https://signaltender.net/contracts/favicon.svg" />
-  <link rel="shortcut icon" href="https://signaltender.net/contracts/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://signaltender.net/contracts/favicon-96x96.png?v=4" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://signaltender.net/contracts/favicon-192x192.png?v=4" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://signaltender.net/contracts/favicon-48x48.png?v=4" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://signaltender.net/contracts/favicon-32x32.png?v=4" />
+  <link rel="icon" type="image/svg+xml" href="https://signaltender.net/contracts/favicon.svg?v=4" />
+  <link rel="shortcut icon" href="https://signaltender.net/contracts/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=4" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=4" />
   <link rel="canonical" href="{canonical_url}" />
   <meta property="og:site_name" content="SignalTender" />
   <meta property="og:title" content="{escaped_title}" />
@@ -2299,7 +2300,17 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
 
         # 6. Run automated JS syntax, SPA runtime, and DOM parity verification
         import verify_site_integrity
-        verify_site_integrity.main()
+        try:
+            verify_site_integrity.main()
+        except SystemExit as vse:
+            if vse.code in (0, None):
+                pass
+            else:
+                # verify_site_integrity.fail() already printed the exact diagnostic and logged it
+                # to error_telemetry; do not spam Discord #alerts with a generic "error: 1" message.
+                raise RuntimeError(
+                    "verify_site_integrity.py pre-push check failed during local build (see [FAIL] diagnostic above)."
+                )
 
         # 7. Ping IndexNow (Bing, Copilot, DuckDuckGo, Yandex, Perplexity, ChatGPT Search)
         try:
@@ -2321,12 +2332,15 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
             return pages_built
         err_msg = f"pseo_generator.py error: {e}"
         print(f"[!] {err_msg}", flush=True)
-        try:
-            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"\n[!] {err_msg}\n")
-        except Exception:
-            pass
-        send_discord_alert(err_msg)
+        # Only dispatch Discord #alerts for real runtime/pipeline failures (or Render Cron runs),
+        # never for local verify_site_integrity pre-push lint failures ("error: 1").
+        if "verify_site_integrity.py pre-push check failed" not in str(e) and str(e).strip() != "1":
+            try:
+                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                    f.write(f"\n[!] {err_msg}\n")
+            except Exception:
+                pass
+            send_discord_alert(err_msg)
         return 0
 
 
