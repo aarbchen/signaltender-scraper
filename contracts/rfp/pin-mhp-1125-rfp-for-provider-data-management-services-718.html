@@ -43,10 +43,75 @@
           },
           colors: {
             navy: {
-              950: '#050811',
-              900: '#090E1A',
-              800: '#0F172A',
-              700: '#1E293B',
+              950: '#090C10',
+              900: '#11161F',
+              800: '#161C26',
+              700: '#1F2735',
+            },
+            slate: {
+              950: '#0B0E14',
+              900: '#11161F',
+              800: '#1E2532',
+              700: '#2A3344',
+              600: '#475569',
+              500: '#64748B',
+              400: '#94A3B8',
+              300: '#CBD5E1',
+              200: '#E2E8F0',
+              100: '#F1F5F9',
+              50: '#F8FAFC',
+            },
+            indigo: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            purple: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            violet: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            fuchsia: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
             }
           }
         }
@@ -106,6 +171,194 @@
         overflow-wrap: anywhere;
         word-break: break-word;
       }
+    }
+
+        /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+    :root, html {
+      color-scheme: dark;
+      scrollbar-width: thin;
+      scrollbar-color: #262f3f #090c10;
+    }
+    body {
+      background-color: #090C10 !important;
+      color: #F8FAFC;
+    }
+    /* Top telemetry bar & sticky navigation chrome */
+    #page-main > div:first-of-type,
+    #page-apis > div:first-of-type,
+    #page-contracts > div:first-of-type,
+    #page-checkout > div:first-of-type,
+    body > div > div.border-b.bg-navy-900\/90,
+    body > div.border-b.bg-navy-900\/90 {
+      background-color: #05070A !important;
+      border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+    }
+    header.sticky {
+      background-color: rgba(13, 17, 23, 0.92) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(12px);
+    }
+    header nav[aria-label="Primary Site Navigation"] {
+      background-color: #090C10 !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {
+      background-color: rgba(255, 255, 255, 0.07) !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      color: #F8FAFC !important;
+    }
+    /* Restrain ambient background glow blobs for a clean carbon canvas */
+    .blur-3xl,
+    [class*="blur-[120px]"],
+    [class*="blur-[100px]"] {
+      opacity: 0.08 !important;
+    }
+    /* Uniform Institutional Graphite card surfaces & crisp 1px hairlines */
+    article[id^="product-"],
+    .bg-navy-900,
+    .bg-navy-900\/95,
+    .bg-navy-900\/90,
+    .bg-navy-900\/80,
+    .bg-navy-900\/70,
+    .bg-navy-900\/60,
+    .bg-slate-900\/90,
+    .bg-slate-900\/80,
+    .bg-slate-900\/70 {
+      background-color: #11161F !important;
+    }
+    .bg-navy-950,
+    .bg-navy-950\/95,
+    .bg-navy-950\/90,
+    .bg-navy-950\/80,
+    .bg-slate-950,
+    .bg-slate-950\/90,
+    .bg-slate-950\/80 {
+      background-color: #0B0E14 !important;
+    }
+    /* De-noise rainbow card & link-card borders into crisp institutional hairlines */
+    div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
+    div.rounded-xl,
+    a.rounded-xl:not(.bg-sky-500):not(.bg-sky-600),
+    a.rounded-2xl:not(.bg-sky-500):not(.bg-sky-600),
+    section.rounded-2xl,
+    article[id^="product-"] {
+      border-color: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+    }
+    #checkout-card-tier2,
+    #checkout-card-tier3 {
+      border-color: rgba(56, 189, 248, 0.42) !important;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, #11161F 100%) !important;
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45) !important;
+    }
+    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) instead of neon green/amber */
+    a[class*="bg-emerald-500/"],
+    a[class*="bg-emerald-950"],
+    button[class*="bg-emerald-500/"],
+    button[class*="bg-emerald-950"],
+    a[class*="bg-amber-500/"],
+    a[class*="bg-amber-950"],
+    button[class*="bg-amber-500/"],
+    button[class*="bg-amber-950"] {
+      background-color: #161B22 !important;
+      color: #E2E8F0 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    a[class*="bg-emerald-500/"]:hover,
+    a[class*="bg-emerald-950"]:hover,
+    button[class*="bg-emerald-500/"]:hover,
+    button[class*="bg-emerald-950"]:hover,
+    a[class*="bg-amber-500/"]:hover,
+    a[class*="bg-amber-950"]:hover,
+    button[class*="bg-amber-500/"]:hover,
+    button[class*="bg-amber-950"]:hover {
+      background-color: #1F2733 !important;
+      color: #FFFFFF !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+    }
+    /* Unify multi-color inline prose highlights in paragraphs to crisp white / Steel Sky */
+    p > span.text-emerald-300,
+    p > span.text-emerald-400,
+    p > span.text-amber-300,
+    p > span.text-amber-400 {
+      color: #F8FAFC !important;
+    }
+    /* High-contrast Linear / Palantir crisp white primary action buttons */
+    a.bg-sky-500,
+    a.bg-sky-600,
+    button.bg-sky-500,
+    button.bg-sky-600,
+    a.bg-emerald-500,
+    a.bg-emerald-600,
+    button.bg-emerald-500,
+    button.bg-emerald-600,
+    a.bg-amber-500,
+    a.bg-amber-600,
+    button.bg-amber-500,
+    button.bg-amber-600,
+    a.bg-indigo-600,
+    button.bg-indigo-600,
+    a.bg-purple-600,
+    button.bg-purple-600,
+    a[class*="bg-gradient-to-r"][class*="from-sky-"],
+    button[class*="bg-gradient-to-r"][class*="from-sky-"],
+    a[class*="bg-gradient-to-r"][class*="from-emerald-"],
+    button[class*="bg-gradient-to-r"][class*="from-emerald-"],
+    a[class*="bg-gradient-to-r"][class*="from-indigo-"],
+    button[class*="bg-gradient-to-r"][class*="from-indigo-"],
+    a[class*="bg-gradient-to-r"][class*="from-purple-"],
+    button[class*="bg-gradient-to-r"][class*="from-purple-"],
+    a[class*="bg-gradient-to-r"][class*="from-amber-"],
+    button[class*="bg-gradient-to-r"][class*="from-amber-"] {
+      background: #F8FAFC !important;
+      background-image: none !important;
+      color: #090C10 !important;
+      border-color: #FFFFFF !important;
+      font-weight: 600 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+    }
+    a.bg-sky-500:hover,
+    a.bg-sky-600:hover,
+    button.bg-sky-500:hover,
+    button.bg-sky-600:hover,
+    a.bg-emerald-500:hover,
+    a.bg-emerald-600:hover,
+    button.bg-emerald-500:hover,
+    button.bg-emerald-600:hover,
+    a.bg-amber-500:hover,
+    a.bg-amber-600:hover,
+    button.bg-amber-500:hover,
+    button.bg-amber-600:hover,
+    a.bg-indigo-600:hover,
+    button.bg-indigo-600:hover,
+    a.bg-purple-600:hover,
+    button.bg-purple-600:hover,
+    a[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
+    a[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
+    a[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
+    a[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
+    a[class*="bg-gradient-to-r"][class*="from-amber-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-amber-"]:hover {
+      background: #E2E8F0 !important;
+      background-image: none !important;
+      color: #090C10 !important;
+      border-color: #E2E8F0 !important;
+    }
+    a.bg-sky-500 span,
+    a.bg-sky-600 span,
+    button.bg-sky-500 span,
+    button.bg-sky-600 span,
+    a.bg-emerald-500 span,
+    a.bg-emerald-600 span,
+    button.bg-emerald-500 span,
+    button.bg-emerald-600 span,
+    a[class*="bg-gradient-to-r"][class*="from-"] span,
+    button[class*="bg-gradient-to-r"][class*="from-"] span {
+      color: #090C10 !important;
     }
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "GovernmentService", "name": "[PIN-MHP-1125] RFP for Provider Data Management services", "serviceType": "Enterprise Software, Data & AI Platforms", "provider": {"@type": "GovernmentOrganization", "name": "NYC Health [Verified Agency]"}, "areaServed": "New York", "url": "https://signaltender.net/contracts/rfp/pin-mhp-1125-rfp-for-provider-data-management-services-718.html"}</script>

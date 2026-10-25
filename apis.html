@@ -205,7 +205,7 @@
       }
     }
   
-    /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+        /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
     :root, html {
       color-scheme: dark;
       scrollbar-width: thin;
@@ -243,7 +243,7 @@
     .blur-3xl,
     [class*="blur-[120px]"],
     [class*="blur-[100px]"] {
-      opacity: 0.10 !important;
+      opacity: 0.08 !important;
     }
     /* Uniform Institutional Graphite card surfaces & crisp 1px hairlines */
     article[id^="product-"],
@@ -267,9 +267,11 @@
     .bg-slate-950\/80 {
       background-color: #0B0E14 !important;
     }
-    /* De-noise rainbow card borders into crisp institutional hairlines */
+    /* De-noise rainbow card & link-card borders into crisp institutional hairlines */
     div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
     div.rounded-xl,
+    a.rounded-xl:not(.bg-sky-500):not(.bg-sky-600),
+    a.rounded-2xl:not(.bg-sky-500):not(.bg-sky-600),
     section.rounded-2xl,
     article[id^="product-"] {
       border-color: rgba(255, 255, 255, 0.08) !important;
@@ -280,6 +282,38 @@
       border-color: rgba(56, 189, 248, 0.42) !important;
       background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, #11161F 100%) !important;
       box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45) !important;
+    }
+    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) instead of neon green/amber */
+    a[class*="bg-emerald-500/"],
+    a[class*="bg-emerald-950"],
+    button[class*="bg-emerald-500/"],
+    button[class*="bg-emerald-950"],
+    a[class*="bg-amber-500/"],
+    a[class*="bg-amber-950"],
+    button[class*="bg-amber-500/"],
+    button[class*="bg-amber-950"] {
+      background-color: #161B22 !important;
+      color: #E2E8F0 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    a[class*="bg-emerald-500/"]:hover,
+    a[class*="bg-emerald-950"]:hover,
+    button[class*="bg-emerald-500/"]:hover,
+    button[class*="bg-emerald-950"]:hover,
+    a[class*="bg-amber-500/"]:hover,
+    a[class*="bg-amber-950"]:hover,
+    button[class*="bg-amber-500/"]:hover,
+    button[class*="bg-amber-950"]:hover {
+      background-color: #1F2733 !important;
+      color: #FFFFFF !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+    }
+    /* Unify multi-color inline prose highlights in paragraphs to crisp white / Steel Sky */
+    p > span.text-emerald-300,
+    p > span.text-emerald-400,
+    p > span.text-amber-300,
+    p > span.text-amber-400 {
+      color: #F8FAFC !important;
     }
     /* High-contrast Linear / Palantir crisp white primary action buttons */
     a.bg-sky-500,
