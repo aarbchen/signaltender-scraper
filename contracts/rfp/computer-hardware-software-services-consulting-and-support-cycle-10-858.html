@@ -550,7 +550,519 @@
     button[class*="bg-gradient-to-r"][class*="from-"] span {
       color: #090C10 !important;
     }
+
+    /* === OPTION 2 (TOGGLEABLE LIGHT MODE): EXECUTIVE IVORY & OXFORD NAVY (STRIPE / HIGHERGOV) === */
+    html[data-theme="light"] {
+      color-scheme: light;
+      scrollbar-width: thin;
+      scrollbar-color: #CBD5E1 #F1F5F9;
+    }
+    html[data-theme="light"] * {
+      scrollbar-color: #CBD5E1 #F1F5F9;
+    }
+    html[data-theme="light"] *::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    html[data-theme="light"] *::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border: 1px solid #E2E8F0;
+    }
+    html[data-theme="light"] *::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+    /* Theme toggle button icons & surface */
+    .st-icon-moon {
+      display: none;
+    }
+    html[data-theme="light"] .st-icon-sun {
+      display: none !important;
+    }
+    html[data-theme="light"] .st-icon-moon {
+      display: inline-block !important;
+    }
+    html[data-theme="light"] .st-theme-toggle-btn {
+      background-color: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] .st-theme-toggle-btn:hover {
+      background-color: #E2E8F0 !important;
+      color: #0F172A !important;
+    }
+    /* SignalTender Radar-Chevron Logo & Wordmark: Change white ring (#F8FAFC) & wordmark to Oxford Navy (#0F172A) in Light Mode */
+    html[data-theme="light"] svg circle[stroke="#F8FAFC"],
+    html[data-theme="light"] svg path[stroke="#F8FAFC"] {
+      stroke: #0F172A !important;
+    }
+    html[data-theme="light"] svg circle[fill="#38BDF8"] {
+      fill: #0284C7 !important;
+    }
+    html[data-theme="light"] svg path[stroke="#38BDF8"] {
+      stroke: #0284C7 !important;
+    }
+    html[data-theme="light"] header span.text-\[23px\],
+    html[data-theme="light"] footer span.text-\[23px\] {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] header .inline-flex > span.bg-slate-900,
+    html[data-theme="light"] footer .inline-flex > span.bg-slate-900 {
+      background-color: #F1F5F9 !important;
+      color: #334155 !important;
+      border-color: #CBD5E1 !important;
+      font-weight: 600 !important;
+    }
+    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with subtle slate architectural grid */
+    html[data-theme="light"] body {
+      background-color: #F8FAFC !important;
+      background-image:
+        radial-gradient(ellipse 85% 55% at 50% -10%, rgba(2, 132, 199, 0.06), transparent 70%),
+        linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 48px 48px, 48px 48px !important;
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] .blur-3xl,
+    html[data-theme="light"] [class*="blur-[120px]"],
+    html[data-theme="light"] [class*="blur-[100px]"] {
+      opacity: 0.04 !important;
+    }
+    /* Left Collapsible Sidebar Rail & Drawer in Light Mode */
+    html[data-theme="light"] #page-sidebar-tab,
+    html[data-theme="light"] #page-sidebar-drawer,
+    html[data-theme="light"] #page-sidebar-mobile-btn {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: #E2E8F0 !important;
+      color: #334155 !important;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06) !important;
+    }
+    html[data-theme="light"] #page-sidebar-tab button:hover,
+    html[data-theme="light"] #page-sidebar-drawer button:hover {
+      background-color: #F1F5F9 !important;
+      color: #0F172A !important;
+    }
+    /* Top Telemetry Bar stays Deep Oxford Navy (#0F172A) like Option 2 Preview */
+    html[data-theme="light"] #page-main > div:first-of-type,
+    html[data-theme="light"] #page-apis > div:first-of-type,
+    html[data-theme="light"] #page-contracts > div:first-of-type,
+    html[data-theme="light"] #page-checkout > div:first-of-type,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 {
+      background-color: #0F172A !important;
+      border-bottom-color: #1E293B !important;
+      color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] #page-main > div:first-of-type *,
+    html[data-theme="light"] #page-apis > div:first-of-type *,
+    html[data-theme="light"] #page-contracts > div:first-of-type *,
+    html[data-theme="light"] #page-checkout > div:first-of-type *,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 *,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 * {
+      color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] #page-main > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-apis > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-contracts > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-checkout > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-emerald-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-emerald-400 {
+      color: #34D399 !important;
+    }
+    html[data-theme="light"] #page-main > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-apis > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-contracts > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-checkout > div:first-of-type .text-sky-400,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-sky-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-sky-400 {
+      color: #38BDF8 !important;
+    }
+    /* Sticky Navigation Header -> Pure White (#FFFFFF) */
+    html[data-theme="light"] header.sticky {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-bottom-color: #E2E8F0 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+    }
+    html[data-theme="light"] header nav[aria-label="Primary Site Navigation"] {
+      background-color: #F1F5F9 !important;
+      border-color: #E2E8F0 !important;
+      box-shadow: none !important;
+    }
+    html[data-theme="light"] header nav[aria-label="Primary Site Navigation"] a {
+      color: #475569 !important;
+    }
+    html[data-theme="light"] header nav[aria-label="Primary Site Navigation"] a:hover {
+      color: #0F172A !important;
+      background-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+    }
+    html[data-theme="light"] header div.lg\:hidden {
+      background-color: #F8FAFC !important;
+      border-top-color: #E2E8F0 !important;
+    }
+    /* Elevated Cards & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
+    html[data-theme="light"] section,
+    html[data-theme="light"] footer {
+      background-color: transparent !important;
+      border-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] footer {
+      background-color: #FFFFFF !important;
+    }
+    html[data-theme="light"] article[id^="product-"],
+    html[data-theme="light"] .bg-navy-900,
+    html[data-theme="light"] .bg-navy-900\/95,
+    html[data-theme="light"] .bg-navy-900\/90,
+    html[data-theme="light"] .bg-navy-900\/80,
+    html[data-theme="light"] .bg-navy-900\/70,
+    html[data-theme="light"] .bg-navy-900\/60,
+    html[data-theme="light"] .bg-slate-900,
+    html[data-theme="light"] .bg-slate-900\/90,
+    html[data-theme="light"] .bg-slate-900\/80,
+    html[data-theme="light"] .bg-slate-900\/70,
+    html[data-theme="light"] .bg-slate-900\/60,
+    html[data-theme="light"] .bg-slate-800,
+    html[data-theme="light"] .bg-slate-800\/80,
+    html[data-theme="light"] .bg-slate-800\/60,
+    html[data-theme="light"] .bg-slate-800\/50 {
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] .bg-navy-950,
+    html[data-theme="light"] .bg-navy-950\/95,
+    html[data-theme="light"] .bg-navy-950\/90,
+    html[data-theme="light"] .bg-navy-950\/80,
+    html[data-theme="light"] .bg-navy-950\/70,
+    html[data-theme="light"] .bg-slate-950,
+    html[data-theme="light"] .bg-slate-950\/90,
+    html[data-theme="light"] .bg-slate-950\/80,
+    html[data-theme="light"] .bg-slate-950\/70,
+    html[data-theme="light"] .bg-slate-950\/60 {
+      background-color: #F8FAFC !important;
+      border-color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] {
+      background-color: #FFFFFF !important;
+    }
+    html[data-theme="light"] div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
+    html[data-theme="light"] div.rounded-xl,
+    html[data-theme="light"] a.rounded-xl:not(.bg-sky-500):not(.bg-sky-600),
+    html[data-theme="light"] a.rounded-2xl:not(.bg-sky-500):not(.bg-sky-600),
+    html[data-theme="light"] section.rounded-2xl,
+    html[data-theme="light"] article[id^="product-"] {
+      border-color: #E2E8F0 !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.02) !important;
+    }
+    /* Featured Tiers (Tier 2, Tier 3, and API ULTRA Popular cards) -> 2px Federal Blue border + soft sky gradient */
+    html[data-theme="light"] #checkout-card-tier2,
+    html[data-theme="light"] #checkout-card-tier3,
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:nth-child(3) {
+      border: 2px solid #0284C7 !important;
+      background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 45%) !important;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08) !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:not(:nth-child(3)) {
+      background-color: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div > span.absolute {
+      background-color: #E0F2FE !important;
+      color: #0369A1 !important;
+      border: 1px solid #BAE6FD !important;
+    }
+    /* API Card Top Strip in Light Mode */
+    html[data-theme="light"] article[id^="product-"] > div:first-of-type {
+      background: #F8FAFC !important;
+      background-image: none !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] > div:first-of-type span.rounded {
+      background-color: #F1F5F9 !important;
+      color: #334155 !important;
+      border: 1px solid #CBD5E1 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {
+      background-color: #E0F2FE !important;
+      color: #0369A1 !important;
+      border: 1px solid #BAE6FD !important;
+    }
+    /* Typography in Light Mode */
+    html[data-theme="light"] .text-white,
+    html[data-theme="light"] .text-slate-100,
+    html[data-theme="light"] .text-slate-200 {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] .text-slate-300,
+    html[data-theme="light"] .text-slate-400 {
+      color: #475569 !important;
+    }
+    html[data-theme="light"] .text-slate-500,
+    html[data-theme="light"] .text-slate-600 {
+      color: #64748B !important;
+    }
+    html[data-theme="light"] .text-sky-400,
+    html[data-theme="light"] .text-sky-300,
+    html[data-theme="light"] .text-indigo-400,
+    html[data-theme="light"] .text-indigo-300,
+    html[data-theme="light"] .text-amber-400,
+    html[data-theme="light"] .text-amber-300,
+    html[data-theme="light"] .text-cyan-400,
+    html[data-theme="light"] .text-cyan-300 {
+      color: #0284C7 !important;
+    }
+    html[data-theme="light"] .text-emerald-400,
+    html[data-theme="light"] .text-emerald-300 {
+      color: #059669 !important;
+    }
+    html[data-theme="light"] p > span.text-emerald-300,
+    html[data-theme="light"] p > span.text-emerald-400,
+    html[data-theme="light"] p > span.text-amber-300,
+    html[data-theme="light"] p > span.text-amber-400,
+    html[data-theme="light"] p > span.text-sky-300,
+    html[data-theme="light"] p > span.text-sky-400 {
+      color: #0F172A !important;
+    }
+    html[data-theme="light"] .bg-clip-text.text-transparent {
+      background-image: linear-gradient(90deg, #0284C7 0%, #1D4ED8 100%) !important;
+    }
+    html[data-theme="light"] .border-slate-800,
+    html[data-theme="light"] .border-slate-800\/90,
+    html[data-theme="light"] .border-slate-800\/80,
+    html[data-theme="light"] .border-slate-800\/70,
+    html[data-theme="light"] .border-slate-800\/60,
+    html[data-theme="light"] .border-slate-700,
+    html[data-theme="light"] .border-slate-700\/80,
+    html[data-theme="light"] .divide-slate-800 > :not([hidden]) ~ :not([hidden]),
+    html[data-theme="light"] .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]),
+    html[data-theme="light"] .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]) {
+      border-color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] #api-pricing-matrix tbody tr {
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    html[data-theme="light"] #api-pricing-matrix tbody tr:hover {
+      background-color: #F8FAFC !important;
+    }
+    html[data-theme="light"] input,
+    html[data-theme="light"] select,
+    html[data-theme="light"] textarea {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    /*Primary CTA Buttons in Light Mode -> Deep Oxford Navy (#0F172A) with Crisp White Text (exact match to Option 2 preview) */
+    html[data-theme="light"] a.bg-sky-500,
+    html[data-theme="light"] a.bg-sky-600,
+    html[data-theme="light"] button.bg-sky-500,
+    html[data-theme="light"] button.bg-sky-600,
+    html[data-theme="light"] a.bg-emerald-500,
+    html[data-theme="light"] a.bg-emerald-600,
+    html[data-theme="light"] button.bg-emerald-500,
+    html[data-theme="light"] button.bg-emerald-600,
+    html[data-theme="light"] a.bg-amber-500,
+    html[data-theme="light"] a.bg-amber-600,
+    html[data-theme="light"] button.bg-amber-500,
+    html[data-theme="light"] button.bg-amber-600,
+    html[data-theme="light"] a.bg-indigo-500,
+    html[data-theme="light"] a.bg-indigo-600,
+    html[data-theme="light"] button.bg-indigo-500,
+    html[data-theme="light"] button.bg-indigo-600,
+    html[data-theme="light"] a.bg-cyan-500,
+    html[data-theme="light"] a.bg-cyan-600,
+    html[data-theme="light"] button.bg-cyan-500,
+    html[data-theme="light"] button.bg-cyan-600,
+    html[data-theme="light"] a.bg-teal-500,
+    html[data-theme="light"] a.bg-teal-600,
+    html[data-theme="light"] button.bg-teal-500,
+    html[data-theme="light"] button.bg-teal-600,
+    html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"],
+    html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"] {
+      background: #0F172A !important;
+      background-image: none !important;
+      color: #FFFFFF !important;
+      border-color: #0F172A !important;
+      font-weight: 600 !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.14) !important;
+    }
+    html[data-theme="light"] a.bg-sky-500:hover,
+    html[data-theme="light"] a.bg-sky-600:hover,
+    html[data-theme="light"] button.bg-sky-500:hover,
+    html[data-theme="light"] button.bg-sky-600:hover,
+    html[data-theme="light"] a.bg-emerald-500:hover,
+    html[data-theme="light"] a.bg-emerald-600:hover,
+    html[data-theme="light"] button.bg-emerald-500:hover,
+    html[data-theme="light"] button.bg-emerald-600:hover,
+    html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"]:hover,
+    html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"]:hover {
+      background: #1E293B !important;
+      border-color: #1E293B !important;
+      color: #FFFFFF !important;
+    }
+    html[data-theme="light"] a.bg-sky-500 span,
+    html[data-theme="light"] a.bg-sky-600 span,
+    html[data-theme="light"] button.bg-sky-500 span,
+    html[data-theme="light"] button.bg-sky-600 span,
+    html[data-theme="light"] a.bg-emerald-500 span,
+    html[data-theme="light"] a.bg-emerald-600 span,
+    html[data-theme="light"] button.bg-emerald-500 span,
+    html[data-theme="light"] button.bg-emerald-600 span,
+    html[data-theme="light"] a.bg-amber-500 span,
+    html[data-theme="light"] a.bg-amber-600 span,
+    html[data-theme="light"] button.bg-amber-500 span,
+    html[data-theme="light"] button.bg-amber-600 span,
+    html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"] span,
+    html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"] span {
+      color: #FFFFFF !important;
+    }
+    /* Secondary Buttons in Light Mode -> Crisp White (#FFFFFF) with Slate Border */
+    html[data-theme="light"] a[class*="bg-emerald-500/"],
+    html[data-theme="light"] a[class*="bg-emerald-950"],
+    html[data-theme="light"] button[class*="bg-emerald-500/"],
+    html[data-theme="light"] button[class*="bg-emerald-950"],
+    html[data-theme="light"] a[class*="bg-amber-500/"],
+    html[data-theme="light"] a[class*="bg-amber-950"],
+    html[data-theme="light"] button[class*="bg-amber-500/"],
+    html[data-theme="light"] button[class*="bg-amber-950"],
+    html[data-theme="light"] a[class*="bg-sky-500/"],
+    html[data-theme="light"] button[class*="bg-sky-500/"],
+    html[data-theme="light"] a[class*="bg-indigo-500/"],
+    html[data-theme="light"] button[class*="bg-indigo-500/"] {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] a[class*="bg-emerald-500/"]:hover,
+    html[data-theme="light"] button[class*="bg-emerald-500/"]:hover,
+    html[data-theme="light"] a[class*="bg-sky-500/"]:hover,
+    html[data-theme="light"] button[class*="bg-sky-500/"]:hover {
+      background-color: #F1F5F9 !important;
+      color: #0F172A !important;
+      border-color: #94A3B8 !important;
+    }
+    /* Keep Embedded Code / JSON Terminal Panels Dark Oxford Navy (#0F172A) like Option 2 Preview */
+    html[data-theme="light"] pre,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div,
+    html[data-theme="light"] #demo-raw-pdf,
+    html[data-theme="light"] #demo-json-output {
+      background-color: #0F172A !important;
+      color: #E2E8F0 !important;
+      border-color: #1E293B !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950\/90,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950\/80,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-950,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-900,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-900\/90,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-800,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-800\/80 {
+      background-color: #090D16 !important;
+      border-color: #1E293B !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn] {
+      background-color: transparent !important;
+      color: #94A3B8 !important;
+      border-color: transparent !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].bg-sky-500\/20,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].text-sky-300,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].bg-slate-800 {
+      background-color: #1E293B !important;
+      color: #38BDF8 !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]) {
+      background-color: #1E293B !important;
+      color: #E2E8F0 !important;
+      border-color: #334155 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]):hover {
+      background-color: #334155 !important;
+      color: #FFFFFF !important;
+    }
+    html[data-theme="light"] pre *,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-300,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-200,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-white {
+      color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-400,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-500 {
+      color: #94A3B8 !important;
+    }
+    html[data-theme="light"] pre .text-sky-400,
+    html[data-theme="light"] pre .text-sky-300,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-sky-400,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-sky-300 {
+      color: #38BDF8 !important;
+    }
+    html[data-theme="light"] pre .text-emerald-400,
+    html[data-theme="light"] pre .text-emerald-300,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-emerald-400,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-emerald-300 {
+      color: #34D399 !important;
+    }
+    html[data-theme="light"] pre .text-amber-400,
+    html[data-theme="light"] pre .text-amber-300,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-amber-400,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-amber-300 {
+      color: #FBBF24 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
+      background-color: #090D16 !important;
+      border: 1px solid #1E293B !important;
+      color: #38BDF8 !important;
+    }
   </style>
+  <script id="signaltender-theme-controller">
+    (function () {
+      function applyTheme(mode) {
+        var root = document.documentElement;
+        var next = (mode === 'light') ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        if (next === 'light') {
+          root.classList.remove('dark');
+        } else {
+          root.classList.add('dark');
+        }
+        var btns = document.querySelectorAll ? document.querySelectorAll('.st-theme-toggle-btn') : [];
+        for (var i = 0; i < btns.length; i++) {
+          var lbl = btns[i].querySelector ? btns[i].querySelector('.st-theme-label') : null;
+          if (lbl) lbl.textContent = (next === 'light') ? 'Dark' : 'Light';
+          btns[i].setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+          btns[i].setAttribute('title', next === 'light' ? 'Switch to Institutional Graphite (Dark Mode)' : 'Switch to Executive Ivory & Navy (Light Mode)');
+        }
+      }
+      window.setSignalTheme = function (mode) {
+        var next = (mode === 'light') ? 'light' : 'dark';
+        try {
+          if (window.localStorage) window.localStorage.setItem('st_theme_mode', next);
+        } catch (e) {}
+        applyTheme(next);
+        return next;
+      };
+      window.toggleSignalTheme = function () {
+        var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        return window.setSignalTheme(cur === 'light' ? 'dark' : 'light');
+      };
+      var saved = 'dark';
+      try {
+        if (window.localStorage) {
+          var s = window.localStorage.getItem('st_theme_mode');
+          if (s === 'light' || s === 'dark') saved = s;
+        }
+      } catch (e) {}
+      applyTheme(saved);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { applyTheme(document.documentElement.getAttribute('data-theme') || saved); });
+      }
+    })();
+  </script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "GovernmentService", "name": "Computer Hardware, Software, Services, Consulting, and Support -Cycle 10", "serviceType": "Enterprise Software, Data & AI Platforms", "provider": {"@type": "GovernmentOrganization", "name": "Pearland ISD, [Verified Agency]"}, "areaServed": "Municipal SLED", "url": "https://signaltender.net/contracts/rfp/computer-hardware-software-services-consulting-and-support-cycle-10-858.html"}</script>
 </head>
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sky-500/30 selection:text-sky-200 min-h-screen flex flex-col justify-between">
@@ -590,7 +1102,24 @@
           <a href="../../index.html#checkout" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
         <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
-          <div class="flex items-center gap-1 sm:gap-1.5 xl:pr-2 xl:border-r xl:border-slate-800">
+          
+          <button
+            type="button"
+            onclick="window.toggleSignalTheme()"
+            aria-label="Toggle Light and Dark Theme"
+            title="Switch between Institutional Graphite (Dark) and Executive Ivory (Light)"
+            class="st-theme-toggle-btn inline-flex items-center justify-center gap-1.5 whitespace-nowrap px-2 py-1.5 sm:py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white transition-all cursor-pointer shrink-0"
+          >
+            <svg class="st-icon-sun w-3.5 h-3.5 text-sky-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="4" />
+              <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+            </svg>
+            <svg class="st-icon-moon w-3.5 h-3.5 text-sky-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+            <span class="hidden sm:inline lg:hidden 2xl:inline st-theme-label">Light</span>
+          </button>
+<div class="flex items-center gap-1 sm:gap-1.5 xl:pr-2 xl:border-r xl:border-slate-800">
             <a href="../../index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
             <a href="../../index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>

@@ -960,9 +960,11 @@ def check_mobile_viewport_overflow() -> None:
             browser = p.chromium.launch(headless=True)
             context = browser.new_context(viewport={"width": 375, "height": 812}, is_mobile=True)
             page = context.new_page()
+            page.set_default_navigation_timeout(60000)
+            page.set_default_timeout(60000)
 
             index_uri = (base_p / "index.html").as_uri()
-            page.goto(f"{index_uri}#contracts", wait_until="domcontentloaded")
+            page.goto(f"{index_uri}#contracts", wait_until="domcontentloaded", timeout=60000)
             page.wait_for_timeout(150)
             first_slug = page.evaluate("window.SIGNALTENDER_CONTRACTS && window.SIGNALTENDER_CONTRACTS[0] ? window.SIGNALTENDER_CONTRACTS[0].slug : ''")
 
@@ -978,23 +980,43 @@ def check_mobile_viewport_overflow() -> None:
                 "#privacy",
             ]
             for route in routes:
-                page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
-                page.wait_for_timeout(120)
+                page.evaluate("(h) => { window.location.hash = h; }", route)
+                page.wait_for_timeout(80)
                 issues = page.evaluate(js_scan)
                 if issues:
                     browser.close()
                     return (f"index.html{route}", issues[:3])
 
-            page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
+            for desk_w in (1024, 1280):
+                page.set_viewport_size({"width": desk_w, "height": 900})
+                for route in ["#overview", "#apis", "#contracts", f"#contracts/rfp/{first_slug}", "#checkout", "#account"]:
+                    page.evaluate("(h) => { window.location.hash = h; }", route)
+                    page.wait_for_timeout(60)
+                    issues = page.evaluate(js_scan)
+                    if issues:
+                        browser.close()
+                        return (f"index.html{route}@{desk_w}px", issues[:3])
+
+            page.set_viewport_size({"width": 375, "height": 812})
+            page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded", timeout=60000)
             page.wait_for_timeout(120)
             issues = page.evaluate(js_scan)
             if issues:
                 browser.close()
                 return ("apis.html", issues[:3])
 
+            for desk_w in (1024, 1280):
+                page.set_viewport_size({"width": desk_w, "height": 900})
+                page.wait_for_timeout(60)
+                issues = page.evaluate(js_scan)
+                if issues:
+                    browser.close()
+                    return (f"apis.html@{desk_w}px", issues[:3])
+
+            page.set_viewport_size({"width": 375, "height": 812})
             c_index = base_p / "contracts" / "index.html"
             if c_index.exists():
-                page.goto(c_index.as_uri(), wait_until="domcontentloaded")
+                page.goto(c_index.as_uri(), wait_until="domcontentloaded", timeout=60000)
                 page.wait_for_timeout(100)
                 issues = page.evaluate(js_scan)
                 if issues:
@@ -1003,28 +1025,12 @@ def check_mobile_viewport_overflow() -> None:
 
             rfp_samples = glob.glob(str(base_p / "contracts" / "rfp" / "*.html"))
             if rfp_samples:
-                page.goto(Path(rfp_samples[0]).as_uri(), wait_until="domcontentloaded")
+                page.goto(Path(rfp_samples[0]).as_uri(), wait_until="domcontentloaded", timeout=60000)
                 page.wait_for_timeout(100)
                 issues = page.evaluate(js_scan)
                 if issues:
                     browser.close()
                     return ("contracts/rfp sample", issues[:3])
-
-            for desk_w in (1024, 1280):
-                page.set_viewport_size({"width": desk_w, "height": 900})
-                for route in ["#overview", "#apis", "#contracts", f"#contracts/rfp/{first_slug}", "#checkout", "#account"]:
-                    page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
-                    page.wait_for_timeout(80)
-                    issues = page.evaluate(js_scan)
-                    if issues:
-                        browser.close()
-                        return (f"index.html{route}@{desk_w}px", issues[:3])
-                page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
-                page.wait_for_timeout(80)
-                issues = page.evaluate(js_scan)
-                if issues:
-                    browser.close()
-                    return (f"apis.html@{desk_w}px", issues[:3])
 
             browser.close()
             return None
