@@ -242,3 +242,9 @@ ReferenceError: CATALOG is not defined
 
 === ARCHIVED & RESOLVED AT 2026-10-25 14:27:57 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-25 14:24:37 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#overview: ['div [PAST_SCREEN left=89 right=398 vw=375] "Volume_III_Past_Performance_Compliance.docx CPARS Relevancy Citations," ()', 'div [PAST_SCREEN left=89 right=398 vw=375] "Volume_III_Past_Performance_Compliance.docx" (text-white font-bold)', 'div [PAST_SCREEN left=89 right=398 vw=375] "CPARS Relevancy Citations, 13 CFR § 125.6 Workshare Split, NIST 800-53" (text-[11px] text-slate-400)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 15:17:49 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-25 15:15:29 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#overview: ['span [OVERFLOWS_CARD elRight=339 cardRight=334 vw=375] "RFP_Section_C_L_M_Combined_128pages.pdf" (underline)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 15:25:30 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-25 15:23:17 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#overview@1024px: ['span [CLIPPED_BOX scrollW=12 clientW=8] "" (relative flex h-2 w-2 shrink-0)', 'span [CLIPPED_BOX scrollW=144 clientW=125] "B2B Contract Parsing" (text-slate-200 group-hover:text-white truncate)', 'span [CLIPPED_BOX scrollW=180 clientW=125] "AI Risk & Redline Auditor" (text-slate-200 group-hover:text-white truncate)']

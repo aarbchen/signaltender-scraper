@@ -2516,5 +2516,21 @@
     "is_active": true,
     "description": "ENTERPRISE SERVICE DELIVERY III (ESD III)",
     "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_SP470924F0096_9700_SP470917D0042_9700"
+  },
+  "ENTERPRISERESOURCEPLANNING": {
+    "company_name": "Enterprise Resource Planning",
+    "matched_recipient_name": "ENTERPRISE RESOURCE PLANNING INTERNATIONAL, LLC",
+    "award_id": "75FCMC19F0001",
+    "award_amount": 40754102.32,
+    "award_amount_fmt": "$40.8M",
+    "award_amount_clean": "USD 40.8M",
+    "awarding_agency": "Department of Health and Human Services",
+    "awarding_sub_agency": "Centers for Medicare & Medicaid Services (CMS)",
+    "awarding_sub_agency_short": "HHS CMS",
+    "start_date": "2019-09-13",
+    "end_date": "2024-09-12",
+    "is_active": false,
+    "description": "ENTERPRISE ARCHITECTURE SUPPORT SERVICES",
+    "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75FCMC19F0001_7530_HHSM500201600065I_7530"
   }
 }
