@@ -1101,6 +1101,7 @@ def format_external_webhook_payload(
             char_total += len(b) + 4
         return {
             "username": "SignalTender CaptureDesk Autopilot" if norm_tier == "tier_2" else "SignalWire Pro",
+            "avatar_url": "https://cdn.discordapp.com/avatars/1561230679860056117/79a24b4cd14595244f5ac4414807d9a1.png",
             "content": "\n\n".join(blocks),
             "flags": 4,
         }

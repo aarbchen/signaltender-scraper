@@ -247,6 +247,51 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         if "LINKEDIN_PERSON_URN" in li_src or '"author": author_person' in li_src:
             issues.append("linkedin_autoposter.py must NEVER target a personal profile (`LINKEDIN_PERSON_URN`); only `urn:li:organization:146880945` is allowed.")
 
+    # 4. Verify all 5 SignalTender Discord webhooks and the main Discord Bot user have the SignalTender radar-chevron avatar set
+    icon_path = BASE_DIR / "apple-touch-icon.png"
+    icon_b64 = None
+    if icon_path.exists():
+        import base64
+        icon_b64 = "data:image/png;base64," + base64.b64encode(icon_path.read_bytes()).decode("ascii")
+    for env_key in (
+        "DISCORD_WEBHOOK_URL",
+        "DISCORD_CONTENT_WEBHOOK_URL",
+        "DISCORD_CAPTUREDESK_WEBHOOK_URL",
+        "DISCORD_TIER3_WEBHOOK_URL",
+        "DISCORD_TIER4_WEBHOOK_URL",
+    ):
+        wh_url = (os.getenv(env_key) or "").strip()
+        if not wh_url or "discord.com/api/webhooks/" not in wh_url:
+            continue
+        try:
+            r = requests.get(wh_url, timeout=8)
+            if r.status_code == 200:
+                wh_data = r.json()
+                if not wh_data.get("avatar") and icon_b64:
+                    patch_r = requests.patch(wh_url, json={"avatar": icon_b64}, timeout=10)
+                    if patch_r.status_code != 200 or not patch_r.json().get("avatar"):
+                        issues.append(f"{env_key} Discord webhook is missing the SignalTender logo avatar and auto-patch failed ({patch_r.status_code}).")
+        except Exception:
+            pass
+
+    bot_token = (os.getenv("DISCORD_BOT_TOKEN") or "").strip()
+    if bot_token and icon_b64:
+        try:
+            r_bot = requests.get(
+                "https://discord.com/api/v10/users/@me",
+                headers={"Authorization": f"Bot {bot_token}"},
+                timeout=8,
+            )
+            if r_bot.status_code == 200 and not r_bot.json().get("avatar"):
+                requests.patch(
+                    "https://discord.com/api/v10/users/@me",
+                    headers={"Authorization": f"Bot {bot_token}", "Content-Type": "application/json"},
+                    json={"avatar": icon_b64},
+                    timeout=10,
+                )
+        except Exception:
+            pass
+
     return issues
 
 
