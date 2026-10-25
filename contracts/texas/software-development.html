@@ -1260,11 +1260,23 @@
           })
         });
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        var blob = await resp.blob();
+        var ctype = String(resp.headers.get('content-type') || '');
+        var blob = null;
+        var dlName = 'SignalTender_3Vol_Proposal_' + String(slugVal || 'package').slice(0, 36) + '.zip';
+        if (ctype.indexOf('application/json') !== -1) {
+          var jData = await resp.json();
+          if (jData && jData.filename) dlName = jData.filename;
+          var binStr = window.atob(jData.zip_base64 || '');
+          var u8 = new Uint8Array(binStr.length);
+          for (var bi = 0; bi < binStr.length; bi++) u8[bi] = binStr.charCodeAt(bi);
+          blob = new Blob([u8], { type: 'application/zip' });
+        } else {
+          blob = await resp.blob();
+        }
         var dlUrl = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = dlUrl;
-        a.download = 'SignalTender_3Vol_Proposal_' + String(slugVal || 'package').slice(0, 36) + '.zip';
+        a.download = dlName;
         document.body.appendChild(a);
         a.click();
         setTimeout(function () {
@@ -1318,16 +1330,14 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            email: subEm,
+            company_name: subCo,
+            uei_or_cage: ueiEl ? String(ueiEl.value || 'Verified SAM UEI').trim() : 'Verified SAM UEI',
+            socioeconomic_status: socEl ? String(socEl.value || 'SDVOSB').trim() : 'SDVOSB',
             solicitation_id: String(slugVal || 'RFP-2026').slice(0, 65),
             solicitation_title: titleVal || 'Government IT Solicitation',
-            agency: agencyVal || 'Government Agency',
-            prime_company: 'Verified Prime / Small Business Lead',
-            sub_company: subCo,
-            sub_uei_cage: ueiEl ? String(ueiEl.value || '').trim() : '',
-            sub_socioeconomic: socEl ? String(socEl.value || 'SDVOSB').trim() : 'SDVOSB',
-            proposed_sub_workshare_pct: pctEl ? (parseFloat(pctEl.value) || 40) : 40,
-            contact_email: subEm,
-            core_naics: String(naicsVal || '541512').split('/')[0].trim()
+            issuing_agency: agencyVal || 'Government Agency',
+            naics_focus: String(naicsVal || '541512').split('/')[0].trim()
           })
         });
         var d = await r.json();
