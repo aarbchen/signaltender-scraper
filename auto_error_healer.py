@@ -37,10 +37,10 @@ from error_telemetry import (
 )
 
 configure_utf8_stdio()
-load_dotenv(dotenv_path=r"D:\Daas\.env")
+BASE_DIR = pathlib.Path(__file__).resolve().parent
+load_dotenv(dotenv_path=BASE_DIR / ".env")
 load_dotenv()
 
-BASE_DIR = pathlib.Path(r"D:\Daas")
 SLED_DIR = BASE_DIR / "sled-scraper"
 if str(SLED_DIR) not in sys.path:
     sys.path.insert(0, str(SLED_DIR))

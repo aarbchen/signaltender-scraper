@@ -1134,8 +1134,9 @@ async def run_master_orchestrator(
             linkedin_autoposter.run_linkedin_autoposter(generate_banner=False)
             import x_autoposter
             x_autoposter.run_x_autoposter(max_posts=1)
-            import auto_error_healer
-            auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
+            if not os.getenv("RENDER"):
+                import auto_error_healer
+                auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
         except (Exception, SystemExit) as out_err:
             out_msg = f"Outreach generator warning in mainscraper.py: {out_err}"
             print(f"[!] {out_msg}", flush=True)
