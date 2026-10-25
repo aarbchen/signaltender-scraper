@@ -1503,6 +1503,12 @@
           if (agMask) {
             agMask.className = 'text-white font-semibold';
           }
+          var coMask = document.getElementById('dossier-co-routing-mask');
+          if (coMask) {
+            var realRouting = coMask.getAttribute('data-real-routing') || '';
+            coMask.className = 'text-sky-300 font-semibold';
+            if (realRouting) coMask.textContent = realRouting;
+          }
         }
       } catch (e) {}
     })();

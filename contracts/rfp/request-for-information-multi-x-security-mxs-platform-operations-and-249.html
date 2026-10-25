@@ -277,6 +277,7 @@
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="https://sam.gov/workspace/contract/opp/de22734a66d642f7a23e88d78cadf540/view" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/24998412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">Federal Government (SAM) - Procurement Division</span></div>
+                      <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official SAM.gov Federal Contracting Electronic Q&amp;A &amp; Contracting Officer Portal (Federal Government (SAM))" class="blur-sm select-none break-words">contracting.officer@sam.gov &bull; Electronic Q&amp;A Desk (Federal Government (SAM))</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
@@ -1244,6 +1245,12 @@
           }
           if (agMask) {
             agMask.className = 'text-white font-semibold';
+          }
+          var coMask = document.getElementById('dossier-co-routing-mask');
+          if (coMask) {
+            var realRouting = coMask.getAttribute('data-real-routing') || '';
+            coMask.className = 'text-sky-300 font-semibold';
+            if (realRouting) coMask.textContent = realRouting;
           }
         }
       } catch (e) {}

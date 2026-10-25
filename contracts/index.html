@@ -216,7 +216,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           
             <a href="federal/index.html" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">
               <div>
@@ -398,6 +398,17 @@
               </div>
             </a>
             
+        </div>
+
+        <div class="mb-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-950/80 border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="text-[11px] font-mono text-amber-300 font-semibold uppercase tracking-wider">// PRE-RFP RECOMPETE RADAR (90&ndash;180D) &amp; PRIME SUBCONTRACTING WIRE</div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Capture Expiring Federal IT Contracts &amp; 30% Small-Business Subcontracting Pools Before the RFP Drops</h2>
+            <p class="text-xs text-slate-300">Explore 27 verified federal IT recompetes (with API #16 Challenger Price-to-Win ceilings &amp; API #21 FAR 19.502-2 set-aside shaping) and newly awarded Prime contracts with mandatory FAR 52.219-9 subcontracting pools.</p>
+          </div>
+          <a href="recompetes/index.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-xs font-mono font-semibold shrink-0 whitespace-nowrap transition-all">
+            Open Recompete &amp; Sub Wire &rarr;
+          </a>
         </div>
 
         <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">Latest Pre-Vetted Solicitations</h2>
@@ -4148,6 +4159,12 @@
           }
           if (agMask) {
             agMask.className = 'text-white font-semibold';
+          }
+          var coMask = document.getElementById('dossier-co-routing-mask');
+          if (coMask) {
+            var realRouting = coMask.getAttribute('data-real-routing') || '';
+            coMask.className = 'text-sky-300 font-semibold';
+            if (realRouting) coMask.textContent = realRouting;
           }
         }
       } catch (e) {}

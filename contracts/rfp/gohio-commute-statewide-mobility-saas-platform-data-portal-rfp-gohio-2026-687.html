@@ -277,6 +277,7 @@
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="https://www.morpc.org/wp-content/uploads/2026/09/RFP_Gohio_2026_OARC.pdf" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/68798412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">Mid-Ohio Regional Planning Commission (MORPC) / OARC - Procurement Division</span></div>
+                      <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official OhioBuys, Auditor of State &amp; Columbus/MORPC Electronic Q&amp;A &amp; Contracting Officer Portal (Mid-Ohio Regional Planning Commission (MORPC) / OARC)" class="blur-sm select-none break-words">contracting.officer@morpc.org &bull; Electronic Q&amp;A Desk (Mid-Ohio Regional Planning Commission (MORPC) / OARC)</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
@@ -1244,6 +1245,12 @@
           }
           if (agMask) {
             agMask.className = 'text-white font-semibold';
+          }
+          var coMask = document.getElementById('dossier-co-routing-mask');
+          if (coMask) {
+            var realRouting = coMask.getAttribute('data-real-routing') || '';
+            coMask.className = 'text-sky-300 font-semibold';
+            if (realRouting) coMask.textContent = realRouting;
           }
         }
       } catch (e) {}

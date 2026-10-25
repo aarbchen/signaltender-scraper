@@ -1587,6 +1587,12 @@ def _render_layout(
           if (agMask) {{
             agMask.className = 'text-white font-semibold';
           }}
+          var coMask = document.getElementById('dossier-co-routing-mask');
+          if (coMask) {{
+            var realRouting = coMask.getAttribute('data-real-routing') || '';
+            coMask.className = 'text-sky-300 font-semibold';
+            if (realRouting) coMask.textContent = realRouting;
+          }}
         }}
       }} catch (e) {{}}
     }})();
@@ -1594,6 +1600,304 @@ def _render_layout(
 </body>
 </html>
 """
+
+
+def _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls: list[str]) -> int:
+    """
+    Upgrade #2: Generates evergreen static pSEO pages in /contracts/recompetes/ for:
+      - 90–180 Day Expiring Federal IT Contracts (Recompete Radar, API #16 + API #21)
+      - Fresh Prime Awards ($1.5M–$50M) with mandatory ~30% FAR 52.219-9 Small-Business Subcontracting Pools (API #11)
+    """
+    intel_path = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
+    if not os.path.exists(intel_path):
+        return 0
+    try:
+        with open(intel_path, "r", encoding="utf-8") as f:
+            intel = json.load(f)
+    except Exception:
+        return 0
+
+    recompetes = intel.get("expiring_recompete_wire") or []
+    sub_targets = intel.get("fresh_prime_subcontracting_wire") or []
+    if not recompetes and not sub_targets:
+        return 0
+
+    recompete_dir = os.path.join(OUTPUT_DIR, "recompetes")
+    os.makedirs(recompete_dir, exist_ok=True)
+    built = 0
+
+    recompete_rows_html = []
+    for r in recompetes:
+        awd_id = str(r.get("award_id") or "").strip()
+        if not awd_id:
+            continue
+        slug_id = re.sub(r"[^a-z0-9_-]+", "-", awd_id.lower()).strip("-")
+        incumbent = str(r.get("incumbent_recipient") or "Federal IT Incumbent").title()
+        amt_fmt = str(r.get("award_amount_fmt") or "$5.0M")
+        agency = str(r.get("awarding_sub_agency") or "Federal Agency")
+        end_dt = str(r.get("end_date") or "2027")
+        days_left = int(r.get("days_until_expiration") or 120)
+        desc = str(r.get("description") or "Federal Enterprise IT & Cybersecurity Contract").capitalize()
+        burn_fmt = str(r.get("api16_incumbent_annual_burn_fmt") or "$3.5M/yr")
+        ptw_fmt = str(r.get("api16_ptw_challenger_ceiling_fmt") or "$3.2M/yr (-8% PTW target)")
+        shaping_str = str(r.get("api21_sources_sought_action") or "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open")
+        usa_url = str(r.get("usaspending_url") or f"https://www.usaspending.gov/search")
+
+        canonical_rel = f"contracts/recompetes/{slug_id}.html"
+        sitemap_urls.append(f"{SITE_BASE_URL}/{canonical_rel}")
+
+        recompete_rows_html.append(f"""
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
+              RECOMPETE &bull; {days_left}D
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="{slug_id}.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              {html.escape(awd_id)} &mdash; {html.escape(incumbent)} ({html.escape(amt_fmt)})
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">{html.escape(desc)}</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">{html.escape(agency)}</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">{html.escape(ptw_fmt)}</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="{slug_id}.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              Recompete Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        """)
+
+        item_body = f"""
+        <div id="static-contracts-top-section" class="mb-6 text-xs font-mono text-slate-400 flex flex-wrap items-center gap-2">
+          <a href="../index.html" class="hover:text-sky-400">All Contracts</a>
+          <span>/</span>
+          <a href="index.html" class="hover:text-sky-400">Recompete &amp; Subcontracting Radar</a>
+          <span>/</span>
+          <span class="text-slate-200">{html.escape(awd_id)}</span>
+        </div>
+        <div class="p-6 sm:p-8 rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl space-y-5">
+          <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded border font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">PRE-RFP RECOMPETE RADAR</span>
+            <span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">AWARD ID: {html.escape(awd_id)}</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">POP ENDS: {html.escape(end_dt)} ({days_left} DAYS)</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
+            {html.escape(incumbent)} {html.escape(amt_fmt)} Federal IT Recompete ({html.escape(awd_id)}) &mdash; {html.escape(agency)}
+          </h1>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Pre-RFP Federal Recompete Intelligence Dossier for <strong class="text-white">{html.escape(awd_id)}</strong> at <strong class="text-white">{html.escape(agency)}</strong>.
+            Scope: {html.escape(desc)}.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-800/80 text-xs font-mono">
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">INCUMBENT PRIME &amp; VALUE</div>
+              <div class="text-white font-semibold mt-1">{html.escape(incumbent)} ({html.escape(amt_fmt)})</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">CHALLENGER PTW CEILING (API #16)</div>
+              <div class="text-emerald-300 font-semibold mt-1">{html.escape(ptw_fmt)}</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">SOURCES SOUGHT SHAPING (API #21)</div>
+              <div class="text-amber-300 font-semibold mt-1">{html.escape(shaping_str)}</div>
+            </div>
+          </div>
+          <div class="p-5 rounded-xl bg-navy-950 border border-indigo-500/40 space-y-3 text-xs font-mono">
+            <div class="text-indigo-300 font-bold uppercase">// CAPTUREDESK PRE-RFP RECOMPETE &amp; SET-ASIDE SHAPING PLAYBOOK</div>
+            <div><strong class="text-slate-200">Estimated Incumbent Annual Burn Rate:</strong> <span class="text-white">{html.escape(burn_fmt)}</span></div>
+            <div><strong class="text-slate-200">Challenger Price-to-Win Target (API #16):</strong> <span class="text-emerald-300">{html.escape(ptw_fmt)}</span></div>
+            <div><strong class="text-slate-200">Rule-of-Two Set-Aside Shaping (API #21):</strong> <span class="text-sky-300">Generate a FAR 19.502-2 Sources Sought / RFI capability briefing before the Contracting Officer locks the acquisition strategy.</span></div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold transition-all">
+                Unlock Full Recompete &amp; Sources Sought Package &rarr;
+              </a>
+              <a href="../../apis.html#product-sources-sought-response" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 transition-all">
+                Shape via API #21 (Sources Sought Engine) &rarr;
+              </a>
+              <a href="{html.escape(usa_url, quote=True)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-all">
+                Verify Award on USAspending.gov &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+        """
+        item_html = _render_layout(
+            page_title=f"{awd_id} Recompete Dossier ({incumbent} {amt_fmt}) | {agency} | SignalTender",
+            meta_desc=f"Pre-RFP Federal Recompete Dossier for {awd_id} ({incumbent}, {amt_fmt} at {agency}, PoP ending {end_dt}). Includes API #16 Price-to-Win ceiling ({ptw_fmt}) and FAR 19.502-2 set-aside shaping.",
+            canonical_path=canonical_rel,
+            body_html=item_body,
+            root_prefix="../../",
+            default_state="federal",
+        )
+        with open(os.path.join(recompete_dir, f"{slug_id}.html"), "w", encoding="utf-8") as f:
+            f.write(item_html)
+        built += 1
+
+    sub_rows_html = []
+    for s in sub_targets:
+        awd_id = str(s.get("award_id") or "").strip()
+        if not awd_id:
+            continue
+        slug_id = re.sub(r"[^a-z0-9_-]+", "-", awd_id.lower()).strip("-")
+        prime_name = str(s.get("prime_recipient") or "Federal Prime").title()
+        amt_fmt = str(s.get("award_amount_fmt") or "$10.0M")
+        agency = str(s.get("awarding_sub_agency") or "Federal Agency")
+        desc = str(s.get("description") or "Federal Enterprise IT Prime Award").capitalize()
+        sub_pool_fmt = str(s.get("api11_sb_subcontract_pool_fmt") or "~30% FAR 52.219-9 Small-Business Sub Pool")
+        usa_url = str(s.get("usaspending_url") or "https://www.usaspending.gov/search")
+
+        canonical_rel = f"contracts/recompetes/{slug_id}.html"
+        if f"{SITE_BASE_URL}/{canonical_rel}" not in sitemap_urls:
+            sitemap_urls.append(f"{SITE_BASE_URL}/{canonical_rel}")
+
+        sub_rows_html.append(f"""
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              PRIME SUB WIRE
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="{slug_id}.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              {html.escape(prime_name)} &mdash; {html.escape(amt_fmt)} Prime Award ({html.escape(awd_id)})
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">{html.escape(desc)}</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">{html.escape(agency)}</td>
+          <td class="py-4 px-4 font-mono text-sky-300 whitespace-nowrap text-xs">{html.escape(sub_pool_fmt)}</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="{slug_id}.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              Teaming Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        """)
+
+        sub_body = f"""
+        <div id="static-contracts-top-section" class="mb-6 text-xs font-mono text-slate-400 flex flex-wrap items-center gap-2">
+          <a href="../index.html" class="hover:text-sky-400">All Contracts</a>
+          <span>/</span>
+          <a href="index.html" class="hover:text-sky-400">Recompete &amp; Subcontracting Radar</a>
+          <span>/</span>
+          <span class="text-slate-200">{html.escape(awd_id)}</span>
+        </div>
+        <div class="p-6 sm:p-8 rounded-2xl bg-navy-900 border border-slate-800 shadow-2xl space-y-5">
+          <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded border font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">PRIME-TO-SUB TEAMING WIRE</span>
+            <span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">AWARD ID: {html.escape(awd_id)}</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
+            {html.escape(prime_name)} {html.escape(amt_fmt)} Prime Award ({html.escape(awd_id)}) &mdash; Subcontracting &amp; Teaming Dossier
+          </h1>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Verified federal IT prime contract <strong class="text-white">{html.escape(awd_id)}</strong> awarded to <strong class="text-white">{html.escape(prime_name)}</strong> by <strong class="text-white">{html.escape(agency)}</strong>.
+            Scope: {html.escape(desc)}.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-800/80 text-xs font-mono">
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">PRIME CONTRACTOR</div>
+              <div class="text-white font-semibold mt-1">{html.escape(prime_name)} ({html.escape(amt_fmt)})</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">EST. SUBCONTRACTING POOL (API #11)</div>
+              <div class="text-emerald-300 font-semibold mt-1">{html.escape(sub_pool_fmt)}</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800/80">
+              <div class="text-slate-400">WORKSHARE COMPLIANCE</div>
+              <div class="text-sky-300 font-semibold mt-1">FAR 52.219-9 &amp; 13 CFR &sect; 125.6</div>
+            </div>
+          </div>
+          <div class="p-5 rounded-xl bg-navy-950 border border-indigo-500/40 space-y-3 text-xs font-mono">
+            <div class="text-indigo-300 font-bold uppercase">// CAPTUREDESK PRIME-TO-SUB TEAMING &amp; WORKSHARE PLAYBOOK</div>
+            <div><strong class="text-slate-200">Estimated Small-Business Subcontracting Pool:</strong> <span class="text-emerald-300">{html.escape(sub_pool_fmt)}</span></div>
+            <div><strong class="text-slate-200">13 CFR &sect; 125.6 Workshare Split (API #11):</strong> <span class="text-slate-300">Generate a compliant Teaming Agreement &amp; Small Business Subcontracting Plan for {html.escape(prime_name)}&apos;s {html.escape(agency)} delivery team.</span></div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold transition-all">
+                Unlock Prime Teaming &amp; CaptureDesk Feed &rarr;
+              </a>
+              <a href="../../apis.html#product-teaming-subcontracting" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 transition-all">
+                Model Workshare via API #11 &rarr;
+              </a>
+              <a href="{html.escape(usa_url, quote=True)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-all">
+                Verify Award on USAspending.gov &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+        """
+        sub_html = _render_layout(
+            page_title=f"{prime_name} {amt_fmt} Subcontracting & Teaming Dossier ({awd_id}) | SignalTender",
+            meta_desc=f"Prime-to-Sub Teaming Dossier for {prime_name}'s {amt_fmt} {agency} contract ({awd_id}). Includes estimated FAR 52.219-9 small-business subcontracting pool ({sub_pool_fmt}).",
+            canonical_path=canonical_rel,
+            body_html=sub_body,
+            root_prefix="../../",
+            default_state="federal",
+        )
+        with open(os.path.join(recompete_dir, f"{slug_id}.html"), "w", encoding="utf-8") as f:
+            f.write(sub_html)
+        built += 1
+
+    hub_canonical = "contracts/recompetes/index.html"
+    sitemap_urls.append(f"{SITE_BASE_URL}/{hub_canonical}")
+    hub_body = f"""
+    <div id="static-contracts-top-section" class="mb-8 space-y-4">
+      <div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono bg-amber-500/10 text-amber-300 border-amber-500/30">
+        // PRE-RFP RECOMPETE RADAR &amp; PRIME SUBCONTRACTING WIRE &bull; {len(recompetes) + len(sub_targets)} VERIFIED FEDERAL TARGETS
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Federal IT Recompete Radar (90&ndash;180d) &amp; Prime Subcontracting Wire
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base max-w-3xl">
+        Position for federal IT contracts 90 to 180 days before the RFP drops with API #16 Challenger Price-to-Win ceilings and API #21 FAR 19.502-2 Sources Sought shaping, or capture warm FAR 52.219-9 small-business subcontracting dollars on newly signed Prime awards.
+      </p>
+    </div>
+
+    <div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
+      <div class="p-4 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="relative flex-1 flex items-center">
+          <input
+            id="static-rfp-search"
+            type="text"
+            placeholder="Filter recompetes &amp; prime subcontracting targets by incumbent, agency, or Award ID..."
+            oninput="window.filterStaticContractsTable(this.value)"
+            class="w-full px-4 py-2 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
+          />
+        </div>
+        <span id="static-rfp-count-badge" class="text-xs font-mono text-emerald-400 shrink-0">{len(recompetes) + len(sub_targets)} TARGETS INDEXED</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+              <th class="py-4 px-5">Signal Type</th>
+              <th class="py-4 px-5">Award ID, Incumbent / Prime &amp; Scope</th>
+              <th class="py-4 px-4">Awarding Sub-Agency</th>
+              <th class="py-4 px-4">PTW Ceiling / Sub Pool</th>
+              <th class="py-4 px-5 text-right">Dossier</th>
+            </tr>
+          </thead>
+          <tbody class="text-xs">
+            {''.join(recompete_rows_html)}
+            {''.join(sub_rows_html)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    """
+    hub_html = _render_layout(
+        page_title="Federal IT Recompete Radar (90–180d) & Prime Subcontracting Wire | SignalTender",
+        meta_desc="Track expiring federal IT contracts 90–180 days before recompete with Price-to-Win ceilings and capture FAR 52.219-9 small-business subcontracting pools on newly awarded Prime contracts.",
+        canonical_path=hub_canonical,
+        body_html=hub_body,
+        root_prefix="../../",
+        default_state="federal",
+    )
+    with open(os.path.join(recompete_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(hub_html)
+    built += 1
+    return built
 
 
 def _render_contract_table_rows(contracts: list[dict], rfp_link_prefix: str) -> str:
@@ -1913,6 +2217,8 @@ def generate_pseo_site() -> int:
             )
             canonical_path = f"contracts/rfp/{c['slug']}.html"
             sitemap_urls.append(f"{SITE_BASE_URL}/{canonical_path}")
+            portal_host = re.sub(r"^https?://(www\.)?", "", str(c["url"] or "sam.gov")).split("/")[0] or "sam.gov"
+            real_co_routing = f"Official {j_meta['portal']} Electronic Q&A & Contracting Officer Portal ({c['agency']})"
 
             related = [
                 other for other in enriched_contracts
@@ -1997,6 +2303,7 @@ def generate_pseo_site() -> int:
                     <div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="{html.escape(c['url'], quote=True)}" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
+                      <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="{html.escape(real_co_routing, quote=True)}" class="blur-sm select-none break-words">contracting.officer@{html.escape(portal_host)} &bull; Electronic Q&amp;A Desk ({html.escape(c['agency'])})</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
                     <div class="pt-3 flex flex-col sm:flex-row gap-3">
@@ -2278,8 +2585,19 @@ def generate_pseo_site() -> int:
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {jurisdiction_cards_html}
+        </div>
+
+        <div class="mb-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-950/80 border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="text-[11px] font-mono text-amber-300 font-semibold uppercase tracking-wider">// PRE-RFP RECOMPETE RADAR (90&ndash;180D) &amp; PRIME SUBCONTRACTING WIRE</div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Capture Expiring Federal IT Contracts &amp; 30% Small-Business Subcontracting Pools Before the RFP Drops</h2>
+            <p class="text-xs text-slate-300">Explore 27 verified federal IT recompetes (with API #16 Challenger Price-to-Win ceilings &amp; API #21 FAR 19.502-2 set-aside shaping) and newly awarded Prime contracts with mandatory FAR 52.219-9 subcontracting pools.</p>
+          </div>
+          <a href="recompetes/index.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-xs font-mono font-semibold shrink-0 whitespace-nowrap transition-all">
+            Open Recompete &amp; Sub Wire &rarr;
+          </a>
         </div>
 
         <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">Latest Pre-Vetted Solicitations</h2>
@@ -2336,6 +2654,9 @@ def generate_pseo_site() -> int:
         with open(os.path.join(OUTPUT_DIR, "index.html"), "w", encoding="utf-8") as f:
             f.write(hub_html)
         pages_built += 1
+
+        # 3b. Build Evergreen Federal Recompete Radar & Prime Subcontracting Wire pages (/contracts/recompetes/*.html)
+        pages_built += _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls)
 
         # 4. Generate sitemap.xml and robots.txt
         today_iso = today.strftime("%Y-%m-%d")
@@ -2916,16 +3237,19 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                       var isUnl = false;
                       try {{ isUnl = Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active'))); }} catch (e) {{}}
                       var realBidUrl = item.url || ('https://portal.government.gov/solicitation/view/' + item.id);
+                      var portalHost = String(realBidUrl).replace(/^https?:\\/\\/(www\\.)?/, '').split('/')[0] || 'sam.gov';
                       if (isUnl && item.url) {{
                         return '<div class="space-y-2 text-xs font-mono text-slate-300 pt-1 break-words">' +
                           '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <a href="' + esc(realBidUrl) + '" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold underline hover:text-emerald-300 break-all">' + esc(realBidUrl) + ' &nearr;</a></div>' +
                           '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="text-white font-semibold">' + esc(item.agency) + '</span></div>' +
+                          '<div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span class="text-sky-300 font-semibold">Official ' + esc(jm.portal) + ' Electronic Q&amp;A &amp; Contracting Officer Portal (' + esc(item.agency) + ')</span></div>' +
                           '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="text-sky-300">Ready — click &quot;Run Live Pwin &amp; Shred in Studio&quot; below</span></div>' +
                         '</div>';
                       }}
                       return '<div class="space-y-2 text-xs font-mono text-slate-400 pt-1 break-words">' +
                         '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
                         '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
+                        '<div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span class="blur-sm select-none break-words">contracting.officer@' + esc(portalHost) + ' &bull; Electronic Q&amp;A Desk (' + esc(item.agency) + ')</span></div>' +
                         '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>' +
                       '</div>';
                     }})() +

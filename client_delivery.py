@@ -1184,6 +1184,181 @@ def _dispatch_to_external_customer_webhooks(
     return dispatched
 
 
+def _parse_closing_date_obj(date_str: str, title: str = ""):
+    from datetime import datetime
+    candidates = [str(date_str or "").strip()]
+    m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", str(title or ""), flags=re.IGNORECASE)
+    if m_due:
+        candidates.append(m_due.group(1))
+    for cand in candidates:
+        if not cand or cand.lower() in ("n/a", "tbd", "none", "null", "open", ""):
+            continue
+        if "T" in cand:
+            cand = cand.split("T")[0].strip()
+        for fmt in ("%m/%d/%Y", "%Y-%m-%d", "%m/%d/%y"):
+            try:
+                return datetime.strptime(cand, fmt).date()
+            except ValueError:
+                pass
+    return None
+
+
+def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
+    """
+    Upgrade #4 (72-Hour / 5-Day Deadline Urgency Nudge):
+    Checks verified Free Explorer / Inbound Dossier leads (`SUBSCRIBER_INBOUND_LEAD`) who have not
+    yet converted to `SUBSCRIBER_ACTIVE`. When an open IT/Cyber solicitation in their selected state
+    reaches 1 to 5 days before `closing_date`, dispatches a single de-duplicated urgency notification
+    (logged in Supabase as `SUBSCRIBER_DEADLINE_NUDGE_LOG` via RLS-safe SELECT + insert).
+    """
+    import json
+    from datetime import datetime, timezone
+
+    today_d = datetime.now(timezone.utc).date()
+    nudged_count = 0
+
+    try:
+        inb_resp = supabase.table(TABLE_NAME).select("id,title,status").eq("status", "SUBSCRIBER_INBOUND_LEAD").limit(200).execute()
+        inb_rows = inb_resp.data if inb_resp and getattr(inb_resp, "data", None) else []
+        if not inb_rows:
+            return 0
+
+        act_resp = supabase.table(TABLE_NAME).select("title").eq("status", "SUBSCRIBER_ACTIVE").limit(500).execute()
+        active_emails = set()
+        for r in (act_resp.data if act_resp and getattr(act_resp, "data", None) else []):
+            try:
+                m = json.loads(str(r.get("title") or "{}"))
+                em = str(m.get("email") or "").strip().lower()
+                if em:
+                    active_emails.add(em)
+            except Exception:
+                pass
+
+        nudge_resp = supabase.table(TABLE_NAME).select("url").eq("status", "SUBSCRIBER_DEADLINE_NUDGE_LOG").limit(1000).execute()
+        already_nudged_urls = {
+            str(r.get("url") or "").strip()
+            for r in (nudge_resp.data if nudge_resp and getattr(nudge_resp, "data", None) else [])
+        }
+
+        open_resp = supabase.table(TABLE_NAME).select("*").order("id", desc=True).limit(200).execute()
+        all_contracts = [
+            r for r in (open_resp.data if open_resp and getattr(open_resp, "data", None) else [])
+            if not str(r.get("url") or "").startswith("subscriber://")
+            and not str(r.get("status") or "").startswith("SUBSCRIBER_")
+        ]
+
+        closing_soon_by_jurisdiction: dict[str, list[ tuple[int, dict] ]] = {}
+        for rec in all_contracts:
+            dt = _parse_closing_date_obj(str(rec.get("closing_date") or ""), str(rec.get("title") or ""))
+            if not dt:
+                continue
+            days_left = (dt - today_d).days
+            if 1 <= days_left <= 5:
+                j_key = classify_jurisdiction(rec)
+                closing_soon_by_jurisdiction.setdefault(j_key, []).append((days_left, rec))
+
+        if not closing_soon_by_jurisdiction:
+            return 0
+
+        for irow in inb_rows:
+            try:
+                meta = json.loads(str(irow.get("title") or "{}"))
+            except Exception:
+                continue
+            if not isinstance(meta, dict) or meta.get("suppress_alert"):
+                continue
+            email = str(meta.get("email") or "").strip().lower()
+            if not email or "@" not in email or email in active_emails:
+                continue
+            dom = email.split("@", 1)[1]
+            if dom in ("example.com", "test.com", "localhost"):
+                continue
+            log_url = f"subscriber://deadline-nudge/{email}"
+            if log_url in already_nudged_urls:
+                continue
+
+            target_state = str(meta.get("target_state") or "virginia").strip().lower()
+            candidates = closing_soon_by_jurisdiction.get(target_state) or closing_soon_by_jurisdiction.get("federal") or []
+            if not candidates:
+                for fallback_list in closing_soon_by_jurisdiction.values():
+                    if fallback_list:
+                        candidates = fallback_list
+                        break
+            if not candidates:
+                continue
+
+            candidates.sort(key=lambda x: x[0])
+            days_left, top_rec = candidates[0]
+            clean_t = clean_title_text(str(top_rec.get("title") or "Government IT Solicitation"))
+            agency = str(top_rec.get("agency") or "Government Agency").strip()
+            closing_str = str(top_rec.get("closing_date") or "Soon").strip()
+            slug = slugify_contract(str(top_rec.get("title") or ""), fallback_id=str(top_rec.get("id") or ""))
+            dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"
+            fname = str(meta.get("first_name") or "Capture Team").strip()
+            comp = str(meta.get("company") or "your team").strip()
+            state_disp = target_state.replace("_", " ").title()
+
+            subj = f"{days_left}-Day Deadline Notice: {clean_t[:68]} ({agency}) closes {closing_str}"
+            body = (
+                f"Hi {fname},\n\n"
+                f"Quick deadline heads-up based on {comp}'s {state_disp} territory filter on SignalTender:\n\n"
+                f"• Solicitation: {clean_t}\n"
+                f"• Issuing Agency: {agency}\n"
+                f"• Submission Deadline: {closing_str} ({days_left} day{'s' if days_left != 1 else ''} remaining)\n"
+                f"• Pre-Shredded Capture Dossier: {dossier_url}\n\n"
+                f"Our CaptureDesk engine has already generated the Shipley Section L/M Compliance Matrix, "
+                f"CPARS Volume III Past Performance citations, 13 CFR § 125.6 Teaming Plan, and IGCE Price-to-Win "
+                f"model for this solicitation.\n\n"
+                f"You can unlock the full un-blurred official portal link and 21-API CaptureDesk suite in 60 seconds "
+                f"(Tier 1 SignalWire Pro $99/mo or Tier 2 CaptureDesk Autopilot $399/mo) here:\n"
+                f"{SITE_BASE_URL}/#checkout\n\n"
+                f"Or manage your saved bids and alert filters in your Client Portal:\n"
+                f"{SITE_BASE_URL}/#account\n\n"
+                f"Best,\nAaron Chen\nFounder, SignalTender"
+            )
+
+            inst_key = os.getenv("INSTANTLY_API_KEY", "").strip()
+            inst_sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
+            sent_ok = False
+            if inst_key and inst_sub_cid:
+                r = requests.post(
+                    "https://api.instantly.ai/api/v2/leads",
+                    headers={"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"},
+                    json={
+                        "campaign": inst_sub_cid,
+                        "email": email,
+                        "first_name": fname,
+                        "company_name": comp,
+                        "skip_if_in_campaign": False,
+                        "custom_variables": {"subject_line": subj, "email_body": body},
+                    },
+                    timeout=10,
+                )
+                sent_ok = r.status_code in (200, 201)
+
+            already_nudged_urls.add(log_url)
+            chk = supabase.table(TABLE_NAME).select("id").eq("url", log_url).execute()
+            if not (chk and getattr(chk, "data", None)):
+                supabase.table(TABLE_NAME).insert({
+                    "title": json.dumps({
+                        "email": email,
+                        "company": comp,
+                        "contract_id": top_rec.get("id"),
+                        "days_left": days_left,
+                        "sent_ok": sent_ok,
+                        "nudged_at": datetime.now(timezone.utc).isoformat(),
+                    }),
+                    "agency": f"DEADLINE_NUDGE:{target_state.upper()}",
+                    "url": log_url,
+                    "status": "SUBSCRIBER_DEADLINE_NUDGE_LOG",
+                }).execute()
+            nudged_count += 1
+    except Exception as nudge_err:
+        print(f"[!] Deadline nudge check warning: {nudge_err}", flush=True)
+
+    return nudged_count
+
+
 def deliver_leads(client_webhook_url: str = None) -> int:
     """
     Query Supabase for 'New Lead' contracts, format them into enriched Discord
@@ -1211,6 +1386,7 @@ def deliver_leads(client_webhook_url: str = None) -> int:
 
         if not records:
             print("[+] No 'New Lead' records found to deliver.", flush=True)
+            _dispatch_closing_soon_nudges_for_inbound_leads(supabase)
             return 0
 
         print(f"[*] Found {len(records)} 'New Lead' record(s) ready for delivery.", flush=True)
@@ -1233,6 +1409,11 @@ def deliver_leads(client_webhook_url: str = None) -> int:
         ext_count = _dispatch_to_external_customer_webhooks(supabase, records)
         if ext_count:
             print(f"[+] Dispatched RFP batch to {ext_count} external customer Slack/Teams/CRM webhook(s).", flush=True)
+
+        # 3b. Check Free Explorer / Inbound leads for 1-to-5-day closing-soon deadline urgency nudges
+        nudge_count = _dispatch_closing_soon_nudges_for_inbound_leads(supabase)
+        if nudge_count:
+            print(f"[+] Dispatched {nudge_count} closing-soon deadline urgency nudge(s) to Free Explorer leads.", flush=True)
 
         # 4. Update Supabase status from 'New Lead' to 'Delivered'
         urls_delivered = [rec["url"] for rec in records if rec.get("url")]

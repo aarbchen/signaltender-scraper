@@ -18,6 +18,7 @@ Solves the "Stop-on-Reply Conversion Gap" in zero-touch B2B cold outreach:
 from error_telemetry import configure_utf8_stdio, report_error
 configure_utf8_stdio()
 
+import csv
 import json
 import os
 from datetime import datetime, timezone
@@ -27,13 +28,69 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=r"D:\Daas\.env")
 load_dotenv()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
 INSTANTLY_CAMPAIGN_ID = (os.getenv("INSTANTLY_CAMPAIGN_ID") or "").strip()
 ANTHROPIC_API_KEY = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
 ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5")
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
-PROCESSED_REPLIES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "processed_outbound_replies.json")
+PROCESSED_REPLIES_PATH = os.path.join(BASE_DIR, "processed_outbound_replies.json")
+CAMPAIGN_CSV_PATH = os.path.join(BASE_DIR, "campaign_leads.csv")
+INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
+
+
+def _lookup_prospect_context(from_email: str) -> dict:
+    """
+    Look up `from_email` (with corporate-domain fallback if a teammate replies from another
+    inbox at the same company) in `campaign_leads.csv` and `govcon_prospect_intelligence.json`
+    so `classify_and_draft_reply()` knows the exact 3 RFPs, Top Contract Dossier URL,
+    USAspending Award ID, and Recompete/Subcontracting matches that were sent to this prospect.
+    """
+    clean_em = str(from_email or "").strip().lower()
+    dom = clean_em.split("@", 1)[1] if "@" in clean_em else ""
+    matched_row: dict | None = None
+    domain_row: dict | None = None
+
+    if os.path.exists(CAMPAIGN_CSV_PATH):
+        try:
+            with open(CAMPAIGN_CSV_PATH, mode="r", encoding="utf-8-sig", newline="") as f:
+                for row in csv.DictReader(f):
+                    row_em = str(row.get("Email") or "").strip().lower()
+                    if row_em == clean_em:
+                        matched_row = row
+                        break
+                    if dom and row_em.endswith("@" + dom) and domain_row is None:
+                        domain_row = row
+        except Exception:
+            pass
+
+    target = matched_row or domain_row or {}
+    company = str(target.get("Company") or "").strip()
+    award_profile = None
+    if company and os.path.exists(INTEL_JSON_PATH):
+        try:
+            with open(INTEL_JSON_PATH, "r", encoding="utf-8") as jf:
+                intel_data = json.load(jf) or {}
+            profiles = intel_data.get("company_award_profiles") or {}
+            from govcon_lead_harvester import _normalize_company_tokens
+            _, _, c_key = _normalize_company_tokens(company)
+            award_profile = profiles.get(c_key)
+        except Exception:
+            award_profile = None
+
+    return {
+        "first_name": str(target.get("First Name") or "").strip(),
+        "company": company,
+        "matched_state": str(target.get("Matched State") or "Federal & State SLED").strip(),
+        "top_dossier_url": str(target.get("Top Contract Dossier URL") or f"{SITE_BASE_URL}/contracts").strip(),
+        "top_naics": str(target.get("Top Contract NAICS") or "541512 — Computer Systems Design Services").strip(),
+        "top_posture": str(target.get("Top Contract Posture") or "").strip(),
+        "original_subject": str(target.get("Subject Line") or "").strip(),
+        "original_email_body": str(target.get("Email Body") or "").strip(),
+        "original_followup_body": str(target.get("Followup Body") or "").strip(),
+        "award_profile": award_profile,
+    }
 
 
 def _load_processed_ids() -> set[str]:
@@ -59,49 +116,78 @@ def _save_processed_ids(ids: set[str]) -> None:
 def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> dict:
     """
     Use claude-sonnet-5-5 to classify an inbound cold-email reply and draft a tailored response
-    that delivers the live RFP directory/dossier link + self-serve Tier 1 ($99/mo) / Tier 2 ($399/mo) checkout.
+    that references the exact 3 RFPs, Top Contract Dossier URL, and USAspending Recompete/Subcontracting
+    context sent to `from_email`, plus self-serve Tier 1 ($99/mo) / Tier 2 ($399/mo) checkout.
     """
     low = str(reply_text or "").lower()
     if any(p in low for p in ("unsubscribe", "remove me", "take me off", "stop emailing", "not interested", "no thanks", "off your list")):
         return {"intent": "UNSUBSCRIBE", "reply_body": ""}
 
+    ctx = _lookup_prospect_context(from_email)
+    comp_label = ctx["company"] or "your team"
+    state_label = ctx["matched_state"] or "Federal & State SLED"
+    top_dossier_url = ctx["top_dossier_url"] or f"{SITE_BASE_URL}/contracts"
+    fname_greeting = f"Hi {ctx['first_name']},\n\n" if ctx["first_name"] and ctx["first_name"].lower() not in ("capture", "team", "there", "contracts", "partnerships") else ""
+
     default_reply = (
-        f"Appreciate the quick reply!\n\n"
-        f"Here is the live directory of pre-shredded Federal & 13-State SLED IT/Cyber dossiers (with direct agency RFP links, Section L/M matrices, and NAICS/SBA caps):\n"
+        f"{fname_greeting}Appreciate the quick reply!\n\n"
+        f"Here is the direct CaptureDesk dossier for #1 from the {state_label} IT/Cyber list I sent over to {comp_label} (including the Section L/M compliance matrix, NAICS {ctx['top_naics']}, and official agency portal link):\n"
+        f"{top_dossier_url}\n\n"
+        f"And here is the full live directory of pre-shredded Federal & 13-State SLED IT/Cyber dossiers:\n"
         f"{SITE_BASE_URL}/contracts\n\n"
-        f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save your state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 21 AI Capture APIs:\n"
+        f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 21 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
         f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (no sales calls or annual lock-ins):\n"
-        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 15-portal Federal & State SLED IT/Cyber alerts via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, CPARS Volume III past performance citations, IGCE Price-to-Win models, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
+        f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 15-portal Federal & State SLED IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
         f"Activate instant access anytime here:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"
     )
 
     if not ANTHROPIC_API_KEY:
-        return {"intent": "POSITIVE_INTEREST", "reply_body": default_reply}
+        return {"intent": "POSITIVE_INTEREST", "reply_body": default_reply, "context": ctx}
 
     try:
         import anthropic
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        awd_prof = ctx.get("award_profile") or {}
+        awd_context_str = (
+            f"Prospect's Verified USAspending Contract: {awd_prof.get('award_id')} "
+            f"({awd_prof.get('award_amount_fmt')} with {awd_prof.get('awarding_sub_agency')}, PoP ending {awd_prof.get('end_date')})\n"
+            if awd_prof.get("award_id")
+            else ""
+        )
+        original_sent_block = (
+            f"Original Email Sent to {comp_label} ({from_email}):\n"
+            f"---\n{ctx['original_email_body']}\n---\n"
+            f"Follow-Up Dossier Metadata:\n"
+            f"- Top Solicitation #1 Dossier URL: {top_dossier_url}\n"
+            f"- Top Solicitation #1 NAICS: {ctx['top_naics']}\n"
+            f"- Top Solicitation #1 Compliance & Teaming Posture: {ctx['top_posture']}\n"
+            f"{awd_context_str}"
+            if ctx.get("original_email_body")
+            else f"- Top Solicitation Dossier URL: {top_dossier_url}\n"
+        )
         prompt = (
-            f"You are Aaron Chen, Founder of SignalTender ({SITE_BASE_URL}). A GovCon IT/Cyber prospect ({from_email}) "
-            f"just replied to our cold email offering 3 open public-sector IT RFPs.\n\n"
+            f"You are Aaron Chen, Founder of SignalTender ({SITE_BASE_URL}). A GovCon IT/Cyber prospect "
+            f"({from_email}, Company: {comp_label}, Territory: {state_label}) just replied to our cold email.\n\n"
+            f"{original_sent_block}\n"
             f"Subject: {subject}\n"
             f"Prospect Reply:\n{reply_text}\n\n"
             f"Classify their reply into JSON with keys:\n"
             f"- \"intent\": one of \"POSITIVE_INTEREST\", \"QUESTION\", \"OUT_OF_OFFICE\", or \"UNSUBSCRIBE\".\n"
-            f"- \"reply_body\": if POSITIVE_INTEREST or QUESTION, write a concise, natural plain-text reply from Aaron Chen "
-            f"(Founder, SignalTender) that directly answers their note, gives them:\n"
-            f"  1) The live RFP directory & dossier link ({SITE_BASE_URL}/contracts)\n"
+            f"- \"reply_body\": if POSITIVE_INTEREST or QUESTION, write a concise, executive plain-text reply from Aaron Chen "
+            f"(Founder, SignalTender) that directly answers their specific question (referencing the exact solicitation #1/#2/#3, "
+            f"agency, due date, Recompete Radar, or Prime-to-Sub Teaming item from the Original Email Sent above) and gives them:\n"
+            f"  1) Their exact Solicitation #1 Capture Dossier link ({top_dossier_url}) + the full directory ({SITE_BASE_URL}/contracts)\n"
             f"  2) The Free Explorer Account sign-up link ({SITE_BASE_URL}/#signup — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
             f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo) and Tier 2 CaptureDesk Autopilot ($399/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
             f"Zero emojis, zero markdown bold (**). Output strictly valid JSON."
         )
         resp = client.messages.create(
             model=ANTHROPIC_MODEL,
-            max_tokens=600,
+            max_tokens=700,
             messages=[{"role": "user", "content": prompt}],
         )
         raw = ""
@@ -116,11 +202,12 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
             return {
                 "intent": str(parsed.get("intent")),
                 "reply_body": str(parsed.get("reply_body") or default_reply),
+                "context": ctx,
             }
     except Exception:
         pass
 
-    return {"intent": "POSITIVE_INTEREST", "reply_body": default_reply}
+    return {"intent": "POSITIVE_INTEREST", "reply_body": default_reply, "context": ctx}
 
 
 def run_reply_responder() -> dict:
