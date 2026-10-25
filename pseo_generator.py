@@ -3138,6 +3138,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           }});
           var data = await resp.json();
           try {{ if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); }} catch (e) {{}}
+          try {{
+            var agCells = document.querySelectorAll('[data-full-agency]');
+            for (var ai = 0; ai < agCells.length; ai++) {{
+              var fullAg = agCells[ai].getAttribute('data-full-agency');
+              if (fullAg) agCells[ai].textContent = fullAg;
+            }}
+          }} catch (e) {{}}
           var unlockedList = (data && (data.dossiers || data.matched_dossiers)) ? (data.dossiers || data.matched_dossiers) : [];
           if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-emerald-400'; statusEl.textContent = data.message || ('Unlocked ' + (unlockedList.length || 3) + ' live pre-shredded RFP dossiers below — full directory un-blurred!'); }}
           if (resultsEl && unlockedList.length) {{
@@ -3171,12 +3178,19 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         if (!list || !list.length) {{
           return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 15 portals.</td></tr>';
         }}
+        var isRowUnlocked = false;
+        try {{
+          if (window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_session_v1'))) {{
+            isRowUnlocked = true;
+          }}
+        }} catch (e) {{}}
         var J = window.SIGNALTENDER_JURISDICTIONS;
         return list.map(function (c) {{
           var jm = J[c.jurisdiction] || J.federal;
           var tagsHtml = (c.tags || []).map(function (t) {{
             return '<span class="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">' + esc(t) + '</span>';
           }}).join(' ');
+          var dispAgency = isRowUnlocked ? (c.agency || c.masked_agency) : c.masked_agency;
           return '<tr class="border-b border-slate-800/80 hover:bg-slate-900/60 transition-colors">' +
             '<td class="py-4 px-5 font-mono whitespace-nowrap align-top">' +
               '<a href="#contracts/' + esc(c.jurisdiction) + '" class="inline-flex items-center whitespace-nowrap px-2.5 py-0.5 rounded border text-[11px] ' + esc(jm.badge_class) + '">' + esc(jm.short.toUpperCase()) + '</a>' +
@@ -3185,7 +3199,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '<a href="#contracts/rfp/' + esc(c.slug) + '" class="font-semibold text-white hover:text-sky-400 transition-colors text-sm block">' + esc(c.clean_title) + '</a>' +
               '<div class="mt-1.5 flex flex-wrap gap-1.5 text-[11px] font-mono">' + tagsHtml + '</div>' +
             '</td>' +
-            '<td class="py-4 px-4 text-slate-300 text-xs align-top">' + esc(c.masked_agency) + '</td>' +
+            '<td data-full-agency="' + esc(c.agency || c.masked_agency) + '" class="py-4 px-4 text-slate-300 text-xs align-top">' + esc(dispAgency) + '</td>' +
             '<td class="py-4 px-4 font-mono text-amber-300 text-xs whitespace-nowrap align-top">' + esc(c.due_str) + '</td>' +
             '<td class="py-4 px-5 text-right font-mono whitespace-nowrap align-top">' +
               '<a href="#contracts/rfp/' + esc(c.slug) + '" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">' +
