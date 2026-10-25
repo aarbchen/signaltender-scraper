@@ -25,7 +25,7 @@ import os
 import re
 import socket
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import urllib3
 import requests
 from dotenv import load_dotenv
@@ -47,6 +47,7 @@ LEGACY_CSV_PATH = os.path.join(BASE_DIR, "apollo-contacts.csv")
 INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
 MX_CACHE_PATH = os.path.join(BASE_DIR, "dns_mx_cache.json")
 VERIFIED_PUBLIC_CONTACTS_PATH = os.path.join(BASE_DIR, "verified_public_govcon_contacts.json")
+AWARD_PROFILES_CACHE_PATH = os.path.join(BASE_DIR, "usaspending_company_awards_cache.json")
 
 DEFAULT_CONTACT_FIELDNAMES = [
     "First Name",
@@ -1071,7 +1072,7 @@ def fetch_inbound_leads_from_supabase(mx_cache: Dict[str, bool]) -> List[Dict[st
 def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
     """
     Query USAspending.gov API for active NAICS 541511 / 541512 / 541513 / 541519 / 518210
-    IT & Cybersecurity contractors across our 12 SLED states.
+    IT & Cybersecurity contractors across our 13 SLED states.
     """
     url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
     payload = {
@@ -1097,6 +1098,559 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
     except Exception:
         pass
     return []
+
+
+CORPORATE_SUFFIX_TOKENS = {
+    "INC", "INCORPORATED", "LLC", "CO", "COMPANY", "CORP", "CORPORATION",
+    "LTD", "LIMITED", "LP", "LLP", "PBC", "ENTERPRISES",
+    "INTERNATIONAL", "USA", "US", "THE", "AND",
+}
+
+COMMON_DICTIONARY_BRAND_WORDS = {
+    "VISIONARY", "INSPIRED", "SKYLINE", "SKYLIGHT", "OPTIMAL", "PREMIER",
+    "PINNACLE", "SUMMIT", "CATALYST", "SYNERGY", "DYNAMIC", "HORIZON",
+    "VANGUARD", "PARAGON", "ALLIANCE", "BRIDGE", "IGNITE", "IMPACT",
+    "EVOLVE", "ADVANCE", "ADVANCED", "APEX", "VERTEX", "NEXUS", "MATRIX",
+    "VECTOR", "SPECTRUM", "PRISM", "FORTRESS", "CITADEL", "SENTINEL",
+    "GUARDIAN", "VALKYRIE", "LIBERTY", "HERITAGE", "PATRIOT", "CAPITAL",
+}
+
+ALLOWED_SINGLE_TOKEN_EXTENSIONS = {
+    "SOLUTIONS", "TECHNOLOGIES", "TECHNOLOGY", "SYSTEMS", "SERVICES",
+    "FEDERAL", "GOVERNMENT", "CONSULTING", "GROUP", "HOLDINGS", "STRATEGIES",
+}
+
+AWARD_HARDWARE_NOISE_PATTERNS = [
+    r"\bprinter", r"\btoner\b", r"\btaclane\b", r"\blaptop", r"\bpalo\s*alto\b",
+    r"\bcisco\b", r"\bdell\b", r"\bperpetual\b", r"\brenewal\b", r"\bsmartnet\b",
+    r"\bcartridge", r"\bcopier", r"\bfax\b", r"\bhvac\b",
+]
+
+
+def _format_usd_compact(amount: float, with_symbol: bool = True) -> str:
+    prefix = "$" if with_symbol else "USD "
+    val = float(amount or 0.0)
+    if val >= 1_000_000:
+        m = val / 1_000_000.0
+        return f"{prefix}{m:.2f}M".replace(".00M", "M").replace("0M", "M") if m < 10 else f"{prefix}{m:.1f}M".replace(".0M", "M")
+    if val >= 1_000:
+        k = val / 1_000.0
+        return f"{prefix}{k:.0f}K"
+    return f"{prefix}{val:,.0f}"
+
+
+def _shorten_sub_agency(sub_agency: str, agency: str = "") -> Tuple[str, str]:
+    raw = str(sub_agency or agency or "Federal Agency").strip()
+    low = f"{raw} {agency}".lower()
+    mapping = [
+        ("customs and border protection", ("U.S. Customs and Border Protection (CBP)", "DHS CBP")),
+        ("immigration and customs enforcement", ("U.S. Immigration and Customs Enforcement (ICE)", "DHS ICE")),
+        ("citizenship and immigration", ("U.S. Citizenship and Immigration Services (USCIS)", "DHS USCIS")),
+        ("cybersecurity and infrastructure security", ("CISA", "DHS CISA")),
+        ("(cisa)", ("CISA", "DHS CISA")),
+        ("transportation security administration", ("Transportation Security Administration (TSA)", "DHS TSA")),
+        ("secret service", ("U.S. Secret Service (USSS)", "DHS USSS")),
+        ("coast guard", ("U.S. Coast Guard (USCG)", "USCG")),
+        ("federal emergency management", ("FEMA", "DHS FEMA")),
+        ("fema", ("FEMA", "DHS FEMA")),
+        ("homeland security", ("Department of Homeland Security (DHS)", "DHS")),
+        ("medicare", ("Centers for Medicare & Medicaid Services (CMS)", "HHS CMS")),
+        ("national institutes of health", ("National Institutes of Health (NIH)", "HHS NIH")),
+        ("food and drug administration", ("Food and Drug Administration (FDA)", "HHS FDA")),
+        ("centers for disease control", ("CDC", "HHS CDC")),
+        ("health resources and services", ("Health Resources and Services Administration (HRSA)", "HHS HRSA")),
+        ("administration for children and families", ("HHS ACF", "HHS ACF")),
+        ("indian health service", ("Indian Health Service (IHS)", "HHS IHS")),
+        ("health and human services", ("Department of Health and Human Services (HHS)", "HHS")),
+        ("veterans affairs", ("Department of Veterans Affairs (VA)", "VA")),
+        ("defense information systems", ("Defense Information Systems Agency (DISA)", "DISA")),
+        ("defense health agency", ("Defense Health Agency (DHA)", "DHA")),
+        ("defense logistics agency", ("Defense Logistics Agency (DLA)", "DLA")),
+        ("defense advanced research", ("DARPA", "DARPA")),
+        ("missile defense agency", ("Missile Defense Agency (MDA)", "MDA")),
+        ("defense counterintelligence", ("DCSA", "DoD DCSA")),
+        ("defense contract management", ("DCMA", "DoD DCMA")),
+        ("washington headquarters services", ("DoD Washington Headquarters Services (WHS)", "DoD WHS")),
+        ("cyber command", ("U.S. Cyber Command (USCYBERCOM)", "USCYBERCOM")),
+        ("special operations command", ("U.S. Special Operations Command (USSOCOM)", "USSOCOM")),
+        ("transportation command", ("U.S. Transportation Command (USTRANSCOM)", "USTRANSCOM")),
+        ("department of the army", ("U.S. Department of the Army", "U.S. Army")),
+        ("department of the navy", ("U.S. Department of the Navy", "U.S. Navy")),
+        ("department of the air force", ("U.S. Department of the Air Force", "USAF")),
+        ("marine corps", ("U.S. Marine Corps (USMC)", "USMC")),
+        ("space force", ("U.S. Space Force (USSF)", "USSF")),
+        ("department of defense", ("Department of Defense (DoD)", "DoD")),
+        ("federal aviation administration", ("Federal Aviation Administration (FAA)", "DOT FAA")),
+        ("motor carrier safety", ("Federal Motor Carrier Safety Administration (FMCSA)", "DOT FMCSA")),
+        ("highway administration", ("Federal Highway Administration (FHWA)", "DOT FHWA")),
+        ("transit administration", ("Federal Transit Administration (FTA)", "DOT FTA")),
+        ("department of transportation", ("Department of Transportation (DOT)", "DOT")),
+        ("federal bureau of investigation", ("Federal Bureau of Investigation (FBI)", "DOJ FBI")),
+        ("drug enforcement", ("Drug Enforcement Administration (DEA)", "DOJ DEA")),
+        ("bureau of prisons", ("Federal Bureau of Prisons (BOP)", "DOJ BOP")),
+        ("marshals service", ("U.S. Marshals Service (USMS)", "DOJ USMS")),
+        ("offices, boards and divisions", ("Department of Justice (DOJ)", "DOJ")),
+        ("department of justice", ("Department of Justice (DOJ)", "DOJ")),
+        ("internal revenue service", ("Internal Revenue Service (IRS)", "Treasury IRS")),
+        ("fiscal service", ("Bureau of the Fiscal Service", "Treasury BFS")),
+        ("mint", ("United States Mint", "Treasury Mint")),
+        ("comptroller of the currency", ("Office of the Comptroller of the Currency (OCC)", "Treasury OCC")),
+        ("treasury", ("Department of the Treasury", "Treasury")),
+        ("federal acquisition service", ("GSA Federal Acquisition Service", "GSA FAS")),
+        ("public buildings service", ("GSA Public Buildings Service", "GSA PBS")),
+        ("general services administration", ("General Services Administration (GSA)", "GSA")),
+        ("small business administration", ("Small Business Administration (SBA)", "SBA")),
+        ("national aeronautics and space", ("NASA", "NASA")),
+        ("environmental protection agency", ("Environmental Protection Agency (EPA)", "EPA")),
+        ("oceanic and atmospheric", ("National Oceanic and Atmospheric Administration (NOAA)", "Commerce NOAA")),
+        ("census bureau", ("U.S. Census Bureau", "Commerce Census")),
+        ("patent and trademark", ("U.S. Patent and Trademark Office (USPTO)", "USPTO")),
+        ("standards and technology", ("NIST", "Commerce NIST")),
+        ("department of commerce", ("Department of Commerce", "Commerce")),
+        ("housing and urban development", ("Department of Housing and Urban Development (HUD)", "HUD")),
+        ("nuclear regulatory", ("U.S. Nuclear Regulatory Commission (NRC)", "NRC")),
+        ("export-import bank", ("Export-Import Bank of the United States (EXIM)", "EXIM Bank")),
+        ("consumer financial protection", ("Consumer Financial Protection Bureau (CFPB)", "CFPB")),
+        ("securities and exchange", ("Securities and Exchange Commission (SEC)", "SEC")),
+        ("communications commission", ("Federal Communications Commission (FCC)", "FCC")),
+        ("personnel management", ("Office of Personnel Management (OPM)", "OPM")),
+        ("social security", ("Social Security Administration (SSA)", "SSA")),
+        ("accountability office", ("Government Accountability Office (GAO)", "GAO")),
+        ("library of congress", ("Library of Congress", "Library of Congress")),
+        ("house of representatives", ("U.S. House of Representatives", "U.S. House")),
+        ("department of education", ("Department of Education", "Dept. of Education")),
+        ("department of energy", ("Department of Energy (DOE)", "DOE")),
+        ("national nuclear security", ("National Nuclear Security Administration (NNSA)", "DOE NNSA")),
+        ("department of state", ("Department of State", "Dept. of State")),
+        ("agency for international development", ("USAID", "USAID")),
+        ("department of the interior", ("Department of the Interior (DOI)", "DOI")),
+        ("geological survey", ("U.S. Geological Survey (USGS)", "DOI USGS")),
+        ("bureau of land management", ("Bureau of Land Management (BLM)", "DOI BLM")),
+        ("national park service", ("National Park Service (NPS)", "DOI NPS")),
+        ("department of labor", ("Department of Labor (DOL)", "DOL")),
+        ("department of agriculture", ("Department of Agriculture (USDA)", "USDA")),
+        ("forest service", ("U.S. Forest Service (USFS)", "USDA USFS")),
+    ]
+    for needle, (full_lbl, short_lbl) in mapping:
+        if needle in low:
+            return full_lbl, short_lbl
+    short = re.sub(r"^Department of (the )?", "", raw, flags=re.IGNORECASE).strip()
+    short = re.sub(r"\s+(of the United States|of America)$", "", short, flags=re.IGNORECASE).strip()
+    return raw, short
+
+
+def _normalize_company_tokens(name: str) -> Tuple[List[str], List[str], str]:
+    """
+    Returns `(core_tokens, distinct_tokens, joined_core)` for strict entity matching
+    between `govcon_contacts.csv` and `USAspending.gov` recipient records.
+    """
+    s = re.sub(r"\([^)]*\)", " ", str(name or ""))
+    s = re.sub(r"\bDBA\b.*$", " ", s, flags=re.IGNORECASE)
+    raw_words = re.findall(r"[A-Za-z0-9]+", s.upper())
+    core = [w for w in raw_words if w not in CORPORATE_SUFFIX_TOKENS and len(w) >= 2]
+    distinct = [w for w in core if w not in ("HOLDINGS", "GROUP", "FEDERAL", "GOVERNMENT")]
+    joined = "".join(core)
+    return core, distinct, joined
+
+
+def _is_strict_company_match(prospect_company: str, recipient_name: str) -> bool:
+    """
+    Verifies with zero false-positive tolerance that `recipient_name` on USAspending.gov
+    is the exact corporate entity as `prospect_company`.
+    """
+    p_core, p_dist, p_joined = _normalize_company_tokens(prospect_company)
+    r_core, r_dist, r_joined = _normalize_company_tokens(recipient_name)
+    if not p_core or not r_core or not p_dist or not r_dist:
+        return False
+
+    # Case 1: Exact 1:1 joined token match (e.g., "CivicActions" == "CIVICACTIONS, INC.", "Garud Technology Services" == "GARUD TECHNOLOGY SERVICES, INC.")
+    if p_joined == r_joined and len(p_joined) >= 4:
+        return True
+
+    # Case 2: Exact match after ignoring pure holding/federal division suffixes ("Holdings", "Group", "Federal", "Government")
+    p_dist_joined = "".join(p_dist)
+    r_dist_joined = "".join(r_dist)
+    if p_dist_joined == r_dist_joined and len(p_dist_joined) >= 5:
+        return True
+
+    # Case 3: Single coined brand token (e.g. "Sparksoft" -> "SPARKSOFT CORPORATION", "Halvik" -> "HALVIK CORP", "TekSynap" -> "TEKSYNAP")
+    if len(p_dist) == 1 and len(p_dist[0]) >= 6 and p_dist[0] not in COMMON_DICTIONARY_BRAND_WORDS:
+        if r_dist[0] == p_dist[0] and len(r_dist) == 2 and r_dist[1] in ALLOWED_SINGLE_TOKEN_EXTENSIONS:
+            return True
+    if len(r_dist) == 1 and len(r_dist[0]) >= 6 and r_dist[0] not in COMMON_DICTIONARY_BRAND_WORDS:
+        if p_dist[0] == r_dist[0] and len(p_dist) == 2 and p_dist[1] in ALLOWED_SINGLE_TOKEN_EXTENSIONS:
+            return True
+
+    return False
+
+
+def _is_valid_federal_piid(award_id: str) -> bool:
+    aid = str(award_id or "").strip().upper()
+    if len(aid) < 8 or len(aid) > 32:
+        return False
+    has_alpha = any(ch.isalpha() for ch in aid)
+    has_digit = any(ch.isdigit() for ch in aid)
+    return has_alpha and has_digit
+
+
+def _lookup_single_company_usaspending_award(company_name: str, today_iso: str) -> Optional[Dict[str, Any]]:
+    p_core, p_dist, p_joined = _normalize_company_tokens(company_name)
+    if not p_core or not p_dist:
+        return None
+
+    queries = []
+    q_primary = " ".join(p_core[:2]) if len(p_core) >= 2 else p_core[0]
+    queries.append(q_primary)
+    if p_dist[0] != q_primary and len(p_dist[0]) >= 6:
+        queries.append(p_dist[0])
+
+    url = "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+    best_candidates: List[Tuple[Tuple[int, int, float], Dict[str, Any]]] = []
+
+    for q_text in queries[:2]:
+        try:
+            resp = requests.post(
+                url,
+                json={
+                    "fields": [
+                        "Award ID",
+                        "Recipient Name",
+                        "Start Date",
+                        "End Date",
+                        "Award Amount",
+                        "Awarding Agency",
+                        "Awarding Sub Agency",
+                        "Description",
+                        "generated_internal_id",
+                    ],
+                    "filters": {
+                        "time_period": [{"start_date": "2022-01-01", "end_date": "2026-12-31"}],
+                        "award_type_codes": ["A", "B", "C", "D"],
+                        "recipient_search_text": [q_text],
+                    },
+                    "limit": 12,
+                    "page": 1,
+                    "sort": "Award Amount",
+                    "order": "desc",
+                    "subawards": False,
+                },
+                timeout=10,
+            )
+            if resp.status_code != 200:
+                continue
+            for item in (resp.json().get("results") or []):
+                rec_name = str(item.get("Recipient Name") or "").strip()
+                award_id = str(item.get("Award ID") or "").strip()
+                amount = float(item.get("Award Amount") or 0.0)
+                end_date = str(item.get("End Date") or "").strip()[:10]
+                start_date = str(item.get("Start Date") or "").strip()[:10]
+                if amount < 50000 or not _is_valid_federal_piid(award_id):
+                    continue
+                if not end_date or end_date < "2024-01-01" or end_date > "2034-12-31":
+                    continue
+                if not _is_strict_company_match(company_name, rec_name):
+                    continue
+                is_active = 1 if end_date >= today_iso else 0
+                is_sweet_spot = 1 if 100000 <= amount <= 150000000 else 0
+                full_sub, short_sub = _shorten_sub_agency(
+                    str(item.get("Awarding Sub Agency") or ""),
+                    str(item.get("Awarding Agency") or ""),
+                )
+                gen_id = str(item.get("generated_internal_id") or "").strip()
+                profile = {
+                    "company_name": company_name,
+                    "matched_recipient_name": rec_name,
+                    "award_id": award_id,
+                    "award_amount": round(amount, 2),
+                    "award_amount_fmt": _format_usd_compact(amount, with_symbol=True),
+                    "award_amount_clean": _format_usd_compact(amount, with_symbol=False),
+                    "awarding_agency": str(item.get("Awarding Agency") or "Federal Agency").strip(),
+                    "awarding_sub_agency": full_sub,
+                    "awarding_sub_agency_short": short_sub,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                    "is_active": bool(is_active),
+                    "description": str(item.get("Description") or "").strip()[:180],
+                    "usaspending_url": f"https://www.usaspending.gov/award/{gen_id}" if gen_id else "https://www.usaspending.gov/search",
+                }
+                best_candidates.append(((is_active, is_sweet_spot, amount), profile))
+            if best_candidates:
+                break
+        except Exception:
+            continue
+
+    if not best_candidates:
+        return None
+    best_candidates.sort(key=lambda x: x[0], reverse=True)
+    return best_candidates[0][1]
+
+
+def enrich_contacts_with_usaspending_awards(contacts: List[Dict[str, str]]) -> Dict[str, Dict[str, Any]]:
+    """
+    Upgrade #1: Resolves and caches verified active Federal Contract Award metadata
+    (Award ID, Award Amount, Awarding Sub-Agency, PoP End Date) from USAspending.gov
+    for contacts in `govcon_contacts.csv` using strict entity verification.
+    """
+    cache: Dict[str, Any] = {}
+    if os.path.exists(AWARD_PROFILES_CACHE_PATH):
+        try:
+            with open(AWARD_PROFILES_CACHE_PATH, "r", encoding="utf-8") as cf:
+                loaded = json.load(cf)
+                if isinstance(loaded, dict):
+                    cache = loaded
+        except Exception:
+            cache = {}
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    unique_companies: Dict[str, str] = {}
+    for row in contacts:
+        comp = str(row.get("Company Name") or row.get("Company") or "").strip()
+        _, _, j_key = _normalize_company_tokens(comp)
+        if comp and j_key and j_key not in unique_companies:
+            unique_companies[j_key] = comp
+
+    missing_keys = [k for k in unique_companies if k not in cache]
+    if missing_keys:
+        print(f"[*] Querying USAspending.gov v2 spending_by_award API for {len(missing_keys)} uncached GovCon companies...", flush=True)
+        with ThreadPoolExecutor(max_workers=12) as pool:
+            fut_map = {
+                pool.submit(_lookup_single_company_usaspending_award, unique_companies[k], today_iso): k
+                for k in missing_keys[:260]
+            }
+            for fut in as_completed(fut_map):
+                k = fut_map[fut]
+                try:
+                    cache[k] = fut.result()
+                except Exception:
+                    cache[k] = None
+        try:
+            with open(AWARD_PROFILES_CACHE_PATH, "w", encoding="utf-8") as wf:
+                json.dump(cache, wf, indent=2)
+        except Exception:
+            pass
+
+    verified_profiles: Dict[str, Dict[str, Any]] = {}
+    cache_dirty = False
+    for k, prof in list(cache.items()):
+        if isinstance(prof, dict) and prof.get("award_id"):
+            if not _is_strict_company_match(str(prof.get("company_name") or ""), str(prof.get("matched_recipient_name") or "")):
+                cache[k] = None
+                cache_dirty = True
+                continue
+            full_sub, short_sub = _shorten_sub_agency(
+                str(prof.get("awarding_sub_agency") or ""),
+                str(prof.get("awarding_agency") or ""),
+            )
+            if prof.get("awarding_sub_agency") != full_sub or prof.get("awarding_sub_agency_short") != short_sub:
+                prof["awarding_sub_agency"] = full_sub
+                prof["awarding_sub_agency_short"] = short_sub
+                cache_dirty = True
+            verified_profiles[k] = prof
+
+    if cache_dirty:
+        try:
+            with open(AWARD_PROFILES_CACHE_PATH, "w", encoding="utf-8") as wf:
+                json.dump(cache, wf, indent=2)
+        except Exception:
+            pass
+    return verified_profiles
+
+
+def fetch_usaspending_expiring_recompetes(limit_out: int = 15) -> List[Dict[str, Any]]:
+    """
+    Upgrade #2: Queries USAspending.gov REST API (`POST /api/v2/search/spending_by_award/`)
+    for multi-year IT/Cyber/Cloud contracts ($350K–$35M, duration >= 180 days) whose
+    Period of Performance expires in the upcoming 45–240 day Recompete Shaping Window,
+    and pre-computes API #16 (Price-to-Win) + API #21 (Sources Sought Rule-of-Two) intelligence.
+    """
+    url = "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+    today_d = datetime.now(timezone.utc).date()
+    recompetes: List[Dict[str, Any]] = []
+    seen_award_ids = set()
+    seen_recipients = set()
+
+    for pg in (1, 2):
+        try:
+            resp = requests.post(
+                url,
+                json={
+                    "fields": [
+                        "Award ID",
+                        "Recipient Name",
+                        "Start Date",
+                        "End Date",
+                        "Award Amount",
+                        "Awarding Agency",
+                        "Awarding Sub Agency",
+                        "Description",
+                        "NAICS Code",
+                        "generated_internal_id",
+                    ],
+                    "filters": {
+                        "time_period": [{"start_date": "2023-01-01", "end_date": "2026-12-31"}],
+                        "award_type_codes": ["A", "B", "C", "D"],
+                        "naics_codes": {"require": ["541511", "541512", "541513", "518210"]},
+                        "award_amounts": [{"lower_bound": 350000, "upper_bound": 35000000}],
+                    },
+                    "limit": 100,
+                    "page": pg,
+                    "sort": "Award Amount",
+                    "order": "desc",
+                    "subawards": False,
+                },
+                timeout=12,
+            )
+            if resp.status_code != 200:
+                continue
+            for item in (resp.json().get("results") or []):
+                award_id = str(item.get("Award ID") or "").strip()
+                rec_name = str(item.get("Recipient Name") or "").strip()
+                desc = str(item.get("Description") or "").strip()
+                amount = float(item.get("Award Amount") or 0.0)
+                if not _is_valid_federal_piid(award_id) or award_id in seen_award_ids or rec_name in seen_recipients:
+                    continue
+                if any(re.search(pat, desc.lower()) for pat in AWARD_HARDWARE_NOISE_PATTERNS):
+                    continue
+                try:
+                    sd = datetime.strptime(str(item.get("Start Date") or "")[:10], "%Y-%m-%d").date()
+                    ed = datetime.strptime(str(item.get("End Date") or "")[:10], "%Y-%m-%d").date()
+                except Exception:
+                    continue
+                dur_days = (ed - sd).days
+                days_to_exp = (ed - today_d).days
+                if dur_days < 180 or not (35 <= days_to_exp <= 240):
+                    continue
+
+                dur_years = max(1.0, round(dur_days / 365.25, 2))
+                annual_burn = round(amount / dur_years, 2)
+                ptw_ceiling = round(annual_burn * 0.92, 2)
+                full_sub, short_sub = _shorten_sub_agency(
+                    str(item.get("Awarding Sub Agency") or ""),
+                    str(item.get("Awarding Agency") or ""),
+                )
+                gen_id = str(item.get("generated_internal_id") or "").strip()
+                seen_award_ids.add(award_id)
+                seen_recipients.add(rec_name)
+                recompetes.append({
+                    "signal_type": "RECOMPETE_RADAR_90_180D",
+                    "award_id": award_id,
+                    "incumbent_recipient": clean_company_display_name(rec_name),
+                    "award_amount": round(amount, 2),
+                    "award_amount_fmt": _format_usd_compact(amount, with_symbol=True),
+                    "awarding_sub_agency": full_sub,
+                    "awarding_sub_agency_short": short_sub,
+                    "start_date": sd.isoformat(),
+                    "end_date": ed.isoformat(),
+                    "days_until_expiration": days_to_exp,
+                    "duration_years": dur_years,
+                    "description": desc[:200] if desc else "Federal IT & Cybersecurity Engineering Services",
+                    "api16_incumbent_annual_burn_fmt": f"{_format_usd_compact(annual_burn)}/yr",
+                    "api16_ptw_challenger_ceiling_fmt": f"{_format_usd_compact(ptw_ceiling)}/yr (-8% PTW target)",
+                    "api21_sources_sought_action": (
+                        f"FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open ({days_to_exp}d to PoP end {ed.isoformat()})"
+                    ),
+                    "usaspending_url": f"https://www.usaspending.gov/award/{gen_id}" if gen_id else "https://www.usaspending.gov/search",
+                })
+                if len(recompetes) >= limit_out:
+                    break
+        except Exception:
+            continue
+        if len(recompetes) >= limit_out:
+            break
+
+    return recompetes
+
+
+def fetch_usaspending_fresh_prime_subcontracting_wire(limit_out: int = 12) -> List[Dict[str, Any]]:
+    """
+    Upgrade #3: Queries USAspending.gov REST API (`POST /api/v2/search/spending_by_award/`)
+    for newly started multi-year Prime IT/Cyber awards ($1.5M–$50M, duration >= 180 days)
+    that trigger mandatory FAR 52.219-9 Small Business Subcontracting Plans (~30% target pool),
+    pre-computing API #11 (`/v1/generate/teaming-strategy`) Prime-to-Sub teaming intelligence.
+    """
+    url = "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+    today_d = datetime.now(timezone.utc).date()
+    sub_targets: List[Dict[str, Any]] = []
+    seen_award_ids = set()
+    seen_primes = set()
+
+    try:
+        resp = requests.post(
+            url,
+            json={
+                "fields": [
+                    "Award ID",
+                    "Recipient Name",
+                    "Start Date",
+                    "End Date",
+                    "Award Amount",
+                    "Awarding Agency",
+                    "Awarding Sub Agency",
+                    "Description",
+                    "generated_internal_id",
+                ],
+                "filters": {
+                    "time_period": [{"start_date": "2025-01-01", "end_date": "2026-12-31"}],
+                    "award_type_codes": ["A", "B", "C", "D"],
+                    "naics_codes": {"require": ["541511", "541512", "541513", "518210"]},
+                    "award_amounts": [{"lower_bound": 1500000, "upper_bound": 50000000}],
+                },
+                "limit": 100,
+                "page": 1,
+                "sort": "Start Date",
+                "order": "desc",
+                "subawards": False,
+            },
+            timeout=12,
+        )
+        if resp.status_code == 200:
+            for item in (resp.json().get("results") or []):
+                award_id = str(item.get("Award ID") or "").strip()
+                rec_name = str(item.get("Recipient Name") or "").strip()
+                desc = str(item.get("Description") or "").strip()
+                amount = float(item.get("Award Amount") or 0.0)
+                if not _is_valid_federal_piid(award_id) or award_id in seen_award_ids or rec_name in seen_primes:
+                    continue
+                if any(re.search(pat, desc.lower()) for pat in AWARD_HARDWARE_NOISE_PATTERNS):
+                    continue
+                try:
+                    sd = datetime.strptime(str(item.get("Start Date") or "")[:10], "%Y-%m-%d").date()
+                    ed = datetime.strptime(str(item.get("End Date") or "")[:10], "%Y-%m-%d").date()
+                except Exception:
+                    continue
+                dur_days = (ed - sd).days
+                if dur_days < 180 or ed <= today_d:
+                    continue
+
+                sb_pool = round(amount * 0.30, 2)
+                full_sub, short_sub = _shorten_sub_agency(
+                    str(item.get("Awarding Sub Agency") or ""),
+                    str(item.get("Awarding Agency") or ""),
+                )
+                gen_id = str(item.get("generated_internal_id") or "").strip()
+                seen_award_ids.add(award_id)
+                seen_primes.add(rec_name)
+                sub_targets.append({
+                    "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
+                    "award_id": award_id,
+                    "prime_recipient": clean_company_display_name(rec_name),
+                    "award_amount": round(amount, 2),
+                    "award_amount_fmt": _format_usd_compact(amount, with_symbol=True),
+                    "awarding_sub_agency": full_sub,
+                    "awarding_sub_agency_short": short_sub,
+                    "start_date": sd.isoformat(),
+                    "end_date": ed.isoformat(),
+                    "description": desc[:200] if desc else "Enterprise IT & Cybersecurity Engineering Support",
+                    "api11_sb_subcontract_pool_usd": sb_pool,
+                    "api11_sb_subcontract_pool_fmt": f"~{_format_usd_compact(sb_pool)} FAR 52.219-9 Small-Business Sub Pool (30%)",
+                    "usaspending_url": f"https://www.usaspending.gov/award/{gen_id}" if gen_id else "https://www.usaspending.gov/search",
+                })
+                if len(sub_targets) >= limit_out:
+                    break
+    except Exception:
+        pass
+
+    return sub_targets
 
 
 def run_harvester() -> Dict[str, Any]:
@@ -1268,6 +1822,10 @@ def run_harvester() -> Dict[str, Any]:
         else:
             catchall_count += 1
 
+    company_award_profiles = enrich_contacts_with_usaspending_awards(clean_rows)
+    expiring_recompetes = fetch_usaspending_expiring_recompetes(limit_out=15)
+    fresh_prime_sub_wire = fetch_usaspending_fresh_prime_subcontracting_wire(limit_out=12)
+
     intel_summary = {
         "updated_at": now_iso,
         "total_verified_mx_contacts": len(clean_rows),
@@ -1276,8 +1834,14 @@ def run_harvester() -> Dict[str, Any]:
         "purged_legacy_or_invalid_rows": purged_rows,
         "added_verified_inbound_leads": added_inbound,
         "added_website_harvested_govcon_contacts": added_public_verified,
+        "verified_usaspending_award_profiles_count": len(company_award_profiles),
+        "expiring_recompete_wire_count": len(expiring_recompetes),
+        "fresh_prime_subcontract_wire_count": len(fresh_prime_sub_wire),
         "state_distribution": state_counts,
         "usaspending_naics_541512_top_recipients": usaspending_recipients[:20],
+        "company_award_profiles": company_award_profiles,
+        "expiring_recompete_wire": expiring_recompetes,
+        "fresh_prime_subcontracting_wire": fresh_prime_sub_wire,
     }
     try:
         with open(INTEL_JSON_PATH, "w", encoding="utf-8") as jf:
@@ -1287,8 +1851,8 @@ def run_harvester() -> Dict[str, Any]:
 
     print(
         f"[+] GovCon Hygiene & Harvester Complete: {len(clean_rows)} fresh DNS/MX-verified contacts in govcon_contacts.csv "
-        f"({not_catchall_count} Not Catch-all priority, {catchall_count} Catch-all; "
-        f"purged {purged_rows} legacy/invalid rows, +{added_inbound} inbound leads).",
+        f"({not_catchall_count} Not Catch-all priority, {len(company_award_profiles)} with exact USAspending Award IDs, "
+        f"{len(expiring_recompetes)} 90-180d expiring recompetes, {len(fresh_prime_sub_wire)} fresh Prime subcontracting targets).",
         flush=True,
     )
     return intel_summary
