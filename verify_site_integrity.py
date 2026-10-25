@@ -146,7 +146,11 @@ def check_html_file(fpath: str) -> str:
         if opens != closes:
             fail(f"{rel}: Tag imbalance for <{tag}>: open={opens}, close={closes}")
 
-    # 7. Check zero emojis and zero `data:` URI favicons (Google Search requires crawlable HTTP/HTTPS favicon URLs)
+    # 7. Check dark scrollbar theme (`color-scheme: dark` + `*::-webkit-scrollbar`) so native white scrollbars never appear
+    if "color-scheme: dark" not in txt or "*::-webkit-scrollbar" not in txt:
+        fail(f"{rel}: Missing global dark scrollbar styling (`color-scheme: dark` and `*::-webkit-scrollbar`).")
+
+    # 8. Check zero emojis and zero `data:` URI favicons (Google Search requires crawlable HTTP/HTTPS favicon URLs)
     emoji_re = re.compile(r"[\U0001F300-\U0001FAFF]")
     emojis = emoji_re.findall(txt)
     if emojis:
