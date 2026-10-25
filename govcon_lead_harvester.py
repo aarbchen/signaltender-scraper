@@ -844,7 +844,7 @@ def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
     """
     Cleans a USAspending recipient name like 'SECURIGENCE LLC' or 'MINBURN TECHNOLOGY GROUP, LLC'
     into `(display_name, [candidate_domains])` so multi-word GovCon contractors are matched
-    whether their domain is `fullwords.com`, `firsttwo.com`, or `firstwordtech.com`.
+    whether their domain is `fullwords.com`, `firsttwo.com`, `firstwordfed.com`, or `<initials>federal.com`.
     """
     base = re.sub(r"\bDBA\b.*$", "", str(raw_name or "").upper()).strip()
     stripped = re.sub(
@@ -857,7 +857,12 @@ def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
         return "", []
     display = " ".join(w.upper() if len(w) <= 3 else w.capitalize() for w in words)
 
-    cands = []
+    generic_first = {
+        "american", "national", "global", "united", "federal", "general",
+        "premier", "advanced", "strategic", "dynamic", "innovative",
+        "integrated", "digital", "enterprise",
+    }
+    cands: List[str] = []
     joined_all = "".join(words)
     if 5 <= len(joined_all) <= 28:
         cands.append(f"{joined_all}.com")
@@ -865,10 +870,17 @@ def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
         first_two = "".join(words[:2])
         if 5 <= len(first_two) <= 24 and f"{first_two}.com" not in cands:
             cands.append(f"{first_two}.com")
-    if len(words[0]) >= 5 and words[0] not in ("american", "national", "global", "united", "federal", "general", "premier", "advanced", "strategic", "dynamic", "innovative", "integrated", "digital", "enterprise"):
-        if f"{words[0]}.com" not in cands:
-            cands.append(f"{words[0]}.com")
-    return display, cands[:2]
+    if len(words[0]) >= 5 and words[0] not in generic_first:
+        for dom_cand in (f"{words[0]}.com", f"{words[0]}fed.com", f"{words[0]}it.com"):
+            if dom_cand not in cands:
+                cands.append(dom_cand)
+    if len(words) >= 3:
+        initials = "".join(w[0] for w in words[:4])
+        if len(initials) >= 3:
+            for acro_cand in (f"{initials}federal.com", f"{initials}gov.com"):
+                if acro_cand not in cands:
+                    cands.append(acro_cand)
+    return display, cands[:4]
 
 
 def discover_usaspending_small_business_websites(

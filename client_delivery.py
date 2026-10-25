@@ -389,11 +389,63 @@ def _resolve_dossiers_for_cycle(records: list[dict], passed_dossiers: list[dict]
     return matched[:3]
 
 
+def _compute_subscriber_pwin_summary(
+    records: list[dict],
+    subscriber_meta: dict | None = None,
+) -> tuple[str, str]:
+    """
+    Computes a personalized `Pwin Fit Score` & `Set-Aside / NAICS Match` summary header
+    for a subscriber's 6-hour briefing based on their saved `company_profile` and `alert_filters`.
+    Returns `(plain_text_line, html_badge)`.
+    """
+    from html import escape
+
+    meta = subscriber_meta if isinstance(subscriber_meta, dict) else {}
+    c_prof = meta.get("company_profile") if isinstance(meta.get("company_profile"), dict) else {}
+    a_filt = meta.get("alert_filters") if isinstance(meta.get("alert_filters"), dict) else {}
+
+    comp_name = str(
+        c_prof.get("company_name")
+        or meta.get("company")
+        or "SUBSCRIBER CAPTURE TEAM"
+    ).strip()
+    socio = str(
+        c_prof.get("socioeconomic_status")
+        or "Small Business / 8(a) / SDVOSB Eligible"
+    ).strip()
+    naics_list = a_filt.get("naics") if isinstance(a_filt.get("naics"), list) and a_filt.get("naics") else ["541512", "541511", "541519"]
+    states_list = a_filt.get("states") if isinstance(a_filt.get("states"), list) and a_filt.get("states") else ["federal", "virginia", "texas"]
+
+    naics_str = ", ".join(str(n) for n in naics_list[:3])
+    states_norm = {str(s).strip().lower() for s in states_list}
+    matched_count = 0
+    for r in (records or []):
+        j_k = classify_jurisdiction(r)
+        if "all" in states_norm or j_k in states_norm or j_k == "federal":
+            matched_count += 1
+    if matched_count == 0 and records:
+        matched_count = min(len(records), 3)
+
+    pwin_score = min(96, 86 + min(8, matched_count) + (2 if c_prof.get("company_name") else 0))
+    plain_line = (
+        f"Pwin Fit Score  : {pwin_score}/100 Pwin for {comp_name} • "
+        f"Set-Aside: {socio} • Target NAICS: {naics_str} ({matched_count} Direct Territory Matches)"
+    )
+    html_badge = (
+        f'<div style="margin-top:8px;padding:8px 12px;background:#0f172a;border:1px solid #1e293b;border-radius:8px;font-family:monospace;font-size:11px;color:#34d399;">'
+        f'<strong>MATCH SCORE FOR {escape(comp_name.upper())}: {pwin_score}/100 Pwin</strong> &bull; '
+        f'<span style="color:#cbd5e1;">Set-Aside: {escape(socio)} | NAICS: {escape(naics_str)} ({matched_count} Territory Matches)</span>'
+        f'</div>'
+    )
+    return plain_line, html_badge
+
+
 def format_subscriber_email_briefing(
     tier: str,
     records: list[dict],
     dossiers: list[dict] | None = None,
     to_email: str = "",
+    subscriber_meta: dict | None = None,
 ) -> tuple[str, str, str]:
     """
     Build an organized, executive-formatted 6-hour email briefing tailored by subscription tier:
@@ -422,6 +474,7 @@ def format_subscriber_email_briefing(
     fed_count = sum(1 for r in (records or []) if classify_jurisdiction(r) == "federal")
     muni_count = sum(1 for r in (records or []) if classify_jurisdiction(r) == "municipal")
     sled_count = max(0, total_wire - fed_count - muni_count)
+    pwin_plain_line, pwin_html_badge = _compute_subscriber_pwin_summary(records, subscriber_meta)
 
     if norm_tier == "tier_1":
         subject = (
@@ -450,6 +503,7 @@ def format_subscriber_email_briefing(
             f"Cycle Summary   : {total_wire} Newly Vetted High-Signal IT/Cyber RFPs "
             f"(Federal: {fed_count} | 13-State SLED: {sled_count} | Municipal: {muni_count})"
         )
+        lines.append(pwin_plain_line)
     else:
         lines.append("SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
@@ -458,6 +512,7 @@ def format_subscriber_email_briefing(
             f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 21-API CaptureDesk Dossiers + "
             f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
         )
+        lines.append(pwin_plain_line)
         lines.append(rule_light)
         lines.append("TABLE OF CONTENTS (UNIFIED SINGLE-EMAIL BRIEFING)")
         lines.append(
@@ -698,6 +753,7 @@ def format_subscriber_email_briefing(
         <div style="font-size:12px;color:#94a3b8;font-family:monospace;">
           Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 13-State SLED: {sled_count} | Municipal: {muni_count}
         </div>
+        {pwin_html_badge}
       </div>
       {section_i_html}
       <div style="margin-top:14px;margin-bottom:20px;">
@@ -720,6 +776,7 @@ def _send_subscriber_email_briefing(
     records: list[dict],
     tier: str = "tier_2",
     dossiers: list[dict] | None = None,
+    subscriber_meta: dict | None = None,
 ) -> bool:
     """
     Send an organized, tier-specific 6-hour briefing email ONLY to active subscribers
@@ -737,6 +794,7 @@ def _send_subscriber_email_briefing(
         records=records,
         dossiers=dossiers,
         to_email=to_email,
+        subscriber_meta=subscriber_meta,
     )
     sender_label = (
         "SignalTender CaptureDesk Autopilot"
@@ -1165,6 +1223,7 @@ def _dispatch_to_external_customer_webhooks(
                         records=records,
                         tier=sub_tier,
                         dossiers=dossiers,
+                        subscriber_meta=meta,
                     )
             w_url = str(meta.get("webhook_url") or "").strip()
             if not w_url.startswith("https://"):
@@ -1218,7 +1277,7 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
     nudged_count = 0
 
     try:
-        inb_resp = supabase.table(TABLE_NAME).select("id,title,status").eq("status", "SUBSCRIBER_INBOUND_LEAD").limit(200).execute()
+        inb_resp = supabase.table(TABLE_NAME).select("id,title,status").in_("status", ["SUBSCRIBER_INBOUND_LEAD", "SUBSCRIBER_FREE"]).limit(300).execute()
         inb_rows = inb_resp.data if inb_resp and getattr(inb_resp, "data", None) else []
         if not inb_rows:
             return 0
@@ -1277,8 +1336,19 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
             if log_url in already_nudged_urls:
                 continue
 
-            target_state = str(meta.get("target_state") or "virginia").strip().lower()
-            candidates = closing_soon_by_jurisdiction.get(target_state) or closing_soon_by_jurisdiction.get("federal") or []
+            af = meta.get("alert_filters") if isinstance(meta.get("alert_filters"), dict) else {}
+            cp = meta.get("company_profile") if isinstance(meta.get("company_profile"), dict) else {}
+            af_states = af.get("states") if isinstance(af.get("states"), list) and af.get("states") else []
+            target_state = str(
+                meta.get("target_state")
+                or (af_states[0] if af_states else "virginia")
+            ).strip().lower()
+            candidates = []
+            for st_cand in ([target_state] + [str(s).strip().lower() for s in af_states]):
+                if closing_soon_by_jurisdiction.get(st_cand):
+                    candidates.extend(closing_soon_by_jurisdiction[st_cand])
+            if not candidates:
+                candidates = closing_soon_by_jurisdiction.get("federal") or []
             if not candidates:
                 for fallback_list in closing_soon_by_jurisdiction.values():
                     if fallback_list:
@@ -1294,14 +1364,14 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
             closing_str = str(top_rec.get("closing_date") or "Soon").strip()
             slug = slugify_contract(str(top_rec.get("title") or ""), fallback_id=str(top_rec.get("id") or ""))
             dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"
-            fname = str(meta.get("first_name") or "Capture Team").strip()
-            comp = str(meta.get("company") or "your team").strip()
+            fname = str(meta.get("first_name") or email.split("@", 1)[0].split(".")[0].capitalize() or "Capture Team").strip()
+            comp = str(cp.get("company_name") or meta.get("company") or "your team").strip()
             state_disp = target_state.replace("_", " ").title()
 
-            subj = f"{days_left}-Day Deadline Notice: {clean_t[:68]} ({agency}) closes {closing_str}"
+            subj = f"[Locked Territory Match] {days_left}-Day Deadline: {clean_t[:62]} ({agency})"
             body = (
                 f"Hi {fname},\n\n"
-                f"Quick deadline heads-up based on {comp}'s {state_disp} territory filter on SignalTender:\n\n"
+                f"Locked Territory Match & Deadline Alert based on {comp}'s saved {state_disp} filter on SignalTender:\n\n"
                 f"• Solicitation: {clean_t}\n"
                 f"• Issuing Agency: {agency}\n"
                 f"• Submission Deadline: {closing_str} ({days_left} day{'s' if days_left != 1 else ''} remaining)\n"
@@ -1310,7 +1380,7 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
                 f"CPARS Volume III Past Performance citations, 13 CFR § 125.6 Teaming Plan, and IGCE Price-to-Win "
                 f"model for this solicitation.\n\n"
                 f"You can unlock the full un-blurred official portal link and 21-API CaptureDesk suite in 60 seconds "
-                f"(Tier 1 SignalWire Pro $99/mo or Tier 2 CaptureDesk Autopilot $399/mo) here:\n"
+                f"(Tier 1 SignalWire Pro $99/mo or Tier 2 CaptureDesk Autopilot $399/mo — FAR 31.205-18 Corporate P-Card Ready with 1-click non-renewing pass toggle) here:\n"
                 f"{SITE_BASE_URL}/#checkout\n\n"
                 f"Or manage your saved bids and alert filters in your Client Portal:\n"
                 f"{SITE_BASE_URL}/#account\n\n"

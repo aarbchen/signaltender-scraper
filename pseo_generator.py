@@ -3137,18 +3137,26 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             body: JSON.stringify({{ email: email, first_name: email.split('@')[0], company: company, target_state: st }})
           }});
           var data = await resp.json();
-          if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-emerald-400'; statusEl.textContent = data.message || 'Unlocked 3 live RFP dossiers below!'; }}
-          if (resultsEl && data.matched_dossiers && data.matched_dossiers.length) {{
+          try {{ if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); }} catch (e) {{}}
+          var unlockedList = (data && (data.dossiers || data.matched_dossiers)) ? (data.dossiers || data.matched_dossiers) : [];
+          if (statusEl) {{ statusEl.className = 'mt-3 text-xs font-mono text-emerald-400'; statusEl.textContent = data.message || ('Unlocked ' + (unlockedList.length || 3) + ' live pre-shredded RFP dossiers below — full directory un-blurred!'); }}
+          if (resultsEl && unlockedList.length) {{
             resultsEl.className = 'mt-4 grid grid-cols-1 md:grid-cols-3 gap-3';
-            resultsEl.innerHTML = data.matched_dossiers.map(function (d) {{
-              var safeUrl = String(d.official_portal_url || d.dossier_url || '#').replace(/"/g, '&quot;');
+            resultsEl.innerHTML = unlockedList.map(function (d) {{
+              var safeBidUrl = String(d.official_bid_url || d.official_portal_url || d.dossier_url || '#').replace(/"/g, '&quot;');
+              var safeSpaRoute = String(d.spa_route || '#contracts').replace(/"/g, '&quot;');
+              var buyerAgency = d.issuing_agency || d.agency || 'Government Agency';
+              var naicsTag = (d.tags && d.tags[0]) ? d.tags[0] : ('NAICS ' + (d.naics || '541512'));
               return '<div class="p-3.5 rounded-xl bg-navy-950 border border-emerald-500/40 flex flex-col justify-between space-y-2 text-xs font-mono">' +
                 '<div>' +
-                  '<div class="text-[10px] text-emerald-400 font-bold uppercase">UNLOCKED &bull; NAICS ' + esc(d.naics || '541512') + '</div>' +
+                  '<div class="text-[10px] text-emerald-400 font-bold uppercase">UNLOCKED &bull; ' + esc(naicsTag) + '</div>' +
                   '<div class="text-white font-sans font-bold text-xs mt-1 line-clamp-2">' + esc(d.title || 'Open IT Solicitation') + '</div>' +
-                  '<div class="text-slate-400 text-[11px] mt-1">' + esc(d.agency || 'Government Agency') + ' &bull; Due: <span class="text-amber-300">' + esc(d.closing_date || 'Open') + '</span></div>' +
+                  '<div class="text-slate-400 text-[11px] mt-1">' + esc(buyerAgency) + ' &bull; Due: <span class="text-amber-300">' + esc(d.closing_date || 'Open') + '</span></div>' +
                 '</div>' +
-                '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-3 py-1.5 rounded bg-emerald-600/20 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/40 text-[11px] transition-colors">Open Official Bid Portal &rarr;</a>' +
+                '<div class="flex flex-wrap gap-1.5 pt-1">' +
+                  '<a href="' + safeSpaRoute + '" class="inline-flex items-center justify-center px-2.5 py-1.5 rounded bg-indigo-600/25 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/40 text-[11px] transition-colors">21-API Dossier &rarr;</a>' +
+                  '<a href="' + safeBidUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-2.5 py-1.5 rounded bg-emerald-600/20 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/40 text-[11px] transition-colors">Official Bid Portal &nearr;</a>' +
+                '</div>' +
               '</div>';
             }}).join('');
           }}
