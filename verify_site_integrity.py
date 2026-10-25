@@ -771,9 +771,10 @@ window.switchTrustTab('security');
 window.switchTrustTab('terms');
 window.switchTrustTab('privacy');
 window.switchTrustTab('contact');
-window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Tier 1 ($99/mo) and Tier 2 ($399/mo)?');
-if (!document.getElementById('concierge-answer-text').textContent || document.getElementById('concierge-answer-text').textContent.indexOf('Tier 1') === -1) {
-  throw new Error('AI Support Concierge failed to render instant on-screen answer!');
+window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Tier 1 ($99), Tier 2 ($399), Tier 3 ($1,499), and Tier 4 ($2,499)?');
+var conciergeText = (document.getElementById('concierge-answer-text') || {}).textContent || '';
+if (!conciergeText || conciergeText.indexOf('Tier 1') === -1 || conciergeText.indexOf('Tier 3') === -1 || conciergeText.indexOf('Tier 4') === -1) {
+  throw new Error('AI Support Concierge failed to render instant on-screen answer with all 4 tiers (Tier 1 - Tier 4)!');
 }
 document.getElementById('concierge-question').value = '<script>alert(1)</script>';
 if (window.submitAiConciergeContact() !== false) {
@@ -861,6 +862,7 @@ def check_conversion_and_distribution_surfaces(index_txt: str) -> None:
         ("api/routers/stripe_webhook.py", r"d:\Data API Ecosystem\api\routers\stripe_webhook.py"),
         ("api/routers/solicitations.py", r"d:\Data API Ecosystem\api\routers\solicitations.py"),
         ("api/routers/mcp.py", r"d:\Data API Ecosystem\api\routers\mcp.py"),
+        ("api/routers/support.py", r"d:\Data API Ecosystem\api\routers\support.py"),
     ]
 
     loaded_texts = {}
@@ -1052,6 +1054,17 @@ def main() -> int:
     check_catalog_parity_and_ui(index_txt, apis_txt)
     check_portal_parity_and_telemetry(index_txt, apis_txt)
     check_tier_value_prop_and_capture_moat_parity(index_txt)
+    # Enforce that AI Concierge knowledge bases in index.html and support.py cover all 4 tiers
+    for req_concierge_tier in ("Tier 1", "Tier 2", "Tier 3", "Tier 4", "$1,499", "$2,499"):
+        if req_concierge_tier not in index_txt:
+            fail(f"index.html: AI Concierge knowledge base missing required tier fact '{req_concierge_tier}'")
+    support_py_path = r"d:\Data API Ecosystem\api\routers\support.py"
+    if os.path.exists(support_py_path):
+        with open(support_py_path, "r", encoding="utf-8") as sf:
+            stxt = sf.read()
+        for req_tier in ("Tier 1", "Tier 2", "Tier 3", "Tier 4", "$1,499", "$2,499", "1-Click 3-Volume Shipley Proposal", "Winning-Bid Rate Vault"):
+            if req_tier not in stxt:
+                fail(f"api/routers/support.py: AI Concierge knowledge base missing required tier fact '{req_tier}'")
     check_conversion_and_distribution_surfaces(index_txt)
     check_spa_runtime(index_txt)
     if not os.getenv("RENDER") and not os.getenv("CI"):
