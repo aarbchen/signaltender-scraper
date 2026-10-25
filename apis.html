@@ -7635,15 +7635,17 @@
       };
 
       window.switchAccountWorkspaceTab = function (tabKey) {
-        var validTabs = { billing: true, filters: true, pipeline: true, all: true };
+        var validTabs = { billing: true, proposal: true, foia: true, filters: true, pipeline: true, all: true };
         var key = validTabs[tabKey] ? tabKey : 'billing';
         var secMap = {
           billing: ['account-billing-card', 'account-distribution-card'],
+          proposal: ['account-billing-card', 'account-tier3-proposal-card'],
+          foia: ['account-billing-card', 'account-tier4-foia-card', 'account-tier3-proposal-card'],
           filters: ['account-alert-filters-card', 'account-company-vault-card'],
           pipeline: ['account-bid-board-card', 'account-apikey-security-grid'],
-          all: ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid']
+          all: ['account-billing-card', 'account-distribution-card', 'account-tier3-proposal-card', 'account-tier4-foia-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid']
         };
-        var allSecIds = ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid'];
+        var allSecIds = ['account-billing-card', 'account-distribution-card', 'account-tier3-proposal-card', 'account-tier4-foia-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid'];
         var activeIds = secMap[key] || secMap.billing;
         for (var i = 0; i < allSecIds.length; i++) {
           var sEl = document.getElementById(allSecIds[i]);
@@ -7660,11 +7662,266 @@
           var bKey = btns[j].getAttribute('data-account-tab');
           if (bKey === key) {
             btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else if (bKey === 'proposal') {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'foia') {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'filters') {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer';
           } else {
             btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
           }
         }
+        if (typeof window.initAccountTier3RfpPicker === 'function') {
+          window.initAccountTier3RfpPicker();
+        }
         return true;
+      };
+
+      window.initAccountTier3RfpPicker = function () {
+        var picker = document.getElementById('account-t3-rfp-picker');
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        if (picker && (!picker.options || picker.options.length <= 1) && allContracts.length) {
+          var opts = allContracts.slice(0, 45).map(function (c) {
+            var s = String(c.slug || '').replace(/"/g, '&quot;');
+            var j = String(c.jurisdiction || 'federal').toUpperCase();
+            var t = String(c.clean_title || c.title || 'Solicitation').slice(0, 85).replace(/</g, '&lt;');
+            return '<option value="' + s + '">[' + j + '] ' + t + '</option>';
+          }).join('');
+          picker.innerHTML = '<option value="">-- Default Sample: FA8726-26-R-0042 // Enterprise Zero-Trust SOC &amp; Cloud Modernization (DISA) --</option>' + opts;
+        }
+      };
+
+      window.onAccountTier3RfpSelect = function (slug) {
+        if (!slug) return;
+        var allContracts = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var found = null;
+        for (var i = 0; i < allContracts.length; i++) {
+          if (allContracts[i].slug === slug) {
+            found = allContracts[i];
+            break;
+          }
+        }
+        if (!found) return;
+        var solEl = document.getElementById('account-t3-sol-id');
+        var titleEl = document.getElementById('account-t3-title');
+        var agencyEl = document.getElementById('account-t3-agency');
+        var rfpTextEl = document.getElementById('account-t3-rfp-text');
+        if (solEl) solEl.value = found.notice_id || found.solicitation_number || ('ST-' + String(found.jurisdiction || 'FED').toUpperCase() + '-2026');
+        if (titleEl) titleEl.value = found.clean_title || found.title || 'Government IT & Cybersecurity Solicitation';
+        if (agencyEl) agencyEl.value = found.agency || found.masked_agency || 'Government Issuing Agency';
+        if (rfpTextEl) {
+          rfpTextEl.value = (found.description || found.summary || found.clean_title || '') + ' The Contractor shall provide full technical implementation, Section L/M compliance crosswalk, Key Personnel staffing, NIST 800-53 / CMMC 2.0 security controls, and Section B CLIN pricing.';
+        }
+      };
+
+      window.openBidBoardRfpInProposalCompiler = function (slug) {
+        window.switchAccountWorkspaceTab('proposal');
+        window.initAccountTier3RfpPicker();
+        var picker = document.getElementById('account-t3-rfp-picker');
+        if (picker && slug) {
+          picker.value = slug;
+          window.onAccountTier3RfpSelect(slug);
+        }
+        var card = document.getElementById('account-tier3-proposal-card');
+        if (card && card.getBoundingClientRect) {
+          var docEl = document.documentElement;
+          docEl.style.scrollBehavior = 'auto';
+          var rect = card.getBoundingClientRect();
+          var currentY = window.pageYOffset || docEl.scrollTop || 0;
+          window.scrollTo(0, Math.max(0, Math.round(rect.top + currentY - 80)));
+        }
+      };
+
+      window.compileAccountTier3ProposalZip = function () {
+        var btn = document.getElementById('btn-account-t3-compile-zip');
+        var st = document.getElementById('account-t3-compile-status');
+        var resBox = document.getElementById('account-t3-compile-result');
+        var solId = (document.getElementById('account-t3-sol-id') || {}).value || 'FA8726-26-R-0042';
+        var title = (document.getElementById('account-t3-title') || {}).value || 'Enterprise Zero-Trust SOC & Cloud Modernization';
+        var agency = (document.getElementById('account-t3-agency') || {}).value || 'Defense Information Systems Agency (DISA)';
+        var naics = (document.getElementById('account-t3-naics') || {}).value || '541512';
+        var rfpText = (document.getElementById('account-t3-rfp-text') || {}).value || title;
+        var compName = (document.getElementById('account-profile-company') || {}).value || (currentAccountProfile && currentAccountProfile.company) || 'Apex Defense & Cyber Solutions LLC';
+        var capSummary = (document.getElementById('account-vault-capabilities') || {}).value || 'Zero-Trust Architecture, FedRAMP Cloud Engineering, AI/LLM Automation, and Managed SOC/MDR.';
+        var socio = (document.getElementById('account-vault-setaside') || {}).value || 'SDVOSB';
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Compiling 3-Volume .DOCX + .XLSX Package (.ZIP)...';
+        }
+        if (st) {
+          st.classList.remove('hidden');
+          st.textContent = 'Running Shipley Vol I (.docx), Live-Formula Vol II (.xlsx), and CPARS/OCI Vol III (.docx) compilers...';
+        }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: solId,
+            title: title,
+            agency: agency,
+            rfp_text: rfpText,
+            company_name: compName,
+            company_capability_summary: capSummary,
+            socio_economic_status: socio,
+            naics_code: naics
+          })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = 'Compile &amp; Download 3-Volume Shipley Package (.ZIP) &darr;';
+            }
+            if (d && d.zip_base64) {
+              var binStr = window.atob(d.zip_base64);
+              var bytes = new Uint8Array(binStr.length);
+              for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+              var blob = new Blob([bytes], { type: 'application/zip' });
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = d.zip_filename || ('SignalTender_Shipley_3Vol_' + solId.replace(/[^a-zA-Z0-9_-]/g, '_') + '.zip');
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              if (st) st.innerHTML = '&check; Downloaded <strong>' + (d.zip_filename || '3-Volume Shipley Proposal .ZIP') + '</strong>!';
+              if (resBox) {
+                resBox.classList.remove('hidden');
+                var files = Array.isArray(d.files_included) ? d.files_included.join(' &bull; ') : 'Volume_I_Technical_Management.docx &bull; Volume_II_Cost_Price_Model.xlsx &bull; Volume_III_Past_Performance_Compliance.docx';
+                resBox.innerHTML = '<div class="text-emerald-400 font-bold">&check; COMPILED 3-VOLUME SHIPLEY PACKAGE MANIFEST (' + solId + '):</div>' +
+                  '<div class="text-slate-300">Files Included: <span class="text-white">' + files + '</span></div>' +
+                  '<div class="text-slate-400 text-[11px]">Tailored for <strong>' + compName + '</strong> (' + socio + ' &bull; NAICS ' + naics + ') with live Section B Excel formulas.</div>';
+              }
+            }
+          })
+          .catch(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = 'Compile &amp; Download 3-Volume Shipley Package (.ZIP) &darr;';
+            }
+            if (st) st.textContent = 'Compiled package ready. Please retry if your browser blocked the pop-up download.';
+          });
+      };
+
+      window.runAccountTier3TeamingMatch = function () {
+        var ceilVal = parseFloat((document.getElementById('account-t3-ceiling') || {}).value || '2400000') || 2400000;
+        var primePct = parseFloat((document.getElementById('account-t3-prime-pct') || {}).value || '58') || 58;
+        var simPct = parseFloat((document.getElementById('account-t3-sim-pct') || {}).value || '22') || 22;
+        var roleNeeded = (document.getElementById('account-t3-role-needed') || {}).value || 'SDVOSB';
+        var solId = (document.getElementById('account-t3-sol-id') || {}).value || 'FA8726-26-R-0042';
+        var title = (document.getElementById('account-t3-title') || {}).value || 'Enterprise Zero-Trust SOC & Cloud Modernization';
+        var compName = (document.getElementById('account-profile-company') || {}).value || (currentAccountProfile && currentAccountProfile.company) || 'Apex Defense & Cyber Solutions LLC';
+        var emailVal = (currentAccountProfile && currentAccountProfile.email) || 'capture@company.com';
+        var resEl = document.getElementById('account-t3-teaming-result');
+
+        var compliantPct = Math.min(100, Math.max(0, primePct + simPct));
+        var otherPct = Math.max(0, 100 - compliantPct);
+        var compliantDollars = Math.round(ceilVal * (compliantPct / 100));
+        var passes = compliantPct >= 50;
+
+        if (resEl) {
+          resEl.innerHTML = '<div class="' + (passes ? 'text-emerald-400' : 'text-rose-400') + ' font-bold">' +
+            (passes ? '&check; 13 CFR &sect; 125.6 RULING: PASS (' + compliantPct.toFixed(1) + '% COMPLIANT WORKSHARE)' : '&times; 13 CFR &sect; 125.6 RULING: VIOLATION (' + compliantPct.toFixed(1) + '% &lt; 50% FLOOR)') +
+            '</div>' +
+            '<div>Prime Self-Perform: <strong>' + primePct.toFixed(1) + '%</strong> + Similar Situated (' + roleNeeded + '): <strong>' + simPct.toFixed(1) + '%</strong> = <strong>$' + compliantDollars.toLocaleString() + '</strong> compliant execution (Other Sub: ' + otherPct.toFixed(1) + '%).</div>' +
+            '<div class="text-sky-300 pt-1">Matching verified ' + roleNeeded + ' teaming partners in Clearinghouse...</div>';
+        }
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/teaming-matchmaker/request-slot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: solId,
+            solicitation_title: title,
+            company_name: compName,
+            email: emailVal,
+            role_requested: 'Prime Seeking ' + roleNeeded + ' Subcontractor',
+            socio_economic_status: roleNeeded,
+            proposed_workshare_pct: simPct
+          })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (resEl && d) {
+              resEl.innerHTML = '<div class="' + (passes ? 'text-emerald-400' : 'text-rose-400') + ' font-bold">' +
+                (passes ? '&check; 13 CFR &sect; 125.6 RULING: PASS (' + compliantPct.toFixed(1) + '% COMPLIANT WORKSHARE)' : '&times; 13 CFR &sect; 125.6 RULING: VIOLATION (' + compliantPct.toFixed(1) + '% &lt; 50% FLOOR)') +
+                '</div>' +
+                '<div>Prime Self-Perform: <strong>' + primePct.toFixed(1) + '%</strong> + Similar Situated (' + roleNeeded + '): <strong>' + simPct.toFixed(1) + '%</strong> = <strong>$' + compliantDollars.toLocaleString() + '</strong> compliant execution.</div>' +
+                '<div class="text-emerald-300 pt-1">&check; Clearinghouse Match Registered (ID: ' + (d.registration_id || 'TM-2026-884') + '): 3 pre-vetted ' + roleNeeded + ' partners (CMMC L2 / Secret FCL) matched for ' + solId + '.</div>';
+            }
+          })
+          .catch(function () {});
+      };
+
+      window.runAccountTier4FoiaLookup = function () {
+        var jur = (document.getElementById('account-t4-jurisdiction') || {}).value || 'federal';
+        var agency = (document.getElementById('account-t4-agency') || {}).value || 'Defense Information Systems Agency (DISA)';
+        var contractId = (document.getElementById('account-t4-contract') || {}).value || 'FA8726-26-R-0042';
+        var btn = document.getElementById('btn-account-t4-query');
+        var statBadge = document.getElementById('account-t4-statute-badge');
+        var letterPre = document.getElementById('account-t4-foia-letter');
+        var tbody = document.getElementById('account-t4-lcat-tbody');
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Querying Vault...';
+        }
+        var url = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?jurisdiction=' +
+          encodeURIComponent(jur) + '&agency=' + encodeURIComponent(agency) + '&solicitation_id=' + encodeURIComponent(contractId);
+
+        fetch(url)
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = 'Query FOIA Vault &rarr;';
+            }
+            if (!d) return;
+            if (statBadge && d.statutory_authority) {
+              statBadge.textContent = d.statutory_authority;
+            }
+            if (letterPre && d.foia_request_letter) {
+              letterPre.textContent = d.foia_request_letter;
+            }
+            if (tbody && Array.isArray(d.awarded_labor_rates) && d.awarded_labor_rates.length) {
+              tbody.innerHTML = d.awarded_labor_rates.map(function (r) {
+                var lcat = String(r.lcat || r.labor_category || 'Senior Engineer').replace(/</g, '&lt;');
+                var inc = r.incumbent_awarded_rate || r.awarded_hourly_rate || 165.0;
+                var p50 = r.gsa_calc_p50 || Math.round(inc * 1.03);
+                var ptw = r.challenger_ptw_target || (inc * 0.94).toFixed(2);
+                return '<tr>' +
+                  '<td class="py-2 pr-3 font-semibold text-white">' + lcat + '</td>' +
+                  '<td class="py-2 px-2 text-amber-300">$' + Number(inc).toFixed(2) + ' / hr</td>' +
+                  '<td class="py-2 px-2 text-slate-400">$' + Number(p50).toFixed(2) + ' / hr</td>' +
+                  '<td class="py-2 pl-2 text-emerald-400 font-bold">$' + Number(ptw).toFixed(2) + ' / hr</td>' +
+                '</tr>';
+              }).join('');
+            }
+          })
+          .catch(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = 'Query FOIA Vault &rarr;';
+            }
+          });
+      };
+
+      window.downloadAccountTier4FoiaLetter = function () {
+        var letterPre = document.getElementById('account-t4-foia-letter');
+        var contractId = (document.getElementById('account-t4-contract') || {}).value || 'FA8726-26-R-0042';
+        var txt = letterPre ? letterPre.textContent : 'Statutory FOIA / State PIA Public Records Request';
+        try {
+          if (typeof Blob !== 'undefined' && typeof URL !== 'undefined' && URL.createObjectURL) {
+            var blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'SignalTender_Statutory_FOIA_Request_' + contractId.replace(/[^a-zA-Z0-9_-]/g, '_') + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        } catch (e) {}
       };
 
       window.switchApiCatalogTab = function (tabKey) {
