@@ -912,8 +912,9 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             now_utc = datetime.now(timezone.utc)
             daily_cap, _, ramp_label = outbound_mailer.compute_dynamic_daily_limit(now_utc)
 
-            # Sync dynamic daily_limit, connected sending accounts, start_date, and active status
-            active_account_emails = []
+            # Sync dynamic daily_limit, WARMED sending accounts only, start_date, and active status
+            warmed_account_emails = []
+            warming_only_emails = []
             try:
                 acc_resp = requests.get(
                     "https://api.instantly.ai/api/v2/accounts?limit=100",
@@ -922,11 +923,19 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 )
                 if acc_resp.status_code == 200:
                     acc_items = (acc_resp.json() or {}).get("items") or []
-                    active_account_emails = [
-                        str(a.get("email") or "").strip()
-                        for a in acc_items
-                        if isinstance(a, dict) and int(a.get("status") or 0) == 1 and a.get("email")
-                    ]
+                    for a in acc_items:
+                        if not isinstance(a, dict) or not a.get("email"):
+                            continue
+                        em_addr = str(a.get("email") or "").strip()
+                        if outbound_mailer.is_instantly_account_warmed(a):
+                            warmed_account_emails.append(em_addr)
+                        else:
+                            warming_only_emails.append(em_addr)
+                    if warming_only_emails:
+                        print(
+                            f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until score >= 85 & 7+ days ({', '.join(warming_only_emails)}).",
+                            flush=True,
+                        )
             except Exception:
                 pass
 
@@ -940,8 +949,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 patch_camp: dict = {}
                 if int(camp_data.get("daily_limit") or 0) != daily_cap:
                     patch_camp["daily_limit"] = daily_cap
-                if active_account_emails and set(camp_data.get("email_list") or []) != set(active_account_emails):
-                    patch_camp["email_list"] = active_account_emails
+                if warmed_account_emails and set(camp_data.get("email_list") or []) != set(warmed_account_emails):
+                    patch_camp["email_list"] = warmed_account_emails
                 sched = camp_data.get("campaign_schedule") or {}
                 if str(sched.get("start_date") or "") > "2026-10-25":
                     sched["start_date"] = "2026-10-24"

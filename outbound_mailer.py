@@ -65,15 +65,40 @@ except Exception:
 _CACHED_INSTANTLY_MAILBOX_COUNT: Optional[int] = None
 
 
+def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_days: int = 7) -> bool:
+    """
+    Returns True ONLY if an Instantly sending account is Active (`status == 1`),
+    has a warmup health score `>= min_score` (default 85/100), and has been warming
+    for at least `min_days` days. Unwarmed accounts stay in Warmup-Only mode and are
+    excluded from live campaign sending until they graduate.
+    """
+    if not isinstance(acct, dict) or int(acct.get("status") or 0) != 1:
+        return False
+    score = int(acct.get("stat_warmup_score") or 0)
+    if score < min_score:
+        return False
+    w_start = str(acct.get("timestamp_warmup_start") or acct.get("timestamp_created") or "").strip()
+    if w_start:
+        try:
+            dt_start = datetime.fromisoformat(w_start.replace("Z", "+00:00"))
+            days_warming = (datetime.now(timezone.utc) - dt_start).total_seconds() / 86400.0
+            if days_warming < min_days:
+                return False
+        except Exception:
+            pass
+    return True
+
+
 def _detect_live_instantly_mailbox_count(fallback: int = 2) -> int:
     """
-    Queries `GET https://api.instantly.ai/api/v2/accounts` (cached per process) so adding
-    new mailboxes in Instantly automatically scales daily sending capacity without requiring
-    manual `.env` edits.
+    Queries `GET https://api.instantly.ai/api/v2/accounts` (cached per process) and counts
+    ONLY fully warmed (`is_instantly_account_warmed()`) mailboxes so newly created accounts
+    are never used for cold sending until their warmup completes, and automatically scale
+    daily sending capacity the day they graduate.
     """
     global _CACHED_INSTANTLY_MAILBOX_COUNT
     if _CACHED_INSTANTLY_MAILBOX_COUNT is not None:
-        return max(fallback, _CACHED_INSTANTLY_MAILBOX_COUNT)
+        return max(1, _CACHED_INSTANTLY_MAILBOX_COUNT)
     inst_key = (os.getenv("INSTANTLY_API_KEY") or "").strip()
     if not inst_key:
         _CACHED_INSTANTLY_MAILBOX_COUNT = fallback
@@ -86,9 +111,10 @@ def _detect_live_instantly_mailbox_count(fallback: int = 2) -> int:
         )
         if r.status_code == 200:
             items = (r.json() or {}).get("items") or []
-            active_items = [x for x in items if isinstance(x, dict) and int(x.get("status") or 0) == 1]
-            _CACHED_INSTANTLY_MAILBOX_COUNT = len(active_items) or len(items) or fallback
-            return max(fallback, _CACHED_INSTANTLY_MAILBOX_COUNT)
+            warmed_items = [x for x in items if is_instantly_account_warmed(x)]
+            if warmed_items:
+                _CACHED_INSTANTLY_MAILBOX_COUNT = len(warmed_items)
+                return _CACHED_INSTANTLY_MAILBOX_COUNT
     except Exception:
         pass
     _CACHED_INSTANTLY_MAILBOX_COUNT = fallback
