@@ -653,18 +653,18 @@ def _render_layout(
           </div>
           <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 14-STATE SLED CONTRACT DIRECTORY</span>
         </a>
-        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
-          <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
-          <a href="{root_prefix}contracts/index.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
-          <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
-          <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
+          <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
-        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
-          <div class="flex items-center gap-1 sm:gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800">
-            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
+          <div class="flex items-center gap-1 sm:gap-1.5 xl:pr-2 xl:border-r xl:border-slate-800">
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="{root_prefix}index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
-          <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center whitespace-nowrap px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
+          <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="hidden xl:inline-flex items-center whitespace-nowrap px-3 py-1.5 xl:px-3.5 xl:py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
             Unlock All RFP Links &rarr;
           </a>
         </div>
@@ -769,16 +769,16 @@ def _render_layout(
             </p>
           </div>
           <div class="lg:col-span-7">
-            <form id="static-lead-capture-form" onsubmit="event.preventDefault(); window.submitStaticLeadCapture();" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-              <div class="sm:col-span-4">
+            <form id="static-lead-capture-form" onsubmit="event.preventDefault(); window.submitStaticLeadCapture();" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-12 gap-3">
+              <div class="sm:col-span-1 xl:col-span-3">
                 <label for="static-lead-email" class="sr-only">Work Email</label>
                 <input id="static-lead-email" type="email" required placeholder="capture@yourcompany.com" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />
               </div>
-              <div class="sm:col-span-3">
+              <div class="sm:col-span-1 xl:col-span-3">
                 <label for="static-lead-company" class="sr-only">Company Name</label>
                 <input id="static-lead-company" type="text" placeholder="Company / Prime LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />
               </div>
-              <div class="sm:col-span-3">
+              <div class="sm:col-span-1 xl:col-span-3">
                 <label for="static-lead-state" class="sr-only">Target Portal</label>
                 <select id="static-lead-state" data-default-state="{default_state}" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">
                   <option value="all">All 16 Portals (Fed + 14 States)</option>
@@ -800,7 +800,7 @@ def _render_layout(
                   <option value="municipal">Municipal (DemandStar)</option>
                 </select>
               </div>
-              <div class="sm:col-span-2">
+              <div class="sm:col-span-1 xl:col-span-3">
                 <button id="static-lead-submit-btn" type="submit" class="w-full h-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold border border-emerald-400/30 transition-all cursor-pointer whitespace-nowrap">
                   Unlock 3 &rarr;
                 </button>
@@ -2966,13 +2966,13 @@ def generate_pseo_site() -> int:
           {jurisdiction_cards_html}
         </div>
 
-        <div class="mb-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-950/80 border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="mb-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-indigo-950/80 border border-amber-500/40 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="text-[11px] font-mono text-amber-300 font-semibold uppercase tracking-wider">// PRE-RFP RECOMPETE RADAR (90&ndash;180D) &amp; PRIME SUBCONTRACTING WIRE</div>
             <h2 class="text-lg sm:text-xl font-bold text-white">Capture Expiring Federal IT Contracts &amp; 30% Small-Business Subcontracting Pools Before the RFP Drops</h2>
             <p class="text-xs text-slate-300">Explore 27 verified federal IT recompetes (with API #16 Challenger Price-to-Win ceilings &amp; API #21 FAR 19.502-2 set-aside shaping) and newly awarded Prime contracts with mandatory FAR 52.219-9 subcontracting pools.</p>
           </div>
-          <div class="flex flex-wrap gap-2.5 shrink-0">
+          <div class="flex flex-wrap gap-2.5">
             <a href="recompetes/index.html" class="inline-flex items-center justify-center px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-[11px] sm:text-xs font-mono font-semibold whitespace-nowrap transition-all">
               Open Recompete &amp; Sub Wire &rarr;
             </a>
@@ -3233,25 +3233,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 14-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <!-- Full-Width Organized Site Navigation Bar -->
-        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
-          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
-          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
-          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
-          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
+        <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2 xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
-        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
-          <div id="contracts-header-auth-guest" class="flex items-center gap-1 sm:gap-1.5 sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
+        <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
+          <div id="contracts-header-auth-guest" class="flex items-center gap-1 sm:gap-1.5 xl:pr-2 xl:border-r xl:border-slate-800 shrink-0">
             <a href="#account" onclick="window.openClientPortal('login')" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
             <a href="#account" onclick="window.openClientPortal('register')" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
-          <div id="contracts-header-auth-user" class="hidden items-center sm:pr-2 sm:border-r sm:border-slate-800 shrink-0">
-            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[165px]">
+          <div id="contracts-header-auth-user" class="hidden items-center xl:pr-2 xl:border-r xl:border-slate-800 shrink-0">
+            <a href="#account" class="inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-1.5 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/70 rounded-lg border border-emerald-500/40 transition-all max-w-[155px]">
               <span class="h-2 w-2 rounded-full bg-emerald-400 shrink-0"></span>
-              <span id="contracts-header-auth-user-label" class="truncate max-w-[110px]">Account</span>
+              <span id="contracts-header-auth-user-label" class="truncate max-w-[100px]">Account</span>
               <span class="shrink-0">&rarr;</span>
             </a>
           </div>
-          <a href="#checkout-tier1" class="hidden sm:inline-flex items-center px-3.5 py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
+          <a href="#checkout-tier1" class="hidden xl:inline-flex items-center px-3 py-1.5 xl:px-3.5 xl:py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all shrink-0 whitespace-nowrap">
             Unlock All RFP Links &rarr;
           </a>
         </div>
@@ -3362,11 +3362,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '<p class="text-xs text-slate-300 leading-relaxed">Enter your work email and target jurisdiction to immediately unlock <strong class="text-white">3 open IT/Cyber solicitations</strong> with NAICS/SBA caps, CMMC/NIST/StateRAMP posture, IGCE Price-to-Win bands, and direct official agency links.</p>' +
             '</div>' +
             '<div class="lg:col-span-7">' +
-              '<form onsubmit="event.preventDefault(); window.submitSpaLeadCapture();" class="grid grid-cols-1 sm:grid-cols-12 gap-3">' +
-                '<div class="sm:col-span-4"><input id="spa-lead-email" type="email" required placeholder="capture@yourcompany.com" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
-                '<div class="sm:col-span-3"><input id="spa-lead-company" type="text" placeholder="Company / Prime LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
-                '<div class="sm:col-span-3"><select id="spa-lead-state" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">' + opts + '</select></div>' +
-                '<div class="sm:col-span-2"><button id="spa-lead-submit-btn" type="submit" class="w-full h-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold border border-emerald-400/30 transition-all cursor-pointer whitespace-nowrap">Unlock 3 &rarr;</button></div>' +
+              '<form onsubmit="event.preventDefault(); window.submitSpaLeadCapture();" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-12 gap-3">' +
+                '<div class="sm:col-span-1 xl:col-span-3"><input id="spa-lead-email" type="email" required placeholder="capture@yourcompany.com" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
+                '<div class="sm:col-span-1 xl:col-span-3"><input id="spa-lead-company" type="text" placeholder="Company / Prime LLC" class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white placeholder-slate-500" /></div>' +
+                '<div class="sm:col-span-1 xl:col-span-3"><select id="spa-lead-state" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">' + opts + '</select></div>' +
+                '<div class="sm:col-span-1 xl:col-span-3"><button id="spa-lead-submit-btn" type="submit" class="w-full h-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold border border-emerald-400/30 transition-all cursor-pointer whitespace-nowrap">Unlock 3 &rarr;</button></div>' +
               '</form>' +
               '<div id="spa-lead-status" class="hidden mt-3 text-xs font-mono"></div>' +
               '<div id="spa-lead-results" class="hidden mt-4 grid grid-cols-1 md:grid-cols-3 gap-3"></div>' +

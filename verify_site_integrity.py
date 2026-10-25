@@ -903,11 +903,21 @@ def check_mobile_viewport_overflow() -> None:
           const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
           issues.push(`${tag} [PAST_SCREEN left=${Math.round(rect.left)} right=${Math.round(rect.right)} vw=${vw}] "${txt}" (${cls.slice(0, 80)})`);
         } else if (['a', 'button', 'span', 'code', 'h1', 'h2', 'h3'].includes(el.tagName.toLowerCase())) {
-          if (el.scrollWidth > el.clientWidth + 3 && style.overflowX !== 'auto' && style.overflowX !== 'scroll') {
+          const cls = (el.className && typeof el.className === 'string') ? el.className : '';
+          const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
+          if (txt && !cls.split(/\\s+/).includes('truncate') && el.scrollWidth > el.clientWidth + 3 && style.overflowX !== 'auto' && style.overflowX !== 'scroll') {
             const tag = el.tagName.toLowerCase();
-            const cls = (el.className && typeof el.className === 'string') ? el.className : '';
-            const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
             issues.push(`${tag} [CLIPPED_BOX scrollW=${el.scrollWidth} clientW=${el.clientWidth}] "${txt}" (${cls.slice(0, 80)})`);
+          }
+          const card = el.closest('.rounded-2xl, .rounded-xl, article, section');
+          if (card && card !== el && !el.closest('.overflow-x-auto')) {
+            const cRect = card.getBoundingClientRect();
+            if (rect.right > cRect.right + 2 || rect.left < cRect.left - 2) {
+              const tag = el.tagName.toLowerCase();
+              const cls = (el.className && typeof el.className === 'string') ? el.className : '';
+              const txt = (el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 70);
+              issues.push(`${tag} [OVERFLOWS_CARD elRight=${Math.round(rect.right)} cardRight=${Math.round(cRect.right)} vw=${vw}] "${txt}" (${cls.slice(0, 80)})`);
+            }
           }
         }
       }
@@ -973,6 +983,22 @@ def check_mobile_viewport_overflow() -> None:
                 if issues:
                     browser.close()
                     return ("contracts/rfp sample", issues[:3])
+
+            for desk_w in (1024, 1280):
+                page.set_viewport_size({"width": desk_w, "height": 900})
+                for route in ["#overview", "#apis", "#contracts", f"#contracts/rfp/{first_slug}", "#checkout", "#account"]:
+                    page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
+                    page.wait_for_timeout(80)
+                    issues = page.evaluate(js_scan)
+                    if issues:
+                        browser.close()
+                        return (f"index.html{route}@{desk_w}px", issues[:3])
+                page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
+                page.wait_for_timeout(80)
+                issues = page.evaluate(js_scan)
+                if issues:
+                    browser.close()
+                    return (f"apis.html@{desk_w}px", issues[:3])
 
             browser.close()
             return None
