@@ -62,11 +62,44 @@ except Exception:
     ALREADY_CONTACTED_LEGACY_EMAILS = set()
 
 
+_CACHED_INSTANTLY_MAILBOX_COUNT: Optional[int] = None
+
+
+def _detect_live_instantly_mailbox_count(fallback: int = 2) -> int:
+    """
+    Queries `GET https://api.instantly.ai/api/v2/accounts` (cached per process) so adding
+    new mailboxes in Instantly automatically scales daily sending capacity without requiring
+    manual `.env` edits.
+    """
+    global _CACHED_INSTANTLY_MAILBOX_COUNT
+    if _CACHED_INSTANTLY_MAILBOX_COUNT is not None:
+        return max(fallback, _CACHED_INSTANTLY_MAILBOX_COUNT)
+    inst_key = (os.getenv("INSTANTLY_API_KEY") or "").strip()
+    if not inst_key:
+        _CACHED_INSTANTLY_MAILBOX_COUNT = fallback
+        return fallback
+    try:
+        r = requests.get(
+            "https://api.instantly.ai/api/v2/accounts?limit=100",
+            headers={"Authorization": f"Bearer {inst_key}"},
+            timeout=6,
+        )
+        if r.status_code == 200:
+            items = (r.json() or {}).get("items") or []
+            active_items = [x for x in items if isinstance(x, dict) and int(x.get("status") or 0) == 1]
+            _CACHED_INSTANTLY_MAILBOX_COUNT = len(active_items) or len(items) or fallback
+            return max(fallback, _CACHED_INSTANTLY_MAILBOX_COUNT)
+    except Exception:
+        pass
+    _CACHED_INSTANTLY_MAILBOX_COUNT = fallback
+    return fallback
+
+
 def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int, int, str]:
     """
     Returns `(daily_cap, per_cron_run_cap, phase_label)` based on the current UTC date
-    relative to `OUTBOUND_LAUNCH_DATE` (default `2026-10-31`) and `OUTBOUND_MAILBOX_COUNT`
-    (default `2` for `aaron@getsignaltender.com` + `aaron@trysignaltender.com`), or honors
+    relative to `OUTBOUND_LAUNCH_DATE` (default `2026-10-31`) and the live connected
+    Instantly mailbox count (or `OUTBOUND_MAILBOX_COUNT`, default `2`), or honors
     explicit `OUTBOUND_DAILY_LIMIT_OVERRIDE` if set in `.env`.
     """
     override = (os.getenv("OUTBOUND_DAILY_LIMIT_OVERRIDE") or "").strip()
@@ -75,7 +108,8 @@ def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int
         return d_cap, max(1, math.ceil(d_cap / 4)), f"Manual Override ({d_cap}/day)"
 
     mb_raw = (os.getenv("OUTBOUND_MAILBOX_COUNT") or "2").strip()
-    mailbox_count = max(1, int(mb_raw)) if mb_raw.isdigit() else 2
+    env_mb_count = max(1, int(mb_raw)) if mb_raw.isdigit() else 2
+    mailbox_count = _detect_live_instantly_mailbox_count(fallback=env_mb_count)
     scale_factor = mailbox_count / 2.0
 
     now_dt = now_utc or datetime.now(timezone.utc)
