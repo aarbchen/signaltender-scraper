@@ -81,8 +81,8 @@ def generate_distribution_kit() -> str:
     md = f"""# SignalTender Pre-Oct 31 Organic Distribution & Conversion Playbook
 
 **Generated:** `{now_str}`
-**Live Indexed Solicitations:** `{len(contracts)} Open IT & Cybersecurity RFPs across 14 Government Portals`
-**Platform Lock:** `16 Portals (Federal + 14 State SLED) & 20 B2B/GovCon AI Capture APIs`
+**Live Indexed Solicitations:** `{len(contracts)} Open IT & Cybersecurity RFPs across 16 Government Portals`
+**Platform Lock:** `16 Portals (Federal + 14 State SLED) & 22 B2B/GovCon AI Capture APIs`
 
 ---
 
@@ -102,7 +102,7 @@ Why SLED capture teams miss these:
 1. State portals (VA eVA, MD eMMA, TX ESBD) bury IT/cyber RFPs under 99% janitorial, road-salt, and hardware renewal noise.
 2. Reading a 90-page state PDF just to check mandatory certs or LCAT rate ceilings takes 4+ hours per bid.
 
-We built SignalTender to monitor all 16 Federal, Municipal, and 14-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 20-engine CaptureDesk dossier.
+We built SignalTender to monitor all 16 Federal, Municipal, and 14-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 21-engine CaptureDesk dossier.
 
 Unlock 3 live pre-shredded RFP dossiers for your state free (zero credit card):
 https://signaltender.net/#inbound-lead-capture-box
@@ -135,7 +135,9 @@ If your BD team only checks SAM.gov on Monday mornings, you are missing high-mar
 
 Instead of paying $18,000+/yr for legacy GovCon seats that still force your capture manager to manually read every PDF, SignalTender delivers:
 - Tier 1 ($99/mo): Real-time 16-portal de-noised IT & Cyber RFP wire in Discord, Slack, Teams, or CRM.
-- Tier 2 ($399/mo): Full 20-engine AI CaptureDesk dossiers (Shipley matrix, IGCE PTW, CPARS Vol III, Orals Murder-Board, FAR 15.506 Debriefing/Protest, and GSA MAS SIN mapping).
+- Tier 2 ($399/mo): Full 21-engine AI CaptureDesk dossiers (Shipley matrix, IGCE PTW, CPARS Vol III, Orals Murder-Board, FAR 15.506 Debriefing/Protest, and GSA MAS SIN mapping).
+- Tier 3 ($1,499/mo): 1-Click 3-Volume Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) & 13 CFR 125.6 Teaming Clearinghouse.
+- Tier 4 ($2,499/mo): Post-Award FOIA Winning-Bid LCAT Rate Vault & 50,000 OEM REST/MCP API calls/mo.
 
 Compare live #tier1-gov-leads vs #capturedesk-autopilot dispatches:
 https://signaltender.net/#checkout
@@ -147,7 +149,7 @@ Why do 70% of small-business GovCon proposals fail before pricing is even evalua
 
 Because capture teams discover a killer DFARS 252.204-7012 / CMMC Level 2 flow-down, an unstaffable Key Personnel LCAT requirement, or a 13 CFR 125.6 (50% Rule) workshare violation on Day 18 of a 21-day RFP window.
 
-Here are 3 live Federal & SLED IT solicitations where our 20-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
+Here are 3 live Federal & SLED IT solicitations where our 21-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
 
 {fed_bullets}
 
@@ -159,12 +161,12 @@ https://signaltender.net/apis.html
 ```text
 For GovCon CTOs and capture engineers building internal AI proposal workflows in Claude Desktop, Cursor, or Windsurf:
 
-We published all 20 SignalTender GovCon procurement & proposal microservices to the Official Model Context Protocol (MCP) Registry (`@signaltender/mcp-server`).
+We published all 22 SignalTender GovCon procurement & proposal microservices to the Official Model Context Protocol (MCP) Registry (`@signaltender/mcp-server`).
 
 With a single command:
 `npx -y @signaltender/mcp-server`
 
-Your AI agent gets 20 deterministic, typed GovCon tools:
+Your AI agent gets 22 deterministic, typed GovCon tools:
 - Live 16-portal Federal & 14-State SLED open RFP feed
 - Shipley Section L/M compliance matrix shredder
 - IGCE Wrap-Rate & Price-to-Win (PTW) modeler
@@ -185,7 +187,7 @@ https://signaltender.net/apis.html
 - **Title:** `We indexed {len(contracts)} open IT & cybersecurity RFPs across SAM.gov + 14 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) — here is where competition is lowest right now`
 - **Body:**
 ```markdown
-Over the past few months we built an automated scraper + Shipley capture parser across 14 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, and MA COMMBUYS).
+Over the past few months we built an automated scraper + Shipley capture parser across 16 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, and MA COMMBUYS).
 
 Three data points that stood out after filtering out 99.4% of non-IT commodity noise (janitorial, construction, raw hardware part renewals):
 
@@ -226,7 +228,7 @@ https://signaltender.net/contracts/cybersecurity/
 ```
 
 ### 4. `r/mcp` / `r/ClaudeAI` — 22-Tool GovCon & B2B Contract Intelligence MCP Server
-- **Title:** `Built a 20-tool Model Context Protocol (MCP) server for Government Contracting, RFP Shredding, IGCE Price-to-Win & RMF/ATO Compliance`
+- **Title:** `Built a 22-tool Model Context Protocol (MCP) server for Government Contracting, RFP Shredding, IGCE Price-to-Win & RMF/ATO Compliance`
 - **Body:**
 ```markdown
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
@@ -283,7 +285,7 @@ Noticed someone at {{Company}} was looking at the SignalTender Tier 1 ($99/mo) v
 
 Quick rule of thumb for {{State}} capture teams:
 - Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 16-portal alert feed + direct source bid links in Discord, Slack, or Teams.
-- Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 20 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, and 13 CFR 125.6 workshare math).
+- Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 21 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, and 13 CFR 125.6 workshare math).
 
 Both plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#checkout-tier2
