@@ -87,7 +87,7 @@ JURISDICTIONS = {
         "name": "Maryland (eMMA & Bonfire)",
         "short": "Maryland",
         "portal": "Maryland eMMA & Agency Bonfire Portals",
-        "badge_class": "bg-rose-500/10 text-rose-300 border-rose-500/30",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
         "headline": "Open Maryland State, Judiciary & County IT Solicitations",
         "description": "Live Maryland state, judiciary, and county technology, telecom, and systems integration contracts.",
     },
@@ -119,7 +119,7 @@ JURISDICTIONS = {
         "name": "Georgia (GPR & Team GA)",
         "short": "Georgia",
         "portal": "Georgia Procurement Registry (GPR) & Metro",
-        "badge_class": "bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
         "headline": "Open Georgia State (DOAS GPR / Team Georgia) & Atlanta Metro IT Contracts",
         "description": "Live State of Georgia Procurement Registry (DOAS GPR / Team Georgia Marketplace), Fulton County, Atlanta Regional Commission, and Georgia Regents IT, cloud, AI, SaaS, ERP, and cybersecurity solicitations.",
     },
@@ -127,7 +127,7 @@ JURISDICTIONS = {
         "name": "North Carolina (NC eVP & Metro)",
         "short": "North Carolina",
         "portal": "NC eVP, NCDIT, UNC & Raleigh/Charlotte",
-        "badge_class": "bg-violet-500/10 text-violet-300 border-violet-500/30",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
         "headline": "Open North Carolina State (NC eVP / NCDIT), UNC & Raleigh/Charlotte IT Contracts",
         "description": "Live State of North Carolina electronic Vendor Portal (eVP / NCDIT), UNC System, Wake County (Raleigh), and Mecklenburg County (Charlotte) IT, cloud, SaaS, ERP, and cybersecurity solicitations.",
     },
@@ -143,7 +143,7 @@ JURISDICTIONS = {
         "name": "Massachusetts (COMMBUYS & Boston)",
         "short": "Massachusetts",
         "portal": "MA COMMBUYS, EOTSS, OSD & City of Boston",
-        "badge_class": "bg-pink-500/10 text-pink-300 border-pink-500/30",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
         "headline": "Open Massachusetts State (COMMBUYS / EOTSS) & Boston IT Contracts",
         "description": "Live Commonwealth of Massachusetts COMMBUYS (EOTSS, OSD ITS78/ITS80, Trial Court, MassTech, MBTA, Massport) and City of Boston IT, cloud, cybersecurity, AI, and software solicitations.",
     },
@@ -167,7 +167,7 @@ JURISDICTIONS = {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
         "portal": "DemandStar Municipal Network",
-        "badge_class": "bg-purple-500/10 text-purple-300 border-purple-500/30",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
         "headline": "Open City, County & School District IT RFPs (DemandStar)",
         "description": "Live municipal, county, and public university IT and software solicitations monitored across the DemandStar SLED network.",
     },
@@ -686,85 +686,154 @@ def _render_layout(
       }}
     }}
 
-        /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
-    :root, html {{
+            /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+    :root, html {
       color-scheme: dark;
       scrollbar-width: thin;
       scrollbar-color: #262f3f #090c10;
-    }}
-    body {{
+    }
+    body {
       background-color: #090C10 !important;
+      background-image:
+        radial-gradient(ellipse 85% 55% at 50% -10%, rgba(56, 189, 248, 0.10), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 0% 35%, rgba(14, 165, 233, 0.06), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 100% 65%, rgba(56, 189, 248, 0.06), transparent 65%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
+      background-attachment: fixed !important;
       color: #F8FAFC;
-    }}
+    }
+    /* Match full 1600px header width across all page sections & cards so there is zero empty side space */
+    .max-w-7xl,
+    .max-w-6xl,
+    .max-w-5xl {
+      max-width: 1600px !important;
+    }
+    /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
+    .blur-3xl,
+    [class*="blur-[120px]"],
+    [class*="blur-[100px]"] {
+      opacity: 0.22 !important;
+    }
     /* Top telemetry bar & sticky navigation chrome */
     #page-main > div:first-of-type,
     #page-apis > div:first-of-type,
     #page-contracts > div:first-of-type,
     #page-checkout > div:first-of-type,
-    body > div > div.border-b.bg-navy-900\/90,
-    body > div.border-b.bg-navy-900\/90 {{
+    body > div > div.border-b.bg-navy-900\\/90,
+    body > div.border-b.bg-navy-900\\/90 {
       background-color: #05070A !important;
-      border-bottom-color: rgba(255, 255, 255, 0.07) !important;
-    }}
-    header.sticky {{
-      background-color: rgba(13, 17, 23, 0.92) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    header.sticky {
+      background-color: rgba(13, 17, 23, 0.94) !important;
       border-bottom-color: rgba(255, 255, 255, 0.08) !important;
       backdrop-filter: blur(12px);
-    }}
-    header nav[aria-label="Primary Site Navigation"] {{
+    }
+    header nav[aria-label="Primary Site Navigation"] {
       background-color: #090C10 !important;
       border-color: rgba(255, 255, 255, 0.08) !important;
-    }}
-    header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {{
-      background-color: rgba(255, 255, 255, 0.07) !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
       color: #F8FAFC !important;
-    }}
-    /* Restrain ambient background glow blobs for a clean carbon canvas */
-    .blur-3xl,
-    [class*="blur-[120px]"],
-    [class*="blur-[100px]"] {{
-      opacity: 0.08 !important;
-    }}
+    }
     /* Uniform Institutional Graphite card surfaces & crisp 1px hairlines */
     article[id^="product-"],
     .bg-navy-900,
-    .bg-navy-900\/95,
-    .bg-navy-900\/90,
-    .bg-navy-900\/80,
-    .bg-navy-900\/70,
-    .bg-navy-900\/60,
-    .bg-slate-900\/90,
-    .bg-slate-900\/80,
-    .bg-slate-900\/70 {{
+    .bg-navy-900\\/95,
+    .bg-navy-900\\/90,
+    .bg-navy-900\\/80,
+    .bg-navy-900\\/70,
+    .bg-navy-900\\/60,
+    .bg-slate-900\\/90,
+    .bg-slate-900\\/80,
+    .bg-slate-900\\/70 {
       background-color: #11161F !important;
-    }}
+    }
     .bg-navy-950,
-    .bg-navy-950\/95,
-    .bg-navy-950\/90,
-    .bg-navy-950\/80,
+    .bg-navy-950\\/95,
+    .bg-navy-950\\/90,
+    .bg-navy-950\\/80,
     .bg-slate-950,
-    .bg-slate-950\/90,
-    .bg-slate-950\/80 {{
+    .bg-slate-950\\/90,
+    .bg-slate-950\\/80 {
       background-color: #0B0E14 !important;
-    }}
+    }
     /* De-noise rainbow card & link-card borders into crisp institutional hairlines */
     div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
     div.rounded-xl,
     a.rounded-xl:not(.bg-sky-500):not(.bg-sky-600),
     a.rounded-2xl:not(.bg-sky-500):not(.bg-sky-600),
     section.rounded-2xl,
-    article[id^="product-"] {{
+    article[id^="product-"] {
       border-color: rgba(255, 255, 255, 0.08) !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
-    }}
+    }
+    /* Featured Tiers (Tier 2, Tier 3, and API ULTRA Popular cards) -> Steel Sky border + subtle sky gradient */
     #checkout-card-tier2,
-    #checkout-card-tier3 {{
-      border-color: rgba(56, 189, 248, 0.42) !important;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, #11161F 100%) !important;
-      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45) !important;
-    }}
-    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) instead of neon green/amber */
+    #checkout-card-tier3,
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:nth-child(3) {
+      border: 1px solid rgba(56, 189, 248, 0.45) !important;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.06) 0%, #11161F 100%) !important;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+    /* API Card Top Header Strip & Capability Boxes */
+    article[id^="product-"] > div:first-of-type {
+      background: #0C1017 !important;
+      background-image: none !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    /* API Card Top Strip Badges: First badge (API XX // TITLE) -> Neutral Graphite Pill; Second badge (POST /v1/...) -> Steel Sky Pill */
+    article[id^="product-"] > div:first-of-type span.rounded {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      color: #E2E8F0 !important;
+      border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    }
+    article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {
+      background-color: rgba(56, 189, 248, 0.12) !important;
+      color: #38BDF8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.28) !important;
+    }
+    /* API Card 4-Tier Mini Cards (BASIC, PRO, ULTRA, MEGA) */
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:not(:nth-child(3)) {
+      background-color: #0C1017 !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div > span.absolute {
+      background-color: rgba(56, 189, 248, 0.15) !important;
+      color: #38BDF8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    }
+    /* API Card Right-Side Code Terminal */
+    article[id^="product-"] .lg\\:col-span-5 {
+      background-color: #0B0E14 !important;
+      border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    }
+    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child {
+      background-color: #090C10 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child > span:first-child {
+      color: #E2E8F0 !important;
+    }
+    /* Schema field pills at bottom of API terminal -> Uniform Graphite + Steel Sky */
+    article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
+      background-color: #0C1017 !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #38BDF8 !important;
+    }
+    /* Cross-Catalog Pricing Matrix Table -> Uniform Graphite rows (zero rainbow row background tints) */
+    #api-pricing-matrix tbody tr {
+      background-color: transparent !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+    #api-pricing-matrix tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+    }
+    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) */
     a[class*="bg-emerald-500/"],
     a[class*="bg-emerald-950"],
     button[class*="bg-emerald-500/"],
@@ -772,11 +841,17 @@ def _render_layout(
     a[class*="bg-amber-500/"],
     a[class*="bg-amber-950"],
     button[class*="bg-amber-500/"],
-    button[class*="bg-amber-950"] {{
+    button[class*="bg-amber-950"],
+    a[class*="bg-sky-500/"],
+    button[class*="bg-sky-500/"],
+    a[class*="bg-sky-500/"],
+    button[class*="bg-sky-500/"],
+    a[class*="bg-indigo-500/"],
+    button[class*="bg-indigo-500/"] {
       background-color: #161B22 !important;
       color: #E2E8F0 !important;
       border-color: rgba(255, 255, 255, 0.12) !important;
-    }}
+    }
     a[class*="bg-emerald-500/"]:hover,
     a[class*="bg-emerald-950"]:hover,
     button[class*="bg-emerald-500/"]:hover,
@@ -784,19 +859,29 @@ def _render_layout(
     a[class*="bg-amber-500/"]:hover,
     a[class*="bg-amber-950"]:hover,
     button[class*="bg-amber-500/"]:hover,
-    button[class*="bg-amber-950"]:hover {{
+    button[class*="bg-amber-950"]:hover,
+    a[class*="bg-sky-500/"]:hover,
+    button[class*="bg-sky-500/"]:hover,
+    a[class*="bg-sky-500/"]:hover,
+    button[class*="bg-sky-500/"]:hover,
+    a[class*="bg-indigo-500/"]:hover,
+    button[class*="bg-indigo-500/"]:hover {
       background-color: #1F2733 !important;
       color: #FFFFFF !important;
       border-color: rgba(56, 189, 248, 0.35) !important;
-    }}
-    /* Unify multi-color inline prose highlights in paragraphs to crisp white / Steel Sky */
+    }
+    /* Unify multi-color inline prose highlights in paragraphs to crisp white */
     p > span.text-emerald-300,
     p > span.text-emerald-400,
     p > span.text-amber-300,
-    p > span.text-amber-400 {{
+    p > span.text-amber-400,
+    p > span.text-sky-300,
+    p > span.text-sky-400,
+    p > span.text-sky-300,
+    p > span.text-sky-400 {
       color: #F8FAFC !important;
-    }}
-    /* High-contrast Linear / Palantir crisp white primary action buttons */
+    }
+    /* High-contrast Linear / Palantir crisp white primary action buttons (exact match to Option 1 preview) */
     a.bg-sky-500,
     a.bg-sky-600,
     button.bg-sky-500,
@@ -809,27 +894,35 @@ def _render_layout(
     a.bg-amber-600,
     button.bg-amber-500,
     button.bg-amber-600,
+    a.bg-indigo-500,
     a.bg-indigo-600,
+    button.bg-indigo-500,
     button.bg-indigo-600,
-    a.bg-purple-600,
-    button.bg-purple-600,
-    a[class*="bg-gradient-to-r"][class*="from-sky-"],
-    button[class*="bg-gradient-to-r"][class*="from-sky-"],
-    a[class*="bg-gradient-to-r"][class*="from-emerald-"],
-    button[class*="bg-gradient-to-r"][class*="from-emerald-"],
-    a[class*="bg-gradient-to-r"][class*="from-indigo-"],
-    button[class*="bg-gradient-to-r"][class*="from-indigo-"],
-    a[class*="bg-gradient-to-r"][class*="from-purple-"],
-    button[class*="bg-gradient-to-r"][class*="from-purple-"],
-    a[class*="bg-gradient-to-r"][class*="from-amber-"],
-    button[class*="bg-gradient-to-r"][class*="from-amber-"] {{
+    a.bg-sky-500,
+    a.bg-sky-600,
+    button.bg-sky-500,
+    button.bg-sky-600,
+    a.bg-sky-500,
+    a.bg-sky-600,
+    button.bg-sky-500,
+    button.bg-sky-600,
+    a.bg-cyan-500,
+    a.bg-cyan-600,
+    button.bg-cyan-500,
+    button.bg-cyan-600,
+    a.bg-teal-500,
+    a.bg-teal-600,
+    button.bg-teal-500,
+    button.bg-teal-600,
+    a[class*="bg-gradient-to-r"][class*="from-"],
+    button[class*="bg-gradient-to-r"][class*="from-"] {
       background: #F8FAFC !important;
       background-image: none !important;
       color: #090C10 !important;
       border-color: #FFFFFF !important;
       font-weight: 600 !important;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
-    }}
+    }
     a.bg-sky-500:hover,
     a.bg-sky-600:hover,
     button.bg-sky-500:hover,
@@ -844,23 +937,17 @@ def _render_layout(
     button.bg-amber-600:hover,
     a.bg-indigo-600:hover,
     button.bg-indigo-600:hover,
-    a.bg-purple-600:hover,
-    button.bg-purple-600:hover,
-    a[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-amber-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-amber-"]:hover {{
+    a.bg-sky-600:hover,
+    button.bg-sky-600:hover,
+    a.bg-sky-600:hover,
+    button.bg-sky-600:hover,
+    a[class*="bg-gradient-to-r"][class*="from-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-"]:hover {
       background: #E2E8F0 !important;
       background-image: none !important;
       color: #090C10 !important;
       border-color: #E2E8F0 !important;
-    }}
+    }
     a.bg-sky-500 span,
     a.bg-sky-600 span,
     button.bg-sky-500 span,
@@ -869,10 +956,18 @@ def _render_layout(
     a.bg-emerald-600 span,
     button.bg-emerald-500 span,
     button.bg-emerald-600 span,
+    a.bg-amber-500 span,
+    a.bg-amber-600 span,
+    button.bg-amber-500 span,
+    button.bg-amber-600 span,
+    a.bg-sky-500 span,
+    a.bg-sky-600 span,
+    button.bg-sky-500 span,
+    button.bg-sky-600 span,
     a[class*="bg-gradient-to-r"][class*="from-"] span,
-    button[class*="bg-gradient-to-r"][class*="from-"] span {{
+    button[class*="bg-gradient-to-r"][class*="from-"] span {
       color: #090C10 !important;
-    }}
+    }
   </style>
   {ld_script}
 </head>
@@ -923,7 +1018,7 @@ def _render_layout(
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
           <a href="{root_prefix}index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
           <a href="{root_prefix}contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
           <a href="{root_prefix}apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
@@ -933,7 +1028,7 @@ def _render_layout(
     </header>
 
     <div class="border-b border-slate-800/70 bg-navy-900/60">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
           <option value="{root_prefix}contracts/index.html">Portal: All (16)</option>
@@ -976,7 +1071,7 @@ def _render_layout(
       </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div id="outbound-prospect-banner" class="hidden mb-8 rounded-2xl bg-gradient-to-r from-emerald-950/90 via-navy-900 to-sky-950/90 border-2 border-emerald-500/50 p-4 sm:p-5 shadow-2xl">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -1264,7 +1359,7 @@ def _render_layout(
   </aside>
 
   <footer class="bg-navy-950 border-t border-slate-800/80 pt-14 pb-10 mt-16 text-slate-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-800/80">
         <div class="sm:col-span-2 lg:col-span-4 space-y-3.5">
           <div class="inline-flex items-center gap-[4px]">
@@ -2895,7 +2990,7 @@ def generate_pseo_site() -> int:
                         <div class="text-slate-200">{html.escape(c['key_personnel_lcats'])}</div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-purple-300 font-bold">06. CPARS, ORALS &amp; DEBRIEF/PROTEST (API #15 / #17 / #19)</div>
+                        <div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS &amp; DEBRIEF/PROTEST (API #15 / #17 / #19)</div>
                         <div class="text-slate-200">{html.escape(c['cpars_benchmark'])}</div>
                       </div>
                     </div>
@@ -3388,17 +3483,17 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/virginia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-400">Virginia</a>
               <a href="#contracts/california" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">California</a>
               <a href="#contracts/florida" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-cyan-300">Florida</a>
-              <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-rose-300">Maryland</a>
+              <a href="#contracts/maryland" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Maryland</a>
               <a href="#contracts/illinois" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-teal-300">Illinois</a>
               <a href="#contracts/pennsylvania" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-orange-300">Pennsylvania</a>
               <a href="#contracts/ohio" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-lime-300">Ohio</a>
-              <a href="#contracts/georgia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-fuchsia-300">Georgia</a>
-              <a href="#contracts/north_carolina" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-violet-300">North Carolina</a>
+              <a href="#contracts/georgia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Georgia</a>
+              <a href="#contracts/north_carolina" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">North Carolina</a>
               <a href="#contracts/new_york" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-blue-300">New York</a>
-              <a href="#contracts/massachusetts" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-pink-300">Massachusetts</a>
+              <a href="#contracts/massachusetts" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Massachusetts</a>
               <a href="#contracts/new_jersey" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">New Jersey</a>
               <a href="#contracts/washington" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Washington</a>
-              <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
+              <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
               Explore All {len(enriched_contracts)} Live IT &amp; Cyber Solicitations &rarr;
@@ -3510,7 +3605,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
           <a href="#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
           <a href="#contracts" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
           <a href="#apis" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
@@ -3520,7 +3615,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     </header>
 
     <div class="border-b border-slate-800/70 bg-navy-900/60">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="mobile-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="mobile-contracts-portal-select" onchange="if(this.value) window.location.hash=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
           <option value="#contracts">Portal: All (16)</option>
@@ -3563,7 +3658,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       </div>
     </div>
 
-    <main id="contracts-dynamic-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-[65vh]"></main>
+    <main id="contracts-dynamic-root" class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-[65vh]"></main>
   </div>
 
   <script>
@@ -4019,7 +4114,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div class="text-slate-200">' + esc(item.key_personnel_lcats || 'Engagement PM (PMP) • Lead Enterprise Systems Architect') + '</div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-purple-300 font-bold">06. CPARS, ORALS &amp; DEBRIEF/PROTEST (API #15 / #17 / #19)</div>' +
+                        '<div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS &amp; DEBRIEF/PROTEST (API #15 / #17 / #19)</div>' +
                         '<div class="text-slate-200">' + esc(item.cpars_benchmark || 'Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)') + '</div>' +
                       '</div>' +
                     '</div>' +

@@ -248,3 +248,17 @@ ReferenceError: CATALOG is not defined
 
 === ARCHIVED & RESOLVED AT 2026-10-25 15:25:30 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-25 15:23:17 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#overview@1024px: ['span [CLIPPED_BOX scrollW=12 clientW=8] "" (relative flex h-2 w-2 shrink-0)', 'span [CLIPPED_BOX scrollW=144 clientW=125] "B2B Contract Parsing" (text-slate-200 group-hover:text-white truncate)', 'span [CLIPPED_BOX scrollW=180 clientW=125] "AI Risk & Redline Auditor" (text-slate-200 group-hover:text-white truncate)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 16:02:09 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 4 local + 1 remote alert(s)) ===
+[!] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+[2026-10-25 16:00:53 UTC] [LOCAL] [outreach_generator.py] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+
+[!] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+[2026-10-25 16:01:54 UTC] [LOCAL] [outreach_generator.py] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 16:05:02 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s)) ===
+[!] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+[2026-10-25 16:03:32 UTC] [LOCAL] [outreach_generator.py] outreach_generator.py error: dict contains fields not in fieldnames: 'Target Segment'
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 19:40:05 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-25 19:30:38 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#contracts@1280px: ['div [PAST_SCREEN left=920 right=1306 vw=1280] "Log In Sign Up Unlock All RFP Links →" (w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0)', 'a [PAST_SCREEN left=1118 right=1306 vw=1280] "Unlock All RFP Links →" (hidden xl:inline-flex items-center px-3 py-1.5 xl:px-3.5 xl:py-2 text-xs font-mo)']
