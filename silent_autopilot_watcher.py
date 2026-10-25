@@ -18,7 +18,6 @@ import os
 import sys
 import time
 from datetime import datetime
-from zoneinfo import ZoneInfo
 
 from error_telemetry import configure_utf8_stdio
 import auto_error_healer
@@ -27,7 +26,46 @@ configure_utf8_stdio()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROADMAP_PATH = os.path.join(BASE_DIR, "daily_expansion_roadmap.json")
+HEARTBEAT_PATH = os.path.join(BASE_DIR, ".autopilot_watcher_heartbeat.json")
+GUARD_STATE_PATH = os.path.join(BASE_DIR, ".autopilot_guard_state.json")
 CHECK_INTERVAL_SECONDS = 900  # 15 minutes
+
+
+def write_watcher_heartbeat() -> None:
+    """Record live PID and timestamp so the OS-level Windows Task Scheduler guard knows the watcher is alive."""
+    now_ts = time.time()
+    now_iso = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %z")
+    try:
+        with open(HEARTBEAT_PATH, "w", encoding="utf-8") as f:
+            json.dump({"pid": os.getpid(), "timestamp": now_ts, "updated_at": now_iso}, f)
+    except Exception:
+        pass
+
+    # If the OS guard previously alerted #alerts that VS Code was offline, post a green recovery notice
+    if os.path.exists(GUARD_STATE_PATH):
+        try:
+            with open(GUARD_STATE_PATH, "r", encoding="utf-8") as f:
+                st = json.load(f)
+            if st.get("alerted_offline"):
+                import requests
+                webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+                if webhook_url:
+                    requests.post(
+                        webhook_url,
+                        json={
+                            "content": (
+                                f"**[RESOLVED] SignalTender Autopilot Watcher Resumed ({now_iso}):**\n"
+                                f"• **Status:** `silent_autopilot_watcher.py` (`PID {os.getpid()}`) is back online inside VS Code.\n"
+                                "• **Coverage:** Autonomous self-healing & daily 50-state / 58-API expansion active."
+                            ),
+                            "flags": 4,
+                        },
+                        timeout=10,
+                    )
+                with open(GUARD_STATE_PATH, "w", encoding="utf-8") as wf:
+                    json.dump({"alerted_offline": False, "recovered_at": now_iso}, wf)
+        except Exception:
+            pass
 
 
 def is_daily_expansion_due() -> tuple[bool, str]:
@@ -38,8 +76,8 @@ def is_daily_expansion_due() -> tuple[bool, str]:
         with open(ROADMAP_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
         last_date = str(data.get("last_completed_date") or "").strip()
-        now_central = datetime.now(ZoneInfo("America/Chicago"))
-        today_str = now_central.strftime("%Y-%m-%d")
+        now_local = datetime.now().astimezone()
+        today_str = now_local.strftime("%Y-%m-%d")
 
         pending = [item for item in data.get("items", []) if item.get("status") == "pending"]
         if not pending:
@@ -47,7 +85,7 @@ def is_daily_expansion_due() -> tuple[bool, str]:
 
         # If last_completed_date is strictly before today AND it's >= 2:00 AM Central
         # (or if last_completed_date is more than 1 day behind), trigger catch-up immediately.
-        if last_date < today_str and now_central.hour >= 2:
+        if last_date < today_str and now_local.hour >= 2:
             next_item = pending[0]
             day_num = next_item.get("day")
             st_name = next_item.get("scraper", {}).get("state_name")
@@ -69,6 +107,7 @@ def main() -> int:
         flush=True,
     )
     while True:
+        write_watcher_heartbeat()
         # 1. Check for any open runtime alerts in Render telemetry or local error_log.txt
         remote_errors = auto_error_healer.fetch_remote_open_errors()
         local_errors = auto_error_healer.read_local_unacknowledged_errors()

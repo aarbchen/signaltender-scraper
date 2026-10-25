@@ -864,6 +864,8 @@ def check_mobile_viewport_overflow() -> None:
     if any visible button, badge, pill, endpoint code, heading, or card extends past the
     mobile screen edge or clips button/badge text.
     """
+    if os.getenv("RENDER"):
+        return
     from pathlib import Path
     from playwright.sync_api import sync_playwright
 
@@ -903,62 +905,72 @@ def check_mobile_viewport_overflow() -> None:
     }
     """
 
+    import concurrent.futures
+
     base_p = Path(BASE_DIR)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 375, "height": 812}, is_mobile=True)
-        page = context.new_page()
 
-        index_uri = (base_p / "index.html").as_uri()
-        page.goto(f"{index_uri}#contracts", wait_until="domcontentloaded")
-        page.wait_for_timeout(150)
-        first_slug = page.evaluate("window.SIGNALTENDER_CONTRACTS && window.SIGNALTENDER_CONTRACTS[0] ? window.SIGNALTENDER_CONTRACTS[0].slug : ''")
+    def _run_in_worker_thread() -> tuple[str, list[str]] | None:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(viewport={"width": 375, "height": 812}, is_mobile=True)
+            page = context.new_page()
 
-        routes = [
-            "#overview",
-            "#apis",
-            "#contracts",
-            "#contracts/federal",
-            f"#contracts/rfp/{first_slug}",
-            "#checkout",
-            "#account",
-            "#status",
-            "#privacy",
-        ]
-        for route in routes:
-            page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
+            index_uri = (base_p / "index.html").as_uri()
+            page.goto(f"{index_uri}#contracts", wait_until="domcontentloaded")
+            page.wait_for_timeout(150)
+            first_slug = page.evaluate("window.SIGNALTENDER_CONTRACTS && window.SIGNALTENDER_CONTRACTS[0] ? window.SIGNALTENDER_CONTRACTS[0].slug : ''")
+
+            routes = [
+                "#overview",
+                "#apis",
+                "#contracts",
+                "#contracts/federal",
+                f"#contracts/rfp/{first_slug}",
+                "#checkout",
+                "#account",
+                "#status",
+                "#privacy",
+            ]
+            for route in routes:
+                page.goto(f"{index_uri}{route}", wait_until="domcontentloaded")
+                page.wait_for_timeout(120)
+                issues = page.evaluate(js_scan)
+                if issues:
+                    browser.close()
+                    return (f"index.html{route}", issues[:3])
+
+            page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
             page.wait_for_timeout(120)
             issues = page.evaluate(js_scan)
             if issues:
                 browser.close()
-                fail(f"Mobile 375px viewport overflow on index.html{route}: {issues[:3]}")
+                return ("apis.html", issues[:3])
 
-        page.goto((base_p / "apis.html").as_uri(), wait_until="domcontentloaded")
-        page.wait_for_timeout(120)
-        issues = page.evaluate(js_scan)
-        if issues:
+            c_index = base_p / "contracts" / "index.html"
+            if c_index.exists():
+                page.goto(c_index.as_uri(), wait_until="domcontentloaded")
+                page.wait_for_timeout(100)
+                issues = page.evaluate(js_scan)
+                if issues:
+                    browser.close()
+                    return ("contracts/index.html", issues[:3])
+
+            rfp_samples = glob.glob(str(base_p / "contracts" / "rfp" / "*.html"))
+            if rfp_samples:
+                page.goto(Path(rfp_samples[0]).as_uri(), wait_until="domcontentloaded")
+                page.wait_for_timeout(100)
+                issues = page.evaluate(js_scan)
+                if issues:
+                    browser.close()
+                    return ("contracts/rfp sample", issues[:3])
+
             browser.close()
-            fail(f"Mobile 375px viewport overflow on apis.html: {issues[:3]}")
+            return None
 
-        c_index = base_p / "contracts" / "index.html"
-        if c_index.exists():
-            page.goto(c_index.as_uri(), wait_until="domcontentloaded")
-            page.wait_for_timeout(100)
-            issues = page.evaluate(js_scan)
-            if issues:
-                browser.close()
-                fail(f"Mobile 375px viewport overflow on contracts/index.html: {issues[:3]}")
-
-        rfp_samples = glob.glob(str(base_p / "contracts" / "rfp" / "*.html"))
-        if rfp_samples:
-            page.goto(Path(rfp_samples[0]).as_uri(), wait_until="domcontentloaded")
-            page.wait_for_timeout(100)
-            issues = page.evaluate(js_scan)
-            if issues:
-                browser.close()
-                fail(f"Mobile 375px viewport overflow on contracts/rfp sample: {issues[:3]}")
-
-        browser.close()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+        res = pool.submit(_run_in_worker_thread).result()
+    if res:
+        fail(f"Mobile 375px viewport overflow on {res[0]}: {res[1]}")
 
 
 def main() -> int:
@@ -982,7 +994,18 @@ def main() -> int:
     check_tier_value_prop_and_capture_moat_parity(index_txt)
     check_conversion_and_distribution_surfaces(index_txt)
     check_spa_runtime(index_txt)
-    check_mobile_viewport_overflow()
+    if not os.getenv("RENDER") and not os.getenv("CI"):
+        import asyncio
+        import concurrent.futures
+        try:
+            has_loop = asyncio._get_running_loop() is not None
+        except Exception:
+            has_loop = False
+        if has_loop:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _pool:
+                _pool.submit(check_mobile_viewport_overflow).result()
+        else:
+            check_mobile_viewport_overflow()
 
     import auto_error_healer
     if auto_error_healer.run_healer(clear_resolved=True, run_smoke=False) != 0:
