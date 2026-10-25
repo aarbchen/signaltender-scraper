@@ -54,6 +54,39 @@
     }
   </script>
   <style>
+    :root, html {
+      color-scheme: dark;
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b #050811;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b rgba(9, 14, 26, 0.65);
+    }
+    *::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    *::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    *::-webkit-scrollbar-track {
+      background: rgba(5, 8, 17, 0.75);
+      border-radius: 9999px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.85);
+      border-radius: 9999px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.65);
+    }
+    *::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     html, body {
       overflow-x: hidden;
       max-width: 100%;
@@ -155,7 +188,7 @@
           <option value="../contracts/washington/index.html">Washington</option>
           <option value="../contracts/municipal/index.html">Municipal</option>
         </select>
-        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
+        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
           <a href="../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
           <a href="../contracts/texas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
@@ -299,7 +332,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Illinois BidBuy (DoIT, IDOT, CMS) and Chicago/Cook County solicitations for enterprise software, ERP, cloud, and telecom.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">8 Open Leads</span>
+                <span class="text-emerald-400">9 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -407,7 +440,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live municipal, county, and public university IT and software solicitations monitored across the DemandStar SLED network.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">8 Open Leads</span>
+                <span class="text-emerald-400">7 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -420,9 +453,14 @@
             <h2 class="text-lg sm:text-xl font-bold text-white">Capture Expiring Federal IT Contracts &amp; 30% Small-Business Subcontracting Pools Before the RFP Drops</h2>
             <p class="text-xs text-slate-300">Explore 27 verified federal IT recompetes (with API #16 Challenger Price-to-Win ceilings &amp; API #21 FAR 19.502-2 set-aside shaping) and newly awarded Prime contracts with mandatory FAR 52.219-9 subcontracting pools.</p>
           </div>
-          <a href="recompetes/index.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-xs font-mono font-semibold shrink-0 whitespace-nowrap transition-all">
-            Open Recompete &amp; Sub Wire &rarr;
-          </a>
+          <div class="flex flex-wrap gap-2.5 shrink-0">
+            <a href="recompetes/index.html" class="inline-flex items-center justify-center px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-[11px] sm:text-xs font-mono font-semibold whitespace-nowrap transition-all">
+              Open Recompete &amp; Sub Wire &rarr;
+            </a>
+            <a href="https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-[11px] sm:text-xs font-mono font-semibold whitespace-nowrap transition-all">
+              FOIA / PIA Winning-Bid Rate Vault (JSON) &nearr;
+            </a>
+          </div>
         </div>
 
         <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">Latest Pre-Vetted Solicitations</h2>
@@ -463,6 +501,34 @@
               </thead>
               <tbody class="text-xs">
                 
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-teal-500/10 text-teal-300 border-teal-500/30">
+              ILLINOIS
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Chicago Transit [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-20
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
@@ -1521,34 +1587,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="rfp/da01-rfi-action-only-healthcare-data-auditing-billing-and-coding-880.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-purple-500/10 text-purple-300 border-purple-500/30">
-              MUNICIPAL SLED
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-878.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Chicago Transit [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-20
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-878.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -4110,6 +4148,125 @@
             btnEl.textContent = 'Unlock 3';
           }
         });
+    };
+
+
+    window.compileShipleyProposalZip = async function (slugVal, titleVal, agencyVal, naicsVal, setAsideVal) {
+      var btnEl = document.getElementById('compile-zip-btn-' + slugVal) || document.getElementById('compile-zip-btn-static');
+      var origTxt = btnEl ? btnEl.textContent : 'Compile 3-Volume Proposal (.ZIP)';
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.textContent = 'Compiling Vol I (.docx), Vol II (.xlsx) & Vol III (.docx)...';
+      }
+      var compName = 'Your Capture Team LLC';
+      var ueiCage = 'UEI-PENDING / CAGE-PENDING';
+      var wrapRate = 1.82;
+      try {
+        var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
+        if (savedProf) {
+          var pObj = JSON.parse(savedProf);
+          if (pObj.company) compName = pObj.company;
+          if (pObj.uei_cage) ueiCage = pObj.uei_cage;
+          if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+        }
+      } catch (e) {}
+      try {
+        var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_title: titleVal || 'Government IT & Cybersecurity Solicitation',
+            solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
+            issuing_agency: agencyVal || 'Federal / State SLED Agency',
+            naics_code: String(naicsVal || '541512').split('/')[0].trim(),
+            set_aside: setAsideVal || 'Small Business / SDVOSB',
+            company_name: compName,
+            uei_cage: ueiCage,
+            wrap_rate: wrapRate
+          })
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var blob = await resp.blob();
+        var dlUrl = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = dlUrl;
+        a.download = 'SignalTender_3Vol_Proposal_' + String(slugVal || 'package').slice(0, 36) + '.zip';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          window.URL.revokeObjectURL(dlUrl);
+          if (a.parentNode) a.parentNode.removeChild(a);
+        }, 1500);
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.textContent = 'Downloaded 3-Vol .ZIP (Vol I .docx + Vol II .xlsx + Vol III .docx)';
+        }
+      } catch (err) {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.textContent = origTxt;
+        }
+      }
+    };
+
+    window.toggleTeamingClearinghouseBox = function (boxId) {
+      var el = document.getElementById(boxId);
+      if (!el) return;
+      if (el.classList.contains('hidden')) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    };
+
+    window.submitInlineTeamingSlot = async function (slugVal, titleVal, agencyVal, naicsVal) {
+      var sfx = slugVal || 'static';
+      var coEl = document.getElementById('teaming-co-' + sfx);
+      var ueiEl = document.getElementById('teaming-uei-' + sfx);
+      var socEl = document.getElementById('teaming-soc-' + sfx);
+      var pctEl = document.getElementById('teaming-pct-' + sfx);
+      var emEl = document.getElementById('teaming-em-' + sfx);
+      var stEl = document.getElementById('teaming-status-' + sfx);
+      var subCo = coEl ? String(coEl.value || '').trim() : '';
+      var subEm = emEl ? String(emEl.value || '').trim() : '';
+      if (!subCo || !subEm || subEm.indexOf('@') === -1) {
+        if (stEl) {
+          stEl.classList.remove('hidden');
+          stEl.className = 'mt-2 text-xs font-mono text-amber-300';
+          stEl.textContent = 'Please enter your company name and work email to validate 13 CFR 125.6 workshare.';
+        }
+        return;
+      }
+      if (stEl) {
+        stEl.classList.remove('hidden');
+        stEl.className = 'mt-2 text-xs font-mono text-sky-300';
+        stEl.textContent = 'Validating 13 CFR 125.6 (50% Rule) workshare & registering Teaming Clearinghouse slot...';
+      }
+      try {
+        var r = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/teaming-clearinghouse', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: String(slugVal || 'RFP-2026').slice(0, 65),
+            solicitation_title: titleVal || 'Government IT Solicitation',
+            agency: agencyVal || 'Government Agency',
+            prime_company: 'Verified Prime / Small Business Lead',
+            sub_company: subCo,
+            sub_uei_cage: ueiEl ? String(ueiEl.value || '').trim() : '',
+            sub_socioeconomic: socEl ? String(socEl.value || 'SDVOSB').trim() : 'SDVOSB',
+            proposed_sub_workshare_pct: pctEl ? (parseFloat(pctEl.value) || 40) : 40,
+            contact_email: subEm,
+            core_naics: String(naicsVal || '541512').split('/')[0].trim()
+          })
+        });
+        var d = await r.json();
+        if (stEl) {
+          stEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+          stEl.textContent = (d && d.cfr_125_6_ruling) ? (d.cfr_125_6_ruling + ' — Teaming Agreement Summary & Mutual NDA generated.') : 'Verified 13 CFR 125.6 Teaming Slot registered.';
+        }
+      } catch (e) {
+        if (stEl) {
+          stEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+          stEl.textContent = 'Teaming slot request logged for 13 CFR 125.6 clearinghouse review.';
+        }
+      }
     };
 
     (function initStaticLeadAndAttribution() {

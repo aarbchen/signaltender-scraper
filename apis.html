@@ -58,6 +58,39 @@
     }
   </script>
   <style>
+    :root, html {
+      color-scheme: dark;
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b #050811;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b rgba(9, 14, 26, 0.65);
+    }
+    *::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    *::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    *::-webkit-scrollbar-track {
+      background: rgba(5, 8, 17, 0.75);
+      border-radius: 9999px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.85);
+      border-radius: 9999px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.65);
+    }
+    *::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     /* Global horizontal overflow guard so no wide inline ticker or nav ever shifts the viewport */
     html, body {
       overflow-x: clip;
@@ -4595,7 +4628,7 @@
                 <span class="text-rose-400 font-semibold">cURL Request &bull; POST /v1/generate/oci-mitigation-plan</span>
                 <span class="text-slate-500">application/json</span>
               </div>
-              <pre class="p-4 text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed">curl --request POST \
+              <pre class="p-4 text-[11px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-words leading-relaxed">curl --request POST \
   --url https://far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com/v1/generate/oci-mitigation-plan \
   --header 'Content-Type: application/json' \
   --header 'x-rapidapi-host: far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com' \
@@ -4612,7 +4645,7 @@
                 <span class="text-emerald-400 font-semibold">200 OK &bull; OciMitigationPlanResponse</span>
                 <span class="text-slate-400">Pydantic V2 Validated</span>
               </div>
-              <pre class="p-4 text-[11px] font-mono text-emerald-300/90 overflow-x-auto leading-relaxed">{
+              <pre class="p-4 text-[11px] font-mono text-emerald-300/90 overflow-x-auto whitespace-pre-wrap break-words leading-relaxed">{
   "overall_oci_viability_verdict": "MITIGABLE_WITH_FIREWALL_AND_SUBCONTRACT_CARVEOUT",
   "overall_oci_risk_score": 38,
   "three_pillar_oci_audit": [
@@ -5629,6 +5662,41 @@
           <a href="https://rapidapi.com/user/aarbchen" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-sky-400 shrink-0">
             Follow SignalTender on RapidAPI &rarr;
           </a>
+        </div>
+      </div>
+
+      <!-- Enterprise OEM & Proposal Autopilot Self-Serve Licensing Banner -->
+      <div id="enterprise-oem-licensing" class="mt-10 rounded-2xl bg-gradient-to-r from-navy-950 via-indigo-950/60 to-amber-950/30 border-2 border-amber-500/40 p-6 sm:p-8 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7 space-y-2.5">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-amber-500/15 border border-amber-500/30 text-[11px] font-mono text-amber-300 font-bold uppercase tracking-wider">
+              // PLAID FOR GOVCON AI &bull; INSTITUTIONAL OEM &amp; PROPOSAL AUTOPILOT LICENSING
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              Need 1-Click 3-Volume .DOCX/.XLSX Proposal Compilation or a 50,000-Call Enterprise OEM MCP License?
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Upgrade from individual RapidAPI endpoints to <strong class="text-emerald-300">Tier 3 Proposal Autopilot ($1,499/mo | $14,900/yr)</strong> for unlimited 1-click 3-Volume Shipley <code class="font-mono text-white">.ZIP</code> proposal compilation (<code class="font-mono text-emerald-300">POST /v1/proposal-autopilot/compile-full-package</code>) &amp; <code class="font-mono text-amber-300">13 CFR &sect; 125.6</code> Teaming Clearinghouse access, or <strong class="text-amber-300">Tier 4 Enterprise OEM ($2,499/mo | $24,900/yr)</strong> for 50,000 unified API/MCP calls per month plus programmatic access to the <strong class="text-white">Post-Award &amp; Statutory FOIA/PIA Winning-Bid Rate Vault</strong> (<code class="font-mono text-sky-300">GET /v1/proposal-autopilot/foia-winning-bid-vault</code>).
+            </p>
+          </div>
+          <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3 justify-end font-mono text-xs">
+            <a
+              href="https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 shadow-lg transition-all whitespace-nowrap"
+            >
+              Tier 3 Proposal Autopilot ($1,499/mo) &nearr;
+            </a>
+            <a
+              href="https://buy.stripe.com/dRmaEW4aCe7VeFieaU7wA08"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-bold border border-amber-300 shadow-lg transition-all whitespace-nowrap"
+            >
+              Tier 4 OEM 50k-Call License ($2,499/mo) &nearr;
+            </a>
+          </div>
         </div>
       </div>
 

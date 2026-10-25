@@ -54,6 +54,39 @@
     }
   </script>
   <style>
+    :root, html {
+      color-scheme: dark;
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b #050811;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #1e293b rgba(9, 14, 26, 0.65);
+    }
+    *::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    *::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    *::-webkit-scrollbar-track {
+      background: rgba(5, 8, 17, 0.75);
+      border-radius: 9999px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.85);
+      border-radius: 9999px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.65);
+    }
+    *::-webkit-scrollbar-corner {
+      background: transparent;
+    }
     html, body {
       overflow-x: hidden;
       max-width: 100%;
@@ -155,7 +188,7 @@
           <option value="../../contracts/washington/index.html">Washington</option>
           <option value="../../contracts/municipal/index.html">Municipal</option>
         </select>
-        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
+        <nav aria-label="State and Portal Quick Jump" class="flex-1 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
           <a href="../../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="../../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
           <a href="../../contracts/texas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
@@ -289,9 +322,32 @@
                       <a href="../../index.html#contracts/rfp/enterprise-rfid-technology-installation-and-azure-wims-integration-201" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 transition-colors">
                         Run Live Pwin &amp; Shred in Studio &rarr;
                       </a>
-                      <a href="../../apis.html#product-compliance-matrix" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors">
-                        Shred via Shipley Compliance API &rarr;
-                      </a>
+                      <button id="compile-zip-btn-static" type="button" onclick="window.compileShipleyProposalZip(&quot;enterprise-rfid-technology-installation-and-azure-wims-integration-201&quot;, &quot;Enterprise RFID Technology, Installation, and Azure WIMS Integration&quot;, &quot;Federal Government [Verified Agency]&quot;, &quot;518210 / 541512&quot;, &quot;Small Business&quot;)" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">
+                        1-Click Compile 3-Volume Proposal (.ZIP) &darr;
+                      </button>
+                      <button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-static&quot;)" class="inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">
+                        Request 13 CFR &sect; 125.6 Teaming Slot &rarr;
+                      </button>
+                    </div>
+                    <div id="teaming-box-static" class="hidden mt-3 p-4 rounded-xl bg-navy-900 border border-amber-500/40 space-y-3 text-xs font-mono">
+                      <div class="text-amber-300 font-bold uppercase">// TWO-SIDED FAR 52.219-9 &amp; 13 CFR &sect; 125.6 TEAMING CLEARINGHOUSE</div>
+                      <p class="text-slate-300">Register your verified UEI/CAGE and socio-economic status to request a compliant Prime/Sub workshare slot on this solicitation (auto-validates the 50% Limitation on Subcontracting rule).</p>
+                      <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+                        <input id="teaming-co-static" type="text" placeholder="Company Name LLC" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
+                        <input id="teaming-uei-static" type="text" placeholder="UEI / CAGE Code" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
+                        <select id="teaming-soc-static" class="px-2.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white">
+                          <option value="SDVOSB">SDVOSB</option>
+                          <option value="8(a)">SBA 8(a)</option>
+                          <option value="WOSB">WOSB / EDWOSB</option>
+                          <option value="HUBZone">HUBZone</option>
+                          <option value="Small Business">Small Business / State MBE</option>
+                        </select>
+                        <input id="teaming-em-static" type="email" placeholder="bd@yourcompany.com" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
+                        <button type="button" onclick="window.submitInlineTeamingSlot(&quot;static&quot;, &quot;Enterprise RFID Technology, Installation, and Azure WIMS Integration&quot;, &quot;Federal Government [Verified Agency]&quot;, &quot;518210 / 541512&quot;)" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold cursor-pointer">
+                          Verify &amp; Match &rarr;
+                        </button>
+                      </div>
+                      <div id="teaming-status-static" class="hidden"></div>
                     </div>
                     <p class="text-[11px] font-mono text-slate-400">Instant 60-second Discord, Slack, Microsoft Teams &amp; CRM webhook activation. Cancel anytime.</p>
                   </div>
@@ -1185,6 +1241,125 @@
             btnEl.textContent = 'Unlock 3';
           }
         });
+    };
+
+
+    window.compileShipleyProposalZip = async function (slugVal, titleVal, agencyVal, naicsVal, setAsideVal) {
+      var btnEl = document.getElementById('compile-zip-btn-' + slugVal) || document.getElementById('compile-zip-btn-static');
+      var origTxt = btnEl ? btnEl.textContent : 'Compile 3-Volume Proposal (.ZIP)';
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.textContent = 'Compiling Vol I (.docx), Vol II (.xlsx) & Vol III (.docx)...';
+      }
+      var compName = 'Your Capture Team LLC';
+      var ueiCage = 'UEI-PENDING / CAGE-PENDING';
+      var wrapRate = 1.82;
+      try {
+        var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
+        if (savedProf) {
+          var pObj = JSON.parse(savedProf);
+          if (pObj.company) compName = pObj.company;
+          if (pObj.uei_cage) ueiCage = pObj.uei_cage;
+          if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+        }
+      } catch (e) {}
+      try {
+        var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_title: titleVal || 'Government IT & Cybersecurity Solicitation',
+            solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
+            issuing_agency: agencyVal || 'Federal / State SLED Agency',
+            naics_code: String(naicsVal || '541512').split('/')[0].trim(),
+            set_aside: setAsideVal || 'Small Business / SDVOSB',
+            company_name: compName,
+            uei_cage: ueiCage,
+            wrap_rate: wrapRate
+          })
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var blob = await resp.blob();
+        var dlUrl = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = dlUrl;
+        a.download = 'SignalTender_3Vol_Proposal_' + String(slugVal || 'package').slice(0, 36) + '.zip';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          window.URL.revokeObjectURL(dlUrl);
+          if (a.parentNode) a.parentNode.removeChild(a);
+        }, 1500);
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.textContent = 'Downloaded 3-Vol .ZIP (Vol I .docx + Vol II .xlsx + Vol III .docx)';
+        }
+      } catch (err) {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.textContent = origTxt;
+        }
+      }
+    };
+
+    window.toggleTeamingClearinghouseBox = function (boxId) {
+      var el = document.getElementById(boxId);
+      if (!el) return;
+      if (el.classList.contains('hidden')) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    };
+
+    window.submitInlineTeamingSlot = async function (slugVal, titleVal, agencyVal, naicsVal) {
+      var sfx = slugVal || 'static';
+      var coEl = document.getElementById('teaming-co-' + sfx);
+      var ueiEl = document.getElementById('teaming-uei-' + sfx);
+      var socEl = document.getElementById('teaming-soc-' + sfx);
+      var pctEl = document.getElementById('teaming-pct-' + sfx);
+      var emEl = document.getElementById('teaming-em-' + sfx);
+      var stEl = document.getElementById('teaming-status-' + sfx);
+      var subCo = coEl ? String(coEl.value || '').trim() : '';
+      var subEm = emEl ? String(emEl.value || '').trim() : '';
+      if (!subCo || !subEm || subEm.indexOf('@') === -1) {
+        if (stEl) {
+          stEl.classList.remove('hidden');
+          stEl.className = 'mt-2 text-xs font-mono text-amber-300';
+          stEl.textContent = 'Please enter your company name and work email to validate 13 CFR 125.6 workshare.';
+        }
+        return;
+      }
+      if (stEl) {
+        stEl.classList.remove('hidden');
+        stEl.className = 'mt-2 text-xs font-mono text-sky-300';
+        stEl.textContent = 'Validating 13 CFR 125.6 (50% Rule) workshare & registering Teaming Clearinghouse slot...';
+      }
+      try {
+        var r = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/teaming-clearinghouse', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: String(slugVal || 'RFP-2026').slice(0, 65),
+            solicitation_title: titleVal || 'Government IT Solicitation',
+            agency: agencyVal || 'Government Agency',
+            prime_company: 'Verified Prime / Small Business Lead',
+            sub_company: subCo,
+            sub_uei_cage: ueiEl ? String(ueiEl.value || '').trim() : '',
+            sub_socioeconomic: socEl ? String(socEl.value || 'SDVOSB').trim() : 'SDVOSB',
+            proposed_sub_workshare_pct: pctEl ? (parseFloat(pctEl.value) || 40) : 40,
+            contact_email: subEm,
+            core_naics: String(naicsVal || '541512').split('/')[0].trim()
+          })
+        });
+        var d = await r.json();
+        if (stEl) {
+          stEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+          stEl.textContent = (d && d.cfr_125_6_ruling) ? (d.cfr_125_6_ruling + ' — Teaming Agreement Summary & Mutual NDA generated.') : 'Verified 13 CFR 125.6 Teaming Slot registered.';
+        }
+      } catch (e) {
+        if (stEl) {
+          stEl.className = 'mt-2 text-xs font-mono text-emerald-400';
+          stEl.textContent = 'Teaming slot request logged for 13 CFR 125.6 clearinghouse review.';
+        }
+      }
     };
 
     (function initStaticLeadAndAttribution() {

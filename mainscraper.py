@@ -1071,6 +1071,13 @@ async def run_master_orchestrator(
 
         _reclaim_os_memory()
 
+        # Sync Post-Award Cross-Linker & Statutory FOIA/PIA Winning-Bid Vault (Moat #2)
+        try:
+            import post_award_foia_vault
+            post_award_foia_vault.sync_post_award_foia_vault()
+        except Exception as foia_err:
+            print(f"[!] Post-Award FOIA Vault sync warning: {foia_err}", flush=True)
+
         # Rebuild Programmatic SEO (pSEO) static directory & sitemap.xml from live Supabase contracts
         try:
             import pseo_generator

@@ -1,0 +1,321 @@
+{
+  "schema_version": "1.0",
+  "updated_at_utc": "2026-10-25T12:54:08.264881+00:00",
+  "total_verified_awards": 15,
+  "minimum_award_threshold_usd": 1000000,
+  "electronic_fee_cap_usd": 0.0,
+  "awards": [
+    {
+      "award_id": "75FCMC24F0139",
+      "jurisdiction": "federal",
+      "agency": "Department of Health and Human Services (HHS / CMS)",
+      "winning_vendor": "CivicActions Inc.",
+      "award_amount_usd": 41500000.0,
+      "pop_end_date": "2027-09-07",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 172.0
+        },
+        {
+          "lcat": "Lead Cloud Architect",
+          "rate_hr": 188.5
+        },
+        {
+          "lcat": "Senior DevSecOps Engineer",
+          "rate_hr": 156.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Department of Health and Human Services (HHS / CMS)\nRe: Executed Contract & Pricing Schedule for Award 75FCMC24F0139 (CivicActions Inc. \u2014 $41,500,000)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID 75FCMC24F0139 awarded to CivicActions Inc..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "HC102824F2000",
+      "jurisdiction": "federal",
+      "agency": "Defense Information Systems Agency (DISA)",
+      "winning_vendor": "Booz Allen Hamilton Inc.",
+      "award_amount_usd": 34600000.0,
+      "pop_end_date": "2027-03-26",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Cleared Program Director (TS/SCI)",
+          "rate_hr": 214.0
+        },
+        {
+          "lcat": "Zero-Trust Cyber Architect (CISSP)",
+          "rate_hr": 196.0
+        },
+        {
+          "lcat": "RMF / Continuous ATO Engineer",
+          "rate_hr": 164.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Defense Information Systems Agency (DISA)\nRe: Executed Contract & Pricing Schedule for Award HC102824F2000 (Booz Allen Hamilton Inc. \u2014 $34,600,000)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID HC102824F2000 awarded to Booz Allen Hamilton Inc..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "DIR-CPO-5194-TX",
+      "jurisdiction": "texas",
+      "agency": "Texas Department of Information Resources (DIR / ESBD)",
+      "winning_vendor": "Texas DBITS Cloud & Cyber Incumbent Pool",
+      "award_amount_usd": 14800000.0,
+      "pop_end_date": "2027-06-30",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "TX DIR DBITS Engagement Manager",
+          "rate_hr": 158.0
+        },
+        {
+          "lcat": "TX-RAMP Level 2 Cloud Architect",
+          "rate_hr": 174.0
+        },
+        {
+          "lcat": "Senior Application Modernization Dev",
+          "rate_hr": 142.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (Texas Government Code Chapter 552 (Texas Public Information Act, \u00a7 552.022(a)(3)))\nTo: Public Information / FOIA Officer \u2014 Texas Department of Information Resources (DIR / ESBD)\nRe: Executed Contract & Pricing Schedule for Award DIR-CPO-5194-TX (Texas DBITS Cloud & Cyber Incumbent Pool \u2014 $14,800,000)\n\nPursuant to Texas Government Code Chapter 552 (Texas Public Information Act, \u00a7 552.022(a)(3)), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Executed DIR/ESBD contract, winning vendor BAFO cost/rate schedule, and scoring matrix for Contract/Award ID DIR-CPO-5194-TX awarded to Texas DBITS Cloud & Cyber Incumbent Pool.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "VA-eVA-VITA-2025-09",
+      "jurisdiction": "virginia",
+      "agency": "Virginia IT Agency (VITA / eVA Statewide IT)",
+      "winning_vendor": "SWaM Certified Enterprise IT Prime",
+      "award_amount_usd": 9200000.0,
+      "pop_end_date": "2027-04-15",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "VITA ECOS Cloud Program Lead",
+          "rate_hr": 162.0
+        },
+        {
+          "lcat": "COV SEC 530 Cyber Compliance Engineer",
+          "rate_hr": 154.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (Virginia Code \u00a7 2.2-3700 et seq. (Virginia Freedom of Information Act \u2014 VFOIA))\nTo: Public Information / FOIA Officer \u2014 Virginia IT Agency (VITA / eVA Statewide IT)\nRe: Executed Contract & Pricing Schedule for Award VA-eVA-VITA-2025-09 (SWaM Certified Enterprise IT Prime \u2014 $9,200,000)\n\nPursuant to Virginia Code \u00a7 2.2-3700 et seq. (Virginia Freedom of Information Act \u2014 VFOIA), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Executed eVA/VITA contract award, winning supplier LCAT rate card, and SWaM subcontracting plan for Contract/Award ID VA-eVA-VITA-2025-09 awarded to SWaM Certified Enterprise IT Prime.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "CA-DGS-TDDC-2025-11",
+      "jurisdiction": "california",
+      "agency": "California Department of Technology (CDT / DGS Cal eProcure)",
+      "winning_vendor": "CalCloud SIMM 5305-A Prime Contractor",
+      "award_amount_usd": 18500000.0,
+      "pop_end_date": "2027-08-01",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "CalCloud Principal Architect",
+          "rate_hr": 182.0
+        },
+        {
+          "lcat": "DVBE / SB Certified Cyber Lead",
+          "rate_hr": 159.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (California Government Code \u00a7 7920.000 et seq. (California Public Records Act \u2014 CPRA))\nTo: Public Information / FOIA Officer \u2014 California Department of Technology (CDT / DGS Cal eProcure)\nRe: Executed Contract & Pricing Schedule for Award CA-DGS-TDDC-2025-11 (CalCloud SIMM 5305-A Prime Contractor \u2014 $18,500,000)\n\nPursuant to California Government Code \u00a7 7920.000 et seq. (California Public Records Act \u2014 CPRA), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Executed STD 213 IT contract, winning Cost Worksheet, and Notice of Intent to Award scoring summary for Contract/Award ID CA-DGS-TDDC-2025-11 awarded to CalCloud SIMM 5305-A Prime Contractor.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "NY-OGS-PBITS-2025-04",
+      "jurisdiction": "new_york",
+      "agency": "New York State Office of General Services (OGS / ITS)",
+      "winning_vendor": "NYS PBITS Tier 3 Cloud & Cyber Integrator",
+      "award_amount_usd": 22400000.0,
+      "pop_end_date": "2027-11-30",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "NYS PBITS Project Director",
+          "rate_hr": 179.0
+        },
+        {
+          "lcat": "NYS ITS Cyber Architecture Lead",
+          "rate_hr": 168.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (New York Public Officers Law Article 6, \u00a7 84 et seq. (Freedom of Information Law \u2014 FOIL))\nTo: Public Information / FOIA Officer \u2014 New York State Office of General Services (OGS / ITS)\nRe: Executed Contract & Pricing Schedule for Award NY-OGS-PBITS-2025-04 (NYS PBITS Tier 3 Cloud & Cyber Integrator \u2014 $22,400,000)\n\nPursuant to New York Public Officers Law Article 6, \u00a7 84 et seq. (Freedom of Information Law \u2014 FOIL), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Approved OSC/OGS contract package, winning Financial Offer pricing tables, and evaluation summary for Contract/Award ID NY-OGS-PBITS-2025-04 awarded to NYS PBITS Tier 3 Cloud & Cyber Integrator.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "HC102823F0110",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "COMMAND POST TECHNOLOGIES, INC.",
+      "award_amount_usd": 34933888.65,
+      "pop_end_date": "2027-02-03",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award HC102823F0110 (COMMAND POST TECHNOLOGIES, INC. \u2014 $34,933,889)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID HC102823F0110 awarded to COMMAND POST TECHNOLOGIES, INC..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "FA489023F0026",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "TENAX TECHNOLOGIES",
+      "award_amount_usd": 34643168.0,
+      "pop_end_date": "2027-05-30",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award FA489023F0026 (TENAX TECHNOLOGIES \u2014 $34,643,168)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID FA489023F0026 awarded to TENAX TECHNOLOGIES.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "75N91023F00001",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "OCTO CONSULTING GROUP",
+      "award_amount_usd": 34589286.52,
+      "pop_end_date": "2026-12-11",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award 75N91023F00001 (OCTO CONSULTING GROUP \u2014 $34,589,287)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID 75N91023F00001 awarded to OCTO CONSULTING GROUP.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "W519TC25F0241",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "BYTECUBED",
+      "award_amount_usd": 34571375.28,
+      "pop_end_date": "2027-06-02",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award W519TC25F0241 (BYTECUBED \u2014 $34,571,375)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID W519TC25F0241 awarded to BYTECUBED.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "FA873022F0001",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "OMNI FED",
+      "award_amount_usd": 34513677.32,
+      "pop_end_date": "2026-12-14",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award FA873022F0001 (OMNI FED \u2014 $34,513,677)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID FA873022F0001 awarded to OMNI FED.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "15JPSS23F00000389",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "NETWORK DESIGNS, INC.",
+      "award_amount_usd": 34422958.36,
+      "pop_end_date": "2027-06-05",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award 15JPSS23F00000389 (NETWORK DESIGNS, INC. \u2014 $34,422,958)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID 15JPSS23F00000389 awarded to NETWORK DESIGNS, INC..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "47QACA26C0044",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "BERING STRAITS PROFESSIONAL SERVICES",
+      "award_amount_usd": 34303406.37,
+      "pop_end_date": "2027-01-05",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award 47QACA26C0044 (BERING STRAITS PROFESSIONAL SERVICES \u2014 $34,303,406)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID 47QACA26C0044 awarded to BERING STRAITS PROFESSIONAL SERVICES.\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "HC102826F0016",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "LEIDOS, INC.",
+      "award_amount_usd": 34224579.2,
+      "pop_end_date": "2027-03-13",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award HC102826F0016 (LEIDOS, INC. \u2014 $34,224,579)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID HC102826F0016 awarded to LEIDOS, INC..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    },
+    {
+      "award_id": "36C10B24F0161",
+      "jurisdiction": "federal",
+      "agency": "Federal Agency",
+      "winning_vendor": "ODDBALL, INC.",
+      "award_amount_usd": 34045166.94,
+      "pop_end_date": "2027-06-04",
+      "naics": "541512",
+      "lcat_benchmarks": [
+        {
+          "lcat": "Program Manager (PMP)",
+          "rate_hr": 168.0
+        },
+        {
+          "lcat": "Senior Cloud / Cyber Engineer",
+          "rate_hr": 158.0
+        }
+      ],
+      "statutory_foia_request_packet": "STATUTORY PUBLIC RECORDS REQUEST (5 U.S.C. \u00a7 552 (Federal Freedom of Information Act))\nTo: Public Information / FOIA Officer \u2014 Federal Agency\nRe: Executed Contract & Pricing Schedule for Award 36C10B24F0161 (ODDBALL, INC. \u2014 $34,045,167)\n\nPursuant to 5 U.S.C. \u00a7 552 (Federal Freedom of Information Act), please provide electronic copies (PDF/XLSX delivered via email only) of:\n  1. Awarded basic contract, Section B CLIN unit pricing schedule, and releasable Source Selection Decision Document (SSDD) for Contract/Award ID 36C10B24F0161 awarded to ODDBALL, INC..\n  2. The awarded Section B / CLIN Labor Category (LCAT) hourly rate schedule.\n\nSTATUTORY FEE GUARDRAIL ($0.00 ELECTRONIC DELIVERY CAP):\nWe request electronic delivery only and do not request physical paper duplication. Please notify us in advance before incurring any search, review, or duplication fee exceeding $0.00.\n\nRespectfully,\nSignalTender GovCon Public Records & Pricing Vault\nhttps://signaltender.net/contracts"
+    }
+  ]
+}
