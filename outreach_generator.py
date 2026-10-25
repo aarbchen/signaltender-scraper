@@ -786,21 +786,27 @@ def build_two_step_outreach(
     step2_tiers = [
         (
             f"{intel_block}"
-            f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
+            f"Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
             f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 14-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire routed to Discord, Slack, MS Teams, or Webhook.\n"
-            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 22 REST/MCP APIs (@signaltender/mcp-server)."
+            f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 22 REST/MCP APIs (@signaltender/mcp-server).\n"
+            f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing native Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Verified Teaming Clearinghouse.\n"
+            f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent Winning LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license."
         ),
         (
             f"{intel_block}"
-            f"We built SignalTender for lean capture teams and IT vendors that want real-time RFP, Recompete, and Subcontracting intelligence at 90% less than legacy platforms:\n\n"
+            f"We built SignalTender for capture teams and IT primes that want end-to-end RFP discovery, Price-to-Win modeling, and 1-click Shipley proposal compilation at 90% less than legacy platforms:\n\n"
             f"1. SignalWire Pro ($99/mo): Instant 6-hour Federal + 14-State SLED IT/Cyber contract alerts + USAspending Recompete & Subcontracting Wire delivered to your Discord, Slack, Teams, or CRM webhook.\n"
-            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, API #16 Price-to-Win models, API #21 Sources Sought shaping briefs, API #11 subcontracting pitches, CPARS Volume III citations, and 22 developer REST/MCP APIs."
+            f"2. CaptureDesk Autopilot ($399/mo): Full AI capture dossiers per RFP—including automated Shipley compliance matrices, API #16 Price-to-Win models, API #21 Sources Sought shaping briefs, API #11 subcontracting pitches, CPARS Volume III citations, and 22 developer REST/MCP APIs.\n"
+            f"3. Proposal Autopilot Enterprise ($1,499/mo): 1-click downloadable 3-Volume Shipley Proposal Package (.ZIP with Word .docx Technical/Past-Perf + live-formula Excel .xlsx CLIN pricing) & 13 CFR § 125.6 Teaming Matchmaker.\n"
+            f"4. Enterprise OEM & FOIA Rate Vault ($2,499/mo): Historical FOIA Winning-Bid LCAT Rate Vault + 50,000 REST/MCP API calls/mo."
         ),
         (
             f"{intel_block}"
-            f"If {clean_comp} wants to automate Prime bid discovery, 90-180d recompete shaping, and subcontracting without annual lock-ins, we offer two instant self-serve tiers:\n\n"
-            f"- SignalWire Pro ($99/mo): Live 16-portal Federal & SLED IT/Cyber RFP feed + Recompete & Subcontracting Wire via Discord, Slack, Teams, or custom webhook.\n"
-            f"- CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, Price-to-Win ceilings, Sources Sought briefs, CPARS past performance citations, and 13 CFR § 125.6 teaming calculators on every solicitation."
+            f"If {clean_comp} wants to automate Prime bid discovery, 90-180d recompete shaping, and 3-volume Shipley proposal drafting without annual lock-ins, we offer four instant self-serve tiers:\n\n"
+            f"- Tier 1 SignalWire Pro ($99/mo): Live 16-portal Federal & SLED IT/Cyber RFP feed + Recompete & Subcontracting Wire via Discord, Slack, Teams, or custom webhook.\n"
+            f"- Tier 2 CaptureDesk Autopilot ($399/mo): Automated AI proposal outlines, Section L/M compliance matrices, Price-to-Win ceilings, Sources Sought briefs, CPARS past performance citations, and 13 CFR § 125.6 teaming calculators.\n"
+            f"- Tier 3 Proposal Autopilot ($1,499/mo): 1-Click 3-Volume Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) & Verified Teaming Clearinghouse.\n"
+            f"- Tier 4 Enterprise OEM & FOIA Vault ($2,499/mo): Post-Award FOIA Incumbent Winning Labor Rate Vault + 50,000 REST/MCP API calls/mo."
         ),
     ]
     step2_closers = [
@@ -874,7 +880,9 @@ def build_two_step_outreach(
         f"{intel_block}"
         f"Instead of paying $15,000+/yr for legacy GovWin or HigherGov seats, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 14-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire routed to Discord, Slack, MS Teams, or Webhook.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 22 REST/MCP APIs (@signaltender/mcp-server).\n\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 22 REST/MCP APIs (@signaltender/mcp-server).\n"
+        f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click 3-Volume Shipley Proposal .ZIP Compiler (Word .docx + live-formula Excel .xlsx) & 13 CFR § 125.6 Teaming Exchange.\n"
+        f"• Tier 4 — Enterprise OEM & FOIA Vault ($2,499/mo): Post-Award FOIA Winning-Bid LCAT Rate Vault + 50,000 REST/MCP API calls/mo.\n\n"
         f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
         f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 22 AI APIs at:}}}}\n{clean_portal_url}\n\n"
         f"{{{{RANDOM | Or activate full 6-hour dispatches in 60 seconds here: | "
@@ -1029,36 +1037,41 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         pass
 
             if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" and existing_inst_ids:
+                from concurrent.futures import ThreadPoolExecutor
                 print(f"[*] Refreshing custom_variables on {len(existing_inst_ids)} existing Instantly.ai leads...", flush=True)
-                updated_ok = 0
-                for item in leads_payload:
-                    em_key = str(item.get("Email") or "").strip().lower()
+                def _patch_one_lead(item_row: dict) -> int:
+                    em_key = str(item_row.get("Email") or "").strip().lower()
                     lid = existing_inst_ids.get(em_key)
                     if not lid:
-                        continue
+                        return 0
                     patch_payload = {
-                        "first_name": item["First Name"],
-                        "company_name": clean_company_for_copy(item["Company"]),
+                        "first_name": item_row["First Name"],
+                        "company_name": clean_company_for_copy(item_row["Company"]),
                         "custom_variables": {
-                            "subject_line": item["Subject Line"],
-                            "email_body": item["Email Body"],
-                            "followup_subject": item.get("Followup Subject", ""),
-                            "followup_body": item.get("Followup Body", ""),
-                            "spintax_subject_1": item.get("Spintax Subject 1", ""),
-                            "spintax_body_1": item.get("Spintax Body 1", ""),
-                            "spintax_body_2": item.get("Spintax Body 2", ""),
-                            "matched_state": item.get("Matched State", ""),
-                            "top_dossier_url": item.get("Top Contract Dossier URL", ""),
+                            "subject_line": item_row["Subject Line"],
+                            "email_body": item_row["Email Body"],
+                            "followup_subject": item_row.get("Followup Subject", ""),
+                            "followup_body": item_row.get("Followup Body", ""),
+                            "spintax_subject_1": item_row.get("Spintax Subject 1", ""),
+                            "spintax_body_1": item_row.get("Spintax Body 1", ""),
+                            "spintax_body_2": item_row.get("Spintax Body 2", ""),
+                            "matched_state": item_row.get("Matched State", ""),
+                            "top_dossier_url": item_row.get("Top Contract Dossier URL", ""),
                         },
                     }
-                    r_patch = requests.patch(
-                        f"https://api.instantly.ai/api/v2/leads/{lid}",
-                        headers=inst_headers,
-                        json=patch_payload,
-                        timeout=12,
-                    )
-                    if 200 <= r_patch.status_code < 300:
-                        updated_ok += 1
+                    try:
+                        r_patch = requests.patch(
+                            f"https://api.instantly.ai/api/v2/leads/{lid}",
+                            headers=inst_headers,
+                            json=patch_payload,
+                            timeout=12,
+                        )
+                        return 1 if 200 <= r_patch.status_code < 300 else 0
+                    except Exception:
+                        return 0
+
+                with ThreadPoolExecutor(max_workers=10) as pool:
+                    updated_ok = sum(pool.map(_patch_one_lead, leads_payload))
                 print(f"[+] Updated {updated_ok}/{len(existing_inst_ids)} existing leads in Instantly.ai V2.", flush=True)
 
             new_leads_to_push = [

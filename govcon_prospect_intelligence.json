@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-10-25T07:53:28+00:00",
-  "total_verified_mx_contacts": 238,
-  "not_catchall_priority_tier_count": 238,
+  "updated_at": "2026-10-25T14:38:26+00:00",
+  "total_verified_mx_contacts": 241,
+  "not_catchall_priority_tier_count": 241,
   "catchall_secondary_tier_count": 0,
   "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 0,
-  "verified_usaspending_award_profiles_count": 152,
+  "added_website_harvested_govcon_contacts": 3,
+  "verified_usaspending_award_profiles_count": 153,
   "expiring_recompete_wire_count": 15,
   "fresh_prime_subcontract_wire_count": 12,
   "state_distribution": {
@@ -14,7 +14,7 @@
     "Florida": 11,
     "Georgia": 6,
     "Illinois": 4,
-    "Maryland": 40,
+    "Maryland": 43,
     "Massachusetts": 5,
     "New York": 10,
     "North Carolina": 13,
@@ -26,7 +26,7 @@
   },
   "usaspending_naics_541512_top_recipients": [
     {
-      "amount": 7336947484.93,
+      "amount": 7336650539.54,
       "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
       "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
       "code": "067641597",
@@ -34,7 +34,7 @@
       "total_outlays": null
     },
     {
-      "amount": 6927807854.07,
+      "amount": 6932546531.4,
       "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
       "name": "ACCENTURE FEDERAL SERVICES LLC",
       "code": "139727148",
@@ -90,7 +90,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2258230949.44,
+      "amount": 2259487563.94,
       "recipient_id": "dbceb126-f729-60e7-d55a-ba235f519653-C",
       "name": "THUNDERCAT TECHNOLOGY, LLC",
       "code": "809887164",
@@ -122,7 +122,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2026805934.04,
+      "amount": 2026834755.04,
       "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
       "name": "FCN, INC.",
       "code": "615378007",
@@ -130,7 +130,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2023764281.47,
+      "amount": 2023917896.99,
       "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
       "name": "CGI FEDERAL INC.",
       "code": "145969783",
@@ -2618,6 +2618,22 @@
       "is_active": true,
       "description": "ENTERPRISE SERVICE DELIVERY III (ESD III)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_SP470924F0096_9700_SP470917D0042_9700"
+    },
+    "ENTERPRISERESOURCEPLANNING": {
+      "company_name": "Enterprise Resource Planning",
+      "matched_recipient_name": "ENTERPRISE RESOURCE PLANNING INTERNATIONAL, LLC",
+      "award_id": "75FCMC19F0001",
+      "award_amount": 40754102.32,
+      "award_amount_fmt": "$40.8M",
+      "award_amount_clean": "USD 40.8M",
+      "awarding_agency": "Department of Health and Human Services",
+      "awarding_sub_agency": "Centers for Medicare & Medicaid Services (CMS)",
+      "awarding_sub_agency_short": "HHS CMS",
+      "start_date": "2019-09-13",
+      "end_date": "2024-09-12",
+      "is_active": false,
+      "description": "ENTERPRISE ARCHITECTURE SUPPORT SERVICES",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75FCMC19F0001_7530_HHSM500201600065I_7530"
     }
   },
   "expiring_recompete_wire": [

@@ -137,9 +137,11 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 22 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
-        f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
+        f"When your team is ready for automated 6-hour dispatches, un-blurred portal links, or 1-click 3-volume Shipley proposal compilation, we have four instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 16-portal Federal & State SLED IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
-        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
+        f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n"
+        f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Teaming Clearinghouse.\n"
+        f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n\n"
         f"Activate instant access anytime here:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"
@@ -182,7 +184,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
             f"agency, due date, Recompete Radar, or Prime-to-Sub Teaming item from the Original Email Sent above) and gives them:\n"
             f"  1) Their exact Solicitation #1 Capture Dossier link ({top_dossier_url}) + the full directory ({SITE_BASE_URL}/contracts)\n"
             f"  2) The Free Explorer Account sign-up link ({SITE_BASE_URL}/#signup — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
-            f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo) and Tier 2 CaptureDesk Autopilot ($399/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
+            f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo), Tier 2 CaptureDesk Autopilot ($399/mo), Tier 3 Proposal Autopilot .ZIP Compiler ($1,499/mo), and Tier 4 Enterprise OEM & FOIA Rate Vault ($2,499/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
             f"Zero emojis, zero markdown bold (**). Output strictly valid JSON."
         )
         resp = client.messages.create(
