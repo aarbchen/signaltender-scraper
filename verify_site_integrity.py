@@ -131,6 +131,7 @@ def check_html_file(fpath: str) -> str:
             "#contracts/new_york",
             "#contracts/massachusetts",
             "#contracts/new_jersey",
+            "#contracts/washington",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -326,6 +327,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "new_york": "NY",
         "massachusetts": "MA",
         "new_jersey": "NJ",
+        "washington": "WA",
     }
     for sk in state_keys:
         abbr = state_abbrev_map.get(sk, sk[:2].upper())
@@ -617,6 +619,7 @@ window.selectInteractiveDossier('north_carolina');
 window.selectInteractiveDossier('new_york');
 window.selectInteractiveDossier('massachusetts');
 window.selectInteractiveDossier('new_jersey');
+window.selectInteractiveDossier('washington');
 window.selectInteractiveDossier('federal');
 if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
   throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');

@@ -60,6 +60,7 @@ SCRAPER_MODULES = [
     "ny_scraper",
     "ma_scraper",
     "nj_scraper",
+    "wa_scraper",
 ]
 
 ALL_MONITORED_FILES = [
@@ -78,6 +79,7 @@ ALL_MONITORED_FILES = [
     "ny_scraper.py",
     "ma_scraper.py",
     "nj_scraper.py",
+    "wa_scraper.py",
     "pseo_generator.py",
     "capturedesk_autopilot.py",
     "client_delivery.py",
@@ -158,7 +160,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     import py_compile
     issues: list[str] = []
 
-    # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas
+    # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas in-memory (zero .pyc disk lock collisions)
     for repo_root in (pathlib.Path(r"D:\Data API Ecosystem"), BASE_DIR):
         if not repo_root.exists():
             continue
@@ -167,9 +169,11 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             if any(skip in s_path for skip in ("daas_env", "venv", ".venv", "__pycache__", ".git")):
                 continue
             try:
-                py_compile.compile(s_path, doraise=True)
-            except Exception as comp_err:
+                compile(py_file.read_text(encoding="utf-8", errors="replace"), s_path, "exec")
+            except SyntaxError as comp_err:
                 issues.append(f"Python syntax/compilation error in {s_path}: {comp_err}")
+            except Exception:
+                pass
 
     # 0b. Verify live Render deployment health & critical router endpoints on b2b-contract-parser-api
     try:

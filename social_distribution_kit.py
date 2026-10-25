@@ -82,7 +82,7 @@ def generate_distribution_kit() -> str:
 
 **Generated:** `{now_str}`
 **Live Indexed Solicitations:** `{len(contracts)} Open IT & Cybersecurity RFPs across 14 Government Portals`
-**Platform Lock:** `15 Portals (Federal + 13 State SLED) & 20 B2B/GovCon AI Capture APIs`
+**Platform Lock:** `16 Portals (Federal + 14 State SLED) & 20 B2B/GovCon AI Capture APIs`
 
 ---
 
@@ -94,7 +94,7 @@ Post 1 per day on LinkedIn leading up to the October 31 outbound domain warmup c
 ```text
 Most Small Business IT & cybersecurity primes spend 90% of their BD hours fighting 150 contractors on SAM.gov while State SLED portals sit wide open with 3–5 bidders.
 
-Here are 3 live State SLED & Municipal IT/Cybersecurity solicitations our 15-portal engine shredded this morning (with pre-computed Shipley Section L/M matrices, 13 CFR 125.6 workshare caps, and IGCE Price-to-Win targets):
+Here are 3 live State SLED & Municipal IT/Cybersecurity solicitations our 16-portal engine shredded this morning (with pre-computed Shipley Section L/M matrices, 13 CFR 125.6 workshare caps, and IGCE Price-to-Win targets):
 
 {east_coast_bullets}
 
@@ -102,7 +102,7 @@ Why SLED capture teams miss these:
 1. State portals (VA eVA, MD eMMA, TX ESBD) bury IT/cyber RFPs under 99% janitorial, road-salt, and hardware renewal noise.
 2. Reading a 90-page state PDF just to check mandatory certs or LCAT rate ceilings takes 4+ hours per bid.
 
-We built SignalTender to monitor all 14 Federal, Municipal, and 13-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 20-engine CaptureDesk dossier.
+We built SignalTender to monitor all 16 Federal, Municipal, and 14-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 20-engine CaptureDesk dossier.
 
 Unlock 3 live pre-shredded RFP dossiers for your state free (zero credit card):
 https://signaltender.net/#inbound-lead-capture-box
@@ -121,7 +121,7 @@ Every dossier includes:
 - FAR/DFARS/CMMC 2.0 & NIST 800-53 Rev 5 RMF/cATO posture
 - GSA MAS Large Category F SIN (54151S / 54151HACS / 518210C) & P50 LCAT rate benchmarks
 
-Browse all {len(contracts)}+ open Federal & 13-State SLED IT contracts live:
+Browse all {len(contracts)}+ open Federal & 14-State SLED IT contracts live:
 https://signaltender.net/contracts/
 ```
 
@@ -134,7 +134,7 @@ If your BD team only checks SAM.gov on Monday mornings, you are missing high-mar
 {ca_fl_bullets}
 
 Instead of paying $18,000+/yr for legacy GovCon seats that still force your capture manager to manually read every PDF, SignalTender delivers:
-- Tier 1 ($99/mo): Real-time 15-portal de-noised IT & Cyber RFP wire in Discord, Slack, Teams, or CRM.
+- Tier 1 ($99/mo): Real-time 16-portal de-noised IT & Cyber RFP wire in Discord, Slack, Teams, or CRM.
 - Tier 2 ($399/mo): Full 20-engine AI CaptureDesk dossiers (Shipley matrix, IGCE PTW, CPARS Vol III, Orals Murder-Board, FAR 15.506 Debriefing/Protest, and GSA MAS SIN mapping).
 
 Compare live #tier1-gov-leads vs #capturedesk-autopilot dispatches:
@@ -155,7 +155,7 @@ Run any live RFP through our interactive 21-API Capture Studio in your browser:
 https://signaltender.net/apis.html
 ```
 
-### LinkedIn Post #5 — For AI Engineers & GovCon CTOs: 21 GovCon MCP Tools in Claude Desktop & Cursor
+### LinkedIn Post #5 — For AI Engineers & GovCon CTOs: 22 GovCon MCP Tools in Claude Desktop & Cursor
 ```text
 For GovCon CTOs and capture engineers building internal AI proposal workflows in Claude Desktop, Cursor, or Windsurf:
 
@@ -165,7 +165,7 @@ With a single command:
 `npx -y @signaltender/mcp-server`
 
 Your AI agent gets 20 deterministic, typed GovCon tools:
-- Live 15-portal Federal & 13-State SLED open RFP feed
+- Live 16-portal Federal & 14-State SLED open RFP feed
 - Shipley Section L/M compliance matrix shredder
 - IGCE Wrap-Rate & Price-to-Win (PTW) modeler
 - NIST 800-53 Rev 5 RMF / Continuous ATO (cATO) SSP & eMASS POA&M generator
@@ -182,7 +182,7 @@ https://signaltender.net/apis.html
 ## Part 2: 4 High-Signal Reddit & Community Threads
 
 ### 1. `r/govcontracting` — State SLED vs. SAM.gov Capture Playbook
-- **Title:** `We indexed {len(contracts)} open IT & cybersecurity RFPs across SAM.gov + 13 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) — here is where competition is lowest right now`
+- **Title:** `We indexed {len(contracts)} open IT & cybersecurity RFPs across SAM.gov + 14 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) — here is where competition is lowest right now`
 - **Body:**
 ```markdown
 Over the past few months we built an automated scraper + Shipley capture parser across 14 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, and MA COMMBUYS).
@@ -196,7 +196,7 @@ Three data points that stood out after filtering out 99.4% of non-IT commodity n
 Here are a few live open solicitations from today's run with full pre-computed capture dossiers (no login wall):
 {east_coast_bullets}
 
-Full searchable directory of all {len(contracts)} open Federal & 13-State SLED IT contracts:
+Full searchable directory of all {len(contracts)} open Federal & 14-State SLED IT contracts:
 https://signaltender.net/contracts/
 ```
 
@@ -214,7 +214,7 @@ https://signaltender.net/contracts/
 ```
 
 ### 3. `r/cybersecurity` — NIST 800-53 Rev 5 RMF, CMMC 2.0 & State Cyber Solicitations
-- **Title:** `Breakdown of live Federal & 13-State SLED Cybersecurity RFPs (Zero-Trust, Penetration Testing, SOC/MDR, RMF Continuous ATO)`
+- **Title:** `Breakdown of live Federal & 14-State SLED Cybersecurity RFPs (Zero-Trust, Penetration Testing, SOC/MDR, RMF Continuous ATO)`
 - **Body:**
 ```markdown
 For security consultancies, vCISO practices, and pen-testing firms tracking public-sector demand, we aggregated all currently open cybersecurity solicitations across SAM.gov and 12 state procurement portals:
@@ -225,14 +225,14 @@ Each dossier maps the mandatory compliance framework (CMMC 2.0 Level 2, NIST 800
 https://signaltender.net/contracts/cybersecurity/
 ```
 
-### 4. `r/mcp` / `r/ClaudeAI` — 21-Tool GovCon & B2B Contract Intelligence MCP Server
+### 4. `r/mcp` / `r/ClaudeAI` — 22-Tool GovCon & B2B Contract Intelligence MCP Server
 - **Title:** `Built a 20-tool Model Context Protocol (MCP) server for Government Contracting, RFP Shredding, IGCE Price-to-Win & RMF/ATO Compliance`
 - **Body:**
 ```markdown
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
-It exposes 21 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 15 Federal & State SLED portals)
+It exposes 22 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
+- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 16 Federal & State SLED portals)
 - `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
 - `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
 - `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
@@ -265,7 +265,7 @@ I went ahead and pulled 2 additional open {{State}} & Federal IT/Cyber solicitat
 
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#inbound-lead-capture-box
 
-If you want our 6-hour automated wire pushing every new {{State}} + 15-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo) or Tier 2 CaptureDesk ($399/mo) in 60 seconds here:
+If you want our 6-hour automated wire pushing every new {{State}} + 16-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo) or Tier 2 CaptureDesk ($399/mo) in 60 seconds here:
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#checkout
 
 Happy to drop a live test dossier into your Slack or Teams webhook today if helpful.
@@ -282,7 +282,7 @@ Hi {{FirstName}},
 Noticed someone at {{Company}} was looking at the SignalTender Tier 1 ($99/mo) vs. Tier 2 CaptureDesk ($399/mo) plans.
 
 Quick rule of thumb for {{State}} capture teams:
-- Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 15-portal alert feed + direct source bid links in Discord, Slack, or Teams.
+- Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 16-portal alert feed + direct source bid links in Discord, Slack, or Teams.
 - Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 20 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, and 13 CFR 125.6 workshare math).
 
 Both plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:

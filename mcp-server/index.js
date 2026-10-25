@@ -42,7 +42,8 @@ const RAPIDAPI_HOSTS = {
   generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
   analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
   generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
-  generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com"
+  generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -254,7 +255,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 15-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 16-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -282,9 +283,10 @@ const TOOLS = [
             "new_york",
             "massachusetts",
             "new_jersey",
+            "washington",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1617,6 +1619,92 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_oci_mitigation_plan",
+    "title": "Audit FAR Subpart 9.5 Organizational Conflicts of Interest (OCI) & Generate Mitigation Plan",
+    "description": "Audit existing prime/subcontract awards (SETA, A&AS, IV&V, Systems Engineering, Cloud Architecture) against a target solicitation scope to detect Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity under FAR Subpart 9.5 (FAR 9.505-1 through 9.505-4) and generate an OCI Risk Score (0-100), a 3-Pillar Case-Law Audit Matrix, an Organizational Firewall & NDA Control Matrix, and a ready-to-submit OCI Disclosure & Mitigation Plan volume. This is a read-only, stateless, non-destructive compliance and legal-engineering generator (requires X-RapidAPI-Key; `new_solicitation_scope_and_oci_clauses` accepts 20 to 45,000 characters and `existing_contracts_and_corporate_relationships` accepts 20 to 35,000 characters). Use this tool when auditing FAR 9.5 / DFARS 252.209-7008 / 252.209-7009 Organizational Conflicts of Interest or drafting an OCI Mitigation Plan & Non-Disclosure Firewall; use `scan_far_dfars_clauses` instead for general Section I FAR/DFARS flow-down clause scanning, or `generate_teaming_strategy` to structure 13 CFR 125.6 Prime/Sub workshare splits.",
+    "annotations": {
+      "title": "Audit FAR Subpart 9.5 Organizational Conflicts of Interest (OCI) & Generate Mitigation Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "new_solicitation_scope_and_oci_clauses": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Target RFP/Task Order PWS/SOW scope, Section H/I/L Organizational Conflict of Interest (OCI) clauses (FAR 9.5, DFARS 252.209-7008/7009, agency OCI provisions), and evaluation roles (20 to 45,000 characters)."
+        },
+        "existing_contracts_and_corporate_relationships": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 35000,
+          "description": "Current or recent Prime/Subcontract awards (SETA, A&AS, IV&V, Systems Engineering, Cloud/Cyber Operations), affiliate/parent corporate structure, and agency access held by the bidder or its teammates (20 to 35,000 characters)."
+        },
+        "proposed_mitigation_posture": {
+          "type": "string",
+          "enum": [
+            "Firewall_and_Subcontractor_Carveout",
+            "Divestiture_or_Recusal_Protocol",
+            "Affirmative_No_OCI_Certification",
+            "Auto_Recommend"
+          ],
+          "default": "Auto_Recommend",
+          "description": "Preferred OCI mitigation posture: 'Firewall_and_Subcontractor_Carveout' (firewalled enclave + independent subcontractor evaluation carve-out), 'Divestiture_or_Recusal_Protocol' (formal recusal from conflicting task orders), 'Affirmative_No_OCI_Certification' (formal no-OCI representation), or 'Auto_Recommend' (default)."
+        }
+      },
+      "required": [
+        "new_solicitation_scope_and_oci_clauses",
+        "existing_contracts_and_corporate_relationships"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "oci_overall_risk_score": {
+          "type": "integer",
+          "description": "Quantitative FAR Subpart 9.5 OCI risk score from 0 (no OCI) to 100 (unmitigable OCI)."
+        },
+        "overall_oci_determination": {
+          "type": "string",
+          "description": "Formal OCI determination (NO_OCI_DETECTED, MITIGABLE_VIA_FIREWALL_AND_RECUSAL, SUBCONTRACTOR_CARVEOUT_REQUIRED, HIGH_RISK_WAIVER_OR_DIVESTITURE)."
+        },
+        "executive_oci_summary": {
+          "type": "string",
+          "description": "Executive summary of the FAR Subpart 9.5 audit and mitigation strategy for the Contracting Officer."
+        },
+        "three_pillar_far_9_5_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "3-Pillar audit across Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity with GAO/COFC precedents."
+        },
+        "firewall_and_compliance_controls": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Physical, logical, personnel, NDA, and subcontractor carve-out controls."
+        },
+        "contracting_officer_disclosure_checklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Pre-submission OCI disclosure & representation checklist items."
+        },
+        "ready_to_submit_oci_mitigation_plan_narrative": {
+          "type": "string",
+          "description": "Complete, paste-ready OCI Disclosure & Mitigation Plan volume in Markdown."
+        }
+      }
+    }
   }
 ];
 
@@ -1641,7 +1729,8 @@ const ENDPOINT_MAP = {
   generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" },
   analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" },
   generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" },
-  generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" }
+  generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" },
+  generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1747,7 +1836,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.7.0"
+            version: "1.8.0"
           }
         }
       });

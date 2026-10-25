@@ -219,3 +219,15 @@ ReferenceError: CATALOG is not defined
     at Module._load (node:internal/modules/cjs/loader:1448:12)
     at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
     at Module
+
+=== ARCHIVED & RESOLVED AT 2026-10-24 19:56:45 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s)) ===
+[2026-10-24 19:47:31 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: client_delivery.py: Found stale customer-facing count '14 Portals' (expected 15 portals / 13 states / 21 APIs). Update client_delivery.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-24 19:51:09 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: client_delivery.py: Found stale customer-facing count '14 government portals' (expected 15 portals / 13 states / 21 APIs). Update client_delivery.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-24 19:52:56 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: social_distribution_kit.py: Found stale customer-facing count '14 Federal &' (expected 15 portals / 13 states / 21 APIs). Update social_distribution_kit.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 00:16:15 UTC: Resolved Windows America/Chicago ZoneInfo fallback and installed tzdata ===
+[2026-10-25 00:07:17 UTC] [LOCAL] [windows_autopilot_guard.py] Watchdog exception: 'No time zone found with key America/Chicago'
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 08:02:39 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s)) ===
+[2026-10-25 07:53:20 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '15-Portal' (expected 16 portals / 14 states)
+[2026-10-25 07:57:35 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: client_delivery.py: Found stale customer-facing count '15 government portals' (expected 16 portals / 14 states / 22 APIs). Update client_delivery.py and regenerate campaign_leads.csv / outbox_ready_queue.json.

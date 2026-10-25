@@ -88,7 +88,7 @@ def is_daily_expansion_due() -> tuple[bool, str]:
         if last_date < today_str and now_local.hour >= 2:
             next_item = pending[0]
             day_num = next_item.get("day")
-            st_name = next_item.get("scraper", {}).get("state_name")
+            st_name = (next_item.get("portal") or next_item.get("scraper") or {}).get("state_name")
             api_num = next_item.get("api", {}).get("api_number")
             return (
                 True,

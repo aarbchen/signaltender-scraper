@@ -658,6 +658,11 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "socrata_json": "https://data.nj.gov/resource/w9se-dmra.json?$limit=25",
         "default_agency": "State of New Jersey (Treasury DPP / NJOIT)",
     },
+    "Washington SLED (WA WEBS / WaTech DES)": {
+        "portal_url": "https://des.wa.gov/sell/bid-opportunities",
+        "socrata_json": "https://data.wa.gov/resource/6c4w-r8b3.json?$limit=25",
+        "default_agency": "State of Washington (DES / WaTech)",
+    },
 }
 
 
@@ -854,6 +859,7 @@ async def run_master_orchestrator(
         _run_source("New York SLED (NYC CROL / PASSPort / PANYNJ)", "import ny_scraper", "ny_scraper.run_scraper(push_to_db=False)"),
         _run_source("Massachusetts SLED (COMMBUYS / Boston)", "import ma_scraper", "ma_scraper.run_scraper(push_to_db=False)"),
         _run_source("New Jersey SLED (NJSTART / Treasury DPP)", "import nj_scraper", "nj_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Washington SLED (WA WEBS / WaTech DES)", "import wa_scraper", "wa_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -873,6 +879,7 @@ async def run_master_orchestrator(
         "New York SLED (NYC CROL / PASSPort / PANYNJ)",
         "Massachusetts SLED (COMMBUYS / Boston)",
         "New Jersey SLED (NJSTART / Treasury DPP)",
+        "Washington SLED (WA WEBS / WaTech DES)",
     ]
     combined_records = []
 

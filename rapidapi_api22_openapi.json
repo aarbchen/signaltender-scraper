@@ -1,0 +1,73 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Audits existing Prime/Sub SETA, A&AS, IV&V, or Systems Engineering contracts against a new Federal or SLED solicitation under FAR Subpart 9.5 (9.505-1 through 9.505-4), DFARS 252.209-7008 / 252.209-7009, and GAO OCI case law across all 3 statutory OCI pillars (Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity), outputting a 3-pillar risk matrix, technical/organizational firewall controls, firewalled subcontractor workshare allocation, and a paste-ready OCI Disclosure & Mitigation Plan Volume."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/oci-mitigation-plan": {
+      "post": {
+        "summary": "Generate FAR Subpart 9.5 Organizational Conflict of Interest (OCI) Audit & Mitigation Plan",
+        "operationId": "Generate FAR Subpart 9.5 Organizational Conflict of Interest (OCI) Audit & Mitigation Plan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "new_solicitation_scope_and_oci_clauses",
+                  "existing_contracts_and_corporate_relationships"
+                ],
+                "properties": {
+                  "new_solicitation_scope_and_oci_clauses": {
+                    "type": "string",
+                    "description": "Target solicitation PWS/SOW scope, Section H/I/K/L OCI disclosure instructions, and applicable FAR Subpart 9.5 / DFARS 252.209-7008 / agency OCI clauses (min 20 chars).",
+                    "example": "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps & Ground C2 Integration). Section H.8 OCI Notice (FAR Subpart 9.5 / DFARS 252.209-7008 & 252.209-7009): Offerors performing Systems Engineering and Technical Assistance (SETA) or Advisory & Assistance Services (A&AS) across USSF SSC shall disclose all active contracts and submit a comprehensive Organizational Conflict of Interest (OCI) Mitigation Plan addressing Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity."
+                  },
+                  "existing_contracts_and_corporate_relationships": {
+                    "type": "string",
+                    "description": "Active or recent Prime/Sub awards, SETA/A&AS/IV&V support contracts, parent/affiliate relationships, and proposed teaming partners (min 20 chars).",
+                    "example": "Prime Offeror (Aegis Federal Cyber LLC) holds USSF SSC SETA Task Order FA8802-24-F-0091 in Division B (El Segundo, CA) providing enterprise architecture studies. Division A (Colorado Springs, CO) is bidding on FA8802-27-R-0014 with zero personnel overlap, separate Microsoft 365 GCC High / AWS GovCloud IL5 enclaves, and conflict-free subcontractor Vanguard Orbital Testing LLC assigned 100% of independent verification & validation (IV&V) tasks."
+                  },
+                  "proposed_mitigation_posture": {
+                    "type": "string",
+                    "enum": [
+                      "Auto_Recommend_Mitigation",
+                      "Information_Firewall_Only",
+                      "Subcontractor_Firewalled_Recusal",
+                      "Dual_Firewall_And_Subcontract_Recusal",
+                      "Pre_Bid_No_OCI_Certification"
+                    ],
+                    "default": "Auto_Recommend_Mitigation",
+                    "description": "Preferred FAR Subpart 9.5 OCI mitigation architecture."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful FAR Subpart 9.5 OCI 3-Pillar Audit, Firewall Controls & Mitigation Plan Volume",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

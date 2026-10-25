@@ -147,6 +147,14 @@ JURISDICTIONS = {
         "headline": "Open New Jersey State (NJSTART / Treasury DPP / OIT) & Transit IT Contracts",
         "description": "Live State of New Jersey NJSTART (Treasury Division of Purchase & Property, NJ OIT, NJOHSP Cyber, NJ TRANSIT, Judiciary, Rutgers) IT, cloud, cybersecurity, AI, and software solicitations.",
     },
+    "washington": {
+        "name": "Washington (WEBS & WaTech DES)",
+        "short": "Washington",
+        "portal": "WA WEBS, WaTech OCIO, DES & WSDOT",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open Washington State (WEBS / WaTech / DES) & Puget Sound IT Contracts",
+        "description": "Live State of Washington WEBS (Department of Enterprise Services, WaTech OCIO, HCA, WSDOT, DSHS, DOL, University of Washington) IT, cloud, cybersecurity, AI, and software solicitations.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -376,6 +384,17 @@ def classify_jurisdiction(rec: dict) -> str:
         or "rutgers.edu" in url
     ):
         return "new_jersey"
+    if (
+        "pr-webs-vendor.des.wa.gov" in url
+        or "des.wa.gov" in url
+        or "watech.wa.gov" in url
+        or "wsdot.wa.gov" in url
+        or "hca.wa.gov" in url
+        or "dshs.wa.gov" in url
+        or "dol.wa.gov" in url
+        or "wa.gov" in url
+    ):
+        return "washington"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -427,6 +446,16 @@ def classify_jurisdiction(rec: dict) -> str:
         or "rutgers" in agency
     ):
         return "new_jersey"
+    if (
+        title.startswith("[WA]")
+        or "washington state" in agency
+        or "state of washington" in agency
+        or "(wa)" in agency
+        or "watech" in agency
+        or "wa des" in agency
+        or "wsdot" in agency
+    ):
+        return "washington"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -559,7 +588,7 @@ def _render_layout(
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">15 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">16 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -581,7 +610,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 14-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
           <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-3 xl:px-4 py-2 rounded-lg text-xs xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
@@ -613,7 +642,7 @@ def _render_layout(
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="{root_prefix}contracts/index.html">Portal: All (15)</option>
+          <option value="{root_prefix}contracts/index.html">Portal: All (16)</option>
           <option value="{root_prefix}contracts/federal/index.html">Federal (SAM.gov)</option>
           <option value="{root_prefix}contracts/texas/index.html">Texas (ESBD)</option>
           <option value="{root_prefix}contracts/virginia/index.html">Virginia (eVA)</option>
@@ -628,6 +657,7 @@ def _render_layout(
           <option value="{root_prefix}contracts/new_york/index.html">New York (CROL)</option>
           <option value="{root_prefix}contracts/massachusetts/index.html">Massachusetts</option>
           <option value="{root_prefix}contracts/new_jersey/index.html">New Jersey</option>
+          <option value="{root_prefix}contracts/washington/index.html">Washington</option>
           <option value="{root_prefix}contracts/municipal/index.html">Municipal</option>
         </select>
         <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
@@ -646,6 +676,7 @@ def _render_layout(
           <a href="{root_prefix}contracts/new_york/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New York</a>
           <a href="{root_prefix}contracts/massachusetts/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Massachusetts</a>
           <a href="{root_prefix}contracts/new_jersey/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New Jersey</a>
+          <a href="{root_prefix}contracts/washington/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Washington</a>
           <a href="{root_prefix}contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
       </div>
@@ -663,7 +694,7 @@ def _render_layout(
               Prepared for Your Capture Team &mdash; Live Pre-Shredded IT &amp; Cybersecurity Dossier
             </div>
             <p class="text-xs text-slate-300">
-              All 15 Federal &amp; 13-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
+              All 16 Federal &amp; 14-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
@@ -709,7 +740,7 @@ def _render_layout(
               <div class="sm:col-span-3">
                 <label for="static-lead-state" class="sr-only">Target Portal</label>
                 <select id="static-lead-state" data-default-state="{default_state}" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">
-                  <option value="all">All 15 Portals (Fed + 13 States)</option>
+                  <option value="all">All 16 Portals (Fed + 14 States)</option>
                   <option value="federal">Federal (SAM.gov)</option>
                   <option value="virginia">Virginia (eVA)</option>
                   <option value="texas">Texas (SmartBuy ESBD)</option>
@@ -724,6 +755,7 @@ def _render_layout(
                   <option value="new_york">New York (NYC CROL &amp; PASSPort)</option>
                   <option value="massachusetts">Massachusetts (COMMBUYS &amp; Boston)</option>
                   <option value="new_jersey">New Jersey (NJSTART &amp; DPP)</option>
+                  <option value="washington">Washington (WEBS &amp; WaTech)</option>
                   <option value="municipal">Municipal (DemandStar)</option>
                 </select>
               </div>
@@ -1239,7 +1271,7 @@ def _render_layout(
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            {{ icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 15 portals operational', color: 'text-emerald-400', action: 'trust_status' }},
+            {{ icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 16 portals operational', color: 'text-emerald-400', action: 'trust_status' }},
             {{ icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' }},
             {{ icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' }},
             {{ icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' }},
@@ -1255,7 +1287,7 @@ def _render_layout(
               {{ icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' }},
               {{ icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' }},
               {{ icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' }},
-              {{ icon: 'sliders', id: 'account-alert-filters-card', label: '15-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' }},
+              {{ icon: 'sliders', id: 'account-alert-filters-card', label: '16-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' }},
               {{ icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' }},
               {{ icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' }},
               {{ icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' }},
@@ -1327,10 +1359,10 @@ def _render_layout(
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            {{ icon: 'pulse', id: 'overview', label: 'Hero & 15-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' }},
+            {{ icon: 'pulse', id: 'overview', label: 'Hero & 16-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' }},
             {{ icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' }},
             {{ icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' }},
-            {{ icon: 'table', id: 'contract-directory', label: '15-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' }},
+            {{ icon: 'table', id: 'contract-directory', label: '16-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' }},
             {{ icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' }},
             {{ icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }}
           ];
@@ -1466,7 +1498,7 @@ def _render_layout(
       if (statusEl) {{
         statusEl.classList.remove('hidden');
         statusEl.className = 'mt-3 text-xs font-mono text-sky-300';
-        statusEl.textContent = 'Querying live 15-portal CaptureDesk database & emailing your 3 dossiers...';
+        statusEl.textContent = 'Querying live 16-portal CaptureDesk database & emailing your 3 dossiers...';
       }}
       fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', {{
         method: 'POST',
@@ -2197,6 +2229,8 @@ def generate_pseo_site() -> int:
                 compliance_posture = "MA EOTSS Enterprise Security (IS.000 / NIST 800-53) • SOC 2 Type II • MA VPAT"
             elif j_key == "new_jersey":
                 compliance_posture = "NJ OIT Statewide Cyber Policy (NIST 800-53) • StateRAMP / SOC 2 Type II • NJ VPAT"
+            elif j_key == "washington":
+                compliance_posture = "WaTech OCIO Sec 141.10 (NIST 800-53) • StateRAMP / SOC 2 Type II • WA VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -2230,13 +2264,15 @@ def generate_pseo_site() -> int:
                 teaming_posture = "MA OSD SDP (1%–15% MBE/WBE/SDVOBE Commitment) • ITS78/ITS80 Eligible"
             elif j_key == "new_jersey":
                 teaming_posture = "NJ Treasury SBE Set-Aside (25% Goal) + DVOB (3%) • NJSTART M4002/T3121 Eligible"
+            elif j_key == "washington":
+                teaming_posture = "WA OMWBE Small/Veteran Goal (15%+ OMWBE + 5% WDVA) • WA DES Master Contract Eligible"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
                 teaming_posture = "Local SBE/MWBE Sub Plan • Prime ≥51% Core Scope"
 
             locality_delta = {
-                "federal": 8, "new_york": 10, "california": 9, "massachusetts": 7, "virginia": 6, "maryland": 6,
+                "federal": 8, "new_york": 10, "california": 9, "massachusetts": 7, "washington": 7, "virginia": 6, "maryland": 6,
                 "illinois": 3, "pennsylvania": 2, "texas": 1, "florida": 0, "ohio": -2, "georgia": 0, "north_carolina": -1, "municipal": -2,
             }.get(j_key, 0)
             id_jitter = (sum(ord(ch) for ch in rec_id) % 5) - 2
@@ -2461,7 +2497,7 @@ def generate_pseo_site() -> int:
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 13-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 14-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
@@ -2478,13 +2514,13 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">21 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">22 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 21 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 22 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
                   <a href="../../apis.html#product-sources-sought-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 21 APIs &amp; MCP Server &rarr;
+                    Explore 22 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -2706,7 +2742,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, and New Jersey.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, and Washington.
           </p>
         </div>
 
@@ -2771,7 +2807,7 @@ def generate_pseo_site() -> int:
 
         hub_html = _render_layout(
             page_title="Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender",
-            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) IT, software, cloud, and cybersecurity RFPs.",
+            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT, software, cloud, and cybersecurity RFPs.",
             canonical_path="contracts/index.html",
             body_html=hub_body,
             root_prefix="../",
@@ -2887,6 +2923,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/new_york" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-blue-300">New York</a>
               <a href="#contracts/massachusetts" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-pink-300">Massachusetts</a>
               <a href="#contracts/new_jersey" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">New Jersey</a>
+              <a href="#contracts/washington" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Washington</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -2950,7 +2987,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">15 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">16 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -2972,7 +3009,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 13-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 14-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <!-- Full-Width Organized Site Navigation Bar -->
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1.5 xl:gap-2 mx-2 xl:mx-6 p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
@@ -3012,7 +3049,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="mobile-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="mobile-contracts-portal-select" onchange="if(this.value) window.location.hash=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="#contracts">Portal: All (15)</option>
+          <option value="#contracts">Portal: All (16)</option>
           <option value="#contracts/federal">Federal (SAM.gov)</option>
           <option value="#contracts/texas">Texas (ESBD)</option>
           <option value="#contracts/virginia">Virginia (eVA)</option>
@@ -3027,6 +3064,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <option value="#contracts/new_york">New York (CROL)</option>
           <option value="#contracts/massachusetts">Massachusetts</option>
           <option value="#contracts/new_jersey">New Jersey</option>
+          <option value="#contracts/washington">Washington</option>
           <option value="#contracts/municipal">Municipal</option>
         </select>
         <nav aria-label="State and Portal Quick Jump" class="flex-1 flex items-center gap-3.5 overflow-x-auto whitespace-nowrap py-0.5 text-[11px] font-mono text-slate-300">
@@ -3045,6 +3083,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/new_york" class="shrink-0 hover:text-sky-400 transition-colors">New York</a>
           <a href="#contracts/massachusetts" class="shrink-0 hover:text-sky-400 transition-colors">Massachusetts</a>
           <a href="#contracts/new_jersey" class="shrink-0 hover:text-sky-400 transition-colors">New Jersey</a>
+          <a href="#contracts/washington" class="shrink-0 hover:text-sky-400 transition-colors">Washington</a>
           <a href="#contracts/municipal" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
       </div>
@@ -3071,7 +3110,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         var stVal = prefState || 'all';
         var stTitle = prefLabel ? ('Unlock 3 Live Pre-Shredded ' + esc(prefLabel) + ' IT/Cyber RFP Dossiers Free') : 'Unlock 3 Live Pre-Shredded IT &amp; Cyber RFP Dossiers Free';
         var opts = [
-          ['all', 'All 15 Portals (Fed + 13 States)'],
+          ['all', 'All 16 Portals (Fed + 14 States)'],
           ['federal', 'Federal (SAM.gov)'],
           ['virginia', 'Virginia (eVA)'],
           ['texas', 'Texas (SmartBuy ESBD)'],
@@ -3086,6 +3125,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           ['new_york', 'New York (NYC CROL & PASSPort)'],
           ['massachusetts', 'Massachusetts (COMMBUYS & Boston)'],
           ['new_jersey', 'New Jersey (NJSTART & DPP)'],
+          ['washington', 'Washington (WEBS & WaTech)'],
           ['municipal', 'Municipal (DemandStar)']
         ].map(function (pair) {{
           var selAttr = pair[0] === stVal ? ' selected' : '';
@@ -3176,7 +3216,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
       function renderRows(list) {{
         if (!list || !list.length) {{
-          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 15 portals.</td></tr>';
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 16 portals.</td></tr>';
         }}
         var isRowUnlocked = false;
         try {{
@@ -3427,7 +3467,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 13-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 14-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
@@ -3443,13 +3483,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">21 LIVE APIs &amp; MCP SERVER</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">22 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 21 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
+                    'Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 22 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
                   '<a href="#product-sources-sought-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 21 APIs &amp; MCP Server &rarr;' +
+                    'Explore 22 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
@@ -3543,7 +3583,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, and New Jersey.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, and Washington.' +
             '</p>' +
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +

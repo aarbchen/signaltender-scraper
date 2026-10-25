@@ -429,6 +429,29 @@ ENDPOINTS = [
             "target_set_aside_preference": "SDVOSB_Set_Aside",
         },
     },
+    {
+        "id": "API 22",
+        "name": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
+        "method": "POST",
+        "path": "/v1/generate/oci-mitigation-plan",
+        "rapid_host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+        "payload": {
+            "new_solicitation_scope_and_oci_clauses": (
+                "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps & Ground C2 Integration). "
+                "Section H.8 OCI Notice (FAR Subpart 9.5 / DFARS 252.209-7008 & 252.209-7009): Offerors performing "
+                "Systems Engineering and Technical Assistance (SETA) or Advisory & Assistance Services (A&AS) across USSF SSC "
+                "shall disclose all active contracts and submit a comprehensive Organizational Conflict of Interest (OCI) "
+                "Mitigation Plan addressing Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity."
+            ),
+            "existing_contracts_and_corporate_relationships": (
+                "Prime Offeror (Aegis Federal Cyber LLC) holds USSF SSC SETA Task Order FA8802-24-F-0091 in Division B "
+                "(El Segundo, CA) providing enterprise architecture studies. Division A (Colorado Springs, CO) is bidding on "
+                "FA8802-27-R-0014 with zero personnel overlap, separate Microsoft 365 GCC High / AWS GovCloud IL5 enclaves, "
+                "and conflict-free subcontractor Vanguard Orbital Testing LLC assigned 100% of IV&V tasks."
+            ),
+            "proposed_mitigation_posture": "Dual_Firewall_And_Subcontract_Recusal",
+        },
+    },
 ]
 
 

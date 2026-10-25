@@ -74,6 +74,7 @@ JURISDICTION_LABELS = {
     "north_carolina": "NORTH CAROLINA // NC eVP & METRO",
     "massachusetts": "MASSACHUSETTS // COMMBUYS & BOSTON",
     "new_jersey": "NEW JERSEY // NJSTART & TREASURY DPP",
+    "washington": "WASHINGTON // WEBS & WATECH DES",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -186,6 +187,17 @@ def classify_jurisdiction(record: dict) -> str:
         or "rutgers.edu" in url
     ):
         return "new_jersey"
+    if (
+        "pr-webs-vendor.des.wa.gov" in url
+        or "des.wa.gov" in url
+        or "watech.wa.gov" in url
+        or "wsdot.wa.gov" in url
+        or "hca.wa.gov" in url
+        or "dshs.wa.gov" in url
+        or "dol.wa.gov" in url
+        or "wa.gov" in url
+    ):
+        return "washington"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -237,6 +249,16 @@ def classify_jurisdiction(record: dict) -> str:
         or "rutgers" in agency
     ):
         return "new_jersey"
+    if (
+        title.startswith("[WA]")
+        or "washington state" in agency
+        or "state of washington" in agency
+        or "(wa)" in agency
+        or "watech" in agency
+        or "wa des" in agency
+        or "wsdot" in agency
+    ):
+        return "washington"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -514,6 +536,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "new_jersey":
         compliance_posture = "NJ OIT Statewide Information Security Manual (NIST 800-53) • StateRAMP / SOC 2 Type II • NJ Accessibility VPAT"
         teaming_posture = "NJ Treasury Small Business Set-Aside (SBE 25% Goal) + DVOB (3% Goal) + NJSTART M4002/T3121 Alignment + 3 SLED Refs"
+    elif j_key == "washington":
+        compliance_posture = "WaTech OCIO Sec 141.10 (NIST 800-53) • StateRAMP / SOC 2 Type II • WA OCIO 188 Accessibility VPAT"
+        teaming_posture = "WA OMWBE Small/Veteran Goal (15%+ OMWBE + 5% WDVA) + WA DES Master Contract Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
