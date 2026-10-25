@@ -7558,11 +7558,15 @@
         return true;
       };
 
-      window.switchCheckoutSectionTab = function (tabKey) {
-        var validTabs = { preview: true, roi: true, benchmark: true, faq: true, all: true };
+      window.switchCheckoutSectionTab = function (tabKey, scrollToBar) {
+        var validTabs = { preview: true, tier1: true, tier2: true, tier3: true, tier4: true, roi: true, benchmark: true, faq: true, all: true };
         var key = validTabs[tabKey] ? tabKey : 'preview';
         var secMap = {
           preview: ['checkout-live-feed-preview'],
+          tier1: ['checkout-live-feed-preview'],
+          tier2: ['checkout-live-feed-preview'],
+          tier3: ['checkout-live-feed-preview'],
+          tier4: ['checkout-live-feed-preview'],
           roi: ['capture-roi-calculator'],
           benchmark: ['checkout-benchmark-section', 'checkout-onboarding-strip'],
           faq: ['checkout-faq-section'],
@@ -7580,13 +7584,51 @@
             }
           }
         }
+        var subPanelMap = {
+          preview: ['checkout-panel-matrix'],
+          tier1: ['checkout-panel-tier1'],
+          tier2: ['checkout-panel-tier2'],
+          tier3: ['checkout-panel-tier3'],
+          tier4: ['checkout-panel-tier4'],
+          all: ['checkout-panel-matrix', 'checkout-panel-tier1', 'checkout-panel-tier2', 'checkout-panel-tier3', 'checkout-panel-tier4']
+        };
+        var allSubPanels = ['checkout-panel-matrix', 'checkout-panel-tier1', 'checkout-panel-tier2', 'checkout-panel-tier3', 'checkout-panel-tier4'];
+        var activeSubPanels = subPanelMap[key] || subPanelMap.preview;
+        for (var p = 0; p < allSubPanels.length; p++) {
+          var pEl = document.getElementById(allSubPanels[p]);
+          if (pEl) {
+            if (activeSubPanels.indexOf(allSubPanels[p]) !== -1) {
+              pEl.classList.remove('hidden');
+            } else {
+              pEl.classList.add('hidden');
+            }
+          }
+        }
         var btns = document.querySelectorAll('button[data-checkout-tab]');
         for (var j = 0; j < btns.length; j++) {
           var bKey = btns[j].getAttribute('data-checkout-tab');
           if (bKey === key) {
-            btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2.5 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else if (bKey === 'tier1') {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'tier2') {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'tier3') {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'tier4') {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer';
           } else {
             btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        if (scrollToBar) {
+          var barEl = document.getElementById('checkout-section-tabs-bar');
+          if (barEl && barEl.getBoundingClientRect) {
+            var docEl = document.documentElement;
+            docEl.style.scrollBehavior = 'auto';
+            var rect = barEl.getBoundingClientRect();
+            var currentY = window.pageYOffset || docEl.scrollTop || 0;
+            window.scrollTo(0, Math.max(0, Math.round(rect.top + currentY - 76)));
           }
         }
         return true;
