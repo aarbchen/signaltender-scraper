@@ -306,28 +306,64 @@
 
           <!-- Hero Subheadline -->
           <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-normal">
-            Raw portal scrapers just dump links. SignalTender monitors <span class="text-white font-medium">SAM.gov</span>, <span class="text-white font-medium">DemandStar</span>, and <span class="text-white font-medium">14 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA)</span> every 6 hours, strips 99.4% of commodity noise, and runs every solicitation through our <span class="text-indigo-300 font-semibold">AI Capture Engine</span>&mdash;delivering <span class="text-white font-medium">Bid/No-Bid Pwin scores, Section L/M Shipley compliance matrices, FAR/DFARS risk redlines, and historical CLIN labor-rate benchmarks</span> straight to Discord, Slack, Microsoft Teams, your CRM, or Email.
+            Raw portal scrapers just dump links. SignalTender monitors <span class="text-white font-medium">SAM.gov</span>, <span class="text-white font-medium">DemandStar</span>, and <span class="text-white font-medium">14 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA)</span> every 6 hours, strips 99.4% of commodity noise, runs every solicitation through our <span class="text-indigo-300 font-semibold">AI Capture Engine</span> (<span class="text-white font-medium">Bid/No-Bid Pwin scores, Section L/M Shipley compliance matrices, FAR/DFARS risk redlines, and historical CLIN labor-rate benchmarks</span>), and compiles <span class="text-emerald-300 font-semibold">complete 3-Volume Shipley Proposal Packages (.DOCX + .XLSX .ZIP)</span> backed by our <span class="text-amber-300 font-semibold">FOIA Winning-Bid Rate Vault &amp; 13 CFR &sect; 125.6 Teaming Clearinghouse</span>.
           </p>
 
           <!-- Primary Dual CTAs -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <!-- Primary Flagship CTA: On-Site Checkout ($99/mo) -->
+            <!-- Primary Flagship CTA: On-Site Checkout ($99/mo - $2,499/mo) -->
             <a
               href="#checkout"
               class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/40 shadow-xl shadow-sky-950/60 transition-all"
             >
-              <span>Start Live Capture Feed &mdash; From $99/mo</span>
+              <span>Compare All 4 Capture &amp; Proposal Tiers &mdash; From $99/mo</span>
               <svg class="ml-2.5 h-5 w-5 text-sky-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
 
-            <!-- Secondary CTA: See AI Capture Dossier Comparison -->
+            <!-- Secondary CTA: See 1-Click 3-Volume Proposal Compiler & FOIA Vault -->
             <a
-              href="#capture-moat"
-              class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-medium text-indigo-200 bg-indigo-950/50 hover:bg-indigo-900/60 rounded-lg border border-indigo-500/40 transition-colors"
+              href="#proposal-foia-moat"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 text-base font-medium text-emerald-200 bg-emerald-950/50 hover:bg-emerald-900/60 rounded-lg border border-emerald-500/40 transition-colors"
             >
-              <span>See Raw Portal vs. AI Dossier &darr;</span>
+              <span>1-Click 3-Volume Proposal .ZIP &amp; FOIA Vault &darr;</span>
+            </a>
+          </div>
+
+          <!-- 4-Tier Architecture Quick-Select Strip -->
+          <div id="hero-4tier-architecture-strip" class="pt-4 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left font-mono text-xs">
+            <a href="#checkout-tier1" class="p-3.5 rounded-xl bg-navy-900/80 hover:bg-navy-900 border border-sky-500/30 hover:border-sky-400 transition-all group">
+              <div class="flex items-center justify-between text-[10px] text-sky-400 font-bold uppercase">
+                <span>TIER 1 // SIGNALWIRE</span>
+                <span class="text-white font-extrabold">$99/mo</span>
+              </div>
+              <div class="mt-1 text-slate-200 font-semibold group-hover:text-sky-300">16-Portal Live RFP Wire</div>
+              <div class="mt-0.5 text-[11px] text-slate-400 font-sans">6-hr de-noised Federal &amp; 14-State SLED alerts</div>
+            </a>
+            <a href="#checkout-tier2" class="p-3.5 rounded-xl bg-navy-900/80 hover:bg-navy-900 border border-indigo-500/40 hover:border-indigo-400 transition-all group">
+              <div class="flex items-center justify-between text-[10px] text-indigo-300 font-bold uppercase">
+                <span>TIER 2 // CAPTUREDESK</span>
+                <span class="text-white font-extrabold">$399/mo</span>
+              </div>
+              <div class="mt-1 text-slate-200 font-semibold group-hover:text-indigo-200">21-API Capture Dossiers</div>
+              <div class="mt-0.5 text-[11px] text-slate-400 font-sans">Shipley Matrix, IGCE PTW, CMMC &amp; API Key</div>
+            </a>
+            <a href="#checkout-tier3" class="p-3.5 rounded-xl bg-navy-900/80 hover:bg-navy-900 border border-emerald-500/40 hover:border-emerald-400 transition-all group">
+              <div class="flex items-center justify-between text-[10px] text-emerald-300 font-bold uppercase">
+                <span>TIER 3 // PROPOSAL .ZIP</span>
+                <span class="text-white font-extrabold">$1,499/mo</span>
+              </div>
+              <div class="mt-1 text-slate-200 font-semibold group-hover:text-emerald-200">1-Click 3-Vol .DOCX/.XLSX</div>
+              <div class="mt-0.5 text-[11px] text-slate-400 font-sans">90-sec Shipley Proposal .ZIP + Teaming Slot</div>
+            </a>
+            <a href="#checkout-tier4" class="p-3.5 rounded-xl bg-navy-900/80 hover:bg-navy-900 border border-amber-500/40 hover:border-amber-400 transition-all group">
+              <div class="flex items-center justify-between text-[10px] text-amber-300 font-bold uppercase">
+                <span>TIER 4 // OEM &amp; FOIA</span>
+                <span class="text-white font-extrabold">$2,499/mo</span>
+              </div>
+              <div class="mt-1 text-slate-200 font-semibold group-hover:text-amber-200">50k API Calls + FOIA Vault</div>
+              <div class="mt-0.5 text-[11px] text-slate-400 font-sans">Incumbent winning rates &amp; B2B OEM license</div>
             </a>
           </div>
 
@@ -371,10 +407,10 @@
             <div class="mt-1 text-xs font-mono uppercase tracking-wider text-emerald-400">Price-to-Win Graph</div>
             <p class="mt-1 text-xs text-slate-400">Historical federal award labor rate benchmarks and incumbent contract intelligence.</p>
           </div>
-          <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800/70">
-            <div class="text-2xl sm:text-3xl font-bold font-mono text-white">1-Click Sync</div>
-            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-sky-400">CRM, Chat, Email &amp; MCP</div>
-            <p class="mt-1 text-xs text-slate-400">Push directly to Discord, Slack, MS Teams, CRM webhooks, Email, or MCP.</p>
+          <div class="p-5 rounded-xl bg-navy-900/60 border border-amber-500/30">
+            <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-300">3-Vol .ZIP</div>
+            <div class="mt-1 text-xs font-mono uppercase tracking-wider text-amber-400">Proposal &amp; FOIA Vault</div>
+            <p class="mt-1 text-xs text-slate-400">90-second .DOCX + .XLSX Shipley proposal compiler, 13 CFR &sect; 125.6 teaming &amp; FOIA rate vault.</p>
           </div>
         </div>
       </div>
@@ -483,6 +519,48 @@
                   class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border border-indigo-400/40 shadow-lg transition-all shrink-0"
                 >
                   <span>Launch CaptureDesk &rarr;</span>
+                </a>
+              </div>
+
+              <!-- Tier 3: Proposal Autopilot Enterprise ($1,499/mo | $14,900/yr) -->
+              <div class="p-4 rounded-xl bg-gradient-to-r from-navy-900 via-emerald-950/35 to-navy-900 border border-emerald-500/50 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-emerald-300 font-semibold">TIER 3 // PROPOSAL AUTOPILOT (3-VOL .DOCX/.XLSX .ZIP + TEAMING)</span>
+                    <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/20 text-emerald-200 border border-emerald-500/40">ANNUAL: $14,900/YR (SAVE $3,088)</span>
+                  </div>
+                  <div class="mt-1 flex items-baseline space-x-1.5">
+                    <span class="text-2xl font-extrabold text-white font-mono">$1,499</span>
+                    <span class="text-xs font-mono text-slate-300">/ month &bull; 1-Click 3-Volume Shipley .DOCX/.XLSX Compiler + 13 CFR &sect; 125.6 Teaming Exchange</span>
+                  </div>
+                </div>
+
+                <a
+                  href="#checkout-tier3"
+                  class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg border border-emerald-400/40 shadow-lg transition-all shrink-0"
+                >
+                  <span>Proposal Autopilot &rarr;</span>
+                </a>
+              </div>
+
+              <!-- Tier 4: Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo | $24,900/yr) -->
+              <div class="p-4 rounded-xl bg-gradient-to-r from-navy-900 via-amber-950/30 to-navy-900 border border-amber-500/50 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-mono uppercase tracking-wider text-amber-300 font-semibold">TIER 4 // ENTERPRISE OEM &amp; FOIA WINNING-BID VAULT</span>
+                    <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-amber-500/20 text-amber-200 border border-amber-500/40">ANNUAL: $24,900/YR (50K CALLS/MO)</span>
+                  </div>
+                  <div class="mt-1 flex items-baseline space-x-1.5">
+                    <span class="text-2xl font-extrabold text-white font-mono">$2,499</span>
+                    <span class="text-xs font-mono text-slate-300">/ month &bull; 50,000 OEM REST/MCP Calls + Statutory FOIA &amp; State PIA Winning-Bid Rate Vault</span>
+                  </div>
+                </div>
+
+                <a
+                  href="#checkout-tier4"
+                  class="inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-bold text-navy-950 bg-amber-400 hover:bg-amber-300 rounded-lg border border-amber-300 shadow-lg transition-all shrink-0"
+                >
+                  <span>Enterprise OEM &rarr;</span>
                 </a>
               </div>
             </div>
@@ -769,31 +847,39 @@
                   </div>
                 </div>
 
-                <!-- Included Tier 1 + Tier 2 Capability Summary Bar -->
-                <div class="pt-2 border-t border-slate-800/90 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
-                  <span><strong class="text-indigo-300">TIER 1 ($99/MO):</strong> All 16 Portals (<code class="text-slate-300">SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA</code>) + 6-Hr Alerts</span>
-                  <span><strong class="text-emerald-300">TIER 2 ($399/MO):</strong> Tier 1 + All 21 AI Capture Modules Above</span>
+                <!-- Included 4-Tier Capability Summary Bar -->
+                <div class="pt-2 border-t border-slate-800/90 grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[10px] text-slate-400">
+                  <span><strong class="text-sky-300">TIER 1 ($99/MO):</strong> All 16 Portals (<code class="text-slate-300">SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA</code>) + 6-Hr Alerts</span>
+                  <span><strong class="text-indigo-300">TIER 2 ($399/MO):</strong> Tier 1 + All 21 AI Capture Modules Above</span>
+                  <span><strong class="text-emerald-300">TIER 3 ($1,499/MO):</strong> Tier 2 + 1-Click 3-Volume Shipley <code class="text-slate-200">.DOCX/.XLSX .ZIP</code> Compiler &amp; Teaming Exchange</span>
+                  <span><strong class="text-amber-300">TIER 4 ($2,499/MO):</strong> Tier 3 + 50,000 OEM API Calls/Mo &amp; FOIA Winning-Bid Rate Vault</span>
                 </div>
               </div>
             </div>
 
             <div class="pt-4 border-t border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="text-xs font-mono text-indigo-200">
-                Delivered to <code class="text-white">#capturedesk-autopilot</code>, Slack, Teams, CRM &amp; Email
+                Delivered to <code class="text-white">#capturedesk-autopilot</code>, <code class="text-emerald-300">#proposal-autopilot-vip</code>, Slack, Teams, CRM &amp; Email
               </div>
-              <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
                 <a
                   id="demo-dossier-deep-link"
                   href="#contracts/federal"
-                  class="inline-flex items-center justify-center px-3.5 py-2.5 text-xs font-mono font-semibold text-sky-300 bg-navy-950 hover:bg-slate-800 rounded-lg border border-sky-500/30 transition-all"
+                  class="inline-flex items-center justify-center px-3 py-2 text-xs font-mono font-semibold text-sky-300 bg-navy-950 hover:bg-slate-800 rounded-lg border border-sky-500/30 transition-all"
                 >
                   View Portal Hub &rarr;
                 </a>
                 <a
                   href="#checkout-tier2"
-                  class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border border-indigo-400/40 shadow-lg transition-all"
+                  class="inline-flex items-center justify-center px-4 py-2 text-xs font-mono font-bold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border border-indigo-400/40 shadow-lg transition-all"
                 >
-                  Unlock CaptureDesk Dossiers ($399/mo) &rarr;
+                  Tier 2 Dossiers ($399/mo) &rarr;
+                </a>
+                <a
+                  href="#proposal-foia-moat"
+                  class="inline-flex items-center justify-center px-4 py-2 text-xs font-mono font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-lg border border-emerald-400/40 shadow-lg transition-all"
+                >
+                  Tier 3 &amp; 4 Proposal .ZIP &amp; FOIA &darr;
                 </a>
               </div>
             </div>
@@ -801,6 +887,161 @@
 
         </div>
 
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2C: TIER 3 & TIER 4 ENTERPRISE MOAT (1-CLICK 3-VOLUME PROPOSAL .ZIP, 13 CFR 125.6 TEAMING & FOIA VAULT)
+         =================================================================== -->
+    <section id="proposal-foia-moat" class="py-24 bg-gradient-to-b from-navy-950 via-emerald-950/15 to-navy-950 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- Section Header -->
+        <div class="max-w-4xl mx-auto text-center space-y-4">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-xs font-mono text-emerald-300">
+            <span>// TIER 3 ($1,499/MO) &amp; TIER 4 ($2,499/MO) &bull; FULL PROPOSAL COMPILER, TEAMING EXCHANGE &amp; FOIA RATE VAULT</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Go Beyond Lead Discovery: Compile the Complete 3-Volume Shipley Proposal in 90 Seconds
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Proposal writing consultants charge <span class="text-rose-300 font-semibold">$15,000&ndash;$35,000 per RFP</span> and take 3 weeks to assemble a zero-draft. SignalTender&apos;s <span class="text-emerald-300 font-semibold">Tier 3 Proposal Autopilot ($1,499/mo)</span> and <span class="text-amber-300 font-semibold">Tier 4 Enterprise OEM &amp; FOIA Vault ($2,499/mo)</span> chain our GovCon AI microservices together to generate a downloadable <code class="font-mono text-emerald-300">.ZIP</code> containing native Microsoft Word (<code class="font-mono text-white">.docx</code>) and live-formula Excel (<code class="font-mono text-white">.xlsx</code>) proposal volumes, verify <code class="font-mono text-amber-300">13 CFR &sect; 125.6</code> workshare compliance, and benchmark incumbent winning labor rates via statutory FOIA/PIA records.
+          </p>
+        </div>
+
+        <!-- 3-Pillar Enterprise Moat Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+          <!-- Pillar 1: Tier 3 1-Click 3-Volume Shipley Proposal Compiler (.ZIP) -->
+          <div class="rounded-2xl bg-navy-900/95 border-2 border-emerald-500/50 shadow-2xl p-6 sm:p-7 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-2 font-mono text-xs">
+                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">PILLAR 01 // TIER 3 ($1,499/MO)</span>
+                <span class="text-emerald-400 font-semibold">.DOCX + .XLSX .ZIP</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white">
+                1-Click Complete 3-Volume Shipley Proposal Compiler
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Click once on any open solicitation in the RFP directory or inside your Client Portal to orchestrate <code class="font-mono text-emerald-300">POST /v1/proposal-autopilot/compile-full-package</code> and download a ready-to-edit 4-file <code class="font-mono text-white">.ZIP</code> archive:
+              </p>
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 font-mono text-xs space-y-2.5 overflow-hidden">
+                <div class="flex items-start space-x-2 min-w-0">
+                  <span class="text-emerald-400 font-bold shrink-0">01.</span>
+                  <div class="min-w-0 break-words">
+                    <div class="text-white font-bold break-all">Volume_I_Technical_Management.docx</div>
+                    <div class="text-[11px] text-slate-400 break-words">Shipley Section L/M Compliance Matrix, Executive Summary, Win Themes, Technical Approach &amp; Tailored Key Personnel LCAT Resumes.</div>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-2 min-w-0">
+                  <span class="text-emerald-400 font-bold shrink-0">02.</span>
+                  <div class="min-w-0 break-words">
+                    <div class="text-white font-bold break-all">Volume_II_Cost_Price_Model.xlsx</div>
+                    <div class="text-[11px] text-slate-400 break-words">Multi-tab spreadsheet with live Excel <code class="text-emerald-300">=D6*E6</code>, <code class="text-emerald-300">=SUM()</code> &amp; <code class="text-emerald-300">-6% Challenger PTW</code> formulas + Indirect Wrap-Rate waterfall.</div>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-2 min-w-0">
+                  <span class="text-emerald-400 font-bold shrink-0">03.</span>
+                  <div class="min-w-0 break-words">
+                    <div class="text-white font-bold break-all">Volume_III_Past_Performance_Compliance.docx</div>
+                    <div class="text-[11px] text-slate-400 break-words">CPARS Relevancy Citations, 13 CFR &sect; 125.6 Workshare Split, NIST 800-53 / CMMC 2.0 SSP Summary &amp; FAR 9.5 OCI Firewall Plan.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-800 space-y-2.5">
+              <button
+                type="button"
+                id="btn-overview-demo-zip"
+                onclick="window.downloadOverviewSampleProposalZip()"
+                class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold border border-emerald-400/50 shadow-lg transition-all cursor-pointer"
+              >
+                Download Live Sample 3-Vol Proposal (.ZIP) &rarr;
+              </button>
+              <div id="overview-demo-zip-status" class="hidden text-[11px] font-mono text-emerald-300 text-center"></div>
+              <a href="#checkout-tier3" class="block text-center text-xs font-mono text-emerald-300 hover:text-emerald-200 font-semibold">
+                Explore Tier 3 Proposal Autopilot ($1,499/mo | $14,900/yr) &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Pillar 2: Two-Sided FAR 52.219-9 & 13 CFR 125.6 Teaming Clearinghouse -->
+          <div class="rounded-2xl bg-navy-900/95 border-2 border-indigo-500/50 shadow-2xl p-6 sm:p-7 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-2 font-mono text-xs">
+                <span class="px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold">PILLAR 02 // TIER 3 &amp; TIER 4</span>
+                <span class="text-indigo-300 font-semibold">13 CFR &sect; 125.6 VERIFIED</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white">
+                Two-Sided FAR 52.219-9 Prime-to-Sub Teaming Clearinghouse
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Every open RFP dossier in SignalTender features a live <strong class="text-white">1-Click Request Compliant Teaming Slot</strong> matchmaker powered by <code class="font-mono text-indigo-300">POST /v1/proposal-autopilot/teaming-clearinghouse</code>.
+              </p>
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 font-mono text-xs space-y-2.5">
+                <div class="text-indigo-300 font-bold">&check; Statutory 50% Limitation on Subcontracting Math</div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Automatically validates that the Prime + Subcontractor workshare split satisfies <code class="text-slate-200">13 CFR &sect; 125.6</code> (e.g., 55% Prime / 45% Similarly Situated Sub, zero ostensible subcontractor affiliation risk).
+                </p>
+                <div class="text-emerald-400 font-bold pt-1">&check; Auto-Generated Mutual NDA &amp; Teaming Term Sheet</div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Matches verified UEI / CAGE profiles across SDVOSB, 8(a), WOSB, HUBZone, and State MBE/SWaM/HUB socio-economic categories and generates the executable Teaming Agreement outline.
+                </p>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-800 space-y-2.5">
+              <a
+                href="#contracts"
+                class="w-full inline-flex items-center justify-center py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold border border-indigo-400/50 shadow-lg transition-all"
+              >
+                Request Teaming Slots on Live RFPs &rarr;
+              </a>
+              <a href="#account" class="block text-center text-xs font-mono text-indigo-300 hover:text-indigo-200 font-semibold">
+                Register Your UEI / CAGE Profile in Client Portal &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Pillar 3: Tier 4 Automated FOIA Winning-Bid Vault & 50k OEM License -->
+          <div class="rounded-2xl bg-navy-900/95 border-2 border-amber-500/50 shadow-2xl p-6 sm:p-7 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-2 font-mono text-xs">
+                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">PILLAR 03 // TIER 4 ($2,499/MO)</span>
+                <span class="text-amber-300 font-semibold">50K CALLS + FOIA VAULT</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white">
+                Post-Award FOIA Winning-Bid Vault &amp; B2B OEM Infrastructure
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Active RFP listings expire after 30&ndash;45 days, but winning pricing lives forever. SignalTender cross-links expired RFPs against federal and state checkbooks and dispatches statutory open-records requests (<code class="font-mono text-amber-300">5 U.S.C. &sect; 552, TX PIA, CA CPRA, VA FOIA, NY FOIL</code>) to build an irreplaceable vault of awarded LCAT rates.
+              </p>
+              <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 font-mono text-xs space-y-2">
+                <div class="flex items-center justify-between text-[11px] border-b border-slate-800 pb-1.5">
+                  <span class="text-amber-300 font-bold">FOIA VAULT // INCUMBENT BENCHMARK</span>
+                  <span class="text-emerald-400">VERIFIED AWARD</span>
+                </div>
+                <div class="text-[11px] text-slate-300 space-y-1">
+                  <div><strong class="text-white">Texas DIR Cloud &amp; Zero-Trust SOC:</strong> Awarded $4.85M (SAIC / Sovereign Cyber)</div>
+                  <div>&bull; <span class="text-slate-400">Zero-Trust Architect:</span> <span class="text-emerald-400 font-bold">$192.50/hr</span> <span class="text-amber-300">(PTW Target: $180.95/hr)</span></div>
+                  <div>&bull; <span class="text-slate-400">Lead DevSecOps Eng:</span> <span class="text-emerald-400 font-bold">$168.00/hr</span> <span class="text-amber-300">(PTW Target: $157.92/hr)</span></div>
+                  <div>&bull; <span class="text-slate-400">OEM Quota Included:</span> <strong class="text-white">50,000 REST &amp; MCP Calls / Mo</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-800 space-y-2.5">
+              <a
+                href="#checkout-tier4"
+                class="w-full inline-flex items-center justify-center py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-mono text-xs font-bold border border-amber-300 shadow-lg transition-all"
+              >
+                Launch Tier 4 OEM &amp; FOIA License ($2,499/mo) &rarr;
+              </a>
+              <a href="#apis" class="block text-center text-xs font-mono text-amber-300 hover:text-amber-200 font-semibold">
+                Explore 22 Deterministic GovCon APIs &amp; MCP Server &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -1358,7 +1599,7 @@
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-purple-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
-              Explore All 0 Live IT &amp; Cyber Solicitations &rarr;
+              Explore All 160 Live IT &amp; Cyber Solicitations &rarr;
             </a>
           </div>
           <!-- PSEO_HUB_BAR_END -->
@@ -8257,15 +8498,21 @@
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
-                    '<li>&check; Direct One-Click Official Portal Links</li>' +
-                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
-                    '<li class="text-emerald-300">&check; FAR 31.205-18 Allowable B&amp;P P-Card Receipt</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo) 21-API Auto-Dossiers</li>' +
+                    '<li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>' +
+                    '<li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>' +
                   '</ul>' +
-                  '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
+                  '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
                     'Start Tier 1 Leads ($99/mo) &rarr;' +
                   '</a>' +
                   '<a href="#checkout-tier2" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">' +
                     'Launch Tier 2 CaptureDesk ($399/mo) &rarr;' +
+                  '</a>' +
+                  '<a href="#checkout-tier3" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-emerald-200 bg-emerald-600/25 hover:bg-emerald-600/45 border border-emerald-500/40 rounded-lg transition-all">' +
+                    'Start Tier 3 Proposal .ZIP ($1,499/mo) &rarr;' +
+                  '</a>' +
+                  '<a href="#checkout-tier4" class="w-full inline-flex items-center justify-center px-5 py-2 text-[11px] font-mono font-semibold text-amber-200 bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 rounded-lg transition-all">' +
+                    'Tier 4 OEM &amp; FOIA Vault ($2,499/mo) &rarr;' +
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
@@ -8597,8 +8844,8 @@
                     <div class="text-slate-300"><strong>Section I &mdash; 16-Portal Live RFP Alert Wire:</strong> Native Slack <code class="font-mono text-sky-300">mrkdwn</code>, MS Teams Markdown cards, or structured CRM JSON (<code class="font-mono text-sky-300">section_1_live_wire_contracts</code>) with buyer agency, due date, and un-blurred official portal URL.</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-navy-950/90 border border-indigo-500/40">
-                    <div class="font-mono font-bold text-indigo-300 mb-1">TIER 2 ($399/MO) // UNIFIED SINGLE DISPATCH</div>
-                    <div class="text-slate-300"><strong>Both Combined in 1 Payload:</strong> <strong>Section I:</strong> 21-API CaptureDesk Executive Dossiers (<code class="font-mono text-indigo-300">section_1_capturedesk_dossiers</code>: IGCE/Wrap/PTW, CMMC/RMF, Key LCATs, Teaming &amp; Win Themes) <strong>+ Section II:</strong> Complete 16-Portal Live Wire (<code class="font-mono text-indigo-300">section_2_live_wire_contracts</code>).</div>
+                    <div class="font-mono font-bold text-indigo-300 mb-1">TIER 2 ($399) &bull; TIER 3 ($1,499) &bull; TIER 4 ($2,499) // UNIFIED DISPATCH</div>
+                    <div class="text-slate-300"><strong>Combined Payload:</strong> <strong>Section I:</strong> 21-API CaptureDesk Executive Dossiers (<code class="font-mono text-indigo-300">section_1_capturedesk_dossiers</code>) <strong>+ Section II:</strong> 16-Portal Live Wire (<code class="font-mono text-indigo-300">section_2_live_wire_contracts</code>) <strong>+ Tier 3/4:</strong> 1-Click 3-Volume Proposal <code class="font-mono text-emerald-300">.ZIP</code> &amp; FOIA Rate Vault events.</div>
                   </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -8628,7 +8875,9 @@
                     aria-label="Target Plan Tier"
                     class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-200"
                   >
-                    <option value="tier_2">Tier 2 // CaptureDesk ($399/mo)</option>
+                    <option value="tier_4">Tier 4 // Enterprise OEM &amp; FOIA ($2,499/mo)</option>
+                    <option value="tier_3">Tier 3 // Proposal Autopilot ($1,499/mo)</option>
+                    <option value="tier_2" selected>Tier 2 // CaptureDesk ($399/mo)</option>
                     <option value="tier_1">Tier 1 // SignalWire ($99/mo)</option>
                   </select>
                 </div>
@@ -8667,8 +8916,8 @@
                     <div class="text-slate-300"><strong>Section I &mdash; 16-Portal Live RFP Alert Wire:</strong> Numbered executive digest of every newly discovered IT, Cloud &amp; Cyber RFP across all 16 Federal, Municipal &amp; 14-State SLED portals with buyer agency, due date, and un-blurred official portal URL.</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-navy-950/90 border border-indigo-500/40">
-                    <div class="font-mono font-bold text-indigo-300 mb-1">TIER 2 ($399/MO) // UNIFIED CAPTURE BRIEFING</div>
-                    <div class="text-slate-300"><strong>Combined in 1 Email:</strong> <strong>Section I:</strong> 21-API CaptureDesk Executive Dossiers (IGCE/Wrap/PTW, CMMC/RMF, Key LCATs, Teaming &amp; Shipley Win Themes) <strong>+ Section II:</strong> Complete 16-Portal Live RFP Alert Wire.</div>
+                    <div class="font-mono font-bold text-indigo-300 mb-1">TIER 2 ($399) &bull; TIER 3 ($1,499) &bull; TIER 4 ($2,499) // UNIFIED CAPTURE BRIEFING</div>
+                    <div class="text-slate-300"><strong>Combined in 1 Email:</strong> <strong>Section I:</strong> 21-API CaptureDesk Executive Dossiers <strong>+ Section II:</strong> Complete 16-Portal Live RFP Alert Wire <strong>+ Tier 3/4:</strong> Direct 1-Click 3-Volume Proposal <code class="font-mono text-emerald-300">.ZIP</code> &amp; FOIA Rate Vault links.</div>
                   </div>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-2">
@@ -9035,7 +9284,7 @@
                 <span>// INSIDE THE SUBSCRIBER CHANNELS: SEE EXACTLY WHAT LANDS EVERY 6 HOURS</span>
               </div>
               <h3 class="text-xl sm:text-2xl font-extrabold text-white">
-                Compare Live <code class="font-mono text-sky-400">#tier1-gov-leads</code> vs. <code class="font-mono text-indigo-400">#capturedesk-autopilot</code> Dispatches
+                Compare Live <code class="font-mono text-sky-400">#tier1-gov-leads</code>, <code class="font-mono text-indigo-400">#capturedesk-autopilot</code>, <code class="font-mono text-emerald-400">#proposal-autopilot-vip</code> &amp; <code class="font-mono text-amber-300">#foia-winning-bid-vault</code>
               </h3>
               <p class="mt-1 text-xs sm:text-sm text-slate-400">
                 Both plans filter out 99.4% of non-IT commodity noise across all 16 portals and include clickable <code class="font-mono text-slate-300">/contracts/rfp/</code> dossiers plus direct government source links.
@@ -9096,6 +9345,56 @@
                 <span class="text-indigo-300">Replaces 40+ hrs/mo of manual RFP shredding</span>
                 <button type="button" onclick="window.launchSignalCheckout('tier2')" class="text-indigo-300 hover:text-indigo-200 font-bold">
                   Select Tier 2 ($399/mo) &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Sample 3: Tier 3 (#proposal-autopilot-vip) -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-emerald-500/50 flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-2.5">
+                  <span class="text-emerald-300 font-bold">#proposal-autopilot-vip // TIER 3 ($1,499/MO)</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-200 border border-emerald-500/40 text-[10px]">3-VOL .DOCX/.XLSX .ZIP</span>
+                </div>
+                <div class="font-mono text-xs text-slate-200 space-y-2 leading-relaxed">
+                  <div class="text-emerald-400 font-bold">[PROPOSAL AUTOPILOT // 3-VOLUME SHIPLEY PACKAGE COMPILED]</div>
+                  <div class="text-white font-semibold">Enterprise Zero-Trust SOC &amp; Managed Detection (MDR) Engineering</div>
+                  <div class="p-2.5 rounded bg-navy-900 border border-emerald-500/30 text-[11px] text-slate-300 space-y-1">
+                    <div>&bull; <strong>Vol I (.docx):</strong> Section L/M Matrix + Technical Approach + LCAT Resumes</div>
+                    <div>&bull; <strong>Vol II (.xlsx):</strong> Live Excel Formula CLIN Pricing (<code class="text-emerald-300">=D6*E6</code>, <code class="text-emerald-300">-6% PTW</code>)</div>
+                    <div>&bull; <strong>Vol III (.docx):</strong> CPARS Citations + 13 CFR &sect; 125.6 Workshare + OCI Plan</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-emerald-300">Replaces $15k-$35k proposal writing consultants</span>
+                <button type="button" onclick="window.launchSignalCheckout('tier3')" class="text-emerald-300 hover:text-emerald-200 font-bold">
+                  Select Tier 3 ($1,499/mo) &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Sample 4: Tier 4 (#foia-winning-bid-vault) -->
+            <div class="p-5 rounded-xl bg-navy-950 border border-amber-500/50 flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-2.5">
+                  <span class="text-amber-300 font-bold">#foia-winning-bid-vault // TIER 4 ($2,499/MO)</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 border border-amber-500/40 text-[10px]">FOIA VAULT + 50K OEM API</span>
+                </div>
+                <div class="font-mono text-xs text-slate-200 space-y-2 leading-relaxed">
+                  <div class="text-amber-300 font-bold">[FOIA VAULT // INCUMBENT AWARD &amp; LABOR RATE BENCHMARK]</div>
+                  <div class="text-white font-semibold">Texas DIR-CPO-5291 // Statewide Zero-Trust &amp; MDR Operations</div>
+                  <div class="p-2.5 rounded bg-navy-900 border border-amber-500/30 text-[11px] text-slate-300 space-y-1">
+                    <div>&bull; <strong>Awarded Incumbent:</strong> Sovereign Cyber Defense LLC ($4.85M Ceiling)</div>
+                    <div>&bull; <strong>Verified LCAT Rates:</strong> Architect $192.50/hr &bull; DevSecOps $168.00/hr</div>
+                    <div>&bull; <strong>Statutory Citation:</strong> Texas Gov. Code Ch. 552 (TX PIA) + 50k OEM Quota</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-amber-300">50,000 API/MCP calls/mo + FOIA Winning-Bid Vault</span>
+                <button type="button" onclick="window.launchSignalCheckout('tier4')" class="text-amber-300 hover:text-amber-200 font-bold">
+                  Select Tier 4 ($2,499/mo) &rarr;
                 </button>
               </div>
             </div>
@@ -9228,8 +9527,28 @@
                   </td>
                   <td class="py-4 px-4 text-emerald-300">Month-to-Month (Cancel in 1 Click)</td>
                   <td class="py-4 px-4 text-emerald-400 font-bold">&check; Automated 3-Layer Filter</td>
-                  <td class="py-4 px-4 text-emerald-400 font-bold">&check; Included (Tier 2 &amp; APIs)</td>
+                  <td class="py-4 px-4 text-emerald-400 font-bold">&check; 21-API Capture Dossiers</td>
                   <td class="py-4 px-5 text-emerald-400 font-bold">&check; Instant Self-Serve</td>
+                </tr>
+                <tr class="bg-emerald-500/10 border-l-4 border-emerald-400">
+                  <td class="py-4 px-5 font-bold text-white">
+                    SignalTender <span class="text-emerald-400">(Tier 3 Proposal &amp; Tier 4 OEM)</span>
+                  </td>
+                  <td class="py-4 px-4 text-emerald-300 font-bold">
+                    $1,499/mo or $2,499/mo <span class="text-slate-400 font-normal">(Annual saves 17%)</span>
+                  </td>
+                  <td class="py-4 px-4 text-emerald-300">Month-to-Month or Annual</td>
+                  <td class="py-4 px-4 text-emerald-400 font-bold">&check; All 16 Portals + FOIA Vault</td>
+                  <td class="py-4 px-4 text-emerald-400 font-bold">&check; 1-Click 3-Vol .DOCX/.XLSX .ZIP</td>
+                  <td class="py-4 px-5 text-emerald-400 font-bold">&check; 50k OEM API Calls &amp; Teaming</td>
+                </tr>
+                <tr class="hover:bg-navy-950/50">
+                  <td class="py-3.5 px-5 text-slate-200 font-semibold">Outsourced Shipley Proposal Consultant</td>
+                  <td class="py-3.5 px-4 text-rose-300">$15,000 &ndash; $35,000 / RFP</td>
+                  <td class="py-3.5 px-4 text-slate-400">2&ndash;4 Week Retainer Lead Time</td>
+                  <td class="py-3.5 px-4 text-slate-500">&times; Client Must Supply RFP</td>
+                  <td class="py-3.5 px-4 text-slate-400">Manual Word/Excel Drafting</td>
+                  <td class="py-3.5 px-5 text-slate-500">&times; Zero API / Automation</td>
                 </tr>
                 <tr class="hover:bg-navy-950/50">
                   <td class="py-3.5 px-5 text-slate-200 font-semibold">Deltek GovWin IQ</td>
@@ -9317,6 +9636,14 @@
             <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800">
               <div class="font-bold text-white mb-1">Can I cancel or switch plans anytime?</div>
               <p class="text-slate-400">Yes. There are no long-term lock-ins. You can manage, upgrade, or cancel your subscription in one click at any time.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-navy-900/60 border border-emerald-500/30">
+              <div class="font-bold text-white mb-1">What does Tier 3 Proposal Autopilot ($1,499/mo) compile?</div>
+              <p class="text-slate-400">Tier 3 chains our Shipley compliance, technical narrative, LCAT resume, Section B CLIN pricing, IGCE wrap-rate, CPARS, 13 CFR &sect; 125.6 workshare, and FAR 9.5 OCI engines into a single 90-second download (<code class="text-emerald-300">.ZIP</code>) containing editable Word (<code class="text-slate-200">Volume_I_Technical_Management.docx</code>, <code class="text-slate-200">Volume_III_Past_Performance_Compliance.docx</code>) and live-formula Excel (<code class="text-slate-200">Volume_II_Cost_Price_Model.xlsx</code>) files.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-navy-900/60 border border-amber-500/30">
+              <div class="font-bold text-white mb-1">What is included in Tier 4 Enterprise OEM ($2,499/mo)?</div>
+              <p class="text-slate-400">Tier 4 includes everything in Tier 3 plus 50,000 production REST &amp; MCP tool calls/month across all SignalTender microservices, commercial OEM embedding rights for internal Copilot/Claude stacks, and full access to the Post-Award FOIA / State PIA Winning-Bid Rate Vault (<code class="text-amber-300">GET /v1/proposal-autopilot/foia-winning-bid-vault</code>).</p>
             </div>
           </div>
         </div>
@@ -9768,6 +10095,22 @@
                 >
                   Activate Tier 2 ($399/mo) &rarr;
                 </button>
+                <button
+                  type="button"
+                  id="btn-account-upgrade-t3"
+                  onclick="window.launchAccountCheckout('tier3')"
+                  class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/40 transition-all cursor-pointer"
+                >
+                  Tier 3 Proposal .ZIP ($1,499/mo) &rarr;
+                </button>
+                <button
+                  type="button"
+                  id="btn-account-upgrade-t4"
+                  onclick="window.launchAccountCheckout('tier4')"
+                  class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-bold border border-amber-300 transition-all cursor-pointer"
+                >
+                  Tier 4 OEM &amp; FOIA ($2,499/mo) &rarr;
+                </button>
               </div>
             </div>
 
@@ -9776,7 +10119,7 @@
               <div class="lg:col-span-7 p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="space-y-0.5">
                   <div class="text-xs font-mono font-bold text-white">PREFERRED BILLING CADENCE</div>
-                  <div class="text-[11px] text-slate-400">Switch to Annual Billing to save $198/yr (Tier 1) or $1,298/yr (Tier 2).</div>
+                  <div class="text-[11px] text-slate-400">Switch to Annual Billing to save $198/yr (Tier 1), $1,298/yr (Tier 2), $3,088/yr (Tier 3), or $5,088/yr (Tier 4).</div>
                 </div>
                 <div class="inline-flex rounded-lg bg-navy-900 p-1 border border-slate-800 font-mono text-xs shrink-0">
                   <button
@@ -10837,7 +11180,7 @@
               <div class="space-y-1.5">
                 <div class="text-[11px] font-mono text-slate-400 uppercase">Click a common question or type your own below:</div>
                 <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
-                  <button type="button" onclick="window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Free Explorer ($0), Tier 1 ($99/mo), and Tier 2 ($399/mo)?')" class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-sky-300 border border-slate-800 cursor-pointer">Tier 1 vs Tier 2?</button>
+                  <button type="button" onclick="window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Tier 1 ($99), Tier 2 ($399), Tier 3 Proposal Autopilot ($1,499), and Tier 4 Enterprise OEM & FOIA Vault ($2,499)?')" class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-sky-300 border border-slate-800 cursor-pointer">Compare All 4 Tiers?</button>
                   <button type="button" onclick="window.prefillConciergeQuestion('billing_and_cancellation', 'How do I download a corporate B2B tax receipt or cancel my subscription in 1 click?')" class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-slate-800 cursor-pointer">Receipts &amp; 1-Click Cancel?</button>
                   <button type="button" onclick="window.prefillConciergeQuestion('api_and_mcp_integration', 'How do I connect all 22 GovCon APIs to Claude Desktop or Cursor via MCP?')" class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-slate-800 cursor-pointer">Claude / Cursor MCP Setup?</button>
                   <button type="button" onclick="window.prefillConciergeQuestion('security_and_compliance', 'Does SignalTender store our RFP uploads or train AI models on our company data?')" class="px-2.5 py-1 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-slate-800 cursor-pointer">Zero-Retention Security?</button>
@@ -10855,7 +11198,7 @@
                   <div class="space-y-1">
                     <label for="concierge-topic" class="block text-[11px] font-mono uppercase text-slate-300">Inquiry Topic</label>
                     <select id="concierge-topic" class="w-full px-3 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white">
-                      <option value="plans_and_pricing">Plans &amp; Pricing ($0 / $99 / $399)</option>
+                      <option value="plans_and_pricing">Plans &amp; Pricing ($0 / $99 / $399 / $1,499 / $2,499)</option>
                       <option value="billing_and_cancellation">Billing, Receipts &amp; 1-Click Cancel</option>
                       <option value="api_and_mcp_integration">22 APIs, RapidAPI &amp; MCP Server</option>
                       <option value="portal_coverage_and_sled">16 Portals &amp; State SLED Coverage</option>
@@ -11057,7 +11400,7 @@
             <div>
               <h3 class="font-mono text-sm font-bold text-white uppercase">1. Scope of Services &amp; B2B Subscription Tiers</h3>
               <p class="mt-1">
-                SignalTender (<strong>&quot;SignalTender&quot;</strong>, operated at <code class="text-sky-300">signaltender.net</code>) provides automated government procurement monitoring across 16 Federal, Municipal, and State SLED portals, pre-shredded AI capture dossiers, and 22 stateless REST/MCP microservices. Access is offered via: (a) <strong>Free Explorer Account (`$0/mo`)</strong>, (b) <strong>Tier 1 SignalWire Pro (`$99/mo` or `$990/yr`)</strong>, (c) <strong>Tier 2 CaptureDesk Autopilot (`$399/mo` or `$3,490/yr`)</strong>, and (d) individual API quotas hosted on RapidAPI Hub.
+                SignalTender (<strong>&quot;SignalTender&quot;</strong>, operated at <code class="text-sky-300">signaltender.net</code>) provides automated government procurement monitoring across 16 Federal, Municipal, and State SLED portals, pre-shredded AI capture dossiers, 1-click 3-volume Shipley proposal compilation, statutory FOIA/PIA award rate benchmarking, and 22 stateless REST/MCP microservices. Access is offered via: (a) <strong>Free Explorer Account (`$0/mo`)</strong>, (b) <strong>Tier 1 SignalWire Pro (`$99/mo` or `$990/yr`)</strong>, (c) <strong>Tier 2 CaptureDesk Autopilot (`$399/mo` or `$3,490/yr`)</strong>, (d) <strong>Tier 3 Proposal Autopilot Enterprise (`$1,499/mo` or `$14,900/yr`)</strong>, (e) <strong>Tier 4 Enterprise OEM &amp; FOIA Winning-Bid Vault (`$2,499/mo` or `$24,900/yr`)</strong>, and (f) individual API quotas hosted on RapidAPI Hub.
               </p>
             </div>
 
@@ -11209,10 +11552,10 @@
               <a href="#capture-moat" class="hover:text-white transition-colors">CaptureDesk AI Dossiers</a>
             </li>
             <li>
-              <a href="#contracts" class="hover:text-white transition-colors">Federal &amp; State RFP Directory</a>
+              <a href="#proposal-foia-moat" class="hover:text-emerald-300 transition-colors">1-Click Proposal .ZIP &amp; FOIA Vault</a>
             </li>
             <li>
-              <a href="#coverage" class="hover:text-white transition-colors">Active Portal Coverage</a>
+              <a href="#contracts" class="hover:text-white transition-colors">Federal &amp; State RFP Directory</a>
             </li>
             <li>
               <a href="#integrations" class="hover:text-white transition-colors">Multi-Channel Delivery Routing</a>
@@ -11247,10 +11590,7 @@
           <div class="font-mono text-[11px] text-slate-200 uppercase tracking-wider font-semibold">Account &amp; Plans</div>
           <ul class="space-y-2.5 text-slate-400">
             <li>
-              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('login');}" class="hover:text-white transition-colors">Sign In</a>
-            </li>
-            <li>
-              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('register');}" class="hover:text-white transition-colors">Create Free Account</a>
+              <a href="#account" onclick="if(window.openClientPortal){event.preventDefault();window.openClientPortal('login');}" class="hover:text-white transition-colors">Sign In / Account Portal</a>
             </li>
             <li>
               <a href="#checkout-tier1" class="hover:text-white transition-colors">Tier 1 SignalWire ($99/mo)</a>
@@ -11259,7 +11599,10 @@
               <a href="#checkout-tier2" class="hover:text-white transition-colors">Tier 2 Autopilot ($399/mo)</a>
             </li>
             <li>
-              <a href="#checkout" class="hover:text-white transition-colors">Plans &amp; B2B Checkout</a>
+              <a href="#checkout-tier3" class="hover:text-emerald-300 transition-colors">Tier 3 Proposal .ZIP ($1,499/mo)</a>
+            </li>
+            <li>
+              <a href="#checkout-tier4" class="hover:text-amber-300 transition-colors">Tier 4 OEM &amp; FOIA ($2,499/mo)</a>
             </li>
           </ul>
         </div>
@@ -11906,10 +12249,10 @@
           };
         }
         return {
-          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 22 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr [Save $198]): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 16 Federal & 14-State SLED portals delivered to Discord, Slack, Teams, Email (with up to 5 Team CC seats), or Webhook.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr [Save $1,298]): Everything in Tier 1 PLUS full 21-API pre-shredded CaptureDesk AI Dossiers (Shipley matrices, CMMC/RMF audits, PWin, IGCE Price-to-Win, CPARS, GSA MAS SINs, Sources Sought/RFI) and a production Enterprise API Key.',
+          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 22 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr [Save $198]): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 16 Federal & 14-State SLED portals.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr [Save $1,298]): Everything in Tier 1 PLUS full 21-API pre-shredded CaptureDesk AI Dossiers and a production Enterprise API Key.\n• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo or $14,900/yr [Save $3,088]): Everything in Tier 2 PLUS 1-Click 3-Volume Shipley Proposal (.DOCX + .XLSX .ZIP) compilation and 13 CFR 125.6 Teaming Clearinghouse priority.\n• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo or $24,900/yr [Save $5,088]): Everything in Tier 3 PLUS 50,000 REST/MCP API calls/mo and programmatic access to the Post-Award FOIA / State PIA Winning-Bid Rate Vault.',
           actions: [
-            { label: 'Create Free Explorer Account ($0)', href: '#signup' },
-            { label: 'Compare Tier 1 ($99) vs Tier 2 ($399)', href: '#checkout' },
+            { label: 'Compare All 4 Plans ($99 - $2,499/mo)', href: '#checkout' },
+            { label: '1-Click Proposal .ZIP & FOIA Moat', href: '#proposal-foia-moat' },
             { label: 'Browse Live 16-Portal RFP Directory', href: '#contracts' }
           ]
         };
@@ -12247,9 +12590,11 @@
                     '</p>' +
                   '</div>' +
                   '<div class="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">' +
-                    '<button type="button" id="btn-admin-view-tier2" onclick="window.switchAdminPortalPreview(&apos;tier_2&apos;)" class="px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer">View As: Tier 2 Autopilot ($399/mo)</button>' +
-                    '<button type="button" id="btn-admin-view-tier1" onclick="window.switchAdminPortalPreview(&apos;tier_1&apos;)" class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer">View As: Tier 1 Wire ($99/mo)</button>' +
-                    '<button type="button" id="btn-admin-view-free" onclick="window.switchAdminPortalPreview(&apos;free&apos;)" class="px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer">View As: Free Explorer ($0/mo)</button>' +
+                    '<button type="button" id="btn-admin-view-tier4" onclick="window.switchAdminPortalPreview(&apos;tier_4&apos;)" class="px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/40 font-semibold transition-all cursor-pointer">Tier 4 OEM ($2,499)</button>' +
+                    '<button type="button" id="btn-admin-view-tier3" onclick="window.switchAdminPortalPreview(&apos;tier_3&apos;)" class="px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer">Tier 3 Proposal ($1,499)</button>' +
+                    '<button type="button" id="btn-admin-view-tier2" onclick="window.switchAdminPortalPreview(&apos;tier_2&apos;)" class="px-3 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer">Tier 2 Autopilot ($399)</button>' +
+                    '<button type="button" id="btn-admin-view-tier1" onclick="window.switchAdminPortalPreview(&apos;tier_1&apos;)" class="px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer">Tier 1 Wire ($99)</button>' +
+                    '<button type="button" id="btn-admin-view-free" onclick="window.switchAdminPortalPreview(&apos;free&apos;)" class="px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold transition-all cursor-pointer">Free ($0)</button>' +
                   '</div>' +
                 '</div>';
             }
@@ -12267,7 +12612,13 @@
 
         var statusPill = document.getElementById('account-status-pill');
         if (statusPill) {
-          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+          if (data.subscription_status === 'active' && data.tier === 'tier_4') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold';
+            statusPill.textContent = 'ACTIVE // TIER 4 ENTERPRISE OEM & FOIA ($2,499/MO)';
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_3') {
+            statusPill.className = 'px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold';
+            statusPill.textContent = 'ACTIVE // TIER 3 PROPOSAL AUTOPILOT ($1,499/MO)';
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_2') {
             statusPill.className = 'px-2.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold';
             statusPill.textContent = 'ACTIVE // TIER 2 AUTOPILOT ($399/MO)';
           } else if (data.subscription_status === 'active') {
@@ -12295,31 +12646,77 @@
 
         var planDesc = document.getElementById('account-plan-description');
         if (planDesc) {
-          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
-            planDesc.textContent = 'Full access to all 16 Federal & 14-State SLED portals, 21-API CaptureDesk Autopilot dossiers, un-blurred RFP links, and Enterprise API Key.';
+          if (data.subscription_status === 'active' && data.tier === 'tier_4') {
+            planDesc.textContent = 'Full Tier 4 Enterprise OEM & FOIA Vault access: 50,000 REST/MCP API calls/mo, Post-Award FOIA Winning-Bid Rate Vault, unlimited 1-Click 3-Volume Shipley Proposal (.ZIP) compilations, 13 CFR 125.6 Teaming Exchange, and all 16 portals.';
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_3') {
+            planDesc.textContent = 'Full Tier 3 Proposal Autopilot Enterprise access: unlimited 1-Click 3-Volume Shipley Proposal (.DOCX/.XLSX .ZIP) compilations, 13 CFR 125.6 Teaming Clearinghouse priority, 21-API CaptureDesk dossiers, and Enterprise API Key.';
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+            planDesc.textContent = 'Full access to all 16 Federal & 14-State SLED portals, 21-API CaptureDesk Autopilot dossiers, un-blurred RFP links, and Enterprise API Key. Upgrade to Tier 3 ($1,499/mo) or Tier 4 ($2,499/mo) anytime for 1-Click 3-Volume Proposal .ZIP compilation & FOIA Rate Vault.';
           } else if (data.subscription_status === 'active') {
-            planDesc.textContent = 'Active Tier 1 SignalWire Pro access across all 16 Federal & 14-State SLED portals and un-blurred RFP directory links. Upgrade to Tier 2 anytime for 21-API CaptureDesk dossiers.';
+            planDesc.textContent = 'Active Tier 1 SignalWire Pro access across all 16 Federal & 14-State SLED portals and un-blurred RFP directory links. Upgrade to Tier 2 ($399/mo), Tier 3 ($1,499/mo), or Tier 4 ($2,499/mo) anytime.';
           } else {
-            planDesc.textContent = 'Free Explorer Account ($0/mo) active. Explore the 16-portal RFP directory, test all 22 AI APIs in the interactive sandbox, and pre-configure your Discord, Webhook, and Email channels. Activate Tier 1 ($99/mo) or Tier 2 ($399/mo) anytime to start live 6-hour dispatches.';
+            planDesc.textContent = 'Free Explorer Account ($0/mo) active. Explore the 16-portal RFP directory, test all 22 AI APIs in the interactive sandbox, and pre-configure your Discord, Webhook, and Email channels. Activate Tier 1 ($99/mo), Tier 2 ($399/mo), Tier 3 ($1,499/mo), or Tier 4 ($2,499/mo) anytime.';
           }
         }
 
         var btnUpT1 = document.getElementById('btn-account-upgrade-t1');
         var btnUpT2 = document.getElementById('btn-account-upgrade-t2');
+        var btnUpT3 = document.getElementById('btn-account-upgrade-t3');
+        var btnUpT4 = document.getElementById('btn-account-upgrade-t4');
         if (btnUpT1 && btnUpT2) {
-          if (data.subscription_status === 'active' && data.tier === 'tier_2') {
+          if (data.subscription_status === 'active' && data.tier === 'tier_4') {
+            btnUpT1.classList.add('hidden');
+            btnUpT2.classList.add('hidden');
+            if (btnUpT3) btnUpT3.classList.add('hidden');
+            if (btnUpT4) {
+              btnUpT4.classList.remove('hidden');
+              btnUpT4.textContent = 'Manage Tier 4 OEM Billing Plan →';
+            }
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_3') {
+            btnUpT1.classList.add('hidden');
+            btnUpT2.classList.add('hidden');
+            if (btnUpT3) btnUpT3.classList.add('hidden');
+            if (btnUpT4) {
+              btnUpT4.classList.remove('hidden');
+              btnUpT4.textContent = 'Upgrade to Tier 4 OEM & FOIA ($2,499/mo) →';
+            }
+          } else if (data.subscription_status === 'active' && data.tier === 'tier_2') {
             btnUpT1.classList.add('hidden');
             btnUpT2.classList.remove('hidden');
             btnUpT2.textContent = 'Switch / Manage Billing Plan →';
+            if (btnUpT3) {
+              btnUpT3.classList.remove('hidden');
+              btnUpT3.textContent = 'Upgrade to Tier 3 Proposal .ZIP ($1,499/mo) →';
+            }
+            if (btnUpT4) {
+              btnUpT4.classList.remove('hidden');
+              btnUpT4.textContent = 'Upgrade to Tier 4 OEM & FOIA ($2,499/mo) →';
+            }
           } else if (data.subscription_status === 'active') {
             btnUpT1.classList.add('hidden');
             btnUpT2.classList.remove('hidden');
             btnUpT2.textContent = 'Upgrade to Tier 2 ($399/mo) →';
+            if (btnUpT3) {
+              btnUpT3.classList.remove('hidden');
+              btnUpT3.textContent = 'Upgrade to Tier 3 Proposal .ZIP ($1,499/mo) →';
+            }
+            if (btnUpT4) {
+              btnUpT4.classList.remove('hidden');
+              btnUpT4.textContent = 'Upgrade to Tier 4 OEM & FOIA ($2,499/mo) →';
+            }
           } else {
             btnUpT1.classList.remove('hidden');
             btnUpT1.textContent = 'Activate Tier 1 ($99/mo) →';
             btnUpT2.classList.remove('hidden');
             btnUpT2.textContent = 'Activate Tier 2 ($399/mo) →';
+            if (btnUpT3) {
+              btnUpT3.classList.remove('hidden');
+              btnUpT3.textContent = 'Activate Tier 3 Proposal .ZIP ($1,499/mo) →';
+            }
+            if (btnUpT4) {
+              btnUpT4.classList.remove('hidden');
+              btnUpT4.textContent = 'Activate Tier 4 OEM & FOIA ($2,499/mo) →';
+            }
           }
         }
 
@@ -13164,6 +13561,18 @@
           clone.tier = 'tier_1';
           clone.tier_label = 'Tier 1 // SignalWire Pro ($99/mo)';
           clone.api_key = '';
+        } else if (mode === 'tier_3') {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_3';
+          clone.tier_label = 'Tier 3 // Proposal Autopilot Enterprise ($1,499/mo)';
+          clone.api_key = adminSavedApiKey || 'st_live_admin_session';
+        } else if (mode === 'tier_4') {
+          clone.subscription_status = 'active';
+          clone.active = true;
+          clone.tier = 'tier_4';
+          clone.tier_label = 'Tier 4 // Enterprise OEM & FOIA Vault ($2,499/mo)';
+          clone.api_key = adminSavedApiKey || 'st_live_admin_session';
         } else {
           clone.subscription_status = 'active';
           clone.active = true;
@@ -13172,27 +13581,43 @@
           clone.api_key = adminSavedApiKey || 'st_live_admin_session';
         }
         window.renderAccountDashboard(clone);
+        var bT4 = document.getElementById('btn-admin-view-tier4');
+        var bT3 = document.getElementById('btn-admin-view-tier3');
         var bT2 = document.getElementById('btn-admin-view-tier2');
         var bT1 = document.getElementById('btn-admin-view-tier1');
         var bFree = document.getElementById('btn-admin-view-free');
         var statusLbl = document.getElementById('account-admin-preview-status');
-        if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer';
-        if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer';
-        if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer';
+        if (bT4) bT4.className = 'px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/40 font-semibold transition-all cursor-pointer';
+        if (bT3) bT3.className = 'px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold transition-all cursor-pointer';
+        if (bT2) bT2.className = 'px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer';
+        if (bT1) bT1.className = 'px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold transition-all cursor-pointer';
+        if (bFree) bFree.className = 'px-3 py-2 rounded-xl bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-semibold transition-all cursor-pointer';
         if (mode === 'free') {
-          if (bFree) bFree.className = 'px-3.5 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer shadow-lg';
+          if (bFree) bFree.className = 'px-3 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-emerald-300 font-mono';
             statusLbl.textContent = 'Viewing: Free Explorer ($0/mo)';
           }
         } else if (mode === 'tier_1') {
-          if (bT1) bT1.className = 'px-3.5 py-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 transition-all cursor-pointer shadow-lg';
+          if (bT1) bT1.className = 'px-3 py-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-sky-300 font-mono';
             statusLbl.textContent = 'Viewing: Tier 1 SignalWire ($99/mo)';
           }
+        } else if (mode === 'tier_3') {
+          if (bT3) bT3.className = 'px-3 py-2 rounded-xl bg-emerald-600 text-white font-bold border border-emerald-400/50 transition-all cursor-pointer shadow-lg';
+          if (statusLbl) {
+            statusLbl.className = 'text-emerald-300 font-mono';
+            statusLbl.textContent = 'Viewing: Tier 3 Proposal Autopilot ($1,499/mo)';
+          }
+        } else if (mode === 'tier_4') {
+          if (bT4) bT4.className = 'px-3 py-2 rounded-xl bg-amber-400 text-navy-950 font-bold border border-amber-300 transition-all cursor-pointer shadow-lg';
+          if (statusLbl) {
+            statusLbl.className = 'text-amber-300 font-mono';
+            statusLbl.textContent = 'Viewing: Tier 4 Enterprise OEM & FOIA ($2,499/mo)';
+          }
         } else {
-          if (bT2) bT2.className = 'px-3.5 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer shadow-lg';
+          if (bT2) bT2.className = 'px-3 py-2 rounded-xl bg-indigo-600 text-white font-bold border border-indigo-400/50 transition-all cursor-pointer shadow-lg';
           if (statusLbl) {
             statusLbl.className = 'text-indigo-300 font-mono';
             statusLbl.textContent = 'Viewing: Tier 2 Autopilot ($399/mo)';
@@ -13571,8 +13996,69 @@
         }
       };
 
+      window.downloadOverviewSampleProposalZip = function () {
+        var btn = document.getElementById('btn-overview-demo-zip');
+        var st = document.getElementById('overview-demo-zip-status');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Compiling 3-Volume .DOCX + .XLSX Package (.ZIP)...';
+        }
+        if (st) {
+          st.classList.remove('hidden');
+          st.textContent = 'Running Shipley Section L/M, Section B CLIN Excel & CPARS/OCI compilers...';
+        }
+        var vaultRaw = {};
+        try {
+          vaultRaw = JSON.parse(localStorage.getItem('st_company_capture_vault') || '{}');
+        } catch (e) {}
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: 'FA8726-26-R-0042',
+            title: 'Enterprise Zero-Trust Cloud Migration & SOC Modernization',
+            agency: 'Dept of Defense / Defense Information Systems Agency (SAM.gov)',
+            rfp_text: 'The Contractor shall provide Enterprise Zero-Trust Architecture (ZTA) engineering, 24x7x365 SOC Managed Detection and Response (MDR), FedRAMP High cloud migration, NIST SP 800-53 Rev 5 Continuous ATO (cATO) automation, and CMMC 2.0 Level 2 compliance across DISA mission enclaves.',
+            company_name: vaultRaw.company || 'Apex Defense & Cyber Solutions LLC',
+            company_capability_summary: vaultRaw.capability || 'SDVOSB & CMMC Level 2 certified federal cybersecurity and cloud engineering prime contractor with 98% CPARS Exceptional ratings.',
+            socio_economic_status: 'SDVOSB',
+            naics_code: '541512'
+          })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d && d.zip_base64) {
+              var binStr = window.atob(d.zip_base64);
+              var bytes = new Uint8Array(binStr.length);
+              for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+              var blob = new Blob([bytes], { type: 'application/zip' });
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = d.zip_filename || 'SignalTender_Shipley_3Vol_Proposal_Package.zip';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              if (st) st.textContent = 'Downloaded ' + (d.zip_filename || '3-Volume Shipley Proposal .ZIP') + ' (Vol I .docx, Vol II .xlsx, Vol III .docx)!';
+            }
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = 'Download Live Sample 3-Vol Proposal (.ZIP) ->';
+            }
+          })
+          .catch(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = 'Download Live Sample 3-Vol Proposal (.ZIP) ->';
+            }
+          });
+      };
+
       window.launchAccountCheckout = function (tier) {
-        var key = (tier === 'tier2' ? 'tier2_' : 'tier1_') + currentBilling;
+        var prefix = 'tier1_';
+        if (tier === 'tier4') prefix = 'tier4_';
+        else if (tier === 'tier3') prefix = 'tier3_';
+        else if (tier === 'tier2') prefix = 'tier2_';
+        var key = prefix + currentBilling;
         var baseUrl = window.SIGNAL_CHECKOUT_LINKS[key] || window.SIGNAL_CHECKOUT_LINKS.tier1_monthly;
         var prefillEmail = (currentAccountProfile && currentAccountProfile.email) ? currentAccountProfile.email : '';
         var discordHandle = (currentAccountProfile && currentAccountProfile.discord_handle) ? currentAccountProfile.discord_handle : '';
@@ -13920,6 +14406,8 @@
             { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
             { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' },
             { icon: 'cpu', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' },
+            { icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3: Proposal .ZIP ($1,499/mo)', kw: 'tier 3 proposal autopilot shipley zip docx xlsx teaming 1499', color: 'text-emerald-400' },
+            { icon: 'code', id: 'checkout-card-tier4', label: 'Tier 4: OEM & FOIA ($2,499/mo)', kw: 'tier 4 enterprise oem foia winning bid vault 50000 calls 2499', color: 'text-amber-300' },
             { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' },
             { icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
             { icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
@@ -13974,6 +14462,7 @@
             { icon: 'pulse', id: 'overview', label: 'Hero & 16-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
             { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
             { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
+            { icon: 'doc', id: 'proposal-foia-moat', label: 'Proposal .ZIP & FOIA Vault', kw: 'tier 3 tier 4 proposal compiler zip docx xlsx foia vault teaming 125.6', color: 'text-emerald-400' },
             { icon: 'table', id: 'contract-directory', label: '16-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
             { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
             { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
@@ -14120,19 +14609,33 @@
           var tierSel = document.getElementById('checkout-webhook-tier');
           var cardT1 = document.getElementById('checkout-card-tier1');
           var cardT2 = document.getElementById('checkout-card-tier2');
+          var cardT3 = document.getElementById('checkout-card-tier3');
+          var cardT4 = document.getElementById('checkout-card-tier4');
+          if (cardT1) cardT1.classList.remove('ring-2', 'ring-sky-400');
+          if (cardT2) cardT2.classList.remove('ring-2', 'ring-indigo-400');
+          if (cardT3) cardT3.classList.remove('ring-2', 'ring-emerald-400');
+          if (cardT4) cardT4.classList.remove('ring-2', 'ring-amber-400');
           if (hash === '#checkout-tier1') {
             if (tierSel) tierSel.value = 'tier_1';
             if (cardT1) cardT1.classList.add('ring-2', 'ring-sky-400');
-            if (cardT2) cardT2.classList.remove('ring-2', 'ring-indigo-400');
+            instantScrollToTop();
           } else if (hash === '#checkout-tier2') {
             if (tierSel) tierSel.value = 'tier_2';
             if (cardT2) cardT2.classList.add('ring-2', 'ring-indigo-400');
-            if (cardT1) cardT1.classList.remove('ring-2', 'ring-sky-400');
+            instantScrollToTop();
+          } else if (hash === '#checkout-tier3') {
+            if (tierSel) tierSel.value = 'tier_3';
+            if (cardT3) cardT3.classList.add('ring-2', 'ring-emerald-400');
+            instantScrollToTop();
+            setTimeout(function () { window.jumpToPageSection('checkout-card-tier3'); }, 50);
+          } else if (hash === '#checkout-tier4') {
+            if (tierSel) tierSel.value = 'tier_4';
+            if (cardT4) cardT4.classList.add('ring-2', 'ring-amber-400');
+            instantScrollToTop();
+            setTimeout(function () { window.jumpToPageSection('checkout-card-tier4'); }, 50);
           } else {
-            if (cardT1) cardT1.classList.remove('ring-2', 'ring-sky-400');
-            if (cardT2) cardT2.classList.remove('ring-2', 'ring-indigo-400');
+            instantScrollToTop();
           }
-          instantScrollToTop();
         } else if (hash === '#contracts' || hash.indexOf('#contracts/') === 0) {
           mainPage.classList.add('hidden');
           apisPage.classList.add('hidden');

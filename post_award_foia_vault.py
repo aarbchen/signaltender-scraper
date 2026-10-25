@@ -231,6 +231,35 @@ def sync_post_award_foia_vault() -> Dict[str, Any]:
     return vault_payload
 
 
+def post_foia_vault_digest_to_discord(vault_payload: Dict[str, Any]) -> bool:
+    """Dispatches verified FOIA / State PIA Winning-Bid Rate Vault benchmarks to #foia-winning-bid-vault."""
+    webhook_url = os.getenv("DISCORD_TIER4_WEBHOOK_URL", "https://discord.com/api/webhooks/1563916236126036068/VrkZRDgDxRq3Zis0xkQUurFmfEr6O7GEl7MWdQUZk-uqgBCYxbzQ8IRG23CBMgXNHp2r").strip()
+    if not webhook_url:
+        return False
+    awards = (vault_payload.get("awards") or [])[:3]
+    lines = [
+        "**[VIP] SIGNALTENDER // FOIA & STATE PIA WINNING-BID RATE VAULT**",
+        "Verified post-award incumbent labor rate benchmarks & statutory open-records packets (`$0.00` electronic fee cap):",
+    ]
+    for aw in awards:
+        lcat_str = " | ".join(
+            f"{b['lcat']}: `${b['rate_hr']:.2f}/hr`"
+            for b in (aw.get("lcat_benchmarks") or [])[:2]
+        )
+        lines.append(
+            f"• **{aw['award_id']}** ({aw['agency']}) -> **{aw['winning_vendor']}** (`${aw['award_amount_usd']:,.0f}` | PoP End: `{aw['pop_end_date']}`)\n"
+            f"  └ Verified LCATs: {lcat_str}"
+        )
+    lines.append("Endpoint: <https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault> | Catalog: <https://signaltender.net/#proposal-foia-moat>")
+    msg = "\n".join(lines)[:1950]
+    try:
+        r = requests.post(webhook_url, json={"content": msg, "flags": 4}, timeout=10)
+        return r.status_code in (200, 204)
+    except Exception as exc:
+        report_error("post_award_foia_vault.py", f"Discord FOIA vault webhook error: {exc}")
+        return False
+
+
 if __name__ == "__main__":
     res = sync_post_award_foia_vault()
     print(f"[+] Post-Award & Statutory FOIA Vault synced: {res['total_verified_awards']} verified $1M+ awards.")

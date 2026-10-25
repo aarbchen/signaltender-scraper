@@ -28,6 +28,14 @@ WHOP_TIER2_URL = os.getenv(
     "STRIPE_TIER2_CHECKOUT_URL",
     f"{SITE_BASE_URL}/index.html#checkout-tier2",
 )
+WHOP_TIER3_URL = os.getenv(
+    "STRIPE_TIER3_CHECKOUT_URL",
+    f"{SITE_BASE_URL}/index.html#checkout-tier3",
+)
+WHOP_TIER4_URL = os.getenv(
+    "STRIPE_TIER4_CHECKOUT_URL",
+    f"{SITE_BASE_URL}/index.html#checkout-tier4",
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(BASE_DIR, "contracts")
@@ -1341,7 +1349,9 @@ def _render_layout(
             {{ icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' }},
             {{ icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' }},
             {{ icon: 'cpu', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' }},
-            {{ icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' }},
+            {{ icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3: Proposal .ZIP ($1,499)', kw: 'tier 3 proposal compiler zip docx xlsx 1499', color: 'text-emerald-400' }},
+            {{ icon: 'globe', id: 'checkout-card-tier4', label: 'Tier 4: OEM & FOIA ($2,499)', kw: 'tier 4 oem foia vault 2499 50k calls', color: 'text-amber-300' }},
+            {{ icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live 4-Tier Channel Preview', kw: 'sample preview feed discord dossier foia', color: 'text-emerald-400' }},
             {{ icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' }},
             {{ icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }}
           ];
@@ -1392,9 +1402,10 @@ def _render_layout(
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            {{ icon: 'pulse', id: 'overview', label: 'Hero & 16-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' }},
+            {{ icon: 'pulse', id: 'overview', label: 'Hero & 4-Tier Overview', kw: 'top hero federal sled portals summary tier 1 tier 2 tier 3 tier 4', color: 'text-sky-400' }},
             {{ icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' }},
             {{ icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' }},
+            {{ icon: 'doc', id: 'proposal-foia-moat', label: 'Proposal .ZIP & FOIA Moat', kw: 'tier 3 tier 4 proposal compiler zip docx xlsx foia teaming', color: 'text-emerald-400' }},
             {{ icon: 'table', id: 'contract-directory', label: '16-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' }},
             {{ icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' }},
             {{ icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }}
@@ -2277,16 +2288,30 @@ def generate_pseo_site() -> int:
 
     try:
         print("[*] Connecting to Supabase to fetch live contracts for pSEO static generation...", flush=True)
-        supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-        resp = (
-            supabase.table(TABLE_NAME)
-            .select("*")
-            .in_("status", ["New Lead", "Delivered", "NEW"])
-            .order("id", desc=True)
-            .limit(500)
-            .execute()
-        )
-        raw_records = resp.data if resp and getattr(resp, "data", None) else []
+        raw_records = []
+        try:
+            r_rest = requests.get(
+                f"{SUPABASE_URL.rstrip('/')}/rest/v1/{TABLE_NAME}",
+                params={"select": "*", "order": "id.desc", "limit": "500"},
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=15,
+            )
+            if r_rest.status_code == 200:
+                raw_records = r_rest.json()
+        except Exception:
+            pass
+        supabase = None
+        if not raw_records:
+            supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+            resp = (
+                supabase.table(TABLE_NAME)
+                .select("*")
+                .in_("status", ["New Lead", "Delivered", "NEW"])
+                .order("id", desc=True)
+                .limit(500)
+                .execute()
+            )
+            raw_records = resp.data if resp and getattr(resp, "data", None) else []
         if not raw_records:
             resp_fallback = (
                 supabase.table(TABLE_NAME)
@@ -2501,7 +2526,7 @@ def generate_pseo_site() -> int:
                 "cpars_benchmark": cpars_benchmark,
             })
 
-        if spam_ids_to_purge:
+        if spam_ids_to_purge and supabase is not None:
             try:
                 supabase.table(TABLE_NAME).delete().in_("id", spam_ids_to_purge).execute()
                 print(f"[+] Purged {len(spam_ids_to_purge)} legacy pre-filter catalog/spam row(s) from Supabase.", flush=True)
@@ -2686,15 +2711,21 @@ def generate_pseo_site() -> int:
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
-                    <li>&check; Direct One-Click Official Portal Links</li>
-                    <li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>
-                    <li class="text-emerald-300">&check; FAR 31.205-18 Allowable B&amp;P P-Card Receipt</li>
+                    <li>&check; Tier 2 CaptureDesk ($399/mo) 21-API Auto-Dossiers</li>
+                    <li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>
+                    <li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>
                   </ul>
-                  <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">
+                  <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">
                     Start Tier 1 Leads ($99/mo) &rarr;
                   </a>
                   <a href="{WHOP_TIER2_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">
                     Launch Tier 2 CaptureDesk ($399/mo) &rarr;
+                  </a>
+                  <a href="{WHOP_TIER3_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-emerald-200 bg-emerald-600/25 hover:bg-emerald-600/45 border border-emerald-500/40 rounded-lg transition-all">
+                    Start Tier 3 Proposal .ZIP ($1,499/mo) &rarr;
+                  </a>
+                  <a href="{WHOP_TIER4_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2 text-[11px] font-mono font-semibold text-amber-200 bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 rounded-lg transition-all">
+                    Tier 4 OEM &amp; FOIA Vault ($2,499/mo) &rarr;
                   </a>
                 </div>
 
@@ -3807,15 +3838,21 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
-                    '<li>&check; Direct One-Click Official Portal Links</li>' +
-                    '<li>&check; Tier 2 CaptureDesk ($399/mo | $3,490/yr) Auto-Dossiers</li>' +
-                    '<li class="text-emerald-300">&check; FAR 31.205-18 Allowable B&amp;P P-Card Receipt</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo) 21-API Auto-Dossiers</li>' +
+                    '<li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>' +
+                    '<li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>' +
                   '</ul>' +
-                  '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
+                  '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +
                     'Start Tier 1 Leads ($99/mo) &rarr;' +
                   '</a>' +
                   '<a href="#checkout-tier2" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 rounded-lg transition-all">' +
                     'Launch Tier 2 CaptureDesk ($399/mo) &rarr;' +
+                  '</a>' +
+                  '<a href="#checkout-tier3" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-emerald-200 bg-emerald-600/25 hover:bg-emerald-600/45 border border-emerald-500/40 rounded-lg transition-all">' +
+                    'Start Tier 3 Proposal .ZIP ($1,499/mo) &rarr;' +
+                  '</a>' +
+                  '<a href="#checkout-tier4" class="w-full inline-flex items-center justify-center px-5 py-2 text-[11px] font-mono font-semibold text-amber-200 bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 rounded-lg transition-all">' +
+                    'Tier 4 OEM &amp; FOIA Vault ($2,499/mo) &rarr;' +
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +

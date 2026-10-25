@@ -103,6 +103,9 @@ def check_html_file(fpath: str) -> str:
         "#checkout",
         "#checkout-tier1",
         "#checkout-tier2",
+        "#checkout-tier3",
+        "#checkout-tier4",
+        "#proposal-foia-moat",
         "#checkout-annual",
         "#account",
         "#signup",
@@ -486,7 +489,7 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
         fail(f"index.html (Hero Tier 2 CTA): Missing '{hero_phrase}'")
 
     # 3. Verify #checkout-card-tier2 contains every Tier-2-relevant API number and excludes non-Tier-2 APIs
-    m_t2 = re.search(r'<div id="checkout-card-tier2".*?<!-- \$0/mo Free Basic', index_txt, flags=re.S)
+    m_t2 = re.search(r'<div id="checkout-card-tier2".*?(?:<div id="checkout-card-tier3"|<!-- \$0/mo Free Basic)', index_txt, flags=re.S)
     if not m_t2:
         fail("index.html: Missing #checkout-card-tier2")
     t2_html = m_t2.group(0)
