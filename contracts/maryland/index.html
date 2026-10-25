@@ -41,7 +41,7 @@
             sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
-          colors: {
+                    colors: {
             navy: {
               950: '#090C10',
               900: '#11161F',
@@ -101,6 +101,84 @@
               50: '#F0F9FF',
             },
             fuchsia: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            rose: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            pink: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            amber: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            orange: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            cyan: {
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            },
+            teal: {
               950: '#0B111C',
               900: '#111A29',
               800: '#19263B',
@@ -173,7 +251,7 @@
       }
     }
 
-        /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+                /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
     :root, html {
       color-scheme: dark;
       scrollbar-width: thin;
@@ -181,7 +259,27 @@
     }
     body {
       background-color: #090C10 !important;
+      background-image:
+        radial-gradient(ellipse 85% 55% at 50% -10%, rgba(56, 189, 248, 0.10), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 0% 35%, rgba(14, 165, 233, 0.06), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 100% 65%, rgba(56, 189, 248, 0.06), transparent 65%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
+      background-attachment: fixed !important;
       color: #F8FAFC;
+    }
+    /* Match full 1600px header width across all page sections & cards so there is zero empty side space */
+    .max-w-7xl,
+    .max-w-6xl,
+    .max-w-5xl {
+      max-width: 1600px !important;
+    }
+    /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
+    .blur-3xl,
+    [class*="blur-[120px]"],
+    [class*="blur-[100px]"] {
+      opacity: 0.22 !important;
     }
     /* Top telemetry bar & sticky navigation chrome */
     #page-main > div:first-of-type,
@@ -191,10 +289,10 @@
     body > div > div.border-b.bg-navy-900\/90,
     body > div.border-b.bg-navy-900\/90 {
       background-color: #05070A !important;
-      border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.08) !important;
     }
     header.sticky {
-      background-color: rgba(13, 17, 23, 0.92) !important;
+      background-color: rgba(13, 17, 23, 0.94) !important;
       border-bottom-color: rgba(255, 255, 255, 0.08) !important;
       backdrop-filter: blur(12px);
     }
@@ -203,15 +301,9 @@
       border-color: rgba(255, 255, 255, 0.08) !important;
     }
     header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {
-      background-color: rgba(255, 255, 255, 0.07) !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.14) !important;
       color: #F8FAFC !important;
-    }
-    /* Restrain ambient background glow blobs for a clean carbon canvas */
-    .blur-3xl,
-    [class*="blur-[120px]"],
-    [class*="blur-[100px]"] {
-      opacity: 0.08 !important;
     }
     /* Uniform Institutional Graphite card surfaces & crisp 1px hairlines */
     article[id^="product-"],
@@ -245,13 +337,68 @@
       border-color: rgba(255, 255, 255, 0.08) !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
     }
+    /* Featured Tiers (Tier 2, Tier 3, and API ULTRA Popular cards) -> Steel Sky border + subtle sky gradient */
     #checkout-card-tier2,
-    #checkout-card-tier3 {
-      border-color: rgba(56, 189, 248, 0.42) !important;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, #11161F 100%) !important;
-      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45) !important;
+    #checkout-card-tier3,
+    article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:nth-child(3) {
+      border: 1px solid rgba(56, 189, 248, 0.45) !important;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.06) 0%, #11161F 100%) !important;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
     }
-    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) instead of neon green/amber */
+    /* API Card Top Header Strip & Capability Boxes */
+    article[id^="product-"] > div:first-of-type {
+      background: #0C1017 !important;
+      background-image: none !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    /* API Card Top Strip Badges: First badge (API XX // TITLE) -> Neutral Graphite Pill; Second badge (POST /v1/...) -> Steel Sky Pill */
+    article[id^="product-"] > div:first-of-type span.rounded {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      color: #E2E8F0 !important;
+      border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    }
+    article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {
+      background-color: rgba(56, 189, 248, 0.12) !important;
+      color: #38BDF8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.28) !important;
+    }
+    /* API Card 4-Tier Mini Cards (BASIC, PRO, ULTRA, MEGA) */
+    article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:not(:nth-child(3)) {
+      background-color: #0C1017 !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div > span.absolute {
+      background-color: rgba(56, 189, 248, 0.15) !important;
+      color: #38BDF8 !important;
+      border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    }
+    /* API Card Right-Side Code Terminal */
+    article[id^="product-"] .lg\:col-span-5 {
+      background-color: #0B0E14 !important;
+      border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    }
+    article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child {
+      background-color: #090C10 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child > span:first-child {
+      color: #E2E8F0 !important;
+    }
+    /* Schema field pills at bottom of API terminal -> Uniform Graphite + Steel Sky */
+    article[id^="product-"] .lg\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
+      background-color: #0C1017 !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #38BDF8 !important;
+    }
+    /* Cross-Catalog Pricing Matrix Table -> Uniform Graphite rows (zero rainbow row background tints) */
+    #api-pricing-matrix tbody tr {
+      background-color: transparent !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+    #api-pricing-matrix tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+    }
+    /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) */
     a[class*="bg-emerald-500/"],
     a[class*="bg-emerald-950"],
     button[class*="bg-emerald-500/"],
@@ -259,7 +406,13 @@
     a[class*="bg-amber-500/"],
     a[class*="bg-amber-950"],
     button[class*="bg-amber-500/"],
-    button[class*="bg-amber-950"] {
+    button[class*="bg-amber-950"],
+    a[class*="bg-sky-500/"],
+    button[class*="bg-sky-500/"],
+    a[class*="bg-sky-500/"],
+    button[class*="bg-sky-500/"],
+    a[class*="bg-indigo-500/"],
+    button[class*="bg-indigo-500/"] {
       background-color: #161B22 !important;
       color: #E2E8F0 !important;
       border-color: rgba(255, 255, 255, 0.12) !important;
@@ -271,19 +424,29 @@
     a[class*="bg-amber-500/"]:hover,
     a[class*="bg-amber-950"]:hover,
     button[class*="bg-amber-500/"]:hover,
-    button[class*="bg-amber-950"]:hover {
+    button[class*="bg-amber-950"]:hover,
+    a[class*="bg-sky-500/"]:hover,
+    button[class*="bg-sky-500/"]:hover,
+    a[class*="bg-sky-500/"]:hover,
+    button[class*="bg-sky-500/"]:hover,
+    a[class*="bg-indigo-500/"]:hover,
+    button[class*="bg-indigo-500/"]:hover {
       background-color: #1F2733 !important;
       color: #FFFFFF !important;
       border-color: rgba(56, 189, 248, 0.35) !important;
     }
-    /* Unify multi-color inline prose highlights in paragraphs to crisp white / Steel Sky */
+    /* Unify multi-color inline prose highlights in paragraphs to crisp white */
     p > span.text-emerald-300,
     p > span.text-emerald-400,
     p > span.text-amber-300,
-    p > span.text-amber-400 {
+    p > span.text-amber-400,
+    p > span.text-sky-300,
+    p > span.text-sky-400,
+    p > span.text-sky-300,
+    p > span.text-sky-400 {
       color: #F8FAFC !important;
     }
-    /* High-contrast Linear / Palantir crisp white primary action buttons */
+    /* High-contrast Linear / Palantir crisp white primary action buttons (exact match to Option 1 preview) */
     a.bg-sky-500,
     a.bg-sky-600,
     button.bg-sky-500,
@@ -296,20 +459,28 @@
     a.bg-amber-600,
     button.bg-amber-500,
     button.bg-amber-600,
+    a.bg-indigo-500,
     a.bg-indigo-600,
+    button.bg-indigo-500,
     button.bg-indigo-600,
-    a.bg-purple-600,
-    button.bg-purple-600,
-    a[class*="bg-gradient-to-r"][class*="from-sky-"],
-    button[class*="bg-gradient-to-r"][class*="from-sky-"],
-    a[class*="bg-gradient-to-r"][class*="from-emerald-"],
-    button[class*="bg-gradient-to-r"][class*="from-emerald-"],
-    a[class*="bg-gradient-to-r"][class*="from-indigo-"],
-    button[class*="bg-gradient-to-r"][class*="from-indigo-"],
-    a[class*="bg-gradient-to-r"][class*="from-purple-"],
-    button[class*="bg-gradient-to-r"][class*="from-purple-"],
-    a[class*="bg-gradient-to-r"][class*="from-amber-"],
-    button[class*="bg-gradient-to-r"][class*="from-amber-"] {
+    a.bg-sky-500,
+    a.bg-sky-600,
+    button.bg-sky-500,
+    button.bg-sky-600,
+    a.bg-sky-500,
+    a.bg-sky-600,
+    button.bg-sky-500,
+    button.bg-sky-600,
+    a.bg-cyan-500,
+    a.bg-cyan-600,
+    button.bg-cyan-500,
+    button.bg-cyan-600,
+    a.bg-teal-500,
+    a.bg-teal-600,
+    button.bg-teal-500,
+    button.bg-teal-600,
+    a[class*="bg-gradient-to-r"][class*="from-"],
+    button[class*="bg-gradient-to-r"][class*="from-"] {
       background: #F8FAFC !important;
       background-image: none !important;
       color: #090C10 !important;
@@ -331,18 +502,12 @@
     button.bg-amber-600:hover,
     a.bg-indigo-600:hover,
     button.bg-indigo-600:hover,
-    a.bg-purple-600:hover,
-    button.bg-purple-600:hover,
-    a[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-sky-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-emerald-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-indigo-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-purple-"]:hover,
-    a[class*="bg-gradient-to-r"][class*="from-amber-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-amber-"]:hover {
+    a.bg-sky-600:hover,
+    button.bg-sky-600:hover,
+    a.bg-sky-600:hover,
+    button.bg-sky-600:hover,
+    a[class*="bg-gradient-to-r"][class*="from-"]:hover,
+    button[class*="bg-gradient-to-r"][class*="from-"]:hover {
       background: #E2E8F0 !important;
       background-image: none !important;
       color: #090C10 !important;
@@ -356,6 +521,14 @@
     a.bg-emerald-600 span,
     button.bg-emerald-500 span,
     button.bg-emerald-600 span,
+    a.bg-amber-500 span,
+    a.bg-amber-600 span,
+    button.bg-amber-500 span,
+    button.bg-amber-600 span,
+    a.bg-sky-500 span,
+    a.bg-sky-600 span,
+    button.bg-sky-500 span,
+    button.bg-sky-600 span,
     a[class*="bg-gradient-to-r"][class*="from-"] span,
     button[class*="bg-gradient-to-r"][class*="from-"] span {
       color: #090C10 !important;
@@ -410,7 +583,7 @@
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-7xl mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
           <a href="../../index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
           <a href="../../contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
           <a href="../../apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
@@ -420,7 +593,7 @@
     </header>
 
     <div class="border-b border-slate-800/70 bg-navy-900/60">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
           <option value="../../contracts/index.html">Portal: All (16)</option>
@@ -463,7 +636,7 @@
       </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div id="outbound-prospect-banner" class="hidden mb-8 rounded-2xl bg-gradient-to-r from-emerald-950/90 via-navy-900 to-sky-950/90 border-2 border-emerald-500/50 p-4 sm:p-5 shadow-2xl">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -493,7 +666,7 @@
       </div>
       
             <div id="static-contracts-top-section" class="mb-8 space-y-4">
-              <div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono bg-rose-500/10 text-rose-300 border-rose-500/30">
+              <div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono bg-sky-500/10 text-sky-300 border-sky-500/30">
                 // MARYLAND EMMA &amp; AGENCY BONFIRE PORTALS &bull; 0 ACTIVE IT SOLICITATIONS
               </div>
               <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -814,7 +987,7 @@
   </aside>
 
   <footer class="bg-navy-950 border-t border-slate-800/80 pt-14 pb-10 mt-16 text-slate-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-800/80">
         <div class="sm:col-span-2 lg:col-span-4 space-y-3.5">
           <div class="inline-flex items-center gap-[4px]">

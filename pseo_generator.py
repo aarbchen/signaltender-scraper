@@ -554,7 +554,7 @@ def _render_layout(
             sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }},
-          colors: {{
+                    colors: {{
             navy: {{
               950: '#090C10',
               900: '#11161F',
@@ -614,6 +614,84 @@ def _render_layout(
               50: '#F0F9FF',
             }},
             fuchsia: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            rose: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            pink: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            amber: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            orange: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            cyan: {{
+              950: '#0B111C',
+              900: '#111A29',
+              800: '#19263B',
+              700: '#0369A1',
+              600: '#0284C7',
+              500: '#0EA5E9',
+              400: '#38BDF8',
+              300: '#7DD3FC',
+              200: '#BAE6FD',
+              100: '#E0F2FE',
+              50: '#F0F9FF',
+            }},
+            teal: {{
               950: '#0B111C',
               900: '#111A29',
               800: '#19263B',
@@ -686,13 +764,13 @@ def _render_layout(
       }}
     }}
 
-            /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
-    :root, html {
+                /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+    :root, html {{
       color-scheme: dark;
       scrollbar-width: thin;
       scrollbar-color: #262f3f #090c10;
-    }
-    body {
+    }}
+    body {{
       background-color: #090C10 !important;
       background-image:
         radial-gradient(ellipse 85% 55% at 50% -10%, rgba(56, 189, 248, 0.10), transparent 70%),
@@ -703,43 +781,43 @@ def _render_layout(
       background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
       background-attachment: fixed !important;
       color: #F8FAFC;
-    }
+    }}
     /* Match full 1600px header width across all page sections & cards so there is zero empty side space */
     .max-w-7xl,
     .max-w-6xl,
-    .max-w-5xl {
+    .max-w-5xl {{
       max-width: 1600px !important;
-    }
+    }}
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
     .blur-3xl,
     [class*="blur-[120px]"],
-    [class*="blur-[100px]"] {
+    [class*="blur-[100px]"] {{
       opacity: 0.22 !important;
-    }
+    }}
     /* Top telemetry bar & sticky navigation chrome */
     #page-main > div:first-of-type,
     #page-apis > div:first-of-type,
     #page-contracts > div:first-of-type,
     #page-checkout > div:first-of-type,
     body > div > div.border-b.bg-navy-900\\/90,
-    body > div.border-b.bg-navy-900\\/90 {
+    body > div.border-b.bg-navy-900\\/90 {{
       background-color: #05070A !important;
       border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-    }
-    header.sticky {
+    }}
+    header.sticky {{
       background-color: rgba(13, 17, 23, 0.94) !important;
       border-bottom-color: rgba(255, 255, 255, 0.08) !important;
       backdrop-filter: blur(12px);
-    }
-    header nav[aria-label="Primary Site Navigation"] {
+    }}
+    header nav[aria-label="Primary Site Navigation"] {{
       background-color: #090C10 !important;
       border-color: rgba(255, 255, 255, 0.08) !important;
-    }
-    header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {
+    }}
+    header nav[aria-label="Primary Site Navigation"] a[class*="bg-sky-500"] {{
       background-color: rgba(255, 255, 255, 0.08) !important;
       border-color: rgba(255, 255, 255, 0.14) !important;
       color: #F8FAFC !important;
-    }
+    }}
     /* Uniform Institutional Graphite card surfaces & crisp 1px hairlines */
     article[id^="product-"],
     .bg-navy-900,
@@ -750,89 +828,89 @@ def _render_layout(
     .bg-navy-900\\/60,
     .bg-slate-900\\/90,
     .bg-slate-900\\/80,
-    .bg-slate-900\\/70 {
+    .bg-slate-900\\/70 {{
       background-color: #11161F !important;
-    }
+    }}
     .bg-navy-950,
     .bg-navy-950\\/95,
     .bg-navy-950\\/90,
     .bg-navy-950\\/80,
     .bg-slate-950,
     .bg-slate-950\\/90,
-    .bg-slate-950\\/80 {
+    .bg-slate-950\\/80 {{
       background-color: #0B0E14 !important;
-    }
+    }}
     /* De-noise rainbow card & link-card borders into crisp institutional hairlines */
     div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
     div.rounded-xl,
     a.rounded-xl:not(.bg-sky-500):not(.bg-sky-600),
     a.rounded-2xl:not(.bg-sky-500):not(.bg-sky-600),
     section.rounded-2xl,
-    article[id^="product-"] {
+    article[id^="product-"] {{
       border-color: rgba(255, 255, 255, 0.08) !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
-    }
+    }}
     /* Featured Tiers (Tier 2, Tier 3, and API ULTRA Popular cards) -> Steel Sky border + subtle sky gradient */
     #checkout-card-tier2,
     #checkout-card-tier3,
-    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:nth-child(3) {
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:nth-child(3) {{
       border: 1px solid rgba(56, 189, 248, 0.45) !important;
       background: linear-gradient(180deg, rgba(56, 189, 248, 0.06) 0%, #11161F 100%) !important;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
-    }
+    }}
     /* API Card Top Header Strip & Capability Boxes */
-    article[id^="product-"] > div:first-of-type {
+    article[id^="product-"] > div:first-of-type {{
       background: #0C1017 !important;
       background-image: none !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
+    }}
     /* API Card Top Strip Badges: First badge (API XX // TITLE) -> Neutral Graphite Pill; Second badge (POST /v1/...) -> Steel Sky Pill */
-    article[id^="product-"] > div:first-of-type span.rounded {
+    article[id^="product-"] > div:first-of-type span.rounded {{
       background-color: rgba(255, 255, 255, 0.05) !important;
       color: #E2E8F0 !important;
       border: 1px solid rgba(255, 255, 255, 0.10) !important;
-    }
-    article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {
+    }}
+    article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {{
       background-color: rgba(56, 189, 248, 0.12) !important;
       color: #38BDF8 !important;
       border: 1px solid rgba(56, 189, 248, 0.28) !important;
-    }
+    }}
     /* API Card 4-Tier Mini Cards (BASIC, PRO, ULTRA, MEGA) */
-    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:not(:nth-child(3)) {
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:not(:nth-child(3)) {{
       background-color: #0C1017 !important;
       border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
-    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div > span.absolute {
+    }}
+    article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div > span.absolute {{
       background-color: rgba(56, 189, 248, 0.15) !important;
       color: #38BDF8 !important;
       border: 1px solid rgba(56, 189, 248, 0.35) !important;
-    }
+    }}
     /* API Card Right-Side Code Terminal */
-    article[id^="product-"] .lg\\:col-span-5 {
+    article[id^="product-"] .lg\\:col-span-5 {{
       background-color: #0B0E14 !important;
       border: 1px solid rgba(255, 255, 255, 0.10) !important;
-    }
-    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child {
+    }}
+    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child {{
       background-color: #090C10 !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
-    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child > span:first-child {
+    }}
+    article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child > span:first-child {{
       color: #E2E8F0 !important;
-    }
+    }}
     /* Schema field pills at bottom of API terminal -> Uniform Graphite + Steel Sky */
-    article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
+    article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\\.5 > span {{
       background-color: #0C1017 !important;
       border: 1px solid rgba(255, 255, 255, 0.08) !important;
       color: #38BDF8 !important;
-    }
+    }}
     /* Cross-Catalog Pricing Matrix Table -> Uniform Graphite rows (zero rainbow row background tints) */
-    #api-pricing-matrix tbody tr {
+    #api-pricing-matrix tbody tr {{
       background-color: transparent !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-    }
-    #api-pricing-matrix tbody tr:hover {
+    }}
+    #api-pricing-matrix tbody tr:hover {{
       background-color: rgba(255, 255, 255, 0.03) !important;
-    }
+    }}
     /* Secondary buttons & outline CTAs -> Clean Graphite (#161B22) */
     a[class*="bg-emerald-500/"],
     a[class*="bg-emerald-950"],
@@ -847,11 +925,11 @@ def _render_layout(
     a[class*="bg-sky-500/"],
     button[class*="bg-sky-500/"],
     a[class*="bg-indigo-500/"],
-    button[class*="bg-indigo-500/"] {
+    button[class*="bg-indigo-500/"] {{
       background-color: #161B22 !important;
       color: #E2E8F0 !important;
       border-color: rgba(255, 255, 255, 0.12) !important;
-    }
+    }}
     a[class*="bg-emerald-500/"]:hover,
     a[class*="bg-emerald-950"]:hover,
     button[class*="bg-emerald-500/"]:hover,
@@ -865,11 +943,11 @@ def _render_layout(
     a[class*="bg-sky-500/"]:hover,
     button[class*="bg-sky-500/"]:hover,
     a[class*="bg-indigo-500/"]:hover,
-    button[class*="bg-indigo-500/"]:hover {
+    button[class*="bg-indigo-500/"]:hover {{
       background-color: #1F2733 !important;
       color: #FFFFFF !important;
       border-color: rgba(56, 189, 248, 0.35) !important;
-    }
+    }}
     /* Unify multi-color inline prose highlights in paragraphs to crisp white */
     p > span.text-emerald-300,
     p > span.text-emerald-400,
@@ -878,9 +956,9 @@ def _render_layout(
     p > span.text-sky-300,
     p > span.text-sky-400,
     p > span.text-sky-300,
-    p > span.text-sky-400 {
+    p > span.text-sky-400 {{
       color: #F8FAFC !important;
-    }
+    }}
     /* High-contrast Linear / Palantir crisp white primary action buttons (exact match to Option 1 preview) */
     a.bg-sky-500,
     a.bg-sky-600,
@@ -915,14 +993,14 @@ def _render_layout(
     button.bg-teal-500,
     button.bg-teal-600,
     a[class*="bg-gradient-to-r"][class*="from-"],
-    button[class*="bg-gradient-to-r"][class*="from-"] {
+    button[class*="bg-gradient-to-r"][class*="from-"] {{
       background: #F8FAFC !important;
       background-image: none !important;
       color: #090C10 !important;
       border-color: #FFFFFF !important;
       font-weight: 600 !important;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
-    }
+    }}
     a.bg-sky-500:hover,
     a.bg-sky-600:hover,
     button.bg-sky-500:hover,
@@ -942,12 +1020,12 @@ def _render_layout(
     a.bg-sky-600:hover,
     button.bg-sky-600:hover,
     a[class*="bg-gradient-to-r"][class*="from-"]:hover,
-    button[class*="bg-gradient-to-r"][class*="from-"]:hover {
+    button[class*="bg-gradient-to-r"][class*="from-"]:hover {{
       background: #E2E8F0 !important;
       background-image: none !important;
       color: #090C10 !important;
       border-color: #E2E8F0 !important;
-    }
+    }}
     a.bg-sky-500 span,
     a.bg-sky-600 span,
     button.bg-sky-500 span,
@@ -965,9 +1043,9 @@ def _render_layout(
     button.bg-sky-500 span,
     button.bg-sky-600 span,
     a[class*="bg-gradient-to-r"][class*="from-"] span,
-    button[class*="bg-gradient-to-r"][class*="from-"] span {
+    button[class*="bg-gradient-to-r"][class*="from-"] span {{
       color: #090C10 !important;
-    }
+    }}
   </style>
   {ld_script}
 </head>

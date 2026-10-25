@@ -262,3 +262,40 @@ ReferenceError: CATALOG is not defined
 
 === ARCHIVED & RESOLVED AT 2026-10-25 19:40:05 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-25 19:30:38 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#contracts@1280px: ['div [PAST_SCREEN left=920 right=1306 vw=1280] "Log In Sign Up Unlock All RFP Links →" (w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0)', 'a [PAST_SCREEN left=1118 right=1306 vw=1280] "Unlock All RFP Links →" (hidden xl:inline-flex items-center px-3 py-1.5 xl:px-3.5 xl:py-2 text-xs font-mo)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-25 20:05:09 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 32 local + 2 remote alert(s)) ===
+[!] pseo_generator.py error: name 'color' is not defined
+[2026-10-25 19:55:16 UTC] [LOCAL] [pseo_generator.py] pseo_generator.py error: name 'color' is not defined
+
+[!] pseo_generator.py error: name 'color' is not defined
+[2026-10-25 19:56:30 UTC] [LOCAL] [pseo_generator.py] pseo_generator.py error: name 'color' is not defined
+[2026-10-25 19:58:16 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: JS SyntaxError:
+<script> #2: <script> #2:307
+    }
+    ^
+
+SyntaxError: Unexpected token '}'
+    at new Script (node:vm:118:7)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpd0qst4eo.js:5:5)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+[2026-10-25 19:58:40 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: JS SyntaxError:
+<script> #2: <script> #2:307
+    }
+    ^
+
+SyntaxError: Unexpected token '}'
+    at new Script (node:vm:118:7)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpjzrx8nia.js:5:5)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
