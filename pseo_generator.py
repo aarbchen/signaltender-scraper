@@ -554,7 +554,7 @@ def _render_layout(
             sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }},
-                    colors: {{
+                              colors: {{
             navy: {{
               950: '#090C10',
               900: '#11161F',
@@ -764,7 +764,7 @@ def _render_layout(
       }}
     }}
 
-                /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
+                    /* === INSTITUTIONAL GRAPHITE THEME (PALANTIR FOUNDRY / LINEAR DARK) === */
     :root, html {{
       color-scheme: dark;
       scrollbar-width: thin;
@@ -787,6 +787,19 @@ def _render_layout(
     .max-w-6xl,
     .max-w-5xl {{
       max-width: 1600px !important;
+    }}
+    @media (min-width: 1024px) {{
+      #page-main > section,
+      #page-apis > section,
+      #page-apis > div:not(:first-of-type),
+      #page-contracts > main,
+      #page-contracts > div:not(:first-of-type),
+      #page-checkout > section,
+      body > div:first-of-type > section,
+      body > div:first-of-type > main,
+      body > footer {{
+        padding-left: 44px !important;
+      }}
     }}
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
     .blur-3xl,
@@ -896,6 +909,10 @@ def _render_layout(
     }}
     article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child > span:first-child {{
       color: #E2E8F0 !important;
+    }}
+    article[id^="product-"] .lg\\:col-span-5 div:has(> div > button[data-lang="curl"]) {{
+      padding: 8px 14px !important;
+      margin-bottom: 4px !important;
     }}
     /* Schema field pills at bottom of API terminal -> Uniform Graphite + Steel Sky */
     article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\\.5 > span {{
