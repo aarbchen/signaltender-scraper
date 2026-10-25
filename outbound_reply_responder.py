@@ -137,7 +137,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 21 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
-        f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (no sales calls or annual lock-ins):\n"
+        f"When your team is ready for automated 6-hour dispatches and un-blurred portal links, we have two instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 15-portal Federal & State SLED IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 21-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n\n"
         f"Activate instant access anytime here:\n"

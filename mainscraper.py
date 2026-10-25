@@ -592,6 +592,173 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
     return unique_records
 
 
+PORTAL_FALLBACK_ENDPOINTS = {
+    "Texas SLED (ESBD)": {
+        "portal_url": "https://www.txsmartbuy.com/esbd",
+        "socrata_json": "https://data.texas.gov/resource/c97x-eb6w.json?$limit=25",
+        "default_agency": "State of Texas / DIR & ESBD",
+    },
+    "Virginia SLED (eVA)": {
+        "portal_url": "https://mvendor.cgieva.com/Vendor/public/AllOpportunities.jsp",
+        "socrata_json": "https://data.virginia.gov/api/3/action/package_search?q=procurement+technology&rows=15",
+        "default_agency": "Commonwealth of Virginia (eVA)",
+    },
+    "California SLED (Cal eProcure)": {
+        "portal_url": "https://caleprocure.ca.gov/pages/Events-BS3/event-search.aspx",
+        "socrata_json": "https://data.ca.gov/api/3/action/package_search?q=contract+software+it&rows=15",
+        "default_agency": "State of California (DGS / CDT)",
+    },
+    "Florida SLED (MFMP VIP)": {
+        "portal_url": "https://vendor.myfloridamarketplace.com/search/bids",
+        "socrata_json": "",
+        "default_agency": "State of Florida (DMS / MFMP)",
+    },
+    "Maryland SLED (eMMA / Bonfire)": {
+        "portal_url": "https://emma.maryland.gov/page.aspx/en/rfp/request_browse_public",
+        "socrata_json": "https://opendata.maryland.gov/resource/6j62-bd8m.json?$limit=25",
+        "default_agency": "State of Maryland (DoIT / eMMA)",
+    },
+    "Illinois SLED (BidBuy / CTA)": {
+        "portal_url": "https://www.bidbuy.illinois.gov/bso/view/search/external/advancedSearchBid.xhtml",
+        "socrata_json": "https://data.illinois.gov/api/3/action/package_search?q=technology+contract&rows=15",
+        "default_agency": "State of Illinois (DoIT / BidBuy)",
+    },
+    "Pennsylvania SLED (PA eMarketplace)": {
+        "portal_url": "https://www.emarketplace.state.pa.us/Search.aspx",
+        "socrata_json": "https://data.pa.gov/resource/r334-6629.json?$limit=25",
+        "default_agency": "Commonwealth of Pennsylvania (DGS / OA-IT)",
+    },
+    "Ohio SLED (Ohio Buys / Metro)": {
+        "portal_url": "https://ohiobuys.ohio.gov/page.aspx/en/rfp/request_browse_public",
+        "socrata_json": "",
+        "default_agency": "State of Ohio (DAS OIT / OhioBuys)",
+    },
+    "Georgia SLED (GPR / Team GA)": {
+        "portal_url": "https://ssl.doas.state.ga.us/gpr/",
+        "socrata_json": "",
+        "default_agency": "State of Georgia (DOAS / GTA)",
+    },
+    "North Carolina SLED (NC eVP)": {
+        "portal_url": "https://evp.nc.gov/solicitations/",
+        "socrata_json": "",
+        "default_agency": "State of North Carolina (NCDIT / eVP)",
+    },
+    "New York SLED (NYC CROL / PASSPort / PANYNJ)": {
+        "portal_url": "https://a856-cityrecord.nyc.gov/",
+        "socrata_json": "https://data.cityofnewyork.us/resource/dg92-zbpx.json?$limit=30&$order=start_date%20DESC",
+        "default_agency": "State & City of New York (OTI / OGS)",
+    },
+    "Massachusetts SLED (COMMBUYS / Boston)": {
+        "portal_url": "https://www.commbuys.com/bso/view/search/external/advancedSearchBid.xhtml",
+        "socrata_json": "https://data.boston.gov/api/3/action/datastore_search?resource_id=320d46f9-f371-4426-8286-e32e23f7c222&limit=25",
+        "default_agency": "Commonwealth of Massachusetts (EOTSS / OSD)",
+    },
+    "New Jersey SLED (NJSTART / Treasury DPP)": {
+        "portal_url": "https://www.njstart.gov/bso/view/search/external/advancedSearchBid.xhtml",
+        "socrata_json": "https://data.nj.gov/resource/w9se-dmra.json?$limit=25",
+        "default_agency": "State of New Jersey (Treasury DPP / NJOIT)",
+    },
+}
+
+
+async def salvage_portal_via_selector_free_fallback(source_name: str) -> list[dict]:
+    """
+    3-Tier Zero-Selector State Portal Recovery:
+      Tier 2: Queries official State Socrata / CKAN Open-Data JSON APIs (`data.<state>.gov`).
+      Tier 3: Strips all HTML/DOM tags from the portal response and runs raw-text extraction
+              via `claude-sonnet-5-5` with zero reliance on CSS classes or table selectors.
+    """
+    cfg = PORTAL_FALLBACK_ENDPOINTS.get(source_name)
+    if not cfg:
+        return []
+
+    portal_url = cfg["portal_url"]
+    socrata_url = cfg.get("socrata_json") or ""
+    default_agency = cfg["default_agency"]
+    raw_text_blobs = []
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/json,*/*;q=0.8",
+    }
+
+    if socrata_url:
+        try:
+            r_json = requests.get(socrata_url, headers=headers, timeout=15)
+            if r_json.status_code == 200 and len(r_json.text) > 80:
+                raw_text_blobs.append(r_json.text[:12000])
+        except Exception:
+            pass
+
+    try:
+        r_html = requests.get(portal_url, headers=headers, timeout=15)
+        if r_html.status_code == 200 and len(r_html.text) > 200:
+            clean_txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", r_html.text, flags=re.S | re.I)
+            clean_txt = re.sub(r"<[^>]+>", " ", clean_txt)
+            clean_txt = re.sub(r"\s+", " ", clean_txt).strip()
+            if len(clean_txt) > 150:
+                raw_text_blobs.append(clean_txt[:12000])
+    except Exception:
+        pass
+
+    if not raw_text_blobs:
+        return []
+
+    llm = _get_anthropic_client()
+    if not llm:
+        return []
+
+    combined_text = "\n\n---\n\n".join(raw_text_blobs)[:14500]
+    salvaged = []
+    try:
+        msg = await llm.messages.create(
+            model="claude-sonnet-5-5",
+            max_tokens=1500,
+            temperature=0.0,
+            system=B2B_EXTRACTION_SYSTEM_PROMPT,
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        f"Portal Source: {source_name} ({default_agency})\n"
+                        f"Extract open B2B IT, software, cloud, or cybersecurity solicitations from this raw selector-free text dump:\n\n{combined_text}"
+                    ),
+                }
+            ],
+        )
+        raw_out = ""
+        for blk in msg.content:
+            if getattr(blk, "type", "") == "text":
+                raw_out = blk.text.strip()
+                break
+        if raw_out.startswith("```"):
+            raw_out = raw_out.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+        parsed = json.loads(raw_out) if raw_out else []
+        if isinstance(parsed, list):
+            for item in parsed:
+                t_raw = str(item.get("title") or "").strip()
+                d_raw = str(item.get("closing_date") or "").strip()
+                if not t_raw or is_commodity_it_spam(t_raw):
+                    continue
+                if not any(re.search(pat, t_raw.lower()) for pat in tech_keywords):
+                    continue
+                fmt_t, clean_d = format_title_and_due(t_raw, d_raw)
+                if not fmt_t or is_commodity_it_spam(fmt_t):
+                    continue
+                slug_part = re.sub(r"[^a-z0-9]+", "-", fmt_t.lower()).strip("-")[:75]
+                salvaged.append({
+                    "title": fmt_t,
+                    "agency": default_agency,
+                    "closing_date": clean_d if clean_d else None,
+                    "url": f"{portal_url.rstrip('/')}#{slug_part}",
+                    "status": "New Lead",
+                })
+    except Exception as salv_err:
+        print(f"[!] Selector-free LLM fallback warning for {source_name}: {salv_err}", flush=True)
+
+    return salvaged
+
+
 async def run_master_orchestrator(
     url: str = "https://www.txsmartbuy.com/esbd",
     selector: str = "body",
@@ -712,14 +879,25 @@ async def run_master_orchestrator(
     for label, res in zip(source_labels, results):
         if isinstance(res, Exception):
             error_msg = f"Orchestrator error in {label}: {res}"
-            print(f"[!] {error_msg}", flush=True)
-            try:
-                with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                    f.write(f"\n[!] {error_msg}\n")
-            except Exception:
-                pass
-            send_discord_alert(error_msg)
+            print(f"[!] {error_msg} — attempting 3-Tier Selector-Free Open-Data/LLM Fallback...", flush=True)
+            salvaged = await salvage_portal_via_selector_free_fallback(label)
+            if salvaged:
+                print(f"[+] Selector-Free Fallback recovered {len(salvaged)} records for {label}!", flush=True)
+                combined_records.extend(salvaged)
+            else:
+                try:
+                    with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                        f.write(f"\n[!] {error_msg}\n")
+                except Exception:
+                    pass
+                send_discord_alert(error_msg)
         elif isinstance(res, list):
+            if not res and label in PORTAL_FALLBACK_ENDPOINTS:
+                print(f"[*] {label} returned 0 records — running Selector-Free Open-Data/LLM Fallback check...", flush=True)
+                salvaged = await salvage_portal_via_selector_free_fallback(label)
+                if salvaged:
+                    print(f"[+] Selector-Free Fallback recovered {len(salvaged)} records for {label}!", flush=True)
+                    res = salvaged
             print(f"[*] Collected {len(res)} validated records from {label}.", flush=True)
             combined_records.extend(res)
 

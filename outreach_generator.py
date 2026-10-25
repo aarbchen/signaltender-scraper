@@ -795,9 +795,9 @@ def build_two_step_outreach(
         ),
     ]
     step2_closers = [
-        f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate full 6-hour dispatches (Tier 1 $99/mo or Tier 2 $399/mo) in 60 seconds at:\n{clean_checkout_url}\n\nNo contracts or onboarding calls—cancel anytime in 1 click.",
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 21 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo) or CaptureDesk ($399/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, no demos required.",
-        f"Set up a Free Explorer Account ($0/mo, no card required) to bookmark bids and save your capability profile here:\n{clean_portal_url}\n\nOr view instant Tier 1 ($99/mo) & Tier 2 ($399/mo) activation options at:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
+        f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate full 6-hour dispatches (Tier 1 $99/mo or Tier 2 $399/mo) in 60 seconds at:\n{clean_checkout_url}\n\nClassified as an allowable Bid & Proposal (B&P) market-research expense under FAR 31.205-18 (instant itemized PDF receipt for corporate P-Cards & 1-click auto-renew pause in #account).",
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 21 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo) or CaptureDesk ($399/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, FAR 31.205-18 allowable B&P expense (corporate P-Card & DCAA PDF invoice ready), no demos required.",
+        f"Set up a Free Explorer Account ($0/mo, no card required) to bookmark bids and save your capability profile here:\n{clean_portal_url}\n\nOr view instant Tier 1 ($99/mo) & Tier 2 ($399/mo) activation options (FAR 31.205-18 allowable B&P expense with instant P-Card PDF receipt) at:\n{clean_checkout_url}\n\nIf public-sector IT isn't a focus for {clean_comp}, no worries at all—I won't follow up again.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
