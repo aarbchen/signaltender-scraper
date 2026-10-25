@@ -417,16 +417,15 @@
     </section>
 
     <!-- ===================================================================
-         PRODUCT SUITE WORKSPACE SWITCHER BAR (CLEAN MULTI-TAB ORGANIZATION)
+         PLATFORM CAPABILITIES NAVIGATION BAR
          =================================================================== -->
     <div id="overview-product-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="flex items-center justify-between gap-2 shrink-0">
-            <span class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold">// WORKSPACE MODULES:</span>
-            <span id="overview-active-module-badge" class="lg:hidden text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">Focused Tab View</span>
+            <span class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold">// PLATFORM CAPABILITIES:</span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Platform Overview Workspace Modules">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="SignalTender Platform Capabilities">
             <button
               type="button"
               id="overview-tab-btn-wire"
@@ -479,7 +478,7 @@
               onclick="window.switchOverviewProductTab('all')"
               class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
             >
-              Full Suite View
+              Complete Platform
             </button>
           </div>
         </div>
@@ -2385,20 +2384,20 @@
     </section>
 
     <!-- ===================================================================
-         WORKSPACE MODULE PROGRESSION FOOTER (STEP CLEANLY BETWEEN TABS)
+         END-TO-END GOVCON CAPTURE & PROPOSAL PIPELINE STEPPER
          =================================================================== -->
     <div id="overview-module-progression-bar" class="py-10 bg-navy-950 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900/95 to-indigo-950/40 border border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div class="space-y-1">
             <div id="overview-stepper-kicker" class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold">
-              // ORGANIZED MODULE VIEW &bull; ZERO PAGE CLUTTER
+              // END-TO-END GOVCON CAPTURE &amp; PROPOSAL PIPELINE
             </div>
             <div id="overview-stepper-title" class="text-base sm:text-lg font-extrabold text-white">
-              Viewing: Live 6-Hour Alert Wire &amp; 16-Portal RFP Feed (Tier 1)
+              Stage 1: 6-Hour Federal &amp; 14-State SLED Solicitation Wire (Tier 1)
             </div>
             <p id="overview-stepper-desc" class="text-xs text-slate-400">
-              Use the workspace tabs above or click next below to inspect 21-API Capture Dossiers, the 1-Click 3-Volume Proposal .ZIP Compiler, FOIA Rate Vault, or 16-Portal Coverage.
+              Automated discovery across 16 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
@@ -2408,22 +2407,21 @@
               onclick="window.switchOverviewProductTab('dossiers', true)"
               class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all cursor-pointer"
             >
-              Next: AI Capture Dossiers &rarr;
+              Explore 21-API Capture Dossiers &rarr;
             </button>
             <button
               type="button"
               onclick="window.switchOverviewProductTab('proposal', true)"
               class="px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 font-semibold border border-emerald-500/40 transition-all cursor-pointer"
             >
-              Proposal .ZIP &amp; FOIA Vault &rarr;
+              3-Vol Proposal .ZIP &amp; FOIA Vault &rarr;
             </button>
-            <button
-              type="button"
-              onclick="window.switchOverviewProductTab('all', false)"
+            <a
+              href="#checkout"
               class="px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-700 transition-all cursor-pointer"
             >
-              Show All Sections
-            </button>
+              Compare Plans &amp; Pricing &rarr;
+            </a>
           </div>
         </div>
       </div>
@@ -3066,14 +3064,14 @@
       </div>
     </section>
 
-    <!-- Developer API Catalog Workspace Switcher Bar -->
+    <!-- Developer API Catalog Navigation Bar -->
     <div id="api-catalog-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
-            // API CATALOG WORKSPACE VIEW:
+            // DEVELOPER API &amp; MCP CATALOG:
           </div>
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog View Switcher">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog Sections">
             <button
               type="button"
               id="apicatalog-tab-btn-all"
@@ -3081,7 +3079,7 @@
               onclick="window.switchApiCatalogTab('all')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
             >
-              Full Catalog View
+              All Endpoints &amp; Matrix
             </button>
             <button
               type="button"
@@ -3090,7 +3088,7 @@
               onclick="window.switchApiCatalogTab('directory')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
             >
-              Directory &amp; MCP Only
+              Quick-Jump Directory &amp; MCP
             </button>
             <button
               type="button"
@@ -3108,7 +3106,7 @@
               onclick="window.switchApiCatalogTab('matrix')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
             >
-              Tier &amp; Quota Matrix
+              Pricing &amp; Quota Matrix
             </button>
           </div>
         </div>
@@ -9490,7 +9488,7 @@
                 onclick="window.switchCheckoutSectionTab('all')"
                 class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
               >
-                Show All Details
+                All Evaluation Tools
               </button>
             </div>
           </div>
@@ -9507,11 +9505,11 @@
                 Compare Live <code class="font-mono text-sky-400">#tier1-gov-leads</code>, <code class="font-mono text-indigo-400">#capturedesk-autopilot</code>, <code class="font-mono text-emerald-400">#proposal-autopilot-vip</code> &amp; <code class="font-mono text-amber-300">#foia-winning-bid-vault</code>
               </h3>
               <p class="mt-1 text-xs sm:text-sm text-slate-400">
-                Both plans filter out 99.4% of non-IT commodity noise across all 16 portals and include clickable <code class="font-mono text-slate-300">/contracts/rfp/</code> dossiers plus direct government source links.
+                All 4 tiers filter out 99.4% of non-IT commodity noise across all 16 portals and include clickable <code class="font-mono text-slate-300">/contracts/rfp/</code> dossiers plus direct government source links.
               </p>
             </div>
             <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono shrink-0">
-              <span class="px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">&check; ZERO OPENGRAPH CLUTTER</span>
+              <span class="px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">&check; DIRECT GOV SOURCE LINKS</span>
               <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-200 border border-slate-700">6-HOUR AUTOMATED CADENCE</span>
             </div>
           </div>
@@ -10282,13 +10280,13 @@
             <div id="account-dispatch-now-results" class="hidden pt-2 space-y-2"></div>
           </div>
 
-          <!-- Client Account Workspace Module Switcher Bar -->
+          <!-- Client Portal Settings Bar -->
           <div id="account-workspace-tabs-bar" class="p-3 sm:p-4 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-xl">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
               <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
-                // ACCOUNT WORKSPACE MODULES:
+                // CLIENT PORTAL SETTINGS:
               </div>
-              <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Client Account Workspace Modules">
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Client Portal Settings">
                 <button
                   type="button"
                   id="account-ws-tab-billing"
@@ -10323,7 +10321,7 @@
                   onclick="window.switchAccountWorkspaceTab('all')"
                   class="account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
                 >
-                  All Account Modules
+                  All Portal Settings
                 </button>
               </div>
             </div>
@@ -14453,40 +14451,48 @@
         }
         var stepMeta = {
           wire: {
-            title: 'Viewing: Live 6-Hour Alert Wire & 16-Portal RFP Feed (Tier 1)',
+            title: 'Stage 1: 6-Hour Federal & 14-State SLED Solicitation Wire (Tier 1)',
+            desc: 'Automated discovery across 16 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
             nextTab: 'dossiers',
-            nextLabel: 'Next: AI Capture Dossiers ->'
+            nextLabel: 'Explore 21-API Capture Dossiers ->'
           },
           dossiers: {
-            title: 'Viewing: 21-API CaptureDesk AI Dossiers & Interactive Shredder (Tier 2)',
+            title: 'Stage 2: 21-API CaptureDesk AI Dossiers & Section L/M Shredding (Tier 2)',
+            desc: 'Every actionable solicitation arrives pre-shredded with Bid/No-Bid P-Win scoring, Section L/M compliance matrices, incumbent spend, and teaming gap analysis.',
             nextTab: 'proposal',
-            nextLabel: 'Next: 3-Vol Proposal .ZIP & FOIA Vault ->'
+            nextLabel: 'Explore 3-Vol Proposal .ZIP & FOIA Vault ->'
           },
           proposal: {
-            title: 'Viewing: 1-Click Shipley Proposal .ZIP, 13 CFR 125.6 Teaming & FOIA Vault (Tiers 3-4)',
+            title: 'Stage 3: 90-Second Shipley 3-Volume Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
+            desc: 'Compile ready-to-submit Technical, Past Performance, and IGCE Pricing .DOCX/.XLSX volumes, enforce 13 CFR 125.6 workshare limits, and benchmark competitor labor rates.',
             nextTab: 'coverage',
-            nextLabel: 'Next: 16-Portal Coverage Matrix ->'
+            nextLabel: 'Explore 16-Portal Coverage Matrix ->'
           },
           coverage: {
-            title: 'Viewing: 16-Portal Federal & 14-State SLED Procurement Coverage',
+            title: 'Stage 4: Unified 16-Portal Federal, Defense & 14-State SLED Coverage',
+            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, WA, and NJ procurement portals.',
             nextTab: 'integrations',
-            nextLabel: 'Next: Slack, Teams, CRM & 22 APIs ->'
+            nextLabel: 'Explore Slack, Teams, CRM & 22 APIs ->'
           },
           integrations: {
-            title: 'Viewing: Slack, Microsoft Teams, CRM Webhooks & 22-API Ecosystem',
+            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 22 Stateless APIs',
+            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 22 GovCon microservices via REST and Model Context Protocol (MCP).',
             nextTab: 'wire',
-            nextLabel: 'Back to Live Alert Wire & Feed ->'
+            nextLabel: 'Return to Live Solicitation Wire ->'
           },
           all: {
-            title: 'Viewing: Full Platform Suite (All 6 Modules Expanded)',
+            title: 'SignalTender End-to-End GovCon Capture, Proposal & FOIA Intelligence Suite',
+            desc: 'From 6-hour multi-portal RFP discovery and 21-API capture shredding to 90-second 3-Volume Shipley .DOCX/.XLSX compilation and FOIA competitor price-to-win intelligence.',
             nextTab: 'wire',
-            nextLabel: 'Switch to Focused Tab View ->'
+            nextLabel: 'Explore Stage 1: Solicitation Wire ->'
           }
         };
         var meta = stepMeta[key] || stepMeta.wire;
         var stTitle = document.getElementById('overview-stepper-title');
+        var stDesc = document.getElementById('overview-stepper-desc');
         var stNextBtn = document.getElementById('overview-stepper-next-btn');
         if (stTitle) stTitle.textContent = meta.title;
+        if (stDesc && meta.desc) stDesc.textContent = meta.desc;
         if (stNextBtn) {
           stNextBtn.textContent = meta.nextLabel;
           stNextBtn.setAttribute('onclick', "window.switchOverviewProductTab('" + meta.nextTab + "', true)");

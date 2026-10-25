@@ -782,14 +782,14 @@
     </div>
   </section>
 
-    <!-- Developer API Catalog Workspace Switcher Bar -->
+    <!-- Developer API Catalog Navigation Bar -->
     <div id="api-catalog-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
-            // API CATALOG WORKSPACE VIEW:
+            // DEVELOPER API &amp; MCP CATALOG:
           </div>
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog View Switcher">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog Sections">
             <button
               type="button"
               id="apicatalog-tab-btn-all"
@@ -797,7 +797,7 @@
               onclick="window.switchApiCatalogTab('all')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
             >
-              Full Catalog View
+              All Endpoints &amp; Matrix
             </button>
             <button
               type="button"
@@ -806,7 +806,7 @@
               onclick="window.switchApiCatalogTab('directory')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
             >
-              Directory &amp; MCP Only
+              Quick-Jump Directory &amp; MCP
             </button>
             <button
               type="button"
@@ -824,7 +824,7 @@
               onclick="window.switchApiCatalogTab('matrix')"
               class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
             >
-              Tier &amp; Quota Matrix
+              Pricing &amp; Quota Matrix
             </button>
           </div>
         </div>
@@ -7499,40 +7499,48 @@
         }
         var stepMeta = {
           wire: {
-            title: 'Viewing: Live 6-Hour Alert Wire & 16-Portal RFP Feed (Tier 1)',
+            title: 'Stage 1: 6-Hour Federal & 14-State SLED Solicitation Wire (Tier 1)',
+            desc: 'Automated discovery across 16 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
             nextTab: 'dossiers',
-            nextLabel: 'Next: AI Capture Dossiers ->'
+            nextLabel: 'Explore 21-API Capture Dossiers ->'
           },
           dossiers: {
-            title: 'Viewing: 21-API CaptureDesk AI Dossiers & Interactive Shredder (Tier 2)',
+            title: 'Stage 2: 21-API CaptureDesk AI Dossiers & Section L/M Shredding (Tier 2)',
+            desc: 'Every actionable solicitation arrives pre-shredded with Bid/No-Bid P-Win scoring, Section L/M compliance matrices, incumbent spend, and teaming gap analysis.',
             nextTab: 'proposal',
-            nextLabel: 'Next: 3-Vol Proposal .ZIP & FOIA Vault ->'
+            nextLabel: 'Explore 3-Vol Proposal .ZIP & FOIA Vault ->'
           },
           proposal: {
-            title: 'Viewing: 1-Click Shipley Proposal .ZIP, 13 CFR 125.6 Teaming & FOIA Vault (Tiers 3-4)',
+            title: 'Stage 3: 90-Second Shipley 3-Volume Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
+            desc: 'Compile ready-to-submit Technical, Past Performance, and IGCE Pricing .DOCX/.XLSX volumes, enforce 13 CFR 125.6 workshare limits, and benchmark competitor labor rates.',
             nextTab: 'coverage',
-            nextLabel: 'Next: 16-Portal Coverage Matrix ->'
+            nextLabel: 'Explore 16-Portal Coverage Matrix ->'
           },
           coverage: {
-            title: 'Viewing: 16-Portal Federal & 14-State SLED Procurement Coverage',
+            title: 'Stage 4: Unified 16-Portal Federal, Defense & 14-State SLED Coverage',
+            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, WA, and NJ procurement portals.',
             nextTab: 'integrations',
-            nextLabel: 'Next: Slack, Teams, CRM & 22 APIs ->'
+            nextLabel: 'Explore Slack, Teams, CRM & 22 APIs ->'
           },
           integrations: {
-            title: 'Viewing: Slack, Microsoft Teams, CRM Webhooks & 22-API Ecosystem',
+            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 22 Stateless APIs',
+            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 22 GovCon microservices via REST and Model Context Protocol (MCP).',
             nextTab: 'wire',
-            nextLabel: 'Back to Live Alert Wire & Feed ->'
+            nextLabel: 'Return to Live Solicitation Wire ->'
           },
           all: {
-            title: 'Viewing: Full Platform Suite (All 6 Modules Expanded)',
+            title: 'SignalTender End-to-End GovCon Capture, Proposal & FOIA Intelligence Suite',
+            desc: 'From 6-hour multi-portal RFP discovery and 21-API capture shredding to 90-second 3-Volume Shipley .DOCX/.XLSX compilation and FOIA competitor price-to-win intelligence.',
             nextTab: 'wire',
-            nextLabel: 'Switch to Focused Tab View ->'
+            nextLabel: 'Explore Stage 1: Solicitation Wire ->'
           }
         };
         var meta = stepMeta[key] || stepMeta.wire;
         var stTitle = document.getElementById('overview-stepper-title');
+        var stDesc = document.getElementById('overview-stepper-desc');
         var stNextBtn = document.getElementById('overview-stepper-next-btn');
         if (stTitle) stTitle.textContent = meta.title;
+        if (stDesc && meta.desc) stDesc.textContent = meta.desc;
         if (stNextBtn) {
           stNextBtn.textContent = meta.nextLabel;
           stNextBtn.setAttribute('onclick', "window.switchOverviewProductTab('" + meta.nextTab + "', true)");
