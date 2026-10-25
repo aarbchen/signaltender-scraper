@@ -722,6 +722,28 @@ document.getElementById('account-profile-name').value = 'Commander Alex Vance';
 window.saveAccountProfile();
 window.refreshClientAccount();
 window.logoutClientAccount();
+if (typeof window.switchOverviewProductTab !== 'function' || typeof window.switchCheckoutSectionTab !== 'function' || typeof window.switchAccountWorkspaceTab !== 'function' || typeof window.switchApiCatalogTab !== 'function') {
+  throw new Error('Multi-tab workspace organization functions (switchOverviewProductTab / switchCheckoutSectionTab / switchAccountWorkspaceTab / switchApiCatalogTab) are undefined!');
+}
+window.switchOverviewProductTab('dossiers');
+window.switchOverviewProductTab('proposal');
+window.switchOverviewProductTab('coverage');
+window.switchOverviewProductTab('integrations');
+window.switchOverviewProductTab('all');
+window.switchOverviewProductTab('wire');
+window.switchCheckoutSectionTab('roi');
+window.switchCheckoutSectionTab('benchmark');
+window.switchCheckoutSectionTab('faq');
+window.switchCheckoutSectionTab('all');
+window.switchCheckoutSectionTab('preview');
+window.switchAccountWorkspaceTab('filters');
+window.switchAccountWorkspaceTab('pipeline');
+window.switchAccountWorkspaceTab('all');
+window.switchAccountWorkspaceTab('billing');
+window.switchApiCatalogTab('directory');
+window.switchApiCatalogTab('modules');
+window.switchApiCatalogTab('matrix');
+window.switchApiCatalogTab('all');
 if (typeof window.jumpToPageSection !== 'function' || !window.jumpToPageSection('integrations') || !window.jumpToPageSection('capture-moat')) {
   throw new Error('window.jumpToPageSection failed to jump to in-page sections!');
 }

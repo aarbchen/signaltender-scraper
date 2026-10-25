@@ -416,6 +416,76 @@
       </div>
     </section>
 
+    <!-- ===================================================================
+         PRODUCT SUITE WORKSPACE SWITCHER BAR (CLEAN MULTI-TAB ORGANIZATION)
+         =================================================================== -->
+    <div id="overview-product-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+          <div class="flex items-center justify-between gap-2 shrink-0">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold">// WORKSPACE MODULES:</span>
+            <span id="overview-active-module-badge" class="lg:hidden text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">Focused Tab View</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Platform Overview Workspace Modules">
+            <button
+              type="button"
+              id="overview-tab-btn-wire"
+              data-overview-tab="wire"
+              onclick="window.switchOverviewProductTab('wire')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 shadow-sm text-center transition-all cursor-pointer"
+            >
+              Live Wire &amp; RFPs
+            </button>
+            <button
+              type="button"
+              id="overview-tab-btn-dossiers"
+              data-overview-tab="dossiers"
+              onclick="window.switchOverviewProductTab('dossiers')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+            >
+              AI Capture Dossiers
+            </button>
+            <button
+              type="button"
+              id="overview-tab-btn-proposal"
+              data-overview-tab="proposal"
+              onclick="window.switchOverviewProductTab('proposal')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Proposal .ZIP &amp; FOIA
+            </button>
+            <button
+              type="button"
+              id="overview-tab-btn-coverage"
+              data-overview-tab="coverage"
+              onclick="window.switchOverviewProductTab('coverage')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+            >
+              16-Portal Coverage
+            </button>
+            <button
+              type="button"
+              id="overview-tab-btn-integrations"
+              data-overview-tab="integrations"
+              onclick="window.switchOverviewProductTab('integrations')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+            >
+              CRM, Slack &amp; APIs
+            </button>
+            <button
+              type="button"
+              id="overview-tab-btn-all"
+              data-overview-tab="all"
+              onclick="window.switchOverviewProductTab('all')"
+              class="overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Full Suite View
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <!-- ===================================================================
          SECTION 2: LIVE DISCORD PROCUREMENT WIRE FOR CAPTURE & BD TEAMS
          =================================================================== -->
@@ -655,7 +725,7 @@
     <!-- ===================================================================
          SECTION 2B: WHY SIGNALTENDER IS NOT A LINK SCRAPER (THE 4-LAYER MOAT)
          =================================================================== -->
-    <section id="capture-moat" class="py-24 bg-gradient-to-b from-navy-950 via-indigo-950/20 to-navy-950 border-b border-slate-800/80">
+    <section id="capture-moat" class="hidden py-24 bg-gradient-to-b from-navy-950 via-indigo-950/20 to-navy-950 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
 
         <!-- Section Header -->
@@ -893,7 +963,7 @@
     <!-- ===================================================================
          SECTION 2C: TIER 3 & TIER 4 ENTERPRISE MOAT (1-CLICK 3-VOLUME PROPOSAL .ZIP, 13 CFR 125.6 TEAMING & FOIA VAULT)
          =================================================================== -->
-    <section id="proposal-foia-moat" class="py-24 bg-gradient-to-b from-navy-950 via-emerald-950/15 to-navy-950 border-b border-slate-800/80">
+    <section id="proposal-foia-moat" class="hidden py-24 bg-gradient-to-b from-navy-950 via-emerald-950/15 to-navy-950 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
         <!-- Section Header -->
@@ -1690,7 +1760,7 @@
     <!-- ===================================================================
          SECTION 4: MULTI-PORTAL COVERAGE (11 ACTIVE PORTALS)
          =================================================================== -->
-    <section id="coverage" class="py-24 border-b border-slate-800/80">
+    <section id="coverage" class="hidden py-24 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="max-w-3xl mb-12">
@@ -1985,7 +2055,7 @@
     <!-- ===================================================================
          SECTION 5: ENTERPRISE INTEGRATIONS, 1-CLICK BLUEPRINTS & DEVELOPER APIs
          =================================================================== -->
-    <section id="integrations" class="py-24 bg-navy-900/30 border-b border-slate-800/80">
+    <section id="integrations" class="hidden py-24 bg-navy-900/30 border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
         <!-- Section Header -->
@@ -2313,6 +2383,51 @@
 
       </div>
     </section>
+
+    <!-- ===================================================================
+         WORKSPACE MODULE PROGRESSION FOOTER (STEP CLEANLY BETWEEN TABS)
+         =================================================================== -->
+    <div id="overview-module-progression-bar" class="py-10 bg-navy-950 border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900/95 to-indigo-950/40 border border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div id="overview-stepper-kicker" class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold">
+              // ORGANIZED MODULE VIEW &bull; ZERO PAGE CLUTTER
+            </div>
+            <div id="overview-stepper-title" class="text-base sm:text-lg font-extrabold text-white">
+              Viewing: Live 6-Hour Alert Wire &amp; 16-Portal RFP Feed (Tier 1)
+            </div>
+            <p id="overview-stepper-desc" class="text-xs text-slate-400">
+              Use the workspace tabs above or click next below to inspect 21-API Capture Dossiers, the 1-Click 3-Volume Proposal .ZIP Compiler, FOIA Rate Vault, or 16-Portal Coverage.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs shrink-0">
+            <button
+              type="button"
+              id="overview-stepper-next-btn"
+              onclick="window.switchOverviewProductTab('dossiers', true)"
+              class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold border border-indigo-400/40 transition-all cursor-pointer"
+            >
+              Next: AI Capture Dossiers &rarr;
+            </button>
+            <button
+              type="button"
+              onclick="window.switchOverviewProductTab('proposal', true)"
+              class="px-4 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 font-semibold border border-emerald-500/40 transition-all cursor-pointer"
+            >
+              Proposal .ZIP &amp; FOIA Vault &rarr;
+            </button>
+            <button
+              type="button"
+              onclick="window.switchOverviewProductTab('all', false)"
+              class="px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-700 transition-all cursor-pointer"
+            >
+              Show All Sections
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -2950,6 +3065,55 @@
 
       </div>
     </section>
+
+    <!-- Developer API Catalog Workspace Switcher Bar -->
+    <div id="api-catalog-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
+            // API CATALOG WORKSPACE VIEW:
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog View Switcher">
+            <button
+              type="button"
+              id="apicatalog-tab-btn-all"
+              data-apicatalog-tab="all"
+              onclick="window.switchApiCatalogTab('all')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
+            >
+              Full Catalog View
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-directory"
+              data-apicatalog-tab="directory"
+              onclick="window.switchApiCatalogTab('directory')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+            >
+              Directory &amp; MCP Only
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-modules"
+              data-apicatalog-tab="modules"
+              onclick="window.switchApiCatalogTab('modules')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Endpoint Specs &amp; Schemas
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-matrix"
+              data-apicatalog-tab="matrix"
+              onclick="window.switchApiCatalogTab('matrix')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Tier &amp; Quota Matrix
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modular API Product Dossiers -->
     <section id="catalog-modules" class="py-20 border-b border-slate-800/80" style="min-height: 85vh; overflow-anchor: none;">
@@ -9276,8 +9440,64 @@
           </div>
         </div>
 
+        <!-- Checkout Supporting Deep-Dive Tab Switcher Bar -->
+        <div id="checkout-section-tabs-bar" class="mt-12 p-3 sm:p-4 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-xl">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
+              // PLAN EVALUATION &amp; PROCUREMENT TOOLS:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Checkout Evaluation Tools">
+              <button
+                type="button"
+                id="checkout-tab-btn-preview"
+                data-checkout-tab="preview"
+                onclick="window.switchCheckoutSectionTab('preview')"
+                class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
+              >
+                4-Tier Feed Preview
+              </button>
+              <button
+                type="button"
+                id="checkout-tab-btn-roi"
+                data-checkout-tab="roi"
+                onclick="window.switchCheckoutSectionTab('roi')"
+                class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer"
+              >
+                Capture ROI Calculator
+              </button>
+              <button
+                type="button"
+                id="checkout-tab-btn-benchmark"
+                data-checkout-tab="benchmark"
+                onclick="window.switchCheckoutSectionTab('benchmark')"
+                class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer"
+              >
+                GovWin Cost Benchmark
+              </button>
+              <button
+                type="button"
+                id="checkout-tab-btn-faq"
+                data-checkout-tab="faq"
+                onclick="window.switchCheckoutSectionTab('faq')"
+                class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+              >
+                Procurement &amp; FAR FAQ
+              </button>
+              <button
+                type="button"
+                id="checkout-tab-btn-all"
+                data-checkout-tab="all"
+                onclick="window.switchCheckoutSectionTab('all')"
+                class="checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
+              >
+                Show All Details
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Side-by-Side Live Discord Feed Preview (#tier1-gov-leads vs #capturedesk-autopilot) & Risk-Reversal Strip -->
-        <div id="checkout-live-feed-preview" class="mt-10 p-6 sm:p-8 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-2xl space-y-6">
+        <div id="checkout-live-feed-preview" class="mt-6 p-6 sm:p-8 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-2xl space-y-6">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
             <div>
               <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-sky-500/15 border border-sky-500/40 text-[11px] font-mono text-sky-300 font-bold mb-2">
@@ -9417,7 +9637,7 @@
         </div>
 
         <!-- Interactive Capture ROI & Hours Saved Calculator -->
-        <div id="capture-roi-calculator" class="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-navy-900 via-indigo-950/25 to-navy-900 border-2 border-indigo-500/40 shadow-2xl space-y-6">
+        <div id="capture-roi-calculator" class="hidden mt-6 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-navy-900 via-indigo-950/25 to-navy-900 border-2 border-indigo-500/40 shadow-2xl space-y-6">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
             <div>
               <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-indigo-500/15 border border-indigo-500/40 text-[11px] font-mono text-indigo-300 font-bold mb-2">
@@ -9487,7 +9707,7 @@
         </div>
 
         <!-- GovCon Industry Cost & ROI Anchor Comparison Table -->
-        <div class="mt-14 rounded-2xl bg-navy-900/80 border border-slate-800 overflow-hidden shadow-2xl">
+        <div id="checkout-benchmark-section" class="hidden mt-6 rounded-2xl bg-navy-900/80 border border-slate-800 overflow-hidden shadow-2xl">
           <div class="p-6 sm:p-8 border-b border-slate-800 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
             <div>
               <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">
@@ -9588,7 +9808,7 @@
         </div>
 
         <!-- 3-Step Instant Discord & CRM Onboarding Strip -->
-        <div class="mt-14 p-6 sm:p-8 rounded-2xl bg-navy-900/70 border border-slate-800 space-y-6">
+        <div id="checkout-onboarding-strip" class="hidden mt-6 p-6 sm:p-8 rounded-2xl bg-navy-900/70 border border-slate-800 space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="space-y-1.5">
               <div class="text-xs font-mono text-sky-400 font-bold">STEP 01 // SELECT PLAN &amp; DESTINATION</div>
@@ -9618,7 +9838,7 @@
         </div>
 
         <!-- Buyer Checkout FAQ -->
-        <div id="checkout-faq-section" class="mt-14 max-w-4xl mx-auto space-y-4">
+        <div id="checkout-faq-section" class="hidden mt-6 max-w-4xl mx-auto space-y-4">
           <h3 class="text-xl font-bold text-white text-center mb-6">Frequently Asked Questions</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
             <div class="p-5 rounded-xl bg-navy-900/60 border border-slate-800">
@@ -10062,8 +10282,55 @@
             <div id="account-dispatch-now-results" class="hidden pt-2 space-y-2"></div>
           </div>
 
+          <!-- Client Account Workspace Module Switcher Bar -->
+          <div id="account-workspace-tabs-bar" class="p-3 sm:p-4 rounded-2xl bg-navy-900/95 border border-slate-800 shadow-xl">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
+                // ACCOUNT WORKSPACE MODULES:
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="Client Account Workspace Modules">
+                <button
+                  type="button"
+                  id="account-ws-tab-billing"
+                  data-account-tab="billing"
+                  onclick="window.switchAccountWorkspaceTab('billing')"
+                  class="account-ws-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
+                >
+                  Plan, Billing &amp; Delivery
+                </button>
+                <button
+                  type="button"
+                  id="account-ws-tab-filters"
+                  data-account-tab="filters"
+                  onclick="window.switchAccountWorkspaceTab('filters')"
+                  class="account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer"
+                >
+                  16-Portal Filters &amp; Vault
+                </button>
+                <button
+                  type="button"
+                  id="account-ws-tab-pipeline"
+                  data-account-tab="pipeline"
+                  onclick="window.switchAccountWorkspaceTab('pipeline')"
+                  class="account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer"
+                >
+                  Bid Board, API Key &amp; Security
+                </button>
+                <button
+                  type="button"
+                  id="account-ws-tab-all"
+                  data-account-tab="all"
+                  onclick="window.switchAccountWorkspaceTab('all')"
+                  class="account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
+                >
+                  All Account Modules
+                </button>
+              </div>
+            </div>
+          </div>
+
           <!-- CARD 1: SUBSCRIPTION PLAN, BILLING CADENCE & CORPORATE TAX INVOICES (MODULE 6A) -->
-          <div class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+          <div id="account-billing-card" class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col gap-4 border-b border-slate-800 pb-5">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">01 // SUBSCRIPTION PLAN, BILLING CADENCE &amp; B2B TAX INVOICES</div>
@@ -10172,7 +10439,7 @@
           </div>
 
           <!-- CARD 2: DISTRIBUTION MEDIUMS, DELIVERY SETTINGS & TEAM CC RECIPIENTS (MODULE 5) -->
-          <div class="rounded-2xl bg-navy-900 border-2 border-indigo-500/40 shadow-2xl p-6 sm:p-8 space-y-6">
+          <div id="account-distribution-card" class="rounded-2xl bg-navy-900 border-2 border-indigo-500/40 shadow-2xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">02 // DISTRIBUTION MEDIUMS &amp; MULTI-SEAT TEAM ROUTING</div>
@@ -10339,7 +10606,7 @@
           </div>
 
           <!-- CARD 3: CUSTOM TERRITORY (16 PORTALS), NAICS & SET-ASIDE ALERT FILTERS (MODULE 1) -->
-          <div id="account-alert-filters-card" class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+          <div id="account-alert-filters-card" class="hidden rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold mb-1">03 // CUSTOM TERRITORY, SET-ASIDE &amp; NAICS ALERT FILTERS</div>
@@ -10467,7 +10734,7 @@
           </div>
 
           <!-- CARD 4: COMPANY CAPTURE PROFILE VAULT (SYNCED WITH 21-API STUDIO & DOSSIERS) (MODULE 2) -->
-          <div id="account-company-vault-card" class="rounded-2xl bg-navy-900 border border-indigo-500/40 shadow-xl p-6 sm:p-8 space-y-6">
+          <div id="account-company-vault-card" class="hidden rounded-2xl bg-navy-900 border border-indigo-500/40 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold mb-1">04 // COMPANY CAPTURE PROFILE VAULT (SYNCED WITH 21-API STUDIO)</div>
@@ -10576,7 +10843,7 @@
           </div>
 
           <!-- CARD 5: SAVED RFP PIPELINE & BID BOARD ("MY CAPTURE WATCHLIST") (MODULE 3) -->
-          <div id="account-bid-board-card" class="rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+          <div id="account-bid-board-card" class="hidden rounded-2xl bg-navy-900 border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-5">
               <div>
                 <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">05 // SAVED RFP PIPELINE &amp; CAPTURE BID BOARD</div>
@@ -10636,7 +10903,7 @@
           </div>
 
           <!-- CARD 6: TIER 2 ENTERPRISE API KEY, ONE-CLICK MCP CONFIG & PROFILE SETTINGS (MODULE 6B) -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div id="account-apikey-security-grid" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-7 rounded-2xl bg-navy-900 border border-slate-800 p-6 space-y-4">
               <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">06 // ENTERPRISE API KEY &amp; CLAUDE / CURSOR MCP CONFIG</div>
               <h3 class="text-lg font-extrabold text-white">Direct REST Gateway, Studio Playground &amp; MCP Agent Key</h3>
@@ -14148,9 +14415,234 @@
         window.scrollTo(0, 0);
       }
 
+      window.switchOverviewProductTab = function (tabKey, scrollToSection) {
+        var validTabs = { wire: true, dossiers: true, proposal: true, coverage: true, integrations: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'wire';
+        var secMap = {
+          wire: ['discord-terminal', 'contract-directory'],
+          dossiers: ['capture-moat'],
+          proposal: ['proposal-foia-moat'],
+          coverage: ['coverage'],
+          integrations: ['integrations'],
+          all: ['discord-terminal', 'capture-moat', 'proposal-foia-moat', 'contract-directory', 'coverage', 'integrations']
+        };
+        var allSecIds = ['discord-terminal', 'capture-moat', 'proposal-foia-moat', 'contract-directory', 'coverage', 'integrations'];
+        var activeIds = secMap[key] || secMap.wire;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-overview-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-overview-tab');
+          if (bKey === key) {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 shadow-sm text-center transition-all cursor-pointer';
+          } else if (bKey === 'proposal') {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'all') {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        var stepMeta = {
+          wire: {
+            title: 'Viewing: Live 6-Hour Alert Wire & 16-Portal RFP Feed (Tier 1)',
+            nextTab: 'dossiers',
+            nextLabel: 'Next: AI Capture Dossiers ->'
+          },
+          dossiers: {
+            title: 'Viewing: 21-API CaptureDesk AI Dossiers & Interactive Shredder (Tier 2)',
+            nextTab: 'proposal',
+            nextLabel: 'Next: 3-Vol Proposal .ZIP & FOIA Vault ->'
+          },
+          proposal: {
+            title: 'Viewing: 1-Click Shipley Proposal .ZIP, 13 CFR 125.6 Teaming & FOIA Vault (Tiers 3-4)',
+            nextTab: 'coverage',
+            nextLabel: 'Next: 16-Portal Coverage Matrix ->'
+          },
+          coverage: {
+            title: 'Viewing: 16-Portal Federal & 14-State SLED Procurement Coverage',
+            nextTab: 'integrations',
+            nextLabel: 'Next: Slack, Teams, CRM & 22 APIs ->'
+          },
+          integrations: {
+            title: 'Viewing: Slack, Microsoft Teams, CRM Webhooks & 22-API Ecosystem',
+            nextTab: 'wire',
+            nextLabel: 'Back to Live Alert Wire & Feed ->'
+          },
+          all: {
+            title: 'Viewing: Full Platform Suite (All 6 Modules Expanded)',
+            nextTab: 'wire',
+            nextLabel: 'Switch to Focused Tab View ->'
+          }
+        };
+        var meta = stepMeta[key] || stepMeta.wire;
+        var stTitle = document.getElementById('overview-stepper-title');
+        var stNextBtn = document.getElementById('overview-stepper-next-btn');
+        if (stTitle) stTitle.textContent = meta.title;
+        if (stNextBtn) {
+          stNextBtn.textContent = meta.nextLabel;
+          stNextBtn.setAttribute('onclick', "window.switchOverviewProductTab('" + meta.nextTab + "', true)");
+        }
+        if (scrollToSection) {
+          var barEl = document.getElementById('overview-product-tabs-bar');
+          if (barEl && barEl.getBoundingClientRect) {
+            var docEl = document.documentElement;
+            docEl.style.scrollBehavior = 'auto';
+            var rect = barEl.getBoundingClientRect();
+            var currentY = window.pageYOffset || docEl.scrollTop || 0;
+            window.scrollTo(0, Math.max(0, Math.round(rect.top + currentY - 70)));
+          }
+        }
+        return true;
+      };
+
+      window.switchCheckoutSectionTab = function (tabKey) {
+        var validTabs = { preview: true, roi: true, benchmark: true, faq: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'preview';
+        var secMap = {
+          preview: ['checkout-live-feed-preview'],
+          roi: ['capture-roi-calculator'],
+          benchmark: ['checkout-benchmark-section', 'checkout-onboarding-strip'],
+          faq: ['checkout-faq-section'],
+          all: ['checkout-live-feed-preview', 'capture-roi-calculator', 'checkout-benchmark-section', 'checkout-onboarding-strip', 'checkout-faq-section']
+        };
+        var allSecIds = ['checkout-live-feed-preview', 'capture-roi-calculator', 'checkout-benchmark-section', 'checkout-onboarding-strip', 'checkout-faq-section'];
+        var activeIds = secMap[key] || secMap.preview;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-checkout-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-checkout-tab');
+          if (bKey === key) {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
+      window.switchAccountWorkspaceTab = function (tabKey) {
+        var validTabs = { billing: true, filters: true, pipeline: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'billing';
+        var secMap = {
+          billing: ['account-billing-card', 'account-distribution-card'],
+          filters: ['account-alert-filters-card', 'account-company-vault-card'],
+          pipeline: ['account-bid-board-card', 'account-apikey-security-grid'],
+          all: ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid']
+        };
+        var allSecIds = ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid'];
+        var activeIds = secMap[key] || secMap.billing;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-account-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-account-tab');
+          if (bKey === key) {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
+      window.switchApiCatalogTab = function (tabKey) {
+        var validTabs = { all: true, directory: true, modules: true, matrix: true };
+        var key = validTabs[tabKey] ? tabKey : 'all';
+        var modSec = document.getElementById('catalog-modules');
+        var matSec = document.getElementById('api-pricing-matrix');
+        if (key === 'directory') {
+          if (modSec) modSec.classList.add('hidden');
+          if (matSec) matSec.classList.add('hidden');
+        } else if (key === 'modules') {
+          if (modSec) modSec.classList.remove('hidden');
+          if (matSec) matSec.classList.add('hidden');
+        } else if (key === 'matrix') {
+          if (modSec) modSec.classList.add('hidden');
+          if (matSec) matSec.classList.remove('hidden');
+        } else {
+          if (modSec) modSec.classList.remove('hidden');
+          if (matSec) matSec.classList.remove('hidden');
+        }
+        var btns = document.querySelectorAll('button[data-apicatalog-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-apicatalog-tab');
+          if (bKey === key) {
+            btns[j].className = 'apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
       window.jumpToPageSection = function (sectionId) {
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
+        var overviewTabMap = {
+          'discord-terminal': 'wire',
+          'contract-directory': 'wire',
+          'capture-moat': 'dossiers',
+          'proposal-foia-moat': 'proposal',
+          'coverage': 'coverage',
+          'integrations': 'integrations'
+        };
+        if (overviewTabMap[cleanId] && typeof window.switchOverviewProductTab === 'function') {
+          window.switchOverviewProductTab(overviewTabMap[cleanId], false);
+        }
+        var checkoutTabMap = {
+          'checkout-live-feed-preview': 'preview',
+          'capture-roi-calculator': 'roi',
+          'checkout-benchmark-section': 'benchmark',
+          'checkout-onboarding-strip': 'benchmark',
+          'checkout-faq-section': 'faq'
+        };
+        if (checkoutTabMap[cleanId] && typeof window.switchCheckoutSectionTab === 'function') {
+          window.switchCheckoutSectionTab(checkoutTabMap[cleanId]);
+        }
+        var accountTabMap = {
+          'account-plan-badge': 'billing',
+          'account-billing-card': 'billing',
+          'account-pill-discord': 'billing',
+          'account-distribution-card': 'billing',
+          'account-alert-filters-card': 'filters',
+          'account-company-vault-card': 'filters',
+          'account-bid-board-card': 'pipeline',
+          'account-api-key-value': 'pipeline',
+          'account-profile-name': 'pipeline',
+          'account-apikey-security-grid': 'pipeline'
+        };
+        if (accountTabMap[cleanId] && typeof window.switchAccountWorkspaceTab === 'function') {
+          window.switchAccountWorkspaceTab(accountTabMap[cleanId]);
+        }
+        if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix') && typeof window.switchApiCatalogTab === 'function') {
+          window.switchApiCatalogTab('all');
+        }
         var el = document.getElementById(cleanId);
         if (!el) return false;
         var docEl = document.documentElement;

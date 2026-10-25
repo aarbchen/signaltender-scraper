@@ -782,6 +782,55 @@
     </div>
   </section>
 
+    <!-- Developer API Catalog Workspace Switcher Bar -->
+    <div id="api-catalog-tabs-bar" class="sticky top-[73px] sm:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
+            // API CATALOG WORKSPACE VIEW:
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-1.5 flex-1 font-mono text-xs" role="tablist" aria-label="API Catalog View Switcher">
+            <button
+              type="button"
+              id="apicatalog-tab-btn-all"
+              data-apicatalog-tab="all"
+              onclick="window.switchApiCatalogTab('all')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer"
+            >
+              Full Catalog View
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-directory"
+              data-apicatalog-tab="directory"
+              onclick="window.switchApiCatalogTab('directory')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer"
+            >
+              Directory &amp; MCP Only
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-modules"
+              data-apicatalog-tab="modules"
+              onclick="window.switchApiCatalogTab('modules')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-indigo-300 border border-indigo-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Endpoint Specs &amp; Schemas
+            </button>
+            <button
+              type="button"
+              id="apicatalog-tab-btn-matrix"
+              data-apicatalog-tab="matrix"
+              onclick="window.switchApiCatalogTab('matrix')"
+              class="apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer"
+            >
+              Tier &amp; Quota Matrix
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <!-- =====================================================================
        SECTION 2: MODULAR API PRODUCT DOSSIERS (SELF-CONTAINED PER API)
        ===================================================================== -->
@@ -7412,9 +7461,234 @@
       });
 
 
+      window.switchOverviewProductTab = function (tabKey, scrollToSection) {
+        var validTabs = { wire: true, dossiers: true, proposal: true, coverage: true, integrations: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'wire';
+        var secMap = {
+          wire: ['discord-terminal', 'contract-directory'],
+          dossiers: ['capture-moat'],
+          proposal: ['proposal-foia-moat'],
+          coverage: ['coverage'],
+          integrations: ['integrations'],
+          all: ['discord-terminal', 'capture-moat', 'proposal-foia-moat', 'contract-directory', 'coverage', 'integrations']
+        };
+        var allSecIds = ['discord-terminal', 'capture-moat', 'proposal-foia-moat', 'contract-directory', 'coverage', 'integrations'];
+        var activeIds = secMap[key] || secMap.wire;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-overview-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-overview-tab');
+          if (bKey === key) {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 shadow-sm text-center transition-all cursor-pointer';
+          } else if (bKey === 'proposal') {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else if (bKey === 'all') {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'overview-suite-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        var stepMeta = {
+          wire: {
+            title: 'Viewing: Live 6-Hour Alert Wire & 16-Portal RFP Feed (Tier 1)',
+            nextTab: 'dossiers',
+            nextLabel: 'Next: AI Capture Dossiers ->'
+          },
+          dossiers: {
+            title: 'Viewing: 21-API CaptureDesk AI Dossiers & Interactive Shredder (Tier 2)',
+            nextTab: 'proposal',
+            nextLabel: 'Next: 3-Vol Proposal .ZIP & FOIA Vault ->'
+          },
+          proposal: {
+            title: 'Viewing: 1-Click Shipley Proposal .ZIP, 13 CFR 125.6 Teaming & FOIA Vault (Tiers 3-4)',
+            nextTab: 'coverage',
+            nextLabel: 'Next: 16-Portal Coverage Matrix ->'
+          },
+          coverage: {
+            title: 'Viewing: 16-Portal Federal & 14-State SLED Procurement Coverage',
+            nextTab: 'integrations',
+            nextLabel: 'Next: Slack, Teams, CRM & 22 APIs ->'
+          },
+          integrations: {
+            title: 'Viewing: Slack, Microsoft Teams, CRM Webhooks & 22-API Ecosystem',
+            nextTab: 'wire',
+            nextLabel: 'Back to Live Alert Wire & Feed ->'
+          },
+          all: {
+            title: 'Viewing: Full Platform Suite (All 6 Modules Expanded)',
+            nextTab: 'wire',
+            nextLabel: 'Switch to Focused Tab View ->'
+          }
+        };
+        var meta = stepMeta[key] || stepMeta.wire;
+        var stTitle = document.getElementById('overview-stepper-title');
+        var stNextBtn = document.getElementById('overview-stepper-next-btn');
+        if (stTitle) stTitle.textContent = meta.title;
+        if (stNextBtn) {
+          stNextBtn.textContent = meta.nextLabel;
+          stNextBtn.setAttribute('onclick', "window.switchOverviewProductTab('" + meta.nextTab + "', true)");
+        }
+        if (scrollToSection) {
+          var barEl = document.getElementById('overview-product-tabs-bar');
+          if (barEl && barEl.getBoundingClientRect) {
+            var docEl = document.documentElement;
+            docEl.style.scrollBehavior = 'auto';
+            var rect = barEl.getBoundingClientRect();
+            var currentY = window.pageYOffset || docEl.scrollTop || 0;
+            window.scrollTo(0, Math.max(0, Math.round(rect.top + currentY - 70)));
+          }
+        }
+        return true;
+      };
+
+      window.switchCheckoutSectionTab = function (tabKey) {
+        var validTabs = { preview: true, roi: true, benchmark: true, faq: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'preview';
+        var secMap = {
+          preview: ['checkout-live-feed-preview'],
+          roi: ['capture-roi-calculator'],
+          benchmark: ['checkout-benchmark-section', 'checkout-onboarding-strip'],
+          faq: ['checkout-faq-section'],
+          all: ['checkout-live-feed-preview', 'capture-roi-calculator', 'checkout-benchmark-section', 'checkout-onboarding-strip', 'checkout-faq-section']
+        };
+        var allSecIds = ['checkout-live-feed-preview', 'capture-roi-calculator', 'checkout-benchmark-section', 'checkout-onboarding-strip', 'checkout-faq-section'];
+        var activeIds = secMap[key] || secMap.preview;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-checkout-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-checkout-tab');
+          if (bKey === key) {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'checkout-sec-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
+      window.switchAccountWorkspaceTab = function (tabKey) {
+        var validTabs = { billing: true, filters: true, pipeline: true, all: true };
+        var key = validTabs[tabKey] ? tabKey : 'billing';
+        var secMap = {
+          billing: ['account-billing-card', 'account-distribution-card'],
+          filters: ['account-alert-filters-card', 'account-company-vault-card'],
+          pipeline: ['account-bid-board-card', 'account-apikey-security-grid'],
+          all: ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid']
+        };
+        var allSecIds = ['account-billing-card', 'account-distribution-card', 'account-alert-filters-card', 'account-company-vault-card', 'account-bid-board-card', 'account-apikey-security-grid'];
+        var activeIds = secMap[key] || secMap.billing;
+        for (var i = 0; i < allSecIds.length; i++) {
+          var sEl = document.getElementById(allSecIds[i]);
+          if (sEl) {
+            if (activeIds.indexOf(allSecIds[i]) !== -1) {
+              sEl.classList.remove('hidden');
+            } else {
+              sEl.classList.add('hidden');
+            }
+          }
+        }
+        var btns = document.querySelectorAll('button[data-account-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-account-tab');
+          if (bKey === key) {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'account-ws-tab-btn px-3 py-2 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
+      window.switchApiCatalogTab = function (tabKey) {
+        var validTabs = { all: true, directory: true, modules: true, matrix: true };
+        var key = validTabs[tabKey] ? tabKey : 'all';
+        var modSec = document.getElementById('catalog-modules');
+        var matSec = document.getElementById('api-pricing-matrix');
+        if (key === 'directory') {
+          if (modSec) modSec.classList.add('hidden');
+          if (matSec) matSec.classList.add('hidden');
+        } else if (key === 'modules') {
+          if (modSec) modSec.classList.remove('hidden');
+          if (matSec) matSec.classList.add('hidden');
+        } else if (key === 'matrix') {
+          if (modSec) modSec.classList.add('hidden');
+          if (matSec) matSec.classList.remove('hidden');
+        } else {
+          if (modSec) modSec.classList.remove('hidden');
+          if (matSec) matSec.classList.remove('hidden');
+        }
+        var btns = document.querySelectorAll('button[data-apicatalog-tab]');
+        for (var j = 0; j < btns.length; j++) {
+          var bKey = btns[j].getAttribute('data-apicatalog-tab');
+          if (bKey === key) {
+            btns[j].className = 'apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-sky-600 text-white font-bold border border-sky-400/50 text-center transition-all cursor-pointer';
+          } else {
+            btns[j].className = 'apicatalog-view-tab-btn px-3 py-2 rounded-lg bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold text-center transition-all cursor-pointer';
+          }
+        }
+        return true;
+      };
+
       window.jumpToPageSection = function (sectionId) {
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
+        var overviewTabMap = {
+          'discord-terminal': 'wire',
+          'contract-directory': 'wire',
+          'capture-moat': 'dossiers',
+          'proposal-foia-moat': 'proposal',
+          'coverage': 'coverage',
+          'integrations': 'integrations'
+        };
+        if (overviewTabMap[cleanId] && typeof window.switchOverviewProductTab === 'function') {
+          window.switchOverviewProductTab(overviewTabMap[cleanId], false);
+        }
+        var checkoutTabMap = {
+          'checkout-live-feed-preview': 'preview',
+          'capture-roi-calculator': 'roi',
+          'checkout-benchmark-section': 'benchmark',
+          'checkout-onboarding-strip': 'benchmark',
+          'checkout-faq-section': 'faq'
+        };
+        if (checkoutTabMap[cleanId] && typeof window.switchCheckoutSectionTab === 'function') {
+          window.switchCheckoutSectionTab(checkoutTabMap[cleanId]);
+        }
+        var accountTabMap = {
+          'account-plan-badge': 'billing',
+          'account-billing-card': 'billing',
+          'account-pill-discord': 'billing',
+          'account-distribution-card': 'billing',
+          'account-alert-filters-card': 'filters',
+          'account-company-vault-card': 'filters',
+          'account-bid-board-card': 'pipeline',
+          'account-api-key-value': 'pipeline',
+          'account-profile-name': 'pipeline',
+          'account-apikey-security-grid': 'pipeline'
+        };
+        if (accountTabMap[cleanId] && typeof window.switchAccountWorkspaceTab === 'function') {
+          window.switchAccountWorkspaceTab(accountTabMap[cleanId]);
+        }
+        if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix') && typeof window.switchApiCatalogTab === 'function') {
+          window.switchApiCatalogTab('all');
+        }
         var el = document.getElementById(cleanId);
         if (!el) return false;
         var docEl = document.documentElement;
