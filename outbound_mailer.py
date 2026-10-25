@@ -53,7 +53,7 @@ SMTP_USER = (os.getenv("SMTP_USER") or "").strip()
 SMTP_PASSWORD = (os.getenv("SMTP_PASSWORD") or "").strip()
 SMTP_FROM_NAME = (os.getenv("SMTP_FROM_NAME") or "SignalTender GovCon Capture Desk").strip()
 SMTP_FROM_EMAIL = (os.getenv("SMTP_FROM_EMAIL") or SMTP_USER or "capture@signaltender.net").strip()
-OUTBOUND_LAUNCH_DATE_STR = (os.getenv("OUTBOUND_LAUNCH_DATE") or "2026-10-31").strip()
+OUTBOUND_LAUNCH_DATE_STR = (os.getenv("OUTBOUND_LAUNCH_DATE") or "2026-10-15").strip()
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
 
 try:
@@ -117,7 +117,7 @@ def compute_dynamic_daily_limit(now_utc: Optional[datetime] = None) -> Tuple[int
     try:
         launch_d = date.fromisoformat(OUTBOUND_LAUNCH_DATE_STR)
     except Exception:
-        launch_d = date(2026, 10, 31)
+        launch_d = date(2026, 10, 15)
 
     days_since_launch = (today_d - launch_d).days
     if days_since_launch < 0:
@@ -353,7 +353,7 @@ def run_outbound_drip(
     try:
         launch_d = date.fromisoformat(OUTBOUND_LAUNCH_DATE_STR)
     except Exception:
-        launch_d = date(2026, 10, 31)
+        launch_d = date(2026, 10, 15)
     before_launch_date = (now.date() < launch_d) and not force_send_before_launch
 
     if not os.path.exists(CAMPAIGN_CSV_PATH):

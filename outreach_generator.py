@@ -912,7 +912,24 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             now_utc = datetime.now(timezone.utc)
             daily_cap, _, ramp_label = outbound_mailer.compute_dynamic_daily_limit(now_utc)
 
-            # Sync dynamic daily_limit (20 -> 30 -> 45 -> 60/day) and check campaign status
+            # Sync dynamic daily_limit, connected sending accounts, start_date, and active status
+            active_account_emails = []
+            try:
+                acc_resp = requests.get(
+                    "https://api.instantly.ai/api/v2/accounts?limit=100",
+                    headers=inst_headers,
+                    timeout=10,
+                )
+                if acc_resp.status_code == 200:
+                    acc_items = (acc_resp.json() or {}).get("items") or []
+                    active_account_emails = [
+                        str(a.get("email") or "").strip()
+                        for a in acc_items
+                        if isinstance(a, dict) and int(a.get("status") or 0) == 1 and a.get("email")
+                    ]
+            except Exception:
+                pass
+
             camp_resp = requests.get(
                 f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}",
                 headers=inst_headers,
@@ -920,15 +937,28 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             )
             if camp_resp.status_code == 200:
                 camp_data = camp_resp.json()
+                patch_camp: dict = {}
                 if int(camp_data.get("daily_limit") or 0) != daily_cap:
+                    patch_camp["daily_limit"] = daily_cap
+                if active_account_emails and set(camp_data.get("email_list") or []) != set(active_account_emails):
+                    patch_camp["email_list"] = active_account_emails
+                sched = camp_data.get("campaign_schedule") or {}
+                if str(sched.get("start_date") or "") > "2026-10-25":
+                    sched["start_date"] = "2026-10-24"
+                    for s_item in (sched.get("schedules") or []):
+                        if isinstance(s_item, dict) and isinstance(s_item.get("days"), dict):
+                            s_item["days"]["0"] = True
+                            s_item["days"]["6"] = True
+                    patch_camp["campaign_schedule"] = sched
+                if patch_camp:
                     requests.patch(
                         f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}",
                         headers=inst_headers,
-                        json={"daily_limit": daily_cap},
+                        json=patch_camp,
                         timeout=15,
                     )
-                # Auto-activate campaign on or after October 31, 2026 if currently in Draft (status == 0)
-                if now_utc.date() >= date(2026, 10, 31) and int(camp_data.get("status") or 0) == 0:
+                # Ensure campaign is Active (status == 1) now that domains are 100% warmed
+                if int(camp_data.get("status") or 0) != 1:
                     act_resp = requests.post(
                         f"https://api.instantly.ai/api/v2/campaigns/{INSTANTLY_CAMPAIGN_ID}/activate",
                         headers=inst_headers,
@@ -936,7 +966,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         timeout=15,
                     )
                     if 200 <= act_resp.status_code < 300:
-                        print(f"[+] Auto-activated Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID} for Oct 31 launch!", flush=True)
+                        print(f"[+] Activated Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID} (status=ACTIVE, daily_limit={daily_cap})!", flush=True)
 
             # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
             existing_inst_emails = set()
