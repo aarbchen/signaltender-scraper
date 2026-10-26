@@ -676,6 +676,11 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "socrata_json": "https://data.wa.gov/resource/6c4w-r8b3.json?$limit=25",
         "default_agency": "State of Washington (DES / WaTech)",
     },
+    "Michigan SLED (MI SIGMA / DTMB)": {
+        "portal_url": "https://sigma.michigan.gov/webapp/PRDVSS2X1/AltSelfService",
+        "socrata_json": "https://data.michigan.gov/resource/ebjm-tpyu.json?$limit=25",
+        "default_agency": "State of Michigan (DTMB / SIGMA VSS)",
+    },
 }
 
 
@@ -873,6 +878,7 @@ async def run_master_orchestrator(
         _run_source("Massachusetts SLED (COMMBUYS / Boston)", "import ma_scraper", "ma_scraper.run_scraper(push_to_db=False)"),
         _run_source("New Jersey SLED (NJSTART / Treasury DPP)", "import nj_scraper", "nj_scraper.run_scraper(push_to_db=False)"),
         _run_source("Washington SLED (WA WEBS / WaTech DES)", "import wa_scraper", "wa_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Michigan SLED (MI SIGMA / DTMB)", "import mi_scraper", "mi_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -893,6 +899,7 @@ async def run_master_orchestrator(
         "Massachusetts SLED (COMMBUYS / Boston)",
         "New Jersey SLED (NJSTART / Treasury DPP)",
         "Washington SLED (WA WEBS / WaTech DES)",
+        "Michigan SLED (MI SIGMA / DTMB)",
     ]
     combined_records = []
 

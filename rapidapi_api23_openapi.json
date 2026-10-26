@@ -1,0 +1,264 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SBIR / STTR Phase I–III Technical Volume & Commercialization Plan API",
+    "version": "1.0.0",
+    "description": "Stateless AI R&D Proposal & IP Compliance API that converts R&D technical specifications and SBIR/STTR solicitation topics into a DoD/AFWERX/SpaceWERX/NSF/NASA SBIR/STTR Technical Work Plan, TRL 1–9 progression matrix, Phase III Dual-Use Commercialization & Transition Plan (15 U.S.C. § 638(r)(4)), and pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com",
+      "description": "Production API Gateway"
+    }
+  ],
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Health Check",
+        "operationId": "Health Check",
+        "description": "Lightweight health check endpoint for uptime monitoring and RapidAPI status checks.",
+        "responses": {
+          "200": {
+            "description": "Service is healthy and operational.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/generate/sbir-sttr-commercialization": {
+      "post": {
+        "tags": [
+          "Proposal & Compliance Generation"
+        ],
+        "summary": "Generate SBIR STTR Commercialization Plan",
+        "operationId": "Generate SBIR STTR Commercialization Plan",
+        "description": "Converts R&D specs and an SBIR/STTR topic description into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1–9 progression matrix, Phase III Dual-Use Commercialization & Transition Plan, and DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SbirCommercializationRequest"
+              },
+              "example": {
+                "sbir_sttr_topic_and_rd_specs": "Solicitation: AF262-D014 (Direct-to-Phase II AFWERX / SpaceWERX Open Topic). Objective: Develop and demonstrate an autonomous edge-AI tactical spectrum sensing and anti-jamming cognitive radio waveform for contested C5ISR environments. Must demonstrate TRL 6 prototype in relevant tactical environment within 15 months, include a signed Phase III Customer Memorandum of Understanding (MOU) pathway with PEO C3BM, and provide a dual-use commercialization strategy alongside a DFARS 252.227-7018 SBIR Data Rights schedule.",
+                "company_technology_and_ip_baseline": "AegisWave Photonics & AI Lab (Small Business, 42 employees) has developed a proprietary sub-millisecond neural blind-signal classifier and FPGA cognitive frequency-hopping core tested at TRL 4 in laboratory anechoic trials using $1.8M in private seed venture capital. Commercial dual-use market includes 5G/6G private industrial wireless interference mitigation and low-Earth-orbit (LEO) commercial satcom ground terminals.",
+                "target_phase_and_program": "Direct_to_Phase_II_or_Phase_II_Prototype",
+                "sponsoring_agency": "Department of Defense (AFWERX / SpaceWERX / PEO C3BM)"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated SBIR/STTR Technical Work Plan, TRL Matrix, Commercialization Plan & DFARS 252.227-7018 Data Rights.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SbirCommercializationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "healthy"
+          },
+          "service": {
+            "type": "string",
+            "example": "B2B Contract & Procurement Intelligence API"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.9.0"
+          }
+        },
+        "required": [
+          "status",
+          "service",
+          "version"
+        ]
+      },
+      "SbirCommercializationRequest": {
+        "type": "object",
+        "properties": {
+          "sbir_sttr_topic_and_rd_specs": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 150000,
+            "description": "Full or excerpted DoD, AFWERX, SPACEWERX, Navy, Army, DARPA, NSF, NASA, or DHS SBIR/STTR topic instructions, Phase I/II/III technical objectives, and evaluation criteria."
+          },
+          "company_technology_and_ip_baseline": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 80000,
+            "description": "Summary of the small business offeror's R&D technology, current TRL, Principal Investigator (PI) credentials, prior IRAD/patents, STTR university/lab partner (if applicable), and dual-use commercial traction."
+          },
+          "target_phase_and_program": {
+            "type": "string",
+            "default": "Direct_to_Phase_II_or_Phase_II_Prototype",
+            "description": "Target SBIR/STTR phase ('Phase_I_Feasibility_and_Proof_of_Concept', 'Direct_to_Phase_II_or_Phase_II_Prototype', 'Phase_IIB_or_STRATFI_TACFI_Matching', or 'Phase_III_Sole_Source_Transition_15_USC_638_r_4')."
+          },
+          "sponsoring_agency": {
+            "type": "string",
+            "default": "Department of Defense (AFWERX / DoD SBIR)",
+            "description": "Optional sponsoring federal agency or SBIR/STTR directorate."
+          }
+        },
+        "required": [
+          "sbir_sttr_topic_and_rd_specs",
+          "company_technology_and_ip_baseline"
+        ]
+      },
+      "SbirTrlWorkPlanMilestone": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Work Breakdown Structure (WBS) task identifier (e.g., 'TASK-1.0', 'TASK-2.0')."
+          },
+          "milestone_title": {
+            "type": "string",
+            "description": "Concise technical R&D milestone title aligned with the SBIR/STTR topic objectives."
+          },
+          "starting_trl_to_target_trl": {
+            "type": "string",
+            "enum": [
+              "TRL_2_to_TRL_3_Analytical_Proof_of_Concept",
+              "TRL_3_to_TRL_4_Lab_Breadboard_Validation",
+              "TRL_4_to_TRL_6_Relevant_Environment_Prototype",
+              "TRL_6_to_TRL_7_Operational_Environment_Demo",
+              "TRL_7_to_TRL_8_Qualified_System_for_Phase_III"
+            ],
+            "description": "Technology Readiness Level (TRL) advancement achieved during this milestone."
+          },
+          "technical_objectives_and_r_and_d_methodology": {
+            "type": "string",
+            "description": "Detailed scientific/engineering methodology, risk reduction experiments, architecture, and Principal Investigator (PI) execution plan."
+          },
+          "quantifiable_exit_criteria_and_deliverable": {
+            "type": "string",
+            "description": "Measurable technical KPPs/metrics and contract deliverable."
+          }
+        },
+        "required": [
+          "task_id",
+          "milestone_title",
+          "starting_trl_to_target_trl",
+          "technical_objectives_and_r_and_d_methodology",
+          "quantifiable_exit_criteria_and_deliverable"
+        ]
+      },
+      "SbirDataRightsAssertionRow": {
+        "type": "object",
+        "properties": {
+          "technical_data_or_computer_software_item": {
+            "type": "string",
+            "description": "Specific technical data, algorithm, model weight, firmware, or computer software component to be delivered with restrictions."
+          },
+          "basis_for_assertion": {
+            "type": "string",
+            "enum": [
+              "Developed_Exclusively_at_Private_Expense",
+              "Generated_Under_SBIR_STTR_Funding_DFARS_252_227_7018",
+              "Mixed_Funding_Prior_SBIR_and_IRAD_Baseline"
+            ],
+            "description": "Statutory basis for the data rights assertion under DFARS 252.227-7018 / FAR 52.227-20."
+          },
+          "asserted_rights_category": {
+            "type": "string",
+            "enum": [
+              "SBIR_Data_Rights_20_Year_Protection_Period",
+              "Government_Purpose_Rights_GPR",
+              "Limited_Rights_Technical_Data",
+              "Restricted_Rights_Computer_Software"
+            ],
+            "description": "Specific asserted license rights category protecting the offeror's IP during Phase I, II, and Phase III."
+          },
+          "name_of_person_asserting_restrictions": {
+            "type": "string",
+            "description": "Legal entity name of the small business concern or research institution asserting the restriction."
+          }
+        },
+        "required": [
+          "technical_data_or_computer_software_item",
+          "basis_for_assertion",
+          "asserted_rights_category",
+          "name_of_person_asserting_restrictions"
+        ]
+      },
+      "SbirCommercializationResponse": {
+        "type": "object",
+        "properties": {
+          "sbir_pwin_and_transition_readiness_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "0-100 score evaluating technical merit, TRL feasibility, dual-use commercialization potential, and Phase III Program-of-Record transition readiness."
+          },
+          "recommended_phase_and_transition_pathway": {
+            "type": "string",
+            "enum": [
+              "STRONG_PHASE_I_OR_D2P2_CANDIDATE",
+              "READY_FOR_PHASE_II_AND_AFWERX_TACFI_STRATFI",
+              "PRIMED_FOR_PHASE_III_SOLE_SOURCE_AWARD_15_USC_638_R_4",
+              "REQUIRES_TRL_MATURATION_OR_RESEARCH_INSTITUTION_STTR_PARTNER"
+            ],
+            "description": "Strategic SBIR/STTR pursuit and transition recommendation."
+          },
+          "executive_technical_and_dual_use_summary": {
+            "type": "string",
+            "description": "Executive summary of the R&D innovation, warfighter/agency operational impact, and commercial dual-use market thesis."
+          },
+          "trl_progression_and_technical_work_plan": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SbirTrlWorkPlanMilestone"
+            },
+            "description": "Structured Phase I/II Technical Work Plan and TRL 1-9 progression milestones with quantifiable exit criteria."
+          },
+          "dfars_252_227_7018_sbir_data_rights_assertions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SbirDataRightsAssertionRow"
+            },
+            "description": "Pre-populated DFARS 252.227-7018 / FAR 52.227-20 SBIR/STTR Data Rights Assertion Table protecting core IP for 20 years."
+          },
+          "phase_iii_dual_use_commercialization_and_work_plan_narrative": {
+            "type": "string",
+            "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. § 638(r)(4) Phase III sole-source transition roadmap."
+          }
+        },
+        "required": [
+          "sbir_pwin_and_transition_readiness_score",
+          "recommended_phase_and_transition_pathway",
+          "executive_technical_and_dual_use_summary",
+          "trl_progression_and_technical_work_plan",
+          "dfars_252_227_7018_sbir_data_rights_assertions",
+          "phase_iii_dual_use_commercialization_and_work_plan_narrative"
+        ]
+      }
+    }
+  }
+}

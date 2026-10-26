@@ -452,6 +452,29 @@ ENDPOINTS = [
             "proposed_mitigation_posture": "Dual_Firewall_And_Subcontract_Recusal",
         },
     },
+    {
+        "id": "API 23",
+        "name": "SBIR / STTR Phase I-III Technical Volume & Commercialization Plan API",
+        "method": "POST",
+        "path": "/v1/generate/sbir-sttr-commercialization",
+        "rapid_host": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+        "payload": {
+            "sbir_sttr_topic_and_rd_specs": (
+                "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh & Post-Quantum "
+                "Telemetry Encryption for Contested C2 Networks). Objective: Develop and demonstrate a low-SWaP, "
+                "CNSA 2.0 / FIPS 203 ML-KEM compliant zero-trust tactical datalink gateway capable of autonomous "
+                "key rotation and anti-jamming mesh routing across Denied, Degraded, Intermittent, and Limited (DDIL) "
+                "airborne and ground nodes."
+            ),
+            "company_technology_and_ip_baseline": (
+                "Aegis Quantum Defense LLC (SBA Small Business, 18 employees, CAGE 9Q4L1) has developed 'Q-MeshCore v2.1' "
+                "at TRL 4 using internal IR&D funding ($620K). Prior IP includes patented hardware-accelerated lattice "
+                "KEM key-exchange firmware and an embedded Rust eBPF packet filter benchmarked at 10 Gbps with <180us latency."
+            ),
+            "target_phase_and_program": "Direct_to_Phase_II",
+            "sponsoring_agency": "USAF AFWERX / Space Systems Command (SSC)",
+        },
+    },
 ]
 
 

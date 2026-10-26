@@ -103,6 +103,7 @@ STATE_ALIASES = {
     "ma": "ma", "massachusetts": "ma",
     "nj": "nj", "new jersey": "nj", "new_jersey": "nj",
     "wa": "wa", "washington": "wa",
+    "mi": "mi", "michigan": "mi",
 }
 
 
@@ -206,6 +207,10 @@ def detect_contract_region(rec: dict) -> str:
         return "nj"
     if "pr-webs-vendor.des.wa.gov" in url or "des.wa.gov" in url or "watech.wa.gov" in url or "wsdot.wa.gov" in url or "hca.wa.gov" in url or "dshs.wa.gov" in url or "dol.wa.gov" in url or "wa.gov" in url:
         return "wa"
+    if "sigma.michigan.gov" in url or "michigan.gov" in url:
+        return "mi"
+    if "sigma.michigan.gov" in url or "michigan.gov" in url:
+        return "mi"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -236,6 +241,10 @@ def detect_contract_region(rec: dict) -> str:
         return "nj"
     if title.startswith("[WA]") or "washington state" in agency or "state of washington" in agency or "(wa)" in agency or "watech" in agency or "wa des" in agency or "wsdot" in agency:
         return "wa"
+    if title.startswith("[MI]") or title.lower().startswith("[mi-") or "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency or "mdhhs" in agency or "mdot" in agency or "msp" in agency:
+        return "mi"
+    if title.startswith("[MI]") or title.lower().startswith("[mi-") or "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency or "mdhhs" in agency or "mdot" in agency:
+        return "mi"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
         return "md"
     return "fed"
@@ -288,6 +297,10 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "NJ OIT Statewide Cyber Policy (NIST 800-53) • SOC 2 Type II • NJ Treasury DPP"
     elif reg == "wa":
         compliance_posture = "WaTech OCIO Sec 141.10 (NIST 800-53) • StateRAMP / SOC 2 Type II • WA DES"
+    elif reg == "mi":
+        compliance_posture = "MI DTMB 1340.00 Cyber Security (NIST 800-53) • StateRAMP / MiLogin • MI VPAT"
+    elif reg == "mi":
+        compliance_posture = "MI DTMB 1340.00 Cyber Security (NIST 800-53) • StateRAMP / MiLogin • MI SIGMA"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":
@@ -345,7 +358,7 @@ ACRONYM_TOKENS = {
     "NYC", "NYS", "MBTA", "CTA", "MARTA", "WMATA", "AWS", "VPN", "DNS", "WAN",
     "LAN", "SD-WAN", "VOIP", "PBX", "SIP", "API", "SQL", "ETL", "BI", "II",
     "III", "IV", "USA", "US", "VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH",
-    "GA", "NC", "NY", "MA",
+    "GA", "NC", "NY", "MA", "NJ", "WA", "MI",
 }
 
 LOWER_PARTICLES = {"a", "an", "and", "as", "at", "by", "for", "from", "in", "of", "on", "or", "the", "to", "via", "with"}
@@ -502,6 +515,8 @@ STATE_DISPLAY_NAMES = {
     "ma": "Massachusetts",
     "nj": "New Jersey",
     "wa": "Washington",
+    "mi": "Michigan",
+    "mi": "Michigan",
 }
 
 STATE_PORTAL_LABELS = {
@@ -519,6 +534,8 @@ STATE_PORTAL_LABELS = {
     "ma": "Massachusetts COMMBUYS, Boston/MBTA portals, and SAM.gov",
     "nj": "New Jersey NJSTART, Treasury DPP/OIT portals, and SAM.gov",
     "wa": "Washington WEBS, WaTech/DES portals, and SAM.gov",
+    "mi": "Michigan SIGMA VSS, DTMB procurement portals, and SAM.gov",
+    "mi": "Michigan SIGMA VSS, DTMB portals, and SAM.gov",
 }
 
 GENERIC_PERSON_NAMES = {
@@ -643,7 +660,7 @@ def build_two_step_outreach(
     """
     norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
     region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
-    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 14 state SLED portals")
+    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 15 state SLED portals")
     clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
     seed = f"{email.lower().strip()}::{datetime.now().strftime('%Y-%m-%d')}"
 
@@ -717,11 +734,11 @@ def build_two_step_outreach(
         ]
 
     openers = [
-        f"I run an automated procurement monitor that tracks {portal_focus} (plus 13 other state SLED portals) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 13 additional state procurement portals every 6 hours.",
+        f"I run an automated procurement monitor that tracks {portal_focus} (plus 14 other state SLED portals) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 14 additional state procurement portals every 6 hours.",
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.",
         f"Our ingestion pipeline monitors {portal_focus} every 6 hours for net-new IT, cloud, and cybersecurity solicitations.",
-        f"I track newly released public-sector technology solicitations across {portal_focus} (16 federal and state portals total).",
+        f"I track newly released public-sector technology solicitations across {portal_focus} (17 federal and state portals total).",
     ]
     value_props = [
         "Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.",
@@ -805,7 +822,7 @@ def build_two_step_outreach(
         f"Quick follow-up in case {clean_comp} is expanding its {region_label} capture and proposal pipeline this quarter.",
         f"Following up briefly on the {region_label} IT solicitations and pre-shredded capture dossiers I sent over earlier this week.",
         f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.",
-        f"Wanted to follow up one last time regarding our automated 16-portal Federal and 14-State SLED capture & proposal suite.",
+        f"Wanted to follow up one last time regarding our automated 17-portal Federal and 15-State SLED capture & proposal suite.",
     ]
     intel_block = ""
     if top_intel:
@@ -834,10 +851,10 @@ def build_two_step_outreach(
             (
                 f"{intel_block}"
                 f"Because {clean_comp} operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):\n\n"
-                f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA / State PIA Incumbent Winning LCAT Rate Vault (verified awarded labor rates & expiring PoPs across Federal & 14 SLED states) + 50,000 REST/MCP API calls/mo (@signaltender/mcp-server) for internal Copilot/Claude capture workflows.\n"
+                f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA / State PIA Incumbent Winning LCAT Rate Vault (verified awarded labor rates & expiring PoPs across Federal & 15 SLED states) + 50,000 REST/MCP API calls/mo (@signaltender/mcp-server) for internal Copilot/Claude capture workflows.\n"
                 f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing editable Word .docx Volume I Technical + live-formula Excel .xlsx Volume II Cost/CLIN Model + Word .docx Volume III Past Performance/OCI in 90s) + 13 CFR § 125.6 Verified Teaming Clearinghouse.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 21-API Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), and CPARS Volume III citations across all 16 Federal & 14-State SLED portals.\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 14-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT/Cyber alert wire."
+                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 21-API Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), and CPARS Volume III citations across all 17 Federal & 15-State SLED portals.\n"
+                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 15-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI) IT/Cyber alert wire."
             ),
         ]
     elif target_segment == "PRIME_PROPOSAL_AUTOPILOT":
@@ -846,9 +863,9 @@ def build_two_step_outreach(
                 f"{intel_block}"
                 f"Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:\n\n"
                 f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo — Most Popular for Primes): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP with editable Word .docx Volume I Technical/Management + live-formula Excel .xlsx Volume II CLIN Pricing & PTW + Word .docx Volume III CPARS/13 CFR § 125.6/OCI in 90 seconds) + Verified 13 CFR § 125.6 Teaming Clearinghouse.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 21-Engine AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, and 22 REST/MCP APIs (@signaltender/mcp-server).\n"
+                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 21-Engine AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, and 23 REST/MCP APIs (@signaltender/mcp-server).\n"
                 f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent Winning LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 14-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT/Cyber alerts + 90-180d Recompete Wire."
+                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 15-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI) IT/Cyber alerts + 90-180d Recompete Wire."
             ),
         ]
     else:
@@ -856,8 +873,8 @@ def build_two_step_outreach(
             (
                 f"{intel_block}"
                 f"Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 14-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA) IT/Cyber alerts + 90-180d Recompete & 30% Subcontracting Wire routed to Discord, Slack, MS Teams, or Webhook.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 22 REST/MCP APIs (@signaltender/mcp-server).\n"
+                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 15-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI) IT/Cyber alerts + 90-180d Recompete & 30% Subcontracting Wire routed to Discord, Slack, MS Teams, or Webhook.\n"
+                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 23 REST/MCP APIs (@signaltender/mcp-server).\n"
                 f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing native Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Verified Teaming Clearinghouse.\n"
                 f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent Winning LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license."
             ),
@@ -865,7 +882,7 @@ def build_two_step_outreach(
 
     step2_closers = [
         f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate any plan (Tier 1 $99/mo, Tier 2 $399/mo, Tier 3 Proposal .ZIP $1,499/mo, or Tier 4 FOIA/OEM $2,499/mo) in 60 seconds at:\n{clean_checkout_url}\n\nClassified as an allowable Bid & Proposal (B&P) market-research expense under FAR 31.205-18 (instant itemized PDF receipt for corporate P-Cards & 1-click auto-renew pause in #account).",
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 22 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo), CaptureDesk ($399/mo), Proposal Autopilot ($1,499/mo), or Enterprise OEM & FOIA Vault ($2,499/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, FAR 31.205-18 allowable B&P expense (corporate P-Card & DCAA PDF invoice ready), no demos required.",
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 23 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo), CaptureDesk ($399/mo), Proposal Autopilot ($1,499/mo), or Enterprise OEM & FOIA Vault ($2,499/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, FAR 31.205-18 allowable B&P expense (corporate P-Card & DCAA PDF invoice ready), no demos required.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
@@ -911,8 +928,8 @@ def build_two_step_outreach(
 
     spintax_body_1 = (
         f"{spintax_greeting}\n\n"
-        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 13 other state SLED portals) every 6 hours. | "
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 13 additional state procurement portals every 6 hours. | "
+        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 14 other state SLED portals) every 6 hours. | "
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 14 additional state procurement portals every 6 hours. | "
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.}}}} "
         f"{spintax_relevance_1}\n\n"
         f"{payload_text}"
@@ -930,7 +947,7 @@ def build_two_step_outreach(
         f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}}}\n\n"
         f"{ step2_tiers[0] }\n\n"
         f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 22 AI APIs at:}}}}\n{clean_portal_url}\n\n"
+        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 23 AI APIs at:}}}}\n{clean_portal_url}\n\n"
         f"{{{{RANDOM | Or activate full 6-hour dispatches (Tier 1 $99/mo, Tier 2 $399/mo, Tier 3 Proposal .ZIP $1,499/mo, or Tier 4 FOIA/OEM $2,499/mo) in 60 seconds here: | "
         f"Or start a month-to-month Tier 1 ($99/mo), Tier 2 ($399/mo), Tier 3 ($1,499/mo), or Tier 4 ($2,499/mo) plan anytime at:}}}}\n{clean_checkout_url}\n\n"
         f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, FAR 31.205-18 allowable B&P expense, no demos required.}}}}\n\n"

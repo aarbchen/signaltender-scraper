@@ -5,7 +5,7 @@ Solves the "screenshot feedback loop" problem permanently:
   1. Pulls any open runtime errors from the central cloud telemetry endpoint
      (`GET https://b2b-contract-parser-api.onrender.com/v1/telemetry/errors?status=open`)
      AND local `d:\\Daas\\error_log.txt`.
-  2. Audits all 15 scraper modules and pipeline scripts to verify:
+  2. Audits all 16 scraper modules and pipeline scripts to verify:
      - Every state/municipal scraper defines `async def run_scraper(push_to_db: bool = True)`.
      - Every file defining `def send_discord_alert(...)` calls `report_error(...)` so 100% of
        Discord `#alerts` are mirrored to `/v1/telemetry/report-error`.
@@ -61,6 +61,7 @@ SCRAPER_MODULES = [
     "ma_scraper",
     "nj_scraper",
     "wa_scraper",
+    "mi_scraper",
 ]
 
 ALL_MONITORED_FILES = [
@@ -80,6 +81,7 @@ ALL_MONITORED_FILES = [
     "ma_scraper.py",
     "nj_scraper.py",
     "wa_scraper.py",
+    "mi_scraper.py",
     "pseo_generator.py",
     "capturedesk_autopilot.py",
     "client_delivery.py",

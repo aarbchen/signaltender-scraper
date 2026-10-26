@@ -131,6 +131,7 @@ To scale from initial post-warmup launch (Oct 31) to `$86,000+ MRR` (`$1M+ ARR`)
 | **Stage 4: $1M ARR Multi-Channel Scale** | **`$40,000 -> $86,000+ MRR`**<br>*(Months 10–18)* | **14–16 Warmed Satellite Mailboxes**<br>*(Set `OUTBOUND_MAILBOX_COUNT=15`)* | **`450/day`**<br>*(`~13,500/mo`)* | • Add next 10 high-spend SLED state portals (NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI) using the exact same modular `*_scraper.py` pattern.<br>• Offer 1-click Annual Plan upgrades (`$990/yr` Tier 1, `$3,490/yr` Tier 2) in month-2 subscriber renewal emails to lock in 12-month LTV and cut monthly churn in half. | **~$450 / mo**<br>*(<0.6% of MRR)* |
 - **API #21 (Live):** GovCon Sources Sought, RFI & Set-Aside Shaping Responder API (`POST /v1/generate/sources-sought-response`) + Portal #15 New Jersey NJSTART (`nj_scraper.py`).
 - **API #22 (Live):** GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API (`POST /v1/generate/oci-mitigation-plan`) + Portal #16 Washington WEBS (`wa_scraper.py`).
+- **API #23 (Live):** SBIR / STTR Phase I–III Technical Volume & Commercialization Plan API (`POST /v1/generate/sbir-sttr-commercialization`) + Portal #17 Michigan SIGMA VSS (`mi_scraper.py`).
 
 ---
 

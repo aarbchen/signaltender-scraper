@@ -43,7 +43,8 @@ const RAPIDAPI_HOSTS = {
   analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
   generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
   generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
-  generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com"
+  generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
+  generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -255,7 +256,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 16-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 17-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -284,9 +285,10 @@ const TOOLS = [
             "massachusetts",
             "new_jersey",
             "washington",
+            "michigan",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1705,6 +1707,90 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_sbir_sttr_commercialization",
+    "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
+    "description": "Convert R&D technical specifications and DoD/AFWERX/Navy/Army/NASA/NSF SBIR or STTR solicitation topics into a Phase I–III Technical Work Plan, a TRL 1–9 & MRL 1–10 advancement matrix, a Dual-Use Phase III Commercialization & Transition Plan (15 U.S.C. 638(r)(4)), and a 20-year SBIR/STTR Data Rights IP protection schedule (DFARS 252.227-7018 / FAR 52.227-20). This is a read-only, stateless, non-destructive R&D proposal and commercialization modeling call (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters, `company_technology_and_ip_baseline` accepts 20 to 35,000 characters, and `target_phase_and_program` selects Phase I, Direct-to-Phase II / Phase II, STRATFI/TACFI, or Phase III Sole-Source Transition). Use this tool when preparing SBIR/STTR Phase I–III technical volumes, TRL roadmaps, SBIR Data Rights assertion tables, or Phase III commercialization plans; use `generate_rfp_response` instead for standard FAR Part 15 non-R&D technical proposals, or `generate_sources_sought_response` for pre-RFP market research capability statements.",
+    "annotations": {
+      "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sbir_sttr_topic_and_rd_specs": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Full or excerpted SBIR/STTR solicitation topic description (DoD DSIP, AFWERX Open Topic, SpaceWERX, Navy, Army xTech, DARPA, DHS, NASA, NSF, NIH, or DOE), Phase I/II/III technical objectives, R&D specifications, and evaluation criteria (20 to 45,000 characters)."
+        },
+        "company_technology_and_ip_baseline": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 35000,
+          "description": "Summary of the small business offeror's core R&D technology, current TRL/MRL baseline, background IP/patents, Principal Investigator (PI) credentials, research institution partner (if STTR), and prior SBIR/commercial traction (20 to 35,000 characters)."
+        },
+        "target_phase_and_program": {
+          "type": "string",
+          "enum": [
+            "Phase_I_Feasibility_and_Proof_of_Concept",
+            "Direct_to_Phase_II_or_Phase_II_Prototype",
+            "Phase_IIB_or_STRATFI_TACFI_Matching",
+            "Phase_III_Sole_Source_Transition_15_USC_638_r_4"
+          ],
+          "default": "Direct_to_Phase_II_or_Phase_II_Prototype",
+          "description": "Target SBIR/STTR phase and transition vehicle: 'Phase_I_Feasibility_and_Proof_of_Concept', 'Direct_to_Phase_II_or_Phase_II_Prototype' (default), 'Phase_IIB_or_STRATFI_TACFI_Matching', or 'Phase_III_Sole_Source_Transition_15_USC_638_r_4'."
+        }
+      },
+      "required": [
+        "sbir_sttr_topic_and_rd_specs",
+        "company_technology_and_ip_baseline"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "program_and_topic_classification": {
+          "type": "object",
+          "description": "Classified SBIR/STTR agency, phase, topic ID, and statutory workshare rules (67%/50% SBIR or 40%/30% STTR)."
+        },
+        "trl_and_mrl_advancement_matrix": {
+          "type": "object",
+          "description": "Starting/target TRL 1-9 and MRL 1-10 progression with technical risk retirement milestones."
+        },
+        "phase_technical_objectives_and_wbs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured Work Breakdown Structure (WBS) tasks, hours/labor mix, deliverables, and exit criteria."
+        },
+        "sbirsttr_data_rights_and_ip_protection_plan": {
+          "type": "object",
+          "description": "DFARS 252.227-7018 / FAR 52.227-20 20-year SBIR Data Rights assertion table and restrictive legend language."
+        },
+        "dual_use_market_and_tam_sam_som_analysis": {
+          "type": "object",
+          "description": "Defense/Federal PMO transition customers, commercial dual-use segments, TAM/SAM/SOM, and 5-year revenue model."
+        },
+        "phase_iii_transition_and_non_sbir_funding_roadmap": {
+          "type": "object",
+          "description": "Phase III sole-source justification under 15 U.S.C. 638(r)(4), STRATFI/TACFI/APFIT matching, and PEO transition milestones."
+        },
+        "commercialization_readiness_score_0_to_100": {
+          "type": "integer",
+          "description": "Quantitative SBIR/STTR Commercialization & Transition Readiness Score from 0 to 100."
+        },
+        "go_no_go_recommendation": {
+          "type": "string",
+          "description": "Executive Bid/No-Bid and Phase transition recommendation."
+        }
+      }
+    }
   }
 ];
 
@@ -1730,7 +1816,8 @@ const ENDPOINT_MAP = {
   analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" },
   generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" },
   generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" },
-  generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" }
+  generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" },
+  generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1836,7 +1923,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.8.0"
+            version: "1.9.0"
           }
         }
       });
