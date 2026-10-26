@@ -288,6 +288,15 @@
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
+    #page-sidebar-tab, #page-sidebar-mobile-btn {
+      background-color: #090C10 !important;
+      border-color: rgba(255, 255, 255, 0.10) !important;
+    }
+    #page-sidebar-drawer {
+      background-color: #0B0E14 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 8px 0 32px rgba(0, 0, 0, 0.85) !important;
+    }
     .animate-ping, .animate-pulse {
       animation: none !important;
     }
@@ -1562,12 +1571,15 @@
   <style>
     #page-sidebar-scroll::-webkit-scrollbar { display: none; }
     #page-sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    #page-sidebar-tab, #page-sidebar-mobile-btn { background-color: #090C10 !important; border-color: rgba(255, 255, 255, 0.10) !important; }
+    #page-sidebar-drawer { background-color: #0B0E14 !important; border-color: rgba(255, 255, 255, 0.12) !important; box-shadow: 8px 0 32px rgba(0, 0, 0, 0.85) !important; }
+    html[data-theme="light"] #page-sidebar-tab, html[data-theme="light"] #page-sidebar-drawer, html[data-theme="light"] #page-sidebar-mobile-btn { background-color: #FFFFFF !important; border-color: #CBD5E1 !important; box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08) !important; }
   </style>
   <aside id="page-section-sidebar-root" aria-label="On-Page Section Directory" class="select-none">
     <!-- Desktop Closed State: Quiet Gemini-Style Slim Left Icon Rail (44px wide, flush left) -->
     <div
       id="page-sidebar-tab"
-      class="hidden lg:flex fixed left-0 top-36 bottom-0 w-11 z-40 flex-col items-center justify-between py-3 bg-[#060a14]/90 backdrop-blur-md border-r border-slate-800/60"
+      class="hidden lg:flex fixed left-0 top-36 bottom-0 w-11 z-40 flex-col items-center justify-between py-3 bg-navy-950 backdrop-blur-md border-r border-slate-800/60"
     >
       <div class="flex flex-col items-center gap-1.5">
         <button
@@ -1629,7 +1641,7 @@
       onclick="window.togglePageSectionSidebar(true)"
       title="Open page &amp; section navigator"
       aria-label="Open page and section navigator"
-      class="lg:hidden fixed left-3.5 bottom-4 z-40 w-10 h-10 rounded-full bg-[#080d1a]/95 hover:bg-slate-800 text-slate-200 hover:text-sky-400 border border-slate-700/80 shadow-xl backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
+      class="lg:hidden fixed left-3.5 bottom-4 z-40 w-10 h-10 rounded-full bg-navy-950 hover:bg-slate-800 text-slate-200 hover:text-sky-400 border border-slate-700/80 shadow-xl backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
     >
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h10M4 18h14" />
@@ -1646,7 +1658,7 @@
     <!-- Expanded State: Quiet Gemini-Style Full-Height Searchable Drawer -->
     <div
       id="page-sidebar-drawer"
-      class="hidden fixed left-0 top-0 bottom-0 w-72 max-w-[85vw] z-[70] flex-col bg-[#080d1a]/98 backdrop-blur-xl border-r border-slate-800/80 shadow-2xl shadow-black/90 overflow-hidden"
+      class="hidden fixed left-0 top-0 bottom-0 w-72 max-w-[85vw] z-[70] flex-col bg-navy-950 backdrop-blur-xl border-r border-slate-800/80 shadow-2xl shadow-black/90 overflow-hidden"
     >
       <!-- Top Bar -->
       <div class="px-3.5 pt-3.5 pb-2.5 flex items-center justify-between gap-2 shrink-0">
