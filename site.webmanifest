@@ -1,0 +1,28 @@
+{
+  "name": "SignalTender | GovCon IT & Cyber RFP Intelligence",
+  "short_name": "SignalTender",
+  "description": "Real-time Federal & State SLED IT/Cyber RFP alerts, AI CaptureDesk dossiers, 3-Volume Shipley Proposal .ZIP compiler, and GovCon REST/MCP APIs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090C10",
+  "theme_color": "#090C10",
+  "icons": [
+    {
+      "src": "https://signaltender.net/favicon-192x192.png?v=5",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://signaltender.net/favicon-512x512.png?v=5",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://signaltender.net/apple-touch-icon.png?v=5",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
