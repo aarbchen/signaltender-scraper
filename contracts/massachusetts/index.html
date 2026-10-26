@@ -31,8 +31,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../tailwind.generated.css" />
   <script>
+    window.tailwind = window.tailwind || {};
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -202,33 +203,9 @@
       scrollbar-width: thin;
       scrollbar-color: #1e293b #050811;
     }
-    * {
+    html, body, pre, .overflow-y-auto, .overflow-x-auto {
       scrollbar-width: thin;
       scrollbar-color: #1e293b rgba(9, 14, 26, 0.65);
-    }
-    *::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    *::-webkit-scrollbar-button {
-      display: none;
-      width: 0;
-      height: 0;
-    }
-    *::-webkit-scrollbar-track {
-      background: rgba(5, 8, 17, 0.75);
-      border-radius: 9999px;
-    }
-    *::-webkit-scrollbar-thumb {
-      background: rgba(51, 65, 85, 0.85);
-      border-radius: 9999px;
-      border: 1px solid rgba(15, 23, 42, 0.9);
-    }
-    *::-webkit-scrollbar-thumb:hover {
-      background: rgba(56, 189, 248, 0.65);
-    }
-    *::-webkit-scrollbar-corner {
-      background: transparent;
     }
     html, body {
       overflow-x: hidden;
@@ -260,13 +237,10 @@
     body {
       background-color: #090C10 !important;
       background-image:
-        radial-gradient(ellipse 85% 55% at 50% -10%, rgba(56, 189, 248, 0.10), transparent 70%),
-        radial-gradient(ellipse 60% 50% at 0% 35%, rgba(14, 165, 233, 0.06), transparent 65%),
-        radial-gradient(ellipse 60% 50% at 100% 65%, rgba(56, 189, 248, 0.06), transparent 65%),
         linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px) !important;
-      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px !important;
-      background-attachment: fixed !important;
+      background-size: 48px 48px, 48px 48px !important;
+      background-attachment: scroll !important;
       color: #F8FAFC;
     }
     /* Match full 1600px header width across all page sections & cards so there is zero empty side space */
@@ -277,12 +251,21 @@
     }
     @media (min-width: 1024px) {
       #page-main > section,
+      #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
       #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
+      #page-checkout > div:not(:first-of-type),
+      #page-account > section,
+      #page-account > div:not(:first-of-type),
+      #page-status > section,
+      #page-status > div:not(:first-of-type),
+      #page-privacy > section,
+      #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
+      body > div:first-of-type > div:not(:first-of-type),
       body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
@@ -292,7 +275,18 @@
     .blur-3xl,
     [class*="blur-[120px]"],
     [class*="blur-[100px]"] {
-      opacity: 0.22 !important;
+      display: none !important;
+    }
+    .backdrop-blur-md, .backdrop-blur-xl, .backdrop-blur-sm, #page-sidebar-tab, #page-sidebar-drawer {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .animate-ping, .animate-pulse {
+      animation: none !important;
+    }
+    article[id^="product-"] {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 620px;
     }
     /* Top telemetry bar & sticky navigation chrome */
     #page-main > div:first-of-type,
@@ -307,7 +301,8 @@
     header.sticky {
       background-color: rgba(13, 17, 23, 0.94) !important;
       border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-      backdrop-filter: blur(12px);
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
     header nav[aria-label="Primary Site Navigation"] {
       background-color: #090C10 !important;
@@ -640,41 +635,6 @@
       background-color: #F1F5F9 !important;
       color: #0F172A !important;
     }
-    /* Top Telemetry Bar stays Deep Oxford Navy (#0F172A) like Option 2 Preview */
-    html[data-theme="light"] #page-main > div:first-of-type,
-    html[data-theme="light"] #page-apis > div:first-of-type,
-    html[data-theme="light"] #page-contracts > div:first-of-type,
-    html[data-theme="light"] #page-checkout > div:first-of-type,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 {
-      background-color: #0F172A !important;
-      border-bottom-color: #1E293B !important;
-      color: #CBD5E1 !important;
-    }
-    html[data-theme="light"] #page-main > div:first-of-type *,
-    html[data-theme="light"] #page-apis > div:first-of-type *,
-    html[data-theme="light"] #page-contracts > div:first-of-type *,
-    html[data-theme="light"] #page-checkout > div:first-of-type *,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 *,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 * {
-      color: #CBD5E1 !important;
-    }
-    html[data-theme="light"] #page-main > div:first-of-type .text-emerald-400,
-    html[data-theme="light"] #page-apis > div:first-of-type .text-emerald-400,
-    html[data-theme="light"] #page-contracts > div:first-of-type .text-emerald-400,
-    html[data-theme="light"] #page-checkout > div:first-of-type .text-emerald-400,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-emerald-400,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-emerald-400 {
-      color: #34D399 !important;
-    }
-    html[data-theme="light"] #page-main > div:first-of-type .text-sky-400,
-    html[data-theme="light"] #page-apis > div:first-of-type .text-sky-400,
-    html[data-theme="light"] #page-contracts > div:first-of-type .text-sky-400,
-    html[data-theme="light"] #page-checkout > div:first-of-type .text-sky-400,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-sky-400,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-sky-400 {
-      color: #38BDF8 !important;
-    }
     /* Sticky Navigation Header -> Pure White (#FFFFFF) */
     html[data-theme="light"] header.sticky {
       background-color: rgba(255, 255, 255, 0.96) !important;
@@ -703,49 +663,56 @@
       background-color: #F8FAFC !important;
       border-top-color: #E2E8F0 !important;
     }
-    /* Elevated Cards & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
+    /* Elevated Cards, Gradient Banners & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
     html[data-theme="light"] section,
     html[data-theme="light"] footer {
       background-color: transparent !important;
+      background-image: none !important;
       border-color: #E2E8F0 !important;
     }
     html[data-theme="light"] footer {
       background-color: #FFFFFF !important;
     }
+    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers */
     html[data-theme="light"] article[id^="product-"],
-    html[data-theme="light"] .bg-navy-900,
-    html[data-theme="light"] .bg-navy-900\/95,
-    html[data-theme="light"] .bg-navy-900\/90,
-    html[data-theme="light"] .bg-navy-900\/80,
-    html[data-theme="light"] .bg-navy-900\/70,
-    html[data-theme="light"] .bg-navy-900\/60,
-    html[data-theme="light"] .bg-slate-900,
-    html[data-theme="light"] .bg-slate-900\/90,
-    html[data-theme="light"] .bg-slate-900\/80,
-    html[data-theme="light"] .bg-slate-900\/70,
-    html[data-theme="light"] .bg-slate-900\/60,
-    html[data-theme="light"] .bg-slate-800,
-    html[data-theme="light"] .bg-slate-800\/80,
-    html[data-theme="light"] .bg-slate-800\/60,
-    html[data-theme="light"] .bg-slate-800\/50 {
+    html[data-theme="light"] [class*="bg-navy-900"],
+    html[data-theme="light"] [class*="bg-navy-800"],
+    html[data-theme="light"] [class*="bg-slate-900"],
+    html[data-theme="light"] [class*="bg-slate-800"],
+    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button) {
       background-color: #FFFFFF !important;
-      border-color: #E2E8F0 !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
     }
-    html[data-theme="light"] .bg-navy-950,
-    html[data-theme="light"] .bg-navy-950\/95,
-    html[data-theme="light"] .bg-navy-950\/90,
-    html[data-theme="light"] .bg-navy-950\/80,
-    html[data-theme="light"] .bg-navy-950\/70,
-    html[data-theme="light"] .bg-slate-950,
-    html[data-theme="light"] .bg-slate-950\/90,
-    html[data-theme="light"] .bg-slate-950\/80,
-    html[data-theme="light"] .bg-slate-950\/70,
-    html[data-theme="light"] .bg-slate-950\/60 {
+    html[data-theme="light"] [class*="bg-navy-950"],
+    html[data-theme="light"] [class*="bg-slate-950"],
+    html[data-theme="light"] [class*="bg-emerald-950"],
+    html[data-theme="light"] [class*="bg-emerald-900"],
+    html[data-theme="light"] [class*="bg-indigo-950"],
+    html[data-theme="light"] [class*="bg-indigo-900"],
+    html[data-theme="light"] [class*="bg-sky-950"],
+    html[data-theme="light"] [class*="bg-sky-900"],
+    html[data-theme="light"] [class*="bg-amber-950"],
+    html[data-theme="light"] [class*="bg-amber-900"],
+    html[data-theme="light"] [class*="bg-cyan-950"],
+    html[data-theme="light"] [class*="bg-cyan-900"],
+    html[data-theme="light"] [class*="bg-blue-950"],
+    html[data-theme="light"] [class*="bg-blue-900"],
+    html[data-theme="light"] [class*="bg-teal-950"],
+    html[data-theme="light"] [class*="bg-teal-900"],
+    html[data-theme="light"] [class*="bg-purple-950"],
+    html[data-theme="light"] [class*="bg-violet-950"],
+    html[data-theme="light"] [class*="bg-rose-950"],
+    html[data-theme="light"] [class*="bg-orange-950"],
+    html[data-theme="light"] [class*="bg-lime-950"],
+    html[data-theme="light"] [class*="bg-[#0"] {
       background-color: #F8FAFC !important;
+      background-image: none !important;
       border-color: #CBD5E1 !important;
     }
     html[data-theme="light"] article[id^="product-"] {
       background-color: #FFFFFF !important;
+      background-image: none !important;
     }
     html[data-theme="light"] div.rounded-2xl:not(#checkout-card-tier2):not(#checkout-card-tier3),
     html[data-theme="light"] div.rounded-xl,
@@ -756,12 +723,18 @@
       border-color: #E2E8F0 !important;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.02) !important;
     }
-    /* Featured Tiers (Tier 2, Tier 3, and API ULTRA Popular cards) -> 2px Federal Blue border + soft sky gradient */
+    /* Featured Tiers & Executive Callout Cards -> 2px Federal Blue border + soft sky-ivory gradient */
     html[data-theme="light"] #checkout-card-tier2,
     html[data-theme="light"] #checkout-card-tier3,
+    html[data-theme="light"] #checkout-card-tier4,
+    html[data-theme="light"] .inbound-lead-capture-box,
+    html[data-theme="light"] #spa-contracts-lead-box,
+    html[data-theme="light"] #static-inbound-lead-box,
+    html[data-theme="light"] #account-dispatch-telemetry-card,
+    html[data-theme="light"] #account-admin-bar,
     html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:nth-child(3) {
       border: 2px solid #0284C7 !important;
-      background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 45%) !important;
+      background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 55%) !important;
       box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08) !important;
     }
     html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:not(:nth-child(3)) {
@@ -789,33 +762,84 @@
       color: #0369A1 !important;
       border: 1px solid #BAE6FD !important;
     }
-    /* Typography in Light Mode */
+    /* High-Contrast Typography in Light Mode (WCAG AA/AAA on #FFFFFF and #F8FAFC) */
     html[data-theme="light"] .text-white,
+    html[data-theme="light"] .text-slate-50,
     html[data-theme="light"] .text-slate-100,
     html[data-theme="light"] .text-slate-200 {
       color: #0F172A !important;
     }
     html[data-theme="light"] .text-slate-300,
     html[data-theme="light"] .text-slate-400 {
-      color: #475569 !important;
+      color: #334155 !important;
     }
     html[data-theme="light"] .text-slate-500,
     html[data-theme="light"] .text-slate-600 {
-      color: #64748B !important;
+      color: #475569 !important;
     }
-    html[data-theme="light"] .text-sky-400,
-    html[data-theme="light"] .text-sky-300,
-    html[data-theme="light"] .text-indigo-400,
-    html[data-theme="light"] .text-indigo-300,
-    html[data-theme="light"] .text-amber-400,
-    html[data-theme="light"] .text-amber-300,
-    html[data-theme="light"] .text-cyan-400,
-    html[data-theme="light"] .text-cyan-300 {
-      color: #0284C7 !important;
+    /* Map ALL pastel -200, -300, -400 accent text utilities (including /80, /90 opacity variants) to high-contrast Deep Federal Blue (#0369A1) or Deep Emerald (#047857) */
+    html[data-theme="light"] [class*="text-sky-2"],
+    html[data-theme="light"] [class*="text-sky-3"],
+    html[data-theme="light"] [class*="text-sky-4"],
+    html[data-theme="light"] [class*="text-indigo-2"],
+    html[data-theme="light"] [class*="text-indigo-3"],
+    html[data-theme="light"] [class*="text-indigo-4"],
+    html[data-theme="light"] [class*="text-blue-2"],
+    html[data-theme="light"] [class*="text-blue-3"],
+    html[data-theme="light"] [class*="text-blue-4"],
+    html[data-theme="light"] [class*="text-cyan-2"],
+    html[data-theme="light"] [class*="text-cyan-3"],
+    html[data-theme="light"] [class*="text-cyan-4"],
+    html[data-theme="light"] [class*="text-teal-2"],
+    html[data-theme="light"] [class*="text-teal-3"],
+    html[data-theme="light"] [class*="text-teal-4"],
+    html[data-theme="light"] [class*="text-amber-2"],
+    html[data-theme="light"] [class*="text-amber-3"],
+    html[data-theme="light"] [class*="text-amber-4"],
+    html[data-theme="light"] [class*="text-orange-2"],
+    html[data-theme="light"] [class*="text-orange-3"],
+    html[data-theme="light"] [class*="text-orange-4"],
+    html[data-theme="light"] [class*="text-purple-2"],
+    html[data-theme="light"] [class*="text-purple-3"],
+    html[data-theme="light"] [class*="text-purple-4"],
+    html[data-theme="light"] [class*="text-violet-2"],
+    html[data-theme="light"] [class*="text-violet-3"],
+    html[data-theme="light"] [class*="text-violet-4"],
+    html[data-theme="light"] [class*="text-rose-2"],
+    html[data-theme="light"] [class*="text-rose-3"],
+    html[data-theme="light"] [class*="text-rose-4"] {
+      color: #0369A1 !important;
     }
-    html[data-theme="light"] .text-emerald-400,
-    html[data-theme="light"] .text-emerald-300 {
-      color: #059669 !important;
+    html[data-theme="light"] [class*="text-emerald-2"],
+    html[data-theme="light"] [class*="text-emerald-3"],
+    html[data-theme="light"] [class*="text-emerald-4"],
+    html[data-theme="light"] [class*="text-lime-2"],
+    html[data-theme="light"] [class*="text-lime-3"],
+    html[data-theme="light"] [class*="text-lime-4"] {
+      color: #047857 !important;
+    }
+    /* Soft tinted pill badges on light cards -> Crisp Light Sky (#F0F9FF) or Light Emerald (#ECFDF5) with readable borders */
+    html[data-theme="light"] span[class*="bg-sky-500/"],
+    html[data-theme="light"] span[class*="bg-indigo-500/"],
+    html[data-theme="light"] span[class*="bg-blue-500/"],
+    html[data-theme="light"] span[class*="bg-cyan-500/"],
+    html[data-theme="light"] span[class*="bg-teal-500/"],
+    html[data-theme="light"] span[class*="bg-amber-500/"],
+    html[data-theme="light"] span[class*="bg-orange-500/"],
+    html[data-theme="light"] a[class*="bg-sky-500/"]:not([href^="#"]),
+    html[data-theme="light"] a[class*="bg-blue-500/"],
+    html[data-theme="light"] a[class*="bg-teal-500/"],
+    html[data-theme="light"] a[class*="bg-orange-500/"] {
+      background-color: #F0F9FF !important;
+      border-color: #BAE6FD !important;
+      color: #0369A1 !important;
+    }
+    html[data-theme="light"] span[class*="bg-emerald-500/"],
+    html[data-theme="light"] span[class*="bg-lime-500/"],
+    html[data-theme="light"] a[class*="bg-lime-500/"] {
+      background-color: #ECFDF5 !important;
+      border-color: #A7F3D0 !important;
+      color: #047857 !important;
     }
     html[data-theme="light"] p > span.text-emerald-300,
     html[data-theme="light"] p > span.text-emerald-400,
@@ -853,7 +877,43 @@
       border-color: #CBD5E1 !important;
       color: #0F172A !important;
     }
-    /*Primary CTA Buttons in Light Mode -> Deep Oxford Navy (#0F172A) with Crisp White Text (exact match to Option 2 preview) */
+    /* Secondary / Outline Buttons in Light Mode -> Crisp White (#FFFFFF) with Dark Navy Text (#0F172A) */
+    html[data-theme="light"] a[class*="bg-emerald-500/"],
+    html[data-theme="light"] a[class*="bg-emerald-600/"],
+    html[data-theme="light"] a[class*="bg-emerald-950"],
+    html[data-theme="light"] button[class*="bg-emerald-500/"],
+    html[data-theme="light"] button[class*="bg-emerald-600/"],
+    html[data-theme="light"] button[class*="bg-emerald-950"],
+    html[data-theme="light"] a[class*="bg-amber-500/"],
+    html[data-theme="light"] a[class*="bg-amber-950"],
+    html[data-theme="light"] button[class*="bg-amber-500/"],
+    html[data-theme="light"] button[class*="bg-amber-950"],
+    html[data-theme="light"] a[class*="bg-sky-500/"],
+    html[data-theme="light"] button[class*="bg-sky-500/"],
+    html[data-theme="light"] a[class*="bg-indigo-500/"],
+    html[data-theme="light"] a[class*="bg-indigo-600/"],
+    html[data-theme="light"] button[class*="bg-indigo-500/"],
+    html[data-theme="light"] button[class*="bg-indigo-600/"],
+    html[data-theme="light"] a[class*="bg-blue-500/"],
+    html[data-theme="light"] a[class*="bg-teal-500/"] {
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] a[class*="bg-emerald-500/"]:hover,
+    html[data-theme="light"] a[class*="bg-emerald-600/"]:hover,
+    html[data-theme="light"] button[class*="bg-emerald-500/"]:hover,
+    html[data-theme="light"] a[class*="bg-sky-500/"]:hover,
+    html[data-theme="light"] button[class*="bg-sky-500/"]:hover,
+    html[data-theme="light"] a[class*="bg-indigo-500/"]:hover,
+    html[data-theme="light"] a[class*="bg-indigo-600/"]:hover,
+    html[data-theme="light"] button[class*="bg-indigo-600/"]:hover {
+      background-color: #F1F5F9 !important;
+      color: #0F172A !important;
+      border-color: #94A3B8 !important;
+    }
+    /* Primary Solid CTA Buttons in Light Mode -> Deep Oxford Navy (#0F172A) with Crisp White Text */
     html[data-theme="light"] a.bg-sky-500,
     html[data-theme="light"] a.bg-sky-600,
     html[data-theme="light"] button.bg-sky-500,
@@ -895,54 +955,70 @@
     html[data-theme="light"] a.bg-emerald-600:hover,
     html[data-theme="light"] button.bg-emerald-500:hover,
     html[data-theme="light"] button.bg-emerald-600:hover,
+    html[data-theme="light"] a.bg-indigo-600:hover,
+    html[data-theme="light"] button.bg-indigo-600:hover,
     html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"]:hover,
     html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"]:hover {
       background: #1E293B !important;
       border-color: #1E293B !important;
       color: #FFFFFF !important;
     }
-    html[data-theme="light"] a.bg-sky-500 span,
-    html[data-theme="light"] a.bg-sky-600 span,
-    html[data-theme="light"] button.bg-sky-500 span,
-    html[data-theme="light"] button.bg-sky-600 span,
-    html[data-theme="light"] a.bg-emerald-500 span,
-    html[data-theme="light"] a.bg-emerald-600 span,
-    html[data-theme="light"] button.bg-emerald-500 span,
-    html[data-theme="light"] button.bg-emerald-600 span,
-    html[data-theme="light"] a.bg-amber-500 span,
-    html[data-theme="light"] a.bg-amber-600 span,
-    html[data-theme="light"] button.bg-amber-500 span,
-    html[data-theme="light"] button.bg-amber-600 span,
-    html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"] span,
-    html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"] span {
+    html[data-theme="light"] a.bg-sky-500 *,
+    html[data-theme="light"] a.bg-sky-600 *,
+    html[data-theme="light"] button.bg-sky-500 *,
+    html[data-theme="light"] button.bg-sky-600 *,
+    html[data-theme="light"] a.bg-emerald-500 *,
+    html[data-theme="light"] a.bg-emerald-600 *,
+    html[data-theme="light"] button.bg-emerald-500 *,
+    html[data-theme="light"] button.bg-emerald-600 *,
+    html[data-theme="light"] a.bg-amber-500 *,
+    html[data-theme="light"] a.bg-amber-600 *,
+    html[data-theme="light"] button.bg-amber-500 *,
+    html[data-theme="light"] button.bg-amber-600 *,
+    html[data-theme="light"] a.bg-indigo-500 *,
+    html[data-theme="light"] a.bg-indigo-600 *,
+    html[data-theme="light"] button.bg-indigo-500 *,
+    html[data-theme="light"] button.bg-indigo-600 *,
+    html[data-theme="light"] a[class*="bg-gradient-to-r"][class*="from-"] *,
+    html[data-theme="light"] button[class*="bg-gradient-to-r"][class*="from-"] * {
       color: #FFFFFF !important;
     }
-    /* Secondary Buttons in Light Mode -> Crisp White (#FFFFFF) with Slate Border */
-    html[data-theme="light"] a[class*="bg-emerald-500/"],
-    html[data-theme="light"] a[class*="bg-emerald-950"],
-    html[data-theme="light"] button[class*="bg-emerald-500/"],
-    html[data-theme="light"] button[class*="bg-emerald-950"],
-    html[data-theme="light"] a[class*="bg-amber-500/"],
-    html[data-theme="light"] a[class*="bg-amber-950"],
-    html[data-theme="light"] button[class*="bg-amber-500/"],
-    html[data-theme="light"] button[class*="bg-amber-950"],
-    html[data-theme="light"] a[class*="bg-sky-500/"],
-    html[data-theme="light"] button[class*="bg-sky-500/"],
-    html[data-theme="light"] a[class*="bg-indigo-500/"],
-    html[data-theme="light"] button[class*="bg-indigo-500/"] {
-      background-color: #FFFFFF !important;
-      color: #0F172A !important;
-      border-color: #CBD5E1 !important;
+    /* Top Telemetry Bar stays Deep Oxford Navy (#0F172A) like Option 2 Preview (placed after light overrides) */
+    html[data-theme="light"] #page-main > div:first-of-type,
+    html[data-theme="light"] #page-apis > div:first-of-type,
+    html[data-theme="light"] #page-contracts > div:first-of-type,
+    html[data-theme="light"] #page-checkout > div:first-of-type,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 {
+      background-color: #0F172A !important;
+      border-bottom-color: #1E293B !important;
+      color: #CBD5E1 !important;
     }
-    html[data-theme="light"] a[class*="bg-emerald-500/"]:hover,
-    html[data-theme="light"] button[class*="bg-emerald-500/"]:hover,
-    html[data-theme="light"] a[class*="bg-sky-500/"]:hover,
-    html[data-theme="light"] button[class*="bg-sky-500/"]:hover {
-      background-color: #F1F5F9 !important;
-      color: #0F172A !important;
-      border-color: #94A3B8 !important;
+    html[data-theme="light"] #page-main > div:first-of-type *,
+    html[data-theme="light"] #page-apis > div:first-of-type *,
+    html[data-theme="light"] #page-contracts > div:first-of-type *,
+    html[data-theme="light"] #page-checkout > div:first-of-type *,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 *,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 * {
+      color: #CBD5E1 !important;
     }
-    /* Keep Embedded Code / JSON Terminal Panels Dark Oxford Navy (#0F172A) like Option 2 Preview */
+    html[data-theme="light"] #page-main > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-apis > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-contracts > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] #page-checkout > div:first-of-type .text-emerald-400,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-emerald-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-emerald-400 {
+      color: #34D399 !important;
+    }
+    html[data-theme="light"] #page-main > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-apis > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-contracts > div:first-of-type .text-sky-400,
+    html[data-theme="light"] #page-checkout > div:first-of-type .text-sky-400,
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-sky-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-sky-400 {
+      color: #38BDF8 !important;
+    }
+    /* Keep Embedded Code / JSON Terminal Panels Dark Oxford Navy (#0F172A) with bright readable syntax (placed last for highest specificity) */
     html[data-theme="light"] pre,
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5,
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div,
@@ -953,16 +1029,43 @@
       border-color: #1E293B !important;
     }
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950\/90,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-navy-950\/80,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-950,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-900,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-900\/90,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-800,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .bg-slate-800\/80 {
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="bg-navy-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="bg-slate-"] {
       background-color: #090D16 !important;
       border-color: #1E293B !important;
+    }
+    html[data-theme="light"] pre *,
+    html[data-theme="light"] pre [class*="text-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-"],
+    html[data-theme="light"] #demo-raw-pdf *,
+    html[data-theme="light"] #demo-raw-pdf [class*="text-"],
+    html[data-theme="light"] #demo-json-output *,
+    html[data-theme="light"] #demo-json-output [class*="text-"] {
+      color: #E2E8F0 !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-400,
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-500 {
+      color: #94A3B8 !important;
+    }
+    html[data-theme="light"] pre [class*="text-sky-"],
+    html[data-theme="light"] pre [class*="text-cyan-"],
+    html[data-theme="light"] pre [class*="text-indigo-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-sky-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-cyan-"],
+    html[data-theme="light"] #demo-json-output [class*="text-sky-"] {
+      color: #38BDF8 !important;
+    }
+    html[data-theme="light"] pre [class*="text-emerald-"],
+    html[data-theme="light"] pre [class*="text-lime-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-emerald-"],
+    html[data-theme="light"] #demo-json-output [class*="text-emerald-"] {
+      color: #34D399 !important;
+    }
+    html[data-theme="light"] pre [class*="text-amber-"],
+    html[data-theme="light"] pre [class*="text-orange-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-amber-"],
+    html[data-theme="light"] #demo-json-output [class*="text-amber-"] {
+      color: #FBBF24 !important;
     }
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn] {
       background-color: transparent !important;
@@ -984,34 +1087,6 @@
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]):hover {
       background-color: #334155 !important;
       color: #FFFFFF !important;
-    }
-    html[data-theme="light"] pre *,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-300,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-200,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-white {
-      color: #E2E8F0 !important;
-    }
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-400,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-slate-500 {
-      color: #94A3B8 !important;
-    }
-    html[data-theme="light"] pre .text-sky-400,
-    html[data-theme="light"] pre .text-sky-300,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-sky-400,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-sky-300 {
-      color: #38BDF8 !important;
-    }
-    html[data-theme="light"] pre .text-emerald-400,
-    html[data-theme="light"] pre .text-emerald-300,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-emerald-400,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-emerald-300 {
-      color: #34D399 !important;
-    }
-    html[data-theme="light"] pre .text-amber-400,
-    html[data-theme="light"] pre .text-amber-300,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-amber-400,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .text-amber-300 {
-      color: #FBBF24 !important;
     }
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
       background-color: #090D16 !important;
@@ -2073,7 +2148,7 @@
         if (itemsWrap) {
           var btns = itemsWrap.querySelectorAll('button[data-sidebar-sec]');
           for (var i = 0; i < btns.length; i++) {
-            var hay = (btns[i].getAttribute('data-sidebar-search') || btns[i].innerText || '').toLowerCase();
+            var hay = (btns[i].getAttribute('data-sidebar-search') || btns[i].textContent || '').toLowerCase();
             if (!q || hay.indexOf(q) !== -1) {
               btns[i].classList.remove('hidden');
               shownCount++;
@@ -2090,7 +2165,7 @@
         if (pagesWrap) {
           var pBtns = pagesWrap.querySelectorAll('button[data-sidebar-page]');
           for (var j = 0; j < pBtns.length; j++) {
-            var pHay = (pBtns[j].getAttribute('data-sidebar-search') || pBtns[j].innerText || '').toLowerCase();
+            var pHay = (pBtns[j].getAttribute('data-sidebar-search') || pBtns[j].textContent || '').toLowerCase();
             if (!q || pHay.indexOf(q) !== -1) {
               pBtns[j].classList.remove('hidden');
             } else {
@@ -2154,26 +2229,7 @@
         return ok;
       };
 
-      window.syncSidebarTopOffset = function () {
-        var tabEl = document.getElementById('page-sidebar-tab');
-        if (!tabEl) return;
-        var headers = document.querySelectorAll('header');
-        var maxBottom = 0;
-        for (var i = 0; i < headers.length; i++) {
-          var h = headers[i];
-          if (h.offsetParent !== null && h.getBoundingClientRect) {
-            var rect = h.getBoundingClientRect();
-            if (rect.height > 0 && rect.bottom > maxBottom) {
-              maxBottom = rect.bottom;
-            }
-          }
-        }
-        if (maxBottom > 0) {
-          tabEl.style.top = Math.max(64, Math.round(maxBottom)) + 'px';
-        }
-      };
-      window.addEventListener('scroll', window.syncSidebarTopOffset, { passive: true });
-      window.addEventListener('resize', window.syncSidebarTopOffset);
+      window.syncSidebarTopOffset = function () {};
 
       window.renderPageSectionSidebar = function () {
         var listEl = document.getElementById('page-sidebar-items');
@@ -2390,7 +2446,7 @@
       var rows = tbody.querySelectorAll('tr:not(#static-rfp-empty-row)');
       var shown = 0;
       for (var i = 0; i < rows.length; i++) {
-        var txt = (rows[i].innerText || '').toLowerCase();
+        var txt = (rows[i]._stSearchText || (rows[i]._stSearchText = (rows[i].textContent || '').toLowerCase()));
         if (!q || txt.indexOf(q) !== -1) {
           rows[i].classList.remove('hidden');
           shown++;
