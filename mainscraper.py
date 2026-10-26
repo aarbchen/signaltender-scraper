@@ -217,6 +217,19 @@ def send_discord_content(record: dict):
             pass
         send_discord_alert(error_msg)
 
+SOLICITATION_HASH_LEDGER_PATH = "solicitation_content_hashes.json"
+
+def compute_solicitation_content_hash(title: str, closing_date: str, agency: str = "") -> str:
+    """Deterministic SHA-256 content-hash for SF-30 / State Addendum & deadline-shift detection."""
+    import hashlib
+    clean_t = re.sub(r"\[SF-30\s*/\s*ADDENDUM\s*DETECTED\]\s*", "", str(title or ""), flags=re.IGNORECASE)
+    clean_t = re.sub(r"\s*-\s*Due:\s*\S+", "", clean_t, flags=re.IGNORECASE)
+    norm_t = re.sub(r"[^a-z0-9]+", " ", clean_t.lower()).strip()
+    norm_d = format_date_clean(str(closing_date or "")).lower().strip()
+    norm_a = re.sub(r"[^a-z0-9]+", " ", str(agency or "").lower()).strip()
+    blob = f"{norm_t}|{norm_d}|{norm_a}"
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
 def format_date_clean(date_str: str) -> str:
     """Normalize extracted date strings into MM/DD/YYYY format, or empty if invalid."""
     if not date_str:
@@ -1009,26 +1022,73 @@ async def run_master_orchestrator(
 
     try:
         print(f"[*] Passing unified payload ({len(unified_payload)} contracts) through Supabase deduplication filter...", flush=True)
-        existing_url_set = {
-            str(r.get("url") or "").strip()
-            for r in (locals().get("existing_rows") or [])
-            if r.get("url")
-        } - set(locals().get("expired_urls") or [])
+        expired_set = set(locals().get("expired_urls") or [])
+        existing_rows_active = [
+            r for r in (locals().get("existing_rows") or [])
+            if r.get("url") and str(r.get("url") or "").strip() not in expired_set
+        ]
+        existing_url_set = {str(r.get("url") or "").strip() for r in existing_rows_active}
+        existing_by_url = {str(r.get("url") or "").strip(): r for r in existing_rows_active}
+        hash_ledger = {}
+        if os.path.exists(SOLICITATION_HASH_LEDGER_PATH):
+            try:
+                with open(SOLICITATION_HASH_LEDGER_PATH, "r", encoding="utf-8") as hf:
+                    loaded_h = json.load(hf)
+                    if isinstance(loaded_h, dict):
+                        hash_ledger = loaded_h
+            except Exception:
+                hash_ledger = {}
         net_new_candidates = []
+        sf30_amendments_detected = 0
         seen_batch_urls = set()
         for r in unified_payload:
             u = str(r.get("url") or "").strip()
-            if not u or u in existing_url_set or u in seen_batch_urls:
+            if not u or u in seen_batch_urls:
+                continue
+            cur_title = str(r.get("title") or "").strip()
+            cur_agency = str(r.get("agency") or "Government Agency").strip()
+            cur_due = r.get("closing_date") or None
+            cur_hash = compute_solicitation_content_hash(cur_title, str(cur_due or ""), cur_agency)
+            if u in existing_url_set:
+                prev_row = existing_by_url.get(u) or {}
+                prev_due_norm = format_date_clean(str(prev_row.get("closing_date") or ""))
+                cur_due_norm = format_date_clean(str(cur_due or ""))
+                prev_hash = (hash_ledger.get(u) or {}).get("content_hash") or compute_solicitation_content_hash(
+                    str(prev_row.get("title") or ""),
+                    str(prev_row.get("closing_date") or ""),
+                    str(prev_row.get("agency") or cur_agency),
+                )
+                sf30_url = f"{u}#sf30-{cur_hash[:8]}"
+                if cur_hash != prev_hash and cur_due_norm and prev_due_norm and cur_due_norm != prev_due_norm and sf30_url not in existing_url_set:
+                    seen_batch_urls.add(sf30_url)
+                    sf30_title = cur_title if "[SF-30" in cur_title.upper() else f"[SF-30 / ADDENDUM DETECTED] {cur_title}"
+                    net_new_candidates.append({
+                        "title": sf30_title,
+                        "agency": cur_agency,
+                        "closing_date": cur_due,
+                        "url": sf30_url,
+                        "status": "New Lead",
+                    })
+                    sf30_amendments_detected += 1
+                hash_ledger[u] = {"content_hash": cur_hash, "closing_date": str(cur_due or "")}
                 continue
             seen_batch_urls.add(u)
+            hash_ledger[u] = {"content_hash": cur_hash, "closing_date": str(cur_due or "")}
             clean_row = {
-                "title": str(r.get("title") or "").strip(),
-                "agency": str(r.get("agency") or "Government Agency").strip(),
-                "closing_date": r.get("closing_date") or None,
+                "title": cur_title,
+                "agency": cur_agency,
+                "closing_date": cur_due,
                 "url": u,
                 "status": str(r.get("status") or "New Lead").strip(),
             }
             net_new_candidates.append(clean_row)
+        try:
+            with open(SOLICITATION_HASH_LEDGER_PATH, "w", encoding="utf-8") as hf:
+                json.dump(hash_ledger, hf, indent=2)
+        except Exception:
+            pass
+        if sf30_amendments_detected > 0:
+            print(f"[+] SF-30 / Addendum Watchdog: Detected {sf30_amendments_detected} post-scrape solicitation deadline/scope amendment(s)!", flush=True)
 
         new_records = []
         insert_errors = []

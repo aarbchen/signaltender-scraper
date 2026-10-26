@@ -8933,10 +8933,12 @@
               if (st) st.innerHTML = '&check; Downloaded <strong>' + (d.zip_filename || '3-Volume Shipley Proposal .ZIP') + '</strong>!';
               if (resBox) {
                 resBox.classList.remove('hidden');
-                var files = Array.isArray(d.files_included) ? d.files_included.join(' &bull; ') : 'Volume_I_Technical_Management.docx &bull; Volume_II_Cost_Price_Model.xlsx &bull; Volume_III_Past_Performance_Compliance.docx';
-                resBox.innerHTML = '<div class="text-emerald-400 font-bold">&check; COMPILED 3-VOLUME SHIPLEY PACKAGE MANIFEST (' + solId + '):</div>' +
+                var files = Array.isArray(d.files_included) ? d.files_included.join(' &bull; ') : 'Volume_I.docx &bull; Volume_II.xlsx &bull; Volume_III.docx &bull; Volume_IV_FAR_9_6_Teaming.docx &bull; Volume_V_FOIA_Demand.docx';
+                var vaultNotice = d.institutional_vault_message || ('Institutional Bid Vault Active: ' + compName + ' proposal baseline & LCAT wrap model locked in SignalTender.');
+                resBox.innerHTML = '<div class="text-emerald-400 font-bold">&check; COMPILED 6-FILE SHIPLEY PROPOSAL, FAR 9.6 TEAMING &amp; FOIA PACKAGE (' + solId + '):</div>' +
                   '<div class="text-slate-300">Files Included: <span class="text-white">' + files + '</span></div>' +
-                  '<div class="text-slate-400 text-[11px]">Tailored for <strong>' + compName + '</strong> (' + socio + ' &bull; NAICS ' + naics + ') with live Section B Excel formulas.</div>';
+                  '<div class="text-emerald-300 text-[11px] font-semibold mt-1">' + vaultNotice + '</div>' +
+                  '<div class="text-slate-400 text-[11px]">Tailored for <strong>' + compName + '</strong> (' + socio + ' &bull; NAICS ' + naics + ') with live Section B Excel formulas, binding FAR Subpart 9.6 Teaming Exhibit A, and Statutory FOIA Demand.</div>';
               }
             }
           })
@@ -8989,11 +8991,21 @@
           .then(function (r) { return r.json(); })
           .then(function (d) {
             if (resEl && d) {
+              var pList = Array.isArray(d.matched_partners) ? d.matched_partners : [];
+              var pHtml = pList.map(function (p) {
+                return '<div class="p-2 rounded bg-navy-900 border border-slate-800 flex items-center justify-between gap-2 text-[11px] mt-1">' +
+                  '<span><strong class="text-white">' + String(p.company_name || 'Partner').replace(/</g, '&lt;') + '</strong> (' + String(p.socioeconomic_status || roleNeeded).replace(/</g, '&lt;') + ' &bull; ' + String(p.uei_or_cage || 'SAM Verified').replace(/</g, '&lt;') + ')</span>' +
+                  '<span class="text-emerald-300 font-semibold">' + String(p.allocated_workshare_pct || simPct) + '% Share</span>' +
+                '</div>';
+              }).join('');
+              var invMailto = String(d.viral_partner_invite_mailto || 'mailto:').replace(/"/g, '&quot;');
               resEl.innerHTML = '<div class="' + (passes ? 'text-emerald-400' : 'text-sky-400') + ' font-bold">' +
                 (passes ? '&check; 13 CFR &sect; 125.6 RULING: PASS (' + compliantPct.toFixed(1) + '% COMPLIANT WORKSHARE)' : '&times; 13 CFR &sect; 125.6 RULING: VIOLATION (' + compliantPct.toFixed(1) + '% &lt; 50% FLOOR)') +
                 '</div>' +
                 '<div>Prime Self-Perform: <strong>' + primePct.toFixed(1) + '%</strong> + Similar Situated (' + roleNeeded + '): <strong>' + simPct.toFixed(1) + '%</strong> = <strong>$' + compliantDollars.toLocaleString() + '</strong> compliant execution.</div>' +
-                '<div class="text-emerald-300 pt-1">&check; Clearinghouse Match Registered (ID: ' + (d.registration_id || 'TM-2026-884') + '): 3 pre-vetted ' + roleNeeded + ' partners (CMMC L2 / Secret FCL) matched for ' + solId + '.</div>';
+                '<div class="text-emerald-300 pt-1">&check; Live Clearinghouse Match Registered (ID: ' + (d.registration_id || 'TM-2026-884') + '):</div>' +
+                pHtml +
+                '<div class="pt-2"><a href="' + invMailto + '" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold text-[11px]">1-Click Viral Partner Invite (Send 13 CFR 125.6 Workshare Email) &rarr;</a></div>';
             }
           })
           .catch(function () {});
