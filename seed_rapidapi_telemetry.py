@@ -472,7 +472,6 @@ ENDPOINTS = [
                 "KEM key-exchange firmware and an embedded Rust eBPF packet filter benchmarked at 10 Gbps with <180us latency."
             ),
             "target_phase_and_program": "Direct_to_Phase_II",
-            "sponsoring_agency": "USAF AFWERX / Space Systems Command (SSC)",
         },
     },
 ]
