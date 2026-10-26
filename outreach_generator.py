@@ -516,7 +516,6 @@ STATE_DISPLAY_NAMES = {
     "nj": "New Jersey",
     "wa": "Washington",
     "mi": "Michigan",
-    "mi": "Michigan",
 }
 
 STATE_PORTAL_LABELS = {
@@ -535,7 +534,6 @@ STATE_PORTAL_LABELS = {
     "nj": "New Jersey NJSTART, Treasury DPP/OIT portals, and SAM.gov",
     "wa": "Washington WEBS, WaTech/DES portals, and SAM.gov",
     "mi": "Michigan SIGMA VSS, DTMB procurement portals, and SAM.gov",
-    "mi": "Michigan SIGMA VSS, DTMB portals, and SAM.gov",
 }
 
 GENERIC_PERSON_NAMES = {
@@ -1087,21 +1085,32 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 if not starting_after or len(items) < 100:
                     break
 
+            from concurrent.futures import ThreadPoolExecutor
+            auth_only_headers = {"Authorization": f"Bearer {INSTANTLY_API_KEY}"}
             valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload}
-            for stale_em, stale_id in list(existing_inst_ids.items()):
-                if stale_em not in valid_email_set:
+            stale_pairs = [(em, lid) for em, lid in list(existing_inst_ids.items()) if em not in valid_email_set]
+            if stale_pairs:
+                def _del_stale(pair: tuple[str, str]) -> int:
+                    s_em, s_id = pair
                     try:
-                        requests.delete(
-                            f"https://api.instantly.ai/api/v2/leads/{stale_id}",
-                            headers=inst_headers,
+                        r_del = requests.delete(
+                            f"https://api.instantly.ai/api/v2/leads/{s_id}",
+                            headers=auth_only_headers,
                             timeout=10,
                         )
-                        existing_inst_emails.discard(stale_em)
+                        if 200 <= r_del.status_code < 300:
+                            existing_inst_emails.discard(s_em)
+                            existing_inst_ids.pop(s_em, None)
+                            return 1
                     except Exception:
                         pass
+                    return 0
+
+                with ThreadPoolExecutor(max_workers=10) as pool:
+                    del_count = sum(pool.map(_del_stale, stale_pairs))
+                print(f"[+] Purged {del_count}/{len(stale_pairs)} stale/generic leads from Instantly.ai V2.", flush=True)
 
             if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" and existing_inst_ids:
-                from concurrent.futures import ThreadPoolExecutor
                 print(f"[*] Refreshing custom_variables on {len(existing_inst_ids)} existing Instantly.ai leads...", flush=True)
                 def _patch_one_lead(item_row: dict) -> int:
                     em_key = str(item_row.get("Email") or "").strip().lower()
@@ -1148,8 +1157,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     f"[*] Pushing {len(new_leads_to_push)} new verified leads to Instantly.ai V2 campaign {INSTANTLY_CAMPAIGN_ID} ({ramp_label})...",
                     flush=True,
                 )
-                pushed_ok = 0
-                for item in new_leads_to_push:
+                def _add_one_lead(item: dict) -> int:
                     lead_payload = {
                         "campaign": INSTANTLY_CAMPAIGN_ID,
                         "email": item["Email"].strip().lower(),
@@ -1169,14 +1177,19 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             "target_segment": item.get("Target Segment", "PRIME_PROPOSAL_AUTOPILOT"),
                         },
                     }
-                    r_add = requests.post(
-                        "https://api.instantly.ai/api/v2/leads",
-                        headers=inst_headers,
-                        json=lead_payload,
-                        timeout=12,
-                    )
-                    if 200 <= r_add.status_code < 300:
-                        pushed_ok += 1
+                    try:
+                        r_add = requests.post(
+                            "https://api.instantly.ai/api/v2/leads",
+                            headers=inst_headers,
+                            json=lead_payload,
+                            timeout=12,
+                        )
+                        return 1 if 200 <= r_add.status_code < 300 else 0
+                    except Exception:
+                        return 0
+
+                with ThreadPoolExecutor(max_workers=10) as pool:
+                    pushed_ok = sum(pool.map(_add_one_lead, new_leads_to_push))
                 print(
                     f"[+] Synced {pushed_ok}/{len(new_leads_to_push)} new leads to Instantly.ai V2 (Total in campaign: {len(existing_inst_emails) + pushed_ok} | Daily Limit: {daily_cap}).",
                     flush=True,

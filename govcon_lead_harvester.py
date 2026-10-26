@@ -498,18 +498,34 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
 ]
 
 BAD_LOCAL_PARTS = {
+    "info", "contact", "contactus", "contact-us", "hello", "inquiries", "information",
+    "enquiry", "sales", "vasales", "kgsinfo", "cti-info", "emeasales", "marketing",
+    "events", "admin", "office", "general", "reception", "frontdesk", "feedback",
+    "service", "customercare", "u003esupport", "%20support", "dpo", "privacyteam",
+    "cbprivacy", "resumes", "claims", "connect", "teambox", "psirt", "mydata",
+    "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
     "privacy", "legal", "abuse", "dmca", "noreply", "no-reply", "donotreply",
     "webmaster", "postmaster", "security", "careers", "jobs", "hr", "recruiting",
-    "talent", "employmentverifications", "emeasales", "support", "helpdesk",
+    "talent", "employmentverifications", "support", "helpdesk",
     "billing", "accounts", "unsubscribe", "media", "press", "firstname", "lastname",
     "first.last", "yourname", "example", "user", "email",
 }
 
+BAD_LOCAL_SUBSTRINGS = (
+    "info", "contact", "hello", "inquir", "enquir", "support", "help", "privacy",
+    "dpo", "legal", "abuse", "dmca", "noreply", "no-reply", "webmaster", "postmaster",
+    "security", "psirt", "career", "job", "hr", "recruit", "talent", "employ", "resume",
+    "billing", "account", "invoice", "claim", "unsub", "media", "press",
+    "marketing", "events", "admin", "office", "general", "reception", "frontdesk",
+    "feedback", "service", "customercare", "u003e", "%20", "sales", "teambox", "connect",
+    "mydata", "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
+)
+
 ROLE_LOCAL_PARTS = {
-    "info", "sales", "contact", "hello", "contracts", "bd", "bizdev", "growth",
-    "partner", "partners", "engage", "inquiries", "information", "contactus",
-    "contact-us", "vasales", "kgsinfo", "stars3", "mdc", "labs", "events",
-    "ipsecureinc",
+    "contracts", "contracting", "capture", "bd", "bizdev", "growth",
+    "partner", "partners", "partnerships", "engage", "stars3", "starsiii",
+    "ciosp3", "ciosp4", "oasis", "vets2", "sewp", "gsa", "vehicles",
+    "federal", "sled", "govcon", "proposals", "rfp", "teaming", "ipsecureinc",
 }
 
 COMPANY_CLEAN_OVERRIDES = {
@@ -580,9 +596,9 @@ def sync_person_name_with_email(first_name: str, last_name: str, email: str) -> 
     return fn, ln
 
 PREFERRED_KEYWORDS = (
-    "capture", "bd", "gov", "contracts", "proposals", "rfp", "sled", "federal",
-    "sales", "growth", "partner", "teaming", "stars", "mas", "gsa", "engage",
-    "info", "contact", "hello", "inquiries",
+    "capture", "bd", "bizdev", "gov", "contracts", "proposals", "rfp", "sled", "federal",
+    "growth", "partner", "partnerships", "teaming", "stars", "ciosp", "oasis", "sewp",
+    "mas", "gsa", "vehicles", "engage",
 )
 
 
@@ -667,6 +683,8 @@ def _score_candidate_email(em: str, domain: str) -> int:
         return -999
     if local in BAD_LOCAL_PARTS or any(local.startswith(b + "@") for b in BAD_LOCAL_PARTS):
         return -999
+    if local not in ROLE_LOCAL_PARTS and any(sub in local for sub in BAD_LOCAL_SUBSTRINGS):
+        return -999
     if any(ext in local for ext in (".png", ".jpg", ".svg", ".webp", ".gif", ".css", ".js", "2x", "sentry", "example")):
         return -999
     score = 10
@@ -675,7 +693,7 @@ def _score_candidate_email(em: str, domain: str) -> int:
             score += (30 - idx)
             break
     if "." in local:
-        score += 15
+        score += 25
     return score
 
 
@@ -738,17 +756,18 @@ def _crawl_single_contractor_site(
     mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
 
     for u in (
-        f"https://{domain}",
-        f"https://www.{domain}",
-        f"https://{domain}/contact",
-        f"https://{domain}/contact-us",
+        f"https://{domain}/contract-vehicles",
+        f"https://{domain}/contracts",
+        f"https://{domain}/gsa",
+        f"https://{domain}/leadership",
+        f"https://{domain}/team",
+        f"https://{domain}/government",
         f"https://{domain}/about",
         f"https://{domain}/about-us",
-        f"https://{domain}/contracts",
-        f"https://{domain}/contract-vehicles",
-        f"https://{domain}/government",
-        f"https://{domain}/privacy-policy",
-        f"https://{domain}/privacy",
+        f"https://{domain}/contact",
+        f"https://{domain}/contact-us",
+        f"https://{domain}",
+        f"https://www.{domain}",
     ):
         try:
             r = requests.get(u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
@@ -1710,6 +1729,7 @@ def run_harvester() -> Dict[str, Any]:
             src in ("SignalTender_GovCon_Harvester", "Apollo")
             or em in ALREADY_CONTACTED_LEGACY_EMAILS
             or local_part in BAD_LOCAL_PARTS
+            or (local_part not in ROLE_LOCAL_PARTS and any(sub in local_part for sub in BAD_LOCAL_SUBSTRINGS))
             or dom_part in ("group.com", "alvarez.com")
             or not verify_email_domain_mx(em, mx_cache)
         ):
@@ -1792,11 +1812,14 @@ def run_harvester() -> Dict[str, Any]:
         em = str(spec.get("Email") or "").strip().lower()
         em = re.sub(r"^[0-9-]+", "", em)
         spec["Email"] = em
+        local_part_pub = em.split("@", 1)[0] if "@" in em else ""
         dom_part = em.split("@", 1)[1] if "@" in em else ""
         if (
             em in ALREADY_CONTACTED_LEGACY_EMAILS
             or dom_part in ("group.com", "alvarez.com")
+            or local_part_pub in BAD_LOCAL_PARTS
             or any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS)
+            or (local_part_pub not in ROLE_LOCAL_PARTS and any(sub in local_part_pub for sub in BAD_LOCAL_SUBSTRINGS))
         ):
             continue
         fn_sync, ln_sync = sync_person_name_with_email(spec.get("First Name", ""), spec.get("Last Name", ""), em)
