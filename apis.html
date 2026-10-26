@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="tailwind.generated.css" />
   <script>
     window.tailwind = window.tailwind || {};
     tailwind.config = {
@@ -1124,6 +1124,41 @@
       background-color: #090D16 !important;
       border: 1px solid #1E293B !important;
       color: #38BDF8 !important;
+    }
+
+    /* === DESKTOP 60/144FPS COMPOSITING & LAYOUT CONTAINMENT OPTIMIZATIONS === */
+    body, html[data-theme="light"] body {
+      background-attachment: scroll !important;
+    }
+    header.sticky,
+    .backdrop-blur-md,
+    .backdrop-blur-xl,
+    .backdrop-blur-sm,
+    .backdrop-blur-\[1px\],
+    #page-sidebar-tab,
+    #page-sidebar-drawer,
+    #page-sidebar-mobile-btn {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .blur-3xl,
+    [class*="blur-[120px]"],
+    [class*="blur-[100px]"] {
+      display: none !important;
+    }
+    .animate-ping,
+    .animate-pulse {
+      animation: none !important;
+    }
+    article[id^="product-"] {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 620px;
+    }
+    #contracts-dynamic-root tbody tr,
+    #contract-directory tbody tr,
+    main table tbody tr {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 68px;
     }
   </style>
   <script id="signaltender-theme-controller">

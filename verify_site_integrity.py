@@ -45,6 +45,9 @@ def check_html_file(fpath: str) -> str:
 
     rel = os.path.relpath(fpath, BASE_DIR)
 
+    if '<script src="https://cdn.tailwindcss.com"></script>' not in txt:
+        fail(f"{rel}: Missing required '<script src=\"https://cdn.tailwindcss.com\"></script>' tag (site will render unstyled)")
+
     # 1. Strip <script> blocks for HTML-only checks while collecting inline scripts
     scripts_to_check = []
     for idx, m in enumerate(re.finditer(r"<script([^>]*)>(.*?)</script>", txt, flags=re.S | re.I), 1):
