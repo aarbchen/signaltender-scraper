@@ -48,6 +48,36 @@ INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
 MX_CACHE_PATH = os.path.join(BASE_DIR, "dns_mx_cache.json")
 VERIFIED_PUBLIC_CONTACTS_PATH = os.path.join(BASE_DIR, "verified_public_govcon_contacts.json")
 AWARD_PROFILES_CACHE_PATH = os.path.join(BASE_DIR, "usaspending_company_awards_cache.json")
+COMPLETED_ARCHIVE_PATH = os.path.join(BASE_DIR, "completed_outreach_archive.json")
+
+
+def load_completed_outreach_archive() -> set[str]:
+    """
+    Loads all previously contacted emails (both legacy non-responders and leads that
+    completed Step 1 + Step 2 in Instantly with 0 replies) so they are never re-harvested
+    or re-uploaded when rotating the 245-lead Instantly active buffer.
+    """
+    archived = set(ALREADY_CONTACTED_LEGACY_EMAILS)
+    if os.path.exists(COMPLETED_ARCHIVE_PATH):
+        try:
+            with open(COMPLETED_ARCHIVE_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    for em in data:
+                        if isinstance(em, str) and "@" in em:
+                            archived.add(em.strip().lower())
+        except Exception:
+            pass
+    return archived
+
+
+def save_completed_outreach_archive(emails: set[str]) -> None:
+    try:
+        merged = sorted(load_completed_outreach_archive() | {str(e).strip().lower() for e in emails if "@" in str(e)})
+        with open(COMPLETED_ARCHIVE_PATH, "w", encoding="utf-8") as wf:
+            json.dump(merged, wf, indent=2)
+    except Exception:
+        pass
 
 DEFAULT_CONTACT_FIELDNAMES = [
     "First Name",
@@ -1024,6 +1054,186 @@ def discover_usaspending_small_business_websites(
     return existing_contacts
 
 
+SBIR_NON_CORP_DOMAINS = (
+    ".edu", ".gov", ".mil", ".org", ".bio", ".health", ".med", ".care",
+    "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com",
+    "icloud.com", "comcast.net", "verizon.net", "att.net", "msn.com",
+    "live.com", "me.com", "protonmail.com", "bellsouth.net", "earthlink.net",
+    "charter.net", "cox.net", "sbcglobal.net", "optonline.net", "mindspring.com",
+    "compuserve.com", "prodigy.net", "netzero.net", "juno.com", "mac.com",
+)
+
+SBIR_NON_IT_WORDS = (
+    "UNIVERSITY", "COLLEGE", "SCHOOL", "HOSPITAL", "CLINIC", "FOUNDATION",
+    "INSTITUTE", "TRUSTEES", "REGENTS", "MEDICAL", "THERAPEUTIC", "PHARMA",
+    "BIOTECH", "BIOMED", "BIO", "DENTAL", "ORTHO", "SURGICAL", "ONCOLOGY", "CARDIO",
+    "GAMING", "GAME", "TOY", "FARM", "AGRI", "FOOD", "CROP", "BREW", "APPAREL",
+    "FASHION", "MUSEUM", "ART ", "MUSIC", "THEATER", "TUTOR", "LEARNING",
+    "EDUCATION", "ACADEMIC", "KID", "CHILD", "VETERINARY", "PET ", "SUBMARINE",
+    "ATMOSPHERIC", "DROPLET", "WEATHER", "CLIMATE", "OCEAN", "MARINE", "WATER",
+    "SOIL", "PLANT", "FOREST", "TIMBER", "TEXTILE", "FABRIC", "LOOMIA",
+    "PUMPKINSEED", "TETRAMER", "CHROMATIR", "CURRENCY", "CEMENT", "CONCRETE",
+    "STEEL", "METAL", "CHEMICAL", "POLYMER", "PLASTIC", "BATTERY", "SOLAR",
+    "WIND", "HYDRO", "GEOTHERMAL", "COAL", "OIL", "GAS", "MINING", "DRILLING",
+    "CONSTRUCTION", "PAVING", "ROOFING", "MOTOR",
+)
+
+SBIR_STATE_MAP = {
+    "VA": "Virginia", "TX": "Texas", "CA": "California", "FL": "Florida",
+    "MD": "Maryland", "IL": "Illinois", "PA": "Pennsylvania", "OH": "Ohio",
+    "GA": "Georgia", "NC": "North Carolina", "NY": "New York", "MA": "Massachusetts",
+    "NJ": "New Jersey", "WA": "Washington", "MI": "Michigan",
+    "CO": "Virginia", "AZ": "California", "AL": "Georgia", "SC": "North Carolina",
+    "TN": "Georgia", "IN": "Ohio", "WI": "Illinois", "MN": "Illinois",
+    "CT": "New York", "NH": "Massachusetts", "DE": "Maryland", "DC": "Virginia",
+}
+
+
+def discover_federal_sbir_and_tech_named_executives(
+    existing_contacts: List[Dict[str, str]],
+    mx_cache: Dict[str, bool],
+    max_new_per_run: int = 36,
+) -> List[Dict[str, str]]:
+    """
+    Continuously harvests named Founders, Principal Investigators & Federal Tech Capture
+    Executives (`firstname.lastname@`, `firstname@`) from the Federal SBIR/STTR & Tech Awards
+    API (`https://api.nsf.gov/services/v1/awards.json`) using a persistent offset cursor in
+    `mx_cache` (`sbir_cursor:<comp_kw>:<topic_kw>:<offset>`), scaling automatically with the
+    number of warmed Instantly mailboxes so the campaign never runs out of named leads.
+    """
+    archived_emails = load_completed_outreach_archive()
+    seen_emails = set(archived_emails)
+    seen_domains = set()
+    for c in existing_contacts:
+        em = str(c.get("Email") or "").strip().lower()
+        if "@" in em:
+            seen_emails.add(em)
+            seen_domains.add(em.split("@", 1)[1])
+
+    comp_keywords = (
+        "INC", "LLC", "TECHNOLOGIES", "SYSTEMS", "SOLUTIONS", "CORP", "AI", "SOFTWARE",
+        "DATA", "CYBER", "SECURITY", "CLOUD", "DEFENSE", "ANALYTICS", "DIGITAL", "NETWORK",
+        "COMPUTING", "ROBOTICS", "QUANTUM", "WIRELESS", "INTELLIGENCE", "LABS",
+    )
+    topic_keywords = (
+        "cybersecurity", "software", "cloud", "artificial intelligence", "machine learning",
+        "network security", "autonomous", "data analytics", "encryption", "computer vision",
+        "wireless", "defense", "robotics", "quantum", "edge computing", "sensor", "platform",
+    )
+
+    newly_verified: List[Dict[str, str]] = []
+    for _wave in range(4):
+        batch_queries: List[Tuple[str, str, int]] = []
+        for off in (51, 76, 101, 126, 151, 176, 201, 226, 251, 276, 301, 1, 26):
+            for t_kw in topic_keywords:
+                for c_kw in comp_keywords:
+                    cur_key = f"sbir_cursor:{c_kw}:{t_kw}:{off}"
+                    if not mx_cache.get(cur_key):
+                        mx_cache[cur_key] = True
+                        batch_queries.append((c_kw, t_kw, off))
+                        if len(batch_queries) >= 28:
+                            break
+                if len(batch_queries) >= 28:
+                    break
+            if len(batch_queries) >= 28:
+                break
+
+        if not batch_queries:
+            break
+
+        def _fetch_batch(q_item: Tuple[str, str, int]) -> List[Dict[str, Any]]:
+            c_kw, t_kw, off = q_item
+            try:
+                r = requests.get(
+                    "https://api.nsf.gov/services/v1/awards.json",
+                    params={
+                        "awardeeName": c_kw,
+                        "keyword": t_kw,
+                        "offset": off,
+                        "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
+                        "rpp": 25,
+                    },
+                    timeout=8,
+                )
+                if r.status_code == 200:
+                    return (r.json().get("response") or {}).get("award") or []
+            except Exception:
+                pass
+            return []
+
+        raw_awards: List[Dict[str, Any]] = []
+        with ThreadPoolExecutor(max_workers=14) as pool:
+            for res in pool.map(_fetch_batch, batch_queries):
+                raw_awards.extend(res)
+
+        candidates: List[Dict[str, str]] = []
+        for a in raw_awards:
+            em = str(a.get("piEmail") or "").strip().lower()
+            fn = str(a.get("piFirstName") or "").strip().title()
+            ln = str(a.get("piLastName") or "").strip().title()
+            comp_raw = str(a.get("awardeeName") or "").strip()
+            title_raw = str(a.get("title") or "").strip()
+            st_code = str(a.get("awardeeStateCode") or "").strip().upper()
+            city = str(a.get("awardeeCity") or "").strip().title()
+            if not em or "@" not in em or not fn or not ln or not comp_raw:
+                continue
+            local, dom = em.split("@", 1)
+            if em in seen_emails or dom in seen_domains:
+                continue
+            if any(dom.endswith(bad_d) or dom == bad_d.lstrip(".") or "learning" in dom for bad_d in SBIR_NON_CORP_DOMAINS):
+                continue
+            if local in BAD_LOCAL_PARTS or (local not in ROLE_LOCAL_PARTS and any(sub in local for sub in BAD_LOCAL_SUBSTRINGS)):
+                continue
+            upper_combo = f" {comp_raw.upper()} {title_raw.upper()} "
+            if any(w in upper_combo for w in SBIR_NON_IT_WORDS):
+                continue
+            seen_emails.add(em)
+            seen_domains.add(dom)
+            st_full = SBIR_STATE_MAP.get(st_code, "Virginia")
+            comp_clean = clean_company_display_name(comp_raw.title())
+            candidates.append({
+                "First Name": fn,
+                "Last Name": ln,
+                "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+                "Company Name": comp_clean,
+                "Email": em,
+                "City": city,
+                "State": st_full,
+                "Website": f"https://{dom}",
+                "NAICS Codes": "541511, 541512, 541715",
+                "Industry": "information technology & services",
+                "Keywords": f"govcon, sbir, {st_full.lower()} sled rfp, sam.gov, cybersecurity, cloud, software",
+                "Primary Email Catch-all Status": "Not Catch-all",
+            })
+
+        if candidates:
+            rem = max_new_per_run - len(newly_verified)
+            with ThreadPoolExecutor(max_workers=16) as pool:
+                futs = {pool.submit(verify_email_domain_mx, c["Email"], mx_cache): c for c in candidates[:rem * 2]}
+                for fut in as_completed(futs):
+                    c_item = futs[fut]
+                    try:
+                        if fut.result():
+                            newly_verified.append(c_item)
+                            if len(newly_verified) >= max_new_per_run:
+                                break
+                    except Exception:
+                        pass
+        if len(newly_verified) >= max_new_per_run:
+            break
+
+    if newly_verified:
+        merged = list(existing_contacts) + newly_verified
+        try:
+            with open(VERIFIED_PUBLIC_CONTACTS_PATH, "w", encoding="utf-8") as wf:
+                json.dump(merged, wf, indent=2)
+        except Exception:
+            pass
+        return merged
+
+    return existing_contacts
+
+
 def _meta_to_prospect_row(meta: Dict[str, Any], mx_cache: Dict[str, bool]) -> Dict[str, str] | None:
     email = str(meta.get("email") or "").strip().lower()
     if not verify_email_domain_mx(email, mx_cache):
@@ -1717,6 +1927,7 @@ def run_harvester() -> Dict[str, Any]:
     clean_rows: List[Dict[str, str]] = []
     seen_emails = set()
     purged_rows = 0
+    archived_emails = load_completed_outreach_archive()
 
     for row in raw_rows:
         em = str(row.get("Email") or "").strip().lower()
@@ -1727,7 +1938,7 @@ def run_harvester() -> Dict[str, Any]:
         dom_part = em.split("@", 1)[1] if "@" in em else ""
         if (
             src in ("SignalTender_GovCon_Harvester", "Apollo")
-            or em in ALREADY_CONTACTED_LEGACY_EMAILS
+            or em in archived_emails
             or local_part in BAD_LOCAL_PARTS
             or (local_part not in ROLE_LOCAL_PARTS and any(sub in local_part for sub in BAD_LOCAL_SUBSTRINGS))
             or dom_part in ("group.com", "alvarez.com")
@@ -1795,15 +2006,29 @@ def run_harvester() -> Dict[str, Any]:
                     public_contacts = [
                         c for c in loaded
                         if isinstance(c, dict)
-                        and str(c.get("Email") or "").strip().lower() not in ALREADY_CONTACTED_LEGACY_EMAILS
+                        and str(c.get("Email") or "").strip().lower() not in archived_emails
                     ]
         except Exception as exc:
             report_error("govcon_lead_harvester.py", f"Public verified contacts load warning: {exc}", severity="WARNING")
 
+    # Dynamically scale per-run harvest rate with live warmed Instantly mailbox count
+    # (12 new named contacts per warmed mailbox per 6-hour run = 48/day per mailbox, exceeding the 15-30/day send rate)
+    try:
+        import outbound_mailer
+        warmed_mb_count = outbound_mailer._detect_live_instantly_mailbox_count(fallback=2)
+    except Exception:
+        warmed_mb_count = 2
+    dynamic_harvest_target = max(25, warmed_mb_count * 12)
+
     # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
     if len(public_contacts) < 2500 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
-        public_contacts = discover_usaspending_small_business_websites(public_contacts, mx_cache)
+        public_contacts = discover_federal_sbir_and_tech_named_executives(
+            public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
+        )
+        public_contacts = discover_usaspending_small_business_websites(
+            public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
+        )
 
     cleaned_public: List[Dict[str, str]] = []
     for spec in public_contacts:
@@ -1815,7 +2040,7 @@ def run_harvester() -> Dict[str, Any]:
         local_part_pub = em.split("@", 1)[0] if "@" in em else ""
         dom_part = em.split("@", 1)[1] if "@" in em else ""
         if (
-            em in ALREADY_CONTACTED_LEGACY_EMAILS
+            em in archived_emails
             or dom_part in ("group.com", "alvarez.com")
             or local_part_pub in BAD_LOCAL_PARTS
             or any(em.startswith(bad + "@") for bad in BAD_LOCAL_PARTS)

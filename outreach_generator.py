@@ -1059,6 +1059,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
             existing_inst_emails = set()
             existing_inst_ids = {}
+            completed_non_responders: list[tuple[str, str]] = []
             starting_after = None
             for _ in range(10):
                 list_body = {"campaign": INSTANTLY_CAMPAIGN_ID, "limit": 100}
@@ -1081,6 +1082,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         existing_inst_emails.add(em)
                         if lid:
                             existing_inst_ids[em] = lid
+                            if int(it.get("status") or 0) in (3, -1, -2) and int(it.get("email_reply_count") or 0) == 0:
+                                completed_non_responders.append((em, lid))
                 starting_after = l_json.get("next_starting_after")
                 if not starting_after or len(items) < 100:
                     break
@@ -1088,6 +1091,15 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             from concurrent.futures import ThreadPoolExecutor
             auth_only_headers = {"Authorization": f"Bearer {INSTANTLY_API_KEY}"}
             valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload}
+            if completed_non_responders:
+                try:
+                    import govcon_lead_harvester
+                    govcon_lead_harvester.save_completed_outreach_archive({em for em, _ in completed_non_responders})
+                except Exception:
+                    pass
+                for c_em, _ in completed_non_responders:
+                    valid_email_set.discard(c_em)
+
             stale_pairs = [(em, lid) for em, lid in list(existing_inst_ids.items()) if em not in valid_email_set]
             if stale_pairs:
                 def _del_stale(pair: tuple[str, str]) -> int:
@@ -1108,7 +1120,10 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
                 with ThreadPoolExecutor(max_workers=10) as pool:
                     del_count = sum(pool.map(_del_stale, stale_pairs))
-                print(f"[+] Purged {del_count}/{len(stale_pairs)} stale/generic leads from Instantly.ai V2.", flush=True)
+                print(
+                    f"[+] Rotated/purged {del_count}/{len(stale_pairs)} completed or stale leads from Instantly.ai V2 to free active buffer slots.",
+                    flush=True,
+                )
 
             if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" and existing_inst_ids:
                 print(f"[*] Refreshing custom_variables on {len(existing_inst_ids)} existing Instantly.ai leads...", flush=True)
@@ -1148,10 +1163,13 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     updated_ok = sum(pool.map(_patch_one_lead, leads_payload))
                 print(f"[+] Updated {updated_ok}/{len(existing_inst_ids)} existing leads in Instantly.ai V2.", flush=True)
 
+            max_instantly_active_buffer = 245
+            available_slots = max(0, max_instantly_active_buffer - len(existing_inst_emails))
             new_leads_to_push = [
                 item for item in leads_payload
                 if str(item.get("Email") or "").strip().lower() not in existing_inst_emails
-            ]
+                and str(item.get("Email") or "").strip().lower() in valid_email_set
+            ][:available_slots]
             if new_leads_to_push:
                 print(
                     f"[*] Pushing {len(new_leads_to_push)} new verified leads to Instantly.ai V2 campaign {INSTANTLY_CAMPAIGN_ID} ({ramp_label})...",
