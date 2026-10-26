@@ -436,20 +436,20 @@ ENDPOINTS = [
         "path": "/v1/generate/oci-mitigation-plan",
         "rapid_host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
         "payload": {
-            "new_solicitation_scope_and_oci_clauses": (
+            "target_solicitation_and_sow_text": (
                 "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps & Ground C2 Integration). "
                 "Section H.8 OCI Notice (FAR Subpart 9.5 / DFARS 252.209-7008 & 252.209-7009): Offerors performing "
                 "Systems Engineering and Technical Assistance (SETA) or Advisory & Assistance Services (A&AS) across USSF SSC "
                 "shall disclose all active contracts and submit a comprehensive Organizational Conflict of Interest (OCI) "
                 "Mitigation Plan addressing Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity."
             ),
-            "existing_contracts_and_corporate_relationships": (
+            "current_and_prior_contracts_portfolio": (
                 "Prime Offeror (Aegis Federal Cyber LLC) holds USSF SSC SETA Task Order FA8802-24-F-0091 in Division B "
                 "(El Segundo, CA) providing enterprise architecture studies. Division A (Colorado Springs, CO) is bidding on "
                 "FA8802-27-R-0014 with zero personnel overlap, separate Microsoft 365 GCC High / AWS GovCloud IL5 enclaves, "
                 "and conflict-free subcontractor Vanguard Orbital Testing LLC assigned 100% of IV&V tasks."
             ),
-            "proposed_mitigation_posture": "Dual_Firewall_And_Subcontract_Recusal",
+            "proposed_bidding_role_and_teaming_structure": "Prime_Offeror",
         },
     },
     {
@@ -514,9 +514,24 @@ def run_telemetry_seeder(rotating: bool = False, slice_size: int = 4) -> None:
 
         try:
             if ep["method"] == "GET":
-                resp = requests.get(url, params=ep.get("params", {}), headers=headers, timeout=60)
+                resp = requests.get(url, params=ep.get("params", {}), headers=headers, timeout=90)
             else:
-                resp = requests.post(url, json=ep.get("payload", {}), headers=headers, timeout=60)
+                resp = requests.post(url, json=ep.get("payload", {}), headers=headers, timeout=90)
+            if resp.status_code == 404 and RAPIDAPI_KEY and PROXY_SECRET:
+                # Fallback to direct Render gateway if RapidAPI Studio route is not yet mapped
+                direct_url = f"{BASE_URL}{ep['path']}"
+                parts = [s.strip() for s in (PROXY_SECRET or "").split(",") if s.strip()]
+                prod_parts = [s for s in parts if not s.startswith("local_")]
+                chosen = prod_parts[0] if prod_parts else (parts[0] if parts else "")
+                direct_headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-RapidAPI-Proxy-Secret": chosen,
+                }
+                if ep["method"] == "GET":
+                    resp = requests.get(direct_url, params=ep.get("params", {}), headers=direct_headers, timeout=90)
+                else:
+                    resp = requests.post(direct_url, json=ep.get("payload", {}), headers=direct_headers, timeout=90)
             elapsed_ms = int((time.time() - t0) * 1000)
             status_tag = "OK" if resp.status_code == 200 else f"HTTP {resp.status_code}"
             print(f"[{ep['id']}] {ep['name']} -> {status_tag} ({elapsed_ms} ms)", flush=True)
