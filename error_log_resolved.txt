@@ -322,3 +322,7 @@ Call log:
 
 === ARCHIVED & RESOLVED AT 2026-10-25 22:09:00 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-25 22:06:54 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#contracts@1280px: ['div [PAST_SCREEN left=896 right=1282 vw=1280] "Log In Sign Up Unlock All RFP Links →" (w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0)', 'a [PAST_SCREEN left=1094 right=1282 vw=1280] "Unlock All RFP Links →" (hidden xl:inline-flex items-center px-3 py-1.5 xl:px-3.5 xl:py-2 text-xs font-mo)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-26 03:48:38 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 2 remote alert(s)) ===
+[2026-10-26 03:37:33 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing required '<script src="https://cdn.tailwindcss.com"></script>' tag (site will render unstyled)
+[2026-10-26 03:45:36 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: apis.html: Missing required '<script src="https://cdn.tailwindcss.com"></script>' tag (site will render unstyled)
