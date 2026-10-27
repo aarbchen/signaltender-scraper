@@ -31,13 +31,61 @@ GUARD_STATE_PATH = os.path.join(BASE_DIR, ".autopilot_guard_state.json")
 CHECK_INTERVAL_SECONDS = 900  # 15 minutes
 
 
+def claim_primary_watcher() -> None:
+    """Elect the most recently launched watcher PID as the primary wakeup owner across tabs."""
+    now_ts = time.time()
+    now_iso = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %z")
+    try:
+        with open(HEARTBEAT_PATH, "w", encoding="utf-8") as f:
+            json.dump(
+                {"pid": os.getpid(), "primary_pid": os.getpid(), "timestamp": now_ts, "updated_at": now_iso},
+                f,
+            )
+    except Exception:
+        pass
+
+
+def is_primary_watcher() -> bool:
+    """Return True if this process is the elected primary watcher (or if the primary PID is no longer alive)."""
+    if not os.path.exists(HEARTBEAT_PATH):
+        return True
+    try:
+        with open(HEARTBEAT_PATH, "r", encoding="utf-8") as f:
+            hb = json.load(f)
+        prim = int(hb.get("primary_pid") or hb.get("pid") or 0)
+        if prim <= 0 or prim == os.getpid():
+            return True
+        # Check if primary_pid is still alive on Windows/POSIX
+        try:
+            os.kill(prim, 0)
+            return False
+        except OSError:
+            return True
+    except Exception:
+        return True
+
+
 def write_watcher_heartbeat() -> None:
     """Record live PID and timestamp so the OS-level Windows Task Scheduler guard knows the watcher is alive."""
     now_ts = time.time()
     now_iso = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %z")
     try:
+        prim = os.getpid()
+        if os.path.exists(HEARTBEAT_PATH):
+            try:
+                with open(HEARTBEAT_PATH, "r", encoding="utf-8") as rf:
+                    old_hb = json.load(rf)
+                old_prim = int(old_hb.get("primary_pid") or 0)
+                if old_prim > 0 and old_prim != os.getpid():
+                    try:
+                        os.kill(old_prim, 0)
+                        prim = old_prim
+                    except OSError:
+                        prim = os.getpid()
+            except Exception:
+                pass
         with open(HEARTBEAT_PATH, "w", encoding="utf-8") as f:
-            json.dump({"pid": os.getpid(), "timestamp": now_ts, "updated_at": now_iso}, f)
+            json.dump({"pid": os.getpid(), "primary_pid": prim, "timestamp": now_ts, "updated_at": now_iso}, f)
     except Exception:
         pass
 
@@ -101,6 +149,7 @@ def is_daily_expansion_due() -> tuple[bool, str]:
 
 
 def main() -> int:
+    claim_primary_watcher()
     print(
         "[*] Silent Autopilot & Self-Healing Watcher active in background "
         "(zero chat interruptions unless an error or new daily build requires action).",
@@ -108,6 +157,9 @@ def main() -> int:
     )
     while True:
         write_watcher_heartbeat()
+        if not is_primary_watcher():
+            time.sleep(CHECK_INTERVAL_SECONDS)
+            continue
         # 1. Check for any open runtime alerts in Render telemetry or local error_log.txt
         remote_errors = auto_error_healer.fetch_remote_open_errors()
         local_errors = auto_error_healer.read_local_unacknowledged_errors()

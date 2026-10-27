@@ -47,11 +47,11 @@ PUBLIC_MIRROR_TARGETS: Dict[str, Dict[str, str]] = {
     },
     "compliance": {
         "api_id": "api_4735be2e-1465-4e67-8485-1914790bffad",
-        "host": "far-dfars-cmmc-compliance-scanner-api.p.rapidapi.com",
-        "hub_url": "https://rapidapi.com/aarbchen/api/far-dfars-cmmc-compliance-scanner-api",
+        "host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+        "hub_url": "https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api",
     },
     "pricing": {
-        "api_id": "api_251c4fb6-19c4-4fc8-9c6b-87a77b51b84e",
+        "api_id": "api_f03b9aa1-1c8f-4061-aacd-1f2d7b7c55d3",
         "host": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
         "hub_url": "https://rapidapi.com/aarbchen/api/govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api",
     },
@@ -221,17 +221,12 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
 
     # Mirror endpoint onto public RapidAPI storefront immediately so it is live with 0 quota issues
     q_ep = """
-    mutation updateOrCreateEndpointWithParameters($input: EndpointWithParametersCreateInput!) {
-      updateOrCreateEndpointWithParameters(input: $input) {
-        id
-        name
-        route
-        method
-      }
+    mutation updateOrCreateEndpointWithParameters($input: updateOrCreateEndpointWithParameters!) {
+      updateOrCreateEndpointWithParameters(input: $input)
     }
     """
     ep_input = {
-        "apiVersion": version_id,
+        "apiVersionId": version_id,
         "name": ep_title[:65],
         "route": route,
         "method": api_cfg.get("method", "POST"),
