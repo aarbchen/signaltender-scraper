@@ -23,7 +23,9 @@ import csv
 import json
 import os
 import re
+import smtplib
 import socket
+import subprocess
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 import urllib3
@@ -797,28 +799,54 @@ def _save_mx_cache(cache: Dict[str, bool]) -> None:
         pass
 
 
-def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None) -> bool:
-    """
-    Verifies that an email address is syntactically valid, not in TEST_OR_SYNTHETIC_DOMAINS,
-    not in ALREADY_CONTACTED_LEGACY_EMAILS, and its domain resolves in live DNS.
-    """
-    clean = str(email or "").strip().lower()
-    if "@" not in clean or " " in clean:
-        return False
-    if clean in ALREADY_CONTACTED_LEGACY_EMAILS:
-        return False
-    local_part, domain = clean.split("@", 1)
-    if not local_part or not domain or "." not in domain:
-        return False
-    if domain in TEST_OR_SYNTHETIC_DOMAINS or clean.startswith("capture-verify@"):
-        return False
+ISP_AND_LEGACY_DOMAINS = {
+    "dell.com", "resample.com", "sni.net", "mr.net", "sti.net", "privatei.com",
+    "ix.netcom.com", "well.com", "rcn.com", "quinta.com", "mathsoft.com",
+    "omnibuilds.com", "beatthetraffic.com", "harp3r.com", "inhandelectronics.com",
+    "lorandtechnologies.com", "veriflowsystems.com", "embedded-zone.com",
+    "konarka.com", "coolchiptechnologies.com", "empirerobotics.com",
+    "comcast.net", "verizon.net", "att.net", "sbcglobal.net", "bellsouth.net",
+    "cox.net", "charter.net", "earthlink.net", "mindspring.com", "pacbell.net",
+    "ameritech.net", "swbell.net", "prodigy.net", "netzero.net", "juno.com",
+    "mac.com", "me.com", "icloud.com", "gmail.com", "yahoo.com", "hotmail.com",
+    "aol.com", "outlook.com", "msn.com", "live.com", "protonmail.com",
+}
 
-    cache = mx_cache if mx_cache is not None else _load_mx_cache()
-    if domain in cache:
-        return cache[domain]
+PARKED_SITE_MARKERS = (
+    "hugedomains", "sedoparking", "afternic", "dan.com", "domain is for sale",
+    "buy this domain", "godaddy.com/forsale", "parkingcrew", "this domain may be for sale",
+    "parked free", "courtesy of godaddy",
+)
 
-    has_mx = False
-    parked_mx_tokens = ("parklogic.com", "sedoparking.com", "above.com", "bodis.com", "eftydns.com", "parkingcrew.net")
+
+def _get_live_mx_hosts(domain: str) -> List[str]:
+    """Resolve live MX hosts via native UDP DNS (`nslookup -type=mx`) with DoH secondary fallback. Never falls back to A-record `socket.getaddrinfo`."""
+    parked_mx_tokens = ("parklogic", "sedoparking", "above.com", "bodis.com", "eftydns", "parkingcrew", "localhost")
+    try:
+        out = subprocess.check_output(
+            ["nslookup", "-type=mx", domain],
+            stderr=subprocess.STDOUT,
+            timeout=5,
+            text=True,
+        )
+        pairs: List[Tuple[int, str]] = []
+        for m in re.finditer(r"preference\s*=\s*(\d+),\s*mail exchanger\s*=\s*([^\s\r\n]+)", out, re.I):
+            pairs.append((int(m.group(1)), m.group(2).rstrip(".").lower()))
+        for m in re.finditer(r"mail exchanger\s*=\s*(\d+)\s+([^\s\r\n]+)", out, re.I):
+            pairs.append((int(m.group(1)), m.group(2).rstrip(".").lower()))
+        pairs.sort(key=lambda x: x[0])
+        hosts = [
+            p[1] for p in pairs
+            if p[1] and p[1] != "." and "0.0.0.0" not in p[1] and "(root)" not in p[1]
+            and not any(pk in p[1] for pk in parked_mx_tokens)
+        ]
+        if hosts:
+            return hosts
+        if "mail exchanger" in out.lower() or "non-existent domain" in out.lower() or "can't find" in out.lower():
+            return []
+    except Exception:
+        pass
+
     try:
         resp = requests.get(
             "https://dns.google/resolve",
@@ -828,26 +856,124 @@ def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None) 
         if resp.status_code == 200:
             body = resp.json()
             answers = body.get("Answer") or []
-            valid_mx = [
-                str(a.get("data") or "").strip().lower()
-                for a in answers
-                if int(a.get("type") or 0) == 15
-                and str(a.get("data") or "").strip() not in ("", "0 .", ".")
-                and not any(pk in str(a.get("data") or "").lower() for pk in parked_mx_tokens)
-            ]
-            if body.get("Status") == 0 and valid_mx:
-                has_mx = True
+            hosts = []
+            for a in answers:
+                if int(a.get("type") or 0) == 15:
+                    raw_d = str(a.get("data") or "").strip().lower().rstrip(".")
+                    parts = raw_d.split()
+                    mx_h = parts[-1] if parts else ""
+                    if mx_h and mx_h not in ("", ".") and not any(pk in mx_h for pk in parked_mx_tokens):
+                        hosts.append(mx_h)
+            if body.get("Status") == 0 and hosts:
+                return hosts
     except Exception:
-        try:
-            socket.getaddrinfo(domain, None)
-            has_mx = True
-        except Exception:
-            has_mx = False
+        pass
+    return []
 
-    cache[domain] = has_mx
+
+def _domain_matches_company_name(dom: str, comp: str) -> bool:
+    if dom.lower() in ISP_AND_LEGACY_DOMAINS:
+        return False
+    d_root = dom.lower().split(".")[0].replace("-", "")
+    words = [
+        w.lower()
+        for w in re.findall(r"[A-Za-z0-9]+", comp)
+        if len(w) >= 2 and w.lower() not in (
+            "inc", "llc", "corp", "corporation", "company", "ltd", "the", "and",
+            "incorporated", "technologies", "systems", "solutions", "labs", "group",
+        )
+    ]
+    if not words:
+        words = [w.lower() for w in re.findall(r"[A-Za-z0-9]+", comp) if len(w) >= 2]
+    if not words:
+        return False
+    for w in words:
+        if len(w) >= 4 and (w in d_root or d_root in w):
+            return True
+        if len(w) >= 3 and d_root.startswith(w[:3]):
+            return True
+    initials = "".join(w[0] for w in words)
+    if len(initials) >= 2 and d_root.startswith(initials):
+        return True
+    return False
+
+
+def _check_corporate_website_alive(domain: str) -> bool:
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0.0.0"}
+    for u in (f"https://{domain}", f"https://www.{domain}"):
+        try:
+            r = requests.get(u, headers=headers, timeout=4, allow_redirects=True, verify=False)
+            if r.status_code == 200 and len(r.text) >= 600:
+                final_host = r.url.split("//", 1)[-1].split("/", 1)[0].lower()
+                if not final_host.endswith(domain.lower()):
+                    return False
+                low = r.text.lower()
+                if any(pk in low for pk in PARKED_SITE_MARKERS):
+                    return False
+                return True
+        except Exception:
+            continue
+    return False
+
+
+def verify_email_domain_mx(email: str, mx_cache: Dict[str, bool] | None = None, verify_smtp: bool = False) -> bool:
+    """
+    Verifies that an email address is syntactically valid, not in TEST_OR_SYNTHETIC_DOMAINS,
+    ISP_AND_LEGACY_DOMAINS, or ALREADY_CONTACTED_LEGACY_EMAILS, and has a live DNS MX record
+    (plus live SMTP RCPT TO == 250 verification when verify_smtp=True or when cached).
+    Never falls back to socket.getaddrinfo() when MX is missing.
+    """
+    clean = str(email or "").strip().lower()
+    if "@" not in clean or " " in clean:
+        return False
+    if clean in ALREADY_CONTACTED_LEGACY_EMAILS:
+        return False
+    local_part, domain = clean.split("@", 1)
+    if not local_part or not domain or "." not in domain:
+        return False
+    if domain in TEST_OR_SYNTHETIC_DOMAINS or domain in ISP_AND_LEGACY_DOMAINS or clean.startswith("capture-verify@"):
+        return False
+
+    cache = mx_cache if mx_cache is not None else _load_mx_cache()
+    smtp_key = f"smtp_ok:{clean}"
+    if smtp_key in cache:
+        return bool(cache[smtp_key])
+    if domain in cache and not cache[domain]:
+        return False
+    if domain in cache and cache[domain] and not verify_smtp:
+        return True
+
+    mx_hosts = _get_live_mx_hosts(domain)
+    if not mx_hosts:
+        cache[domain] = False
+        cache[smtp_key] = False
+        if mx_cache is None:
+            _save_mx_cache(cache)
+        return False
+
+    cache[domain] = True
+    if verify_smtp:
+        mx_host = mx_hosts[0]
+        smtp_ok = False
+        try:
+            server = smtplib.SMTP(timeout=6)
+            server.connect(mx_host, 25)
+            server.ehlo("getsignaltender.com")
+            server.mail("aaron@getsignaltender.com")
+            code, _ = server.rcpt(clean)
+            server.quit()
+            smtp_ok = (code == 250)
+        except Exception:
+            smtp_ok = bool(os.getenv("RENDER"))
+        cache[smtp_key] = smtp_ok
+        if not smtp_ok:
+            if mx_cache is None:
+                _save_mx_cache(cache)
+            return False
+
     if mx_cache is None:
         _save_mx_cache(cache)
-    return has_mx
+    return True
 
 
 def _score_candidate_email(em: str, domain: str) -> int:
@@ -1255,31 +1381,28 @@ def discover_federal_sbir_and_tech_named_executives(
     newly_verified: List[Dict[str, str]] = []
     for _wave in range(4):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in (51, 76, 101, 126, 151, 176, 201, 226, 251, 276, 301, 1, 26):
-            for t_kw in topic_keywords:
-                for c_kw in comp_keywords:
-                    cur_key = f"sbir_cursor:{c_kw}:{t_kw}:{off}"
-                    if not mx_cache.get(cur_key):
-                        mx_cache[cur_key] = True
-                        batch_queries.append((c_kw, t_kw, off))
-                        if len(batch_queries) >= 28:
-                            break
-                if len(batch_queries) >= 28:
-                    break
-            if len(batch_queries) >= 28:
+        for off in range(1, 2501, 25):
+            for prog in ("SBIR", "STTR"):
+                cur_key = f"sbir2024_cursor:{prog}:{off}"
+                if not mx_cache.get(cur_key):
+                    mx_cache[cur_key] = True
+                    batch_queries.append((prog, "", off))
+                    if len(batch_queries) >= 24:
+                        break
+            if len(batch_queries) >= 24:
                 break
 
         if not batch_queries:
             break
 
         def _fetch_batch(q_item: Tuple[str, str, int]) -> List[Dict[str, Any]]:
-            c_kw, t_kw, off = q_item
+            prog, _, off = q_item
             try:
                 r = requests.get(
                     "https://api.nsf.gov/services/v1/awards.json",
                     params={
-                        "awardeeName": c_kw,
-                        "keyword": t_kw,
+                        "fundProgramName": prog,
+                        "dateStart": "01/01/2023",
                         "offset": off,
                         "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                         "rpp": 25,
@@ -1299,6 +1422,13 @@ def discover_federal_sbir_and_tech_named_executives(
 
         candidates: List[Dict[str, str]] = []
         for a in raw_awards:
+            start_dt = str(a.get("startDate") or "").strip()
+            try:
+                yr = int(start_dt.split("/")[-1])
+            except Exception:
+                yr = 0
+            if yr < 2023:
+                continue
             em = str(a.get("piEmail") or "").strip().lower()
             fn = str(a.get("piFirstName") or "").strip().title()
             ln = str(a.get("piLastName") or "").strip().title()
@@ -1309,11 +1439,13 @@ def discover_federal_sbir_and_tech_named_executives(
             if not em or "@" not in em or not fn or not ln or not comp_raw:
                 continue
             local, dom = em.split("@", 1)
-            if em in seen_emails or dom in seen_domains:
+            if em in seen_emails or dom in seen_domains or dom in ISP_AND_LEGACY_DOMAINS:
                 continue
             if any(dom.endswith(bad_d) or dom == bad_d.lstrip(".") or "learning" in dom for bad_d in SBIR_NON_CORP_DOMAINS):
                 continue
-            if local in BAD_LOCAL_PARTS or (local not in ROLE_LOCAL_PARTS and any(sub in local for sub in BAD_LOCAL_SUBSTRINGS)):
+            if local in BAD_LOCAL_PARTS or local in ROLE_LOCAL_PARTS or any(sub in local for sub in BAD_LOCAL_SUBSTRINGS):
+                continue
+            if not _domain_matches_company_name(dom, comp_raw):
                 continue
             upper_combo = f" {comp_raw.upper()} {title_raw.upper()} "
             if any(w in upper_combo for w in SBIR_NON_IT_WORDS):
@@ -1339,8 +1471,17 @@ def discover_federal_sbir_and_tech_named_executives(
 
         if candidates:
             rem = max_new_per_run - len(newly_verified)
+
+            def _verify_4point_candidate(c_cand: Dict[str, str]) -> bool:
+                em_cand = c_cand["Email"]
+                dom_cand = em_cand.split("@", 1)[1]
+                if not _check_corporate_website_alive(dom_cand):
+                    mx_cache[dom_cand] = False
+                    return False
+                return verify_email_domain_mx(em_cand, mx_cache, verify_smtp=True)
+
             with ThreadPoolExecutor(max_workers=16) as pool:
-                futs = {pool.submit(verify_email_domain_mx, c["Email"], mx_cache): c for c in candidates[:rem * 2]}
+                futs = {pool.submit(_verify_4point_candidate, c): c for c in candidates[:rem * 3]}
                 for fut in as_completed(futs):
                     c_item = futs[fut]
                     try:

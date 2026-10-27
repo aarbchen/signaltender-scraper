@@ -1086,6 +1086,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
             existing_inst_emails = set()
             existing_inst_ids = {}
+            replied_inst_emails = set()
             completed_non_responders: list[tuple[str, str]] = []
             starting_after = None
             for _ in range(10):
@@ -1109,7 +1110,9 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         existing_inst_emails.add(em)
                         if lid:
                             existing_inst_ids[em] = lid
-                            if int(it.get("status") or 0) in (3, -1, -2) and int(it.get("email_reply_count") or 0) == 0:
+                            if int(it.get("email_reply_count") or 0) > 0 or int(it.get("lt_interest_status") or 0) > 0:
+                                replied_inst_emails.add(em)
+                            elif int(it.get("status") or 0) in (3, -1, -2):
                                 completed_non_responders.append((em, lid))
                 starting_after = l_json.get("next_starting_after")
                 if not starting_after or len(items) < 100:
@@ -1117,7 +1120,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
             from concurrent.futures import ThreadPoolExecutor
             auth_only_headers = {"Authorization": f"Bearer {INSTANTLY_API_KEY}"}
-            valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload}
+            valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload} | replied_inst_emails
             if completed_non_responders:
                 try:
                     import govcon_lead_harvester
@@ -1129,6 +1132,11 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
             stale_pairs = [(em, lid) for em, lid in list(existing_inst_ids.items()) if em not in valid_email_set]
             if stale_pairs:
+                try:
+                    import govcon_lead_harvester
+                    govcon_lead_harvester.save_completed_outreach_archive({em for em, _ in stale_pairs})
+                except Exception:
+                    pass
                 def _del_stale(pair: tuple[str, str]) -> int:
                     s_em, s_id = pair
                     try:
