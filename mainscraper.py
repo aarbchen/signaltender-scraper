@@ -102,7 +102,7 @@ B2B_EXTRACTION_SYSTEM_PROMPT = (
     "cloud migrations, cybersecurity architecture, network infrastructure, data center operations, enterprise systems integration).\n"
     "3. Strictly ignore unrelated non-IT contracts like HVAC, plumbing, construction, transit, or general municipal services.\n"
     "Extract the full, detailed contract title and exact closing date. "
-    "Output strictly as a valid JSON array of objects with keys: title, closing_date, contact_email. "
+    "Extract the full, detailed contract title, exact closing date, contact email (if any), and a concise 1-2 sentence technical scope_summary (highlighting core deliverables, cloud/cyber/software stack, or required clearances/certifications). Output strictly as a valid JSON array of objects with keys: title, closing_date, contact_email, scope_summary. "
     "Do not wrap in markdown code blocks or output any other text. "
     "If no closing date is found, leave closing_date as an empty string. "
     "If no high-value B2B IT contracts are found, output an empty array []."
@@ -515,6 +515,7 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                         "agency": "Texas SmartBuy / State of Texas",
                         "bid_id": "",
                         "contact_email": r.get("contact_email") or "",
+                        "scope_summary": r.get("scope_summary") or "",
                     })
                 print(f"Found {len(records)} contracts in chunk {i+1}.")
 

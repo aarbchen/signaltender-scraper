@@ -1157,8 +1157,8 @@ def _render_layout(
     html[data-theme="light"] svg path[stroke="#38BDF8"] {{
       stroke: #0284C7 !important;
     }}
-    html[data-theme="light"] header span.text-\[23px\],
-    html[data-theme="light"] footer span.text-\[23px\] {{
+    html[data-theme="light"] header span.text-\\[23px\\],
+    html[data-theme="light"] footer span.text-\\[23px\\] {{
       color: #0F172A !important;
     }}
     html[data-theme="light"] header .inline-flex > span.bg-slate-900,
@@ -1178,7 +1178,7 @@ def _render_layout(
       background-size: 100% 100%, 32px 32px, 32px 32px !important;
       color: #0F172A !important;
     }}
-    html[data-theme="light"] .bg-\[size\:32px_32px\] {{
+    html[data-theme="light"] .bg-\\[size\\:32px_32px\\] {{
       display: none !important;
     }}
     html[data-theme="light"] .blur-3xl,
@@ -1231,7 +1231,7 @@ def _render_layout(
       border-color: #94A3B8 !important;
       box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
     }}
-    html[data-theme="light"] header div.lg\:hidden {{
+    html[data-theme="light"] header div.lg\\:hidden {{
       background-color: #FFFFFF !important;
       border-top-color: #CBD5E1 !important;
     }}
@@ -1306,16 +1306,16 @@ def _render_layout(
     html[data-theme="light"] #static-inbound-lead-box,
     html[data-theme="light"] #account-dispatch-telemetry-card,
     html[data-theme="light"] #account-admin-bar,
-    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:nth-child(3) {{
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:nth-child(3) {{
       border: 2px solid #0284C7 !important;
       background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 55%) !important;
       box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08) !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div:not(:nth-child(3)) {{
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div:not(:nth-child(3)) {{
       background-color: #F8FAFC !important;
       border: 1px solid #CBD5E1 !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div > span.absolute {{
+    html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div > span.absolute {{
       background-color: #E0F2FE !important;
       color: #075985 !important;
       border: 1px solid #7DD3FC !important;
@@ -1436,15 +1436,15 @@ def _render_layout(
       background-image: linear-gradient(90deg, #0369A1 0%, #1E3A8A 100%) !important;
     }}
     html[data-theme="light"] .border-slate-800,
-    html[data-theme="light"] .border-slate-800\/90,
-    html[data-theme="light"] .border-slate-800\/80,
-    html[data-theme="light"] .border-slate-800\/70,
-    html[data-theme="light"] .border-slate-800\/60,
+    html[data-theme="light"] .border-slate-800\\/90,
+    html[data-theme="light"] .border-slate-800\\/80,
+    html[data-theme="light"] .border-slate-800\\/70,
+    html[data-theme="light"] .border-slate-800\\/60,
     html[data-theme="light"] .border-slate-700,
-    html[data-theme="light"] .border-slate-700\/80,
+    html[data-theme="light"] .border-slate-700\\/80,
     html[data-theme="light"] .divide-slate-800 > :not([hidden]) ~ :not([hidden]),
-    html[data-theme="light"] .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]),
-    html[data-theme="light"] .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]) {{
+    html[data-theme="light"] .divide-slate-800\\/80 > :not([hidden]) ~ :not([hidden]),
+    html[data-theme="light"] .divide-slate-800\\/60 > :not([hidden]) ~ :not([hidden]) {{
       border-color: #CBD5E1 !important;
     }}
     html[data-theme="light"] #api-pricing-matrix tbody tr {{
@@ -1577,8 +1577,8 @@ def _render_layout(
     html[data-theme="light"] #page-apis > div:first-of-type,
     html[data-theme="light"] #page-contracts > div:first-of-type,
     html[data-theme="light"] #page-checkout > div:first-of-type,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 {{
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\\/90,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\\/90 {{
       background-color: #0F172A !important;
       border-bottom-color: #1E293B !important;
       color: #F1F5F9 !important;
@@ -1587,24 +1587,24 @@ def _render_layout(
     html[data-theme="light"] #page-apis > div:first-of-type *,
     html[data-theme="light"] #page-contracts > div:first-of-type *,
     html[data-theme="light"] #page-checkout > div:first-of-type *,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 *,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 * {{
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\\/90 *,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\\/90 * {{
       color: #F1F5F9 !important;
     }}
     html[data-theme="light"] #page-main > div:first-of-type .text-emerald-400,
     html[data-theme="light"] #page-apis > div:first-of-type .text-emerald-400,
     html[data-theme="light"] #page-contracts > div:first-of-type .text-emerald-400,
     html[data-theme="light"] #page-checkout > div:first-of-type .text-emerald-400,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-emerald-400,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-emerald-400 {{
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\\/90 .text-emerald-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\\/90 .text-emerald-400 {{
       color: #34D399 !important;
     }}
     html[data-theme="light"] #page-main > div:first-of-type .text-sky-400,
     html[data-theme="light"] #page-apis > div:first-of-type .text-sky-400,
     html[data-theme="light"] #page-contracts > div:first-of-type .text-sky-400,
     html[data-theme="light"] #page-checkout > div:first-of-type .text-sky-400,
-    html[data-theme="light"] body > div > div.border-b.bg-navy-900\/90 .text-sky-400,
-    html[data-theme="light"] body > div.border-b.bg-navy-900\/90 .text-sky-400 {{
+    html[data-theme="light"] body > div > div.border-b.bg-navy-900\\/90 .text-sky-400,
+    html[data-theme="light"] body > div.border-b.bg-navy-900\\/90 .text-sky-400 {{
       color: #38BDF8 !important;
     }}
     /* Cohesive Light Code / JSON Terminal Panels (#F1F5F9 Slate-100 surface with Deep Oxford Navy #0F172A ink) */
@@ -1618,20 +1618,20 @@ def _render_layout(
       border-radius: 0.5rem !important;
       padding: 0.75rem 1rem !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5,
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 > div {{
       background-color: #F8FAFC !important;
       color: #0F172A !important;
       border-color: #CBD5E1 !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child {{
       background-color: #F1F5F9 !important;
       border-bottom: 1px solid #CBD5E1 !important;
     }}
     html[data-theme="light"] pre *,
     html[data-theme="light"] pre [class*="text-"],
     html[data-theme="light"] code,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-"],
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-"],
     html[data-theme="light"] #demo-raw-pdf *,
     html[data-theme="light"] #demo-json-output * {{
       color: #0F172A !important;
@@ -1639,47 +1639,47 @@ def _render_layout(
     html[data-theme="light"] pre [class*="text-sky-"],
     html[data-theme="light"] pre [class*="text-cyan-"],
     html[data-theme="light"] pre [class*="text-indigo-"],
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-sky-"],
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-cyan-"],
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-sky-"],
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-cyan-"],
     html[data-theme="light"] #demo-json-output [class*="text-sky-"] {{
       color: #0369A1 !important;
     }}
     html[data-theme="light"] pre [class*="text-emerald-"],
     html[data-theme="light"] pre [class*="text-lime-"],
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-emerald-"],
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-emerald-"],
     html[data-theme="light"] #demo-json-output [class*="text-emerald-"] {{
       color: #047857 !important;
     }}
     html[data-theme="light"] pre [class*="text-amber-"],
     html[data-theme="light"] pre [class*="text-orange-"],
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-amber-"],
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-amber-"],
     html[data-theme="light"] #demo-json-output [class*="text-amber-"] {{
       color: #B45309 !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn] {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn] {{
       background-color: transparent !important;
       color: #334155 !important;
       border-color: transparent !important;
       font-weight: 600 !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].bg-sky-500\/20,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].text-sky-300,
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].bg-slate-800 {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn].bg-sky-500\\/20,
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn].text-sky-300,
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn].bg-slate-800 {{
       background-color: #E0F2FE !important;
       color: #075985 !important;
       border-color: #7DD3FC !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]) {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button:not([data-snippet-btn]) {{
       background-color: #FFFFFF !important;
       color: #0F172A !important;
       border-color: #94A3B8 !important;
       font-weight: 600 !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]):hover {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button:not([data-snippet-btn]):hover {{
       background-color: #F1F5F9 !important;
       color: #0F172A !important;
     }}
-    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {{
+    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\\.5 > span {{
       background-color: #FFFFFF !important;
       border: 1px solid #CBD5E1 !important;
       color: #075985 !important;

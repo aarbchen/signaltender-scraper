@@ -337,3 +337,7 @@ Call log:
 [2026-10-26 07:50:05 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing required portal-count phrase: 'All 17 Active Procurement Portals:'
 [2026-10-26 07:51:06 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing required portal-count phrase: 'All 17 Active Procurement Portals:'
 [2026-10-26 07:52:41 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing required portal-count phrase: 'All 17 Active Procurement Portals:'
+
+=== ARCHIVED & RESOLVED AT 2026-10-27 06:45:45 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 2 remote alert(s)) ===
+[2026-10-27 06:30:57 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Tag imbalance for <section>: open=14, close=13
+[2026-10-27 06:45:29 UTC] [LOCAL] [ny_scraper.py] NYC PASSPort public browse warning: HTTPSConnectionPool(host='passport.cityofnewyork.us', port=443): Max retries exceeded with url: /error.html?aspxerrorpath=/page.aspx/en/rfp/request_browse_public (Caused by ResponseError('too many 500 error responses'))

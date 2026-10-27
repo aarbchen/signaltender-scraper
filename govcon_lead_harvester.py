@@ -203,10 +203,145 @@ STATE_CODE_TO_FULL = {
     "nj": "New Jersey",
     "new_jersey": "New Jersey",
     "new jersey": "New Jersey",
+    "wa": "Washington",
+    "washington": "Washington",
+    "mi": "Michigan",
+    "michigan": "Michigan",
+    "co": "Colorado",
+    "colorado": "Colorado",
+    "az": "Arizona",
+    "arizona": "Arizona",
+    "mn": "Minnesota",
+    "minnesota": "Minnesota",
+    "wi": "Wisconsin",
+    "wisconsin": "Wisconsin",
+    "in": "Indiana",
+    "indiana": "Indiana",
+    "tn": "Tennessee",
+    "tennessee": "Tennessee",
+    "mo": "Missouri",
+    "missouri": "Missouri",
+    "sc": "South Carolina",
+    "south_carolina": "South Carolina",
+    "south carolina": "South Carolina",
+    "al": "Alabama",
+    "alabama": "Alabama",
+    "la": "Louisiana",
+    "louisiana": "Louisiana",
+    "ky": "Kentucky",
+    "kentucky": "Kentucky",
+    "or": "Oregon",
+    "oregon": "Oregon",
+    "ok": "Oklahoma",
+    "oklahoma": "Oklahoma",
+    "ct": "Connecticut",
+    "connecticut": "Connecticut",
+    "ut": "Utah",
+    "utah": "Utah",
+    "ia": "Iowa",
+    "iowa": "Iowa",
+    "nv": "Nevada",
+    "nevada": "Nevada",
+    "ar": "Arkansas",
+    "arkansas": "Arkansas",
+    "ms": "Mississippi",
+    "mississippi": "Mississippi",
+    "ks": "Kansas",
+    "kansas": "Kansas",
+    "nm": "New Mexico",
+    "new_mexico": "New Mexico",
+    "new mexico": "New Mexico",
+    "ne": "Nebraska",
+    "nebraska": "Nebraska",
+    "id": "Idaho",
+    "idaho": "Idaho",
+    "wv": "West Virginia",
+    "west_virginia": "West Virginia",
+    "west virginia": "West Virginia",
+    "hi": "Hawaii",
+    "hawaii": "Hawaii",
+    "nh": "New Hampshire",
+    "new_hampshire": "New Hampshire",
+    "new hampshire": "New Hampshire",
+    "me": "Maine",
+    "maine": "Maine",
+    "ri": "Rhode Island",
+    "rhode_island": "Rhode Island",
+    "rhode island": "Rhode Island",
+    "mt": "Montana",
+    "montana": "Montana",
+    "de": "Delaware",
+    "delaware": "Delaware",
+    "sd": "South Dakota",
+    "south_dakota": "South Dakota",
+    "south dakota": "South Dakota",
+    "nd": "North Dakota",
+    "north_dakota": "North Dakota",
+    "north dakota": "North Dakota",
+    "ak": "Alaska",
+    "alaska": "Alaska",
+    "vt": "Vermont",
+    "vermont": "Vermont",
+    "wy": "Wyoming",
+    "wyoming": "Wyoming",
+    "dc": "Virginia",
     "federal": "Virginia",
     "municipal": "Texas",
     "all": "Virginia",
 }
+
+US_STATE_NAME_TO_POSTAL = {
+    "Virginia": "VA", "Texas": "TX", "California": "CA", "Florida": "FL",
+    "Maryland": "MD", "Illinois": "IL", "Pennsylvania": "PA", "Ohio": "OH",
+    "Georgia": "GA", "North Carolina": "NC", "New York": "NY", "Massachusetts": "MA",
+    "New Jersey": "NJ", "Washington": "WA", "Michigan": "MI", "Colorado": "CO",
+    "Arizona": "AZ", "Minnesota": "MN", "Wisconsin": "WI", "Indiana": "IN",
+    "Tennessee": "TN", "Missouri": "MO", "South Carolina": "SC", "Alabama": "AL",
+    "Louisiana": "LA", "Kentucky": "KY", "Oregon": "OR", "Oklahoma": "OK",
+    "Connecticut": "CT", "Utah": "UT", "Iowa": "IA", "Nevada": "NV",
+    "Arkansas": "AR", "Mississippi": "MS", "Kansas": "KS", "New Mexico": "NM",
+    "Nebraska": "NE", "Idaho": "ID", "West Virginia": "WV", "Hawaii": "HI",
+    "New Hampshire": "NH", "Maine": "ME", "Rhode Island": "RI", "Montana": "MT",
+    "Delaware": "DE", "South Dakota": "SD", "North Dakota": "ND", "Alaska": "AK",
+    "Vermont": "VT", "Wyoming": "WY",
+}
+
+
+def get_active_harvester_states() -> List[Tuple[str, str]]:
+    """
+    Returns `(postal_code, full_state_name)` for all active SLED jurisdictions
+    (including WA, MI, and any new states added to `pseo_generator.JURISDICTIONS`).
+    """
+    base_states: List[Tuple[str, str]] = [
+        ("VA", "Virginia"),
+        ("MD", "Maryland"),
+        ("TX", "Texas"),
+        ("CA", "California"),
+        ("FL", "Florida"),
+        ("IL", "Illinois"),
+        ("PA", "Pennsylvania"),
+        ("OH", "Ohio"),
+        ("GA", "Georgia"),
+        ("NC", "North Carolina"),
+        ("NY", "New York"),
+        ("MA", "Massachusetts"),
+        ("NJ", "New Jersey"),
+        ("WA", "Washington"),
+        ("MI", "Michigan"),
+    ]
+    seen_codes = {code for code, _ in base_states}
+    try:
+        import pseo_generator
+        for j_key in getattr(pseo_generator, "JURISDICTIONS", {}).keys():
+            full_name = STATE_CODE_TO_FULL.get(str(j_key).lower())
+            if full_name:
+                postal = US_STATE_NAME_TO_POSTAL.get(full_name)
+                if postal and postal not in seen_codes:
+                    seen_codes.add(postal)
+                    base_states.append((postal, full_name))
+    except Exception:
+        pass
+    return base_states
 
 # Real U.S. Federal & 13-State SLED IT, Cloud & Cybersecurity Contractors
 # (GSA MAS 54151S/54151HACS, 8(a) STARS III, VETS 2, CIO-SP3, and State SLED IT vehicles)
@@ -525,6 +660,16 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
     (" Shi International Public Sector (NJSTART)", "shi.com", "Thai", "Lee", "President & CEO (Somerset NJSTART M4002 Software & Cloud)", "Somerset", "New Jersey", "541512, 518210"),
     (" Trigyn Technologies (NJ SLED & UN IT)", "trigyn.com", "Tom", "Gordon", "Senior VP Public Sector (Edison NJ State & Municipal IT)", "Edison", "New Jersey", "541511, 541512"),
     (" Marlabs Digital & GovCloud", "marlabs.com", "Siby", "Vadakekkara", "Founder & CEO (Piscataway AI & Enterprise Cloud)", "Piscataway", "New Jersey", "541511, 541512"),
+    # WASHINGTON SLED (WA WEBS / WaTech / DES IT Master Contracts)
+    (" Critical Informatics (CI Security WA SLED)", "cisecurity.com", "Mike", "Hamilton", "Founder & CISO (Seattle / Bremerton WA SLED MDR & SOC)", "Seattle", "Washington", "541512, 541519"),
+    (" WatchGuard Technologies GovCloud", "watchguard.com", "Prakash", "Panjwani", "Chief Executive Officer (Seattle SLED Network Security & Zero-Trust)", "Seattle", "Washington", "541512, 541519"),
+    (" ExtraHop Networks Public Sector", "extrahop.com", "Greg", "Clark", "Chief Executive Officer (Seattle NDR & WaTech Cyber Telemetry)", "Seattle", "Washington", "541512, 541519"),
+    (" Slalom Public Sector & WaTech Cloud", "slalom.com", "Brad", "Jackson", "Co-Founder & CEO (Seattle WA State Cloud & AI Modernization)", "Seattle", "Washington", "541511, 541512"),
+    # MICHIGAN SLED (MI SIGMA VSS / DTMB MiDEAL / TACOM Defense Corridor)
+    (" Dewpoint Michigan State IT (DTMB)", "dewpoint.com", "MW", "Capture", "Executive Leadership (Lansing MI DTMB & Healthcare IT)", "Lansing", "Michigan", "541511, 541512"),
+    (" Censys Public Sector Attack Surface", "censys.io", "Brad", "Brooks", "Chief Executive Officer (Ann Arbor Federal & MI SLED Cyber)", "Ann Arbor", "Michigan", "541512, 541519"),
+    (" Duo Security / Michigan IAM", "duo.com", "Dug", "Song", "Co-Founder (Ann Arbor Zero-Trust MFA & SLED Identity)", "Ann Arbor", "Michigan", "541512, 541519"),
+    (" ImageSoft Government & Courts Cloud", "imagesoftinc.com", "Scott", "Bade", "President (Southfield MI SLED Justice & Workflow Automation)", "Southfield", "Michigan", "541511, 541512"),
 ]
 
 BAD_LOCAL_PARTS = {
@@ -952,21 +1097,7 @@ def discover_usaspending_small_business_websites(
         if web:
             existing_domains.add(web)
 
-    states = [
-        ("VA", "Virginia"),
-        ("MD", "Maryland"),
-        ("TX", "Texas"),
-        ("CA", "California"),
-        ("FL", "Florida"),
-        ("IL", "Illinois"),
-        ("PA", "Pennsylvania"),
-        ("OH", "Ohio"),
-        ("GA", "Georgia"),
-        ("NC", "North Carolina"),
-        ("NY", "New York"),
-        ("MA", "Massachusetts"),
-        ("NJ", "New Jersey"),
-    ]
+    states = get_active_harvester_states()
 
     deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 180
     if deep_harvest:
@@ -1313,8 +1444,9 @@ def fetch_inbound_leads_from_supabase(mx_cache: Dict[str, bool]) -> List[Dict[st
 def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
     """
     Query USAspending.gov API for active NAICS 541511 / 541512 / 541513 / 541519 / 518210
-    IT & Cybersecurity contractors across our 13 SLED states.
+    IT & Cybersecurity contractors across all active SLED states.
     """
+    active_state_codes = [code for code, _ in get_active_harvester_states()]
     url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
     payload = {
         "fields": ["Recipient Name", "Award Amount"],
@@ -1323,7 +1455,7 @@ def fetch_usaspending_active_contractors() -> List[Dict[str, Any]]:
             "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210"]},
             "place_of_performance_locations": [
                 {"country": "USA", "state": st}
-                for st in ("VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH", "GA", "NC", "NY", "MA", "NJ")
+                for st in active_state_codes
             ],
         },
         "limit": 30,
@@ -1694,7 +1826,91 @@ def enrich_contacts_with_usaspending_awards(contacts: List[Dict[str, str]]) -> D
                 json.dump(cache, wf, indent=2)
         except Exception:
             pass
+
+    # Auto-sync verified USAspending profiles into the FOIA & Teaming Rate Vault (`usaspending_verified_vault.json`)
+    try:
+        sync_verified_awards_to_foia_vault(verified_profiles)
+    except Exception:
+        pass
     return verified_profiles
+
+
+def sync_verified_awards_to_foia_vault(verified_profiles: Dict[str, Dict[str, Any]]) -> int:
+    """
+    Automatically syncs newly discovered USAspending.gov contract awards from `verified_profiles`
+    into `usaspending_verified_vault.json` (both in `d:\\Daas` and `d:\\Data API Ecosystem\\api\\routers`)
+    so the FOIA Winning-Bid Vault and 13 CFR § 125.6 Teaming Clearinghouse grow autonomously every 6 hours.
+    """
+    vault_paths = [
+        os.path.join(BASE_DIR, "usaspending_verified_vault.json"),
+        r"d:\Data API Ecosystem\api\routers\usaspending_verified_vault.json",
+    ]
+    existing_vault: List[Dict[str, Any]] = []
+    for vp in vault_paths:
+        if os.path.exists(vp):
+            try:
+                with open(vp, "r", encoding="utf-8") as vf:
+                    loaded = json.load(vf)
+                    if isinstance(loaded, list) and len(loaded) > len(existing_vault):
+                        existing_vault = loaded
+            except Exception:
+                pass
+
+    by_id: Dict[str, Dict[str, Any]] = {
+        str(item.get("award_id") or "").strip(): item
+        for item in existing_vault
+        if isinstance(item, dict) and item.get("award_id")
+    }
+    added = 0
+    for _, prof in verified_profiles.items():
+        if not isinstance(prof, dict):
+            continue
+        awd_id = str(prof.get("award_id") or "").strip()
+        if not awd_id or awd_id in by_id:
+            continue
+        desc = str(prof.get("description") or "Enterprise Federal IT & Cybersecurity Services").strip()
+        desc_low = desc.lower()
+        naics = "541512"
+        if any(k in desc_low for k in ("cloud", "aws", "azure", "hosting", "datacenter")):
+            naics = "518210"
+        elif any(k in desc_low for k in ("software", "agile", "devsecops", "application", "code")):
+            naics = "541511"
+        elif any(k in desc_low for k in ("cyber", "zero trust", "siem", "rmf", "cmmc", "infosec")):
+            naics = "541519"
+        usa_url = str(prof.get("usaspending_url") or "https://www.usaspending.gov")
+        veh = "Federal Prime Contract"
+        m_veh = re.search(r"_([A-Z0-9]{4,16})_(?:[0-9]{4}|-NONE-)$", usa_url)
+        if m_veh and m_veh.group(1) != "-NONE-":
+            veh = f"IDV / {m_veh.group(1)}"
+        by_id[awd_id] = {
+            "award_id": awd_id,
+            "jurisdiction": "federal",
+            "agency": str(prof.get("awarding_agency") or "Federal Agency"),
+            "sub_agency": str(prof.get("awarding_sub_agency") or prof.get("awarding_agency") or "Federal Agency"),
+            "sub_agency_short": str(prof.get("awarding_sub_agency_short") or "Federal"),
+            "winning_vendor": str(prof.get("matched_recipient_name") or prof.get("company_name") or "Verified Federal Contractor"),
+            "award_amount_usd": float(prof.get("award_amount") or 1000000.0),
+            "award_amount_fmt": str(prof.get("award_amount_fmt") or "$1.0M"),
+            "pop_end_date": str(prof.get("end_date") or "2027-09-30"),
+            "naics": naics,
+            "parent_vehicle": veh,
+            "description": desc,
+            "usaspending_url": usa_url,
+            "statutory_authority": "5 U.S.C. § 552 (Federal FOIA Electronic Reading Room) & FAR 5.301 Synopses of Contract Awards",
+            "foia_status": "Verified USAspending.gov FPDS Award Record",
+        }
+        added += 1
+
+    if added > 0 or not os.path.exists(vault_paths[0]):
+        merged_list = sorted(by_id.values(), key=lambda x: float(x.get("award_amount_usd") or 0.0), reverse=True)
+        for vp in vault_paths:
+            try:
+                if os.path.exists(os.path.dirname(vp)):
+                    with open(vp, "w", encoding="utf-8") as wf:
+                        json.dump(merged_list, wf, indent=2)
+            except Exception:
+                pass
+    return len(by_id)
 
 
 def fetch_usaspending_expiring_recompetes(limit_out: int = 15) -> List[Dict[str, Any]]:
