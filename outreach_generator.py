@@ -1029,7 +1029,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             pass
                     if warming_only_emails:
                         print(
-                            f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until score >= 85 & 7+ days ({', '.join(warming_only_emails)}).",
+                            f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until score >= 85 ({', '.join(warming_only_emails)}).",
                             flush=True,
                         )
             except Exception:

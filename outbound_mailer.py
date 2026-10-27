@@ -65,24 +65,15 @@ except Exception:
 _CACHED_INSTANTLY_MAILBOX_COUNT: Optional[int] = None
 
 
-def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_days: int = 7) -> bool:
+def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_days: int = 0) -> bool:
     """
-    Returns True ONLY if an Instantly sending account is Active (`status == 1`),
-    has been warming/active for at least `min_days` days, and either has a warmup health
-    score `>= min_score` (default 85/100) OR has already graduated and had warmup
-    disabled (`warmup_status == 0`) to prevent junk warmup emails.
+    Returns True ONLY if an Instantly sending account is Active (`status == 1`) and
+    either has a warmup health score `>= min_score` (default 85/100) OR has already
+    graduated and had warmup disabled (`warmup_status == 0`) to prevent junk warmup emails,
+    regardless of how many days it has been warming up.
     """
     if not isinstance(acct, dict) or int(acct.get("status") or 0) != 1:
         return False
-    w_start = str(acct.get("timestamp_warmup_start") or acct.get("timestamp_created") or "").strip()
-    if w_start:
-        try:
-            dt_start = datetime.fromisoformat(w_start.replace("Z", "+00:00"))
-            days_warming = (datetime.now(timezone.utc) - dt_start).total_seconds() / 86400.0
-            if days_warming < min_days:
-                return False
-        except Exception:
-            pass
     if int(acct.get("warmup_status") or 0) == 0:
         return True
     score = int(acct.get("stat_warmup_score") or 0)
