@@ -687,15 +687,18 @@
       border-color: #CBD5E1 !important;
       font-weight: 600 !important;
     }
-    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with subtle slate architectural grid & deep Oxford Navy ink */
+    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with 32px slate architectural hash grid & deep Oxford Navy ink */
     html[data-theme="light"] body {
       background-color: #F8FAFC !important;
       background-image:
         radial-gradient(ellipse 85% 55% at 50% -10%, rgba(2, 132, 199, 0.05), transparent 70%),
-        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
-      background-size: 100% 100%, 48px 48px, 48px 48px !important;
+        linear-gradient(to right, #1e293b1a 1px, transparent 1px),
+        linear-gradient(to bottom, #1e293b1a 1px, transparent 1px) !important;
+      background-size: 100% 100%, 32px 32px, 32px 32px !important;
       color: #0F172A !important;
+    }
+    html[data-theme="light"] .bg-\[size\:32px_32px\] {
+      display: none !important;
     }
     html[data-theme="light"] .blur-3xl,
     html[data-theme="light"] [class*="blur-[120px]"],
@@ -751,49 +754,51 @@
       background-color: #FFFFFF !important;
       border-top-color: #CBD5E1 !important;
     }
-    /* Elevated Cards, Gradient Banners & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
-    html[data-theme="light"] section,
-    html[data-theme="light"] footer {
+    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers (never full-width sections/main) */
+    html[data-theme="light"] article[id^="product-"],
+    html[data-theme="light"] [class*="bg-navy-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-navy-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button):not(section):not(main) {
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] [class*="bg-navy-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-slate-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-emerald-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-emerald-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-purple-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-violet-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-rose-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-orange-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-lime-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-[#0"]:not(section):not(main):not(body) {
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }
+    /* Keep all page-level section and main containers transparent in Light Mode so the 32px architectural hash grid shows through on every page */
+    html[data-theme="light"] section:not(.rounded-2xl):not(.inbound-lead-capture-box),
+    html[data-theme="light"] main {
       background-color: transparent !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
     }
     html[data-theme="light"] footer {
-      background-color: #FFFFFF !important;
-    }
-    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers */
-    html[data-theme="light"] article[id^="product-"],
-    html[data-theme="light"] [class*="bg-navy-900"],
-    html[data-theme="light"] [class*="bg-navy-800"],
-    html[data-theme="light"] [class*="bg-slate-900"],
-    html[data-theme="light"] [class*="bg-slate-800"],
-    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button) {
-      background-color: #FFFFFF !important;
-      background-image: none !important;
-      border-color: #CBD5E1 !important;
-    }
-    html[data-theme="light"] [class*="bg-navy-950"],
-    html[data-theme="light"] [class*="bg-slate-950"],
-    html[data-theme="light"] [class*="bg-emerald-950"],
-    html[data-theme="light"] [class*="bg-emerald-900"],
-    html[data-theme="light"] [class*="bg-indigo-950"],
-    html[data-theme="light"] [class*="bg-indigo-900"],
-    html[data-theme="light"] [class*="bg-sky-950"],
-    html[data-theme="light"] [class*="bg-sky-900"],
-    html[data-theme="light"] [class*="bg-amber-950"],
-    html[data-theme="light"] [class*="bg-amber-900"],
-    html[data-theme="light"] [class*="bg-cyan-950"],
-    html[data-theme="light"] [class*="bg-cyan-900"],
-    html[data-theme="light"] [class*="bg-blue-950"],
-    html[data-theme="light"] [class*="bg-blue-900"],
-    html[data-theme="light"] [class*="bg-teal-950"],
-    html[data-theme="light"] [class*="bg-teal-900"],
-    html[data-theme="light"] [class*="bg-purple-950"],
-    html[data-theme="light"] [class*="bg-violet-950"],
-    html[data-theme="light"] [class*="bg-rose-950"],
-    html[data-theme="light"] [class*="bg-orange-950"],
-    html[data-theme="light"] [class*="bg-lime-950"],
-    html[data-theme="light"] [class*="bg-[#0"] {
       background-color: #FFFFFF !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
@@ -4893,9 +4898,9 @@
               </div>
               <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
                 <pre class="text-slate-300"><code>{
-  <span class="text-sky-400">"award_id"</span>: <span class="text-slate-100">"FA8726-25-C-0019"</span>,
-  <span class="text-sky-400">"recipient_name"</span>: <span class="text-emerald-300">"Aegis Cyber Defense LLC"</span>,
-  <span class="text-sky-400">"recipient_uei"</span>: <span class="text-amber-200">"J8K2L9M4N1P2"</span>,
+  <span class="text-sky-400">"award_id"</span>: <span class="text-slate-100">"FA875023F1002"</span>,
+  <span class="text-sky-400">"recipient_name"</span>: <span class="text-emerald-300">"CNF Technologies Corporation"</span>,
+  <span class="text-sky-400">"recipient_uei"</span>: <span class="text-amber-200">"FA875023F1002"</span>,
   <span class="text-sky-400">"award_amount"</span>: <span class="text-sky-300">3420000.0</span>,
   <span class="text-sky-400">"naics_code"</span>: <span class="text-slate-200">"541512"</span>,
   <span class="text-sky-400">"line_items"</span>: [
@@ -8201,7 +8206,7 @@
   --header 'x-rapidapi-key: YOUR_RAPIDAPI_KEY' \
   --data '{
   "new_solicitation_scope_and_oci_clauses": "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps &amp; Ground C2 Integration). Section H.8 OCI Notice (FAR 9.5 / DFARS 252.209-7008 &amp; 252.209-7009): Offerors performing SETA or A&amp;AS engineering support shall disclose all existing USSF contracts and submit a comprehensive OCI Mitigation Plan...",
-  "existing_contracts_and_corporate_relationships": "Prime Contractor holds USSF SSC SETA Task Order FA8802-24-F-0091 in a separate division (Division B, El Segundo CA) providing enterprise architecture studies. Division A (Colorado Springs CO) is bidding on FA8802-27-R-0014 with conflict-free subcontractor Vanguard Orbital Testing LLC handling all IV&amp;V.",
+  "existing_contracts_and_corporate_relationships": "Prime Contractor holds USSF SSC SETA Task Order FA8802-24-F-0091 in a separate division (Division B, El Segundo CA) providing enterprise architecture studies. Division A (Colorado Springs CO) is bidding on FA8802-27-R-0014 with conflict-free subcontractor LinTech Global Inc handling all IV&amp;V.",
   "proposed_mitigation_posture": "Dual_Firewall_And_Subcontract_Recusal"
 }'</pre>
             </div>
@@ -8391,7 +8396,7 @@
   --header 'x-rapidapi-key: YOUR_RAPIDAPI_KEY' \
   --data '{
   "sbir_sttr_topic_and_rd_specs": "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh &amp; Post-Quantum Telemetry Encryption for Contested C2 Networks). Develop and demonstrate a TRL 6 CNSA 2.0 / FIPS 203 ML-KEM tactical datalink gateway...",
-  "company_technology_and_ip_baseline": "Aegis Quantum Defense LLC (SBA Small Business, 18 employees) has developed Q-MeshCore v2.1 at TRL 4 using $620K in private IR&amp;D funding with patented hardware-accelerated lattice KEM firmware.",
+  "company_technology_and_ip_baseline": "CNF Technologies Corporation (SBA Small Business, 18 employees) has developed Q-MeshCore v2.1 at TRL 4 using $620K in private IR&amp;D funding with patented hardware-accelerated lattice KEM firmware.",
   "target_phase_and_program": "Direct_to_Phase_II_or_Phase_II_Prototype"
 }'</pre>
             </div>
@@ -10481,8 +10486,9 @@
     </header>
 
     <!-- Main Checkout Section -->
-    <section class="relative py-16 lg:py-20 border-b border-slate-800/80">
-      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative overflow-hidden py-16 lg:py-20 border-b border-slate-800/80">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b1a_1px,transparent_1px),linear-gradient(to_bottom,#1e293b1a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+      <div class="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Checkout Hero & Billing Period Toggle -->
         <div class="text-center max-w-3xl mx-auto space-y-5">
@@ -13012,7 +13018,7 @@
 
                   <div>
 
-                    <label for="account-t3-rfp-text" class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Solicitation Scope / Section C, L &amp; M Requirements Text</label>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5"><label for="account-t3-rfp-text" class="block text-[11px] font-mono uppercase text-slate-400">Solicitation Scope / Section C, L &amp; M Requirements Text (Or Upload .PDF / .DOCX)</label><label for="account-t3-rfp-file" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-[11px] font-mono font-semibold text-sky-300 cursor-pointer transition-all"><span>&#128196; Upload RFP (.PDF / .DOCX / .TXT)</span><input id="account-t3-rfp-file" type="file" accept=".pdf,.docx,.txt,.md" onchange="window.handleAccountT3RfpUpload(this)" class="hidden" /></label></div><div id="account-t3-file-badge" class="hidden mb-1.5 px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-mono text-emerald-300"></div>
 
                     <textarea id="account-t3-rfp-text" rows="3" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 font-mono text-xs text-slate-200">The Contractor shall provide Enterprise Zero-Trust Architecture (ZTA) engineering, 24x7x365 SOC Managed Detection and Response (MDR) with &lt;15 min MTTR, FedRAMP High cloud migration, NIST SP 800-53 Rev 5 Continuous ATO (cATO) eMASS POA&amp;M automation, and CMMC 2.0 Level 2 compliance across mission enclaves.</textarea>
 
@@ -17580,6 +17586,8 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             title: title,
             agency: agency,
             rfp_text: rfpText,
+            rfp_file_base64: window._stUploadedRfpBase64 || null,
+            rfp_filename: window._stUploadedRfpFilename || null,
             company_name: compName,
             company_capability_summary: capSummary,
             socio_economic_status: socio,
@@ -19179,7 +19187,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             sources_sought_or_rfi_notice_text: "SOURCES SOUGHT / RFI NOTICE ID: FA8726-27-RFI-0019 (USAF AFLCMC / Hanscom AFB). The Government is conducting FAR Part 10 market research to determine small business capability and set-aside viability for Enterprise Zero-Trust Identity, Credential, and Access Management (ICAM), 24x7 Managed Detection and Response (MDR) SOC telemetry, and DoD IL5 Cloud DevSecOps migration. Anticipated NAICS: 541512 ($34.0M). Respondents shall demonstrate: (1) Experience migrating legacy enclave applications to AWS GovCloud IL5 with Continuous ATO (cATO); (2) Automated NIST 800-53 Rev 5 / CMMC Level 2 continuous monitoring; and (3) Recommendations on set-aside category (8(a), SDVOSB, WOSB, HUBZone, or Total Small Business) and preferred contract vehicle.",
-            vendor_capability_and_socioeconomic_profile: "Aegis Federal Cyber & Cloud LLC (UEI: K9M4N8P2Q1R5 | CAGE: 8X9A2) is an SBA-certified Service-Disabled Veteran-Owned Small Business (SDVOSB) and 8(a) Program participant under NAICS 541512, 541519, and 518210. Contract Vehicles: GSA MAS SIN 54151HACS & 54151S, OASIS+ Small Business, and AWS GovCloud Partner. Past Performance: (1) USAF Air Mobility Command IL5 Zero-Trust ICAM & Okta/Ping Federation ($4.8M, Prime, Exceptional CPARS); (2) DISA 24x7 Splunk SOAR & Endpoint MDR Telemetry ($3.6M, Prime). Facility Clearance: Top Secret FCL; 28 cleared DevSecOps & CISSP engineers.",
+            vendor_capability_and_socioeconomic_profile: "CNF Technologies Corporation (USAspending PIID: FA875023F1002 | USAF Cyber R&D) is an SBA-certified Service-Disabled Veteran-Owned Small Business (SDVOSB) and 8(a) Program participant under NAICS 541512, 541519, and 518210. Contract Vehicles: GSA MAS SIN 54151HACS & 54151S, OASIS+ Small Business, and AWS GovCloud Partner. Past Performance: (1) USAF Air Mobility Command IL5 Zero-Trust ICAM & Okta/Ping Federation ($4.8M, Prime, Exceptional CPARS); (2) DISA 24x7 Splunk SOAR & Endpoint MDR Telemetry ($3.6M, Prime). Facility Clearance: Top Secret FCL; 28 cleared DevSecOps & CISSP engineers.",
             target_set_aside_preference: "SDVOSB_Set_Aside"
           }
         },
@@ -19195,7 +19203,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             target_solicitation_and_sow_text: "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps & Ground C2 Integration). Section H.8 OCI Notice (FAR Subpart 9.5 / DFARS 252.209-7008 & 252.209-7009): Offerors performing Systems Engineering and Technical Assistance (SETA) or Advisory & Assistance Services (A&AS) across USSF SSC shall disclose all active contracts and submit a comprehensive Organizational Conflict of Interest (OCI) Mitigation Plan addressing Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity.",
-            current_and_prior_contracts_portfolio: "Prime Offeror (Aegis Federal Cyber LLC) holds USSF SSC SETA Task Order FA8802-24-F-0091 in Division B (El Segundo, CA) providing enterprise architecture studies. Division A (Colorado Springs, CO) is bidding on FA8802-27-R-0014 with zero personnel overlap, separate Microsoft 365 GCC High / AWS GovCloud IL5 enclaves, and conflict-free subcontractor Vanguard Orbital Testing LLC assigned 100% of independent verification & validation (IV&V) tasks.",
+            current_and_prior_contracts_portfolio: "Prime Offeror (TechAnax LLC) holds USSF SSC SETA Task Order FA8802-24-F-0091 in Division B (El Segundo, CA) providing enterprise architecture studies. Division A (Colorado Springs, CO) is bidding on FA8802-27-R-0014 with zero personnel overlap, separate Microsoft 365 GCC High / AWS GovCloud IL5 enclaves, and conflict-free subcontractor LinTech Global Inc assigned 100% of independent verification & validation (IV&V) tasks.",
             proposed_bidding_role_and_teaming_structure: "Prime_Offeror"
           }        },
         'product-sbir-sttr-commercialization': {
@@ -19210,7 +19218,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             sbir_sttr_topic_and_rd_specs: "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh & Post-Quantum Telemetry Encryption for Contested C2 Networks). Objective: Develop and demonstrate a low-SWaP, CNSA 2.0 / FIPS 203 ML-KEM compliant zero-trust tactical datalink gateway capable of autonomous key rotation and anti-jamming mesh routing across Denied, Degraded, Intermittent, and Limited (DDIL) airborne and ground nodes.",
-            company_technology_and_ip_baseline: "Aegis Quantum Defense LLC (SBA Small Business, 18 employees, CAGE 9Q4L1) has developed 'Q-MeshCore v2.1' at TRL 4 using internal IR&D funding ($620K). Prior IP includes patented hardware-accelerated lattice KEM key-exchange firmware and an embedded Rust eBPF packet filter benchmarked at 10 Gbps with <180us latency.",
+            company_technology_and_ip_baseline: "CNF Technologies Corporation (SBA Small Business, 18 employees, CAGE 9Q4L1) has developed 'Q-MeshCore v2.1' at TRL 4 using internal IR&D funding ($620K). Prior IP includes patented hardware-accelerated lattice KEM key-exchange firmware and an embedded Rust eBPF packet filter benchmarked at 10 Gbps with <180us latency.",
             target_phase_and_program: "Direct_to_Phase_II_or_Phase_II_Prototype",
             sponsoring_agency: "USAF AFWERX / Space Systems Command (SSC)"
           }

@@ -6,8 +6,16 @@ import json
 import html
 from datetime import datetime, date
 import requests
-from dotenv import load_dotenv
-from supabase import create_client, Client
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*args, **kwargs):
+        return False
+try:
+    from supabase import create_client, Client
+except ImportError:
+    create_client = None
+    Client = object
 
 # Load environment variables
 load_dotenv(dotenv_path=r"D:\Daas\.env")
@@ -1160,15 +1168,18 @@ def _render_layout(
       border-color: #CBD5E1 !important;
       font-weight: 600 !important;
     }}
-    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with subtle slate architectural grid & deep Oxford Navy ink */
+    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with 32px slate architectural hash grid & deep Oxford Navy ink */
     html[data-theme="light"] body {{
       background-color: #F8FAFC !important;
       background-image:
         radial-gradient(ellipse 85% 55% at 50% -10%, rgba(2, 132, 199, 0.05), transparent 70%),
-        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
-      background-size: 100% 100%, 48px 48px, 48px 48px !important;
+        linear-gradient(to right, #1e293b1a 1px, transparent 1px),
+        linear-gradient(to bottom, #1e293b1a 1px, transparent 1px) !important;
+      background-size: 100% 100%, 32px 32px, 32px 32px !important;
       color: #0F172A !important;
+    }}
+    html[data-theme="light"] .bg-\[size\:32px_32px\] {{
+      display: none !important;
     }}
     html[data-theme="light"] .blur-3xl,
     html[data-theme="light"] [class*="blur-[120px]"],
@@ -1224,49 +1235,51 @@ def _render_layout(
       background-color: #FFFFFF !important;
       border-top-color: #CBD5E1 !important;
     }}
-    /* Elevated Cards, Gradient Banners & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
-    html[data-theme="light"] section,
-    html[data-theme="light"] footer {{
+    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers (never full-width sections/main) */
+    html[data-theme="light"] article[id^="product-"],
+    html[data-theme="light"] [class*="bg-navy-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-navy-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button):not(section):not(main) {{
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }}
+    html[data-theme="light"] [class*="bg-navy-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-slate-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-emerald-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-emerald-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-purple-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-violet-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-rose-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-orange-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-lime-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-[#0"]:not(section):not(main):not(body) {{
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }}
+    /* Keep all page-level section and main containers transparent in Light Mode so the 32px architectural hash grid shows through on every page */
+    html[data-theme="light"] section:not(.rounded-2xl):not(.inbound-lead-capture-box),
+    html[data-theme="light"] main {{
       background-color: transparent !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
     }}
     html[data-theme="light"] footer {{
-      background-color: #FFFFFF !important;
-    }}
-    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers */
-    html[data-theme="light"] article[id^="product-"],
-    html[data-theme="light"] [class*="bg-navy-900"],
-    html[data-theme="light"] [class*="bg-navy-800"],
-    html[data-theme="light"] [class*="bg-slate-900"],
-    html[data-theme="light"] [class*="bg-slate-800"],
-    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button) {{
-      background-color: #FFFFFF !important;
-      background-image: none !important;
-      border-color: #CBD5E1 !important;
-    }}
-    html[data-theme="light"] [class*="bg-navy-950"],
-    html[data-theme="light"] [class*="bg-slate-950"],
-    html[data-theme="light"] [class*="bg-emerald-950"],
-    html[data-theme="light"] [class*="bg-emerald-900"],
-    html[data-theme="light"] [class*="bg-indigo-950"],
-    html[data-theme="light"] [class*="bg-indigo-900"],
-    html[data-theme="light"] [class*="bg-sky-950"],
-    html[data-theme="light"] [class*="bg-sky-900"],
-    html[data-theme="light"] [class*="bg-amber-950"],
-    html[data-theme="light"] [class*="bg-amber-900"],
-    html[data-theme="light"] [class*="bg-cyan-950"],
-    html[data-theme="light"] [class*="bg-cyan-900"],
-    html[data-theme="light"] [class*="bg-blue-950"],
-    html[data-theme="light"] [class*="bg-blue-900"],
-    html[data-theme="light"] [class*="bg-teal-950"],
-    html[data-theme="light"] [class*="bg-teal-900"],
-    html[data-theme="light"] [class*="bg-purple-950"],
-    html[data-theme="light"] [class*="bg-violet-950"],
-    html[data-theme="light"] [class*="bg-rose-950"],
-    html[data-theme="light"] [class*="bg-orange-950"],
-    html[data-theme="light"] [class*="bg-lime-950"],
-    html[data-theme="light"] [class*="bg-[#0"] {{
       background-color: #FFFFFF !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
@@ -2745,6 +2758,7 @@ def _render_layout(
       var compName = 'Your Capture Team LLC';
       var ueiCage = 'UEI-PENDING / CAGE-PENDING';
       var wrapRate = 1.82;
+      var capSummary = '';
       try {{
         var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
         if (savedProf) {{
@@ -2752,19 +2766,42 @@ def _render_layout(
           if (pObj.company) compName = pObj.company;
           if (pObj.uei_cage) ueiCage = pObj.uei_cage;
           if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+          if (pObj.capabilities || pObj.company_capability_summary) capSummary = pObj.capabilities || pObj.company_capability_summary;
         }}
+      }} catch (e) {{}}
+      var matchedContract = null;
+      try {{
+        var cPool = window.SIGNALTENDER_CONTRACTS || [];
+        for (var ci = 0; ci < cPool.length; ci++) {{
+          if (cPool[ci] && (cPool[ci].slug === slugVal || cPool[ci].title === titleVal)) {{
+            matchedContract = cPool[ci];
+            break;
+          }}
+        }}
+      }} catch (e) {{}}
+      var domRfpText = '';
+      try {{
+        var mainEl = document.querySelector('main') || document.body;
+        if (mainEl && !matchedContract) domRfpText = String(mainEl.innerText || '').slice(0, 3500);
       }} catch (e) {{}}
       try {{
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{
-            solicitation_title: titleVal || 'Government IT & Cybersecurity Solicitation',
+            solicitation_title: titleVal || (matchedContract && matchedContract.title) || 'Government IT & Cybersecurity Solicitation',
             solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
-            issuing_agency: agencyVal || 'Federal / State SLED Agency',
-            naics_code: String(naicsVal || '541512').split('/')[0].trim(),
-            set_aside: setAsideVal || 'Small Business / SDVOSB',
+            issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
+            naics_code: String(naicsVal || (matchedContract && matchedContract.naics) || '541512').split('/')[0].trim(),
+            set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
+            closing_date: (matchedContract && matchedContract.closing_date) || 'Active Open Window',
+            compliance_posture: (matchedContract && matchedContract.compliance_posture) || '',
+            teaming_posture: (matchedContract && matchedContract.teaming_posture) || '',
+            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || '',
+            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || '',
+            rfp_text: (matchedContract && (matchedContract.rfp_text || matchedContract.compliance_posture)) || domRfpText,
             company_name: compName,
+            company_capability_summary: capSummary,
             uei_cage: ueiCage,
             wrap_rate: wrapRate
           }})
@@ -3734,6 +3771,20 @@ def generate_pseo_site() -> int:
                 key_personnel_lcats = "Engagement Program Manager (PMP/CSM) • Lead Enterprise Systems Architect"
 
             cpars_benchmark = str(d_cached.get("cpars_relevance_benchmark") or "Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)")
+            raw_wt = d_cached.get("win_themes") or []
+            raw_ev = d_cached.get("evidence_needed") or []
+            wt_str = " ".join(re.sub(r"\*\*", "", str(x)) for x in raw_wt[:3]) if isinstance(raw_wt, list) else ""
+            ev_str = " ".join(str(x) for x in raw_ev[:2]) if isinstance(raw_ev, list) else ""
+            rfp_scope_text = str(d_cached.get("scope_summary") or "").strip()
+            if wt_str or ev_str:
+                rfp_scope_text = f"{rfp_scope_text} {wt_str} {ev_str}".strip()
+            if not rfp_scope_text:
+                rfp_scope_text = (
+                    f"Solicitation '{clean_t}' issued by {agency_str} (Due: {due_str or 'Open'}). "
+                    f"Contractor shall deliver {CATEGORIES[cats[0]]['name']} under NAICS {naics_display} ({sba_cap} SBA standard) "
+                    f"in full compliance with {compliance_posture} and {teaming_posture}. "
+                    f"Required Key Personnel: {key_personnel_lcats}. Target Price-to-Win: {igce_ptw_posture}."
+                )
 
             enriched_contracts.append({
                 "id": rec_id,
@@ -3753,6 +3804,7 @@ def generate_pseo_site() -> int:
                 "igce_ptw_posture": igce_ptw_posture,
                 "key_personnel_lcats": key_personnel_lcats,
                 "cpars_benchmark": cpars_benchmark,
+                "rfp_text": rfp_scope_text,
             })
 
         if spam_ids_to_purge and supabase is not None:
@@ -4420,6 +4472,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             "igce_ptw_posture": c["igce_ptw_posture"],
             "key_personnel_lcats": c["key_personnel_lcats"],
             "cpars_benchmark": c["cpars_benchmark"],
+            "rfp_text": c.get("rfp_text", ""),
         })
 
     if not spa_contracts:
@@ -4701,6 +4754,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       var compName = 'Your Capture Team LLC';
       var ueiCage = 'UEI-PENDING / CAGE-PENDING';
       var wrapRate = 1.82;
+      var capSummary = '';
       try {{
         var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
         if (savedProf) {{
@@ -4708,19 +4762,42 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           if (pObj.company) compName = pObj.company;
           if (pObj.uei_cage) ueiCage = pObj.uei_cage;
           if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+          if (pObj.capabilities || pObj.company_capability_summary) capSummary = pObj.capabilities || pObj.company_capability_summary;
         }}
+      }} catch (e) {{}}
+      var matchedContract = null;
+      try {{
+        var cPool = window.SIGNALTENDER_CONTRACTS || [];
+        for (var ci = 0; ci < cPool.length; ci++) {{
+          if (cPool[ci] && (cPool[ci].slug === slugVal || cPool[ci].title === titleVal)) {{
+            matchedContract = cPool[ci];
+            break;
+          }}
+        }}
+      }} catch (e) {{}}
+      var domRfpText = '';
+      try {{
+        var mainEl = document.querySelector('main') || document.body;
+        if (mainEl && !matchedContract) domRfpText = String(mainEl.innerText || '').slice(0, 3500);
       }} catch (e) {{}}
       try {{
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{
-            solicitation_title: titleVal || 'Government IT & Cybersecurity Solicitation',
+            solicitation_title: titleVal || (matchedContract && matchedContract.title) || 'Government IT & Cybersecurity Solicitation',
             solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
-            issuing_agency: agencyVal || 'Federal / State SLED Agency',
-            naics_code: String(naicsVal || '541512').split('/')[0].trim(),
-            set_aside: setAsideVal || 'Small Business / SDVOSB',
+            issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
+            naics_code: String(naicsVal || (matchedContract && matchedContract.naics) || '541512').split('/')[0].trim(),
+            set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
+            closing_date: (matchedContract && matchedContract.closing_date) || 'Active Open Window',
+            compliance_posture: (matchedContract && matchedContract.compliance_posture) || '',
+            teaming_posture: (matchedContract && matchedContract.teaming_posture) || '',
+            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || '',
+            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || '',
+            rfp_text: (matchedContract && (matchedContract.rfp_text || matchedContract.compliance_posture)) || domRfpText,
             company_name: compName,
+            company_capability_summary: capSummary,
             uei_cage: ueiCage,
             wrap_rate: wrapRate
           }})
@@ -5334,8 +5411,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             flags=re.DOTALL,
         )
 
-    with open(index_path, "w", encoding="utf-8") as f:
+    tmp_index_path = f"{index_path}.tmp.{os.getpid()}"
+    with open(tmp_index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
+    os.replace(tmp_index_path, index_path)
 
 
 if __name__ == "__main__":

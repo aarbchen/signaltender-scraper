@@ -622,15 +622,18 @@
       border-color: #CBD5E1 !important;
       font-weight: 600 !important;
     }
-    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with subtle slate architectural grid & deep Oxford Navy ink */
+    /* Page Canvas -> Crisp Alabaster (#F8FAFC) with 32px slate architectural hash grid & deep Oxford Navy ink */
     html[data-theme="light"] body {
       background-color: #F8FAFC !important;
       background-image:
         radial-gradient(ellipse 85% 55% at 50% -10%, rgba(2, 132, 199, 0.05), transparent 70%),
-        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
-      background-size: 100% 100%, 48px 48px, 48px 48px !important;
+        linear-gradient(to right, #1e293b1a 1px, transparent 1px),
+        linear-gradient(to bottom, #1e293b1a 1px, transparent 1px) !important;
+      background-size: 100% 100%, 32px 32px, 32px 32px !important;
       color: #0F172A !important;
+    }
+    html[data-theme="light"] .bg-\[size\:32px_32px\] {
+      display: none !important;
     }
     html[data-theme="light"] .blur-3xl,
     html[data-theme="light"] [class*="blur-[120px]"],
@@ -686,49 +689,51 @@
       background-color: #FFFFFF !important;
       border-top-color: #CBD5E1 !important;
     }
-    /* Elevated Cards, Gradient Banners & Surfaces -> Pure White (#FFFFFF) & Crisp Alabaster (#F8FAFC) */
-    html[data-theme="light"] section,
-    html[data-theme="light"] footer {
+    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers (never full-width sections/main) */
+    html[data-theme="light"] article[id^="product-"],
+    html[data-theme="light"] [class*="bg-navy-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-navy-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-slate-800"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button):not(section):not(main) {
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }
+    html[data-theme="light"] [class*="bg-navy-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-slate-950"]:not(section):not(main):not(body),
+    html[data-theme="light"] [class*="bg-emerald-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-emerald-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-indigo-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-sky-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-amber-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-cyan-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-blue-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-teal-900"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-purple-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-violet-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-rose-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-orange-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-lime-950"]:not(section):not(main),
+    html[data-theme="light"] [class*="bg-[#0"]:not(section):not(main):not(body) {
+      background-color: #FFFFFF !important;
+      background-image: none !important;
+      border-color: #CBD5E1 !important;
+    }
+    /* Keep all page-level section and main containers transparent in Light Mode so the 32px architectural hash grid shows through on every page */
+    html[data-theme="light"] section:not(.rounded-2xl):not(.inbound-lead-capture-box),
+    html[data-theme="light"] main {
       background-color: transparent !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
     }
     html[data-theme="light"] footer {
-      background-color: #FFFFFF !important;
-    }
-    /* Neutralize ALL dark Tailwind background classes AND dark linear-gradients on cards/containers */
-    html[data-theme="light"] article[id^="product-"],
-    html[data-theme="light"] [class*="bg-navy-900"],
-    html[data-theme="light"] [class*="bg-navy-800"],
-    html[data-theme="light"] [class*="bg-slate-900"],
-    html[data-theme="light"] [class*="bg-slate-800"],
-    html[data-theme="light"] [class*="bg-gradient-to-"]:not(.bg-clip-text):not(a):not(button) {
-      background-color: #FFFFFF !important;
-      background-image: none !important;
-      border-color: #CBD5E1 !important;
-    }
-    html[data-theme="light"] [class*="bg-navy-950"],
-    html[data-theme="light"] [class*="bg-slate-950"],
-    html[data-theme="light"] [class*="bg-emerald-950"],
-    html[data-theme="light"] [class*="bg-emerald-900"],
-    html[data-theme="light"] [class*="bg-indigo-950"],
-    html[data-theme="light"] [class*="bg-indigo-900"],
-    html[data-theme="light"] [class*="bg-sky-950"],
-    html[data-theme="light"] [class*="bg-sky-900"],
-    html[data-theme="light"] [class*="bg-amber-950"],
-    html[data-theme="light"] [class*="bg-amber-900"],
-    html[data-theme="light"] [class*="bg-cyan-950"],
-    html[data-theme="light"] [class*="bg-cyan-900"],
-    html[data-theme="light"] [class*="bg-blue-950"],
-    html[data-theme="light"] [class*="bg-blue-900"],
-    html[data-theme="light"] [class*="bg-teal-950"],
-    html[data-theme="light"] [class*="bg-teal-900"],
-    html[data-theme="light"] [class*="bg-purple-950"],
-    html[data-theme="light"] [class*="bg-violet-950"],
-    html[data-theme="light"] [class*="bg-rose-950"],
-    html[data-theme="light"] [class*="bg-orange-950"],
-    html[data-theme="light"] [class*="bg-lime-950"],
-    html[data-theme="light"] [class*="bg-[#0"] {
       background-color: #FFFFFF !important;
       background-image: none !important;
       border-color: #CBD5E1 !important;
