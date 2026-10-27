@@ -1,34 +1,34 @@
 {
-  "updated_at": "2026-10-27T03:45:20+00:00",
-  "total_verified_mx_contacts": 304,
-  "not_catchall_priority_tier_count": 304,
+  "updated_at": "2026-10-27T07:47:21+00:00",
+  "total_verified_mx_contacts": 317,
+  "not_catchall_priority_tier_count": 317,
   "catchall_secondary_tier_count": 0,
   "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 74,
-  "verified_usaspending_award_profiles_count": 209,
+  "added_website_harvested_govcon_contacts": 0,
+  "verified_usaspending_award_profiles_count": 212,
   "expiring_recompete_wire_count": 15,
   "fresh_prime_subcontract_wire_count": 12,
   "state_distribution": {
-    "California": 79,
-    "Florida": 10,
+    "California": 81,
+    "Florida": 11,
     "Georgia": 4,
     "Illinois": 17,
     "Maryland": 12,
     "Massachusetts": 27,
-    "Michigan": 5,
+    "Michigan": 6,
     "New Jersey": 4,
-    "New York": 22,
-    "North Carolina": 6,
+    "New York": 24,
+    "North Carolina": 7,
     "Ohio": 14,
     "Pennsylvania": 14,
-    "Texas": 21,
-    "Virginia": 62,
+    "Texas": 23,
+    "Virginia": 66,
     "Washington": 7
   },
   "usaspending_naics_541512_top_recipients": [
     {
-      "amount": 7336650539.54,
+      "amount": 7347325873.39,
       "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
       "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
       "code": "067641597",
@@ -36,7 +36,7 @@
       "total_outlays": null
     },
     {
-      "amount": 6932546531.4,
+      "amount": 7008385212.09,
       "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
       "name": "ACCENTURE FEDERAL SERVICES LLC",
       "code": "139727148",
@@ -44,7 +44,7 @@
       "total_outlays": null
     },
     {
-      "amount": 5761088578.5,
+      "amount": 5836823998.18,
       "recipient_id": "ffca72e5-fba2-798a-6969-2a6c45e9f985-C",
       "name": "BOOZ ALLEN HAMILTON INC",
       "code": "006928857",
@@ -60,15 +60,7 @@
       "total_outlays": null
     },
     {
-      "amount": 3479127258.62,
-      "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
-      "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
-      "code": "078883327",
-      "uei": "MMLKPW9JLX64",
-      "total_outlays": null
-    },
-    {
-      "amount": 3357991960.92,
+      "amount": 3608250936.57,
       "recipient_id": "28eee911-76af-7147-f760-4ec5f90bec2d-C",
       "name": "CACI, INC. - FEDERAL",
       "code": "114896066",
@@ -76,7 +68,15 @@
       "total_outlays": null
     },
     {
-      "amount": 2765284991.41,
+      "amount": 3496982099.62,
+      "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
+      "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+      "code": "078883327",
+      "uei": "MMLKPW9JLX64",
+      "total_outlays": null
+    },
+    {
+      "amount": 2791833589.55,
       "recipient_id": "92663aec-4451-0476-502b-d8c6919e98e0-C",
       "name": "DELOITTE CONSULTING LLP",
       "code": "019121586",
@@ -84,7 +84,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2719467509.98,
+      "amount": 2719470393.48,
       "recipient_id": "129fccb1-783c-9fd1-7b6d-6ddea65ace79-C",
       "name": "PERATON INC.",
       "code": "602938771",
@@ -92,7 +92,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2259487563.94,
+      "amount": 2285552215.02,
       "recipient_id": "dbceb126-f729-60e7-d55a-ba235f519653-C",
       "name": "THUNDERCAT TECHNOLOGY, LLC",
       "code": "809887164",
@@ -100,7 +100,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2252253727.11,
+      "amount": 2260768313.85,
       "recipient_id": "2a4d3db7-e268-7b36-3610-c75337f0b7e1-C",
       "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
       "code": "089896737",
@@ -108,7 +108,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2127183301.97,
+      "amount": 2127322611.79,
       "recipient_id": "333909ba-42cf-a1ce-3959-1ede2882d7f6-C",
       "name": "PERATON ENTERPRISE SOLUTIONS LLC",
       "code": "077817617",
@@ -124,7 +124,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2026834755.04,
+      "amount": 2050564066.55,
       "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
       "name": "FCN, INC.",
       "code": "615378007",
@@ -140,6 +140,14 @@
       "total_outlays": null
     },
     {
+      "amount": 1980018894.29,
+      "recipient_id": "d46ad2a7-ed19-9535-4f24-787705845610-C",
+      "name": "V3GATE, LLC",
+      "code": "808862598",
+      "uei": "J4KHM5JY79E3",
+      "total_outlays": null
+    },
+    {
       "amount": 1843306178.59,
       "recipient_id": "30b32b62-ffbf-d7e6-5b9d-95a295b95a6d-C",
       "name": "BOOZ ALLEN HAMILTON INC",
@@ -148,7 +156,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1471654957.48,
+      "amount": 1484150747.92,
       "recipient_id": "625ff1da-e9a2-cbdc-c8b3-fdd521fd1efc-C",
       "name": "MINBURN TECHNOLOGY GROUP, LLC",
       "code": "965431815",
@@ -164,7 +172,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1188878043.92,
+      "amount": 1193054084.88,
       "recipient_id": "49aa319d-7bfb-ef1b-d43e-e82eed09d3bf-C",
       "name": "CACI NSS, LLC",
       "code": "080175220",
@@ -172,19 +180,11 @@
       "total_outlays": null
     },
     {
-      "amount": 1159633571.82,
+      "amount": 1165439060.96,
       "recipient_id": "6ffc4386-853e-ef89-67e8-22c28ddcf15c-C",
       "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
       "code": "835130485",
       "uei": "VV9KH3L99VE3",
-      "total_outlays": null
-    },
-    {
-      "amount": 1130365520.14,
-      "recipient_id": "11a97fdb-cb3b-16d2-aa67-a0f7b265b4ae-C",
-      "name": "PALANTIR USG INC",
-      "code": "825284321",
-      "uei": "HNN4F9JZWDY8",
       "total_outlays": null
     }
   ],
@@ -3532,6 +3532,54 @@
       "is_active": true,
       "description": "OPTOELECTRONIC SYNAPSE-BASED PHYSICAL RESERVOIR IMAGER (OSPRI)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_FA864925P0251_9700_-NONE-_-NONE-"
+    },
+    "DIAMONDAGETECHNOLOGY": {
+      "company_name": "Diamond Age Technology",
+      "matched_recipient_name": "DIAMOND AGE TECHNOLOGY LLC",
+      "award_id": "6913G625P800037",
+      "award_amount": 206449.88,
+      "award_amount_fmt": "$206K",
+      "award_amount_clean": "USD 206K",
+      "awarding_agency": "Department of Transportation",
+      "awarding_sub_agency": "Department of Transportation (DOT)",
+      "awarding_sub_agency_short": "DOT",
+      "start_date": "2025-08-21",
+      "end_date": "2026-02-20",
+      "is_active": false,
+      "description": "DIAMOND AGE TECHNOLOGY LLC FY25 SBIR PHASE I AWARD UNDER TOPIC 25-FM1: LIDAR-BASED TIRE INSPECTION AND SBIR TECHNICAL AND BUSINESS ASSISTANCE (TABA) SERVICES.",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_6913G625P800037_6901_-NONE-_-NONE-"
+    },
+    "UNINET": {
+      "company_name": "Uninet",
+      "matched_recipient_name": "UNINET LLC",
+      "award_id": "N6523623C1006",
+      "award_amount": 1499598.0,
+      "award_amount_fmt": "$1.5M",
+      "award_amount_clean": "USD 1.5M",
+      "awarding_agency": "Department of Defense",
+      "awarding_sub_agency": "U.S. Department of the Navy",
+      "awarding_sub_agency_short": "U.S. Navy",
+      "start_date": "2023-03-31",
+      "end_date": "2024-03-28",
+      "is_active": false,
+      "description": "OVERSIGHT PROGRAM SUPPORT",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_N6523623C1006_9700_-NONE-_-NONE-"
+    },
+    "AQUAVEO": {
+      "company_name": "Aquaveo",
+      "matched_recipient_name": "AQUAVEO LLC",
+      "award_id": "W912HZ24F0336",
+      "award_amount": 1287597.0,
+      "award_amount_fmt": "$1.29M",
+      "award_amount_clean": "USD 1.29M",
+      "awarding_agency": "Department of Defense",
+      "awarding_sub_agency": "U.S. Department of the Army",
+      "awarding_sub_agency_short": "U.S. Army",
+      "start_date": "2024-08-30",
+      "end_date": "2027-01-02",
+      "is_active": true,
+      "description": "FEATURE UPDATES AND RESTRUCTURING OF SURFACE WATER MODELING SYSTEM (SMS), GROUNDWATER MODELING SYSTEM (GMS), AND WATERSHED MODELING SYSTEM (WMS)",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_W912HZ24F0336_9700_W912HZ21D0003_9700"
     }
   },
   "expiring_recompete_wire": [

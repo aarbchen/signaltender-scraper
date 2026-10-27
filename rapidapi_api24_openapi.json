@@ -1,0 +1,58 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
+    "version": "1.0.0",
+    "description": "Audits software, SaaS, mobile, and document deliverables against Revised Section 508 (36 CFR Part 1194), WCAG 2.2 Level A/AA, and state digital accessibility mandates (CO HB 21-1110, CA Gov Code 7405, TX TAC 206, IL IITAA 2.1) to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table, remediation engineering roadmap, and Section L/M proposal conformance narrative."
+  },
+  "servers": [
+    {
+      "url": "https://govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/section-508-vpat": {
+      "post": {
+        "operationId": "auditSection508Vpat",
+        "summary": "Audit Software & Generate VPAT 2.5 Accessibility Conformance Report (ACR)",
+        "description": "Generates a complete VPAT 2.5 Section 508 / WCAG 2.2 AA Accessibility Conformance Report (ACR) table, remediation milestones, and proposal narrative.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "product_architecture_and_ui_description"
+                ],
+                "properties": {
+                  "product_architecture_and_ui_description": {
+                    "type": "string",
+                    "description": "Product name, version, UI components, authentication flows, and ICT delivery model."
+                  },
+                  "known_accessibility_test_results_or_gaps": {
+                    "type": "string",
+                    "description": "Known Axe/Lighthouse/screen-reader audit results or UI accessibility gaps."
+                  },
+                  "target_accessibility_standard": {
+                    "type": "string",
+                    "default": "Revised_Section_508_And_WCAG_2_2_AA"
+                  },
+                  "solicitation_accessibility_clauses": {
+                    "type": "string",
+                    "default": "36 CFR Part 1194 (Revised Section 508) & WCAG 2.2 Level AA"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete VPAT 2.5 Accessibility Conformance Report (ACR) & Remediation Roadmap"
+          }
+        }
+      }
+    }
+  }
+}

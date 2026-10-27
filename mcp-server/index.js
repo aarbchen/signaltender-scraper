@@ -44,7 +44,8 @@ const RAPIDAPI_HOSTS = {
   generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
   generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
   generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
-  generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com"
+  generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
+  audit_section_508_vpat: "govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -256,7 +257,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 17-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 18-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -286,9 +287,10 @@ const TOOLS = [
             "new_jersey",
             "washington",
             "michigan",
+            "colorado",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1817,7 +1819,8 @@ const ENDPOINT_MAP = {
   generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" },
   generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" },
   generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" },
-  generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" }
+  generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" },
+  audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -1923,7 +1926,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.9.0"
+            version: "1.10.0"
           }
         }
       });

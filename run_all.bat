@@ -4,11 +4,11 @@ call daas_env\Scripts\activate.bat
 
 echo ========================================================
 echo    SignalTender DaaS Master Orchestrator - Initializing
-echo    (SAM.gov + DemandStar + TX + VA + CA + FL + MD + IL + PA + OH + GA + NC + NY + MA + NJ + WA + MI)
+echo    (SAM.gov + DemandStar + TX + VA + CA + FL + MD + IL + PA + OH + GA + NC + NY + MA + NJ + WA + MI + CO)
 echo ========================================================
 echo.
 
-echo [*] Running Unified 17-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
+echo [*] Running Unified 18-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
 python mainscraper.py >> D:\Daas\error_log.txt 2>&1
 
 echo [*] Ensuring Programmatic SEO Static Pages and Sitemap are up to date...

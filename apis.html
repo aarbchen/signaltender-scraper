@@ -1474,7 +1474,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">23 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">24 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -1491,7 +1491,7 @@
                   data-lpignore="true"
                   data-1p-ignore="true"
                   data-form-type="other"
-                  placeholder="Search 23 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
+                  placeholder="Search 24 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
                 />
@@ -1507,9 +1507,9 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (23)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (24)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
-                <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (4)</button>
+                <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (5)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (4)</button>
                 <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (7)</button>
               </div>
@@ -1570,7 +1570,7 @@
                   <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">04</span>
                   <div class="min-w-0">
                     <div class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors truncate">Live SLED &amp; Federal Open RFP Feed API</div>
-                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 17-Portal AI-Vetted Open IT/Cyber Solicitations</div>
+                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 18-Portal AI-Vetted Open IT/Cyber Solicitations</div>
                   </div>
                 </div>
                 <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
@@ -1896,6 +1896,23 @@
                   <span class="text-indigo-400">&darr;</span>
                 </div>
               </a>
+              <!-- Directory Row 24 -->
+              <a href="#product-section-508-vpat" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold shrink-0">24</span>
+                  <div class="min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-white font-sans font-semibold group-hover:text-emerald-300 transition-colors">GovCon Section 508, WCAG 2.2 AA &amp; VPAT 2.5 Accessibility Conformance API</span>
+                      <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold shrink-0">New</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">POST /v1/audit/section-508-vpat &bull; Revised Section 508 (36 CFR 1194), WCAG 2.2 AA &amp; VPAT 2.5 ACR Table</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                  <span class="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 text-[11px]">$0 &ndash; $399/mo</span>
+                  <span class="text-emerald-400">&darr;</span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -1932,7 +1949,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">23 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">24 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -1947,7 +1964,7 @@
   }
 }</code></pre>
               <div class="text-[11px] text-slate-400">
-                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> , <span class="text-slate-200">generate_gsa_mas_offer</span> , <span class="text-slate-200">generate_sources_sought_response</span> , <span class="text-slate-200">generate_oci_mitigation_plan</span> &amp; <span class="text-slate-200">generate_sbir_sttr_commercialization</span>.
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> , <span class="text-slate-200">generate_gsa_mas_offer</span> , <span class="text-slate-200">generate_sources_sought_response</span> , <span class="text-slate-200">generate_oci_mitigation_plan</span> , <span class="text-slate-200">generate_sbir_sttr_commercialization</span> &amp; <span class="text-slate-200">audit_section_508_vpat</span>.
               </div>
             </div>
           </div>
@@ -2033,10 +2050,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">23 / 23 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">24 / 24 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (23)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (24)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -2629,7 +2646,7 @@
                 Live SLED &amp; Federal Open RFP Feed API
               </h2>
               <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
-                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">17 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, and MI SIGMA) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
+                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">18 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA, and CO VSS) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
               </p>
 
               <!-- Product-Specific Features Grid -->
@@ -2637,8 +2654,8 @@
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
                   <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
                   <div>
-                    <div class="font-semibold text-white">17-Portal Unified REST Feed</div>
-                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, and MI in one schema.</div>
+                    <div class="font-semibold text-white">18-Portal Unified REST Feed</div>
+                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, and CO in one schema.</div>
                   </div>
                 </div>
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
@@ -2731,7 +2748,7 @@
               <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
                 <pre class="text-slate-300"><code>{
   <span class="text-sky-400">"total_count"</span>: <span class="text-cyan-300">2</span>,
-  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">17</span>,
+  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">18</span>,
   <span class="text-sky-400">"solicitations"</span>: [
     {
       <span class="text-sky-400">"solicitation_id"</span>: <span class="text-slate-100">"230"</span>,
@@ -6089,6 +6106,183 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT MODULE 24: GOVCON SECTION 508, WCAG 2.2 AA & VPAT 2.5 ACCESSIBILITY CONFORMANCE API
+           ================================================================= -->
+      <article id="product-section-508-vpat" class="rounded-2xl bg-navy-950 border-2 border-emerald-500/50 overflow-hidden shadow-2xl shadow-emerald-950/20">
+
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-gradient-to-r from-slate-900 via-emerald-950/50 to-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold">
+              API 24 // SECTION 508, WCAG 2.2 AA &amp; VPAT 2.5
+            </span>
+            <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono">
+              POST /v1/audit/section-508-vpat
+            </span>
+            <span class="px-2 py-0.5 rounded bg-emerald-400 text-navy-950 text-[10px] font-mono font-bold uppercase">
+              36 CFR 1194 &bull; VPAT 2.5 ACR
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-section-508-vpat')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-200 transition-colors whitespace-nowrap"
+            >
+              Playground &nearr;
+            </a>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-xs font-mono font-bold text-navy-950 shadow-md shadow-emerald-950/50 transition-colors whitespace-nowrap"
+            >
+              Subscribe ($0 &ndash; $399/mo) &nearr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Main Content Grid: 7 Cols Specs + 5 Cols Response Preview -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+          <!-- Left 7 Cols: Overview, Capabilities & 4-Tier Pricing Cards -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                GovCon Section 508, WCAG 2.2 AA &amp; VPAT 2.5 Accessibility Conformance API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                Audits software, SaaS platforms, web applications, mobile apps, and electronic document deliverables against <span class="text-emerald-300 font-mono">Revised Section 508 (36 CFR Part 1194)</span>, <span class="text-sky-300 font-mono">WCAG 2.2 Level A &amp; AA</span>, and State SLED digital accessibility laws (<span class="text-amber-300 font-mono">Colorado HB 21-1110, California Gov Code 7405, Texas TAC 206, Illinois IITAA 2.1</span>) to generate a complete <span class="text-white font-semibold">VPAT 2.5 Accessibility Conformance Report (ACR) table, engineering remediation roadmap, EEAAP, and Section L/M proposal narrative</span>.
+              </p>
+            </div>
+
+            <!-- 4 Core Capability Pillars -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-navy-900/80 border border-slate-800">
+                <div class="font-mono text-emerald-300 font-semibold">1. VPAT 2.5 ACR Conformance Table</div>
+                <p class="mt-1 text-slate-400 leading-relaxed">
+                  Evaluates WCAG 2.2 Level A/AA (1.1.1, 1.4.3, 1.4.11, 2.1.1, 2.4.11, 2.5.8, 3.3.8, 4.1.2) and Revised Section 508 Chapters 3, 5 &amp; 6 with exact Conformance Levels and Remarks.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-navy-900/80 border border-slate-800">
+                <div class="font-mono text-sky-400 font-semibold">2. Engineering Remediation Roadmap</div>
+                <p class="mt-1 text-slate-400 leading-relaxed">
+                  Maps Partially Supports and Does Not Support gaps to ARIA, keyboard focus, contrast, 24x24px target size, and PDF/UA tagging fixes with estimated engineering hours.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-navy-900/80 border border-slate-800">
+                <div class="font-mono text-amber-300 font-semibold">3. Agency EEAAP Workaround Plan</div>
+                <p class="mt-1 text-slate-400 leading-relaxed">
+                  Generates an Equally Effective Alternate Access Plan (EEAAP) for agency Section 508 Program Managers covering interim accessibility accommodations.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-navy-900/80 border border-slate-800">
+                <div class="font-mono text-indigo-300 font-semibold">4. Federal &amp; State SLED Mandates</div>
+                <p class="mt-1 text-slate-400 leading-relaxed">
+                  Covers federal 36 CFR Part 1194, Colorado HB 21-1110 (OIT 8 CCR 1501-11), CA Gov Code 7405, TX 1 TAC 206/213, IL IITAA 2.1, and EU EN 301 549.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4-Tier RapidAPI Pricing Strip -->
+            <div>
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-2">
+                <span>RAPIDAPI SUBSCRIPTION TIERS // SECTION 508 &amp; VPAT 2.5 API</span>
+                <span class="text-emerald-300">Instant Key Activation</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs font-mono">
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800">
+                  <div class="text-[10px] text-slate-400">BASIC (FREE)</div>
+                  <div class="text-lg font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">10 req / mo</div>
+                  <div class="text-[10px] text-emerald-400 mt-0.5">Hard Limit &bull; 10/hr</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800">
+                  <div class="text-[10px] text-emerald-300">PRO</div>
+                  <div class="text-lg font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">+$0.25 / extra</div>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-950/30 border-2 border-emerald-500/60 relative">
+                  <span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded bg-emerald-400 text-navy-950 text-[9px] font-bold uppercase">Popular</span>
+                  <div class="text-[10px] text-emerald-300 font-bold">ULTRA</div>
+                  <div class="text-lg font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                  <div class="text-[10px] text-emerald-300 mt-0.5">+$0.15 / extra</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-900 border border-slate-800">
+                  <div class="text-[10px] text-amber-300">MEGA</div>
+                  <div class="text-lg font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">+$0.10 / extra</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Request & Response Code Terminal (Zero Inner Scrollbar) -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-900 border border-slate-800 overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-[11px] font-mono">
+                <span class="text-emerald-300 font-semibold">POST /v1/audit/section-508-vpat</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">200 OK &bull; JSON</span>
+              </div>
+              <div class="p-4 border-b border-slate-800/80 font-mono text-[11px] text-slate-300">
+                <pre class="whitespace-pre-wrap break-words leading-relaxed">curl --request POST \
+  --url 'https://govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com/v1/audit/section-508-vpat' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --header 'X-RapidAPI-Host: govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com' \
+  --header 'Content-Type: application/json' \
+  --data '{"product_architecture_and_ui_description":"Aegis CloudOps Portal v4.2 React/TypeScript SaaS dashboard with D3 topology canvas, ARIA tables, PIV SSO, and PDF exports...","target_accessibility_standard":"Revised_Section_508_And_WCAG_2_2_AA"}'</pre>
+              </div>
+              <div class="p-4 font-mono text-[11px] text-emerald-300">
+                <pre class="whitespace-pre-wrap break-words leading-relaxed">{
+  "vpat_edition_and_applicable_standards": "VPAT 2.5 Revised Section 508 Edition (36 CFR Part 1194 + WCAG 2.2 Level A & AA + Colorado HB 21-1110)",
+  "accessibility_conformance_score": 88,
+  "vpat_conformance_table": [
+    {
+      "criterion_id": "WCAG 2.2 1.4.11 / 508 501.1",
+      "criterion_title": "Non-text Contrast & Interactive Topology Nodes",
+      "standard_level": "Level AA / Section 508 Ch. 5",
+      "conformance_level": "Partially Supports",
+      "remarks_and_explanations": "ARIA data tables and forms meet 4.5:1 text and 3:1 UI contrast; D3 canvas topology graph requires accessible keyboard/table view toggle."
+    }
+  ],
+  "remediation_roadmap": [
+    {
+      "gap_id": "REM-508-01",
+      "criterion_reference": "WCAG 2.2 2.1.1 & 2.5.8 (Target Size 24x24px)",
+      "priority_tier": "P1_Critical_Blocker",
+      "estimated_engineering_hours": 24
+    }
+  ]
+}</pre>
+              </div>
+              <div class="px-4 py-2.5 bg-slate-900 border-t border-slate-800 text-[10px] font-mono text-slate-400">
+                <div class="text-slate-300 font-semibold mb-1">Full Response Schema Fields Returned:</div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-emerald-300">vpat_conformance_table[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-sky-300">remediation_roadmap[]</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-amber-300">equally_effective_alternate_access_plan</span>
+                  <span class="px-2 py-0.5 rounded bg-navy-950 border border-slate-800 text-indigo-300">ready_to_submit_vpat_acr_narrative</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -6263,7 +6457,7 @@
                     <span class="font-sans font-bold text-sm text-white">Live SLED &amp; Federal Open RFP Feed API</span>
                   </div>
                   <div class="text-cyan-300 text-[11px] mt-0.5">GET /v1/solicitations/live</div>
-                  <div class="font-sans text-[11px] text-slate-400 mt-1">17-Portal Filtered IT &amp; Cyber RFPs</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">18-Portal Filtered IT &amp; Cyber RFPs</div>
                 </td>
                 <td class="py-5 px-4">
                   <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
@@ -7102,6 +7296,51 @@
                 </td>
               </tr>
 
+              <!-- Matrix Row 24: GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API -->
+              <tr class="hover:bg-navy-900/60 transition-colors bg-emerald-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">24</span>
+                    <a href="#product-section-508-vpat" class="text-sm font-sans font-bold text-white hover:text-emerald-400 transition-colors">
+                      GovCon Section 508, WCAG 2.2 AA &amp; VPAT 2.5 Accessibility Conformance API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-emerald-300 text-[11px]">POST /v1/audit/section-508-vpat</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">Revised Section 508 (36 CFR 1194), WCAG 2.2 AA, VPAT 2.5 ACR Table, EEAAP &amp; Remediation Roadmap</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-emerald-500/5 border-x border-emerald-500/20">
+                  <div class="text-base font-extrabold text-emerald-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-emerald-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -7159,10 +7398,10 @@
             // TURNKEY CAPTURE ALERTS &bull; NO CODING REQUIRED
           </div>
           <h3 class="text-xl font-bold text-white">
-            Want Live Federal, Municipal &amp; 15-State SLED Contract Alerts Without Writing Code?
+            Want Live Federal, Municipal &amp; 16-State SLED Contract Alerts Without Writing Code?
           </h3>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
-            Our <strong class="text-slate-200">All-Access Discord Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, Massachusetts COMMBUYS &amp; Boston, New Jersey NJSTART &amp; Treasury DPP, Washington WEBS &amp; WaTech DES, and Michigan SIGMA VSS &amp; DTMB IT &amp; cybersecurity opportunities straight to your team.
+            Our <strong class="text-slate-200">All-Access Discord Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, Massachusetts COMMBUYS &amp; Boston, New Jersey NJSTART &amp; Treasury DPP, Washington WEBS &amp; WaTech DES, Michigan SIGMA VSS &amp; DTMB, and Colorado VSS &amp; OIT IT &amp; cybersecurity opportunities straight to your team.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-3 shrink-0">
@@ -7315,6 +7554,7 @@
           <li><a href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Sources Sought &amp; RFI Set-Aside Shaping API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">OCI &amp; FAR 9.5 Mitigation Plan API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SBIR / STTR Commercialization Plan API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Section 508, WCAG 2.2 &amp; VPAT 2.5 API &nearr;</a></li>
         </ul>
       </div>
 
@@ -7615,14 +7855,14 @@
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (23)</span>
+              <span>SELECT MICROSERVICE (24)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
               <input
                 id="sandbox-sidebar-search"
                 type="text"
-                placeholder="Filter 23 endpoints..."
+                placeholder="Filter 24 endpoints..."
                 oninput="window.filterSandboxSidebar(this.value)"
                 class="w-full px-2.5 py-1.5 rounded-lg bg-navy-950 border border-slate-800 focus:border-sky-500 focus:outline-none text-[11px] font-mono text-white placeholder-slate-500"
               />
@@ -8182,6 +8422,22 @@
             company_technology_and_ip_baseline: "CNF Technologies Corporation (SBA Small Business, 18 employees, CAGE 9Q4L1) has developed 'Q-MeshCore v2.1' at TRL 4 using internal IR&D funding ($620K). Prior IP includes patented hardware-accelerated lattice KEM key-exchange firmware and an embedded Rust eBPF packet filter benchmarked at 10 Gbps with <180us latency.",
             target_phase_and_program: "Direct_to_Phase_II_or_Phase_II_Prototype",
             sponsoring_agency: "USAF AFWERX / Space Systems Command (SSC)"
+          }        },
+        'product-section-508-vpat': {
+          num: '24',
+          id: 'product-section-508-vpat',
+          title: 'GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API',
+          method: 'POST',
+          path: '/v1/audit/section-508-vpat',
+          host: 'govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            product_architecture_and_ui_description: "Aegis CloudOps Portal v4.2 is a multi-tenant React 18 / TypeScript web application and REST API dashboard deployed on AWS GovCloud (US-East) for federal SOC analysts. Features include interactive D3/Canvas network topology graphs, keyboard-navigable ARIA data tables, SSO/PIV authentication flows, automated PDF/CSV compliance report exports, and embedded video training modules with WebVTT closed captions.",
+            known_accessibility_test_results_or_gaps: "Automated Axe-core 4.9 and Lighthouse audits pass 94% of WCAG 2.1/2.2 Level A/AA rules. Known gaps: (1) Network topology force-directed canvas graph lacks full screen-reader node traversal and 24x24px target size spacing; (2) Legacy PDF export engine omits tagged document structure (PDF/UA) on multi-page charts; (3) Session timeout modal requires keyboard focus trap refinement.",
+            target_accessibility_standard: "Revised_Section_508_And_WCAG_2_2_AA",
+            solicitation_accessibility_clauses: "36 CFR Part 1194 (Revised Section 508), WCAG 2.2 Level AA, Colorado HB 21-1110 (OIT 8 CCR 1501-11)"
           }
         }
       };
@@ -8702,7 +8958,7 @@
         'product-contract-parsing': { cat: 'rfp', kw: '01 b2b contract parsing rfp sow extraction json deliverables ceiling deadline /v1/parse/contract' },
         'product-risk-auditor': { cat: 'compliance', kw: '02 ai contract risk redline auditor legal indemnification liability termination /v1/parse/contract-risks' },
         'product-historical-pricing': { cat: 'pricing', kw: '03 historical procurement pricing sam.gov federal awards clin labor rates incumbent /v1/awards/search /v1/awards/contractor' },
-        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys new jersey njstart washington webs watech michigan sigma dtmb /v1/solicitations/live' },
+        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys new jersey njstart washington webs watech michigan sigma dtmb colorado vss oit /v1/solicitations/live' },
         'product-compliance-matrix': { cat: 'rfp', kw: '05 rfp compliance matrix proposal outline shipley section l section m shall must checklist /v1/generate/compliance-matrix' },
         'product-far-dfars-scanner': { cat: 'compliance', kw: '06 far dfars cmmc clause risk scanner dod flow-downs cas nist 800-171 cui /v1/audit/far-dfars-clauses' },
         'product-capability-matcher': { cat: 'capture', kw: '07 ai bid no-bid capability matcher pwin score gap analysis past performance /v1/match/capability-statement' },
@@ -8721,7 +8977,8 @@
         'product-gsa-mas-offer': { cat: 'pricing', kw: '20 govcon gsa mas schedule sin mapper prc compliance 54151s 54151hacs 518210c 0.75% iff rate card gsar 552.238-81 csp-1 tdr scp-fss-001 /v1/generate/gsa-mas-offer' },
         'product-sources-sought-response': { cat: 'capture', kw: '21 govcon sources sought rfi set-aside shaping responder far part 10 far 19.502-2 rule of two 8a sdvosb wosb hubzone naics psc market research /v1/generate/sources-sought-response' },
         'product-oci-mitigation-plan': { cat: 'compliance', kw: '22 govcon organizational conflict of interest oci far 9.5 mitigation plan unequal access to information biased ground rules impaired objectivity seta firewall dfars 252.209-7008 /v1/generate/oci-mitigation-plan' },
-        'product-sbir-sttr-commercialization': { cat: 'capture', kw: '23 sbir sttr phase i ii iii technical volume commercialization plan afwerx spacewerx dod nsf nasa trl 1-9 dfars 252.227-7018 data rights 15 usc 638 /v1/generate/sbir-sttr-commercialization' }
+        'product-sbir-sttr-commercialization': { cat: 'capture', kw: '23 sbir sttr phase i ii iii technical volume commercialization plan afwerx spacewerx dod nsf nasa trl 1-9 dfars 252.227-7018 data rights 15 usc 638 /v1/generate/sbir-sttr-commercialization' },
+        'product-section-508-vpat': { cat: 'compliance', kw: '24 govcon section 508 wcag 2.2 aa vpat 2.5 accessibility conformance report acr 36 cfr 1194 eeaap colorado hb 21-1110 remediation roadmap /v1/audit/section-508-vpat' }
       };
 
       var currentApiQuery = '';
@@ -8923,8 +9180,8 @@
         }
         var stepMeta = {
           wire: {
-            title: 'Stage 1: 6-Hour Federal & 15-State SLED Solicitation Wire (Tier 1)',
-            desc: 'Automated discovery across 16 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
+            title: 'Stage 1: 6-Hour Federal & 16-State SLED Solicitation Wire (Tier 1)',
+            desc: 'Automated discovery across 18 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
             nextTab: 'dossiers',
             nextLabel: 'Explore 21-API Capture Dossiers ->'
           },
@@ -8938,17 +9195,17 @@
             title: 'Stage 3: 90-Second Shipley 3-Volume Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
             desc: 'Compile ready-to-submit Technical, Past Performance, and IGCE Pricing .DOCX/.XLSX volumes, enforce 13 CFR 125.6 workshare limits, and benchmark competitor labor rates.',
             nextTab: 'coverage',
-            nextLabel: 'Explore 17-Portal Coverage Matrix ->'
+            nextLabel: 'Explore 18-Portal Coverage Matrix ->'
           },
           coverage: {
-            title: 'Stage 4: Unified 17-Portal Federal, Defense & 15-State SLED Coverage',
-            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, and MI procurement portals.',
+            title: 'Stage 4: Unified 18-Portal Federal, Defense & 16-State SLED Coverage',
+            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, and CO procurement portals.',
             nextTab: 'integrations',
-            nextLabel: 'Explore Slack, Teams, CRM & 22 APIs ->'
+            nextLabel: 'Explore Slack, Teams, CRM & 24 APIs ->'
           },
           integrations: {
-            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 22 Stateless APIs',
-            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 22 GovCon microservices via REST and Model Context Protocol (MCP).',
+            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 24 Stateless APIs',
+            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 24 GovCon microservices via REST and Model Context Protocol (MCP).',
             nextTab: 'wire',
             nextLabel: 'Return to Live Solicitation Wire ->'
           },
@@ -9622,7 +9879,7 @@
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 17 portals operational', color: 'text-emerald-400', action: 'trust_status' },
+            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 18 portals operational', color: 'text-emerald-400', action: 'trust_status' },
             { icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' },
             { icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' },
             { icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' },
@@ -9638,7 +9895,7 @@
               { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
               { icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
               { icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
-              { icon: 'sliders', id: 'account-alert-filters-card', label: '17-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
+              { icon: 'sliders', id: 'account-alert-filters-card', label: '18-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
               { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
               { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
               { icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
@@ -9710,10 +9967,10 @@
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            { icon: 'pulse', id: 'overview', label: 'Hero & 17-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
+            { icon: 'pulse', id: 'overview', label: 'Hero & 18-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
             { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
             { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
-            { icon: 'table', id: 'contract-directory', label: '17-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
+            { icon: 'table', id: 'contract-directory', label: '18-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
             { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
             { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
           ];

@@ -132,6 +132,7 @@ To scale from initial post-warmup launch (Oct 31) to `$86,000+ MRR` (`$1M+ ARR`)
 - **API #21 (Live):** GovCon Sources Sought, RFI & Set-Aside Shaping Responder API (`POST /v1/generate/sources-sought-response`) + Portal #15 New Jersey NJSTART (`nj_scraper.py`).
 - **API #22 (Live):** GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API (`POST /v1/generate/oci-mitigation-plan`) + Portal #16 Washington WEBS (`wa_scraper.py`).
 - **API #23 (Live):** SBIR / STTR Phase I–III Technical Volume & Commercialization Plan API (`POST /v1/generate/sbir-sttr-commercialization`) + Portal #17 Michigan SIGMA VSS (`mi_scraper.py`).
+- **API #24 (Live):** GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API (`POST /v1/audit/section-508-vpat`) + Portal #18 Colorado VSS & OIT (`co_scraper.py`).
 
 ---
 

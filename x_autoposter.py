@@ -2,7 +2,7 @@ from error_telemetry import configure_utf8_stdio, report_error
 configure_utf8_stdio()
 """
 SignalTender — Automated X (Twitter) API v2 RFP Broadcaster (`x_autoposter.py`)
-Publishes high-signal open Federal (SAM.gov), Municipal (DemandStar), and 15-State SLED
+Publishes high-signal open Federal (SAM.gov), Municipal (DemandStar), and 16-State SLED
 IT, Cybersecurity, Cloud, and AI solicitations directly to the official SignalTender X account
 via `POST https://api.x.com/2/tweets` using zero-dependency RFC 5849 OAuth 1.0a HMAC-SHA1 signing.
 """
@@ -54,6 +54,7 @@ JURISDICTION_SHORT_TAGS = {
     "new_jersey": "NEW JERSEY // NJSTART",
     "washington": "WASHINGTON // WEBS & WATECH",
     "michigan": "MICHIGAN // SIGMA VSS & DTMB",
+    "colorado": "COLORADO // VSS & OIT",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 

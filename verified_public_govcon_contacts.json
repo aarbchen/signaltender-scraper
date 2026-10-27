@@ -904,6 +904,20 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Avish",
+    "Last Name": "Kosari",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Skygig",
+    "Email": "avish@sky-gig.com",
+    "City": "Campbell",
+    "State": "California",
+    "Website": "https://sky-gig.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Justin",
     "Last Name": "Hunt",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1037,6 +1051,20 @@
     "City": "San Luis Obispo",
     "State": "California",
     "Website": "https://tricrobotics.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Patrick",
+    "Last Name": "Gbele",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Us Air Tech",
+    "Email": "patrick.gbele@usairtechcorp.com",
+    "City": "Tucson",
+    "State": "California",
+    "Website": "https://usairtechcorp.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -1218,6 +1246,20 @@
     "City": "Boca Raton",
     "State": "Florida",
     "Website": "https://pqsecurity.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Raj Gautam",
+    "Last Name": "Dutta",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Silicon Assurance",
+    "Email": "rajgautamdutta@siliconassurance.com",
+    "City": "Gainesville",
+    "State": "Florida",
+    "Website": "https://siliconassurance.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -2068,6 +2110,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Brad",
+    "Last Name": "Brooks",
+    "Title": "Chief Executive Officer (Ann Arbor Federal & MI SLED Cyber)",
+    "Company Name": "Censys Public Sector Attack Surface",
+    "Email": "partners@censys.io",
+    "City": "Ann Arbor",
+    "State": "Michigan",
+    "Website": "https://censys.io",
+    "NAICS Codes": "541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, michigan sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Spencer",
     "Last Name": "Vagg",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2443,6 +2498,20 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Woojin",
+    "Last Name": "Paik",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Solutions-United.Com",
+    "Email": "wjpaik@synapteq.com",
+    "City": "Syracuse",
+    "State": "New York",
+    "Website": "https://synapteq.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Pedro",
     "Last Name": "Piacenza",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2451,6 +2520,20 @@
     "City": "New York",
     "State": "New York",
     "Website": "https://tangiblerobotics.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Nicholas",
+    "Last Name": "Nordlund",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Uninet",
+    "Email": "nnordlund@uninet-ct.com",
+    "City": "New Haven",
+    "State": "New York",
+    "Website": "https://uninet-ct.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -2524,6 +2607,20 @@
     "NAICS Codes": "518210, 541512",
     "Industry": "information technology & services",
     "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Mona",
+    "Last Name": "Azarbayjani",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Foresightcares Inc.",
+    "Email": "mona@foresightcares.com",
+    "City": "Matthews",
+    "State": "North Carolina",
+    "Website": "https://foresightcares.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, north carolina sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Ashlee",
@@ -3011,6 +3108,20 @@
     "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "John",
+    "Last Name": "Blackwell",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Diamond Age Technology",
+    "Email": "john@diamondagetechnology.com",
+    "City": "Houston",
+    "State": "Texas",
+    "Website": "https://diamondagetechnology.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Ekhi",
     "Last Name": "Muniategui",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -3037,6 +3148,19 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (TX)",
+    "Company Name": "FWG Solutions",
+    "Email": "contracts@fwgsolutions.com",
+    "City": "",
+    "State": "Texas",
+    "Website": "https://fwgsolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Amanda",
@@ -3298,6 +3422,20 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Nathan",
+    "Last Name": "Swain",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Aquaveo",
+    "Email": "nswain@aquaveo.com",
+    "City": "Provo",
+    "State": "Virginia",
+    "Website": "https://aquaveo.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Nicholas",
@@ -3797,6 +3935,20 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Cliff",
+    "Last Name": "Chan",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Oam Photonics",
+    "Email": "cliff.chan@oamphotonics.com",
+    "City": "Albuquerque",
+    "State": "Virginia",
+    "Website": "https://oamphotonics.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Joel",
     "Last Name": "Jorgenson",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -3853,6 +4005,20 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Thomas",
+    "Last Name": "Clardy",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Powder Watts",
+    "Email": "thomasclardy@powderwatts.com",
+    "City": "Park City",
+    "State": "Virginia",
+    "Website": "https://powderwatts.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Carlos",
     "Last Name": "Aguayo-Gonzalez",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -3861,6 +4027,20 @@
     "City": "Vienna",
     "State": "Virginia",
     "Website": "https://powerfingerprinting.com",
+    "NAICS Codes": "541511, 541512, 541715",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Jeff",
+    "Last Name": "Loucks",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Pricing Service, Inc.",
+    "Email": "jeff@pricingservice.ai",
+    "City": "Boulder",
+    "State": "Virginia",
+    "Website": "https://pricingservice.ai",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",

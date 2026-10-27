@@ -76,6 +76,7 @@ JURISDICTION_LABELS = {
     "new_jersey": "NEW JERSEY // NJSTART & TREASURY DPP",
     "washington": "WASHINGTON // WEBS & WATECH DES",
     "michigan": "MICHIGAN // SIGMA VSS & DTMB",
+    "colorado": "COLORADO // VSS & OIT",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -205,6 +206,13 @@ def classify_jurisdiction(record: dict) -> str:
         or "michigan.gov" in url
     ):
         return "michigan"
+    if (
+        "colorado.gov" in url
+        or "denvergov.org" in url
+        or "coloradosprings.gov" in url
+        or "cu.edu" in url
+    ):
+        return "colorado"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -278,6 +286,17 @@ def classify_jurisdiction(record: dict) -> str:
         or "msp" in agency
     ):
         return "michigan"
+    if (
+        title.startswith("[CO]")
+        or title.lower().startswith("[co-")
+        or "colorado" in agency
+        or "(co)" in agency
+        or "co vss" in agency
+        or "co oit" in agency
+        or "cdot" in agency
+        or "cdphe" in agency
+    ):
+        return "colorado"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -561,6 +580,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "michigan":
         compliance_posture = "MI DTMB 1340.00 Cyber Security (NIST 800-53) • StateRAMP / MiLogin • MI Accessibility VPAT"
         teaming_posture = "MI Geographically Disadvantaged Business (GDB) + SDVOB (5% Preference) + MiDEAL Alignment + 3 SLED Refs"
+    elif j_key == "colorado":
+        compliance_posture = "CO OIT Colorado Information Security Policies (CISP / NIST 800-53) • StateRAMP • HB 21-1110 WCAG 2.1 AA"
+        teaming_posture = "CO SDVOSB (5% Preference) + CO Price Agreement / NASPO ValuePoint Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"

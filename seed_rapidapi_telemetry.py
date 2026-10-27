@@ -474,6 +474,29 @@ ENDPOINTS = [
             "target_phase_and_program": "Direct_to_Phase_II",
         },
     },
+    {
+        "id": "API 24",
+        "name": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
+        "method": "POST",
+        "path": "/v1/audit/section-508-vpat",
+        "rapid_host": "security-questionnaire-cmmc-sprs-auto-responder-api.p.rapidapi.com",
+        "payload": {
+            "product_architecture_and_ui_description": (
+                "Aegis CloudOps Portal v4.2 is a multi-tenant React 18 / TypeScript web application and REST API "
+                "dashboard deployed on AWS GovCloud (US-East) for federal SOC analysts. Features include interactive "
+                "D3/Canvas network topology graphs, keyboard-navigable ARIA data tables, SSO/PIV authentication flows, "
+                "automated PDF/CSV compliance report exports, and embedded video training modules with WebVTT closed captions."
+            ),
+            "known_accessibility_test_results_or_gaps": (
+                "Automated Axe-core 4.9 and Lighthouse audits pass 94% of WCAG 2.1/2.2 Level A/AA rules. Known gaps: "
+                "(1) Network topology force-directed canvas graph lacks full screen-reader node traversal and 24x24px "
+                "target size spacing; (2) Legacy PDF export engine omits tagged document structure (PDF/UA) on multi-page "
+                "charts; (3) Session timeout modal requires keyboard focus trap refinement."
+            ),
+            "target_accessibility_standard": "Revised_Section_508_And_WCAG_2_2_AA",
+            "solicitation_accessibility_clauses": "36 CFR Part 1194 (Revised Section 508), WCAG 2.2 Level AA, Colorado HB 21-1110 (OIT 8 CCR 1501-11)",
+        },
+    },
 ]
 
 
