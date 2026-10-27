@@ -994,6 +994,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             # Sync dynamic daily_limit, WARMED sending accounts only, start_date, and active status
             warmed_account_emails = []
             warming_only_emails = []
+            graduated_to_disable_warmup = []
             try:
                 acc_resp = requests.get(
                     "https://api.instantly.ai/api/v2/accounts?limit=100",
@@ -1008,8 +1009,24 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         em_addr = str(a.get("email") or "").strip()
                         if outbound_mailer.is_instantly_account_warmed(a):
                             warmed_account_emails.append(em_addr)
+                            if int(a.get("warmup_status") or 0) == 1:
+                                graduated_to_disable_warmup.append(em_addr)
                         else:
                             warming_only_emails.append(em_addr)
+                    if graduated_to_disable_warmup:
+                        try:
+                            requests.post(
+                                "https://api.instantly.ai/api/v2/accounts/warmup/disable",
+                                headers=inst_headers,
+                                json={"emails": graduated_to_disable_warmup},
+                                timeout=10,
+                            )
+                            print(
+                                f"[+] Auto-disabled warmup on {len(graduated_to_disable_warmup)} graduated mailbox(es) so they stop receiving warmup junk ({', '.join(graduated_to_disable_warmup)}).",
+                                flush=True,
+                            )
+                        except Exception:
+                            pass
                     if warming_only_emails:
                         print(
                             f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until score >= 85 & 7+ days ({', '.join(warming_only_emails)}).",
