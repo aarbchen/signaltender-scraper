@@ -150,6 +150,7 @@ def check_html_file(fpath: str) -> str:
             "#contracts/washington",
             "#contracts/michigan",
             "#contracts/colorado",
+            "#contracts/arizona",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -354,6 +355,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         "washington": "WA",
         "michigan": "MI",
         "colorado": "CO",
+        "arizona": "AZ",
     }
     for sk in state_keys:
         abbr = state_abbrev_map.get(sk, sk[:2].upper())
@@ -648,6 +650,7 @@ window.selectInteractiveDossier('new_jersey');
 window.selectInteractiveDossier('washington');
 window.selectInteractiveDossier('michigan');
 window.selectInteractiveDossier('colorado');
+window.selectInteractiveDossier('arizona');
 window.selectInteractiveDossier('federal');
 if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
   throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');

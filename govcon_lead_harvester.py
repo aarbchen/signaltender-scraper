@@ -330,6 +330,8 @@ def get_active_harvester_states() -> List[Tuple[str, str]]:
         ("NJ", "New Jersey"),
         ("WA", "Washington"),
         ("MI", "Michigan"),
+        ("CO", "Colorado"),
+        ("AZ", "Arizona"),
     ]
     seen_codes = {code for code, _ in base_states}
     try:
@@ -1340,7 +1342,7 @@ SBIR_STATE_MAP = {
     "MD": "Maryland", "IL": "Illinois", "PA": "Pennsylvania", "OH": "Ohio",
     "GA": "Georgia", "NC": "North Carolina", "NY": "New York", "MA": "Massachusetts",
     "NJ": "New Jersey", "WA": "Washington", "MI": "Michigan",
-    "CO": "Virginia", "AZ": "California", "AL": "Georgia", "SC": "North Carolina",
+    "CO": "Colorado", "AZ": "Arizona", "AL": "Georgia", "SC": "North Carolina",
     "TN": "Georgia", "IN": "Ohio", "WI": "Illinois", "MN": "Illinois",
     "CT": "New York", "NH": "Massachusetts", "DE": "Maryland", "DC": "Virginia",
 }

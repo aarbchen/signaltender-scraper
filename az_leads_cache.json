@@ -1,0 +1,34 @@
+{
+  "harvested_at": "2026-10-28T02:22:17",
+  "source": "https://app.az.gov/page.aspx/en/rfp/request_browse_public",
+  "leads": [
+    {
+      "title": "[AZ-BPM006796] IT Advisory, Assessment, Verification and Validation - Consulting Services - Due: 11/17/2026",
+      "agency": "Arizona Department of Administration (Arizona APP / Procure.AZ.gov)",
+      "closing_date": "11/17/2026",
+      "url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14041",
+      "status": "NEW"
+    },
+    {
+      "title": "[AZ-BPM007840] Amazon Cognito Identity Provider Implementation & Legacy User Migration - Due: 11/16/2026",
+      "agency": "Arizona Department of Revenue (Arizona APP / Procure.AZ.gov)",
+      "closing_date": "11/16/2026",
+      "url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14026",
+      "status": "NEW"
+    },
+    {
+      "title": "[AZ-BPM006971] Biometric Products & Services - Due: 12/03/2026",
+      "agency": "Arizona Department of Administration (Arizona APP / Procure.AZ.gov)",
+      "closing_date": "12/03/2026",
+      "url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14021",
+      "status": "NEW"
+    },
+    {
+      "title": "[AZ-BPM007148] HANDS Maintenance and Operation Support - Due: 11/05/2026",
+      "agency": "Arizona Department of Health Services (Arizona APP / Procure.AZ.gov)",
+      "closing_date": "11/05/2026",
+      "url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/13843",
+      "status": "NEW"
+    }
+  ]
+}

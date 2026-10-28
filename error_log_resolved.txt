@@ -375,3 +375,25 @@ Call log:
 [2026-10-28 00:01:27 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Tag imbalance for <main>: open=2, close=1
 [2026-10-28 00:26:47 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#contracts/rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1074@1024px: ['button [OVERFLOWS_CARD elRight=658 cardRight=643 vw=1024] "FOIA Incumbent Rate Vault & Demand →" (inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-emerald)']
 [2026-10-28 00:26:55 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#contracts/rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1074@1024px: ['button [OVERFLOWS_CARD elRight=658 cardRight=643 vw=1024] "FOIA Incumbent Rate Vault & Demand →" (inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-emerald)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 01:46:51 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 15 local + 1 remote alert(s)) ===
+[2026-10-28 01:24:47 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmptz8s1z9z.js:4155
+          window.requestAnimationFrame(syncRailTop);
+                 ^
+
+TypeError: window.requestAnimationFrame is not a function
+    at scheduleRailSync (C:\Users\jouan\AppData\Local\Temp\tmptz8s1z9z.js:4155:18)
+    at C:\Users\jouan\AppData\Local\Temp\tmptz8s1z9z.js:4163:9
+    at C:\Users\jouan\AppData\Local\Temp\tmptz8s1z9z.js:4164:9
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmptz8s1z9z.js:4708:7)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 07:52:03 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 2 remote alert(s)) ===
+[2026-10-28 07:38:02 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: campaign_leads.csv: Found stale customer-facing count '18-portal' (expected 19 portals / 17 states / 25 APIs). Update campaign_leads.csv and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-28 07:50:04 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Autonomous Error Telemetry / Scraper Contract Audit reported unresolved errors! Run `python auto_error_healer.py` to inspect and fix.

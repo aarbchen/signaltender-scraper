@@ -77,6 +77,7 @@ JURISDICTION_LABELS = {
     "washington": "WASHINGTON // WEBS & WATECH DES",
     "michigan": "MICHIGAN // SIGMA VSS & DTMB",
     "colorado": "COLORADO // VSS & OIT",
+    "arizona": "ARIZONA // APP PROCURE.AZ.GOV & ADOA-ASET",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -213,6 +214,19 @@ def classify_jurisdiction(record: dict) -> str:
         or "cu.edu" in url
     ):
         return "colorado"
+    if (
+        "app.az.gov" in url
+        or "sp360.az.gov" in url
+        or "spo.az.gov" in url
+        or ".az.gov" in url
+        or "//az.gov" in url
+        or "azdoa.gov" in url
+        or "phoenix.gov" in url
+        or "chandleraz.gov" in url
+        or "tucsonaz.gov" in url
+        or "maricopa.gov" in url
+    ):
+        return "arizona"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -297,6 +311,16 @@ def classify_jurisdiction(record: dict) -> str:
         or "cdphe" in agency
     ):
         return "colorado"
+    if (
+        title.startswith("[AZ]")
+        or title.lower().startswith("[az-")
+        or "arizona" in agency
+        or "(az)" in agency
+        or "procure.az.gov" in agency
+        or "adoa" in agency
+        or "ahcccs" in agency
+    ):
+        return "arizona"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -583,6 +607,9 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "colorado":
         compliance_posture = "CO OIT Colorado Information Security Policies (CISP / NIST 800-53) • StateRAMP • HB 21-1110 WCAG 2.1 AA"
         teaming_posture = "CO SDVOSB (5% Preference) + CO Price Agreement / NASPO ValuePoint Alignment + 3 SLED Refs"
+    elif j_key == "arizona":
+        compliance_posture = "Arizona ADOA-ASET Statewide Policy P8120 Information Security (NIST 800-53) • StateRAMP • AZ Section 508 / WCAG 2.1 AA"
+        teaming_posture = "AZ SPO Small Business Outreach (A.R.S. 41-2501 Procurement Code) + ADOA Statewide / NASPO ValuePoint Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -769,7 +796,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
-            # unified Section I (CaptureDesk Dossiers) + Section II (14-Portal Live Wire) payload via client_delivery.py.
+            # unified Section I (CaptureDesk Dossiers) + Section II (19-Portal Live Wire) payload via client_delivery.py.
             if __name__ == "__main__":
                 try:
                     import client_delivery

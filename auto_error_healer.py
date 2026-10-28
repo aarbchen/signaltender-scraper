@@ -63,6 +63,7 @@ SCRAPER_MODULES = [
     "wa_scraper",
     "mi_scraper",
     "co_scraper",
+    "az_scraper",
 ]
 
 ALL_MONITORED_FILES = [
@@ -84,6 +85,7 @@ ALL_MONITORED_FILES = [
     "wa_scraper.py",
     "mi_scraper.py",
     "co_scraper.py",
+    "az_scraper.py",
     "pseo_generator.py",
     "capturedesk_autopilot.py",
     "client_delivery.py",

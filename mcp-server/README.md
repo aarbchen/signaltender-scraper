@@ -11,7 +11,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **01** | `parse_b2b_contract` | `POST /v1/parse/contract` | Extracts parties, dates, contract value, deliverables, and governing law from unstructured RFPs & SOWs. |
 | **02** | `audit_contract_risks` | `POST /v1/parse/contract-risks` | Scores legal risk (`0-100`), quotes toxic clauses verbatim, and generates ready-to-paste fallback redlines. |
 | **03** | `search_historical_awards` | `POST /v1/awards/search` | Queries federal contract awards, incumbent primes, and historical CLIN pricing benchmarks. |
-| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI & CO. |
+| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO & AZ. |
 | **05** | `generate_compliance_matrix` | `POST /v1/generate/compliance-matrix` | Builds a Shipley `shall`/`must` Compliance Checklist, Section L-to-M cross-reference, and Proposal Outline. |
 | **06** | `scan_far_dfars_clauses` | `POST /v1/audit/far-dfars-clauses` | Detects `FAR 52.2xx` & `DFARS 252.2xx` clauses, flags mandatory flow-downs, and scores CMMC 2.0 burden. |
 | **07** | `match_capability_statement` | `POST /v1/match/capability-statement` | Calculates a `0-100` Pwin (Probability of Win) score, Bid/No-Bid decision, gap analysis, and executive pitch. |
@@ -32,6 +32,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **22** | `generate_oci_mitigation_plan` | `POST /v1/generate/oci-mitigation-plan` | Audits existing prime/sub awards against a new solicitation for FAR Subpart 9.5 Unequal Access, Biased Ground Rules & Impaired Objectivity and outputs an OCI Mitigation Plan & Firewall matrix. |
 | **23** | `generate_sbir_sttr_commercialization` | `POST /v1/generate/sbir-sttr-commercialization` | Converts R&D specs into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1–9 progression matrix, Phase III Dual-Use Commercialization Plan, and DFARS 252.227-7018 SBIR Data Rights assertions. |
 | **24** | `audit_section_508_vpat` | `POST /v1/audit/section-508-vpat` | Audits software/SaaS products against Revised Section 508 (36 CFR 1194), WCAG 2.2 AA, and state accessibility mandates to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table + remediation roadmap. |
+| **25** | `audit_supply_chain_scrm` | `POST /v1/audit/supply-chain-scrm` | Evaluates BOMs and sub-tier suppliers against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM attestation. |
 
 ---
 

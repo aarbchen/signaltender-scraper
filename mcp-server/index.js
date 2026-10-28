@@ -45,7 +45,8 @@ const RAPIDAPI_HOSTS = {
   generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
   generate_oci_mitigation_plan: "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
   generate_sbir_sttr_commercialization: "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
-  audit_section_508_vpat: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com"
+  audit_section_508_vpat: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  audit_supply_chain_scrm: "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -257,7 +258,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 18-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 19-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -288,9 +289,10 @@ const TOOLS = [
             "washington",
             "michigan",
             "colorado",
+            "arizona",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -1793,6 +1795,400 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "audit_section_508_vpat",
+    "title": "Audit Revised Section 508, WCAG 2.2 AA & Generate VPAT 2.5 Accessibility Conformance Report (ACR)",
+    "description": "Audit software, cloud SaaS portals, and electronic deliverables against Revised Section 508 (36 CFR Part 1194 / FAR Subpart 39.2), W3C WCAG 2.1 / 2.2 Level A & AA Success Criteria, and State SLED digital accessibility laws (such as Colorado HB21-1110) to generate an Accessibility Readiness Score (0-100), a structured ITI VPAT 2.5 Conformance Matrix (WCAG 2.2 Level A/AA + Revised Section 508 Chapters 3, 5, and 6), an Engineering Accessibility Remediation POA&M Roadmap, and a paste-ready VPAT 2.5 ACR & Equally Effective Alternate Access Plan (EEAAP) proposal narrative. This is a read-only, stateless, non-destructive accessibility compliance generator (requires X-RapidAPI-Key; `product_architecture_and_ui_specs` accepts 20 to 45,000 characters and `known_accessibility_test_results_or_gaps` accepts 10 to 35,000 characters). Use this tool when auditing software/SaaS accessibility or generating a Section 508 VPAT 2.5 ACR table for federal/SLED proposals; use `answer_security_questionnaire` instead for cybersecurity/SOC 2/NIST 800-171 questionnaires, or `scan_far_dfars_clauses` for general Section I FAR/DFARS clause flow-down audits.",
+    "annotations": {
+      "title": "Audit Revised Section 508, WCAG 2.2 AA & Generate VPAT 2.5 Accessibility Conformance Report (ACR)",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "product_architecture_and_ui_specs": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Description of the software/SaaS application, UI framework (React/Angular/USWDS), electronic documents, user workflows, and target RFP Section 508 / accessibility solicitation clauses (20 to 45,000 characters)."
+        },
+        "known_accessibility_test_results_or_gaps": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 35000,
+          "default": "Automated axe-core/WAVE CI scan + manual NVDA/JAWS screen-reader and keyboard-only navigation baseline.",
+          "description": "Known accessibility test findings (axe-core, Lighthouse, DHS Trusted Tester v5, JAWS/NVDA/VoiceOver), existing exceptions (e.g., third-party GIS map canvas or legacy PDF exports), and current remediation status (10 to 35,000 characters)."
+        },
+        "target_compliance_standard": {
+          "type": "string",
+          "enum": [
+            "Revised_Section_508_And_WCAG_2_2_AA",
+            "Federal_Section_508_36_CFR_1194_Only",
+            "State_SLED_Accessibility_HB21_1110_And_WCAG_2_2_AA",
+            "DoD_DISA_Section_508_And_Vpat_2_5_Rev"
+          ],
+          "default": "Revised_Section_508_And_WCAG_2_2_AA",
+          "description": "Target accessibility regulatory regime ('Revised_Section_508_And_WCAG_2_2_AA' [default], 'Federal_Section_508_36_CFR_1194_Only', 'State_SLED_Accessibility_HB21_1110_And_WCAG_2_2_AA', or 'DoD_DISA_Section_508_And_Vpat_2_5_Rev')."
+        }
+      },
+      "required": [
+        "product_architecture_and_ui_specs"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "accessibility_readiness_score": {
+          "type": "integer",
+          "description": "0-100 score quantifying the product's Section 508 / WCAG 2.2 AA compliance readiness and VPAT 2.5 defensibility."
+        },
+        "overall_section_508_determination": {
+          "type": "string",
+          "description": "Overall Section 508 / WCAG 2.2 AA procurement conformance determination under FAR 39.2 and ITI VPAT 2.5 standards."
+        },
+        "executive_vpat_summary": {
+          "type": "string",
+          "description": "Executive accessibility compliance summary for the Agency Section 508 Coordinator and Contracting Officer."
+        },
+        "vpat_2_5_conformance_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured ITI VPAT 2.5 Accessibility Conformance Report (ACR) audit rows covering WCAG 2.2 Level A/AA and Revised Section 508 Chapters 3, 5, and 6."
+        },
+        "engineering_remediation_roadmap": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Prioritized Accessibility Plan of Action & Milestones (POA&M) and engineering remediation roadmap."
+        },
+        "ready_to_submit_vpat_2_5_acr_narrative": {
+          "type": "string",
+          "description": "Complete, paste-ready ITI VPAT 2.5 Accessibility Conformance Report (ACR) & FAR 39.2 Proposal Volume narrative including EEAAP."
+        }
+      }
+    }
+  },
+  {
+    "name": "audit_supply_chain_scrm",
+    "title": "Audit Supply Chain Risk (NIST 800-161 C-SCRM, NDAA 889, FASCSA, TAA, BAA) & Generate SBOM Attestation",
+    "description": "Audit hardware Bills of Materials (BOMs), sub-tier suppliers, and software components (SBOM) against NIST SP 800-161 Rev. 1 Cybersecurity Supply Chain Risk Management (C-SCRM), FAR 52.204-25 (NDAA Section 889 Part A/B prohibition on Huawei, ZTE, Hytera, Hikvision, Dahua and their affiliates), FAR 52.204-30 (FASCSA exclusion orders), the Buy American Act (FAR Part 25 domestic content), and the Trade Agreements Act (FAR 52.225-5 designated countries), returning JSON with a Supply Chain Risk Score (0-100), an overall SCRM verdict, per-line NDAA 889 and TAA determinations, a BAA domestic-content percentage, NIST 800-161 SR-family control gaps, an NTIA minimum-elements SBOM and CISA Secure Software Self-Attestation readiness review, paste-ready C-SCRM Plan sections, a SCRM POA&M remediation roadmap, and a proposal-ready SCRM narrative. This is a read-only, stateless, non-destructive compliance auditor (requires X-RapidAPI-Key; nothing is stored, filed, or submitted to SAM.gov, and FASCSA results must still be verified in SAM.gov; `solicitation_or_contract_context` accepts 20 to 45,000 characters, `bom_line_items` accepts 1 to 200 lines, and `software_components` accepts up to 500 SBOM components). Use this tool when vetting a BOM, reseller quote, or SBOM for NDAA 889 / FASCSA / TAA / BAA award eligibility or drafting a C-SCRM Plan and SBOM attestation; use `audit_section_508_vpat` instead for Section 508 / WCAG 2.2 accessibility and VPAT conformance, `scan_far_dfars_clauses` for general Section I FAR/DFARS clause flow-down risk scanning, `answer_security_questionnaire` for SOC 2 / FedRAMP / NIST 800-171 questionnaires, or `generate_ato_rmf_package` for NIST 800-53 SSP / RMF / cATO authorization packages.",
+    "annotations": {
+      "title": "Audit Supply Chain Risk (NIST 800-161 C-SCRM, NDAA 889, FASCSA, TAA, BAA) & Generate SBOM Attestation",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solicitation_or_contract_context": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Solicitation / contract scope, Section H/I supply chain clauses, delivery location, end-use, and any agency C-SCRM, NDAA 889, TAA, BAA, or SBOM requirements (20 to 45,000 characters)."
+        },
+        "offeror_name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 300,
+          "default": "Offeror (Prime Contractor)",
+          "description": "Legal name of the prime offeror / reseller submitting the BOM and supply chain representations (2 to 300 characters)."
+        },
+        "contracting_agency": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 300,
+          "default": "Department of Defense (DoD)",
+          "description": "Contracting agency or SLED buyer, e.g. 'U.S. Army PEO C3T', 'GSA FAS', or 'Arizona ADOA-ASET' (2 to 300 characters)."
+        },
+        "applicable_contract_clauses": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "One clause or standard citation, e.g. 'FAR 52.204-25'."
+          },
+          "default": [
+            "FAR 52.204-25 (NDAA Section 889 Covered Telecommunications Prohibition)",
+            "FAR 52.204-30 (FASCSA Orders Prohibition)",
+            "FAR 52.225-5 (Trade Agreements Act)",
+            "FAR 52.225-1 (Buy American - Supplies)",
+            "NIST SP 800-161 Rev. 1 (C-SCRM)"
+          ],
+          "description": "Supply chain clauses and standards in the solicitation, e.g. 'FAR 52.204-25', 'FAR 52.204-30', 'FAR 52.225-5', 'DFARS 252.225-7001', 'DFARS 252.204-7012', 'DFARS 252.246-7008', 'NIST SP 800-161 Rev. 1', 'OMB M-22-18' (0 to 40 entries)."
+        },
+        "bom_line_items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "description": "Hardware / COTS Bill of Materials line items to screen (1 to 200 lines).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "line_item_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60,
+                "description": "Unique BOM / CLIN / quote line identifier, e.g. 'BOM-001' or 'CLIN 0001'."
+              },
+              "part_number": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "description": "Manufacturer part number (MPN), SKU, or NSN, e.g. 'C9300-48P-E'."
+              },
+              "description": {
+                "type": "string",
+                "maxLength": 500,
+                "default": "",
+                "description": "Short item description, e.g. '4MP IP Dome Camera'."
+              },
+              "manufacturer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "OEM brand / legal entity, screened against NDAA 889 covered entities and known affiliates or white-label OEMs."
+              },
+              "country_of_origin": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 80,
+                "description": "Country of origin or substantial transformation (ISO 3166 alpha-2 code or country name, e.g. 'US', 'Mexico', 'China')."
+              },
+              "supplier_name": {
+                "type": "string",
+                "maxLength": 200,
+                "default": "",
+                "description": "Reseller, distributor, or sub-tier supplier furnishing the item (blank if bought direct from the OEM)."
+              },
+              "supplier_tier": {
+                "type": "string",
+                "enum": [
+                  "Tier_1_Direct_OEM",
+                  "Tier_2_Sub_Assembly_Or_Integrator",
+                  "Tier_3_Component_Supplier",
+                  "Tier_4_Distributor_Or_Raw_Material",
+                  "Unknown"
+                ],
+                "default": "Tier_1_Direct_OEM",
+                "description": "Supply chain tier of the furnishing supplier relative to the prime offeror."
+              },
+              "item_category": {
+                "type": "string",
+                "enum": [
+                  "Telecommunications_Or_Video_Surveillance",
+                  "IT_Hardware_Or_Network_Equipment",
+                  "Software_Or_SaaS",
+                  "Microelectronics_Or_Semiconductor",
+                  "Commercial_Off_The_Shelf_COTS_Item",
+                  "Construction_Material_Or_Manufactured_Product",
+                  "Other"
+                ],
+                "default": "IT_Hardware_Or_Network_Equipment",
+                "description": "Item category used to route NDAA 889, FASCSA, TAA, BAA (COTS IT exception), and counterfeit-parts logic."
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000000,
+                "default": 1,
+                "description": "Quantity of units on this line."
+              },
+              "unit_cost_usd": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000000,
+                "default": 0,
+                "description": "Unit price in USD, used for TAA thresholds and BAA domestic-content weighting."
+              },
+              "domestic_component_cost_pct": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100,
+                "default": null,
+                "description": "Optional known US-domestic component cost percentage (0-100) for this line; null if unknown."
+              }
+            },
+            "required": [
+              "line_item_id",
+              "part_number",
+              "manufacturer",
+              "country_of_origin"
+            ]
+          }
+        },
+        "software_components": {
+          "type": "array",
+          "maxItems": 500,
+          "default": [],
+          "description": "Software Bill of Materials (SBOM) components for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "Software component / package name, e.g. 'log4j-core'."
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "default": "unspecified",
+                "description": "Component version string, e.g. '2.17.1'."
+              },
+              "purl": {
+                "type": "string",
+                "maxLength": 500,
+                "default": "",
+                "description": "Package URL (purl), e.g. 'pkg:maven/org.apache.logging.log4j/log4j-core@2.17.1'."
+              },
+              "license": {
+                "type": "string",
+                "maxLength": 120,
+                "default": "",
+                "description": "SPDX license identifier, e.g. 'Apache-2.0' or 'GPL-3.0-only'."
+              },
+              "supplier": {
+                "type": "string",
+                "maxLength": 200,
+                "default": "",
+                "description": "Component supplier / author organization (NTIA 'Supplier Name' element)."
+              },
+              "known_vulnerabilities": {
+                "type": "array",
+                "maxItems": 50,
+                "default": [],
+                "items": {
+                  "type": "string",
+                  "maxLength": 60,
+                  "description": "CVE / GHSA identifier, e.g. 'CVE-2021-44228'."
+                },
+                "description": "Known CVE / GHSA identifiers or CISA KEV entries affecting this version (0 to 50)."
+              }
+            },
+            "required": [
+              "name"
+            ]
+          }
+        },
+        "sbom_format": {
+          "type": "string",
+          "enum": [
+            "CycloneDX_1_6",
+            "SPDX_2_3",
+            "SPDX_3_0",
+            "Proprietary_Or_Spreadsheet",
+            "None_Available"
+          ],
+          "default": "CycloneDX_1_6",
+          "description": "Format of the offeror's SBOM deliverable: 'CycloneDX_1_6' (default), 'SPDX_2_3', 'SPDX_3_0', 'Proprietary_Or_Spreadsheet', or 'None_Available'."
+        },
+        "target_compliance_regime": {
+          "type": "string",
+          "enum": [
+            "Auto_Detect_From_Clauses",
+            "Federal_DoD_Full_C_SCRM_NDAA_889_TAA_BAA",
+            "Federal_Civilian_FASCSA_And_CISA_Secure_Software",
+            "State_SLED_Prohibited_Vendor_And_Domestic_Preference"
+          ],
+          "default": "Auto_Detect_From_Clauses",
+          "description": "Target supply chain regulatory regime: 'Auto_Detect_From_Clauses' (default), 'Federal_DoD_Full_C_SCRM_NDAA_889_TAA_BAA', 'Federal_Civilian_FASCSA_And_CISA_Secure_Software', or 'State_SLED_Prohibited_Vendor_And_Domestic_Preference'."
+        },
+        "additional_supplier_notes": {
+          "type": "string",
+          "maxLength": 20000,
+          "default": "",
+          "description": "Optional sub-tier supplier attestations, SAM.gov FAR 52.204-24/26 representations, ownership/affiliation notes, or existing C-SCRM program documentation (0 to 20,000 characters)."
+        }
+      },
+      "required": [
+        "solicitation_or_contract_context",
+        "bom_line_items"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "supply_chain_risk_score": {
+          "type": "integer",
+          "description": "Supply chain risk score from 0 (no material risk) to 100 (prohibited / award-blocking)."
+        },
+        "overall_scrm_verdict": {
+          "type": "string",
+          "description": "Overall verdict (LOW_RISK_AWARD_ELIGIBLE, MODERATE_RISK_MITIGATION_PLAN_REQUIRED, HIGH_RISK_REMEDIATION_BEFORE_SUBMISSION, PROHIBITED_NDAA_889_OR_FASCSA_BLOCKING_AWARD)."
+        },
+        "executive_scrm_summary": {
+          "type": "string",
+          "description": "Executive supply chain risk summary for the Contracting Officer."
+        },
+        "ndaa_889_findings": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-line FAR 52.204-25 Section 889 Part A/B prohibited-vendor findings."
+        },
+        "fascsa_exclusion_check": {
+          "type": "object",
+          "description": "FAR 52.204-30 FASCSA exclusion order screening status and SAM.gov sources to verify."
+        },
+        "taa_compliance_by_line": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Per-line Trade Agreements Act designated-country determinations."
+        },
+        "baa_domestic_content": {
+          "type": "object",
+          "description": "Buy American Act domestic content percentage, applicable threshold, and status."
+        },
+        "nist_800_161_control_gaps": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "NIST SP 800-161 Rev. 1 SR-family control gaps with severity and implementation guidance."
+        },
+        "sbom_attestation": {
+          "type": "object",
+          "description": "NTIA minimum-elements SBOM review and CISA Secure Software Self-Attestation readiness."
+        },
+        "c_scrm_plan_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready C-SCRM Plan sections aligned to NIST SP 800-161 Rev. 1."
+        },
+        "remediation_roadmap": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Prioritized SCRM POA&M remediation milestones."
+        },
+        "ready_to_submit_scrm_narrative": {
+          "type": "string",
+          "description": "Paste-ready proposal SCRM volume narrative with NDAA 889 / FASCSA representations, TAA/BAA certification, and SBOM attestation."
+        }
+      }
+    }
   }
 ];
 
@@ -1820,7 +2216,8 @@ const ENDPOINT_MAP = {
   generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" },
   generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" },
   generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" },
-  audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" }
+  audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" },
+  audit_supply_chain_scrm: { method: "POST", path: "/v1/audit/supply-chain-scrm" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {

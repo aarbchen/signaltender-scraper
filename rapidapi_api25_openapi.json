@@ -1,0 +1,764 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
+    "version": "1.0.0",
+    "description": "Audits hardware Bills of Materials (BOMs), sub-tier suppliers, and Software Bills of Materials (SBOMs) against NIST SP 800-161 Rev. 1 C-SCRM, FAR 52.204-25 (NDAA Section 889 Part A/B covered telecommunications & video surveillance), FAR 52.204-30 (FASCSA exclusion orders), the Buy American Act (FAR Part 25), and the Trade Agreements Act (FAR 52.225-5) to return a 0-100 supply chain risk score, per-line NDAA 889 / TAA determinations, BAA domestic-content analysis, NIST 800-161 control gaps, NTIA SBOM & CISA Secure Software Self-Attestation readiness, paste-ready C-SCRM Plan sections, and a SCRM POA&M remediation roadmap. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api.p.rapidapi.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/supply-chain-scrm": {
+      "post": {
+        "operationId": "auditSupplyChainScrm",
+        "summary": "Audit Supply Chain SCRM, NDAA 889, TAA And SBOM",
+        "description": "Screens every BOM line for NDAA Section 889 covered equipment (Huawei, ZTE, Hytera, Hikvision, Dahua and affiliates), FASCSA exclusions, TAA designated-country and Buy American domestic-content compliance, reviews SBOM components for NTIA minimum elements, CISA KEV vulnerabilities and license risk, and generates a NIST SP 800-161 Rev. 1 C-SCRM Plan with a prioritized POA&M and proposal narrative.",
+        "tags": [
+          "Supply Chain Risk Management"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplyChainScrmRequest"
+              },
+              "example": {
+                "solicitation_or_contract_context": "Arizona ADOA-ASET Statewide Network Refresh & Public Safety Video Surveillance RFP (Arizona APP / Procure.AZ.gov). Scope: furnish and install 48-port PoE+ access switches, 4MP IP dome cameras, and a cloud video management platform for 12 ADOT and DPS facilities. Section H requires offerors to certify FAR 52.204-25 (NDAA Section 889) compliance for federally funded (DHS/FEMA grant) line items, Trade Agreements Act designated-country end products, NIST SP 800-161 Rev. 1 C-SCRM practices, and delivery of a CycloneDX SBOM for all software/firmware.",
+                "offeror_name": "Sonoran Secure Networks LLC",
+                "contracting_agency": "Arizona ADOA-ASET",
+                "applicable_contract_clauses": [
+                  "FAR 52.204-25 (NDAA Section 889 Covered Telecommunications Prohibition)",
+                  "FAR 52.204-30 (FASCSA Orders Prohibition)",
+                  "FAR 52.225-5 (Trade Agreements Act)",
+                  "NIST SP 800-161 Rev. 1 (C-SCRM)"
+                ],
+                "bom_line_items": [
+                  {
+                    "line_item_id": "BOM-001",
+                    "part_number": "C9300-48P-E",
+                    "description": "48-Port PoE+ Access Switch",
+                    "manufacturer": "Cisco Systems",
+                    "country_of_origin": "Mexico",
+                    "supplier_name": "CDW Government",
+                    "supplier_tier": "Tier_4_Distributor_Or_Raw_Material",
+                    "item_category": "IT_Hardware_Or_Network_Equipment",
+                    "quantity": 24,
+                    "unit_cost_usd": 6850.0
+                  },
+                  {
+                    "line_item_id": "BOM-002",
+                    "part_number": "DS-2CD2143G2-I",
+                    "description": "4MP IP Dome Camera",
+                    "manufacturer": "Hikvision",
+                    "country_of_origin": "China",
+                    "supplier_name": "Desert Security Wholesale",
+                    "supplier_tier": "Tier_4_Distributor_Or_Raw_Material",
+                    "item_category": "Telecommunications_Or_Video_Surveillance",
+                    "quantity": 180,
+                    "unit_cost_usd": 189.0
+                  },
+                  {
+                    "line_item_id": "BOM-003",
+                    "part_number": "P3265-LVE",
+                    "description": "Outdoor 2MP Dome Camera (Replacement Candidate)",
+                    "manufacturer": "Axis Communications",
+                    "country_of_origin": "Sweden",
+                    "supplier_tier": "Tier_1_Direct_OEM",
+                    "item_category": "Telecommunications_Or_Video_Surveillance",
+                    "quantity": 180,
+                    "unit_cost_usd": 742.0
+                  }
+                ],
+                "software_components": [
+                  {
+                    "name": "log4j-core",
+                    "version": "2.14.1",
+                    "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+                    "license": "Apache-2.0",
+                    "supplier": "Apache Software Foundation",
+                    "known_vulnerabilities": [
+                      "CVE-2021-44228"
+                    ]
+                  },
+                  {
+                    "name": "openssl",
+                    "version": "3.0.13",
+                    "purl": "pkg:generic/openssl@3.0.13",
+                    "license": "Apache-2.0",
+                    "supplier": "OpenSSL Software Foundation",
+                    "known_vulnerabilities": []
+                  }
+                ],
+                "sbom_format": "CycloneDX_1_6",
+                "target_compliance_regime": "Auto_Detect_From_Clauses"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete C-SCRM / NDAA 889 / FASCSA / TAA / BAA / SBOM audit with C-SCRM Plan and POA&M roadmap",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplyChainScrmResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid X-RapidAPI-Proxy-Secret"
+          },
+          "422": {
+            "description": "Request or LLM output failed strict schema validation"
+          },
+          "502": {
+            "description": "Upstream LLM provider error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BomLineItem": {
+        "additionalProperties": false,
+        "properties": {
+          "line_item_id": {
+            "description": "Unique BOM / CLIN / quote line identifier (e.g., 'CLIN 0001', 'BOM-003').",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "part_number": {
+            "description": "Manufacturer part number (MPN), SKU, or NSN of the item (e.g., 'DS-2CD2143G2-I', 'C9300-48P-E').",
+            "maxLength": 120,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "default": "",
+            "description": "Short item description (e.g., '4MP IP Dome Camera', '48-Port PoE+ Access Switch').",
+            "maxLength": 500,
+            "type": "string"
+          },
+          "manufacturer": {
+            "description": "Original Equipment Manufacturer (OEM) brand/legal entity (screened against NDAA 889 covered entities and known affiliates/white-label OEMs).",
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "country_of_origin": {
+            "description": "Country of origin / country of substantial transformation (ISO 3166 alpha-2 code or country name, e.g., 'US', 'Mexico', 'China', 'Taiwan').",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "supplier_name": {
+            "default": "",
+            "description": "Reseller, distributor, or sub-tier supplier furnishing this item (blank if purchased direct from the OEM).",
+            "maxLength": 200,
+            "type": "string"
+          },
+          "supplier_tier": {
+            "default": "Tier_1_Direct_OEM",
+            "description": "Supply chain tier of the furnishing supplier relative to the prime offeror.",
+            "enum": [
+              "Tier_1_Direct_OEM",
+              "Tier_2_Sub_Assembly_Or_Integrator",
+              "Tier_3_Component_Supplier",
+              "Tier_4_Distributor_Or_Raw_Material",
+              "Unknown"
+            ],
+            "type": "string"
+          },
+          "item_category": {
+            "default": "IT_Hardware_Or_Network_Equipment",
+            "description": "Item category used to route NDAA 889, FASCSA, TAA, BAA (COTS IT exception), and DFARS 252.246-7008 counterfeit-parts logic.",
+            "enum": [
+              "Telecommunications_Or_Video_Surveillance",
+              "IT_Hardware_Or_Network_Equipment",
+              "Software_Or_SaaS",
+              "Microelectronics_Or_Semiconductor",
+              "Commercial_Off_The_Shelf_COTS_Item",
+              "Construction_Material_Or_Manufactured_Product",
+              "Other"
+            ],
+            "type": "string"
+          },
+          "quantity": {
+            "default": 1,
+            "description": "Quantity of units on this line.",
+            "maximum": 10000000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "unit_cost_usd": {
+            "default": 0.0,
+            "description": "Unit price in USD (used for TAA thresholds and BAA domestic-content weighting).",
+            "maximum": 1000000000,
+            "minimum": 0,
+            "type": "number"
+          },
+          "domestic_component_cost_pct": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number",
+            "nullable": true,
+            "default": null,
+            "description": "Optional known percentage (0-100) of component cost that is US-domestic for this line (FAR 25.101 domestic content test). Leave null if unknown.",
+            "title": "Domestic Component Cost Pct"
+          }
+        },
+        "required": [
+          "line_item_id",
+          "part_number",
+          "manufacturer",
+          "country_of_origin"
+        ],
+        "title": "BomLineItem",
+        "type": "object"
+      },
+      "SbomComponent": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "Software component / package name (e.g., 'openssl', 'log4j-core', 'react').",
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "default": "unspecified",
+            "description": "Component version string (e.g., '3.0.13', '2.17.1').",
+            "maxLength": 80,
+            "minLength": 1,
+            "type": "string"
+          },
+          "purl": {
+            "default": "",
+            "description": "Package URL (purl) unique identifier (e.g., 'pkg:maven/org.apache.logging.log4j/log4j-core@2.17.1'). Blank if unknown.",
+            "maxLength": 500,
+            "type": "string"
+          },
+          "license": {
+            "default": "",
+            "description": "SPDX license identifier (e.g., 'Apache-2.0', 'MIT', 'GPL-3.0-only'). Blank if unknown.",
+            "maxLength": 120,
+            "type": "string"
+          },
+          "supplier": {
+            "default": "",
+            "description": "Component supplier / author / maintainer organization (NTIA minimum element 'Supplier Name'). Blank if unknown.",
+            "maxLength": 200,
+            "type": "string"
+          },
+          "known_vulnerabilities": {
+            "description": "Known CVE / GHSA identifiers or CISA KEV entries affecting this component version (e.g., ['CVE-2021-44228']).",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 50,
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "SbomComponent",
+        "type": "object"
+      },
+      "SupplyChainScrmRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "solicitation_or_contract_context": {
+            "description": "Solicitation / contract scope, Section H/I supply chain clauses, delivery location, end-use, and any agency C-SCRM, NDAA 889, TAA, BAA, or SBOM requirements.",
+            "maxLength": 45000,
+            "minLength": 20,
+            "type": "string"
+          },
+          "offeror_name": {
+            "default": "Offeror (Prime Contractor)",
+            "description": "Legal name of the prime offeror / reseller submitting the BOM and representations.",
+            "maxLength": 300,
+            "minLength": 2,
+            "type": "string"
+          },
+          "contracting_agency": {
+            "default": "Department of Defense (DoD)",
+            "description": "Contracting agency or SLED buyer (e.g., 'U.S. Army PEO C3T', 'GSA FAS', 'Arizona ADOA-ASET').",
+            "maxLength": 300,
+            "minLength": 2,
+            "type": "string"
+          },
+          "applicable_contract_clauses": {
+            "description": "Supply chain clauses/standards in the solicitation (e.g., 'FAR 52.204-25', 'FAR 52.204-30', 'FAR 52.225-5', 'DFARS 252.225-7001', 'DFARS 252.204-7012', 'DFARS 252.246-7008', 'NIST SP 800-161 Rev. 1', 'OMB M-22-18').",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 40,
+            "type": "array"
+          },
+          "bom_line_items": {
+            "description": "Hardware / COTS Bill of Materials line items with part number, manufacturer, country of origin, and supplier tier (1 to 200 lines).",
+            "items": {
+              "$ref": "#/components/schemas/BomLineItem"
+            },
+            "maxItems": 200,
+            "minItems": 1,
+            "type": "array"
+          },
+          "software_components": {
+            "description": "Software Bill of Materials (SBOM) components (name, version, purl, SPDX license, supplier, known CVEs) for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components).",
+            "items": {
+              "$ref": "#/components/schemas/SbomComponent"
+            },
+            "maxItems": 500,
+            "type": "array"
+          },
+          "sbom_format": {
+            "default": "CycloneDX_1_6",
+            "description": "Format of the offeror's SBOM deliverable ('CycloneDX_1_6' default, 'SPDX_2_3', 'SPDX_3_0', 'Proprietary_Or_Spreadsheet', or 'None_Available').",
+            "enum": [
+              "CycloneDX_1_6",
+              "SPDX_2_3",
+              "SPDX_3_0",
+              "Proprietary_Or_Spreadsheet",
+              "None_Available"
+            ],
+            "type": "string"
+          },
+          "target_compliance_regime": {
+            "default": "Auto_Detect_From_Clauses",
+            "description": "Target supply chain regulatory regime ('Auto_Detect_From_Clauses' default, 'Federal_DoD_Full_C_SCRM_NDAA_889_TAA_BAA', 'Federal_Civilian_FASCSA_And_CISA_Secure_Software', or 'State_SLED_Prohibited_Vendor_And_Domestic_Preference').",
+            "enum": [
+              "Auto_Detect_From_Clauses",
+              "Federal_DoD_Full_C_SCRM_NDAA_889_TAA_BAA",
+              "Federal_Civilian_FASCSA_And_CISA_Secure_Software",
+              "State_SLED_Prohibited_Vendor_And_Domestic_Preference"
+            ],
+            "type": "string"
+          },
+          "additional_supplier_notes": {
+            "default": "",
+            "description": "Optional sub-tier supplier attestations, SAM.gov FAR 52.204-24/26 representations, ownership/affiliation notes, or existing C-SCRM program documentation.",
+            "maxLength": 20000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "solicitation_or_contract_context",
+          "bom_line_items"
+        ],
+        "title": "SupplyChainScrmRequest",
+        "type": "object"
+      },
+      "BaaDomesticContentAnalysis": {
+        "additionalProperties": false,
+        "properties": {
+          "estimated_domestic_content_pct": {
+            "description": "Estimated cost-weighted domestic component content percentage (0-100) across the BOM.",
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number"
+          },
+          "applicable_threshold_pct": {
+            "description": "Applicable FAR 25.101 domestic content threshold (65% for CY2024-2028, 75% from CY2029) or DFARS equivalent.",
+            "maximum": 100,
+            "minimum": 0,
+            "type": "number"
+          },
+          "baa_status": {
+            "description": "Buy American Act determination for the end product(s).",
+            "enum": [
+              "BAA_COMPLIANT_DOMESTIC_END_PRODUCT",
+              "BAA_NON_COMPLIANT_FOREIGN_END_PRODUCT",
+              "COTS_IT_EXCEPTION_APPLIES",
+              "NOT_APPLICABLE_TAA_GOVERNS"
+            ],
+            "type": "string"
+          },
+          "rationale": {
+            "description": "Concise rationale including COTS IT exception (FAR 25.103(e)) or TAA precedence where applicable.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "estimated_domestic_content_pct",
+          "applicable_threshold_pct",
+          "baa_status",
+          "rationale"
+        ],
+        "title": "BaaDomesticContentAnalysis",
+        "type": "object"
+      },
+      "CScrmPlanSection": {
+        "additionalProperties": false,
+        "properties": {
+          "section_number_and_title": {
+            "description": "C-SCRM Plan section (e.g., '1.0 Scope & Roles', '2.0 Supplier Vetting & Provenance', '3.0 Counterfeit Prevention', '4.0 Incident Reporting & NDAA 889 Notification').",
+            "type": "string"
+          },
+          "nist_800_161_reference": {
+            "description": "Cited NIST SP 800-161 Rev. 1 practice or SR control.",
+            "type": "string"
+          },
+          "plan_content": {
+            "description": "Concise, paste-ready plan language for this section.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "section_number_and_title",
+          "nist_800_161_reference",
+          "plan_content"
+        ],
+        "title": "CScrmPlanSection",
+        "type": "object"
+      },
+      "FascsaExclusionCheck": {
+        "additionalProperties": false,
+        "properties": {
+          "fascsa_status": {
+            "description": "FAR 52.204-30 FASCSA exclusion/removal order screening outcome.",
+            "enum": [
+              "NO_FASCSA_ORDER_MATCH_VERIFY_IN_SAM",
+              "POTENTIAL_MATCH_VERIFY_SAM_GOV",
+              "COVERED_ARTICLE_EXCLUDED"
+            ],
+            "type": "string"
+          },
+          "sources_to_verify": {
+            "description": "Authoritative sources the offeror must check before submission (e.g., SAM.gov FASCSA orders, FAR 4.2303 notices).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rationale": {
+            "description": "Rationale and the FAR 52.204-29 / 52.204-30 representation and reasonable-inquiry obligations.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "fascsa_status",
+          "sources_to_verify",
+          "rationale"
+        ],
+        "title": "FascsaExclusionCheck",
+        "type": "object"
+      },
+      "Ndaa889Finding": {
+        "additionalProperties": false,
+        "properties": {
+          "line_item_id": {
+            "description": "BOM line identifier (or 'ENTERPRISE' for Part B use-prohibition findings across the offeror's own operations).",
+            "type": "string"
+          },
+          "part_number_or_component": {
+            "description": "Part number, product, or component evaluated.",
+            "type": "string"
+          },
+          "flagged_entity": {
+            "description": "Covered entity or affiliate matched (Huawei, ZTE, Hytera, Hikvision, Dahua, or subsidiaries/affiliates/white-label OEMs), or 'None' when clear.",
+            "type": "string"
+          },
+          "section_889_prong": {
+            "description": "Applicable NDAA FY2019 Section 889 prong (FAR 52.204-25(b)(1) Part A or (b)(2) Part B).",
+            "enum": [
+              "Section_889_a_1_A_Part_A_Procurement_Prohibition",
+              "Section_889_a_1_B_Part_B_Use_Prohibition",
+              "Not_Applicable_No_Covered_Telecom"
+            ],
+            "type": "string"
+          },
+          "finding_status": {
+            "description": "Screening outcome for this line.",
+            "enum": [
+              "CLEAR",
+              "POTENTIAL_COVERED_AFFILIATE_VERIFY",
+              "PROHIBITED_COVERED_EQUIPMENT"
+            ],
+            "type": "string"
+          },
+          "evidence_and_rationale": {
+            "description": "Concise rationale citing FAR 52.204-25 definitions of covered telecommunications equipment/services and any OEM/affiliate evidence.",
+            "type": "string"
+          },
+          "required_action": {
+            "description": "Required action (e.g., substitute TAA-compliant OEM, FAR 52.204-26 representation update, 1-business-day FAR 52.204-25(d) report).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "line_item_id",
+          "part_number_or_component",
+          "flagged_entity",
+          "section_889_prong",
+          "finding_status",
+          "evidence_and_rationale",
+          "required_action"
+        ],
+        "title": "Ndaa889Finding",
+        "type": "object"
+      },
+      "NistControlGap": {
+        "additionalProperties": false,
+        "properties": {
+          "control_id_and_title": {
+            "description": "NIST SP 800-161 Rev. 1 / 800-53 Rev. 5 SR-family or related control (e.g., 'SR-3 Supply Chain Controls and Processes', 'SR-4 Provenance', 'SR-11 Component Authenticity').",
+            "type": "string"
+          },
+          "gap_severity": {
+            "description": "Severity of the control gap.",
+            "enum": [
+              "CRITICAL",
+              "HIGH",
+              "MODERATE",
+              "LOW"
+            ],
+            "type": "string"
+          },
+          "gap_description": {
+            "description": "Concise description of the missing or deficient C-SCRM control.",
+            "type": "string"
+          },
+          "recommended_implementation": {
+            "description": "Concrete control implementation to close the gap.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "control_id_and_title",
+          "gap_severity",
+          "gap_description",
+          "recommended_implementation"
+        ],
+        "title": "NistControlGap",
+        "type": "object"
+      },
+      "SbomAttestationReview": {
+        "additionalProperties": false,
+        "properties": {
+          "ntia_minimum_elements_status": {
+            "description": "NTIA SBOM minimum-elements status (Supplier Name, Component Name, Version, Other Unique Identifiers, Dependency Relationship, Author of SBOM Data, Timestamp).",
+            "enum": [
+              "ALL_7_NTIA_MINIMUM_ELEMENTS_PRESENT",
+              "PARTIAL_MISSING_ELEMENTS",
+              "NO_SBOM_PROVIDED"
+            ],
+            "type": "string"
+          },
+          "missing_ntia_elements": {
+            "description": "NTIA minimum data fields missing from the submitted SBOM.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cisa_secure_software_attestation_readiness": {
+            "description": "Readiness to sign the CISA Secure Software Development Attestation Common Form (OMB M-22-18 / M-23-16, NIST SP 800-218 SSDF).",
+            "enum": [
+              "READY_TO_SIGN_CISA_COMMON_FORM",
+              "READY_WITH_POA_M_EXTENSION_REQUEST",
+              "NOT_READY_REQUIRES_REMEDIATION"
+            ],
+            "type": "string"
+          },
+          "high_risk_components": {
+            "description": "Components with known exploited vulnerabilities (CISA KEV), end-of-life versions, or unknown provenance.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "license_risk_flags": {
+            "description": "Copyleft or unknown-license components that create government data-rights or distribution risk.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attestation_summary": {
+            "description": "Concise SBOM and secure software self-attestation summary.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ntia_minimum_elements_status",
+          "cisa_secure_software_attestation_readiness",
+          "attestation_summary"
+        ],
+        "title": "SbomAttestationReview",
+        "type": "object"
+      },
+      "ScrmRemediationMilestone": {
+        "additionalProperties": false,
+        "properties": {
+          "milestone_id": {
+            "description": "Remediation milestone identifier (e.g., 'SCRM-POA&M-01').",
+            "type": "string"
+          },
+          "finding_reference": {
+            "description": "Finding addressed (e.g., 'BOM-003 Hikvision NDAA 889 Part A').",
+            "type": "string"
+          },
+          "remediation_action": {
+            "description": "Concrete corrective action (OEM substitution, supplier attestation, SBOM regeneration, CVE patch).",
+            "type": "string"
+          },
+          "owner_role": {
+            "description": "Accountable role (e.g., 'Supply Chain Manager', 'Product Security Lead', 'Contracts Manager').",
+            "type": "string"
+          },
+          "target_completion_window": {
+            "description": "Target timeline (e.g., 'Pre-Submission', '30 Days Post-Award').",
+            "type": "string"
+          }
+        },
+        "required": [
+          "milestone_id",
+          "finding_reference",
+          "remediation_action",
+          "owner_role",
+          "target_completion_window"
+        ],
+        "title": "ScrmRemediationMilestone",
+        "type": "object"
+      },
+      "TaaLineDetermination": {
+        "additionalProperties": false,
+        "properties": {
+          "line_item_id": {
+            "description": "BOM line identifier.",
+            "type": "string"
+          },
+          "country_of_origin": {
+            "description": "Evaluated country of origin / substantial transformation.",
+            "type": "string"
+          },
+          "taa_status": {
+            "description": "FAR 52.225-5 / FAR 25.003 designated-country determination for this line.",
+            "enum": [
+              "TAA_COMPLIANT_US_OR_DESIGNATED_COUNTRY",
+              "TAA_NON_COMPLIANT_NON_DESIGNATED_COUNTRY",
+              "SUBSTANTIAL_TRANSFORMATION_ANALYSIS_REQUIRED",
+              "NOT_APPLICABLE_BELOW_THRESHOLD_OR_EXEMPT"
+            ],
+            "type": "string"
+          },
+          "rationale": {
+            "description": "Concise rationale (designated country list, CBP final determination, or threshold exemption).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "line_item_id",
+          "country_of_origin",
+          "taa_status",
+          "rationale"
+        ],
+        "title": "TaaLineDetermination",
+        "type": "object"
+      },
+      "SupplyChainScrmResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "supply_chain_risk_score": {
+            "description": "Quantitative supply chain risk score from 0 (no material risk) to 100 (prohibited / award-blocking).",
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "overall_scrm_verdict": {
+            "description": "Overall C-SCRM / NDAA 889 / FASCSA / TAA / BAA award-eligibility verdict.",
+            "enum": [
+              "LOW_RISK_AWARD_ELIGIBLE",
+              "MODERATE_RISK_MITIGATION_PLAN_REQUIRED",
+              "HIGH_RISK_REMEDIATION_BEFORE_SUBMISSION",
+              "PROHIBITED_NDAA_889_OR_FASCSA_BLOCKING_AWARD"
+            ],
+            "type": "string"
+          },
+          "executive_scrm_summary": {
+            "description": "Executive supply chain risk summary for the Contracting Officer and offeror leadership.",
+            "type": "string"
+          },
+          "ndaa_889_findings": {
+            "description": "Per-line FAR 52.204-25 (NDAA Section 889 Part A/B) prohibited-vendor screening findings.",
+            "items": {
+              "$ref": "#/components/schemas/Ndaa889Finding"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "fascsa_exclusion_check": {
+            "$ref": "#/components/schemas/FascsaExclusionCheck"
+          },
+          "taa_compliance_by_line": {
+            "description": "Per-line Trade Agreements Act (FAR 52.225-5) designated-country determinations.",
+            "items": {
+              "$ref": "#/components/schemas/TaaLineDetermination"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "baa_domestic_content": {
+            "$ref": "#/components/schemas/BaaDomesticContentAnalysis"
+          },
+          "nist_800_161_control_gaps": {
+            "description": "NIST SP 800-161 Rev. 1 C-SCRM control gaps with severity and implementation guidance.",
+            "items": {
+              "$ref": "#/components/schemas/NistControlGap"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "sbom_attestation": {
+            "$ref": "#/components/schemas/SbomAttestationReview"
+          },
+          "c_scrm_plan_sections": {
+            "description": "Paste-ready Cybersecurity Supply Chain Risk Management (C-SCRM) Plan sections aligned to NIST SP 800-161 Rev. 1.",
+            "items": {
+              "$ref": "#/components/schemas/CScrmPlanSection"
+            },
+            "minItems": 3,
+            "type": "array"
+          },
+          "remediation_roadmap": {
+            "description": "Prioritized SCRM Plan of Action & Milestones (POA&M) remediation roadmap.",
+            "items": {
+              "$ref": "#/components/schemas/ScrmRemediationMilestone"
+            },
+            "minItems": 2,
+            "type": "array"
+          },
+          "ready_to_submit_scrm_narrative": {
+            "description": "Paste-ready proposal Supply Chain Risk Management volume narrative with NDAA 889 / FASCSA representations, TAA/BAA certification language, and SBOM attestation statement.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "supply_chain_risk_score",
+          "overall_scrm_verdict",
+          "executive_scrm_summary",
+          "ndaa_889_findings",
+          "fascsa_exclusion_check",
+          "taa_compliance_by_line",
+          "baa_domestic_content",
+          "nist_800_161_control_gaps",
+          "sbom_attestation",
+          "c_scrm_plan_sections",
+          "remediation_roadmap",
+          "ready_to_submit_scrm_narrative"
+        ],
+        "title": "SupplyChainScrmResponse",
+        "type": "object"
+      }
+    }
+  }
+}

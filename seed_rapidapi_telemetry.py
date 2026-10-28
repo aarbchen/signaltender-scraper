@@ -497,6 +497,87 @@ ENDPOINTS = [
             "target_compliance_standard": "Revised_Section_508_And_WCAG_2_2_AA",
         },
     },
+    {
+        "id": "API 25",
+        "name": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
+        "method": "POST",
+        "path": "/v1/audit/supply-chain-scrm",
+        "rapid_host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+        "payload": {
+            "solicitation_or_contract_context": (
+                "Arizona ADOA-ASET Statewide Network Refresh & Public Safety Video Surveillance RFP (Arizona APP / Procure.AZ.gov). "
+                "Scope: furnish and install 48-port PoE+ access switches, 4MP IP dome cameras, and a cloud video management "
+                "platform for 12 ADOT and DPS facilities. Section H requires offerors to certify FAR 52.204-25 (NDAA Section 889) "
+                "compliance for federally funded (DHS/FEMA grant) line items, Trade Agreements Act designated-country end products, "
+                "NIST SP 800-161 Rev. 1 C-SCRM practices, and delivery of a CycloneDX SBOM for all software/firmware."
+            ),
+            "offeror_name": "Sonoran Secure Networks LLC",
+            "contracting_agency": "Arizona ADOA-ASET",
+            "applicable_contract_clauses": [
+                "FAR 52.204-25 (NDAA Section 889 Covered Telecommunications Prohibition)",
+                "FAR 52.204-30 (FASCSA Orders Prohibition)",
+                "FAR 52.225-5 (Trade Agreements Act)",
+                "NIST SP 800-161 Rev. 1 (C-SCRM)",
+            ],
+            "bom_line_items": [
+                {
+                    "line_item_id": "BOM-001",
+                    "part_number": "C9300-48P-E",
+                    "description": "48-Port PoE+ Access Switch",
+                    "manufacturer": "Cisco Systems",
+                    "country_of_origin": "Mexico",
+                    "supplier_name": "CDW Government",
+                    "supplier_tier": "Tier_4_Distributor_Or_Raw_Material",
+                    "item_category": "IT_Hardware_Or_Network_Equipment",
+                    "quantity": 24,
+                    "unit_cost_usd": 6850.0,
+                },
+                {
+                    "line_item_id": "BOM-002",
+                    "part_number": "DS-2CD2143G2-I",
+                    "description": "4MP IP Dome Camera",
+                    "manufacturer": "Hikvision",
+                    "country_of_origin": "China",
+                    "supplier_name": "Desert Security Wholesale",
+                    "supplier_tier": "Tier_4_Distributor_Or_Raw_Material",
+                    "item_category": "Telecommunications_Or_Video_Surveillance",
+                    "quantity": 180,
+                    "unit_cost_usd": 189.0,
+                },
+                {
+                    "line_item_id": "BOM-003",
+                    "part_number": "P3265-LVE",
+                    "description": "Outdoor 2MP Dome Camera (Replacement Candidate)",
+                    "manufacturer": "Axis Communications",
+                    "country_of_origin": "Sweden",
+                    "supplier_tier": "Tier_1_Direct_OEM",
+                    "item_category": "Telecommunications_Or_Video_Surveillance",
+                    "quantity": 180,
+                    "unit_cost_usd": 742.0,
+                },
+            ],
+            "software_components": [
+                {
+                    "name": "log4j-core",
+                    "version": "2.14.1",
+                    "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1",
+                    "license": "Apache-2.0",
+                    "supplier": "Apache Software Foundation",
+                    "known_vulnerabilities": ["CVE-2021-44228"],
+                },
+                {
+                    "name": "openssl",
+                    "version": "3.0.13",
+                    "purl": "pkg:generic/openssl@3.0.13",
+                    "license": "Apache-2.0",
+                    "supplier": "OpenSSL Software Foundation",
+                    "known_vulnerabilities": [],
+                },
+            ],
+            "sbom_format": "CycloneDX_1_6",
+            "target_compliance_regime": "Auto_Detect_From_Clauses",
+        },
+    },
 ]
 
 
