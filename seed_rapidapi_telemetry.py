@@ -589,6 +589,11 @@ def run_telemetry_seeder(rotating: bool = False, slice_size: int = 4) -> None:
         print("[!] Neither RAPIDAPI_PROXY_SECRET nor RAPIDAPI_KEY set in environment.", flush=True)
         return
 
+    try:
+        requests.get(f"{BASE_URL}/v1/health", timeout=60)
+    except Exception:
+        pass
+
     if rotating and len(ENDPOINTS) > slice_size:
         slot = (int(time.time()) // 21600) % 4
         start_idx = (slot * slice_size) % len(ENDPOINTS)

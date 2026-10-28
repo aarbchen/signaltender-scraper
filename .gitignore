@@ -1,6 +1,7 @@
 # Environment variables and secrets
 .env
 *.env
+.rapidapi_session.json
 
 # Virtual environments
 daas_env/
