@@ -31,7 +31,7 @@ if exist "D:\Daas\apollo-contacts.csv" (
 
 echo.
 echo ========================================================
-echo      [+] SUCCESS: All 17 scraping & pSEO pipelines complete!
+echo      [+] SUCCESS: All 18 scraping & pSEO pipelines complete!
 echo      Supabase, Discord feed, and /contracts SEO pages synced.
 echo ========================================================
 echo.

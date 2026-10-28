@@ -40,8 +40,18 @@ def fail(msg: str) -> None:
 def check_html_file(fpath: str) -> str:
     if not os.path.exists(fpath):
         fail(f"Missing required file: {fpath}")
-    with open(fpath, "r", encoding="utf-8") as f:
-        txt = f.read()
+    import time
+    lock_path = os.path.join(BASE_DIR, ".index_html_write.lock")
+    txt = ""
+    for _attempt in range(25):
+        if os.path.exists(lock_path):
+            time.sleep(0.15)
+            continue
+        with open(fpath, "r", encoding="utf-8") as f:
+            txt = f.read()
+        if "</html>" in txt and txt.count("<main") == txt.count("</main>"):
+            break
+        time.sleep(0.15)
 
     rel = os.path.relpath(fpath, BASE_DIR)
 
