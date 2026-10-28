@@ -774,7 +774,7 @@
     }
     html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\:grid-cols-4 > div > span.absolute {
       background-color: #E0F2FE !important;
-      color: #075985 !important;
+      color: #0C4A6E !important;
       border: 1px solid #7DD3FC !important;
     }
     /* API Card Top Strip in Light Mode */
@@ -791,7 +791,7 @@
     }
     html[data-theme="light"] article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {
       background-color: #E0F2FE !important;
-      color: #075985 !important;
+      color: #0C4A6E !important;
       border: 1px solid #7DD3FC !important;
     }
     /* Deep Ink Typography in Light Mode: No washed-out grey text anywhere */
@@ -839,7 +839,7 @@
     html[data-theme="light"] [class*="text-rose-2"],
     html[data-theme="light"] [class*="text-rose-3"],
     html[data-theme="light"] [class*="text-rose-4"] {
-      color: #075985 !important;
+      color: #0C4A6E !important;
     }
     html[data-theme="light"] [class*="text-emerald-2"],
     html[data-theme="light"] [class*="text-emerald-3"],
@@ -871,7 +871,7 @@
     html[data-theme="light"] a[class*="bg-orange-500/"] {
       background-color: #F0F9FF !important;
       border-color: #7DD3FC !important;
-      color: #075985 !important;
+      color: #0C4A6E !important;
     }
     html[data-theme="light"] span[class*="bg-emerald-500/"],
     html[data-theme="light"] span[class*="bg-lime-500/"],
@@ -1123,7 +1123,7 @@
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].text-sky-300,
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn].bg-slate-800 {
       background-color: #E0F2FE !important;
-      color: #075985 !important;
+      color: #0C4A6E !important;
       border-color: #7DD3FC !important;
     }
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button:not([data-snippet-btn]) {
@@ -1139,8 +1139,143 @@
     html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 .flex.flex-wrap.gap-1\.5 > span {
       background-color: #FFFFFF !important;
       border: 1px solid #CBD5E1 !important;
-      color: #075985 !important;
+      color: #0C4A6E !important;
       font-weight: 600 !important;
+    }
+    /* === LIGHT MODE READABILITY BOOST: heavier strokes + deeper ink (WCAG AAA 7:1+ on every text tier) === */
+    html[data-theme="light"] body {
+      font-weight: 500;
+    }
+    html[data-theme="light"] .font-normal,
+    html[data-theme="light"] .font-light {
+      font-weight: 500 !important;
+    }
+    html[data-theme="light"] [class*="text-slate-400"],
+    html[data-theme="light"] [class*="text-slate-500"],
+    html[data-theme="light"] [class*="text-slate-600"],
+    html[data-theme="light"] [class*="text-gray-400"],
+    html[data-theme="light"] [class*="text-gray-500"],
+    html[data-theme="light"] [class*="text-gray-600"] {
+      color: #1E293B !important;
+    }
+    html[data-theme="light"] [class*="text-sky-2"],
+    html[data-theme="light"] [class*="text-sky-3"],
+    html[data-theme="light"] [class*="text-sky-4"],
+    html[data-theme="light"] [class*="text-sky-5"],
+    html[data-theme="light"] [class*="text-indigo-2"],
+    html[data-theme="light"] [class*="text-indigo-3"],
+    html[data-theme="light"] [class*="text-indigo-4"],
+    html[data-theme="light"] [class*="text-indigo-5"],
+    html[data-theme="light"] [class*="text-blue-2"],
+    html[data-theme="light"] [class*="text-blue-3"],
+    html[data-theme="light"] [class*="text-blue-4"],
+    html[data-theme="light"] [class*="text-blue-5"],
+    html[data-theme="light"] [class*="text-cyan-2"],
+    html[data-theme="light"] [class*="text-cyan-3"],
+    html[data-theme="light"] [class*="text-cyan-4"],
+    html[data-theme="light"] [class*="text-cyan-5"],
+    html[data-theme="light"] [class*="text-teal-2"],
+    html[data-theme="light"] [class*="text-teal-3"],
+    html[data-theme="light"] [class*="text-teal-4"],
+    html[data-theme="light"] [class*="text-teal-5"],
+    html[data-theme="light"] [class*="text-purple-2"],
+    html[data-theme="light"] [class*="text-purple-3"],
+    html[data-theme="light"] [class*="text-purple-4"],
+    html[data-theme="light"] [class*="text-violet-2"],
+    html[data-theme="light"] [class*="text-violet-3"],
+    html[data-theme="light"] [class*="text-violet-4"],
+    html[data-theme="light"] [class*="text-rose-2"],
+    html[data-theme="light"] [class*="text-rose-3"],
+    html[data-theme="light"] [class*="text-rose-4"] {
+      color: #0C4A6E !important;
+    }
+    html[data-theme="light"] [class*="text-emerald-2"],
+    html[data-theme="light"] [class*="text-emerald-3"],
+    html[data-theme="light"] [class*="text-emerald-4"],
+    html[data-theme="light"] [class*="text-emerald-5"],
+    html[data-theme="light"] [class*="text-lime-2"],
+    html[data-theme="light"] [class*="text-lime-3"],
+    html[data-theme="light"] [class*="text-lime-4"],
+    html[data-theme="light"] [class*="text-lime-5"] {
+      color: #064E3B !important;
+    }
+    html[data-theme="light"] [class*="text-amber-2"],
+    html[data-theme="light"] [class*="text-amber-3"],
+    html[data-theme="light"] [class*="text-amber-4"],
+    html[data-theme="light"] [class*="text-amber-5"],
+    html[data-theme="light"] [class*="text-orange-2"],
+    html[data-theme="light"] [class*="text-orange-3"],
+    html[data-theme="light"] [class*="text-orange-4"],
+    html[data-theme="light"] [class*="text-orange-5"] {
+      color: #78350F !important;
+    }
+    html[data-theme="light"] span[class*="bg-sky-500/"],
+    html[data-theme="light"] span[class*="bg-indigo-500/"],
+    html[data-theme="light"] span[class*="bg-blue-500/"],
+    html[data-theme="light"] span[class*="bg-cyan-500/"],
+    html[data-theme="light"] span[class*="bg-teal-500/"],
+    html[data-theme="light"] a[class*="bg-sky-500/"]:not([href^="#"]),
+    html[data-theme="light"] a[class*="bg-blue-500/"],
+    html[data-theme="light"] a[class*="bg-teal-500/"] {
+      color: #0C4A6E !important;
+    }
+    html[data-theme="light"] span[class*="bg-emerald-500/"],
+    html[data-theme="light"] span[class*="bg-lime-500/"],
+    html[data-theme="light"] a[class*="bg-lime-500/"] {
+      color: #064E3B !important;
+    }
+    html[data-theme="light"] span[class*="bg-amber-500/"],
+    html[data-theme="light"] span[class*="bg-orange-500/"],
+    html[data-theme="light"] a[class*="bg-orange-500/"] {
+      color: #78350F !important;
+    }
+    /* Solid blue CTA buttons + solid indigo badges: Oxford Navy surface with crisp white text (previously navy text on mid-blue = 3.4:1) */
+    html[data-theme="light"] a.bg-blue-500,
+    html[data-theme="light"] a.bg-blue-600,
+    html[data-theme="light"] button.bg-blue-500,
+    html[data-theme="light"] button.bg-blue-600,
+    html[data-theme="light"] span.bg-indigo-500,
+    html[data-theme="light"] span.bg-indigo-600 {
+      background: #0F172A !important;
+      background-image: none !important;
+      color: #FFFFFF !important;
+      border-color: #0F172A !important;
+      font-weight: 600 !important;
+    }
+    html[data-theme="light"] a.bg-blue-500 *,
+    html[data-theme="light"] a.bg-blue-600 *,
+    html[data-theme="light"] button.bg-blue-500 *,
+    html[data-theme="light"] button.bg-blue-600 * {
+      color: #FFFFFF !important;
+    }
+    /* API card response-preview header label ("RESPONSE // ...") was inheriting the dark-mode #E2E8F0 on a light #F1F5F9 strip (1.1:1, effectively invisible) */
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 > div:first-child > div:first-child > span:first-child {
+      color: #0F172A !important;
+      font-weight: 600 !important;
+    }
+    /* Code / JSON terminal syntax ink: deeper navy, forest and bronze for 7:1+ on the #F1F5F9 panel */
+    html[data-theme="light"] pre [class*="text-sky-"],
+    html[data-theme="light"] pre [class*="text-cyan-"],
+    html[data-theme="light"] pre [class*="text-indigo-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-sky-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-cyan-"],
+    html[data-theme="light"] #demo-json-output [class*="text-sky-"] {
+      color: #0C4A6E !important;
+    }
+    html[data-theme="light"] pre [class*="text-emerald-"],
+    html[data-theme="light"] pre [class*="text-lime-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-emerald-"],
+    html[data-theme="light"] #demo-json-output [class*="text-emerald-"] {
+      color: #064E3B !important;
+    }
+    html[data-theme="light"] pre [class*="text-amber-"],
+    html[data-theme="light"] pre [class*="text-orange-"],
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 [class*="text-amber-"],
+    html[data-theme="light"] #demo-json-output [class*="text-amber-"] {
+      color: #78350F !important;
+    }
+    html[data-theme="light"] article[id^="product-"] .lg\:col-span-5 button[data-snippet-btn] {
+      color: #1E293B !important;
     }
     /* === DESKTOP 60/144FPS COMPOSITING & LAYOUT CONTAINMENT OPTIMIZATIONS === */
     body, html[data-theme="light"] body {
@@ -1448,7 +1583,7 @@
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official PA DGS eMarketplace &amp; PhilaPort Electronic Q&amp;A &amp; Contracting Officer Portal (PA Department of General Services)" class="blur-sm select-none break-words">contracting.officer@emarketplace.state.pa.us &bull; Electronic Q&amp;A Desk (PA Department of General Services)</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                    <div class="pt-3 flex flex-col sm:flex-row flex-wrap gap-3">
                       <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                         Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                       </a>
@@ -1908,6 +2043,49 @@
         window.scrollTo(0, targetY);
         return true;
       };
+
+      /* Keep the slim left rail flush under whatever is pinned at the top (sticky header + any pinned sub-nav bar), so no gap opens up while scrolling */
+      (function () {
+        var railRafPending = false;
+        function syncRailTop() {
+          railRafPending = false;
+          if (typeof window.getComputedStyle !== 'function' || !document.querySelectorAll) return;
+          var rail = document.getElementById ? document.getElementById('page-sidebar-tab') : null;
+          if (!rail || !rail.getBoundingClientRect || window.getComputedStyle(rail).display === 'none') return;
+          var bottom = 0;
+          var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+          var nodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
+          for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            if (n.closest && n.closest('#page-section-sidebar-root')) continue;
+            if (n.offsetParent === null || !n.getBoundingClientRect) continue;
+            var cs = window.getComputedStyle(n);
+            if (cs.position !== 'sticky' && cs.position !== 'fixed') continue;
+            var r = n.getBoundingClientRect();
+            if (r.height <= 0 || r.bottom <= 0 || r.top > 200) continue;
+            var isHeader = n.tagName === 'HEADER';
+            if (!isHeader) {
+              var stickTop = parseFloat(cs.top);
+              if (isNaN(stickTop) || r.top > stickTop + 1.5 || r.width < vw * 0.6) continue;
+            }
+            if (r.bottom > bottom) bottom = r.bottom;
+          }
+          if (bottom > 0) rail.style.top = Math.round(bottom) + 'px';
+        }
+        function scheduleRailSync() {
+          if (railRafPending) return;
+          railRafPending = true;
+          if (typeof window.requestAnimationFrame === 'function') { window.requestAnimationFrame(syncRailTop); } else { setTimeout(syncRailTop, 16); }
+        }
+        window.syncSidebarRailTop = scheduleRailSync;
+        if (typeof window.addEventListener !== 'function') return;
+        window.addEventListener('scroll', scheduleRailSync, { passive: true });
+        window.addEventListener('resize', scheduleRailSync);
+        window.addEventListener('hashchange', function () { setTimeout(scheduleRailSync, 60); setTimeout(scheduleRailSync, 400); });
+        window.addEventListener('load', scheduleRailSync);
+        if (typeof document.addEventListener === 'function') document.addEventListener('DOMContentLoaded', scheduleRailSync);
+        scheduleRailSync();
+      })();
 
       window.__PAGE_SIDEBAR_OPEN = false;
 
