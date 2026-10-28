@@ -160,6 +160,11 @@ def main() -> int:
         if not is_primary_watcher():
             time.sleep(CHECK_INTERVAL_SECONDS)
             continue
+        try:
+            import rapidapi_headless_publisher
+            rapidapi_headless_publisher.keepalive_rapidapi_session()
+        except Exception:
+            pass
         # 1. Check for any open runtime alerts in Render telemetry or local error_log.txt
         remote_errors = auto_error_healer.fetch_remote_open_errors()
         local_errors = auto_error_healer.read_local_unacknowledged_errors()
