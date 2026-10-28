@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
+    "title": "GovCon OCI & FAR 9.5 Mitigation Plan Generator API",
     "version": "1.0.0",
     "x-category": "Business",
     "description": "Audits existing Prime/Sub SETA, A&AS, IV&V, or Systems Engineering contracts against a new Federal or SLED solicitation under FAR Subpart 9.5 (9.505-1 through 9.505-4), DFARS 252.209-7008 / 252.209-7009, and GAO OCI case law across all 3 statutory OCI pillars (Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity), outputting a 3-pillar risk matrix, technical/organizational firewall controls, firewalled subcontractor workshare allocation, and a paste-ready OCI Disclosure & Mitigation Plan Volume."
@@ -70,4 +70,3 @@
     }
   }
 }
-

@@ -2,14 +2,15 @@
 Headless RapidAPI Studio & Render Proxy-Secret Publisher (`rapidapi_headless_publisher.py`).
 Executes 100% in Python:
   1. Generates or locates the 500x500 PNG API logo (`api{N}_*_logo.png`).
-  2. Authenticates to `https://rapidapi.com/gateway/graphql` using `RAPIDAPI_STUDIO_COOKIE` in `.env`
-     with `"x-rapidapi-Rolling-Key": "true"` and automatically persists rolled `Set-Cookie` headers
-     (`connect.sid`, `jwt_auth`, `_csrf`) back to `d:\\Daas\\.env` and `.rapidapi_session.json`
-     so the rolling session never expires.
+  2. Authenticates to `https://rapidapi.com/gateway/graphql` using `.rapidapi_session.json` or
+     `RAPIDAPI_STUDIO_COOKIE` in `.env` with `"x-rapidapi-Rolling-Key": "true"` and automatically
+     persists rolled `Set-Cookie` headers (`connect.sid`, `jwt_auth`, `_csrf`) back to `d:\\Daas\\.env`
+     and `.rapidapi_session.json` so the rolling session never expires.
   3. Creates the standalone API project in Rapid Studio (`createApisFromRapidOas` from
-     `rapidapi_api{N}_openapi.json`), uploads its 500x500 PNG logo and Markdown README (`updateApi`),
-     configures `/v1/health` healthcheck (`upsertApiHealthcheck`), and configures all 4 pricing plans
-     (`BASIC $0`, `PRO $49`, `ULTRA $149` recommended, `MEGA $399`).
+     `rapidapi_api{N}_openapi.json`, normalizing `info.title` to `<= 60` chars as required by RapidAPI),
+     uploads its 500x500 PNG logo and Markdown README (`updateApi`), configures `/v1/health` healthcheck
+     (`upsertApiHealthcheck`), and configures all 4 pricing plans (`BASIC $0`, `PRO $49`,
+     `ULTRA $149` recommended, `MEGA $399`).
   4. Mirrors the endpoint via `updateOrCreateEndpointWithParameters` onto the matching live public
      SignalTender RapidAPI storefront so the endpoint is immediately public and live on RapidAPI Hub
      even when RapidAPI's 20-public-API account quota is full.
@@ -42,7 +43,7 @@ GQL_URL = "https://rapidapi.com/gateway/graphql"
 BACKEND_URL = "https://b2b-contract-parser-api.onrender.com"
 RENDER_SERVICE_ID = "srv-db7c68a5b2lc73fce4vg"
 
-# Live public SignalTender RapidAPI storefronts by category (already authorized on Render)
+# Live public SignalTender RapidAPI storefronts by category (verified IDs from ownerId 12383419)
 PUBLIC_MIRROR_TARGETS: Dict[str, Dict[str, str]] = {
     "capture": {
         "api_id": "api_4c6bdfeb-1400-4466-a1f7-87fcdeb819d4",
@@ -50,12 +51,12 @@ PUBLIC_MIRROR_TARGETS: Dict[str, Dict[str, str]] = {
         "hub_url": "https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api",
     },
     "proposal": {
-        "api_id": "api_71e5078f-2916-4f86-9f67-861681c2b2f5",
+        "api_id": "api_25bbd7fd-5721-496e-b590-a9e4bb94a039",
         "host": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
         "hub_url": "https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api",
     },
     "security": {
-        "api_id": "api_049302a8-19c6-4550-a7d0-94646552f59f",
+        "api_id": "api_6655eedd-44a9-4563-b30f-245c53b969b9",
         "host": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
         "hub_url": "https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api",
     },
@@ -71,7 +72,6 @@ PUBLIC_MIRROR_TARGETS: Dict[str, Dict[str, str]] = {
     },
 }
 
-# Explicit mirror routing for specific API numbers when a dedicated public suite fits best
 API_NUM_MIRROR_OVERRIDE: Dict[int, str] = {
     21: "capture",
     22: "compliance",
@@ -79,6 +79,28 @@ API_NUM_MIRROR_OVERRIDE: Dict[int, str] = {
     24: "security",
     25: "compliance",
 }
+
+STUDIO_SHORT_TITLES: Dict[int, str] = {
+    22: "GovCon OCI & FAR 9.5 Mitigation Plan Generator API",
+    23: "SBIR / STTR Phase I-III Commercialization Plan API",
+    24: "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Auditor API",
+    25: "GovCon Supply Chain SCRM, NDAA 889, TAA & SBOM Auditor API",
+}
+
+
+def shorten_studio_title(api_num: int, title: str) -> str:
+    """RapidAPI Studio enforces `len(info.title) <= 60` in `createApisFromRapidOas`."""
+    if api_num in STUDIO_SHORT_TITLES:
+        return STUDIO_SHORT_TITLES[api_num]
+    if len(title) <= 60:
+        return title
+    trimmed = title.replace("Organizational Conflict of Interest (OCI)", "OCI")
+    trimmed = trimmed.replace("Accessibility Conformance", "Auditor")
+    trimmed = trimmed.replace("Supply Chain Risk Management (SCRM)", "Supply Chain SCRM")
+    if len(trimmed) <= 60:
+        return trimmed
+    base = trimmed[:56].rsplit(" ", 1)[0].rstrip(",&- ")
+    return f"{base} API"[:60]
 
 
 def find_or_ensure_logo_500x500(api_num: int, title: str, route: str) -> Path:
@@ -148,7 +170,7 @@ def _persist_rolled_cookies(s: requests.Session) -> None:
         if c.value and current_map.get(c.name) != c.value:
             current_map[c.name] = c.value
             changed = True
-    if not changed:
+    if not changed and SESSION_PATH.exists():
         return
 
     new_cookie_str = "; ".join(f"{k}={v}" for k, v in current_map.items())
@@ -204,7 +226,7 @@ def load_rapidapi_session() -> requests.Session:
         {
             "User-Agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
             ),
             "Cookie": cookie_str,
             "Accept": "application/json",
@@ -303,6 +325,46 @@ def sync_secret_to_env_and_security(new_secret: str) -> None:
             report_error("rapidapi_headless_publisher.py", f"Optional Render API env update note: {exc}")
 
 
+QUERY_EP = """
+query GetVersionEndpoints($apiId: ID!) {
+  api(id: $apiId) {
+    id
+    currentVersion {
+      id
+      endpoints {
+        id
+        name
+        route
+        method
+        description
+        requestPayloads {
+          id
+          name
+          format
+          body
+          description
+          examples
+          schema
+        }
+        responsePayloads {
+          id
+          name
+          format
+          body
+          headers
+          description
+          status
+          statusCode
+          examples
+          schema
+        }
+      }
+    }
+  }
+}
+"""
+
+
 def _create_or_configure_studio_project(
     s: requests.Session,
     api_num: int,
@@ -314,11 +376,13 @@ def _create_or_configure_studio_project(
     oas_path: Path,
 ) -> Optional[Dict[str, Any]]:
     """Create the standalone API project in Rapid Studio (`createApisFromRapidOas`) and configure Logo, README, Healthcheck, and 4 Pricing Plans."""
+    studio_title = shorten_studio_title(api_num, title)
+
     existing_search = gql(
         s,
         """
         query {
-          apis(where: { ownerId: { is: "12383419" } }, pagination: { first: 60 }) {
+          apis(where: { ownerId: ["12383419"] }, pagination: { first: 60 }) {
             nodes {
               id
               name
@@ -335,14 +399,22 @@ def _create_or_configure_studio_project(
         )
 
     api_id = None
-    title_prefix = title[:28].lower()
-    for node in (existing_search.get("data", {}).get("apis", {}) or {}).get("nodes", []):
+    for node in ((existing_search.get("data") or {}).get("apis") or {}).get("nodes") or []:
         n_name = (node.get("name") or "").lower()
-        if n_name == title.lower() or title_prefix in n_name:
+        if n_name in (title.lower(), studio_title.lower()) or studio_title[:24].lower() in n_name:
             api_id = node["id"]
             break
 
     if not api_id and oas_path.exists():
+        # Ensure info.title in OpenAPI JSON is <= 60 chars so RapidAPI createApisFromRapidOas accepts it
+        try:
+            oas_obj = json.loads(oas_path.read_text(encoding="utf-8"))
+            if "info" in oas_obj and len(oas_obj["info"].get("title", "")) > 60:
+                oas_obj["info"]["title"] = studio_title
+                oas_path.write_text(json.dumps(oas_obj, indent=2) + "\n", encoding="utf-8", newline="\n")
+        except Exception:
+            pass
+
         create_ops = json.dumps(
             {
                 "operationName": "createApisFromRapidOas",
@@ -372,6 +444,8 @@ def _create_or_configure_studio_project(
         if created_list:
             api_id = created_list[0].get("apiId")
             time.sleep(2)
+        else:
+            print(f"[!] createApisFromRapidOas for API #{api_num} returned:", create_resp)
 
     if not api_id:
         return None
@@ -418,6 +492,8 @@ def _create_or_configure_studio_project(
         sync_secret_to_env_and_security(info["secret"])
 
     # Try updating metadata + Logo + README with PUBLIC first; if 20-public-API quota reached, save with PRIVATE so Studio card has full Logo & README
+    final_vis = info.get("visibility") or "PRIVATE"
+    final_thumb = info.get("thumbnail")
     for vis in ("PUBLIC", "PRIVATE"):
         operations = json.dumps(
             {
@@ -459,7 +535,10 @@ def _create_or_configure_studio_project(
                 timeout=35,
             ).json()
         _persist_rolled_cookies(s)
-        if (mp_resp.get("data") or {}).get("updateApi"):
+        upd = (mp_resp.get("data") or {}).get("updateApi")
+        if upd:
+            final_vis = upd.get("visibility") or vis
+            final_thumb = upd.get("thumbnail")
             break
 
     # Configure Healthcheck
@@ -484,7 +563,7 @@ def _create_or_configure_studio_project(
         if basic_id:
             basic_ext = {
                 "api": api_id,
-                "apiName": title,
+                "apiName": studio_title,
                 "apiVersion": ver_id,
                 "apiVersionName": ver_name,
                 "providerName": "SignalTender",
@@ -536,7 +615,7 @@ def _create_or_configure_studio_project(
                 continue
             c_input = {
                 "api": api_id,
-                "apiName": title,
+                "apiName": studio_title,
                 "apiVersion": ver_id,
                 "apiVersionName": ver_name,
                 "providerName": "SignalTender",
@@ -602,8 +681,100 @@ def _create_or_configure_studio_project(
     return {
         "studio_api_id": api_id,
         "studio_slug": info.get("slugifiedName"),
+        "visibility": final_vis,
+        "thumbnail": final_thumb,
         "proxy_secret": info.get("secret"),
     }
+
+
+def _mirror_endpoint_to_public_storefront(
+    s: requests.Session,
+    studio_api_id: Optional[str],
+    public_api_id: str,
+    route: str,
+    ep_title: str,
+    summary: str,
+    sample_payload: Dict[str, Any],
+) -> Any:
+    """Clone the OpenAPI-imported endpoint from `studio_api_id` (or construct directly) onto `public_api_id`."""
+    req_payloads = []
+    resp_payloads = []
+    if studio_api_id:
+        res_src = gql(s, QUERY_EP, {"apiId": studio_api_id})
+        ver_src = ((res_src.get("data") or {}).get("api") or {}).get("currentVersion") or {}
+        eps_src = ver_src.get("endpoints") or []
+        if eps_src:
+            ep_src = eps_src[0]
+            for rp in ep_src.get("requestPayloads") or []:
+                req_payloads.append(
+                    {
+                        "name": rp.get("name") or "application/json",
+                        "format": rp.get("format") or "JSON",
+                        "body": rp.get("body") or json.dumps(sample_payload, indent=2),
+                        "description": rp.get("description") or summary[:200],
+                        "examples": rp.get("examples"),
+                        "schema": rp.get("schema"),
+                    }
+                )
+            for rp in ep_src.get("responsePayloads") or []:
+                resp_payloads.append(
+                    {
+                        "name": rp.get("name") or str(rp.get("statusCode") or 200),
+                        "format": rp.get("format") or "JSON",
+                        "body": rp.get("body") or "",
+                        "headers": rp.get("headers") or "{}",
+                        "description": rp.get("description") or "",
+                        "status": rp.get("status") or "ACTIVE",
+                        "statusCode": rp.get("statusCode") or 200,
+                        "examples": rp.get("examples"),
+                        "schema": rp.get("schema"),
+                    }
+                )
+
+    if not req_payloads:
+        req_payloads = [
+            {
+                "name": "application/json",
+                "format": "JSON",
+                "body": json.dumps(sample_payload, indent=2),
+                "description": summary[:200],
+                "examples": {"Sample": {"value": sample_payload}},
+                "schema": {"type": "object"},
+            }
+        ]
+
+    res_pub = gql(s, QUERY_EP, {"apiId": public_api_id})
+    ver_pub = ((res_pub.get("data") or {}).get("api") or {}).get("currentVersion") or {}
+    pub_ver_id = ver_pub.get("id")
+    if not pub_ver_id:
+        return None
+
+    existing_ep = next((e for e in (ver_pub.get("endpoints") or []) if e.get("route") == route), None)
+    inp: Dict[str, Any] = {
+        "name": ep_title[:65],
+        "description": summary[:280],
+        "externalDocs": {},
+        "apiVersionId": pub_ver_id,
+        "params": {"route": [], "header": []},
+        "payloadParameters": [],
+        "method": "POST",
+        "displayResponse": False,
+        "response": "",
+        "responsePayloads": resp_payloads,
+        "requestPayloads": req_payloads,
+        "route": route,
+        "routeregex": route,
+    }
+    if existing_ep:
+        inp["endpointId"] = existing_ep["id"]
+
+    mut_ep = """
+    mutation updateEndpointWithParameters($input: updateOrCreateEndpointWithParameters!) {
+      updateOrCreateEndpointWithParameters(input: $input)
+    }
+    """
+    res_mirror = gql(s, mut_ep, {"input": inp}, "updateEndpointWithParameters")
+    return (res_mirror.get("data") or {}).get("updateOrCreateEndpointWithParameters") or res_mirror
 
 
 def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name: Optional[str] = None) -> Dict[str, Any]:
@@ -620,7 +791,7 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
     summary = api_cfg["summary"]
     product_slug = api_cfg.get("slug", f"api-{api_num}")
     category = API_NUM_MIRROR_OVERRIDE.get(api_num, api_cfg.get("category", "capture"))
-    ep_title = endpoint_name or title.replace(" API", "")
+    ep_title = endpoint_name or shorten_studio_title(api_num, title).replace(" API", "")
 
     logo_path = find_or_ensure_logo_500x500(api_num, title, route)
     readme_path = DAAS_DIR / f"rapidapi_api{api_num}_readme.md"
@@ -647,43 +818,21 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
 
     # 2. Mirror endpoint onto public RapidAPI storefront immediately so it is 100% live and public
     mirror = PUBLIC_MIRROR_TARGETS.get(category, PUBLIC_MIRROR_TARGETS["capture"])
-    ver_res = gql(s, "query($id: ID!) { api(id: $id) { id currentVersion { id } } }", {"id": mirror["api_id"]})
-    version_id = ((ver_res.get("data") or {}).get("api") or {}).get("currentVersion", {}).get("id")
-
-    q_ep = """
-    mutation updateOrCreateEndpointWithParameters($input: EndpointWithParametersCreateInput!) {
-      updateOrCreateEndpointWithParameters(input: $input) {
-        id
-        name
-        route
-        method
-      }
-    }
-    """
-    ep_input = {
-        "apiVersion": version_id,
-        "name": ep_title[:65],
-        "route": route,
-        "method": api_cfg.get("method", "POST"),
-        "description": summary[:280],
-        "externalDocs": {"url": f"https://signaltender.net/apis.html#product-{product_slug}"},
-        "requestPayloads": [
-            {
-                "format": "application/json",
-                "name": f"Api{api_num}Request",
-                "description": summary[:200],
-                "body": json.dumps(sample_payload),
-                "examples": [{"name": "Sample Request", "value": json.dumps(sample_payload, indent=2)}],
-            }
-        ],
-    }
-    res_mirror = gql(s, q_ep, {"input": ep_input}, "updateOrCreateEndpointWithParameters")
+    mirror_res = _mirror_endpoint_to_public_storefront(
+        s=s,
+        studio_api_id=(studio_info or {}).get("studio_api_id"),
+        public_api_id=mirror["api_id"],
+        route=route,
+        ep_title=ep_title,
+        summary=summary,
+        sample_payload=sample_payload,
+    )
     return {
         "api_number": api_num,
         "studio_project": studio_info,
         "public_host": mirror["host"],
         "public_hub_url": mirror["hub_url"],
-        "mirror_endpoint": (res_mirror.get("data") or {}).get("updateOrCreateEndpointWithParameters"),
+        "mirror_endpoint": mirror_res,
     }
 
 

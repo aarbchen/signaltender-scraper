@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
+    "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Auditor API",
     "version": "1.0.0",
     "description": "Audits software, SaaS, mobile, and document deliverables against Revised Section 508 (36 CFR Part 1194), WCAG 2.2 Level A/AA, and state digital accessibility mandates (CO HB 21-1110, CA Gov Code 7405, TX TAC 206, IL IITAA 2.1) to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table, remediation engineering roadmap, and Section L/M proposal conformance narrative."
   },

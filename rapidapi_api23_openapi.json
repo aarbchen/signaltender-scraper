@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "SBIR / STTR Phase I–III Technical Volume & Commercialization Plan API",
+    "title": "SBIR / STTR Phase I-III Commercialization Plan API",
     "version": "1.0.0",
-    "description": "Stateless AI R&D Proposal & IP Compliance API that converts R&D technical specifications and SBIR/STTR solicitation topics into a DoD/AFWERX/SpaceWERX/NSF/NASA SBIR/STTR Technical Work Plan, TRL 1–9 progression matrix, Phase III Dual-Use Commercialization & Transition Plan (15 U.S.C. § 638(r)(4)), and pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions."
+    "description": "Stateless AI R&D Proposal & IP Compliance API that converts R&D technical specifications and SBIR/STTR solicitation topics into a DoD/AFWERX/SpaceWERX/NSF/NASA SBIR/STTR Technical Work Plan, TRL 1\u20139 progression matrix, Phase III Dual-Use Commercialization & Transition Plan (15 U.S.C. \u00a7 638(r)(4)), and pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions."
   },
   "servers": [
     {
@@ -41,7 +41,7 @@
         ],
         "summary": "Generate SBIR STTR Commercialization Plan",
         "operationId": "Generate SBIR STTR Commercialization Plan",
-        "description": "Converts R&D specs and an SBIR/STTR topic description into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1–9 progression matrix, Phase III Dual-Use Commercialization & Transition Plan, and DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions.",
+        "description": "Converts R&D specs and an SBIR/STTR topic description into a DoD/AFWERX/NSF SBIR/STTR Technical Work Plan, TRL 1\u20139 progression matrix, Phase III Dual-Use Commercialization & Transition Plan, and DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertions.",
         "requestBody": {
           "required": true,
           "content": {
@@ -247,7 +247,7 @@
           },
           "phase_iii_dual_use_commercialization_and_work_plan_narrative": {
             "type": "string",
-            "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. § 638(r)(4) Phase III sole-source transition roadmap."
+            "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. \u00a7 638(r)(4) Phase III sole-source transition roadmap."
           }
         },
         "required": [

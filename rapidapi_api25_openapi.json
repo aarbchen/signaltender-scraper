@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
+    "title": "GovCon Supply Chain SCRM, NDAA 889, TAA & SBOM Auditor API",
     "version": "1.0.0",
     "description": "Audits hardware Bills of Materials (BOMs), sub-tier suppliers, and Software Bills of Materials (SBOMs) against NIST SP 800-161 Rev. 1 C-SCRM, FAR 52.204-25 (NDAA Section 889 Part A/B covered telecommunications & video surveillance), FAR 52.204-30 (FASCSA exclusion orders), the Buy American Act (FAR Part 25), and the Trade Agreements Act (FAR 52.225-5) to return a 0-100 supply chain risk score, per-line NDAA 889 / TAA determinations, BAA domestic-content analysis, NIST 800-161 control gaps, NTIA SBOM & CISA Secure Software Self-Attestation readiness, paste-ready C-SCRM Plan sections, and a SCRM POA&M remediation roadmap. Stateless, read-only, and idempotent."
   },
