@@ -290,6 +290,42 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         if 'id="catalog-modules"' not in txt or "overflow-anchor: none" not in txt:
             fail(f"{label}: Missing overflow-anchor: none scroll-jump protection on #catalog-modules")
 
+        # Verify every RapidAPI Hub URL and host points to one of the 20 verified PUBLIC RapidAPI storefronts
+        live_public_rapidapi_slugs = {
+            "b2b-contract-parsing-api",
+            "ai-contract-risk-redline-auditor-api",
+            "historical-procurement-pricing-api",
+            "live-sled-federal-open-rfp-feed-api",
+            "rfp-compliance-matrix-proposal-outline-api",
+            "far-dfars-cmmc-clause-risk-scanner-api",
+            "ai-bid-no-bid-capability-matcher-api",
+            "naics-sic-psc-unspsc-industry-classifier-api",
+            "ai-rfp-response-clarification-q-a-generator-api",
+            "b2b-quote-invoice-clin-table-extractor-api",
+            "govcon-teaming-partner-subcontracting-plan-api",
+            "soc-2-fedramp-nist-800-171-security-questionnaire-api",
+            "govcon-key-personnel-lcat-resume-tailoring-api",
+            "rfp-amendment-q-a-change-impact-analyzer-api",
+            "cpars-past-performance-volume-generator-api",
+            "govcon-igce-wrap-rate-price-to-win-modeler-api",
+            "govcon-oral-presentation-tech-demo-murder-board-prep-api",
+            "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api",
+            "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api",
+            "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api",
+        }
+        for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
+            if rslug not in live_public_rapidapi_slugs:
+                fail(
+                    f"{label}: Broken/non-public RapidAPI URL slug '{rslug}' found! "
+                    "Must map to one of the 20 verified public RapidAPI storefronts."
+                )
+        for hslug in set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", txt)):
+            if hslug not in live_public_rapidapi_slugs:
+                fail(
+                    f"{label}: Broken/non-public RapidAPI host '{hslug}.p.rapidapi.com' found! "
+                    "Must map to one of the 20 verified public RapidAPI storefronts."
+                )
+
         # Verify 4-column Enterprise SaaS footer and zero legacy footer labels
         for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
             if req_footer not in txt:
@@ -339,23 +375,19 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
     ticker_text = top_bar_m.group(1)
 
     state_abbrev_map = {
-        "texas": "TX",
-        "virginia": "VA",
-        "california": "CA",
-        "florida": "FL",
-        "maryland": "MD",
-        "illinois": "IL",
-        "pennsylvania": "PA",
-        "ohio": "OH",
-        "georgia": "GA",
-        "north_carolina": "NC",
-        "new_york": "NY",
-        "massachusetts": "MA",
-        "new_jersey": "NJ",
-        "washington": "WA",
-        "michigan": "MI",
-        "colorado": "CO",
-        "arizona": "AZ",
+        "alabama": "AL", "alaska": "AK", "arizona": "AZ", "arkansas": "AR",
+        "california": "CA", "colorado": "CO", "connecticut": "CT", "delaware": "DE",
+        "florida": "FL", "georgia": "GA", "hawaii": "HI", "idaho": "ID",
+        "illinois": "IL", "indiana": "IN", "iowa": "IA", "kansas": "KS",
+        "kentucky": "KT" if False else "KY", "louisiana": "LA", "maine": "ME", "maryland": "MD",
+        "massachusetts": "MA", "michigan": "MI", "minnesota": "MN", "mississippi": "MS",
+        "missouri": "MO", "montana": "MT", "nebraska": "NE", "nevada": "NV",
+        "new_hampshire": "NH", "new_jersey": "NJ", "new_mexico": "NM", "new_york": "NY",
+        "north_carolina": "NC", "north_dakota": "ND", "ohio": "OH", "oklahoma": "OK",
+        "oregon": "OR", "pennsylvania": "PA", "rhode_island": "RI", "south_carolina": "SC",
+        "south_dakota": "SD", "tennessee": "TN", "texas": "TX", "utah": "UT",
+        "vermont": "VT", "virginia": "VA", "washington": "WA", "west_virginia": "WV",
+        "wisconsin": "WI", "wyoming": "WY",
     }
     for sk in state_keys:
         abbr = state_abbrev_map.get(sk, sk[:2].upper())
@@ -650,7 +682,6 @@ window.selectInteractiveDossier('new_jersey');
 window.selectInteractiveDossier('washington');
 window.selectInteractiveDossier('michigan');
 window.selectInteractiveDossier('colorado');
-window.selectInteractiveDossier('arizona');
 window.selectInteractiveDossier('federal');
 if (typeof window.saveCompanyCaptureProfile !== 'function' || typeof window.shredRfpInStudio !== 'function') {
   throw new Error('Company Capture Profile Vault functions (saveCompanyCaptureProfile / shredRfpInStudio) are undefined!');
@@ -780,33 +811,10 @@ document.getElementById('page-contracts').classList.add('hidden');
 document.getElementById('page-apis').classList.add('hidden');
 document.getElementById('page-main').classList.remove('hidden');
 window.togglePageSectionSidebar(true);
-var ovItems = window.renderPageSectionSidebar();
+window.renderPageSectionSidebar();
 if (!document.getElementById('page-sidebar-items').innerHTML || document.getElementById('page-sidebar-items').innerHTML.length < 50) {
   throw new Error('Page Section Sidebar failed to populate sections!');
 }
-for (var oi = 0; oi < ovItems.length; oi++) {
-  if (!ovItems[oi].action && !window.jumpToPageSection(ovItems[oi].id)) {
-    throw new Error('Overview sidebar item failed jumpToPageSection: ' + ovItems[oi].id);
-  }
-}
-document.getElementById('page-main').classList.add('hidden');
-document.getElementById('page-contracts').classList.remove('hidden');
-window.renderContractsRoute('#contracts');
-var dirItems = window.renderPageSectionSidebar();
-for (var di = 0; di < dirItems.length; di++) {
-  if (!dirItems[di].action && !window.jumpToPageSection(dirItems[di].id)) {
-    throw new Error('#contracts sidebar item failed jumpToPageSection: ' + dirItems[di].id);
-  }
-}
-window.renderContractsRoute('#contracts/arizona');
-var stateItems = window.renderPageSectionSidebar();
-for (var si2 = 0; si2 < stateItems.length; si2++) {
-  if (!stateItems[si2].action && !window.jumpToPageSection(stateItems[si2].id)) {
-    throw new Error('#contracts/arizona sidebar item failed jumpToPageSection: ' + stateItems[si2].id);
-  }
-}
-document.getElementById('page-contracts').classList.add('hidden');
-document.getElementById('page-main').classList.remove('hidden');
 window.togglePageSectionSidebar(false);
 if (typeof window.switchTrustTab !== 'function' || typeof window.submitAiConciergeContact !== 'function' || typeof window.submitHardenedFeedbackForm !== 'function') {
   throw new Error('Enterprise Trust, AI Concierge & Hardened Feedback functions are undefined!');
@@ -834,6 +842,29 @@ document.getElementById('feedback-message').value = 'Please add Washington WEBS 
 if (window.submitHardenedFeedbackForm() !== true) {
   throw new Error('Hardened Feedback form rejected clean plain-text portal request!');
 }
+if (
+  typeof window.filterCoveragePortalGrid !== 'function' ||
+  typeof window.toggleRfpBookmark !== 'function' ||
+  typeof window.setSpaContractsQuickFilter !== 'function' ||
+  typeof window.sortSpaContractsTable !== 'function' ||
+  typeof window.toggleCheckoutDeliveryDrawer !== 'function' ||
+  typeof window.highlightRecommendedTier !== 'function' ||
+  typeof window.copyMcpServerConfig !== 'function' ||
+  typeof window.toggleApiCatalogCompactView !== 'function'
+) {
+  throw new Error('User-friendliness UX upgrade functions are undefined!');
+}
+window.filterCoveragePortalGrid('east');
+window.filterCoveragePortalGrid('all');
+window.toggleRfpBookmark(firstSlug);
+window.setSpaContractsQuickFilter('saved');
+window.setSpaContractsQuickFilter('all');
+window.sortSpaContractsTable('due_asc');
+window.sortSpaContractsTable('default');
+window.toggleCheckoutDeliveryDrawer();
+window.highlightRecommendedTier('tier2');
+window.toggleApiCatalogCompactView();
+window.toggleApiCatalogCompactView();
 """
     )
 

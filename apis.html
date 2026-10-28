@@ -10263,7 +10263,8 @@
       window.toggleApiCatalogCompactView = function () {
         var modSec = document.getElementById('catalog-modules');
         if (!modSec) return;
-        var isCompact = modSec.classList.toggle('st-api-compact-mode');
+        var isCompact = !modSec.classList.contains('st-api-compact-mode');
+        if (isCompact) { modSec.classList.add('st-api-compact-mode'); } else { modSec.classList.remove('st-api-compact-mode'); }
         var btns = document.querySelectorAll('button[data-api-compact-toggle]');
         for (var i = 0; i < btns.length; i++) {
           btns[i].textContent = isCompact ? 'Full Spec View' : 'Compact Card View';
