@@ -192,8 +192,8 @@ JURISDICTIONS = {
         "short": "Arizona",
         "portal": "AZ APP Procure.AZ.gov, ADOA-ASET, ADOT & Maricopa",
         "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
-        "headline": "Open Arizona State (APP Procure.AZ.gov / ADOA-ASET) & Southwest IT Contracts",
-        "description": "Live State of Arizona Procurement Portal (APP / Procure.AZ.gov, ADOA Arizona Strategic Enterprise Technology, Arizona Cyber Command Center, ADOT, AHCCCS, DES, City of Phoenix, Maricopa County, ASU) IT, cloud, cybersecurity, and software solicitations.",
+        "headline": "Open Arizona State (APP / ADOA-ASET) & Phoenix Valley IT Contracts",
+        "description": "Live State of Arizona Procurement Portal (APP / Procure.AZ.gov, ADOA-ASET, Arizona Cyber Command, ADOT, AHCCCS, DES, Phoenix, Maricopa County, ASU) IT, cloud, cybersecurity, AI, and software solicitations.",
     },
     "municipal": {
         "name": "National Municipal (DemandStar)",
@@ -449,15 +449,12 @@ def classify_jurisdiction(rec: dict) -> str:
         return "colorado"
     if (
         "app.az.gov" in url
-        or "sp360.az.gov" in url
-        or "spo.az.gov" in url
-        or ".az.gov" in url
-        or "//az.gov" in url
+        or "procure.az.gov" in url
         or "azdoa.gov" in url
+        or "az.gov" in url
         or "phoenix.gov" in url
-        or "chandleraz.gov" in url
-        or "tucsonaz.gov" in url
         or "maricopa.gov" in url
+        or "asu.edu" in url
     ):
         return "arizona"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
@@ -550,9 +547,11 @@ def classify_jurisdiction(rec: dict) -> str:
         or title.lower().startswith("[az-")
         or "arizona" in agency
         or "(az)" in agency
-        or "procure.az.gov" in agency
+        or "az app" in agency
         or "adoa" in agency
         or "ahcccs" in agency
+        or "adot" in agency
+        or "maricopa" in agency
     ):
         return "arizona"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
@@ -626,8 +625,8 @@ def _render_layout(
   <meta property="og:description" content="{escaped_desc}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{canonical_url}" />
-  <meta property="og:image" content="https://signaltender.net/contracts/og-banner.png?v=6" />
-  <meta property="og:image:secure_url" content="https://signaltender.net/contracts/og-banner.png?v=6" />
+  <meta property="og:image" content="https://signaltender.net/contracts/og-banner.png?v=7" />
+  <meta property="og:image:secure_url" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta property="og:image:alt" content="SignalTender | Real-Time Federal &amp; State SLED IT/Cyber Contract Intelligence" />
   <meta property="og:logo" content="https://signaltender.net/contracts/favicon-512x512.png?v=6" />
   <meta property="og:image:type" content="image/png" />
@@ -637,7 +636,7 @@ def _render_layout(
   <meta name="twitter:site" content="@SignalTenderX" />
   <meta name="twitter:title" content="{escaped_title}" />
   <meta name="twitter:description" content="{escaped_desc}" />
-  <meta name="twitter:image" content="https://signaltender.net/contracts/og-banner.png?v=6" />
+  <meta name="twitter:image" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta name="twitter:image:alt" content="SignalTender | Real-Time Federal &amp; State SLED IT/Cyber Contract Intelligence" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1378,7 +1377,7 @@ def _render_layout(
     }}
     html[data-theme="light"] article[id^="product-"] .grid.grid-cols-2.sm\\:grid-cols-4 > div > span.absolute {{
       background-color: #E0F2FE !important;
-      color: #0C4A6E !important;
+      color: #075985 !important;
       border: 1px solid #7DD3FC !important;
     }}
     /* API Card Top Strip in Light Mode */
@@ -1395,7 +1394,7 @@ def _render_layout(
     }}
     html[data-theme="light"] article[id^="product-"] > div:first-of-type span.rounded:nth-of-type(2) {{
       background-color: #E0F2FE !important;
-      color: #0C4A6E !important;
+      color: #075985 !important;
       border: 1px solid #7DD3FC !important;
     }}
     /* Deep Ink Typography in Light Mode: No washed-out grey text anywhere */
@@ -1443,7 +1442,7 @@ def _render_layout(
     html[data-theme="light"] [class*="text-rose-2"],
     html[data-theme="light"] [class*="text-rose-3"],
     html[data-theme="light"] [class*="text-rose-4"] {{
-      color: #0C4A6E !important;
+      color: #075985 !important;
     }}
     html[data-theme="light"] [class*="text-emerald-2"],
     html[data-theme="light"] [class*="text-emerald-3"],
@@ -1475,7 +1474,7 @@ def _render_layout(
     html[data-theme="light"] a[class*="bg-orange-500/"] {{
       background-color: #F0F9FF !important;
       border-color: #7DD3FC !important;
-      color: #0C4A6E !important;
+      color: #075985 !important;
     }}
     html[data-theme="light"] span[class*="bg-emerald-500/"],
     html[data-theme="light"] span[class*="bg-lime-500/"],
@@ -1727,7 +1726,7 @@ def _render_layout(
     html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn].text-sky-300,
     html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn].bg-slate-800 {{
       background-color: #E0F2FE !important;
-      color: #0C4A6E !important;
+      color: #075985 !important;
       border-color: #7DD3FC !important;
     }}
     html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button:not([data-snippet-btn]) {{
@@ -1743,143 +1742,8 @@ def _render_layout(
     html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 .flex.flex-wrap.gap-1\\.5 > span {{
       background-color: #FFFFFF !important;
       border: 1px solid #CBD5E1 !important;
-      color: #0C4A6E !important;
+      color: #075985 !important;
       font-weight: 600 !important;
-    }}
-    /* === LIGHT MODE READABILITY BOOST: heavier strokes + deeper ink (WCAG AAA 7:1+ on every text tier) === */
-    html[data-theme="light"] body {{
-      font-weight: 500;
-    }}
-    html[data-theme="light"] .font-normal,
-    html[data-theme="light"] .font-light {{
-      font-weight: 500 !important;
-    }}
-    html[data-theme="light"] [class*="text-slate-400"],
-    html[data-theme="light"] [class*="text-slate-500"],
-    html[data-theme="light"] [class*="text-slate-600"],
-    html[data-theme="light"] [class*="text-gray-400"],
-    html[data-theme="light"] [class*="text-gray-500"],
-    html[data-theme="light"] [class*="text-gray-600"] {{
-      color: #1E293B !important;
-    }}
-    html[data-theme="light"] [class*="text-sky-2"],
-    html[data-theme="light"] [class*="text-sky-3"],
-    html[data-theme="light"] [class*="text-sky-4"],
-    html[data-theme="light"] [class*="text-sky-5"],
-    html[data-theme="light"] [class*="text-indigo-2"],
-    html[data-theme="light"] [class*="text-indigo-3"],
-    html[data-theme="light"] [class*="text-indigo-4"],
-    html[data-theme="light"] [class*="text-indigo-5"],
-    html[data-theme="light"] [class*="text-blue-2"],
-    html[data-theme="light"] [class*="text-blue-3"],
-    html[data-theme="light"] [class*="text-blue-4"],
-    html[data-theme="light"] [class*="text-blue-5"],
-    html[data-theme="light"] [class*="text-cyan-2"],
-    html[data-theme="light"] [class*="text-cyan-3"],
-    html[data-theme="light"] [class*="text-cyan-4"],
-    html[data-theme="light"] [class*="text-cyan-5"],
-    html[data-theme="light"] [class*="text-teal-2"],
-    html[data-theme="light"] [class*="text-teal-3"],
-    html[data-theme="light"] [class*="text-teal-4"],
-    html[data-theme="light"] [class*="text-teal-5"],
-    html[data-theme="light"] [class*="text-purple-2"],
-    html[data-theme="light"] [class*="text-purple-3"],
-    html[data-theme="light"] [class*="text-purple-4"],
-    html[data-theme="light"] [class*="text-violet-2"],
-    html[data-theme="light"] [class*="text-violet-3"],
-    html[data-theme="light"] [class*="text-violet-4"],
-    html[data-theme="light"] [class*="text-rose-2"],
-    html[data-theme="light"] [class*="text-rose-3"],
-    html[data-theme="light"] [class*="text-rose-4"] {{
-      color: #0C4A6E !important;
-    }}
-    html[data-theme="light"] [class*="text-emerald-2"],
-    html[data-theme="light"] [class*="text-emerald-3"],
-    html[data-theme="light"] [class*="text-emerald-4"],
-    html[data-theme="light"] [class*="text-emerald-5"],
-    html[data-theme="light"] [class*="text-lime-2"],
-    html[data-theme="light"] [class*="text-lime-3"],
-    html[data-theme="light"] [class*="text-lime-4"],
-    html[data-theme="light"] [class*="text-lime-5"] {{
-      color: #064E3B !important;
-    }}
-    html[data-theme="light"] [class*="text-amber-2"],
-    html[data-theme="light"] [class*="text-amber-3"],
-    html[data-theme="light"] [class*="text-amber-4"],
-    html[data-theme="light"] [class*="text-amber-5"],
-    html[data-theme="light"] [class*="text-orange-2"],
-    html[data-theme="light"] [class*="text-orange-3"],
-    html[data-theme="light"] [class*="text-orange-4"],
-    html[data-theme="light"] [class*="text-orange-5"] {{
-      color: #78350F !important;
-    }}
-    html[data-theme="light"] span[class*="bg-sky-500/"],
-    html[data-theme="light"] span[class*="bg-indigo-500/"],
-    html[data-theme="light"] span[class*="bg-blue-500/"],
-    html[data-theme="light"] span[class*="bg-cyan-500/"],
-    html[data-theme="light"] span[class*="bg-teal-500/"],
-    html[data-theme="light"] a[class*="bg-sky-500/"]:not([href^="#"]),
-    html[data-theme="light"] a[class*="bg-blue-500/"],
-    html[data-theme="light"] a[class*="bg-teal-500/"] {{
-      color: #0C4A6E !important;
-    }}
-    html[data-theme="light"] span[class*="bg-emerald-500/"],
-    html[data-theme="light"] span[class*="bg-lime-500/"],
-    html[data-theme="light"] a[class*="bg-lime-500/"] {{
-      color: #064E3B !important;
-    }}
-    html[data-theme="light"] span[class*="bg-amber-500/"],
-    html[data-theme="light"] span[class*="bg-orange-500/"],
-    html[data-theme="light"] a[class*="bg-orange-500/"] {{
-      color: #78350F !important;
-    }}
-    /* Solid blue CTA buttons + solid indigo badges: Oxford Navy surface with crisp white text (previously navy text on mid-blue = 3.4:1) */
-    html[data-theme="light"] a.bg-blue-500,
-    html[data-theme="light"] a.bg-blue-600,
-    html[data-theme="light"] button.bg-blue-500,
-    html[data-theme="light"] button.bg-blue-600,
-    html[data-theme="light"] span.bg-indigo-500,
-    html[data-theme="light"] span.bg-indigo-600 {{
-      background: #0F172A !important;
-      background-image: none !important;
-      color: #FFFFFF !important;
-      border-color: #0F172A !important;
-      font-weight: 600 !important;
-    }}
-    html[data-theme="light"] a.bg-blue-500 *,
-    html[data-theme="light"] a.bg-blue-600 *,
-    html[data-theme="light"] button.bg-blue-500 *,
-    html[data-theme="light"] button.bg-blue-600 * {{
-      color: #FFFFFF !important;
-    }}
-    /* API card response-preview header label ("RESPONSE // ...") was inheriting the dark-mode #E2E8F0 on a light #F1F5F9 strip (1.1:1, effectively invisible) */
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 > div:first-child > div:first-child > span:first-child {{
-      color: #0F172A !important;
-      font-weight: 600 !important;
-    }}
-    /* Code / JSON terminal syntax ink: deeper navy, forest and bronze for 7:1+ on the #F1F5F9 panel */
-    html[data-theme="light"] pre [class*="text-sky-"],
-    html[data-theme="light"] pre [class*="text-cyan-"],
-    html[data-theme="light"] pre [class*="text-indigo-"],
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-sky-"],
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-cyan-"],
-    html[data-theme="light"] #demo-json-output [class*="text-sky-"] {{
-      color: #0C4A6E !important;
-    }}
-    html[data-theme="light"] pre [class*="text-emerald-"],
-    html[data-theme="light"] pre [class*="text-lime-"],
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-emerald-"],
-    html[data-theme="light"] #demo-json-output [class*="text-emerald-"] {{
-      color: #064E3B !important;
-    }}
-    html[data-theme="light"] pre [class*="text-amber-"],
-    html[data-theme="light"] pre [class*="text-orange-"],
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 [class*="text-amber-"],
-    html[data-theme="light"] #demo-json-output [class*="text-amber-"] {{
-      color: #78350F !important;
-    }}
-    html[data-theme="light"] article[id^="product-"] .lg\\:col-span-5 button[data-snippet-btn] {{
-      color: #1E293B !important;
     }}
     /* === DESKTOP 60/144FPS COMPOSITING & LAYOUT CONTAINMENT OPTIMIZATIONS === */
     body, html[data-theme="light"] body {{
@@ -2471,98 +2335,15 @@ def _render_layout(
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
         var el = document.getElementById(cleanId);
-        if (!el) {{
-          var aliasMap = {{
-            'contracts-live-table-card': 'static-contracts-table-card',
-            'static-contracts-table-card': 'contracts-live-table-card',
-            'contracts-top-section': 'static-contracts-top-section',
-            'static-contracts-top-section': 'contracts-top-section',
-            'spa-contracts-lead-box': 'static-inbound-lead-box',
-            'static-inbound-lead-box': 'spa-contracts-lead-box'
-          }};
-          if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
-        }}
         if (!el) return false;
         var docEl = document.documentElement;
         docEl.style.scrollBehavior = 'auto';
-        if (cleanId === 'overview' || cleanId === 'contracts-top-section' || cleanId === 'static-contracts-top-section' || cleanId === 'static-rfp-scope-card') {{
-          window.scrollTo(0, 0);
-          return true;
-        }}
-        var stickyBottom = 88;
-        if (typeof window.getComputedStyle === 'function' && document.querySelectorAll) {{
-          var vw = window.innerWidth || docEl.clientWidth || 0;
-          var sNodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
-          for (var si = 0; si < sNodes.length; si++) {{
-            var sn = sNodes[si];
-            if (sn.closest && sn.closest('#page-section-sidebar-root')) continue;
-            if (sn.offsetParent === null || !sn.getBoundingClientRect) continue;
-            var scs = window.getComputedStyle(sn);
-            if (scs.position !== 'sticky' && scs.position !== 'fixed') continue;
-            var sr = sn.getBoundingClientRect();
-            if (sr.height <= 0 || sr.bottom <= 0 || sr.top > 200) continue;
-            if (sn.tagName !== 'HEADER') {{
-              var stTop = parseFloat(scs.top);
-              if (isNaN(stTop) || sr.top > stTop + 1.5 || sr.width < vw * 0.6) continue;
-            }}
-            if (sr.bottom + 16 > stickyBottom) stickyBottom = Math.min(165, Math.round(sr.bottom + 16));
-          }}
-        }}
         var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : {{ top: 0 }};
         var currentY = window.pageYOffset || docEl.scrollTop || 0;
-        var targetY = Math.max(0, Math.round(rect.top + currentY - stickyBottom));
+        var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
         window.scrollTo(0, targetY);
-        if (cleanId === 'contracts-live-table-card' || cleanId === 'static-contracts-table-card') {{
-          var sInput = document.getElementById('contracts-live-search') || document.getElementById('static-rfp-search');
-          if (sInput && typeof sInput.focus === 'function') {{
-            try {{ sInput.focus({{ preventScroll: true }}); }} catch (e) {{}}
-          }}
-        }}
         return true;
       }};
-
-      /* Keep the slim left rail flush under whatever is pinned at the top (sticky header + any pinned sub-nav bar), so no gap opens up while scrolling */
-      (function () {{
-        var railRafPending = false;
-        function syncRailTop() {{
-          railRafPending = false;
-          if (typeof window.getComputedStyle !== 'function' || !document.querySelectorAll) return;
-          var rail = document.getElementById ? document.getElementById('page-sidebar-tab') : null;
-          if (!rail || !rail.getBoundingClientRect || window.getComputedStyle(rail).display === 'none') return;
-          var bottom = 0;
-          var vw = window.innerWidth || document.documentElement.clientWidth || 0;
-          var nodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
-          for (var i = 0; i < nodes.length; i++) {{
-            var n = nodes[i];
-            if (n.closest && n.closest('#page-section-sidebar-root')) continue;
-            if (n.offsetParent === null || !n.getBoundingClientRect) continue;
-            var cs = window.getComputedStyle(n);
-            if (cs.position !== 'sticky' && cs.position !== 'fixed') continue;
-            var r = n.getBoundingClientRect();
-            if (r.height <= 0 || r.bottom <= 0 || r.top > 200) continue;
-            var isHeader = n.tagName === 'HEADER';
-            if (!isHeader) {{
-              var stickTop = parseFloat(cs.top);
-              if (isNaN(stickTop) || r.top > stickTop + 1.5 || r.width < vw * 0.6) continue;
-            }}
-            if (r.bottom > bottom) bottom = r.bottom;
-          }}
-          if (bottom > 0) rail.style.top = Math.round(bottom) + 'px';
-        }}
-        function scheduleRailSync() {{
-          if (railRafPending) return;
-          railRafPending = true;
-          if (typeof window.requestAnimationFrame === 'function') {{ window.requestAnimationFrame(syncRailTop); }} else {{ setTimeout(syncRailTop, 16); }}
-        }}
-        window.syncSidebarRailTop = scheduleRailSync;
-        if (typeof window.addEventListener !== 'function') return;
-        window.addEventListener('scroll', scheduleRailSync, {{ passive: true }});
-        window.addEventListener('resize', scheduleRailSync);
-        window.addEventListener('hashchange', function () {{ setTimeout(scheduleRailSync, 60); setTimeout(scheduleRailSync, 400); }});
-        window.addEventListener('load', scheduleRailSync);
-        if (typeof document.addEventListener === 'function') document.addEventListener('DOMContentLoaded', scheduleRailSync);
-        scheduleRailSync();
-      }})();
 
       window.__PAGE_SIDEBAR_OPEN = false;
 
@@ -2796,12 +2577,6 @@ def _render_layout(
               {{ icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
-          }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
-            rawItems = [
-              {{ icon: 'table', id: 'contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' }},
-              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
-              {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
-            ];
           }} else {{
             rawItems = [
               {{ icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
@@ -2826,12 +2601,6 @@ def _render_layout(
               {{ icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' }},
               {{ icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
               {{ icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
-              {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
-            ];
-          }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
-            rawItems = [
-              {{ icon: 'table', id: 'static-contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' }},
-              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
               {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
           }} else {{
@@ -3198,10 +2967,15 @@ def _render_layout(
             var pName = String(p.company_name || 'Verified Partner').replace(/</g, '&lt;');
             var pSoc = String(p.socioeconomic_status || 'Small Business').replace(/</g, '&lt;');
             var pUei = String(p.uei_or_cage || 'SAM Verified').replace(/</g, '&lt;');
+            var pPoc = String(p.poc_email || '').replace(/</g, '&lt;');
+            var pMailto = String(p.partner_mailto_link || ('mailto:' + encodeURIComponent(p.poc_email || '') + '?subject=FAR%209.6%20Teaming%20Invitation')).replace(/"/g, '&quot;');
             var pShare = String(p.allocated_workshare_pct || 24) + '% Share';
             return '<div class="p-2.5 rounded-lg bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2">' +
-              '<div><span class="text-white font-semibold">' + pName + '</span> <span class="text-amber-300">(' + pSoc + ')</span> <span class="text-slate-400 text-[11px]">' + pUei + '</span></div>' +
-              '<span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]">' + pShare + '</span>' +
+              '<div><span class="text-white font-semibold">' + pName + '</span> <span class="text-amber-300">(' + pSoc + ')</span> <span class="text-slate-400 text-[11px]">' + pUei + (pPoc ? (' &bull; POC: ' + pPoc) : '') + '</span></div>' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]">' + pShare + '</span>' +
+                '<a href="' + pMailto + '" class="px-2.5 py-1 rounded bg-indigo-500/20 hover:bg-indigo-500/35 border border-indigo-400/50 text-indigo-200 text-[10px] font-semibold">Email Partner POC (FAR 9.6 Teaming Invite) &rarr;</a>' +
+              '</div>' +
             '</div>';
           }}).join('');
           var inviteHref = (d && d.viral_partner_invite_mailto) ? String(d.viral_partner_invite_mailto).replace(/"/g, '&quot;') : 'mailto:?subject=13%20CFR%20125.6%20Teaming%20Invitation';
@@ -3347,6 +3121,53 @@ def _render_layout(
           }}
         }}
       }} catch (e) {{}}
+    }})();
+
+    window.toggleRfpBookmark = window.toggleRfpBookmark || function (slugVal) {{
+      if (!slugVal) return;
+      var map = {{}};
+      try {{ map = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{{}}') || {{}}; }} catch (e) {{}}
+      var nextSaved = !map[slugVal];
+      if (nextSaved) map[slugVal] = Date.now();
+      else delete map[slugVal];
+      try {{ if (window.localStorage) window.localStorage.setItem('st_saved_rfp_bookmarks', JSON.stringify(map)); }} catch (e) {{}}
+      var allBtns = document.querySelectorAll('button[data-bookmark-btn="' + slugVal.replace(/"/g, '') + '"]');
+      for (var i = 0; i < allBtns.length; i++) {{
+        var b = allBtns[i];
+        if (nextSaved) {{
+          b.className = 'px-2 py-1.5 rounded border text-[11px] transition-colors cursor-pointer bg-amber-500/20 border-amber-400/50 text-amber-300 font-semibold';
+          b.innerHTML = '&#9733; Saved';
+        }} else {{
+          b.className = 'px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer';
+          b.innerHTML = '&#9734; Save';
+        }}
+      }}
+    }};
+
+    (function initMobileScrollFloatingMinimizer() {{
+      var lastY = window.pageYOffset || 0;
+      var restoreTimer = null;
+      window.addEventListener('scroll', function () {{
+        if ((window.innerWidth || 1024) >= 1024) return;
+        var curY = window.pageYOffset || 0;
+        var mobBtn = document.getElementById('page-sidebar-mobile-btn');
+        var concBtn = document.getElementById('st-floating-concierge-btn');
+        var down = curY > lastY + 8 && curY > 120;
+        lastY = curY;
+        if (mobBtn) {{
+          mobBtn.style.opacity = down ? '0.35' : '1';
+          mobBtn.style.transform = down ? 'scale(0.88)' : 'scale(1)';
+        }}
+        if (concBtn) {{
+          concBtn.style.opacity = down ? '0.35' : '1';
+          concBtn.style.transform = down ? 'scale(0.88)' : 'scale(1)';
+        }}
+        if (restoreTimer) clearTimeout(restoreTimer);
+        restoreTimer = setTimeout(function () {{
+          if (mobBtn) {{ mobBtn.style.opacity = '1'; mobBtn.style.transform = 'scale(1)'; }}
+          if (concBtn) {{ concBtn.style.opacity = '1'; concBtn.style.transform = 'scale(1)'; }}
+        }}, 650);
+      }}, {{ passive: true }});
     }})();
   </script>
 </body>
@@ -3808,7 +3629,7 @@ def _render_contract_table_rows(contracts: list[dict], rfp_link_prefix: str) -> 
         )
         due_display = html.escape(c["due_str"] or "Open / Rolling")
         rows_html.append(f"""
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+        <tr data-rfp-slug="{html.escape(c['slug'], quote=True)}" data-rfp-due="{due_display}" data-rfp-jur="{html.escape(j_meta['short'], quote=True)}" data-rfp-title="{html.escape(c['clean_title'], quote=True)}" data-rfp-cats="{html.escape(','.join(c['categories']), quote=True)}" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold {j_meta['badge_class']}">
               {html.escape(j_meta['short'].upper())}
@@ -3829,9 +3650,12 @@ def _render_contract_table_rows(contracts: list[dict], rfp_link_prefix: str) -> 
             {due_display}
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="{rfp_link_prefix}{c['slug']}.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="{html.escape(c['slug'], quote=True)}" onclick="window.toggleRfpBookmark(&quot;{html.escape(c['slug'], quote=True)}&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="{rfp_link_prefix}{c['slug']}.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
           </td>
         </tr>
         """)
@@ -3982,7 +3806,7 @@ def generate_pseo_site() -> int:
             elif j_key == "colorado":
                 compliance_posture = "Colorado OIT CIS Policies (NIST 800-53) • StateRAMP • CO HB 21-1110 Accessibility VPAT"
             elif j_key == "arizona":
-                compliance_posture = "Arizona ADOA-ASET Statewide Policy P8120 Information Security (NIST 800-53) • StateRAMP • AZ Section 508 / WCAG 2.1 AA"
+                compliance_posture = "Arizona ADOA-ASET P8120 Cyber Policies (NIST 800-53) • StateRAMP / AZRamp • Section 508 VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -4023,7 +3847,7 @@ def generate_pseo_site() -> int:
             elif j_key == "colorado":
                 teaming_posture = "CO Service-Disabled Veteran-Owned Small Business (SDVOSB 5% Pref) + SBE • CO Price Agreement Eligible"
             elif j_key == "arizona":
-                teaming_posture = "AZ Small Business & In-State Subcontracting Plan • ADOA SPO Statewide Contract Eligible"
+                teaming_posture = "AZ APP Small Business & In-State Subcontracting Plan • ADOA Statewide Cooperative Contract Eligible"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
@@ -4239,22 +4063,29 @@ def generate_pseo_site() -> int:
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="{html.escape(real_co_routing, quote=True)}" class="blur-sm select-none break-words">contracting.officer@{html.escape(portal_host)} &bull; Electronic Q&amp;A Desk ({html.escape(c['agency'])})</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row flex-wrap gap-3">
-                      <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
-                        Unlock Direct RFP Link &amp; Capture Dossier &rarr;
-                      </a>
-                      <a href="../../index.html#contracts/rfp/{c['slug']}" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 transition-colors">
-                        Run Live Pwin &amp; Shred in Studio &rarr;
-                      </a>
-                      <button id="compile-zip-btn-static" type="button" onclick="window.compileShipleyProposalZip(&quot;{c['slug']}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;Small Business&quot;)" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">
-                        1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;
-                      </button>
-                      <button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-static&quot;)" class="inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">
-                        Request 13 CFR &sect; 125.6 Teaming Slot &rarr;
-                      </button>
-                      <button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;static&quot;, &quot;{c['jurisdiction']}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;)" class="inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">
-                        FOIA Incumbent Rate Vault &amp; Demand &rarr;
-                      </button>
+                    <div class="pt-3 space-y-2.5">
+                      <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
+                        <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
+                          Unlock Direct RFP Link &amp; Capture Dossier &rarr;
+                        </a>
+                        <button id="compile-zip-btn-static" type="button" onclick="window.compileShipleyProposalZip(&quot;{c['slug']}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">
+                          1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;
+                        </button>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold px-1">CAPTURE WORKBENCH:</span>
+                        <div class="flex flex-wrap items-center gap-2 flex-1 justify-end">
+                          <a href="../../index.html#contracts/rfp/{c['slug']}" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 transition-colors">
+                            Run Live Pwin &amp; Shred in Studio &rarr;
+                          </a>
+                          <button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-static&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">
+                            Request 13 CFR &sect; 125.6 Teaming Slot &rarr;
+                          </button>
+                          <button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;static&quot;, &quot;{c['jurisdiction']}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">
+                            FOIA Incumbent Rate Vault &amp; Demand &rarr;
+                          </button>
+                        </div>
+                      </div>
                     </div>
                     <div id="vault-status-static" class="hidden mt-2 p-2.5 rounded-lg bg-emerald-950/50 border border-emerald-500/40 text-xs font-mono text-emerald-300"></div>
                     <div id="foia-vault-box-static" class="hidden mt-3 p-4 rounded-xl bg-navy-900 border border-emerald-500/40"></div>
@@ -4362,23 +4193,6 @@ def generate_pseo_site() -> int:
 
         # 2. Build Jurisdiction Hub Pages (/contracts/<jurisdiction>/index.html)
         #    and State x Category Pages (/contracts/<jurisdiction>/<category>.html)
-        jurisdiction_cards_sub_html = ""
-        for jk_sub, jm_sub in JURISDICTIONS.items():
-            cnt_sub = sum(1 for c in enriched_contracts if c["jurisdiction"] == jk_sub)
-            jurisdiction_cards_sub_html += f"""
-            <a href="../{jk_sub}/index.html" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">
-              <div>
-                <span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold {jm_sub['badge_class']}">{html.escape(jm_sub['short'].upper())}</span>
-                <h3 class="text-lg font-bold text-white mt-3">{html.escape(jm_sub['name'])}</h3>
-                <p class="text-xs text-slate-400 mt-1">{html.escape(jm_sub['description'])}</p>
-              </div>
-              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">{cnt_sub} Open Leads</span>
-                <span class="text-sky-400">Browse Hub &rarr;</span>
-              </div>
-            </a>
-            """
-
         for j_key, j_meta in JURISDICTIONS.items():
             j_contracts = [c for c in enriched_contracts if c["jurisdiction"] == j_key]
             canonical_path = f"contracts/{j_key}/index.html"
@@ -4445,13 +4259,6 @@ def generate_pseo_site() -> int:
                     {rows_html}
                   </tbody>
                 </table>
-              </div>
-            </div>
-
-            <div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">
-              <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All {len(JURISDICTIONS)} Federal &amp; State SLED Procurement Hubs</h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {jurisdiction_cards_sub_html}
               </div>
             </div>
             """
@@ -4530,13 +4337,6 @@ def generate_pseo_site() -> int:
                         {jc_rows}
                       </tbody>
                     </table>
-                  </div>
-                </div>
-
-                <div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">
-                  <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All {len(JURISDICTIONS)} Federal &amp; State SLED Procurement Hubs</h2>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {jurisdiction_cards_sub_html}
                   </div>
                 </div>
                 """
@@ -5241,10 +5041,15 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             var pName = String(p.company_name || 'Verified Partner').replace(/</g, '&lt;');
             var pSoc = String(p.socioeconomic_status || 'Small Business').replace(/</g, '&lt;');
             var pUei = String(p.uei_or_cage || 'SAM Verified').replace(/</g, '&lt;');
+            var pPoc = String(p.poc_email || '').replace(/</g, '&lt;');
+            var pMailto = String(p.partner_mailto_link || ('mailto:' + encodeURIComponent(p.poc_email || '') + '?subject=FAR%209.6%20Teaming%20Invitation')).replace(/"/g, '&quot;');
             var pShare = String(p.allocated_workshare_pct || 24) + '% Share';
             return '<div class="p-2.5 rounded-lg bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2">' +
-              '<div><span class="text-white font-semibold">' + pName + '</span> <span class="text-amber-300">(' + pSoc + ')</span> <span class="text-slate-400 text-[11px]">' + pUei + '</span></div>' +
-              '<span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]">' + pShare + '</span>' +
+              '<div><span class="text-white font-semibold">' + pName + '</span> <span class="text-amber-300">(' + pSoc + ')</span> <span class="text-slate-400 text-[11px]">' + pUei + (pPoc ? (' &bull; POC: ' + pPoc) : '') + '</span></div>' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]">' + pShare + '</span>' +
+                '<a href="' + pMailto + '" class="px-2.5 py-1 rounded bg-indigo-500/20 hover:bg-indigo-500/35 border border-indigo-400/50 text-indigo-200 text-[10px] font-semibold">Email Partner POC (FAR 9.6 Teaming Invite) &rarr;</a>' +
+              '</div>' +
             '</div>';
           }}).join('');
           var inviteHref = (d && d.viral_partner_invite_mailto) ? String(d.viral_partner_invite_mailto).replace(/"/g, '&quot;') : 'mailto:?subject=13%20CFR%20125.6%20Teaming%20Invitation';
@@ -5336,7 +5141,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             return '<span class="inline-flex items-center whitespace-nowrap px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">' + esc(t) + '</span>';
           }}).join(' ');
           var dispAgency = isRowUnlocked ? (c.agency || c.masked_agency) : c.masked_agency;
-          return '<tr class="border-b border-slate-800/80 hover:bg-slate-900/60 transition-colors">' +
+          var savedMap = {{}};
+          try {{ savedMap = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{{}}') || {{}}; }} catch (e) {{}}
+          var isSaved = Boolean(savedMap[c.slug]);
+          var catStr = (c.categories || []).join(',');
+          return '<tr data-rfp-slug="' + esc(c.slug) + '" data-rfp-due="' + esc(c.due_str) + '" data-rfp-jur="' + esc(jm.short) + '" data-rfp-title="' + esc(c.clean_title) + '" data-rfp-cats="' + esc(catStr) + '" class="border-b border-slate-800/80 hover:bg-slate-900/60 transition-colors">' +
             '<td class="py-4 px-5 font-mono whitespace-nowrap align-top">' +
               '<a href="#contracts/' + esc(c.jurisdiction) + '" class="inline-flex items-center whitespace-nowrap px-2.5 py-0.5 rounded border text-[11px] ' + esc(jm.badge_class) + '">' + esc(jm.short.toUpperCase()) + '</a>' +
             '</td>' +
@@ -5347,13 +5156,93 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             '<td data-full-agency="' + esc(c.agency || c.masked_agency) + '" class="py-4 px-4 text-slate-300 text-xs align-top">' + esc(dispAgency) + '</td>' +
             '<td class="py-4 px-4 font-mono text-amber-300 text-xs whitespace-nowrap align-top">' + esc(c.due_str) + '</td>' +
             '<td class="py-4 px-5 text-right font-mono whitespace-nowrap align-top">' +
-              '<a href="#contracts/rfp/' + esc(c.slug) + '" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">' +
-                '<span>View RFP Dossier</span><span class="ml-1.5">&rarr;</span>' +
-              '</a>' +
+              '<div class="inline-flex items-center justify-end gap-1.5">' +
+                '<button type="button" data-bookmark-btn="' + esc(c.slug) + '" onclick="window.toggleRfpBookmark(&quot;' + esc(c.slug) + '&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border text-[11px] transition-colors cursor-pointer ' + (isSaved ? 'bg-amber-500/20 border-amber-400/50 text-amber-300 font-semibold' : 'bg-navy-900 hover:bg-slate-800 border-slate-700 text-slate-400 hover:text-amber-300') + '">' + (isSaved ? '&#9733; Saved' : '&#9734; Save') + '</button>' +
+                '<a href="#contracts/rfp/' + esc(c.slug) + '" class="inline-flex items-center whitespace-nowrap px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">' +
+                  '<span>View RFP Dossier</span><span class="ml-1.5">&rarr;</span>' +
+                '</a>' +
+              '</div>' +
             '</td>' +
           '</tr>';
         }}).join('');
       }}
+
+      window.__SPA_CONTRACTS_QF = 'all';
+
+      window.toggleRfpBookmark = function (slugVal, btnEl) {{
+        if (!slugVal) return;
+        var map = {{}};
+        try {{
+          map = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{{}}') || {{}};
+        }} catch (e) {{}}
+        var nextSaved = !map[slugVal];
+        if (nextSaved) map[slugVal] = Date.now();
+        else delete map[slugVal];
+        try {{
+          if (window.localStorage) window.localStorage.setItem('st_saved_rfp_bookmarks', JSON.stringify(map));
+        }} catch (e) {{}}
+        var allBtns = document.querySelectorAll('button[data-bookmark-btn="' + slugVal.replace(/"/g, '') + '"]');
+        for (var i = 0; i < allBtns.length; i++) {{
+          var b = allBtns[i];
+          if (nextSaved) {{
+            b.className = 'px-2 py-1.5 rounded border text-[11px] transition-colors cursor-pointer bg-amber-500/20 border-amber-400/50 text-amber-300 font-semibold';
+            b.innerHTML = '&#9733; Saved';
+          }} else {{
+            b.className = 'px-2 py-1.5 rounded border text-[11px] transition-colors cursor-pointer bg-navy-900 hover:bg-slate-800 border-slate-700 text-slate-400 hover:text-amber-300';
+            b.innerHTML = '&#9734; Save';
+          }}
+        }}
+        if (window.__SPA_CONTRACTS_QF === 'saved' && typeof window.filterContractsDirectory === 'function') {{
+          window.filterContractsDirectory();
+        }}
+      }};
+
+      window.setSpaContractsQuickFilter = function (qfKey) {{
+        window.__SPA_CONTRACTS_QF = qfKey || 'all';
+        var pills = document.querySelectorAll('.spa-qf-pill');
+        for (var i = 0; i < pills.length; i++) {{
+          var p = pills[i];
+          var pk = p.getAttribute('data-spa-qf');
+          if (pk === window.__SPA_CONTRACTS_QF) {{
+            p.className = 'spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer';
+          }} else if (pk === 'saved') {{
+            p.className = 'spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer';
+          }} else {{
+            p.className = 'spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer';
+          }}
+        }}
+        window.filterContractsDirectory();
+      }};
+
+      window.sortSpaContractsTable = function (sortKey) {{
+        var root = document.getElementById('contracts-dynamic-root');
+        if (!root) return;
+        var tbody = root.querySelector('table tbody');
+        if (!tbody) return;
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr:not(#contracts-live-empty)'));
+        if (!rows.length) return;
+        rows.sort(function (a, b) {{
+          if (sortKey === 'due_asc') {{
+            var da = a.getAttribute('data-rfp-due') || '9999-99-99';
+            var db = b.getAttribute('data-rfp-due') || '9999-99-99';
+            if (da.indexOf('Open') !== -1) da = '9999-99-99';
+            if (db.indexOf('Open') !== -1) db = '9999-99-99';
+            return da.localeCompare(db);
+          }}
+          if (sortKey === 'jur_asc') {{
+            return (a.getAttribute('data-rfp-jur') || '').localeCompare(b.getAttribute('data-rfp-jur') || '');
+          }}
+          if (sortKey === 'title_asc') {{
+            return (a.getAttribute('data-rfp-title') || '').localeCompare(b.getAttribute('data-rfp-title') || '');
+          }}
+          return 0;
+        }});
+        for (var i = 0; i < rows.length; i++) {{
+          tbody.appendChild(rows[i]);
+        }}
+        var emptyRow = document.getElementById('contracts-live-empty');
+        if (emptyRow) tbody.appendChild(emptyRow);
+      }};
 
       window.filterContractsDirectory = function (qVal) {{
         var inp = document.getElementById('contracts-live-search');
@@ -5382,15 +5271,24 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           tblWrap.style.overflowAnchor = 'none';
           tblWrap.setAttribute('data-locked-min-h', '1');
         }}
+        var savedMap = {{}};
+        try {{ savedMap = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{{}}') || {{}}; }} catch (e) {{}}
+        var qf = window.__SPA_CONTRACTS_QF || 'all';
         var rows = tbody.querySelectorAll('tr:not(#contracts-live-empty)');
         var shown = 0;
         for (var i = 0; i < rows.length; i++) {{
-          var txt = (rows[i]._stSearchText || (rows[i]._stSearchText = (rows[i].textContent || '').toLowerCase()));
-          if (!q || txt.indexOf(q) !== -1) {{
-            rows[i].classList.remove('hidden');
+          var r = rows[i];
+          var txt = (r._stSearchText || (r._stSearchText = (r.textContent || '').toLowerCase()));
+          var slugAttr = r.getAttribute('data-rfp-slug') || '';
+          var catsAttr = r.getAttribute('data-rfp-cats') || '';
+          var matchQf = true;
+          if (qf === 'saved') matchQf = Boolean(savedMap[slugAttr]);
+          else if (qf !== 'all') matchQf = (catsAttr.indexOf(qf) !== -1) || (txt.indexOf(qf.split('-')[0]) !== -1);
+          if (matchQf && (!q || txt.indexOf(q) !== -1)) {{
+            r.classList.remove('hidden');
             shown++;
           }} else {{
-            rows[i].classList.add('hidden');
+            r.classList.add('hidden');
           }}
         }}
         var cntEl = document.getElementById('contracts-live-count');
@@ -5545,22 +5443,29 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>' +
                       '</div>';
                     }})() +
-                    '<div class="pt-3 flex flex-col sm:flex-row flex-wrap gap-3">' +
-                      '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
-                        'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +
-                      '</a>' +
-                      '<button type="button" onclick="window.shredRfpInStudio(&quot;' + esc(item.slug) + '&quot;)" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 transition-colors cursor-pointer">' +
-                        'Run Live Pwin &amp; Shred in Studio &rarr;' +
-                      '</button>' +
-                      '<button id="compile-zip-btn-' + esc(item.slug) + '" type="button" onclick="window.compileShipleyProposalZip(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;Small Business&quot;)" class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">' +
-                        '1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;' +
-                      '</button>' +
-                      '<button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-' + esc(item.slug) + '&quot;)" class="inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">' +
-                        'Request 13 CFR &sect; 125.6 Teaming Slot &rarr;' +
-                      '</button>' +
-                      '<button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.jurisdiction || 'federal') + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;)" class="inline-flex items-center justify-center px-4 py-3 text-xs font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">' +
-                        'FOIA Incumbent Rate Vault &amp; Demand &rarr;' +
-                      '</button>' +
+                    '<div class="pt-3 space-y-2.5">' +
+                      '<div class="flex flex-col sm:flex-row flex-wrap gap-2.5">' +
+                        '<a href="#checkout-tier1" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
+                          'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +
+                        '</a>' +
+                        '<button id="compile-zip-btn-' + esc(item.slug) + '" type="button" onclick="window.compileShipleyProposalZip(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">' +
+                          '1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;' +
+                        '</button>' +
+                      '</div>' +
+                      '<div class="p-2.5 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-2">' +
+                        '<span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold px-1">CAPTURE WORKBENCH:</span>' +
+                        '<div class="flex flex-wrap items-center gap-2 flex-1 justify-end">' +
+                          '<button type="button" onclick="window.shredRfpInStudio(&quot;' + esc(item.slug) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 rounded-lg border border-emerald-500/40 transition-colors cursor-pointer">' +
+                            'Run Live Pwin &amp; Shred in Studio &rarr;' +
+                          '</button>' +
+                          '<button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-' + esc(item.slug) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">' +
+                            'Request 13 CFR &sect; 125.6 Teaming Slot &rarr;' +
+                          '</button>' +
+                          '<button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.jurisdiction || 'federal') + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">' +
+                            'FOIA Incumbent Rate Vault &amp; Demand &rarr;' +
+                          '</button>' +
+                        '</div>' +
+                      '</div>' +
                     '</div>' +
                     '<div id="vault-status-' + esc(item.slug) + '" class="hidden mt-2 p-2.5 rounded-lg bg-emerald-950/50 border border-emerald-500/40 text-xs font-mono text-emerald-300"></div>' +
                     '<div id="foia-vault-box-' + esc(item.slug) + '" class="hidden mt-3 p-4 rounded-xl bg-navy-900 border border-emerald-500/40"></div>' +
@@ -5630,22 +5535,6 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           return;
         }}
 
-        var cardsHtml = Object.keys(J).map(function (jk) {{
-          var jmCard = J[jk];
-          var cnt = all.filter(function (c) {{ return c.jurisdiction === jk; }}).length;
-          return '<a href="#contracts/' + esc(jk) + '" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">' +
-            '<div>' +
-              '<span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold ' + esc(jmCard.badge_class) + '">' + esc(jmCard.short.toUpperCase()) + '</span>' +
-              '<h2 class="text-lg font-bold text-white mt-3">' + esc(jmCard.name) + '</h2>' +
-              '<p class="text-xs text-slate-400 mt-1">' + esc(jmCard.description) + '</p>' +
-            '</div>' +
-            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">' +
-              '<span class="text-emerald-400">' + cnt + ' Open Leads</span>' +
-              '<span class="text-sky-400">Browse Hub &rarr;</span>' +
-            '</div>' +
-          '</a>';
-        }}).join('');
-
         // Case 2: Jurisdiction Hub (#contracts/<jurisdiction> or #contracts/<jurisdiction>/<category>)
         var jKey = parts[1];
         if (jKey && J[jKey]) {{
@@ -5686,7 +5575,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div id="contracts-live-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -5700,10 +5589,6 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<tbody class="text-xs">' + renderRows(jList) + '</tbody>' +
                 '</table>' +
               '</div>' +
-            '</div>' +
-            '<div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">' +
-              '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All 19 Federal &amp; State SLED Procurement Hubs</h2>' +
-              '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">' + cardsHtml + '</div>' +
             '</div>' + renderLeadBox(jKey, jmHub.short);
           if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
           return;
@@ -5711,6 +5596,21 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
         // Case 3: Master Directory (#contracts)
         document.title = 'Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender';
+        var cardsHtml = Object.keys(J).map(function (jk) {{
+          var jmCard = J[jk];
+          var cnt = all.filter(function (c) {{ return c.jurisdiction === jk; }}).length;
+          return '<a href="#contracts/' + esc(jk) + '" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">' +
+            '<div>' +
+              '<span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold ' + esc(jmCard.badge_class) + '">' + esc(jmCard.short.toUpperCase()) + '</span>' +
+              '<h2 class="text-lg font-bold text-white mt-3">' + esc(jmCard.name) + '</h2>' +
+              '<p class="text-xs text-slate-400 mt-1">' + esc(jmCard.description) + '</p>' +
+            '</div>' +
+            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">' +
+              '<span class="text-emerald-400">' + cnt + ' Open Leads</span>' +
+              '<span class="text-sky-400">Browse Hub &rarr;</span>' +
+            '</div>' +
+          '</a>';
+        }}).join('');
 
         root.innerHTML =
           '<div id="contracts-top-section" class="mb-10 space-y-4">' +
@@ -5726,7 +5626,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div id="contracts-live-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +

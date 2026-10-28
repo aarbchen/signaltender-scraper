@@ -22,8 +22,8 @@
   <meta property="og:description" content="Production stateless FastAPI + Pydantic V2 microservices and MCP tools on RapidAPI for government &amp; enterprise contract intelligence." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://signaltender.net/apis.html" />
-  <meta property="og:image" content="https://signaltender.net/contracts/og-banner.png?v=6" />
-  <meta property="og:image:secure_url" content="https://signaltender.net/contracts/og-banner.png?v=6" />
+  <meta property="og:image" content="https://signaltender.net/contracts/og-banner.png?v=7" />
+  <meta property="og:image:secure_url" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta property="og:image:alt" content="SignalTender | Real-Time Federal &amp; State SLED IT/Cyber Contract Intelligence" />
   <meta property="og:logo" content="https://signaltender.net/contracts/favicon-512x512.png?v=6" />
   <meta property="og:image:type" content="image/png" />
@@ -33,7 +33,7 @@
   <meta name="twitter:site" content="@SignalTenderX" />
   <meta name="twitter:title" content="SignalTender | Developer Data API Catalog, MCP Server &amp; RapidAPI Microservices" />
   <meta name="twitter:description" content="Production stateless FastAPI + Pydantic V2 microservices and MCP tools on RapidAPI for government &amp; enterprise contract intelligence." />
-  <meta name="twitter:image" content="https://signaltender.net/contracts/og-banner.png?v=6" />
+  <meta name="twitter:image" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta name="twitter:image:alt" content="SignalTender | Real-Time Federal &amp; State SLED IT/Cyber Contract Intelligence" />
   <script type="application/ld+json">
   {
@@ -50,7 +50,7 @@
           "width": 512,
           "height": 512
         },
-        "image": "https://signaltender.net/contracts/og-banner.png?v=6",
+        "image": "https://signaltender.net/contracts/og-banner.png?v=7",
         "sameAs": [
           "https://x.com/SignalTenderX",
           "https://www.linkedin.com/company/signaltender/",
@@ -1562,6 +1562,14 @@
           >
             <span>&#9654; Launch Interactive API Playground</span>
           </button>
+          <button
+            type="button"
+            onclick="window.copyMcpServerConfig(this)"
+            class="inline-flex items-center px-3.5 py-2 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/40 font-semibold transition-all cursor-pointer"
+            title="Copy ready-to-paste Claude Desktop &amp; Cursor MCP JSON config"
+          >
+            <span>Copy MCP Config (Claude / Cursor)</span>
+          </button>
           <a
             href="https://rapidapi.com/user/aarbchen"
             target="_blank"
@@ -1650,6 +1658,7 @@
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (6)</button>
                 <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (4)</button>
                 <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (7)</button>
+                <button type="button" data-api-compact-toggle="1" onclick="window.toggleApiCatalogCompactView()" class="ml-auto px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-300 border border-sky-500/30 transition-all cursor-pointer" title="Switch between Full Spec + JSON Cards and Compact Scannable Cards">Compact Card View</button>
               </div>
             </div>
 
@@ -6097,13 +6106,13 @@
               POST /v1/generate/sbir-sttr-commercialization
             </span>
             <span class="hidden sm:inline text-xs font-mono text-slate-400">
-              Host: <code class="text-slate-300">sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com</code>
+              Host: <code class="text-slate-300">rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com</code>
             </span>
           </div>
 
           <div class="flex items-center space-x-3">
             <a
-              href="https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api"
+              href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-200 transition-colors"
@@ -6111,7 +6120,7 @@
               Playground &nearr;
             </a>
             <a
-              href="https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api/pricing"
+              href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
               class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-mono font-semibold text-white shadow-lg shadow-indigo-950/50 transition-all"
@@ -6216,9 +6225,9 @@
                 <span class="text-slate-500">application/json</span>
               </div>
               <pre class="p-4 text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed">curl --request POST \
-  --url https://sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com/v1/generate/sbir-sttr-commercialization \
+  --url https://rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com/v1/generate/sbir-sttr-commercialization \
   --header 'Content-Type: application/json' \
-  --header 'x-rapidapi-host: sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com' \
+  --header 'x-rapidapi-host: rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com' \
   --header 'x-rapidapi-key: YOUR_RAPIDAPI_KEY' \
   --data '{
   "sbir_sttr_topic_and_rd_specs": "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh &amp; Post-Quantum Telemetry Encryption for Contested C2 Networks). Develop and demonstrate a TRL 6 CNSA 2.0 / FIPS 203 ML-KEM tactical datalink gateway...",
@@ -6289,7 +6298,7 @@
               &#9654; Try Live in Browser
             </button>
             <a
-              href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api"
+              href="https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-200 transition-colors whitespace-nowrap"
@@ -6297,7 +6306,7 @@
               Playground &nearr;
             </a>
             <a
-              href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing"
+              href="https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-xs font-mono font-bold text-navy-950 shadow-md shadow-emerald-950/50 transition-colors whitespace-nowrap"
@@ -6394,9 +6403,9 @@
               </div>
               <div class="p-4 border-b border-slate-800/80 font-mono text-[11px] text-slate-300">
                 <pre class="whitespace-pre-wrap break-words leading-relaxed">curl --request POST \
-  --url 'https://govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com/v1/audit/section-508-vpat' \
+  --url 'https://soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com/v1/audit/section-508-vpat' \
   --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
-  --header 'X-RapidAPI-Host: govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Host: soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com' \
   --header 'Content-Type: application/json' \
   --data '{"product_architecture_and_ui_description":"Aegis CloudOps Portal v4.2 React/TypeScript SaaS dashboard with D3 topology canvas, ARIA tables, PIV SSO, and PDF exports...","target_accessibility_standard":"Revised_Section_508_And_WCAG_2_2_AA"}'</pre>
               </div>
@@ -6466,7 +6475,7 @@
               &#9654; Try Live in Browser
             </button>
             <a
-              href="https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api"
+              href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-200 transition-colors whitespace-nowrap"
@@ -6474,7 +6483,7 @@
               Playground &nearr;
             </a>
             <a
-              href="https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api/pricing"
+              href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing"
               target="_blank"
               rel="noopener noreferrer"
               class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-xs font-mono font-bold text-navy-950 shadow-md shadow-emerald-950/50 transition-colors whitespace-nowrap"
@@ -6571,9 +6580,9 @@
               </div>
               <div class="p-4 border-b border-slate-800/80 font-mono text-[11px] text-slate-300">
                 <pre class="whitespace-pre-wrap break-words leading-relaxed">curl --request POST \
-  --url 'https://govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api.p.rapidapi.com/v1/audit/supply-chain-scrm' \
+  --url 'https://far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com/v1/audit/supply-chain-scrm' \
   --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
-  --header 'X-RapidAPI-Host: govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Host: far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com' \
   --header 'Content-Type: application/json' \
   --data '{"solicitation_or_contract_context":"U.S. Army PEO C3T tactical network refresh RFP with FAR 52.204-25, 52.204-30, 52.225-5 and a NIST SP 800-161 C-SCRM Plan requirement...","bom_line_items":[{"line_item_id":"CLIN 0002","part_number":"DS-2CD2143G2-I","manufacturer":"Hikvision","country_of_origin":"China"}],"sbom_format":"CycloneDX_1_6"}'</pre>
               </div>
@@ -7631,7 +7640,7 @@
                 </td>
                 <td class="py-5 px-5 text-right">
                   <a
-                    href="https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api/pricing"
+                    href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center px-3 py-2 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 font-semibold transition-colors"
@@ -7676,7 +7685,7 @@
                 </td>
                 <td class="py-5 px-5 text-right">
                   <a
-                    href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing"
+                    href="https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api/pricing"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
@@ -7721,7 +7730,7 @@
                 </td>
                 <td class="py-5 px-5 text-right">
                   <a
-                    href="https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api/pricing"
+                    href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
@@ -7943,9 +7952,9 @@
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GSA MAS Schedule &amp; SIN Mapper API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/ai-bid-no-bid-capability-matcher-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Sources Sought &amp; RFI Set-Aside Shaping API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">OCI &amp; FAR 9.5 Mitigation Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SBIR / STTR Commercialization Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Section 508, WCAG 2.2 &amp; VPAT 2.5 API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Supply Chain SCRM, NDAA 889 &amp; SBOM API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SBIR / STTR Commercialization Plan API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Section 508, WCAG 2.2 &amp; VPAT 2.5 API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Supply Chain SCRM, NDAA 889 &amp; SBOM API &nearr;</a></li>
         </ul>
       </div>
 
@@ -7986,6 +7995,8 @@
        UNIVERSAL COLLAPSIBLE FLOATING LEFT SIDEBAR DIRECTORY (ALL PAGES)
        ===================================================================== -->
   <style>
+    #catalog-modules.st-api-compact-mode article .lg\:col-span-5 { display: none !important; }
+    #catalog-modules.st-api-compact-mode article .lg\:col-span-7 { grid-column: span 12 / span 12 !important; }
     #page-sidebar-scroll::-webkit-scrollbar { display: none; }
     #page-sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     #page-sidebar-tab, #page-sidebar-mobile-btn { background-color: #090C10 !important; border-color: rgba(255, 255, 255, 0.10) !important; }
@@ -8804,9 +8815,9 @@
           title: 'SBIR / STTR Phase I–III Technical Volume & Commercialization Plan API',
           method: 'POST',
           path: '/v1/generate/sbir-sttr-commercialization',
-          host: 'sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com',
-          hubUrl: 'https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api',
-          pricingUrl: 'https://rapidapi.com/aarbchen/api/sbir-sttr-phase-i-iii-commercialization-plan-api/pricing',
+          host: 'rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/rfp-compliance-matrix-proposal-outline-api/pricing',
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             sbir_sttr_topic_and_rd_specs: "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh & Post-Quantum Telemetry Encryption for Contested C2 Networks). Objective: Develop and demonstrate a low-SWaP, CNSA 2.0 / FIPS 203 ML-KEM compliant zero-trust tactical datalink gateway capable of autonomous key rotation and anti-jamming mesh routing across Denied, Degraded, Intermittent, and Limited (DDIL) airborne and ground nodes.",
@@ -8820,9 +8831,9 @@
           title: 'GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API',
           method: 'POST',
           path: '/v1/audit/section-508-vpat',
-          host: 'govcon-section-508-wcag-2-2-vpat-generator-api.p.rapidapi.com',
-          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api',
-          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-section-508-wcag-2-2-vpat-generator-api/pricing',
+          host: 'soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/soc-2-fedramp-nist-800-171-security-questionnaire-api/pricing',
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             product_architecture_and_ui_description: "Aegis CloudOps Portal v4.2 is a multi-tenant React 18 / TypeScript web application and REST API dashboard deployed on AWS GovCloud (US-East) for federal SOC analysts. Features include interactive D3/Canvas network topology graphs, keyboard-navigable ARIA data tables, SSO/PIV authentication flows, automated PDF/CSV compliance report exports, and embedded video training modules with WebVTT closed captions.",
@@ -8837,9 +8848,9 @@
           title: 'GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API',
           method: 'POST',
           path: '/v1/audit/supply-chain-scrm',
-          host: 'govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api.p.rapidapi.com',
-          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api',
-          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api/pricing',
+          host: 'far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/far-dfars-cmmc-clause-risk-scanner-api/pricing',
           tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
           samplePayload: {
             solicitation_or_contract_context: "U.S. Army PEO C3T RFP W15P7T-27-R-0142: Tactical Network Modernization Increment 3 - furnish and install 1,200 PoE+ access switches, 340 IP video surveillance cameras, 24 next-generation firewalls, and a containerized NetOps monitoring software stack at Fort Huachuca, AZ and Fort Bliss, TX. Section I incorporates FAR 52.204-25 (NDAA Section 889), FAR 52.204-30 (FASCSA Orders), FAR 52.225-5 (Trade Agreements), DFARS 252.225-7001 (Buy American), DFARS 252.204-7012, and DFARS 252.246-7008 (Counterfeit Parts). Section H.14 requires a NIST SP 800-161 Rev. 1 C-SCRM Plan, a CycloneDX or SPDX SBOM for all delivered software, and a signed CISA Secure Software Development Attestation Form within 30 days of award.",
@@ -10224,6 +10235,66 @@
           if (mobBtn) mobBtn.classList.add('hidden');
           if (typeof window.renderPageSectionSidebar === 'function') {
             window.renderPageSectionSidebar();
+
+      window.copyMcpServerConfig = function (btnEl) {
+        var mcpJson = JSON.stringify({
+          mcpServers: {
+            signaltender: {
+              command: "npx",
+              args: ["-y", "@signaltender/mcp-server"],
+              env: {
+                RAPIDAPI_KEY: "YOUR_RAPIDAPI_OR_ST_LIVE_KEY"
+              }
+            }
+          }
+        }, null, 2);
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(mcpJson);
+          }
+        } catch (e) {}
+        if (btnEl) {
+          var orig = btnEl.innerHTML;
+          btnEl.innerHTML = '<span>&check; Copied MCP JSON Config!</span>';
+          setTimeout(function () { btnEl.innerHTML = orig; }, 2000);
+        }
+      };
+
+      window.toggleApiCatalogCompactView = function () {
+        var modSec = document.getElementById('catalog-modules');
+        if (!modSec) return;
+        var isCompact = modSec.classList.toggle('st-api-compact-mode');
+        var btns = document.querySelectorAll('button[data-api-compact-toggle]');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].textContent = isCompact ? 'Full Spec View' : 'Compact Card View';
+        }
+      };
+
+      (function initMobileScrollFloatingMinimizer() {
+        var lastY = window.pageYOffset || 0;
+        var restoreTimer = null;
+        window.addEventListener('scroll', function () {
+          if ((window.innerWidth || 1024) >= 1024) return;
+          var curY = window.pageYOffset || 0;
+          var mobBtn = document.getElementById('page-sidebar-mobile-btn');
+          var concBtn = document.getElementById('st-floating-concierge-btn');
+          var down = curY > lastY + 8 && curY > 120;
+          lastY = curY;
+          if (mobBtn) {
+            mobBtn.style.opacity = down ? '0.35' : '1';
+            mobBtn.style.transform = down ? 'scale(0.88)' : 'scale(1)';
+          }
+          if (concBtn) {
+            concBtn.style.opacity = down ? '0.35' : '1';
+            concBtn.style.transform = down ? 'scale(0.88)' : 'scale(1)';
+          }
+          if (restoreTimer) clearTimeout(restoreTimer);
+          restoreTimer = setTimeout(function () {
+            if (mobBtn) { mobBtn.style.opacity = '1'; mobBtn.style.transform = 'scale(1)'; }
+            if (concBtn) { concBtn.style.opacity = '1'; concBtn.style.transform = 'scale(1)'; }
+          }, 650);
+        }, { passive: true });
+      })();
           }
         } else {
           drawer.classList.add('hidden');
@@ -10568,7 +10639,43 @@
           }
         }
       });
-    })();
+    
+      /* __APIS_HASH_PRODUCT_SCROLL_FIX__ */
+      function syncStandaloneApisHash() {
+        var h = window.location.hash || '';
+        if (!h || h === '#' || h === '#apis' || h === '#overview') return;
+        var clean = h.replace(/^#/, '');
+        var targetEl = document.getElementById(clean);
+        if (!targetEl) return;
+        if (clean.indexOf('product-') === 0 || clean === 'catalog-modules' || clean === 'api-pricing-matrix') {
+          if (typeof window.switchApiCatalogTab === 'function') {
+            window.switchApiCatalogTab('all');
+          }
+          if (targetEl.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
+            window.filterApiCatalog('', 'all');
+          }
+        }
+        if (typeof window.jumpToPageSection === 'function') {
+          window.jumpToPageSection(clean);
+        }
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href && href.length > 1) {
+          setTimeout(function () {
+            if (window.location.hash === href) syncStandaloneApisHash();
+          }, 0);
+        }
+      });
+      window.addEventListener('hashchange', syncStandaloneApisHash);
+      window.addEventListener('DOMContentLoaded', function () {
+        if (window.location.hash && window.location.hash.length > 1) {
+          setTimeout(syncStandaloneApisHash, 60);
+        }
+      });
+})();
   </script>
 </body>
 </html>
