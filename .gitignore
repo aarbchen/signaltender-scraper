@@ -31,3 +31,5 @@ error_debug.png
 sled-scraper/bids.json
 sled-scraper/bids_master.json
 
+
+.rapidapi_session.json
