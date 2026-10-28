@@ -10081,7 +10081,7 @@
           'integrations': 'integrations'
         };
         if (overviewTabMap[cleanId] && typeof window.switchOverviewProductTab === 'function') {
-          window.switchOverviewProductTab(overviewTabMap[cleanId], false);
+          window.switchOverviewProductTab('all', false);
         }
         var checkoutTabMap = {
           'checkout-live-feed-preview': 'preview',
@@ -10091,7 +10091,7 @@
           'checkout-faq-section': 'faq'
         };
         if (checkoutTabMap[cleanId] && typeof window.switchCheckoutSectionTab === 'function') {
-          window.switchCheckoutSectionTab(checkoutTabMap[cleanId]);
+          window.switchCheckoutSectionTab('all', false);
         }
         var accountTabMap = {
           'account-plan-badge': 'billing',
@@ -10106,19 +10106,61 @@
           'account-apikey-security-grid': 'pipeline'
         };
         if (accountTabMap[cleanId] && typeof window.switchAccountWorkspaceTab === 'function') {
-          window.switchAccountWorkspaceTab(accountTabMap[cleanId]);
+          window.switchAccountWorkspaceTab('all');
         }
         if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix') && typeof window.switchApiCatalogTab === 'function') {
           window.switchApiCatalogTab('all');
         }
         var el = document.getElementById(cleanId);
+        if (!el) {
+          var aliasMap = {
+            'contracts-live-table-card': 'static-contracts-table-card',
+            'static-contracts-table-card': 'contracts-live-table-card',
+            'contracts-top-section': 'static-contracts-top-section',
+            'static-contracts-top-section': 'contracts-top-section',
+            'spa-contracts-lead-box': 'static-inbound-lead-box',
+            'static-inbound-lead-box': 'spa-contracts-lead-box'
+          };
+          if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
+        }
         if (!el) return false;
+        if (cleanId === 'api-directory-list' && el.closest) {
+          var cardWrap = el.closest('.rounded-xl');
+          if (cardWrap) el = cardWrap;
+        }
         var docEl = document.documentElement;
         docEl.style.scrollBehavior = 'auto';
+        if (cleanId === 'overview' || cleanId === 'contracts-top-section' || cleanId === 'static-contracts-top-section' || cleanId === 'static-rfp-scope-card') {
+          window.scrollTo(0, 0);
+          return true;
+        }
+        var stickyBottom = 88;
+        if (typeof window.getComputedStyle === 'function' && document.querySelectorAll) {
+          var vw = window.innerWidth || docEl.clientWidth || 0;
+          var sNodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
+          for (var si = 0; si < sNodes.length; si++) {
+            var sn = sNodes[si];
+            if (sn.closest && sn.closest('#page-section-sidebar-root')) continue;
+            if (sn.offsetParent === null || !sn.getBoundingClientRect) continue;
+            var scs = window.getComputedStyle(sn);
+            if (scs.position !== 'sticky' && scs.position !== 'fixed') continue;
+            var sr = sn.getBoundingClientRect();
+            if (sr.height <= 0 || sr.bottom <= 0 || sr.top > 200) continue;
+            if (sn.tagName !== 'HEADER' && sr.width < vw * 0.6) continue;
+            if (sr.bottom > stickyBottom) stickyBottom = sr.bottom;
+          }
+        }
+        var offsetPad = Math.max(88, Math.round(stickyBottom + 14));
         var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
         var currentY = window.pageYOffset || docEl.scrollTop || 0;
-        var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
+        var targetY = Math.max(0, Math.round(rect.top + currentY - offsetPad));
         window.scrollTo(0, targetY);
+        if (cleanId === 'contracts-live-table-card' || cleanId === 'static-contracts-table-card') {
+          var tblInput = document.getElementById('contracts-live-search') || document.getElementById('static-rfp-search');
+          if (tblInput && typeof tblInput.focus === 'function') {
+            try { tblInput.focus({ preventScroll: true }); } catch (_e) {}
+          }
+        }
         return true;
       };
 
@@ -10358,13 +10400,12 @@
             pageTitle = 'Client Account Portal';
             rawItems = [
               { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
-              { icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
-              { icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
+              { icon: 'card', id: 'account-billing-card', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
+              { icon: 'chat', id: 'account-distribution-card', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
               { icon: 'sliders', id: 'account-alert-filters-card', label: '19-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
               { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
               { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
-              { icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
-              { icon: 'shield', id: 'account-profile-name', label: 'Profile & Password Security', kw: 'name company password security logout', color: 'text-slate-300' }
+              { icon: 'code', id: 'account-apikey-security-grid', label: 'API Key, MCP & Security', kw: 'api key st_live mcp claude cursor config profile password security', color: 'text-amber-300' }
             ];
           } else {
             pageTitle = 'Account Sign In / Sign Up';
@@ -10379,8 +10420,8 @@
           pageTitle = 'Plans & B2B Checkout';
           rawItems = [
             { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
-            { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' },
-            { icon: 'cpu', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' },
+            { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1 & Tier 2 Plans ($99 / $399)', kw: 'tier 1 signalwire pro 99 tier 2 capturedesk autopilot 399 leads dossiers api', color: 'text-sky-400' },
+            { icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3 & Tier 4 Enterprise ($1.5k+)', kw: 'tier 3 proposal autopilot shipley zip docx xlsx teaming 1499 tier 4 oem foia vault 2499', color: 'text-emerald-400' },
             { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' },
             { icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
             { icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
@@ -10393,6 +10434,12 @@
               { icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
               { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'table', id: 'contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
@@ -10419,6 +10466,12 @@
               { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
               { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'table', id: 'static-contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {

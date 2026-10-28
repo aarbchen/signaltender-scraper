@@ -1924,13 +1924,53 @@
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
         var el = document.getElementById(cleanId);
+        if (!el) {
+          var aliasMap = {
+            'contracts-live-table-card': 'static-contracts-table-card',
+            'static-contracts-table-card': 'contracts-live-table-card',
+            'contracts-top-section': 'static-contracts-top-section',
+            'static-contracts-top-section': 'contracts-top-section',
+            'spa-contracts-lead-box': 'static-inbound-lead-box',
+            'static-inbound-lead-box': 'spa-contracts-lead-box'
+          };
+          if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
+        }
         if (!el) return false;
         var docEl = document.documentElement;
         docEl.style.scrollBehavior = 'auto';
+        if (cleanId === 'overview' || cleanId === 'contracts-top-section' || cleanId === 'static-contracts-top-section' || cleanId === 'static-rfp-scope-card') {
+          window.scrollTo(0, 0);
+          return true;
+        }
+        var stickyBottom = 88;
+        if (typeof window.getComputedStyle === 'function' && document.querySelectorAll) {
+          var vw = window.innerWidth || docEl.clientWidth || 0;
+          var sNodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
+          for (var si = 0; si < sNodes.length; si++) {
+            var sn = sNodes[si];
+            if (sn.closest && sn.closest('#page-section-sidebar-root')) continue;
+            if (sn.offsetParent === null || !sn.getBoundingClientRect) continue;
+            var scs = window.getComputedStyle(sn);
+            if (scs.position !== 'sticky' && scs.position !== 'fixed') continue;
+            var sr = sn.getBoundingClientRect();
+            if (sr.height <= 0 || sr.bottom <= 0 || sr.top > 200) continue;
+            if (sn.tagName !== 'HEADER') {
+              var stTop = parseFloat(scs.top);
+              if (isNaN(stTop) || sr.top > stTop + 1.5 || sr.width < vw * 0.6) continue;
+            }
+            if (sr.bottom + 16 > stickyBottom) stickyBottom = Math.min(165, Math.round(sr.bottom + 16));
+          }
+        }
         var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
         var currentY = window.pageYOffset || docEl.scrollTop || 0;
-        var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
+        var targetY = Math.max(0, Math.round(rect.top + currentY - stickyBottom));
         window.scrollTo(0, targetY);
+        if (cleanId === 'contracts-live-table-card' || cleanId === 'static-contracts-table-card') {
+          var sInput = document.getElementById('contracts-live-search') || document.getElementById('static-rfp-search');
+          if (sInput && typeof sInput.focus === 'function') {
+            try { sInput.focus({ preventScroll: true }); } catch (e) {}
+          }
+        }
         return true;
       };
 
@@ -2209,6 +2249,12 @@
               { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'table', id: 'contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
           } else {
             rawItems = [
               { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
@@ -2233,6 +2279,12 @@
               { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
               { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'table', id: 'static-contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {

@@ -2471,13 +2471,53 @@ def _render_layout(
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
         var el = document.getElementById(cleanId);
+        if (!el) {{
+          var aliasMap = {{
+            'contracts-live-table-card': 'static-contracts-table-card',
+            'static-contracts-table-card': 'contracts-live-table-card',
+            'contracts-top-section': 'static-contracts-top-section',
+            'static-contracts-top-section': 'contracts-top-section',
+            'spa-contracts-lead-box': 'static-inbound-lead-box',
+            'static-inbound-lead-box': 'spa-contracts-lead-box'
+          }};
+          if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
+        }}
         if (!el) return false;
         var docEl = document.documentElement;
         docEl.style.scrollBehavior = 'auto';
+        if (cleanId === 'overview' || cleanId === 'contracts-top-section' || cleanId === 'static-contracts-top-section' || cleanId === 'static-rfp-scope-card') {{
+          window.scrollTo(0, 0);
+          return true;
+        }}
+        var stickyBottom = 88;
+        if (typeof window.getComputedStyle === 'function' && document.querySelectorAll) {{
+          var vw = window.innerWidth || docEl.clientWidth || 0;
+          var sNodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
+          for (var si = 0; si < sNodes.length; si++) {{
+            var sn = sNodes[si];
+            if (sn.closest && sn.closest('#page-section-sidebar-root')) continue;
+            if (sn.offsetParent === null || !sn.getBoundingClientRect) continue;
+            var scs = window.getComputedStyle(sn);
+            if (scs.position !== 'sticky' && scs.position !== 'fixed') continue;
+            var sr = sn.getBoundingClientRect();
+            if (sr.height <= 0 || sr.bottom <= 0 || sr.top > 200) continue;
+            if (sn.tagName !== 'HEADER') {{
+              var stTop = parseFloat(scs.top);
+              if (isNaN(stTop) || sr.top > stTop + 1.5 || sr.width < vw * 0.6) continue;
+            }}
+            if (sr.bottom + 16 > stickyBottom) stickyBottom = Math.min(165, Math.round(sr.bottom + 16));
+          }}
+        }}
         var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : {{ top: 0 }};
         var currentY = window.pageYOffset || docEl.scrollTop || 0;
-        var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
+        var targetY = Math.max(0, Math.round(rect.top + currentY - stickyBottom));
         window.scrollTo(0, targetY);
+        if (cleanId === 'contracts-live-table-card' || cleanId === 'static-contracts-table-card') {{
+          var sInput = document.getElementById('contracts-live-search') || document.getElementById('static-rfp-search');
+          if (sInput && typeof sInput.focus === 'function') {{
+            try {{ sInput.focus({{ preventScroll: true }}); }} catch (e) {{}}
+          }}
+        }}
         return true;
       }};
 
@@ -2756,6 +2796,12 @@ def _render_layout(
               {{ icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
+          }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
+            rawItems = [
+              {{ icon: 'table', id: 'contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' }},
+              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
+              {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
+            ];
           }} else {{
             rawItems = [
               {{ icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
@@ -2780,6 +2826,12 @@ def _render_layout(
               {{ icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' }},
               {{ icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 21-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
               {{ icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
+              {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
+            ];
+          }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
+            rawItems = [
+              {{ icon: 'table', id: 'static-contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates category filter', color: 'text-emerald-400' }},
+              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
               {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
           }} else {{
@@ -4310,6 +4362,23 @@ def generate_pseo_site() -> int:
 
         # 2. Build Jurisdiction Hub Pages (/contracts/<jurisdiction>/index.html)
         #    and State x Category Pages (/contracts/<jurisdiction>/<category>.html)
+        jurisdiction_cards_sub_html = ""
+        for jk_sub, jm_sub in JURISDICTIONS.items():
+            cnt_sub = sum(1 for c in enriched_contracts if c["jurisdiction"] == jk_sub)
+            jurisdiction_cards_sub_html += f"""
+            <a href="../{jk_sub}/index.html" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">
+              <div>
+                <span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold {jm_sub['badge_class']}">{html.escape(jm_sub['short'].upper())}</span>
+                <h3 class="text-lg font-bold text-white mt-3">{html.escape(jm_sub['name'])}</h3>
+                <p class="text-xs text-slate-400 mt-1">{html.escape(jm_sub['description'])}</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                <span class="text-emerald-400">{cnt_sub} Open Leads</span>
+                <span class="text-sky-400">Browse Hub &rarr;</span>
+              </div>
+            </a>
+            """
+
         for j_key, j_meta in JURISDICTIONS.items():
             j_contracts = [c for c in enriched_contracts if c["jurisdiction"] == j_key]
             canonical_path = f"contracts/{j_key}/index.html"
@@ -4376,6 +4445,13 @@ def generate_pseo_site() -> int:
                     {rows_html}
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            <div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">
+              <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All {len(JURISDICTIONS)} Federal &amp; State SLED Procurement Hubs</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {jurisdiction_cards_sub_html}
               </div>
             </div>
             """
@@ -4454,6 +4530,13 @@ def generate_pseo_site() -> int:
                         {jc_rows}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+
+                <div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">
+                  <h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All {len(JURISDICTIONS)} Federal &amp; State SLED Procurement Hubs</h2>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {jurisdiction_cards_sub_html}
                   </div>
                 </div>
                 """
@@ -5547,6 +5630,22 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           return;
         }}
 
+        var cardsHtml = Object.keys(J).map(function (jk) {{
+          var jmCard = J[jk];
+          var cnt = all.filter(function (c) {{ return c.jurisdiction === jk; }}).length;
+          return '<a href="#contracts/' + esc(jk) + '" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">' +
+            '<div>' +
+              '<span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold ' + esc(jmCard.badge_class) + '">' + esc(jmCard.short.toUpperCase()) + '</span>' +
+              '<h2 class="text-lg font-bold text-white mt-3">' + esc(jmCard.name) + '</h2>' +
+              '<p class="text-xs text-slate-400 mt-1">' + esc(jmCard.description) + '</p>' +
+            '</div>' +
+            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">' +
+              '<span class="text-emerald-400">' + cnt + ' Open Leads</span>' +
+              '<span class="text-sky-400">Browse Hub &rarr;</span>' +
+            '</div>' +
+          '</a>';
+        }}).join('');
+
         // Case 2: Jurisdiction Hub (#contracts/<jurisdiction> or #contracts/<jurisdiction>/<category>)
         var jKey = parts[1];
         if (jKey && J[jKey]) {{
@@ -5587,7 +5686,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div id="contracts-live-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -5601,6 +5700,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<tbody class="text-xs">' + renderRows(jList) + '</tbody>' +
                 '</table>' +
               '</div>' +
+            '</div>' +
+            '<div id="contracts-portal-hubs-grid" class="mt-12 space-y-4">' +
+              '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider">Explore All 19 Federal &amp; State SLED Procurement Hubs</h2>' +
+              '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">' + cardsHtml + '</div>' +
             '</div>' + renderLeadBox(jKey, jmHub.short);
           if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
           return;
@@ -5608,21 +5711,6 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
         // Case 3: Master Directory (#contracts)
         document.title = 'Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender';
-        var cardsHtml = Object.keys(J).map(function (jk) {{
-          var jmCard = J[jk];
-          var cnt = all.filter(function (c) {{ return c.jurisdiction === jk; }}).length;
-          return '<a href="#contracts/' + esc(jk) + '" class="p-5 rounded-xl bg-navy-900 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between">' +
-            '<div>' +
-              '<span class="px-2.5 py-0.5 rounded border text-[10px] font-mono font-semibold ' + esc(jmCard.badge_class) + '">' + esc(jmCard.short.toUpperCase()) + '</span>' +
-              '<h2 class="text-lg font-bold text-white mt-3">' + esc(jmCard.name) + '</h2>' +
-              '<p class="text-xs text-slate-400 mt-1">' + esc(jmCard.description) + '</p>' +
-            '</div>' +
-            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">' +
-              '<span class="text-emerald-400">' + cnt + ' Open Leads</span>' +
-              '<span class="text-sky-400">Browse Hub &rarr;</span>' +
-            '</div>' +
-          '</a>';
-        }}).join('');
 
         root.innerHTML =
           '<div id="contracts-top-section" class="mb-10 space-y-4">' +
@@ -5638,7 +5726,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           '</div>' +
           '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div id="contracts-live-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +

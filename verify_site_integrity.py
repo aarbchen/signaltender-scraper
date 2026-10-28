@@ -780,10 +780,33 @@ document.getElementById('page-contracts').classList.add('hidden');
 document.getElementById('page-apis').classList.add('hidden');
 document.getElementById('page-main').classList.remove('hidden');
 window.togglePageSectionSidebar(true);
-window.renderPageSectionSidebar();
+var ovItems = window.renderPageSectionSidebar();
 if (!document.getElementById('page-sidebar-items').innerHTML || document.getElementById('page-sidebar-items').innerHTML.length < 50) {
   throw new Error('Page Section Sidebar failed to populate sections!');
 }
+for (var oi = 0; oi < ovItems.length; oi++) {
+  if (!ovItems[oi].action && !window.jumpToPageSection(ovItems[oi].id)) {
+    throw new Error('Overview sidebar item failed jumpToPageSection: ' + ovItems[oi].id);
+  }
+}
+document.getElementById('page-main').classList.add('hidden');
+document.getElementById('page-contracts').classList.remove('hidden');
+window.renderContractsRoute('#contracts');
+var dirItems = window.renderPageSectionSidebar();
+for (var di = 0; di < dirItems.length; di++) {
+  if (!dirItems[di].action && !window.jumpToPageSection(dirItems[di].id)) {
+    throw new Error('#contracts sidebar item failed jumpToPageSection: ' + dirItems[di].id);
+  }
+}
+window.renderContractsRoute('#contracts/arizona');
+var stateItems = window.renderPageSectionSidebar();
+for (var si2 = 0; si2 < stateItems.length; si2++) {
+  if (!stateItems[si2].action && !window.jumpToPageSection(stateItems[si2].id)) {
+    throw new Error('#contracts/arizona sidebar item failed jumpToPageSection: ' + stateItems[si2].id);
+  }
+}
+document.getElementById('page-contracts').classList.add('hidden');
+document.getElementById('page-main').classList.remove('hidden');
 window.togglePageSectionSidebar(false);
 if (typeof window.switchTrustTab !== 'function' || typeof window.submitAiConciergeContact !== 'function' || typeof window.submitHardenedFeedbackForm !== 'function') {
   throw new Error('Enterprise Trust, AI Concierge & Hardened Feedback functions are undefined!');

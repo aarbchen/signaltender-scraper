@@ -229,3 +229,4 @@ async def run_scraper(push_to_db: bool = True) -> List[Dict[str, str]]:
 
 if __name__ == "__main__":
     asyncio.run(run_scraper(push_to_db=True))
+
