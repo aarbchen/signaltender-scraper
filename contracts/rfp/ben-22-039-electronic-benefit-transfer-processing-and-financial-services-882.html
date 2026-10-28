@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1445,7 +1448,7 @@
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official Virginia eVA Portal Electronic Q&amp;A &amp; Contracting Officer Portal (Department of Social Services)" class="blur-sm select-none break-words">contracting.officer@mvendor.cgieva.com &bull; Electronic Q&amp;A Desk (Department of Social Services)</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                    <div class="pt-3 flex flex-col sm:flex-row sm:flex-wrap gap-3">
                       <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                         Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                       </a>
@@ -1491,7 +1494,7 @@
                 <div id="static-rfp-related-card" class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">
                   <h2 class="text-base font-bold text-white font-mono uppercase tracking-wider mb-3">More Open Virginia IT Solicitations</h2>
                   <ul class="text-sm space-y-1">
-                    <li class="py-2 border-b border-slate-800/70"><a href="strategic-distributed-antenna-system-partnership-995.html" class="text-sky-400 hover:underline font-medium">Strategic Distributed Antenna System Partnership</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-01)</span></li><li class="py-2 border-b border-slate-800/70"><a href="sf-30-addendum-detected-rfp-27-27-gs-software-as-service-asset-management-948.html" class="text-sky-400 hover:underline font-medium">[SF-30 / ADDENDUM DETECTED] RFP 27-27/GS SOFTWARE AS SERVICE-ASSET MANAGEMENT SOLUTION</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-10)</span></li><li class="py-2 border-b border-slate-800/70"><a href="rfi-2000004463-computerized-maintenance-management-system-cmms-900.html" class="text-sky-400 hover:underline font-medium">RFI 2000004463 Computerized Maintenance Management System (CMMS)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-28)</span></li><li class="py-2 border-b border-slate-800/70"><a href="rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html" class="text-sky-400 hover:underline font-medium">RFQ SA 2706 Request for Qualification for Applications Engineering Systems Supplier (AESS) Services</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-03)</span></li><li class="py-2 border-b border-slate-800/70"><a href="rfp-automobile-insurance-shopping-access-solution-883.html" class="text-sky-400 hover:underline font-medium">RFP - Automobile Insurance Shopping Access Solution</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-09)</span></li>
+                    <li class="py-2 border-b border-slate-800/70"><a href="access-control-improvements-at-piedmont-virginia-community-college-1046.html" class="text-sky-400 hover:underline font-medium">Access Control Improvements at Piedmont Virginia Community College, Multiple Campuses, PC# 260-B4260-021 (M23PV158)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-19)</span></li><li class="py-2 border-b border-slate-800/70"><a href="rfp-340-27-ye-document-management-system-for-human-resources-1045.html" class="text-sky-400 hover:underline font-medium">RFP#340-27-YE DOCUMENT MANAGEMENT SYSTEM FOR HUMAN RESOURCES</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-03)</span></li><li class="py-2 border-b border-slate-800/70"><a href="sf-30-addendum-detected-rfp-185-26-intrusion-monitoring-security-camera-1044.html" class="text-sky-400 hover:underline font-medium">[SF-30 / ADDENDUM DETECTED] RFP#185-26 Intrusion, Monitoring &amp; Security Camera Systems</a> <span class="text-slate-500 font-mono text-xs ml-2">(2027-01-15)</span></li><li class="py-2 border-b border-slate-800/70"><a href="sf-30-addendum-detected-outdoor-recreational-license-sales-and-customer-1035.html" class="text-sky-400 hover:underline font-medium">[SF-30 / ADDENDUM DETECTED] Outdoor Recreational License Sales and Customer Engagement Solution</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-10)</span></li><li class="py-2 border-b border-slate-800/70"><a href="sf-30-addendum-detected-rfi-2000004463-computerized-maintenance-management-1034.html" class="text-sky-400 hover:underline font-medium">[SF-30 / ADDENDUM DETECTED] RFI 2000004463 Computerized Maintenance Management System (CMMS)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-30)</span></li>
                   </ul>
                 </div>
               </div>

@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1371,7 +1374,7 @@
       
             <div id="static-contracts-top-section" class="mb-8 space-y-4">
               <div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono bg-sky-500/10 text-sky-300 border-sky-500/30">
-                // MA COMMBUYS, EOTSS, OSD &amp; CITY OF BOSTON &bull; 13 ACTIVE IT SOLICITATIONS
+                // MA COMMBUYS, EOTSS, OSD &amp; CITY OF BOSTON &bull; 12 ACTIVE IT SOLICITATIONS
               </div>
               <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                 Open Massachusetts State (COMMBUYS / EOTSS) &amp; Boston IT Contracts
@@ -1611,34 +1614,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="../rfp/bd-27-1010-134380-rfp-0050-2027-enterprise-facilities-it-asset-management-744.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MASSACHUSETTS
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="../rfp/bd-27-1114-134145-rfp-2027-006-technolutions-slate-crm-integration-743.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [BD-27-1114-134145] RFP 2027-006 Technolutions Slate CRM Integration &amp; Financial Aid System
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Westfield State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-27
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/bd-27-1114-134145-rfp-2027-006-technolutions-slate-crm-integration-743.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>

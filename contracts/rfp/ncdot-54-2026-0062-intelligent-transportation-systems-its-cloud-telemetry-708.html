@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1445,7 +1448,7 @@
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official NC eVP, NCDIT, UNC &amp; Raleigh/Charlotte Electronic Q&amp;A &amp; Contracting Officer Portal (NC Department of Transportation (NCDOT))" class="blur-sm select-none break-words">contracting.officer@evp.nc.gov &bull; Electronic Q&amp;A Desk (NC Department of Transportation (NCDOT))</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                    <div class="pt-3 flex flex-col sm:flex-row sm:flex-wrap gap-3">
                       <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                         Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                       </a>

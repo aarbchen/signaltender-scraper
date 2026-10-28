@@ -834,7 +834,6 @@ def _render_layout(
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -846,9 +845,13 @@ def _render_layout(
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {{
         padding-left: 44px !important;
+      }}
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {{
+        padding-left: calc(44px + 2rem) !important;
       }}
     }}
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -3968,7 +3971,7 @@ def generate_pseo_site() -> int:
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="{html.escape(real_co_routing, quote=True)}" class="blur-sm select-none break-words">contracting.officer@{html.escape(portal_host)} &bull; Electronic Q&amp;A Desk ({html.escape(c['agency'])})</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                    <div class="pt-3 flex flex-col sm:flex-row flex-wrap gap-3">
                       <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                         Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                       </a>
@@ -5239,7 +5242,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>' +
                       '</div>';
                     }})() +
-                    '<div class="pt-3 flex flex-col sm:flex-row gap-3">' +
+                    '<div class="pt-3 flex flex-col sm:flex-row flex-wrap gap-3">' +
                       '<a href="#checkout-tier1" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
                         'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +
                       '</a>' +
@@ -5452,15 +5455,31 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     tmp_index_path = f"{index_path}.tmp.{os.getpid()}"
     with open(tmp_index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
-    try:
-        os.replace(tmp_index_path, index_path)
-    except PermissionError:
-        with open(index_path, 'w', encoding='utf-8') as f:
-            f.write(index_html)
+    import time
+    replaced = False
+    for _attempt in range(25):
         try:
-            os.remove(tmp_index_path)
-        except OSError:
-            pass
+            os.replace(tmp_index_path, index_path)
+            replaced = True
+            break
+        except PermissionError:
+            time.sleep(0.15)
+    if not replaced:
+        lock_path = os.path.join(BASE_DIR, ".index_html_write.lock")
+        try:
+            with open(lock_path, "w", encoding="utf-8") as lf:
+                lf.write(str(os.getpid()))
+            with open(index_path, "w", encoding="utf-8") as f:
+                f.write(index_html)
+        finally:
+            try:
+                os.remove(lock_path)
+            except OSError:
+                pass
+            try:
+                os.remove(tmp_index_path)
+            except OSError:
+                pass
 
 
 if __name__ == "__main__":

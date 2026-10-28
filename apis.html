@@ -326,7 +326,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -338,9 +337,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */

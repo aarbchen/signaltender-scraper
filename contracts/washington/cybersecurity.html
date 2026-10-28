@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1428,7 +1431,7 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="../rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1010.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+            <a href="../rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1061.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [SF-30 / ADDENDUM DETECTED] [WA-DSHS-26-409] WA Department of Social and Health Services (DSHS) Integrated Case Management SaaS, Cloud Contact Center &amp; HIPAA Security Audit
             </a>
             <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
@@ -1439,10 +1442,10 @@
             Washington State [Verified Agency]
           </td>
           <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-02
+            2026-12-03
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1010.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+            <a href="../rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1061.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -1456,7 +1459,7 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="../rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1007.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+            <a href="../rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1058.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [SF-30 / ADDENDUM DETECTED] [WA-WSDOT-26-114] WSDOT Intelligent Transportation Systems (ITS) Telemetry Cloud, Tolling Cybersecurity &amp; SD-WAN Modernization
             </a>
             <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
@@ -1467,10 +1470,10 @@
             Washington State [Verified Agency]
           </td>
           <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-20
+            2026-11-21
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1007.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+            <a href="../rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1058.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -1484,7 +1487,7 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="../rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1006.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+            <a href="../rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1057.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [SF-30 / ADDENDUM DETECTED] [WA-HCA-2026-819] WA Health Care Authority (HCA) Apple Health Medicaid Enterprise Data Warehouse, FHIR Interoperability &amp; Cloud Security
             </a>
             <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
@@ -1495,10 +1498,10 @@
             Washington State [Verified Agency]
           </td>
           <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-26
+            2026-11-27
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1006.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+            <a href="../rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1057.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -1512,7 +1515,7 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="../rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1004.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+            <a href="../rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1055.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [SF-30 / ADDENDUM DETECTED] [WA-WATECH-2026-0412] WaTech Statewide Zero-Trust Network Architecture (ZTNA), Cloud SIEM &amp; 24x7 Managed SOC Modernization
             </a>
             <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
@@ -1523,10 +1526,10 @@
             Washington Technology [Verified Agency]
           </td>
           <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-23
+            2026-11-24
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1004.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+            <a href="../rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1055.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -1540,7 +1543,7 @@
             </span>
           </td>
           <td class="py-4 px-5">
-            <a href="../rfp/sf-30-addendum-detected-privacy-amp-security-notice-997.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+            <a href="../rfp/sf-30-addendum-detected-privacy-amp-security-notice-1048.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
               [SF-30 / ADDENDUM DETECTED] Privacy &amp;amp; security notice
             </a>
             <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
@@ -1551,10 +1554,10 @@
             State of [Verified Agency]
           </td>
           <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
+            2026-11-25
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/sf-30-addendum-detected-privacy-amp-security-notice-997.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+            <a href="../rfp/sf-30-addendum-detected-privacy-amp-security-notice-1048.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>

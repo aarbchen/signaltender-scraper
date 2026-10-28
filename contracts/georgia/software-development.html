@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1381,7 +1384,7 @@
                     Georgia Enterprise Software, Data &amp; AI Platforms Government Contracts &amp; RFPs
                   </h1>
                   <p class="text-slate-300 text-sm max-w-3xl">
-                    Browse 11 open enterprise software, data &amp; ai platforms solicitations from Georgia Procurement Registry (GPR) &amp; Metro.
+                    Browse 9 open enterprise software, data &amp; ai platforms solicitations from Georgia Procurement Registry (GPR) &amp; Metro.
                   </p>
                 </div>
                 <div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
@@ -1667,62 +1670,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="../rfp/pe-29016-nonst-2027-000000073-rfp804-v2-wordpress-and-website-support-692.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              GEORGIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="../rfp/pe-77686-nonst-2027-000000013-phone-and-circuit-services-691.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [PE-77686-NONST-2027-000000013] Phone and Circuit Services
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Haralson County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-27
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/pe-77686-nonst-2027-000000013-phone-and-circuit-services-691.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              GEORGIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="../rfp/pe-77686-nonst-2027-000000014-it-managed-services-690.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [PE-77686-NONST-2027-000000014] IT Managed Services
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Haralson County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-27
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="../rfp/pe-77686-nonst-2027-000000014-it-managed-services-690.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>

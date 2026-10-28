@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1445,7 +1448,7 @@
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official PA DGS eMarketplace &amp; PhilaPort Electronic Q&amp;A &amp; Contracting Officer Portal (PA Department of Human Services)" class="blur-sm select-none break-words">contracting.officer@emarketplace.state.pa.us &bull; Electronic Q&amp;A Desk (PA Department of Human Services)</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21</span></div>
                     </div>
-                    <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                    <div class="pt-3 flex flex-col sm:flex-row sm:flex-wrap gap-3">
                       <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                         Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                       </a>
@@ -1491,7 +1494,7 @@
                 <div id="static-rfp-related-card" class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">
                   <h2 class="text-base font-bold text-white font-mono uppercase tracking-wider mb-3">More Open Pennsylvania IT Solicitations</h2>
                   <ul class="text-sm space-y-1">
-                    <li class="py-2 border-b border-slate-800/70"><a href="secure-and-confidential-data-capturing-dor-0478-26-870.html" class="text-sky-400 hover:underline font-medium">Secure And Confidential Data Capturing (DOR 0478-26)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-06)</span></li><li class="py-2 border-b border-slate-800/70"><a href="26-118-s-managed-information-technology-services-rfp-684.html" class="text-sky-400 hover:underline font-medium">26-118-S Managed Information Technology Services RFP</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-11)</span></li><li class="py-2 border-b border-slate-800/70"><a href="state-medicaid-data-analytics-oversight-solution-26-rfi-21377-681.html" class="text-sky-400 hover:underline font-medium">State Medicaid Data Analytics Oversight Solution (26-RFI-21377)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-13)</span></li><li class="py-2 border-b border-slate-800/70"><a href="form-ordering-system-dor-387-26-680.html" class="text-sky-400 hover:underline font-medium">Form Ordering System (DOR 387-26)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-27)</span></li><li class="py-2 border-b border-slate-800/70"><a href="pa-next-gen-vital-records-management-system-vrms-6100065757-679.html" class="text-sky-400 hover:underline font-medium">PA Next Gen Vital Records Management System VRMS (6100065757)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-18)</span></li>
+                    <li class="py-2 border-b border-slate-800/70"><a href="secure-and-confidential-data-capturing-dor-0478-26-870.html" class="text-sky-400 hover:underline font-medium">Secure And Confidential Data Capturing (DOR 0478-26)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-06)</span></li><li class="py-2 border-b border-slate-800/70"><a href="26-118-s-managed-information-technology-services-rfp-684.html" class="text-sky-400 hover:underline font-medium">26-118-S Managed Information Technology Services RFP</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-11)</span></li><li class="py-2 border-b border-slate-800/70"><a href="state-medicaid-data-analytics-oversight-solution-26-rfi-21377-681.html" class="text-sky-400 hover:underline font-medium">State Medicaid Data Analytics Oversight Solution (26-RFI-21377)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-13)</span></li><li class="py-2 border-b border-slate-800/70"><a href="pa-next-gen-vital-records-management-system-vrms-6100065757-679.html" class="text-sky-400 hover:underline font-medium">PA Next Gen Vital Records Management System VRMS (6100065757)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-18)</span></li><li class="py-2 border-b border-slate-800/70"><a href="rfp-for-managed-information-technology-services-26-118-s-678.html" class="text-sky-400 hover:underline font-medium">RFP For Managed Information Technology Services (26-118-S)</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-28)</span></li>
                   </ul>
                 </div>
               </div>

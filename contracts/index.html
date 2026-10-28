@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1371,13 +1374,13 @@
       
         <div id="static-contracts-top-section" class="mb-10 space-y-4">
           <div class="inline-flex items-center px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
-            // LIVE GOVCON DIRECTORY &bull; 225 VERIFIED OPEN IT SOLICITATIONS
+            // LIVE GOVCON DIRECTORY &bull; 231 VERIFIED OPEN IT SOLICITATIONS
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore 225 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, and Colorado.
+            Explore 231 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, and Colorado.
           </p>
         </div>
 
@@ -1390,7 +1393,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live pre-vetted federal government IT, software, cloud migration, and cybersecurity solicitations extracted from SAM.gov.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">28 Open Leads</span>
+                <span class="text-emerald-400">32 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1414,7 +1417,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Virginia eVA procurement opportunities for enterprise software, cloud infrastructure, cybersecurity, and IT consulting.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">16 Open Leads</span>
+                <span class="text-emerald-400">21 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1474,7 +1477,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Commonwealth of Pennsylvania DGS eMarketplace, PA JAGGAER, and Philadelphia Regional Port Authority IT, SaaS, cloud, and data solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">8 Open Leads</span>
+                <span class="text-emerald-400">7 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1498,7 +1501,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live State of Georgia Procurement Registry (DOAS GPR / Team Georgia Marketplace), Fulton County, Atlanta Regional Commission, and Georgia Regents IT, cloud, AI, SaaS, ERP, and cybersecurity solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">12 Open Leads</span>
+                <span class="text-emerald-400">10 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1534,7 +1537,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Commonwealth of Massachusetts COMMBUYS (EOTSS, OSD ITS78/ITS80, Trial Court, MassTech, MBTA, Massport) and City of Boston IT, cloud, cybersecurity, AI, and software solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">13 Open Leads</span>
+                <span class="text-emerald-400">12 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1594,7 +1597,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live municipal, county, and public university IT and software solicitations monitored across the DemandStar SLED network.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">11 Open Leads</span>
+                <span class="text-emerald-400">12 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1655,6 +1658,1210 @@
               </thead>
               <tbody class="text-xs">
                 
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1074.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [UMICH-2026-RFP-9142] University of Michigan &amp; Michigan Medicine Enterprise Research Cloud Enclave &amp; Zero-Trust Network Segmentation
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            University of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-28
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1074.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-msp-2026-240000002085-michigan-state-police-msp-1073.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-MSP-2026-240000002085] Michigan State Police (MSP) CJIS-Compliant Next-Gen 911 GIS &amp; Law Enforcement Cloud Records Platform
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-20
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-msp-2026-240000002085-michigan-state-police-msp-1073.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-leo-2026-240000002048-unemployment-insurance-1072.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-LEO-2026-240000002048] Unemployment Insurance Agency (UIA) Next-Gen Cloud Tax &amp; Benefits Portal DevSecOps Services
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-24
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-leo-2026-240000002048-unemployment-insurance-1072.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000002011-milogin-statewide-1071.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-DTMB-2026-240000002011] MiLogin Statewide Citizen &amp; Workforce Enterprise Identity (ICAM / Okta / FIDO2 MFA) Expansion
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-30
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000002011-milogin-statewide-1071.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-mdot-2026-240000001967-statewide-intelligent-1070.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-MDOT-2026-240000001967] Statewide Intelligent Transportation Systems (ITS), Connected Corridor Fiber &amp; V2X Telemetry Cloud
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-18
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-mdot-2026-240000001967-statewide-intelligent-1070.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-mdhhs-2026-240000001934-mibridges-medicaid-1069.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-MDHHS-2026-240000001934] MiBridges &amp; Medicaid Enterprise Systems (MES) Cloud Data Lakehouse &amp; AI Fraud Analytics
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-26
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-mdhhs-2026-240000001934-mibridges-medicaid-1069.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000001892-michigan-cyber-security-1068.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [MI-DTMB-2026-240000001892] Michigan Cyber Security (MCS) Enterprise Zero-Trust SOC, SIEM &amp; MDR Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-22
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000001892-michigan-cyber-security-1068.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-information-technology-it-investment-fund-1067.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Information Technology (IT) Investment Fund Portfolio Report
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-information-technology-it-investment-fund-1067.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-cybersecurity-resource-hub-1066.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Cybersecurity Resource Hub
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-cybersecurity-resource-hub-1066.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-cyber-disruption-response-plan-1065.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Cyber Disruption Response Plan
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-cyber-disruption-response-plan-1065.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-state-administrative-board-1064.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] State Administrative Board
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-state-administrative-board-1064.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-go-to-administrative-guide-1063.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Go to Administrative Guide
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-go-to-administrative-guide-1063.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MICHIGAN
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-it-policies-standards-amp-procedures-1062.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] IT Policies, Standards &amp;amp; Procedures
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Michigan Department [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-it-policies-standards-amp-procedures-1062.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1061.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-DSHS-26-409] WA Department of Social and Health Services (DSHS) Integrated Case Management SaaS, Cloud Contact Center &amp; HIPAA Security Audit
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-12-03
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1061.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-uw-2026-308-university-of-washington-uw-1060.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-UW-2026-308] University of Washington (UW) Research Computing Cloud Enclave, NIST 800-171 CMMC Compliance &amp; Endpoint Detection
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            University of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-23
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-uw-2026-308-university-of-washington-uw-1060.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-dol-2026-053-wa-department-of-licensing-dol-1059.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-DOL-2026-053] WA Department of Licensing (DOL) Digital Credential Identity Access Management (ICAM) &amp; Fraud Detection AI Platform
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-28
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-dol-2026-053-wa-department-of-licensing-dol-1059.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1058.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-WSDOT-26-114] WSDOT Intelligent Transportation Systems (ITS) Telemetry Cloud, Tolling Cybersecurity &amp; SD-WAN Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-21
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1058.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1057.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-HCA-2026-819] WA Health Care Authority (HCA) Apple Health Medicaid Enterprise Data Warehouse, FHIR Interoperability &amp; Cloud Security
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-27
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1057.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-des-08226-wa-department-of-enterprise-services-1056.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-DES-08226] WA Department of Enterprise Services (DES) Statewide Cloud Infrastructure, AWS/Azure GovCloud &amp; DevSecOps Master Contract
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington State [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-12-01
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-des-08226-wa-department-of-enterprise-services-1056.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1055.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [WA-WATECH-2026-0412] WaTech Statewide Zero-Trust Network Architecture (ZTNA), Cloud SIEM &amp; 24x7 Managed SOC Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Washington Technology [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-24
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1055.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-legislative-campus-modernization-1054.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Legislative Campus Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-legislative-campus-modernization-1054.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-demolition-of-the-general-administration-building-1053.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Demolition of the General Administration Building
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-demolition-of-the-general-administration-building-1053.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-linkedin-learning-administrators-toolkit-1052.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] LinkedIn Learning Administrators Toolkit
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-linkedin-learning-administrators-toolkit-1052.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-it-professional-structure-1051.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] IT Professional Structure
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-it-professional-structure-1051.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-state-contracts-assistance-network-1050.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] State Contracts Assistance Network
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Network Infrastructure</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Telecom / Fiber</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-state-contracts-assistance-network-1050.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-it-professional-services-contracts-1049.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] IT Professional Services Contracts
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-it-professional-services-contracts-1049.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-privacy-amp-security-notice-1048.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Privacy &amp;amp; security notice
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-privacy-amp-security-notice-1048.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              WASHINGTON
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-sign-up-for-it-contracts-focus-1047.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Sign up for IT Contracts Focus
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-sign-up-for-it-contracts-focus-1047.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/access-control-improvements-at-piedmont-virginia-community-college-1046.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Access Control Improvements at Piedmont Virginia Community College, Multiple Campuses, PC# 260-B4260-021 (M23PV158)
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Virginia Community [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-19
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/access-control-improvements-at-piedmont-virginia-community-college-1046.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-340-27-ye-document-management-system-for-human-resources-1045.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              RFP#340-27-YE DOCUMENT MANAGEMENT SYSTEM FOR HUMAN RESOURCES
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            City of Portsmouth
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-12-03
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/rfp-340-27-ye-document-management-system-for-human-resources-1045.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-rfp-185-26-intrusion-monitoring-security-camera-1044.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] RFP#185-26 Intrusion, Monitoring &amp; Security Camera Systems
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Virginia Alcoholic [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2027-01-15
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-rfp-185-26-intrusion-monitoring-security-camera-1044.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4132-next-generation-911-ng911-cloud-1043.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4132] Next-Generation 911 (NG911) Cloud CAD/RMS &amp; Emergency GIS Dispatch Platform
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            King County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-22
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4132-next-generation-911-ng911-cloud-1043.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4119-24x7-managed-detection-response-1042.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4119] 24x7 Managed Detection &amp; Response (MDR), Municipal SOC &amp; Zero-Trust Network Segmentation
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Broward County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-18
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4119-24x7-managed-detection-response-1042.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4108-enterprise-cloud-erp-utility-1041.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4108] Enterprise Cloud ERP, Utility Billing SaaS &amp; Citizen Payment Portal Modernization
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            City of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-15
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4108-enterprise-cloud-erp-utility-1041.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-1040.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              SPECIAL NOTICE: 91st Cyber Operations Center Progressive-Design-Build OT
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-1040.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/cybersecurity-and-information-assurance-1039.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Cybersecurity and Information Assurance
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/cybersecurity-and-information-assurance-1039.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/cable-fiber-optic-1038.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              CABLE,FIBER OPTIC
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Network Infrastructure</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Telecom / Fiber</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/cable-fiber-optic-1038.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/cca-computer-1037.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              CCA,COMPUTER
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Network Infrastructure</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Telecom / Fiber</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/cca-computer-1037.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/camera-system-surve-1036.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              CAMERA SYSTEM,SURVE
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/camera-system-surve-1036.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-outdoor-recreational-license-sales-and-customer-1035.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] Outdoor Recreational License Sales and Customer Engagement Solution
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            VITA eVA Statewide
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-10
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-outdoor-recreational-license-sales-and-customer-1035.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/sf-30-addendum-detected-rfi-2000004463-computerized-maintenance-management-1034.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [SF-30 / ADDENDUM DETECTED] RFI 2000004463 Computerized Maintenance Management System (CMMS)
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Fairfax County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-10-30
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/sf-30-addendum-detected-rfi-2000004463-computerized-maintenance-management-1034.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              MUNICIPAL SLED
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/shift-log-and-operational-rounds-system-software-and-implementation-1033.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Shift Log and Operational Rounds System - Software and Implementation Services
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Great Lakes [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-12-07
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/shift-log-and-operational-rounds-system-software-and-implementation-1033.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/enterprise-electronic-security-systems-ess-nationwide-operations-1032.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Enterprise Electronic Security Systems (ESS) — Nationwide Operations, Maintenance, Integration, and Lifecycle Support
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="rfp/enterprise-electronic-security-systems-ess-nationwide-operations-1032.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              View Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
@@ -1881,790 +3088,6 @@
 
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1023.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [UMICH-2026-RFP-9142] University of Michigan &amp; Michigan Medicine Enterprise Research Cloud Enclave &amp; Zero-Trust Network Segmentation
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            University of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-27
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-umich-2026-rfp-9142-university-of-michigan-1023.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-msp-2026-240000002085-michigan-state-police-msp-1022.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-MSP-2026-240000002085] Michigan State Police (MSP) CJIS-Compliant Next-Gen 911 GIS &amp; Law Enforcement Cloud Records Platform
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-19
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-msp-2026-240000002085-michigan-state-police-msp-1022.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-leo-2026-240000002048-unemployment-insurance-1021.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-LEO-2026-240000002048] Unemployment Insurance Agency (UIA) Next-Gen Cloud Tax &amp; Benefits Portal DevSecOps Services
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-23
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-leo-2026-240000002048-unemployment-insurance-1021.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000002011-milogin-statewide-1020.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-DTMB-2026-240000002011] MiLogin Statewide Citizen &amp; Workforce Enterprise Identity (ICAM / Okta / FIDO2 MFA) Expansion
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-29
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000002011-milogin-statewide-1020.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-mdot-2026-240000001967-statewide-intelligent-1019.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-MDOT-2026-240000001967] Statewide Intelligent Transportation Systems (ITS), Connected Corridor Fiber &amp; V2X Telemetry Cloud
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-17
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-mdot-2026-240000001967-statewide-intelligent-1019.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-mdhhs-2026-240000001934-mibridges-medicaid-1018.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-MDHHS-2026-240000001934] MiBridges &amp; Medicaid Enterprise Systems (MES) Cloud Data Lakehouse &amp; AI Fraud Analytics
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-25
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-mdhhs-2026-240000001934-mibridges-medicaid-1018.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000001892-michigan-cyber-security-1017.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [MI-DTMB-2026-240000001892] Michigan Cyber Security (MCS) Enterprise Zero-Trust SOC, SIEM &amp; MDR Modernization
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-21
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-mi-dtmb-2026-240000001892-michigan-cyber-security-1017.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-information-technology-it-investment-fund-1016.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Information Technology (IT) Investment Fund Portfolio Report
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-information-technology-it-investment-fund-1016.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-cybersecurity-resource-hub-1015.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Cybersecurity Resource Hub
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-cybersecurity-resource-hub-1015.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-cyber-disruption-response-plan-1014.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Cyber Disruption Response Plan
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-cyber-disruption-response-plan-1014.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-state-administrative-board-1013.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] State Administrative Board
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-state-administrative-board-1013.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-go-to-administrative-guide-1012.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Go to Administrative Guide
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-go-to-administrative-guide-1012.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MICHIGAN
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-it-policies-standards-amp-procedures-1011.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] IT Policies, Standards &amp;amp; Procedures
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Michigan Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-it-policies-standards-amp-procedures-1011.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1010.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-DSHS-26-409] WA Department of Social and Health Services (DSHS) Integrated Case Management SaaS, Cloud Contact Center &amp; HIPAA Security Audit
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-02
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-dshs-26-409-wa-department-of-social-and-health-1010.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-uw-2026-308-university-of-washington-uw-1009.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-UW-2026-308] University of Washington (UW) Research Computing Cloud Enclave, NIST 800-171 CMMC Compliance &amp; Endpoint Detection
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            University of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-22
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-uw-2026-308-university-of-washington-uw-1009.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-dol-2026-053-wa-department-of-licensing-dol-1008.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-DOL-2026-053] WA Department of Licensing (DOL) Digital Credential Identity Access Management (ICAM) &amp; Fraud Detection AI Platform
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-27
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-dol-2026-053-wa-department-of-licensing-dol-1008.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1007.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-WSDOT-26-114] WSDOT Intelligent Transportation Systems (ITS) Telemetry Cloud, Tolling Cybersecurity &amp; SD-WAN Modernization
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-20
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-wsdot-26-114-wsdot-intelligent-transportation-1007.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1006.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-HCA-2026-819] WA Health Care Authority (HCA) Apple Health Medicaid Enterprise Data Warehouse, FHIR Interoperability &amp; Cloud Security
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-26
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-hca-2026-819-wa-health-care-authority-hca-apple-1006.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-des-08226-wa-department-of-enterprise-services-1005.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-DES-08226] WA Department of Enterprise Services (DES) Statewide Cloud Infrastructure, AWS/Azure GovCloud &amp; DevSecOps Master Contract
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington State [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-30
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-des-08226-wa-department-of-enterprise-services-1005.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1004.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [WA-WATECH-2026-0412] WaTech Statewide Zero-Trust Network Architecture (ZTNA), Cloud SIEM &amp; 24x7 Managed SOC Modernization
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Washington Technology [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-23
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-wa-watech-2026-0412-watech-statewide-zero-trust-1004.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-legislative-campus-modernization-1003.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Legislative Campus Modernization
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-legislative-campus-modernization-1003.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-demolition-of-the-general-administration-building-1002.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Demolition of the General Administration Building
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-demolition-of-the-general-administration-building-1002.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-linkedin-learning-administrators-toolkit-1001.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] LinkedIn Learning Administrators Toolkit
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-linkedin-learning-administrators-toolkit-1001.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-it-professional-structure-1000.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] IT Professional Structure
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-it-professional-structure-1000.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-state-contracts-assistance-network-999.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] State Contracts Assistance Network
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Network Infrastructure</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Telecom / Fiber</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-state-contracts-assistance-network-999.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-it-professional-services-contracts-998.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] IT Professional Services Contracts
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-it-professional-services-contracts-998.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-privacy-amp-security-notice-997.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Privacy &amp;amp; security notice
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-privacy-amp-security-notice-997.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              WASHINGTON
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-sign-up-for-it-contracts-focus-996.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] Sign up for IT Contracts Focus
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-sign-up-for-it-contracts-focus-996.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
               VIRGINIA
             </span>
@@ -2693,90 +3116,6 @@
 
         <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MUNICIPAL SLED
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4132-next-generation-911-ng911-cloud-994.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4132] Next-Generation 911 (NG911) Cloud CAD/RMS &amp; Emergency GIS Dispatch Platform
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            King County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-21
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4132-next-generation-911-ng911-cloud-994.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MUNICIPAL SLED
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4119-24x7-managed-detection-response-993.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4119] 24x7 Managed Detection &amp; Response (MDR), Municipal SOC &amp; Zero-Trust Network Segmentation
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Broward County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-17
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4119-24x7-managed-detection-response-993.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              MUNICIPAL SLED
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4108-enterprise-cloud-erp-utility-992.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [SF-30 / ADDENDUM DETECTED] [RFP-DS-2026-4108] Enterprise Cloud ERP, Utility Billing SaaS &amp; Citizen Payment Portal Modernization
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            City of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-14
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/sf-30-addendum-detected-rfp-ds-2026-4108-enterprise-cloud-erp-utility-992.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
               FEDERAL
             </span>
@@ -2797,34 +3136,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-991.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
-              FEDERAL
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/enterprise-electronic-security-systems-ess-nationwide-operations-990.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              Enterprise Electronic Security Systems (ESS) — Nationwide Operations, Maintenance, Integration, and Lifecycle Support
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Federal Government [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            Open / Rolling
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/enterprise-electronic-security-systems-ess-nationwide-operations-990.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>
@@ -4141,314 +4452,6 @@
           </td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="rfp/26dpp01302-t2774-automated-document-imaging-pre-processing-data-ingestion-916.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01314-t2870-transmission-facility-management-for-new-jersey-public-915.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01314] T2870 - Transmission Facility Management for New Jersey Public Broadcasting Authority (NJPBA)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-10
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01314-t2870-transmission-facility-management-for-new-jersey-public-915.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01325-t3161-nj-labor-tax-integrated-solution-for-ui-tdi-fli-workforce-914.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01325] T3161 - NJ Labor Tax Integrated Solution for UI, TDI, FLI, Workforce and Audits
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-13
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01325-t3161-nj-labor-tax-integrated-solution-for-ui-tdi-fli-workforce-914.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01212-t1932-contracted-system-administrator-csa-for-the-childrens-913.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01212] T1932 - Contracted System Administrator (CSA) for the Childrens System of Care (CSOC)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-17
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01212-t1932-contracted-system-administrator-csa-for-the-childrens-913.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01199-t2775-data-entry-verification-services-division-of-revenue-and-912.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01199] T2775 - Data Entry/Verification Services - Division of Revenue and Enterprise Services
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-08
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01199-t2775-data-entry-verification-services-division-of-revenue-and-912.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01253-t1628-enhanced-motor-vehicle-inspection-maintenance-system-911.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01253] T1628 Enhanced Motor Vehicle Inspection Maintenance System
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-16
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01253-t1628-enhanced-motor-vehicle-inspection-maintenance-system-911.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW JERSEY
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/26dpp01287-t2314-njkids-application-maintenance-and-support-for-nj-acses-910.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [26DPP01287] T2314 - NJKiDS Application Maintenance and Support for NJ ACSES
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Division of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2027-01-05
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/26dpp01287-t2314-njkids-application-maintenance-and-support-for-nj-acses-910.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-cyan-500/10 text-cyan-300 border-cyan-500/30">
-              FLORIDA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/exp2693-licensing-and-enforcement-information-database-system-leids-904.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [EXP2693] Licensing and Enforcement Information Database System (LEIDS)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Department of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-28
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/exp2693-licensing-and-enforcement-information-database-system-leids-904.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              CALIFORNIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [0000034018] Intelligent Transportation Systems (ITS) Network Infrastructure &amp; Cybersecurity Engineering
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Department of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-30
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              CALIFORNIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/0000033942-statewide-artificial-intelligence-genai-data-platform-cloud-902.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [0000033942] Statewide Artificial Intelligence (GenAI) Data Platform &amp; Cloud Modernization IT Consulting
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            DGS - [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-04
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/0000033942-statewide-artificial-intelligence-genai-data-platform-cloud-902.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              CALIFORNIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/0000033891-enterprise-cloud-security-operations-siem-monitoring-zero-trust-901.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [0000033891] Enterprise Cloud Security Operations, SIEM Monitoring &amp; Zero Trust Architecture Services
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            California Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-24
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/0000033891-enterprise-cloud-security-operations-siem-monitoring-zero-trust-901.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-              View Dossier &rarr;
-            </a>
-          </td>
-        </tr>
-        
-
-        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
-              VIRGINIA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/rfi-2000004463-computerized-maintenance-management-system-cmms-900.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              RFI 2000004463 Computerized Maintenance Management System (CMMS)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Fairfax County [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-10-28
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <a href="rfp/rfi-2000004463-computerized-maintenance-management-system-cmms-900.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               View Dossier &rarr;
             </a>
           </td>

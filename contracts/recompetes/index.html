@@ -261,7 +261,6 @@
       #page-main > div:not(:first-of-type),
       #page-apis > section,
       #page-apis > div:not(:first-of-type),
-      #page-contracts > main,
       #page-contracts > div:not(:first-of-type),
       #page-checkout > section,
       #page-checkout > div:not(:first-of-type),
@@ -273,9 +272,13 @@
       #page-privacy > div:not(:first-of-type),
       body > div:first-of-type > section,
       body > div:first-of-type > div:not(:first-of-type),
-      body > div:first-of-type > main,
       body > footer {
         padding-left: 44px !important;
+      }
+      /* main-element wrappers carry their own px-8 gutter, so add it on top of the 44px sidebar rail (matches section + inner container pages) */
+      #page-contracts > main,
+      body > div:first-of-type > main {
+        padding-left: calc(44px + 2rem) !important;
       }
     }
     /* Keep ambient background glow blobs subtle but present to frame ultra-wide viewports */
@@ -1371,13 +1374,13 @@
       
     <div id="static-contracts-top-section" class="mb-8 space-y-4">
       <div class="inline-flex items-center px-3 py-1 rounded border text-xs font-mono bg-amber-500/10 text-amber-300 border-amber-500/30">
-        // PRE-RFP RECOMPETE RADAR &amp; PRIME SUBCONTRACTING WIRE &bull; 232 VERIFIED FEDERAL PIID TARGETS
+        // PRE-RFP RECOMPETE RADAR &amp; PRIME SUBCONTRACTING WIRE &bull; 276 VERIFIED FEDERAL PIID TARGETS
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
         Federal IT Recompete Radar (90&ndash;180d) &amp; Prime Subcontracting Wire
       </h1>
       <p class="text-slate-300 text-sm sm:text-base max-w-3xl">
-        Search 232 verified federal IT contract IDs (PIIDs) to position 90 to 180 days before recompete RFPs drop with API #16 Challenger Price-to-Win ceilings and API #21 FAR 19.502-2 Sources Sought shaping, or capture warm FAR 52.219-9 small-business subcontracting dollars on active Prime awards.
+        Search 276 verified federal IT contract IDs (PIIDs) to position 90 to 180 days before recompete RFPs drop with API #16 Challenger Price-to-Win ceilings and API #21 FAR 19.502-2 Sources Sought shaping, or capture warm FAR 52.219-9 small-business subcontracting dollars on active Prime awards.
       </p>
     </div>
 
@@ -1387,12 +1390,12 @@
           <input
             id="static-rfp-search"
             type="text"
-            placeholder="Filter 232 federal contracts by PIID Award ID, incumbent prime, or agency..."
+            placeholder="Filter 276 federal contracts by PIID Award ID, incumbent prime, or agency..."
             oninput="window.filterStaticContractsTable(this.value)"
             class="w-full px-4 py-2 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
           />
         </div>
-        <span id="static-rfp-count-badge" class="text-xs font-mono text-emerald-400 shrink-0">232 PIIDS INDEXED</span>
+        <span id="static-rfp-count-badge" class="text-xs font-mono text-emerald-400 shrink-0">276 PIIDS INDEXED</span>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -6276,6 +6279,930 @@
           <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.18M (-8% PTW) &bull; ~$386k Sub Pool</td>
           <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
             <a href="w912hz24f0336.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="w911nf26ca025.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              W911NF26CA025 &mdash; Perceptra Technologies, Inc. ($1.4M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">High-throughput micro-raman aerosol analyzer-86557-bb-cb2</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Army</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.29M (-8% PTW) &bull; ~$419k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="w911nf26ca025.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864925p0492.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864925P0492 &mdash; Iris Light Technologies, Inc. ($1.8M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Low size weight and power frequency combs for rf photonic chips and portable atomic clocks enabled by black phosphorus activities.</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.66M (-8% PTW) &bull; ~$540k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864925p0492.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="w912cg23c0016.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              W912CG23C0016 &mdash; Zepsor Technologies, Inc. ($2.3M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Darpa sbir ii titled - concealable and persistent ir sensors</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Army</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$2.12M (-8% PTW) &bull; ~$690k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="w912cg23c0016.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="w5170126ca174.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              W5170126CA174 &mdash; Photonect Interconnect Solutions ($1.7M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Future quantum information networks will enable new capabilities for the dod in the domains of secure communications, information processing, sensing, positioning, navigation and t</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Army</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.56M (-8% PTW) &bull; ~$510k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="w5170126ca174.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="hq072725ce001.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              HQ072725CE001 &mdash; Teraspatial ($1.32M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sttr phase ii - research and development efforts to design, fabricate, assemble, build, test, evaluate, verify, validate, and procure microelectronics and/or operate of such a faci</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Department of Defense (DoD)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.21M (-8% PTW) &bull; ~$395k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="hq072725ce001.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="n6833523c0473.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              N6833523C0473 &mdash; Pitch Aeronautics Inc. ($139K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir phase i</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Navy</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$128k (-8% PTW) &bull; ~$42k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="n6833523c0473.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa254125cb102.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA254125CB102 &mdash; Viridian Space ($1.69M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">F2d-18802 resilient vleo operations with an air scooping electric thruster. this effort will mature viridians abep system through comprehensive system design and analysis campaign </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.55M (-8% PTW) &bull; ~$506k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa254125cb102.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864926p0199.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864926P0199 &mdash; Oso Semiconductor Inc. ($75K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Disruptive rf beamforming technology for ultra-low size, weight, power and cost (swap-c) phased arrays in wireless communications and radar featuring enhanced anti-jamming capabili</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$69k (-8% PTW) &bull; ~$22k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864926p0199.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="69319525f30128n.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              69319525F30128N &mdash; Pangea ($567K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">The purpose of this task order is to obtain contractor support to provide various work items and special assignments to support fta&#x27;s fmo program.</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Federal Transit Administration (FTA)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$522k (-8% PTW) &bull; ~$170k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="69319525f30128n.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="140d0426c0040.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              140D0426C0040 &mdash; Taumat ($1.45M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Thermal corralling, absorption, and harvesting in high power microelectronics</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Department of the Interior (DOI)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.33M (-8% PTW) &bull; ~$434k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="140d0426c0040.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="75d30124c19752.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              75D30124C19752 &mdash; Innotech Precision Medicine ($244K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Ncezid topic 031 - phase i development of sherlock assay</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Department of Health and Human Services (HHS)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$224k (-8% PTW) &bull; ~$73k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="75d30124c19752.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc25c0100.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC25C0100 &mdash; Fluxworks, Inc. ($898K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir phase ii80nssc25c0100 magnetic gear and sensor technology to enable survival and robotic actuator dexterous operation through the lunar night</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$826k (-8% PTW) &bull; ~$269k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc25c0100.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa955025cb007.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA955025CB007 &mdash; La Luce Cristallina, Inc. ($2.55M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Topic number: o23b-002 topic title: ultra-compact wideband electro-optic modulator based on ferroelectric materials proposal number: o2-2016 proposal title: compact electro-optic m</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$2.35M (-8% PTW) &bull; ~$765k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa955025cb007.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="75n93025c00030.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              75N93025C00030 &mdash; Prompt Diagnostics, Inc. ($300K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Prompt point-of-care hiv viral load monitoring</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">National Institutes of Health (NIH)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$276k (-8% PTW) &bull; ~$90k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="75n93025c00030.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc25c0197.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC25C0197 &mdash; Emode Photonix ($150K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir i quantum waveguide infrared photodetector for heterodyne spectroscopy</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$138k (-8% PTW) &bull; ~$45k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc25c0197.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="140d0425c0016.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              140D0425C0016 &mdash; Crystal Sonic, Inc. ($1.8M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Darpa phase ii d2-2860 acoustic layer separation for thin film lithium niobate</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Department of the Interior (DOI)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.66M (-8% PTW) &bull; ~$540k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="140d0425c0016.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864924p0580.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864924P0580 &mdash; Diffract Technology, Inc. ($75K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Holoprobe: computer generated holographic projection for precise sensing and control in manufacturing</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$69k (-8% PTW) &bull; ~$22k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864924p0580.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864924p0276.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864924P0276 &mdash; Julia Jean ($71K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Electron beams for microwave communications and radar</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$65k (-8% PTW) &bull; ~$21k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864924p0276.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864926p0065.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864926P0065 &mdash; Gencores ($75K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Next-generation electric propulsion safety: energy-dense battery containment for defense tactical platforms</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$69k (-8% PTW) &bull; ~$22k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864926p0065.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="75n91023c00010.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              75N91023C00010 &mdash; Ubiquitx, Inc. ($355K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Ubiquibody platform for targeted degradation of oncogenic fusion proteins</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">National Institutes of Health (NIH)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$327k (-8% PTW) &bull; ~$106k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="75n91023c00010.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864925p0086.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864925P0086 &mdash; Dtp Thermoelectrics ($74K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Advancing distributed transport properties thermoelectrics for solid-state cryo-cooling for air force infrared sensors and optical packages</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$68k (-8% PTW) &bull; ~$22k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864925p0086.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864924p0792.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864924P0792 &mdash; Opticalx ($75K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Phase-space imager</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$69k (-8% PTW) &bull; ~$22k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864924p0792.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc23ca082.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC23CA082 &mdash; Chascii ($893K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Lunar inter-spacecraft optical communicator</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$822k (-8% PTW) &bull; ~$268k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc23ca082.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa238525cb007.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA238525CB007 &mdash; Hyperkelp ($1.77M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Covert ocean monitoring buoy system (combs)</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.63M (-8% PTW) &bull; ~$531k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa238525cb007.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="hr001126ce016.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              HR001126CE016 &mdash; Space Kinetic Corp. ($950K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Embedded entrepreneur initiative (eei) and minimum viable product (mvp)</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Department of Defense (DoD)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$874k (-8% PTW) &bull; ~$285k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="hr001126ce016.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa254125cb072.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA254125CB072 &mdash; Spacerake, Inc. ($1.9M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">To advance affordable, resilient, and interoperable technologies within the proliferated warfighter space architecture to enhance space capabilities, support joint warfighting oper</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.75M (-8% PTW) &bull; ~$570k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa254125cb072.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="w5170125c0058.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              W5170125C0058 &mdash; Starnav ($2M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sibr phase ii sequential, topic a20-108, self-contained signal of opportunity-based pnt</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Army</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.84M (-8% PTW) &bull; ~$600k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="w5170125c0058.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc25ca004.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC25CA004 &mdash; Space Tango ($849K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir phase ii-ignite - tangobox: demonstration of next generation infrastructure for in-space research and production</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$781k (-8% PTW) &bull; ~$255k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc25ca004.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80jsc022ca012.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80JSC022CA012 &mdash; Flawless Photonics, Inc. ($2.32M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">In space production applications (inspa) - fabrication of flawlesspreforms in microgravity</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$2.13M (-8% PTW) &bull; ~$695k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80jsc022ca012.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="w911nf25p0005.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              W911NF25P0005 &mdash; Soctera, Inc. ($204K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Small business technology transfer (sttr) &quot;rapid assessment of aluminum nitride properties and applications&quot;</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Army</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$188k (-8% PTW) &bull; ~$61k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="w911nf25p0005.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa864925p0003.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA864925P0003 &mdash; Raven Space Systems, Inc. ($3.8M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">3d printed hypersonic testbeds</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$3.50M (-8% PTW) &bull; ~$1.14M Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa864925p0003.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc26c0213.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC26C0213 &mdash; Beamlink, Inc. ($225K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Phase i sbir - reprogrammable 4g/5g/6g network radios for lunar environments</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$207k (-8% PTW) &bull; ~$68k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc26c0213.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc22ca132.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC22CA132 &mdash; Surfplasma, Inc. ($1.17M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Eo14042 sbir phase ii distributed compact plasma reactor sterilization for planetary protection and contamination control for space missions</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.08M (-8% PTW) &bull; ~$352k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc22ca132.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="n6833526c0159.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              N6833526C0159 &mdash; Snochip ($1M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Research and development</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Navy</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$0.92M (-8% PTW) &bull; ~$300k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="n6833526c0159.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc26c0002.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC26C0002 &mdash; Interlune ($6.89M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir phase iii - interlune corporation - prospect moon: a lunar resource technology demonstration and prospecting mission</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$6.34M (-8% PTW) &bull; ~$2.07M Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc26c0002.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa880226c0004.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA880226C0004 &mdash; Magma Space ($499K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Sbir phase ii - magnetically levitated reaction wheels</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$459k (-8% PTW) &bull; ~$150k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa880226c0004.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="75f40126c00019.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              75F40126C00019 &mdash; Malcova ($1M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Proposed research qualifies as development (per its definition in far 35.001) as primary focus of the proposed project is on developing a digital twin model, for evaluation of brea</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">Food and Drug Administration (FDA)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$0.92M (-8% PTW) &bull; ~$301k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="75f40126c00019.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa865023c1095.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA865023C1095 &mdash; Pseudolithic ($3.21M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">W-band receiver with anti-jam protection (wrap)</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$2.96M (-8% PTW) &bull; ~$964k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa865023c1095.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="hq003424p0144.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              HQ003424P0144 &mdash; Seaflight Technologies ($149K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">The strategic capabilities office phase i small business innovation research (sbir) program contract award for affordable autonomy for sustained ultra-low altitude flight over open</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">DoD Washington Headquarters Services (WHS)</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$137k (-8% PTW) &bull; ~$45k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="hq003424p0144.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa865023c5006.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA865023C5006 &mdash; Graphenetx ($1.25M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Development of data-driven digital-twin software dd-cure for carbon fiber composite curing</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.15M (-8% PTW) &bull; ~$375k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa865023c5006.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="80nssc25c0075.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              80NSSC25C0075 &mdash; Brightlight Photonics ($900K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Phase ii sbir, 80nssc25c0075, space-ready chip-integrated titanium:sapphire lasers</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">NASA</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$828k (-8% PTW) &bull; ~$270k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="80nssc25c0075.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa237726pb002.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA237726PB002 &mdash; Gallox Semiconductors Inc. ($140K)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Field management for high-voltage gallium oxide devices</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$129k (-8% PTW) &bull; ~$42k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa237726pb002.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa945124cx029.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA945124CX029 &mdash; Semergytech, Inc. ($1.25M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">Semergytech inc. sbir ii - high speed spatial light modulators for high energy laser beam control</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$1.15M (-8% PTW) &bull; ~$375k Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa945124cx029.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+              PIID Dossier &rarr;
+            </a>
+          </td>
+        </tr>
+        
+        <tr class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              PIID DOSSIER
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="fa857126c0018.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              FA857126C0018 &mdash; Corsha, Inc. ($4.32M)
+            </a>
+            <div class="text-xs text-slate-400 mt-1 line-clamp-1">This requirement covers the research, planning, procurement, and integration of digital depot components and connections at wr-alc. the effort will produce integration plans, procu</div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">U.S. Department of the Air Force</td>
+          <td class="py-4 px-4 font-mono text-emerald-300 whitespace-nowrap text-xs">$3.97M (-8% PTW) &bull; ~$1.30M Sub Pool</td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <a href="fa857126c0018.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
               PIID Dossier &rarr;
             </a>
           </td>
