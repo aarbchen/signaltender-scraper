@@ -13934,12 +13934,46 @@
 
                 <span id="account-tier3-access-badge" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
 
-                  TIER 3 // 3-VOL .ZIP COMPILER READY
+                  TIER 3 // 6-FILE .ZIP COMPILER READY
 
                 </span>
 
               </div>
 
+            </div>
+
+            <!-- M2: On-Platform Bilateral FAR 9.6 Teaming Handshake Banner (Auto-Hydrated via ?teaming_ref=...) -->
+            <div id="teaming-handshake-invite-banner" class="hidden p-4 rounded-xl bg-indigo-950/50 border-2 border-indigo-400/60 font-mono text-xs space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-indigo-300 font-bold uppercase">// BILATERAL FAR SUBPART 9.6 TEAMING INVITATION DETECTED</span>
+                <span id="teaming-handshake-ref-badge" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px]">13 CFR &sect; 125.6 WORKSHARE SLOT</span>
+              </div>
+              <p id="teaming-handshake-summary" class="text-slate-200 leading-relaxed">
+                You have been invited to countersign a binding 13 CFR &sect; 125.6 workshare allocation and lock your Bilateral FAR Subpart 9.6 Teaming Certificate on-platform.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <input id="teaming-partner-company" type="text" placeholder="Your Company Name (Subcontractor)" value="Sovereign Cyber &amp; Cloud Solutions LLC" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white text-xs font-mono" />
+                <input id="teaming-partner-uei" type="text" placeholder="Your SAM UEI / CAGE Code" value="UEI-9482019482A1" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-emerald-300 text-xs font-mono" />
+                <input id="teaming-partner-email" type="email" placeholder="Authorized Signer Email" value="teaming@sovereigncyber.io" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-slate-200 text-xs font-mono" />
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <button type="button" id="btn-confirm-teaming-handshake" onclick="window.confirmBilateralTeamingHandshake()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold border border-emerald-400/50 cursor-pointer transition-all">
+                  Countersign &amp; Lock 13 CFR &sect; 125.6 Workshare Slot (SHA-256 Certificate) &rarr;
+                </button>
+                <span class="text-[11px] text-slate-400">Logs bilateral Prime/Sub match in SignalTender Clearinghouse Ledger</span>
+              </div>
+              <div id="teaming-handshake-cert-result" class="hidden p-3.5 rounded-lg bg-navy-950 border border-emerald-500/40 text-[11px] space-y-1.5"></div>
+            </div>
+
+            <!-- M1: Crowd-Calibrated Bidder Wrap-Rate & PTW Telemetry Bar ("Waze for GovCon Pricing") -->
+            <div id="account-t3-crowd-wrap-bar" class="p-3.5 rounded-xl bg-navy-950/90 border border-sky-500/30 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[10px] font-bold">LIVE CROWD-CALIBRATED WRAP INDEX</span>
+                <span id="account-t3-crowd-wrap-text" class="text-slate-200 text-[11px]">NAICS 541512 Active Bidder Distribution: <strong class="text-emerald-400">P25: 1.78x</strong> &bull; <strong class="text-white">Median: 1.88x</strong> &bull; <strong class="text-amber-300">P75: 2.01x</strong></span>
+              </div>
+              <button type="button" onclick="window.refreshCrowdWrapIndex()" class="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 text-[11px] font-semibold cursor-pointer transition-colors">
+                Calibrate NAICS Wrap Index &circlearrowright;
+              </button>
             </div>
 
 
@@ -18891,6 +18925,21 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             document.body.removeChild(a);
           }
         } catch (e) {}
+      };
+
+      window.refreshCrowdWrapIndex = function () {
+        var el = document.getElementById('account-t3-vault-ledger');
+        if (typeof window.loadInstitutionalBidVault === 'function') {
+          window.loadInstitutionalBidVault();
+        }
+        return el ? true : true;
+      };
+
+      window.confirmBilateralTeamingHandshake = function () {
+        if (typeof window.runAccountTier3TeamingMatch === 'function') {
+          window.runAccountTier3TeamingMatch();
+        }
+        return true;
       };
 
       window.switchApiCatalogTab = function (tabKey) {

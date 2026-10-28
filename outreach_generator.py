@@ -786,33 +786,66 @@ def build_two_step_outreach(
             f"• [Prime-to-Sub Teaming Wire] {sub_prime} awarded {sub_amt_clean} at {sub_ag} ({sub_id}) -> ~30% FAR 52.219-9 Small-Business Subcontracting Pool\n"
         )
 
-    # Use clean canonical URLs without exposed UTM query strings in plain-text emails
-    clean_dossier_url = f"https://{clean_domain}/contracts"
-    if top_intel and top_intel.get("dossier_url"):
-        clean_dossier_url = top_intel["dossier_url"].split("?")[0]
-
-    clean_checkout_url = f"https://{clean_domain}/#checkout"
-    clean_portal_url = f"https://{clean_domain}/#signup"
-
     target_segment = classify_prospect_target_segment(company, award_profile, email)
+    try:
+        from govcon_lead_harvester import compute_mailbox_pool_slot
+        shard_meta = compute_mailbox_pool_slot(email, company)
+    except Exception:
+        shard_meta = {"mailbox_pool_slot": 1, "mailbox_shard_id": "MBX-01", "mailbox_pool_size": 50}
+
+    # T3 Hybrid Mode: Optional env-guarded OUTBOUND_SHARD_DOMAINS (defaults safely to signaltender.net)
+    raw_shard_domains = [
+        d.strip().replace("https://", "").replace("http://", "").strip("/")
+        for d in (os.getenv("OUTBOUND_SHARD_DOMAINS") or "").split(",")
+        if d.strip()
+    ]
+    effective_domain = (
+        raw_shard_domains[(int(shard_meta.get("mailbox_pool_slot") or 1) - 1) % len(raw_shard_domains)]
+        if raw_shard_domains
+        else clean_domain
+    )
+
+    # Use clean canonical URLs in Step 1 and 1-click `?sol_id=` pre-hydrated Proposal Compiler deep-links in Step 2
+    clean_dossier_url = f"https://{effective_domain}/contracts"
+    sol_slug_param = "fa8726-26-r-0042"
+    if top_intel and top_intel.get("dossier_url"):
+        raw_d_url = top_intel["dossier_url"].split("?")[0]
+        if "/contracts/rfp/" in raw_d_url:
+            sol_slug_param = raw_d_url.split("/contracts/rfp/", 1)[1].replace(".html", "").strip("/") or sol_slug_param
+        clean_dossier_url = raw_d_url.replace(f"https://{clean_domain}", f"https://{effective_domain}")
+    compiler_deeplink_url = f"https://{effective_domain}/?sol_id={sol_slug_param}#proposal-autopilot"
+
+    clean_checkout_url = f"https://{effective_domain}/#checkout"
+    clean_portal_url = f"https://{effective_domain}/#signup"
+    incumbent_hook_str = ""
+    if award_profile and award_profile.get("award_id"):
+        incumbent_hook_str = (
+            f"{award_profile.get('award_id')} | {award_profile.get('matched_recipient_name') or company} | "
+            f"{award_profile.get('award_amount_fmt', '$1.0M')} ({award_profile.get('awarding_sub_agency_short', 'Federal')})"
+        )
+    elif recompete_item and recompete_item.get("award_id"):
+        incumbent_hook_str = (
+            f"{recompete_item.get('award_id')} | {recompete_item.get('incumbent_recipient', 'Incumbent')} | "
+            f"{recompete_item.get('award_amount_fmt', '$2.5M')} ({recompete_item.get('awarding_sub_agency_short', 'Federal')})"
+        )
 
     if target_segment == "ENTERPRISE_OEM_FOIA":
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown, Post-Award FOIA Incumbent LCAT Rate Benchmark, and 1-Click 3-Volume Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 3-Volume Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter?",
-            f"Here is the direct Section L/M breakdown, FOIA incumbent rate benchmark, and 1-Click 3-Volume .DOCX/.XLSX Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire?",
+            f"I posted the pre-shredded Section L/M breakdown, Post-Award FOIA Incumbent LCAT Rate Benchmark, and 1-Click 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} territory filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
+            f"You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
+            f"Here is the direct Section L/M breakdown, FOIA incumbent rate benchmark, and 1-Click 6-File .DOCX/.XLSX Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
         ]
     elif target_segment == "PRIME_PROPOSAL_AUTOPILOT":
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown and 1-Click 3-Volume Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III CPARS/13 CFR 125.6 .docx) for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier and 90-second 3-Volume Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter?",
-            f"Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 3-Volume Shipley Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire?",
+            f"I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} territory filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
+            f"You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
+            f"Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 6-File Shipley Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
         ]
     else:
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 3-Volume Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nAre you actively bidding {region_label} IT work right now, or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 3-Volume Shipley .DOCX/.XLSX proposal draft for #1 here:\n{clean_dossier_url}\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter?",
-            f"Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 3-Volume Proposal .ZIP breakdown for #1:\n{clean_dossier_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire?",
+            f"I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} state & NAICS filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
+            f"You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
+            f"Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
         ]
 
     signoffs = [
@@ -861,7 +894,8 @@ def build_two_step_outreach(
             f"• Cyber & Clause Posture: {top_intel['compliance_posture']}\n"
             f"• Teaming & Past Performance: {top_intel['teaming_posture']}\n"
             f"{recompete_step2_lines}"
-            f"• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: {clean_dossier_url}\n\n"
+            f"• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: {clean_dossier_url}\n"
+            f"• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: {compiler_deeplink_url}\n\n"
         )
 
     if target_segment == "ENTERPRISE_OEM_FOIA":
@@ -982,6 +1016,10 @@ def build_two_step_outreach(
         "Spintax Body 2": spintax_body_2,
         "Matched State": region_label,
         "Top Contract Dossier URL": clean_dossier_url,
+        "Compiler Deep-Link URL": compiler_deeplink_url,
+        "Incumbent Award Hook": incumbent_hook_str,
+        "Mailbox Pool Slot": str(shard_meta["mailbox_pool_slot"]),
+        "Mailbox Shard ID": str(shard_meta["mailbox_shard_id"]),
         "Top Contract NAICS": (top_intel or {}).get("primary_naics", "541512 — Computer Systems Design Services"),
         "Top Contract Posture": f"{(top_intel or {}).get('compliance_posture', '')} | {(top_intel or {}).get('teaming_posture', '')}".strip(" |"),
         "Target Segment": target_segment,
@@ -1120,9 +1158,11 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         existing_inst_emails.add(em)
                         if lid:
                             existing_inst_ids[em] = lid
-                            if int(it.get("email_reply_count") or 0) > 0 or int(it.get("lt_interest_status") or 0) > 0:
+                            if int(it.get("lt_interest_status") or 0) < 0 or int(it.get("status") or 0) in (-1, -2):
+                                completed_non_responders.append((em, lid))
+                            elif int(it.get("email_reply_count") or 0) > 0 or int(it.get("lt_interest_status") or 0) > 0:
                                 replied_inst_emails.add(em)
-                            elif int(it.get("status") or 0) in (3, -1, -2):
+                            elif int(it.get("status") or 0) == 3:
                                 completed_non_responders.append((em, lid))
                 starting_after = l_json.get("next_starting_after")
                 if not starting_after or len(items) < 100:
@@ -1378,11 +1418,12 @@ def generate_outreach():
         )
 
         intel_summary = {}
-        try:
-            import govcon_lead_harvester
-            intel_summary = govcon_lead_harvester.run_harvester() or {}
-        except Exception as harv_err:
-            print(f"[!] GovCon Lead Harvester warning: {harv_err}", flush=True)
+        if os.getenv("OUTREACH_SKIP_HARVESTER") != "1":
+            try:
+                import govcon_lead_harvester
+                intel_summary = govcon_lead_harvester.run_harvester() or {}
+            except Exception as harv_err:
+                print(f"[!] GovCon Lead Harvester warning: {harv_err}", flush=True)
 
         if not intel_summary and os.path.exists("govcon_prospect_intelligence.json"):
             try:
@@ -1434,6 +1475,10 @@ def generate_outreach():
                 "Spintax Body 2",
                 "Matched State",
                 "Top Contract Dossier URL",
+                "Compiler Deep-Link URL",
+                "Incumbent Award Hook",
+                "Mailbox Pool Slot",
+                "Mailbox Shard ID",
                 "Top Contract NAICS",
                 "Top Contract Posture",
                 "Target Segment",
@@ -1451,11 +1496,13 @@ def generate_outreach():
                 except Exception:
                     return None
 
-            def _lead_priority_key(r: dict) -> tuple[int, int, int, int]:
+            def _lead_priority_key(r: dict) -> tuple[int, int, int, int, int]:
                 catchall_rank = 0 if str(r.get("Primary Email Catch-all Status") or "").strip().lower() == "not catch-all" else 1
                 comp_val = str(r.get(company_key) or "").strip()
                 awd_prof = _resolve_comp_award(comp_val)
                 award_rank = 0 if (awd_prof and awd_prof.get("is_active")) else (1 if awd_prof else 2)
+                naics_str = str(r.get("NAICS Codes") or "")
+                pure_govcon_rank = 0 if "541715" not in naics_str else 1
                 em_local = str(r.get(email_key) or "").strip().lower().split("@", 1)[0]
                 fn_low = str(r.get(first_name_key) or "").strip().lower()
                 # Rank 0: personal firstname.lastname@ or dedicated capture/contracts/BD/growth inbox
@@ -1466,17 +1513,24 @@ def generate_outreach():
                 else:
                     inbox_rank = 2
                 person_rank = 1 if fn_low in GENERIC_PERSON_NAMES else 0
-                return (catchall_rank, award_rank, inbox_rank, person_rank)
+                return (catchall_rank, award_rank, pure_govcon_rank, inbox_rank, person_rank)
 
-            # Prioritize "Not Catch-all" + Verified Active USAspending Award ID + named/capture decision-maker inboxes first
+            # Prioritize "Not Catch-all" + Verified Active USAspending Award ID + pure GovCon IT/Cyber contractors + named/capture inboxes first
             raw_contact_rows.sort(key=_lead_priority_key)
 
             try:
-                from govcon_lead_harvester import verify_email_domain_mx, _load_mx_cache, _save_mx_cache, _is_strict_company_match
+                from govcon_lead_harvester import (
+                    verify_email_domain_mx,
+                    _load_mx_cache,
+                    _save_mx_cache,
+                    _is_strict_company_match,
+                    is_verified_it_cyber_prospect,
+                )
                 mx_cache = _load_mx_cache()
             except Exception:
                 verify_email_domain_mx = None
                 _is_strict_company_match = None
+                is_verified_it_cyber_prospect = None
                 mx_cache = {}
 
             count = 0
@@ -1488,6 +1542,10 @@ def generate_outreach():
                 prospect_state = (row.get(state_key) or "").strip() if state_key else ""
 
                 if not email:
+                    continue
+                if is_verified_it_cyber_prospect is not None and not is_verified_it_cyber_prospect(
+                    company, email, str(row.get("Keywords") or ""), str(row.get("NAICS Codes") or "")
+                ):
                     continue
                 if verify_email_domain_mx is not None and not verify_email_domain_mx(email, mx_cache):
                     continue

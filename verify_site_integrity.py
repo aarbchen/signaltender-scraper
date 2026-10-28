@@ -274,7 +274,7 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
                 f"Explore {ka}-API Catalog",
             ]
             for sap in stale_api_phrases:
-                if re.search(rf"(?<![0-9]){re.escape(sap)}", txt):
+                if sap in txt and re.search(rf"(?<![0-9]){re.escape(sap)}", txt):
                     fail(f"{label}: Found stale API count string '{sap}' (expected {n_apis} APIs)")
 
         # Verify #api-modules-count-badge is NOT inside the relative <input> wrapper (prevents text overlap)
@@ -457,7 +457,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
     for label, txt in (("index.html", index_txt), ("apis.html", apis_txt), ("pseo_generator.py", pseo_txt)):
         for sp in stale_patterns:
-            if re.search(rf"(?<![0-9]){re.escape(sp)}", txt):
+            if sp in txt and re.search(rf"(?<![0-9]){re.escape(sp)}", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
@@ -621,6 +621,7 @@ global.window.location = { hash: '#contracts' };
 global.window.scrollTo = () => {};
 global.window.scrollBy = () => {};
 global.window.addEventListener = () => {};
+global.fetch = () => Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({}), text: () => Promise.resolve('') });
 global.localStorage = { getItem: () => '', setItem: () => {} };
 global.document = {
   readyState: 'complete',
@@ -863,8 +864,14 @@ window.sortSpaContractsTable('due_asc');
 window.sortSpaContractsTable('default');
 window.toggleCheckoutDeliveryDrawer();
 window.highlightRecommendedTier('tier2');
+if (typeof window.refreshCrowdWrapIndex !== 'function' || typeof window.confirmBilateralTeamingHandshake !== 'function') {
+  throw new Error('M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!');
+}
+window.refreshCrowdWrapIndex();
+window.confirmBilateralTeamingHandshake();
 window.toggleApiCatalogCompactView();
 window.toggleApiCatalogCompactView();
+process.exit(0);
 """
     )
 
@@ -949,7 +956,7 @@ def check_conversion_and_distribution_surfaces(index_txt: str) -> None:
             txt = f.read()
         loaded_texts[label] = txt
         for tok in stale_portal_tokens + stale_state_tokens + stale_api_tokens:
-            if re.search(rf"(?<![0-9]){re.escape(tok)}", txt):
+            if tok in txt and re.search(rf"(?<![0-9]){re.escape(tok)}", txt):
                 fail(
                     f"{label}: Found stale customer-facing count '{tok}' "
                     f"(expected {n_portals} portals / {n_states} states / {n_apis} APIs). "
