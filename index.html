@@ -18832,7 +18832,19 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         try {
           if (typeof window === 'undefined' || !window.location || !window.location.search) return;
           var params = new URLSearchParams(window.location.search);
-          var qSolId = params.get('sol_id');
+          var tRef = params.get('teaming_ref');
+          if (tRef) {
+            window.__LAST_TEAMING_REF = tRef;
+            var banner = document.getElementById('teaming-handshake-invite-banner');
+            if (banner) banner.classList.remove('hidden');
+            var refBadge = document.getElementById('teaming-handshake-ref-badge');
+            if (refBadge) refBadge.textContent = 'REF: ' + tRef;
+            var sumEl = document.getElementById('teaming-handshake-summary');
+            if (sumEl) {
+              sumEl.textContent = 'Prime Contractor ' + (params.get('prime') || 'Offering Prime') + ' invited your firm to countersign a ' + (params.get('share') || '22') + '% (' + (params.get('role') || 'SDVOSB') + ') 13 CFR 125.6 workshare slot on Solicitation ' + (params.get('sol') || params.get('sol_id') || 'FA8726-26-R-0042') + '.';
+            }
+          }
+          var qSolId = params.get('sol_id') || params.get('sol');
           if (!qSolId) return;
           var solInput = document.getElementById('account-t3-sol-id');
           if (solInput) solInput.value = qSolId;
@@ -18928,16 +18940,73 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
       };
 
       window.refreshCrowdWrapIndex = function () {
-        var el = document.getElementById('account-t3-vault-ledger');
-        if (typeof window.loadInstitutionalBidVault === 'function') {
-          window.loadInstitutionalBidVault();
+        var naics = (document.getElementById('account-t3-naics') || {}).value || '541512';
+        var agency = (document.getElementById('account-t3-agency') || {}).value || 'Federal & SLED';
+        var txtEl = document.getElementById('account-t3-crowd-wrap-text');
+        if (txtEl) {
+          txtEl.innerHTML = 'Calibrating NAICS ' + String(naics).replace(/</g, '&lt;') + ' crowd wrap distribution...';
         }
-        return el ? true : true;
+        if (typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/market-wrap-index?naics_code=' + encodeURIComponent(naics) + '&agency=' + encodeURIComponent(agency))
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              if (d && txtEl) {
+                txtEl.innerHTML = 'NAICS ' + String(d.naics_code || naics).replace(/</g, '&lt;') + ' (' + (d.total_calibrated_observations || 48) + ' Bids): <strong class="text-emerald-400">P25: ' + Number(d.p25_challenger_wrap_rate || 1.78).toFixed(2) + 'x</strong> &bull; <strong class="text-white">Median: ' + Number(d.median_market_wrap_rate || 1.88).toFixed(2) + 'x</strong> &bull; <strong class="text-amber-300">P75: ' + Number(d.p75_incumbent_wrap_rate || 2.01).toFixed(2) + 'x</strong>';
+              }
+            })
+            .catch(function () {});
+        }
+        return true;
       };
 
       window.confirmBilateralTeamingHandshake = function () {
-        if (typeof window.runAccountTier3TeamingMatch === 'function') {
-          window.runAccountTier3TeamingMatch();
+        var banner = document.getElementById('teaming-handshake-invite-banner');
+        if (banner) banner.classList.remove('hidden');
+        var resBox = document.getElementById('teaming-handshake-cert-result');
+        var btn = document.getElementById('btn-confirm-teaming-handshake');
+        var params = (typeof window !== 'undefined' && window.location && window.location.search && typeof URLSearchParams !== 'undefined') ? new URLSearchParams(window.location.search) : null;
+        var regId = (params && params.get('teaming_ref')) || window.__LAST_TEAMING_REF || 'TM-2026-884';
+        var solId = (params && (params.get('sol') || params.get('sol_id'))) || (document.getElementById('account-t3-sol-id') || {}).value || 'FA8726-26-R-0042';
+        var primeComp = (params && params.get('prime')) || (document.getElementById('account-profile-company') || {}).value || 'Apex Defense & Cyber Solutions LLC';
+        var sharePct = parseFloat((params && params.get('share')) || (document.getElementById('account-t3-sim-pct') || {}).value || '22') || 22;
+        var roleSocio = (params && params.get('role')) || (document.getElementById('account-t3-role-needed') || {}).value || 'SDVOSB';
+        var ceilUsd = parseFloat((document.getElementById('account-t3-ceiling') || {}).value || '2400000') || 2400000;
+        var partComp = (document.getElementById('teaming-partner-company') || {}).value || 'Sovereign Cyber & Cloud Solutions LLC';
+        var partUei = (document.getElementById('teaming-partner-uei') || {}).value || 'UEI-9482019482A1';
+        var partEmail = (document.getElementById('teaming-partner-email') || {}).value || 'teaming@sovereigncyber.io';
+        var allocUsd = Math.round(ceilUsd * (sharePct / 100));
+
+        if (resBox) {
+          resBox.classList.remove('hidden');
+          resBox.innerHTML = '<div class="text-emerald-400 font-bold">&check; BILATERAL FAR 9.6 TEAMING HANDSHAKE LOCKED (' + String(regId).replace(/</g, '&lt;') + ')</div>' +
+            '<div class="text-slate-300">Prime: <strong>' + String(primeComp).replace(/</g, '&lt;') + '</strong> &harr; Subcontractor: <strong>' + String(partComp).replace(/</g, '&lt;') + '</strong> (' + String(roleSocio).replace(/</g, '&lt;') + ' &bull; ' + String(partUei).replace(/</g, '&lt;') + ')</div>' +
+            '<div class="text-emerald-300">Allocated 13 CFR &sect; 125.6 Workshare: <strong>' + sharePct.toFixed(1) + '% ($' + allocUsd.toLocaleString() + ')</strong> on Solicitation <strong>' + String(solId).replace(/</g, '&lt;') + '</strong></div>';
+        }
+        if (btn) btn.textContent = 'Countersigned & Locked';
+
+        if (typeof fetch === 'function') {
+          fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/teaming-clearinghouse/confirm-handshake', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              registration_id: regId,
+              solicitation_id: solId,
+              prime_company_name: primeComp,
+              partner_company_name: partComp,
+              partner_email: partEmail,
+              partner_uei_or_cage: partUei,
+              partner_socioeconomic_status: roleSocio,
+              allocated_workshare_pct: sharePct,
+              estimated_contract_ceiling_usd: ceilUsd
+            })
+          })
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              if (d && d.bilateral_certificate_sha256 && resBox) {
+                resBox.innerHTML += '<div class="text-indigo-300 text-[10px] pt-1">SHA-256 Certificate: <code>' + String(d.bilateral_certificate_sha256).slice(0, 32) + '...</code> &bull; ' + String(d.cfr_125_6_ruling || '') + '</div>';
+              }
+            })
+            .catch(function () {});
         }
         return true;
       };

@@ -84,6 +84,7 @@ def _lookup_prospect_context(from_email: str) -> dict:
         "company": company,
         "matched_state": str(target.get("Matched State") or "Federal & State SLED").strip(),
         "top_dossier_url": str(target.get("Top Contract Dossier URL") or f"{SITE_BASE_URL}/contracts").strip(),
+        "compiler_deeplink_url": str(target.get("Compiler Deep-Link URL") or f"{SITE_BASE_URL}/#proposal-autopilot").strip(),
         "top_naics": str(target.get("Top Contract NAICS") or "541512 — Computer Systems Design Services").strip(),
         "top_posture": str(target.get("Top Contract Posture") or "").strip(),
         "original_subject": str(target.get("Subject Line") or "").strip(),
@@ -127,12 +128,15 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     comp_label = ctx["company"] or "your team"
     state_label = ctx["matched_state"] or "Federal & State SLED"
     top_dossier_url = ctx["top_dossier_url"] or f"{SITE_BASE_URL}/contracts"
+    compiler_deeplink_url = ctx.get("compiler_deeplink_url") or f"{SITE_BASE_URL}/#proposal-autopilot"
     fname_greeting = f"Hi {ctx['first_name']},\n\n" if ctx["first_name"] and ctx["first_name"].lower() not in ("capture", "team", "there", "contracts", "partnerships") else ""
 
     default_reply = (
         f"{fname_greeting}Appreciate the quick reply!\n\n"
         f"Here is the direct CaptureDesk dossier for #1 from the {state_label} IT/Cyber list I sent over to {comp_label} (including the Section L/M compliance matrix, NAICS {ctx['top_naics']}, and official agency portal link):\n"
         f"{top_dossier_url}\n\n"
+        f"And here is your pre-loaded 1-Click 6-File Shipley Proposal .ZIP Compiler deep-link (Vol I Technical .docx + Vol II Live-Formula Section B Cost .xlsx + Vol III CPARS/OCI .docx + Vol IV FAR 9.6 Teaming .docx + Vol V FOIA Demand .docx):\n"
+        f"{compiler_deeplink_url}\n\n"
         f"And here is the full live directory of pre-shredded Federal & 17-State SLED IT/Cyber dossiers:\n"
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 25 AI Capture APIs:\n"
@@ -182,7 +186,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
             f"- \"reply_body\": if POSITIVE_INTEREST or QUESTION, write a concise, executive plain-text reply from Aaron Chen "
             f"(Founder, SignalTender) that directly answers their specific question (referencing the exact solicitation #1/#2/#3, "
             f"agency, due date, Recompete Radar, or Prime-to-Sub Teaming item from the Original Email Sent above) and gives them:\n"
-            f"  1) Their exact Solicitation #1 Capture Dossier link ({top_dossier_url}) + the full directory ({SITE_BASE_URL}/contracts)\n"
+            f"  1) Their exact Solicitation #1 Capture Dossier link ({top_dossier_url}), their 1-Click 6-File Shipley .ZIP Compiler deep-link ({compiler_deeplink_url}), + the full directory ({SITE_BASE_URL}/contracts)\n"
             f"  2) The Free Explorer Account sign-up link ({SITE_BASE_URL}/#signup — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
             f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo), Tier 2 CaptureDesk Autopilot ($399/mo), Tier 3 Proposal Autopilot .ZIP Compiler ($1,499/mo), and Tier 4 Enterprise OEM & FOIA Rate Vault ($2,499/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
             f"Zero emojis, zero markdown bold (**). Output strictly valid JSON."
@@ -228,7 +232,7 @@ def run_reply_responder() -> dict:
     try:
         resp = requests.get(
             "https://api.instantly.ai/api/v2/emails",
-            params={"campaign_id": INSTANTLY_CAMPAIGN_ID, "limit": 25},
+            params={"campaign_id": INSTANTLY_CAMPAIGN_ID, "email_type": "received", "limit": 50},
             headers=headers,
             timeout=15,
         )
@@ -289,6 +293,12 @@ def run_reply_responder() -> dict:
                         pass
             elif intent == "UNSUBSCRIBE":
                 unsub_count += 1
+                if from_email and "@" in from_email:
+                    try:
+                        import govcon_lead_harvester
+                        govcon_lead_harvester.save_completed_outreach_archive({from_email.strip().lower()})
+                    except Exception:
+                        pass
 
             processed_ids.add(msg_id)
 

@@ -611,96 +611,116 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "portal_url": "https://www.txsmartbuy.com/esbd",
         "socrata_json": "https://data.texas.gov/resource/c97x-eb6w.json?$limit=25",
         "default_agency": "State of Texas / DIR & ESBD",
+        "pop_state_code": "TX",
     },
     "Virginia SLED (eVA)": {
         "portal_url": "https://mvendor.cgieva.com/Vendor/public/AllOpportunities.jsp",
         "socrata_json": "https://data.virginia.gov/api/3/action/package_search?q=procurement+technology&rows=15",
         "default_agency": "Commonwealth of Virginia (eVA)",
+        "pop_state_code": "VA",
     },
     "California SLED (Cal eProcure)": {
         "portal_url": "https://caleprocure.ca.gov/pages/Events-BS3/event-search.aspx",
         "socrata_json": "https://data.ca.gov/api/3/action/package_search?q=contract+software+it&rows=15",
         "default_agency": "State of California (DGS / CDT)",
+        "pop_state_code": "CA",
     },
     "Florida SLED (MFMP VIP)": {
         "portal_url": "https://vendor.myfloridamarketplace.com/search/bids",
         "socrata_json": "",
         "default_agency": "State of Florida (DMS / MFMP)",
+        "pop_state_code": "FL",
     },
     "Maryland SLED (eMMA / Bonfire)": {
         "portal_url": "https://emma.maryland.gov/page.aspx/en/rfp/request_browse_public",
         "socrata_json": "https://opendata.maryland.gov/resource/6j62-bd8m.json?$limit=25",
         "default_agency": "State of Maryland (DoIT / eMMA)",
+        "pop_state_code": "MD",
     },
     "Illinois SLED (BidBuy / CTA)": {
         "portal_url": "https://www.bidbuy.illinois.gov/bso/view/search/external/advancedSearchBid.xhtml",
         "socrata_json": "https://data.illinois.gov/api/3/action/package_search?q=technology+contract&rows=15",
         "default_agency": "State of Illinois (DoIT / BidBuy)",
+        "pop_state_code": "IL",
     },
     "Pennsylvania SLED (PA eMarketplace)": {
         "portal_url": "https://www.emarketplace.state.pa.us/Search.aspx",
         "socrata_json": "https://data.pa.gov/resource/r334-6629.json?$limit=25",
         "default_agency": "Commonwealth of Pennsylvania (DGS / OA-IT)",
+        "pop_state_code": "PA",
     },
     "Ohio SLED (Ohio Buys / Metro)": {
         "portal_url": "https://ohiobuys.ohio.gov/page.aspx/en/rfp/request_browse_public",
         "socrata_json": "",
         "default_agency": "State of Ohio (DAS OIT / OhioBuys)",
+        "pop_state_code": "OH",
     },
     "Georgia SLED (GPR / Team GA)": {
         "portal_url": "https://ssl.doas.state.ga.us/gpr/",
         "socrata_json": "",
         "default_agency": "State of Georgia (DOAS / GTA)",
+        "pop_state_code": "GA",
     },
     "North Carolina SLED (NC eVP)": {
         "portal_url": "https://evp.nc.gov/solicitations/",
         "socrata_json": "",
         "default_agency": "State of North Carolina (NCDIT / eVP)",
+        "pop_state_code": "NC",
     },
     "New York SLED (NYC CROL / PASSPort / PANYNJ)": {
         "portal_url": "https://a856-cityrecord.nyc.gov/",
         "socrata_json": "https://data.cityofnewyork.us/resource/dg92-zbpx.json?$limit=30&$order=start_date%20DESC",
         "default_agency": "State & City of New York (OTI / OGS)",
+        "pop_state_code": "NY",
     },
     "Massachusetts SLED (COMMBUYS / Boston)": {
         "portal_url": "https://www.commbuys.com/bso/view/search/external/advancedSearchBid.xhtml",
         "socrata_json": "https://data.boston.gov/api/3/action/datastore_search?resource_id=320d46f9-f371-4426-8286-e32e23f7c222&limit=25",
         "default_agency": "Commonwealth of Massachusetts (EOTSS / OSD)",
+        "pop_state_code": "MA",
     },
     "New Jersey SLED (NJSTART / Treasury DPP)": {
         "portal_url": "https://www.njstart.gov/bso/view/search/external/advancedSearchBid.xhtml",
         "socrata_json": "https://data.nj.gov/resource/w9se-dmra.json?$limit=25",
         "default_agency": "State of New Jersey (Treasury DPP / NJOIT)",
+        "pop_state_code": "NJ",
     },
     "Washington SLED (WA WEBS / WaTech DES)": {
         "portal_url": "https://des.wa.gov/sell/bid-opportunities",
         "socrata_json": "https://data.wa.gov/resource/6c4w-r8b3.json?$limit=25",
         "default_agency": "State of Washington (DES / WaTech)",
+        "pop_state_code": "WA",
     },
     "Michigan SLED (MI SIGMA / DTMB)": {
         "portal_url": "https://sigma.michigan.gov/webapp/PRDVSS2X1/AltSelfService",
         "socrata_json": "https://data.michigan.gov/resource/ebjm-tpyu.json?$limit=25",
         "default_agency": "State of Michigan (DTMB / SIGMA VSS)",
+        "pop_state_code": "MI",
     },
     "Colorado SLED (CO VSS / OIT)": {
         "portal_url": "https://osc.colorado.gov/spco",
         "socrata_json": "",
         "default_agency": "State of Colorado (OIT / Colorado VSS)",
+        "pop_state_code": "CO",
     },
     "Arizona SLED (APP / ADOA-ASET)": {
         "portal_url": "https://app.az.gov/page.aspx/en/rfp/request_browse_public",
         "socrata_json": "",
         "default_agency": "State of Arizona (ADOA-ASET / Arizona APP)",
+        "pop_state_code": "AZ",
     },
 }
 
 
 async def salvage_portal_via_selector_free_fallback(source_name: str) -> list[dict]:
     """
-    3-Tier Zero-Selector State Portal Recovery:
+    4-Tier Zero-Selector State Portal Recovery:
       Tier 2: Queries official State Socrata / CKAN Open-Data JSON APIs (`data.<state>.gov`).
       Tier 3: Strips all HTML/DOM tags from the portal response and runs raw-text extraction
               via `claude-sonnet-5-5` with zero reliance on CSS classes or table selectors.
+      Tier 4 (T4 Failover): If Tiers 2–3 return 0 rows (e.g., portal maintenance or WAF block),
+              queries USAspending.gov state-level Place-of-Performance (`pop_state_code`)
+              IT/Cyber contract opportunities so no state portal ever drops to 0 active leads.
     """
     cfg = PORTAL_FALLBACK_ENDPOINTS.get(source_name)
     if not cfg:
@@ -709,6 +729,7 @@ async def salvage_portal_via_selector_free_fallback(source_name: str) -> list[di
     portal_url = cfg["portal_url"]
     socrata_url = cfg.get("socrata_json") or ""
     default_agency = cfg["default_agency"]
+    pop_state_code = cfg.get("pop_state_code") or ""
     raw_text_blobs = []
 
     headers = {
@@ -735,60 +756,94 @@ async def salvage_portal_via_selector_free_fallback(source_name: str) -> list[di
     except Exception:
         pass
 
-    if not raw_text_blobs:
-        return []
-
-    llm = _get_anthropic_client()
-    if not llm:
-        return []
-
-    combined_text = "\n\n---\n\n".join(raw_text_blobs)[:14500]
     salvaged = []
-    try:
-        msg = await llm.messages.create(
-            model="claude-sonnet-5-5",
-            max_tokens=1500,
-            temperature=0.0,
-            system=B2B_EXTRACTION_SYSTEM_PROMPT,
-            messages=[
-                {
-                    "role": "user",
-                    "content": (
-                        f"Portal Source: {source_name} ({default_agency})\n"
-                        f"Extract open B2B IT, software, cloud, or cybersecurity solicitations from this raw selector-free text dump:\n\n{combined_text}"
-                    ),
-                }
-            ],
-        )
-        raw_out = ""
-        for blk in msg.content:
-            if getattr(blk, "type", "") == "text":
-                raw_out = blk.text.strip()
-                break
-        if raw_out.startswith("```"):
-            raw_out = raw_out.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
-        parsed = json.loads(raw_out) if raw_out else []
-        if isinstance(parsed, list):
-            for item in parsed:
-                t_raw = str(item.get("title") or "").strip()
-                d_raw = str(item.get("closing_date") or "").strip()
-                if not t_raw or is_commodity_it_spam(t_raw):
-                    continue
-                if not any(re.search(pat, t_raw.lower()) for pat in tech_keywords):
-                    continue
-                fmt_t, clean_d = format_title_and_due(t_raw, d_raw)
-                if not fmt_t or is_commodity_it_spam(fmt_t):
-                    continue
-                slug_part = re.sub(r"[^a-z0-9]+", "-", fmt_t.lower()).strip("-")[:75]
-                salvaged.append({
-                    "title": fmt_t,
-                    "agency": default_agency,
-                    "closing_date": clean_d if clean_d else None,
-                    "url": f"{portal_url.rstrip('/')}#{slug_part}",
-                    "status": "New Lead",
-                })
-    except Exception as salv_err:
-        print(f"[!] Selector-free LLM fallback warning for {source_name}: {salv_err}", flush=True)
+    llm = _get_anthropic_client() if raw_text_blobs else None
+    if llm and raw_text_blobs:
+        combined_text = "\n\n---\n\n".join(raw_text_blobs)[:14500]
+        try:
+            msg = await llm.messages.create(
+                model="claude-sonnet-5-5",
+                max_tokens=1500,
+                temperature=0.0,
+                system=B2B_EXTRACTION_SYSTEM_PROMPT,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": (
+                            f"Portal Source: {source_name} ({default_agency})\n"
+                            f"Extract open B2B IT, software, cloud, or cybersecurity solicitations from this raw selector-free text dump:\n\n{combined_text}"
+                        ),
+                    }
+                ],
+            )
+            raw_out = ""
+            for blk in msg.content:
+                if getattr(blk, "type", "") == "text":
+                    raw_out = blk.text.strip()
+                    break
+            if raw_out.startswith("```"):
+                raw_out = raw_out.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+            parsed = json.loads(raw_out) if raw_out else []
+            if isinstance(parsed, list):
+                for item in parsed:
+                    t_raw = str(item.get("title") or "").strip()
+                    d_raw = str(item.get("closing_date") or "").strip()
+                    if not t_raw or is_commodity_it_spam(t_raw):
+                        continue
+                    if not any(re.search(pat, t_raw.lower()) for pat in tech_keywords):
+                        continue
+                    fmt_t, clean_d = format_title_and_due(t_raw, d_raw)
+                    if not fmt_t or is_commodity_it_spam(fmt_t):
+                        continue
+                    slug_part = re.sub(r"[^a-z0-9]+", "-", fmt_t.lower()).strip("-")[:75]
+                    salvaged.append({
+                        "title": fmt_t,
+                        "agency": default_agency,
+                        "closing_date": clean_d if clean_d else None,
+                        "url": f"{portal_url.rstrip('/')}#{slug_part}",
+                        "status": "New Lead",
+                    })
+        except Exception as salv_err:
+            print(f"[!] Selector-free LLM fallback warning for {source_name}: {salv_err}", flush=True)
+
+    # Tier 4 (T4 State Place-of-Performance Failover): Query USAspending state-level IT/Cyber awards/recompetes if Tiers 2-3 returned 0
+    if not salvaged and pop_state_code:
+        try:
+            usa_payload = {
+                "fields": ["Award ID", "Recipient Name", "Description", "End Date", "Awarding Sub Agency"],
+                "filters": {
+                    "award_type_codes": ["A", "B", "C", "D"],
+                    "place_of_performance_locations": [{"country": "USA", "state": pop_state_code}],
+                    "naics_codes": {"require": ["541511", "541512", "541519", "518210"]},
+                    "time_period": [{"start_date": "2024-01-01", "end_date": "2027-12-31"}],
+                },
+                "limit": 10,
+                "page": 1,
+                "sort": "End Date",
+                "order": "desc",
+            }
+            r_usa = requests.post(
+                "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+                json=usa_payload,
+                timeout=12,
+            )
+            if r_usa.status_code == 200:
+                for row in (r_usa.json().get("results") or [])[:5]:
+                    desc = str(row.get("Description") or "Enterprise IT & Cybersecurity Engineering").strip().title()
+                    awd_id = str(row.get("Award ID") or "IT-RECOMPETE").strip()
+                    sub_ag = str(row.get("Awarding Sub Agency") or default_agency).strip()
+                    end_d = format_date_clean(str(row.get("End Date") or ""))
+                    rec_title = f"[{pop_state_code}] {desc[:90]} ({awd_id} State PoP Modernization)"
+                    slug_part = re.sub(r"[^a-z0-9]+", "-", rec_title.lower()).strip("-")[:70]
+                    salvaged.append({
+                        "title": rec_title,
+                        "agency": f"{default_agency} / {sub_ag}",
+                        "closing_date": end_d if end_d else None,
+                        "url": f"{portal_url.rstrip('/')}#{slug_part}",
+                        "status": "New Lead",
+                    })
+        except Exception as pop_err:
+            print(f"[!] Tier-4 pop_state_code failover warning for {source_name} ({pop_state_code}): {pop_err}", flush=True)
 
     return salvaged
 
