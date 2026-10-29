@@ -80,6 +80,8 @@ API_NUM_MIRROR_OVERRIDE: Dict[int, str] = {
     25: "compliance",
     26: "capture",
     27: "capture",
+    28: "pricing",
+    29: "capture",
 }
 
 STUDIO_SHORT_TITLES: Dict[int, str] = {
@@ -89,6 +91,8 @@ STUDIO_SHORT_TITLES: Dict[int, str] = {
     25: "GovCon Supply Chain SCRM, NDAA 889, TAA & SBOM Auditor API",
     26: "GovCon QASP, PRS, SLA & KPI Surveillance Matrix API",
     27: "GovCon 30/60/90-Day Phase-In Transition Plan API",
+    28: "DCAA Pre-Award SF1408 Accounting System Auditor API",
+    29: "DoD OTA 10 USC 4022 Prototype White Paper API",
 }
 
 

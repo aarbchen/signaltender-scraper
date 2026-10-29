@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DCAA Pre-Award SF1408 Accounting System Auditor API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Audits a contractor's chart of accounts, indirect cost pool structure (Fringe, Overhead, G&A, B&P/IR&D), timekeeping procedures, labor distribution policy, and general ledger setup against the 18-point DCAA Standard Form 1408 (SF 1408) Pre-Award Accounting System Checklist, FAR 16.301-3, FAR Subpart 31.2, and DFARS 252.242-7006. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/dcaa-accounting-sf1408": {
+      "post": {
+        "operationId": "auditDcaaPreAwardSf1408AccountingSystem",
+        "summary": "Audit DCAA Pre-Award SF 1408 Accounting System & Indirect Rates",
+        "description": "Audits contractor chart of accounts, Fringe/Overhead/G&A indirect pools, timekeeping controls, and FAR 31.205 unallowables against the 18-point DCAA Standard Form 1408 (SF 1408) Pre-Award Checklist.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "DcaaSf1408AuditRequest",
+                "required": [
+                  "chart_of_accounts_and_pools_text"
+                ],
+                "properties": {
+                  "chart_of_accounts_and_pools_text": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 45000,
+                    "description": "Contractor's chart of accounts, indirect cost pool structure (Fringe, Overhead, G&A, B&P/IR&D), timekeeping procedures, labor distribution policy, and general ledger setup."
+                  },
+                  "target_contract_type_and_solicitation": {
+                    "type": "string",
+                    "default": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
+                    "maxLength": 2000,
+                    "description": "Target contract type (CPFF, CPIF, CPAF, T&M, FFP) and solicitation SF 1408 / FAR 16.301-3 adequacy requirements."
+                  },
+                  "accounting_software_and_erp_stack": {
+                    "type": "string",
+                    "default": "QuickBooks_Online_With_GovCon_Timekeeping",
+                    "maxLength": 2000,
+                    "description": "Current accounting ERP & timekeeping stack (e.g., Deltek Costpoint, Unanet GovCon, QuickBooks + ICAT/BigTime, NetSuite)."
+                  }
+                }
+              },
+              "example": {
+                "chart_of_accounts_and_pools_text": "General Ledger & Chart of Accounts: 5000-series Direct Costs (5100 Direct Labor, 5200 Subcontractors, 5300 ODCs/Travel); 6000-series Fringe Pool (Payroll Taxes, 401k Match, Health Insurance, PTO \u2014 allocated on Total Labor Dollars at 29.5%); 7000-series Engineering Overhead Pool (Indirect Technical Labor, Engineering Facilities, Cloud Dev Tools \u2014 allocated on Direct Labor + Direct Fringe at 24.0%); 8000-series G&A Pool (Executive, Accounting, Legal, BD, B&P \u2014 allocated on Total Cost Input [TCI] at 11.8%); 9000-series Unallowable Costs (9100 Interest, 9200 Entertainment, 9300 Non-Compliant Advertising). Timekeeping: Daily web timesheets with charge-code authorization, employee + supervisor electronic signoff, and audit trail.",
+                "target_contract_type_and_solicitation": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
+                "accounting_software_and_erp_stack": "QuickBooks_Online_With_GovCon_Timekeeping"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete DCAA SF 1408 Pre-Award Accounting System & Indirect Rate Audit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

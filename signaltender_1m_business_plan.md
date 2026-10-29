@@ -136,6 +136,8 @@ To scale from initial post-warmup launch (Oct 31) to `$86,000+ MRR` (`$1M+ ARR`)
 - **API #25 (Live):** GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API (`POST /v1/audit/supply-chain-scrm`) + Portal #19 Arizona APP Procure.AZ.gov & ADOA-ASET (`az_scraper.py`) (Live).
 - **API #26 (Live):** GovCon Quality Assurance Surveillance Plan (QASP), PWS SLA & KPI Matrix API (`POST /v1/generate/quality-assurance-qasp`) + Portal #20 Minnesota SWIFT & MNIT (`mn_scraper.py`) (Live).
 - **API #27 (Live):** GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture API (`POST /v1/generate/phase-in-transition-plan`) + Portal #21 Tennessee Edison CPO & STS (`tn_scraper.py`) (Live).
+- **API #28 (Live):** DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Auditor API (`POST /v1/audit/dcaa-accounting-sf1408`) + Portal #22 Indiana IDOA & IOT (`in_scraper.py`) (Live).
+- **API #29 (Live):** DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper API (`POST /v1/generate/ota-white-paper`) + Portal #23 Missouri MissouriBUYS & OA-ITSD (`mo_scraper.py`) (Live).
 
 ---
 

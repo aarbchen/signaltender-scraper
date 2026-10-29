@@ -495,3 +495,9 @@ Node.js v26.7.0
 
 === ARCHIVED & RESOLVED AT 2026-10-29 03:08:14 UTC: Resolved transient race condition during parallel subagent update of support.py (25 -> 27 stateless GovCon APIs) ===
 [2026-10-29 03:00:56 UTC] [LOCAL] [autonomous_mailbox_scaler.py] Supabase treasury sync warning: HTTPSConnectionPool(host='rincvxrjrpvgydaontpm.supabase.co', port=443): Max retries exceeded with url: /rest/v1/contracts?status=eq.SUBSCRIBER_REINVESTMENT_TREASURY&select=id%2Ctitle%2Cagency%2Curl%2Cstatus&order=id.asc&limit=500 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 03:54:14 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-29 03:39:59 UTC] [LOCAL] [outbound_reply_responder.py] Outbound reply responder warning: HTTPSConnectionPool(host='api.instantly.ai', port=443): Max retries exceeded with url: /api/v2/emails?campaign_id=c7727dff-92cc-4621-9e96-c960938d5a47&email_type=received&limit=50 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 04:52:08 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-29 04:49:27 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: mcp-server/index.js: Found stale customer-facing count '21-portal' (expected 23 portals / 21 states / 29 APIs). Update mcp-server/index.js and regenerate campaign_leads.csv / outbox_ready_queue.json.

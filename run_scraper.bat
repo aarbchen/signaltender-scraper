@@ -4,11 +4,11 @@ call daas_env\Scripts\activate.bat
 
 echo ========================================================
 echo    SignalTender DaaS Master Orchestrator - Initializing
-echo    (SAM.gov + DemandStar + TX + VA + CA + FL + MD + IL + PA + OH + GA + NC + NY + MA + NJ + WA + MI + CO + AZ + MN + TN)
+echo    (SAM.gov + DemandStar + TX + VA + CA + FL + MD + IL + PA + OH + GA + NC + NY + MA + NJ + WA + MI + CO + AZ + MN + TN + IN + MO)
 echo ========================================================
 echo.
 
-echo [*] Running Unified 21-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
+echo [*] Running Unified 23-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
 python mainscraper.py >> D:\Daas\error_log.txt 2>&1
 
 echo [*] Ensuring Programmatic SEO Static Pages and Sitemap are up to date...
@@ -21,7 +21,7 @@ if exist "D:\Daas\apollo-contacts.csv" (
 
 echo.
 echo ========================================================
-echo      [+] SUCCESS: All 21 scraping & pSEO pipelines complete!
+echo      [+] SUCCESS: All 23 scraping & pSEO pipelines complete!
 echo      Supabase, Discord feed, and /contracts SEO pages synced.
 echo ========================================================
 echo.

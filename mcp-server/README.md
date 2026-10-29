@@ -11,7 +11,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **01** | `parse_b2b_contract` | `POST /v1/parse/contract` | Extracts parties, dates, contract value, deliverables, and governing law from unstructured RFPs & SOWs. |
 | **02** | `audit_contract_risks` | `POST /v1/parse/contract-risks` | Scores legal risk (`0-100`), quotes toxic clauses verbatim, and generates ready-to-paste fallback redlines. |
 | **03** | `search_historical_awards` | `POST /v1/awards/search` | Queries federal contract awards, incumbent primes, and historical CLIN pricing benchmarks. |
-| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN & TN. |
+| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN & MO. |
 | **05** | `generate_compliance_matrix` | `POST /v1/generate/compliance-matrix` | Builds a Shipley `shall`/`must` Compliance Checklist, Section L-to-M cross-reference, and Proposal Outline. |
 | **06** | `scan_far_dfars_clauses` | `POST /v1/audit/far-dfars-clauses` | Detects `FAR 52.2xx` & `DFARS 252.2xx` clauses, flags mandatory flow-downs, and scores CMMC 2.0 burden. |
 | **07** | `match_capability_statement` | `POST /v1/match/capability-statement` | Calculates a `0-100` Pwin (Probability of Win) score, Bid/No-Bid decision, gap analysis, and executive pitch. |
@@ -35,6 +35,8 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **25** | `audit_supply_chain_scrm` | `POST /v1/audit/supply-chain-scrm` | Evaluates BOMs and sub-tier suppliers against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM attestation. |
 | **26** | `generate_quality_assurance_qasp` | `POST /v1/generate/quality-assurance-qasp` | Extracts PWS deliverables under FAR Subpart 37.6 and generates a Performance Requirements Summary (PRS) Table, QASP, Acceptable Quality Levels (AQLs), and SLA incentive/deduction formulas. |
 | **27** | `generate_phase_in_transition_plan` | `POST /v1/generate/phase-in-transition-plan` | Generates a risk-mitigated 30/60/90-Day Phase-In/Out Transition Plan with WBS milestones, EO 14055 / SCA Incumbent Right-of-First-Refusal retention scripts, clearance crossover timelines, and FAR 52.237-3 checklists. |
+| **28** | `audit_dcaa_accounting_sf1408` | `POST /v1/audit/dcaa-accounting-sf1408` | Audits contractor chart of accounts, Fringe/Overhead/G&A indirect pools, timekeeping controls, and FAR 31.205 unallowables against the 18-point DCAA Standard Form 1408 (SF 1408) Pre-Award Checklist. |
+| **29** | `generate_ota_white_paper` | `POST /v1/generate/ota-white-paper` | Converts commercial dual-use technology specs and DoD Problem Statements (DIU, C5ISR, SOSSEC, SpEC, MTEC, NSTXL) into a 10 U.S.C. 4022 OTA Prototype White Paper, NDC Justification, Payable Milestone Schedule, and Phase 3 Follow-On Production Strategy. |
 
 ---
 

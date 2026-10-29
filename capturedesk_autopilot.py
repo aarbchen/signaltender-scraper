@@ -82,6 +82,8 @@ JURISDICTION_LABELS = {
     "arizona": "ARIZONA // APP PROCURE.AZ.GOV & ADOA-ASET",
     "minnesota": "MINNESOTA // SWIFT & MNIT",
     "tennessee": "TENNESSEE // EDISON CPO & STS",
+    "indiana": "INDIANA // IDOA, IOT & NSWC CRANE",
+    "missouri": "MISSOURI // MISSOURIBUYS, OA-ITSD & NGA WEST",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -246,6 +248,26 @@ def classify_jurisdiction(record: dict) -> str:
         or "shelbycountytn.gov" in url
     ):
         return "tennessee"
+    if (
+        "in.gov/idoa" in url
+        or "iot.in.gov" in url
+        or "fs.gmis.in.gov" in url
+        or "in.gov" in url
+        or "indy.gov" in url
+        or "purdue.edu" in url
+        or "indiana.edu" in url
+    ):
+        return "indiana"
+    if (
+        "missouribuys.mo.gov" in url
+        or "oa.mo.gov" in url
+        or "modot.org" in url
+        or "mo.gov" in url
+        or "stlouis-mo.gov" in url
+        or "kcmo.gov" in url
+        or "umsystem.edu" in url
+    ):
+        return "missouri"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -366,6 +388,32 @@ def classify_jurisdiction(record: dict) -> str:
         or "tdec" in agency
     ):
         return "tennessee"
+    if (
+        title.startswith("[IN]")
+        or title.lower().startswith("[in-")
+        or "indiana" in agency
+        or "(in)" in agency
+        or "idoa" in agency
+        or "indianapolis" in agency
+        or "fssa" in agency
+        or "indot" in agency
+        or "purdue" in agency
+        or "nswc crane" in agency
+    ):
+        return "indiana"
+    if (
+        title.startswith("[MO]")
+        or title.lower().startswith("[mo-")
+        or "missouri" in agency
+        or "(mo)" in agency
+        or "missouribuys" in agency
+        or "oa-itsd" in agency
+        or "modot" in agency
+        or "mo healthnet" in agency
+        or "st. louis" in agency
+        or "kansas city" in agency
+    ):
+        return "missouri"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -661,6 +709,12 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "tennessee":
         compliance_posture = "TN STS Enterprise InfoSec Policies (NIST 800-53) • StateRAMP / FedRAMP • TN Section 508 VPAT"
         teaming_posture = "TN Go-DBE Minority/Woman/Veteran/Small Business Directory + TN Statewide Contract (SWC) Alignment + 3 SLED Refs"
+    elif j_key == "indiana":
+        compliance_posture = "Indiana IOT Information Security Framework (NIST 800-53 / IC 4-13.1) • StateRAMP • IN Accessibility VPAT"
+        teaming_posture = "Indiana IDOA MBE (8% Goal) + WBE (11% Goal) + IVOSB (3% Veteran Goal) + IN QPA Alignment + 3 SLED Refs"
+    elif j_key == "missouri":
+        compliance_posture = "Missouri OA-ITSD Information Security Standards (NIST 800-53 / RSMo Ch. 34) • StateRAMP • MO IT Accessibility VPAT"
+        teaming_posture = "Missouri OA OEO MBE (10% Goal) + WBE (10% Goal) + SDVE (3 Bonus Points) + MO Statewide Contract Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -847,7 +901,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
-            # unified Section I (CaptureDesk Dossiers) + Section II (21-Portal Live Wire) payload via client_delivery.py.
+            # unified Section I (CaptureDesk Dossiers) + Section II (23-Portal Live Wire) payload via client_delivery.py.
             if __name__ == "__main__":
                 try:
                     import client_delivery

@@ -619,6 +619,44 @@ ENDPOINTS = [
             "transition_timeline_window": "Standard_30_60_90_Day_Phase_In",
         },
     },
+    {
+        "id": "API 28",
+        "name": "DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Auditor API",
+        "method": "POST",
+        "path": "/v1/audit/dcaa-accounting-sf1408",
+        "rapid_host": "dcaa-pre-award-sf1408-accounting-system-auditor-api.p.rapidapi.com",
+        "payload": {
+            "chart_of_accounts_and_pools_text": (
+                "General Ledger & Chart of Accounts: 5000-series Direct Costs (5100 Direct Labor, 5200 Subcontractors, 5300 ODCs/Travel); "
+                "6000-series Fringe Pool (Payroll Taxes, 401k Match, Health Insurance, PTO — allocated on Total Labor Dollars at 29.5%); "
+                "7000-series Engineering Overhead Pool (Indirect Technical Labor, Engineering Facilities, Cloud Dev Tools — allocated on Direct Labor + Direct Fringe at 24.0%); "
+                "8000-series G&A Pool (Executive, Accounting, Legal, BD, B&P — allocated on Total Cost Input [TCI] at 11.8%); "
+                "9000-series Unallowable Costs (9100 Interest, 9200 Entertainment, 9300 Non-Compliant Advertising). "
+                "Timekeeping: Daily web timesheets with charge-code authorization, employee + supervisor electronic signoff, and audit trail."
+            ),
+            "target_contract_type_and_solicitation": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
+            "accounting_software_and_erp_stack": "QuickBooks_Online_With_GovCon_Timekeeping",
+        },
+    },
+    {
+        "id": "API 29",
+        "name": "DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper API",
+        "method": "POST",
+        "path": "/v1/generate/ota-white-paper",
+        "rapid_host": "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com",
+        "payload": {
+            "commercial_solution_and_problem_topic_text": (
+                "DIU Commercial Solutions Opening (CSO) Topic: Autonomous Counter-UAS & Contested Logistics RF Situational Awareness. "
+                "DoD Problem: Forward operating bases require a low-SWaP, passive RF and electro-optical sensor fusion node capable of "
+                "detecting Group 1-3 autonomous drones in GPS-denied environments without emitting targetable radar signatures. "
+                "Vendor Commercial Solution: AegisRF Commercial Edge v3.4 (currently TRL 6, deployed across 14 commercial airports and critical "
+                "energy substations, $18M Series A funded). Uses passive time-difference-of-arrival (TDOA) SDR arrays and quantized neural edge "
+                "inference on NVIDIA Jetson Orin Industrial to classify 400+ RF protocols in < 120ms."
+            ),
+            "target_ota_consortium_and_pathway": "DIU_Commercial_Solutions_Opening_CSO",
+            "nontraditional_contractor_and_cost_share_status": "Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share",
+        },
+    },
 ]
 
 

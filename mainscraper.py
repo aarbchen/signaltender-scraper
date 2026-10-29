@@ -721,6 +721,18 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "default_agency": "State of Tennessee (CPO Edison / STS)",
         "pop_state_code": "TN",
     },
+    "Indiana SLED (IDOA / IOT)": {
+        "portal_url": "https://www.in.gov/idoa/procurement/current-business-opportunities/",
+        "socrata_json": "",
+        "default_agency": "State of Indiana (IDOA / IOT)",
+        "pop_state_code": "IN",
+    },
+    "Missouri SLED (MissouriBUYS / OA-ITSD)": {
+        "portal_url": "https://missouribuys.mo.gov/bidboard",
+        "socrata_json": "",
+        "default_agency": "State of Missouri (MissouriBUYS / OA-ITSD)",
+        "pop_state_code": "MO",
+    },
 }
 
 
@@ -961,6 +973,8 @@ async def run_master_orchestrator(
         _run_source("Arizona SLED (APP / ADOA-ASET)", "import az_scraper", "az_scraper.run_scraper(push_to_db=False)"),
         _run_source("Minnesota SLED (SWIFT / MNIT)", "import mn_scraper", "mn_scraper.run_scraper(push_to_db=False)"),
         _run_source("Tennessee SLED (Edison CPO / STS)", "import tn_scraper", "tn_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Indiana SLED (IDOA / IOT)", "import in_scraper", "in_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Missouri SLED (MissouriBUYS / OA-ITSD)", "import mo_scraper", "mo_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -986,6 +1000,8 @@ async def run_master_orchestrator(
         "Arizona SLED (APP / ADOA-ASET)",
         "Minnesota SLED (SWIFT / MNIT)",
         "Tennessee SLED (Edison CPO / STS)",
+        "Indiana SLED (IDOA / IOT)",
+        "Missouri SLED (MissouriBUYS / OA-ITSD)",
     ]
     combined_records = []
 

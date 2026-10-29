@@ -454,7 +454,7 @@ def build_promotional_posts() -> list[dict]:
             "scheduled": True,
             "text": (
                 "90% of small-to-midsize IT & cybersecurity contractors fight over the exact same crowded SAM.gov task orders—while high-margin State SLED RFPs receive 70% fewer bids.\n\n"
-                "Why? Because State SLED procurement is fragmented across dozens of separate portals (Virginia eVA, Texas SmartBuy ESBD, California Cal eProcure, Florida MFMP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, OhioBuys, Georgia GPR, North Carolina eVP, New York CROL/PASSPort, Massachusetts COMMBUYS, New Jersey NJSTART, Washington WEBS, Michigan SIGMA VSS, Colorado VSS, Arizona APP, Minnesota SWIFT, Tennessee Edison, and municipal DemandStar).\n\n"
+                "Why? Because State SLED procurement is fragmented across dozens of separate portals (Virginia eVA, Texas SmartBuy ESBD, California Cal eProcure, Florida MFMP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, OhioBuys, Georgia GPR, North Carolina eVP, New York CROL/PASSPort, Massachusetts COMMBUYS, New Jersey NJSTART, Washington WEBS, Michigan SIGMA VSS, Colorado VSS, Arizona APP, Minnesota SWIFT, Tennessee Edison, Indiana IDOA/IOT, Missouri MissouriBUYS/OA-ITSD, and municipal DemandStar).\n\n"
                 "Checking those portals manually every morning takes hours. SignalTender unifies Federal and State SLED IT/Cyber monitoring into a single 6-hour feed—complete with state-specific MBE/HUB/SWaM/DVBE teaming posture and StateRAMP/TX-RAMP compliance checks.\n\n"
                 "Unlock 3 free pre-shredded RFP dossiers for your target state in 10 seconds:\n"
                 "https://signaltender.net/#inbound-lead-capture-box\n\n"
@@ -492,7 +492,7 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
         )
     fallback_text = (
         "LIVE GOVCON & STATE SLED IT/CYBER PROCUREMENT BRIEFING\n\n"
-        "Here are 3 open government software, cloud, and cybersecurity solicitations our autonomous 21-portal capture engine indexed and shredded today:\n\n"
+        "Here are 3 open government software, cloud, and cybersecurity solicitations our autonomous 23-portal capture engine indexed and shredded today:\n\n"
         + "\n\n".join(rfp_lines)
         + "\n\nEach dossier includes NAICS/SBA size caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 workshare math, and IGCE Price-to-Win benchmarks.\n\n"
         "Unlock 3 free pre-shredded dossiers for your state or route 6-hour alerts to your inbox, Slack, Teams, or Discord:\n"
@@ -509,7 +509,7 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
             "Write a sharp, executive-grade LinkedIn Company Page post "
             "(plain text, zero markdown bold `**`, zero emojis) highlighting these 3 newly indexed open Federal/State SLED IT & cybersecurity RFPs:\n\n"
             + "\n\n".join(rfp_lines)
-            + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 21 Federal & State SLED portals "
+            + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 23 Federal & State SLED portals "
             "and pre-computes Shipley Section L/M matrices, CMMC/NIST compliance, and IGCE Price-to-Win bands, and end with https://signaltender.net/contracts/ "
             "plus 6-8 relevant GovCon hashtags. Keep under 1,800 characters."
         )
@@ -584,7 +584,7 @@ def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
                     {
                         "status": "READY",
                         "description": {
-                            "text": "Real-time Federal (SAM.gov) & 19-State SLED IT/Cyber RFP intelligence, pre-shredded Shipley Section L/M capture dossiers, and 27 GovCon REST & MCP APIs."
+                            "text": "Real-time Federal (SAM.gov) & 21-State SLED IT/Cyber RFP intelligence, pre-shredded Shipley Section L/M capture dossiers, and 29 GovCon REST & MCP APIs."
                         },
                         "originalUrl": "https://signaltender.net/contracts/",
                         "title": {"text": "SignalTender — Live Federal & State SLED IT/Cyber Contract Directory"},

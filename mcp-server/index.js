@@ -48,7 +48,9 @@ const RAPIDAPI_HOSTS = {
   audit_section_508_vpat: "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
   audit_supply_chain_scrm: "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com",
   generate_quality_assurance_qasp: "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
-  generate_phase_in_transition_plan: "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com"
+  generate_phase_in_transition_plan: "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
+  audit_dcaa_accounting_sf1408: "dcaa-pre-award-sf1408-accounting-system-auditor-api.p.rapidapi.com",
+  generate_ota_white_paper: "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -260,7 +262,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 21-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 23-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -294,9 +296,11 @@ const TOOLS = [
             "arizona",
             "minnesota",
             "tennessee",
+            "indiana",
+            "missouri",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -2376,6 +2380,170 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "audit_dcaa_accounting_sf1408",
+    "title": "Audit DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Pools",
+    "description": "Audit a contractor's chart of accounts, indirect cost pool structure (Fringe, Overhead, G&A, B&P/IR&D), timekeeping procedures, labor distribution policy, and general ledger setup against the 18-point DCAA Standard Form 1408 (SF 1408) Pre-Award Accounting System Checklist, FAR 16.301-3, FAR Subpart 31.2, and DFARS 252.242-7006, returning an SF 1408 executive readiness overview, a line-by-line SF 1408 checklist audit, an indirect rate pool and allocation base analysis, a FAR 31.205 unallowable cost segregation assessment (with FAR 52.242-3 penalty risk), labor timekeeping and DCAA floor-check controls, and a pre-award survey remediation roadmap. This is a read-only, stateless, non-destructive GovCon accounting and compliance audit call (requires X-RapidAPI-Key; `chart_of_accounts_and_pools_text` accepts 20 to 45,000 characters, while `target_contract_type_and_solicitation` and `accounting_software_and_erp_stack` calibrate audit criteria across CPFF, CPIF, CPAF, T&M, and FFP contracts on Deltek Costpoint, Unanet, QuickBooks + GovCon timekeeping, or NetSuite). Use this tool when preparing for a DCAA SF 1408 Pre-Award Accounting System Survey, validating Fringe/Overhead/G&A pool-to-base causal/beneficial relationships, or segregating FAR 31.205 unallowable costs; use `generate_igce_price_to_win` instead to model proposal CLIN wrap-rate pricing and Price-to-Win sensitivity, or `extract_pricing_schedule` to parse Section B CLIN tables.",
+    "annotations": {
+      "title": "Audit DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Pools",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "chart_of_accounts_and_pools_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Contractor's chart of accounts, indirect cost pool structure (Fringe, Overhead, G&A, B&P/IR&D), timekeeping procedures, labor distribution policy, and general ledger setup (20 to 45,000 characters)."
+        },
+        "target_contract_type_and_solicitation": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
+          "description": "Target contract type (CPFF, CPIF, CPAF, T&M, FFP) and solicitation SF 1408 / FAR 16.301-3 adequacy requirements (defaults to 'Cost_Plus_Fixed_Fee_CPFF_And_T_And_M')."
+        },
+        "accounting_software_and_erp_stack": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "QuickBooks_Online_With_GovCon_Timekeeping",
+          "description": "Current accounting ERP & timekeeping stack (e.g., Deltek Costpoint, Unanet GovCon, QuickBooks + ICAT/BigTime, NetSuite; defaults to 'QuickBooks_Online_With_GovCon_Timekeeping')."
+        }
+      },
+      "required": [
+        "chart_of_accounts_and_pools_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "sf1408_executive_overview": {
+          "type": "object",
+          "description": "Executive DCAA SF 1408 readiness verdict, compliance score (0-100), cost-reimbursable award eligibility, and summary."
+        },
+        "sf1408_18_point_checklist": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Line-by-line audit of Standard Form 1408 Section II accounting system adequacy criteria with findings and remediation steps."
+        },
+        "indirect_rate_pool_and_base_analysis": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Indirect cost pool (Fringe, Overhead, G&A, B&P/IR&D) and allocation base audit under FAR 31.201-4 and CAS 418/410."
+        },
+        "far_31_205_unallowable_cost_segregation": {
+          "type": "object",
+          "description": "Audit of FAR 31.205 expressly unallowable cost account segregation and FAR 52.242-3 penalty protection controls."
+        },
+        "labor_timekeeping_and_floor_check_controls": {
+          "type": "object",
+          "description": "Evaluation of daily labor timekeeping, supervisor approvals, Total Time Accounting (TTA), and DCAA floor-check readiness."
+        },
+        "pre_award_survey_remediation_roadmap": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ordered pre-audit action items and artifact checklist to pass the DCAA SF 1408 Pre-Award Accounting System Survey."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_ota_white_paper",
+    "title": "Generate DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper & Milestone Schedule",
+    "description": "Convert commercial dual-use technology specifications and DoD Problem Statements / Commercial Solutions Openings (CSOs) / Request for Prototype Proposals (RPPs) across DIU, C5ISR/CECOM, SOSSEC, SpEC, MTEC, NSTXL, and AFWERX into a 10 U.S.C. 4022 statutory eligibility assessment, evaluator-ready OTA Prototype White Paper sections, an outcome-based Fixed-Price Payable Milestone Schedule & Rough Order of Magnitude (ROM), a Phase 3 Sole-Source Follow-On Production Strategy under 10 U.S.C. 4022(f), an OTA Intellectual Property & Data Rights posture (FAR/DFARS/Bayh-Dole exempt), and consortium pitch deck talking points. This is a read-only, stateless, non-destructive capture and prototype proposal generator (requires X-RapidAPI-Key; `commercial_solution_and_problem_topic_text` accepts 20 to 45,000 characters, while `target_ota_consortium_and_pathway` and `nontraditional_contractor_and_cost_share_status` calibrate consortium formatting and 10 U.S.C. 4022(d)(1) Nontraditional Defense Contractor [NDC], Small Business, or 1/3 cost-share rules). Use this tool when drafting a DoD 10 U.S.C. 4022 Other Transaction Authority (OTA) Prototype White Paper, DIU Commercial Solutions Opening (CSO) solution brief, or Fixed-Price Payable Milestone Schedule; use `generate_sbir_sttr_commercialization` instead for 15 U.S.C. 638 SBIR/STTR Phase I-III proposals, or `generate_rfp_response` for traditional FAR Part 15 technical proposal volumes.",
+    "annotations": {
+      "title": "Generate DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper & Milestone Schedule",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commercial_solution_and_problem_topic_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "DoD Problem Statement / CSO / RPP topic description (DIU, C5ISR/CECOM, SOSSEC, SpEC, MTEC, NSTXL) and vendor's dual-use commercial technology, TRL, and architecture (20 to 45,000 characters)."
+        },
+        "target_ota_consortium_and_pathway": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "DIU_Commercial_Solutions_Opening_CSO",
+          "description": "Target OTA pathway or consortium (e.g., DIU Commercial Solutions Opening [CSO], SOSSEC, SpEC Space Enterprise Consortium, C5ISR, NSTXL, AFWERX; defaults to 'DIU_Commercial_Solutions_Opening_CSO')."
+        },
+        "nontraditional_contractor_and_cost_share_status": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share",
+          "description": "10 U.S.C. 4022 statutory eligibility posture: Nontraditional Defense Contractor (NDC), Small Business, or Traditional Defense Contractor with NDC sub / 1/3 cost-share (defaults to 'Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share')."
+        }
+      },
+      "required": [
+        "commercial_solution_and_problem_topic_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "ota_statutory_eligibility_assessment": {
+          "type": "object",
+          "description": "10 U.S.C. 4022 statutory eligibility assessment covering NDC/Small Business status, cost-share exemption, and 10 U.S.C. 4022(f) sole-source production eligibility."
+        },
+        "executive_white_paper_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Evaluator-ready OTA Prototype White Paper / Solution Brief sections tailored to DIU CSO and DoD Consortium scoring criteria."
+        },
+        "payable_milestone_schedule_and_rom": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Outcome-based Fixed-Price Payable Milestone Schedule and Rough Order of Magnitude (ROM) pricing table."
+        },
+        "dual_use_and_follow_on_production_strategy": {
+          "type": "object",
+          "description": "TRL advancement roadmap, commercial dual-use viability, and 10 U.S.C. 4022(f) non-competitive follow-on production transition strategy."
+        },
+        "intellectual_property_and_data_rights_posture": {
+          "type": "object",
+          "description": "OTA Intellectual Property and Data Rights negotiation posture leveraging FAR/DFARS/Bayh-Dole exemptions."
+        },
+        "consortium_pitch_deck_talking_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "High-impact talking points for the Phase 2 DIU / Consortium oral pitch and live technical demonstration."
+        }
+      }
+    }
   }
 ];
 
@@ -2406,7 +2574,9 @@ const ENDPOINT_MAP = {
   audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" },
   audit_supply_chain_scrm: { method: "POST", path: "/v1/audit/supply-chain-scrm" },
   generate_quality_assurance_qasp: { method: "POST", path: "/v1/generate/quality-assurance-qasp" },
-  generate_phase_in_transition_plan: { method: "POST", path: "/v1/generate/phase-in-transition-plan" }
+  generate_phase_in_transition_plan: { method: "POST", path: "/v1/generate/phase-in-transition-plan" },
+  audit_dcaa_accounting_sf1408: { method: "POST", path: "/v1/audit/dcaa-accounting-sf1408" },
+  generate_ota_white_paper: { method: "POST", path: "/v1/generate/ota-white-paper" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -2512,7 +2682,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.12.0"
+            version: "1.13.0"
           }
         }
       });
