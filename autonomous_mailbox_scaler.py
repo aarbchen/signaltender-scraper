@@ -64,7 +64,7 @@ INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
 INSTANTLY_CAMPAIGN_ID = (os.getenv("INSTANTLY_CAMPAIGN_ID") or "c7727dff-92cc-4621-9e96-c960938d5a47").strip()
 
 CLOUDFLARE_API_TOKEN = (os.getenv("CLOUDFLARE_API_TOKEN") or "").strip()
-CLOUDFLARE_ACCOUNT_ID = (os.getenv("CLOUDFLARE_ACCOUNT_ID") or "").strip()
+CLOUDFLARE_ACCOUNT_ID = (os.getenv("CLOUDFLARE_ACCOUNT_ID") or "1bd620fee1e67b48923bfbe445c3a88c").strip()
 
 PORKBUN_API_KEY = (os.getenv("PORKBUN_API_KEY") or "").strip()
 PORKBUN_SECRET_KEY = (os.getenv("PORKBUN_SECRET_KEY") or "").strip()
