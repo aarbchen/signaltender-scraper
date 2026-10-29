@@ -359,8 +359,21 @@ def is_commodity_it_spam(title: str) -> bool:
 
 
 def send_discord_alert(message: str):
-    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("pseo_generator.py", str(message))
+    if not DISCORD_WEBHOOK_URL:
+        return
+    try:
+        requests.post(
+            DISCORD_WEBHOOK_URL,
+            json={"content": f"**[ALERT] pSEO Generator Alert:**\n{message}", "flags": 4},
+            timeout=10,
+        )
+    except Exception as e:
+        try:
+            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
+                f.write(f"Failed to send Discord alert in pseo_generator.py: {e}\n")
+        except Exception:
+            pass
 
 
 def parse_due_date(rec: dict) -> date | None:
