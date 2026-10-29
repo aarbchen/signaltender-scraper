@@ -1,0 +1,85 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon QASP, PRS, SLA & KPI Surveillance Matrix API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Extracts Performance Work Statement (PWS), SOW, or SOO deliverables under FAR Subpart 37.6 and generates a complete Performance Requirements Summary (PRS) Table, Acceptable Quality Levels (AQLs), automated SLA/KPI telemetry metrics, FAR 46.4 surveillance methods, positive/negative incentive or invoice deduction formulas, a closed-loop Non-Conformance & Corrective Action Report (CAR) workflow under FAR 52.246, and a ready-to-submit QASP / Quality Control Plan (QCP) proposal narrative. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/quality-assurance-qasp": {
+      "post": {
+        "operationId": "generateGovConQualityAssuranceQasp",
+        "summary": "Generate GovCon Quality Assurance QASP And PRS Matrix",
+        "description": "Transforms PWS/SOW/SOO tasks and service levels into a FAR Subpart 37.6 Quality Assurance Surveillance Plan (QASP), Performance Requirements Summary (PRS) matrix, Acceptable Quality Levels (AQLs), SLA/KPI telemetry thresholds, FAR 52.246 Non-Conformance/CAR workflow, and proposal-ready QASP/QCP narrative.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "QaspGeneratorRequest",
+                "required": [
+                  "pws_or_sow_deliverables_text"
+                ],
+                "properties": {
+                  "pws_or_sow_deliverables_text": {
+                    "type": "string",
+                    "minLength": 30,
+                    "maxLength": 75000,
+                    "description": "Raw Performance Work Statement (PWS), Statement of Work (SOW), or Statement of Objectives (SOO) tasks, service levels, and deliverable requirements (30 to 75,000 characters)."
+                  },
+                  "contract_type_and_incentive_structure": {
+                    "type": "string",
+                    "default": "Firm_Fixed_Price_FFP",
+                    "enum": [
+                      "Firm_Fixed_Price_FFP",
+                      "Time_and_Materials_TM",
+                      "Cost_Plus_Award_Fee_CPAF",
+                      "Cost_Plus_Incentive_Fee_CPIF",
+                      "Hybrid_IDIQ_Task_Order"
+                    ],
+                    "description": "Contract type and incentive structure ('Firm_Fixed_Price_FFP', 'Time_and_Materials_TM', 'Cost_Plus_Award_Fee_CPAF', 'Cost_Plus_Incentive_Fee_CPIF', or 'Hybrid_IDIQ_Task_Order')."
+                  },
+                  "surveillance_rigor_and_mission_criticality": {
+                    "type": "string",
+                    "default": "Mission_Critical_24x7_Zero_Trust",
+                    "enum": [
+                      "Mission_Critical_24x7_Zero_Trust",
+                      "Standard_Enterprise_IT_SLA",
+                      "R_and_D_Agile_DevSecOps"
+                    ],
+                    "description": "Mission criticality profile ('Mission_Critical_24x7_Zero_Trust', 'Standard_Enterprise_IT_SLA', or 'R_and_D_Agile_DevSecOps')."
+                  }
+                }
+              },
+              "example": {
+                "pws_or_sow_deliverables_text": "PWS Section C.3 (24x7 Zero-Trust SOC, Cloud Enclave Sustainment & Incident Response \u2014 DISA / MNIT Enterprise): (1) C.3.1 24x7 Security Operations Center (SOC) Triage: Contractor shall detect, triage, and contain Severity-1 cyber incidents within 30 minutes of SIEM alert generation with 99.95% monthly Splunk/SOAR platform availability. (2) C.3.2 Continuous ATO (cATO) & Vulnerability Management: Contractor shall remediate 100% of Critical/CAT-I CISA KEV findings within 48 hours and High/CAT-II findings within 14 calendar days. (3) C.3.3 Key Personnel & Cleared Staffing Continuity: Maintain >= 95% fill rate across all 24 FTE positions with <= 10 business days backfill for any vacancy.",
+                "contract_type_and_incentive_structure": "Firm_Fixed_Price_FFP",
+                "surveillance_rigor_and_mission_criticality": "Mission_Critical_24x7_Zero_Trust"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete FAR Subpart 37.6 QASP, PRS Matrix, SLA/KPI Telemetry & CAR Workflow",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

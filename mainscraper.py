@@ -709,6 +709,18 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "default_agency": "State of Arizona (ADOA-ASET / Arizona APP)",
         "pop_state_code": "AZ",
     },
+    "Minnesota SLED (SWIFT / MNIT)": {
+        "portal_url": "https://mn.gov/admin/osp/government/procurements/",
+        "socrata_json": "",
+        "default_agency": "State of Minnesota (OSP SWIFT / MNIT Services)",
+        "pop_state_code": "MN",
+    },
+    "Tennessee SLED (Edison CPO / STS)": {
+        "portal_url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html",
+        "socrata_json": "",
+        "default_agency": "State of Tennessee (CPO Edison / STS)",
+        "pop_state_code": "TN",
+    },
 }
 
 
@@ -947,6 +959,8 @@ async def run_master_orchestrator(
         _run_source("Michigan SLED (MI SIGMA / DTMB)", "import mi_scraper", "mi_scraper.run_scraper(push_to_db=False)"),
         _run_source("Colorado SLED (CO VSS / OIT)", "import co_scraper", "co_scraper.run_scraper(push_to_db=False)"),
         _run_source("Arizona SLED (APP / ADOA-ASET)", "import az_scraper", "az_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Minnesota SLED (SWIFT / MNIT)", "import mn_scraper", "mn_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Tennessee SLED (Edison CPO / STS)", "import tn_scraper", "tn_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -970,6 +984,8 @@ async def run_master_orchestrator(
         "Michigan SLED (MI SIGMA / DTMB)",
         "Colorado SLED (CO VSS / OIT)",
         "Arizona SLED (APP / ADOA-ASET)",
+        "Minnesota SLED (SWIFT / MNIT)",
+        "Tennessee SLED (Edison CPO / STS)",
     ]
     combined_records = []
 

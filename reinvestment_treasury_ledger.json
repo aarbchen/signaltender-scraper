@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "reinvestment_ratio": 0.5,
+  "cost_per_sending_pod_usd": 21.0,
+  "total_gross_revenue_usd": 0.0,
+  "total_reinvestment_allocated_usd": 0.0,
+  "total_reinvestment_spent_usd": 0.0,
+  "available_reinvestment_balance_usd": 0.0,
+  "credited_conversion_keys": [],
+  "provisioned_domains": [],
+  "provisioned_mailboxes": [],
+  "staged_provisioning_queue": [],
+  "updated_at": "2026-10-29T02:18:22Z"
+}

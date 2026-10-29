@@ -46,7 +46,9 @@ const RAPIDAPI_HOSTS = {
   generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
   generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
   audit_section_508_vpat: "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
-  audit_supply_chain_scrm: "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com"
+  audit_supply_chain_scrm: "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com",
+  generate_quality_assurance_qasp: "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
+  generate_phase_in_transition_plan: "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -258,7 +260,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 19-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 21-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -290,9 +292,11 @@ const TOOLS = [
             "michigan",
             "colorado",
             "arizona",
+            "minnesota",
+            "tennessee",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -2189,6 +2193,189 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_quality_assurance_qasp",
+    "title": "Generate GovCon Quality Assurance Surveillance Plan (QASP), PRS Table & PWS SLA/KPI Matrix",
+    "description": "Transform Performance Work Statement (PWS), Statement of Work (SOW), or Statement of Objectives (SOO) deliverables into a FAR Subpart 37.6 Quality Assurance Surveillance Plan (QASP) package containing a 0-100 QASP Readiness Score, an executive surveillance summary, a Performance Requirements Summary (PRS) Table (with PWS section reference, performance objective, measurable KPI standard, Acceptable Quality Level [AQL], FAR 46.4 surveillance method, monitoring frequency, positive/negative incentive or invoice deduction formula, and assigned COR/QA role), automated SLA/KPI telemetry metrics, a closed-loop Non-Conformance & Cure Notice Corrective Action Report (CAR) workflow with FAR 52.246 inspection citations, and a ready-to-submit QASP/QCP proposal narrative. This is a read-only, stateless, non-destructive quality engineering and proposal generator (requires X-RapidAPI-Key; `pws_or_sow_deliverables_text` accepts 30 to 75,000 characters, while `contract_type_and_incentive_structure` and `surveillance_rigor_and_mission_criticality` calibrate AQL thresholds and incentive/deduction mechanics across FFP, T&M, CPAF, CPIF, and Hybrid IDIQ task orders). Use this tool when building a FAR 37.6 Quality Assurance Surveillance Plan (QASP), Performance Requirements Summary (PRS) matrix, or Contractor Quality Control Plan (QCP) with AQLs and SLA deduction formulas; use `generate_compliance_matrix` instead to shred general Section C/L/M `shall`/`must` requirements into a proposal outline, or `generate_rfp_response` to draft general Technical Approach prose.",
+    "annotations": {
+      "title": "Generate GovCon Quality Assurance Surveillance Plan (QASP), PRS Table & PWS SLA/KPI Matrix",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pws_or_sow_deliverables_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 75000,
+          "description": "Raw Performance Work Statement (PWS), Statement of Work (SOW), or Statement of Objectives (SOO) tasks, service levels, and deliverable requirements (30 to 75,000 characters)."
+        },
+        "contract_type_and_incentive_structure": {
+          "type": "string",
+          "enum": [
+            "Firm_Fixed_Price_FFP",
+            "Time_and_Materials_TM",
+            "Cost_Plus_Award_Fee_CPAF",
+            "Cost_Plus_Incentive_Fee_CPIF",
+            "Hybrid_IDIQ_Task_Order"
+          ],
+          "default": "Firm_Fixed_Price_FFP",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Contract type and incentive structure ('Firm_Fixed_Price_FFP' [default], 'Time_and_Materials_TM', 'Cost_Plus_Award_Fee_CPAF', 'Cost_Plus_Incentive_Fee_CPIF', or 'Hybrid_IDIQ_Task_Order') used to calibrate FAR 52.246 inspection clauses and AQL incentive/deduction formulas."
+        },
+        "surveillance_rigor_and_mission_criticality": {
+          "type": "string",
+          "enum": [
+            "Mission_Critical_24x7_Zero_Trust",
+            "Standard_Enterprise_IT_SLA",
+            "R_and_D_Agile_DevSecOps"
+          ],
+          "default": "Mission_Critical_24x7_Zero_Trust",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Mission criticality and surveillance rigor profile ('Mission_Critical_24x7_Zero_Trust' [default], 'Standard_Enterprise_IT_SLA', or 'R_and_D_Agile_DevSecOps')."
+        }
+      },
+      "required": [
+        "pws_or_sow_deliverables_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "qasp_readiness_score": {
+          "type": "integer",
+          "description": "0-100 score quantifying the measurability, FAR Subpart 37.6 compliance, and audit defensibility of the QASP and PRS matrix."
+        },
+        "executive_surveillance_summary": {
+          "type": "string",
+          "description": "Executive summary of the FAR 37.6 surveillance strategy, ISO 9001 / CMMI Level 3 quality governance, and COR partnership model."
+        },
+        "performance_requirements_summary_prs_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured FAR Subpart 37.6 Performance Requirements Summary (PRS) rows with objectives, KPI standards, AQLs, surveillance methods, and incentive/deduction formulas."
+        },
+        "sla_and_kpi_telemetry_metrics": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Automated SLA and KPI telemetry metrics with target thresholds, measurement windows, data sources, and breach escalation triggers."
+        },
+        "non_conformance_and_cure_notice_workflow": {
+          "type": "object",
+          "description": "Closed-loop Non-Conformance, Corrective Action Report (CAR), Root Cause Analysis (RCA), Corrective Action Plan (CAP), and FAR 52.246 inspection workflow."
+        },
+        "ready_to_submit_qasp_narrative": {
+          "type": "string",
+          "description": "Complete, paste-ready Quality Assurance Surveillance Plan (QASP) & Quality Control Plan (QCP) proposal volume narrative in Markdown."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_phase_in_transition_plan",
+    "title": "Generate GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture Plan",
+    "description": "Generate a risk-mitigated 30/60/90-Day Phase-In and Phase-Out Transition Plan from solicitation Section C/L/M transition instructions and incumbent workforce context, returning a 0-100 Transition Risk Readiness Score, an executive transition summary, chronological Work Breakdown Structure (WBS) milestones across Days 1-30, 31-60, and 61-90 (plus Phase-Out), an Executive Order 14055 / Service Contract Act (SCA) Incumbent Workforce Capture & Right-of-First-Refusal retention plan with DD-254/DISS clearance crossover timelines and outreach scripts, functional Knowledge Transfer & Shadowing tracks with COR Operational Readiness Review (ORR) gates, a FAR 52.237-3 Continuity of Services Phase-Out checklist, and a ready-to-submit Shipley Transition Plan proposal volume. This is a read-only, stateless, non-destructive capture and program-management generator (requires X-RapidAPI-Key; `solicitation_transition_and_sow_text` accepts 30 to 75,000 characters, optional `incumbent_workforce_and_clearance_context` accepts up to 50,000 characters, and `transition_timeline_window` calibrates milestone cadences across 30-day rapid cutovers, standard 30/60/90-day transitions, 120-day enterprise transitions, and FAR 52.237-3 phase-outs). Use this tool when drafting a Phase-In / Phase-Out Transition Plan volume, WBS mobilization schedule, or incumbent staff capture strategy; use `match_key_personnel` instead to audit and format individual Key Personnel resumes and Letters of Commitment, or `generate_teaming_strategy` for 13 CFR 125.6 Prime/Sub workshare splits.",
+    "annotations": {
+      "title": "Generate GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solicitation_transition_and_sow_text": {
+          "type": "string",
+          "minLength": 30,
+          "maxLength": 75000,
+          "description": "Solicitation Section C/L/M transition instructions, PWS scope, incumbent staffing size, clearance levels, and continuity-of-operations mandates (30 to 75,000 characters)."
+        },
+        "incumbent_workforce_and_clearance_context": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 50000,
+          "default": "",
+          "description": "Optional incumbent contractor details, target FTE count, Collective Bargaining Agreement (CBA) / Service Contract Act (SCA) context, and DD-254 facility/personnel security clearance transfer requirements (0 to 50,000 characters)."
+        },
+        "transition_timeline_window": {
+          "type": "string",
+          "enum": [
+            "Rapid_30_Day_Cutover",
+            "Standard_30_60_90_Day_Phase_In",
+            "Extended_120_Day_Enterprise_Transition",
+            "Include_Phase_Out_FAR_52_237_3"
+          ],
+          "default": "Standard_30_60_90_Day_Phase_In",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Transition schedule profile ('Rapid_30_Day_Cutover', 'Standard_30_60_90_Day_Phase_In' [default], 'Extended_120_Day_Enterprise_Transition', or 'Include_Phase_Out_FAR_52_237_3')."
+        }
+      },
+      "required": [
+        "solicitation_transition_and_sow_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "transition_risk_readiness_score": {
+          "type": "integer",
+          "description": "0-100 score quantifying Day-1 operational continuity, incumbent capture probability, and FAR 52.237-3 compliance readiness."
+        },
+        "executive_transition_summary": {
+          "type": "string",
+          "description": "Executive summary of the zero-mission-disruption Phase-In / Phase-Out strategy and Day-1 FOC roadmap."
+        },
+        "wbs_30_60_90_day_milestones": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Chronological WBS transition milestones across Days 1-30, 31-60, 61-90 (and Phase-Out) with activities, deliverables, exit criteria, and risk mitigations."
+        },
+        "incumbent_capture_and_retention_plan": {
+          "type": "object",
+          "description": "Incumbent workforce capture plan with target retention %, EO 14055 / SCA right-of-first-refusal posture, DD-254/DISS clearance crossover timeline, and outreach script."
+        },
+        "knowledge_transfer_and_shadowing_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Functional knowledge transfer tracks with side-by-side shadowing durations, artifact handover checklists, and COR Operational Readiness Review (ORR) gates."
+        },
+        "far_52_237_3_phase_out_continuity_checklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "FAR 52.237-3 Continuity of Services Phase-Out checklist items."
+        },
+        "ready_to_submit_transition_volume": {
+          "type": "string",
+          "description": "Complete, paste-ready Shipley Phase-In / Phase-Out Transition Plan proposal volume narrative in Markdown."
+        }
+      }
+    }
   }
 ];
 
@@ -2217,7 +2404,9 @@ const ENDPOINT_MAP = {
   generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" },
   generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" },
   audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" },
-  audit_supply_chain_scrm: { method: "POST", path: "/v1/audit/supply-chain-scrm" }
+  audit_supply_chain_scrm: { method: "POST", path: "/v1/audit/supply-chain-scrm" },
+  generate_quality_assurance_qasp: { method: "POST", path: "/v1/generate/quality-assurance-qasp" },
+  generate_phase_in_transition_plan: { method: "POST", path: "/v1/generate/phase-in-transition-plan" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -2323,7 +2512,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.10.0"
+            version: "1.12.0"
           }
         }
       });

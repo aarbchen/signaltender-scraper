@@ -151,6 +151,10 @@ def check_html_file(fpath: str) -> str:
             "#contracts/michigan",
             "#contracts/colorado",
             "#contracts/arizona",
+            "#contracts/mn",
+            "#contracts/minnesota",
+            "#contracts/tn",
+            "#contracts/tennessee",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -317,6 +321,8 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "sbir-sttr-phase-i-iii-commercialization-plan-api",
             "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api",
             "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api",
+            "govcon-qasp-prs-sla-kpi-surveillance-matrix-api",
+            "govcon-30-60-90-day-phase-in-transition-plan-api",
         }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
             if rslug not in verified_rapidapi_studio_slugs:
@@ -509,14 +515,14 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
         expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
-        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,120}", txt):
+        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,250}", txt):
             snippet = m.group(0)
             for abbr in expected_abbrs:
                 if abbr not in snippet:
                     fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
 
         # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
-        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,350}", txt):
+        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,800}", txt):
             snippet = m.group(0)
             for sk in state_keys:
                 state_title = sk.replace("_", " ").title()

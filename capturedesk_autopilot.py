@@ -56,7 +56,9 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/generate/ato-rmf-package": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
     "/v1/generate/debriefing-bid-protest": "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
     "/v1/generate/gsa-mas-offer": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
-    "/v1/generate/sources-sought-response": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+    "/v1/generate/sources-sought-response": "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
+    "/v1/generate/quality-assurance-qasp": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
+    "/v1/generate/phase-in-transition-plan": "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -78,6 +80,8 @@ JURISDICTION_LABELS = {
     "michigan": "MICHIGAN // SIGMA VSS & DTMB",
     "colorado": "COLORADO // VSS & OIT",
     "arizona": "ARIZONA // APP PROCURE.AZ.GOV & ADOA-ASET",
+    "minnesota": "MINNESOTA // SWIFT & MNIT",
+    "tennessee": "TENNESSEE // EDISON CPO & STS",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -201,7 +205,6 @@ def classify_jurisdiction(record: dict) -> str:
         or "wa.gov" in url
     ):
         return "washington"
-        return "washington"
     if (
         "sigma.michigan.gov" in url
         or "michigan.gov" in url
@@ -216,17 +219,33 @@ def classify_jurisdiction(record: dict) -> str:
         return "colorado"
     if (
         "app.az.gov" in url
-        or "sp360.az.gov" in url
-        or "spo.az.gov" in url
-        or ".az.gov" in url
-        or "//az.gov" in url
+        or "procure.az.gov" in url
         or "azdoa.gov" in url
+        or "az.gov" in url
         or "phoenix.gov" in url
-        or "chandleraz.gov" in url
-        or "tucsonaz.gov" in url
         or "maricopa.gov" in url
+        or "asu.edu" in url
     ):
         return "arizona"
+    if (
+        "mn.gov" in url
+        or "questcdn.com" in url
+        or "metrocouncil.org" in url
+        or "umn.edu" in url
+        or "hennepin.us" in url
+        or "minneapolismn.gov" in url
+        or "stpaul.gov" in url
+    ):
+        return "minnesota"
+    if (
+        "tn.gov" in url
+        or "tennessee.edu" in url
+        or "tbr.edu" in url
+        or "nashville.gov" in url
+        or "memphistn.gov" in url
+        or "shelbycountytn.gov" in url
+    ):
+        return "tennessee"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -309,6 +328,7 @@ def classify_jurisdiction(record: dict) -> str:
         or "co oit" in agency
         or "cdot" in agency
         or "cdphe" in agency
+        or "cdhs" in agency
     ):
         return "colorado"
     if (
@@ -316,11 +336,36 @@ def classify_jurisdiction(record: dict) -> str:
         or title.lower().startswith("[az-")
         or "arizona" in agency
         or "(az)" in agency
-        or "procure.az.gov" in agency
+        or "az app" in agency
         or "adoa" in agency
         or "ahcccs" in agency
+        or "adot" in agency
+        or "maricopa" in agency
     ):
         return "arizona"
+    if (
+        title.startswith("[MN]")
+        or title.lower().startswith("[mn-")
+        or "minnesota" in agency
+        or "(mn)" in agency
+        or "mn swift" in agency
+        or "mnit" in agency
+        or "mndot" in agency
+        or "metropolitan council" in agency
+    ):
+        return "minnesota"
+    if (
+        title.startswith("[TN]")
+        or title.lower().startswith("[tn-")
+        or "tennessee" in agency
+        or "(tn)" in agency
+        or "tn cpo" in agency
+        or "edison" in agency
+        or "tenncare" in agency
+        or "tdot" in agency
+        or "tdec" in agency
+    ):
+        return "tennessee"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -610,6 +655,12 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "arizona":
         compliance_posture = "Arizona ADOA-ASET Statewide Policy P8120 Information Security (NIST 800-53) • StateRAMP • AZ Section 508 / WCAG 2.1 AA"
         teaming_posture = "AZ SPO Small Business Outreach (A.R.S. 41-2501 Procurement Code) + ADOA Statewide / NASPO ValuePoint Alignment + 3 SLED Refs"
+    elif j_key == "minnesota":
+        compliance_posture = "MNIT Enterprise Security Policies (NIST 800-53) • StateRAMP / SOC 2 Type II • MN WCAG 2.1 AA VPAT"
+        teaming_posture = "MN TG/ED/VO Targeted Group & Veteran-Owned Preference (6%–12%) + MN CPV Cooperative Alignment + 3 SLED Refs"
+    elif j_key == "tennessee":
+        compliance_posture = "TN STS Enterprise InfoSec Policies (NIST 800-53) • StateRAMP / FedRAMP • TN Section 508 VPAT"
+        teaming_posture = "TN Go-DBE Minority/Woman/Veteran/Small Business Directory + TN Statewide Contract (SWC) Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -681,7 +732,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
         posture_line = (
             f"**Cyber, RMF/cATO & Teaming Posture (API #06/#11/#12/#18):** `{c_pos}` | `{t_pos}`\n"
-            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest, GSA MAS & RFI Shaping (API #13/#15/#16/#17/#19/#20/#21):** `{ptw_pos}` | `{lcat_pos}`\n"
+            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest, GSA MAS, RFI Shaping, QASP & Transition (API #13/#15/#16/#17/#19/#20/#21/#26/#27):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):
@@ -796,7 +847,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
-            # unified Section I (CaptureDesk Dossiers) + Section II (19-Portal Live Wire) payload via client_delivery.py.
+            # unified Section I (CaptureDesk Dossiers) + Section II (21-Portal Live Wire) payload via client_delivery.py.
             if __name__ == "__main__":
                 try:
                     import client_delivery

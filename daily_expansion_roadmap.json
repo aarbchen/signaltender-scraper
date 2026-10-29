@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "2.2",
   "last_completed_date": "2026-10-28",
   "description": "Deterministic 38-Day Autonomous Nationwide 50-State SLED Scraper (Portals #15-#52) & Stateless GovCon API (#21-#58) Expansion Queue for SignalTender. Together with the 2 Federal/Municipal portals (SAM.gov, DemandStar) and 12 initial State SLED portals (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA), completing this 38-day queue achieves 100% 50-State SLED coverage (52 Portals) and 58 Live GovCon AI Microservices.",
   "coverage_summary": {
@@ -46,7 +46,7 @@
         "router_file": "sources_sought.py",
         "product_id": "product-sources-sought-response",
         "mcp_tool_name": "generate_sources_sought_response",
-        "rapidapi_slug": "govcon-sources-sought-rfi-set-aside-shaper-api",
+        "rapidapi_slug": "govcon-sources-sought-rfi-set-aside-shaping-responder-api",
         "title": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
         "category": "capture",
         "summary": "Analyzes agency Sources Sought / RFI notices against vendor capabilities to generate a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a)/SDVOSB/HUBZone/WOSB), NAICS recommendation, and persuasive RFI response narrative.",
@@ -136,7 +136,7 @@
         "router_file": "section_508_vpat.py",
         "product_id": "product-section-508-vpat",
         "mcp_tool_name": "audit_section_508_vpat",
-        "rapidapi_slug": "govcon-section-508-wcag-2-2-vpat-generator-api",
+        "rapidapi_slug": "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api",
         "title": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
         "category": "compliance",
         "summary": "Audits software/SaaS products against Revised Section 508 (36 CFR 1194), WCAG 2.2 AA, and state accessibility mandates to generate a complete VPAT 2.5 Accessibility Conformance Report (ACR) table + remediation roadmap.",
@@ -165,16 +165,17 @@
         "router_file": "supply_chain_scrm.py",
         "product_id": "product-supply-chain-scrm",
         "mcp_tool_name": "audit_supply_chain_scrm",
-        "rapidapi_slug": "govcon-scrm-ndaa-889-taa-baa-sbom-auditor-api",
+        "rapidapi_slug": "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api",
         "title": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
         "category": "compliance",
         "summary": "Evaluates BOMs and sub-tier suppliers against NIST SP 800-161 C-SCRM, FAR 52.204-25 (NDAA 889), FAR 52.204-30 (FASCSA), Buy American Act (BAA), and Trade Agreements Act (TAA), outputting a C-SCRM Plan & SBOM attestation.",
         "connect_to_tier2_autopilot": false
-      }
+      },
+      "completed_at": "2026-10-28T07:15:00Z"
     },
     {
       "day": 6,
-      "status": "pending",
+      "status": "completed",
       "portal": {
         "portal_number": 20,
         "state_code": "mn",
@@ -199,11 +200,12 @@
         "category": "capture",
         "summary": "Extracts PWS deliverables under FAR Subpart 37.6 and generates a Performance Requirements Summary (PRS) Table, QASP, Acceptable Quality Levels (AQLs), and SLA incentive/deduction formulas.",
         "connect_to_tier2_autopilot": true
-      }
+      },
+      "completed_at": "2026-10-28T20:45:00Z"
     },
     {
       "day": 7,
-      "status": "pending",
+      "status": "completed",
       "portal": {
         "portal_number": 21,
         "state_code": "tn",
@@ -227,7 +229,8 @@
         "category": "capture",
         "summary": "Generates a risk-mitigated 30/60/90-Day Phase-In/Out Transition Plan with WBS milestones, EO 14055 / SCA Incumbent Right-of-First-Refusal retention scripts, clearance crossover timelines, and FAR 52.237-3 checklists.",
         "connect_to_tier2_autopilot": true
-      }
+      },
+      "completed_at": "2026-10-28T20:45:00Z"
     },
     {
       "day": 8,
@@ -1106,5 +1109,8 @@
         "connect_to_tier2_autopilot": false
       }
     }
-  ]
+  ],
+  "daily_quota": 3,
+  "completed_today_date": "2026-10-28",
+  "completed_today_count": 3
 }

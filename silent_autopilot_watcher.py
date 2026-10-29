@@ -117,31 +117,45 @@ def write_watcher_heartbeat() -> None:
 
 
 def is_daily_expansion_due() -> tuple[bool, str]:
-    """Return (True, reason) if today's daily expansion has not been completed yet."""
+    """Return (True, reason) if today's 3-scraper + 3-API daily expansion quota has not been completed yet."""
     if not os.path.exists(ROADMAP_PATH):
         return False, ""
     try:
         with open(ROADMAP_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
+        daily_quota = int(data.get("daily_quota") or 3)
         last_date = str(data.get("last_completed_date") or "").strip()
+        completed_today_date = str(data.get("completed_today_date") or "").strip()
+        completed_today_count = int(data.get("completed_today_count") or 0)
+
         now_local = datetime.now().astimezone()
         today_str = now_local.strftime("%Y-%m-%d")
+        if completed_today_date != today_str:
+            # Count any items explicitly stamped with today_str in completed_at
+            completed_today_count = sum(
+                1
+                for item in data.get("items", [])
+                if item.get("status") == "completed" and str(item.get("completed_at") or "").startswith(today_str)
+            )
 
         pending = [item for item in data.get("items", []) if item.get("status") == "pending"]
         if not pending:
             return False, ""
 
-        # If last_completed_date is strictly before today AND it's >= 2:00 AM Central
-        # (or if last_completed_date is more than 1 day behind), trigger catch-up immediately.
-        if last_date < today_str and now_local.hour >= 2:
-            next_item = pending[0]
-            day_num = next_item.get("day")
-            st_name = (next_item.get("portal") or next_item.get("scraper") or {}).get("state_name")
-            api_num = next_item.get("api", {}).get("api_number")
+        # Trigger whenever (< daily_quota completed today AND >= 2:00 AM Central) OR last_completed_date < today_str
+        if (completed_today_count < daily_quota or last_date < today_str) and now_local.hour >= 2:
+            remaining = max(1, daily_quota - completed_today_count)
+            due_slice = pending[:remaining]
+            summary_parts = []
+            for it in due_slice:
+                d_num = it.get("day")
+                s_name = (it.get("portal") or it.get("scraper") or {}).get("state_name")
+                a_num = it.get("api", {}).get("api_number")
+                summary_parts.append(f"Item {d_num} ({s_name} Scraper + API #{a_num})")
             return (
                 True,
-                f"Daily expansion due for {today_str} (last_completed_date={last_date}): "
-                f"Day {day_num} — {st_name} Scraper + API #{api_num}",
+                f"3x Daily Expansion Quota ({completed_today_count}/{daily_quota} completed for {today_str}; "
+                f"{len(due_slice)} remaining today): " + ", ".join(summary_parts),
             )
     except Exception:
         pass

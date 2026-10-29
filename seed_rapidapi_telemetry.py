@@ -578,6 +578,47 @@ ENDPOINTS = [
             "target_compliance_regime": "Auto_Detect_From_Clauses",
         },
     },
+    {
+        "id": "API 26",
+        "name": "GovCon Quality Assurance Surveillance Plan (QASP), PWS SLA & KPI Matrix API",
+        "method": "POST",
+        "path": "/v1/generate/quality-assurance-qasp",
+        "rapid_host": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
+        "payload": {
+            "pws_or_sow_deliverables_text": (
+                "PWS Section C.3 (24x7 Zero-Trust SOC, Cloud Enclave Sustainment & Incident Response — DISA / MNIT Enterprise): "
+                "(1) C.3.1 24x7 Security Operations Center (SOC) Triage: Contractor shall detect, triage, and contain Severity-1 cyber "
+                "incidents within 30 minutes of SIEM alert generation with 99.95% monthly Splunk/SOAR platform availability. "
+                "(2) C.3.2 Continuous ATO (cATO) & Vulnerability Management: Contractor shall remediate 100% of Critical/CAT-I CISA KEV "
+                "findings within 48 hours and High/CAT-II findings within 14 calendar days. "
+                "(3) C.3.3 Key Personnel & Cleared Staffing Continuity: Maintain >= 95% fill rate across all 24 FTE positions with <= 10 "
+                "business days backfill for any vacancy."
+            ),
+            "contract_type_and_incentive_structure": "Firm_Fixed_Price_FFP",
+            "surveillance_rigor_and_mission_criticality": "Mission_Critical_24x7_Zero_Trust",
+        },
+    },
+    {
+        "id": "API 27",
+        "name": "GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture API",
+        "method": "POST",
+        "path": "/v1/generate/phase-in-transition-plan",
+        "rapid_host": "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
+        "payload": {
+            "solicitation_transition_and_sow_text": (
+                "Section L.4.3 & PWS C.2 Phase-In / Phase-Out Transition (60-Day Phase-In / 90-Day FOC): "
+                "The incoming Prime Contractor shall execute a zero-mission-disruption transition for a 38-FTE Enterprise Cloud, "
+                "Zero-Trust ICAM, and 24x7 Tier-2/3 Service Desk operation supporting Tennessee STS and DoD mission partners. "
+                "Full Operational Capability (FOC) is required at Day 60, with Days 61-90 dedicated to steady-state SLA optimization."
+            ),
+            "incumbent_workforce_and_clearance_context": (
+                "Incumbent prime currently staffs 38 FTEs (28 Secret cleared, 10 Top Secret/SCI cleared under DD Form 254; "
+                "14 Service Contract Act [SCA] helpdesk/network technicians subject to EO 14055 right-of-first-refusal). "
+                "Target incumbent capture rate is >= 90% with 6 pre-cleared bench engineers ready on Day 1."
+            ),
+            "transition_timeline_window": "Standard_30_60_90_Day_Phase_In",
+        },
+    },
 ]
 
 

@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon 30/60/90-Day Phase-In Transition Plan API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Generates a risk-mitigated 30/60/90-Day Phase-In and Phase-Out Transition Plan with chronological Work Breakdown Structure (WBS) milestones, Executive Order 14055 / Service Contract Act (SCA) Incumbent Right-of-First-Refusal retention strategies and outreach scripts, DD-254 / DISS security clearance crossover timelines, side-by-side knowledge transfer and Operational Readiness Review (ORR) gates, a FAR 52.237-3 Continuity of Services checklist, and a paste-ready Shipley Transition Plan proposal volume. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/phase-in-transition-plan": {
+      "post": {
+        "operationId": "generateGovConPhaseInTransitionPlan",
+        "summary": "Generate GovCon 30/60/90-Day Phase-In Transition Plan",
+        "description": "Transforms solicitation Section C/L/M transition instructions and incumbent workforce context into a 30/60/90-Day WBS Phase-In/Out Transition Plan, EO 14055 / SCA Incumbent Capture Plan, DD-254/DISS clearance transfer schedule, Knowledge Transfer ORR tracks, FAR 52.237-3 checklist, and Shipley Transition Volume narrative.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "TransitionPlanRequest",
+                "required": [
+                  "solicitation_transition_and_sow_text"
+                ],
+                "properties": {
+                  "solicitation_transition_and_sow_text": {
+                    "type": "string",
+                    "minLength": 30,
+                    "maxLength": 75000,
+                    "description": "Solicitation Section C/L/M transition instructions, PWS scope, incumbent staffing size, clearance levels, and continuity-of-operations mandates (30 to 75,000 characters)."
+                  },
+                  "incumbent_workforce_and_clearance_context": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 50000,
+                    "description": "Optional incumbent contractor details, target FTE count, Collective Bargaining Agreement (CBA) / Service Contract Act (SCA) context, and DD-254 facility/personnel security clearance transfer requirements."
+                  },
+                  "transition_timeline_window": {
+                    "type": "string",
+                    "default": "Standard_30_60_90_Day_Phase_In",
+                    "enum": [
+                      "Rapid_30_Day_Cutover",
+                      "Standard_30_60_90_Day_Phase_In",
+                      "Extended_120_Day_Enterprise_Transition",
+                      "Include_Phase_Out_FAR_52_237_3"
+                    ],
+                    "description": "Transition schedule profile ('Rapid_30_Day_Cutover', 'Standard_30_60_90_Day_Phase_In', 'Extended_120_Day_Enterprise_Transition', or 'Include_Phase_Out_FAR_52_237_3')."
+                  }
+                }
+              },
+              "example": {
+                "solicitation_transition_and_sow_text": "Section L.4.3 & PWS C.2 Phase-In / Phase-Out Transition (60-Day Phase-In / 90-Day FOC): The incoming Prime Contractor shall execute a zero-mission-disruption transition for a 38-FTE Enterprise Cloud, Zero-Trust ICAM, and 24x7 Tier-2/3 Service Desk operation supporting Tennessee STS and DoD mission partners. Full Operational Capability (FOC) is required at Day 60, with Days 61-90 dedicated to steady-state SLA optimization.",
+                "incumbent_workforce_and_clearance_context": "Incumbent prime currently staffs 38 FTEs (28 Secret cleared, 10 Top Secret/SCI cleared under DD Form 254; 14 Service Contract Act [SCA] helpdesk/network technicians subject to EO 14055 right-of-first-refusal). Target incumbent capture rate is >= 90% with 6 pre-cleared bench engineers ready on Day 1.",
+                "transition_timeline_window": "Standard_30_60_90_Day_Phase_In"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture Plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
