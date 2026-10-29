@@ -1681,7 +1681,7 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
         open_resp = supabase.table(TABLE_NAME).select("*").order("id", desc=True).limit(200).execute()
         all_contracts = [
             r for r in (open_resp.data if open_resp and getattr(open_resp, "data", None) else [])
-            if not str(r.get("url") or "").startswith("subscriber://")
+            if not str(r.get("url") or "").startswith(("subscriber://", "treasury://"))
             and not str(r.get("status") or "").startswith("SUBSCRIBER_")
         ]
 
@@ -1819,7 +1819,7 @@ def deliver_leads(client_webhook_url: str = None) -> int:
         resp = supabase.table(TABLE_NAME).select("*").eq("status", "New Lead").execute()
         records = [
             r for r in (resp.data if resp and getattr(resp, "data", None) else [])
-            if not str(r.get("url") or "").startswith("subscriber://")
+            if not str(r.get("url") or "").startswith(("subscriber://", "treasury://"))
         ]
 
         if not records:

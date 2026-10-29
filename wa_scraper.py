@@ -159,7 +159,7 @@ def _fetch_wa_webs_live() -> List[Dict[str, str]]:
                     href = "https://des.wa.gov" + href
                 results.append(
                     {
-                        "title": f"{text[:135]} - Due: {default_due}",
+                        "title": f"{(text if len(text) <= 135 else text[:135].rsplit(" ", 1)[0])} - Due: {default_due}",
                         "agency": "State of Washington Department of Enterprise Services (WA WEBS / DES)",
                         "closing_date": default_due,
                         "url": href,

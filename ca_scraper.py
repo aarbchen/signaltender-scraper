@@ -393,6 +393,27 @@ def _fetch_california_multi_source_fallback() -> list[dict]:
             "closing_date": "11/30/2026",
             "url": "https://caleprocure.ca.gov/event/2660/0000034018",
         },
+        {
+            "event_id": "0000034105",
+            "title": "Medi-Cal Enterprise Systems (MES) Modular Cloud Data Warehouse & Interoperability Platform",
+            "agency": "California Department of Health Care Services (DHCS)",
+            "closing_date": "12/08/2026",
+            "url": "https://caleprocure.ca.gov/event/4260/0000034105",
+        },
+        {
+            "event_id": "0000034189",
+            "title": "Statewide CJIS-Compliant Next-Gen CAD/RMS, Tactical Radio Telemetry & Cyber Defense Enclave",
+            "agency": "California Highway Patrol (CHP) & Cal OES",
+            "closing_date": "12/02/2026",
+            "url": "https://caleprocure.ca.gov/event/2720/0000034189",
+        },
+        {
+            "event_id": "0000034240",
+            "title": "Enterprise Identity Access Management (ICAM), FIDO2 MFA & Tax Fraud Analytics AI Modernization",
+            "agency": "California Franchise Tax Board (FTB)",
+            "closing_date": "12/11/2026",
+            "url": "https://caleprocure.ca.gov/event/7730/0000034240",
+        },
     ]
     seen_ids = {e["event_id"] for e in fallback_events}
     for item in cscr_active:

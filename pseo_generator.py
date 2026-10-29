@@ -347,6 +347,31 @@ COMMODITY_IT_EXCLUSIONS = [
     r"synthetic\s+aperture\s+radar",
     r"\bdo\s+not\s+use\b",
     r"\btest\s+for\s+erp\b",
+    r"state\s+pop\s+modernization",
+    r"copiers?\s+lease",
+    r"title:\s*line\s+",
+    r"^the\s+contractor\s+shall\s+provide",
+    r"\bnrp,keyboard\b",
+    r"\bf-5\s+aircraft\b",
+    r"\bf-16\b.*update",
+    r"\bj&a\b",
+    r"privacy\s*(?:&amp;|&)?\s*security\s+notice",
+    r"sign\s+up\s+for\s+it\s+contracts",
+    r"go\s+to\s+administrative\s+guide",
+    r"cybersecurity\s+resource\s+hub",
+    r"cyber\s+disruption\s+response\s+plan",
+    r"investment\s+fund\s+portfolio\s+report",
+    r"state\s+administrative\s+board",
+    r"it\s+policies,\s*standards",
+    r"demolition\s+of\s+the",
+    r"administrators\s+toolkit",
+    r"it\s+professional\s+structure",
+    r"state\s+contracts\s+assistance\s+network",
+    r"^it\s+professional\s+services\s+contracts\b",
+    r"^department\s+of\s+personnel",
+    r"sourcing\s+event\s*#",
+    r"on\s+behalf\s+of\s+participating",
+    r"not\s+eligible\s+for\s+electronic\s+submission",
 ]
 
 
@@ -396,7 +421,8 @@ def parse_due_date(rec: dict) -> date | None:
 
 def clean_display_title(raw_title: str) -> str:
     """Strip trailing '- Due: MM/DD/YYYY', '[SF-30 / ADDENDUM DETECTED]' prefix, and normalize encoding/spacing artifacts."""
-    base = str(raw_title or "").replace("\ufffd", "–")
+    base = re.sub(r"\ufffd([^\ufffd]+)\ufffd", r'"\1"', str(raw_title or ""))
+    base = base.replace("\ufffd", "–")
     base = re.sub(r"^(?:\s*\[SF-30\s*/\s*ADDENDUM\s+DETECTED\]\s*)+", "", base, flags=re.IGNORECASE)
     base = re.sub(r"\bWeb-\s+Based\b", "Web-Based", base, flags=re.IGNORECASE)
     base = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", base, flags=re.IGNORECASE)
@@ -3133,7 +3159,12 @@ def _render_layout(
       var capSummary = '';
       try {{
         var qParams = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
-        if (qParams && qParams.get('company')) compName = qParams.get('company');
+        if (qParams && (qParams.get('company') || qParams.get('co'))) compName = qParams.get('company') || qParams.get('co');
+        var rawAttr = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawAttr && compName === 'Your Capture Team LLC') {{
+          var pAttr = JSON.parse(rawAttr);
+          if (pAttr && pAttr.co) compName = pAttr.co;
+        }}
         var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {{
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
@@ -3175,7 +3206,7 @@ def _render_layout(
           body: JSON.stringify({{
             solicitation_title: effTitle,
             solicitation_number: effSolNum,
-            issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
+            issuing_agency: (agencyVal && String(agencyVal).indexOf('[Verified Agency]') === -1 ? agencyVal : '') || (matchedContract && matchedContract.agency) || agencyVal || 'Federal / State SLED Agency',
             naics_code: String(naicsVal || (matchedContract && (matchedContract.naics_display || matchedContract.naics)) || '541512').split('/')[0].trim(),
             set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
             closing_date: (matchedContract && (matchedContract.due_str || matchedContract.closing_date)) || 'Active Open Window',
@@ -3235,17 +3266,32 @@ def _render_layout(
     window.toggleTeamingClearinghouseBox = function (boxId) {{
       var el = document.getElementById(boxId);
       if (!el) return;
-      if (el.classList.contains('hidden')) el.classList.remove('hidden');
-      else el.classList.add('hidden');
+      if (el.classList.contains('hidden')) {{
+        el.classList.remove('hidden');
+        try {{
+          var coInp = el.querySelector('input[id^="teaming-co-"]');
+          if (coInp && !coInp.value) {{
+            var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+            var attrCo = (qp && (qp.get('company') || qp.get('co'))) || '';
+            if (!attrCo && window.sessionStorage) {{
+              var ra = window.sessionStorage.getItem('st_outbound_attrib');
+              if (ra) attrCo = (JSON.parse(ra) || {{}}).co || '';
+            }}
+            if (attrCo) coInp.value = attrCo;
+          }}
+        }} catch (e) {{}}
+      }} else {{
+        el.classList.add('hidden');
+      }}
     }};
 
     window.submitInlineTeamingSlot = async function (slugVal, titleVal, agencyVal, naicsVal) {{
       var sfx = slugVal || 'static';
-      var coEl = document.getElementById('teaming-co-' + sfx);
-      var ueiEl = document.getElementById('teaming-uei-' + sfx);
-      var socEl = document.getElementById('teaming-soc-' + sfx);
-      var emEl = document.getElementById('teaming-em-' + sfx);
-      var stEl = document.getElementById('teaming-status-' + sfx);
+      var coEl = document.getElementById('teaming-co-' + sfx) || document.getElementById('teaming-co-static');
+      var ueiEl = document.getElementById('teaming-uei-' + sfx) || document.getElementById('teaming-uei-static');
+      var socEl = document.getElementById('teaming-soc-' + sfx) || document.getElementById('teaming-soc-static');
+      var emEl = document.getElementById('teaming-em-' + sfx) || document.getElementById('teaming-em-static');
+      var stEl = document.getElementById('teaming-status-' + sfx) || document.getElementById('teaming-status-static');
       var subCo = coEl ? String(coEl.value || '').trim() : '';
       var subEm = emEl ? String(emEl.value || '').trim() : '';
       if (!subCo || !subEm || subEm.indexOf('@') === -1) {{
@@ -3316,7 +3362,7 @@ def _render_layout(
 
     window.unlockFoiaWinningBidVault = async function (slugVal, stateVal, naicsVal, titleVal, agencyVal) {{
       var sfx = slugVal || 'static';
-      var boxEl = document.getElementById('foia-vault-box-' + sfx);
+      var boxEl = document.getElementById('foia-vault-box-' + sfx) || document.getElementById('foia-vault-box-static');
       if (!boxEl) return;
       if (!boxEl.classList.contains('hidden') && boxEl.getAttribute('data-loaded') === '1') {{
         boxEl.classList.add('hidden');
@@ -3324,13 +3370,39 @@ def _render_layout(
       }}
       boxEl.classList.remove('hidden');
       boxEl.innerHTML = '<div class="text-xs font-mono text-sky-300">Querying Post-Award FOIA / State PIA Incumbent Rate Vault &amp; generating statutory $0-fee demand letter...</div>';
+      var effTitle = String(titleVal || 'Enterprise IT Solicitation');
+      var effSolId = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      if (effTitle.charAt(0) === '[' && effTitle.indexOf(']') > 1) {{
+        var cbIdx = effTitle.indexOf(']');
+        effSolId = effTitle.slice(1, cbIdx).trim();
+        effTitle = effTitle.slice(cbIdx + 1).split(' - Due:')[0].trim();
+      }}
+      var compName = 'Your Capture Team LLC';
+      try {{
+        var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+        if (qp && (qp.get('company') || qp.get('co'))) compName = qp.get('company') || qp.get('co');
+        var rawA = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawA && compName === 'Your Capture Team LLC') {{
+          var pA = JSON.parse(rawA);
+          if (pA && pA.co) compName = pA.co;
+        }}
+        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        for (var pk = 0; pk < pKeys.length; pk++) {{
+          var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
+          if (rp && compName === 'Your Capture Team LLC') {{
+            var po = JSON.parse(rp);
+            if (po && (po.company || po.company_name)) compName = po.company || po.company_name;
+          }}
+        }}
+      }} catch (e) {{}}
       try {{
         var qUrl = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?state=' +
           encodeURIComponent(stateVal || 'all') +
           '&naics=' + encodeURIComponent(String(naicsVal || '541512').split('/')[0].trim()) +
-          '&solicitation_id=' + encodeURIComponent(String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase()) +
-          '&title=' + encodeURIComponent(titleVal || 'Enterprise IT Solicitation') +
-          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency');
+          '&solicitation_id=' + encodeURIComponent(effSolId) +
+          '&title=' + encodeURIComponent(effTitle) +
+          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency') +
+          '&company_name=' + encodeURIComponent(compName);
         var r = await fetch(qUrl);
         var d = await r.json();
         boxEl.setAttribute('data-loaded', '1');
@@ -3493,6 +3565,37 @@ def _render_layout(
 """
 
 
+def _format_corporate_name(raw_name: str) -> str:
+    """Format corporate entity names cleanly while preserving uppercase legal suffixes (LLC, INC., CORP., LLP, USA, IT, AI) and ordinals (22nd, 1st, 3rd)."""
+    s = str(raw_name or "").strip()
+    if not s:
+        return "Federal IT Contractor"
+    upper_tokens = {"LLC", "LLP", "LP", "INC", "INC.", "CORP", "CORP.", "CO", "CO.", "PC", "P.C.", "PLLC", "PA", "USA", "US", "U.S.", "IT", "AI", "II", "III", "IV", "VI", "SDVOSB", "JV"}
+    words = s.split()
+    out = []
+    for w in words:
+        clean_w = w.strip(",.")
+        suffix_punct = w[len(clean_w):]
+        if clean_w.upper() in upper_tokens or (clean_w.upper() + ".") in upper_tokens:
+            out.append(clean_w.upper() + suffix_punct)
+        elif re.match(r"^\d+(st|nd|rd|th)$", clean_w, flags=re.IGNORECASE):
+            out.append(clean_w.lower() + suffix_punct)
+        elif "/" in w or "-" in w:
+            parts = re.split(r"([/-])", w)
+            fmt_parts = []
+            for p in parts:
+                if p in ("/", "-"):
+                    fmt_parts.append(p)
+                elif p.upper() in upper_tokens:
+                    fmt_parts.append(p.upper())
+                else:
+                    fmt_parts.append(p.capitalize())
+            out.append("".join(fmt_parts))
+        else:
+            out.append(w.capitalize())
+    return " ".join(out)
+
+
 def _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls: list[str]) -> int:
     """
     Upgrade #2: Generates evergreen static pSEO pages in /contracts/recompetes/ for:
@@ -3523,7 +3626,7 @@ def _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls: list[str]) -
         if not awd_id:
             continue
         slug_id = re.sub(r"[^a-z0-9_-]+", "-", awd_id.lower()).strip("-")
-        incumbent = str(r.get("incumbent_recipient") or "Federal IT Incumbent").title()
+        incumbent = _format_corporate_name(str(r.get("incumbent_recipient") or "Federal IT Incumbent"))
         amt_fmt = str(r.get("award_amount_fmt") or "$5.0M")
         agency = str(r.get("awarding_sub_agency") or "Federal Agency")
         end_dt = str(r.get("end_date") or "2027")
@@ -3636,7 +3739,7 @@ def _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls: list[str]) -
         if not awd_id:
             continue
         slug_id = re.sub(r"[^a-z0-9_-]+", "-", awd_id.lower()).strip("-")
-        prime_name = str(s.get("prime_recipient") or "Federal Prime").title()
+        prime_name = _format_corporate_name(str(s.get("prime_recipient") or "Federal Prime"))
         amt_fmt = str(s.get("award_amount_fmt") or "$10.0M")
         agency = str(s.get("awarding_sub_agency") or "Federal Agency")
         desc = str(s.get("description") or "Federal Enterprise IT Prime Award").capitalize()
@@ -3756,7 +3859,7 @@ def _generate_recompete_and_subcontracting_pseo_pages(sitemap_urls: list[str]) -
             continue
         seen_slug_ids.add(slug_id)
 
-        comp_name = str(prof.get("company_name") or prof.get("matched_recipient_name") or "Federal IT Prime").title()
+        comp_name = _format_corporate_name(str(prof.get("company_name") or prof.get("matched_recipient_name") or "Federal IT Prime"))
         amt_fmt = str(prof.get("award_amount_fmt") or "$2.5M")
         amt_num = float(prof.get("award_amount") or 2500000.0)
         agency = str(prof.get("awarding_sub_agency") or prof.get("awarding_agency") or "Federal Agency")
@@ -3993,7 +4096,7 @@ def generate_pseo_site() -> int:
         try:
             r_rest = requests.get(
                 f"{SUPABASE_URL.rstrip('/')}/rest/v1/{TABLE_NAME}",
-                params={"select": "*", "order": "id.desc", "limit": "500"},
+                params={"select": "*", "url": "not.like.subscriber://*", "order": "id.desc", "limit": "500"},
                 headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
                 timeout=15,
             )
@@ -4051,7 +4154,7 @@ def generate_pseo_site() -> int:
                     pass
 
         for idx, rec in enumerate(raw_records, 1):
-            if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
+            if not str(rec.get("url") or "").startswith("http") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
                 continue
             raw_title = str(rec.get("title") or "").strip()
             if not raw_title:
@@ -4306,9 +4409,14 @@ def generate_pseo_site() -> int:
                 "rfp_text": rfp_scope_text,
             })
 
-        if spam_ids_to_purge and supabase is not None:
+        if spam_ids_to_purge:
             try:
-                supabase.table(TABLE_NAME).delete().in_("id", spam_ids_to_purge).execute()
+                requests.delete(
+                    f"{SUPABASE_URL.rstrip('/')}/rest/v1/{TABLE_NAME}",
+                    params={"id": f"in.({','.join(str(x) for x in spam_ids_to_purge)})"},
+                    headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                    timeout=15,
+                )
                 print(f"[+] Purged {len(spam_ids_to_purge)} legacy pre-filter catalog/spam row(s) from Supabase.", flush=True)
             except Exception as del_err:
                 print(f"[!] Could not delete legacy spam rows from Supabase: {del_err}", flush=True)
@@ -4438,7 +4546,7 @@ def generate_pseo_site() -> int:
                         <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                           Unlock Direct RFP Link &amp; Capture Dossier &rarr;
                         </a>
-                        <button id="compile-zip-btn-static" type="button" onclick="window.compileShipleyProposalZip(&quot;{c['slug']}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">
+                        <button id="compile-zip-btn-static" type="button" onclick="window.compileShipleyProposalZip(&quot;{c['slug']}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">
                           1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;
                         </button>
                       </div>
@@ -4451,7 +4559,7 @@ def generate_pseo_site() -> int:
                           <button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-static&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">
                             Request 13 CFR &sect; 125.6 Teaming Slot &rarr;
                           </button>
-                          <button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;static&quot;, &quot;{c['jurisdiction']}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">
+                          <button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;{c['slug']}&quot;, &quot;{c['jurisdiction']}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['agency'], quote=True)}&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">
                             FOIA Incumbent Rate Vault &amp; Demand &rarr;
                           </button>
                         </div>
@@ -4473,7 +4581,7 @@ def generate_pseo_site() -> int:
                           <option value="Small Business">Small Business / State MBE</option>
                         </select>
                         <input id="teaming-em-static" type="email" placeholder="bd@yourcompany.com" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
-                        <button type="button" onclick="window.submitInlineTeamingSlot(&quot;static&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['masked_agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;)" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold cursor-pointer">
+                        <button type="button" onclick="window.submitInlineTeamingSlot(&quot;{c['slug']}&quot;, &quot;{html.escape(c['clean_title'], quote=True)}&quot;, &quot;{html.escape(c['agency'], quote=True)}&quot;, &quot;{html.escape(c['naics_display'], quote=True)}&quot;)" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold cursor-pointer">
                           Verify &amp; Match &rarr;
                         </button>
                       </div>
@@ -5325,7 +5433,12 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       var capSummary = '';
       try {{
         var qParams = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
-        if (qParams && qParams.get('company')) compName = qParams.get('company');
+        if (qParams && (qParams.get('company') || qParams.get('co'))) compName = qParams.get('company') || qParams.get('co');
+        var rawAttr = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawAttr && compName === 'Your Capture Team LLC') {{
+          var pAttr = JSON.parse(rawAttr);
+          if (pAttr && pAttr.co) compName = pAttr.co;
+        }}
         var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {{
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
@@ -5367,7 +5480,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           body: JSON.stringify({{
             solicitation_title: effTitle,
             solicitation_number: effSolNum,
-            issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
+            issuing_agency: (agencyVal && String(agencyVal).indexOf('[Verified Agency]') === -1 ? agencyVal : '') || (matchedContract && matchedContract.agency) || agencyVal || 'Federal / State SLED Agency',
             naics_code: String(naicsVal || (matchedContract && (matchedContract.naics_display || matchedContract.naics)) || '541512').split('/')[0].trim(),
             set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
             closing_date: (matchedContract && (matchedContract.due_str || matchedContract.closing_date)) || 'Active Open Window',
@@ -5427,17 +5540,32 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
     window.toggleTeamingClearinghouseBox = function (boxId) {{
       var el = document.getElementById(boxId);
       if (!el) return;
-      if (el.classList.contains('hidden')) el.classList.remove('hidden');
-      else el.classList.add('hidden');
+      if (el.classList.contains('hidden')) {{
+        el.classList.remove('hidden');
+        try {{
+          var coInp = el.querySelector('input[id^="teaming-co-"]');
+          if (coInp && !coInp.value) {{
+            var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+            var attrCo = (qp && (qp.get('company') || qp.get('co'))) || '';
+            if (!attrCo && window.sessionStorage) {{
+              var ra = window.sessionStorage.getItem('st_outbound_attrib');
+              if (ra) attrCo = (JSON.parse(ra) || {{}}).co || '';
+            }}
+            if (attrCo) coInp.value = attrCo;
+          }}
+        }} catch (e) {{}}
+      }} else {{
+        el.classList.add('hidden');
+      }}
     }};
 
     window.submitInlineTeamingSlot = async function (slugVal, titleVal, agencyVal, naicsVal) {{
       var sfx = slugVal || 'static';
-      var coEl = document.getElementById('teaming-co-' + sfx);
-      var ueiEl = document.getElementById('teaming-uei-' + sfx);
-      var socEl = document.getElementById('teaming-soc-' + sfx);
-      var emEl = document.getElementById('teaming-em-' + sfx);
-      var stEl = document.getElementById('teaming-status-' + sfx);
+      var coEl = document.getElementById('teaming-co-' + sfx) || document.getElementById('teaming-co-static');
+      var ueiEl = document.getElementById('teaming-uei-' + sfx) || document.getElementById('teaming-uei-static');
+      var socEl = document.getElementById('teaming-soc-' + sfx) || document.getElementById('teaming-soc-static');
+      var emEl = document.getElementById('teaming-em-' + sfx) || document.getElementById('teaming-em-static');
+      var stEl = document.getElementById('teaming-status-' + sfx) || document.getElementById('teaming-status-static');
       var subCo = coEl ? String(coEl.value || '').trim() : '';
       var subEm = emEl ? String(emEl.value || '').trim() : '';
       if (!subCo || !subEm || subEm.indexOf('@') === -1) {{
@@ -5508,7 +5636,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
     window.unlockFoiaWinningBidVault = async function (slugVal, stateVal, naicsVal, titleVal, agencyVal) {{
       var sfx = slugVal || 'static';
-      var boxEl = document.getElementById('foia-vault-box-' + sfx);
+      var boxEl = document.getElementById('foia-vault-box-' + sfx) || document.getElementById('foia-vault-box-static');
       if (!boxEl) return;
       if (!boxEl.classList.contains('hidden') && boxEl.getAttribute('data-loaded') === '1') {{
         boxEl.classList.add('hidden');
@@ -5516,13 +5644,39 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       }}
       boxEl.classList.remove('hidden');
       boxEl.innerHTML = '<div class="text-xs font-mono text-sky-300">Querying Post-Award FOIA / State PIA Incumbent Rate Vault &amp; generating statutory $0-fee demand letter...</div>';
+      var effTitle = String(titleVal || 'Enterprise IT Solicitation');
+      var effSolId = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      if (effTitle.charAt(0) === '[' && effTitle.indexOf(']') > 1) {{
+        var cbIdx = effTitle.indexOf(']');
+        effSolId = effTitle.slice(1, cbIdx).trim();
+        effTitle = effTitle.slice(cbIdx + 1).split(' - Due:')[0].trim();
+      }}
+      var compName = 'Your Capture Team LLC';
+      try {{
+        var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+        if (qp && (qp.get('company') || qp.get('co'))) compName = qp.get('company') || qp.get('co');
+        var rawA = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawA && compName === 'Your Capture Team LLC') {{
+          var pA = JSON.parse(rawA);
+          if (pA && pA.co) compName = pA.co;
+        }}
+        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        for (var pk = 0; pk < pKeys.length; pk++) {{
+          var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
+          if (rp && compName === 'Your Capture Team LLC') {{
+            var po = JSON.parse(rp);
+            if (po && (po.company || po.company_name)) compName = po.company || po.company_name;
+          }}
+        }}
+      }} catch (e) {{}}
       try {{
         var qUrl = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?state=' +
           encodeURIComponent(stateVal || 'all') +
           '&naics=' + encodeURIComponent(String(naicsVal || '541512').split('/')[0].trim()) +
-          '&solicitation_id=' + encodeURIComponent(String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase()) +
-          '&title=' + encodeURIComponent(titleVal || 'Enterprise IT Solicitation') +
-          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency');
+          '&solicitation_id=' + encodeURIComponent(effSolId) +
+          '&title=' + encodeURIComponent(effTitle) +
+          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency') +
+          '&company_name=' + encodeURIComponent(compName);
         var r = await fetch(qUrl);
         var d = await r.json();
         boxEl.setAttribute('data-loaded', '1');
@@ -5884,7 +6038,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<a href="#checkout-tier1" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">' +
                           'Unlock Direct RFP Link &amp; Capture Dossier &rarr;' +
                         '</a>' +
-                        '<button id="compile-zip-btn-' + esc(item.slug) + '" type="button" onclick="window.compileShipleyProposalZip(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">' +
+                        '<button id="compile-zip-btn-' + esc(item.slug) + '" type="button" onclick="window.compileShipleyProposalZip(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.agency || item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;Small Business&quot;)" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs font-mono font-semibold text-indigo-200 bg-indigo-600/30 hover:bg-indigo-600/50 rounded-lg border border-indigo-400/50 transition-colors cursor-pointer">' +
                           '1-Click Compile 6-File Proposal &amp; Legal (.ZIP) &darr;' +
                         '</button>' +
                       '</div>' +
@@ -5897,7 +6051,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                           '<button type="button" onclick="window.toggleTeamingClearinghouseBox(&quot;teaming-box-' + esc(item.slug) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 rounded-lg border border-amber-500/30 transition-colors cursor-pointer">' +
                             'Request 13 CFR &sect; 125.6 Teaming Slot &rarr;' +
                           '</button>' +
-                          '<button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.jurisdiction || 'federal') + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">' +
+                          '<button type="button" onclick="window.unlockFoiaWinningBidVault(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.jurisdiction || 'federal') + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.agency || item.masked_agency) + '&quot;)" class="inline-flex items-center justify-center px-3.5 py-2 text-[11px] font-mono text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors cursor-pointer">' +
                             'FOIA Incumbent Rate Vault &amp; Demand &rarr;' +
                           '</button>' +
                         '</div>' +
@@ -5915,7 +6069,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                           '<option value="SDVOSB">SDVOSB</option><option value="8(a)">SBA 8(a)</option><option value="WOSB">WOSB / EDWOSB</option><option value="HUBZone">HUBZone</option><option value="Small Business">Small Business / State MBE</option>' +
                         '</select>' +
                         '<input id="teaming-em-' + esc(item.slug) + '" type="email" placeholder="bd@yourcompany.com" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />' +
-                        '<button type="button" onclick="window.submitInlineTeamingSlot(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;)" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold cursor-pointer">Verify &amp; Match &rarr;</button>' +
+                        '<button type="button" onclick="window.submitInlineTeamingSlot(&quot;' + esc(item.slug) + '&quot;, &quot;' + esc(item.clean_title) + '&quot;, &quot;' + esc(item.agency || item.masked_agency) + '&quot;, &quot;' + esc(item.naics_display || '541512') + '&quot;)" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-semibold cursor-pointer">Verify &amp; Match &rarr;</button>' +
                       '</div>' +
                       '<div id="teaming-status-' + esc(item.slug) + '" class="hidden"></div>' +
                     '</div>' +

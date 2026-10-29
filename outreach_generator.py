@@ -11,7 +11,7 @@ except Exception:
 import json
 import re
 from datetime import datetime, date
-from urllib.parse import quote_plus
+from urllib.parse import quote, quote_plus
 import requests
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -95,6 +95,9 @@ commodity_it_exclusions = [
     r"synthetic\s+aperture\s+radar",
     r"\bdo\s+not\s+use\b",
     r"\btest\s+for\s+erp\b",
+    r"state\s+pop\s+modernization",
+    r"copiers?\s+lease",
+    r"title:\s*line\s+",
 ]
 
 STATE_ALIASES = {
@@ -1570,7 +1573,7 @@ def generate_outreach():
         has_local_rfp_dir = os.path.isdir(rfp_dir_path)
 
         for rec in records:
-            if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
+            if str(rec.get("url") or "").startswith(("subscriber://", "treasury://")) or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
                 continue
             title = str(rec.get("title") or "").strip()
             title_lower = title.lower()

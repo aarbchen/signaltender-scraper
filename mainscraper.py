@@ -848,45 +848,6 @@ async def salvage_portal_via_selector_free_fallback(source_name: str) -> list[di
         except Exception as salv_err:
             print(f"[!] Selector-free LLM fallback warning for {source_name}: {salv_err}", flush=True)
 
-    # Tier 4 (T4 State Place-of-Performance Failover): Query USAspending state-level IT/Cyber awards/recompetes if Tiers 2-3 returned 0
-    if not salvaged and pop_state_code:
-        try:
-            usa_payload = {
-                "fields": ["Award ID", "Recipient Name", "Description", "End Date", "Awarding Sub Agency"],
-                "filters": {
-                    "award_type_codes": ["A", "B", "C", "D"],
-                    "place_of_performance_locations": [{"country": "USA", "state": pop_state_code}],
-                    "naics_codes": {"require": ["541511", "541512", "541519", "518210"]},
-                    "time_period": [{"start_date": "2024-01-01", "end_date": "2027-12-31"}],
-                },
-                "limit": 10,
-                "page": 1,
-                "sort": "End Date",
-                "order": "desc",
-            }
-            r_usa = requests.post(
-                "https://api.usaspending.gov/api/v2/search/spending_by_award/",
-                json=usa_payload,
-                timeout=12,
-            )
-            if r_usa.status_code == 200:
-                for row in (r_usa.json().get("results") or [])[:5]:
-                    desc = str(row.get("Description") or "Enterprise IT & Cybersecurity Engineering").strip().title()
-                    awd_id = str(row.get("Award ID") or "IT-RECOMPETE").strip()
-                    sub_ag = str(row.get("Awarding Sub Agency") or default_agency).strip()
-                    end_d = format_date_clean(str(row.get("End Date") or ""))
-                    rec_title = f"[{pop_state_code}] {desc[:90]} ({awd_id} State PoP Modernization)"
-                    slug_part = re.sub(r"[^a-z0-9]+", "-", rec_title.lower()).strip("-")[:70]
-                    salvaged.append({
-                        "title": rec_title,
-                        "agency": f"{default_agency} / {sub_ag}",
-                        "closing_date": end_d if end_d else None,
-                        "url": f"{portal_url.rstrip('/')}#{slug_part}",
-                        "status": "New Lead",
-                    })
-        except Exception as pop_err:
-            print(f"[!] Tier-4 pop_state_code failover warning for {source_name} ({pop_state_code}): {pop_err}", flush=True)
-
     return salvaged
 
 

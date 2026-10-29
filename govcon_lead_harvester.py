@@ -2462,55 +2462,6 @@ def sync_verified_awards_to_foia_vault(
             item["uei"] = poc_info["uei"]
             updated_pocs += 1
 
-    # Also index active SLED contracts from Supabase `contracts` table if available so SLED states auto-index
-    if SUPABASE_URL and SUPABASE_KEY:
-        try:
-            resp_sled = requests.get(
-                f"{SUPABASE_URL}/rest/v1/contracts",
-                params={"select": "title,agency,closing_date,url,status", "order": "id.desc", "limit": "120"},
-                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
-                timeout=6,
-            )
-            if resp_sled.status_code == 200 and isinstance(resp_sled.json(), list):
-                seen_sled_jur = {str(v.get("jurisdiction") or "") for v in by_id.values()}
-                for s_row in resp_sled.json():
-                    s_url = str(s_row.get("url") or "").strip()
-                    s_ag = str(s_row.get("agency") or "").strip()
-                    s_ti = str(s_row.get("title") or "").strip()
-                    if not s_ti or s_url.startswith("subscriber://"):
-                        continue
-                    jur, statute = _infer_award_jurisdiction_and_statute(s_ag, s_ag, f"{s_ti} {s_url}")
-                    if jur not in ("federal", "municipal") and jur not in seen_sled_jur:
-                        sled_id = f"SLED-{jur.upper()[:8]}-2026-COOP"
-                        if sled_id not in by_id:
-                            poc_info = _resolve_poc_for_vendor(s_ag)
-                            by_id[sled_id] = {
-                                "award_id": sled_id,
-                                "jurisdiction": jur,
-                                "agency": s_ag,
-                                "sub_agency": s_ag,
-                                "sub_agency_short": jur.replace("_", " ").title(),
-                                "winning_vendor": f"{jur.replace('_', ' ').title()} Statewide IT & Cyber Cooperative Pool",
-                                "award_amount_usd": 9500000.0,
-                                "award_amount_fmt": "$9.5M",
-                                "pop_end_date": "2027-09-30",
-                                "naics": "541512",
-                                "parent_vehicle": f"{jur.replace('_', ' ').title()} Statewide IT Schedule",
-                                "description": s_ti[:180].upper(),
-                                "usaspending_url": s_url or "https://www.usaspending.gov",
-                                "statutory_authority": statute,
-                                "foia_status": f"{jur.replace('_', ' ').title()} Open Records Electronic Schedule ($0 Fee Cap)",
-                                "poc_email": poc_info["poc_email"],
-                                "poc_name": poc_info["poc_name"],
-                                "poc_title": poc_info.get("poc_title", "SLED Capture Lead"),
-                                "poc_phone": "State Portal Electronic POC",
-                                "uei": poc_info["uei"],
-                            }
-                            seen_sled_jur.add(jur)
-                            added += 1
-        except Exception:
-            pass
-
     if added > 0 or updated_pocs > 0 or not os.path.exists(vault_paths[0]):
         merged_list = sorted(by_id.values(), key=lambda x: float(x.get("award_amount_usd") or 0.0), reverse=True)
         for vp in vault_paths:

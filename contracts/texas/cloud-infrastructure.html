@@ -1404,7 +1404,7 @@
                     Texas Cloud, Data Center &amp; Servers Government Contracts &amp; RFPs
                   </h1>
                   <p class="text-slate-300 text-sm max-w-3xl">
-                    Browse 1 open cloud, data center &amp; servers solicitations from Texas SmartBuy ESBD.
+                    Browse 0 open cloud, data center &amp; servers solicitations from Texas SmartBuy ESBD.
                   </p>
                 </div>
                 <div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">
@@ -1444,33 +1444,9 @@
                       </thead>
                       <tbody class="text-xs">
                         
-        <tr data-rfp-slug="tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099" data-rfp-due="2031-09-23" data-rfp-jur="Texas" data-rfp-title="[TX] Hpe San Storage Arrary And Maintenance (36C10B26F0383 State PoP Modernization)" data-rfp-cats="cloud-infrastructure" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border-indigo-500/30">
-              TEXAS
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="../rfp/tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [TX] Hpe San Storage Arrary And Maintenance (36C10B26F0383 State PoP Modernization)
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            State of [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2031-09-23
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099" onclick="window.toggleRfpBookmark(&quot;tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="../rfp/tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
+        <tr>
+          <td colspan="5" class="py-8 px-5 text-center font-mono text-slate-400">
+            New solicitations for this segment are currently being indexed by the 6-hour scraper cycle.
           </td>
         </tr>
         
@@ -2356,7 +2332,12 @@
       var capSummary = '';
       try {
         var qParams = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
-        if (qParams && qParams.get('company')) compName = qParams.get('company');
+        if (qParams && (qParams.get('company') || qParams.get('co'))) compName = qParams.get('company') || qParams.get('co');
+        var rawAttr = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawAttr && compName === 'Your Capture Team LLC') {
+          var pAttr = JSON.parse(rawAttr);
+          if (pAttr && pAttr.co) compName = pAttr.co;
+        }
         var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
@@ -2398,7 +2379,7 @@
           body: JSON.stringify({
             solicitation_title: effTitle,
             solicitation_number: effSolNum,
-            issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
+            issuing_agency: (agencyVal && String(agencyVal).indexOf('[Verified Agency]') === -1 ? agencyVal : '') || (matchedContract && matchedContract.agency) || agencyVal || 'Federal / State SLED Agency',
             naics_code: String(naicsVal || (matchedContract && (matchedContract.naics_display || matchedContract.naics)) || '541512').split('/')[0].trim(),
             set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
             closing_date: (matchedContract && (matchedContract.due_str || matchedContract.closing_date)) || 'Active Open Window',
@@ -2458,17 +2439,32 @@
     window.toggleTeamingClearinghouseBox = function (boxId) {
       var el = document.getElementById(boxId);
       if (!el) return;
-      if (el.classList.contains('hidden')) el.classList.remove('hidden');
-      else el.classList.add('hidden');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        try {
+          var coInp = el.querySelector('input[id^="teaming-co-"]');
+          if (coInp && !coInp.value) {
+            var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+            var attrCo = (qp && (qp.get('company') || qp.get('co'))) || '';
+            if (!attrCo && window.sessionStorage) {
+              var ra = window.sessionStorage.getItem('st_outbound_attrib');
+              if (ra) attrCo = (JSON.parse(ra) || {}).co || '';
+            }
+            if (attrCo) coInp.value = attrCo;
+          }
+        } catch (e) {}
+      } else {
+        el.classList.add('hidden');
+      }
     };
 
     window.submitInlineTeamingSlot = async function (slugVal, titleVal, agencyVal, naicsVal) {
       var sfx = slugVal || 'static';
-      var coEl = document.getElementById('teaming-co-' + sfx);
-      var ueiEl = document.getElementById('teaming-uei-' + sfx);
-      var socEl = document.getElementById('teaming-soc-' + sfx);
-      var emEl = document.getElementById('teaming-em-' + sfx);
-      var stEl = document.getElementById('teaming-status-' + sfx);
+      var coEl = document.getElementById('teaming-co-' + sfx) || document.getElementById('teaming-co-static');
+      var ueiEl = document.getElementById('teaming-uei-' + sfx) || document.getElementById('teaming-uei-static');
+      var socEl = document.getElementById('teaming-soc-' + sfx) || document.getElementById('teaming-soc-static');
+      var emEl = document.getElementById('teaming-em-' + sfx) || document.getElementById('teaming-em-static');
+      var stEl = document.getElementById('teaming-status-' + sfx) || document.getElementById('teaming-status-static');
       var subCo = coEl ? String(coEl.value || '').trim() : '';
       var subEm = emEl ? String(emEl.value || '').trim() : '';
       if (!subCo || !subEm || subEm.indexOf('@') === -1) {
@@ -2539,7 +2535,7 @@
 
     window.unlockFoiaWinningBidVault = async function (slugVal, stateVal, naicsVal, titleVal, agencyVal) {
       var sfx = slugVal || 'static';
-      var boxEl = document.getElementById('foia-vault-box-' + sfx);
+      var boxEl = document.getElementById('foia-vault-box-' + sfx) || document.getElementById('foia-vault-box-static');
       if (!boxEl) return;
       if (!boxEl.classList.contains('hidden') && boxEl.getAttribute('data-loaded') === '1') {
         boxEl.classList.add('hidden');
@@ -2547,13 +2543,39 @@
       }
       boxEl.classList.remove('hidden');
       boxEl.innerHTML = '<div class="text-xs font-mono text-sky-300">Querying Post-Award FOIA / State PIA Incumbent Rate Vault &amp; generating statutory $0-fee demand letter...</div>';
+      var effTitle = String(titleVal || 'Enterprise IT Solicitation');
+      var effSolId = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      if (effTitle.charAt(0) === '[' && effTitle.indexOf(']') > 1) {
+        var cbIdx = effTitle.indexOf(']');
+        effSolId = effTitle.slice(1, cbIdx).trim();
+        effTitle = effTitle.slice(cbIdx + 1).split(' - Due:')[0].trim();
+      }
+      var compName = 'Your Capture Team LLC';
+      try {
+        var qp = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+        if (qp && (qp.get('company') || qp.get('co'))) compName = qp.get('company') || qp.get('co');
+        var rawA = window.sessionStorage && window.sessionStorage.getItem('st_outbound_attrib');
+        if (rawA && compName === 'Your Capture Team LLC') {
+          var pA = JSON.parse(rawA);
+          if (pA && pA.co) compName = pA.co;
+        }
+        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        for (var pk = 0; pk < pKeys.length; pk++) {
+          var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
+          if (rp && compName === 'Your Capture Team LLC') {
+            var po = JSON.parse(rp);
+            if (po && (po.company || po.company_name)) compName = po.company || po.company_name;
+          }
+        }
+      } catch (e) {}
       try {
         var qUrl = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?state=' +
           encodeURIComponent(stateVal || 'all') +
           '&naics=' + encodeURIComponent(String(naicsVal || '541512').split('/')[0].trim()) +
-          '&solicitation_id=' + encodeURIComponent(String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase()) +
-          '&title=' + encodeURIComponent(titleVal || 'Enterprise IT Solicitation') +
-          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency');
+          '&solicitation_id=' + encodeURIComponent(effSolId) +
+          '&title=' + encodeURIComponent(effTitle) +
+          '&agency=' + encodeURIComponent(agencyVal || 'Government Agency') +
+          '&company_name=' + encodeURIComponent(compName);
         var r = await fetch(qUrl);
         var d = await r.json();
         boxEl.setAttribute('data-loaded', '1');

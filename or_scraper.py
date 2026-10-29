@@ -152,7 +152,10 @@ def fetch_or_oregonbuys_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                title_text = max(cells, key=len)[:160]
+                cand_cells = [c for c in cells if 15 <= len(c) <= 135 and not any(p in c.lower() for p in ("on behalf of", "sourcing event", "is seeking a", "not eligible", "the contractor shall"))]
+                if not cand_cells:
+                    continue
+                title_text = max(cand_cells, key=len)
                 if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b(S-\d{5}-\d{8}|(?:RFP|RFB|RFI|RFQ)[\s\-]*\d{3,10})\b", row_blob, flags=re.IGNORECASE)

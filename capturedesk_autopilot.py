@@ -995,7 +995,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
         )
         rows = [
             r for r in (resp.data or [])
-            if not str(r.get("url") or "").startswith("subscriber://")
+            if not str(r.get("url") or "").startswith(("subscriber://", "treasury://"))
             and not str(r.get("status") or "").startswith("SUBSCRIBER_")
             and _is_actionable_rfp_row(r)
         ]

@@ -159,7 +159,7 @@ def _fetch_mi_sigma_live() -> List[Dict[str, str]]:
                     href = "https://www.michigan.gov" + href
                 results.append(
                     {
-                        "title": f"{text[:135]} - Due: {default_due}",
+                        "title": f"{(text if len(text) <= 135 else text[:135].rsplit(" ", 1)[0])} - Due: {default_due}",
                         "agency": "Michigan Department of Technology, Management & Budget (DTMB / MI SIGMA)",
                         "closing_date": default_due,
                         "url": href,

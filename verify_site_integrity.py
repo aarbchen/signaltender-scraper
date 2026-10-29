@@ -1381,6 +1381,38 @@ def check_product_output_quality_controls() -> None:
             if "not.like.subscriber://*" not in rsrc:
                 fail(f"{rlabel}: Missing `not.like.subscriber://*` filter to exclude internal state rows from live contract queries!")
 
+    # 2b. Verify static /contracts/rfp/*.html and /contracts/recompetes/*.html semantic & button payload hygiene
+    rfp_html_files = sorted(glob.glob(os.path.join(BASE_DIR, "contracts", "rfp", "*.html")))
+    for rfp_f in rfp_html_files:
+        rfp_bn = os.path.basename(rfp_f)
+        with open(rfp_f, "r", encoding="utf-8", errors="replace") as f:
+            rfp_src = f.read()
+        for btn_fn in ("window.compileShipleyProposalZip(", "window.unlockFoiaWinningBidVault(", "window.submitInlineTeamingSlot("):
+            m_btn = re.search(re.escape(btn_fn) + r"[^)]+\)", rfp_src)
+            if m_btn and "[Verified Agency]" in m_btn.group(0):
+                fail(f"contracts/rfp/{rfp_bn}: Action button `{btn_fn}` passes masked `[Verified Agency]` instead of real issuing agency!")
+        for bad_rfp_phrase in (
+            "State PoP Modernization",
+            "treasury://",
+            "Copiers Lease",
+            "Title: Line ",
+            "Privacy &amp; security notice",
+            "Sign up for IT Contracts",
+            "\ufffd",
+        ):
+            if bad_rfp_phrase in rfp_src:
+                fail(f"contracts/rfp/{rfp_bn}: Found prohibited synthetic/noisy phrase '{bad_rfp_phrase}' in rendered RFP dossier page!")
+        if "qParams.get('co')" not in rfp_src or "st_outbound_attrib" not in rfp_src:
+            fail(f"contracts/rfp/{rfp_bn}: Missing `?co=` / `st_outbound_attrib` company attribution in `compileShipleyProposalZip` / `unlockFoiaWinningBidVault`!")
+
+    recompete_idx = os.path.join(BASE_DIR, "contracts", "recompetes", "index.html")
+    if os.path.exists(recompete_idx):
+        with open(recompete_idx, "r", encoding="utf-8", errors="replace") as rf:
+            rec_src = rf.read()
+        for bad_corp_case in (" Llc", "22Nd", " Inc.", "\ufffd"):
+            if bad_corp_case in rec_src and bad_corp_case != " Inc.":
+                fail(f"contracts/recompetes/index.html: Found mangled corporate name casing '{bad_corp_case}'!")
+
     # 3. Execute end-to-end 6-file Shipley Proposal .ZIP & Vault/M1/M2 verification on proposal_compiler.py
     eco_root = r"d:\Data API Ecosystem"
     if eco_root not in sys.path:
