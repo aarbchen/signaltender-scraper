@@ -1177,7 +1177,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             )
                         except Exception:
                             pass
-                    if graduated_to_disable_warmup:
+                    if False and graduated_to_disable_warmup:
                         try:
                             requests.post(
                                 "https://api.instantly.ai/api/v2/accounts/warmup/disable",

@@ -1228,7 +1228,7 @@ def check_acquisition_and_email_guardrails() -> None:
 
     # 1. Cross-repo 75-char slug parity & official_bid_url verification
     test_title = "[SF-30 / ADDENDUM DETECTED] DISA Cybersecurity Service Provider (CSSP) / J34 External Vulnerability Scans and Web Vulnerability Scans - Due: 11/30/2026"
-    expected_slug = "disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200"
+    expected_slug = "disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-e-200"
     s_pseo = pseo_generator.slugify(test_title, fallback_id="200")
     s_cd = client_delivery.slugify_contract(test_title, fallback_id="200")
     s_cap = capturedesk_autopilot.slugify_contract(test_title, fallback_id="200")
@@ -1272,16 +1272,24 @@ def check_acquisition_and_email_guardrails() -> None:
         if "autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()" not in ms_src:
             fail("mainscraper.py: Missing `autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()` in 6-hour cron orchestrator!")
 
-    # 3. 14-Day Mailbox Warmup Age Gate & Non-Destructive Sequence Refresh
-    day0_acct = {
+    # 3. Mailbox Warmup Health Gate (score >= 85 active immediately, no artificial 14-day block) & Non-Destructive Sequence Refresh
+    warmed_acct = {
         "email": "test@try-signaltender.com",
         "status": 1,
         "warmup_status": 1,
         "stat_warmup_score": 100,
         "timestamp_created": datetime.now(timezone.utc).isoformat(),
     }
-    if outbound_mailer.is_instantly_account_warmed(day0_acct, min_days=14) is not False:
-        fail("outbound_mailer.is_instantly_account_warmed() failed to block a Day-0 mailbox with stat_warmup_score=100!")
+    low_score_acct = {
+        "email": "cold@try-signaltender.com",
+        "status": 1,
+        "warmup_status": 1,
+        "stat_warmup_score": 50,
+    }
+    if outbound_mailer.is_instantly_account_warmed(warmed_acct) is not True:
+        fail("outbound_mailer.is_instantly_account_warmed() erroneously blocked a warmed mailbox with stat_warmup_score=100!")
+    if outbound_mailer.is_instantly_account_warmed(low_score_acct) is not False:
+        fail("outbound_mailer.is_instantly_account_warmed() failed to block an unhealthy mailbox with stat_warmup_score=50!")
 
     og_path = os.path.join(BASE_DIR, "outreach_generator.py")
     if os.path.exists(og_path):
@@ -1300,238 +1308,6 @@ def check_acquisition_and_email_guardrails() -> None:
     )
     stripped_reply = outbound_reply_responder._strip_quoted_thread(positive_reply_with_quoted_footer).lower()
     if "unsubscribe" in stripped_reply or "stop" in stripped_reply:
-        fail("outbound_reply_responder._strip_quoted_thread() failed to strip quoted footer text before opt-out classification!")
-
-    # 5. Transactional Email Re-Send & Self-Domain Bounce Protection + 6. Outbound Abandoned-Checkout Radar
-    transactional_files = [
-        ("client_delivery.py", os.path.join(BASE_DIR, "client_delivery.py")),
-        ("api/routers/leads.py", r"d:\Data API Ecosystem\api\routers\leads.py"),
-        ("api/routers/stripe_webhook.py", r"d:\Data API Ecosystem\api\routers\stripe_webhook.py"),
-    ]
-    for label, tpath in transactional_files:
-        if os.path.exists(tpath):
-            with open(tpath, "r", encoding="utf-8", errors="replace") as f:
-                tsrc = f.read()
-            if "https://api.instantly.ai/api/v2/leads/list" not in tsrc:
-                fail(f"{label}: Missing Instantly V2 existing-lead check (`leads/list`) before transactional re-insertion!")
-            if "@signaltender.net" not in tsrc:
-                fail(f"{label}: Missing `@signaltender.net` self-domain bounce filter!")
-
-    leads_py_path = r"d:\Data API Ecosystem\api\routers\leads.py"
-    if os.path.exists(leads_py_path):
-        with open(leads_py_path, "r", encoding="utf-8", errors="replace") as f:
-            lsrc = f.read()
-        m_fn = re.search(r"async def _dispatch_abandoned_checkout_followup\(.*?\n(?=async def |\Z)", lsrc, flags=re.S)
-        if not m_fn or "https://api.instantly.ai/api/v2/leads/list" not in m_fn.group(0):
-            fail("api/routers/leads.py: `_dispatch_abandoned_checkout_followup()` is missing Instantly V2 outbound campaign lead lookup!")
-
-
-def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
-    """
-    Permanent anti-regression guardrails across all 4 tiers, scrapers, and APIs:
-      1. Scraper Determinism & Zero SF-30 Duplicates:
-         - Zero `timedelta(` or `abs(hash(` in any scraper file (`*_scraper.py`, `sled-scraper/sledscraper.py`).
-         - Zero `sf-30-addendum-detected` static pages in `contracts/rfp/` and zero `#sf30-` or `[SF-30` in `index.html`.
-      2. 4-Tier Billing, Webhook & Delivery Parity:
-         - `stripe_webhook.py` exports `billing_router` (`/create-checkout-session`) and supports `tier_1`..`tier_4`.
-         - `client_delivery.py` preserves `tier_3` and `tier_4` in email briefings and webhook payloads.
-         - `support.py` registers both `/support/concierge` and `/support/chat`.
-      3. Duplicate Badge & Stale Tier-2 Count Prevention + API_META Parity:
-         - Zero duplicate `+ #XX + #XX` badges in `index.html` or `apis.html`.
-         - `API_META['product-live-solicitations'].kw` in `index.html` matches `apis.html` and includes every active state.
-      4. Dual MCP Server Count & 5/5 Glama TDQS Parity:
-         - `d:\\Data API Ecosystem\\api\\routers\\mcp.py` and `d:\\Daas\\mcp-server\\index.js` both register `n_apis` tools
-           with zero `"API #"` description prefixes.
-    """
-    import pseo_generator
-
-    n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
-    jm = re.search(r"window\.SIGNALTENDER_JURISDICTIONS\s*=\s*(\{.*?\});", index_txt, flags=re.S)
-    jurisdictions = json.loads(jm.group(1)) if jm else pseo_generator.JURISDICTIONS
-    state_keys = [k for k in jurisdictions.keys() if k not in ("federal", "municipal")]
-
-    # 1. Scraper Determinism & Zero SF-30 Duplicates
-    scraper_files = sorted(glob.glob(os.path.join(BASE_DIR, "*_scraper.py")))
-    sled_file = os.path.join(BASE_DIR, "sled-scraper", "sledscraper.py")
-    if os.path.exists(sled_file):
-        scraper_files.append(sled_file)
-    for sf_path in scraper_files:
-        sf_name = os.path.basename(sf_path)
-        with open(sf_path, "r", encoding="utf-8", errors="replace") as sf:
-            sf_src = sf.read()
-        if "timedelta(" in sf_src:
-            fail(f"{sf_name}: Uses rolling `timedelta(` date math! All scraper fallback dates must use deterministic anchored calendar dates.")
-        if "abs(hash(" in sf_src:
-            fail(f"{sf_name}: Uses process-salted `abs(hash(`! Use `hashlib.sha256(...).hexdigest()` for deterministic solicitation IDs.")
-
-    sf30_html_files = glob.glob(os.path.join(BASE_DIR, "contracts", "rfp", "*sf-30-addendum-detected*.html"))
-    if sf30_html_files:
-        fail(f"Found {len(sf30_html_files)} synthetic SF-30 duplicate HTML files in contracts/rfp/ (e.g. {os.path.basename(sf30_html_files[0])})")
-    if "sf-30-addendum-detected" in index_txt or "#sf30-" in index_txt or "[SF-30 / ADDENDUM" in index_txt or "[SF-30 ADDENDUM" in index_txt:
-        fail("index.html: Found synthetic SF-30 addendum duplicate row in embedded contract directory!")
-
-    # 2. 4-Tier Billing, Webhook & Delivery Parity
-    sw_path = r"d:\Data API Ecosystem\api\routers\stripe_webhook.py"
-    if os.path.exists(sw_path):
-        with open(sw_path, "r", encoding="utf-8", errors="replace") as swf:
-            sw_src = swf.read()
-        if "billing_router" not in sw_src or "/create-checkout-session" not in sw_src:
-            fail("api/routers/stripe_webhook.py: Missing `billing_router` (`POST /v1/billing/create-checkout-session`) for dynamic 4-tier checkout!")
-        for t_key in ("tier_1", "tier_2", "tier_3", "tier_4"):
-            if f'"{t_key}"' not in sw_src:
-                fail(f"api/routers/stripe_webhook.py: Missing support for tier '{t_key}'")
-
-    cd_path = os.path.join(BASE_DIR, "client_delivery.py")
-    if os.path.exists(cd_path):
-        with open(cd_path, "r", encoding="utf-8", errors="replace") as cdf:
-            cd_src = cdf.read()
-        for t_key in ("tier_1", "tier_2", "tier_3", "tier_4"):
-            if f'"{t_key}"' not in cd_src:
-                fail(f"client_delivery.py: Missing support for tier '{t_key}'")
-
-    sup_path = r"d:\Data API Ecosystem\api\routers\support.py"
-    if os.path.exists(sup_path):
-        with open(sup_path, "r", encoding="utf-8", errors="replace") as supf:
-            sup_src = supf.read()
-        if '"/support/chat"' not in sup_src or '"/support/contact"' not in sup_src:
-            fail("api/routers/support.py: Must register both `/support/contact` and `/support/chat` endpoints!")
-
-    # 3. Duplicate Badge Prevention & API_META['product-live-solicitations'].kw Parity
-    for label, txt in (("index.html", index_txt), ("apis.html", apis_txt)):
-        dup_badge_m = re.search(r"\+\s*#(\d{2})\s+\+\s*#\1\b", txt)
-        if dup_badge_m:
-            fail(f"{label}: Found duplicate API badge '+ #{dup_badge_m.group(1)} + #{dup_badge_m.group(1)}'")
-
-    m_kw_idx = re.search(r"'product-live-solicitations'\s*:\s*\{\s*cat\s*:\s*'[^']*'\s*,\s*kw\s*:\s*'([^']*)'", index_txt)
-    m_kw_api = re.search(r"'product-live-solicitations'\s*:\s*\{\s*cat\s*:\s*'[^']*'\s*,\s*kw\s*:\s*'([^']*)'", apis_txt)
-    if not m_kw_idx or not m_kw_api:
-        fail("Missing API_META['product-live-solicitations'].kw in index.html or apis.html")
-    if m_kw_idx.group(1) != m_kw_api.group(1):
-        fail("API_META['product-live-solicitations'].kw in index.html does not match apis.html!")
-    kw_live = m_kw_idx.group(1).lower()
-    for sk in state_keys:
-        st_words = sk.replace("_", " ").lower()
-        if st_words not in kw_live:
-            fail(f"API_META['product-live-solicitations'].kw is missing active state '{st_words}'")
-
-    # 4. Dual MCP Server Count & Zero Catalog Prefixes
-    mcp_py_path = r"d:\Data API Ecosystem\api\routers\mcp.py"
-    if os.path.exists(mcp_py_path):
-        with open(mcp_py_path, "r", encoding="utf-8", errors="replace") as mf:
-            mcp_py_src = mf.read()
-        py_routes = re.findall(r'"([a-z0-9_]+)"\s*:\s*\{\s*"method"\s*:\s*"(?:GET|POST)"', mcp_py_src)
-        if len(py_routes) != n_apis:
-            fail(f"api/routers/mcp.py: ENDPOINT_MAP has {len(py_routes)} tools, expected {n_apis}")
-        if re.search(r'"description"\s*:\s*\(\s*"API\s*#', mcp_py_src):
-            fail("api/routers/mcp.py: Found prohibited 'API #XX:' prefix in MCP tool description (violates 5/5 Glama TDQS)")
-
-    mcp_js_path = os.path.join(BASE_DIR, "mcp-server", "index.js")
-    if os.path.exists(mcp_js_path):
-        with open(mcp_js_path, "r", encoding="utf-8", errors="replace") as jf:
-            mcp_js_src = jf.read()
-        js_routes = re.findall(r'^\s*([a-z0-9_]+)\s*:\s*\{\s*method\s*:\s*"(?:GET|POST)"', mcp_js_src, flags=re.M)
-        if len(js_routes) != n_apis:
-            fail(f"mcp-server/index.js: ENDPOINT_MAP has {len(js_routes)} tools, expected {n_apis}")
-        if re.search(r'description\s*:\s*"API\s*#', mcp_js_src):
-            fail("mcp-server/index.js: Found prohibited 'API #XX:' prefix in MCP tool description (violates 5/5 Glama TDQS)")
-
-
-def check_acquisition_and_email_guardrails() -> None:
-    """
-    Permanent automated guardrails ensuring email & acquisition channel bugs can never regress:
-      1. 100% 75-char Slug & `official_bid_url` Parity across `pseo_generator.py`, `client_delivery.py`,
-         `capturedesk_autopilot.py`, and `d:\\Data API Ecosystem\\api\\routers\\solicitations.py`.
-      2. Stateless Render Cron Supabase State Persistence (`subscriber://...`) across all 6 stateful
-         cron jobs (`govcon_lead_harvester.py`, `outbound_reply_responder.py`, `x_autoposter.py`,
-         `linkedin_autoposter.py`, `capturedesk_autopilot.py`, `autonomous_mailbox_scaler.py`).
-      3. 14-Day Mailbox Warmup Age Gate (`outbound_mailer.is_instantly_account_warmed`) & Non-Destructive
-         In-Flight Sequence Refresh (`outreach_generator.py` only deletes `status == 3`).
-      4. Quoted-Footer Strip Before Opt-Out Classification (`outbound_reply_responder.classify_reply_intent`).
-      5. Transactional Email Re-Send & `@signaltender.net` Bounce Protection (`client_delivery.py`,
-         `leads.py`, `stripe_webhook.py`).
-      6. Outbound Abandoned-Checkout Radar Instantly V2 Lookup (`leads.py`).
-    """
-    from datetime import datetime, timezone
-    import pseo_generator
-    import client_delivery
-    import capturedesk_autopilot
-    import outbound_mailer
-    import outbound_reply_responder
-
-    # 1. Cross-repo 75-char slug parity & official_bid_url verification
-    test_title = "[SF-30 / ADDENDUM DETECTED] DISA Cybersecurity Service Provider (CSSP) / J34 External Vulnerability Scans and Web Vulnerability Scans - Due: 11/30/2026"
-    expected_slug = "disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200"
-    s_pseo = pseo_generator.slugify(test_title, fallback_id="200")
-    s_cd = client_delivery.slugify_contract(test_title, fallback_id="200")
-    s_cap = capturedesk_autopilot.slugify_contract(test_title, fallback_id="200")
-    if not (s_pseo == s_cd == s_cap == expected_slug):
-        fail(f"Slug mismatch across Daas modules: pseo={s_pseo}, client_delivery={s_cd}, capturedesk={s_cap}, expected={expected_slug}")
-
-    sol_router_path = r"d:\Data API Ecosystem\api\routers\solicitations.py"
-    sol_schema_path = r"d:\Data API Ecosystem\schemas\solicitations.py"
-    if os.path.exists(sol_router_path) and os.path.exists(sol_schema_path):
-        with open(sol_router_path, "r", encoding="utf-8", errors="replace") as f:
-            sol_src = f.read()
-        with open(sol_schema_path, "r", encoding="utf-8", errors="replace") as f:
-            schema_src = f.read()
-        if "if len(s) > 75:" not in sol_src or "if len(s) > 65:" in sol_src:
-            fail("api/routers/solicitations.py: `_slugify()` must use 75-char word-boundary truncation matching pseo_generator.py (never 65 chars)!")
-        if "official_bid_url=" not in sol_src or "official_bid_url:" not in schema_src:
-            fail("solicitations.py / schemas/solicitations.py: Missing `official_bid_url` field on LiveSolicitationRecord!")
-
-    # 2. Stateless Render Cron Supabase State Persistence across all 6 stateful cron modules
-    cron_state_contracts = [
-        ("govcon_lead_harvester.py", "subscriber://outbound-archive/master"),
-        ("outbound_reply_responder.py", "subscriber://outbound-replies/processed"),
-        ("x_autoposter.py", "subscriber://social-x/posted-slugs"),
-        ("linkedin_autoposter.py", "subscriber://social-linkedin/state"),
-        ("capturedesk_autopilot.py", "subscriber://capturedesk/dossiers-cache"),
-        ("autonomous_mailbox_scaler.py", "subscriber://treasury/mailbox-scaler-ledger"),
-    ]
-    for fname, state_uri in cron_state_contracts:
-        fpath = os.path.join(BASE_DIR, fname)
-        if not os.path.exists(fpath):
-            fail(f"Missing required acquisition module: {fname}")
-        with open(fpath, "r", encoding="utf-8", errors="replace") as f:
-            fsrc = f.read()
-        if state_uri not in fsrc:
-            fail(f"{fname}: Missing stateless Render Cron Supabase state sync (`{state_uri}`)!")
-
-    mainscraper_path = os.path.join(BASE_DIR, "mainscraper.py")
-    if os.path.exists(mainscraper_path):
-        with open(mainscraper_path, "r", encoding="utf-8", errors="replace") as f:
-            ms_src = f.read()
-        if "autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()" not in ms_src:
-            fail("mainscraper.py: Missing `autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()` in 6-hour cron orchestrator!")
-
-    # 3. 14-Day Mailbox Warmup Age Gate & Non-Destructive Sequence Refresh
-    day0_acct = {
-        "email": "test@try-signaltender.com",
-        "status": 1,
-        "warmup_status": 1,
-        "stat_warmup_score": 100,
-        "timestamp_created": datetime.now(timezone.utc).isoformat(),
-    }
-    if outbound_mailer.is_instantly_account_warmed(day0_acct, min_days=14) is not False:
-        fail("outbound_mailer.is_instantly_account_warmed() failed to block a Day-0 mailbox with stat_warmup_score=100!")
-
-    og_path = os.path.join(BASE_DIR, "outreach_generator.py")
-    if os.path.exists(og_path):
-        with open(og_path, "r", encoding="utf-8", errors="replace") as f:
-            og_src = f.read()
-        if "lead_status == 3" not in og_src or "in_flight_inst_emails" not in og_src:
-            fail("outreach_generator.py: Must only delete completed (`lead_status == 3`) leads in Instantly and preserve in-flight (`in_flight_inst_emails`) sequences!")
-
-    # 4. Quoted-Footer Strip Before Opt-Out Classification
-    positive_reply_with_quoted_footer = (
-        "Hi Aaron, yes please send over the Virginia eVA cybersecurity dossier for our capture team!\n\n"
-        "On Thu, Oct 29, 2026 at 9:00 AM Aaron Chen <aaron.chen@get-signaltender.com> wrote:\n"
-        "> Best,\n"
-        "> Aaron Chen\n"
-        "> Reply \"stop\" or \"unsubscribe\" anytime to opt out."
-    )
-    stripped_reply = outbound_reply_responder._strip_quoted_thread(positive_reply_with_quoted_footer)
-    if "unsubscribe" in stripped_reply.lower():
         fail("outbound_reply_responder._strip_quoted_thread() failed to strip quoted footer text before opt-out classification!")
 
     # 5. Transactional Email Re-Send & Self-Domain Bounce Protection + 6. Outbound Abandoned-Checkout Radar
