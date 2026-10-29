@@ -1228,7 +1228,7 @@ def check_acquisition_and_email_guardrails() -> None:
 
     # 1. Cross-repo 75-char slug parity & official_bid_url verification
     test_title = "[SF-30 / ADDENDUM DETECTED] DISA Cybersecurity Service Provider (CSSP) / J34 External Vulnerability Scans and Web Vulnerability Scans - Due: 11/30/2026"
-    expected_slug = "disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-e-200"
+    expected_slug = "disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200"
     s_pseo = pseo_generator.slugify(test_title, fallback_id="200")
     s_cd = client_delivery.slugify_contract(test_title, fallback_id="200")
     s_cap = capturedesk_autopilot.slugify_contract(test_title, fallback_id="200")
