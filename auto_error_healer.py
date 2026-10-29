@@ -295,8 +295,8 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 
     # 3b. Verify stateless Render Cron Supabase state persistence across all 6 stateful acquisition/email jobs
     for fname, state_uri in (
-        ("govcon_lead_harvester.py", "subscriber://outbound-archive/master"),
-        ("outbound_reply_responder.py", "subscriber://outbound-replies/processed"),
+        ("govcon_lead_harvester.py", "subscriber://harvester/known-emails"),
+        ("outbound_reply_responder.py", "subscriber://reply-responder/processed-ids"),
         ("x_autoposter.py", "subscriber://social-x/posted-slugs"),
         ("linkedin_autoposter.py", "subscriber://social-linkedin/state"),
         ("capturedesk_autopilot.py", "subscriber://capturedesk/dossiers-cache"),
