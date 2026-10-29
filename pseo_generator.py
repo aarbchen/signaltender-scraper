@@ -360,7 +360,7 @@ def is_commodity_it_spam(title: str) -> bool:
 
 def send_discord_alert(message: str):
     report_error("pseo_generator.py", str(message))
-    if not DISCORD_WEBHOOK_URL:
+    if not DISCORD_WEBHOOK_URL or not os.getenv("DISCORD_EMIT_DETECTION_ALERTS"):
         return
     try:
         requests.post(
