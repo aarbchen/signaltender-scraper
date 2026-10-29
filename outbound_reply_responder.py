@@ -21,6 +21,7 @@ configure_utf8_stdio()
 import csv
 import json
 import os
+import time
 from datetime import datetime, timezone
 import requests
 from dotenv import load_dotenv
@@ -230,13 +231,20 @@ def run_reply_responder() -> dict:
     unsub_count = 0
 
     try:
-        resp = requests.get(
-            "https://api.instantly.ai/api/v2/emails",
-            params={"campaign_id": INSTANTLY_CAMPAIGN_ID, "email_type": "received", "limit": 50},
-            headers=headers,
-            timeout=15,
-        )
-        if resp.status_code != 200:
+        resp = None
+        for attempt in range(3):
+            try:
+                resp = requests.get(
+                    "https://api.instantly.ai/api/v2/emails",
+                    params={"campaign_id": INSTANTLY_CAMPAIGN_ID, "email_type": "received", "limit": 50},
+                    headers=headers,
+                    timeout=20,
+                )
+                break
+            except requests.exceptions.RequestException:
+                if attempt < 2:
+                    time.sleep(1.5 * (attempt + 1))
+        if resp is None or resp.status_code != 200:
             return {"status": "ok", "checked": 0}
 
         items = resp.json().get("items") or []
