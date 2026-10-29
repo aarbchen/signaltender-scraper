@@ -117,13 +117,13 @@ def write_watcher_heartbeat() -> None:
 
 
 def is_daily_expansion_due() -> tuple[bool, str]:
-    """Return (True, reason) if today's 3-scraper + 3-API daily expansion quota has not been completed yet."""
+    """Return (True, reason) if today's 5-scraper + 5-API daily expansion quota has not been completed yet."""
     if not os.path.exists(ROADMAP_PATH):
         return False, ""
     try:
         with open(ROADMAP_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
-        daily_quota = int(data.get("daily_quota") or 3)
+        daily_quota = int(data.get("daily_quota") or 5)
         last_date = str(data.get("last_completed_date") or "").strip()
         completed_today_date = str(data.get("completed_today_date") or "").strip()
         completed_today_count = int(data.get("completed_today_count") or 0)
@@ -154,7 +154,7 @@ def is_daily_expansion_due() -> tuple[bool, str]:
                 summary_parts.append(f"Item {d_num} ({s_name} Scraper + API #{a_num})")
             return (
                 True,
-                f"3x Daily Expansion Quota ({completed_today_count}/{daily_quota} completed for {today_str}; "
+                f"5x Daily Expansion Quota ({completed_today_count}/{daily_quota} completed for {today_str}; "
                 f"{len(due_slice)} remaining today): " + ", ".join(summary_parts),
             )
     except Exception:

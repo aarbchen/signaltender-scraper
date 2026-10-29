@@ -54,7 +54,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TREASURY_LEDGER_PATH = os.path.join(BASE_DIR, "reinvestment_treasury_ledger.json")
 AVATAR_PNG_PATH = os.path.join(BASE_DIR, "apple-touch-icon.png")
-BIMI_SVG_URL = "https://signaltender.net/bimi-logo.svg"
+BIMI_SVG_URL = "https://signaltender.net/contracts/bimi-logo.svg"
 
 SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
 SUPABASE_KEY = (os.getenv("SUPABASE_KEY") or "").strip()
@@ -297,6 +297,7 @@ def sync_revenue_treasury_from_supabase(ledger: Dict[str, Any]) -> Dict[str, Any
     allocated_rev = float(ledger.get("total_reinvestment_allocated_usd") or 0.0)
 
     try:
+        treasury_covered_emails: set[str] = set()
         # 1. Explicit treasury credit rows written by Stripe webhook
         r_treasury = requests.get(
             f"{SUPABASE_URL}/rest/v1/contracts",
@@ -312,12 +313,15 @@ def sync_revenue_treasury_from_supabase(ledger: Dict[str, Any]) -> Dict[str, Any
         if r_treasury.status_code == 200:
             for row in (r_treasury.json() or []):
                 tx_key = str(row.get("url") or f"treasury_row_{row.get('id')}").strip()
-                if tx_key in credited_keys:
-                    continue
                 try:
                     meta = json.loads(str(row.get("agency") or "{}"))
                 except Exception:
                     meta = {}
+                em_meta = str(meta.get("email") or "").strip().lower()
+                if em_meta:
+                    treasury_covered_emails.add(em_meta)
+                if tx_key in credited_keys:
+                    continue
                 amt = float(meta.get("amount_usd") or 0.0)
                 if amt <= 0:
                     continue
@@ -326,7 +330,7 @@ def sync_revenue_treasury_from_supabase(ledger: Dict[str, Any]) -> Dict[str, Any
                 allocated_rev = round(allocated_rev + reinvest_share, 2)
                 credited_keys.add(tx_key)
 
-        # 2. Active paid subscribers in Supabase (excluding founder/admin/audit test accounts)
+        # 2. Active paid subscribers in Supabase (fallback ONLY if not already credited via SUBSCRIBER_REINVESTMENT_TREASURY)
         r_subs = requests.get(
             f"{SUPABASE_URL}/rest/v1/contracts",
             params={
@@ -345,6 +349,7 @@ def sync_revenue_treasury_from_supabase(ledger: Dict[str, Any]) -> Dict[str, Any
                 if (
                     not email
                     or email in EXCLUDED_FOUNDER_OR_TEST_EMAILS
+                    or email in treasury_covered_emails
                     or email.startswith("client.portal.audit.")
                     or email.endswith("@example.com")
                 ):
@@ -429,7 +434,7 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
     }
 
     try:
-        # 2. Check or create Cloudflare Zone
+        # 2. Check if zone already exists in Cloudflare; only create a new zone if the domain is registered
         z_get = requests.get(
             "https://api.cloudflare.com/client/v4/zones",
             params={"name": domain},
@@ -442,7 +447,8 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
             z_obj = z_get.json()["result"][0]
             zone_id = str(z_obj.get("id") or "")
             nameservers = list(z_obj.get("name_servers") or [])
-        else:
+            result["registered"] = True
+        elif result["registered"] or not check_domain_availability_rdap(domain):
             z_post = requests.post(
                 "https://api.cloudflare.com/client/v4/zones",
                 headers=cf_headers,
@@ -457,6 +463,9 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
                 z_obj = z_post.json()["result"]
                 zone_id = str(z_obj.get("id") or "")
                 nameservers = list(z_obj.get("name_servers") or [])
+        else:
+            result["status"] = "staged_awaiting_domain_registration"
+            return result
 
         if not zone_id:
             return result
@@ -464,7 +473,16 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
         result["zone_id"] = zone_id
         result["nameservers"] = nameservers
 
-        # 3. Provision MX, SPF, DMARC, BIMI (SignalTender Logo), and Root Proxied A Records
+        # 3. Idempotently Provision MX, SPF, DMARC, BIMI (SignalTender Logo), and Root Proxied A Records
+        existing_dns = []
+        r_list_dns = requests.get(
+            f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records?per_page=100",
+            headers=cf_headers,
+            timeout=10,
+        )
+        if r_list_dns.status_code == 200:
+            existing_dns = (r_list_dns.json() or {}).get("result") or []
+
         dns_specs = [
             {"type": "MX", "name": "@", "content": "ASPMX.L.GOOGLE.COM", "priority": 1, "ttl": 3600},
             {"type": "MX", "name": "@", "content": "ALT1.ASPMX.L.GOOGLE.COM", "priority": 5, "ttl": 3600},
@@ -475,7 +493,7 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
             {
                 "type": "TXT",
                 "name": "_dmarc",
-                "content": f"v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@signaltender.net; adkim=r; aspf=r;",
+                "content": "v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@signaltender.net; adkim=r; aspf=r;",
                 "ttl": 3600,
             },
             {
@@ -489,12 +507,30 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
         ]
 
         for rec in dns_specs:
-            r_dns = requests.post(
-                f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records",
-                headers=cf_headers,
-                json=rec,
-                timeout=10,
-            )
+            fqdn = domain if rec["name"] == "@" else f"{rec['name']}.{domain}"
+            match_rec = None
+            for ex in existing_dns:
+                if ex.get("type") == rec["type"] and ex.get("name") == fqdn:
+                    if rec["type"] == "MX" and str(ex.get("content") or "").upper() != rec["content"].upper():
+                        continue
+                    if rec["type"] == "TXT" and rec["name"] == "@" and not str(ex.get("content") or "").startswith("v=spf1"):
+                        continue
+                    match_rec = ex
+                    break
+            if match_rec and match_rec.get("id"):
+                r_dns = requests.put(
+                    f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records/{match_rec['id']}",
+                    headers=cf_headers,
+                    json=rec,
+                    timeout=10,
+                )
+            else:
+                r_dns = requests.post(
+                    f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records",
+                    headers=cf_headers,
+                    json=rec,
+                    timeout=10,
+                )
             if r_dns.status_code in (200, 201):
                 result["dns_records_created"].append(f"{rec['type']}:{rec['name']}")
                 if rec["name"] == "default._bimi":
@@ -608,10 +644,50 @@ def queue_mailboxes_to_instantly_and_expand(new_mailboxes: List[Dict[str, Any]])
        the live fleet telemetry.
     """
     all_accounts, warmed_emails, warming_emails = fetch_live_instantly_accounts()
+    existing_inst_set = {str(a.get("email") or "").strip().lower() for a in all_accounts if isinstance(a, dict)}
     inst_headers = {
         "Authorization": f"Bearer {INSTANTLY_API_KEY}",
         "Content-Type": "application/json",
     }
+
+    # Register any newly provisioned mailbox that carries SMTP/IMAP credentials into Instantly V2
+    for mb in new_mailboxes:
+        em = str(mb.get("email") or "").strip().lower()
+        smtp_pw = str(mb.get("smtp_password") or os.getenv("INSTANTLY_DEFAULT_APP_PASSWORD") or "").strip()
+        if em and smtp_pw and em not in existing_inst_set and INSTANTLY_API_KEY:
+            try:
+                r_create = requests.post(
+                    "https://api.instantly.ai/api/v2/accounts",
+                    headers=inst_headers,
+                    json={
+                        "email": em,
+                        "first_name": mb.get("first_name", "Aaron"),
+                        "last_name": mb.get("last_name", "Chen | SignalTender"),
+                        "provider_code": 2,
+                        "imap_username": em,
+                        "imap_password": smtp_pw,
+                        "imap_host": "imap.gmail.com",
+                        "imap_port": 993,
+                        "smtp_username": em,
+                        "smtp_password": smtp_pw,
+                        "smtp_host": "smtp.gmail.com",
+                        "smtp_port": 587,
+                        "daily_limit": SENDS_PER_MAILBOX_PER_DAY,
+                    },
+                    timeout=12,
+                )
+                if r_create.status_code in (200, 201):
+                    mb["queued_in_instantly"] = True
+                    warming_emails.append(em)
+                    requests.post(
+                        "https://api.instantly.ai/api/v2/accounts/warmup/enable",
+                        headers=inst_headers,
+                        json={"emails": [em]},
+                        timeout=10,
+                    )
+                    mb["warmup_enabled"] = True
+            except Exception as exc:
+                report_error("autonomous_mailbox_scaler.py", f"Instantly account register warning for {em}: {exc}", severity="WARNING")
 
     # Ensure any warming account with warmup_status == 0 (and score < 85) has warmup enabled
     need_warmup_enable = [
@@ -870,7 +946,7 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
             }
             new_pods_created.append(pod_record)
 
-            if cf_res.get("registered") or cf_res.get("zone_id"):
+            if cf_res.get("registered") and cf_res.get("zone_id"):
                 ledger.setdefault("provisioned_domains", []).append(cf_res)
                 ledger.setdefault("provisioned_mailboxes", []).extend(mb_res)
                 ledger["total_reinvestment_spent_usd"] = round(
@@ -881,8 +957,14 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
                     2,
                 )
             else:
-                # Stage in provisioning queue until CLOUDFLARE_API_TOKEN / PORKBUN_API_KEY is added to .env
-                ledger.setdefault("staged_provisioning_queue", []).append(pod_record)
+                # Stage in provisioning queue without prematurely deducting balance until domain is registered
+                existing_staged_doms = {
+                    str(x.get("domain") or "").strip().lower()
+                    for x in (ledger.get("staged_provisioning_queue") or [])
+                    if isinstance(x, dict)
+                }
+                if dom not in existing_staged_doms:
+                    ledger.setdefault("staged_provisioning_queue", []).append(pod_record)
 
     instantly_fleet = queue_mailboxes_to_instantly_and_expand(
         [mb for pod in new_pods_created for mb in (pod.get("mailboxes") or []) if isinstance(mb, dict)]
