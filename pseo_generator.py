@@ -4109,7 +4109,7 @@ def generate_pseo_site() -> int:
                       </div>
                       <div id="teaming-status-static" class="hidden"></div>
                     </div>
-                    <p class="text-[11px] font-mono text-slate-400">Instant 60-second Discord, Slack, Microsoft Teams &amp; CRM webhook activation. Cancel anytime.</p>
+                    <p class="text-[11px] font-mono text-slate-400">Instant 60-second Slack, Microsoft Teams, CRM Webhook, Email &amp; Discord activation. Cancel anytime.</p>
                   </div>
                 </div>
 
@@ -5483,7 +5483,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                       '</div>' +
                       '<div id="teaming-status-' + esc(item.slug) + '" class="hidden"></div>' +
                     '</div>' +
-                    '<p class="text-[11px] font-mono text-slate-400">Instant 60-second Discord, Slack, Microsoft Teams &amp; CRM webhook activation. Cancel anytime.</p>' +
+                    '<p class="text-[11px] font-mono text-slate-400">Instant 60-second Slack, Microsoft Teams, CRM Webhook, Email &amp; Discord activation. Cancel anytime.</p>' +
                   '</div>' +
                 '</div>' +
                 '<div id="contracts-rfp-related-card" class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">' +
