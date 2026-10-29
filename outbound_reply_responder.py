@@ -95,24 +95,106 @@ def _lookup_prospect_context(from_email: str) -> dict:
     }
 
 
+SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
+SUPABASE_KEY = (os.getenv("SUPABASE_KEY") or "").strip()
+PROCESSED_REPLIES_SUPABASE_URI = "subscriber://outbound-replies/processed"
+
+
+def _strip_quoted_thread(raw_text: str) -> str:
+    """
+    Strip quoted email thread history (`On ... wrote:`, `From: ...`, `-----Original Message-----`,
+    and `>` quote lines) so our own Step 1 footer (`...or should I take you off my list?`) quoted at
+    the bottom of a prospect's reply never triggers a false-positive UNSUBSCRIBE.
+    """
+    lines = []
+    for line in str(raw_text or "").splitlines():
+        s = line.strip()
+        low_s = s.lower()
+        if s.startswith(">"):
+            continue
+        if (
+            (low_s.startswith("on ") and "wrote:" in low_s)
+            or low_s.startswith("-----original message-----")
+            or (low_s.startswith("from:") and "@" in low_s)
+            or low_s.startswith("sent from my ")
+        ):
+            break
+        lines.append(line)
+    cleaned = "\n".join(lines).strip()
+    return cleaned or str(raw_text or "").strip()
+
+
 def _load_processed_ids() -> set[str]:
+    ids: set[str] = set()
     if os.path.exists(PROCESSED_REPLIES_PATH):
         try:
             with open(PROCESSED_REPLIES_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 if isinstance(data, list):
-                    return {str(x) for x in data}
+                    ids |= {str(x) for x in data if x}
         except Exception:
             pass
-    return set()
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            r = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={"url": f"eq.{PROCESSED_REPLIES_SUPABASE_URI}", "select": "title", "limit": "1"},
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=6,
+            )
+            if r.status_code == 200 and r.json():
+                remote_data = json.loads(str((r.json()[0] or {}).get("title") or "[]"))
+                if isinstance(remote_data, list):
+                    ids |= {str(x) for x in remote_data if x}
+        except Exception:
+            pass
+    return ids
 
 
 def _save_processed_ids(ids: set[str]) -> None:
+    sorted_ids = sorted(ids)
     try:
         with open(PROCESSED_REPLIES_PATH, "w", encoding="utf-8") as f:
-            json.dump(sorted(ids), f, indent=2)
+            json.dump(sorted_ids, f, indent=2)
     except Exception:
         pass
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            sb_headers = {
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "Content-Type": "application/json",
+            }
+            chk = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={"url": f"eq.{PROCESSED_REPLIES_SUPABASE_URI}", "select": "id", "limit": "1"},
+                headers=sb_headers,
+                timeout=6,
+            )
+            payload = {
+                "title": json.dumps(sorted_ids),
+                "agency": "SignalTender Processed Outbound Replies",
+                "closing_date": "N/A",
+                "url": PROCESSED_REPLIES_SUPABASE_URI,
+                "status": "SUBSCRIBER_OUTBOUND_SENT_LOG",
+            }
+            if chk.status_code == 200 and chk.json():
+                requests.patch(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    params={"url": f"eq.{PROCESSED_REPLIES_SUPABASE_URI}"},
+                    headers=sb_headers,
+                    json=payload,
+                    timeout=6,
+                )
+            else:
+                requests.post(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    headers=sb_headers,
+                    json=payload,
+                    timeout=6,
+                )
+        except Exception:
+            pass
 
 
 def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> dict:
@@ -121,8 +203,23 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     that references the exact 3 RFPs, Top Contract Dossier URL, and USAspending Recompete/Subcontracting
     context sent to `from_email`, plus self-serve Tier 1 ($99/mo) / Tier 2 ($399/mo) checkout.
     """
-    low = str(reply_text or "").lower()
-    if any(p in low for p in ("unsubscribe", "remove me", "take me off", "stop emailing", "not interested", "no thanks", "off your list")):
+    top_reply_only = _strip_quoted_thread(reply_text)
+    low = top_reply_only.lower()
+    negated_unsub = any(
+        neg in low
+        for neg in (
+            "don't take me off",
+            "do not take me off",
+            "dont take me off",
+            "don't remove me",
+            "do not remove me",
+            "dont remove me",
+        )
+    )
+    if not negated_unsub and any(
+        p in low
+        for p in ("unsubscribe", "remove me", "take me off", "stop emailing", "not interested", "no thanks", "off your list")
+    ):
         return {"intent": "UNSUBSCRIBE", "reply_body": ""}
 
     ctx = _lookup_prospect_context(from_email)
@@ -302,9 +399,27 @@ def run_reply_responder() -> dict:
             elif intent == "UNSUBSCRIBE":
                 unsub_count += 1
                 if from_email and "@" in from_email:
+                    clean_unsub = from_email.strip().lower()
                     try:
                         import govcon_lead_harvester
-                        govcon_lead_harvester.save_completed_outreach_archive({from_email.strip().lower()})
+                        govcon_lead_harvester.save_completed_outreach_archive({clean_unsub})
+                    except Exception:
+                        pass
+                    try:
+                        l_resp = requests.post(
+                            "https://api.instantly.ai/api/v2/leads/list",
+                            headers=headers,
+                            json={"campaign": INSTANTLY_CAMPAIGN_ID, "search": clean_unsub, "limit": 20},
+                            timeout=10,
+                        )
+                        if l_resp.status_code == 200:
+                            for l_it in (l_resp.json().get("items") or []):
+                                if str(l_it.get("email") or "").strip().lower() == clean_unsub and l_it.get("id"):
+                                    requests.delete(
+                                        f"https://api.instantly.ai/api/v2/leads/{l_it['id']}",
+                                        headers={"Authorization": f"Bearer {INSTANTLY_API_KEY}"},
+                                        timeout=10,
+                                    )
                     except Exception:
                         pass
 

@@ -54,13 +54,20 @@ COMPLETED_ARCHIVE_PATH = os.path.join(BASE_DIR, "completed_outreach_archive.json
 CONTACTS_POC_CACHE_PATH = os.path.join(BASE_DIR, "govcon_contacts_cache.json")
 
 
+_SHARED_ARCHIVE_MEMORY_CACHE: Optional[set[str]] = None
+
+
 def load_completed_outreach_archive() -> set[str]:
     """
     Loads all previously contacted emails (both legacy non-responders and leads that
-    completed Step 1 + Step 2 in Instantly with 0 replies) so they are never re-harvested
-    or re-uploaded when rotating the 245-lead Instantly active buffer.
+    completed Step 1 + Step 2 + Step 3 in Instantly with 0 replies, or bounced/unsubscribed)
+    from local disk AND Supabase (`url = subscriber://outbound-archive/master`) so stateless
+    Render Cron containers and local runs share the exact same archive.
     """
+    global _SHARED_ARCHIVE_MEMORY_CACHE
     archived = set(ALREADY_CONTACTED_LEGACY_EMAILS)
+    if _SHARED_ARCHIVE_MEMORY_CACHE is not None:
+        archived |= _SHARED_ARCHIVE_MEMORY_CACHE
     if os.path.exists(COMPLETED_ARCHIVE_PATH):
         try:
             with open(COMPLETED_ARCHIVE_PATH, "r", encoding="utf-8") as f:
@@ -71,14 +78,78 @@ def load_completed_outreach_archive() -> set[str]:
                             archived.add(em.strip().lower())
         except Exception:
             pass
+    if _SHARED_ARCHIVE_MEMORY_CACHE is None and SUPABASE_URL and SUPABASE_KEY:
+        try:
+            r = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={
+                    "url": "eq.subscriber://outbound-archive/master",
+                    "select": "title",
+                    "limit": "1",
+                },
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=6,
+            )
+            if r.status_code == 200 and r.json():
+                raw_title = str((r.json()[0] or {}).get("title") or "[]")
+                remote_list = json.loads(raw_title)
+                if isinstance(remote_list, list):
+                    for em in remote_list:
+                        if isinstance(em, str) and "@" in em:
+                            archived.add(em.strip().lower())
+        except Exception:
+            pass
+    _SHARED_ARCHIVE_MEMORY_CACHE = set(archived)
     return archived
 
 
-def save_completed_outreach_archive(emails: set[str]) -> None:
+def save_completed_outreach_archive(emails: set[str], replace: bool = False) -> None:
+    global _SHARED_ARCHIVE_MEMORY_CACHE
     try:
-        merged = sorted(load_completed_outreach_archive() | {str(e).strip().lower() for e in emails if "@" in str(e)})
+        clean_in = {str(e).strip().lower() for e in emails if "@" in str(e)}
+        if replace:
+            merged_set = set(ALREADY_CONTACTED_LEGACY_EMAILS) | clean_in
+        else:
+            merged_set = load_completed_outreach_archive() | clean_in
+        _SHARED_ARCHIVE_MEMORY_CACHE = set(merged_set)
+        merged = sorted(merged_set)
         with open(COMPLETED_ARCHIVE_PATH, "w", encoding="utf-8") as wf:
             json.dump(merged, wf, indent=2)
+        if SUPABASE_URL and SUPABASE_KEY:
+            sub_uri = "subscriber://outbound-archive/master"
+            sb_headers = {
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "Content-Type": "application/json",
+            }
+            chk = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={"url": f"eq.{sub_uri}", "select": "id", "limit": "1"},
+                headers=sb_headers,
+                timeout=6,
+            )
+            payload = {
+                "title": json.dumps(merged),
+                "agency": "SignalTender Outbound Archive",
+                "closing_date": "N/A",
+                "url": sub_uri,
+                "status": "SUBSCRIBER_OUTBOUND_ARCHIVE",
+            }
+            if chk.status_code == 200 and chk.json():
+                requests.patch(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    params={"url": f"eq.{sub_uri}"},
+                    headers=sb_headers,
+                    json=payload,
+                    timeout=6,
+                )
+            else:
+                requests.post(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    headers=sb_headers,
+                    json=payload,
+                    timeout=6,
+                )
     except Exception:
         pass
 
@@ -688,8 +759,9 @@ BAD_LOCAL_PARTS = {
     "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
     "privacy", "legal", "abuse", "dmca", "noreply", "no-reply", "donotreply",
     "webmaster", "postmaster", "security", "careers", "jobs", "hr", "recruiting",
-    "talent", "employmentverifications", "support", "helpdesk",
-    "billing", "accounts", "unsubscribe", "media", "press", "firstname", "lastname",
+    "talent", "employmentverifications", "support", "helpdesk", "help",
+    "billing", "accounts", "unsubscribe", "media", "press", "news", "web", "theteam",
+    "pr", "ir", "firstname", "lastname",
     "first.last", "yourname", "example", "user", "email",
     "human.resources", "humanresources", "investor", "investors", "grants",
 }
@@ -699,7 +771,7 @@ BAD_LOCAL_SUBSTRINGS = (
     "dpo", "legal", "abuse", "dmca", "noreply", "no-reply", "webmaster", "postmaster",
     "security", "psirt", "career", "job", "hr", "human.resource", "humanresource",
     "investor", "grant", "recruit", "talent", "employ", "resume",
-    "billing", "account", "invoice", "claim", "unsub", "media", "press",
+    "billing", "account", "invoice", "claim", "unsub", "media", "press", "news", "theteam",
     "marketing", "events", "admin", "office", "general", "reception", "frontdesk",
     "feedback", "service", "customercare", "u003e", "%20", "sales", "teambox", "connect",
     "mydata", "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
@@ -1361,7 +1433,7 @@ HEALTH_IT_CONTRACTOR_WHITELIST = {
 
 COMPETITOR_OR_EXCLUDED_DOMAINS = {
     "technomile.com", "deltek.com", "govwin.com", "higherlogic.com",
-    "group.com", "alvarez.com",
+    "group.com", "alvarez.com", "rossassociates.com", "eprentise.com", "truveta.com",
 }
 
 NON_IT_BIO_AG_MAT_REGEX = re.compile(
@@ -1371,13 +1443,16 @@ NON_IT_BIO_AG_MAT_REGEX = re.compile(
     r"marine|fish|aqua|forest|soil|mine|metal|alloy|ceram|glass|textil|fabric|wear|bike|motor|"
     r"propul|lunar|planet|acoustic|ultraso|microscop|spectr|instru|device|valve|pump|heat|therm|cool|"
     r"ferment|enzy|protei|peptid|vaccin|immu|dental|livestock|cattle|poultry|timber|lumber|cement|"
-    r"concrete|asphalt|paving|roofing|plumbing|hvac)",
+    r"concrete|asphalt|paving|roofing|plumbing|hvac|fluid|aerogel|hyphae|mycel|fungi|crystal|cristallin|"
+    r"luce|inode|\bink\b|c-motive|motive|x-ray|xray|\breva\b|cyto|cytocyber|environ|ecolog|gaming|"
+    r"winterstudio|cinema|film|beverage|carbon\s*capture|helixearth)",
     re.I,
 )
 
 IT_CYBER_DOMAIN_OR_NAME_REGEX = re.compile(
-    r"(cyber|sec|soft|cloud|data|ai\b|intel|net|comp|tech|sys|dig|code|dev|logic|info|algo|quant|bit|"
-    r"web|app|plat|analyt|auto|robo|comms|signal|crypt|threat|defen)",
+    r"(\bcyber(?!winter)|infosec|appsec|netsec|devsec|cybersec|secops|\bsecurity\b|soft|cloud|data|"
+    r"\bai\b|intel|\bnet(?!ic)|network|comput|tech|system|digital|code|\bdev\b|devops|logic|info|"
+    r"algo|quant|\bbit|web|app\b|platform|analyt|automat|robot|comms|signal|crypt|threat|defen)",
     re.I,
 )
 
@@ -1391,7 +1466,7 @@ def is_verified_it_cyber_prospect(
     """
     Strictly verifies that a prospect is a genuine IT, Cloud, AI, Software, or Cybersecurity
     contractor and NOT a non-IT wet-lab/biotech/agriculture/food/materials/energy SBIR grantee,
-    HR/Investor inbox, or competing GovCon CRM vendor.
+    HR/Investor/News/Webmaster inbox, or competing GovCon CRM vendor.
     """
     em = str(email or "").strip().lower()
     if "@" not in em:
@@ -1399,8 +1474,8 @@ def is_verified_it_cyber_prospect(
     local, dom = em.split("@", 1)
     if dom in COMPETITOR_OR_EXCLUDED_DOMAINS:
         return False
-    if local in ("human.resources", "humanresources", "investor", "investors", "grants") or any(
-        sub in local for sub in ("human.resource", "humanresource", "investor", "grant")
+    if local in BAD_LOCAL_PARTS or any(
+        sub in local for sub in ("human.resource", "humanresource", "investor", "grant", "news", "theteam", "webmaster")
     ):
         return False
     if dom in HEALTH_IT_CONTRACTOR_WHITELIST:
@@ -1408,10 +1483,10 @@ def is_verified_it_cyber_prospect(
     combo = f"{company_name} {dom}"
     if NON_IT_BIO_AG_MAT_REGEX.search(combo):
         return False
+    if title_or_keywords and NON_IT_BIO_AG_MAT_REGEX.search(title_or_keywords):
+        return False
     if "541715" in str(naics_codes or ""):
         if not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(combo):
-            return False
-        if title_or_keywords and NON_IT_BIO_AG_MAT_REGEX.search(title_or_keywords):
             return False
     return True
 
@@ -1425,8 +1500,8 @@ def discover_federal_sbir_and_tech_named_executives(
     Continuously harvests named Founders, Principal Investigators & Federal Tech Capture
     Executives (`firstname.lastname@`, `firstname@`) from the Federal SBIR/STTR & Tech Awards
     API (`https://api.nsf.gov/services/v1/awards.json`) filtered strictly by IT/Cyber/AI/Cloud/Software
-    keywords and `is_verified_it_cyber_prospect()`, scaling automatically with the number of warmed
-    Instantly mailboxes so the campaign never runs out of qualified IT/Cyber leads.
+    keywords (`topic_keywords`), recent `2023+` active cohorts, and `is_verified_it_cyber_prospect()`,
+    scaling automatically with the number of warmed Instantly mailboxes.
     """
     archived_emails = load_completed_outreach_archive()
     seen_emails = set(archived_emails)
@@ -1438,10 +1513,12 @@ def discover_federal_sbir_and_tech_named_executives(
             seen_domains.add(em.split("@", 1)[1])
 
     topic_keywords = (
-        "cybersecurity", "software", "cloud computing", "artificial intelligence", "machine learning",
-        "network security", "data analytics", "encryption", "computer vision", "autonomous systems",
-        "zero trust", "edge computing", "quantum computing", "digital twin", "natural language processing",
-        "devsecops", "5g wireless", "distributed systems", "database", "blockchain",
+        "cybersecurity", "cyber security", "software", "cloud", "artificial intelligence",
+        "machine learning", "network security", "data analytics", "encryption", "computer vision",
+        "autonomous", "zero trust", "edge computing", "quantum computing", "digital twin",
+        "natural language", "large language", "llm", "devsecops", "5g", "distributed system",
+        "database", "blockchain", "cryptograph", "intrusion", "vulnerability", "malware",
+        "authentication", "analytics", "neural network", "saas", "api", "cyber",
     )
 
     newly_verified: List[Dict[str, str]] = []
@@ -1449,10 +1526,10 @@ def discover_federal_sbir_and_tech_named_executives(
         batch_queries: List[Tuple[str, str, int]] = []
         for off in range(1, 2501, 25):
             for prog in ("SBIR", "STTR"):
-                cur_key = f"sbir2020_22_cursor:{prog}:{off}"
+                cur_key = f"sbir2023_it_cursor:{prog}:{off}"
                 if not mx_cache.get(cur_key):
                     mx_cache[cur_key] = True
-                    batch_queries.append((prog, "2020_22", off))
+                    batch_queries.append((prog, "2023_plus", off))
                     if len(batch_queries) >= 24:
                         break
             if len(batch_queries) >= 24:
@@ -1462,17 +1539,15 @@ def discover_federal_sbir_and_tech_named_executives(
             break
 
         def _fetch_batch(q_item: Tuple[str, str, int]) -> List[Dict[str, Any]]:
-            prog, cohort, off = q_item
+            prog, _cohort, off = q_item
             try:
                 params_dict: Dict[str, Any] = {
                     "fundProgramName": prog,
-                    "dateStart": "01/01/2020" if cohort == "2020_22" else "01/01/2023",
+                    "dateStart": "01/01/2023",
                     "offset": off,
                     "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                     "rpp": 25,
                 }
-                if cohort == "2020_22":
-                    params_dict["dateEnd"] = "12/31/2022"
                 r = requests.get(
                     "https://api.nsf.gov/services/v1/awards.json",
                     params=params_dict,
@@ -1496,7 +1571,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 yr = int(start_dt.split("/")[-1])
             except Exception:
                 yr = 0
-            if yr < 2020:
+            if yr < 2023:
                 continue
             em = str(a.get("piEmail") or "").strip().lower()
             fn = str(a.get("piFirstName") or "").strip().title()
@@ -1515,6 +1590,9 @@ def discover_federal_sbir_and_tech_named_executives(
             if local in BAD_LOCAL_PARTS or local in ROLE_LOCAL_PARTS or any(sub in local for sub in BAD_LOCAL_SUBSTRINGS):
                 continue
             if not _domain_matches_company_name(dom, comp_raw):
+                continue
+            title_low = title_raw.lower()
+            if not any(tk in title_low for tk in topic_keywords):
                 continue
             upper_combo = f" {comp_raw.upper()} {title_raw.upper()} "
             if any(w in upper_combo for w in SBIR_NON_IT_WORDS):
@@ -1536,7 +1614,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 "Website": f"https://{dom}",
                 "NAICS Codes": "541511, 541512, 541715",
                 "Industry": "information technology & services",
-                "Keywords": f"govcon, sbir, {st_full.lower()} sled rfp, sam.gov, cybersecurity, cloud, software",
+                "Keywords": f"govcon, sbir, {st_full.lower()} sled rfp, sam.gov, cybersecurity, cloud, software, {title_raw[:120]}",
                 "Primary Email Catch-all Status": "Not Catch-all",
             })
 

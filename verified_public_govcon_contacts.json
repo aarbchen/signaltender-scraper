@@ -302,20 +302,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Daniel",
-    "Last Name": "Fleischer",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Hyphae Design Lab",
-    "Email": "fletch@hyphae.net",
-    "City": "Oakland",
-    "State": "California",
-    "Website": "https://hyphae.net",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Fred",
     "Last Name": "Daneshgaran",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -497,20 +483,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "David",
-    "Last Name": "Vine",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Reva X-Ray Systems",
-    "Email": "dvine@reva.systems",
-    "City": "Alameda",
-    "State": "California",
-    "Website": "https://reva.systems",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Kenneth",
     "Last Name": "Lopiano",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -547,20 +519,6 @@
     "City": "Belmont",
     "State": "California",
     "Website": "https://solrobotics.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Scott",
-    "Last Name": "Ziegler",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Space Kinetic Corp.",
-    "Email": "scottziegler@spacekinetic.com",
-    "City": "El Segundo",
-    "State": "California",
-    "Website": "https://spacekinetic.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, california sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -705,32 +663,6 @@
     "Keywords": "govcon, colorado sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Theteam",
-    "Last Name": "Team",
-    "Title": "Small Business IT & Cyber Capture Lead (CO)",
-    "Company Name": "Cyberwinter Studios",
-    "Email": "theteam@cyberwinterstudios.com",
-    "City": "",
-    "State": "Colorado",
-    "Website": "https://cyberwinterstudios.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, colorado sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Khai",
-    "Last Name": "Huynh",
-    "Title": "Small Business IT & Cyber Capture Lead (CO)",
-    "Company Name": "Inode INK",
-    "Email": "khai.huynh@inodeink.com",
-    "City": "",
-    "State": "Colorado",
-    "Website": "https://inodeink.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, colorado sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
     "First Name": "Gwacs",
     "Last Name": "Team",
     "Title": "Small Business IT & Cyber Capture Lead (CO)",
@@ -756,6 +688,19 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "People",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (FL)",
+    "Company Name": "Halcyon",
+    "Email": "people@halcyonit.com",
+    "City": "",
+    "State": "Florida",
+    "Website": "https://halcyonit.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, florida sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Abubakr",
@@ -784,6 +729,19 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Sheick",
+    "Last Name": "Toure",
+    "Title": "Small Business IT & Cyber Capture Lead (FL)",
+    "Company Name": "Strategic Defense Solutions",
+    "Email": "sheick.toure@sdsfederal.com",
+    "City": "",
+    "State": "Florida",
+    "Website": "https://sdsfederal.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, florida sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Kevin",
@@ -867,34 +825,6 @@
     "Keywords": "govcon, illinois sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Stephen",
-    "Last Name": "Steiner",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Aerogel Technologies",
-    "Email": "ssteiner@aerogeltechnologies.com",
-    "City": "Milwaukee",
-    "State": "Illinois",
-    "Website": "https://aerogeltechnologies.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, illinois sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Justin",
-    "Last Name": "Reed",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "C-Motive Technologies Inc.",
-    "Email": "justin@c-motive.com",
-    "City": "Middleton",
-    "State": "Illinois",
-    "Website": "https://c-motive.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, illinois sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Eduardo",
     "Last Name": "Marques",
     "Title": "Small Business IT & Cyber Capture Lead (IL)",
@@ -906,20 +836,6 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, illinois sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Marcus",
-    "Last Name": "Riedel",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Femtofluidics Incorporated",
-    "Email": "marc@femtofluidics.tech",
-    "City": "Excelsior",
-    "State": "Illinois",
-    "Website": "https://femtofluidics.tech",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, illinois sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "Chad",
@@ -978,6 +894,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Edita",
+    "Last Name": "Kvrgic",
+    "Title": "Small Business IT & Cyber Capture Lead (IL)",
+    "Company Name": "Sentinel Technologies",
+    "Email": "edita.kvrgic@sentinelit.com",
+    "City": "",
+    "State": "Illinois",
+    "Website": "https://sentinelit.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, illinois sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Stefanie",
     "Last Name": "Murphy",
     "Title": "CEO & Public Sector ERP/Cyber Lead",
@@ -1030,6 +959,19 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, maryland sled rfp, sam.gov, cybersecurity, cloud, software",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (MD)",
+    "Company Name": "Alcor Technical Solutions",
+    "Email": "uk@alcor.com",
+    "City": "",
+    "State": "Maryland",
+    "Website": "https://alcor.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Capture",
@@ -1169,20 +1111,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Donald",
-    "Last Name": "Carney",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Fluidity Software",
-    "Email": "donald.carney@fluiditysoftware.com",
-    "City": "Somerville",
-    "State": "Massachusetts",
-    "Website": "https://fluiditysoftware.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Faye",
     "Last Name": "Wu",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1295,20 +1223,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Alexander",
-    "Last Name": "Sappok",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Raysecur Inc.",
-    "Email": "alex@raysecur.com",
-    "City": "Westwood",
-    "State": "Massachusetts",
-    "Website": "https://raysecur.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Lael",
     "Last Name": "Odhner",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1400,19 +1314,6 @@
     "City": "",
     "State": "Michigan",
     "Website": "https://contiem.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, michigan sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Web",
-    "Last Name": "Team",
-    "Title": "Small Business IT & Cyber Capture Lead (MI)",
-    "Company Name": "Eprentise",
-    "Email": "web@eprentise.com",
-    "City": "",
-    "State": "Michigan",
-    "Website": "https://eprentise.com",
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, michigan sled rfp, sam.gov, cybersecurity, cloud, software"
@@ -1570,20 +1471,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Leigh",
-    "Last Name": "Korbel",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Cytocybernetics",
-    "Email": "korbel@cytocybernetics.com",
-    "City": "North Tonawanda",
-    "State": "New York",
-    "Website": "https://cytocybernetics.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Prashanth",
     "Last Name": "Krishnamurthy",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1653,20 +1540,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Eugene",
-    "Last Name": "Petilli",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Owl Autonomous Imaging",
-    "Email": "genep@owlai.us",
-    "City": "Fairport",
-    "State": "New York",
-    "Website": "https://owlai.us",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Prasenjit",
     "Last Name": "Bhadra",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1675,20 +1548,6 @@
     "City": "Long Island City",
     "State": "New York",
     "Website": "https://ranial.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Nicholas",
-    "Last Name": "Nordlund",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Uninet",
-    "Email": "nnordlund@uninet-ct.com",
-    "City": "New Haven",
-    "State": "New York",
-    "Website": "https://uninet-ct.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -1970,20 +1829,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Ekhi",
-    "Last Name": "Muniategui",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Direct Kinetic Solutions",
-    "Email": "ekhi@directkinetics.com",
-    "City": "El Paso",
-    "State": "Texas",
-    "Website": "https://directkinetics.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Yieu",
     "Last Name": "Chyan",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2039,20 +1884,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Samsuddin",
-    "Last Name": "Mahmood",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Graphenetx",
-    "Email": "samsuddin.mahmood@graphenetx.com",
-    "City": "Dallas",
-    "State": "Texas",
-    "Website": "https://graphenetx.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "David",
     "Last Name": "Hanson",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2061,20 +1892,6 @@
     "City": "Dallas",
     "State": "Texas",
     "Website": "https://hansonrobotics.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Rawand",
-    "Last Name": "Rasheed",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Helix Earth Technologies",
-    "Email": "rawand@helixearth.com",
-    "City": "Houston",
-    "State": "Texas",
-    "Website": "https://helixearth.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -2230,20 +2047,6 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
-    "First Name": "Baxter",
-    "Last Name": "Vieux",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Applied Research Team, Inc.",
-    "Email": "baxter.vieux@appliedresearchteam.com",
-    "City": "Denver",
-    "State": "Virginia",
-    "Website": "https://appliedresearchteam.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Nicholas",
     "Last Name": "Kellaris",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2266,34 +2069,6 @@
     "City": "Salt Lake City",
     "State": "Virginia",
     "Website": "https://blacklattice.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Monica",
-    "Last Name": "Sanders",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Bonne Terre Consulting",
-    "Email": "monica@bonneterrelabs.com",
-    "City": "Alexandria",
-    "State": "Virginia",
-    "Website": "https://bonneterrelabs.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Marian",
-    "Last Name": "Klein",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Boulder Environmental Sciences And Technology",
-    "Email": "marian.klein@boulderest.com",
-    "City": "Boulder",
-    "State": "Virginia",
-    "Website": "https://boulderest.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -2451,6 +2226,19 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Jagpal",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Intellect Solutions",
+    "Email": "jagpal@intellectit.com",
+    "City": "",
+    "State": "Virginia",
+    "Website": "https://intellectit.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Daniel",
     "Last Name": "Timco",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2573,20 +2361,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Madhava",
-    "Last Name": "Syamlal",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Qubitsolve Inc.",
-    "Email": "msyamlal@qubitsolve.com",
-    "City": "Morgantown",
-    "State": "Virginia",
-    "Website": "https://qubitsolve.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
     "First Name": "Blake",
     "Last Name": "Herren",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2653,6 +2427,19 @@
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Trilogy Federal",
+    "Email": "bd@trilogyit.com",
+    "City": "",
+    "State": "Virginia",
+    "Website": "https://trilogyit.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Tfoley",
     "Last Name": "Team",
     "Title": "Small Business IT & Cyber Capture Lead (VA)",
@@ -2701,32 +2488,6 @@
     "City": "",
     "State": "Washington",
     "Website": "https://quantechit.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, washington sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Kelly",
-    "Last Name": "Team",
-    "Title": "Small Business IT & Cyber Capture Lead (WA)",
-    "Company Name": "Ross Associates Environmental Consulting",
-    "Email": "kelly@rossassociates.com",
-    "City": "",
-    "State": "Washington",
-    "Website": "https://rossassociates.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, washington sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "News",
-    "Last Name": "Team",
-    "Title": "Small Business IT & Cyber Capture Lead (WA)",
-    "Company Name": "Truveta",
-    "Email": "news@truveta.com",
-    "City": "",
-    "State": "Washington",
-    "Website": "https://truveta.com",
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, washington sled rfp, sam.gov, cybersecurity, cloud, software"

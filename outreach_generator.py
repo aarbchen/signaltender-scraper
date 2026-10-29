@@ -231,19 +231,11 @@ def detect_contract_region(rec: dict) -> str:
         return "mi"
     if "colorado.gov" in url or "denvergov.org" in url or "coloradosprings.gov" in url or "cu.edu" in url:
         return "co"
-    if "sigma.michigan.gov" in url or "michigan.gov" in url:
-        return "mi"
-    if "colorado.gov" in url or "denvergov.org" in url or "coloradosprings.gov" in url or "cu.edu" in url:
-        return "co"
     if ".az.gov" in url or "//az.gov" in url or "azdoa.gov" in url or "phoenix.gov" in url or "chandleraz.gov" in url or "tucsonaz.gov" in url or "maricopa.gov" in url:
         return "az"
-    if "mn.gov" in url or "questcdn.com" in url or "minneapolismn.gov" in url or "hennepin.us" in url or "umn.edu" in url:
-        return "mn"
-    if "tn.gov" in url or "nashville.gov" in url or "memphistn.gov" in url or "tennessee.edu" in url or "utk.edu" in url:
-        return "tn"
     if "mn.gov" in url or "questcdn.com" in url or "metrocouncil.org" in url or "umn.edu" in url or "hennepin.us" in url or "minneapolismn.gov" in url or "stpaul.gov" in url:
         return "mn"
-    if "tn.gov" in url or "tennessee.edu" in url or "tbr.edu" in url or "nashville.gov" in url or "memphistn.gov" in url or "shelbycountytn.gov" in url:
+    if "tn.gov" in url or "tennessee.edu" in url or "utk.edu" in url or "tbr.edu" in url or "nashville.gov" in url or "memphistn.gov" in url or "shelbycountytn.gov" in url:
         return "tn"
     if "in.gov/idoa" in url or "iot.in.gov" in url or "fs.gmis.in.gov" in url or "in.gov" in url or "indy.gov" in url or "purdue.edu" in url or "indiana.edu" in url:
         return "in"
@@ -291,19 +283,13 @@ def detect_contract_region(rec: dict) -> str:
         return "wa"
     if title.startswith("[MI]") or title.lower().startswith("[mi-") or "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency or "mdhhs" in agency or "mdot" in agency or "msp" in agency:
         return "mi"
-    if title.startswith("[MI]") or title.lower().startswith("[mi-") or "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency or "mdhhs" in agency or "mdot" in agency:
-        return "mi"
     if title.startswith("[CO]") or title.lower().startswith("[co-") or "colorado" in agency or "(co)" in agency or "co vss" in agency or "co oit" in agency or "cdot" in agency or "cdphe" in agency:
         return "co"
     if title.startswith("[AZ]") or title.lower().startswith("[az-") or "arizona" in agency or "(az)" in agency or "procure.az.gov" in agency or "adoa" in agency or "ahcccs" in agency:
         return "az"
-    if title.startswith("[MN]") or title.lower().startswith("[mn-") or "minnesota" in agency or "(mn)" in agency or "mnit" in agency or "mndot" in agency or "hennepin" in agency or "minneapolis" in agency:
+    if title.startswith("[MN]") or title.lower().startswith("[mn-") or "minnesota" in agency or "(mn)" in agency or "mn swift" in agency or "mnit" in agency or "mndot" in agency or "hennepin" in agency or "minneapolis" in agency:
         return "mn"
-    if title.startswith("[TN]") or title.lower().startswith("[tn-") or "tennessee" in agency or "(tn)" in agency or "tenncare" in agency or "tdot" in agency or "nashville" in agency or "memphis" in agency:
-        return "tn"
-    if title.startswith("[MN]") or title.lower().startswith("[mn-") or "minnesota" in agency or "(mn)" in agency or "mn swift" in agency or "mnit" in agency or "mndot" in agency:
-        return "mn"
-    if title.startswith("[TN]") or title.lower().startswith("[tn-") or "tennessee" in agency or "(tn)" in agency or "tn cpo" in agency or "edison" in agency or "tenncare" in agency or "tdot" in agency:
+    if title.startswith("[TN]") or title.lower().startswith("[tn-") or "tennessee" in agency or "(tn)" in agency or "tn cpo" in agency or "edison" in agency or "tenncare" in agency or "tdot" in agency or "nashville" in agency or "memphis" in agency:
         return "tn"
     if title.startswith("[IN]") or title.lower().startswith("[in-") or "indiana" in agency or "(in)" in agency or "idoa" in agency or "indianapolis" in agency or "fssa" in agency or "indot" in agency or "purdue" in agency or "nswc crane" in agency:
         return "in"
@@ -373,8 +359,6 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "WaTech OCIO Sec 141.10 (NIST 800-53) • StateRAMP / SOC 2 Type II • WA DES"
     elif reg == "mi":
         compliance_posture = "MI DTMB 1340.00 Cyber Security (NIST 800-53) • StateRAMP / MiLogin • MI VPAT"
-    elif reg == "mi":
-        compliance_posture = "MI DTMB 1340.00 Cyber Security (NIST 800-53) • StateRAMP / MiLogin • MI SIGMA"
     elif reg == "co":
         compliance_posture = "Colorado OIT CIS Policies (NIST 800-53) • StateRAMP • CO HB 21-1110 VPAT"
     elif reg == "az":
@@ -383,10 +367,6 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "MNIT Enterprise Security Standards (NIST 800-53) • StateRAMP • MN WCAG 2.1 AA"
     elif reg == "tn":
         compliance_posture = "Tennessee STS Enterprise Security Policy (NIST 800-53) • StateRAMP • TN Section 508"
-    elif reg == "mn":
-        compliance_posture = "MNIT Enterprise Security Policies (NIST 800-53) • StateRAMP / SOC 2 Type II • MN WCAG 2.1 AA"
-    elif reg == "tn":
-        compliance_posture = "TN STS Enterprise InfoSec Policies (NIST 800-53) • StateRAMP / FedRAMP • TN 508 VPAT"
     elif reg == "in":
         compliance_posture = "Indiana IOT InfoSec Framework (NIST 800-53 / IC 4-13.1) • StateRAMP • IN VPAT"
     elif reg == "mo":
@@ -783,9 +763,8 @@ def build_two_step_outreach(
     region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
     portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 26 state SLED portals")
     clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
-    seed = f"{email.lower().strip()}::{datetime.now().strftime('%Y-%m-%d')}"
-
     clean_comp = clean_company_for_copy(company)
+    seed = f"{email.lower().strip()}::{clean_comp.lower().strip()}"
     comp_possessive = possessive_company(clean_comp)
     clean_fname = str(fname or "").strip()
     is_generic_name = clean_fname.lower() in GENERIC_PERSON_NAMES
@@ -1173,10 +1152,11 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             now_utc = datetime.now(timezone.utc)
             daily_cap, _, ramp_label = outbound_mailer.compute_dynamic_daily_limit(now_utc)
 
-            # Sync dynamic daily_limit, WARMED sending accounts only, start_date, and active status
+            # Sync dynamic daily_limit, WARMED sending accounts only (>=14d & score>=85), start_date, and active status
             warmed_account_emails = []
             warming_only_emails = []
             graduated_to_disable_warmup = []
+            premature_to_reenable_warmup = []
             try:
                 acc_resp = requests.get(
                     "https://api.instantly.ai/api/v2/accounts?limit=100",
@@ -1195,6 +1175,22 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                 graduated_to_disable_warmup.append(em_addr)
                         else:
                             warming_only_emails.append(em_addr)
+                            if int(a.get("warmup_status") or 0) == 0:
+                                premature_to_reenable_warmup.append(em_addr)
+                    if premature_to_reenable_warmup:
+                        try:
+                            requests.post(
+                                "https://api.instantly.ai/api/v2/accounts/warmup/enable",
+                                headers=inst_headers,
+                                json={"emails": premature_to_reenable_warmup},
+                                timeout=10,
+                            )
+                            print(
+                                f"[+] Re-enabled warmup on {len(premature_to_reenable_warmup)} mailbox(es) under 14 days old ({', '.join(premature_to_reenable_warmup)}).",
+                                flush=True,
+                            )
+                        except Exception:
+                            pass
                     if graduated_to_disable_warmup:
                         try:
                             requests.post(
@@ -1204,14 +1200,14 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                 timeout=10,
                             )
                             print(
-                                f"[+] Auto-disabled warmup on {len(graduated_to_disable_warmup)} graduated mailbox(es) so they stop receiving warmup junk ({', '.join(graduated_to_disable_warmup)}).",
+                                f"[+] Auto-disabled warmup on {len(graduated_to_disable_warmup)} graduated mailbox(es) (>=14d & score>=85) ({', '.join(graduated_to_disable_warmup)}).",
                                 flush=True,
                             )
                         except Exception:
                             pass
                     if warming_only_emails:
                         print(
-                            f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until score >= 85 ({', '.join(warming_only_emails)}).",
+                            f"[*] Warmup Guard: Keeping {len(warming_only_emails)} new mailbox(es) in Warmup-Only mode until >=14 days & score >= 85 ({', '.join(warming_only_emails)}).",
                             flush=True,
                         )
             except Exception:
@@ -1287,10 +1283,15 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         print(f"[+] Activated Instantly.ai campaign {INSTANTLY_CAMPAIGN_ID} (status=ACTIVE, daily_limit={daily_cap})!", flush=True)
 
             # Fetch existing emails in campaign to avoid redundant uploads on 6-hour cron runs
+            # CRITICAL: Never delete active in-flight leads (`has_started_sequence`) before they complete Step 2 & Step 3!
+            import govcon_lead_harvester
             existing_inst_emails = set()
             existing_inst_ids = {}
+            unsent_inst_ids = {}
+            in_flight_inst_emails = set()
             replied_inst_emails = set()
             completed_non_responders: list[tuple[str, str]] = []
+            non_it_or_invalid_to_purge: list[tuple[str, str]] = []
             starting_after = None
             for _ in range(10):
                 list_body = {"campaign": INSTANTLY_CAMPAIGN_ID, "limit": 100}
@@ -1309,39 +1310,59 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 for it in items:
                     em = str(it.get("email") or "").strip().lower()
                     lid = str(it.get("id") or "").strip()
+                    comp_it = str(it.get("company_name") or "").strip()
                     if em:
                         existing_inst_emails.add(em)
                         if lid:
                             existing_inst_ids[em] = lid
-                            if int(it.get("lt_interest_status") or 0) < 0 or int(it.get("status") or 0) in (-1, -2):
+                            lead_status = int(it.get("status") or 0)
+                            interest_status = int(it.get("lt_interest_status") or 0)
+                            reply_cnt = int(it.get("email_reply_count") or 0)
+                            last_step = (it.get("status_summary") or {}).get("lastStep")
+                            has_started_sequence = bool(last_step) or int(it.get("email_open_count") or 0) > 0 or int(it.get("email_click_count") or 0) > 0
+                            if interest_status < 0 or lead_status in (-1, -2, -3):
                                 completed_non_responders.append((em, lid))
-                            elif int(it.get("email_reply_count") or 0) > 0 or int(it.get("lt_interest_status") or 0) > 0:
+                            elif reply_cnt > 0 or interest_status > 0:
                                 replied_inst_emails.add(em)
-                            elif int(it.get("status") or 0) == 3:
+                            elif lead_status == 3:
                                 completed_non_responders.append((em, lid))
+                            elif not govcon_lead_harvester.is_verified_it_cyber_prospect(comp_it, em):
+                                non_it_or_invalid_to_purge.append((em, lid))
+                            elif has_started_sequence:
+                                in_flight_inst_emails.add(em)
+                            else:
+                                unsent_inst_ids[em] = lid
                 starting_after = l_json.get("next_starting_after")
                 if not starting_after or len(items) < 100:
                     break
 
             from concurrent.futures import ThreadPoolExecutor
             auth_only_headers = {"Authorization": f"Bearer {INSTANTLY_API_KEY}"}
-            valid_email_set = {str(item.get("Email") or "").strip().lower() for item in leads_payload} | replied_inst_emails
-            if completed_non_responders:
+            valid_email_set = (
+                {str(item.get("Email") or "").strip().lower() for item in leads_payload}
+                | replied_inst_emails
+                | in_flight_inst_emails
+            )
+            archive_to_save = {em for em, _ in completed_non_responders} | {em for em, _ in non_it_or_invalid_to_purge}
+            if archive_to_save:
                 try:
-                    import govcon_lead_harvester
-                    govcon_lead_harvester.save_completed_outreach_archive({em for em, _ in completed_non_responders})
+                    govcon_lead_harvester.save_completed_outreach_archive(archive_to_save)
                 except Exception:
                     pass
-                for c_em, _ in completed_non_responders:
+                for c_em in archive_to_save:
                     valid_email_set.discard(c_em)
 
-            stale_pairs = [(em, lid) for em, lid in list(existing_inst_ids.items()) if em not in valid_email_set]
+            # Only delete leads that: (a) completed all 3 steps / bounced / unsubscribed, (b) failed IT/Cyber verification,
+            # or (c) are still unsent (`not_sent_yet`) and no longer in `valid_email_set`.
+            # In-flight leads (`in_flight_inst_emails`) are NEVER deleted mid-sequence!
+            stale_pairs_dict: dict[str, str] = {}
+            for em, lid in completed_non_responders + non_it_or_invalid_to_purge:
+                stale_pairs_dict[em] = lid
+            for em, lid in unsent_inst_ids.items():
+                if em not in valid_email_set:
+                    stale_pairs_dict[em] = lid
+            stale_pairs = list(stale_pairs_dict.items())
             if stale_pairs:
-                try:
-                    import govcon_lead_harvester
-                    govcon_lead_harvester.save_completed_outreach_archive({em for em, _ in stale_pairs})
-                except Exception:
-                    pass
                 def _del_stale(pair: tuple[str, str]) -> int:
                     s_em, s_id = pair
                     try:
@@ -1353,6 +1374,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         if 200 <= r_del.status_code < 300:
                             existing_inst_emails.discard(s_em)
                             existing_inst_ids.pop(s_em, None)
+                            unsent_inst_ids.pop(s_em, None)
                             return 1
                     except Exception:
                         pass
@@ -1361,15 +1383,15 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                 with ThreadPoolExecutor(max_workers=10) as pool:
                     del_count = sum(pool.map(_del_stale, stale_pairs))
                 print(
-                    f"[+] Rotated/purged {del_count}/{len(stale_pairs)} completed or stale leads from Instantly.ai V2 to free active buffer slots.",
+                    f"[+] Rotated/purged {del_count}/{len(stale_pairs)} completed, bounced, or non-IT leads from Instantly.ai V2 (preserved {len(in_flight_inst_emails)} active in-flight leads waiting for Step 2/Step 3).",
                     flush=True,
                 )
 
-            if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" and existing_inst_ids:
-                print(f"[*] Refreshing custom_variables on {len(existing_inst_ids)} existing Instantly.ai leads...", flush=True)
+            target_patch_ids = existing_inst_ids if os.getenv("OUTREACH_FORCE_INSTANTLY_RESYNC") == "1" else unsent_inst_ids
+            if target_patch_ids:
                 def _patch_one_lead(item_row: dict) -> int:
                     em_key = str(item_row.get("Email") or "").strip().lower()
-                    lid = existing_inst_ids.get(em_key)
+                    lid = target_patch_ids.get(em_key)
                     if not lid:
                         return 0
                     patch_payload = {
@@ -1403,7 +1425,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
                 with ThreadPoolExecutor(max_workers=10) as pool:
                     updated_ok = sum(pool.map(_patch_one_lead, leads_payload))
-                print(f"[+] Updated {updated_ok}/{len(existing_inst_ids)} existing leads in Instantly.ai V2.", flush=True)
+                if updated_ok:
+                    print(f"[+] Refreshed custom_variables on {updated_ok} unsent/existing leads in Instantly.ai V2.", flush=True)
 
             max_instantly_active_buffer = int(
                 os.getenv("INSTANTLY_MAX_ACTIVE_BUFFER")
@@ -1634,7 +1657,7 @@ def generate_outreach():
             print(f"[!] Missing '{contacts_file}' in D:\\Daas", flush=True)
             return
 
-        print("[*] Reading verified GovCon contacts and generating anti-spam Spintax 2-step sequences (Tier 1 $99/mo + Tier 2 $399/mo)...", flush=True)
+        print("[*] Reading verified GovCon contacts and generating anti-spam Spintax 2-step sequences (Tier 1 $99/mo, Tier 2 $399/mo, Tier 3 $1,499/mo & Tier 4 $2,499/mo)...", flush=True)
 
         leads_for_api = []
 

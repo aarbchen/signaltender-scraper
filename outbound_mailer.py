@@ -52,7 +52,7 @@ SMTP_PORT = int(os.getenv("SMTP_PORT") or "587")
 SMTP_USER = (os.getenv("SMTP_USER") or "").strip()
 SMTP_PASSWORD = (os.getenv("SMTP_PASSWORD") or "").strip()
 SMTP_FROM_NAME = (os.getenv("SMTP_FROM_NAME") or "SignalTender GovCon Capture Desk").strip()
-SMTP_FROM_EMAIL = (os.getenv("SMTP_FROM_EMAIL") or SMTP_USER or "capture@signaltender.net").strip()
+SMTP_FROM_EMAIL = (os.getenv("SMTP_FROM_EMAIL") or SMTP_USER or "aaron@getsignaltender.com").strip()
 OUTBOUND_LAUNCH_DATE_STR = (os.getenv("OUTBOUND_LAUNCH_DATE") or "2026-10-15").strip()
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
 
@@ -65,15 +65,28 @@ except Exception:
 _CACHED_INSTANTLY_MAILBOX_COUNT: Optional[int] = None
 
 
-def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_days: int = 0) -> bool:
+def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_days: int = 14) -> bool:
     """
-    Returns True ONLY if an Instantly sending account is Active (`status == 1`) and
-    either has a warmup health score `>= min_score` (default 85/100) OR has already
-    graduated and had warmup disabled (`warmup_status == 0`) to prevent junk warmup emails,
-    regardless of how many days it has been warming up.
+    Returns True ONLY if an Instantly sending account is Active (`status == 1`), has been
+    warming/created for at least `min_days` (default 14 days — preventing newly created mailboxes
+    that start at score=100 from prematurely disabling warmup and cold sending on Day 1), AND
+    either has a warmup health score `>= min_score` (default 85/100) OR has already graduated
+    (`warmup_status == 0`).
     """
     if not isinstance(acct, dict) or int(acct.get("status") or 0) != 1:
         return False
+    if min_days > 0:
+        raw_ts = str(acct.get("timestamp_created") or acct.get("timestamp_warmup_start") or "").strip()
+        if raw_ts:
+            try:
+                start_dt = datetime.fromisoformat(raw_ts.replace("Z", "+00:00"))
+                if start_dt.tzinfo is None:
+                    start_dt = start_dt.replace(tzinfo=timezone.utc)
+                age_days = (datetime.now(timezone.utc).date() - start_dt.date()).days
+                if age_days < int(min_days):
+                    return False
+            except Exception:
+                pass
     if int(acct.get("warmup_status") or 0) == 0:
         return True
     score = int(acct.get("stat_warmup_score") or 0)
@@ -428,7 +441,12 @@ def run_outbound_drip(
     sent_count = 0
     staged_count = 0
 
-    should_stage_only = dry_run or before_launch_date or not live_credentials_present
+    instantly_managed = bool(
+        (os.getenv("INSTANTLY_API_KEY") or "").strip()
+        and (os.getenv("INSTANTLY_CAMPAIGN_ID") or "").strip()
+        and os.getenv("OUTBOUND_MAILER_FORCE_DIRECT_SEND") != "1"
+    )
+    should_stage_only = dry_run or before_launch_date or not live_credentials_present or instantly_managed
     batch_target = daily_cap if should_stage_only else effective_live_run_cap
 
     for target_step, row, subject, body in ordered_candidates:

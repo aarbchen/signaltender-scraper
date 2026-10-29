@@ -115,6 +115,7 @@ def send_discord_alert(message: str) -> None:
 
 def clean_title_text(raw_title: str) -> str:
     s = str(raw_title or "").replace("\ufffd", "–")
+    s = re.sub(r"^(?:\s*\[SF-30\s*/\s*ADDENDUM\s+DETECTED\]\s*)+", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\bWeb-\s+Based\b", "Web-Based", s, flags=re.IGNORECASE)
     s = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\s{2,}", " ", s)
@@ -754,13 +755,21 @@ def format_subscriber_email_briefing(
     from html import escape
     from urllib.parse import quote_plus
 
-    norm_tier = "tier_1" if str(tier or "").strip().lower() in ("tier_1", "tier1", "pro", "signalwire") else "tier_2"
+    raw_tier = str(tier or "").strip().lower()
+    if raw_tier in ("tier_4", "tier4", "oem", "foia"):
+        norm_tier = "tier_4"
+    elif raw_tier in ("tier_3", "tier3", "proposal"):
+        norm_tier = "tier_3"
+    elif raw_tier in ("tier_1", "tier1", "pro", "signalwire"):
+        norm_tier = "tier_1"
+    else:
+        norm_tier = "tier_2"
     cycle_ts = datetime.now(timezone.utc).strftime("%b %d, %Y • %H:%M UTC")
     disable_url = (
         f"https://b2b-contract-parser-api.onrender.com/v1/webhooks/email-briefings"
         f"?email={quote_plus(to_email)}&enabled=false"
     )
-    resolved_dossiers = _resolve_dossiers_for_cycle(records, dossiers) if norm_tier == "tier_2" else []
+    resolved_dossiers = _resolve_dossiers_for_cycle(records, dossiers) if norm_tier != "tier_1" else []
     wire_items = (records or [])[:15]
     total_wire = len(records or [])
 
@@ -773,6 +782,16 @@ def format_subscriber_email_briefing(
         subject = (
             f"[SignalTender // Tier 1 Wire] 6-Hour GovCon RFP Briefing — "
             f"{total_wire} Vetted IT & Cyber Solicitations ({cycle_ts})"
+        )
+    elif norm_tier == "tier_3":
+        subject = (
+            f"[SignalTender // Tier 3 Proposal Autopilot] 6-Hour Executive Capture Briefing — "
+            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+        )
+    elif norm_tier == "tier_4":
+        subject = (
+            f"[SignalTender // Tier 4 Enterprise OEM & FOIA Vault] 6-Hour Executive Capture Briefing — "
+            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
         )
     else:
         subject = (
@@ -798,9 +817,19 @@ def format_subscriber_email_briefing(
         )
         lines.append(pwin_plain_line)
     else:
-        lines.append("SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING")
+        tier_header_map = {
+            "tier_4": "SIGNALTENDER // TIER 4 — ENTERPRISE OEM, FOIA WINNING-BID VAULT & 24-API CAPTUREDESK BRIEFING",
+            "tier_3": "SIGNALTENDER // TIER 3 — PROPOSAL AUTOPILOT (.ZIP COMPILER), TEAMING & 24-API CAPTUREDESK BRIEFING",
+            "tier_2": "SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING",
+        }
+        tier_plan_map = {
+            "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (28 Portals + 24-API Capture Suite + 50k API Calls/Mo)",
+            "tier_3": "Tier 3 // Proposal Autopilot Enterprise (28 Portals + 24-API Capture Suite + 1-Click 6-File Shipley .ZIP Compiler)",
+            "tier_2": "Tier 2 // CaptureDesk Autopilot (28 Portals + 24-API Capture Suite)",
+        }
+        lines.append(tier_header_map.get(norm_tier, tier_header_map["tier_2"]))
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (28 Portals + 24-API Capture Suite)")
+        lines.append(f"Plan Tier       : {tier_plan_map.get(norm_tier, tier_plan_map['tier_2'])}")
         lines.append(
             f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 24-API CaptureDesk Dossiers + "
             f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
@@ -814,11 +843,11 @@ def format_subscriber_email_briefing(
         lines.append(
             f"  • SECTION II  : COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
         )
-        lines.append("  • SECTION III : TIER 2 ENTERPRISE API, MCP & SELF-SERVICE DELIVERY CONTROLS")
+        lines.append("  • SECTION III : ENTERPRISE API, MCP, PROPOSAL .ZIP & SELF-SERVICE DELIVERY CONTROLS")
     lines.append(rule_heavy)
     lines.append("")
 
-    if norm_tier == "tier_2" and resolved_dossiers:
+    if norm_tier != "tier_1" and resolved_dossiers:
         lines.append("SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS")
         lines.append("Pre-shredded Bid/No-Go memos, IGCE/Wrap/PTW models, CMMC/NIST/RMF gates, and Shipley win themes.")
         lines.append(rule_light)
@@ -872,7 +901,7 @@ def format_subscriber_email_briefing(
 
     wire_section_title = (
         "SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE"
-        if norm_tier == "tier_2"
+        if norm_tier != "tier_1"
         else "SECTION I // 28-PORTAL LIVE RFP ALERT WIRE"
     )
     lines.append(wire_section_title)
@@ -906,16 +935,21 @@ def format_subscriber_email_briefing(
 
     lines.append("")
     ctrl_section_title = (
-        "SECTION III // TIER 2 ENTERPRISE API, MCP & DELIVERY CONTROLS"
-        if norm_tier == "tier_2"
+        "SECTION III // ENTERPRISE API, MCP, PROPOSAL .ZIP & DELIVERY CONTROLS"
+        if norm_tier != "tier_1"
         else "SECTION II // SUBSCRIBER DIRECTORY & DELIVERY CONTROLS"
     )
     lines.append(ctrl_section_title)
     lines.append(f"  • Full 28-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
-    if norm_tier == "tier_2":
+    if norm_tier != "tier_1":
         lines.append(f"  • 34-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
         lines.append("  • Remote Streamable-HTTP MCP Server          : https://b2b-contract-parser-api.onrender.com/mcp")
-    lines.append(f"  • Manage Discord / Webhook / Email Settings  : {SITE_BASE_URL}/#checkout")
+    if norm_tier in ("tier_3", "tier_4"):
+        lines.append("  • 1-Click 6-File Shipley Proposal .ZIP       : https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package")
+        lines.append("  • Two-Sided 13 CFR § 125.6 Teaming Exchange  : https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/teaming-clearinghouse")
+    if norm_tier == "tier_4":
+        lines.append("  • Post-Award FOIA Winning-Bid Rate Vault     : https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault")
+    lines.append(f"  • Manage Discord / Webhook / Email Settings  : {SITE_BASE_URL}/#account")
     lines.append(f"  • 1-Click Turn OFF 6-Hour Email Briefings    : {disable_url}")
     lines.append(rule_heavy)
 
@@ -924,15 +958,17 @@ def format_subscriber_email_briefing(
     # -------------------------------------------------------------------------
     # 2. Executive HTML Briefing (for Resend & SMTP clients)
     # -------------------------------------------------------------------------
-    tier_pill = (
-        "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)"
-        if norm_tier == "tier_2"
-        else "TIER 1 // SIGNALWIRE PRO (28-PORTAL LIVE RFP WIRE)"
-    )
-    tier_accent = "#6366f1" if norm_tier == "tier_2" else "#0ea5e9"
+    tier_pill_map = {
+        "tier_4": "TIER 4 // ENTERPRISE OEM & FOIA VAULT (DOSSIERS + FOIA VAULT + LIVE WIRE)",
+        "tier_3": "TIER 3 // PROPOSAL AUTOPILOT (.ZIP COMPILER + DOSSIERS + LIVE WIRE)",
+        "tier_2": "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)",
+        "tier_1": "TIER 1 // SIGNALWIRE PRO (28-PORTAL LIVE RFP WIRE)",
+    }
+    tier_pill = tier_pill_map.get(norm_tier, tier_pill_map["tier_2"])
+    tier_accent = "#f59e0b" if norm_tier == "tier_4" else ("#10b981" if norm_tier == "tier_3" else ("#6366f1" if norm_tier == "tier_2" else "#0ea5e9"))
 
     dossier_html_cards = []
-    if norm_tier == "tier_2" and resolved_dossiers:
+    if norm_tier != "tier_1" and resolved_dossiers:
         for idx, d in enumerate(resolved_dossiers, start=1):
             d_title = escape(clean_title_text(str(d.get("title") or "Government IT Solicitation")))
             d_agency = escape(str(d.get("agency") or "Government Agency").strip())
@@ -1022,7 +1058,7 @@ def format_subscriber_email_briefing(
         )
 
     section_i_html = ""
-    if norm_tier == "tier_2" and dossier_html_cards:
+    if norm_tier != "tier_1" and dossier_html_cards:
         section_i_html = f"""
         <div style="margin-top:18px;margin-bottom:22px;">
           <div style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid #312e81;padding-bottom:6px;margin-bottom:12px;">
@@ -1034,7 +1070,7 @@ def format_subscriber_email_briefing(
 
     wire_header_label = (
         f"SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
-        if norm_tier == "tier_2"
+        if norm_tier != "tier_1"
         else f"SECTION I // 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
     )
 
@@ -1064,6 +1100,74 @@ def format_subscriber_email_briefing(
     return subject, plain_body, html_body
 
 
+def _dispatch_via_instantly_transactional_campaign(
+    to_email: str,
+    subject: str,
+    plain_body: str,
+    first_name: str = "",
+    company_name: str = "",
+) -> bool:
+    """
+    Dispatches a 1-step transactional/subscriber briefing email via Instantly campaign
+    `748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f`.
+    Deletes any prior completed lead (`status == 3`) for `to_email` in that campaign first
+    so repeat 6-hour briefings never deadlock on Instantly's one-shot lead completion state.
+    """
+    clean_to = str(to_email or "").strip().lower()
+    if not clean_to or "@" not in clean_to:
+        return False
+    dom = clean_to.split("@", 1)[1]
+    if dom in ("signaltender.net", "example.com", "test.com", "localhost"):
+        return False
+    inst_key = os.getenv("INSTANTLY_API_KEY", "").strip()
+    inst_sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
+    if not (inst_key and inst_sub_cid):
+        return False
+    headers = {"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"}
+    try:
+        l_resp = requests.post(
+            "https://api.instantly.ai/api/v2/leads/list",
+            headers=headers,
+            json={"campaign": inst_sub_cid, "search": clean_to, "limit": 20},
+            timeout=10,
+        )
+        if l_resp.status_code == 200:
+            for item in (l_resp.json().get("items") or []):
+                if str(item.get("email") or "").strip().lower() == clean_to and item.get("id"):
+                    requests.delete(
+                        f"https://api.instantly.ai/api/v2/leads/{item['id']}",
+                        headers={"Authorization": f"Bearer {inst_key}"},
+                        timeout=10,
+                    )
+    except Exception:
+        pass
+    lead_payload: dict = {
+        "campaign": inst_sub_cid,
+        "email": clean_to,
+        "skip_if_in_campaign": False,
+        "custom_variables": {"subject_line": subject, "email_body": plain_body},
+    }
+    if first_name:
+        lead_payload["first_name"] = first_name
+    if company_name:
+        lead_payload["company_name"] = company_name
+    r = requests.post(
+        "https://api.instantly.ai/api/v2/leads",
+        headers=headers,
+        json=lead_payload,
+        timeout=10,
+    )
+    if r.status_code in (200, 201):
+        requests.post(
+            f"https://api.instantly.ai/api/v2/campaigns/{inst_sub_cid}/activate",
+            headers=headers,
+            json={},
+            timeout=10,
+        )
+        return True
+    return False
+
+
 def _send_subscriber_email_briefing(
     to_email: str,
     records: list[dict],
@@ -1077,6 +1181,9 @@ def _send_subscriber_email_briefing(
     Tier 2 subscribers receive BOTH CaptureDesk Autopilot 24-API Dossiers (Section I)
     and the Complete 28-Portal Live RFP Alert Wire (Section II) in the same single email.
     """
+    clean_to = str(to_email or "").strip().lower()
+    if not clean_to or "@" not in clean_to or clean_to.endswith("@signaltender.net"):
+        return False
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     smtp_user = os.getenv("SMTP_USER", "").strip()
     smtp_pass = os.getenv("SMTP_PASSWORD", "").strip()
@@ -1086,7 +1193,7 @@ def _send_subscriber_email_briefing(
         tier=tier,
         records=records,
         dossiers=dossiers,
-        to_email=to_email,
+        to_email=clean_to,
         subscriber_meta=subscriber_meta,
     )
     sender_label = (
@@ -1101,7 +1208,7 @@ def _send_subscriber_email_briefing(
                 headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
                 json={
                     "from": f"{sender_label} <{from_email}>",
-                    "to": [to_email],
+                    "to": [clean_to],
                     "subject": subject,
                     "text": plain_body,
                     "html": html_body,
@@ -1115,7 +1222,7 @@ def _send_subscriber_email_briefing(
             msg = EmailMessage()
             msg["Subject"] = subject
             msg["From"] = f"{sender_label} <{from_email}>"
-            msg["To"] = to_email
+            msg["To"] = clean_to
             msg.set_content(plain_body)
             msg.add_alternative(html_body, subtype="html")
             with smtplib.SMTP(os.getenv("SMTP_HOST", "smtp.gmail.com"), int(os.getenv("SMTP_PORT") or "587"), timeout=10) as s:
@@ -1123,28 +1230,11 @@ def _send_subscriber_email_briefing(
                 s.login(smtp_user, smtp_pass)
                 s.send_message(msg)
             return True
-        inst_key = os.getenv("INSTANTLY_API_KEY", "").strip()
-        inst_sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
-        if inst_key and inst_sub_cid:
-            r = requests.post(
-                "https://api.instantly.ai/api/v2/leads",
-                headers={"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"},
-                json={
-                    "campaign": inst_sub_cid,
-                    "email": to_email,
-                    "skip_if_in_campaign": False,
-                    "custom_variables": {"subject_line": subject, "email_body": plain_body},
-                },
-                timeout=10,
-            )
-            if r.status_code in (200, 201):
-                requests.post(
-                    f"https://api.instantly.ai/api/v2/campaigns/{inst_sub_cid}/activate",
-                    headers={"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"},
-                    json={},
-                    timeout=10,
-                )
-                return True
+        return _dispatch_via_instantly_transactional_campaign(
+            to_email=clean_to,
+            subject=subject,
+            plain_body=plain_body,
+        )
     except Exception:
         pass
     return False
@@ -1170,7 +1260,15 @@ def format_external_webhook_payload(
     """
     from datetime import datetime, timezone
 
-    norm_tier = "tier_1" if str(tier or "").strip().lower() in ("tier_1", "tier1", "pro", "signalwire") else "tier_2"
+    raw_tier = str(tier or "").strip().lower()
+    if raw_tier in ("tier_4", "tier4", "oem", "foia"):
+        norm_tier = "tier_4"
+    elif raw_tier in ("tier_3", "tier3", "proposal"):
+        norm_tier = "tier_3"
+    elif raw_tier in ("tier_1", "tier1", "pro", "signalwire"):
+        norm_tier = "tier_1"
+    else:
+        norm_tier = "tier_2"
     u_low = str(webhook_url or "").strip().lower()
     d_hint = str(destination_type or "auto").strip().lower()
 
@@ -1185,7 +1283,7 @@ def format_external_webhook_payload(
 
     cycle_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     cycle_label = datetime.now(timezone.utc).strftime("%b %d, %Y • %H:%M UTC")
-    resolved_dossiers = _resolve_dossiers_for_cycle(records, dossiers) if norm_tier == "tier_2" else []
+    resolved_dossiers = _resolve_dossiers_for_cycle(records, dossiers) if norm_tier != "tier_1" else []
     wire_items = (records or [])[:12]
     total_wire = len(records or [])
 
@@ -1345,8 +1443,8 @@ def format_external_webhook_payload(
     if platform == "discord":
         blocks = []
         char_total = 0
-        if norm_tier == "tier_2" and resolved_dossiers:
-            header = "**[TIER 2 // UNIFIED 6-HR BRIEFING: CAPTUREDESK DOSSIERS + LIVE WIRE]**\n"
+        if norm_tier != "tier_1" and resolved_dossiers:
+            header = f"**[{norm_tier.upper().replace('_', ' ')} // UNIFIED 6-HR BRIEFING: CAPTUREDESK DOSSIERS + LIVE WIRE]**\n"
             blocks.append(header)
             char_total += len(header)
             d0 = resolved_dossiers[0]
@@ -1370,7 +1468,7 @@ def format_external_webhook_payload(
             blocks.append(b)
             char_total += len(b) + 4
         return {
-            "username": "SignalTender CaptureDesk Autopilot" if norm_tier == "tier_2" else "SignalWire Pro",
+            "username": "SignalTender CaptureDesk Autopilot" if norm_tier != "tier_1" else "SignalWire Pro",
             "avatar_url": "https://cdn.discordapp.com/avatars/1561230679860056117/79a24b4cd14595244f5ac4414807d9a1.png",
             "content": "\n\n".join(blocks),
             "flags": 4,
@@ -1455,10 +1553,15 @@ def format_external_webhook_payload(
             }
         )
 
+    tier_names_map = {
+        "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (50k API Calls/Mo + 24-API Dossiers + 28-Portal Wire)",
+        "tier_3": "Tier 3 // Proposal Autopilot Enterprise (6-File Shipley .ZIP Compiler + 24-API Dossiers + 28-Portal Wire)",
+        "tier_2": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 28-Portal Live Wire)",
+    }
     return {
         "event": "signaltender.cycle_briefing.dispatched",
-        "tier": "tier_2",
-        "tier_name": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 28-Portal Live Wire)",
+        "tier": norm_tier,
+        "tier_name": tier_names_map.get(norm_tier, tier_names_map["tier_2"]),
         "platform": platform,
         "cycle_timestamp_utc": cycle_iso,
         "summary": {
@@ -1673,32 +1776,21 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
                 f"Our CaptureDesk engine has already generated the Shipley Section L/M Compliance Matrix, "
                 f"CPARS Volume III Past Performance citations, 13 CFR § 125.6 Teaming Plan, and IGCE Price-to-Win "
                 f"model for this solicitation.\n\n"
-                f"You can unlock the full un-blurred official portal link and 24-API CaptureDesk suite in 60 seconds "
-                f"(Tier 1 SignalWire Pro $99/mo or Tier 2 CaptureDesk Autopilot $399/mo — FAR 31.205-18 Corporate P-Card Ready with 1-click non-renewing pass toggle) here:\n"
+                f"You can unlock the full un-blurred official portal link, 24-API CaptureDesk suite, and 1-Click 6-File Shipley Proposal .ZIP Compiler in 60 seconds "
+                f"(Tier 1 SignalWire Pro $99/mo, Tier 2 CaptureDesk Autopilot $399/mo, Tier 3 Proposal Autopilot $1,499/mo, or Tier 4 Enterprise OEM & FOIA Vault $2,499/mo — FAR 31.205-18 Corporate P-Card Ready with 1-click non-renewing pass toggle) here:\n"
                 f"{SITE_BASE_URL}/#checkout\n\n"
                 f"Or manage your saved bids and alert filters in your Client Portal:\n"
                 f"{SITE_BASE_URL}/#account\n\n"
                 f"Best,\nAaron Chen\nFounder, SignalTender"
             )
 
-            inst_key = os.getenv("INSTANTLY_API_KEY", "").strip()
-            inst_sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
-            sent_ok = False
-            if inst_key and inst_sub_cid:
-                r = requests.post(
-                    "https://api.instantly.ai/api/v2/leads",
-                    headers={"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"},
-                    json={
-                        "campaign": inst_sub_cid,
-                        "email": email,
-                        "first_name": fname,
-                        "company_name": comp,
-                        "skip_if_in_campaign": False,
-                        "custom_variables": {"subject_line": subj, "email_body": body},
-                    },
-                    timeout=10,
-                )
-                sent_ok = r.status_code in (200, 201)
+            sent_ok = _dispatch_via_instantly_transactional_campaign(
+                to_email=email,
+                subject=subj,
+                plain_body=body,
+                first_name=fname,
+                company_name=comp,
+            )
 
             already_nudged_urls.add(log_url)
             chk = supabase.table(TABLE_NAME).select("id").eq("url", log_url).execute()

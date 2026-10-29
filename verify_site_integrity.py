@@ -662,10 +662,21 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
         if req_t2_phrase not in t2_html:
             fail(f"index.html (#checkout-card-tier2): Missing required tier value-prop phrase '{req_t2_phrase}'")
 
-    # 4. Verify #page-checkout Developer API Callout Banner references All N individual SignalTender microservices
+    # 4. Verify #page-checkout Developer API Callout Banner & Deep-Dive Tier Panels (Tier 1, 2, 3, 4 & Matrix)
     callout_phrase = f"All {n_apis} individual SignalTender microservices"
     if callout_phrase not in index_txt:
         fail(f"index.html (#page-checkout API Callout): Missing '{callout_phrase}'")
+
+    for deep_dive_phrase in (
+        f"across {n_portals} government portals",
+        f"{n_tier2_apis} specialized GovCon capture engines",
+        f"// HOW THE {n_tier2_apis} PRE-AWARD CAPTURE ENGINES",
+        f"across all {n_apis} SignalTender endpoints",
+        f"{n_apis} deterministic GovCon microservices",
+        f"across all {n_apis} GovCon microservices",
+    ):
+        if deep_dive_phrase not in index_txt:
+            fail(f"index.html (#page-checkout Deep-Dive Tier Panels): Missing '{deep_dive_phrase}'")
 
     # 5. Verify pseo_generator.py RFP dossier box references the latest Tier-2-relevant API
     with open(os.path.join(BASE_DIR, "pseo_generator.py"), "r", encoding="utf-8") as f:
