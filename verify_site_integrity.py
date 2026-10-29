@@ -519,6 +519,13 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
             f"All {kp} Active Procurement Portals",
             f"ALL {kp} FEDERAL",
             f"{kp}-Portal",
+            f"{kp}-portal",
+            f"{kp}-PORTAL",
+            f"{kp} portals",
+            f"{kp} Portals Selected",
+            f"Select All {kp}",
+            f"{kp} / {kp} PORTALS SHOWN",
+            f"{kp} / {kp} Active",
             f"{kp} Federal, State SLED, and Municipal portals",
             f'"portals_monitored"</span>: <span class="text-emerald-300">{kp}</span>',
         ])
@@ -531,17 +538,30 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         ])
 
     for label, txt in (("index.html", index_txt), ("apis.html", apis_txt), ("pseo_generator.py", pseo_txt)):
+        if "lg:top-[65px]" in txt:
+            fail(f"{label}: Found 'lg:top-[65px]' sticky sub-bar offset; must be 'lg:top-[80px]' to clear the 80px header")
         for sp in stale_patterns:
             if sp in txt and re.search(rf"(?<![0-9]){re.escape(sp)}", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
-        # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
+        # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations with zero duplicates
         expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
         for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,450}", txt):
             snippet = m.group(0)
             for abbr in expected_abbrs:
-                if abbr not in snippet:
+                occurrences = re.findall(rf"\b{abbr}\b", snippet)
+                if not occurrences:
                     fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
+                if len(occurrences) > 1:
+                    fail(f"{label}: State abbreviation list '{snippet.strip()}' has duplicate state abbreviation '{abbr}'")
+
+    # Verify all STATE // XX cards in Section 4 live INSIDE #coverage-portals-grid (never outside the grid container)
+    cov_sec_m = re.search(r'<div id="coverage-portals-grid"[^>]*>([\s\S]*?)</section>', index_txt)
+    if cov_sec_m:
+        cov_body = cov_sec_m.group(1)
+        # Split before any closing grid comments or verify zero "p-6 rounded-2xl" cards exist in #coverage
+        if "p-6 rounded-2xl" in cov_body or "Browse WI RFPs" in cov_body:
+            fail("index.html: #coverage contains non-standard 'p-6 rounded-2xl' cards outside #coverage-portals-grid")
 
         # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
         for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,1400}", txt):

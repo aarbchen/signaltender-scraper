@@ -609,24 +609,34 @@
       color: #090C10 !important;
       border-color: #E2E8F0 !important;
     }
-    a.bg-sky-500 span,
-    a.bg-sky-600 span,
-    button.bg-sky-500 span,
-    button.bg-sky-600 span,
-    a.bg-emerald-500 span,
-    a.bg-emerald-600 span,
-    button.bg-emerald-500 span,
-    button.bg-emerald-600 span,
-    a.bg-amber-500 span,
-    a.bg-amber-600 span,
-    button.bg-amber-500 span,
-    button.bg-amber-600 span,
-    a.bg-sky-500 span,
-    a.bg-sky-600 span,
-    button.bg-sky-500 span,
-    button.bg-sky-600 span,
-    a[class*="bg-gradient-to-r"][class*="from-"] span,
-    button[class*="bg-gradient-to-r"][class*="from-"] span {
+    a.bg-sky-500 *,
+    a.bg-sky-600 *,
+    button.bg-sky-500 *,
+    button.bg-sky-600 *,
+    a.bg-emerald-500 *,
+    a.bg-emerald-600 *,
+    button.bg-emerald-500 *,
+    button.bg-emerald-600 *,
+    a.bg-amber-400 *,
+    a.bg-amber-500 *,
+    a.bg-amber-600 *,
+    button.bg-amber-400 *,
+    button.bg-amber-500 *,
+    button.bg-amber-600 *,
+    a.bg-indigo-500 *,
+    a.bg-indigo-600 *,
+    button.bg-indigo-500 *,
+    button.bg-indigo-600 *,
+    a.bg-cyan-500 *,
+    a.bg-cyan-600 *,
+    button.bg-cyan-500 *,
+    button.bg-cyan-600 *,
+    a.bg-teal-500 *,
+    a.bg-teal-600 *,
+    button.bg-teal-500 *,
+    button.bg-teal-600 *,
+    a[class*="bg-gradient-to-r"][class*="from-"] *,
+    button[class*="bg-gradient-to-r"][class*="from-"] * {
       color: #090C10 !important;
     }
 
@@ -2293,7 +2303,7 @@
   </section>
 
     <!-- Developer API Catalog Navigation Bar -->
-    <div id="api-catalog-tabs-bar" class="relative lg:sticky lg:top-[65px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+    <div id="api-catalog-tabs-bar" class="relative lg:sticky lg:top-[80px] z-30 bg-navy-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
           <div class="hidden lg:block text-[11px] font-mono uppercase tracking-wider text-sky-400 font-bold shrink-0">
@@ -10345,7 +10355,7 @@
       <!-- Modal Main Grid: Left Endpoint Selector (3 cols) + Center Request/Code (4.5 cols) + Right Live Response (4.5 cols) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
 
-        <!-- Column 1 (3 cols): 11-API Endpoint Switcher Sidebar -->
+        <!-- Column 1 (3 cols): 34-API Endpoint Switcher Sidebar -->
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
@@ -11524,7 +11534,7 @@
         if (e.key === 'Escape') window.closeApiSandbox();
       });
 
-      // Enhance all 10 API product cards on the page so users can switch languages & test in-place without leaving
+      // Enhance all 34 API product cards on the page so users can switch languages & test in-place without leaving
       function enhanceProductCards() {
         Object.keys(CATALOG).forEach(function (apiId) {
           var article = document.getElementById(apiId);
