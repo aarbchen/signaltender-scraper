@@ -1297,6 +1297,8 @@ def check_acquisition_and_email_guardrails() -> None:
             og_src = f.read()
         if "lead_status == 3" not in og_src or "in_flight_inst_emails" not in og_src:
             fail("outreach_generator.py: Must only delete completed (`lead_status == 3`) leads in Instantly and preserve in-flight (`in_flight_inst_emails`) sequences!")
+        if "accounts/warmup/disable" in og_src:
+            fail("outreach_generator.py: Must NEVER call `accounts/warmup/disable` or detach active warmed mailboxes (`score >= 85`) from the campaign!")
 
     # 4. Quoted-Footer Strip Before Opt-Out Classification
     positive_reply_with_quoted_footer = (

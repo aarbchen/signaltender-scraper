@@ -119,6 +119,15 @@ FOUNDATIONAL_RULES = [
         "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM – 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
         "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM – 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
     },
+    {
+        "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+        "category": "Outbound Email & Mailbox Deliverability",
+        "source": "outbound_mailer.py / outreach_generator.py",
+        "bug_signature": "Already-warmed sending mailboxes (stat_warmup_score >= 85) detached from campaign email_list or blocked by an artificial 14-day wait",
+        "root_cause": "Defaulting min_days=14 in is_instantly_account_warmed() detached active mailboxes on already-warmed domains, cutting daily send capacity and stalling Step 2/Step 3 thread replies.",
+        "fix_applied": "Set min_days=0 default in is_instantly_account_warmed() so all active mailboxes with stat_warmup_score >= 85 remain attached to the campaign with continuous warmup enabled.",
+        "prevention_rule": "Never detach or impose a 14-day wait on active mailboxes with stat_warmup_score >= 85, and never call accounts/warmup/disable on active campaign mailboxes.",
+    },
 ]
 
 

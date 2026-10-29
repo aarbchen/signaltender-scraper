@@ -1180,7 +1180,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     if False and graduated_to_disable_warmup:
                         try:
                             requests.post(
-                                "https://api.instantly.ai/api/v2/accounts/warmup/disable",
+                                "https://api.instantly.ai/api/v2/accounts/warmup/enable",
                                 headers=inst_headers,
                                 json={"emails": graduated_to_disable_warmup},
                                 timeout=10,

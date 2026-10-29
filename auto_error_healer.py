@@ -308,6 +308,25 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             if state_uri not in fsrc:
                 issues.append(f"{fname} is missing stateless Render Cron Supabase state sync (`{state_uri}`).")
 
+    # 3c. Verify warmed mailboxes (score >= 85) are never blocked by an artificial 14-day delay or warmup/disable
+    try:
+        import outbound_mailer
+        test_warmed = {
+            "email": "test@try-signaltender.com",
+            "status": 1,
+            "warmup_status": 1,
+            "stat_warmup_score": 100,
+            "timestamp_created": datetime.now(timezone.utc).isoformat(),
+        }
+        if outbound_mailer.is_instantly_account_warmed(test_warmed) is not True:
+            issues.append("outbound_mailer.is_instantly_account_warmed() blocked a warmed mailbox (stat_warmup_score >= 85) due to age gate!")
+    except Exception as exc:
+        issues.append(f"Failed to verify outbound_mailer.is_instantly_account_warmed(): {exc}")
+
+    og_fp = BASE_DIR / "outreach_generator.py"
+    if og_fp.exists() and "accounts/warmup/disable" in og_fp.read_text(encoding="utf-8", errors="replace"):
+        issues.append("outreach_generator.py must NEVER call `accounts/warmup/disable` on active sending mailboxes.")
+
     # 4. Verify all 5 SignalTender Discord webhooks and the main Discord Bot user have the SignalTender radar-chevron avatar set
     icon_path = BASE_DIR / "apple-touch-icon.png"
     icon_b64 = None
