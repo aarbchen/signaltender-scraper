@@ -1,7 +1,14 @@
 {
-  "harvested_at": "2026-10-28T05:41:52",
+  "harvested_at": "2026-10-29T12:42:37",
   "source": "https://app.az.gov/page.aspx/en/rfp/request_browse_public",
   "leads": [
+    {
+      "title": "[AZ-BPM007827] Problem Gambling App - Due: 11/30/2026",
+      "agency": "Arizona Department of Administration Arizona Department of Gaming Arizona Department of Gaming Arizona Department of Gaming (Arizona APP / Procure.AZ.gov)",
+      "closing_date": "11/30/2026",
+      "url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14051",
+      "status": "NEW"
+    },
     {
       "title": "[AZ-BPM006796] IT Advisory, Assessment, Verification and Validation - Consulting Services - Due: 11/17/2026",
       "agency": "Arizona Department of Administration (Arizona APP / Procure.AZ.gov)",

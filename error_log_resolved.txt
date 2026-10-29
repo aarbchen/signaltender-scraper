@@ -508,3 +508,15 @@ Node.js v26.7.0
 
 [!] pseo_generator.py error: name 'json' is not defined
 [2026-10-29 08:23:20 UTC] [LOCAL] [pseo_generator.py] pseo_generator.py error: name 'json' is not defined
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 11:06:39 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 2 remote alert(s)) ===
+[2026-10-29 10:59:53 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '23 portals' (expected 28 portals / 26 states)
+[2026-10-29 11:02:53 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, MN, and TN in one schema.' has duplicate state abbreviation 'MN'
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 17:48:10 UTC: Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 6 local + 5 remote alert(s)) ===
+[2026-10-29 17:43:13 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, MN, and TN in one schema.' has duplicate state abbreviation 'MN'
+[2026-10-29 17:43:57 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, IN, and MO procurement portals.',' has duplicate state abbreviation 'IN'
+[2026-10-29 17:45:20 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing 'across 28 government portals'
+[2026-10-29 17:45:56 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing 'across 28 government portals'
+[2026-10-29 17:46:02 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing '24 specialized GovCon capture engines'
+[2026-10-29 17:46:46 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing 'across all 34 SignalTender endpoints'

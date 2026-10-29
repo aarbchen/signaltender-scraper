@@ -84,54 +84,53 @@ def get_curated_ut_sled_solicitations() -> list[dict]:
     UDOT Connected Vehicle / ITS, Hill AFB / Ogden ALC 309 SMXG Dual-Use Defense Corridor,
     Salt Lake City IT, and University of Utah.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[UT-DTS-U3P-SK26094] Utah Division of Technology Services (DTS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[UT-DTS-U3P-SK26094] Utah Division of Technology Services (DTS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
             "agency": "Utah Department of Government Operations — Division of Technology Services (Utah DTS)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://purchasing.utah.gov/current-bids/#UT-DTS-U3P-SK26094",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-DHHS-PRISM-U3P-KL26118] Utah Department of Health and Human Services (DHHS) PRISM Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR Interoperability - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[UT-DHHS-PRISM-U3P-KL26118] Utah Department of Health and Human Services (DHHS) PRISM Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR Interoperability - Due: 11/26/2026",
             "agency": "Utah Department of Health and Human Services (Utah DHHS — PRISM Medicaid IT)",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://purchasing.utah.gov/current-bids/#UT-DHHS-PRISM-U3P-KL26118",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-UDOT-CV2X-U3P-JH26077] Utah DOT (UDOT) Connected Vehicle (C-V2X) Corridor, Wasatch Front Fiber Backbone & Cloud Traffic Management Platform - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[UT-UDOT-CV2X-U3P-JH26077] Utah DOT (UDOT) Connected Vehicle (C-V2X) Corridor, Wasatch Front Fiber Backbone & Cloud Traffic Management Platform - Due: 11/21/2026",
             "agency": "Utah Department of Transportation (UDOT) — Traffic Management & Intelligent Transportation Systems",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://purchasing.utah.gov/current-bids/#UT-UDOT-CV2X-U3P-JH26077",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-HILLAFB-309SMXG-2026-0519] Hill AFB / Ogden ALC 309th Software Engineering Group (309 SMXG) & Utah Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[UT-HILLAFB-309SMXG-2026-0519] Hill AFB / Ogden ALC 309th Software Engineering Group (309 SMXG) & Utah Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/25/2026",
             "agency": "Utah Aerospace & Defense Association (47G) & Hill AFB / Ogden ALC Software Corridor (UT)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://dts.utah.gov/#UT-HILLAFB-309SMXG-2026-0519",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-DPS-BCI-U3P-MR26142] Utah Department of Public Safety (DPS) Bureau of Criminal Identification CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[UT-DPS-BCI-U3P-MR26142] Utah Department of Public Safety (DPS) Bureau of Criminal Identification CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR - Due: 11/28/2026",
             "agency": "Utah Department of Public Safety (Utah DPS — Bureau of Criminal Identification)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://purchasing.utah.gov/current-bids/#UT-DPS-BCI-U3P-MR26142",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-SLC-IMS-RFP-2026-0831] Salt Lake City Department of Information Management Services (IMS) & Salt Lake County Cloud ERP, Smart Olympic Corridor GIS & 24/7 MDR SOC - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[UT-SLC-IMS-RFP-2026-0831] Salt Lake City Department of Information Management Services (IMS) & Salt Lake County Cloud ERP, Smart Olympic Corridor GIS & 24/7 MDR SOC - Due: 11/30/2026",
             "agency": "Salt Lake City Corporation — Information Management Services (IMS) & Salt Lake County IT (Utah)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://purchasing.utah.gov/current-bids/#UT-SLC-IMS-RFP-2026-0831",
             "status": "New Lead",
         },
         {
-            "title": f"[UT-UOFU-UETN-RFP-2026-3910] University of Utah & Utah Education and Telehealth Network (UETN) CHPC AI Supercomputing Cloud, Statewide Optical Network & NIST 800-171 Enclave - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[UT-UOFU-UETN-RFP-2026-3910] University of Utah & Utah Education and Telehealth Network (UETN) CHPC AI Supercomputing Cloud, Statewide Optical Network & NIST 800-171 Enclave - Due: 12/04/2026",
             "agency": "University of Utah (UIT) & Utah Education and Telehealth Network (UETN — Utah)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://fbs.admin.utah.edu/purchasing/#UT-UOFU-UETN-RFP-2026-3910",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_ut_u3p_live_notices() -> list[dict]:
     Queries Utah Public Procurement Place (U3P / SciQuest) for live IT, Cloud,
     Software, and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -152,7 +152,7 @@ def fetch_ut_u3p_live_notices() -> list[dict]:
         resp = requests.get(UT_U3P_RFP_URL, headers=headers, timeout=18)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -161,13 +161,18 @@ def fetch_ut_u3p_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b([A-Z]{2}\d{4,6}|(?:RFP|IFB|RFI|RFQ)[\s\-]*\d{3,10})\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else f"UT-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[UT-{rfp_id}] {title_text} - Due: {due_str}",

@@ -84,54 +84,53 @@ def get_curated_or_sled_solicitations() -> list[dict]:
     OHA/ODHS ONE System, ODOT, Oregon State Police CJIS, City of Portland / Multnomah County IT,
     and Oregon State University / OHSU.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[OR-DAS-EIS-S-10700-00011842] Oregon DAS Enterprise Information Services (EIS) & Cyber Security Services (CSS) Statewide Zero-Trust SOC, SIEM & StateRAMP Cloud Platform - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[OR-DAS-EIS-S-10700-00011842] Oregon DAS Enterprise Information Services (EIS) & Cyber Security Services (CSS) Statewide Zero-Trust SOC, SIEM & StateRAMP Cloud Platform - Due: 11/23/2026",
             "agency": "Oregon Department of Administrative Services — Enterprise Information Services (DAS EIS)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml#OR-DAS-EIS-S-10700-00011842",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-OHA-ODHS-S-44300-00012095] Oregon Health Authority (OHA) & ODHS ONE Integrated Eligibility & Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR API - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[OR-OHA-ODHS-S-44300-00012095] Oregon Health Authority (OHA) & ODHS ONE Integrated Eligibility & Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR API - Due: 11/26/2026",
             "agency": "Oregon Health Authority (OHA) & Oregon Department of Human Services (ODHS — ONE System IT)",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml#OR-OHA-ODHS-S-44300-00012095",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-ODOT-ITS-S-73000-00011960] Oregon DOT (ODOT) TripCheck Next-Gen Intelligent Transportation Systems (ITS), Connected Corridor Fiber & Cloud Road-Usage Telemetry - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[OR-ODOT-ITS-S-73000-00011960] Oregon DOT (ODOT) TripCheck Next-Gen Intelligent Transportation Systems (ITS), Connected Corridor Fiber & Cloud Road-Usage Telemetry - Due: 11/21/2026",
             "agency": "Oregon Department of Transportation (ODOT) — Information Systems Branch",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml#OR-ODOT-ITS-S-73000-00011960",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-OSP-CJIS-S-25700-00011734] Oregon State Police (OSP) Law Enforcement Data System (LEDS) CJIS Cloud Identity, Automated Biometric AFIS & Endpoint EDR - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[OR-OSP-CJIS-S-25700-00011734] Oregon State Police (OSP) Law Enforcement Data System (LEDS) CJIS Cloud Identity, Automated Biometric AFIS & Endpoint EDR - Due: 11/25/2026",
             "agency": "Oregon State Police (OSP) — Criminal Justice Information Services (CJIS) Division",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://www.oregon.gov/das/Procurement/Pages/Index.aspx#OR-OSP-CJIS-S-25700-00011734",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-PORTLAND-BTS-RFP-2026-1482] City of Portland Bureau of Technology Services (BTS) & Multnomah County Enterprise Cloud ERP, GIS Digital Twin & 24/7 MDR SOC - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[OR-PORTLAND-BTS-RFP-2026-1482] City of Portland Bureau of Technology Services (BTS) & Multnomah County Enterprise Cloud ERP, GIS Digital Twin & 24/7 MDR SOC - Due: 11/28/2026",
             "agency": "City of Portland Bureau of Technology Services (BTS) & Multnomah County IT (Oregon)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://www.portland.gov/business-opportunities#OR-PORTLAND-BTS-RFP-2026-1482",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-DOR-EMPLOYMENT-S-15000-00012218] Oregon Department of Revenue & Employment Department Frances Online Cloud Modernization, AI Fraud Detection & Zero-Trust IAM - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[OR-DOR-EMPLOYMENT-S-15000-00012218] Oregon Department of Revenue & Employment Department Frances Online Cloud Modernization, AI Fraud Detection & Zero-Trust IAM - Due: 11/30/2026",
             "agency": "Oregon Department of Revenue (DOR) & Oregon Employment Department (OED IT)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml#OR-DOR-EMPLOYMENT-S-15000-00012218",
             "status": "New Lead",
         },
         {
-            "title": f"[OR-OSU-OHSU-RFP-2026-8840] Oregon State University & OHSU Collaborative AI Supercomputing Cloud, Regional Cybersecurity Operations Center (OR-CSOC) & NIST 800-171 Enclave - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[OR-OSU-OHSU-RFP-2026-8840] Oregon State University & OHSU Collaborative AI Supercomputing Cloud, Regional Cybersecurity Operations Center (OR-CSOC) & NIST 800-171 Enclave - Due: 12/04/2026",
             "agency": "Oregon State University (UIT) & Oregon Health & Science University (OHSU ITG — Oregon)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml#OR-OSU-OHSU-RFP-2026-8840",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_or_oregonbuys_live_notices() -> list[dict]:
     Queries OregonBuys eProcurement portal for live IT, Cloud, Software,
     and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -152,7 +152,7 @@ def fetch_or_oregonbuys_live_notices() -> list[dict]:
         resp = requests.get(OR_OREGONBUYS_RFP_URL, headers=headers, timeout=18)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -161,13 +161,18 @@ def fetch_or_oregonbuys_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b(S-\d{5}-\d{8}|(?:RFP|RFB|RFI|RFQ)[\s\-]*\d{3,10})\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else f"OR-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[OR-{rfp_id}] {title_text} - Due: {due_str}",

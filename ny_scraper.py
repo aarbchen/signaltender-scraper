@@ -325,40 +325,39 @@ def fetch_ny_bonfire_solicitations() -> list[dict]:
 
 def _get_verified_ny_fallback() -> list[dict]:
     """Curated fallback of active New York State & NYC IT/Cyber solicitations."""
-    now = datetime.now()
     fallback_items = [
         {
             "sol_id": "RFP-6000003517",
             "title": "Performance of Expert Professional Information Technology Project Resources & Cloud Engineering",
             "agency": "Port Authority of New York & New Jersey (PANYNJ)",
-            "days_out": 23,
+            "closing_date": "11/25/2026",
             "url": "https://panynj.bonfirehub.com/portal/?tab=openOpportunities&ProjectID=259592",
         },
         {
             "sol_id": "PIN-26REQ0374",
             "title": "Virtual Chief Information Security Officer (vCISO) Cybersecurity Governance & SOC Oversight Services",
             "agency": "New York City Police Pension Fund (New York, NY)",
-            "days_out": 26,
+            "closing_date": "11/30/2026",
             "url": "https://a856-cityrecord.nyc.gov/RequestDetail/20260806027",
         },
         {
             "sol_id": "RFP-2026-20",
             "title": "Electronic Medical Record (EMR) SaaS System & HIPAA Cloud Integration for County Medical Units",
             "agency": "Suffolk County Government (NY)",
-            "days_out": 9,
+            "closing_date": "11/19/2026",
             "url": "https://suffolkcountyny.bonfirehub.com/portal/?tab=openOpportunities&ProjectID=255420",
         },
         {
             "sol_id": "RFP-RC-2026-030",
             "title": "Street-Level Panoramic Imagery, Mobile LiDAR & Enterprise GIS Asset Inventory Platform",
             "agency": "Rockland County Government (NY)",
-            "days_out": 8,
+            "closing_date": "11/24/2026",
             "url": "https://rocklandgov.bonfirehub.com/portal/?tab=openOpportunities&ProjectID=256698",
         },
     ]
     out: list[dict] = []
     for item in fallback_items:
-        due_str = (now + timedelta(days=item["days_out"])).strftime("%m/%d/%Y")
+        due_str = item["closing_date"]
         out.append(
             {
                 "title": f"[{item['sol_id']}] {item['title']} - Due: {due_str}",

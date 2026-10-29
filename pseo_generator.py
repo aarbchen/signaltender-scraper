@@ -395,8 +395,9 @@ def parse_due_date(rec: dict) -> date | None:
 
 
 def clean_display_title(raw_title: str) -> str:
-    """Strip trailing '- Due: MM/DD/YYYY' and normalize encoding/spacing artifacts."""
+    """Strip trailing '- Due: MM/DD/YYYY', '[SF-30 / ADDENDUM DETECTED]' prefix, and normalize encoding/spacing artifacts."""
     base = str(raw_title or "").replace("\ufffd", "–")
+    base = re.sub(r"^(?:\s*\[SF-30\s*/\s*ADDENDUM\s+DETECTED\]\s*)+", "", base, flags=re.IGNORECASE)
     base = re.sub(r"\bWeb-\s+Based\b", "Web-Based", base, flags=re.IGNORECASE)
     base = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", base, flags=re.IGNORECASE)
     base = re.sub(r"\s{2,}", " ", base)

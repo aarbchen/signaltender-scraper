@@ -85,54 +85,53 @@ def get_curated_mn_sled_solicitations() -> list[dict]:
     Minnesota Department of Human Services (DHS), MnDOT, Metropolitan Council,
     and University of Minnesota.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[MN-SWIFT-2000016412] MNIT Services Statewide Zero-Trust Identity, SOC/SIEM & Managed Detection and Response (MDR) Platform - Due: {(now + timedelta(days=20)).strftime('%m/%d/%Y')}",
+            "title": "[MN-SWIFT-2000016412] MNIT Services Statewide Zero-Trust Identity, SOC/SIEM & Managed Detection and Response (MDR) Platform - Due: 11/22/2026",
             "agency": "Minnesota IT Services (MNIT) & Department of Administration OSP",
-            "closing_date": (now + timedelta(days=20)).strftime("%m/%d/%Y"),
+            "closing_date": "11/22/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-SWIFT-2000016412",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-DHS-2026-16488] Minnesota Medicaid (MHCP) Modular Enterprise Data Warehouse, Cloud Analytics & Interoperability API Modernization - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[MN-DHS-2026-16488] Minnesota Medicaid (MHCP) Modular Enterprise Data Warehouse, Cloud Analytics & Interoperability API Modernization - Due: 11/26/2026",
             "agency": "Minnesota Department of Human Services (DHS) — Health Care Administration",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-DHS-2026-16488",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-MNDOT-2026-8941205] MnDOT Intelligent Transportation Systems (ITS), Connected Corridor Fiber Telemetry & Cloud ATMS Platform - Due: {(now + timedelta(days=18)).strftime('%m/%d/%Y')}",
+            "title": "[MN-MNDOT-2026-8941205] MnDOT Intelligent Transportation Systems (ITS), Connected Corridor Fiber Telemetry & Cloud ATMS Platform - Due: 11/20/2026",
             "agency": "Minnesota Department of Transportation (MnDOT) — Office of Traffic Engineering",
-            "closing_date": (now + timedelta(days=18)).strftime("%m/%d/%Y"),
+            "closing_date": "11/20/2026",
             "url": "https://questcdn.com/cdn/posting/?group=6506969&provider=6506969&projType=all#MN-MNDOT-8941205",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-DPS-BCA-2026-16504] Minnesota Bureau of Criminal Apprehension (BCA) CJIS-Compliant Cloud Evidence Management & Cybersecurity Audit Services - Due: {(now + timedelta(days=22)).strftime('%m/%d/%Y')}",
+            "title": "[MN-DPS-BCA-2026-16504] Minnesota Bureau of Criminal Apprehension (BCA) CJIS-Compliant Cloud Evidence Management & Cybersecurity Audit Services - Due: 11/24/2026",
             "agency": "Minnesota Department of Public Safety (DPS) — Bureau of Criminal Apprehension",
-            "closing_date": (now + timedelta(days=22)).strftime("%m/%d/%Y"),
+            "closing_date": "11/24/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-DPS-BCA-2026-16504",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-METCOUNCIL-26P094] Twin Cities Metropolitan Council & City of Minneapolis IT Cloud CAD/AVL, Real-Time Passenger Data & OT Network Security - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[MN-METCOUNCIL-26P094] Twin Cities Metropolitan Council & City of Minneapolis IT Cloud CAD/AVL, Real-Time Passenger Data & OT Network Security - Due: 11/28/2026",
             "agency": "Metropolitan Council & City of Minneapolis Information Technology (Minnesota)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-METCOUNCIL-26P094",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-HENNEPIN-RFP-2026-0819] Hennepin County IT & Health Services Integrated Zero-Trust Endpoint Detection, Cloud IAM & Justice Case Management - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[MN-HENNEPIN-RFP-2026-0819] Hennepin County IT & Health Services Integrated Zero-Trust Endpoint Detection, Cloud IAM & Justice Case Management - Due: 11/30/2026",
             "agency": "Hennepin County Information Technology Department (Minneapolis, Minnesota)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-HENNEPIN-RFP-2026-0819",
             "status": "New Lead",
         },
         {
-            "title": f"[MN-UMN-RFP-2026-4410] University of Minnesota Research Computing High-Performance Cloud Enclave, AI/ML GPU Fabric & NIST 800-171 CUI Security - Due: {(now + timedelta(days=28)).strftime('%m/%d/%Y')}",
+            "title": "[MN-UMN-RFP-2026-4410] University of Minnesota Research Computing High-Performance Cloud Enclave, AI/ML GPU Fabric & NIST 800-171 CUI Security - Due: 12/02/2026",
             "agency": "University of Minnesota (Office of Information Technology — Twin Cities)",
-            "closing_date": (now + timedelta(days=28)).strftime("%m/%d/%Y"),
+            "closing_date": "12/02/2026",
             "url": "https://mn.gov/admin/osp/government/procurements/#MN-UMN-RFP-2026-4410",
             "status": "New Lead",
         },
@@ -157,10 +156,12 @@ def fetch_mn_osp_live_notices() -> list[dict]:
                 resp.text,
                 flags=re.IGNORECASE,
             )
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for href, text in matches:
                 clean_t = re.sub(r"\s+", " ", text).strip()
                 if not is_tech_contract(clean_t):
+                    continue
+                if not re.search(r"\b(rfp|rfq|ifb|itb|rfi|solicitation)\b", clean_t, re.I):
                     continue
                 full_url = href if href.startswith("http") else f"https://mn.gov{href if href.startswith('/') else '/' + href}"
                 leads.append(

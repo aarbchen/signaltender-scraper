@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-29T17:41:09+00:00",
-  "total_verified_mx_contacts": 183,
-  "not_catchall_priority_tier_count": 183,
+  "updated_at": "2026-10-29T17:49:48+00:00",
+  "total_verified_mx_contacts": 182,
+  "not_catchall_priority_tier_count": 182,
   "catchall_secondary_tier_count": 0,
-  "purged_legacy_or_invalid_rows": 0,
+  "purged_legacy_or_invalid_rows": 1,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 6,
+  "added_website_harvested_govcon_contacts": 0,
   "verified_usaspending_award_profiles_count": 275,
   "expiring_recompete_wire_count": 15,
   "fresh_prime_subcontract_wire_count": 12,
@@ -26,7 +26,7 @@
     "Virginia": 31,
     "Washington": 4,
     "Arizona": 3,
-    "Colorado": 2
+    "Colorado": 1
   },
   "usaspending_naics_541512_top_recipients": [
     {

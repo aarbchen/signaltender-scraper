@@ -1207,17 +1207,23 @@ async def run_master_orchestrator(
                     str(prev_row.get("closing_date") or ""),
                     str(prev_row.get("agency") or cur_agency),
                 )
-                sf30_url = f"{u}#sf30-{cur_hash[:8]}"
-                if cur_hash != prev_hash and cur_due_norm and prev_due_norm and cur_due_norm != prev_due_norm and sf30_url not in existing_url_set:
-                    seen_batch_urls.add(sf30_url)
-                    sf30_title = cur_title if "[SF-30" in cur_title.upper() else f"[SF-30 / ADDENDUM DETECTED] {cur_title}"
-                    net_new_candidates.append({
-                        "title": sf30_title,
-                        "agency": cur_agency,
-                        "closing_date": cur_due,
-                        "url": sf30_url,
-                        "status": "New Lead",
-                    })
+                is_fallback_url = (
+                    "#" in u
+                    or bool(r.get("is_fallback"))
+                    or any(tok in u.lower() for tok in ("?sol=", "?rfp=", "?id=", "demandstar.com/app/limited/bids/"))
+                )
+                has_real_portal_amendment = (
+                    not is_fallback_url
+                    and any(k in cur_title.lower() for k in ("amendment", "addendum", "sf-30", "sf30"))
+                    and not any(k in str(prev_row.get("title") or "").lower() for k in ("amendment", "addendum", "sf-30", "sf30"))
+                )
+                if (
+                    has_real_portal_amendment
+                    and cur_hash != prev_hash
+                    and cur_due_norm
+                    and prev_due_norm
+                    and cur_due_norm != prev_due_norm
+                ):
                     sf30_amendments_detected += 1
                 hash_ledger[u] = {"content_hash": cur_hash, "closing_date": str(cur_due or "")}
                 continue

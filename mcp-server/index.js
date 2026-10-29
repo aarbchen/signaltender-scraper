@@ -81,16 +81,9 @@ const TOOLS = [
         },
         "document_type_hint": {
           "type": "string",
-          "enum": [
-            "RFP",
-            "MSA",
-            "SOW",
-            "NDA",
-            "SUBCONTRACT",
-            "AUTO"
-          ],
-          "default": "AUTO",
-          "description": "Optional document classification hint ('RFP', 'MSA', 'SOW', 'NDA', 'SUBCONTRACT', or 'AUTO') used to prioritize federal solicitation fields vs. commercial agreement terms."
+          "minLength": 1,
+          "maxLength": 100000,
+          "description": "Optional document type hint (e.g., 'RFP', 'MSA', 'SOW')."
         }
       },
       "required": [
@@ -100,59 +93,41 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "document_type": {
+        "buyer_entity": {
           "type": "string",
-          "description": "Detected contract or solicitation type."
+          "description": "The organization, government authority, or enterprise issuing the RFP, tender, or legal contract."
         },
-        "parties": {
+        "vendor_requirements": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Identified contracting parties or issuing agency."
+          "description": "A list of strict technical, security, licensing, or compliance qualifications required from the vendor."
         },
-        "effective_date": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "ISO-8601 effective or posting date if present."
-        },
-        "termination_or_due_date": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Contract expiration or proposal submission deadline."
-        },
-        "total_contract_value": {
+        "total_budget_usd": {
           "type": [
             "number",
-            "string",
             "null"
           ],
-          "description": "Extracted total contract ceiling or value."
+          "description": "The stated budget, maximum contract value, or total fee in USD. Must be None if no explicit financial figure is mentioned."
         },
-        "payment_terms": {
+        "submission_deadline": {
           "type": [
             "string",
             "null"
           ],
-          "description": "Payment schedule, Net terms, or contract pricing type (FFP, T&M, CPFF)."
+          "description": "The exact deadline for submission in ISO 8601 format (e.g., 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:MM:SSZ'). Must be None if missing."
         },
-        "deliverables": {
+        "is_awarded": {
+          "type": "boolean",
+          "description": "A boolean indicating if this document is a past award (True) or an active, open bid/solicitation (False)."
+        },
+        "key_deliverables": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Core technical and operational deliverables."
-        },
-        "governing_law": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Governing jurisdiction or acquisition regulation (e.g., FAR/DFARS, Delaware)."
+          "description": "A list of the main project deliverables, milestones, goods, or work products required."
         }
       }
     }
@@ -186,6 +161,14 @@ const TOOLS = [
           ],
           "default": "vendor",
           "description": "Negotiating party perspective ('vendor' protects service provider liability/IP, 'buyer' strengthens customer remedies/SLAs, 'neutral' balances mutual terms)."
+        },
+        "focus_categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "description": "Optional list of specific clause risk categories to prioritize during the audit."
         }
       },
       "required": [
@@ -195,20 +178,39 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "contract_type": {
+          "type": "string",
+          "description": "Identified legal document type (e.g., 'Master Services Agreement', 'Mutual NDA', 'Statement of Work')."
+        },
+        "party_perspective": {
+          "type": "string",
+          "description": "The negotiating perspective used to evaluate risks ('vendor', 'buyer', or 'neutral')."
+        },
         "overall_risk_score": {
           "type": "integer",
-          "description": "Composite contract risk score from 0 (low risk) to 100 (critical risk)."
+          "description": "Quantified overall risk score from 0 (minimal risk) to 100 (critical/unacceptable exposure)."
         },
-        "risk_level": {
+        "overall_risk_level": {
           "type": "string",
-          "description": "Qualitative risk tier (LOW, MODERATE, HIGH, CRITICAL)."
+          "description": "Aggregate risk severity classification ('LOW', 'MEDIUM', 'HIGH', or 'CRITICAL')."
+        },
+        "executive_summary": {
+          "type": "string",
+          "description": "High-level deal-desk summary of the contract's risk posture and primary negotiation blockers."
+        },
+        "missing_standard_protections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of standard protective clauses missing from the contract (e.g., 'No Limitation of Liability cap')."
         },
         "flagged_clauses": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Detected risky clauses with verbatim quote, risk rationale, and recommended redline replacement."
+          "description": "Detailed list of risky clauses identified in the contract, ordered by severity."
         }
       }
     }
@@ -216,7 +218,7 @@ const TOOLS = [
   {
     "name": "search_historical_awards",
     "title": "Search Historical Federal Contract Awards & CLIN Pricing",
-    "description": "Query historical federal contract awards, incumbent prime contractors, award ceilings, and labor/CLIN pricing benchmarks filtered by keyword, agency, or 6-digit NAICS code. This is a read-only, deterministic database query (requires X-RapidAPI-Key; `keywords` is required and narrows scope descriptions, while optional `agency` and 6-digit `naics_code` filters intersect results and return up to 25 matching awards per call). Use this tool when researching past award prices, incumbent vendors, or Price-to-Win (PTW) benchmarks; use `get_live_solicitations` instead to find currently open RFPs available for bidding, or `classify_naics_psc_nigp` if you need to discover the right NAICS code first.",
+    "description": "Query historical federal contract awards, incumbent prime contractors, award ceilings, and labor/CLIN pricing benchmarks filtered by keyword, agency, or 6-digit NAICS code. This is a read-only, stateless, non-destructive database query (requires X-RapidAPI-Key; all filter parameters are optional and combinable, returning up to `limit` [default 20, max 100] matching historical awards per call). Use this tool when researching past award prices, incumbent vendors, or Price-to-Win (PTW) benchmarks; use `get_live_solicitations` instead to find currently open RFPs available for bidding, or `classify_naics_psc_nigp` if you need to discover the right NAICS code first.",
     "annotations": {
       "title": "Search Historical Federal Contract Awards & CLIN Pricing",
       "readOnlyHint": true,
@@ -235,31 +237,58 @@ const TOOLS = [
         },
         "agency": {
           "type": "string",
+          "minLength": 1,
+          "maxLength": 100000,
           "description": "Optional issuing federal or state agency name substring filter (e.g., 'Department of Defense', 'Veterans Affairs')."
         },
         "naics_code": {
           "type": "string",
-          "pattern": "^[0-9]{6}$",
-          "description": "Optional exact 6-digit North American Industry Classification System (NAICS) code filter (e.g., '541512' for Computer Systems Design)."
+          "minLength": 1,
+          "maxLength": 100000,
+          "description": "Optional exact 6-digit North American Industry Classification System (NAICS) code filter (e.g., '541512' for Computer Systems Design).",
+          "pattern": "^[0-9]{6}$"
+        },
+        "min_amount_usd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000000,
+          "description": "Minimum award amount in USD."
+        },
+        "max_amount_usd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000000000,
+          "description": "Maximum award amount in USD."
+        },
+        "limit": {
+          "type": "integer",
+          "default": 10,
+          "minimum": 1.0,
+          "maximum": 100.0,
+          "description": "Maximum number of award records to return."
         }
-      },
-      "required": [
-        "keywords"
-      ]
+      }
     },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "total_matches": {
+        "total_count": {
           "type": "integer",
-          "description": "Number of historical award records matching the query."
+          "description": "Total number of matching award records found."
         },
-        "awards": {
+        "query": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Echoed query parameter or filter criteria."
+        },
+        "results": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "List of historical contract awards with recipient, agency, ceiling amount, NAICS, and labor/CLIN benchmarks."
+          "description": "List of standardized award records with line items."
         }
       }
     }
@@ -267,7 +296,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 28-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 28-portal procurement database. This is a read-only, stateless, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -282,8 +311,8 @@ const TOOLS = [
           "type": "string",
           "enum": [
             "federal",
-            "virginia",
             "texas",
+            "virginia",
             "california",
             "florida",
             "maryland",
@@ -310,7 +339,7 @@ const TOOLS = [
             "utah",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', or 'municipal' for DemandStar)."
+          "description": "Filter by portal jurisdiction: 'federal', 'texas', 'virginia', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', or 'municipal'."
         },
         "category": {
           "type": "string",
@@ -324,13 +353,22 @@ const TOOLS = [
         },
         "keyword": {
           "type": "string",
+          "minLength": 1,
+          "maxLength": 100000,
           "description": "Optional case-insensitive substring keyword matched against solicitation title and issuing buyer agency."
+        },
+        "closing_after": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100000,
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Return only solicitations closing on or after this ISO 8601 date (YYYY-MM-DD)."
         },
         "limit": {
           "type": "integer",
+          "default": 25,
           "minimum": 1,
-          "maximum": 50,
-          "default": 10,
+          "maximum": 100,
           "description": "Maximum number of open solicitations to return per request (integer between 1 and 50; defaults to 10)."
         }
       }
@@ -338,16 +376,24 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "count": {
+        "total_count": {
           "type": "integer",
-          "description": "Number of open solicitations returned."
+          "description": "Total number of matching open solicitations returned."
+        },
+        "portals_monitored": {
+          "type": "integer",
+          "description": "Number of Federal, State SLED, and Municipal procurement portals indexed."
+        },
+        "filters_applied": {
+          "type": "object",
+          "description": "Echoed query filter parameters."
         },
         "solicitations": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Active RFP records including id, title, agency, closing_date, jurisdiction, and official portal URL."
+          "description": "List of verified open IT, cloud, software, and cybersecurity solicitations."
         }
       }
     }
@@ -355,7 +401,7 @@ const TOOLS = [
   {
     "name": "generate_compliance_matrix",
     "title": "Generate Shipley RFP Compliance Matrix & Proposal Outline",
-    "description": "Shred unstructured RFP Section C (SOW/PWS), Section L (Instructions), and Section M (Evaluation Criteria) text into a numbered `shall`/`must` Requirements Traceability Matrix, Section L-to-M cross-reference map, and annotated Proposal Outline with page allocations. This is a read-only, stateless analysis operation (requires X-RapidAPI-Key; `raw_text` accepts 50 to 100,000 characters, and `proposal_methodology` selects 'shipley' [default Volume I-IV structure], 'federal_standard' [FAR 15.3], or 'commercial_agile' outline conventions). Use this tool first when shredding a base RFP into a compliance checklist and proposal outline; use `analyze_rfp_amendment_diff` instead when comparing an SF-30 amendment against a base RFP, or `generate_rfp_response` to draft the actual prose narrative for a specific section.",
+    "description": "Shred unstructured RFP Section C (SOW/PWS), Section L (Instructions), and Section M (Evaluation Criteria) text into a numbered `shall`/`must` Requirements Traceability Matrix, Section L-to-M cross-reference map, and annotated Proposal Outline with page allocations. This is a read-only, stateless analysis operation (requires X-RapidAPI-Key; `raw_text` accepts 50 to 100,000 characters, and `proposal_methodology` selects 'shipley' [default Volume I-IV structure], 'federal_far' [FAR 15.3], or 'standard_b2b' outline conventions). Use this tool when shredding a base RFP into a compliance checklist and proposal outline; use `analyze_rfp_amendment_diff` instead when comparing an SF-30 amendment against a base RFP, or `generate_rfp_response` to draft the actual prose narrative for a specific section.",
     "annotations": {
       "title": "Generate Shipley RFP Compliance Matrix & Proposal Outline",
       "readOnlyHint": true,
@@ -376,11 +422,11 @@ const TOOLS = [
           "type": "string",
           "enum": [
             "shipley",
-            "federal_standard",
-            "commercial_agile"
+            "standard_b2b",
+            "federal_far"
           ],
           "default": "shipley",
-          "description": "Proposal structuring methodology: 'shipley' (default evaluator-first Volume I-IV outline with win themes), 'federal_standard' (strict FAR Part 15 Section L/M mapping), or 'commercial_agile' (B2B solution deliverable sprints)."
+          "description": "Proposal structuring methodology: 'shipley' (Shipley Associates capture standard), 'standard_b2b' (commercial enterprise RFP), or 'federal_far' (strict FAR Section L/M mapping)."
         }
       },
       "required": [
@@ -390,19 +436,45 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "solicitation_title": {
+          "type": "string",
+          "description": "Inferred or stated title/scope of the RFP or Statement of Work."
+        },
+        "proposal_methodology": {
+          "type": "string",
+          "description": "Echoed proposal methodology applied ('shipley', 'standard_b2b', or 'federal_far')."
+        },
+        "total_mandatory_shall_count": {
+          "type": "integer",
+          "description": "Total count of mandatory ('MANDATORY_SHALL') requirements identified in the text."
+        },
+        "submission_format_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Extracted administrative formatting, page limit, font, margin, or submission instructions that could trigger rejection if violated."
+        },
+        "evaluation_criteria_weights": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Extracted Section M or commercial evaluation scoring factors and relative weights."
+        },
         "requirements_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Extracted mandatory shall/must requirements with priority, volume assignment, and verification evidence needed."
+          "description": "Ordered list of shredded RFP requirements mapped to proposal sections and required verification evidence."
         },
         "proposal_outline": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Hierarchical proposal sections with mapped requirement IDs, win theme strategy, and page allocation."
+          "description": "Structured section-by-section proposal outline with mapped requirements, win themes, and page budgets."
         }
       }
     }
@@ -410,7 +482,7 @@ const TOOLS = [
   {
     "name": "scan_far_dfars_clauses",
     "title": "Scan FAR / DFARS & CMMC Regulatory Flow-Down Clauses",
-    "description": "Scan solicitation Section I or subcontract flow-down text to identify every FAR (`52.2xx`) and DFARS (`252.2xx`) clause, flag mandatory subcontractor flow-downs, and score CMMC 2.0, NIST SP 800-171, and FedRAMP compliance burden. This is a read-only, stateless regulatory audit (requires X-RapidAPI-Key; `raw_text` accepts 30 to 100,000 characters, and `contractor_role` adjusts risk severity and flow-down obligations for a 'prime_contractor' [default], 'subcontractor', or 'commercial_item_vendor' under FAR Part 12). Use this tool specifically for federal acquisition regulation (FAR/DFARS/CMMC) clause compliance; use `audit_contract_risks` instead for commercial MSA/NDA legal redlining, or `answer_security_questionnaire` to draft control-by-control NIST 800-171 / SOC 2 questionnaire responses.",
+    "description": "Scan solicitation Section I or subcontract flow-down text to identify every FAR (`52.2xx`) and DFARS (`252.2xx`) clause, flag mandatory subcontractor flow-downs, and score CMMC 2.0, NIST SP 800-171, and FedRAMP compliance burden. This is a read-only, stateless regulatory audit (requires X-RapidAPI-Key; `raw_text` accepts 30 to 100,000 characters, and `contractor_role` adjusts risk severity and flow-down obligations for a 'prime_contractor' [default], 'subcontractor', or 'commercial_item_vendor' under FAR Part 12). Use this tool when performing federal acquisition regulation (FAR/DFARS/CMMC) clause compliance; use `audit_contract_risks` instead for commercial MSA/NDA legal redlining, or `answer_security_questionnaire` to draft control-by-control NIST 800-171 / SOC 2 questionnaire responses.",
     "annotations": {
       "title": "Scan FAR / DFARS & CMMC Regulatory Flow-Down Clauses",
       "readOnlyHint": true,
@@ -436,6 +508,11 @@ const TOOLS = [
           ],
           "default": "prime_contractor",
           "description": "Bidder's contracting tier: 'prime_contractor' (evaluates full agency compliance and outbound flow-down duties), 'subcontractor' (flags over-broad prime flow-downs), or 'commercial_item_vendor' (filters against FAR 52.212-5 commercial item exemptions)."
+        },
+        "handles_cui_or_cdi": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the contractor will store, process, or transmit Controlled Unclassified Information (CUI) or Covered Defense Information (CDI)."
         }
       },
       "required": [
@@ -445,20 +522,54 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "compliance_burden_score": {
+        "solicitation_summary": {
+          "type": "string",
+          "description": "Concise executive summary of the regulatory posture, agency context, and contract vehicle."
+        },
+        "contractor_role_evaluated": {
+          "type": "string",
+          "description": "The contractor role perspective used for the audit."
+        },
+        "overall_compliance_burden_score": {
           "type": "integer",
-          "description": "Regulatory compliance complexity score from 0 to 100."
+          "description": "Overall regulatory and cybersecurity compliance burden score from 0 (minimal commercial burden) to 100 (extreme defense/CMMC/IP burden)."
+        },
+        "compliance_burden_level": {
+          "type": "string",
+          "description": "Categorical compliance burden level (LOW, MODERATE, HIGH, EXTREME_DEFENSE_GRADE)."
+        },
+        "total_clauses_detected": {
+          "type": "integer",
+          "description": "Total number of FAR, DFARS, and agency supplement clauses identified."
+        },
+        "mandatory_flowdown_count": {
+          "type": "integer",
+          "description": "Number of detected clauses that carry mandatory subcontractor flow-down obligations."
+        },
+        "cyber_compliance_profile": {
+          "type": "object",
+          "description": "Structured CMMC 2.0, NIST SP 800-171, FedRAMP, and cyber incident reporting requirements."
         },
         "detected_clauses": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Parsed FAR/DFARS clauses with mandatory flow-down status, risk level, and remediation guidance."
+          "description": "Detailed breakdown of every FAR/DFARS/supplement clause found, with severity, flow-down status, and remediation advice."
         },
-        "cybersecurity_posture_summary": {
-          "type": "string",
-          "description": "Required CMMC 2.0, NIST SP 800-171, or FedRAMP authorization posture."
+        "ip_and_data_rights_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific warnings regarding Government Unlimited Rights, GPR, computer software rights (FAR 52.227 / DFARS 252.227), or patent traps."
+        },
+        "priority_compliance_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ordered checklist of immediate pre-proposal actions (e.g., SPRS score verification, CMMC assessment, IP assertion table in Section K/L)."
         }
       }
     }
@@ -466,7 +577,7 @@ const TOOLS = [
   {
     "name": "match_capability_statement",
     "title": "Score Bid/No-Bid Pwin & Match Capability Statement",
-    "description": "Evaluate an RFP scope against a vendor's Capability Statement and past performance to compute a 0-100 Probability of Win (Pwin) score, a Gate-1 Bid/No-Bid recommendation, a technical/socioeconomic gap analysis, and a tailored executive pitch. This is a read-only, stateless capture scoring call (requires X-RapidAPI-Key; both `rfp_text` and `company_capability_statement` are required, while `target_pursuit_role` weights eligibility rules for 'prime_contractor', 'subcontractor', or 'either_prime_or_sub' [default]). Use this tool at Gate-1 capture qualification to decide whether to bid an opportunity; use `generate_teaming_strategy` instead if you already decided to bid and need a 13 CFR 125.6 (50% Rule) Prime/Sub workshare plan, or `match_key_personnel` to evaluate individual candidate resumes.",
+    "description": "Evaluate an RFP scope against a vendor's Capability Statement and past performance to compute a 0-100 Probability of Win (Pwin) score, a Gate-1 Bid/No-Bid recommendation, a technical/socioeconomic gap analysis, and a tailored executive pitch. This is a read-only, stateless capture scoring call (requires X-RapidAPI-Key; both `rfp_text` and `company_capability_statement` are required, while `target_pursuit_role` weights eligibility rules for 'prime_contractor', 'subcontractor_or_jv', or 'either_prime_or_sub' [default]). Use this tool when conducting Gate-1 capture qualification to decide whether to bid an opportunity; use `generate_teaming_strategy` instead if you already decided to bid and need a 13 CFR 125.6 (50% Rule) Prime/Sub workshare plan, or `match_key_personnel` to evaluate individual candidate resumes.",
     "annotations": {
       "title": "Score Bid/No-Bid Pwin & Match Capability Statement",
       "readOnlyHint": true,
@@ -493,11 +604,11 @@ const TOOLS = [
           "type": "string",
           "enum": [
             "prime_contractor",
-            "subcontractor",
+            "subcontractor_or_jv",
             "either_prime_or_sub"
           ],
           "default": "either_prime_or_sub",
-          "description": "Intended pursuit role: 'prime_contractor' enforces strict set-aside and past-performance minimums, 'subcontractor' scores niche workshare fit, and 'either_prime_or_sub' (default) recommends the highest-Pwin path."
+          "description": "Preferred pursuit posture to evaluate: 'prime_contractor', 'subcontractor_or_jv', or 'either_prime_or_sub'."
         }
       },
       "required": [
@@ -508,31 +619,54 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "solicitation_title": {
+          "type": "string",
+          "description": "Identified or inferred title and agency of the solicitation."
+        },
         "pwin_score": {
           "type": "integer",
-          "description": "Calculated Probability of Win (Pwin) score from 0 to 100."
+          "description": "Estimated Probability of Win (Pwin) score from 0 (disqualified / no fit) to 100 (ideal prime fit)."
         },
         "bid_recommendation": {
           "type": "string",
-          "description": "Gate-1 recommendation (BID_AS_PRIME, BID_AS_SUB, TEAMING_REQUIRED, NO_BID)."
+          "description": "Executive gate decision: STRONG_BID, CONDITIONAL_BID_TEAMING_REQUIRED, HIGH_RISK_STRETCH_BID, or NO_BID."
         },
-        "strengths_and_discriminators": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Matched vendor capabilities and competitive discriminators."
-        },
-        "capability_gaps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Unmet RFP requirements or compliance blockers."
-        },
-        "tailored_executive_pitch": {
+        "recommended_pursuit_role": {
           "type": "string",
-          "description": "Ready-to-use executive summary pitch aligned to the buyer agency."
+          "description": "Optimal pursuit structure (e.g., 'Prime Contractor', 'Prime with Teaming Subcontractor for Top Secret FCL', 'Subcontractor to Large Prime')."
+        },
+        "score_breakdown": {
+          "type": "object",
+          "description": "Granular 0-100 scoring across technical fit, past performance, clearances/certifications, and set-aside/vehicle eligibility."
+        },
+        "hard_disqualifiers_detected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Mandatory knockout blockers detected (e.g., missing Top Secret FCL, ineligible socioeconomic status, missing required contract vehicle)."
+        },
+        "key_discriminators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "High-impact competitive strengths from the vendor profile to highlight as Shipley win themes."
+        },
+        "requirement_gap_analysis": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Requirement-by-requirement alignment matrix with matched vendor evidence and gap remediation actions."
+        },
+        "teaming_and_subcontracting_strategy": {
+          "type": "string",
+          "description": "Concrete recommendation on how to structure the capture team, JV, or subcontractor roster to maximize Pwin."
+        },
+        "tailored_executive_summary_pitch": {
+          "type": "string",
+          "description": "Ready-to-paste, persuasive Shipley Executive Summary / Sources Sought pitch paragraph tailored to the buyer agency using the vendor's exact past performance."
         }
       }
     }
@@ -562,16 +696,16 @@ const TOOLS = [
           "enum": [
             "company_or_vendor_profile",
             "rfp_or_sow_scope",
-            "product_or_service_catalog"
+            "product_or_line_item"
           ],
           "default": "company_or_vendor_profile",
-          "description": "Input context mode: 'company_or_vendor_profile' (default, optimizes for SAM.gov vendor registration & FinTech KYB SIC/NAICS), 'rfp_or_sow_scope' (optimizes for solicitation set-aside NAICS & Federal PSC), or 'product_or_service_catalog' (emphasizes NIGP/UNSPSC commodity codes)."
+          "description": "Classification context: 'company_or_vendor_profile', 'rfp_or_sow_scope', or 'product_or_line_item'."
         },
         "max_secondary_codes": {
           "type": "integer",
-          "minimum": 1,
-          "maximum": 5,
           "default": 3,
+          "minimum": 1.0,
+          "maximum": 5.0,
           "description": "Maximum number of secondary/alternative NAICS, PSC, and NIGP codes to return in addition to the top-ranked primary code (integer 1 to 5; defaults to 3)."
         }
       },
@@ -582,37 +716,49 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "entity_or_offering_summary": {
+          "type": "string",
+          "description": "Concise 1-sentence executive summary of the company, SOW, or product analyzed."
+        },
+        "primary_industry_sector": {
+          "type": "string",
+          "description": "2-digit NAICS sector code and name (e.g., '54 - Professional, Scientific, and Technical Services')."
+        },
         "primary_naics": {
           "type": "object",
-          "description": "Top-ranked 6-digit NAICS code, title, confidence score, and official SBA Small Business Size Standard."
+          "description": "Highest-confidence primary 6-digit NAICS code and SBA Small Business Size Standard."
         },
         "secondary_naics_codes": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Up to max_secondary_codes alternative 6-digit NAICS classifications."
+          "description": "Additional relevant 6-digit NAICS codes for SAM.gov registration and secondary capabilities."
         },
         "sic_codes": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Matched 4-digit Standard Industrial Classification (SIC) codes."
+          "description": "4-digit Standard Industrial Classification (SIC) codes for FinTech KYB, banking underwriting, and corporate filings."
         },
         "federal_psc_codes": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Matched 4-character Federal Product Service Codes (PSC)."
+          "description": "4-character Federal Product Service Codes (PSC) for SAM.gov saved searches and FPDS award tracking."
         },
         "state_unspsc_and_nigp_codes": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Matched State SLED NIGP and 8-digit UNSPSC commodity codes."
+          "description": "8-digit UNSPSC and 5-digit NIGP Class-Item codes for State/Municipal SLED vendor portals and ERP catalogs."
+        },
+        "kyb_and_procurement_notes": {
+          "type": "string",
+          "description": "Actionable guidance covering SAM.gov NAICS/PSC profile setup, SBA small-business size standard nuances (e.g., 150-employee IT Value Added Reseller footnote under 541519), SLED NIGP registration, and KYB risk classification."
         }
       }
     }
@@ -649,14 +795,17 @@ const TOOLS = [
             "technical_approach",
             "executive_summary",
             "management_and_staffing_plan",
-            "past_performance_narrative"
+            "past_performance_narrative",
+            "transition_and_quality_control"
           ],
           "default": "technical_approach",
-          "description": "Target proposal section structure: 'technical_approach' (default, solution architecture & requirement execution), 'executive_summary' (vision & discriminators), 'management_and_staffing_plan' (governance, transition & QA), or 'past_performance_narrative' (prose summary)."
+          "description": "Type of proposal section to draft: 'technical_approach', 'executive_summary', 'management_and_staffing_plan', 'past_performance_narrative', or 'transition_and_quality_control'."
         },
         "tone_and_methodology": {
           "type": "string",
           "default": "Shipley Proposal Methodology (Active Voice, Evaluator-First, Feature-Benefit-Proof)",
+          "minLength": 1,
+          "maxLength": 100000,
           "description": "Editorial voice and methodology instruction applied to the prose draft (defaults to 'Shipley Proposal Methodology (Active Voice, Evaluator-First, Feature-Benefit-Proof)')."
         }
       },
@@ -670,25 +819,44 @@ const TOOLS = [
       "properties": {
         "section_title": {
           "type": "string",
-          "description": "Compliance-mapped heading for the drafted proposal section."
+          "description": "Evaluator-focused title for the drafted proposal section."
         },
-        "drafted_narrative_markdown": {
+        "executive_theme_statement": {
           "type": "string",
-          "description": "Full Shipley-formatted proposal section prose in Markdown."
+          "description": "Overarching Shipley win-theme thesis statement for the entire proposal section."
         },
-        "win_themes_and_discriminators": {
+        "estimated_word_count": {
+          "type": "integer",
+          "description": "Total word count of the drafted narrative across all subsections."
+        },
+        "compliance_coverage_score": {
+          "type": "integer",
+          "description": "Percentage (0-100) of input RFP requirements explicitly addressed in the drafted response."
+        },
+        "drafted_subsections": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object"
           },
-          "description": "Key win themes and ghosting points embedded in the draft."
+          "description": "Complete, multi-subsection Shipley proposal draft ready to paste into Word or proposal automation software."
+        },
+        "feature_benefit_proof_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured Feature-Benefit-Proof & competitive ghosting table for evaluator skimming."
         },
         "strategic_clarification_questions": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Strategic vendor Q&A questions to submit to the Contracting Officer to expose ambiguous or competitor-wired specs."
+          "description": "Formal Contracting Officer (KO) Q&A questions designed to neutralize competitor-wired specs and clarify scope risks."
+        },
+        "red_team_evaluator_critique": {
+          "type": "string",
+          "description": "Internal Red Team review note highlighting strengths of the draft and any remaining proof-point placeholders to verify before final submission."
         }
       }
     }
@@ -716,14 +884,15 @@ const TOOLS = [
         "expected_document_type": {
           "type": "string",
           "enum": [
-            "auto_detect",
             "federal_section_b_clin_schedule",
-            "gsa_or_tm_labor_rate_card",
-            "b2b_vendor_quote_or_bom",
-            "commercial_invoice"
+            "vendor_quote",
+            "commercial_invoice",
+            "labor_rate_card_tm",
+            "bill_of_materials_bom",
+            "purchase_order"
           ],
-          "default": "auto_detect",
-          "description": "Document schema hint: 'auto_detect' (default), 'federal_section_b_clin_schedule' (parses Base/Option Year CLINs & contract types like FFP/T&M), 'gsa_or_tm_labor_rate_card' (LCAT hourly rates), 'b2b_vendor_quote_or_bom', or 'commercial_invoice'."
+          "default": "federal_section_b_clin_schedule",
+          "description": "Primary document type hint: 'federal_section_b_clin_schedule', 'vendor_quote', 'commercial_invoice', 'labor_rate_card_tm', 'bill_of_materials_bom', or 'purchase_order'."
         },
         "audit_math_and_anomalies": {
           "type": "boolean",
@@ -738,31 +907,79 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "document_title_or_reference": {
+          "type": "string",
+          "description": "Extracted solicitation number, quote ID, invoice number, or contract title."
+        },
         "detected_document_type": {
           "type": "string",
           "description": "Classified pricing document type."
         },
         "dominant_pricing_model": {
           "type": "string",
-          "description": "Primary contract pricing structure (e.g., FIRM_FIXED_PRICE_FFP, TIME_AND_MATERIALS_TM)."
+          "description": "Overall contract pricing structure (e.g., 'HYBRID_MIXED', 'FIRM_FIXED_PRICE_FFP', 'TIME_AND_MATERIALS_TM')."
+        },
+        "vendor_or_issuer_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Vendor, prime contractor, or quote issuer name if present in the text."
+        },
+        "customer_or_agency_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Buyer organization, government agency, or bill-to entity if present in the text."
+        },
+        "currency_code": {
+          "type": "string",
+          "description": "ISO 4217 3-letter currency code (defaults to 'USD')."
+        },
+        "base_period_total_usd": {
+          "type": "number",
+          "description": "Sum of all Base Period / Year 1 / Initial Term line items in USD."
+        },
+        "options_total_usd": {
+          "type": "number",
+          "description": "Sum of all Option Year / Renewal Tier line items in USD (0.0 if no option periods exist)."
+        },
+        "total_evaluated_contract_value_usd": {
+          "type": "number",
+          "description": "Grand total contract ceiling or quote value across Base + All Option Periods in USD."
+        },
+        "payment_terms_and_invoicing_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Extracted payment terms (e.g., 'Net 30', 'WAWF/IPP electronic invoicing', 'Milestone billing schedule', 'Annual upfront')."
+        },
+        "period_subtotals": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Subtotal breakdown grouped by contract performance period or billing tier."
         },
         "line_items": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Normalized CLIN/line items with quantity, unit, unit_price, extended_price, and period."
+          "description": "Normalized array of all extracted CLINs, SLINs, labor rate rows, and BOM SKUs."
         },
-        "calculated_grand_total": {
-          "type": "number",
-          "description": "Verified sum of all extracted line items."
-        },
-        "math_discrepancies": {
+        "math_and_pricing_anomalies": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object"
           },
-          "description": "Flagged arithmetic errors or rate anomalies when audit_math_and_anomalies is enabled."
+          "description": "Arithmetic discrepancies (Quantity * Unit Price != Stated Total), missing NTE ceilings, or escalation anomalies."
+        },
+        "finops_and_price_to_win_summary": {
+          "type": "string",
+          "description": "Executive FinOps & Price-to-Win (PTW) analysis summarizing blended labor rates, annual escalation percentages, discount depth, and negotiation leverage."
         }
       }
     }
@@ -825,31 +1042,39 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "workshare_allocation": {
-          "type": "object",
-          "description": "Compliant Prime vs. Subcontractor percentage split under 13 CFR 125.6."
-        },
-        "ostensible_subcontractor_risk": {
+        "solicitation_title": {
           "type": "string",
-          "description": "SBA 13 CFR 121.103(h)(3) affiliation risk assessment and mitigation steps."
+          "description": "Inferred solicitation title, agency, and set-aside designation."
         },
-        "recommended_partner_archetypes": {
+        "recommended_teaming_structure": {
+          "type": "string",
+          "description": "High-level recommended teaming architecture (e.g., 'SDVOSB Prime (58% Workshare) + 1 Similarly Situated SDVOSB Sub (22%) + 1 Large Business Niche Sub (20%)')."
+        },
+        "executive_teaming_rationale": {
+          "type": "string",
+          "description": "Strategic Shipley capture rationale explaining how this teaming structure maximizes Pwin while maintaining strict SBA/FAR compliance."
+        },
+        "limitations_on_subcontracting_audit": {
+          "type": "object",
+          "description": "Automated audit of the workshare split under 13 CFR § 125.6 and FAR 52.219-14 (50% Rule & Ostensible Subcontractor test)."
+        },
+        "capability_gaps_and_partner_archetypes": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Ideal subcontractor or prime partner profiles to close capability gaps."
+          "description": "Itemized capability gaps identified in the RFP and the exact partner profiles needed to close them."
         },
         "teaming_agreement_clauses": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object"
           },
-          "description": "Ready-to-paste FAR Subpart 9.6 Teaming Agreement exclusivity and workshare clauses."
+          "description": "Ready-to-paste FAR Subpart 9.6 Teaming Agreement clauses (Exhibit A Workshare, Exclusivity, Pass-Through Subcontract Conversion)."
         },
-        "partner_outreach_email": {
+        "partner_outreach_email_template": {
           "type": "string",
-          "description": "Tailored business development outreach email to recruit teaming partners."
+          "description": "Ready-to-send Business Development outreach email to recruit the target Prime or Subcontractor partner."
         }
       }
     }
@@ -901,30 +1126,35 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "detected_framework": {
+        "questionnaire_title": {
           "type": "string",
-          "description": "Primary compliance standard applied to the responses."
+          "description": "Inferred security questionnaire title, buyer domain, and compliance scope."
         },
-        "estimated_dod_sprs_score": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "description": "Calculated DoD SPRS score (-203 to 110) when NIST 800-171 / CMMC applies."
+        "overall_readiness_score": {
+          "type": "integer",
+          "description": "Overall security questionnaire readiness score (0-100) based on control alignment."
+        },
+        "executive_compliance_attestation": {
+          "type": "string",
+          "description": "Executive CISO attestation paragraph summarizing the vendor's security architecture, certifications, and shared-responsibility model."
+        },
+        "sprs_and_framework_summary": {
+          "type": "object",
+          "description": "Summary of detected frameworks, estimated DoD SPRS / GRC maturity impact, and control counts."
         },
         "question_responses": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Audit-ready answers with compliance status, control citations, and verification evidence."
+          "description": "Question-by-question auditor-ready responses with cross-framework control citations and evidence artifacts."
         },
-        "poam_remediation_items": {
+        "poam_and_remediation_items": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Plan of Action and Milestones (POA&M) entries for partially met or unmet controls."
+          "description": "Actionable Plan of Action & Milestones (POA&M) items or continuous improvement recommendations for any partial or open controls."
         }
       }
     }
@@ -969,28 +1199,32 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "qualification_score": {
-          "type": "integer",
-          "description": "Candidate LCAT/Key Personnel compliance score from 0 to 100."
-        },
-        "compliance_verdict": {
+        "target_lcat_title": {
           "type": "string",
-          "description": "Eligibility status (FULLY_QUALIFIED, QUALIFIED_VIA_SUBSTITUTION, NON_COMPLIANT_GAP)."
+          "description": "Normalized Labor Category (LCAT) and Key Personnel role title extracted from the solicitation."
         },
-        "requirement_audit_matrix": {
+        "overall_qualification_score": {
+          "type": "integer",
+          "description": "Quantitative Key Personnel & LCAT qualification score (0-100)."
+        },
+        "qualification_verdict": {
+          "type": "string",
+          "description": "Audit verdict: 'FULLY_QUALIFIED_COMPLIANT', 'QUALIFIED_VIA_SUBSTITUTION', 'WAIVER_OR_CERT_PENDING', or 'DISQUALIFIED_HARD_KNOCKOUT'."
+        },
+        "lcat_compliance_audit": {
+          "type": "object",
+          "description": "Granular verification of years of experience, degree equivalency, security clearance, and DoD 8570/8140 certifications."
+        },
+        "requirement_by_requirement_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Line-by-line audit of education, years of experience, clearance, and certification mandates."
+          "description": "Line-by-line compliance checklist mapping each RFP Key Personnel mandate to candidate resume evidence."
         },
-        "tailored_shipley_resume_markdown": {
-          "type": "string",
-          "description": "Rewritten Shipley Key Personnel biographical sketch and compliance-mapped experience bullets."
-        },
-        "letter_of_commitment_loc": {
-          "type": "string",
-          "description": "Ready-to-sign Key Personnel Letter of Commitment (LOC) template."
+        "tailored_shipley_resume_profile": {
+          "type": "object",
+          "description": "Proposal-ready Shipley Key Personnel bio, rewritten past-performance bullets, and ready-to-sign Letter of Commitment (LOC)."
         }
       }
     }
@@ -1023,6 +1257,8 @@ const TOOLS = [
         },
         "current_proposal_outline": {
           "type": "string",
+          "default": "Volume I: Technical Approach & Architecture; Volume II: Management & Key Personnel Staffing; Volume III: Past Performance; Volume IV: CLIN Pricing & Basis of Estimate (BOE)",
+          "minLength": 1,
           "maxLength": 50000,
           "description": "Optional summary of the bidder's in-progress proposal outline, volume page allocations, or technical baseline used to pinpoint exact sections that must be rewritten."
         }
@@ -1035,23 +1271,30 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "schedule_and_page_limit_changes": {
+        "amendment_impact_summary": {
           "type": "object",
-          "description": "Detected due-date extensions, page-limit updates, and administrative modifications."
+          "description": "Executive roll-up of amendment severity, rework risk score, deadline shifts, and mandatory SF-30 acknowledgment rules."
         },
-        "material_requirement_changes": {
+        "requirement_and_clin_deltas": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Added, modified, or deleted shall/must requirements and de-facto Q&A mandates."
+          "description": "Ordered list of material requirement, CLIN pricing, page limit, evaluation criteria, and deadline changes."
+        },
+        "qa_clarification_rulings": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured breakdown of Government Q&A answers, flagging hidden de-facto requirements and competitive impacts."
         },
         "invalidated_proposal_sections": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Affected proposal sections with severity and ready-to-paste Shipley redraft language."
+          "description": "Bidder proposal sections invalidated by the amendment, paired with ready-to-paste replacement narrative."
         }
       }
     }
@@ -1084,6 +1327,8 @@ const TOOLS = [
         },
         "bidder_role_and_context": {
           "type": "string",
+          "default": "Prime Offeror submitting 3 Past Performance citations (2 Prime contracts + 1 Major Subcontractor contract) for a Federal / DoD best-value trade-off solicitation.",
+          "minLength": 1,
           "maxLength": 20000,
           "description": "Optional pursuit context specifying Prime vs. Subcontractor citation mix, Joint Venture / SBA Mentor-Protege structure (13 CFR 125.8), or Volume III page-limit constraints."
         }
@@ -1096,23 +1341,30 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "overall_confidence_assessment": {
-          "type": "string",
-          "description": "Predicted DoD Source Selection Performance Confidence rating (e.g., Substantial Confidence)."
+        "volume_summary": {
+          "type": "object",
+          "description": "Executive Past Performance Volume III summary, DoD Confidence rating prediction, and ready-to-paste Volume Introduction."
         },
-        "tailored_citations": {
+        "past_performance_citations": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Shipley Volume III citations with Relevance rating, Scope/Magnitude/Complexity mapping, FAR 42.1503 5-factor CPARS narrative, and CCAR blocks."
+          "description": "List of Shipley-formatted Past Performance citations with Relevance ratings, Scope/Magnitude/Complexity matrices, and CPARS narratives."
         },
-        "gap_mitigation_strategies": {
+        "relevance_gaps_and_mitigations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Evaluator risk audit of potential Relevance gaps paired with FAR 15.305(a)(2) mitigation language."
+        },
+        "ppq_and_cor_interview_prep_checklist": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Shipley narrative mitigations for any recency, dollar-magnitude, or prime-role gaps."
+          "description": "Actionable checklist for preparing Past Performance Questionnaires (PPQs) and briefing Contracting Officer Representatives (CORs) before government reference checks."
         }
       }
     }
@@ -1139,11 +1391,13 @@ const TOOLS = [
         },
         "historical_benchmark_and_incumbent_context": {
           "type": "string",
+          "minLength": 1,
           "maxLength": 60000,
           "description": "Optional incumbent contract value, FPDS/USAspending historical award benchmarks, GSA MAS SIN 54151S CALC+ ceiling rates, or known agency budget ceilings to anchor the IGCE and Price-to-Win model."
         },
         "bidder_indirect_wrap_assumptions": {
           "type": "string",
+          "minLength": 1,
           "maxLength": 25000,
           "description": "Optional bidder indirect rate assumptions (Fringe %, Overhead %, G&A %, Target Fee/Profit %, annual productive hours per FTE such as 1,880 or 1,920, and annual Option Year escalation %)."
         },
@@ -1166,21 +1420,29 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
+        "solicitation_pricing_overview": {
+          "type": "string",
+          "description": "Executive summary of contract structure, total FTEs, Period of Performance, and pricing strategy."
+        },
         "recommended_price_to_win_usd": {
           "type": "number",
-          "description": "Recommended total evaluated Price-to-Win ($ USD) across Base and all Option Years."
+          "description": "Recommended total evaluated Price-to-Win ($ USD) across Base + all Option Years."
         },
         "independent_government_cost_estimate_igce_usd": {
           "type": "number",
           "description": "Estimated Independent Government Cost Estimate (IGCE) baseline ($ USD) across the full PoP."
         },
+        "ptw_discount_vs_igce_pct": {
+          "type": "number",
+          "description": "Percentage difference between recommended Price-to-Win and the estimated IGCE (e.g., -6.4 represents a 6.4% discount below IGCE)."
+        },
         "cost_realism_and_price_reasonableness_posture": {
           "type": "string",
-          "description": "FAR 15.404-1 Price Reasonableness and Cost Realism risk posture."
+          "description": "FAR 15.404-1 Price Reasonableness & Cost Realism risk classification."
         },
         "wrap_rate_calculator_breakdown": {
           "type": "object",
-          "description": "Compounded Fringe, Overhead, G&A, and Fee/Profit wrap-rate breakdown."
+          "description": "Compounded Fringe, Overhead, G&A, and Fee wrap-rate breakdown."
         },
         "lcat_rate_card_and_fte_buildup": {
           "type": "array",
@@ -1189,12 +1451,23 @@ const TOOLS = [
           },
           "description": "Bottom-up LCAT staffing, unburdened direct wage, burdened bill rate, and GSA CALC+ benchmark table."
         },
+        "clin_period_of_performance_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Section B CLIN pricing schedule across Base Year and Option Years."
+        },
         "ptw_sensitivity_scenarios": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "4-scenario Price-to-Win sensitivity matrix with Pwin impact and SSEB tradeoff analysis."
+          "description": "Competitive Price-to-Win sensitivity matrix (Aggressive Floor, Recommended Target PTW, Incumbent Benchmark, IGCE Ceiling)."
+        },
+        "section_b_cost_narrative_and_boe_summary": {
+          "type": "string",
+          "description": "Ready-to-paste Shipley Volume IV Price/Cost Narrative and Basis of Estimate (BOE) justification."
         }
       }
     }
@@ -1219,68 +1492,78 @@ const TOOLS = [
           "maxLength": 120000,
           "description": "Raw RFP Section L Oral Presentation / Live Tech-Demo rules (time limits, slide limits, speaker eligibility restrictions under FAR 15.102, live scenario prompts), Section M evaluation criteria, and PWS/SOW technical scope (30 to 120,000 characters)."
         },
-        "proposed_solution_and_key_personnel": {
+        "bidder_solution_and_key_personnel_context": {
           "type": "string",
           "minLength": 20,
-          "maxLength": 80000,
-          "description": "Proposed technical/management solution architecture, key discriminators, and named Key Personnel speakers (roles, clearances, domain expertise, and past performance proof points) who will present."
+          "maxLength": 100000,
+          "description": "Proposed Key Personnel names/roles/clearances, technical architecture, past performance metrics, and competitive win themes to weave into the speaker scripts and Murder-Board Q&A answers."
         },
-        "known_incumbent_and_risk_areas": {
-          "type": "string",
-          "maxLength": 30000,
-          "description": "Optional competitive context, incumbent vulnerabilities, transition risks, or technical gaps where the Source Selection Evaluation Board (SSEB) is likely to probe during Murder-Board Q&A."
-        },
-        "presentation_format_mode": {
+        "presentation_format": {
           "type": "string",
           "enum": [
-            "COMBINED_ORALS_TECH_DEMO_AND_QA",
-            "EXECUTIVE_SLIDE_BRIEFING_AND_QA",
-            "LIVE_TECHNICAL_SCENARIO_CHALLENGE",
-            "KEY_PERSONNEL_INTERVIEW_AND_CAUCUS"
+            "far_15_102_oral_technical_proposal",
+            "live_technical_demo_and_coding_challenge",
+            "executive_key_personnel_orals_and_qna",
+            "sled_finalist_vendor_interview"
           ],
-          "default": "COMBINED_ORALS_TECH_DEMO_AND_QA",
-          "description": "Oral presentation format mode: 'COMBINED_ORALS_TECH_DEMO_AND_QA' (default, slide deck + live technical demo + Q&A), 'EXECUTIVE_SLIDE_BRIEFING_AND_QA' (Shipley slide deck + Q&A), 'LIVE_TECHNICAL_SCENARIO_CHALLENGE' (on-the-spot engineering problem/coding challenge), or 'KEY_PERSONNEL_INTERVIEW_AND_CAUCUS' (structured SSEB oral interview)."
+          "default": "far_15_102_oral_technical_proposal",
+          "description": "Oral evaluation format: 'far_15_102_oral_technical_proposal' (default Federal FAR 15.102 / GSA FEDSIM Phase II Orals), 'live_technical_demo_and_coding_challenge' (hands-on tech demo & scenario execution), 'executive_key_personnel_orals_and_qna' (Key Personnel oral defense), or 'sled_finalist_vendor_interview' (State/Local BAFO interview)."
+        },
+        "total_session_minutes": {
+          "type": "integer",
+          "default": 90,
+          "minimum": 15.0,
+          "maximum": 240.0,
+          "description": "Total scheduled duration of the oral presentation, live demo, and Q&A session in minutes (15 to 240; defaults to 90)."
         }
       },
       "required": [
         "rfp_oral_instructions_and_sow_text",
-        "proposed_solution_and_key_personnel"
+        "bidder_solution_and_key_personnel_context"
       ]
     },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "predicted_oral_confidence_rating": {
+        "solicitation_and_format_summary": {
           "type": "string",
-          "description": "Predicted DoD/Federal Source Selection Oral Confidence rating (e.g., High Confidence / Outstanding)."
+          "description": "Identified solicitation title/ID, oral format, speaker restrictions, and Section M evaluation hierarchy."
+        },
+        "recommended_time_budget_breakdown": {
+          "type": "string",
+          "description": "Minute-by-minute time allocation across Opening/Intros, Core Technical Slides, Live Demo, Caucus Buffer, and Q&A."
+        },
+        "key_personnel_speaker_choreography": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Rules of engagement and handoff choreography ensuring every Key Personnel speaker demonstrates deep technical mastery without talking over teammates."
         },
         "slide_deck_blueprint": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Slide-by-slide Shipley oral presentation deck with assigned Key Personnel speaker, time budget, visual layout, and talking points."
+          "description": "Slide-by-slide Shipley oral presentation blueprint with action captions, speaker assignments, visual concepts, and verbatim scripts."
         },
         "live_tech_demo_runbook": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Minute-by-minute live technical demonstration runbook with operator actions, telemetry proof, and backup failover plans."
+          "description": "Step-by-step live technical demonstration runbook with operator actions, evaluator strength callouts, and offline failover contingencies."
         },
-        "murder_board_qa_matrix": {
+        "murder_board_qna_bank": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Adversarial SSEB Murder-Board questions paired with Answer-First-Elaborate-Anchor responses and trap-avoidance rules."
+          "description": "Adversarial SSEB Murder-Board questions with hidden evaluator concerns, responder roles, gold-standard answers, and traps to avoid."
         },
-        "evaluator_caucus_takeaways": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Verbatim strengths designed for SSEB evaluators to record on consensus scoring sheets."
+        "closing_evaluator_leave_behind_pitch": {
+          "type": "string",
+          "description": "Final 60-second executive closing statement designed to anchor 'High Confidence / Multiple Significant Strengths' before the SSEB caucuses."
         }
       }
     }
@@ -1299,80 +1582,81 @@ const TOOLS = [
     "inputSchema": {
       "type": "object",
       "properties": {
-        "system_architecture_and_rfp_cyber_text": {
+        "rfp_security_and_ato_requirements": {
           "type": "string",
-          "minLength": 40,
+          "minLength": 20,
           "maxLength": 100000,
-          "description": "Raw RFP Section C/L/M cybersecurity & ATO requirements, target system architecture, data types processed (CUI, CDI, ITAR, PHI, PII, CJIS), user communities, and interconnection boundaries (40 to 100,000 characters)."
+          "description": "Raw text from RFP Section C/H/L/M detailing ATO, RMF (eMASS/Xacta), FedRAMP, StateRAMP, DISA Impact Level (IL4/IL5), NIST SP 800-53 Rev 5, or CMMC Level 2 authorization requirements."
         },
-        "cloud_hosting_and_inherited_controls_context": {
+        "system_architecture_and_boundary_context": {
           "type": "string",
           "minLength": 20,
           "maxLength": 80000,
-          "description": "Cloud Service Provider (CSP) enclave (AWS GovCloud, Azure Government, GCP Assured Workloads, on-prem), platform layer (Kubernetes, Platform One BigBang, Serverless), and existing security tooling (SIEM, SOAR, ICAM, SAST/DAST)."
+          "description": "Description of the bidder's cloud environment, hosting boundary, identity provider, encryption posture, DevSecOps toolchain, and any existing compliance gaps."
         },
         "target_authorization_framework": {
           "type": "string",
           "enum": [
-            "dod_rmf_dodi_8510_01_cato",
-            "fedramp_rev5_agency_ato",
-            "stateramp_txramp_govramp",
-            "nist_800_171_cmmc_level_2"
+            "dod_rmf_il4_il5_cato",
+            "fedramp_high_or_moderate",
+            "stateramp_or_state_cloud_sec",
+            "cmmc_level_2_nist_800_171"
           ],
-          "default": "dod_rmf_dodi_8510_01_cato",
-          "description": "Target authorization framework: 'dod_rmf_dodi_8510_01_cato' (default DoD RMF & Continuous ATO), 'fedramp_rev5_agency_ato' (Civilian Federal Agency ATO / FedRAMP Rev 5), 'stateramp_txramp_govramp' (State SLED StateRAMP / TX-RAMP / GovRAMP), or 'nist_800_171_cmmc_level_2' (CMMC 2.0 Level 2)."
+          "default": "dod_rmf_il4_il5_cato",
+          "description": "Target government cybersecurity authorization framework."
         },
-        "target_impact_level": {
-          "type": "string",
-          "enum": [
-            "IL2_LOW",
-            "IL4_MODERATE_CUI",
-            "IL5_CUI_NSS",
-            "IL6_CLASSIFIED_HIGH",
-            "FEDRAMP_MODERATE",
-            "FEDRAMP_HIGH"
-          ],
-          "default": "IL5_CUI_NSS",
-          "description": "Target DoD Cloud Computing SRG Impact Level or FIPS 199 baseline: 'IL2_LOW', 'IL4_MODERATE_CUI', 'IL5_CUI_NSS' (default), 'IL6_CLASSIFIED_HIGH', 'FEDRAMP_MODERATE', or 'FEDRAMP_HIGH'."
+        "target_ato_timeline_days": {
+          "type": "integer",
+          "default": 90,
+          "minimum": 14.0,
+          "maximum": 365.0,
+          "description": "Target calendar days from contract award to achieve full ATO / cATO authorization."
         }
       },
       "required": [
-        "system_architecture_and_rfp_cyber_text",
-        "cloud_hosting_and_inherited_controls_context"
+        "rfp_security_and_ato_requirements",
+        "system_architecture_and_boundary_context"
       ]
     },
     "outputSchema": {
       "type": "object",
       "properties": {
+        "ato_readiness_score": {
+          "type": "integer",
+          "description": "Overall ATO / cATO readiness score from 0 to 100 based on boundary maturity, control coverage, and open findings."
+        },
         "authorization_boundary_summary": {
-          "type": "string",
-          "description": "Executive summary of the system authorization boundary, hosting enclave, and target ATO pathway."
-        },
-        "fips_199_security_categorization": {
           "type": "object",
-          "description": "FIPS 199 & CNSSI 1253 Confidentiality/Integrity/Availability categorization and overall high-water mark."
+          "description": "FIPS 199 categorization, Impact Level baseline, GRC system of record, CSP control inheritance percentage, and boundary summary."
         },
-        "control_inheritance_summary": {
-          "type": "string",
-          "description": "Estimated breakdown of Inherited CSP Controls vs. Hybrid Shared Controls vs. Customer-Implemented Controls."
-        },
-        "ssp_control_implementation_matrix": {
+        "ssp_control_implementations": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "NIST SP 800-53 Rev 5 SSP control family implementation narratives, STIG mappings, and audit artifacts."
+          "description": "Audit-ready NIST SP 800-53 Rev 5 / NIST 800-171 System Security Plan (SSP) control implementation narratives."
         },
-        "emass_poam_remediation_schedule": {
+        "cato_devsecops_pipeline_blueprint": {
+          "type": "object",
+          "description": "Continuous ATO (cATO) DevSecOps CI/CD security gates, ConMon cadence, and OSCAL/SBOM automation blueprint."
+        },
+        "poam_remediation_schedule": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "eMASS / CSAM-ready POA&M entries with CAT I/II/III severity, compensating controls, and milestones."
+          "description": "Structured Plan of Action & Milestones (POA&M) remediation table for any open findings or architecture gaps."
         },
-        "continuous_ato_conmon_blueprint": {
-          "type": "object",
-          "description": "Continuous ATO (cATO) DevSecOps pipeline gates, OSCAL automation, and ConMon cadence."
+        "rmf_six_step_milestone_plan": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Day-by-day RMF Step 1 through Step 6 schedule to achieve IATT and full ATO within target_ato_timeline_days."
+        },
+        "proposal_technical_volume_ato_narrative": {
+          "type": "string",
+          "description": "Executive-ready Shipley Technical Volume narrative explaining how the Offeror will achieve rapid, low-risk ATO / cATO without delaying mission deployment."
         }
       }
     }
@@ -1380,7 +1664,7 @@ const TOOLS = [
   {
     "name": "analyze_debriefing_bid_protest",
     "title": "Analyze GovCon Post-Award Debriefing, FAR 15.506 Q&A & GAO Bid-Protest Viability",
-    "description": "Analyze an Unsuccessful Offeror Notice, SSEB evaluation scorecard, RFP Section M criteria, and submitted proposal excerpts to generate strategic FAR 15.506 / DFARS 252.215-7016 Enhanced Debriefing follow-up questions, a 0-100 GAO Bid-Protest Viability Score, a Go/No-Go protest recommendation, CICA 31 U.S.C. 3553 automatic stay deadline calculations, a 4-C.F.R. Part 21 Protest Grounds Matrix (Unstated Evaluation Criteria, Disparate Treatment, Flawed Best-Value Tradeoff, Misleading Discussions), and an Executive Recompete/Corrective-Action Playbook. This is a read-only, stateless post-award diagnostic and debriefing analysis call that provides structured procurement intelligence rather than formal legal representation (requires X-RapidAPI-Key; `unsuccessful_offeror_notice_and_debrief_text` accepts 30 to 100,000 characters, `rfp_section_m_and_submitted_proposal_excerpts` accepts 30 to 100,000 characters, optional `award_and_debrief_timeline_context` anchors the 10-day GAO filing and 5-day CICA stay clock, and `target_acquisition_regime` calibrates rules across DoD DFARS Enhanced Debriefings, Civilian FAR Part 15, FAR 16.505 Task Orders >$10M/$35M, and FAR 8.405-2 GSA MAS). Use this tool after contract award notification when preparing for a FAR 15.506 post-award debriefing or evaluating GAO/COFC bid-protest grounds; use `match_capability_statement` instead for pre-bid Gate-1 Bid/No-Bid Pwin scoring, or `analyze_rfp_amendment_diff` for pre-award SF-30 solicitation amendments.",
+    "description": "Analyze an Unsuccessful Offeror Notice, SSEB evaluation scorecard, RFP Section M criteria, and submitted proposal excerpts to generate strategic FAR 15.506 / DFARS 252.215-7016 Enhanced Debriefing follow-up questions, a 0-100 GAO Bid-Protest Viability Score, a Go/No-Go protest recommendation, CICA 31 U.S.C. 3553 automatic stay deadline calculations, a 4-C.F.R. Part 21 Protest Grounds Matrix (Unstated Evaluation Criteria, Disparate Treatment, Flawed Best-Value Tradeoff, Misleading Discussions), and an Executive Recompete/Corrective-Action Playbook. This is a read-only, stateless post-award diagnostic and debriefing analysis call that provides structured procurement intelligence rather than formal legal representation (requires X-RapidAPI-Key; `unsuccessful_offeror_notice_and_debrief_text` accepts 30 to 100,000 characters, `rfp_section_m_and_submitted_proposal_excerpts` accepts 30 to 100,000 characters, optional `award_and_debrief_timeline_context` anchors the 10-day GAO filing and 5-day CICA stay clock, and `target_acquisition_regime` calibrates rules across DoD DFARS Enhanced Debriefings, Civilian FAR Part 15, FAR 16.505 Task Orders >$10M/$35M, and FAR 8.405-2 GSA MAS). Use this tool after contract award notification when preparing for a FAR 15.506 post-award debriefing or evaluating GAO/COFC bid-protest grounds; use `match_capability_statement` instead for pre-bid Gate-1 Bid/No-Bid Pwin scoring, or `analyze_rfp_amendment_diff` for pre-award SF-30 solicitation amendments. Use this tool when evaluating an unsuccessful offeror notice or preparing FAR 15.506 enhanced debriefing questions and GAO/COFC bid-protest viability analyses; use `generate_cpars_past_performance` or `generate_post_award_cpar_rebuttal` instead for CPARS performance evaluations.",
     "annotations": {
       "title": "Analyze GovCon Post-Award Debriefing, FAR 15.506 Q&A & GAO Bid-Protest Viability",
       "readOnlyHint": true,
@@ -1391,76 +1675,82 @@ const TOOLS = [
     "inputSchema": {
       "type": "object",
       "properties": {
-        "unsuccessful_offeror_notice_and_debrief_text": {
+        "award_notice_or_debrief_text": {
           "type": "string",
-          "minLength": 30,
+          "minLength": 20,
           "maxLength": 100000,
-          "description": "Raw text from the Agency Notice of Unsuccessful Offeror, Pre-Award/Post-Award Debriefing slides or letter, Source Selection Decision Document (SSDD) redacted summary, and adjectival/price scores for the Awardee vs. your offer (30 to 100,000 characters)."
+          "description": "Raw text from the Agency Unsuccessful Offeror Notice, Post-Award Debriefing letter/slides, Source Selection Decision Document (SSDD) excerpt, or competitor protest allegations."
         },
-        "rfp_section_m_and_submitted_proposal_excerpts": {
+        "rfp_section_m_and_bidder_context": {
           "type": "string",
-          "minLength": 30,
+          "minLength": 20,
           "maxLength": 100000,
-          "description": "Relevant RFP Section L/M evaluation criteria, relative factor weights, and excerpts from your submitted proposal that directly address or refute the weaknesses or deficiencies cited by the Source Selection Evaluation Board (SSEB) (30 to 100,000 characters)."
+          "description": "RFP Section L/M evaluation criteria, weighting hierarchy (Best-Value Tradeoff vs. LPTA), and summary of the bidder's submitted ratings, evaluated price, and proposal strengths/weaknesses."
         },
-        "award_and_debrief_timeline_context": {
-          "type": "string",
-          "maxLength": 20000,
-          "description": "Optional timeline context including contract award notification date, date debriefing was requested, date written/oral debriefing was received, and whether DoD DFARS 252.215-7016 2-business-day Enhanced Debriefing Q&A remains open."
-        },
-        "target_acquisition_regime": {
+        "analysis_mode": {
           "type": "string",
           "enum": [
-            "dod_dfars_enhanced_debrief_far_15_506",
-            "civilian_far_15_506_negotiated",
-            "far_16_505_idid_task_order",
-            "far_8_405_gsa_fss_brief_explanation"
+            "unsuccessful_offeror_debrief_and_protest",
+            "winning_awardee_intervention_defense",
+            "pre_award_competitive_range_exclusion"
           ],
-          "default": "dod_dfars_enhanced_debrief_far_15_506",
-          "description": "Governing acquisition regime: 'dod_dfars_enhanced_debrief_far_15_506' (default DoD Enhanced Post-Award Debriefing under DFARS 252.215-7016 & FAR 15.506), 'civilian_far_15_506_negotiated' (Civilian Agency FAR Part 15), 'far_16_505_idid_task_order' (IDIQ/GWAC Task Order under FAR 16.505(b)(6) with >$10M Civilian / >$35M DoD GAO protest threshold), or 'far_8_405_gsa_fss_brief_explanation' (GSA MAS Schedule order under FAR 8.405-2(d))."
+          "default": "unsuccessful_offeror_debrief_and_protest",
+          "description": "Perspective mode: 'unsuccessful_offeror_debrief_and_protest' (default, FAR 15.506 debrief questions + GAO protest merits audit), 'winning_awardee_intervention_defense' (defend contract award as Intervenor), or 'pre_award_competitive_range_exclusion' (FAR 15.505 exclusion challenge)."
+        },
+        "procurement_jurisdiction": {
+          "type": "string",
+          "enum": [
+            "federal_far_gao_cofc",
+            "dod_dfars_215_506_enhanced",
+            "gsa_mas_task_order_far_8_405_5",
+            "idid_gwac_task_order_far_16_505",
+            "state_sled_procurement_protest"
+          ],
+          "default": "dod_dfars_215_506_enhanced",
+          "description": "Governing procurement protest forum and jurisdiction."
         }
       },
       "required": [
-        "unsuccessful_offeror_notice_and_debrief_text",
-        "rfp_section_m_and_submitted_proposal_excerpts"
+        "award_notice_or_debrief_text",
+        "rfp_section_m_and_bidder_context"
       ]
     },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "protest_viability_score": {
+        "protest_viability_or_defense_score": {
           "type": "integer",
-          "description": "Quantitative GAO / Agency-Level Bid-Protest viability score from 0 to 100."
+          "description": "Overall 0-100 score measuring GAO/COFC protest sustain probability (or Awardee Defense strength when in winning_awardee_intervention_defense mode)."
         },
-        "protest_go_no_go_recommendation": {
+        "recommended_executive_decision": {
           "type": "string",
-          "description": "Strategic post-award recommendation (e.g., FILE_GAO_PROTEST_WITH_CICA_STAY, SUBMIT_ENHANCED_DEBRIEF_QUESTIONS_FIRST, DO_NOT_PROTEST_PIVOT_TO_RECOMPETE)."
+          "description": "Clear executive recommendation (e.g., 'PURSUE_ENHANCED_DEBRIEF_THEN_GAO_PROTEST', 'FILE_AGENCY_LEVEL_CORRECTIVE_ACTION_REQUEST', 'DO_NOT_PROTEST_PRESERVE_CUSTOMER_GOODWILL', or 'INTERVENE_AND_MOVE_TO_DISMISS')."
         },
-        "cica_automatic_stay_and_filing_deadlines": {
+        "task_order_jurisdictional_bar_check": {
+          "type": "string",
+          "description": "Audit of FASA task-order protest jurisdiction bars under FAR 16.505(a)(10) ($35M DoD / $10M Civilian threshold) or FAR 8.405-5 GSA Schedule rules."
+        },
+        "statutory_deadline_calendar": {
           "type": "object",
-          "description": "Calculated CICA 31 U.S.C. 3553 automatic stay deadline (5 calendar days post-debrief close) and GAO 10-day timeliness deadline."
+          "description": "Strict FAR 15.505/15.506, DFARS 215.506-70, and CICA (31 U.S.C. 3553) automatic-stay deadline schedule."
         },
-        "sseb_scorecard_and_tradeoff_audit": {
-          "type": "object",
-          "description": "Comparative audit of Awardee vs. Bidder adjectival ratings, price premium, and FAR 15.308 Best-Value Tradeoff flaws."
-        },
-        "far_15_506_enhanced_debriefing_questions": {
+        "far_15_506_debriefing_questions": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Precision written questions for the Contracting Officer under FAR 15.506 / DFARS 252.215-7016."
+          "description": "Strategic FAR 15.506 / DoD Enhanced Debriefing questions to submit to the Contracting Officer."
         },
-        "gao_protest_grounds_matrix": {
+        "protest_grounds_or_defense_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Evaluated bid-protest grounds with GAO case-law precedents, RFP/proposal evidence, and competitive prejudice analysis."
+          "description": "Detailed GAO/COFC protest grounds (or Awardee Intervenor defenses) mapped to FAR/GAO precedent."
         },
-        "corrective_action_and_recompete_playbook": {
+        "ready_to_send_debrief_request_or_counsel_memo": {
           "type": "string",
-          "description": "Executive action plan for agency corrective action or positioning for task-order on-ramps and recompetes."
+          "description": "Ready-to-send FAR 15.506 Enhanced Debriefing Request Letter & Questions (or Executive Bid-Protest / Intervenor Strategy Memo)."
         }
       }
     }
@@ -1521,50 +1811,50 @@ const TOOLS = [
       "properties": {
         "gsa_mas_readiness_score": {
           "type": "integer",
-          "description": "Overall GSA eOffer / eMod readiness score from 0 to 100."
+          "description": "Overall GSA eOffer / eMod readiness score (0-100) under SCP-FSS-001."
         },
         "recommended_pricing_pathway": {
           "type": "string",
-          "description": "Recommended GSA pricing disclosure regime (TDR vs. CSP-1 MFC) and rationale."
+          "description": "Recommended GSA pricing disclosure pathway (TDR Transactional Data Reporting vs. CSP-1 Traditional Most Favored Customer) with rationale."
         },
         "iff_and_epa_pricing_summary": {
           "type": "string",
-          "description": "Summary of 0.75% Industrial Funding Fee (`Net / 0.9925`) calculation and 5-year EPA escalation."
+          "description": "Executive summary of the 0.75% Industrial Funding Fee (IFF) gross-up (`Net / 0.9925`), proposed GSA discount off CPL, and 5-year GSAR 552.238-118 EPA escalation."
         },
         "sin_mapping_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Mapped GSA MAS SINs (`54151S`, `54151HACS`, `518210C`, `OLM`) with Factor 4 project narratives."
+          "description": "Structured GSA MAS Special Item Number (SIN) mapping matrix (`54151S`, `54151HACS`, `518210C`, `OLM`, etc.) with Factor 4 relevant project narratives."
         },
         "gsa_lcat_iff_price_list": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "GSA Price Proposal Template (PPT) rate card with CPL, Net, 0.75% IFF ceiling rate, and 5-year EPA progression."
+          "description": "GSA MAS Price Proposal Template (PPT) table with minimum education/experience, CPL rate, Net rate, 0.75% IFF ceiling rate (`Net / 0.9925`), and 5-year EPA progression."
         },
         "prc_and_mfc_compliance_guardrails": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "GSAR 552.238-81 Price Reductions Clause (PRC) and Most Favored Customer (MFC) safe-harbor guardrails."
+          "description": "GSAR 552.238-81 Price Reductions Clause (PRC) and Most Favored Customer (MFC) Basis of Award guardrails and safe-harbor exemptions."
         },
         "ready_to_submit_scp_fss_001_narrative": {
           "type": "string",
-          "description": "Paste-ready SCP-FSS-001 Administrative, Technical, and Price Proposal narrative for GSA eOffer / eMod."
+          "description": "Authoritative, paste-ready SCP-FSS-001 Administrative, Technical (Factor 1 Corporate Experience, Factor 2 Past Performance, Factor 3 Quality Control, Factor 4 Relevant SIN Experience), and Price Proposal narrative for GSA eOffer / eMod."
         }
       }
     }
   },
   {
     "name": "generate_sources_sought_response",
-    "title": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
-    "description": "Transform a government Sources Sought Notice, Request for Information (RFI), or draft PWS/SOW and a contractor's capability profile into a FAR Part 10 market-research response package containing a requirement-by-requirement capability matrix, a FAR 19.502-2 Rule-of-Two small business set-aside justification (8(a), SDVOSB, WOSB/EDWOSB, HUBZone, or Total Small Business), NAICS/PSC size-standard recommendations, incumbent/competitor lock-in neutralization questions, and a paste-ready Sources Sought cover letter and technical response narrative. This is a read-only, stateless, non-destructive capture-shaping generator (requires X-RapidAPI-Key; `sources_sought_or_rfi_notice_text` accepts 20 to 45,000 characters and `vendor_capability_and_socioeconomic_profile` accepts 20 to 35,000 characters). Use this tool when responding to pre-RFP Sources Sought notices or RFIs to influence set-aside determination, NAICS code selection, and contract vehicle choice; use `generate_rfp_response` instead when drafting final proposal volumes for a formal solicitation, or `match_capability_statement` for a fast Bid/No-Bid Pwin score.",
+    "title": "Generate GovCon Sources Sought, RFI & FAR 19.502-2 Set-Aside Shaping Response",
+    "description": "Analyze agency Sources Sought notices, Market Research RFIs, and Draft PWS/SOWs against a vendor's socioeconomic status (`8(a)`, `SDVOSB`, `HUBZone`, `WOSB/EDWOSB`, Small Business) and past performance to generate a persuasive FAR 19.502-2 Rule-of-Two set-aside justification, a 13 CFR 121.402 NAICS & SBA size standard shaping analysis, a requirement-by-requirement capability alignment matrix, Contracting Officer / OSDBU acquisition-shaping recommendations, and a ready-to-submit Sources Sought / RFI response narrative. This is a read-only, stateless, non-destructive capture shaping generator (requires X-RapidAPI-Key; `sources_sought_or_rfi_notice_text` accepts 20 to 45,000 characters and `vendor_capability_and_socioeconomic_profile` accepts 20 to 35,000 characters). Use this tool during pre-RFP Market Research / Sources Sought / RFI phases to persuade the Contracting Officer to set aside an upcoming procurement for small business; use `match_capability_statement` instead for Gate-1 Bid/No-Bid Pwin scoring on an already-released RFP, or `generate_rfp_response` to draft final RFP proposal volumes. Use this tool when responding to pre-RFP Sources Sought notices or RFIs to lock in small-business set-asides under the FAR 19.502-2 Rule of Two; use `match_capability_statement` instead for full RFP Bid/No-Bid Pwin scoring, or `generate_rfp_response` for full proposal narrative drafting.",
     "annotations": {
-      "title": "Generate Sources Sought, RFI Capability Matrix & Rule-of-Two Set-Aside Shaping Package",
+      "title": "Generate GovCon Sources Sought, RFI & FAR 19.502-2 Set-Aside Shaping Response",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -1577,13 +1867,13 @@ const TOOLS = [
           "type": "string",
           "minLength": 20,
           "maxLength": 45000,
-          "description": "Full text of the government Sources Sought Notice, Request for Information (RFI), Market Research Questionnaire, or draft PWS/SOW (20 to 45,000 characters)."
+          "description": "Full text of the agency Sources Sought notice, Market Research RFI, SSN capability questions, or Draft PWS/SOW (20 to 45,000 characters)."
         },
         "vendor_capability_and_socioeconomic_profile": {
           "type": "string",
           "minLength": 20,
           "maxLength": 35000,
-          "description": "Contractor's core technical capabilities, past performance citations, socio-economic certifications (8(a), SDVOSB, WOSB, HUBZone, Small Business), active contract vehicles (GSA MAS, OASIS+, SEWP, CIO-SP3), UEI/CAGE, and clearance posture (20 to 35,000 characters)."
+          "description": "Vendor socioeconomic designations (8(a), SDVOSB, HUBZone, WOSB/EDWOSB, Small Business), UEI/CAGE, GSA MAS / GWAC contract vehicles, facility clearances, and past performance (20 to 35,000 characters)."
         },
         "target_set_aside_preference": {
           "type": "string",
@@ -1596,7 +1886,7 @@ const TOOLS = [
             "Auto_Recommend"
           ],
           "default": "Auto_Recommend",
-          "description": "Preferred FAR Part 19 set-aside pathway to justify to the Contracting Officer and OSDBU, or 'Auto_Recommend'."
+          "description": "Preferred FAR Part 19 set-aside pathway to justify to the Contracting Officer and OSDBU ('8a_Sole_Source_or_Competitive', 'SDVOSB_Set_Aside', 'HUBZone_Set_Aside', 'WOSB_EDWOSB_Set_Aside', 'Total_Small_Business_Rule_of_Two', or 'Auto_Recommend')."
         }
       },
       "required": [
@@ -1607,39 +1897,39 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "shaping_confidence_score": {
+        "set_aside_shaping_confidence_score": {
           "type": "integer",
-          "description": "Confidence score (0-100) that the contractor's response demonstrates full technical capability and supports the target acquisition strategy."
+          "description": "0-100 score indicating the strength of the vendor's case to persuade the Contracting Officer and OSDBU to set aside the procurement."
         },
-        "recommended_set_aside_determination": {
+        "recommended_acquisition_strategy_and_set_aside": {
           "type": "string",
-          "description": "Recommended FAR Part 19 set-aside classification supported by Rule-of-Two evidence."
+          "description": "Recommended acquisition vehicle (GSA MAS, 8(a) STARS III, VETS 2, Polaris, Open Market) and FAR Part 19 set-aside determination."
         },
-        "recommended_naics_and_psc": {
-          "type": "object",
-          "description": "Recommended NAICS code, SBA size standard, PSC code, and strategic sizing justification."
+        "rule_of_two_and_far_19_502_justification": {
+          "type": "string",
+          "description": "Formal FAR 19.502-2 Rule-of-Two & FAR Part 10 market research justification proving two or more capable small businesses (or sole-source 8(a)/SDVOSB authority) exist at fair market prices."
         },
-        "rule_of_two_set_aside_justification": {
-          "type": "object",
-          "description": "FAR 19.502-2 Rule-of-Two market research argument and suggested GWAC/Schedule vehicle."
+        "naics_psc_and_size_standard_shaping_analysis": {
+          "type": "string",
+          "description": "Analysis of the posted NAICS/PSC code under 13 CFR 121.402, recommending either retention or a higher/more accurate SBA size standard."
         },
-        "rfi_requirement_alignment_matrix": {
+        "requirement_capability_alignment_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Requirement-by-requirement alignment mapping each RFI/PWS area to contractor capabilities and past performance."
+          "description": "Requirement-by-requirement alignment table mapping agency RFI tasks to demonstrated prime capability and 13 CFR 125.6 workshare compliance."
         },
-        "strategic_shaping_questions_for_co": {
+        "contracting_officer_shaping_questions_and_recommendations": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Strategic questions for the Contracting Officer to neutralize incumbent lock-in and shape Section L/M."
+          "description": "Strategic recommendations for the Contracting Officer and Small Business Specialist (OSDBU) to shape the final RFP in the vendor's favor."
         },
-        "ready_to_submit_sources_sought_narrative": {
+        "ready_to_submit_sources_sought_response_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready Sources Sought / RFI cover letter, administrative data table, capability narrative, and set-aside recommendation."
+          "description": "Complete, paste-ready Sources Sought / RFI Response Narrative (Corporate Overview, Socioeconomic & Vehicle Eligibility, Technical Capability, Past Performance, and Acquisition Strategy Recommendation)."
         }
       }
     }
@@ -1658,74 +1948,67 @@ const TOOLS = [
     "inputSchema": {
       "type": "object",
       "properties": {
-        "new_solicitation_scope_and_oci_clauses": {
+        "target_solicitation_and_sow_text": {
           "type": "string",
           "minLength": 20,
           "maxLength": 45000,
-          "description": "Target RFP/Task Order PWS/SOW scope, Section H/I/L Organizational Conflict of Interest (OCI) clauses (FAR 9.5, DFARS 252.209-7008/7009, agency OCI provisions), and evaluation roles (20 to 45,000 characters)."
+          "description": "Full or excerpted target RFP scope, PWS/SOW tasks, Section H/I/K/L OCI disclosure instructions, and issuing agency/program office."
         },
-        "existing_contracts_and_corporate_relationships": {
+        "current_and_prior_contracts_portfolio": {
           "type": "string",
           "minLength": 20,
           "maxLength": 35000,
-          "description": "Current or recent Prime/Subcontract awards (SETA, A&AS, IV&V, Systems Engineering, Cloud/Cyber Operations), affiliate/parent corporate structure, and agency access held by the bidder or its teammates (20 to 35,000 characters)."
+          "description": "Summary of the bidder's (and any proposed subcontractor's) active or recent prime/sub contracts, SETA/A&AS/IV&V advisory roles, and access to nonpublic source-selection or proprietary third-party data."
         },
-        "proposed_mitigation_posture": {
+        "proposed_bidding_role_and_teaming_structure": {
           "type": "string",
           "enum": [
-            "Firewall_and_Subcontractor_Carveout",
-            "Divestiture_or_Recusal_Protocol",
-            "Affirmative_No_OCI_Certification",
-            "Auto_Recommend"
+            "Prime_Offeror",
+            "Subcontractor_or_Teaming_Partner",
+            "Joint_Venture_or_Mentor_Protege",
+            "SETA_or_A_and_AS_Incumbent_Pivoting_to_Development"
           ],
-          "default": "Auto_Recommend",
-          "description": "Preferred OCI mitigation posture: 'Firewall_and_Subcontractor_Carveout' (firewalled enclave + independent subcontractor evaluation carve-out), 'Divestiture_or_Recusal_Protocol' (formal recusal from conflicting task orders), 'Affirmative_No_OCI_Certification' (formal no-OCI representation), or 'Auto_Recommend' (default)."
+          "default": "Prime_Offeror",
+          "description": "Bidder's pursuit structure ('Prime_Offeror', 'Subcontractor_or_Teaming_Partner', 'Joint_Venture_or_Mentor_Protege', or 'SETA_or_A_and_AS_Incumbent_Pivoting_to_Development')."
         }
       },
       "required": [
-        "new_solicitation_scope_and_oci_clauses",
-        "existing_contracts_and_corporate_relationships"
+        "target_solicitation_and_sow_text",
+        "current_and_prior_contracts_portfolio"
       ]
     },
     "outputSchema": {
       "type": "object",
       "properties": {
-        "oci_overall_risk_score": {
+        "oci_clearance_and_defensibility_score": {
           "type": "integer",
-          "description": "Quantitative FAR Subpart 9.5 OCI risk score from 0 (no OCI) to 100 (unmitigable OCI)."
+          "description": "0-100 score indicating how defensible the bidder's OCI posture and mitigation plan are against Contracting Officer exclusion or GAO bid protest."
         },
         "overall_oci_determination": {
           "type": "string",
-          "description": "Formal OCI determination (NO_OCI_DETECTED, MITIGABLE_VIA_FIREWALL_AND_RECUSAL, SUBCONTRACTOR_CARVEOUT_REQUIRED, HIGH_RISK_WAIVER_OR_DIVESTITURE)."
+          "description": "Formal FAR Subpart 9.5 OCI risk determination and pursuit posture recommendation."
         },
-        "executive_oci_summary": {
+        "executive_oci_risk_summary": {
           "type": "string",
-          "description": "Executive summary of the FAR Subpart 9.5 audit and mitigation strategy for the Contracting Officer."
+          "description": "Executive legal and capture summary of the OCI audit findings for the Contracting Officer and Capture Director."
         },
-        "three_pillar_far_9_5_audit": {
+        "three_pillar_far_9_5_audit_matrix": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "3-Pillar audit across Unequal Access to Information, Biased Ground Rules, and Impaired Objectivity with GAO/COFC precedents."
+          "description": "Comprehensive audit across all three FAR Subpart 9.5 / GAO OCI pillars: Unequal Access to Information (FAR 9.505-4), Biased Ground Rules (FAR 9.505-1/9.505-2), and Impaired Objectivity (FAR 9.505-3)."
         },
-        "firewall_and_compliance_controls": {
+        "organizational_firewall_and_nda_controls": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Physical, logical, personnel, NDA, and subcontractor carve-out controls."
-        },
-        "contracting_officer_disclosure_checklist": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Pre-submission OCI disclosure & representation checklist items."
+          "description": "Concrete organizational, technical (IT/GovCloud enclave), personnel NDA, and workshare carve-out controls."
         },
         "ready_to_submit_oci_mitigation_plan_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready OCI Disclosure & Mitigation Plan volume in Markdown."
+          "description": "Complete, paste-ready Volume I / Section L Organizational Conflict of Interest (OCI) Disclosure & Mitigation Plan narrative including a FAR 9.505-4 Non-Disclosure Agreement (NDA) template and Contracting Officer certification block."
         }
       }
     }
@@ -1733,7 +2016,7 @@ const TOOLS = [
   {
     "name": "generate_sbir_sttr_commercialization",
     "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
-    "description": "Convert R&D technical specifications and DoD/AFWERX/Navy/Army/NASA/NSF SBIR or STTR solicitation topics into a Phase I–III Technical Work Plan, a TRL 1–9 & MRL 1–10 advancement matrix, a Dual-Use Phase III Commercialization & Transition Plan (15 U.S.C. 638(r)(4)), and a 20-year SBIR/STTR Data Rights IP protection schedule (DFARS 252.227-7018 / FAR 52.227-20). This is a read-only, stateless, non-destructive R&D proposal and commercialization modeling call (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters, `company_technology_and_ip_baseline` accepts 20 to 35,000 characters, and `target_phase_and_program` selects Phase I, Direct-to-Phase II / Phase II, STRATFI/TACFI, or Phase III Sole-Source Transition). Use this tool when preparing SBIR/STTR Phase I–III technical volumes, TRL roadmaps, SBIR Data Rights assertion tables, or Phase III commercialization plans; use `generate_rfp_response` instead for standard FAR Part 15 non-R&D technical proposals, or `generate_sources_sought_response` for pre-RFP market research capability statements.",
+    "description": "Convert R&D technical specifications and an SBIR/STTR solicitation topic description into a DoD/AFWERX/SpaceWERX/NSF SBIR/STTR Technical Work Plan, a TRL 1–9 progression matrix, a Phase III Dual-Use Commercialization & Transition Plan, and a pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertion schedule. This is a read-only, stateless, non-destructive R&D proposal and IP compliance generator (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters and `company_technology_and_ip_baseline` accepts 20 to 35,000 characters). Use this tool when preparing Phase I, Phase II, Direct-to-Phase II (AFWERX/SpaceWERX), or Phase III SBIR/STTR technical volumes, commercialization plans, and DFARS 252.227-7018 IP data-rights tables; use `generate_rfp_response` instead for standard FAR Part 15 technical approach volumes, or `scan_far_dfars_clauses` for general Section I clause flow-down audits.",
     "annotations": {
       "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
       "readOnlyHint": true,
@@ -1748,24 +2031,27 @@ const TOOLS = [
           "type": "string",
           "minLength": 20,
           "maxLength": 45000,
-          "description": "Full or excerpted SBIR/STTR solicitation topic description (DoD DSIP, AFWERX Open Topic, SpaceWERX, Navy, Army xTech, DARPA, DHS, NASA, NSF, NIH, or DOE), Phase I/II/III technical objectives, R&D specifications, and evaluation criteria (20 to 45,000 characters)."
+          "description": "Full or excerpted DoD, AFWERX, SPACEWERX, Navy, Army, DARPA, NSF, NASA, or DHS SBIR/STTR topic instructions, Phase I/II/III technical objectives, and evaluation criteria (20 to 45,000 characters)."
         },
         "company_technology_and_ip_baseline": {
           "type": "string",
           "minLength": 20,
           "maxLength": 35000,
-          "description": "Summary of the small business offeror's core R&D technology, current TRL/MRL baseline, background IP/patents, Principal Investigator (PI) credentials, research institution partner (if STTR), and prior SBIR/commercial traction (20 to 35,000 characters)."
+          "description": "Summary of the small business offeror's R&D technology, current TRL, Principal Investigator (PI) credentials, prior IRAD/patents, STTR university/lab partner (if applicable), and dual-use commercial traction (20 to 35,000 characters)."
         },
         "target_phase_and_program": {
           "type": "string",
-          "enum": [
-            "Phase_I_Feasibility_and_Proof_of_Concept",
-            "Direct_to_Phase_II_or_Phase_II_Prototype",
-            "Phase_IIB_or_STRATFI_TACFI_Matching",
-            "Phase_III_Sole_Source_Transition_15_USC_638_r_4"
-          ],
           "default": "Direct_to_Phase_II_or_Phase_II_Prototype",
-          "description": "Target SBIR/STTR phase and transition vehicle: 'Phase_I_Feasibility_and_Proof_of_Concept', 'Direct_to_Phase_II_or_Phase_II_Prototype' (default), 'Phase_IIB_or_STRATFI_TACFI_Matching', or 'Phase_III_Sole_Source_Transition_15_USC_638_r_4'."
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Target SBIR/STTR phase ('Phase_I_Feasibility_and_Proof_of_Concept', 'Direct_to_Phase_II_or_Phase_II_Prototype', 'Phase_IIB_or_STRATFI_TACFI_Matching', or 'Phase_III_Sole_Source_Transition_15_USC_638_r_4')."
+        },
+        "sponsoring_agency_or_program": {
+          "type": "string",
+          "default": "USAF AFWERX / DoD DSIP",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Optional sponsoring agency, PEO, or Phase III transition customer (e.g., USAF AFWERX / SpaceWERX, Office of Naval Research, NSF TIP)."
         }
       },
       "required": [
@@ -1776,40 +2062,35 @@ const TOOLS = [
     "outputSchema": {
       "type": "object",
       "properties": {
-        "program_and_topic_classification": {
-          "type": "object",
-          "description": "Classified SBIR/STTR agency, phase, topic ID, and statutory workshare rules (67%/50% SBIR or 40%/30% STTR)."
+        "sbir_pwin_and_transition_readiness_score": {
+          "type": "integer",
+          "description": "0-100 score evaluating technical merit, TRL feasibility, dual-use commercialization potential, and Phase III Program-of-Record transition readiness."
         },
-        "trl_and_mrl_advancement_matrix": {
-          "type": "object",
-          "description": "Starting/target TRL 1-9 and MRL 1-10 progression with technical risk retirement milestones."
+        "recommended_phase_and_transition_pathway": {
+          "type": "string",
+          "description": "Strategic SBIR/STTR pursuit and transition recommendation."
         },
-        "phase_technical_objectives_and_wbs": {
+        "executive_technical_and_dual_use_summary": {
+          "type": "string",
+          "description": "Executive summary of the R&D innovation, warfighter/agency operational impact, and commercial dual-use market thesis."
+        },
+        "trl_progression_and_technical_work_plan": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Structured Work Breakdown Structure (WBS) tasks, hours/labor mix, deliverables, and exit criteria."
+          "description": "Structured Phase I/II Technical Work Plan and TRL 1-9 progression milestones with quantifiable exit criteria."
         },
-        "sbirsttr_data_rights_and_ip_protection_plan": {
-          "type": "object",
-          "description": "DFARS 252.227-7018 / FAR 52.227-20 20-year SBIR Data Rights assertion table and restrictive legend language."
+        "dfars_252_227_7018_sbir_data_rights_assertions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Pre-populated DFARS 252.227-7018 / FAR 52.227-20 SBIR/STTR Data Rights Assertion Table protecting core IP for 20 years."
         },
-        "dual_use_market_and_tam_sam_som_analysis": {
-          "type": "object",
-          "description": "Defense/Federal PMO transition customers, commercial dual-use segments, TAM/SAM/SOM, and 5-year revenue model."
-        },
-        "phase_iii_transition_and_non_sbir_funding_roadmap": {
-          "type": "object",
-          "description": "Phase III sole-source justification under 15 U.S.C. 638(r)(4), STRATFI/TACFI/APFIT matching, and PEO transition milestones."
-        },
-        "commercialization_readiness_score_0_to_100": {
-          "type": "integer",
-          "description": "Quantitative SBIR/STTR Commercialization & Transition Readiness Score from 0 to 100."
-        },
-        "go_no_go_recommendation": {
+        "phase_iii_dual_use_commercialization_and_work_plan_narrative": {
           "type": "string",
-          "description": "Executive Bid/No-Bid and Phase transition recommendation."
+          "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. § 638(r)(4) Phase III sole-source transition roadmap."
         }
       }
     }
@@ -1836,9 +2117,9 @@ const TOOLS = [
         },
         "known_accessibility_test_results_or_gaps": {
           "type": "string",
+          "default": "Automated axe-core/WAVE CI scan + manual NVDA/JAWS screen-reader and keyboard-only navigation baseline.",
           "minLength": 10,
           "maxLength": 35000,
-          "default": "Automated axe-core/WAVE CI scan + manual NVDA/JAWS screen-reader and keyboard-only navigation baseline.",
           "description": "Known accessibility test findings (axe-core, Lighthouse, DHS Trusted Tester v5, JAWS/NVDA/VoiceOver), existing exceptions (e.g., third-party GIS map canvas or legacy PDF exports), and current remediation status (10 to 35,000 characters)."
         },
         "target_compliance_standard": {
@@ -1862,7 +2143,7 @@ const TOOLS = [
       "properties": {
         "accessibility_readiness_score": {
           "type": "integer",
-          "description": "0-100 score quantifying the product's Section 508 / WCAG 2.2 AA compliance readiness and VPAT 2.5 defensibility."
+          "description": "0-100 score quantifying the product's Section 508 / WCAG 2.2 AA compliance readiness and VPAT 2.5 defensibility for federal/state procurement."
         },
         "overall_section_508_determination": {
           "type": "string",
@@ -1884,11 +2165,11 @@ const TOOLS = [
           "items": {
             "type": "object"
           },
-          "description": "Prioritized Accessibility Plan of Action & Milestones (POA&M) and engineering remediation roadmap."
+          "description": "Prioritized Accessibility Plan of Action & Milestones (POA&M) and engineering remediation roadmap for any 'Partially_Supports' or 'Does_Not_Support' items."
         },
         "ready_to_submit_vpat_2_5_acr_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready ITI VPAT 2.5 Accessibility Conformance Report (ACR) & FAR 39.2 Proposal Volume narrative including EEAAP."
+          "description": "Complete, paste-ready ITI VPAT 2.5 Accessibility Conformance Report (ACR) & FAR 39.2 Proposal Volume narrative including evaluation methodology (DHS Trusted Tester v5, axe-core, NVDA/JAWS) and Equally Effective Alternate Access Plan (EEAAP) language."
         }
       }
     }
@@ -1915,194 +2196,42 @@ const TOOLS = [
         },
         "offeror_name": {
           "type": "string",
+          "default": "Offeror (Prime Contractor)",
           "minLength": 2,
           "maxLength": 300,
-          "default": "Offeror (Prime Contractor)",
           "description": "Legal name of the prime offeror / reseller submitting the BOM and supply chain representations (2 to 300 characters)."
         },
         "contracting_agency": {
           "type": "string",
+          "default": "Department of Defense (DoD)",
           "minLength": 2,
           "maxLength": 300,
-          "default": "Department of Defense (DoD)",
           "description": "Contracting agency or SLED buyer, e.g. 'U.S. Army PEO C3T', 'GSA FAS', or 'Arizona ADOA-ASET' (2 to 300 characters)."
         },
         "applicable_contract_clauses": {
           "type": "array",
-          "maxItems": 40,
           "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200,
-            "description": "One clause or standard citation, e.g. 'FAR 52.204-25'."
+            "type": "string"
           },
-          "default": [
-            "FAR 52.204-25 (NDAA Section 889 Covered Telecommunications Prohibition)",
-            "FAR 52.204-30 (FASCSA Orders Prohibition)",
-            "FAR 52.225-5 (Trade Agreements Act)",
-            "FAR 52.225-1 (Buy American - Supplies)",
-            "NIST SP 800-161 Rev. 1 (C-SCRM)"
-          ],
+          "maxItems": 40,
           "description": "Supply chain clauses and standards in the solicitation, e.g. 'FAR 52.204-25', 'FAR 52.204-30', 'FAR 52.225-5', 'DFARS 252.225-7001', 'DFARS 252.204-7012', 'DFARS 252.246-7008', 'NIST SP 800-161 Rev. 1', 'OMB M-22-18' (0 to 40 entries)."
         },
         "bom_line_items": {
           "type": "array",
+          "items": {
+            "type": "object"
+          },
           "minItems": 1,
           "maxItems": 200,
-          "description": "Hardware / COTS Bill of Materials line items to screen (1 to 200 lines).",
-          "items": {
-            "type": "object",
-            "properties": {
-              "line_item_id": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 60,
-                "description": "Unique BOM / CLIN / quote line identifier, e.g. 'BOM-001' or 'CLIN 0001'."
-              },
-              "part_number": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 120,
-                "description": "Manufacturer part number (MPN), SKU, or NSN, e.g. 'C9300-48P-E'."
-              },
-              "description": {
-                "type": "string",
-                "maxLength": 500,
-                "default": "",
-                "description": "Short item description, e.g. '4MP IP Dome Camera'."
-              },
-              "manufacturer": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 200,
-                "description": "OEM brand / legal entity, screened against NDAA 889 covered entities and known affiliates or white-label OEMs."
-              },
-              "country_of_origin": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 80,
-                "description": "Country of origin or substantial transformation (ISO 3166 alpha-2 code or country name, e.g. 'US', 'Mexico', 'China')."
-              },
-              "supplier_name": {
-                "type": "string",
-                "maxLength": 200,
-                "default": "",
-                "description": "Reseller, distributor, or sub-tier supplier furnishing the item (blank if bought direct from the OEM)."
-              },
-              "supplier_tier": {
-                "type": "string",
-                "enum": [
-                  "Tier_1_Direct_OEM",
-                  "Tier_2_Sub_Assembly_Or_Integrator",
-                  "Tier_3_Component_Supplier",
-                  "Tier_4_Distributor_Or_Raw_Material",
-                  "Unknown"
-                ],
-                "default": "Tier_1_Direct_OEM",
-                "description": "Supply chain tier of the furnishing supplier relative to the prime offeror."
-              },
-              "item_category": {
-                "type": "string",
-                "enum": [
-                  "Telecommunications_Or_Video_Surveillance",
-                  "IT_Hardware_Or_Network_Equipment",
-                  "Software_Or_SaaS",
-                  "Microelectronics_Or_Semiconductor",
-                  "Commercial_Off_The_Shelf_COTS_Item",
-                  "Construction_Material_Or_Manufactured_Product",
-                  "Other"
-                ],
-                "default": "IT_Hardware_Or_Network_Equipment",
-                "description": "Item category used to route NDAA 889, FASCSA, TAA, BAA (COTS IT exception), and counterfeit-parts logic."
-              },
-              "quantity": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 10000000,
-                "default": 1,
-                "description": "Quantity of units on this line."
-              },
-              "unit_cost_usd": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 1000000000,
-                "default": 0,
-                "description": "Unit price in USD, used for TAA thresholds and BAA domestic-content weighting."
-              },
-              "domestic_component_cost_pct": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "minimum": 0,
-                "maximum": 100,
-                "default": null,
-                "description": "Optional known US-domestic component cost percentage (0-100) for this line; null if unknown."
-              }
-            },
-            "required": [
-              "line_item_id",
-              "part_number",
-              "manufacturer",
-              "country_of_origin"
-            ]
-          }
+          "description": "Hardware / COTS Bill of Materials line items to screen (1 to 200 lines)."
         },
         "software_components": {
           "type": "array",
-          "maxItems": 500,
-          "default": [],
-          "description": "Software Bill of Materials (SBOM) components for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components).",
           "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 200,
-                "description": "Software component / package name, e.g. 'log4j-core'."
-              },
-              "version": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 80,
-                "default": "unspecified",
-                "description": "Component version string, e.g. '2.17.1'."
-              },
-              "purl": {
-                "type": "string",
-                "maxLength": 500,
-                "default": "",
-                "description": "Package URL (purl), e.g. 'pkg:maven/org.apache.logging.log4j/log4j-core@2.17.1'."
-              },
-              "license": {
-                "type": "string",
-                "maxLength": 120,
-                "default": "",
-                "description": "SPDX license identifier, e.g. 'Apache-2.0' or 'GPL-3.0-only'."
-              },
-              "supplier": {
-                "type": "string",
-                "maxLength": 200,
-                "default": "",
-                "description": "Component supplier / author organization (NTIA 'Supplier Name' element)."
-              },
-              "known_vulnerabilities": {
-                "type": "array",
-                "maxItems": 50,
-                "default": [],
-                "items": {
-                  "type": "string",
-                  "maxLength": 60,
-                  "description": "CVE / GHSA identifier, e.g. 'CVE-2021-44228'."
-                },
-                "description": "Known CVE / GHSA identifiers or CISA KEV entries affecting this version (0 to 50)."
-              }
-            },
-            "required": [
-              "name"
-            ]
-          }
+            "type": "object"
+          },
+          "maxItems": 500,
+          "description": "Software Bill of Materials (SBOM) components for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components)."
         },
         "sbom_format": {
           "type": "string",
@@ -2129,8 +2258,9 @@ const TOOLS = [
         },
         "additional_supplier_notes": {
           "type": "string",
-          "maxLength": 20000,
           "default": "",
+          "minLength": 1,
+          "maxLength": 20000,
           "description": "Optional sub-tier supplier attestations, SAM.gov FAR 52.204-24/26 representations, ownership/affiliation notes, or existing C-SCRM program documentation (0 to 20,000 characters)."
         }
       },
@@ -2144,66 +2274,66 @@ const TOOLS = [
       "properties": {
         "supply_chain_risk_score": {
           "type": "integer",
-          "description": "Supply chain risk score from 0 (no material risk) to 100 (prohibited / award-blocking)."
+          "description": "Quantitative supply chain risk score from 0 (no material risk) to 100 (prohibited / award-blocking)."
         },
         "overall_scrm_verdict": {
           "type": "string",
-          "description": "Overall verdict (LOW_RISK_AWARD_ELIGIBLE, MODERATE_RISK_MITIGATION_PLAN_REQUIRED, HIGH_RISK_REMEDIATION_BEFORE_SUBMISSION, PROHIBITED_NDAA_889_OR_FASCSA_BLOCKING_AWARD)."
+          "description": "Overall C-SCRM / NDAA 889 / FASCSA / TAA / BAA award-eligibility verdict."
         },
         "executive_scrm_summary": {
           "type": "string",
-          "description": "Executive supply chain risk summary for the Contracting Officer."
+          "description": "Executive supply chain risk summary for the Contracting Officer and offeror leadership."
         },
         "ndaa_889_findings": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Per-line FAR 52.204-25 Section 889 Part A/B prohibited-vendor findings."
+          "description": "Per-line FAR 52.204-25 (NDAA Section 889 Part A/B) prohibited-vendor screening findings."
         },
         "fascsa_exclusion_check": {
           "type": "object",
-          "description": "FAR 52.204-30 FASCSA exclusion order screening status and SAM.gov sources to verify."
+          "description": "FAR 52.204-30 FASCSA exclusion/removal order screening."
         },
         "taa_compliance_by_line": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Per-line Trade Agreements Act designated-country determinations."
+          "description": "Per-line Trade Agreements Act (FAR 52.225-5) designated-country determinations."
         },
         "baa_domestic_content": {
           "type": "object",
-          "description": "Buy American Act domestic content percentage, applicable threshold, and status."
+          "description": "Buy American Act (FAR Part 25) domestic content analysis."
         },
         "nist_800_161_control_gaps": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "NIST SP 800-161 Rev. 1 SR-family control gaps with severity and implementation guidance."
+          "description": "NIST SP 800-161 Rev. 1 C-SCRM control gaps with severity and implementation guidance."
         },
         "sbom_attestation": {
           "type": "object",
-          "description": "NTIA minimum-elements SBOM review and CISA Secure Software Self-Attestation readiness."
+          "description": "NTIA SBOM minimum-elements review and CISA Secure Software Self-Attestation readiness."
         },
         "c_scrm_plan_sections": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Paste-ready C-SCRM Plan sections aligned to NIST SP 800-161 Rev. 1."
+          "description": "Paste-ready Cybersecurity Supply Chain Risk Management (C-SCRM) Plan sections aligned to NIST SP 800-161 Rev. 1."
         },
         "remediation_roadmap": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Prioritized SCRM POA&M remediation milestones."
+          "description": "Prioritized SCRM Plan of Action & Milestones (POA&M) remediation roadmap."
         },
         "ready_to_submit_scrm_narrative": {
           "type": "string",
-          "description": "Paste-ready proposal SCRM volume narrative with NDAA 889 / FASCSA representations, TAA/BAA certification, and SBOM attestation."
+          "description": "Paste-ready proposal Supply Chain Risk Management volume narrative with NDAA 889 / FASCSA representations, TAA/BAA certification language, and SBOM attestation statement."
         }
       }
     }
@@ -2230,29 +2360,31 @@ const TOOLS = [
         },
         "contract_type_and_incentive_structure": {
           "type": "string",
-          "enum": [
-            "Firm_Fixed_Price_FFP",
-            "Time_and_Materials_TM",
-            "Cost_Plus_Award_Fee_CPAF",
-            "Cost_Plus_Incentive_Fee_CPIF",
-            "Hybrid_IDIQ_Task_Order"
-          ],
           "default": "Firm_Fixed_Price_FFP",
           "minLength": 2,
           "maxLength": 120,
-          "description": "Contract type and incentive structure ('Firm_Fixed_Price_FFP' [default], 'Time_and_Materials_TM', 'Cost_Plus_Award_Fee_CPAF', 'Cost_Plus_Incentive_Fee_CPIF', or 'Hybrid_IDIQ_Task_Order') used to calibrate FAR 52.246 inspection clauses and AQL incentive/deduction formulas."
+          "description": "Contract type and fee structure ('Firm_Fixed_Price_FFP', 'Time_and_Materials_TM', 'Cost_Plus_Award_Fee_CPAF', 'Cost_Plus_Incentive_Fee_CPIF', or 'Hybrid_IDIQ_Task_Order')."
         },
         "surveillance_rigor_and_mission_criticality": {
           "type": "string",
-          "enum": [
-            "Mission_Critical_24x7_Zero_Trust",
-            "Standard_Enterprise_IT_SLA",
-            "R_and_D_Agile_DevSecOps"
-          ],
           "default": "Mission_Critical_24x7_Zero_Trust",
           "minLength": 2,
           "maxLength": 120,
-          "description": "Mission criticality and surveillance rigor profile ('Mission_Critical_24x7_Zero_Trust' [default], 'Standard_Enterprise_IT_SLA', or 'R_and_D_Agile_DevSecOps')."
+          "description": "Mission criticality profile ('Mission_Critical_24x7_Zero_Trust', 'Standard_Enterprise_IT_SLA', or 'R_and_D_Agile_DevSecOps')."
+        },
+        "solicitation_or_contract_number": {
+          "type": "string",
+          "default": "SOL-2026-QASP-001",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Optional solicitation or contract number for QASP traceability."
+        },
+        "target_agency": {
+          "type": "string",
+          "default": "Department of Defense (DoD) / Federal & State Agency",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "Optional issuing agency or contracting office."
         }
       },
       "required": [
@@ -2268,18 +2400,18 @@ const TOOLS = [
         },
         "qasp_readiness_score": {
           "type": "integer",
-          "description": "0-100 score quantifying the measurability, FAR Subpart 37.6 compliance, and audit defensibility of the QASP and PRS matrix."
+          "description": "0-100 score quantifying the measurability, FAR Subpart 37.6 compliance, and audit defensibility of the generated QASP and PRS matrix."
         },
         "executive_surveillance_summary": {
           "type": "string",
-          "description": "Executive summary of the FAR 37.6 surveillance strategy, ISO 9001 / CMMI Level 3 quality governance, and COR partnership model."
+          "description": "Executive summary of the Performance-Based Acquisition (FAR 37.6) surveillance strategy, ISO 9001 / CMMI Level 3 quality governance, and COR partnership model."
         },
         "performance_requirements_summary_prs_table": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Structured FAR Subpart 37.6 Performance Requirements Summary (PRS) rows with objectives, KPI standards, AQLs, surveillance methods, and incentive/deduction formulas."
+          "description": "Structured FAR Subpart 37.6 Performance Requirements Summary (PRS) matrix mapping PWS sections to objectives, standards, AQLs, surveillance methods, and incentive/deduction formulas."
         },
         "sla_and_kpi_telemetry_metrics": {
           "type": "array",
@@ -2321,23 +2453,38 @@ const TOOLS = [
         },
         "incumbent_workforce_and_clearance_context": {
           "type": "string",
+          "default": "",
           "minLength": 0,
           "maxLength": 50000,
-          "default": "",
           "description": "Optional incumbent contractor details, target FTE count, Collective Bargaining Agreement (CBA) / Service Contract Act (SCA) context, and DD-254 facility/personnel security clearance transfer requirements (0 to 50,000 characters)."
         },
         "transition_timeline_window": {
           "type": "string",
-          "enum": [
-            "Rapid_30_Day_Cutover",
-            "Standard_30_60_90_Day_Phase_In",
-            "Extended_120_Day_Enterprise_Transition",
-            "Include_Phase_Out_FAR_52_237_3"
-          ],
           "default": "Standard_30_60_90_Day_Phase_In",
           "minLength": 2,
           "maxLength": 120,
-          "description": "Transition schedule profile ('Rapid_30_Day_Cutover', 'Standard_30_60_90_Day_Phase_In' [default], 'Extended_120_Day_Enterprise_Transition', or 'Include_Phase_Out_FAR_52_237_3')."
+          "description": "Transition schedule profile ('Rapid_30_Day_Cutover', 'Standard_30_60_90_Day_Phase_In', 'Extended_120_Day_Enterprise_Transition', or 'Include_Phase_Out_FAR_52_237_3')."
+        },
+        "transition_duration_days": {
+          "type": "integer",
+          "default": 90,
+          "minimum": 15.0,
+          "maximum": 180.0,
+          "description": "Optional total Phase-In transition duration in calendar days (15 to 180; defaults to 90)."
+        },
+        "target_agency": {
+          "type": "string",
+          "default": "Department of Defense (DoD) / Federal & State Agency",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "Optional issuing agency or contracting office."
+        },
+        "clearance_requirement": {
+          "type": "string",
+          "default": "Secret / Top Secret SCI & Public Trust",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Optional personnel and facility security clearance level required (DD-254 / DISS / Public Trust)."
         }
       },
       "required": [
@@ -2357,18 +2504,18 @@ const TOOLS = [
         },
         "executive_transition_summary": {
           "type": "string",
-          "description": "Executive summary of the zero-mission-disruption Phase-In / Phase-Out strategy and Day-1 FOC roadmap."
+          "description": "Executive summary of the zero-mission-disruption Phase-In / Phase-Out strategy, governance structure, and Day-1 Full Operational Capability (FOC) roadmap."
         },
         "wbs_30_60_90_day_milestones": {
           "type": "array",
           "items": {
             "type": "object"
           },
-          "description": "Chronological WBS transition milestones across Days 1-30, 31-60, 61-90 (and Phase-Out) with activities, deliverables, exit criteria, and risk mitigations."
+          "description": "Chronological Work Breakdown Structure (WBS) transition milestones across Days 1-30, Days 31-60, Days 61-90 (and Phase-Out) with activities, deliverables, exit criteria, and risk mitigations."
         },
         "incumbent_capture_and_retention_plan": {
           "type": "object",
-          "description": "Incumbent workforce capture plan with target retention %, EO 14055 / SCA right-of-first-refusal posture, DD-254/DISS clearance crossover timeline, and outreach script."
+          "description": "Comprehensive incumbent workforce capture, EO 14055 / SCA right-of-first-refusal compliance, DD-254/DISS clearance crossover timeline, and outreach script."
         },
         "knowledge_transfer_and_shadowing_schedule": {
           "type": "array",
@@ -2382,7 +2529,7 @@ const TOOLS = [
           "items": {
             "type": "string"
           },
-          "description": "FAR 52.237-3 Continuity of Services Phase-Out checklist items."
+          "description": "FAR 52.237-3 Continuity of Services Phase-Out checklist covering GFE/GFP return, CUI sanitization, credential revocation, and successor contractor training."
         },
         "ready_to_submit_transition_volume": {
           "type": "string",
@@ -2413,16 +2560,16 @@ const TOOLS = [
         },
         "target_contract_type_and_solicitation": {
           "type": "string",
+          "default": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Cost_Plus_Fixed_Fee_CPFF_And_T_And_M",
           "description": "Target contract type (CPFF, CPIF, CPAF, T&M, FFP) and solicitation SF 1408 / FAR 16.301-3 adequacy requirements (defaults to 'Cost_Plus_Fixed_Fee_CPFF_And_T_And_M')."
         },
         "accounting_software_and_erp_stack": {
           "type": "string",
+          "default": "QuickBooks_Online_With_GovCon_Timekeeping",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "QuickBooks_Online_With_GovCon_Timekeeping",
           "description": "Current accounting ERP & timekeeping stack (e.g., Deltek Costpoint, Unanet GovCon, QuickBooks + ICAT/BigTime, NetSuite; defaults to 'QuickBooks_Online_With_GovCon_Timekeeping')."
         }
       },
@@ -2495,16 +2642,16 @@ const TOOLS = [
         },
         "target_ota_consortium_and_pathway": {
           "type": "string",
+          "default": "DIU_Commercial_Solutions_Opening_CSO",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "DIU_Commercial_Solutions_Opening_CSO",
           "description": "Target OTA pathway or consortium (e.g., DIU Commercial Solutions Opening [CSO], SOSSEC, SpEC Space Enterprise Consortium, C5ISR, NSTXL, AFWERX; defaults to 'DIU_Commercial_Solutions_Opening_CSO')."
         },
         "nontraditional_contractor_and_cost_share_status": {
           "type": "string",
+          "default": "Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share",
           "description": "10 U.S.C. 4022 statutory eligibility posture: Nontraditional Defense Contractor (NDC), Small Business, or Traditional Defense Contractor with NDC sub / 1/3 cost-share (defaults to 'Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share')."
         }
       },
@@ -2577,16 +2724,16 @@ const TOOLS = [
         },
         "target_facility_clearance_level": {
           "type": "string",
+          "default": "Top_Secret_FCL_With_SCI_And_SIPRNet",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Top_Secret_FCL_With_SCI_And_SIPRNet",
           "description": "Required Facility Clearance (FCL) and safeguarding posture (e.g., Confidential, Secret, Top Secret, TS/SCI, COMSEC, SIPRNet, JWICS; defaults to 'Top_Secret_FCL_With_SCI_And_SIPRNet')."
         },
         "foreign_ownership_and_board_context": {
           "type": "string",
+          "default": "Minority_Foreign_LP_Or_Board_Seat_Under_Review",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Minority_Foreign_LP_Or_Board_Seat_Under_Review",
           "description": "Summary of foreign equity voting/ownership percentages, foreign board seats, foreign debt, or foreign technology licensing ties under 32 CFR Part 117 (NISPOM; defaults to 'Minority_Foreign_LP_Or_Board_Seat_Under_Review')."
         }
       },
@@ -2610,7 +2757,7 @@ const TOOLS = [
           "items": {
             "type": "object"
           },
-          "description": "Block-by-block audit of DD Form 254 Block 10, 11, and 13 classified access, safeguarding, COMSEC, SCI, and SIPRNet mandates."
+          "description": "Block-by-block audit of DD Form 254 Block 10, 11, and 13 classified access, safeguarding, COMSEC, SCI, and SIPRNet mandates under 32 CFR Part 117."
         },
         "sf328_foreign_interest_factor_audit": {
           "type": "array",
@@ -2655,16 +2802,16 @@ const TOOLS = [
         },
         "plan_type_and_regulatory_regime": {
           "type": "string",
+          "default": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
           "description": "Subcontracting Plan structure: Individual Plan, Master Plan + Individual Goals, or Commercial Subcontracting Plan under FAR 52.219-9 / DFARS 252.219-7003 (defaults to 'Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003')."
         },
         "agency_socioeconomic_goal_benchmarks": {
           "type": "string",
+          "default": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone",
           "description": "Agency statutory or RFP-mandated small business subcontracting goal percentages across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone (defaults to 'DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone')."
         }
       },
@@ -2706,7 +2853,7 @@ const TOOLS = [
           "items": {
             "type": "string"
           },
-          "description": "Actionable checklist for DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD) enforceability."
+          "description": "Actionable checklist for DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD) enforceability and bilateral teaming agreements."
         }
       }
     }
@@ -2733,16 +2880,16 @@ const TOOLS = [
         },
         "governing_acquisition_regime": {
           "type": "string",
+          "default": "DoD_DFARS_252_227_7013_7014_7015_7017_And_7018",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "DoD_DFARS_252_227_7013_7014_7015_7017_And_7018",
           "description": "Applicable IP clause framework: DoD DFARS 252.227-7013/7014/7015/7017/7018 (SBIR) or Civilian FAR 52.227-14 / 52.227-19 (defaults to 'DoD_DFARS_252_227_7013_7014_7015_7017_And_7018')."
         },
         "modular_open_systems_approach_mosa_context": {
           "type": "string",
+          "default": "MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms",
           "description": "10 U.S.C. 4401 Modular Open Systems Approach (MOSA) interface strategy separating open APIs/form-fit-function data from proprietary source code and model weights (defaults to 'MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms')."
         }
       },
@@ -2777,14 +2924,14 @@ const TOOLS = [
         },
         "mosa_and_deferred_ordering_protection_plan": {
           "type": "object",
-          "description": "10 U.S.C. 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
+          "description": "10 U.S.C. § 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
         },
         "pre_award_ip_negotiation_checklist": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Pre-award checklist for submitting the signed DFARS 252.227-7017 attachment and negotiating Specially Negotiated License Rights."
+          "description": "Pre-award checklist for submitting the signed DFARS 252.227-7017 attachment with the proposal and negotiating Specially Negotiated License Rights."
         }
       }
     }
@@ -2811,16 +2958,16 @@ const TOOLS = [
         },
         "bidder_discriminators_and_proof_points": {
           "type": "string",
+          "default": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
           "minLength": 2,
           "maxLength": 4000,
-          "default": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
           "description": "Bidder's technical discriminators, proprietary accelerators, past performance metrics, socio-economic status, and wrap-rate / PTW advantages (defaults to 'Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate')."
         },
         "evaluation_type_and_posture": {
           "type": "string",
+          "default": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff",
           "description": "Capture posture and source selection method (e.g., Challenger Unseating Incumbent under Best-Value Tradeoff, Incumbent Defending Recompete, or LPTA; defaults to 'Challenger_Unseating_Incumbent_Best_Value_Tradeoff')."
         }
       },
@@ -2889,16 +3036,16 @@ const TOOLS = [
         },
         "cpar_submission_mode": {
           "type": "string",
+          "default": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
           "description": "Submission mode under FAR 42.1503: Proactive Annual Self-Assessment Package, 14-Calendar-Day Draft CPAR Rebuttal to Reviewing Official, or Both (defaults to 'Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package')."
         },
         "target_far_42_1503_rating_goal": {
           "type": "string",
+          "default": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec",
           "minLength": 2,
           "maxLength": 2000,
-          "default": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec",
           "description": "Target FAR 42.1503 Table 42-1 rating outcome across Quality, Schedule, Cost Control, Management, Small Business, and Regulatory Compliance (defaults to 'Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec')."
         }
       },

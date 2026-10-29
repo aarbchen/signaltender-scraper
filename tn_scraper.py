@@ -84,54 +84,53 @@ def get_curated_tn_sled_solicitations() -> list[dict]:
     Solutions (STS), Division of TennCare, TDOT, TN Department of Safety & Homeland Security,
     and University of Tennessee System.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[TN-CPO-RFP-31701-03418] Tennessee Strategic Technology Solutions (STS) Enterprise Zero-Trust SOC, SIEM Telemetry & Managed Cyber Defense - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[TN-CPO-RFP-31701-03418] Tennessee Strategic Technology Solutions (STS) Enterprise Zero-Trust SOC, SIEM Telemetry & Managed Cyber Defense - Due: 11/23/2026",
             "agency": "Tennessee Department of Finance & Administration — Strategic Technology Solutions (STS)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-CPO-RFP-31701-03418",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-TENNCARE-31865-00942] TennCare MES Cloud Data Lakehouse, Medicaid Fraud/Waste AI Analytics & FHIR Interoperability Gateway - Due: {(now + timedelta(days=25)).strftime('%m/%d/%Y')}",
+            "title": "[TN-TENNCARE-31865-00942] TennCare MES Cloud Data Lakehouse, Medicaid Fraud/Waste AI Analytics & FHIR Interoperability Gateway - Due: 11/27/2026",
             "agency": "State of Tennessee — Division of TennCare (Medicaid Enterprise Systems)",
-            "closing_date": (now + timedelta(days=25)).strftime("%m/%d/%Y"),
+            "closing_date": "11/27/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-TENNCARE-31865-00942",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-TDOT-40100-26815] Tennessee DOT (TDOT) SmartWay Intelligent Transportation Systems (ITS), Statewide Fiber Network & Cloud ATMS Modernization - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[TN-TDOT-40100-26815] Tennessee DOT (TDOT) SmartWay Intelligent Transportation Systems (ITS), Statewide Fiber Network & Cloud ATMS Modernization - Due: 11/21/2026",
             "agency": "Tennessee Department of Transportation (TDOT) — IT & Traffic Operations Division",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-TDOT-40100-26815",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-DSHS-34901-01284] Tennessee Department of Safety & Homeland Security CJIS Cloud Identity, Driver Services Portal & Endpoint EDR Platform - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[TN-DSHS-34901-01284] Tennessee Department of Safety & Homeland Security CJIS Cloud Identity, Driver Services Portal & Endpoint EDR Platform - Due: 11/25/2026",
             "agency": "Tennessee Department of Safety & Homeland Security (TDOSHS)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-DSHS-34901-01284",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-NASHVILLE-RFQ-394810] Metropolitan Government of Nashville & Davidson County ITS Enterprise Cloud Migration, GIS & Municipal Cyber Resilience - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[TN-NASHVILLE-RFQ-394810] Metropolitan Government of Nashville & Davidson County ITS Enterprise Cloud Migration, GIS & Municipal Cyber Resilience - Due: 11/30/2026",
             "agency": "Metropolitan Government of Nashville & Davidson County — Information Technology Services (TN)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-NASHVILLE-RFQ-394810",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-MEMPHIS-RFP-2026-6104] City of Memphis Information Technology & 911 Emergency Communications Next-Gen CAD/RMS, Cloud SIEM & Fiber Backbone - Due: {(now + timedelta(days=28)).strftime('%m/%d/%Y')}",
+            "title": "[TN-MEMPHIS-RFP-2026-6104] City of Memphis Information Technology & 911 Emergency Communications Next-Gen CAD/RMS, Cloud SIEM & Fiber Backbone - Due: 12/02/2026",
             "agency": "City of Memphis — Division of Information Technology & Shelby County (Tennessee)",
-            "closing_date": (now + timedelta(days=28)).strftime("%m/%d/%Y"),
+            "closing_date": "12/02/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-MEMPHIS-RFP-2026-6104",
             "status": "New Lead",
         },
         {
-            "title": f"[TN-UTK-RFP-2026-8830] University of Tennessee System Enterprise AI Research Cloud, High-Speed Campus Network & NIST 800-171 Compliance - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[TN-UTK-RFP-2026-8830] University of Tennessee System Enterprise AI Research Cloud, High-Speed Campus Network & NIST 800-171 Compliance - Due: 12/04/2026",
             "agency": "University of Tennessee System (Office of Information Technology — Knoxville / Oak Ridge)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://www.tn.gov/generalservices/procurement/central-procurement-office--cpo-/supplier-information/request-for-proposals--rfp--opportunities1.html#TN-UTK-RFP-2026-8830",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_tn_cpo_live_notices() -> list[dict]:
     Queries Tennessee Central Procurement Office (CPO) RFP Opportunities table
     for live IT, Cloud, Software, and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -152,7 +152,7 @@ def fetch_tn_cpo_live_notices() -> list[dict]:
         resp = requests.get(TN_CPO_RFP_URL, headers=headers, timeout=20)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -161,13 +161,18 @@ def fetch_tn_cpo_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b(\d{5}[-–]\d{3,6}|RFP\s*#?\s*[\w\-]+)\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "") if rfp_num_match else f"TN-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[TN-{rfp_id}] {title_text} - Due: {due_str}",

@@ -1,8 +1,8 @@
 # SignalTender Pre-Oct 31 Organic Distribution & Conversion Playbook
 
-**Generated:** `2026-10-27 07:47 UTC`
-**Live Indexed Solicitations:** `225 Open IT & Cybersecurity RFPs across 18 Government Portals`
-**Platform Lock:** `18 Portals (Federal + 16 State SLED) & 24 B2B/GovCon AI Capture APIs`
+**Generated:** `2026-10-29 10:58 UTC`
+**Live Indexed Solicitations:** `352 Open IT & Cybersecurity RFPs across 28 Government Portals`
+**Platform Lock:** `28 Portals (Federal + 26 State SLED) & 34 B2B/GovCon AI Capture APIs`
 
 ---
 
@@ -14,29 +14,29 @@ Post 1 per day on LinkedIn leading up to the October 31 outbound domain warmup c
 ```text
 Most Small Business IT & cybersecurity primes spend 90% of their BD hours fighting 150 contractors on SAM.gov while State SLED portals sit wide open with 3–5 bidders.
 
-Here are 3 live State SLED & Municipal IT/Cybersecurity solicitations our 18-portal engine shredded this morning (with pre-computed Shipley Section L/M matrices, 13 CFR 125.6 workshare caps, and IGCE Price-to-Win targets):
+Here are 3 live State SLED & Municipal IT/Cybersecurity solicitations our 28-portal engine shredded this morning (with pre-computed Shipley Section L/M matrices, 13 CFR 125.6 workshare caps, and IGCE Price-to-Win targets):
 
-- **Strategic Distributed Antenna System Partnership**
-  - Agency: Virginia Polytechnic Institute and State University | Due: 2026-12-01
+- **Financial Planning & Analysis Platform-RFP 16972**
+  - Agency: Horizon Behavioral Health | Due: 2026-11-06
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $167/hr | Lead Software Eng $148/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/strategic-distributed-antenna-system-partnership-995.html
-- **[CU-PSC-2026-RFP-7741] University of Colorado (CU Boulder & Anschutz) NIST 800-171 / CMMC Level 2 Aerospace & Biomedical Research Cloud Enclave**
-  - Agency: University of Colorado System — Procurement Service Center (CU PSC) | Due: 2026-11-26
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $173/hr | Functional Lead $153/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/financial-planning-analysis-platform-rfp-16972-1101.html
+- **[UT-UOFU-UETN-RFP-2026-3910] University of Utah & Utah Education and Telehealth Network (UETN) CHPC AI Supercomputing Cloud, Statewide Optical Network & NIST 800-171 Enclave**
+  - Agency: University of Utah (UIT) & Utah Education and Telehealth Network (UETN — Utah) | Due: 2026-11-27
   - Classification: 518210 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $176/hr | Sr. SOC Eng $155/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/cu-psc-2026-rfp-7741-university-of-colorado-cu-boulder-anschutz-nist-800-1031.html
-- **Request for Competitive Sealed Proposals - Unified Digital Experience (UDE)**
-  - Agency: City of San Antonio - M0152 | Due: 2026-11-19
-  - Classification: 541511 / 541512
-  - IGCE / PTW Posture: Wrap ~1.80x (Contractor-Site) • Target PTW: -5.5% vs. IGCE • Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html
+  - IGCE / PTW Posture: Wrap 1.78x • PTW -5.6% vs IGCE • Sr. Network Arch $158/hr | CCIE Lead $138/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ut-uofu-uetn-rfp-2026-3910-university-of-utah-utah-education-and-1267.html
+- **[TX] Hpe San Storage Arrary And Maintenance (36C10B26F0383 State PoP Modernization)**
+  - Agency: State of Texas / DIR & ESBD / Department of Veterans Affairs | Due: 2031-09-23
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $169/hr | Functional Lead $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099.html
 
 Why SLED capture teams miss these:
 1. State portals (VA eVA, MD eMMA, TX ESBD) bury IT/cyber RFPs under 99% janitorial, road-salt, and hardware renewal noise.
 2. Reading a 90-page state PDF just to check mandatory certs or LCAT rate ceilings takes 4+ hours per bid.
 
-We built SignalTender to monitor all 18 Federal, Municipal, and 16-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 21-engine CaptureDesk dossier.
+We built SignalTender to monitor all 28 Federal, Municipal, and 26-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 24-engine CaptureDesk dossier.
 
 Unlock 3 live pre-shredded RFP dossiers for your state free (zero credit card):
 https://signaltender.net/#inbound-lead-capture-box
@@ -44,7 +44,7 @@ https://signaltender.net/#inbound-lead-capture-box
 
 ### LinkedIn Post #2 — New York (NYC CROL / PASSPort / PANYNJ) & Massachusetts (COMMBUYS) Drop
 ```text
-New York and Massachusetts SLED agencies issue ratusan of millions in cloud migration, managed SOC/MDR, and software modernization contracts every quarter—yet their portals (NYC City Record, PASSPort, PANYNJ, MA COMMBUYS, Boston Open Data) are notoriously fragmented.
+New York and Massachusetts SLED agencies issue hundreds of millions in cloud migration, managed SOC/MDR, and software modernization contracts every quarter—yet their portals (NYC City Record, PASSPort, PANYNJ, MA COMMBUYS, Boston Open Data) are notoriously fragmented.
 
 Here are 3 live Northeast & Federal IT solicitations open right now with pre-computed Pwin and Price-to-Win models:
 
@@ -58,18 +58,18 @@ Here are 3 live Northeast & Federal IT solicitations open right now with pre-com
   - Classification: 518210 / 541512
   - IGCE / PTW Posture: Wrap 1.82x • PTW -5.0% vs IGCE • Cloud Arch $172/hr | DevSecOps Lead $153/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-750.html
-- **(EAR048) Repair Fire Alarm System Eareckson Air Station Facilities**
+- **RFI - FEMA - Supply Chain Management System (SCMS)**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $170/hr | Lead Software Eng $151/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-991.html
+  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $168/hr | Lead Software Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/rfi-fema-supply-chain-management-system-scms-1094.html
 
 Every dossier includes:
 - Mandatory Section C/L/M "SHALL" requirement shred
 - FAR/DFARS/CMMC 2.0 & NIST 800-53 Rev 5 RMF/cATO posture
 - GSA MAS Large Category F SIN (54151S / 54151HACS / 518210C) & P50 LCAT rate benchmarks
 
-Browse all 225+ open Federal & 16-State SLED IT contracts live:
+Browse all 352+ open Federal & 26-State SLED IT contracts live:
 https://signaltender.net/contracts/
 ```
 
@@ -79,25 +79,25 @@ If your BD team only checks SAM.gov on Monday mornings, you are missing high-mar
 
 3 live open solicitations from our 6-hour automated capture wire:
 
-- **[0000034018] Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering**
-  - Agency: Department of Transportation (Caltrans) | Due: 2026-11-30
-  - Classification: 541519 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $180/hr | Sr. SOC Eng $159/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html
-- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
-  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
-  - Classification: 518210 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
-- **Enterprise Electronic Security Systems (ESS) — Nationwide Operations, Maintenance, Integration, and Lifecycle Support**
+- **[CA] Title: Line 8.55 - I2 Analysis Studio Requestor: Gary A Newcomb Aft#: 2026-Tc-0030 Ref Awa (15DDHQ26F00000719 State PoP Modernization)**
+  - Agency: State of California (DGS / CDT) / Drug Enforcement Administration | Due: 2031-09-29
+  - Classification: 541512 / 541511
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $176/hr | Functional Lead $156/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ca-title-line-8-55-i2-analysis-studio-requestor-gary-a-newcomb-aft-2026-tc-1106.html
+- **[SS 26 27 76] NOVA SOFTWARE PLATFORM**
+  - Agency: Department of Agriculture and Consumer Services (FDACS) | Due: 2026-11-02
+  - Classification: 541512 / 541511
+  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $161/hr | Lead Software Eng $142/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ss-26-27-76-nova-software-platform-1090.html
+- **Sensitive But Unclassified-Encrypted (SBU-E) Radio Cybersecurity Industry Day**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541519 / 541512
-  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $177/hr | Functional Lead $157/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-990.html
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $178/hr | Sr. SOC Eng $157/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/sensitive-but-unclassified-encrypted-sbu-e-radio-cybersecurity-industry-day-1093.html
 
 Instead of paying $18,000+/yr for legacy GovCon seats that still force your capture manager to manually read every PDF, SignalTender delivers:
-- Tier 1 ($99/mo): Real-time 18-portal de-noised IT & Cyber RFP wire in Discord, Slack, Teams, or CRM.
-- Tier 2 ($399/mo): Full 21-engine AI CaptureDesk dossiers (Shipley matrix, IGCE PTW, CPARS Vol III, Orals Murder-Board, FAR 15.506 Debriefing/Protest, and GSA MAS SIN mapping).
+- Tier 1 ($99/mo): Real-time 28-portal de-noised IT & Cyber RFP wire in Discord, Slack, Teams, or CRM.
+- Tier 2 ($399/mo): Full 24-engine AI CaptureDesk dossiers (Shipley matrix, IGCE PTW, CPARS Vol III, Orals Murder-Board, FAR 15.506 Debriefing/Protest, Shipley Black-Hat & Incumbent Ghosting, and GSA MAS SIN mapping).
 - Tier 3 ($1,499/mo): 1-Click 3-Volume Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) & 13 CFR 125.6 Teaming Clearinghouse.
 - Tier 4 ($2,499/mo): Post-Award FOIA Winning-Bid LCAT Rate Vault & 50,000 OEM REST/MCP API calls/mo.
 
@@ -111,39 +111,39 @@ Why do 70% of small-business GovCon proposals fail before pricing is even evalua
 
 Because capture teams discover a killer DFARS 252.204-7012 / CMMC Level 2 flow-down, an unstaffable Key Personnel LCAT requirement, or a 13 CFR 125.6 (50% Rule) workshare violation on Day 18 of a 21-day RFP window.
 
-Here are 3 live Federal & SLED IT solicitations where our 21-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
+Here are 3 live Federal & SLED IT solicitations where our 24-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
 
-- **(EAR048) Repair Fire Alarm System Eareckson Air Station Facilities**
+- **RFI - FEMA - Supply Chain Management System (SCMS)**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $170/hr | Lead Software Eng $151/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-991.html
-- **Enterprise Electronic Security Systems (ESS) — Nationwide Operations, Maintenance, Integration, and Lifecycle Support**
+  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $168/hr | Lead Software Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/rfi-fema-supply-chain-management-system-scms-1094.html
+- **Sensitive But Unclassified-Encrypted (SBU-E) Radio Cybersecurity Industry Day**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541519 / 541512
-  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $177/hr | Functional Lead $157/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-990.html
-- **Strategic Distributed Antenna System Partnership**
-  - Agency: Virginia Polytechnic Institute and State University | Due: 2026-12-01
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $178/hr | Sr. SOC Eng $157/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/sensitive-but-unclassified-encrypted-sbu-e-radio-cybersecurity-industry-day-1093.html
+- **Financial Planning & Analysis Platform-RFP 16972**
+  - Agency: Horizon Behavioral Health | Due: 2026-11-06
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $167/hr | Lead Software Eng $148/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/strategic-distributed-antenna-system-partnership-995.html
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $173/hr | Functional Lead $153/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/financial-planning-analysis-platform-rfp-16972-1101.html
 
-Run any live RFP through our interactive 21-API Capture Studio in your browser:
+Run any live RFP through our interactive 24-API Capture Studio in your browser:
 https://signaltender.net/apis.html
 ```
 
-### LinkedIn Post #5 — For AI Engineers & GovCon CTOs: 24 GovCon MCP Tools in Claude Desktop & Cursor
+### LinkedIn Post #5 — For AI Engineers & GovCon CTOs: 34 GovCon MCP Tools in Claude Desktop & Cursor
 ```text
 For GovCon CTOs and capture engineers building internal AI proposal workflows in Claude Desktop, Cursor, or Windsurf:
 
-We published all 24 SignalTender GovCon procurement & proposal microservices to the Official Model Context Protocol (MCP) Registry (`@signaltender/mcp-server`).
+We published all 34 SignalTender GovCon procurement & proposal microservices to the Official Model Context Protocol (MCP) Registry (`@signaltender/mcp-server`).
 
 With a single command:
 `npx -y @signaltender/mcp-server`
 
-Your AI agent gets 24 deterministic, typed GovCon tools:
-- Live 18-portal Federal & 16-State SLED open RFP feed
+Your AI agent gets 34 deterministic, typed GovCon tools:
+- Live 28-portal Federal & 26-State SLED open RFP feed
 - Shipley Section L/M compliance matrix shredder
 - IGCE Wrap-Rate & Price-to-Win (PTW) modeler
 - NIST 800-53 Rev 5 RMF / Continuous ATO (cATO) SSP & eMASS POA&M generator
@@ -160,10 +160,10 @@ https://signaltender.net/apis.html
 ## Part 2: 4 High-Signal Reddit & Community Threads
 
 ### 1. `r/govcontracting` — State SLED vs. SAM.gov Capture Playbook
-- **Title:** `We indexed 225 open IT & cybersecurity RFPs across SAM.gov + 16 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI) — here is where competition is lowest right now`
+- **Title:** `We indexed 352 open IT & cybersecurity RFPs across SAM.gov + 26 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT) — here is where competition is lowest right now`
 - **Body:**
 ```markdown
-Over the past few months we built an automated scraper + Shipley capture parser across 18 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, MA COMMBUYS, NJ NJSTART, WA WEBS, and MI SIGMA VSS).
+Over the past few months we built an automated scraper + Shipley capture parser across 28 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA VSS, CO VSS, AZ APP, MN SWIFT, TN Edison, IN IDOA/IOT, MO MissouriBUYS, WI eSupplier/VendorNet, SC SCBO/SFAA, OR OregonBuys, CT CTsource, and UT U3P SciQuest).
 
 Three data points that stood out after filtering out 99.4% of non-IT commodity noise (janitorial, construction, raw hardware part renewals):
 
@@ -172,23 +172,23 @@ Three data points that stood out after filtering out 99.4% of non-IT commodity n
 3. **Pre-shredding Section L/M and IGCE labor rates on Day 1** saves ~4.5 hours per solicitation before committing proposal writing hours.
 
 Here are a few live open solicitations from today's run with full pre-computed capture dossiers (no login wall):
-- **Strategic Distributed Antenna System Partnership**
-  - Agency: Virginia Polytechnic Institute and State University | Due: 2026-12-01
+- **Financial Planning & Analysis Platform-RFP 16972**
+  - Agency: Horizon Behavioral Health | Due: 2026-11-06
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $167/hr | Lead Software Eng $148/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/strategic-distributed-antenna-system-partnership-995.html
-- **[CU-PSC-2026-RFP-7741] University of Colorado (CU Boulder & Anschutz) NIST 800-171 / CMMC Level 2 Aerospace & Biomedical Research Cloud Enclave**
-  - Agency: University of Colorado System — Procurement Service Center (CU PSC) | Due: 2026-11-26
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $173/hr | Functional Lead $153/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/financial-planning-analysis-platform-rfp-16972-1101.html
+- **[UT-UOFU-UETN-RFP-2026-3910] University of Utah & Utah Education and Telehealth Network (UETN) CHPC AI Supercomputing Cloud, Statewide Optical Network & NIST 800-171 Enclave**
+  - Agency: University of Utah (UIT) & Utah Education and Telehealth Network (UETN — Utah) | Due: 2026-11-27
   - Classification: 518210 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $176/hr | Sr. SOC Eng $155/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/cu-psc-2026-rfp-7741-university-of-colorado-cu-boulder-anschutz-nist-800-1031.html
-- **Request for Competitive Sealed Proposals - Unified Digital Experience (UDE)**
-  - Agency: City of San Antonio - M0152 | Due: 2026-11-19
-  - Classification: 541511 / 541512
-  - IGCE / PTW Posture: Wrap ~1.80x (Contractor-Site) • Target PTW: -5.5% vs. IGCE • Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html
+  - IGCE / PTW Posture: Wrap 1.78x • PTW -5.6% vs IGCE • Sr. Network Arch $158/hr | CCIE Lead $138/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ut-uofu-uetn-rfp-2026-3910-university-of-utah-utah-education-and-1267.html
+- **[TX] Hpe San Storage Arrary And Maintenance (36C10B26F0383 State PoP Modernization)**
+  - Agency: State of Texas / DIR & ESBD / Department of Veterans Affairs | Due: 2031-09-23
+  - Classification: 518210 / 541512
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $169/hr | Functional Lead $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/tx-hpe-san-storage-arrary-and-maintenance-36c10b26f0383-state-pop-1099.html
 
-Full searchable directory of all 225 open Federal & 16-State SLED IT contracts:
+Full searchable directory of all 352 open Federal & 26-State SLED IT contracts:
 https://signaltender.net/contracts/
 ```
 
@@ -209,50 +209,50 @@ Here are 3 live examples open right now:
   - Classification: 518210 / 541512
   - IGCE / PTW Posture: Wrap 1.82x • PTW -5.0% vs IGCE • Cloud Arch $172/hr | DevSecOps Lead $153/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-750.html
-- **(EAR048) Repair Fire Alarm System Eareckson Air Station Facilities**
+- **RFI - FEMA - Supply Chain Management System (SCMS)**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541512 / 541511
-  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $170/hr | Lead Software Eng $151/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-991.html
+  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $168/hr | Lead Software Eng $149/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/rfi-fema-supply-chain-management-system-scms-1094.html
 
-If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across 15 states + DemandStar here:
+If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across 26 states + DemandStar here:
 https://signaltender.net/contracts/
 ```
 
 ### 3. `r/cybersecurity` — NIST 800-53 Rev 5 RMF, CMMC 2.0 & State Cyber Solicitations
-- **Title:** `Breakdown of live Federal & 16-State SLED Cybersecurity RFPs (Zero-Trust, Penetration Testing, SOC/MDR, RMF Continuous ATO)`
+- **Title:** `Breakdown of live Federal & 26-State SLED Cybersecurity RFPs (Zero-Trust, Penetration Testing, SOC/MDR, RMF Continuous ATO)`
 - **Body:**
 ```markdown
-For security consultancies, vCISO practices, and pen-testing firms tracking public-sector demand, we aggregated all currently open cybersecurity solicitations across SAM.gov and 15 state procurement portals:
+For security consultancies, vCISO practices, and pen-testing firms tracking public-sector demand, we aggregated all currently open cybersecurity solicitations across SAM.gov and 26 state procurement portals:
 
-- **[0000034018] Intelligent Transportation Systems (ITS) Network Infrastructure & Cybersecurity Engineering**
-  - Agency: Department of Transportation (Caltrans) | Due: 2026-11-30
-  - Classification: 541519 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $180/hr | Sr. SOC Eng $159/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html
-- **[DMS-26-ITN-0042] Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services**
-  - Agency: Florida Digital Service / Department of Management Services (MFMP VIP) | Due: 2026-12-11
-  - Classification: 518210 / 541512
-  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $170/hr | Sr. SOC Eng $149/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html
-- **Enterprise Electronic Security Systems (ESS) — Nationwide Operations, Maintenance, Integration, and Lifecycle Support**
+- **[CA] Title: Line 8.55 - I2 Analysis Studio Requestor: Gary A Newcomb Aft#: 2026-Tc-0030 Ref Awa (15DDHQ26F00000719 State PoP Modernization)**
+  - Agency: State of California (DGS / CDT) / Drug Enforcement Administration | Due: 2031-09-29
+  - Classification: 541512 / 541511
+  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $176/hr | Functional Lead $156/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ca-title-line-8-55-i2-analysis-studio-requestor-gary-a-newcomb-aft-2026-tc-1106.html
+- **[SS 26 27 76] NOVA SOFTWARE PLATFORM**
+  - Agency: Department of Agriculture and Consumer Services (FDACS) | Due: 2026-11-02
+  - Classification: 541512 / 541511
+  - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $161/hr | Lead Software Eng $142/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/ss-26-27-76-nova-software-platform-1090.html
+- **Sensitive But Unclassified-Encrypted (SBU-E) Radio Cybersecurity Industry Day**
   - Agency: Federal Government (SAM) | Due: Open / See Portal
   - Classification: 541519 / 541512
-  - IGCE / PTW Posture: Wrap 1.83x • PTW -4.8% vs IGCE • Principal ERP Arch $177/hr | Functional Lead $157/hr
-  - Full AI Dossier: https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-990.html
+  - IGCE / PTW Posture: Wrap 1.85x • PTW -4.2% vs IGCE • SecArch $178/hr | Sr. SOC Eng $157/hr
+  - Full AI Dossier: https://signaltender.net/contracts/rfp/sensitive-but-unclassified-encrypted-sbu-e-radio-cybersecurity-industry-day-1093.html
 
 Each dossier maps the mandatory compliance framework (CMMC 2.0 Level 2, NIST 800-171, NIST 800-53 Rev 5 RMF / cATO, CJIS, or StateRAMP) and estimated labor rate bands:
 https://signaltender.net/contracts/cybersecurity/
 ```
 
-### 4. `r/mcp` / `r/ClaudeAI` — 24-Tool GovCon & B2B Contract Intelligence MCP Server
-- **Title:** `Built a 24-tool Model Context Protocol (MCP) server for Government Contracting, RFP Shredding, IGCE Price-to-Win & RMF/ATO Compliance`
+### 4. `r/mcp` / `r/ClaudeAI` — 34-Tool GovCon & B2B Contract Intelligence MCP Server
+- **Title:** `Built a 34-tool Model Context Protocol (MCP) server for Government Contracting, RFP Shredding, IGCE Price-to-Win & RMF/ATO Compliance`
 - **Body:**
 ```markdown
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
-It exposes 24 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 18 Federal & State SLED portals)
+It exposes 34 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
+- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 28 Federal & State SLED portals)
 - `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
 - `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
 - `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
@@ -285,7 +285,7 @@ I went ahead and pulled 2 additional open {State} & Federal IT/Cyber solicitatio
 
 https://signaltender.net/?utm_source=outbound&co={Company_Encoded}&fn={FirstName}&st={State_Slug}#inbound-lead-capture-box
 
-If you want our 6-hour automated wire pushing every new {State} + 18-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo) or Tier 2 CaptureDesk ($399/mo) in 60 seconds here:
+If you want our 6-hour automated wire pushing every new {State} + 28-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo), Tier 2 CaptureDesk ($399/mo), Tier 3 Proposal Autopilot ($1,499/mo), or Tier 4 Enterprise OEM ($2,499/mo) in 60 seconds here:
 https://signaltender.net/?utm_source=outbound&co={Company_Encoded}&fn={FirstName}&st={State_Slug}#checkout
 
 Happy to drop a live test dossier into your Slack or Teams webhook today if helpful.
@@ -299,13 +299,14 @@ SignalTender Capture Desk
 ```text
 Hi {FirstName},
 
-Noticed someone at {Company} was looking at the SignalTender Tier 1 ($99/mo) vs. Tier 2 CaptureDesk ($399/mo) plans.
+Noticed someone at {Company} was looking at the SignalTender Tier 1 ($99/mo), Tier 2 CaptureDesk ($399/mo), Tier 3 Proposal Autopilot ($1,499/mo), and Tier 4 Enterprise OEM ($2,499/mo) plans.
 
 Quick rule of thumb for {State} capture teams:
-- Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 18-portal alert feed + direct source bid links in Discord, Slack, or Teams.
-- Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 21 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, and 13 CFR 125.6 workshare math).
+- Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 28-portal alert feed + direct source bid links in Discord, Slack, or Teams.
+- Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 24 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, Shipley Black-Hat & Incumbent Ghosting, and 13 CFR 125.6 workshare math).
+- Choose Tier 3 ($1,499/mo) or Tier 4 ($2,499/mo) if you want 1-Click 6-File Shipley Proposal .ZIP compilation (.DOCX + live-formula .XLSX), 13 CFR § 125.6 Teaming Clearinghouse matchmaking, and Post-Award FOIA Winning-Bid Rate Vault access.
 
-Both plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:
+All 4 plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:
 https://signaltender.net/?utm_source=outbound&co={Company_Encoded}&fn={FirstName}&st={State_Slug}#checkout-tier2
 
 Let me know if you want us to pre-configure your Slack/Teams webhook or Discord role.

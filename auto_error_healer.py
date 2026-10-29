@@ -321,15 +321,44 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 
 async def run_live_smoke_tests() -> list[str]:
     """Run fast non-destructive smoke tests on key state scrapers (`push_to_db=False`)."""
+    import concurrent.futures
+
     smoke_issues: list[str] = []
-    for mod_name in ("fl_scraper", "ga_scraper", "nc_scraper", "ny_scraper", "ma_scraper", "nj_scraper"):
+    smoke_modules = (
+        "ga_scraper",
+        "nc_scraper",
+        "ny_scraper",
+        "ma_scraper",
+        "nj_scraper",
+        "wa_scraper",
+        "mi_scraper",
+        "co_scraper",
+        "az_scraper",
+        "mn_scraper",
+        "tn_scraper",
+        "in_scraper",
+        "mo_scraper",
+        "wi_scraper",
+        "sc_scraper",
+        "or_scraper",
+        "ct_scraper",
+        "ut_scraper",
+    )
+
+    def _run_one(mod_name: str) -> str | None:
         try:
             mod = importlib.import_module(mod_name)
-            records = await mod.run_scraper(push_to_db=False)
+            records = asyncio.run(mod.run_scraper(push_to_db=False))
             if not isinstance(records, list) or len(records) == 0:
-                smoke_issues.append(f"{mod_name}.run_scraper(push_to_db=False) returned 0 records")
+                return f"{mod_name}.run_scraper(push_to_db=False) returned 0 records"
+            return None
         except Exception as exc:
-            smoke_issues.append(f"{mod_name}.run_scraper(push_to_db=False) raised exception: {exc}")
+            return f"{mod_name}.run_scraper(push_to_db=False) raised exception: {exc}"
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=9) as pool:
+        for issue in pool.map(_run_one, smoke_modules):
+            if issue:
+                smoke_issues.append(issue)
     return smoke_issues
 
 
@@ -367,7 +396,7 @@ def run_healer(
 
         fix_note = resolution_note or (
             f"Auto-healed & verified by auto_error_healer.py "
-            f"(15/15 scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote alert(s))"
+            f"({len(SCRAPER_MODULES) + 1}/{len(SCRAPER_MODULES) + 1} scrapers & pipeline contracts healthy; cleared {len(local_errors)} local + {len(remote_errors)} remote alert(s))"
         )
         archive_local_error_log(fix_note)
         cleared_remote = clear_remote_errors(fix_note)

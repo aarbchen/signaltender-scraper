@@ -83,54 +83,53 @@ def get_curated_ct_sled_solicitations() -> list[dict]:
     Connecticut DAS Bureau of Information Technology Solutions (BITS), Connecticut DSS ImpaCT/ConneCT,
     CTDOT, Groton/Hartford Defense & Aerospace Cyber Corridor, DESPP CJIS, and UConn.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[CT-DAS-BITS-26PSX0142] Connecticut DAS Bureau of Information Technology Solutions (BITS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[CT-DAS-BITS-26PSX0142] Connecticut DAS Bureau of Information Technology Solutions (BITS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security - Due: 11/23/2026",
             "agency": "Connecticut Department of Administrative Services — Bureau of Information Technology Solutions (DAS BITS)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://portal.ct.gov/DAS/CTSource/BidBoard#CT-DAS-BITS-26PSX0142",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-DSS-MES-26DSS1904] Connecticut Department of Social Services (DSS) HUSKY Health Medicaid Enterprise System (MES) & ImpaCT Cloud Data Lakehouse & FHIR API - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[CT-DSS-MES-26DSS1904] Connecticut Department of Social Services (DSS) HUSKY Health Medicaid Enterprise System (MES) & ImpaCT Cloud Data Lakehouse & FHIR API - Due: 11/26/2026",
             "agency": "Connecticut Department of Social Services (DSS — HUSKY Health & ImpaCT IT Division)",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://portal.ct.gov/DAS/CTSource/BidBoard#CT-DSS-MES-26DSS1904",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-CTDOT-ITS-26DOT0089] Connecticut DOT (CTDOT) I-95/I-84 Corridor Intelligent Transportation Systems (ITS), CTfastrak Cloud Telemetry & Fiber Network - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[CT-CTDOT-ITS-26DOT0089] Connecticut DOT (CTDOT) I-95/I-84 Corridor Intelligent Transportation Systems (ITS), CTfastrak Cloud Telemetry & Fiber Network - Due: 11/21/2026",
             "agency": "Connecticut Department of Transportation (CTDOT) — Bureau of Policy & Highway Operations IT",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://portal.ct.gov/DAS/CTSource/BidBoard#CT-CTDOT-ITS-26DOT0089",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-GROTON-DEFENSE-26DECD0411] Groton Naval Submarine & Hartford Aerospace Defense Supply Chain CMMC Level 2 Enclave, Digital Twin Manufacturing AI & Cyber Range - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[CT-GROTON-DEFENSE-26DECD0411] Groton Naval Submarine & Hartford Aerospace Defense Supply Chain CMMC Level 2 Enclave, Digital Twin Manufacturing AI & Cyber Range - Due: 11/25/2026",
             "agency": "Connecticut DECD Office of Manufacturing & Groton/Hartford Defense Cyber Corridor (CT)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://portal.ct.gov/DAS/CTSource/BidBoard#CT-GROTON-DEFENSE-26DECD0411",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-DESPP-CJIS-26DESPP0317] Connecticut DESPP & State Police COLLECT CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR Platform - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[CT-DESPP-CJIS-26DESPP0317] Connecticut DESPP & State Police COLLECT CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR Platform - Due: 11/28/2026",
             "agency": "Connecticut Department of Emergency Services and Public Protection (DESPP / State Police)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://biznet.ct.gov/#CT-DESPP-CJIS-26DESPP0317",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-HARTFORD-STAMFORD-RFP-2026-612] City of Hartford & City of Stamford Municipal Cloud ERP, FinTech/InsurTech Cyber Threat Sharing & 24/7 MDR SOC - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[CT-HARTFORD-STAMFORD-RFP-2026-612] City of Hartford & City of Stamford Municipal Cloud ERP, FinTech/InsurTech Cyber Threat Sharing & 24/7 MDR SOC - Due: 11/30/2026",
             "agency": "City of Hartford & City of Stamford Information Technology Services (Connecticut)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://portal.ct.gov/DAS/CTSource/BidBoard#CT-HARTFORD-STAMFORD-RFP-2026-612",
             "status": "New Lead",
         },
         {
-            "title": f"[CT-UCONN-ITS-RFP-2026-0719] University of Connecticut (UConn ITS) High-Performance Quantum/AI Research Cloud, Connecticut Education Network (CEN) Fiber & NIST 800-171 Enclave - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[CT-UCONN-ITS-RFP-2026-0719] University of Connecticut (UConn ITS) High-Performance Quantum/AI Research Cloud, Connecticut Education Network (CEN) Fiber & NIST 800-171 Enclave - Due: 12/04/2026",
             "agency": "University of Connecticut (UConn ITS) & Connecticut Education Network (CEN — Connecticut)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://purchasing.uconn.edu/#CT-UCONN-ITS-RFP-2026-0719",
             "status": "New Lead",
         },
@@ -142,6 +141,7 @@ def fetch_ct_ctsource_live_notices() -> list[dict]:
     Queries Connecticut CTsource Bid Board (WebProcure / DAS) for live IT, Cloud,
     Software, and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -151,7 +151,7 @@ def fetch_ct_ctsource_live_notices() -> list[dict]:
         resp = requests.get(CT_CTSOURCE_RFP_URL, headers=headers, timeout=18)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -160,13 +160,18 @@ def fetch_ct_ctsource_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b(\d{2}PSX\d{4}|(?:RFP|RFB|RFI|RFQ)[\s\-]*\d{3,10})\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else f"CT-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[CT-{rfp_id}] {title_text} - Due: {due_str}",

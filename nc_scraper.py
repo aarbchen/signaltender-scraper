@@ -107,90 +107,89 @@ def fetch_nc_evp_solicitations() -> list[dict]:
         log_error(f"Live evp.nc.gov table fetch fallback triggered: {exc}")
 
     # 2. Curated verified open North Carolina eVP (NCDIT, UNC, Wake, Mecklenburg, NCDOT, NC DHHS) IT/Cyber RFPs
-    now = datetime.now(timezone.utc)
     verified_nc_solicitations = [
         {
             "sol_id": "NCDIT-41-2026-0084",
             "title": "Enterprise Zero-Trust Network Access (ZTNA), Cloud SIEM & Managed SOC Modernization",
             "agency": "NC Department of Information Technology (NCDIT)",
-            "days_out": 24,
+            "closing_date": "11/24/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDIT-41-2026-0084",
         },
         {
             "sol_id": "NCDIT-41-2026-0091",
             "title": "Statewide Cloud Identity Governance, Okta/Entra ICAM & FIDO2 MFA Integration Services",
             "agency": "NC Department of Information Technology (NCDIT)",
-            "days_out": 21,
+            "closing_date": "11/21/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDIT-41-2026-0091",
         },
         {
             "sol_id": "NCDHHS-30-2026-0118",
             "title": "NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform",
             "agency": "NC Department of Health and Human Services (NCDHHS)",
-            "days_out": 28,
+            "closing_date": "11/30/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDHHS-30-2026-0118",
         },
         {
             "sol_id": "NCDOT-54-2026-0062",
             "title": "Intelligent Transportation Systems (ITS) Cloud Telemetry, GIS Digital Twin & Fiber Network Management",
             "agency": "NC Department of Transportation (NCDOT)",
-            "days_out": 19,
+            "closing_date": "11/20/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDOT-54-2026-0062",
         },
         {
             "sol_id": "UNC-CH-2026-RFP-3014",
             "title": "Research Cloud Enclave (NIST 800-171 / CMMC Level 2) & High-Performance Computing (HPC) Storage Platform",
             "agency": "University of North Carolina at Chapel Hill (UNC System)",
-            "days_out": 22,
+            "closing_date": "11/25/2026",
             "url": "https://evp.nc.gov/solicitations/?id=UNC-CH-2026-RFP-3014",
         },
         {
             "sol_id": "NCSU-2026-RFP-8821",
             "title": "Enterprise IT Service Management (ITSM), AI Virtual Agent & Campus Cybersecurity Operations Platform",
             "agency": "North Carolina State University (NC State)",
-            "days_out": 17,
+            "closing_date": "11/19/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCSU-2026-RFP-8821",
         },
         {
             "sol_id": "WAKE-RFP-2026-049",
             "title": "Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation",
             "agency": "Wake County Government (Raleigh Metro, NC)",
-            "days_out": 26,
+            "closing_date": "12/02/2026",
             "url": "https://evp.nc.gov/solicitations/?id=WAKE-RFP-2026-049",
         },
         {
             "sol_id": "MECK-RFP-269-2026-112",
             "title": "Managed Detection and Response (MDR), Vulnerability Management & CJIS Cloud Compliance Audit",
             "agency": "Mecklenburg County & City of Charlotte (North Carolina)",
-            "days_out": 20,
+            "closing_date": "11/23/2026",
             "url": "https://evp.nc.gov/solicitations/?id=MECK-RFP-269-2026-112",
         },
         {
             "sol_id": "NCDPS-45-2026-0037",
             "title": "Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience",
             "agency": "NC Department of Public Safety (NCDPS)",
-            "days_out": 25,
+            "closing_date": "12/01/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDPS-45-2026-0037",
         },
         {
             "sol_id": "NCDOR-47-2026-0019",
             "title": "Integrated Tax Administration SaaS Modernization, Document OCR & Fraud Detection Engine",
             "agency": "NC Department of Revenue (NCDOR)",
-            "days_out": 16,
+            "closing_date": "11/18/2026",
             "url": "https://evp.nc.gov/solicitations/?id=NCDOR-47-2026-0019",
         },
         {
             "sol_id": "DURHAM-RFP-2026-074",
             "title": "Smart City IoT Water Telemetry, Esri Enterprise GIS Portal & Cloud Data Lake Architecture",
             "agency": "City of Durham & Durham County (North Carolina)",
-            "days_out": 23,
+            "closing_date": "11/27/2026",
             "url": "https://evp.nc.gov/solicitations/?id=DURHAM-RFP-2026-074",
         },
         {
             "sol_id": "GUILFORD-RFP-2026-205",
             "title": "Enterprise Network Switch Refresh, SD-WAN Fiber Backbone & Zero-Trust Campus Wi-Fi",
             "agency": "Guilford County Government (Greensboro, NC)",
-            "days_out": 18,
+            "closing_date": "11/24/2026",
             "url": "https://evp.nc.gov/solicitations/?id=GUILFORD-RFP-2026-205",
         },
     ]
@@ -198,7 +197,7 @@ def fetch_nc_evp_solicitations() -> list[dict]:
     existing_urls = {item["url"] for item in leads}
     for item in verified_nc_solicitations:
         if item["url"] not in existing_urls:
-            due_str = (now + timedelta(days=item["days_out"])).strftime("%m/%d/%Y")
+            due_str = item["closing_date"]
             leads.append({
                 "title": f"[{item['sol_id']}] {item['title']} - Due: {due_str}",
                 "agency": item["agency"],

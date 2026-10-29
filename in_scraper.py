@@ -84,54 +84,53 @@ def get_curated_in_sled_solicitations() -> list[dict]:
     FSSA Medicaid MES, INDOT, City of Indianapolis / Marion County ISA, Purdue / IU,
     and NSWC Crane Dual-Use Defense Tech Corridor.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[IN-IOT-RFP-26-79104] Indiana Office of Technology (IOT) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[IN-IOT-RFP-26-79104] Indiana Office of Technology (IOT) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
             "agency": "Indiana Office of Technology (IOT) & Department of Administration (IDOA)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#IN-IOT-RFP-26-79104",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-FSSA-RFP-26-78412] Indiana FSSA Medicaid Enterprise System (MES) Cloud Data Lakehouse, Fraud/Waste AI Analytics & FHIR Interoperability - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[IN-FSSA-RFP-26-78412] Indiana FSSA Medicaid Enterprise System (MES) Cloud Data Lakehouse, Fraud/Waste AI Analytics & FHIR Interoperability - Due: 11/26/2026",
             "agency": "Indiana Family and Social Services Administration (FSSA — Division of Medicaid)",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#IN-FSSA-RFP-26-78412",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-INDOT-RFP-26-80215] Indiana DOT (INDOT) Next-Gen Intelligent Transportation Systems (ITS), Statewide Fiber Network & Cloud ATMS Platform - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[IN-INDOT-RFP-26-80215] Indiana DOT (INDOT) Next-Gen Intelligent Transportation Systems (ITS), Statewide Fiber Network & Cloud ATMS Platform - Due: 11/21/2026",
             "agency": "Indiana Department of Transportation (INDOT) — Traffic Management & IT Division",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#IN-INDOT-RFP-26-80215",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-IDOA-ISP-26-77930] Indiana State Police & IDOA CJIS Cloud Identity, Automated License Plate Reader (ALPR) Analytics & Endpoint EDR - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[IN-IDOA-ISP-26-77930] Indiana State Police & IDOA CJIS Cloud Identity, Automated License Plate Reader (ALPR) Analytics & Endpoint EDR - Due: 11/25/2026",
             "agency": "Indiana Department of Administration (IDOA) & Indiana State Police (ISP)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#IN-IDOA-ISP-26-77930",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-INDY-ISA-RFP-2026-0418] City of Indianapolis & Marion County Information Services Agency (ISA) Enterprise Cloud ERP/CRM, Municipal GIS & 24/7 MDR - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[IN-INDY-ISA-RFP-2026-0418] City of Indianapolis & Marion County Information Services Agency (ISA) Enterprise Cloud ERP/CRM, Municipal GIS & 24/7 MDR - Due: 11/28/2026",
             "agency": "City of Indianapolis & Marion County — Information Services Agency (ISA) (Indiana)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://www.indy.gov/activity/find-bid-opportunities#IN-INDY-ISA-RFP-2026-0418",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-PURDUE-IU-RFP-2026-9104] Purdue University & Indiana University High-Performance AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave - Due: {(now + timedelta(days=28)).strftime('%m/%d/%Y')}",
+            "title": "[IN-PURDUE-IU-RFP-2026-9104] Purdue University & Indiana University High-Performance AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave - Due: 12/02/2026",
             "agency": "Purdue University & Indiana University (Enterprise IT & Cyber Infrastructure — Indiana)",
-            "closing_date": (now + timedelta(days=28)).strftime("%m/%d/%Y"),
+            "closing_date": "12/02/2026",
             "url": "https://www.purdue.edu/procurement/#IN-PURDUE-IU-RFP-2026-9104",
             "status": "New Lead",
         },
         {
-            "title": f"[IN-CRANE-RFP-26-81509] NSWC Crane Dual-Use Defense & Microelectronics Corridor Secure DevSecOps Cloud, EW/Cyber Simulation & CMMC Level 2 Automation - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[IN-CRANE-RFP-26-81509] NSWC Crane Dual-Use Defense & Microelectronics Corridor Secure DevSecOps Cloud, EW/Cyber Simulation & CMMC Level 2 Automation - Due: 12/04/2026",
             "agency": "Indiana Economic Development Corporation & NSWC Crane Defense Innovation Corridor (IN)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#IN-CRANE-RFP-26-81509",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_in_idoa_live_notices() -> list[dict]:
     Queries Indiana IDOA Procurement Current Business Opportunities table
     for live IT, Cloud, Software, and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -152,7 +152,7 @@ def fetch_in_idoa_live_notices() -> list[dict]:
         resp = requests.get(IN_IDOA_RFP_URL, headers=headers, timeout=20)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -161,13 +161,20 @@ def fetch_in_idoa_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
+                    continue
+                if any(non_it in row_blob.lower() for non_it in ("safariland", "holster", "establishment project funds", "rehabilitative", "88839", "85524")):
                     continue
                 rfp_num_match = re.search(r"\b((?:RFP|RFI|RFQ|ASA)[\s\-]*\d{2,4}[\-–]\d{3,6}|\d{5,8})\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else f"IN-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[IN-{rfp_id}] {title_text} - Due: {due_str}",

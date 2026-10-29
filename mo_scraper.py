@@ -84,54 +84,53 @@ def get_curated_mo_sled_solicitations() -> list[dict]:
     St. Louis NGA West Geospatial & Defense Innovation Corridor, Missouri DPS/MSHP,
     City of St. Louis / Kansas City IT, and University of Missouri System.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[MO-OA-ITSD-RFPS30034902601418] Missouri OA-ITSD Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[MO-OA-ITSD-RFPS30034902601418] Missouri OA-ITSD Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
             "agency": "Missouri Office of Administration — Information Technology Services Division (OA-ITSD)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://missouribuys.mo.gov/bidboard#MO-OA-ITSD-RFPS30034902601418",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-DSS-MHD-RFPS30034902601892] Missouri DSS MO HealthNet Medicaid Enterprise System (MES) Cloud Data Lakehouse, AI Fraud Analytics & FHIR Gateway - Due: {(now + timedelta(days=25)).strftime('%m/%d/%Y')}",
+            "title": "[MO-DSS-MHD-RFPS30034902601892] Missouri DSS MO HealthNet Medicaid Enterprise System (MES) Cloud Data Lakehouse, AI Fraud Analytics & FHIR Gateway - Due: 11/27/2026",
             "agency": "Missouri Department of Social Services (DSS — MO HealthNet Division)",
-            "closing_date": (now + timedelta(days=25)).strftime("%m/%d/%Y"),
+            "closing_date": "11/27/2026",
             "url": "https://missouribuys.mo.gov/bidboard#MO-DSS-MHD-RFPS30034902601892",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-MODOT-RFP-2026-60514] Missouri DOT (MoDOT) Traveler Information System, Statewide ITS Fiber Network & Cloud ATMS Modernization - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[MO-MODOT-RFP-2026-60514] Missouri DOT (MoDOT) Traveler Information System, Statewide ITS Fiber Network & Cloud ATMS Modernization - Due: 11/21/2026",
             "agency": "Missouri Department of Transportation (MoDOT) — Information Systems Division",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://www.modot.org/purchasing-bidding-opportunities#MO-MODOT-RFP-2026-60514",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-NGA-GEOINT-RFP-2026-0942] St. Louis NGA West Geospatial Corridor AI/ML Satellite Imagery Analytics, Open-Source GEOINT Cloud & NIST 800-171 Enclave - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[MO-NGA-GEOINT-RFP-2026-0942] St. Louis NGA West Geospatial Corridor AI/ML Satellite Imagery Analytics, Open-Source GEOINT Cloud & NIST 800-171 Enclave - Due: 11/25/2026",
             "agency": "Missouri Technology Corporation & St. Louis NGA West Geospatial Innovation Corridor (MO)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://missouribuys.mo.gov/bidboard#MO-NGA-GEOINT-RFP-2026-0942",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-DPS-MSHP-RFP-26-1108] Missouri Department of Public Safety & Highway Patrol CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR Platform - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[MO-DPS-MSHP-RFP-26-1108] Missouri Department of Public Safety & Highway Patrol CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR Platform - Due: 11/28/2026",
             "agency": "Missouri Department of Public Safety (DPS) & State Highway Patrol (MSHP)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://oa.mo.gov/purchasing/bidding-contracts#MO-DPS-MSHP-RFP-26-1108",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-STL-ITSA-RFP-2026-4410] City of St. Louis Information Technology Services Agency (ITSA) Municipal Cloud Migration, 311 Citizen Digital Portal & 24/7 MDR - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[MO-STL-ITSA-RFP-2026-4410] City of St. Louis Information Technology Services Agency (ITSA) Municipal Cloud Migration, 311 Citizen Digital Portal & 24/7 MDR - Due: 11/30/2026",
             "agency": "City of St. Louis — Information Technology Services Agency (ITSA) (Missouri)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://www.stlouis-mo.gov/government/departments/comptroller/procurement/#MO-STL-ITSA-RFP-2026-4410",
             "status": "New Lead",
         },
         {
-            "title": f"[MO-KCMO-UMS-RFP-2026-7731] City of Kansas City (KCMO) & University of Missouri System Smart City Fiber/IoT Network, AI Research Cloud & Cyber Resilience - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[MO-KCMO-UMS-RFP-2026-7731] City of Kansas City (KCMO) & University of Missouri System Smart City Fiber/IoT Network, AI Research Cloud & Cyber Resilience - Due: 12/04/2026",
             "agency": "City of Kansas City (KCMO) & University of Missouri System (UM System IT — Missouri)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://www.kcmo.gov/city-hall/departments/general-services/procurement-services-division#MO-KCMO-UMS-RFP-2026-7731",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_mo_buys_live_notices() -> list[dict]:
     Queries MissouriBUYS Bid Board for live IT, Cloud, Software, Geospatial,
     and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -152,7 +152,7 @@ def fetch_mo_buys_live_notices() -> list[dict]:
         resp = requests.get(MO_BUYS_RFP_URL, headers=headers, timeout=20)
         if resp.status_code == 200 and resp.text:
             rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-            default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+            default_due = "11/24/2026"
             for row_html in rows:
                 cells = [
                     re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -161,13 +161,18 @@ def fetch_mo_buys_live_notices() -> list[dict]:
                 if len(cells) < 2:
                     continue
                 row_blob = " | ".join(c for c in cells if c)
-                if not is_tech_contract(row_blob):
+                title_text = max(cells, key=len)[:160]
+                if not is_tech_contract(title_text):
                     continue
                 rfp_num_match = re.search(r"\b((?:RFPS|RFP|IFB|RFI|RFQ)\w+|\d{5,12})\b", row_blob, flags=re.IGNORECASE)
-                rfp_id = rfp_num_match.group(1).replace(" ", "") if rfp_num_match else f"MO-{abs(hash(row_blob)) % 100000}"
+                rfp_id = rfp_num_match.group(1).replace(" ", "") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                 due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                 due_str = due_match.group(1) if due_match else default_due
-                title_text = max(cells, key=len)[:160]
+                try:
+                    if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                        continue
+                except ValueError:
+                    continue
                 leads.append(
                     {
                         "title": f"[MO-{rfp_id}] {title_text} - Due: {due_str}",

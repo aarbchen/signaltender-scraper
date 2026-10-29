@@ -537,13 +537,13 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
             }
             if approved_norms:
                 supabase_records = [
-                    {"title": r["title"], "agency": r["agency"], "url": r["url"], "status": "New Lead"}
+                    {"title": r["title"], "agency": r["agency"], "closing_date": r.get("closing_date"), "url": r["url"], "status": "New Lead"}
                     for r in candidate_records
                     if _normalize_title_for_similarity(r["title"]) in approved_norms
                 ]
             else:
                 supabase_records = [
-                    {"title": r["title"], "agency": r["agency"], "url": r["url"], "status": "New Lead"}
+                    {"title": r["title"], "agency": r["agency"], "closing_date": r.get("closing_date"), "url": r["url"], "status": "New Lead"}
                     for r in candidate_records
                 ]
             print(
@@ -553,12 +553,12 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
         except Exception as llm_err:
             print(f"[!] Ohio Claude B2B validation warning (using deterministic tech filter): {llm_err}", flush=True)
             supabase_records = [
-                {"title": r["title"], "agency": r["agency"], "url": r["url"], "status": "New Lead"}
+                {"title": r["title"], "agency": r["agency"], "closing_date": r.get("closing_date"), "url": r["url"], "status": "New Lead"}
                 for r in candidate_records
             ]
     else:
         supabase_records = [
-            {"title": r["title"], "agency": r["agency"], "url": r["url"], "status": "New Lead"}
+            {"title": r["title"], "agency": r["agency"], "closing_date": r.get("closing_date"), "url": r["url"], "status": "New Lead"}
             for r in candidate_records
         ]
 

@@ -110,7 +110,7 @@ https://signaltender.net/#inbound-lead-capture-box
 
 ### LinkedIn Post #2 — New York (NYC CROL / PASSPort / PANYNJ) & Massachusetts (COMMBUYS) Drop
 ```text
-New York and Massachusetts SLED agencies issue ratusan of millions in cloud migration, managed SOC/MDR, and software modernization contracts every quarter—yet their portals (NYC City Record, PASSPort, PANYNJ, MA COMMBUYS, Boston Open Data) are notoriously fragmented.
+New York and Massachusetts SLED agencies issue hundreds of millions in cloud migration, managed SOC/MDR, and software modernization contracts every quarter—yet their portals (NYC City Record, PASSPort, PANYNJ, MA COMMBUYS, Boston Open Data) are notoriously fragmented.
 
 Here are 3 live Northeast & Federal IT solicitations open right now with pre-computed Pwin and Price-to-Win models:
 
@@ -267,7 +267,7 @@ I went ahead and pulled 2 additional open {{State}} & Federal IT/Cyber solicitat
 
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#inbound-lead-capture-box
 
-If you want our 6-hour automated wire pushing every new {{State}} + 28-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo) or Tier 2 CaptureDesk ($399/mo) in 60 seconds here:
+If you want our 6-hour automated wire pushing every new {{State}} + 28-portal solicitation straight to your team's Discord, Slack, Microsoft Teams, or CRM, you can activate Tier 1 ($99/mo), Tier 2 CaptureDesk ($399/mo), Tier 3 Proposal Autopilot ($1,499/mo), or Tier 4 Enterprise OEM ($2,499/mo) in 60 seconds here:
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#checkout
 
 Happy to drop a live test dossier into your Slack or Teams webhook today if helpful.
@@ -281,13 +281,14 @@ SignalTender Capture Desk
 ```text
 Hi {{FirstName}},
 
-Noticed someone at {{Company}} was looking at the SignalTender Tier 1 ($99/mo) vs. Tier 2 CaptureDesk ($399/mo) plans.
+Noticed someone at {{Company}} was looking at the SignalTender Tier 1 ($99/mo), Tier 2 CaptureDesk ($399/mo), Tier 3 Proposal Autopilot ($1,499/mo), and Tier 4 Enterprise OEM ($2,499/mo) plans.
 
 Quick rule of thumb for {{State}} capture teams:
 - Choose Tier 1 ($99/mo) if you just want the 6-hour de-noised 28-portal alert feed + direct source bid links in Discord, Slack, or Teams.
 - Choose Tier 2 ($399/mo) if you want every lead pre-shredded by all 24 AI capture engines (Shipley Section L/M compliance matrix, IGCE Price-to-Win LCAT rates, CMMC/RMF SSP posture, Shipley Black-Hat & Incumbent Ghosting, and 13 CFR 125.6 workshare math).
+- Choose Tier 3 ($1,499/mo) or Tier 4 ($2,499/mo) if you want 1-Click 6-File Shipley Proposal .ZIP compilation (.DOCX + live-formula .XLSX), 13 CFR § 125.6 Teaming Clearinghouse matchmaking, and Post-Award FOIA Winning-Bid Rate Vault access.
 
-Both plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:
+All 4 plans include downloadable corporate PDF tax invoices and 1-click cancellation anytime:
 https://signaltender.net/?utm_source=outbound&co={{Company_Encoded}}&fn={{FirstName}}&st={{State_Slug}}#checkout-tier2
 
 Let me know if you want us to pre-configure your Slack/Teams webhook or Discord role.

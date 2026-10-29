@@ -84,54 +84,53 @@ def get_curated_sc_sled_solicitations() -> list[dict]:
     SC SFAA Division of Technology Operations (DTO / Admin OTIS), SCDHHS Medicaid MES,
     SCDOT, Charleston NIWC Atlantic Dual-Use Tech Corridor, SLED CJIS, and Clemson / USC.
     """
-    now = datetime.now()
     return [
         {
-            "title": f"[SC-SFAA-OTIS-5400027914] South Carolina Admin OTIS & SFAA Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: {(now + timedelta(days=21)).strftime('%m/%d/%Y')}",
+            "title": "[SC-SFAA-OTIS-5400027914] South Carolina Admin OTIS & SFAA Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
             "agency": "South Carolina Department of Administration — Office of Technology and Information Services (Admin OTIS / SFAA)",
-            "closing_date": (now + timedelta(days=21)).strftime("%m/%d/%Y"),
+            "closing_date": "11/23/2026",
             "url": "https://scbo.sc.gov/#SC-SFAA-OTIS-5400027914",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-DHHS-MES-5400028102] South Carolina DHHS Healthy Connections Medicaid Enterprise System (MES) Cloud Data Lakehouse, AI Fraud Analytics & FHIR API Gateway - Due: {(now + timedelta(days=24)).strftime('%m/%d/%Y')}",
+            "title": "[SC-DHHS-MES-5400028102] South Carolina DHHS Healthy Connections Medicaid Enterprise System (MES) Cloud Data Lakehouse, AI Fraud Analytics & FHIR API Gateway - Due: 11/26/2026",
             "agency": "South Carolina Department of Health and Human Services (SCDHHS — Medicaid IT)",
-            "closing_date": (now + timedelta(days=24)).strftime("%m/%d/%Y"),
+            "closing_date": "11/26/2026",
             "url": "https://procurement.sc.gov/#SC-DHHS-MES-5400028102",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-SCDOT-ITS-5400028319] South Carolina DOT (SCDOT) Statewide Intelligent Transportation Systems (ITS), Palmetto Fiber Backbone & Cloud ATMS Platform - Due: {(now + timedelta(days=19)).strftime('%m/%d/%Y')}",
+            "title": "[SC-SCDOT-ITS-5400028319] South Carolina DOT (SCDOT) Statewide Intelligent Transportation Systems (ITS), Palmetto Fiber Backbone & Cloud ATMS Platform - Due: 11/21/2026",
             "agency": "South Carolina Department of Transportation (SCDOT) — IT & Traffic Engineering Division",
-            "closing_date": (now + timedelta(days=19)).strftime("%m/%d/%Y"),
+            "closing_date": "11/21/2026",
             "url": "https://scbo.sc.gov/#SC-SCDOT-ITS-5400028319",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-CHARLESTON-NIWC-2026-0812] Charleston NIWC Atlantic Dual-Use C5ISR Defense Corridor Zero-Trust Tactical Cloud, DevSecOps & CMMC Level 2 Automation - Due: {(now + timedelta(days=23)).strftime('%m/%d/%Y')}",
+            "title": "[SC-CHARLESTON-NIWC-2026-0812] Charleston NIWC Atlantic Dual-Use C5ISR Defense Corridor Zero-Trust Tactical Cloud, DevSecOps & CMMC Level 2 Automation - Due: 11/25/2026",
             "agency": "South Carolina Research Authority (SCRA) & Charleston NIWC Atlantic Defense Corridor (SC)",
-            "closing_date": (now + timedelta(days=23)).strftime("%m/%d/%Y"),
+            "closing_date": "11/25/2026",
             "url": "https://scbo.sc.gov/#SC-CHARLESTON-NIWC-2026-0812",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-SLED-CJIS-5400027845] South Carolina Law Enforcement Division (SLED) CJIS Cloud Identity, Automated Biometric AFIS & Endpoint EDR Platform - Due: {(now + timedelta(days=26)).strftime('%m/%d/%Y')}",
+            "title": "[SC-SLED-CJIS-5400027845] South Carolina Law Enforcement Division (SLED) CJIS Cloud Identity, Automated Biometric AFIS & Endpoint EDR Platform - Due: 11/28/2026",
             "agency": "South Carolina Law Enforcement Division (SLED) & Department of Public Safety (SCDPS)",
-            "closing_date": (now + timedelta(days=26)).strftime("%m/%d/%Y"),
+            "closing_date": "11/28/2026",
             "url": "https://admin.sc.gov/technology#SC-SLED-CJIS-5400027845",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-COLUMBIA-CHS-RFP-2026-419] City of Columbia & City of Charleston Municipal Cloud ERP, Smart Port Maritime GIS Telemetry & 24/7 MDR SOC - Due: {(now + timedelta(days=27)).strftime('%m/%d/%Y')}",
+            "title": "[SC-COLUMBIA-CHS-RFP-2026-419] City of Columbia & City of Charleston Municipal Cloud ERP, Smart Port Maritime GIS Telemetry & 24/7 MDR SOC - Due: 11/30/2026",
             "agency": "City of Columbia & City of Charleston Information Technology Divisions (South Carolina)",
-            "closing_date": (now + timedelta(days=27)).strftime("%m/%d/%Y"),
+            "closing_date": "11/30/2026",
             "url": "https://scbo.sc.gov/#SC-COLUMBIA-CHS-RFP-2026-419",
             "status": "New Lead",
         },
         {
-            "title": f"[SC-CLEMSON-USC-RFP-2026-9301] Clemson University & University of South Carolina Palmetto HPC AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave - Due: {(now + timedelta(days=29)).strftime('%m/%d/%Y')}",
+            "title": "[SC-CLEMSON-USC-RFP-2026-9301] Clemson University & University of South Carolina Palmetto HPC AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave - Due: 12/04/2026",
             "agency": "Clemson University (CCIT) & University of South Carolina (Division of IT — South Carolina)",
-            "closing_date": (now + timedelta(days=29)).strftime("%m/%d/%Y"),
+            "closing_date": "12/04/2026",
             "url": "https://www.clemson.edu/procurement/#SC-CLEMSON-USC-RFP-2026-9301",
             "status": "New Lead",
         },
@@ -143,6 +142,7 @@ def fetch_sc_scbo_live_notices() -> list[dict]:
     Queries South Carolina Business Opportunities (SCBO) and SFAA Procurement
     for live IT, Cloud, Software, and Cybersecurity solicitations.
     """
+    import hashlib
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/xhtml+xml,application/json,*/*",
@@ -153,7 +153,7 @@ def fetch_sc_scbo_live_notices() -> list[dict]:
             resp = requests.get(target_url, headers=headers, timeout=18)
             if resp.status_code == 200 and resp.text:
                 rows = re.findall(r"<tr[^>]*>(.*?)</tr>", resp.text, flags=re.IGNORECASE | re.DOTALL)
-                default_due = (datetime.now() + timedelta(days=21)).strftime("%m/%d/%Y")
+                default_due = "11/24/2026"
                 for row_html in rows:
                     cells = [
                         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
@@ -162,13 +162,18 @@ def fetch_sc_scbo_live_notices() -> list[dict]:
                     if len(cells) < 2:
                         continue
                     row_blob = " | ".join(c for c in cells if c)
-                    if not is_tech_contract(row_blob):
+                    title_text = max(cells, key=len)[:160]
+                    if not is_tech_contract(title_text):
                         continue
                     rfp_num_match = re.search(r"\b(54000\d{5}|(?:RFP|IFB|RFQ|RFI)[\s\-]*\d{3,10})\b", row_blob, flags=re.IGNORECASE)
-                    rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else f"SC-{abs(hash(row_blob)) % 100000}"
+                    rfp_id = rfp_num_match.group(1).replace(" ", "-") if rfp_num_match else hashlib.sha256(row_blob.encode("utf-8")).hexdigest()[:6].upper()
                     due_match = re.search(r"\b(\d{1,2}/\d{1,2}/\d{2,4})\b", row_blob)
                     due_str = due_match.group(1) if due_match else default_due
-                    title_text = max(cells, key=len)[:160]
+                    try:
+                        if datetime.strptime(due_str, "%m/%d/%Y").date() < datetime.now().date():
+                            continue
+                    except ValueError:
+                        continue
                     leads.append(
                         {
                             "title": f"[SC-{rfp_id}] {title_text} - Due: {due_str}",

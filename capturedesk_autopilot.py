@@ -540,8 +540,9 @@ def classify_vertical_tag(record: dict) -> str:
 
 
 def strip_due_suffix(title: str) -> str:
-    """Remove trailing '- Due: MM/DD/YYYY' and normalize encoding/spacing artifacts."""
+    """Remove trailing '- Due: MM/DD/YYYY', '[SF-30 / ADDENDUM DETECTED]' prefix, and normalize encoding/spacing artifacts."""
     s = str(title or "").replace("\ufffd", "–")
+    s = re.sub(r"^(?:\s*\[SF-30\s*/\s*ADDENDUM\s+DETECTED\]\s*)+", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\bWeb-\s+Based\b", "Web-Based", s, flags=re.IGNORECASE)
     s = re.sub(r"\s*-\s*Due:\s*\d{1,2}/\d{1,2}/\d{2,4}\s*$", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\s{2,}", " ", s)

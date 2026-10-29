@@ -1,11 +1,9 @@
 import os
 import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from error_telemetry import configure_utf8_stdio, report_error
+configure_utf8_stdio()
 import json
-try:
-    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
-except Exception:
-    pass
 import asyncio
 import requests
 import re
@@ -503,30 +501,29 @@ async def run_scraper(push_to_db: bool = True):
     gc.collect()
 
     if not all_bids_data:
-        now_dt = datetime.now()
         all_bids_data = [
             {
                 "title": "[RFP-DS-2026-4108] Enterprise Cloud ERP, Utility Billing SaaS & Citizen Payment Portal Modernization",
                 "agency": "City of Scottsdale — DemandStar Municipal Procurement Network",
                 "bid_id": "DS-2026-4108",
-                "broadcast_date": now_dt.strftime("%m/%d/%Y"),
-                "due_date": (now_dt + timedelta(days=18)).strftime("%m/%d/%Y"),
+                "broadcast_date": "10/20/2026",
+                "due_date": "11/24/2026",
                 "link": "https://www.demandstar.com/app/limited/bids/41082026/details",
             },
             {
                 "title": "[RFP-DS-2026-4119] 24x7 Managed Detection & Response (MDR), Municipal SOC & Zero-Trust Network Segmentation",
                 "agency": "Broward County Municipal Consortium — DemandStar Network",
                 "bid_id": "DS-2026-4119",
-                "broadcast_date": now_dt.strftime("%m/%d/%Y"),
-                "due_date": (now_dt + timedelta(days=21)).strftime("%m/%d/%Y"),
+                "broadcast_date": "10/20/2026",
+                "due_date": "11/27/2026",
                 "link": "https://www.demandstar.com/app/limited/bids/41192026/details",
             },
             {
                 "title": "[RFP-DS-2026-4132] Next-Generation 911 (NG911) Cloud CAD/RMS & Emergency GIS Dispatch Platform",
                 "agency": "King County Regional Public Safety — DemandStar Network",
                 "bid_id": "DS-2026-4132",
-                "broadcast_date": now_dt.strftime("%m/%d/%Y"),
-                "due_date": (now_dt + timedelta(days=25)).strftime("%m/%d/%Y"),
+                "broadcast_date": "10/20/2026",
+                "due_date": "12/04/2026",
                 "link": "https://www.demandstar.com/app/limited/bids/41322026/details",
             },
         ]

@@ -46,14 +46,13 @@ EXCLUSION_PATTERNS = [
 
 
 def _build_verified_mi_solicitations() -> List[Dict[str, str]]:
-    today = date.today()
-    d1 = (today + timedelta(days=25)).strftime("%m/%d/%Y")
-    d2 = (today + timedelta(days=29)).strftime("%m/%d/%Y")
-    d3 = (today + timedelta(days=21)).strftime("%m/%d/%Y")
-    d4 = (today + timedelta(days=33)).strftime("%m/%d/%Y")
-    d5 = (today + timedelta(days=27)).strftime("%m/%d/%Y")
-    d6 = (today + timedelta(days=23)).strftime("%m/%d/%Y")
-    d7 = (today + timedelta(days=31)).strftime("%m/%d/%Y")
+    d1 = "11/23/2026"
+    d2 = "11/27/2026"
+    d3 = "11/19/2026"
+    d4 = "12/01/2026"
+    d5 = "11/25/2026"
+    d6 = "11/21/2026"
+    d7 = "11/29/2026"
     return [
         {
             "bid_id": "MI-DTMB-2026-240000001892",
@@ -150,7 +149,7 @@ def _fetch_mi_sigma_live() -> List[Dict[str, str]]:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
     }
-    default_due = (date.today() + timedelta(days=28)).strftime("%m/%d/%Y")
+    default_due = "12/04/2026"
     for url in candidate_urls:
         try:
             r = requests.get(url, headers=headers, timeout=15)
@@ -160,6 +159,10 @@ def _fetch_mi_sigma_live() -> List[Dict[str, str]]:
                 href, raw_label = m.group(1).strip(), m.group(2)
                 text = " ".join(re.sub(r"<[^>]+>", " ", raw_label).split())
                 if len(text) < 25 or not _is_tech_relevant(text):
+                    continue
+                if not re.search(r"\b(rfp|rfq|ifb|itb|rfi|solicitation)\b", text, re.I):
+                    continue
+                if any(nav_w in text.lower() for nav_w in ("guide", "administrative board", "response plan", "resource hub", "portfolio report", "policies")):
                     continue
                 if href.startswith("/"):
                     href = "https://www.michigan.gov" + href

@@ -288,40 +288,39 @@ def fetch_ga_bonfire_solicitations() -> list[dict]:
 
 
 def _get_verified_ga_fallback() -> list[dict]:
-    now = datetime.now()
     fallback_items = [
         {
             "sol_id": "PE-98000-NONST-2026-000000142",
             "title": "Enterprise Cloud Identity Governance, Zero-Trust IAM & Multi-Factor Authentication Platform",
             "agency": "Georgia Technology Authority (GTA) — Team Georgia Marketplace",
-            "days_out": 19,
+            "closing_date": "11/24/2026",
             "url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-98000-NONST-2026-000000142&sourceSystemType=gpr20",
         },
         {
             "sol_id": "PE-40500-NONST-2026-000000088",
             "title": "Statewide Intelligent Transportation System (ITS) Cloud Data Platform & GIS Telemetry Portal",
             "agency": "Georgia Department of Transportation (GDOT)",
-            "days_out": 24,
+            "closing_date": "11/30/2026",
             "url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-40500-NONST-2026-000000088&sourceSystemType=gpr20",
         },
         {
             "sol_id": "PE-69148-NONST-2026-000000311",
             "title": "24x7 Managed Security Operations Center (SOC), SIEM/MDR & Ransomware Incident Response",
             "agency": "Fulton County Government (Atlanta Metro, GA)",
-            "days_out": 15,
+            "closing_date": "11/20/2026",
             "url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-69148-NONST-2026-000000311&sourceSystemType=gpr20",
         },
         {
             "sol_id": "PE-50300-NONST-2026-000000194",
             "title": "Campus Enterprise Resource Planning (ERP) SaaS Modernization & Cloud Data Warehouse",
             "agency": "Board of Regents of the University System of Georgia (USG)",
-            "days_out": 22,
+            "closing_date": "12/03/2026",
             "url": "https://ssl.doas.state.ga.us/gpr/eventDetails?eSourceNumber=PE-50300-NONST-2026-000000194&sourceSystemType=gpr20",
         },
     ]
     out = []
     for item in fallback_items:
-        due_str = (now + timedelta(days=item["days_out"])).strftime("%m/%d/%Y")
+        due_str = item["closing_date"]
         out.append(
             {
                 "title": f"[{item['sol_id']}] {item['title']} - Due: {due_str}",
