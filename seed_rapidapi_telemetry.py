@@ -657,6 +657,93 @@ ENDPOINTS = [
             "nontraditional_contractor_and_cost_share_status": "Nontraditional_Defense_Contractor_NDC_Zero_Cost_Share",
         },
     },
+    {
+        "id": "API 30",
+        "name": "DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation Analyzer API",
+        "method": "POST",
+        "path": "/v1/audit/foci-dd254-clearance",
+        "rapid_host": "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api.p.rapidapi.com",
+        "payload": {
+            "dd254_and_ownership_cap_table_text": (
+                "DD Form 254 Block 6/7: Top Secret Facility Clearance Required; Safeguarding Level: Secret. "
+                "Block 10 Checked: (a) COMSEC, (e)(1) SCI, (j) CUI, (k) SIPRNet. Block 11 Checked: (a) Access only at Government/Other Cleared Facility, "
+                "(c) Receive/Generate Classified Technical Data, (j) Operations Security (OPSEC) & NIST SP 800-171 SPRS >= 110. "
+                "Corporate Cap Table & SF 328 Context: Delaware C-Corp (82% U.S. citizen founders; 14% held via Cayman Islands LP feeder in Series B VC fund; "
+                "4% held by UK/NATO strategic minority investor with 1 non-voting board observer seat; zero foreign debt)."
+            ),
+            "target_facility_clearance_level": "Top_Secret_FCL_With_SCI_And_SIPRNet",
+            "foreign_ownership_and_board_context": "Minority_Foreign_LP_Or_Board_Seat_Under_Review",
+        },
+    },
+    {
+        "id": "API 31",
+        "name": "FAR 52.219-9 Subcontracting Plan & eSRS Goal Calculator API",
+        "method": "POST",
+        "path": "/v1/generate/small-business-participation",
+        "rapid_host": "far-52-219-9-subcontracting-plan-esrs-calculator-api.p.rapidapi.com",
+        "payload": {
+            "solicitation_subcontracting_and_clin_text": (
+                "Total 5-Year IDIQ Task Order Ceiling: $50,000,000 (Base Year $10M + Four 1-Year Options at $10M/yr). "
+                "Total Planned Subcontracted Spend: $20,000,000 (40.0% of Total Contract Value). "
+                "Section M Small Business Participation Factor requires >= 25% of Total Contract Value ($12.5M) or >= 62.5% of Total Subcontracted Spend "
+                "awarded to Small Businesses, including SDB/8(a) Cyber Sentinel LLC (NAICS 541512, $3.5M), SDVOSB Valor Cloud Solutions (NAICS 541519, $3.0M), "
+                "WOSB Athena Analytics Inc. (NAICS 541511, $2.5M), and HUBZone Appalachian DevSecOps Corp (NAICS 541512, $1.5M)."
+            ),
+            "plan_type_and_regulatory_regime": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
+            "agency_socioeconomic_goal_benchmarks": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone",
+        },
+    },
+    {
+        "id": "API 32",
+        "name": "FAR 52.227-14 & DFARS 252.227-7013/7014 IP & Technical Data Rights API",
+        "method": "POST",
+        "path": "/v1/generate/data-rights-assertion-table",
+        "rapid_host": "dfars-252-227-7013-7014-7017-data-rights-assertion-api.p.rapidapi.com",
+        "payload": {
+            "software_modules_and_cdrl_deliverables_text": (
+                "1. SentinelCore Zero-Trust Inference Engine & Pre-Trained Weights v4.2: Developed 100% at private expense (2022-2025 IR&D GL Account #8410) prior to solicitation; delivered as compiled container image under CDRL A004. "
+                "2. Tactical RF Sensor Ingestion Firmware: Developed under DoD SBIR Phase II Contract FA8650-24-C-1102; delivered under CDRL A005. "
+                "3. Mission Adapter Microservice & REST/gRPC Interface Control Document (ICD): Developed with mixed/contract funding under CLIN 0002; delivered under CDRL A002 (ICD) and CDRL A006 (Adapter Source)."
+            ),
+            "governing_acquisition_regime": "DoD_DFARS_252_227_7013_7014_7015_7017_And_7018",
+            "modular_open_systems_approach_mosa_context": "MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms",
+        },
+    },
+    {
+        "id": "API 33",
+        "name": "GovCon Black-Hat Competitive Intelligence, Incumbent Vulnerability & Ghosting API",
+        "method": "POST",
+        "path": "/v1/generate/capture-black-hat-review",
+        "rapid_host": "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
+        "payload": {
+            "solicitation_and_incumbent_context_text": (
+                "Target Recompete: DoD C5ISR Enterprise Cloud & 24x7 Cyber SOC Operations ($85M 5-Year Single-Award Task Order). "
+                "Section M Evaluation: Best-Value Tradeoff (Factor 1 Technical Approach [Most Important] > Factor 2 Management & Transition > Factor 3 Past Performance > Price). "
+                "Incumbent: LegacyDefense Corp (held contract for 5 years; known pain points include 18% annual SOC analyst turnover, delayed RMF cATO pipeline, and high 2.15x Tier-1 wrap rate). "
+                "Other Likely Bidders: BeltwayScale SI (aggressive price cutter using junior LCATs)."
+            ),
+            "bidder_discriminators_and_proof_points": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
+            "evaluation_type_and_posture": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff",
+        },
+    },
+    {
+        "id": "API 34",
+        "name": "GovCon CPARS Self-Assessment, Interim Evaluation & 14-Day Rebuttal API",
+        "method": "POST",
+        "path": "/v1/generate/post-award-cpar-rebuttal",
+        "rapid_host": "govcon-cpars-self-assessment-14-day-rebuttal-api.p.rapidapi.com",
+        "payload": {
+            "contract_metrics_and_assessing_official_text": (
+                "Contract W52P1J-24-F-0188 (Period of Performance: Oct 1, 2025 – Sep 30, 2026). "
+                "Contractor Metrics: 99.97% Cloud Enclave Uptime (PWS SLA >= 99.5%); 48 of 48 CDRLs delivered on or ahead of schedule (100% first-time COR acceptance); "
+                "automated DevSecOps pipeline cut vulnerability remediation time by 64% saving 3,200 Government labor hours; Cost Variance: 2.8% under CPFF ceiling ($410K underrun returned); "
+                "Small Business Subcontracting: achieved 28.4% SB vs. 23.0% goal. "
+                "Draft AO Narrative Issue: AO assigned 'Satisfactory' across Quality and Schedule, citing a 3-week Milestone 2 delay that was caused by Government GFE SIPRNet circuit provisioning delay documented in COR Email 2026-03-14."
+            ),
+            "cpar_submission_mode": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
+            "target_far_42_1503_rating_goal": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec",
+        },
+    },
 ]
 
 

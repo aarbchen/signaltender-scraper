@@ -501,3 +501,10 @@ Node.js v26.7.0
 
 === ARCHIVED & RESOLVED AT 2026-10-29 04:52:08 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-29 04:49:27 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: mcp-server/index.js: Found stale customer-facing count '21-portal' (expected 23 portals / 21 states / 29 APIs). Update mcp-server/index.js and regenerate campaign_leads.csv / outbox_ready_queue.json.
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 08:25:30 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 4 local + 3 remote alert(s)) ===
+[2026-10-29 08:14:46 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: #api-pricing-matrix has 29 rows, expected 34
+[2026-10-29 08:17:21 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale API count string '29 REST &amp; MCP MICROSERVICES' (expected 34 APIs)
+
+[!] pseo_generator.py error: name 'json' is not defined
+[2026-10-29 08:23:20 UTC] [LOCAL] [pseo_generator.py] pseo_generator.py error: name 'json' is not defined

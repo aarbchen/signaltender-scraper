@@ -138,6 +138,11 @@ To scale from initial post-warmup launch (Oct 31) to `$86,000+ MRR` (`$1M+ ARR`)
 - **API #27 (Live):** GovCon 30/60/90-Day Phase-In / Phase-Out Transition & Incumbent Capture API (`POST /v1/generate/phase-in-transition-plan`) + Portal #21 Tennessee Edison CPO & STS (`tn_scraper.py`) (Live).
 - **API #28 (Live):** DCAA Pre-Award Accounting System (SF 1408) & Indirect Rate Auditor API (`POST /v1/audit/dcaa-accounting-sf1408`) + Portal #22 Indiana IDOA & IOT (`in_scraper.py`) (Live).
 - **API #29 (Live):** DoD Other Transaction Authority (OTA / 10 U.S.C. 4022) Prototype White Paper API (`POST /v1/generate/ota-white-paper`) + Portal #23 Missouri MissouriBUYS & OA-ITSD (`mo_scraper.py`) (Live).
+- **API #30 (Live):** DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation Analyzer API (`POST /v1/audit/foci-dd254-clearance`) + Portal #24 Wisconsin VendorNet / eSupplier & DET (`wi_scraper.py`) (Live).
+- **API #31 (Live):** FAR 52.219-9 Subcontracting Plan & eSRS Goal Calculator API (`POST /v1/generate/small-business-participation`) + Portal #25 South Carolina SCBO & SFAA / Admin OTIS (`sc_scraper.py`) (Live).
+- **API #32 (Live):** FAR 52.227-14 & DFARS 252.227-7013/7014 IP & Technical Data Rights API (`POST /v1/generate/data-rights-assertion-table`) + Portal #26 Oregon OregonBuys & EIS (`or_scraper.py`) (Live).
+- **API #33 (Live):** GovCon Black-Hat Competitive Intelligence, Incumbent Vulnerability & Ghosting API (`POST /v1/generate/capture-black-hat-review`) + Portal #27 Connecticut CTsource & DAS BITS (`ct_scraper.py`) (Live).
+- **API #34 (Live):** GovCon CPARS Self-Assessment, Interim Evaluation & 14-Day Rebuttal API (`POST /v1/generate/post-award-cpar-rebuttal`) + Portal #28 Utah U3P SciQuest & DTS (`ut_scraper.py`) (Live).
 
 ---
 

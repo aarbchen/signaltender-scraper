@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon CPARS Self Assessment 14 Day Rebuttal API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Transforms contract performance metrics (SLA attainment, CDRL on-time delivery, cost variance, key personnel stability, small business utilization) and Assessing Official draft CPAR narratives into a FAR 42.1503 Table 42-1 justified CPARS Self-Assessment Package and a formal 14-Calendar-Day Reviewing Official Rebuttal Brief. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/post-award-cpar-rebuttal": {
+      "post": {
+        "operationId": "generateGovconCparsSelfAssessmentAnd14DayRebuttal",
+        "summary": "Generate FAR 42.1503 CPARS Self-Assessment & 14-Day Reviewing Official Rebuttal",
+        "description": "Transforms contract performance metrics and draft Assessing Official CPARs into a FAR 42.1503 Table 42-1 justified Self-Assessment Package and a 14-Calendar-Day Reviewing Official Rebuttal Brief.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "CparRebuttalRequest",
+                "required": [
+                  "contract_metrics_and_assessing_official_text"
+                ],
+                "properties": {
+                  "contract_metrics_and_assessing_official_text": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 45000,
+                    "description": "Contract performance metrics (SLA attainment, CDRL on-time delivery, cost variance, key personnel fill rate, small business goals) and, if rebutting a draft CPAR, the Assessing Official's draft ratings and narrative."
+                  },
+                  "cpar_submission_mode": {
+                    "type": "string",
+                    "default": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
+                    "maxLength": 2000,
+                    "description": "Submission mode under FAR 42.1503: Proactive Annual Self-Assessment Package, 14-Calendar-Day Draft CPAR Rebuttal to Reviewing Official, or Both."
+                  },
+                  "target_far_42_1503_rating_goal": {
+                    "type": "string",
+                    "default": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec",
+                    "maxLength": 2000,
+                    "description": "Target FAR 42.1503 Table 42-1 rating outcome across Quality, Schedule, Cost Control, Management, Small Business, and Regulatory Compliance."
+                  }
+                }
+              },
+              "example": {
+                "contract_metrics_and_assessing_official_text": "Contract W52P1J-24-F-0188 (Period of Performance: Oct 1, 2025 \u2013 Sep 30, 2026). Contractor Metrics: 99.97% Cloud Enclave Uptime (PWS SLA >= 99.5%); 48 of 48 CDRLs delivered on or ahead of schedule (100% first-time COR acceptance); automated DevSecOps pipeline cut vulnerability remediation time by 64% saving 3,200 Government labor hours; Cost Variance: 2.8% under CPFF ceiling ($410K underrun returned); Small Business Subcontracting: achieved 28.4% SB vs. 23.0% goal. Draft AO Narrative Issue: AO assigned 'Satisfactory' across Quality and Schedule, citing a 3-week Milestone 2 delay that was caused by Government GFE SIPRNet circuit provisioning delay documented in COR Email 2026-03-14.",
+                "cpar_submission_mode": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
+                "target_far_42_1503_rating_goal": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete FAR 42.1503 CPARS Self-Assessment & 14-Day Reviewing Official Rebuttal Brief",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

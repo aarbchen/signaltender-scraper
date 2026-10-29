@@ -59,6 +59,7 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/generate/sources-sought-response": "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
     "/v1/generate/quality-assurance-qasp": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
     "/v1/generate/phase-in-transition-plan": "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
+    "/v1/generate/capture-black-hat-review": "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -84,6 +85,11 @@ JURISDICTION_LABELS = {
     "tennessee": "TENNESSEE // EDISON CPO & STS",
     "indiana": "INDIANA // IDOA, IOT & NSWC CRANE",
     "missouri": "MISSOURI // MISSOURIBUYS, OA-ITSD & NGA WEST",
+    "wisconsin": "WISCONSIN // eSUPPLIER, VENDORNET & DOA DET",
+    "south_carolina": "SOUTH CAROLINA // SCBO, SFAA & NIWC ATLANTIC",
+    "oregon": "OREGON // OREGONBUYS & DAS EIS",
+    "connecticut": "CONNECTICUT // CTSOURCE, DAS BITS & GROTON DEFENSE",
+    "utah": "UTAH // U3P SCIQUEST, DTS & HILL AFB CORRIDOR",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -268,6 +274,44 @@ def classify_jurisdiction(record: dict) -> str:
         or "umsystem.edu" in url
     ):
         return "missouri"
+    if (
+        "esupplier.wi.gov" in url
+        or "vendornet.wi.gov" in url
+        or "doa.wi.gov" in url
+        or "wi.gov" in url
+        or "wisc.edu" in url
+    ):
+        return "wisconsin"
+    if (
+        "scbo.sc.gov" in url
+        or "procurement.sc.gov" in url
+        or "admin.sc.gov" in url
+        or "sc.gov" in url
+        or "clemson.edu" in url
+    ):
+        return "south_carolina"
+    if (
+        "oregonbuys.gov" in url
+        or "oregon.gov" in url
+        or "portland.gov" in url
+        or "ohsu.edu" in url
+        or "oregonstate.edu" in url
+    ):
+        return "oregon"
+    if (
+        "portal.ct.gov" in url
+        or "biznet.ct.gov" in url
+        or "ct.gov" in url
+        or "uconn.edu" in url
+    ):
+        return "connecticut"
+    if (
+        "purchasing.utah.gov" in url
+        or "dts.utah.gov" in url
+        or "utah.gov" in url
+        or "utah.edu" in url
+    ):
+        return "utah"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -414,6 +458,68 @@ def classify_jurisdiction(record: dict) -> str:
         or "kansas city" in agency
     ):
         return "missouri"
+    if (
+        title.startswith("[WI]")
+        or title.lower().startswith("[wi-")
+        or "wisconsin" in agency
+        or "(wi)" in agency
+        or "esupplier" in agency
+        or "doa det" in agency
+        or "wisdot" in agency
+        or "milwaukee" in agency
+        or "uw-madison" in agency
+    ):
+        return "wisconsin"
+    if (
+        title.startswith("[SC]")
+        or title.lower().startswith("[sc-")
+        or "south carolina" in agency
+        or "(sc)" in agency
+        or "scbo" in agency
+        or "sfaa" in agency
+        or "scdhhs" in agency
+        or "scdot" in agency
+        or "niwc atlantic" in agency
+        or "clemson" in agency
+    ):
+        return "south_carolina"
+    if (
+        title.startswith("[OR]")
+        or title.lower().startswith("[or-")
+        or "oregon" in agency
+        or "(or)" in agency
+        or "oregonbuys" in agency
+        or "das eis" in agency
+        or "odot" in agency
+        or "portland" in agency
+        or "multnomah" in agency
+    ):
+        return "oregon"
+    if (
+        title.startswith("[CT]")
+        or title.lower().startswith("[ct-")
+        or "connecticut" in agency
+        or "(ct)" in agency
+        or "ctsource" in agency
+        or "das bits" in agency
+        or "ctdot" in agency
+        or "groton" in agency
+        or "hartford" in agency
+        or "uconn" in agency
+    ):
+        return "connecticut"
+    if (
+        title.startswith("[UT]")
+        or title.lower().startswith("[ut-")
+        or "utah" in agency
+        or "(ut)" in agency
+        or "u3p" in agency
+        or "utah dts" in agency
+        or "udot" in agency
+        or "hill afb" in agency
+        or "salt lake" in agency
+    ):
+        return "utah"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -715,6 +821,21 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "missouri":
         compliance_posture = "Missouri OA-ITSD Information Security Standards (NIST 800-53 / RSMo Ch. 34) • StateRAMP • MO IT Accessibility VPAT"
         teaming_posture = "Missouri OA OEO MBE (10% Goal) + WBE (10% Goal) + SDVE (3 Bonus Points) + MO Statewide Contract Alignment + 3 SLED Refs"
+    elif j_key == "wisconsin":
+        compliance_posture = "Wisconsin DOA DET Enterprise InfoSec Policy (NIST 800-53 / Wis. Stat. Ch. 16) • StateRAMP • WI Section 508 VPAT"
+        teaming_posture = "Wisconsin DOA Supplier Diversity MBE (5% Goal) + DVB Disabled Veteran-Owned (5% Preference) + WI eSupplier Contract Alignment + 3 SLED Refs"
+    elif j_key == "south_carolina":
+        compliance_posture = "SC Admin OTIS / DTO Enterprise InfoSec Standards (NIST 800-53 / S.C. Code § 11-35) • StateRAMP / CMMC 2.0 • SC Accessibility VPAT"
+        teaming_posture = "South Carolina OSMBA Minority Business Enterprise (10% Goal) + SC SFAA Statewide Term Contract Alignment + 3 SLED Refs"
+    elif j_key == "oregon":
+        compliance_posture = "Oregon DAS EIS Cyber Security Services Standards (NIST 800-53 / ORS 276A) • StateRAMP • Oregon WCAG 2.1 AA VPAT"
+        teaming_posture = "Oregon COBID Certified MBE/WBE/SDVBE/ESB Outreach Plan + OregonBuys Price Agreement Alignment + 3 SLED Refs"
+    elif j_key == "connecticut":
+        compliance_posture = "Connecticut DAS BITS Enterprise Cyber Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • CT OPM Accessibility VPAT"
+        teaming_posture = "Connecticut DAS SBE/MBE Set-Aside Program (25% SBE / 6.25% MBE Goal, C.G.S. § 4a-60g) + CTsource Master Contract Alignment + 3 SLED Refs"
+    elif j_key == "utah":
+        compliance_posture = "Utah DTS Enterprise Information Security Policy R895-5 (NIST 800-53 / CMMC 2.0) • StateRAMP • Utah Accessibility VPAT"
+        teaming_posture = "Utah Division of Purchasing Small/Veteran Business Outreach + U3P Cooperative Contract / NASPO ValuePoint Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -786,7 +907,7 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
         posture_line = (
             f"**Cyber, RMF/cATO & Teaming Posture (API #06/#11/#12/#18):** `{c_pos}` | `{t_pos}`\n"
-            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest, GSA MAS, RFI Shaping, QASP & Transition (API #13/#15/#16/#17/#19/#20/#21/#26/#27):** `{ptw_pos}` | `{lcat_pos}`\n"
+            f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest, GSA MAS, RFI Shaping, QASP, Transition & Black-Hat Ghosting (API #13/#15/#16/#17/#19/#20/#21/#26/#27/#33):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):
@@ -901,7 +1022,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
-            # unified Section I (CaptureDesk Dossiers) + Section II (23-Portal Live Wire) payload via client_delivery.py.
+            # unified Section I (CaptureDesk Dossiers) + Section II (28-Portal Live Wire) payload via client_delivery.py.
             if __name__ == "__main__":
                 try:
                     import client_delivery

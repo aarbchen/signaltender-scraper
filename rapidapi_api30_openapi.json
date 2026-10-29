@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DCSA FCL DD254 FOCI SF328 Clearance Auditor API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Audits DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328  Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/foci-dd254-clearance": {
+      "post": {
+        "operationId": "auditDcsaFclDd254FociMitigationClearance",
+        "summary": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
+        "description": "Audits DD Form 254 (Blocks 10, 11, 13), SF 328 foreign interest triggers, and corporate cap-table structures under 32 CFR Part 117 (NISPOM) and DCSA FCL / FOCI mitigation standards.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "FociDd254AuditRequest",
+                "required": [
+                  "dd254_and_ownership_cap_table_text"
+                ],
+                "properties": {
+                  "dd254_and_ownership_cap_table_text": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 45000,
+                    "description": "DD Form 254 Contract Security Classification Specification text (Blocks 10, 11, 13), SF 328 Certificate Pertaining to Foreign Interests entries, and corporate cap-table / foreign investor ownership structure."
+                  },
+                  "target_facility_clearance_level": {
+                    "type": "string",
+                    "default": "Top_Secret_FCL_With_SCI_And_SIPRNet",
+                    "maxLength": 2000,
+                    "description": "Required Facility Clearance (FCL) and safeguarding posture (e.g., Confidential, Secret, Top Secret, TS/SCI, COMSEC, SIPRNet, JWICS)."
+                  },
+                  "foreign_ownership_and_board_context": {
+                    "type": "string",
+                    "default": "Minority_Foreign_LP_Or_Board_Seat_Under_Review",
+                    "maxLength": 2000,
+                    "description": "Summary of foreign equity voting/ownership percentages, foreign board seats, foreign debt, or foreign technology licensing ties under 32 CFR Part 117 (NISPOM)."
+                  }
+                }
+              },
+              "example": {
+                "dd254_and_ownership_cap_table_text": "DD Form 254 Block 6/7: Top Secret Facility Clearance Required; Safeguarding Level: Secret. Block 10 Checked: (a) COMSEC, (e)(1) SCI, (j) CUI, (k) SIPRNet. Block 11 Checked: (a) Access only at Government/Other Cleared Facility, (c) Receive/Generate Classified Technical Data, (j) Operations Security (OPSEC) & NIST SP 800-171 SPRS >= 110. Corporate Cap Table & SF 328 Context: Delaware C-Corp (82% U.S. citizen founders; 14% held via Cayman Islands LP feeder in Series B VC fund; 4% held by UK/NATO strategic minority investor with 1 non-voting board observer seat; zero foreign debt).",
+                "target_facility_clearance_level": "Top_Secret_FCL_With_SCI_And_SIPRNet",
+                "foreign_ownership_and_board_context": "Minority_Foreign_LP_Or_Board_Seat_Under_Review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete DCSA FCL, DD Form 254 & FOCI Mitigation Audit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

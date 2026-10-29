@@ -50,7 +50,12 @@ const RAPIDAPI_HOSTS = {
   generate_quality_assurance_qasp: "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
   generate_phase_in_transition_plan: "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
   audit_dcaa_accounting_sf1408: "dcaa-pre-award-sf1408-accounting-system-auditor-api.p.rapidapi.com",
-  generate_ota_white_paper: "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com"
+  generate_ota_white_paper: "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com",
+  audit_foci_dd254_clearance: "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api.p.rapidapi.com",
+  generate_small_business_participation: "far-52-219-9-subcontracting-plan-esrs-calculator-api.p.rapidapi.com",
+  generate_data_rights_assertion_table: "dfars-252-227-7013-7014-7017-data-rights-assertion-api.p.rapidapi.com",
+  generate_capture_black_hat_review: "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
+  generate_post_award_cpar_rebuttal: "govcon-cpars-self-assessment-14-day-rebuttal-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -262,7 +267,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 23-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 28-portal procurement database. This is a read-only, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -298,9 +303,14 @@ const TOOLS = [
             "tennessee",
             "indiana",
             "missouri",
+            "wisconsin",
+            "south_carolina",
+            "oregon",
+            "connecticut",
+            "utah",
             "municipal"
           ],
-          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', or 'municipal' for DemandStar)."
+          "description": "Optional jurisdiction portal filter ('federal' for SAM.gov, 'virginia', 'texas', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', or 'municipal' for DemandStar)."
         },
         "category": {
           "type": "string",
@@ -2544,6 +2554,389 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "audit_foci_dd254_clearance",
+    "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
+    "description": "Audit DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328 — Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards, returning an FCL & FOCI executive overview, a DD Form 254 Block 10/11 safeguarding matrix (COMSEC, SCI, SIPRNet, CUI), an SF 328 foreign interest factor audit, a DCSA FOCI mitigation agreement blueprint (Board Resolution, SCA, SSA with NID, or Proxy/Voting Trust with ECP and TCP controls), and a Key Management Personnel (KMP) Exclusion Resolution & NISP eMASS checklist. This is a read-only, stateless, non-destructive industrial security audit call (requires X-RapidAPI-Key; `dd254_and_ownership_cap_table_text` accepts 20 to 45,000 characters, while `target_facility_clearance_level` and `foreign_ownership_and_board_context` calibrate DCSA FCL safeguarding and 32 CFR 117.11 FOCI mitigation instruments). Use this tool when auditing DD Form 254 classified safeguarding requirements, SF 328 foreign ownership/LP triggers, or DCSA FCL / FOCI mitigation agreements; use `generate_ato_rmf_package` instead for DoD RMF / Continuous ATO (cATO) NIST 800-53 System Security Plans, or `match_key_personnel` for individual candidate security clearance and LCAT resume verification.",
+    "annotations": {
+      "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "dd254_and_ownership_cap_table_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "DD Form 254 Contract Security Classification Specification text (Blocks 10, 11, 13), SF 328 Certificate Pertaining to Foreign Interests entries, and corporate cap-table / foreign investor ownership structure (20 to 45,000 characters)."
+        },
+        "target_facility_clearance_level": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Top_Secret_FCL_With_SCI_And_SIPRNet",
+          "description": "Required Facility Clearance (FCL) and safeguarding posture (e.g., Confidential, Secret, Top Secret, TS/SCI, COMSEC, SIPRNet, JWICS; defaults to 'Top_Secret_FCL_With_SCI_And_SIPRNet')."
+        },
+        "foreign_ownership_and_board_context": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Minority_Foreign_LP_Or_Board_Seat_Under_Review",
+          "description": "Summary of foreign equity voting/ownership percentages, foreign board seats, foreign debt, or foreign technology licensing ties under 32 CFR Part 117 (NISPOM; defaults to 'Minority_Foreign_LP_Or_Board_Seat_Under_Review')."
+        }
+      },
+      "required": [
+        "dd254_and_ownership_cap_table_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "fcl_and_foci_executive_overview": {
+          "type": "object",
+          "description": "High-level DCSA Facility Clearance (FCL) eligibility verdict, FOCI severity tier, and recommended mitigation instrument."
+        },
+        "dd254_block10_and_11_safeguarding_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Block-by-block audit of DD Form 254 Block 10, 11, and 13 classified access, safeguarding, COMSEC, SCI, and SIPRNet mandates."
+        },
+        "sf328_foreign_interest_factor_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Evaluation of Standard Form 328 (Certificate Pertaining to Foreign Interests) triggers across foreign equity, LP feeders, board seats, debt, and revenue."
+        },
+        "dcsa_foci_mitigation_agreement_blueprint": {
+          "type": "object",
+          "description": "Structured DCSA FOCI mitigation blueprint (Board Resolution, SCA, SSA, or Proxy/Voting Trust) with Outside Director, ECP, and TCP controls."
+        },
+        "kmp_exclusion_resolution_and_nisp_emass_checklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Step-by-step Key Management Personnel (KMP) List, Board Exclusion Resolution, DISS, and NISP eMASS submission checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_small_business_participation",
+    "title": "Generate FAR 52.219-9 Small Business Subcontracting Plan & eSRS Goals",
+    "description": "Calculate Small Business subcontracting dollar and percentage goals across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone categories (under both % of Total Subcontracted Dollars and % of Total Contract Value baselines), draft all 15 mandatory elements of a FAR 52.219-9 Small Business Subcontracting Plan and DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD), and structure eSRS.gov ISR/SSR reporting and FAR 52.219-16 Liquidated Damages good-faith effort controls. This is a read-only, stateless, non-destructive subcontracting compliance and goal calculator (requires X-RapidAPI-Key; `solicitation_subcontracting_and_clin_text` accepts 20 to 45,000 characters, while `plan_type_and_regulatory_regime` and `agency_socioeconomic_goal_benchmarks` calibrate Individual, Master, or Commercial Subcontracting Plans against DoD or Civilian SBA statutory targets). Use this tool when preparing a Large Business Prime FAR 52.219-9 Small Business Subcontracting Plan, DFARS 252.219-7003 Small Business Participation Volume, or eSRS ISR/SSR goal calculation; use `generate_teaming_strategy` instead when a Small Business Prime needs a 13 CFR 125.6 (50% Rule) Limitations on Subcontracting workshare split, or `generate_sources_sought_response` for pre-RFP Rule-of-Two set-aside shaping.",
+    "annotations": {
+      "title": "Generate FAR 52.219-9 Small Business Subcontracting Plan & eSRS Goals",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solicitation_subcontracting_and_clin_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Total contract ceiling, Base + Option period breakdown, total planned subcontracted dollars, RFP Section L/M Small Business Participation factor targets, and named subcontractor commitments (20 to 45,000 characters)."
+        },
+        "plan_type_and_regulatory_regime": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
+          "description": "Subcontracting Plan structure: Individual Plan, Master Plan + Individual Goals, or Commercial Subcontracting Plan under FAR 52.219-9 / DFARS 252.219-7003 (defaults to 'Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003')."
+        },
+        "agency_socioeconomic_goal_benchmarks": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone",
+          "description": "Agency statutory or RFP-mandated small business subcontracting goal percentages across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone (defaults to 'DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone')."
+        }
+      },
+      "required": [
+        "solicitation_subcontracting_and_clin_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "subcontracting_plan_overview": {
+          "type": "object",
+          "description": "Executive summary and dual-baseline financial breakdown of total contract value vs. total subcontracted spend."
+        },
+        "socioeconomic_category_goal_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Socioeconomic subcontracting goal breakdown across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone showing both % of subcontracted spend and % of total contract value."
+        },
+        "far_52_219_9_15_element_compliance_narratives": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Drafted compliance narratives covering the 15 mandatory elements of FAR 52.219-9(d)."
+        },
+        "esrs_isr_ssr_reporting_and_good_faith_effort_controls": {
+          "type": "object",
+          "description": "eSRS.gov ISR/SSR reporting calendar, FAR 52.219-16 Liquidated Damages good-faith effort controls, and outreach procedures."
+        },
+        "dfars_small_business_participation_commitment_summary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Actionable checklist for DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD) enforceability."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_data_rights_assertion_table",
+    "title": "Generate DFARS 252.227-7017 & FAR 52.227-14 IP & Data Rights Assertion Table",
+    "description": "Audit software components, AI/ML models and weights, firmware, technical data packages, and CDRL deliverables by development funding history (100% private expense, SBIR/STTR, mixed funding, or government-funded) to generate a 4-column DFARS 252.227-7017 Data Rights Assertion Table, verbatim DFARS 252.227-7013/7014/7018 and FAR 52.227-14 restrictive marking legends, a 10 U.S.C. 4401 Modular Open Systems Approach (MOSA) boundary and DFARS 252.227-7027 deferred-ordering protection plan, and a pre-award IP negotiation checklist. This is a read-only, stateless, non-destructive Government Contracts IP compliance generator (requires X-RapidAPI-Key; `software_modules_and_cdrl_deliverables_text` accepts 20 to 45,000 characters, while `governing_acquisition_regime` and `modular_open_systems_approach_mosa_context` calibrate DoD DFARS vs. Civilian FAR data rights rules and 10 U.S.C. 4401 open interface boundaries). Use this tool when building a proposal's DFARS 252.227-7017 / FAR 52.227-14 Data Rights Assertion Table, verbatim restrictive legends, or MOSA IP segregation plan; use `generate_sbir_sttr_commercialization` instead for full SBIR/STTR Phase I-III work plans, or `scan_far_dfars_clauses` for general Section I FAR/DFARS clause scanning.",
+    "annotations": {
+      "title": "Generate DFARS 252.227-7017 & FAR 52.227-14 IP & Data Rights Assertion Table",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "software_modules_and_cdrl_deliverables_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Inventory of software components, AI/ML models, weights, firmware, technical data packages, and CDRL deliverables with their development funding history (100% private expense, mixed funding, SBIR/STTR, or government-funded; 20 to 45,000 characters)."
+        },
+        "governing_acquisition_regime": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "DoD_DFARS_252_227_7013_7014_7015_7017_And_7018",
+          "description": "Applicable IP clause framework: DoD DFARS 252.227-7013/7014/7015/7017/7018 (SBIR) or Civilian FAR 52.227-14 / 52.227-19 (defaults to 'DoD_DFARS_252_227_7013_7014_7015_7017_And_7018')."
+        },
+        "modular_open_systems_approach_mosa_context": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms",
+          "description": "10 U.S.C. 4401 Modular Open Systems Approach (MOSA) interface strategy separating open APIs/form-fit-function data from proprietary source code and model weights (defaults to 'MOSA_Open_API_Boundary_Preserving_Proprietary_Core_Algorithms')."
+        }
+      },
+      "required": [
+        "software_modules_and_cdrl_deliverables_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "ip_strategy_executive_overview": {
+          "type": "object",
+          "description": "Executive summary of the data rights assertion posture, background IP protection, and MOSA alignment."
+        },
+        "dfars_252_227_7017_assertion_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Complete 4-column DFARS 252.227-7017 Identification and Assertion of Use, Release, or Disclosure Restrictions table."
+        },
+        "restrictive_marking_and_legend_templates": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Verbatim DFARS/FAR restrictive legends and placement instructions for source code, binaries, and technical data deliverables."
+        },
+        "mosa_and_deferred_ordering_protection_plan": {
+          "type": "object",
+          "description": "10 U.S.C. 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
+        },
+        "pre_award_ip_negotiation_checklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Pre-award checklist for submitting the signed DFARS 252.227-7017 attachment and negotiating Specially Negotiated License Rights."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_capture_black_hat_review",
+    "title": "Generate GovCon Black-Hat Competitive Review & Ethical Ghosting Statements",
+    "description": "Conduct a Shipley Black-Hat competitive intelligence simulation on a target solicitation and incumbent contractor, returning a Black-Hat executive assessment with unseating probability (0-100%), simulated competitor Black-Hat profiles (predicted bid strategy, pricing/wrap-rate posture, exploitable vulnerabilities, and counter-strategies), paste-ready Shipley ethical ghosting statements mapped to RFP Section L/M evaluation factors, an incumbent recompete vulnerability matrix (transition risk neutralizer, technical debt exposure, PTW wrap-rate wedge, and Contracting Officer shaping questions), and Red Team evaluator scoring triggers. This is a read-only, stateless, non-destructive capture intelligence generator (requires X-RapidAPI-Key; `solicitation_and_incumbent_context_text` accepts 20 to 45,000 characters, while `bidder_discriminators_and_proof_points` and `evaluation_type_and_posture` tailor ghosting prose across Best-Value Tradeoff and LPTA competitions). Use this tool when running a pre-RFP or pre-proposal Black-Hat competitive review to expose incumbent weaknesses and draft Shipley ethical ghosting language; use `match_capability_statement` instead for an initial Gate-1 Bid/No-Bid Pwin score, or `generate_igce_price_to_win` for quantitative LCAT and wrap-rate sensitivity modeling.",
+    "annotations": {
+      "title": "Generate GovCon Black-Hat Competitive Review & Ethical Ghosting Statements",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "solicitation_and_incumbent_context_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Target RFP scope, Section M evaluation weights, incumbent contractor name/PIID, historical award ceiling, known incumbent pain points (SLA misses, turnover, legacy tech debt), and likely competitor bidders (20 to 45,000 characters)."
+        },
+        "bidder_discriminators_and_proof_points": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 4000,
+          "default": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
+          "description": "Bidder's technical discriminators, proprietary accelerators, past performance metrics, socio-economic status, and wrap-rate / PTW advantages (defaults to 'Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate')."
+        },
+        "evaluation_type_and_posture": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff",
+          "description": "Capture posture and source selection method (e.g., Challenger Unseating Incumbent under Best-Value Tradeoff, Incumbent Defending Recompete, or LPTA; defaults to 'Challenger_Unseating_Incumbent_Best_Value_Tradeoff')."
+        }
+      },
+      "required": [
+        "solicitation_and_incumbent_context_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "black_hat_executive_assessment": {
+          "type": "object",
+          "description": "High-level Black-Hat competitive intelligence summary, unseating probability, and primary win strategy."
+        },
+        "competitor_black_hat_profiles": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Simulated Black-Hat profiles for the incumbent and top challenger archetypes with exploitable vulnerabilities and counter-strategies."
+        },
+        "shipley_ethical_ghosting_statements": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready Shipley ethical ghosting statements mapped to RFP Section L/M evaluation factors."
+        },
+        "incumbent_recompete_vulnerability_matrix": {
+          "type": "object",
+          "description": "Tactical playbook neutralizing incumbent transition advantages, exposing technical debt, and shaping Q&A amendments."
+        },
+        "red_team_evaluator_scoring_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Concrete proof points and callout boxes designed to earn formal SSEB 'Significant Strengths' under FAR 15.305."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_post_award_cpar_rebuttal",
+    "title": "Generate FAR 42.1503 CPARS Self-Assessment & 14-Day Reviewing Official Rebuttal",
+    "description": "Transform contract performance metrics (SLA attainment, CDRL on-time delivery, cost variance, key personnel stability, small business utilization) and Assessing Official (AO) draft CPAR narratives into a FAR 42.1503 Table 42-1 justified CPARS Self-Assessment Package, factor-by-factor rating upgrade narratives (Quality, Schedule, Cost Control, Management, Small Business), a formal 14-Calendar-Day Reviewing Official (RO) Rebuttal Brief correcting factual omissions and excusable Government GFE delays, and a COR Evidence Binder checklist. This is a read-only, stateless, non-destructive post-award past-performance generator (requires X-RapidAPI-Key; `contract_metrics_and_assessing_official_text` accepts 20 to 45,000 characters, while `cpar_submission_mode` and `target_far_42_1503_rating_goal` calibrate proactive annual self-assessments vs. 14-day non-concurrence rebuttals under FAR 42.1503(d)). Use this tool when preparing an annual CPARS Self-Assessment for the COR/Assessing Official or rebutting an unfavorable draft CPAR within the statutory 14-calendar-day window; use `generate_cpars_past_performance` instead when formatting already-completed historical contracts into a Proposal Volume III Past Performance submission, or `analyze_debriefing_bid_protest` for FAR 15.506 post-award debriefings and GAO bid protests.",
+    "annotations": {
+      "title": "Generate FAR 42.1503 CPARS Self-Assessment & 14-Day Reviewing Official Rebuttal",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "contract_metrics_and_assessing_official_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Contract performance metrics (SLA attainment, CDRL on-time delivery, cost variance, key personnel fill rate, small business goals) and, if rebutting a draft CPAR, the Assessing Official's draft ratings and narrative (20 to 45,000 characters)."
+        },
+        "cpar_submission_mode": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
+          "description": "Submission mode under FAR 42.1503: Proactive Annual Self-Assessment Package, 14-Calendar-Day Draft CPAR Rebuttal to Reviewing Official, or Both (defaults to 'Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package')."
+        },
+        "target_far_42_1503_rating_goal": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2000,
+          "default": "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec",
+          "description": "Target FAR 42.1503 Table 42-1 rating outcome across Quality, Schedule, Cost Control, Management, Small Business, and Regulatory Compliance (defaults to 'Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec')."
+        }
+      },
+      "required": [
+        "contract_metrics_and_assessing_official_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "cpar_evaluation_overview": {
+          "type": "object",
+          "description": "High-level FAR 42.1503 CPARS assessment, 14-day deadline rule, and rating upgrade feasibility."
+        },
+        "far_42_1503_factor_by_factor_narratives": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Factor-by-factor CPARS narratives mapped to FAR 42.1503 Table 42-1 across Quality, Schedule, Cost Control, Management, and Small Business."
+        },
+        "fourteen_day_reviewing_official_rebuttal_brief": {
+          "type": "object",
+          "description": "Formal 14-Calendar-Day Reviewing Official rebuttal brief correcting factual errors and excusable Government delays."
+        },
+        "cor_evidence_binder_checklist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Checklist of objective artifacts (CDRL acceptance receipts, monthly IPR slides, WAWF vouchers, eSRS confirmations, COR emails) to attach to the CPARS submission."
+        }
+      }
+    }
   }
 ];
 
@@ -2576,7 +2969,12 @@ const ENDPOINT_MAP = {
   generate_quality_assurance_qasp: { method: "POST", path: "/v1/generate/quality-assurance-qasp" },
   generate_phase_in_transition_plan: { method: "POST", path: "/v1/generate/phase-in-transition-plan" },
   audit_dcaa_accounting_sf1408: { method: "POST", path: "/v1/audit/dcaa-accounting-sf1408" },
-  generate_ota_white_paper: { method: "POST", path: "/v1/generate/ota-white-paper" }
+  generate_ota_white_paper: { method: "POST", path: "/v1/generate/ota-white-paper" },
+  audit_foci_dd254_clearance: { method: "POST", path: "/v1/audit/foci-dd254-clearance" },
+  generate_small_business_participation: { method: "POST", path: "/v1/generate/small-business-participation" },
+  generate_data_rights_assertion_table: { method: "POST", path: "/v1/generate/data-rights-assertion-table" },
+  generate_capture_black_hat_review: { method: "POST", path: "/v1/generate/capture-black-hat-review" },
+  generate_post_award_cpar_rebuttal: { method: "POST", path: "/v1/generate/post-award-cpar-rebuttal" }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -2682,7 +3080,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.13.0"
+            version: "1.14.0"
           }
         }
       });

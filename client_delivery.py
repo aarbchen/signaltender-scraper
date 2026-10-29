@@ -48,6 +48,11 @@ JURISDICTION_WEBHOOKS = {
     "tennessee": os.getenv("DISCORD_TENNESSEE_WEBHOOK_URL"),
     "indiana": os.getenv("DISCORD_INDIANA_WEBHOOK_URL"),
     "missouri": os.getenv("DISCORD_MISSOURI_WEBHOOK_URL"),
+    "wisconsin": os.getenv("DISCORD_WISCONSIN_WEBHOOK_URL"),
+    "south_carolina": os.getenv("DISCORD_SOUTH_CAROLINA_WEBHOOK_URL"),
+    "oregon": os.getenv("DISCORD_OREGON_WEBHOOK_URL"),
+    "connecticut": os.getenv("DISCORD_CONNECTICUT_WEBHOOK_URL"),
+    "utah": os.getenv("DISCORD_UTAH_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -74,6 +79,11 @@ JURISDICTION_LABELS = {
     "tennessee": "TENNESSEE // EDISON CPO & STS",
     "indiana": "INDIANA // IDOA, IOT & NSWC CRANE",
     "missouri": "MISSOURI // MISSOURIBUYS, OA-ITSD & NGA WEST",
+    "wisconsin": "WISCONSIN // eSUPPLIER, VENDORNET & DOA DET",
+    "south_carolina": "SOUTH CAROLINA // SCBO, SFAA & NIWC ATLANTIC",
+    "oregon": "OREGON // OREGONBUYS & DAS EIS",
+    "connecticut": "CONNECTICUT // CTSOURCE, DAS BITS & GROTON DEFENSE",
+    "utah": "UTAH // U3P SCIQUEST, DTS & HILL AFB CORRIDOR",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -278,6 +288,44 @@ def classify_jurisdiction(record: dict) -> str:
         or "umsystem.edu" in url
     ):
         return "missouri"
+    if (
+        "esupplier.wi.gov" in url
+        or "vendornet.wi.gov" in url
+        or "doa.wi.gov" in url
+        or "wi.gov" in url
+        or "wisc.edu" in url
+    ):
+        return "wisconsin"
+    if (
+        "scbo.sc.gov" in url
+        or "procurement.sc.gov" in url
+        or "admin.sc.gov" in url
+        or "sc.gov" in url
+        or "clemson.edu" in url
+    ):
+        return "south_carolina"
+    if (
+        "oregonbuys.gov" in url
+        or "oregon.gov" in url
+        or "portland.gov" in url
+        or "ohsu.edu" in url
+        or "oregonstate.edu" in url
+    ):
+        return "oregon"
+    if (
+        "portal.ct.gov" in url
+        or "biznet.ct.gov" in url
+        or "ct.gov" in url
+        or "uconn.edu" in url
+    ):
+        return "connecticut"
+    if (
+        "purchasing.utah.gov" in url
+        or "dts.utah.gov" in url
+        or "utah.gov" in url
+        or "utah.edu" in url
+    ):
+        return "utah"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -424,6 +472,68 @@ def classify_jurisdiction(record: dict) -> str:
         or "kansas city" in agency
     ):
         return "missouri"
+    if (
+        title.startswith("[WI]")
+        or title.lower().startswith("[wi-")
+        or "wisconsin" in agency
+        or "(wi)" in agency
+        or "esupplier" in agency
+        or "doa det" in agency
+        or "wisdot" in agency
+        or "milwaukee" in agency
+        or "uw-madison" in agency
+    ):
+        return "wisconsin"
+    if (
+        title.startswith("[SC]")
+        or title.lower().startswith("[sc-")
+        or "south carolina" in agency
+        or "(sc)" in agency
+        or "scbo" in agency
+        or "sfaa" in agency
+        or "scdhhs" in agency
+        or "scdot" in agency
+        or "niwc atlantic" in agency
+        or "clemson" in agency
+    ):
+        return "south_carolina"
+    if (
+        title.startswith("[OR]")
+        or title.lower().startswith("[or-")
+        or "oregon" in agency
+        or "(or)" in agency
+        or "oregonbuys" in agency
+        or "das eis" in agency
+        or "odot" in agency
+        or "portland" in agency
+        or "multnomah" in agency
+    ):
+        return "oregon"
+    if (
+        title.startswith("[CT]")
+        or title.lower().startswith("[ct-")
+        or "connecticut" in agency
+        or "(ct)" in agency
+        or "ctsource" in agency
+        or "das bits" in agency
+        or "ctdot" in agency
+        or "groton" in agency
+        or "hartford" in agency
+        or "uconn" in agency
+    ):
+        return "connecticut"
+    if (
+        title.startswith("[UT]")
+        or title.lower().startswith("[ut-")
+        or "utah" in agency
+        or "(ut)" in agency
+        or "u3p" in agency
+        or "utah dts" in agency
+        or "udot" in agency
+        or "hill afb" in agency
+        or "salt lake" in agency
+    ):
+        return "utah"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -525,7 +635,7 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
 
 
 def _resolve_dossiers_for_cycle(records: list[dict], passed_dossiers: list[dict] | None = None) -> list[dict]:
-    """Load or resolve the CaptureDesk Autopilot 23-API dossiers corresponding to the current 6-hour cycle."""
+    """Load or resolve the CaptureDesk Autopilot 24-API dossiers corresponding to the current 6-hour cycle."""
     if passed_dossiers:
         return list(passed_dossiers)
     import json
@@ -633,11 +743,11 @@ def format_subscriber_email_briefing(
     """
     Build an organized, executive-formatted 6-hour email briefing tailored by subscription tier:
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 23-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
+          Section I: 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Email combining BOTH:
-            Section I: CaptureDesk Autopilot 23-API Executive Dossiers (8-part pre-shredded capture memos)
-            Section II: Complete 23-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded capture memos)
+            Section II: Complete 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     Returns `(subject, plain_text_body, html_body)`.
     """
     from datetime import datetime, timezone
@@ -667,7 +777,7 @@ def format_subscriber_email_briefing(
     else:
         subject = (
             f"[SignalTender // Tier 2 Autopilot] 6-Hour Executive Capture Briefing — "
-            f"{len(resolved_dossiers)} CaptureDesk 23-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
         )
 
     # -------------------------------------------------------------------------
@@ -681,35 +791,35 @@ def format_subscriber_email_briefing(
     if norm_tier == "tier_1":
         lines.append("SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (23 Federal, State SLED & Municipal Portals)")
+        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (28 Federal, State SLED & Municipal Portals)")
         lines.append(
             f"Cycle Summary   : {total_wire} Newly Vetted High-Signal IT/Cyber RFPs "
-            f"(Federal: {fed_count} | 21-State SLED: {sled_count} | Municipal: {muni_count})"
+            f"(Federal: {fed_count} | 26-State SLED: {sled_count} | Municipal: {muni_count})"
         )
         lines.append(pwin_plain_line)
     else:
         lines.append("SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (23 Portals + 23-API Capture Suite)")
+        lines.append("Plan Tier       : Tier 2 // CaptureDesk Autopilot (28 Portals + 24-API Capture Suite)")
         lines.append(
-            f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 23-API CaptureDesk Dossiers + "
+            f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 24-API CaptureDesk Dossiers + "
             f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
         )
         lines.append(pwin_plain_line)
         lines.append(rule_light)
         lines.append("TABLE OF CONTENTS (UNIFIED SINGLE-EMAIL BRIEFING)")
         lines.append(
-            f"  • SECTION I   : CAPTUREDESK AUTOPILOT 23-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
+            f"  • SECTION I   : CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
         )
         lines.append(
-            f"  • SECTION II  : COMPLETE 23-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
+            f"  • SECTION II  : COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
         )
         lines.append("  • SECTION III : TIER 2 ENTERPRISE API, MCP & SELF-SERVICE DELIVERY CONTROLS")
     lines.append(rule_heavy)
     lines.append("")
 
     if norm_tier == "tier_2" and resolved_dossiers:
-        lines.append("SECTION I // CAPTUREDESK AUTOPILOT 23-API EXECUTIVE DOSSIERS")
+        lines.append("SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS")
         lines.append("Pre-shredded Bid/No-Go memos, IGCE/Wrap/PTW models, CMMC/NIST/RMF gates, and Shipley win themes.")
         lines.append(rule_light)
         for idx, d in enumerate(resolved_dossiers, start=1):
@@ -747,7 +857,7 @@ def format_subscriber_email_briefing(
             lines.append(f"  6. Teaming Mandate (#11): {d_team}")
             themes = [str(t).replace("**", "").strip() for t in (d.get("win_themes") or [])[:3] if t]
             if themes:
-                lines.append("  7. Tailored Shipley Section L/M Win Strategy (#05/#17/#19):")
+                lines.append("  7. Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33):")
                 for t_item in themes:
                     lines.append(f"       - {t_item}")
             ev_list = [str(e).replace("**", "").strip() for e in (d.get("evidence_needed") or [])[:2] if e]
@@ -756,18 +866,18 @@ def format_subscriber_email_briefing(
                 for e_item in ev_list:
                     lines.append(f"       - {e_item}")
             lines.append(f"  8. Official Portal URL  : {d_src}")
-            lines.append(f"     23-API Web Dossier   : {d_url}")
+            lines.append(f"     24-API Web Dossier   : {d_url}")
             lines.append(rule_light)
         lines.append("")
 
     wire_section_title = (
-        "SECTION II // COMPLETE 23-PORTAL LIVE RFP ALERT WIRE"
+        "SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE"
         if norm_tier == "tier_2"
-        else "SECTION I // 23-PORTAL LIVE RFP ALERT WIRE"
+        else "SECTION I // 28-PORTAL LIVE RFP ALERT WIRE"
     )
     lines.append(wire_section_title)
     lines.append(
-        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 23 government portals."
+        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 28 government portals."
     )
     lines.append(rule_light)
 
@@ -801,9 +911,9 @@ def format_subscriber_email_briefing(
         else "SECTION II // SUBSCRIBER DIRECTORY & DELIVERY CONTROLS"
     )
     lines.append(ctrl_section_title)
-    lines.append(f"  • Full 23-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
+    lines.append(f"  • Full 28-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
     if norm_tier == "tier_2":
-        lines.append(f"  • 29-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
+        lines.append(f"  • 34-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
         lines.append("  • Remote Streamable-HTTP MCP Server          : https://b2b-contract-parser-api.onrender.com/mcp")
     lines.append(f"  • Manage Discord / Webhook / Email Settings  : {SITE_BASE_URL}/#checkout")
     lines.append(f"  • 1-Click Turn OFF 6-Hour Email Briefings    : {disable_url}")
@@ -817,7 +927,7 @@ def format_subscriber_email_briefing(
     tier_pill = (
         "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)"
         if norm_tier == "tier_2"
-        else "TIER 1 // SIGNALWIRE PRO (23-PORTAL LIVE RFP WIRE)"
+        else "TIER 1 // SIGNALWIRE PRO (28-PORTAL LIVE RFP WIRE)"
     )
     tier_accent = "#6366f1" if norm_tier == "tier_2" else "#0ea5e9"
 
@@ -864,12 +974,12 @@ def format_subscriber_email_briefing(
                     <tr><td style="padding:4px 0;color:#94a3b8;">Teaming &amp; Sub Goal (#11):</td><td style="padding:4px 0;">{d_team}</td></tr>
                   </table>
                   <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
-                    <strong style="color:#a5b4fc;">Tailored Shipley Section L/M Win Strategy (#05/#17/#19):</strong>
+                    <strong style="color:#a5b4fc;">Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33):</strong>
                     <ul style="margin:6px 0 0 18px;padding:0;">{themes_li}</ul>
                   </div>
                   <div style="margin-top:10px;">
                     <a href="{d_src}" style="display:inline-block;padding:7px 12px;background:#1e293b;color:#38bdf8;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;border:1px solid #334155;margin-right:8px;">Official Portal Bid &nearr;</a>
-                    <a href="{d_url}" style="display:inline-block;padding:7px 12px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;font-weight:700;">Open Full 23-API Dossier &rarr;</a>
+                    <a href="{d_url}" style="display:inline-block;padding:7px 12px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;font-weight:700;">Open Full 24-API Dossier &rarr;</a>
                   </div>
                 </div>
                 """
@@ -916,16 +1026,16 @@ def format_subscriber_email_briefing(
         section_i_html = f"""
         <div style="margin-top:18px;margin-bottom:22px;">
           <div style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid #312e81;padding-bottom:6px;margin-bottom:12px;">
-            SECTION I // CAPTUREDESK AUTOPILOT 23-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} PACKAGES)
+            SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} PACKAGES)
           </div>
           {''.join(dossier_html_cards)}
         </div>
         """
 
     wire_header_label = (
-        f"SECTION II // COMPLETE 23-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        f"SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
         if norm_tier == "tier_2"
-        else f"SECTION I // 23-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        else f"SECTION I // 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
     )
 
     html_body = f"""
@@ -934,7 +1044,7 @@ def format_subscriber_email_briefing(
         <div style="font-family:monospace;font-size:11px;color:{tier_accent};font-weight:700;letter-spacing:0.06em;">{escape(tier_pill)}</div>
         <h2 style="margin:6px 0 4px 0;font-size:20px;color:#ffffff;">SignalTender 6-Hour GovCon Capture Briefing</h2>
         <div style="font-size:12px;color:#94a3b8;font-family:monospace;">
-          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 21-State SLED: {sled_count} | Municipal: {muni_count}
+          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 26-State SLED: {sled_count} | Municipal: {muni_count}
         </div>
         {pwin_html_badge}
       </div>
@@ -946,7 +1056,7 @@ def format_subscriber_email_briefing(
         {''.join(wire_html_rows)}
       </div>
       <div style="border-top:1px solid #1e293b;padding-top:14px;font-size:12px;color:#94a3b8;line-height:1.6;">
-        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 23-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
+        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 28-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
       </div>
     </div>
     """.strip()
@@ -964,8 +1074,8 @@ def _send_subscriber_email_briefing(
     """
     Send an organized, tier-specific 6-hour briefing email ONLY to active subscribers
     who opted in (`email_briefings_enabled: True`).
-    Tier 2 subscribers receive BOTH CaptureDesk Autopilot 23-API Dossiers (Section I)
-    and the Complete 23-Portal Live RFP Alert Wire (Section II) in the same single email.
+    Tier 2 subscribers receive BOTH CaptureDesk Autopilot 24-API Dossiers (Section I)
+    and the Complete 28-Portal Live RFP Alert Wire (Section II) in the same single email.
     """
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     smtp_user = os.getenv("SMTP_USER", "").strip()
@@ -1052,11 +1162,11 @@ def format_external_webhook_payload(
     both Subscription Tier (`tier_1` vs `tier_2`) and Destination Platform (`Slack`,
     `Microsoft Teams`, `Discord`, or `CRM / Zapier / Make.com / n8n / HubSpot / Salesforce`):
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 23-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
+          Section I: 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Dispatch combining BOTH:
-            Section I: CaptureDesk Autopilot 23-API Executive Dossiers (8-part pre-shredded memos)
-            Section II: Complete 23-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded memos)
+            Section II: Complete 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     """
     from datetime import datetime, timezone
 
@@ -1090,23 +1200,23 @@ def format_external_webhook_payload(
             s_lines.append("*SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE*")
             s_lines.append(
                 f"`Cycle: {cycle_label}` • *{total_wire} Vetted IT/Cyber RFPs* "
-                f"(Federal: `{fed_count}` | 21-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` | 26-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
             )
             s_lines.append("─" * 46)
-            s_lines.append("*SECTION I // 23-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION I // 28-PORTAL LIVE RFP ALERT WIRE*")
         else:
             s_lines.append("*SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING*")
             s_lines.append(
-                f"`Cycle: {cycle_label}` • *{len(resolved_dossiers)} CaptureDesk 23-API Dossiers* + "
+                f"`Cycle: {cycle_label}` • *{len(resolved_dossiers)} CaptureDesk 24-API Dossiers* + "
                 f"*{total_wire} Live Wire RFPs* (Federal: `{fed_count}` | SLED: `{sled_count}` | Municipal: `{muni_count}`)"
             )
             s_lines.append(
-                "• *Section I:* CaptureDesk Autopilot 23-API Executive Dossiers\n"
-                "• *Section II:* Complete 23-Portal Live RFP Alert Wire"
+                "• *Section I:* CaptureDesk Autopilot 24-API Executive Dossiers\n"
+                "• *Section II:* Complete 28-Portal Live RFP Alert Wire"
             )
             s_lines.append("─" * 46)
             if resolved_dossiers:
-                s_lines.append("*SECTION I // CAPTUREDESK AUTOPILOT 23-API EXECUTIVE DOSSIERS*")
+                s_lines.append("*SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS*")
                 for idx, d in enumerate(resolved_dossiers, start=1):
                     d_title = clean_title_text(str(d.get("title") or "Government IT Solicitation"))
                     d_agency = str(d.get("agency") or "Government Agency").strip()
@@ -1135,10 +1245,10 @@ def format_external_webhook_payload(
                     s_lines.append(f"  *5. IGCE, Wrap & PTW (#16/#20):* `{d_ptw}`")
                     s_lines.append(f"  *6. Key LCATs & Teaming (#11/#13):* `{d_lcat}` | `{d_team}`")
                     if theme_str:
-                        s_lines.append(f"  *7. Shipley Section L/M Win Strategy (#05/#17/#19):*\n{theme_str}")
-                    s_lines.append(f"  *8. Action Links:* <{d_src}|Official Portal Bid ↗>  |  <{d_url}|Open Full 23-API Dossier →>")
+                        s_lines.append(f"  *7. Shipley Section L/M Win Strategy (#05/#17/#19/#33):*\n{theme_str}")
+                    s_lines.append(f"  *8. Action Links:* <{d_src}|Official Portal Bid ↗>  |  <{d_url}|Open Full 24-API Dossier →>")
                     s_lines.append("─" * 46)
-            s_lines.append("*SECTION II // COMPLETE 23-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE*")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1157,7 +1267,7 @@ def format_external_webhook_payload(
                 f"  • *Buyer:* {agency} | *Due:* `{closing_date}`\n"
                 f"  • <{link}|Official Government Portal ↗>  |  <{dossier_url}|Unlocked SignalTender Brief →>"
             )
-        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 23-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
+        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 28-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
         return {"text": "\n".join(s_lines)}
 
     # 2. Native Microsoft Teams Markdown Card (`**bold**`, `[Label](url)`)
@@ -1167,23 +1277,23 @@ def format_external_webhook_payload(
             t_lines.append("### SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE")
             t_lines.append(
                 f"**Cycle:** `{cycle_label}` | **Total Vetted RFPs:** `{total_wire}` "
-                f"(Federal: `{fed_count}` • 21-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` • 26-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
             )
             t_lines.append("---")
-            t_lines.append("#### SECTION I // 23-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION I // 28-PORTAL LIVE RFP ALERT WIRE")
         else:
             t_lines.append("### SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING")
             t_lines.append(
-                f"**Cycle:** `{cycle_label}` | **{len(resolved_dossiers)} CaptureDesk 23-API Dossiers** + "
+                f"**Cycle:** `{cycle_label}` | **{len(resolved_dossiers)} CaptureDesk 24-API Dossiers** + "
                 f"**{total_wire} Live Wire RFPs** (Federal: `{fed_count}` • SLED: `{sled_count}` • Municipal: `{muni_count}`)"
             )
             t_lines.append(
-                "- **Section I:** CaptureDesk Autopilot 23-API Executive Dossiers\n"
-                "- **Section II:** Complete 23-Portal Live RFP Alert Wire"
+                "- **Section I:** CaptureDesk Autopilot 24-API Executive Dossiers\n"
+                "- **Section II:** Complete 28-Portal Live RFP Alert Wire"
             )
             t_lines.append("---")
             if resolved_dossiers:
-                t_lines.append("#### SECTION I // CAPTUREDESK AUTOPILOT 23-API EXECUTIVE DOSSIERS")
+                t_lines.append("#### SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS")
                 for idx, d in enumerate(resolved_dossiers, start=1):
                     d_title = clean_title_text(str(d.get("title") or "Government IT Solicitation"))
                     d_agency = str(d.get("agency") or "Government Agency").strip()
@@ -1209,10 +1319,10 @@ def format_external_webhook_payload(
                         f"- **4. Cyber & RMF Gates (#06/#18):** `{d_comp}`\n"
                         f"- **5. IGCE, Wrap & PTW (#16/#20):** `{d_ptw}`\n"
                         f"- **6. Key LCATs & Teaming (#11/#13):** `{d_lcat}` | `{d_team}`\n"
-                        f"- **7. Action Links:** [Official Portal Bid ↗]({d_src}) | [Open Full 23-API Dossier →]({d_url})"
+                        f"- **7. Action Links:** [Official Portal Bid ↗]({d_src}) | [Open Full 24-API Dossier →]({d_url})"
                     )
                 t_lines.append("---")
-            t_lines.append("#### SECTION II // COMPLETE 23-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1244,11 +1354,11 @@ def format_external_webhook_payload(
             if "?unlocked=1" not in d_url:
                 d_url = f"{d_url}?unlocked=1"
             d_block = (
-                f"**[SECTION I // CAPTUREDESK 23-API DOSSIER]** `{d0.get('jurisdiction_badge', 'FEDERAL')}`\n"
+                f"**[SECTION I // CAPTUREDESK 24-API DOSSIER]** `{d0.get('jurisdiction_badge', 'FEDERAL')}`\n"
                 f"**Solicitation:** {clean_title_text(str(d0.get('title') or ''))}\n"
                 f"**NAICS/PSC:** `{d0.get('primary_naics', '541512')}` | `{d0.get('primary_psc', 'D399')}` | **IGCE/PTW:** `{d0.get('igce_ptw_posture', '')}`\n"
                 f"**Cyber/RMF:** `{d0.get('compliance_posture', '')}`\n"
-                f"**Official Portal:** <{d0.get('source_url', '')}> | **23-API Dossier:** <{d_url}>\n"
+                f"**Official Portal:** <{d0.get('source_url', '')}> | **24-API Dossier:** <{d_url}>\n"
                 f"{'─' * 44}"
             )
             blocks.append(d_block)
@@ -1298,7 +1408,7 @@ def format_external_webhook_payload(
         return {
             "event": "signaltender.cycle_briefing.dispatched",
             "tier": "tier_1",
-            "tier_name": "Tier 1 // SignalWire Pro (23-Portal Live RFP Alert Wire)",
+            "tier_name": "Tier 1 // SignalWire Pro (28-Portal Live RFP Alert Wire)",
             "platform": platform,
             "cycle_timestamp_utc": cycle_iso,
             "summary": {
@@ -1348,7 +1458,7 @@ def format_external_webhook_payload(
     return {
         "event": "signaltender.cycle_briefing.dispatched",
         "tier": "tier_2",
-        "tier_name": "Tier 2 // CaptureDesk Autopilot (Unified 23-API Dossiers + 23-Portal Live Wire)",
+        "tier_name": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 28-Portal Live Wire)",
         "platform": platform,
         "cycle_timestamp_utc": cycle_iso,
         "summary": {
@@ -1375,7 +1485,7 @@ def _dispatch_to_external_customer_webhooks(
     Dispatch newly discovered RFPs to any active subscriber external webhooks
     (Slack, Microsoft Teams, Zapier, Make.com, n8n, HubSpot, Salesforce) AND
     dispatch tier-specific 6-Hour Email Briefings (with Tier 2 combining both
-    CaptureDesk Autopilot 23-API Dossiers and the Live RFP Alert Wire in one unified package)
+    CaptureDesk Autopilot 24-API Dossiers and the Live RFP Alert Wire in one unified package)
     stored in Supabase with status='SUBSCRIBER_ACTIVE'.
     """
     import json
@@ -1563,7 +1673,7 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
                 f"Our CaptureDesk engine has already generated the Shipley Section L/M Compliance Matrix, "
                 f"CPARS Volume III Past Performance citations, 13 CFR § 125.6 Teaming Plan, and IGCE Price-to-Win "
                 f"model for this solicitation.\n\n"
-                f"You can unlock the full un-blurred official portal link and 23-API CaptureDesk suite in 60 seconds "
+                f"You can unlock the full un-blurred official portal link and 24-API CaptureDesk suite in 60 seconds "
                 f"(Tier 1 SignalWire Pro $99/mo or Tier 2 CaptureDesk Autopilot $399/mo — FAR 31.205-18 Corporate P-Card Ready with 1-click non-renewing pass toggle) here:\n"
                 f"{SITE_BASE_URL}/#checkout\n\n"
                 f"Or manage your saved bids and alert filters in your Client Portal:\n"

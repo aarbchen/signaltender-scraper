@@ -68,6 +68,11 @@ SCRAPER_MODULES = [
     "tn_scraper",
     "in_scraper",
     "mo_scraper",
+    "wi_scraper",
+    "sc_scraper",
+    "or_scraper",
+    "ct_scraper",
+    "ut_scraper",
 ]
 
 ALL_MONITORED_FILES = [
@@ -94,6 +99,11 @@ ALL_MONITORED_FILES = [
     "tn_scraper.py",
     "in_scraper.py",
     "mo_scraper.py",
+    "wi_scraper.py",
+    "sc_scraper.py",
+    "or_scraper.py",
+    "ct_scraper.py",
+    "ut_scraper.py",
     "pseo_generator.py",
     "capturedesk_autopilot.py",
     "client_delivery.py",

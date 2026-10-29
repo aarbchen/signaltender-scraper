@@ -16,6 +16,7 @@ Runs automated static + headless Node.js runtime checks across `d:\\Daas\\index.
 """
 
 import glob
+import json
 import os
 import re
 import subprocess
@@ -159,6 +160,16 @@ def check_html_file(fpath: str) -> str:
             "#contracts/indiana",
             "#contracts/mo",
             "#contracts/missouri",
+            "#contracts/wi",
+            "#contracts/wisconsin",
+            "#contracts/sc",
+            "#contracts/south_carolina",
+            "#contracts/or",
+            "#contracts/oregon",
+            "#contracts/ct",
+            "#contracts/connecticut",
+            "#contracts/ut",
+            "#contracts/utah",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -329,6 +340,11 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "govcon-30-60-90-day-phase-in-transition-plan-api",
             "dcaa-pre-award-sf1408-accounting-system-auditor-api",
             "dod-ota-10-usc-4022-prototype-white-paper-api",
+            "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api",
+            "far-52-219-9-subcontracting-plan-esrs-calculator-api",
+            "dfars-252-227-7013-7014-7017-data-rights-assertion-api",
+            "govcon-shipley-black-hat-incumbent-ghosting-api",
+            "govcon-cpars-self-assessment-14-day-rebuttal-api",
         }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
             if rslug not in verified_rapidapi_studio_slugs:
@@ -521,14 +537,14 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations
         expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
-        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,350}", txt):
+        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,450}", txt):
             snippet = m.group(0)
             for abbr in expected_abbrs:
                 if abbr not in snippet:
                     fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
 
         # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
-        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,1100}", txt):
+        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,1400}", txt):
             snippet = m.group(0)
             for sk in state_keys:
                 state_title = sk.replace("_", " ").title()
@@ -551,8 +567,13 @@ def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:
     import pseo_generator
 
     n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
-    n_portals = len(pseo_generator.JURISDICTIONS)
-    state_keys = [k for k in pseo_generator.JURISDICTIONS.keys() if k not in ("federal", "municipal")]
+    jm = re.search(r"window\.SIGNALTENDER_JURISDICTIONS\s*=\s*(\{.*?\});", index_txt, flags=re.S)
+    if jm:
+        jurisdictions = json.loads(jm.group(1))
+    else:
+        jurisdictions = pseo_generator.JURISDICTIONS
+    n_portals = len(jurisdictions)
+    state_keys = [k for k in jurisdictions.keys() if k not in ("federal", "municipal")]
     n_states = len(state_keys)
 
     tier2_api_nums = list(range(1, 21))
@@ -953,8 +974,13 @@ def check_conversion_and_distribution_surfaces(index_txt: str) -> None:
     import pseo_generator
 
     n_apis = len(re.findall(r'<article\s+id="product-[^"]+"', index_txt))
-    n_portals = len(pseo_generator.JURISDICTIONS)
-    state_keys = [k for k in pseo_generator.JURISDICTIONS.keys() if k not in ("federal", "municipal")]
+    jm = re.search(r"window\.SIGNALTENDER_JURISDICTIONS\s*=\s*(\{.*?\});", index_txt, flags=re.S)
+    if jm:
+        jurisdictions = json.loads(jm.group(1))
+    else:
+        jurisdictions = pseo_generator.JURISDICTIONS
+    n_portals = len(jurisdictions)
+    state_keys = [k for k in jurisdictions.keys() if k not in ("federal", "municipal")]
     n_states = len(state_keys)
 
     stale_portal_tokens = []

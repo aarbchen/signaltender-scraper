@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Shipley Black Hat Incumbent Ghosting API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Conducts a Shipley Black-Hat competitive intelligence simulation on a target solicitation and incumbent contractor, profiling likely competitor bidding strategies and wrap-rate postures, generating verbatim ethical ghosting statements mapped to RFP Section L/M evaluation factors, neutralizing incumbent transition advantages, and drafting Contracting Officer Q&A shaping questions. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/capture-black-hat-review": {
+      "post": {
+        "operationId": "generateGovconShipleyBlackHatIncumbentGhostingReview",
+        "summary": "Generate GovCon Black-Hat Competitive Review & Ethical Ghosting Statements",
+        "description": "Simulates competitor bidding strategies, exposes incumbent recompete vulnerabilities, and generates Shipley ethical ghosting statements, CO shaping questions, and Red Team scoring triggers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "BlackHatReviewRequest",
+                "required": [
+                  "solicitation_and_incumbent_context_text"
+                ],
+                "properties": {
+                  "solicitation_and_incumbent_context_text": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 45000,
+                    "description": "Target RFP scope, Section M evaluation weights, incumbent contractor name/PIID, historical award ceiling, known incumbent pain points (SLA misses, turnover, legacy tech debt), and likely competitor bidders."
+                  },
+                  "bidder_discriminators_and_proof_points": {
+                    "type": "string",
+                    "default": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
+                    "maxLength": 4000,
+                    "description": "Bidder's technical discriminators, proprietary accelerators, past performance metrics, socio-economic status, and wrap-rate / PTW advantages."
+                  },
+                  "evaluation_type_and_posture": {
+                    "type": "string",
+                    "default": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff",
+                    "maxLength": 2000,
+                    "description": "Capture posture and source selection method (e.g., Challenger Unseating Incumbent under Best-Value Tradeoff, Incumbent Defending Recompete, or LPTA)."
+                  }
+                }
+              },
+              "example": {
+                "solicitation_and_incumbent_context_text": "Target Recompete: DoD C5ISR Enterprise Cloud & 24x7 Cyber SOC Operations ($85M 5-Year Single-Award Task Order). Section M Evaluation: Best-Value Tradeoff (Factor 1 Technical Approach [Most Important] > Factor 2 Management & Transition > Factor 3 Past Performance > Price). Incumbent: LegacyDefense Corp (held contract for 5 years; known pain points include 18% annual SOC analyst turnover, delayed RMF cATO pipeline, and high 2.15x Tier-1 wrap rate). Other Likely Bidders: BeltwayScale SI (aggressive price cutter using junior LCATs).",
+                "bidder_discriminators_and_proof_points": "Cleared_Automation_First_Team_With_Zero_Trust_cATO_And_Lower_Wrap_Rate",
+                "evaluation_type_and_posture": "Challenger_Unseating_Incumbent_Best_Value_Tradeoff"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete Shipley Black-Hat Competitive Intelligence & Incumbent Ghosting Review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

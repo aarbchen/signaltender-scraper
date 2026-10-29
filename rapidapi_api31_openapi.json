@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FAR 52 219 9 Subcontracting Plan eSRS Calculator API",
+    "version": "1.0.0",
+    "x-category": "Business",
+    "description": "Calculates Small Business subcontracting dollar and percentage goals across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone categories (under both % of Total Subcontracted Dollars and % of Total Contract Value baselines), drafts the 15 mandatory elements of a FAR 52.219-9 Small Business Subcontracting Plan and DFARS 252.219-7003 Small Business Participation Commitment Document (SBPCD), and structures eSRS ISR/SSR reporting and FAR 52.219-16 Liquidated Damages good-faith effort controls. Stateless, read-only, and idempotent."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/small-business-participation": {
+      "post": {
+        "operationId": "generateFar522199SmallBusinessSubcontractingPlan",
+        "summary": "Generate FAR 52.219-9 Subcontracting Plan & eSRS Socioeconomic Goals",
+        "description": "Calculates FAR 52.219-9 & DFARS 252.219-7003 Small Business Subcontracting Plan goals across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone, drafts all 15 FAR 52.219-9(d) elements, and structures eSRS ISR/SSR reporting.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "title": "SmallBusinessSubcontractingRequest",
+                "required": [
+                  "solicitation_subcontracting_and_clin_text"
+                ],
+                "properties": {
+                  "solicitation_subcontracting_and_clin_text": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 45000,
+                    "description": "Total contract ceiling, Base + Option period breakdown, total planned subcontracted dollars, RFP Section L/M Small Business Participation factor targets, and named subcontractor commitments."
+                  },
+                  "plan_type_and_regulatory_regime": {
+                    "type": "string",
+                    "default": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
+                    "maxLength": 2000,
+                    "description": "Subcontracting Plan structure: Individual Plan, Master Plan + Individual Goals, or Commercial Subcontracting Plan under FAR 52.219-9 / DFARS 252.219-7003."
+                  },
+                  "agency_socioeconomic_goal_benchmarks": {
+                    "type": "string",
+                    "default": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone",
+                    "maxLength": 2000,
+                    "description": "Agency statutory or RFP-mandated small business subcontracting goal percentages across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone."
+                  }
+                }
+              },
+              "example": {
+                "solicitation_subcontracting_and_clin_text": "Total 5-Year IDIQ Task Order Ceiling: $50,000,000 (Base Year $10M + Four 1-Year Options at $10M/yr). Total Planned Subcontracted Spend: $20,000,000 (40.0% of Total Contract Value). Section M Small Business Participation Factor requires >= 25% of Total Contract Value ($12.5M) or >= 62.5% of Total Subcontracted Spend awarded to Small Businesses, including SDB/8(a) Cyber Sentinel LLC (NAICS 541512, $3.5M), SDVOSB Valor Cloud Solutions (NAICS 541519, $3.0M), WOSB Athena Analytics Inc. (NAICS 541511, $2.5M), and HUBZone Appalachian DevSecOps Corp (NAICS 541512, $1.5M).",
+                "plan_type_and_regulatory_regime": "Individual_Subcontracting_Plan_FAR_52_219_9_And_DFARS_252_219_7003",
+                "agency_socioeconomic_goal_benchmarks": "DoD_23Pct_SB_5Pct_SDB_5Pct_WOSB_5Pct_SDVOSB_3Pct_HUBZone"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete FAR 52.219-9 Small Business Subcontracting Plan & eSRS Goal Table",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

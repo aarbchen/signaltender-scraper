@@ -733,6 +733,36 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "default_agency": "State of Missouri (MissouriBUYS / OA-ITSD)",
         "pop_state_code": "MO",
     },
+    "Wisconsin SLED (eSupplier / DOA DET)": {
+        "portal_url": "https://esupplier.wi.gov",
+        "socrata_json": "",
+        "default_agency": "State of Wisconsin (eSupplier / DOA DET)",
+        "pop_state_code": "WI",
+    },
+    "South Carolina SLED (SCBO / SFAA)": {
+        "portal_url": "https://scbo.sc.gov",
+        "socrata_json": "",
+        "default_agency": "State of South Carolina (SCBO / Admin OTIS)",
+        "pop_state_code": "SC",
+    },
+    "Oregon SLED (OregonBuys / DAS EIS)": {
+        "portal_url": "https://oregonbuys.gov/bso/view/search/external/advancedSearchBid.xhtml",
+        "socrata_json": "",
+        "default_agency": "State of Oregon (OregonBuys / DAS EIS)",
+        "pop_state_code": "OR",
+    },
+    "Connecticut SLED (CTsource / DAS BITS)": {
+        "portal_url": "https://portal.ct.gov/DAS/CTSource/BidBoard",
+        "socrata_json": "",
+        "default_agency": "State of Connecticut (CTsource / DAS BITS)",
+        "pop_state_code": "CT",
+    },
+    "Utah SLED (U3P SciQuest / DTS)": {
+        "portal_url": "https://purchasing.utah.gov/current-bids/",
+        "socrata_json": "",
+        "default_agency": "State of Utah (U3P SciQuest / DTS)",
+        "pop_state_code": "UT",
+    },
 }
 
 
@@ -975,6 +1005,11 @@ async def run_master_orchestrator(
         _run_source("Tennessee SLED (Edison CPO / STS)", "import tn_scraper", "tn_scraper.run_scraper(push_to_db=False)"),
         _run_source("Indiana SLED (IDOA / IOT)", "import in_scraper", "in_scraper.run_scraper(push_to_db=False)"),
         _run_source("Missouri SLED (MissouriBUYS / OA-ITSD)", "import mo_scraper", "mo_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Wisconsin SLED (eSupplier / DOA DET)", "import wi_scraper", "wi_scraper.run_scraper(push_to_db=False)"),
+        _run_source("South Carolina SLED (SCBO / SFAA)", "import sc_scraper", "sc_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Oregon SLED (OregonBuys / DAS EIS)", "import or_scraper", "or_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Connecticut SLED (CTsource / DAS BITS)", "import ct_scraper", "ct_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Utah SLED (U3P SciQuest / DTS)", "import ut_scraper", "ut_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -1002,6 +1037,11 @@ async def run_master_orchestrator(
         "Tennessee SLED (Edison CPO / STS)",
         "Indiana SLED (IDOA / IOT)",
         "Missouri SLED (MissouriBUYS / OA-ITSD)",
+        "Wisconsin SLED (eSupplier / DOA DET)",
+        "South Carolina SLED (SCBO / SFAA)",
+        "Oregon SLED (OregonBuys / DAS EIS)",
+        "Connecticut SLED (CTsource / DAS BITS)",
+        "Utah SLED (U3P SciQuest / DTS)",
     ]
     combined_records = []
 

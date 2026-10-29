@@ -11,7 +11,7 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **01** | `parse_b2b_contract` | `POST /v1/parse/contract` | Extracts parties, dates, contract value, deliverables, and governing law from unstructured RFPs & SOWs. |
 | **02** | `audit_contract_risks` | `POST /v1/parse/contract-risks` | Scores legal risk (`0-100`), quotes toxic clauses verbatim, and generates ready-to-paste fallback redlines. |
 | **03** | `search_historical_awards` | `POST /v1/awards/search` | Queries federal contract awards, incumbent primes, and historical CLIN pricing benchmarks. |
-| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN & MO. |
+| **04** | `get_live_solicitations` | `GET /v1/solicitations/live` | Streams live open IT, Cloud & Cybersecurity RFPs across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT & UT. |
 | **05** | `generate_compliance_matrix` | `POST /v1/generate/compliance-matrix` | Builds a Shipley `shall`/`must` Compliance Checklist, Section L-to-M cross-reference, and Proposal Outline. |
 | **06** | `scan_far_dfars_clauses` | `POST /v1/audit/far-dfars-clauses` | Detects `FAR 52.2xx` & `DFARS 252.2xx` clauses, flags mandatory flow-downs, and scores CMMC 2.0 burden. |
 | **07** | `match_capability_statement` | `POST /v1/match/capability-statement` | Calculates a `0-100` Pwin (Probability of Win) score, Bid/No-Bid decision, gap analysis, and executive pitch. |
@@ -37,6 +37,11 @@ Equip **Claude Desktop**, **Cursor**, **Windsurf**, **Cline**, and autonomous AI
 | **27** | `generate_phase_in_transition_plan` | `POST /v1/generate/phase-in-transition-plan` | Generates a risk-mitigated 30/60/90-Day Phase-In/Out Transition Plan with WBS milestones, EO 14055 / SCA Incumbent Right-of-First-Refusal retention scripts, clearance crossover timelines, and FAR 52.237-3 checklists. |
 | **28** | `audit_dcaa_accounting_sf1408` | `POST /v1/audit/dcaa-accounting-sf1408` | Audits contractor chart of accounts, Fringe/Overhead/G&A indirect pools, timekeeping controls, and FAR 31.205 unallowables against the 18-point DCAA Standard Form 1408 (SF 1408) Pre-Award Checklist. |
 | **29** | `generate_ota_white_paper` | `POST /v1/generate/ota-white-paper` | Converts commercial dual-use technology specs and DoD Problem Statements (DIU, C5ISR, SOSSEC, SpEC, MTEC, NSTXL) into a 10 U.S.C. 4022 OTA Prototype White Paper, NDC Justification, Payable Milestone Schedule, and Phase 3 Follow-On Production Strategy. |
+| **30** | `audit_foci_dd254_clearance` | `POST /v1/audit/foci-dd254-clearance` | Audits DD Form 254 (Blocks 10, 11, 13), SF 328 foreign interest triggers, and corporate cap-table structures under 32 CFR Part 117 (NISPOM) and DCSA FCL / FOCI mitigation standards. |
+| **31** | `generate_small_business_participation` | `POST /v1/generate/small-business-participation` | Calculates FAR 52.219-9 & DFARS 252.219-7003 Small Business Subcontracting Plan goals across SB, SDB/8(a), WOSB, SDVOSB, and HUBZone, drafts all 15 FAR 52.219-9(d) elements, and structures eSRS ISR/SSR reporting. |
+| **32** | `generate_data_rights_assertion_table` | `POST /v1/generate/data-rights-assertion-table` | Generates a 4-column DFARS 252.227-7017 / FAR 52.227-14 IP & Data Rights Assertion Table, verbatim restrictive marking legends, and a 10 U.S.C. 4401 MOSA boundary protection plan. |
+| **33** | `generate_capture_black_hat_review` | `POST /v1/generate/capture-black-hat-review` | Simulates competitor bidding strategies, exposes incumbent recompete vulnerabilities, and generates Shipley ethical ghosting statements, CO shaping questions, and Red Team scoring triggers. |
+| **34** | `generate_post_award_cpar_rebuttal` | `POST /v1/generate/post-award-cpar-rebuttal` | Transforms contract performance metrics and draft Assessing Official CPARs into a FAR 42.1503 Table 42-1 justified Self-Assessment Package and a 14-Calendar-Day Reviewing Official Rebuttal Brief. |
 
 ---
 
