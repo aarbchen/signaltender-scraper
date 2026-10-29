@@ -327,6 +327,21 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     if og_fp.exists() and "accounts/warmup/disable" in og_fp.read_text(encoding="utf-8", errors="replace"):
         issues.append("outreach_generator.py must NEVER call `accounts/warmup/disable` on active sending mailboxes.")
 
+    # 3d. Verify proposal_compiler.py runtime quality gate & PostgREST subscriber://* wildcard filters
+    eco_dir = pathlib.Path(r"D:\Data API Ecosystem")
+    pc_fp = eco_dir / "api" / "routers" / "proposal_compiler.py"
+    if pc_fp.exists():
+        pc_src = pc_fp.read_text(encoding="utf-8", errors="replace")
+        for req_sym in ("_infer_target_jurisdiction", "_enforce_proposal_package_quality_gate", "_lookup_offeror_verified_profile", "not.like.subscriber://*"):
+            if req_sym not in pc_src:
+                issues.append(f"api/routers/proposal_compiler.py is missing required quality-gate symbol `{req_sym}` (RULE-008-PRODUCT-OUTPUT-QUALITY-GATE).")
+    for r_rel in ("solicitations.py", "stripe_webhook.py"):
+        r_fp = eco_dir / "api" / "routers" / r_rel
+        if r_fp.exists():
+            r_src = r_fp.read_text(encoding="utf-8", errors="replace")
+            if "not.like.subscriber://%" in r_src or "not.like.subscriber://*" not in r_src:
+                issues.append(f"api/routers/{r_rel} must use PostgREST wildcard `not.like.subscriber://*` (never `not.like.subscriber://%`).")
+
     # 4. Verify all 5 SignalTender Discord webhooks and the main Discord Bot user have the SignalTender radar-chevron avatar set
     icon_path = BASE_DIR / "apple-touch-icon.png"
     icon_b64 = None

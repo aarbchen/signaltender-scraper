@@ -1336,6 +1336,228 @@ def check_acquisition_and_email_guardrails() -> None:
             fail("api/routers/leads.py: `_dispatch_abandoned_checkout_followup()` is missing Instantly V2 outbound campaign lead lookup!")
 
 
+def check_product_output_quality_controls() -> None:
+    """
+    RULE-008-PRODUCT-OUTPUT-QUALITY-GATE:
+    Permanent end-to-end quality gate verifying that all customer-facing deliverables
+    (6-file Shipley Proposal .ZIP packages, FOIA/CPRA/PIA statutory demand letters,
+    USAspending corporate teaming partner matching, LCAT labor tables, wrap-rate telemetry,
+    bilateral teaming handshakes, and live solicitation feeds) produce 100% jurisdiction-accurate,
+    defect-free output with zero cross-state leakage, zero non-corporate pool names,
+    zero broken LCAT splits, and zero internal `subscriber://*` state leakage.
+    """
+    import asyncio
+    import io
+    import types
+    import zipfile
+
+    # 1. Verify USAspending vault purity across both repos (zero synthetic SLED-* schedule rows)
+    vault_daas = os.path.join(BASE_DIR, "usaspending_verified_vault.json")
+    vault_eco = r"d:\Data API Ecosystem\api\routers\usaspending_verified_vault.json"
+    for vlabel, vpath in (("Daas vault", vault_daas), ("Ecosystem vault", vault_eco)):
+        if not os.path.exists(vpath):
+            fail(f"Missing {vlabel} at {vpath}")
+        with open(vpath, "r", encoding="utf-8", errors="replace") as vf:
+            vdata = json.load(vf)
+        awards = vdata if isinstance(vdata, list) else vdata.get("awards", [])
+        if len(awards) < 200:
+            fail(f"{vlabel}: Expected >= 200 verified USAspending awards, found {len(awards)}")
+        for aw in awards:
+            cid = str(aw.get("award_id") or aw.get("contract_id") or "")
+            rec = str(aw.get("winning_vendor") or aw.get("recipient_name") or "")
+            if cid.startswith("SLED-") or "Pool" in rec or "Schedule" in rec:
+                fail(f"{vlabel}: Found synthetic/non-corporate row ({cid} / {rec}) in usaspending_verified_vault.json!")
+
+    # 2. Verify solicitations.py and stripe_webhook.py exclude subscriber://* rows using PostgREST '*' wildcard
+    for rlabel, rpath in (
+        ("api/routers/solicitations.py", r"d:\Data API Ecosystem\api\routers\solicitations.py"),
+        ("api/routers/stripe_webhook.py", r"d:\Data API Ecosystem\api\routers\stripe_webhook.py"),
+    ):
+        if os.path.exists(rpath):
+            with open(rpath, "r", encoding="utf-8", errors="replace") as rf:
+                rsrc = rf.read()
+            if "not.like.subscriber://%" in rsrc:
+                fail(f"{rlabel}: Uses SQL '%' wildcard `not.like.subscriber://%` instead of PostgREST '*' wildcard `not.like.subscriber://*`!")
+            if "not.like.subscriber://*" not in rsrc:
+                fail(f"{rlabel}: Missing `not.like.subscriber://*` filter to exclude internal state rows from live contract queries!")
+
+    # 3. Execute end-to-end 6-file Shipley Proposal .ZIP & Vault/M1/M2 verification on proposal_compiler.py
+    eco_root = r"d:\Data API Ecosystem"
+    if eco_root not in sys.path:
+        sys.path.insert(0, eco_root)
+
+    try:
+        import fastapi  # noqa: F401
+    except ImportError:
+        fa = types.ModuleType("fastapi")
+
+        class _DummyRouter:
+            def __init__(self, *a, **kw):
+                pass
+
+            def get(self, *a, **kw):
+                return lambda fn: fn
+
+            def post(self, *a, **kw):
+                return lambda fn: fn
+
+        class _DummyHTTPException(Exception):
+            def __init__(self, status_code: int = 500, detail: str = ""):
+                self.status_code = status_code
+                self.detail = detail
+                super().__init__(f"HTTP {status_code}: {detail}")
+
+        fa.APIRouter = _DummyRouter
+        fa.Header = lambda default=None, **kw: default
+        fa.Query = lambda default=None, **kw: default
+        fa.Response = object
+        fa.status = types.SimpleNamespace(HTTP_200_OK=200, HTTP_400_BAD_REQUEST=400, HTTP_500_INTERNAL_SERVER_ERROR=500)
+        fa.HTTPException = _DummyHTTPException
+        sys.modules["fastapi"] = fa
+
+    try:
+        import core.config  # noqa: F401
+    except Exception:
+        core_mod = types.ModuleType("core")
+        cfg_mod = types.ModuleType("core.config")
+
+        class _DummySettings:
+            anthropic_api_key = os.getenv("ANTHROPIC_API_KEY", "")
+            anthropic_model = "claude-sonnet-5-5"
+            rapidapi_proxy_secret = os.getenv("RAPIDAPI_PROXY_SECRET", "")
+
+            def __getattr__(self, name: str) -> str:
+                return os.getenv(name, "") or os.getenv(name.upper(), "")
+
+        cfg_mod.settings = _DummySettings()
+        core_mod.config = cfg_mod
+        sys.modules["core"] = core_mod
+        sys.modules["core.config"] = cfg_mod
+
+    import importlib.util
+
+    pc_spec = importlib.util.spec_from_file_location(
+        "proposal_compiler_under_test",
+        r"d:\Data API Ecosystem\api\routers\proposal_compiler.py",
+    )
+    pc = importlib.util.module_from_spec(pc_spec)
+    assert pc_spec and pc_spec.loader
+    pc_spec.loader.exec_module(pc)
+
+    async def _run_compiler_suite() -> None:
+        import html as _html
+
+        def _extract_openxml_text(inner_bytes: bytes) -> str:
+            with zipfile.ZipFile(io.BytesIO(inner_bytes)) as inner_zf:
+                chunks = []
+                for nm in inner_zf.namelist():
+                    if nm.endswith(".xml"):
+                        raw_xml = inner_zf.read(nm).decode("utf-8", errors="replace")
+                        chunks.append(_html.unescape(re.sub(r"<[^>]+>", " ", raw_xml)))
+                return "\n".join(chunks)
+
+        # Scenario A: California Caltrans 0000034018 + Fuse Integration (Will Thomas scenario)
+        req_ca = pc.ProposalCompileRequest(
+            solicitation_id="0000034018",
+            solicitation_title="[0000034018] CALIFORNIA DEPARTMENT OF TRANSPORTATION — Enterprise Traffic Management & Cloud Telemetry Modernization",
+            agency="California Department of Transportation (Caltrans)",
+            naics="541512",
+            company_name="Fuse Integration",
+            target_margin_pct=18.5,
+            key_personnel_lcats="Cleared Cyber Program Manager (PMP/CISSP) • Lead Zero-Trust Cloud Architect • Senior DevSecOps Automation Engineer",
+            past_performance_refs="",
+            rfp_text="",
+            download_zip=False,
+            suppress_vault_persist=True,
+        )
+        res_ca = await pc.compile_full_proposal_package(req_ca)
+        zf_ca = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_ca["zip_base64"])))
+        names_ca = sorted(zf_ca.namelist())
+        if len(names_ca) != 6:
+            fail(f"proposal_compiler.py: Expected 6 files in .ZIP, got {len(names_ca)}: {names_ca}")
+        vol1_ca = _extract_openxml_text(zf_ca.read("Volume_I_Technical_and_Management_Proposal.docx"))
+        vol2_ca = _extract_openxml_text(zf_ca.read("Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx"))
+        vol3_ca = _extract_openxml_text(zf_ca.read("Volume_III_Past_Performance_Teaming_and_Compliance.docx"))
+        vol4_ca = _extract_openxml_text(zf_ca.read("Volume_IV_FAR_Subpart_9_6_Teaming_Agreement_and_13_CFR_125_6_Exhibit_A.docx"))
+        vol5_ca = _extract_openxml_text(zf_ca.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
+        manifest_ca = zf_ca.read("00_Shipley_Submission_Readiness_Manifest.json").decode("utf-8")
+        combined_ca = "\n".join([vol1_ca, vol2_ca, vol3_ca, vol4_ca, vol5_ca, manifest_ca])
+
+        if "DZZ3WVXGEHW8" not in vol1_ca or "N0042125F0484" not in vol3_ca:
+            fail("proposal_compiler.py: Failed to auto-enrich known contractor 'Fuse Integration' with SAM UEI DZZ3WVXGEHW8 and Navy contract N0042125F0484!")
+        for forbidden_ca in ("tn.gov", "tennessee", "tdot", "missouri", "south carolina", "5 u.s.c. § 552", "freedom of information act (5 u.s.c."):
+            if forbidden_ca in combined_ca.lower():
+                fail(f"proposal_compiler.py: Cross-jurisdiction or federal FOIA leak '{forbidden_ca}' found in California Caltrans package!")
+        if "Cal. Gov't Code § 7920.000" not in vol5_ca or "CA-DGS-TDDC-2025-11" not in vol2_ca:
+            fail("proposal_compiler.py: California Caltrans package missing CPRA citation (`Cal. Gov't Code § 7920.000`) or CA DGS benchmark (`CA-DGS-TDDC-2025-11`)!")
+        if "(PMP:" in vol2_ca or "CISSP):" in vol2_ca:
+            fail("proposal_compiler.py: Volume II LCAT parser split parenthetical `(PMP/CISSP)` across two rows!")
+        for bad_corp_tok in ("Pool", "Schedule", "Statewide"):
+            if bad_corp_tok in vol4_ca:
+                fail(f"proposal_compiler.py: Non-corporate token '{bad_corp_tok}' found in Volume IV FAR 9.6 Teaming Agreement!")
+        for bad_case_tok in ("22Nd", "Llc"):
+            if bad_case_tok in vol3_ca or bad_case_tok in vol4_ca:
+                fail(f"proposal_compiler.py: Mangled corporate suffix token '{bad_case_tok}' found in Volume III/IV!")
+
+        # Scenario B: Texas DIR SLED solicitation
+        req_tx = pc.ProposalCompileRequest(
+            solicitation_id="TX-DIR-CPO-5194",
+            solicitation_title="[TX-DIR-CPO-5194] Texas DIR Zero-Trust Cloud Security Operations",
+            agency="Texas Department of Information Resources (DIR)",
+            naics="541512",
+            company_name="Apex Cyber Defense LLC",
+            download_zip=False,
+            suppress_vault_persist=True,
+        )
+        res_tx = await pc.compile_full_proposal_package(req_tx)
+        zf_tx = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_tx["zip_base64"])))
+        vol5_tx = _extract_openxml_text(zf_tx.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
+        if "Tex. Gov't Code Ch. 552" not in vol5_tx or "5 U.S.C. § 552" in vol5_tx:
+            fail("proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code Ch. 552`)!")
+
+        # Scenario C: Federal DISA solicitation
+        req_fed = pc.ProposalCompileRequest(
+            solicitation_id="FA8726-26-R-0042",
+            solicitation_title="DISA Enterprise Cloud DevSecOps & Zero-Trust Engineering",
+            agency="Department of Defense — Defense Information Systems Agency (DISA)",
+            naics="541512",
+            company_name="Apex Cyber Defense LLC",
+            download_zip=False,
+            suppress_vault_persist=True,
+        )
+        res_fed = await pc.compile_full_proposal_package(req_fed)
+        zf_fed = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_fed["zip_base64"])))
+        vol5_fed = _extract_openxml_text(zf_fed.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
+        if "5 U.S.C. § 552" not in vol5_fed:
+            fail("proposal_compiler.py: Federal DISA package failed to cite Federal FOIA (`5 U.S.C. § 552`)!")
+
+        # Verify Vault, Wrap Index, and Bilateral Teaming Handshake endpoints & response schema keys
+        inst_vault = await pc.get_institutional_bid_vault(company_name="Fuse Integration")
+        if not (inst_vault.get("verified_company_profile") or {}).get("uei") == "DZZ3WVXGEHW8":
+            fail("proposal_compiler.py: `get_institutional_bid_vault` failed to return verified UEI for Fuse Integration!")
+        wrap_res = await pc.get_market_wrap_index(naics="541512", agency="Department of Defense (DISA)", offeror_wrap=1.82)
+        for req_wk in ("sample_size", "sample_size_submissions", "p25_competitive_wrap", "p50_median_wrap", "p75_ceiling_wrap"):
+            if req_wk not in wrap_res:
+                fail(f"proposal_compiler.py: `get_market_wrap_index` missing required frontend/API key '{req_wk}'")
+        hs_res = await pc.confirm_teaming_handshake(
+            pc.TeamingHandshakeRequest(
+                prime_company="Fuse Integration",
+                sub_company="Decisive Instincts, LLC",
+                sub_email="capture@decisiveinstincts.com",
+                solicitation_id="0000034018",
+                solicitation_title="Caltrans Enterprise Cloud Modernization",
+                issuing_agency="California Department of Transportation (Caltrans)",
+                suppress_alert=True,
+            )
+        )
+        for req_hk in ("target_partner_name", "target_partner_uei", "solicitation_title", "nda_ta_reference_id"):
+            if not hs_res.get(req_hk):
+                fail(f"proposal_compiler.py: `confirm_teaming_handshake` missing required frontend/API key '{req_hk}'")
+
+    asyncio.run(_run_compiler_suite())
+
+
+
 def check_mobile_viewport_overflow() -> None:
     """
     Renders index.html (all SPA routes + RFP dossier + API Sandbox modal), apis.html,
@@ -1517,6 +1739,7 @@ def main() -> int:
     check_conversion_and_distribution_surfaces(index_txt)
     check_anti_regression_guardrails(index_txt, apis_txt)
     check_acquisition_and_email_guardrails()
+    check_product_output_quality_controls()
     check_spa_runtime(index_txt)
     if not os.getenv("RENDER") and not os.getenv("CI"):
         import asyncio

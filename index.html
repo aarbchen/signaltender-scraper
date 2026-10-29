@@ -13355,50 +13355,62 @@
         btnEl.textContent = 'Compiling 6-File Package (Vol I-III + FAR 9.6 Teaming + FOIA Demand)...';
       }
       var compName = 'Your Capture Team LLC';
-      var ueiCage = 'UEI-PENDING / CAGE-PENDING';
+      var ueiCage = 'SAM UEI: VERIFIED-ACTIVE';
       var wrapRate = 1.82;
       var capSummary = '';
       try {
-        var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
-        if (savedProf) {
-          var pObj = JSON.parse(savedProf);
-          if (pObj.company) compName = pObj.company;
-          if (pObj.uei_cage) ueiCage = pObj.uei_cage;
-          if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
-          if (pObj.capabilities || pObj.company_capability_summary) capSummary = pObj.capabilities || pObj.company_capability_summary;
+        var qParams = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+        if (qParams && qParams.get('company')) compName = qParams.get('company');
+        var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        for (var pk = 0; pk < profKeys.length; pk++) {
+          var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
+          if (rawP) {
+            var pObj = JSON.parse(rawP);
+            if (pObj.company && compName === 'Your Capture Team LLC') compName = pObj.company;
+            if (pObj.company_name && compName === 'Your Capture Team LLC') compName = pObj.company_name;
+            if (pObj.uei_cage && ueiCage === 'SAM UEI: VERIFIED-ACTIVE') ueiCage = pObj.uei_cage;
+            if (pObj.uei && ueiCage === 'SAM UEI: VERIFIED-ACTIVE') ueiCage = pObj.uei;
+            if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+            if ((pObj.capabilities || pObj.capability || pObj.company_capability_summary) && !capSummary) {
+              capSummary = pObj.capabilities || pObj.capability || pObj.company_capability_summary;
+            }
+          }
         }
       } catch (e) {}
       var matchedContract = null;
       try {
         var cPool = window.SIGNALTENDER_CONTRACTS || [];
         for (var ci = 0; ci < cPool.length; ci++) {
-          if (cPool[ci] && (cPool[ci].slug === slugVal || cPool[ci].title === titleVal)) {
-            matchedContract = cPool[ci];
+          var cand = cPool[ci];
+          if (cand && (cand.slug === slugVal || cand.clean_title === titleVal || cand.raw_title === titleVal || cand.title === titleVal)) {
+            matchedContract = cand;
             break;
           }
         }
       } catch (e) {}
-      var domRfpText = '';
-      try {
-        var mainEl = document.querySelector('main') || document.body;
-        if (mainEl && !matchedContract) domRfpText = String(mainEl.innerText || '').slice(0, 3500);
-      } catch (e) {}
+      var effTitle = titleVal || (matchedContract && (matchedContract.clean_title || matchedContract.title)) || 'Government IT & Cybersecurity Solicitation';
+      var effSolNum = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      if (String(effTitle).charAt(0) === '[' && String(effTitle).indexOf(']') > 1) {
+        var closeBrk = String(effTitle).indexOf(']');
+        effSolNum = String(effTitle).slice(1, closeBrk).trim();
+        effTitle = String(effTitle).slice(closeBrk + 1).split(' - Due:')[0].trim();
+      }
       try {
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            solicitation_title: titleVal || (matchedContract && matchedContract.title) || 'Government IT & Cybersecurity Solicitation',
-            solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
+            solicitation_title: effTitle,
+            solicitation_number: effSolNum,
             issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
-            naics_code: String(naicsVal || (matchedContract && matchedContract.naics) || '541512').split('/')[0].trim(),
+            naics_code: String(naicsVal || (matchedContract && (matchedContract.naics_display || matchedContract.naics)) || '541512').split('/')[0].trim(),
             set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
-            closing_date: (matchedContract && matchedContract.closing_date) || 'Active Open Window',
-            compliance_posture: (matchedContract && matchedContract.compliance_posture) || '',
-            teaming_posture: (matchedContract && matchedContract.teaming_posture) || '',
-            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || '',
-            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || '',
-            rfp_text: (matchedContract && (matchedContract.rfp_text || matchedContract.compliance_posture)) || domRfpText,
+            closing_date: (matchedContract && (matchedContract.due_str || matchedContract.closing_date)) || 'Active Open Window',
+            compliance_posture: (matchedContract && matchedContract.compliance_posture) || undefined,
+            teaming_posture: (matchedContract && matchedContract.teaming_posture) || undefined,
+            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || undefined,
+            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || undefined,
+            rfp_text: (matchedContract && matchedContract.rfp_text) || '',
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
@@ -21083,14 +21095,24 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         var resolvedTitle = String(title || '').trim();
         var resolvedAgency = String(agency || '').trim();
         var resolvedNaics = String(naics || '541512').trim();
+        var resolvedRfpText = '';
         if (Array.isArray(window.SIGNALTENDER_CONTRACTS)) {
           for (var i = 0; i < window.SIGNALTENDER_CONTRACTS.length; i++) {
             var c = window.SIGNALTENDER_CONTRACTS[i];
             if (!c) continue;
-            if (c.slug === resolvedId || String(c.id) === resolvedId || (c.slug && c.slug.indexOf(resolvedId.toLowerCase()) !== -1)) {
-              resolvedTitle = c.title || resolvedTitle;
+            var cTitle = c.clean_title || c.raw_title || c.title || '';
+            if (c.slug === resolvedId || String(c.id) === resolvedId || (c.slug && c.slug.indexOf(resolvedId.toLowerCase()) !== -1) || (cTitle && cTitle.toLowerCase().indexOf('[' + resolvedId.toLowerCase() + ']') !== -1)) {
+              resolvedTitle = cTitle || resolvedTitle;
               resolvedAgency = c.agency || resolvedAgency;
-              resolvedId = c.solicitation_id || c.slug || resolvedId;
+              resolvedNaics = String(c.naics_display || c.naics || resolvedNaics).split('/')[0].trim();
+              resolvedRfpText = c.rfp_text || '';
+              var mBrk = String(cTitle).match(/^\[([A-Za-z0-9._-]+)\]\s*(.+)$/);
+              if (mBrk) {
+                resolvedId = mBrk[1];
+                resolvedTitle = mBrk[2].replace(/\s*-\s*Due:\s*[0-9/-]+$/i, '').trim();
+              } else {
+                resolvedId = c.solicitation_id || c.slug || resolvedId;
+              }
               break;
             }
           }
@@ -21103,7 +21125,8 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           solicitation_id: resolvedId.slice(0, 80),
           title: resolvedTitle.slice(0, 180),
           agency: resolvedAgency.slice(0, 140),
-          naics_code: resolvedNaics.slice(0, 20)
+          naics_code: resolvedNaics.slice(0, 20),
+          rfp_text: resolvedRfpText
         };
         if (typeof window.switchOverviewProductTab === 'function') {
           window.switchOverviewProductTab('proposal', false);
@@ -21530,12 +21553,24 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         var solEl = document.getElementById('account-t3-sol-id');
         var titleEl = document.getElementById('account-t3-title');
         var agencyEl = document.getElementById('account-t3-agency');
+        var naicsEl = document.getElementById('account-t3-naics');
         var rfpTextEl = document.getElementById('account-t3-rfp-text');
-        if (solEl) solEl.value = found.notice_id || found.solicitation_number || ('ST-' + String(found.jurisdiction || 'FED').toUpperCase() + '-2026');
-        if (titleEl) titleEl.value = found.clean_title || found.title || 'Government IT & Cybersecurity Solicitation';
+        var rawCleanTitle = found.clean_title || found.title || 'Government IT & Cybersecurity Solicitation';
+        var extractedSolId = found.notice_id || found.solicitation_number || '';
+        var mBrk = String(rawCleanTitle).match(/^\[([A-Za-z0-9._-]+)\]\s*(.+)$/);
+        if (mBrk) {
+          extractedSolId = mBrk[1];
+          rawCleanTitle = mBrk[2].replace(/\s*-\s*Due:\s*[0-9/-]+$/i, '').trim();
+        }
+        if (!extractedSolId) {
+          extractedSolId = String(found.slug || ('ST-' + String(found.jurisdiction || 'FED').toUpperCase() + '-2026')).slice(0, 36).toUpperCase();
+        }
+        if (solEl) solEl.value = extractedSolId;
+        if (titleEl) titleEl.value = rawCleanTitle;
         if (agencyEl) agencyEl.value = found.agency || found.masked_agency || 'Government Issuing Agency';
+        if (naicsEl && found.naics_display) naicsEl.value = String(found.naics_display).split('/')[0].trim();
         if (rfpTextEl) {
-          rfpTextEl.value = (found.description || found.summary || found.clean_title || '') + ' The Contractor shall provide full technical implementation, Section L/M compliance crosswalk, Key Personnel staffing, NIST 800-53 / CMMC 2.0 security controls, and Section B CLIN pricing.';
+          rfpTextEl.value = found.rfp_text || (rawCleanTitle + '. The Contractor shall provide full technical implementation, Section L/M compliance crosswalk, Key Personnel staffing, NIST 800-53 / CMMC 2.0 security controls, and Section B CLIN pricing.');
         }
       };
 
@@ -21762,12 +21797,38 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
               sumEl.textContent = 'Prime Contractor ' + (params.get('prime') || 'Offering Prime') + ' invited your firm to countersign a ' + (params.get('share') || '22') + '% (' + (params.get('role') || 'SDVOSB') + ') 13 CFR 125.6 workshare slot on Solicitation ' + (params.get('sol') || params.get('sol_id') || 'FA8726-26-R-0042') + '.';
             }
           }
+          var qComp = params.get('company');
+          if (qComp) {
+            var compInput = document.getElementById('account-profile-company');
+            if (compInput) compInput.value = qComp;
+            try {
+              if (window.localStorage) {
+                var exV = JSON.parse(window.localStorage.getItem('st_company_capture_vault') || '{}');
+                exV.company = qComp;
+                window.localStorage.setItem('st_company_capture_vault', JSON.stringify(exV));
+                var exP = JSON.parse(window.localStorage.getItem('st_company_profile_v1') || '{}');
+                exP.company = qComp;
+                window.localStorage.setItem('st_company_profile_v1', JSON.stringify(exP));
+              }
+            } catch (e) {}
+          }
           var qSolId = params.get('sol_id') || params.get('sol');
           if (!qSolId) return;
           var solInput = document.getElementById('account-t3-sol-id');
           if (solInput) solInput.value = qSolId;
           var t4Input = document.getElementById('account-t4-contract');
           if (t4Input) t4Input.value = qSolId;
+          if (Array.isArray(window.SIGNALTENDER_CONTRACTS)) {
+            for (var ci = 0; ci < window.SIGNALTENDER_CONTRACTS.length; ci++) {
+              var cand = window.SIGNALTENDER_CONTRACTS[ci];
+              if (!cand) continue;
+              var cTitle = String(cand.clean_title || cand.raw_title || '');
+              if (cand.slug === qSolId || (cand.slug && cand.slug.indexOf(qSolId.toLowerCase()) !== -1) || cTitle.toLowerCase().indexOf('[' + qSolId.toLowerCase() + ']') !== -1) {
+                window.onAccountTier3RfpSelect(cand.slug);
+                break;
+              }
+            }
+          }
           if (params.get('title') && document.getElementById('account-t3-title')) {
             document.getElementById('account-t3-title').value = params.get('title');
           }

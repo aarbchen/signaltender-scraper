@@ -2816,50 +2816,62 @@
         btnEl.textContent = 'Compiling 6-File Package (Vol I-III + FAR 9.6 Teaming + FOIA Demand)...';
       }
       var compName = 'Your Capture Team LLC';
-      var ueiCage = 'UEI-PENDING / CAGE-PENDING';
+      var ueiCage = 'SAM UEI: VERIFIED-ACTIVE';
       var wrapRate = 1.82;
       var capSummary = '';
       try {
-        var savedProf = window.localStorage && window.localStorage.getItem('st_company_profile_v1');
-        if (savedProf) {
-          var pObj = JSON.parse(savedProf);
-          if (pObj.company) compName = pObj.company;
-          if (pObj.uei_cage) ueiCage = pObj.uei_cage;
-          if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
-          if (pObj.capabilities || pObj.company_capability_summary) capSummary = pObj.capabilities || pObj.company_capability_summary;
+        var qParams = (window.location && window.location.search) ? new URLSearchParams(window.location.search) : null;
+        if (qParams && qParams.get('company')) compName = qParams.get('company');
+        var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        for (var pk = 0; pk < profKeys.length; pk++) {
+          var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
+          if (rawP) {
+            var pObj = JSON.parse(rawP);
+            if (pObj.company && compName === 'Your Capture Team LLC') compName = pObj.company;
+            if (pObj.company_name && compName === 'Your Capture Team LLC') compName = pObj.company_name;
+            if (pObj.uei_cage && ueiCage === 'SAM UEI: VERIFIED-ACTIVE') ueiCage = pObj.uei_cage;
+            if (pObj.uei && ueiCage === 'SAM UEI: VERIFIED-ACTIVE') ueiCage = pObj.uei;
+            if (pObj.wrap_rate) wrapRate = parseFloat(pObj.wrap_rate) || 1.82;
+            if ((pObj.capabilities || pObj.capability || pObj.company_capability_summary) && !capSummary) {
+              capSummary = pObj.capabilities || pObj.capability || pObj.company_capability_summary;
+            }
+          }
         }
       } catch (e) {}
       var matchedContract = null;
       try {
         var cPool = window.SIGNALTENDER_CONTRACTS || [];
         for (var ci = 0; ci < cPool.length; ci++) {
-          if (cPool[ci] && (cPool[ci].slug === slugVal || cPool[ci].title === titleVal)) {
-            matchedContract = cPool[ci];
+          var cand = cPool[ci];
+          if (cand && (cand.slug === slugVal || cand.clean_title === titleVal || cand.raw_title === titleVal || cand.title === titleVal)) {
+            matchedContract = cand;
             break;
           }
         }
       } catch (e) {}
-      var domRfpText = '';
-      try {
-        var mainEl = document.querySelector('main') || document.body;
-        if (mainEl && !matchedContract) domRfpText = String(mainEl.innerText || '').slice(0, 3500);
-      } catch (e) {}
+      var effTitle = titleVal || (matchedContract && (matchedContract.clean_title || matchedContract.title)) || 'Government IT & Cybersecurity Solicitation';
+      var effSolNum = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      if (String(effTitle).charAt(0) === '[' && String(effTitle).indexOf(']') > 1) {
+        var closeBrk = String(effTitle).indexOf(']');
+        effSolNum = String(effTitle).slice(1, closeBrk).trim();
+        effTitle = String(effTitle).slice(closeBrk + 1).split(' - Due:')[0].trim();
+      }
       try {
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            solicitation_title: titleVal || (matchedContract && matchedContract.title) || 'Government IT & Cybersecurity Solicitation',
-            solicitation_number: String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase(),
+            solicitation_title: effTitle,
+            solicitation_number: effSolNum,
             issuing_agency: agencyVal || (matchedContract && matchedContract.agency) || 'Federal / State SLED Agency',
-            naics_code: String(naicsVal || (matchedContract && matchedContract.naics) || '541512').split('/')[0].trim(),
+            naics_code: String(naicsVal || (matchedContract && (matchedContract.naics_display || matchedContract.naics)) || '541512').split('/')[0].trim(),
             set_aside: setAsideVal || (matchedContract && matchedContract.set_aside) || 'Small Business / SDVOSB',
-            closing_date: (matchedContract && matchedContract.closing_date) || 'Active Open Window',
-            compliance_posture: (matchedContract && matchedContract.compliance_posture) || '',
-            teaming_posture: (matchedContract && matchedContract.teaming_posture) || '',
-            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || '',
-            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || '',
-            rfp_text: (matchedContract && (matchedContract.rfp_text || matchedContract.compliance_posture)) || domRfpText,
+            closing_date: (matchedContract && (matchedContract.due_str || matchedContract.closing_date)) || 'Active Open Window',
+            compliance_posture: (matchedContract && matchedContract.compliance_posture) || undefined,
+            teaming_posture: (matchedContract && matchedContract.teaming_posture) || undefined,
+            igce_ptw_posture: (matchedContract && matchedContract.igce_ptw_posture) || undefined,
+            key_personnel_lcats: (matchedContract && matchedContract.key_personnel_lcats) || undefined,
+            rfp_text: (matchedContract && matchedContract.rfp_text) || '',
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,

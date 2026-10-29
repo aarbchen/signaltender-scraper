@@ -128,6 +128,15 @@ FOUNDATIONAL_RULES = [
         "fix_applied": "Set min_days=0 default in is_instantly_account_warmed() so all active mailboxes with stat_warmup_score >= 85 remain attached to the campaign with continuous warmup enabled.",
         "prevention_rule": "Never detach or impose a 14-day wait on active mailboxes with stat_warmup_score >= 85, and never call accounts/warmup/disable on active campaign mailboxes.",
     },
+    {
+        "rule_id": "RULE-008-PRODUCT-OUTPUT-QUALITY-GATE",
+        "category": "Product Deliverable Quality & Jurisdiction Isolation",
+        "source": "api/routers/proposal_compiler.py / api/routers/solicitations.py / api/routers/stripe_webhook.py / pseo_generator.py",
+        "bug_signature": "Cross-jurisdiction solicitation/statute leakage (e.g. Tennessee TDOT or 5 U.S.C. 552 FOIA inside a California Caltrans proposal), non-corporate state pool names in FAR 9.6 teaming exhibits, or split parenthetical LCATs ((PMP/CISSP))",
+        "root_cause": "Broad agency keyword fallback in Supabase contracts lookup, default state_hint='federal' in _build_statutory_foia_demand_text(), synthetic SLED-* rows in usaspending_verified_vault.json, and '/' delimiter in LCAT regex.",
+        "fix_applied": "Enforced strict 50-state _infer_target_jurisdiction() matching, CPRA/PIA/FOIL statutory citation alignment across Volume V header & body, pure corporate USAspending teaming partners, _lookup_offeror_verified_profile() auto-enrichment, and runtime _enforce_proposal_package_quality_gate().",
+        "prevention_rule": "Every compiled 6-file Shipley Proposal .ZIP package and API deliverable must pass _enforce_proposal_package_quality_gate() and check_product_output_quality_controls() with 100% jurisdiction isolation, corporate teaming partner verification, and intact LCAT parsing.",
+    },
 ]
 
 

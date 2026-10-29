@@ -881,7 +881,7 @@ def build_two_step_outreach(
         if "/contracts/rfp/" in raw_d_url:
             sol_slug_param = raw_d_url.split("/contracts/rfp/", 1)[1].replace(".html", "").strip("/") or sol_slug_param
         clean_dossier_url = raw_d_url.replace(f"https://{clean_domain}", f"https://{effective_domain}")
-    compiler_deeplink_url = f"https://{effective_domain}/?sol_id={sol_slug_param}#proposal-autopilot"
+    compiler_deeplink_url = f"https://{effective_domain}/?sol_id={sol_slug_param}&company={quote(company)}#proposal-autopilot"
 
     clean_checkout_url = f"https://{effective_domain}/#checkout"
     clean_portal_url = f"https://{effective_domain}/#signup"
