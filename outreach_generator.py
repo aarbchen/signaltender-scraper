@@ -74,9 +74,16 @@ commodity_it_exclusions = [
     r"25ecert",
     r"oms-500",
     r"virtual\s+printer\s+driver",
+    r"\bassorted\s+hardware\b",
+    r"^\d{2}--",
+    r"\baiphone\b",
+    r"\bdc\s+and\s+ac\s+preferred\s+systems\b",
+    r"\bmissile\s+warning\s+system\b",
+    r"\bf-5\s+aircraft\s+award\b",
     r"sole\s*source",
     r"single\s*source",
     r"-ss-\d",
+    r"\bss-\d",
     r"notice\s+of\s+intent",
     r"intent\s+to\s+award",
     r"sngl\s+board\s+computer",
@@ -86,6 +93,8 @@ commodity_it_exclusions = [
     r"data\s+interface\s+unit",
     r"computer,\s*rackmount",
     r"synthetic\s+aperture\s+radar",
+    r"\bdo\s+not\s+use\b",
+    r"\btest\s+for\s+erp\b",
 ]
 
 STATE_ALIASES = {
@@ -1006,11 +1015,32 @@ def build_two_step_outreach(
         f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )
 
+    step3_subject = f"Re: {step1_subject}"
+    step3_bodies = [
+        (
+            f"{_pick_variant(seed, 13, greetings)}\n\n"
+            f"Last note from me so I don't clutter your inbox.\n\n"
+            f"If {clean_comp} has a live SAM.gov or {region_label} RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.\n\n"
+            f"Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or Free Explorer Portal ({clean_portal_url}) anytime.\n\n"
+            f"{_pick_variant(seed, 14, signoffs)}"
+        ),
+        (
+            f"{_pick_variant(seed, 13, greetings)}\n\n"
+            f"Closing the loop on this—I won't follow up again unless I hear from you.\n\n"
+            f"If your capture team is evaluating any Federal or {region_label} IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for {clean_comp} at no cost.\n\n"
+            f"Direct pre-loaded compiler link: {compiler_deeplink_url} | Free Explorer Portal ($0/mo): {clean_portal_url}\n\n"
+            f"{_pick_variant(seed, 14, signoffs)}"
+        ),
+    ]
+    step3_body = _pick_variant(seed, 15, step3_bodies)
+
     return {
         "Subject Line": step1_subject,
         "Email Body": step1_body,
         "Followup Subject": step2_subject,
         "Followup Body": step2_body,
+        "Breakup Subject": step3_subject,
+        "Breakup Body": step3_body,
         "Spintax Subject 1": spintax_subject_1,
         "Spintax Body 1": spintax_body_1,
         "Spintax Body 2": spintax_body_2,
@@ -1105,6 +1135,37 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                     patch_camp["daily_limit"] = daily_cap
                 if warmed_account_emails and set(camp_data.get("email_list") or []) != set(warmed_account_emails):
                     patch_camp["email_list"] = warmed_account_emails
+                # Ensure 3-step sequence (Step 1 Day 0 -> Step 2 Day +3 -> Step 3 Day +7 Concierge Breakup) is wired
+                seqs = camp_data.get("sequences") or []
+                cur_steps = (seqs[0].get("steps") or []) if seqs and isinstance(seqs[0], dict) else []
+                if len(cur_steps) < 3:
+                    patch_camp["sequences"] = [
+                        {
+                            "steps": [
+                                {
+                                    "type": "email",
+                                    "delay": 3,
+                                    "delay_unit": "days",
+                                    "pre_delay_unit": "days",
+                                    "variants": [{"subject": "{{subject_line}}", "body": "{{email_body}}"}],
+                                },
+                                {
+                                    "type": "email",
+                                    "delay": 4,
+                                    "delay_unit": "days",
+                                    "pre_delay_unit": "days",
+                                    "variants": [{"subject": "{{followup_subject}}", "body": "{{followup_body}}"}],
+                                },
+                                {
+                                    "type": "email",
+                                    "delay": 4,
+                                    "delay_unit": "days",
+                                    "pre_delay_unit": "days",
+                                    "variants": [{"subject": "{{breakup_subject}}", "body": "{{breakup_body}}"}],
+                                },
+                            ]
+                        }
+                    ]
                 sched = camp_data.get("campaign_schedule") or {}
                 if str(sched.get("start_date") or "") > "2026-10-25":
                     sched["start_date"] = "2026-10-24"
@@ -1225,6 +1286,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             "email_body": item_row["Email Body"],
                             "followup_subject": item_row.get("Followup Subject", ""),
                             "followup_body": item_row.get("Followup Body", ""),
+                            "breakup_subject": item_row.get("Breakup Subject", ""),
+                            "breakup_body": item_row.get("Breakup Body", ""),
                             "spintax_subject_1": item_row.get("Spintax Subject 1", ""),
                             "spintax_body_1": item_row.get("Spintax Body 1", ""),
                             "spintax_body_2": item_row.get("Spintax Body 2", ""),
@@ -1272,6 +1335,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             "email_body": item["Email Body"],
                             "followup_subject": item.get("Followup Subject", ""),
                             "followup_body": item.get("Followup Body", ""),
+                            "breakup_subject": item.get("Breakup Subject", ""),
+                            "breakup_body": item.get("Breakup Body", ""),
                             "spintax_subject_1": item.get("Spintax Subject 1", ""),
                             "spintax_body_1": item.get("Spintax Body 1", ""),
                             "spintax_body_2": item.get("Spintax Body 2", ""),
@@ -1364,7 +1429,7 @@ def generate_outreach():
             supabase.table(TABLE_NAME)
             .select("*")
             .order("id", desc=True)
-            .limit(200)
+            .limit(500)
             .execute()
         )
         records = response.data if response and getattr(response, "data", None) else []
@@ -1376,6 +1441,8 @@ def generate_outreach():
         today = datetime.now().date()
         tech_contracts = []
         expired_skipped = 0
+        rfp_dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts", "rfp")
+        has_local_rfp_dir = os.path.isdir(rfp_dir_path)
 
         for rec in records:
             if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
@@ -1389,6 +1456,10 @@ def generate_outreach():
             if not is_contract_open(rec, today=today):
                 expired_skipped += 1
                 continue
+            if has_local_rfp_dir:
+                cand_slug = slugify_contract(title, fallback_id=str(rec.get("id") or ""))
+                if not os.path.exists(os.path.join(rfp_dir_path, f"{cand_slug}.html")):
+                    continue
             if any(re.search(pattern, title_lower) for pattern in tech_keywords):
                 tech_contracts.append(rec)
 
@@ -1470,6 +1541,8 @@ def generate_outreach():
                 "Email Body",
                 "Followup Subject",
                 "Followup Body",
+                "Breakup Subject",
+                "Breakup Body",
                 "Spintax Subject 1",
                 "Spintax Body 1",
                 "Spintax Body 2",

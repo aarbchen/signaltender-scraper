@@ -31,9 +31,9 @@ Built for **Defense Tech Startups, Deep-Tech Small Businesses, STTR University S
 
 ```bash
 curl --request POST \
-  --url https://rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com/v1/generate/sbir-sttr-commercialization \
+  --url https://sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com/v1/generate/sbir-sttr-commercialization \
   --header 'Content-Type: application/json' \
-  --header 'x-rapidapi-host: rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com' \
+  --header 'x-rapidapi-host: sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com' \
   --header 'x-rapidapi-key: YOUR_RAPIDAPI_KEY' \
   --data '{
     "sbir_sttr_topic_and_rd_specs": "Solicitation: AF262-D014 (Direct-to-Phase II AFWERX / SpaceWERX Open Topic). Objective: Develop and demonstrate an autonomous edge-AI tactical spectrum sensing and anti-jamming cognitive radio waveform for contested C5ISR environments. Must demonstrate TRL 6 prototype in relevant tactical environment within 15 months, include a signed Phase III Customer Memorandum of Understanding (MOU) pathway with PEO C3BM, and provide a dual-use commercialization strategy alongside a DFARS 252.227-7018 SBIR Data Rights schedule.",

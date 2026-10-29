@@ -42,11 +42,11 @@ const RAPIDAPI_HOSTS = {
   generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
   analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
   generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
-  generate_sources_sought_response: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
-  generate_oci_mitigation_plan: "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
-  generate_sbir_sttr_commercialization: "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
-  audit_section_508_vpat: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
-  audit_supply_chain_scrm: "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com"
+  generate_sources_sought_response: "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
+  generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
+  generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
+  audit_section_508_vpat: "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
+  audit_supply_chain_scrm: "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com"
 };
 
 const TOOLS = [

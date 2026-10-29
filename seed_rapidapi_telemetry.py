@@ -411,7 +411,7 @@ ENDPOINTS = [
         "name": "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
         "method": "POST",
         "path": "/v1/generate/sources-sought-response",
-        "rapid_host": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+        "rapid_host": "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
         "payload": {
             "sources_sought_or_rfi_notice_text": (
                 "SOURCES SOUGHT / RFI NOTICE ID: FA8726-27-RFI-0019 (USAF AFLCMC / Hanscom AFB). "
@@ -434,7 +434,7 @@ ENDPOINTS = [
         "name": "GovCon Organizational Conflict of Interest (OCI) & FAR 9.5 Mitigation Plan API",
         "method": "POST",
         "path": "/v1/generate/oci-mitigation-plan",
-        "rapid_host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+        "rapid_host": "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
         "payload": {
             "target_solicitation_and_sow_text": (
                 "SOLICITATION FA8802-27-R-0014 (USSF Space Systems Command DevSecOps & Ground C2 Integration). "
@@ -457,7 +457,7 @@ ENDPOINTS = [
         "name": "SBIR / STTR Phase I-III Technical Volume & Commercialization Plan API",
         "method": "POST",
         "path": "/v1/generate/sbir-sttr-commercialization",
-        "rapid_host": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+        "rapid_host": "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
         "payload": {
             "sbir_sttr_topic_and_rd_specs": (
                 "AFWERX / DoD SBIR 26.3 Topic AF263-D014 (Autonomous Zero-Trust Tactical Edge Mesh & Post-Quantum "
@@ -479,7 +479,7 @@ ENDPOINTS = [
         "name": "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Accessibility Conformance API",
         "method": "POST",
         "path": "/v1/audit/section-508-vpat",
-        "rapid_host": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+        "rapid_host": "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
         "payload": {
             "product_architecture_and_ui_specs": (
                 "Aegis CloudOps Portal v4.2 is a multi-tenant React 18 / TypeScript web application and REST API "
@@ -502,7 +502,7 @@ ENDPOINTS = [
         "name": "GovCon Supply Chain Risk Management (SCRM), NDAA 889, TAA & SBOM Auditor API",
         "method": "POST",
         "path": "/v1/audit/supply-chain-scrm",
-        "rapid_host": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+        "rapid_host": "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com",
         "payload": {
             "solicitation_or_contract_context": (
                 "Arizona ADOA-ASET Statewide Network Refresh & Public Safety Video Surveillance RFP (Arizona APP / Procure.AZ.gov). "
@@ -626,7 +626,7 @@ def run_telemetry_seeder(rotating: bool = False, slice_size: int = 4) -> None:
                 resp = requests.get(url, params=ep.get("params", {}), headers=headers, timeout=90)
             else:
                 resp = requests.post(url, json=ep.get("payload", {}), headers=headers, timeout=90)
-            if resp.status_code == 404 and RAPIDAPI_KEY and PROXY_SECRET:
+            if resp.status_code in (403, 404) and RAPIDAPI_KEY and PROXY_SECRET:
                 # Fallback to direct Render gateway if RapidAPI Studio route is not yet mapped
                 direct_url = f"{BASE_URL}{ep['path']}"
                 parts = [s.strip() for s in (PROXY_SECRET or "").split(",") if s.strip()]

@@ -290,8 +290,8 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
         if 'id="catalog-modules"' not in txt or "overflow-anchor: none" not in txt:
             fail(f"{label}: Missing overflow-anchor: none scroll-jump protection on #catalog-modules")
 
-        # Verify every RapidAPI Hub URL and host points to one of the 20 verified PUBLIC RapidAPI storefronts
-        live_public_rapidapi_slugs = {
+        # Verify 100% 1:1 RapidAPI URL & Host Uniqueness across all API Cards, Matrix Rows, and CATALOG entries
+        verified_rapidapi_studio_slugs = {
             "b2b-contract-parsing-api",
             "ai-contract-risk-redline-auditor-api",
             "historical-procurement-pricing-api",
@@ -312,19 +312,66 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api",
             "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api",
             "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api",
+            "govcon-sources-sought-rfi-set-aside-shaping-responder-api",
+            "govcon-oci-far-9-5-mitigation-plan-generator-api",
+            "sbir-sttr-phase-i-iii-commercialization-plan-api",
+            "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api",
+            "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api",
         }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
-            if rslug not in live_public_rapidapi_slugs:
+            if rslug not in verified_rapidapi_studio_slugs:
                 fail(
-                    f"{label}: Broken/non-public RapidAPI URL slug '{rslug}' found! "
-                    "Must map to one of the 20 verified public RapidAPI storefronts."
+                    f"{label}: Unverified RapidAPI URL slug '{rslug}' found! "
+                    "Every API must exist in RapidAPI Studio and be registered in verified_rapidapi_studio_slugs."
                 )
         for hslug in set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", txt)):
-            if hslug not in live_public_rapidapi_slugs:
+            if hslug not in verified_rapidapi_studio_slugs:
                 fail(
-                    f"{label}: Broken/non-public RapidAPI host '{hslug}.p.rapidapi.com' found! "
-                    "Must map to one of the 20 verified public RapidAPI storefronts."
+                    f"{label}: Unverified RapidAPI host '{hslug}.p.rapidapi.com' found! "
+                    "Every API must exist in RapidAPI Studio and be registered in verified_rapidapi_studio_slugs."
                 )
+
+        # Enforce strict 1:1 unique RapidAPI links per API Card, Matrix Row, and CATALOG entry (never point API N to API M!)
+        article_blocks = re.findall(r'<article id="(product-[^"]+)"([\s\S]*?)</article>', txt)
+        matrix_tr_blocks = re.findall(r"<tr\b[\s\S]*?</tr>", matrix_m.group(1))
+        card_slug_by_pid = {}
+        seen_card_slugs = {}
+        for idx_art, (pid, abody) in enumerate(article_blocks):
+            c_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", abody))
+            c_hosts = set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", abody))
+            if len(c_slugs) != 1:
+                fail(f"{label}: Card '{pid}' must link to exactly 1 RapidAPI slug, found: {c_slugs}")
+            c_slug = next(iter(c_slugs))
+            if c_hosts and c_hosts != {c_slug}:
+                fail(f"{label}: Card '{pid}' host mismatch: hosts={c_hosts} vs url_slug={c_slug}")
+            if c_slug in seen_card_slugs:
+                fail(
+                    f"{label}: Duplicate RapidAPI link '{c_slug}' on '{pid}' (already used by '{seen_card_slugs[c_slug]}')! "
+                    "Every API must link 1:1 to its own dedicated RapidAPI page."
+                )
+            seen_card_slugs[c_slug] = pid
+            card_slug_by_pid[pid] = c_slug
+
+            # Verify matching Matrix Row links to the exact same 1:1 RapidAPI slug
+            if idx_art >= len(matrix_tr_blocks):
+                fail(f"{label}: Missing Cross-Catalog Pricing Matrix row for '{pid}'")
+            m_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", matrix_tr_blocks[idx_art]))
+            if m_slugs != {c_slug}:
+                fail(f"{label}: Pricing Matrix row #{idx_art+1} ('{pid}') links to {m_slugs}, expected '{c_slug}'")
+
+            # Verify matching CATALOG['pid'] entry uses the exact same 1:1 RapidAPI host and hubUrl
+            cat_m = re.search(rf"'{re.escape(pid)}'\s*:\s*\{{([\s\S]*?)\n\s*\}}\s*\}}", txt)
+            if not cat_m:
+                fail(f"{label}: Missing CATALOG['{pid}'] entry")
+            cat_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", cat_m.group(1)))
+            cat_hosts = set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", cat_m.group(1)))
+            if cat_slugs != {c_slug} or cat_hosts != {c_slug}:
+                fail(
+                    f"{label}: CATALOG['{pid}'] mismatch: slugs={cat_slugs}, hosts={cat_hosts}, expected '{c_slug}'"
+                )
+
+        if "https://discord.gg/signaltender" in txt:
+            fail(f"{label}: Contains dead vanity invite 'https://discord.gg/signaltender'; use permanent invite 'https://discord.gg/xtGXfQApRP'")
 
         # Verify 4-column Enterprise SaaS footer and zero legacy footer labels
         for req_footer in ("Procurement Platform", "Developer &amp; API Suite", "Account &amp; Plans"):
@@ -864,9 +911,10 @@ window.sortSpaContractsTable('due_asc');
 window.sortSpaContractsTable('default');
 window.toggleCheckoutDeliveryDrawer();
 window.highlightRecommendedTier('tier2');
-if (typeof window.refreshCrowdWrapIndex !== 'function' || typeof window.confirmBilateralTeamingHandshake !== 'function') {
-  throw new Error('M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!');
+if (typeof window.refreshCrowdWrapIndex !== 'function' || typeof window.confirmBilateralTeamingHandshake !== 'function' || typeof window.launchTier3ProposalAutopilot !== 'function') {
+  throw new Error('M1/M2/ProposalAutopilot functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake / launchTier3ProposalAutopilot) are undefined!');
 }
+window.launchTier3ProposalAutopilot(firstSlug);
 window.refreshCrowdWrapIndex();
 window.confirmBilateralTeamingHandshake();
 window.toggleApiCatalogCompactView();

@@ -397,3 +397,84 @@ TypeError: window.requestAnimationFrame is not a function
 === ARCHIVED & RESOLVED AT 2026-10-28 07:52:03 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 2 remote alert(s)) ===
 [2026-10-28 07:38:02 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: campaign_leads.csv: Found stale customer-facing count '18-portal' (expected 19 portals / 17 states / 25 APIs). Update campaign_leads.csv and regenerate campaign_leads.csv / outbox_ready_queue.json.
 [2026-10-28 07:50:04 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Autonomous Error Telemetry / Scraper Contract Audit reported unresolved errors! Run `python auto_error_healer.py` to inspect and fix.
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 18:52:47 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s)) ===
+[2026-10-28 18:29:51 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing Section 4 portal card 'STATE // AR' for active state portal 'arizona'
+[2026-10-28 18:34:25 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing Section 4 portal card 'STATE // AR' for active state portal 'arizona'
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 18:56:02 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 15 local + 1 remote alert(s)) ===
+[2026-10-28 18:53:50 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmpvkv7wfjt.js:6751
+        for (var i = 0; i < cards.length; i++) {
+                                  ^
+
+TypeError: Cannot read properties of undefined (reading 'length')
+    at window.filterCoveragePortalGrid (C:\Users\jouan\AppData\Local\Temp\tmpvkv7wfjt.js:6751:35)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpvkv7wfjt.js:7123:8)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 19:06:01 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 15 local + 1 remote alert(s)) ===
+[2026-10-28 19:02:10 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmpj09ejklc.js:6756
+        for (var i = 0; i < cards.length; i++) {
+                                  ^
+
+TypeError: Cannot read properties of undefined (reading 'length')
+    at window.filterCoveragePortalGrid (C:\Users\jouan\AppData\Local\Temp\tmpj09ejklc.js:6756:35)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpj09ejklc.js:7128:8)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+=== ARCHIVED & RESOLVED AT 2026-10-28 19:51:53 UTC: Resolved M1/M2 SPA runtime check and verified all 4 Structural Moat upgrades ===
+[2026-10-28 19:48:00 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmp3dpzjcg3.js:7140
+  throw new Error('M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!');
+  ^
+
+Error: M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmp3dpzjcg3.js:7140:9)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+[2026-10-28 19:50:41 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmptzsi8psh.js:7139
+  throw new Error('M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!');
+  ^
+
+Error: M1/M2 functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake) are undefined!
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmptzsi8psh.js:7139:9)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 01:15:42 UTC: Auto-healed & verified by auto_error_healer.py (15/15 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s)) ===
+[2026-10-29 01:11:41 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Broken/non-public RapidAPI URL slug 'govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api' found! Must map to one of the 20 verified public RapidAPI storefronts.
+[2026-10-29 01:13:15 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing Cross-Catalog Pricing Matrix row for 'product-contract-parsing'
+[2026-10-29 01:13:39 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing Cross-Catalog Pricing Matrix row for 'product-contract-parsing'

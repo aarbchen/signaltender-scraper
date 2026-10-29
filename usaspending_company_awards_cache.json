@@ -4689,5 +4689,32 @@
     "description": "RISK MANAGEMENT SUPPORT AWARD",
     "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_140D0424F0535_1406_140D0423A0041_1406"
   },
-  "SYNTECHSYSTEM": null
+  "SYNTECHSYSTEM": null,
+  "CURUVAR": null,
+  "SUPRANATIONAL": null,
+  "ONSYSTEMLOGIC": null,
+  "RAYSECUR": {
+    "company_name": "Raysecur Inc.",
+    "matched_recipient_name": "RAYSECUR INC",
+    "award_id": "70T04026C7573N006",
+    "award_amount": 1566739.0,
+    "award_amount_fmt": "$1.57M",
+    "award_amount_clean": "USD 1.57M",
+    "awarding_agency": "Department of Homeland Security",
+    "awarding_sub_agency": "Transportation Security Administration (TSA)",
+    "awarding_sub_agency_short": "DHS TSA",
+    "start_date": "2026-09-30",
+    "end_date": "2028-03-29",
+    "is_active": true,
+    "description": "TSAS ALARM RESOLUTION INITIATIVE TO DEVELOP A TERAHERTZ HANDHELD SECONDARY SCREENER ENABLING PRECISE, NON-INVASIVE SECONDARY SCREENING USING TERAHERTZ IMAGING TO DETECT CONCEALED T",
+    "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70T04026C7573N006_7013_-NONE-_-NONE-"
+  },
+  "CYTOCYBERNETICS": null,
+  "AIMETRICS": null,
+  "LELANTOS": null,
+  "VECTECH": null,
+  "TAGORETECHNOLOGY": null,
+  "LABRADORSYSTEMS": null,
+  "AEROGELTECHNOLOGIES": null,
+  "AREN": null
 }

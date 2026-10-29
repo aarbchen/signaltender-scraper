@@ -406,12 +406,48 @@ def _create_or_configure_studio_project(
             break
 
     if not api_id and oas_path.exists():
-        # Ensure info.title in OpenAPI JSON is <= 60 chars so RapidAPI createApisFromRapidOas accepts it
+        # Ensure info.title <= 60 chars, info.x-category == "Business", inline $refs, and production server URL
         try:
             oas_obj = json.loads(oas_path.read_text(encoding="utf-8"))
-            if "info" in oas_obj and len(oas_obj["info"].get("title", "")) > 60:
-                oas_obj["info"]["title"] = studio_title
-                oas_path.write_text(json.dumps(oas_obj, indent=2) + "\n", encoding="utf-8", newline="\n")
+            schemas = (oas_obj.get("components") or {}).get("schemas") or {}
+
+            def _inline_refs(obj: Any) -> Any:
+                if isinstance(obj, dict):
+                    if "$ref" in obj and isinstance(obj["$ref"], str) and obj["$ref"].startswith("#/components/schemas/"):
+                        ref_name = obj["$ref"].split("/")[-1]
+                        resolved = json.loads(json.dumps(schemas.get(ref_name, {"type": "object"})))
+                        return _inline_refs(resolved)
+                    return {k: _inline_refs(v) for k, v in obj.items()}
+                if isinstance(obj, list):
+                    return [_inline_refs(x) for x in obj]
+                return obj
+
+            inlined_paths = _inline_refs(oas_obj.get("paths", {}))
+            inlined_paths.pop("/v1/health", None)
+            for _rt, methods in inlined_paths.items():
+                for _m, m_obj in methods.items():
+                    if isinstance(m_obj, dict):
+                        m_obj.pop("tags", None)
+                        if "responses" in m_obj:
+                            m_obj["responses"] = {
+                                "200": {
+                                    "description": m_obj["responses"].get("200", {}).get("description", "Successful response"),
+                                    "content": {"application/json": {"schema": {"type": "object"}}},
+                                }
+                            }
+            desc_raw = (oas_obj.get("info") or {}).get("description", summary)
+            clean_oas = {
+                "openapi": "3.0.3",
+                "info": {
+                    "title": studio_title,
+                    "version": "1.0.0",
+                    "x-category": "Business",
+                    "description": desc_raw.encode("ascii", "ignore").decode("ascii"),
+                },
+                "servers": [{"url": BACKEND_URL}],
+                "paths": inlined_paths,
+            }
+            oas_path.write_text(json.dumps(clean_oas, indent=2) + "\n", encoding="utf-8", newline="\n")
         except Exception:
             pass
 
@@ -816,11 +852,25 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
         oas_path=oas_path,
     )
 
-    # 2. Mirror endpoint onto public RapidAPI storefront immediately so it is 100% live and public
+    # 1.5 Ensure standalone Studio project endpoint has Title Case name and sample payload
+    studio_api_id = (studio_info or {}).get("studio_api_id")
+    studio_slug = (studio_info or {}).get("studio_slug") or product_slug
+    if studio_api_id:
+        _mirror_endpoint_to_public_storefront(
+            s=s,
+            studio_api_id=studio_api_id,
+            public_api_id=studio_api_id,
+            route=route,
+            ep_title=ep_title,
+            summary=summary,
+            sample_payload=sample_payload,
+        )
+
+    # 2. Mirror endpoint onto public RapidAPI storefront immediately as well
     mirror = PUBLIC_MIRROR_TARGETS.get(category, PUBLIC_MIRROR_TARGETS["capture"])
     mirror_res = _mirror_endpoint_to_public_storefront(
         s=s,
-        studio_api_id=(studio_info or {}).get("studio_api_id"),
+        studio_api_id=studio_api_id,
         public_api_id=mirror["api_id"],
         route=route,
         ep_title=ep_title,
@@ -830,8 +880,8 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
     return {
         "api_number": api_num,
         "studio_project": studio_info,
-        "public_host": mirror["host"],
-        "public_hub_url": mirror["hub_url"],
+        "public_host": f"{studio_slug}.p.rapidapi.com",
+        "public_hub_url": f"https://rapidapi.com/aarbchen/api/{studio_slug}",
         "mirror_endpoint": mirror_res,
     }
 
