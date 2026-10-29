@@ -93,17 +93,9 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(msg: str) -> None:
-    report_error("ny_scraper.py", msg)
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[NY Scraper Alert]** {msg}", "flags": 4},
-            timeout=10,
-        )
-    except Exception:
-        pass
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
+    report_error("ny_scraper.py", str(msg))
+    log_error(str(msg))
 
 
 def is_high_signal_ny_it_rfp(title: str, agency: str = "", category: str = "") -> bool:

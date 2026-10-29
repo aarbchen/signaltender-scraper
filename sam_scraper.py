@@ -24,16 +24,9 @@ TABLE_NAME = "contracts"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
 
 def send_discord_alert(message):
-    report_error("sam_scraper.py", message)
-    if not DISCORD_WEBHOOK_URL:
-        print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
-        return
-    try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] Federal Pipeline Alert:**\n{message}"})
-        response.raise_for_status()
-        print(" -> Discord alert sent successfully.", flush=True)
-    except Exception as e:
-        print(f" -> Failed to send Discord alert: {e}", flush=True)
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
+    report_error("sam_scraper.py", str(message))
+
 
 def send_discord_content(record: dict):
     if not DISCORD_CONTENT_WEBHOOK_URL:

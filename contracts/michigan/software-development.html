@@ -2598,7 +2598,25 @@
             statusEl.className = 'mt-3 text-xs font-mono text-emerald-400';
             statusEl.textContent = 'Unlocked ' + list.length + ' live pre-shredded RFP dossiers (and queued your email copy):';
           }
-          try { if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); } catch (e) {}
+          try {
+            if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email);
+            var urlMaskNow = document.getElementById('dossier-bid-url-mask');
+            var agMaskNow = document.getElementById('dossier-agency-mask');
+            var coMaskNow = document.getElementById('dossier-co-routing-mask');
+            if (urlMaskNow) {
+              var realUNow = urlMaskNow.getAttribute('data-real-url') || '';
+              urlMaskNow.className = 'text-emerald-400 font-semibold';
+              if (realUNow && realUNow.indexOf('http') === 0) {
+                urlMaskNow.innerHTML = '<a href="' + realUNow.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realUNow.replace(/</g, '&lt;') + ' &nearr;</a>';
+              }
+            }
+            if (agMaskNow) agMaskNow.className = 'text-white font-semibold';
+            if (coMaskNow) {
+              var realRoutingNow = coMaskNow.getAttribute('data-real-routing') || '';
+              coMaskNow.className = 'text-sky-300 font-semibold';
+              if (realRoutingNow) coMaskNow.textContent = realRoutingNow;
+            }
+          } catch (e) {}
           if (resultsEl && list.length > 0) {
             resultsEl.classList.remove('hidden');
             resultsEl.innerHTML = list.map(function (d) {

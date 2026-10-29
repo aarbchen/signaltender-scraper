@@ -175,6 +175,10 @@ def get_avatar_websafe_base64() -> str:
     return base64.urlsafe_b64encode(raw).decode("ascii")
 
 
+SUPABASE_TREASURY_LEDGER_URI = "subscriber://treasury/mailbox-scaler-ledger"
+SUPABASE_TREASURY_LEDGER_STATUS = "SUBSCRIBER_TREASURY_LEDGER"
+
+
 def _load_local_ledger() -> Dict[str, Any]:
     default_ledger: Dict[str, Any] = {
         "schema_version": "1.0",
@@ -198,6 +202,29 @@ def _load_local_ledger() -> Dict[str, Any]:
                     default_ledger.update(loaded)
         except Exception:
             pass
+
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            r = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_TREASURY_LEDGER_URI}", "select": "title"},
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=10,
+            )
+            if r.status_code == 200 and r.json():
+                remote = json.loads(r.json()[0].get("title") or "{}")
+                if isinstance(remote, dict):
+                    for list_key in ("credited_conversion_keys", "provisioned_domains", "provisioned_mailboxes", "staged_provisioning_queue"):
+                        local_items = list(default_ledger.get(list_key) or [])
+                        for item in remote.get(list_key) or []:
+                            if item not in local_items:
+                                local_items.append(item)
+                        default_ledger[list_key] = local_items
+                    for num_key in ("total_gross_revenue_usd", "total_reinvestment_allocated_usd", "total_reinvestment_spent_usd", "available_reinvestment_balance_usd"):
+                        if remote.get(num_key) is not None:
+                            default_ledger[num_key] = max(float(default_ledger.get(num_key) or 0.0), float(remote.get(num_key) or 0.0))
+        except Exception:
+            pass
     return default_ledger
 
 
@@ -208,6 +235,44 @@ def _save_local_ledger(ledger: Dict[str, Any]) -> None:
             json.dump(ledger, f, indent=2)
     except Exception as exc:
         report_error("autonomous_mailbox_scaler.py", f"Failed to save local treasury ledger: {exc}", severity="WARNING")
+
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            headers = {
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "Content-Type": "application/json",
+            }
+            row_body = {
+                "title": json.dumps(ledger),
+                "agency": "TREASURY_LEDGER",
+                "closing_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                "url": SUPABASE_TREASURY_LEDGER_URI,
+                "status": SUPABASE_TREASURY_LEDGER_STATUS,
+            }
+            r_sel = requests.get(
+                f"{SUPABASE_URL}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_TREASURY_LEDGER_URI}", "select": "id"},
+                headers=headers,
+                timeout=10,
+            )
+            if r_sel.status_code == 200 and r_sel.json():
+                requests.patch(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    params={"url": f"eq.{SUPABASE_TREASURY_LEDGER_URI}"},
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+            else:
+                requests.post(
+                    f"{SUPABASE_URL}/rest/v1/contracts",
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+        except Exception:
+            pass
 
 
 def check_domain_availability_rdap(domain: str) -> bool:

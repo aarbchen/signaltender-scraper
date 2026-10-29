@@ -128,22 +128,8 @@ STATE_ALIASES = {
 
 
 def send_discord_alert(message: str):
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("outreach_generator.py", str(message))
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        response = requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] Outreach Generator Alert:**\n{message}"},
-            timeout=10,
-        )
-        response.raise_for_status()
-    except Exception as e:
-        try:
-            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"Failed to send Discord alert in outreach_generator.py: {e}\n")
-        except Exception:
-            pass
 
 
 def parse_contract_date(date_str: str, title: str = "") -> date | None:

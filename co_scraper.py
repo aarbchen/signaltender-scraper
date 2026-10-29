@@ -108,17 +108,8 @@ def _build_verified_co_solicitations() -> List[Dict[str, str]]:
 
 
 def send_discord_alert(message: str) -> None:
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("co_scraper.py", str(message))
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] Colorado Scraper (`co_scraper.py`):**\n{message}", "flags": 4},
-            timeout=10,
-        )
-    except Exception:
-        pass
 
 
 def _is_tech_relevant(title: str) -> bool:

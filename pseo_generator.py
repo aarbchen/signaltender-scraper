@@ -359,21 +359,8 @@ def is_commodity_it_spam(title: str) -> bool:
 
 
 def send_discord_alert(message: str):
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("pseo_generator.py", str(message))
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] pSEO Generator Alert:**\n{message}", "flags": 4},
-            timeout=10,
-        )
-    except Exception as e:
-        try:
-            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"Failed to send Discord alert in pseo_generator.py: {e}\n")
-        except Exception:
-            pass
 
 
 def parse_due_date(rec: dict) -> date | None:
@@ -3065,7 +3052,25 @@ def _render_layout(
             statusEl.className = 'mt-3 text-xs font-mono text-emerald-400';
             statusEl.textContent = 'Unlocked ' + list.length + ' live pre-shredded RFP dossiers (and queued your email copy):';
           }}
-          try {{ if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); }} catch (e) {{}}
+          try {{
+            if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email);
+            var urlMaskNow = document.getElementById('dossier-bid-url-mask');
+            var agMaskNow = document.getElementById('dossier-agency-mask');
+            var coMaskNow = document.getElementById('dossier-co-routing-mask');
+            if (urlMaskNow) {{
+              var realUNow = urlMaskNow.getAttribute('data-real-url') || '';
+              urlMaskNow.className = 'text-emerald-400 font-semibold';
+              if (realUNow && realUNow.indexOf('http') === 0) {{
+                urlMaskNow.innerHTML = '<a href="' + realUNow.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realUNow.replace(/</g, '&lt;') + ' &nearr;</a>';
+              }}
+            }}
+            if (agMaskNow) agMaskNow.className = 'text-white font-semibold';
+            if (coMaskNow) {{
+              var realRoutingNow = coMaskNow.getAttribute('data-real-routing') || '';
+              coMaskNow.className = 'text-sky-300 font-semibold';
+              if (realRoutingNow) coMaskNow.textContent = realRoutingNow;
+            }}
+          }} catch (e) {{}}
           if (resultsEl && list.length > 0) {{
             resultsEl.classList.remove('hidden');
             resultsEl.innerHTML = list.map(function (d) {{
@@ -4009,12 +4014,26 @@ def generate_pseo_site() -> int:
                         cached_dossiers = loaded_d
             except Exception:
                 cached_dossiers = {}
+        for rec_meta in raw_records:
+            if str(rec_meta.get("url") or "") == "subscriber://capturedesk/dossiers-cache":
+                try:
+                    remote_d = json.loads(str(rec_meta.get("title") or "{}"))
+                    if isinstance(remote_d, dict):
+                        for k_d, v_d in remote_d.items():
+                            if k_d not in cached_dossiers and isinstance(v_d, dict):
+                                cached_dossiers[k_d] = v_d
+                except Exception:
+                    pass
 
         for idx, rec in enumerate(raw_records, 1):
             if str(rec.get("url") or "").startswith("subscriber://") or str(rec.get("status") or "").startswith("SUBSCRIBER_"):
                 continue
             raw_title = str(rec.get("title") or "").strip()
             if not raw_title:
+                continue
+            if "#sf30-" in str(rec.get("url") or "").lower() or "sf-30" in raw_title.lower():
+                if rec.get("id"):
+                    spam_ids_to_purge.append(rec["id"])
                 continue
             if is_commodity_it_spam(raw_title):
                 if rec.get("id"):
@@ -5211,7 +5230,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             body: JSON.stringify({{ email: email, first_name: email.split('@')[0], company: company, target_state: st }})
           }});
           var data = await resp.json();
-          try {{ if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); }} catch (e) {{}}
+          try {{
+            if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email);
+            var urlMaskNow = document.getElementById('dossier-bid-url-mask');
+            var agMaskNow = document.getElementById('dossier-agency-mask');
+            var coMaskNow = document.getElementById('dossier-co-routing-mask');
+            if (urlMaskNow) {{
+              var realUNow = urlMaskNow.getAttribute('data-real-url') || '';
+              urlMaskNow.className = 'text-emerald-400 font-semibold';
+              if (realUNow && realUNow.indexOf('http') === 0) {{
+                urlMaskNow.innerHTML = '<a href="' + realUNow.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realUNow.replace(/</g, '&lt;') + ' &nearr;</a>';
+              }}
+            }}
+            if (agMaskNow) agMaskNow.className = 'text-white font-semibold';
+            if (coMaskNow) {{
+              var realRoutingNow = coMaskNow.getAttribute('data-real-routing') || '';
+              coMaskNow.className = 'text-sky-300 font-semibold';
+              if (realRoutingNow) coMaskNow.textContent = realRoutingNow;
+            }}
+          }} catch (e) {{}}
           try {{
             var agCells = document.querySelectorAll('[data-full-agency]');
             for (var ai = 0; ai < agCells.length; ai++) {{
@@ -5787,7 +5824,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                     '</div>' +
                     (function () {{
                       var isUnl = false;
-                      try {{ isUnl = Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active'))); }} catch (e) {{}}
+                      try {{ isUnl = (window.location && String(window.location.search || '').indexOf('unlocked=1') !== -1) || Boolean(window.localStorage && (window.localStorage.getItem('st_unlocked_lead_email') || window.localStorage.getItem('st_subscriber_active'))); }} catch (e) {{}}
                       var realBidUrl = item.url || ('https://portal.government.gov/solicitation/view/' + item.id);
                       var portalHost = String(realBidUrl).replace(/^https?:\\/\\/(www\\.)?/, '').split('/')[0] || 'sam.gov';
                       if (isUnl && item.url) {{

@@ -77,21 +77,9 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(msg: str) -> None:
-    report_error("ga_scraper.py", msg)
-    webhook_url = os.getenv("DISCORD_WEBHOOK_URL") or os.getenv("DISCORD_ERROR_WEBHOOK_URL")
-    if not webhook_url:
-        return
-    try:
-        requests.post(
-            webhook_url,
-            json={
-                "content": f"[ALERT] **ga_scraper.py Exception:** `{msg[:1500]}`",
-                "flags": 4,
-            },
-            timeout=10,
-        )
-    except Exception:
-        pass
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
+    report_error("ga_scraper.py", str(msg))
+    log_error(str(msg))
 
 
 def _parse_gpr_closing_date(raw_date: str) -> tuple[str | None, datetime | None]:

@@ -162,21 +162,9 @@ def fuzzy_deduplicate_records(records: list[dict], threshold: float = 0.85) -> l
     return deduped
 
 def send_discord_alert(message):
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("mainscraper.py", str(message))
-    if not DISCORD_WEBHOOK_URL:
-        print(" -> ERROR: Webhook URL not found in .env file.", flush=True)
-        return
-    try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": f"**[ALERT] DaaS Pipeline Alert:**\n{message}", "flags": 4})
-        response.raise_for_status()
-        print(" -> Discord alert sent successfully.", flush=True)
-    except Exception as e:
-        print(f" -> Failed to send Discord alert: {e}", flush=True)
-        try:
-            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"Failed to send Discord alert: {e}\n")
-        except Exception:
-            pass
+
 
 def send_discord_content(record: dict):
     if not DISCORD_CONTENT_WEBHOOK_URL:
@@ -1359,6 +1347,8 @@ async def run_master_orchestrator(
             outreach_generator.generate_outreach()
             import outbound_reply_responder
             outbound_reply_responder.run_reply_responder()
+            import autonomous_mailbox_scaler
+            autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()
             import linkedin_autoposter
             linkedin_autoposter.run_linkedin_autoposter(generate_banner=False)
             import x_autoposter

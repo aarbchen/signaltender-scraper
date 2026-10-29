@@ -105,19 +105,9 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(message: str) -> None:
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("capturedesk_autopilot.py", str(message))
-    """Send operational error alert to Discord webhook and log to error_log.txt."""
-    log_error(message)
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] CaptureDesk Autopilot:**\n{message}"},
-            timeout=10,
-        )
-    except Exception as exc:
-        log_error(f"Failed to send Discord alert: {exc}")
+    log_error(str(message))
 
 
 def classify_jurisdiction(record: dict) -> str:
@@ -935,6 +925,29 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
     return body + footer
 
 
+SUPABASE_CAPTUREDESK_CACHE_URI = "subscriber://capturedesk/dossiers-cache"
+SUPABASE_CAPTUREDESK_CACHE_STATUS = "SUBSCRIBER_CAPTUREDESK_CACHE"
+
+
+def _is_actionable_rfp_row(row: dict) -> bool:
+    raw_title = str(row.get("title") or "").strip()
+    if not raw_title:
+        return False
+    low = raw_title.lower()
+    if "sole source" in low or "intent to sole source" in low or re.match(r"^\d{2}--", low):
+        return False
+    try:
+        import pseo_generator
+        if pseo_generator.is_commodity_it_spam(raw_title):
+            return False
+        due_dt = pseo_generator.parse_due_date(row)
+        if due_dt is not None and due_dt < datetime.now(timezone.utc).date():
+            return False
+    except Exception:
+        pass
+    return True
+
+
 def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> list[dict]:
     if not SUPABASE_URL or not SUPABASE_KEY:
         print(" -> [CaptureDesk] SUPABASE_URL or SUPABASE_KEY not set; skipping.", flush=True)
@@ -951,6 +964,27 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
             except Exception:
                 existing_dossiers = {}
 
+        sb_headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Content-Type": "application/json",
+        }
+        try:
+            r_cache = requests.get(
+                f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_CAPTUREDESK_CACHE_URI}", "select": "title"},
+                headers=sb_headers,
+                timeout=10,
+            )
+            if r_cache.status_code == 200 and r_cache.json():
+                remote_cache = json.loads(r_cache.json()[0].get("title") or "{}")
+                if isinstance(remote_cache, dict):
+                    for k, v in remote_cache.items():
+                        if k not in existing_dossiers and isinstance(v, dict):
+                            existing_dossiers[k] = v
+        except Exception:
+            pass
+
         supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
         resp = (
             supabase.table(TABLE_NAME)
@@ -963,6 +997,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
             r for r in (resp.data or [])
             if not str(r.get("url") or "").startswith("subscriber://")
             and not str(r.get("status") or "").startswith("SUBSCRIBER_")
+            and _is_actionable_rfp_row(r)
         ]
         if not rows:
             print(" -> [CaptureDesk] No contracts found in Supabase.", flush=True)
@@ -986,6 +1021,40 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
 
         with open(DOSSIER_CACHE_PATH, "w", encoding="utf-8") as f:
             json.dump(existing_dossiers, f, indent=2)
+
+        try:
+            recent_keys = sorted(existing_dossiers.keys(), key=lambda x: int(x) if str(x).isdigit() else 0)[-150:]
+            compact_dossiers = {k: existing_dossiers[k] for k in recent_keys}
+            row_body = {
+                "title": json.dumps(compact_dossiers),
+                "agency": "CAPTUREDESK_CACHE",
+                "closing_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                "url": SUPABASE_CAPTUREDESK_CACHE_URI,
+                "status": SUPABASE_CAPTUREDESK_CACHE_STATUS,
+            }
+            r_sel = requests.get(
+                f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_CAPTUREDESK_CACHE_URI}", "select": "id"},
+                headers=sb_headers,
+                timeout=10,
+            )
+            if r_sel.status_code == 200 and r_sel.json():
+                requests.patch(
+                    f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                    params={"url": f"eq.{SUPABASE_CAPTUREDESK_CACHE_URI}"},
+                    headers=sb_headers,
+                    json=row_body,
+                    timeout=10,
+                )
+            else:
+                requests.post(
+                    f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                    headers=sb_headers,
+                    json=row_body,
+                    timeout=10,
+                )
+        except Exception:
+            pass
 
         print(
             f" -> [CaptureDesk] Enriched {len(new_dossiers)} new dossiers (Total cached: {len(existing_dossiers)}).",

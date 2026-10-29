@@ -520,3 +520,21 @@ Node.js v26.7.0
 [2026-10-29 17:45:56 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing 'across 28 government portals'
 [2026-10-29 17:46:02 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing '24 specialized GovCon capture engines'
 [2026-10-29 17:46:46 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (#page-checkout Deep-Dive Tier Panels): Missing 'across all 34 SignalTender endpoints'
+
+=== ARCHIVED & RESOLVED AT 2026-10-29 20:34:17 UTC: Verified permanent anti-regression guardrails across all 4 tiers, 28 scrapers, and 34 APIs ===
+[2026-10-29 19:41:11 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found synthetic SF-30 addendum duplicate row in embedded contract directory!
+[2026-10-29 19:46:00 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/support.py: Must register both `/support/concierge` and `/support/chat` endpoints!
+[2026-10-29 19:47:13 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/support.py: Must register both `/support/concierge` and `/support/chat` endpoints!
+[2026-10-29 19:47:34 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/support.py: Must register both `/support/concierge` and `/support/chat` endpoints!
+[2026-10-29 19:49:05 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found duplicate API badge '+ #33 + #33'
+[2026-10-29 19:49:29 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found duplicate API badge '+ #33 + #33'
+[2026-10-29 19:51:05 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html!
+[2026-10-29 19:52:23 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34
+[2026-10-29 19:56:55 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34
+[2026-10-29 19:57:32 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, client_delivery=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, capturedesk=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, expected=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-e-200
+[2026-10-29 20:02:24 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: govcon_lead_harvester.py: Missing stateless Render Cron Supabase state sync (`subscriber://harvester/known-emails`)!
+[2026-10-29 20:02:36 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: govcon_lead_harvester.py: Missing stateless Render Cron Supabase state sync (`subscriber://harvester/known-emails`)!
+[2026-10-29 20:08:01 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: outreach_generator.py: Must only delete completed (`status == 3`) leads in Instantly and preserve in-flight (`status == 1, 2`) sequences!
+[2026-10-29 20:11:18 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: outreach_generator.py: Must only delete completed (`status == 3`) leads in Instantly and preserve in-flight (`status == 1, 2`) sequences!
+[2026-10-29 20:19:14 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: outreach_generator.py: Must only delete completed (`status == 3`) leads in Instantly and preserve in-flight (`status == 1, 2`) sequences!
+[2026-10-29 20:30:48 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Autonomous Error Telemetry / Scraper Contract Audit reported unresolved errors! Run `python auto_error_healer.py` to inspect and fix.

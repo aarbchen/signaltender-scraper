@@ -1521,7 +1521,7 @@
                 <div id="static-rfp-related-card" class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">
                   <h2 class="text-base font-bold text-white font-mono uppercase tracking-wider mb-3">More Open Massachusetts IT Solicitations</h2>
                   <ul class="text-sm space-y-1">
-                    <li class="py-2 border-b border-slate-800/70"><a href="ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-1430.html" class="text-sky-400 hover:underline font-medium">[EV00018035] AI-Enabled Stop-Arm Camera &amp; Cloud Video Analytics Safety Platform</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-24-1827-134491-enterprise-hmis-cloud-data-systems-administration-1429.html" class="text-sky-400 hover:underline font-medium">[BD-24-1827-134491] Enterprise HMIS &amp; Cloud Data Systems Administration Services RFP</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-19-1131-133972-enterprise-gis-asset-management-systems-integration-1428.html" class="text-sky-400 hover:underline font-medium">[BD-19-1131-133972] Enterprise GIS &amp; Asset Management Systems Integration Consulting</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-10-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-27-1010-134380-rfp-0050-2027-enterprise-facilities-it-asset-management-1427.html" class="text-sky-400 hover:underline font-medium">[BD-27-1010-134380] RFP-0050-2027 Enterprise Facilities &amp; IT Asset Management Software System</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-06)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-27-2222-134527-cloud-learning-management-system-lms-digital-curriculum-1426.html" class="text-sky-400 hover:underline font-medium">[BD-27-2222-134527] Cloud Learning Management System (LMS) &amp; Digital Curriculum Platform RFP</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-13)</span></li>
+                    <li class="py-2 border-b border-slate-800/70"><a href="ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-1285.html" class="text-sky-400 hover:underline font-medium">[EV00018035] AI-Enabled Stop-Arm Camera &amp; Cloud Video Analytics Safety Platform</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-08)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-27-1206-132719-rfp-112-26-centralized-train-control-software-network-1284.html" class="text-sky-400 hover:underline font-medium">[BD-27-1206-132719] RFP 112-26 Centralized Train Control Software &amp; Network Telemetry System</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-24-1827-134491-enterprise-hmis-cloud-data-systems-administration-1283.html" class="text-sky-400 hover:underline font-medium">[BD-24-1827-134491] Enterprise HMIS &amp; Cloud Data Systems Administration Services RFP</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-04)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-19-1411-134446-a460-enterprise-digital-data-capture-cloud-analytics-1281.html" class="text-sky-400 hover:underline font-medium">[BD-19-1411-134446] A460 Enterprise Digital Data Capture &amp; Cloud Analytics Platform</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-03)</span></li><li class="py-2 border-b border-slate-800/70"><a href="bd-19-1131-133972-enterprise-gis-asset-management-systems-integration-1280.html" class="text-sky-400 hover:underline font-medium">[BD-19-1131-133972] Enterprise GIS &amp; Asset Management Systems Integration Consulting</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-01)</span></li>
                   </ul>
                 </div>
               </div>
@@ -2378,7 +2378,25 @@
             statusEl.className = 'mt-3 text-xs font-mono text-emerald-400';
             statusEl.textContent = 'Unlocked ' + list.length + ' live pre-shredded RFP dossiers (and queued your email copy):';
           }
-          try { if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email); } catch (e) {}
+          try {
+            if (window.localStorage) window.localStorage.setItem('st_unlocked_lead_email', email);
+            var urlMaskNow = document.getElementById('dossier-bid-url-mask');
+            var agMaskNow = document.getElementById('dossier-agency-mask');
+            var coMaskNow = document.getElementById('dossier-co-routing-mask');
+            if (urlMaskNow) {
+              var realUNow = urlMaskNow.getAttribute('data-real-url') || '';
+              urlMaskNow.className = 'text-emerald-400 font-semibold';
+              if (realUNow && realUNow.indexOf('http') === 0) {
+                urlMaskNow.innerHTML = '<a href="' + realUNow.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="underline hover:text-emerald-300">' + realUNow.replace(/</g, '&lt;') + ' &nearr;</a>';
+              }
+            }
+            if (agMaskNow) agMaskNow.className = 'text-white font-semibold';
+            if (coMaskNow) {
+              var realRoutingNow = coMaskNow.getAttribute('data-real-routing') || '';
+              coMaskNow.className = 'text-sky-300 font-semibold';
+              if (realRoutingNow) coMaskNow.textContent = realRoutingNow;
+            }
+          } catch (e) {}
           if (resultsEl && list.length > 0) {
             resultsEl.classList.remove('hidden');
             resultsEl.innerHTML = list.map(function (d) {

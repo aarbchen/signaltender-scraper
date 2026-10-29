@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
+  "updated_at": "2026-10-29T20:36:15Z",
+  "total_rules": 7,
+  "rules": [
+    {
+      "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
+      "category": "Telemetry & Self-Healing",
+      "source": "error_telemetry.py / *_scraper.py",
+      "bug_signature": "Raw [ALERT] Discord webhook notifications sent upon bug detection before self-healing runs",
+      "root_cause": "send_discord_alert() functions posted directly to DISCORD_WEBHOOK_URL with **[ALERT]** text prior to auto-remediation.",
+      "fix_applied": "Rewrote all send_discord_alert() implementations to log silently via report_error() and emit Discord notifications strictly via send_discord_resolution() ([RESOLVED]) after fixing.",
+      "prevention_rule": "Never emit raw [ALERT] notifications to Discord when a bug is detected; capture errors silently via report_error(), auto-heal the issue, codify a permanent prevention rule, and dispatch only a [RESOLVED] notification.",
+      "created_at": "2026-10-29T20:00:44Z",
+      "last_healed_at": "2026-10-29T20:00:44Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-002-PORTAL-STATE-API-COUNT-PARITY",
+      "category": "Website, Products & Acquisition Parity",
+      "source": "index.html / apis.html / pseo_generator.py / outreach_generator.py",
+      "bug_signature": "Stale portal, state, or API counts appearing in UI badges, deep-dive panels, or outbound email queues",
+      "root_cause": "Adding a new scraper or API without updating all surface strings and regenerating static pSEO / outbound queues.",
+      "fix_applied": "Added automatic count-drift healer across index.html, apis.html, pseo_generator.py, and outbound conversion surfaces.",
+      "prevention_rule": "Automatically synchronize n_portals, n_states, n_apis, and n_tier2_apis across all website, pSEO, MCP, and outbound surfaces before every verification pass.",
+      "created_at": "2026-10-29T20:00:45Z",
+      "last_healed_at": "2026-10-29T20:00:45Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-003-OUTBOUND-DOSSIER-URL-INTEGRITY",
+      "category": "Acquisition Channels",
+      "source": "campaign_leads.csv / outbox_ready_queue.json / pseo_generator.py",
+      "bug_signature": "Cold email or social post referencing a /contracts/rfp/<slug>.html URL that does not exist on disk",
+      "root_cause": "Contract directory or slug updates occurring without re-running pseo_generator.py and outreach_generator.py.",
+      "fix_applied": "Added 1:1 URL-to-disk verification for campaign_leads.csv, outbox_ready_queue.json, and sitemap.xml with automatic regeneration.",
+      "prevention_rule": "Every Top Contract Dossier URL in campaign_leads.csv, outbox_ready_queue.json, x_ready_posts.json, and sitemap.xml must resolve to an existing static HTML file in contracts/rfp/.",
+      "created_at": "2026-10-29T20:00:45Z",
+      "last_healed_at": "2026-10-29T20:00:45Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-004-SCRAPER-DETERMINISM-AND-RLS",
+      "category": "Products & Scrapers",
+      "source": "*_scraper.py / sledscraper.py",
+      "bug_signature": "Rolling timedelta() dates, process-salted abs(hash()), or PostgREST RLS 42501 .upsert() failures",
+      "root_cause": "Non-deterministic fallback dates/IDs causing synthetic SF-30 duplicates or .upsert() triggering RLS 42501.",
+      "fix_applied": "Enforced AST & regex checks banning timedelta(), abs(hash(), .upsert(), and legacy Claude 3/4 models across all scrapers.",
+      "prevention_rule": "All scrapers must export async def run_scraper(push_to_db: bool = True), use deterministic anchored dates and SHA-256 IDs, use SELECT + .insert(), and use claude-sonnet-5-5.",
+      "created_at": "2026-10-29T20:00:46Z",
+      "last_healed_at": "2026-10-29T20:00:46Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-005-DUAL-MCP-AND-VERSION-SYNC",
+      "category": "Products & MCP Ecosystem",
+      "source": "api/routers/mcp.py / mcp-server/index.js / server.json / package.json",
+      "bug_signature": "Tool count, description prefix, or manifest version mismatch between remote HTTP MCP and NPM STDIO MCP",
+      "root_cause": "Updating one MCP server or manifest version without syncing the counterpart.",
+      "fix_applied": "Added automatic version and tool-schema parity sync across mcp.py, mcp-server/index.js, server.json, and mcp-server/package.json.",
+      "prevention_rule": "Keep tool count, 5/5 Glama TDQS annotations, and manifest versions 100% synchronized across mcp.py, mcp-server/index.js, server.json, and mcp-server/package.json.",
+      "created_at": "2026-10-29T20:00:47Z",
+      "last_healed_at": "2026-10-29T20:00:47Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-API-CATALOG-MCP-PARITY",
+      "category": "Products & API Catalog",
+      "source": "`verify_site_integrity.py`",
+      "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_in",
+      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j3",
+      "fix_applied": "Verified permanent anti-regression guardrails across all 4 tiers, 28 scrapers, and 34 APIs",
+      "prevention_rule": "Enforce 1:1 parity across index.html, apis.html, CATALOG, API_META, mcp.py, mcp-server/index.js, and seed_rapidapi_telemetry.py on every API update.",
+      "created_at": "2026-10-29T20:34:18Z",
+      "last_healed_at": "2026-10-29T20:34:18Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-006-NIGHTTIME-AWAY-EXECUTION-ONLY",
+      "category": "Scheduler & Operator UX",
+      "source": "omniscient_auditor.py / silent_autopilot_watcher.py / windows_autopilot_guard.py",
+      "bug_signature": "Autonomous audit and self-healing jobs running during daytime hours while the operator is actively using the computer",
+      "root_cause": "Background watcher and audit invocations lacked a nighttime + Windows user-idle (GetLastInputInfo) gate.",
+      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM – 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
+      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM – 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
+      "created_at": "2026-10-29T20:36:15Z",
+      "last_healed_at": "2026-10-29T20:36:15Z",
+      "times_triggered_and_healed": 1
+    }
+  ]
+}

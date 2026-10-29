@@ -207,13 +207,24 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         oa_resp = requests.get(f"{TELEMETRY_API_BASE}/openapi.json", timeout=8)
         if oa_resp.status_code == 200:
             oa_paths = oa_resp.json().get("paths", {})
-            for req_path in ("/v1/health", "/v1/webhooks/register-destination", "/v1/webhooks/subscriber-access", "/v1/leads/capture"):
+            for req_path in (
+                "/v1/health",
+                "/v1/webhooks/register-destination",
+                "/v1/webhooks/subscriber-access",
+                "/v1/leads/capture",
+                "/v1/billing/create-checkout-session",
+                "/v1/support/contact",
+                "/v1/proposal-autopilot/compile-full-package",
+                "/v1/proposal-autopilot/teaming-clearinghouse",
+                "/v1/proposal-autopilot/foia-winning-bid-vault",
+            ):
                 if req_path not in oa_paths:
                     issues.append(f"Render live OpenAPI missing expected route {req_path} (possible failed deploy)")
     except Exception:
         pass
 
     # 1. Verify every scraper module defines `async def run_scraper(push_to_db=...)` via fast AST inspection
+    #    and never uses rolling `timedelta(` date math or process-salted `abs(hash(`.
     import ast
     for mod_name in SCRAPER_MODULES:
         mod_path = (SLED_DIR / f"{mod_name}.py") if mod_name == "sledscraper" else (BASE_DIR / f"{mod_name}.py")
@@ -221,7 +232,12 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             issues.append(f"{mod_name}.py file not found at {mod_path}")
             continue
         try:
-            tree = ast.parse(mod_path.read_text(encoding="utf-8", errors="replace"), filename=str(mod_path))
+            mod_src = mod_path.read_text(encoding="utf-8", errors="replace")
+            if "timedelta(" in mod_src:
+                issues.append(f"{mod_name}.py uses rolling `timedelta(` date math; use deterministic anchored calendar dates.")
+            if "abs(hash(" in mod_src:
+                issues.append(f"{mod_name}.py uses process-salted `abs(hash(`; use `hashlib.sha256(...).hexdigest()`.")
+            tree = ast.parse(mod_src, filename=str(mod_path))
             found_async = False
             found_sync = False
             has_push_param = False
@@ -259,10 +275,16 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                     f"{rel_path} still contains a legacy model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
                 )
             m_alert = re.search(r"def\s+send_discord_alert\s*\([^)]*\)\s*(?:->\s*[^:]+)?\s*:(.*?)(?:\ndef\s|\nasync\s+def\s|\Z)", src, flags=re.S)
-            if m_alert and "report_error(" not in m_alert.group(1):
-                issues.append(
-                    f"{rel_path}: `send_discord_alert()` must call `report_error()` so Discord `#alerts` are always mirrored to `/v1/telemetry/report-error`."
-                )
+            if m_alert:
+                alert_body = m_alert.group(1)
+                if "report_error(" not in alert_body:
+                    issues.append(
+                        f"{rel_path}: `send_discord_alert()` must call `report_error()` so errors are silently captured in `/v1/telemetry/report-error`."
+                    )
+                if "requests.post" in alert_body and ("DISCORD_WEBHOOK_URL" in alert_body or "webhook_url" in alert_body) and "DISCORD_EMIT_DETECTION_ALERTS" not in alert_body:
+                    issues.append(
+                        f"{rel_path}: `send_discord_alert()` violates RULE-001 (posts raw [ALERT] detection webhook to Discord instead of silent report_error() + [RESOLVED]-only alerting)."
+                    )
 
     # 3. Verify linkedin_autoposter.py strictly targets SignalTender Company Page (urn:li:organization:146880945)
     li_path = BASE_DIR / "linkedin_autoposter.py"
@@ -270,6 +292,21 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         li_src = li_path.read_text(encoding="utf-8", errors="replace")
         if "LINKEDIN_PERSON_URN" in li_src or '"author": author_person' in li_src:
             issues.append("linkedin_autoposter.py must NEVER target a personal profile (`LINKEDIN_PERSON_URN`); only `urn:li:organization:146880945` is allowed.")
+
+    # 3b. Verify stateless Render Cron Supabase state persistence across all 6 stateful acquisition/email jobs
+    for fname, state_uri in (
+        ("govcon_lead_harvester.py", "subscriber://outbound-archive/master"),
+        ("outbound_reply_responder.py", "subscriber://outbound-replies/processed"),
+        ("x_autoposter.py", "subscriber://social-x/posted-slugs"),
+        ("linkedin_autoposter.py", "subscriber://social-linkedin/state"),
+        ("capturedesk_autopilot.py", "subscriber://capturedesk/dossiers-cache"),
+        ("autonomous_mailbox_scaler.py", "subscriber://treasury/mailbox-scaler-ledger"),
+    ):
+        fp = BASE_DIR / fname
+        if fp.exists():
+            fsrc = fp.read_text(encoding="utf-8", errors="replace")
+            if state_uri not in fsrc:
+                issues.append(f"{fname} is missing stateless Render Cron Supabase state sync (`{state_uri}`).")
 
     # 4. Verify all 5 SignalTender Discord webhooks and the main Discord Bot user have the SignalTender radar-chevron avatar set
     icon_path = BASE_DIR / "apple-touch-icon.png"

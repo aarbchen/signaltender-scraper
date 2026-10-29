@@ -607,6 +607,10 @@ def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
         return False, f"LinkedIn Organization API error: {e}"
 
 
+SUPABASE_LINKEDIN_STATE_URI = "subscriber://social-linkedin/state"
+SUPABASE_LINKEDIN_STATE_STATUS = "SUBSCRIBER_SOCIAL_LINKEDIN_STATE"
+
+
 def run_linkedin_autoposter(generate_banner: bool = False, force_post_now: bool = False) -> dict:
     if generate_banner:
         generate_linkedin_banner()
@@ -625,6 +629,28 @@ def run_linkedin_autoposter(generate_banner: bool = False, force_post_now: bool 
                         existing_published_ids.add(p.get("id"))
                     if str(p.get("id", "")).startswith("post_auto_"):
                         prev_dynamic_posts.append(p)
+        except Exception:
+            pass
+
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            r_li = requests.get(
+                f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_LINKEDIN_STATE_URI}", "select": "title"},
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=10,
+            )
+            if r_li.status_code == 200 and r_li.json():
+                remote_li = json.loads(r_li.json()[0].get("title") or "{}")
+                if isinstance(remote_li, dict):
+                    last_api_post_ts = max(last_api_post_ts, float(remote_li.get("last_api_post_ts") or 0.0))
+                    for pid in remote_li.get("published_ids") or []:
+                        existing_published_ids.add(pid)
+                    seen_dyn = {p.get("id") for p in prev_dynamic_posts}
+                    for dp in remote_li.get("dynamic_posts") or []:
+                        if isinstance(dp, dict) and dp.get("id") and dp.get("id") not in seen_dyn:
+                            prev_dynamic_posts.append(dp)
+                            seen_dyn.add(dp.get("id"))
         except Exception:
             pass
 
@@ -704,6 +730,50 @@ def run_linkedin_autoposter(generate_banner: bool = False, force_post_now: bool 
     }
     with open(POSTS_QUEUE_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
+
+    if SUPABASE_URL and SUPABASE_KEY:
+        try:
+            headers = {
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "Content-Type": "application/json",
+            }
+            compact_li = json.dumps({
+                "last_api_post_ts": last_api_post_ts,
+                "published_ids": [p.get("id") for p in posts if p.get("published") and p.get("id")],
+                "dynamic_posts": [p for p in posts if str(p.get("id", "")).startswith("post_auto_")][-10:],
+            })
+            r_sel = requests.get(
+                f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_LINKEDIN_STATE_URI}", "select": "id"},
+                headers=headers,
+                timeout=10,
+            )
+            row_body = {
+                "title": compact_li,
+                "agency": "SOCIAL_LINKEDIN_STATE",
+                "closing_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                "url": SUPABASE_LINKEDIN_STATE_URI,
+                "status": SUPABASE_LINKEDIN_STATE_STATUS,
+            }
+            if r_sel.status_code == 200 and r_sel.json():
+                requests.patch(
+                    f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                    params={"url": f"eq.{SUPABASE_LINKEDIN_STATE_URI}"},
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+            else:
+                requests.post(
+                    f"{SUPABASE_URL.rstrip('/')}/rest/v1/contracts",
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+        except Exception:
+            pass
+
     print(f"[+] LinkedIn Autoposter: {len(posts)} promotional posts synced in {POSTS_QUEUE_PATH} ({api_status}).", flush=True)
     return out
 

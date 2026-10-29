@@ -29,6 +29,9 @@ if exist "D:\Daas\apollo-contacts.csv" (
     python outbound_mailer.py >> D:\Daas\error_log.txt 2>&1
 )
 
+echo [*] Running 360-Degree Omniscient Auditor & Self-Healer...
+python omniscient_auditor.py --mode fast >> D:\Daas\error_log.txt 2>&1
+
 echo.
 echo ========================================================
 echo      [+] SUCCESS: All 28 scraping & pSEO pipelines complete!

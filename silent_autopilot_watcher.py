@@ -174,6 +174,18 @@ def main() -> int:
         if not is_primary_watcher():
             time.sleep(CHECK_INTERVAL_SECONDS)
             continue
+
+        # Enforce RULE-006: Only execute audits, self-healing, and background jobs at night (11:00 PM – 6:00 AM)
+        # when the user is away from the computer (>= 30 minutes idle via GetLastInputInfo).
+        try:
+            import omniscient_auditor
+            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=1800)
+            if not night_allowed:
+                time.sleep(CHECK_INTERVAL_SECONDS)
+                continue
+        except Exception:
+            pass
+
         try:
             import rapidapi_headless_publisher
             rapidapi_headless_publisher.keepalive_rapidapi_session()
@@ -184,7 +196,15 @@ def main() -> int:
             outbound_reply_responder.run_reply_responder()
         except Exception:
             pass
-        # 1. Check for any open runtime alerts in Render telemetry or local error_log.txt
+        # 1. Run 360° Omniscient Auditor first to auto-fix any deterministic bugs across
+        #    Products, Acquisition Channels, and Website (and codify a rule + send [RESOLVED] if fixed)
+        try:
+            import omniscient_auditor
+            omniscient_auditor.run_omniscient_audit(mode="fast", auto_fix=True, auto_deploy=True, force_now=True)
+        except Exception:
+            pass
+
+        # 2. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
         remote_errors = auto_error_healer.fetch_remote_open_errors()
         local_errors = auto_error_healer.read_local_unacknowledged_errors()
         contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
@@ -195,7 +215,7 @@ def main() -> int:
                 f"Open remote errors: {len(remote_errors)} | "
                 f"Local errors: {len(local_errors)} | "
                 f"Contract issues: {len(contract_issues)}\n"
-                "Please diagnose and fix the reported issue, run auto_error_healer.py --clear-resolved, "
+                "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
                 "and restart silent_autopilot_watcher.py.",
                 flush=True,
             )

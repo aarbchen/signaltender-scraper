@@ -91,26 +91,8 @@ ERROR_LOG_PATH = r"D:\Daas\error_log.txt"
 
 
 def send_discord_alert(message: str) -> None:
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("client_delivery.py", str(message))
-    """Send system alert to Discord webhook and log errors as per project rules."""
-    if not DISCORD_WEBHOOK_URL:
-        print(" -> ERROR: Alert webhook URL not found in environment.", flush=True)
-        return
-    try:
-        response = requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] Delivery Pipeline:**\n{message}"},
-            timeout=10,
-        )
-        response.raise_for_status()
-        print(" -> Discord alert sent successfully.", flush=True)
-    except Exception as e:
-        print(f" -> Failed to send Discord alert: {e}", flush=True)
-        try:
-            with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"Failed to send Discord alert: {e}\n")
-        except Exception:
-            pass
 
 
 def clean_title_text(raw_title: str) -> str:

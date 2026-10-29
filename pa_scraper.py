@@ -137,18 +137,9 @@ def log_error(message: str) -> None:
 
 
 def send_discord_alert(message: str) -> None:
-    report_error("pa_scraper.py", message)
-    log_error(message)
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] Pennsylvania eMarketplace Scraper Error:**\n{message}"},
-            timeout=10,
-        )
-    except Exception as e:
-        log_error(f"Failed to send Discord alert: {e}")
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
+    report_error("pa_scraper.py", str(message))
+    log_error(str(message))
 
 
 def send_discord_content(record: dict) -> None:

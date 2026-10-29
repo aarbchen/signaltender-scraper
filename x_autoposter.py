@@ -152,19 +152,45 @@ def get_x_credentials() -> dict[str, str]:
     }
 
 
+SUPABASE_X_STATE_URI = "subscriber://social-x/posted-slugs"
+SUPABASE_X_STATE_STATUS = "SUBSCRIBER_SOCIAL_X_STATE"
+
+
 def load_posted_cache() -> dict:
-    if not os.path.exists(POSTED_CACHE_PATH):
-        return {"posted_slugs": [], "history": []}
-    try:
-        with open(POSTED_CACHE_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if isinstance(data, dict):
-                data.setdefault("posted_slugs", [])
-                data.setdefault("history", [])
-                return data
-    except Exception:
-        pass
-    return {"posted_slugs": [], "history": []}
+    data: dict = {"posted_slugs": [], "history": []}
+    if os.path.exists(POSTED_CACHE_PATH):
+        try:
+            with open(POSTED_CACHE_PATH, "r", encoding="utf-8") as f:
+                local_data = json.load(f)
+                if isinstance(local_data, dict):
+                    data["posted_slugs"] = list(local_data.get("posted_slugs") or [])
+                    data["history"] = list(local_data.get("history") or [])
+        except Exception:
+            pass
+
+    sb_url = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
+    sb_key = (os.getenv("SUPABASE_KEY") or "").strip()
+    if sb_url and sb_key:
+        try:
+            r = requests.get(
+                f"{sb_url}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_X_STATE_URI}", "select": "title"},
+                headers={"apikey": sb_key, "Authorization": f"Bearer {sb_key}"},
+                timeout=10,
+            )
+            if r.status_code == 200 and r.json():
+                remote_data = json.loads(r.json()[0].get("title") or "{}")
+                if isinstance(remote_data, dict):
+                    seen_slugs = set(data["posted_slugs"])
+                    for s in remote_data.get("posted_slugs") or []:
+                        if s not in seen_slugs:
+                            data["posted_slugs"].append(s)
+                            seen_slugs.add(s)
+                    if not data["history"] and isinstance(remote_data.get("history"), list):
+                        data["history"] = remote_data["history"]
+        except Exception:
+            pass
+    return data
 
 
 def save_posted_cache(cache: dict) -> None:
@@ -173,6 +199,50 @@ def save_posted_cache(cache: dict) -> None:
             json.dump(cache, f, indent=2, ensure_ascii=False)
     except Exception as exc:
         log_error(f"Failed to save posted_x_rfps.json: {exc}")
+
+    sb_url = (os.getenv("SUPABASE_URL") or "").strip().rstrip("/")
+    sb_key = (os.getenv("SUPABASE_KEY") or "").strip()
+    if sb_url and sb_key:
+        try:
+            compact_payload = json.dumps({
+                "posted_slugs": (cache.get("posted_slugs") or [])[-300:],
+                "history": (cache.get("history") or [])[-50:],
+            })
+            headers = {
+                "apikey": sb_key,
+                "Authorization": f"Bearer {sb_key}",
+                "Content-Type": "application/json",
+            }
+            r_sel = requests.get(
+                f"{sb_url}/rest/v1/contracts",
+                params={"url": f"eq.{SUPABASE_X_STATE_URI}", "select": "id"},
+                headers=headers,
+                timeout=10,
+            )
+            row_body = {
+                "title": compact_payload,
+                "agency": "SOCIAL_X_STATE",
+                "closing_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                "url": SUPABASE_X_STATE_URI,
+                "status": SUPABASE_X_STATE_STATUS,
+            }
+            if r_sel.status_code == 200 and r_sel.json():
+                requests.patch(
+                    f"{sb_url}/rest/v1/contracts",
+                    params={"url": f"eq.{SUPABASE_X_STATE_URI}"},
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+            else:
+                requests.post(
+                    f"{sb_url}/rest/v1/contracts",
+                    headers=headers,
+                    json=row_body,
+                    timeout=10,
+                )
+        except Exception:
+            pass
 
 
 def load_verified_contracts() -> list[dict]:
@@ -196,11 +266,15 @@ def load_verified_contracts() -> list[dict]:
         contracts = json.loads(m.group(1))
         if not isinstance(contracts, list):
             return []
+        today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         valid = []
         for c in contracts:
             slug = str(c.get("slug") or "").strip()
             title = str(c.get("clean_title") or "").strip()
             if not slug or not title:
+                continue
+            due_str = str(c.get("due_str") or "").strip()
+            if re.match(r"^\d{4}-\d{2}-\d{2}$", due_str) and due_str < today_iso:
                 continue
             low = title.lower()
             if "sole source" in low or "intent to sole source" in low or re.match(r"^\d{2}--", low):

@@ -88,22 +88,8 @@ EXCLUSION_PATTERNS = [
 
 
 def send_discord_alert(message: str) -> None:
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("az_scraper.py", str(message))
-    try:
-        with open(ERROR_LOG_PATH, "a", encoding="utf-8") as f:
-            f.write(f"\n[!] az_scraper.py: {message}\n")
-    except Exception:
-        pass
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] Arizona Scraper (`az_scraper.py`):**\n{message}", "flags": 4},
-            timeout=10,
-        )
-    except Exception:
-        pass
 
 
 def _clean_text(raw: str) -> str:

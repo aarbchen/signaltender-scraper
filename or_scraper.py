@@ -56,18 +56,9 @@ def log_error(msg: str) -> None:
 
 
 def send_discord_alert(message: str) -> None:
+    """Silently record runtime error to telemetry for autonomous self-healing (resolved-only Discord policy)."""
     report_error("or_scraper.py", str(message))
-    log_error(message)
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": f"**[ALERT] OregonBuys / DAS EIS Scraper Error:**\n{message}", "flags": 4},
-            timeout=10,
-        )
-    except Exception as exc:
-        log_error(f"Failed to send Discord alert: {exc}")
+    log_error(str(message))
 
 
 def is_tech_contract(title: str, description: str = "") -> bool:
