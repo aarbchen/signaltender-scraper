@@ -185,6 +185,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     issues: list[str] = []
 
     # 0. Compile every .py file in BOTH d:\Data API Ecosystem and d:\Daas in-memory (zero .pyc disk lock collisions)
+    #    and ensure zero literal ASCII 0x08 (\x08) backspace control chars corrupting regex \b word boundaries.
     for repo_root in (pathlib.Path(r"D:\Data API Ecosystem"), BASE_DIR):
         if not repo_root.exists():
             continue
@@ -193,7 +194,10 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             if any(skip in s_path for skip in ("daas_env", "venv", ".venv", "__pycache__", ".git")):
                 continue
             try:
-                compile(py_file.read_text(encoding="utf-8", errors="replace"), s_path, "exec")
+                py_txt = py_file.read_text(encoding="utf-8", errors="replace")
+                if "\x08" in py_txt and "auto_error_healer.py" not in s_path:
+                    issues.append(f"Corrupted ASCII 0x08 backspace char (broken regex \\b) found in {s_path}")
+                compile(py_txt, s_path, "exec")
             except SyntaxError as comp_err:
                 issues.append(f"Python syntax/compilation error in {s_path}: {comp_err}")
             except Exception:

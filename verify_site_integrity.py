@@ -1574,39 +1574,97 @@ def check_product_output_quality_controls() -> None:
             if bad_case_tok in vol3_ca or bad_case_tok in vol4_ca:
                 fail(f"proposal_compiler.py: Mangled corporate suffix token '{bad_case_tok}' found in Volume III/IV!")
 
-        # Scenario B: Texas DIR SLED solicitation
-        req_tx = pc.ProposalCompileRequest(
-            solicitation_id="TX-DIR-CPO-5194",
-            solicitation_title="[TX-DIR-CPO-5194] Texas DIR Zero-Trust Cloud Security Operations",
-            agency="Texas Department of Information Resources (DIR)",
-            naics="541512",
-            company_name="Apex Cyber Defense LLC",
-            download_zip=False,
-            suppress_vault_persist=True,
-        )
-        res_tx = await pc.compile_full_proposal_package(req_tx)
-        zf_tx = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_tx["zip_base64"])))
-        vol5_tx = _extract_openxml_text(zf_tx.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
-        if "Tex. Gov't Code Ch. 552" not in vol5_tx or "5 U.S.C. § 552" in vol5_tx:
-            fail("proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code Ch. 552`)!")
+        # Universal 53-Jurisdiction Loop: All 50 U.S. States + D.C. + Federal + Municipal
+        # Verifies both Tier 3 (6-file Shipley .ZIP package) and Tier 4 (FOIA/PIA Vault & Statutory Demand Letter)
+        # across EVERY U.S. state, D.C., Federal, and Municipal with zero cross-state leakage.
+        sled_jur_set = {str(x.get("jurisdiction") or "").lower() for x in pc.STATE_SLED_VERIFIED_AWARDS}
+        all_state_keys = [
+            k for k in pc.STATE_STATUTORY_AUTHORITIES.keys()
+            if k not in ("federal", "municipal")
+        ]
+        if len(all_state_keys) < 51:
+            fail(f"proposal_compiler.py: Expected 50 states + D.C. (51 keys) in STATE_STATUTORY_AUTHORITIES, got {len(all_state_keys)}")
+        for st_k in all_state_keys:
+            if st_k not in sled_jur_set:
+                fail(f"proposal_compiler.py: State '{st_k}' is missing a dedicated benchmark entry in STATE_SLED_VERIFIED_AWARDS!")
 
-        # Scenario C: Federal DISA solicitation
-        req_fed = pc.ProposalCompileRequest(
-            solicitation_id="FA8726-26-R-0042",
-            solicitation_title="DISA Enterprise Cloud DevSecOps & Zero-Trust Engineering",
-            agency="Department of Defense — Defense Information Systems Agency (DISA)",
-            naics="541512",
-            company_name="Apex Cyber Defense LLC",
-            download_zip=False,
-            suppress_vault_persist=True,
-        )
-        res_fed = await pc.compile_full_proposal_package(req_fed)
-        zf_fed = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_fed["zip_base64"])))
-        vol5_fed = _extract_openxml_text(zf_fed.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
-        if "5 U.S.C. § 552" not in vol5_fed:
-            fail("proposal_compiler.py: Federal DISA package failed to cite Federal FOIA (`5 U.S.C. § 552`)!")
+        for jur_key, expected_statute in pc.STATE_STATUTORY_AUTHORITIES.items():
+            jur_label = jur_key.replace("_", " ").title()
+            if jur_key == "federal":
+                test_sol_id = "FA8726-26-R-0042"
+                test_title = "DISA Enterprise Cloud DevSecOps & Zero-Trust Engineering"
+                test_agency = "Department of Defense — Defense Information Systems Agency (DISA)"
+            elif jur_key == "municipal":
+                test_sol_id = "MUNI-RFP-2026-401"
+                test_title = "City & County Cloud ERP and Public Safety SOC Modernization"
+                test_agency = "City of Austin Municipal Information Technology (DemandStar)"
+            elif jur_key == "district_of_columbia":
+                test_sol_id = "DC-OCTO-2026-09"
+                test_title = "District of Columbia OCTO Enterprise Cloud & Zero-Trust Modernization"
+                test_agency = "District of Columbia Office of the Chief Technology Officer (OCTO)"
+            else:
+                test_sol_id = f"RFP-2026-{jur_key[:6].upper()}"
+                test_title = f"{jur_label} Statewide Zero-Trust Cloud & Cybersecurity Operations"
+                test_agency = f"State of {jur_label} — Department of Information Technology"
 
-        # Verify Vault, Wrap Index, FOIA Winning-Bid Vault (Tier 4), Teaming Clearinghouse (Tier 4), and Bilateral Teaming Handshake endpoints
+            # 1) Tier 3 Verification for `jur_key`: Compile 6-File Shipley .ZIP & inspect all unpacked XML volumes
+            req_jur = pc.ProposalCompileRequest(
+                solicitation_id=test_sol_id,
+                solicitation_title=test_title,
+                agency=test_agency,
+                naics_code="541512",
+                company_name="Apex Cyber Defense LLC",
+                rfp_text=f"The Contractor shall deliver Zero-Trust cloud security and 24x7 SOC monitoring for {test_agency}.",
+                use_llm_synthesis=False,
+                suppress_vault_persist=True,
+            )
+            res_jur = await pc.compile_full_proposal_package(req_jur)
+            zf_jur = zipfile.ZipFile(io.BytesIO(pc.base64.b64decode(res_jur["zip_base64"])))
+            if len(zf_jur.namelist()) != 6:
+                fail(f"proposal_compiler.py (Tier 3 .ZIP [{jur_key}]): Expected 6 files, got {len(zf_jur.namelist())}")
+            vol1_j = _extract_openxml_text(zf_jur.read("Volume_I_Technical_and_Management_Proposal.docx"))
+            vol2_j = _extract_openxml_text(zf_jur.read("Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx"))
+            vol3_j = _extract_openxml_text(zf_jur.read("Volume_III_Past_Performance_Teaming_and_Compliance.docx"))
+            vol4_j = _extract_openxml_text(zf_jur.read("Volume_IV_FAR_Subpart_9_6_Teaming_Agreement_and_13_CFR_125_6_Exhibit_A.docx"))
+            vol5_j = _extract_openxml_text(zf_jur.read("Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx"))
+            if expected_statute not in vol5_j:
+                fail(f"proposal_compiler.py (Tier 3 Volume V [{jur_key}]): Missing statutory citation '{expected_statute}'!")
+            if jur_key != "federal" and "5 U.S.C. § 552" in vol5_j:
+                fail(f"proposal_compiler.py (Tier 3 Volume V [{jur_key}]): Leaked Federal FOIA (`5 U.S.C. § 552`) into non-federal package!")
+            if jur_key not in ("federal", "municipal", "district_of_columbia"):
+                combined_vols_low = "\n".join([vol1_j, vol2_j, vol3_j, vol4_j, vol5_j]).lower()
+                for other_st in all_state_keys:
+                    if other_st in (jur_key, "district_of_columbia", "washington"):
+                        continue
+                    other_words = other_st.replace("_", " ")
+                    if other_words in jur_label.lower() or jur_label.lower() in other_words:
+                        continue
+                    if re.search(rf"\bstate of {re.escape(other_words)}\b|\b{re.escape(other_words)} department\b", combined_vols_low):
+                        fail(f"proposal_compiler.py (Tier 3 Cross-State Leak [{jur_key}]): Found other state '{other_words}' inside {jur_key} package!")
+
+            # 2) Tier 4 Verification for `jur_key`: FOIA / Public-Records Winning-Bid Vault & Statutory Demand Letter
+            foia_j = await pc.get_foia_winning_bid_vault(
+                state=jur_key,
+                naics="541512",
+                solicitation_id=test_sol_id,
+                title=test_title,
+                agency=test_agency,
+                company_name="Apex Cyber Defense LLC",
+            )
+            foia_j_letter = str(foia_j.get("statutory_demand_letter_text") or "")
+            if expected_statute not in foia_j_letter:
+                fail(f"proposal_compiler.py (Tier 4 FOIA Vault [{jur_key}]): Missing statutory citation '{expected_statute}'!")
+            if jur_key != "federal" and "5 U.S.C. § 552" in foia_j_letter:
+                fail(f"proposal_compiler.py (Tier 4 FOIA Vault [{jur_key}]): Leaked Federal FOIA (`5 U.S.C. § 552`) into {jur_key} demand letter!")
+            j_awards = foia_j.get("awards") or []
+            if not foia_j.get("awarded_labor_rates") or not j_awards:
+                fail(f"proposal_compiler.py (Tier 4 FOIA Vault [{jur_key}]): Empty `awarded_labor_rates` or `awards` for {jur_key}!")
+            if jur_key in all_state_keys and str(j_awards[0].get("jurisdiction") or "").lower() != jur_key:
+                fail(
+                    f"proposal_compiler.py (Tier 4 FOIA Vault [{jur_key}]): Top award jurisdiction was '{j_awards[0].get('jurisdiction')}', expected '{jur_key}'!"
+                )
+
+        # Verify Vault, Wrap Index, Teaming Clearinghouse (Tier 4), and Bilateral Teaming Handshake endpoints
         inst_vault = await pc.get_institutional_bid_vault(company_name="Fuse Integration")
         if not (inst_vault.get("verified_company_profile") or {}).get("uei") == "DZZ3WVXGEHW8":
             fail("proposal_compiler.py: `get_institutional_bid_vault` failed to return verified UEI for Fuse Integration!")
@@ -1614,33 +1672,6 @@ def check_product_output_quality_controls() -> None:
         for req_wk in ("sample_size", "sample_size_submissions", "p25_competitive_wrap", "p50_median_wrap", "p75_ceiling_wrap"):
             if req_wk not in wrap_res:
                 fail(f"proposal_compiler.py: `get_market_wrap_index` missing required frontend/API key '{req_wk}'")
-
-        # Tier 4 Output Verification A: FOIA / CPRA / PIA Winning-Bid Vault & Statutory Demand Generator across CA, TX, and Federal
-        foia_ca = await pc.get_foia_winning_bid_vault(
-            state="california",
-            naics="541512",
-            solicitation_id="0000034018",
-            title="Caltrans Enterprise Traffic Management & Cloud Telemetry Modernization",
-            agency="California Department of Transportation (Caltrans)",
-            company_name="Fuse Integration",
-        )
-        foia_ca_letter = str(foia_ca.get("statutory_demand_letter_text") or "")
-        if "Cal. Gov't Code § 7920.000" not in foia_ca_letter or "5 U.S.C. § 552" in foia_ca_letter:
-            fail("proposal_compiler.py (Tier 4 FOIA Vault): California CPRA demand letter missing `Cal. Gov't Code § 7920.000` or leaked Federal FOIA!")
-        if not foia_ca.get("awarded_labor_rates") or not foia_ca.get("awards"):
-            fail("proposal_compiler.py (Tier 4 FOIA Vault): Missing `awarded_labor_rates` or `awards` in California FOIA vault output!")
-
-        foia_tx = await pc.get_foia_winning_bid_vault(
-            state="texas",
-            naics="541512",
-            solicitation_id="TX-DIR-CPO-5194",
-            title="Texas DIR Zero-Trust Cloud Security Operations",
-            agency="Texas Department of Information Resources (DIR)",
-            company_name="Apex Cyber Defense LLC",
-        )
-        foia_tx_letter = str(foia_tx.get("statutory_demand_letter_text") or "")
-        if "Tex. Gov't Code Ch. 552" not in foia_tx_letter or "5 U.S.C. § 552" in foia_tx_letter:
-            fail("proposal_compiler.py (Tier 4 FOIA Vault): Texas PIA demand letter missing `Tex. Gov't Code Ch. 552` or leaked Federal FOIA!")
 
         # Tier 4 Output Verification B: 13 CFR § 125.6 Two-Sided Teaming Clearinghouse Matchmaker & Partner POC Mailto
         tc_res = await pc.request_compliant_teaming_slot(
