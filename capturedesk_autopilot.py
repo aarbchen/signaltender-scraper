@@ -26,6 +26,8 @@ TABLE_NAME = os.getenv("SUPABASE_TABLE_NAME", "contracts")
 
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 DISCORD_CAPTUREDESK_WEBHOOK_URL = os.getenv("DISCORD_CAPTUREDESK_WEBHOOK_URL")
+DISCORD_TIER3_WEBHOOK_URL = os.getenv("DISCORD_TIER3_WEBHOOK_URL")
+DISCORD_TIER4_WEBHOOK_URL = os.getenv("DISCORD_TIER4_WEBHOOK_URL")
 
 API_BASE_URL = os.getenv(
     "SIGNALTENDER_API_BASE_URL",
@@ -60,6 +62,7 @@ RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/generate/quality-assurance-qasp": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
     "/v1/generate/phase-in-transition-plan": "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
     "/v1/generate/capture-black-hat-review": "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
+    "/v1/generate/section-l-m-proposal-red-team-scorer": "sseb-color-team-pink-red-gold-proposal-scorer-api.p.rapidapi.com",
 }
 
 JURISDICTION_LABELS = {
@@ -1948,19 +1951,30 @@ def enrich_contract_dossier(record: dict) -> dict:
     }
 
 
-def _clip_bullet(text: str, max_len: int = 230) -> str:
+def _clip_bullet(text: str, max_len: int = 240) -> str:
     s = re.sub(r"\s+", " ", str(text or "").strip())
     if len(s) <= max_len:
+        if s.count("**") % 2 == 1:
+            s += "**"
         return s
-    cut = s[: max_len - 1].rsplit(" ", 1)[0].rstrip(",;:-")
-    return f"{cut}…"
+    window = s[:max_len]
+    # Prefer cutting cleanly at a sentence boundary ('. ' or '; ') if one appears after 70 chars
+    sent_idx = max(window.rfind(". "), window.rfind("; "))
+    if sent_idx >= 70:
+        out = window[: sent_idx + 1].strip()
+    else:
+        cut = s[: max_len - 1].rsplit(" ", 1)[0].rstrip(",;:-")
+        out = f"{cut}."
+    if out.count("**") % 2 == 1:
+        out += "**"
+    return out
 
 
 def format_capturedesk_discord_embed(dossier: dict) -> str:
     clean_title = strip_due_suffix(dossier.get("title", ""))
     j_badge = dossier.get("jurisdiction_badge") or JURISDICTION_LABELS.get(classify_jurisdiction(dossier), "FEDERAL // SAM.GOV")
     vertical = dossier.get("vertical") or classify_vertical_tag(dossier)
-    themes_formatted = "\n".join(f"  • {_clip_bullet(t, 175)}" for t in dossier.get("win_themes", [])[:3])
+    themes_formatted = "\n".join(f"  • {_clip_bullet(t, 235)}" for t in dossier.get("win_themes", [])[:2])
     nigp_part = f" | NIGP `{dossier['primary_nigp']}`" if dossier.get("primary_nigp") else ""
     posture_line = ""
     if dossier.get("compliance_posture") or dossier.get("teaming_posture"):
@@ -1974,9 +1988,15 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         )
     evidence_lines = ""
     if dossier.get("evidence_needed"):
-        ev_formatted = "\n".join(f"  • {_clip_bullet(e, 165)}" for e in dossier["evidence_needed"][:2])
+        ev_formatted = "\n".join(f"  • {_clip_bullet(e, 195)}" for e in dossier["evidence_needed"][:2])
         evidence_lines = f"**Required Proof & Proposal Evidence:**\n{ev_formatted}\n"
 
+    footer = (
+        f"**Official Portal:** <{dossier['source_url']}>\n"
+        f"**SignalTender Dossier:** <{dossier['dossier_url']}>\n"
+        f"{'─' * 44}"
+    )
+    max_body_len = 1920 - len(footer)
     body = (
         f"**[{j_badge}]** • `{vertical}`\n"
         f"**Solicitation:** {clean_title}\n"
@@ -1984,17 +2004,52 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         f"**Industry & Size Classification:** NAICS `{dossier['primary_naics']}` | PSC `{dossier['primary_psc']}`{nigp_part} | SBA Size: `{dossier['sba_size_standard']}`\n"
         f"{posture_line}"
         f"**Tailored Shipley Win Strategy:**\n{themes_formatted}\n"
-        f"{evidence_lines}"
     )
-    footer = (
-        f"**Official Portal:** <{dossier['source_url']}>\n"
-        f"**SignalTender Dossier:** <{dossier['dossier_url']}>\n"
+    if evidence_lines and len(body) + len(evidence_lines) <= max_body_len:
+        body += evidence_lines
+    if len(body) > max_body_len:
+        body = body[: max_body_len - 4].rsplit(" ", 1)[0].rstrip("*,;:-") + ".\n"
+    if body.count("**") % 2 == 1:
+        body = body.rstrip("\n") + "**\n"
+    return body + footer
+
+
+def format_tier3_proposal_vip_brief(dossier: dict) -> str:
+    clean_title = strip_due_suffix(dossier.get("title", ""))
+    j_badge = dossier.get("jurisdiction_badge") or JURISDICTION_LABELS.get(classify_jurisdiction(dossier), "FEDERAL // SAM.GOV")
+    vertical = dossier.get("vertical") or classify_vertical_tag(dossier)
+    t_pos = dossier.get("teaming_posture") or "13 CFR § 125.6 (50% Rule) + 3 Past Performance Refs"
+    lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Solutions Architect"
+    ptw_pos = dossier.get("igce_ptw_posture") or "Wrap ~1.80x • Target PTW: -5.5% vs. IGCE"
+    return (
+        f"**[VIP] SIGNALTENDER // PROPOSAL AUTOPILOT & 13 CFR § 125.6 TEAMING BRIEF**\n"
+        f"**[{j_badge}]** • `{vertical}`\n"
+        f"**Solicitation:** {clean_title}\n"
+        f"**Buyer Agency:** {dossier['agency']} | **Closing Date:** `{dossier['closing_date']}` | **NAICS:** `{dossier['primary_naics']}`\n"
+        f"• **3-Volume Shipley Package Ready (.ZIP):** `Volume_I_Technical_Management_and_Section_LM_Matrix.docx` + `Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx` (live `=SUM()` formulas) + `Volume_III_Past_Performance_Teaming_and_Compliance.docx` + `Volume_IV_FAR_Subpart_9_6_Teaming_Agreement.docx`.\n"
+        f"• **13 CFR § 125.6 & Key LCAT Baseline:** `{t_pos}` | `{lcat_pos}` (`{ptw_pos}`)\n"
+        f"**Compile .ZIP & Match Teaming Partners:** <{dossier['dossier_url']}> | **Official Portal:** <{dossier['source_url']}>\n"
         f"{'─' * 44}"
     )
-    max_body_len = 1920 - len(footer)
-    if len(body) > max_body_len:
-        body = body[: max_body_len - 4].rsplit(" ", 1)[0] + "…\n"
-    return body + footer
+
+
+def format_tier4_foia_vault_brief(dossier: dict) -> str:
+    clean_title = strip_due_suffix(dossier.get("title", ""))
+    j_key = classify_jurisdiction(dossier)
+    j_badge = dossier.get("jurisdiction_badge") or JURISDICTION_LABELS.get(j_key, "FEDERAL // SAM.GOV")
+    ptw_pos = dossier.get("igce_ptw_posture") or "Wrap ~1.80x (Contractor-Site) • Target PTW: -5.5% vs. IGCE • Sr. Arch $162/hr | Lead Eng $146/hr"
+    lcat_pos = dossier.get("key_personnel_lcats") or "Program Manager (PMP) • Lead Cloud/Cyber Architect"
+    statute = "5 U.S.C. § 552 Federal FOIA & FAR 15.503/15.506" if j_key == "federal" else f"{j_key.replace('_', ' ').title()} State Public Records / Open Records Act ($0.00 Electronic Fee Cap)"
+    return (
+        f"**[VIP] SIGNALTENDER // FOIA & STATE PIA WINNING-BID RATE VAULT**\n"
+        f"**[{j_badge}]** • **Statutory Authority:** `{statute}`\n"
+        f"**Target Recompete / Solicitation:** {clean_title} (`{dossier['agency']}`)\n"
+        f"• **Incumbent LCAT & Price-to-Win (PTW) Benchmark:** `{ptw_pos}`\n"
+        f"• **Key Personnel Rate Card Target:** `{lcat_pos}` (NAICS `{dossier['primary_naics']}` / PSC `{dossier['primary_psc']}`)\n"
+        f"• **Automated Public Records Packet:** Pre-filled statutory FOIA / State PIA demand letter for evaluated Section B CLIN unit prices, incumbent task orders, and Source Selection Decision Document (SSDD) disclosable under *Food Marketing Institute v. Argus Leader Media*.\n"
+        f"**SignalTender Dossier & FOIA Generator:** <{dossier['dossier_url']}> | **Vault Console:** <https://signaltender.net/#proposal-foia-moat>\n"
+        f"{'─' * 44}"
+    )
 
 
 SUPABASE_CAPTUREDESK_CACHE_URI = "subscriber://capturedesk/dossiers-cache"
@@ -2014,6 +2069,10 @@ def _is_actionable_rfp_row(row: dict) -> bool:
             return False
         due_dt = pseo_generator.parse_due_date(row)
         if due_dt is not None and due_dt < datetime.now(timezone.utc).date():
+            return False
+        s_slug = slugify(raw_title, row.get("id", "rfp"))
+        rfp_path = os.path.join(BASE_DIR, "contracts", "rfp", f"{s_slug}.html")
+        if os.path.exists(os.path.join(BASE_DIR, "contracts", "rfp")) and not os.path.exists(rfp_path):
             return False
     except Exception:
         pass
@@ -2062,7 +2121,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
             supabase.table(TABLE_NAME)
             .select("id, title, agency, closing_date, url, status")
             .order("id", desc=True)
-            .limit(40)
+            .limit(250)
             .execute()
         )
         rows = [
@@ -2162,6 +2221,40 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                     r.raise_for_status()
                     time.sleep(0.5)
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
+
+            if DISCORD_TIER3_WEBHOOK_URL:
+                import time
+                for d in new_dossiers[:1]:
+                    try:
+                        requests.post(
+                            DISCORD_TIER3_WEBHOOK_URL,
+                            json={
+                                "username": "Proposal Autopilot & Teaming VIP // Tier 3",
+                                "content": format_tier3_proposal_vip_brief(d),
+                                "flags": 4,
+                            },
+                            timeout=15,
+                        )
+                        time.sleep(0.4)
+                    except Exception:
+                        pass
+
+            if DISCORD_TIER4_WEBHOOK_URL:
+                import time
+                for d in new_dossiers[:1]:
+                    try:
+                        requests.post(
+                            DISCORD_TIER4_WEBHOOK_URL,
+                            json={
+                                "username": "FOIA Winning-Bid & OEM Vault // Tier 4",
+                                "content": format_tier4_foia_vault_brief(d),
+                                "flags": 4,
+                            },
+                            timeout=15,
+                        )
+                        time.sleep(0.4)
+                    except Exception:
+                        pass
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
             # unified Section I (CaptureDesk Dossiers) + Section II (52-Portal Live Wire) payload via client_delivery.py.

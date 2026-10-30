@@ -419,11 +419,33 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "gsa-fas-srp-tdr-iff-cav-ioa-audit-reconciler-api",
             "far-16-401-cpaf-cpif-award-fee-board-presentation-api",
         }
+        verified_public_hub_slugs = {
+            "b2b-contract-parsing-api",
+            "ai-contract-risk-redline-auditor-api",
+            "historical-procurement-pricing-api",
+            "live-sled-federal-open-rfp-feed-api",
+            "rfp-compliance-matrix-proposal-outline-api",
+            "far-dfars-cmmc-clause-risk-scanner-api",
+            "ai-bid-no-bid-capability-matcher-api",
+            "naics-sic-psc-unspsc-industry-classifier-api",
+            "ai-rfp-response-clarification-q-a-generator-api",
+            "b2b-quote-invoice-clin-table-extractor-api",
+            "govcon-teaming-partner-subcontracting-plan-api",
+            "soc-2-fedramp-nist-800-171-security-questionnaire-api",
+            "govcon-key-personnel-lcat-resume-tailoring-api",
+            "rfp-amendment-q-a-change-impact-analyzer-api",
+            "cpars-past-performance-volume-generator-api",
+            "govcon-igce-wrap-rate-price-to-win-modeler-api",
+            "govcon-oral-presentation-tech-demo-murder-board-prep-api",
+            "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api",
+            "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api",
+            "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api",
+        }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
-            if rslug not in verified_rapidapi_studio_slugs:
+            if rslug not in verified_public_hub_slugs:
                 fail(
-                    f"{label}: Unverified RapidAPI URL slug '{rslug}' found! "
-                    "Every API must exist in RapidAPI Studio and be registered in verified_rapidapi_studio_slugs."
+                    f"{label}: Non-public RapidAPI Hub URL slug '{rslug}' found! "
+                    "RapidAPI Hub URLs must point to one of the 20 PUBLIC storefronts (PUBLIC_MIRROR_TARGETS) so links never hit NOT_FOUND."
                 )
         for hslug in set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", txt)):
             if hslug not in verified_rapidapi_studio_slugs:
@@ -432,43 +454,46 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
                     "Every API must exist in RapidAPI Studio and be registered in verified_rapidapi_studio_slugs."
                 )
 
-        # Enforce strict 1:1 unique RapidAPI links per API Card, Matrix Row, and CATALOG entry (never point API N to API M!)
+        # Enforce 1:1 unique RapidAPI hosts per API Card & CATALOG entry and verified public Hub links across Card, Matrix Row, and CATALOG
         article_blocks = re.findall(r'<article id="(product-[^"]+)"([\s\S]*?)</article>', txt)
         matrix_tr_blocks = re.findall(r"<tr\b[\s\S]*?</tr>", matrix_m.group(1))
-        card_slug_by_pid = {}
-        seen_card_slugs = {}
+        seen_card_hosts = {}
         for idx_art, (pid, abody) in enumerate(article_blocks):
             c_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", abody))
             c_hosts = set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", abody))
             if len(c_slugs) != 1:
-                fail(f"{label}: Card '{pid}' must link to exactly 1 RapidAPI slug, found: {c_slugs}")
+                fail(f"{label}: Card '{pid}' must link to exactly 1 RapidAPI Hub slug, found: {c_slugs}")
             c_slug = next(iter(c_slugs))
-            if c_hosts and c_hosts != {c_slug}:
-                fail(f"{label}: Card '{pid}' host mismatch: hosts={c_hosts} vs url_slug={c_slug}")
-            if c_slug in seen_card_slugs:
-                fail(
-                    f"{label}: Duplicate RapidAPI link '{c_slug}' on '{pid}' (already used by '{seen_card_slugs[c_slug]}')! "
-                    "Every API must link 1:1 to its own dedicated RapidAPI page."
-                )
-            seen_card_slugs[c_slug] = pid
-            card_slug_by_pid[pid] = c_slug
+            if len(c_hosts) > 1:
+                fail(f"{label}: Card '{pid}' must not specify multiple RapidAPI hosts, found: {c_hosts}")
 
-            # Verify matching Matrix Row links to the exact same 1:1 RapidAPI slug
+            # Verify matching Matrix Row links to the exact same public RapidAPI Hub slug
             if idx_art >= len(matrix_tr_blocks):
                 fail(f"{label}: Missing Cross-Catalog Pricing Matrix row for '{pid}'")
             m_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", matrix_tr_blocks[idx_art]))
             if m_slugs != {c_slug}:
                 fail(f"{label}: Pricing Matrix row #{idx_art+1} ('{pid}') links to {m_slugs}, expected '{c_slug}'")
 
-            # Verify matching CATALOG['pid'] entry uses the exact same 1:1 RapidAPI host and hubUrl
+            # Verify matching CATALOG['pid'] entry uses the exact same 1:1 RapidAPI host and public hubUrl
             cat_m = re.search(rf"'{re.escape(pid)}'\s*:\s*\{{([\s\S]*?)\n\s*\}}\s*\}}", txt)
             if not cat_m:
                 fail(f"{label}: Missing CATALOG['{pid}'] entry")
             cat_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", cat_m.group(1)))
             cat_hosts = set(re.findall(r"([a-z0-9-]+)\.p\.rapidapi\.com", cat_m.group(1)))
-            if cat_slugs != {c_slug} or cat_hosts != {c_slug}:
+            if len(cat_hosts) != 1:
+                fail(f"{label}: CATALOG['{pid}'] must specify exactly 1 RapidAPI host, found: {cat_hosts}")
+            c_host = next(iter(cat_hosts))
+            if c_hosts and c_hosts != {c_host}:
+                fail(f"{label}: Card '{pid}' host {c_hosts} does not match CATALOG host '{c_host}'")
+            if c_host in seen_card_hosts:
                 fail(
-                    f"{label}: CATALOG['{pid}'] mismatch: slugs={cat_slugs}, hosts={cat_hosts}, expected '{c_slug}'"
+                    f"{label}: Duplicate RapidAPI host '{c_host}.p.rapidapi.com' on '{pid}' (already used by '{seen_card_hosts[c_host]}')! "
+                    "Every API must have a unique 1:1 RapidAPI host."
+                )
+            seen_card_hosts[c_host] = pid
+            if cat_slugs != {c_slug}:
+                fail(
+                    f"{label}: CATALOG['{pid}'] mismatch: slugs={cat_slugs} (expected '{c_slug}')"
                 )
 
         if "https://discord.gg/signaltender" in txt:

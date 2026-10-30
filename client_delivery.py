@@ -3703,10 +3703,30 @@ def deliver_leads(client_webhook_url: str = None) -> int:
 
         print(f"[*] Querying '{TABLE_NAME}' table for records with status='New Lead'...", flush=True)
         resp = supabase.table(TABLE_NAME).select("*").eq("status", "New Lead").execute()
-        records = [
+        raw_records = [
             r for r in (resp.data if resp and getattr(resp, "data", None) else [])
             if not str(r.get("url") or "").startswith(("subscriber://", "treasury://"))
         ]
+        try:
+            from pseo_generator import is_commodity_it_spam as _is_spam
+        except Exception:
+            _is_spam = lambda _t: False
+        rfp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts", "rfp")
+        records = []
+        spam_urls = []
+        for r in raw_records:
+            t_str = str(r.get("title") or "")
+            s_slug = slugify(t_str, r.get("id", "rfp"))
+            if _is_spam(t_str) or not os.path.exists(os.path.join(rfp_dir, f"{s_slug}.html")):
+                if r.get("url"):
+                    spam_urls.append(r["url"])
+                continue
+            records.append(r)
+        if spam_urls:
+            try:
+                supabase.table(TABLE_NAME).update({"status": "Filtered_Noise"}).in_("url", spam_urls).execute()
+            except Exception:
+                pass
 
         if not records:
             print("[+] No 'New Lead' records found to deliver.", flush=True)

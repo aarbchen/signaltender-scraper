@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T21:29:00Z",
+  "updated_at": "2026-10-30T22:19:40Z",
   "total_rules": 18,
   "rules": [
     {
@@ -70,11 +70,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_in",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j3",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s))",
       "prevention_rule": "Enforce 1:1 parity across index.html, apis.html, CATALOG, API_META, mcp.py, mcp-server/index.js, and seed_rapidapi_telemetry.py on every API update.",
       "created_at": "2026-10-29T20:34:18Z",
-      "last_healed_at": "2026-10-30T20:14:18Z",
-      "times_triggered_and_healed": 4
+      "last_healed_at": "2026-10-30T22:19:40Z",
+      "times_triggered_and_healed": 5
     },
     {
       "rule_id": "RULE-006-NIGHTTIME-AWAY-EXECUTION-ONLY",
@@ -82,8 +82,8 @@
       "source": "omniscient_auditor.py / silent_autopilot_watcher.py / windows_autopilot_guard.py",
       "bug_signature": "Autonomous audit and self-healing jobs running during daytime hours while the operator is actively using the computer",
       "root_cause": "Background watcher and audit invocations lacked a nighttime + Windows user-idle (GetLastInputInfo) gate.",
-      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM \u2013 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
-      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM \u2013 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
+      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM – 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
+      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM – 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
       "created_at": "2026-10-29T20:36:15Z",
       "last_healed_at": "2026-10-29T20:36:15Z",
       "times_triggered_and_healed": 1
@@ -141,7 +141,7 @@
       "category": "Products & Scrapers",
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
-      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code \u00a7 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
+      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
       "fix_applied": "Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
@@ -186,7 +186,7 @@
     },
     {
       "rule_id": "RULE-011-ZERO-PERMISSION-AUTONOMOUS-BUG-AND-BLINDSPOT-HEALING",
-      "category": "Autonomous Bug Remediation & 360\u00b0 Blindspot Coverage",
+      "category": "Autonomous Bug Remediation & 360° Blindspot Coverage",
       "source": "omniscient_auditor.py / auto_error_healer.py / AGENTS.md",
       "bug_signature": "Waiting for user permission before fixing detected bugs, or missing blindspot checks across processed_outbound_replies.json (list vs dict), sent_outreach_log.json DNC, Instantly lead starvation, multi-portal zero-lead rot, Stripe-to-Supabase subscriber provisioning, full 34-endpoint OpenAPI parity, ",
       "root_cause": "Asking for confirmation before fixing bugs and assuming single-schema JSON structures or single-repo git pushes.",

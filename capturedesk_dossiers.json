@@ -531,5 +531,245 @@
       "**Cloud Data Lake Architecture Security Audit Report & SLA Guarantee** \u2013 Third-party SOC 2 Type II certification, penetration test summary (dated within 12 months), and signed SLA commitment letter guaranteeing 99.95% uptime with financial remedies\u2014plus 2-3 reference letters from NC public sector clients confirming successful deployment of similar scale/complexity."
     ],
     "enriched_at": "2026-10-21T18:56:46.755008+00:00"
+  },
+  "1528": {
+    "id": "1528",
+    "title": "[DOT-SS-27-9023-DG] Self-Serve Motor Pool System",
+    "agency": "Florida Department of Transportation (FDOT)",
+    "jurisdiction_badge": "FLORIDA // MFMP VIP",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "10/30/2026",
+    "source_url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17329",
+    "dossier_url": "https://signaltender.net/contracts/rfp/dot-ss-27-9023-dg-self-serve-motor-pool-system-1528.html",
+    "primary_naics": "513210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "204-48 \u2014 Fleet Management Software",
+    "sba_size_standard": "1,500 employees",
+    "compliance_posture": "Florida Digital Service FAC 60GG-2 Security \u2022 SOC 2 Type II \u2022 Section 508 / WCAG 2.1 AA",
+    "teaming_posture": "FL OSD Certified Minority / Veteran Business Enterprise (CMBE/VBE) Teaming + 3 SLED Past Performance Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: A Secure, Accessible, Self-Serve Motor Pool Platform Built for FDOT:** This factor carries the heaviest weight (45%), so give it the most pages. Lead with a one-page architecture graphic and walk the design-deploy-support lifecycle. Make security, integration, Section 508/WCAG 2.1 AA, and SLA uptime visible as discriminators backed by VPAT, audit, and uptime metrics. Use a feature-benefit-proof format and ghost competitors who treat accessibility and integration as afterthoughts. Request FDOT standards by clarification so no 'required standard' goes unaddressed.",
+      "**Management & Implementation Plan: Low-Risk Phased Delivery, Training, and Transition:** Show a phased schedule with early value (a pilot motor pool location, then a statewide rollout). Pair role-based training and a no-disruption cutover and rollback plan with named key personnel. Highlight proactive risk mitigation and a governance cadence with FDOT. Tie every milestone to an SOW C.3.3 deliverable so evaluators can trace it directly.",
+      "**Past Performance: Proven Public-Sector Self-Service and Fleet Software Delivery:** Select the most relevant public-sector engagements and map each to FDOT's scope (self-service, fleet/asset, accessibility, SLA). Quantify outcomes such as uptime achieved, adoption, on-time delivery, and cost savings. Include customer quotes and ratings, and state the relevance to this effort explicitly for each reference."
+    ],
+    "evidence_needed": [
+      "System architecture diagram, functional capability mapping (reservation, vehicle check-out/in, fleet data/analytics), deployment model, and Tier 1-3 support model description.",
+      "Security control mapping to FDOT/State of Florida requirements, relevant certifications (e.g., SOC 2, FedRAMP/NIST 800-53 alignment), integration/API design and interface diagram; request FDOT standards list via clarification."
+    ],
+    "enriched_at": "2026-10-30T06:09:58.348104+00:00"
+  },
+  "1530": {
+    "id": "1530",
+    "title": "[AZ-BPM007854] Request for Proposals ; City of Chandler Economic Development and Tourism Website Redesign, Support, and Maintenance ; ED7-918-5161",
+    "agency": "City of Chandler (Arizona APP / Procure.AZ.gov)",
+    "jurisdiction_badge": "ARIZONA // APP PROCURE.AZ.GOV & ADOA-ASET",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "12/15/2026",
+    "source_url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14061",
+    "dossier_url": "https://signaltender.net/contracts/rfp/az-bpm007854-request-for-proposals-city-of-chandler-economic-development-1530.html",
+    "primary_naics": "541511 \u2014 Custom Computer Programming Services",
+    "primary_psc": "DB10 \u2014 IT AND TELECOM - WEB DEVELOPMENT AND DESIGN SERVICES",
+    "primary_nigp": "918-29 \u2014 Consulting Services, Computer and Data Processing (Web Site Design/Development)",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Arizona ADOA-ASET Statewide Policy P8120 Information Security (NIST 800-53) \u2022 StateRAMP \u2022 AZ Section 508 / WCAG 2.1 AA",
+    "teaming_posture": "AZ SPO Small Business Outreach (A.R.S. 41-2501 Procurement Code) + ADOA Statewide / NASPO ValuePoint Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: Accessible, Secure, High-Availability Chandler Web Platform:** Highest weight (45%), so lead with an architecture that proves Section 508/WCAG 2.1 AA, security, integration, and SLA uptime compliance by design. Quantify uptime history and show how the site drives economic development and tourism outcomes. Ghost competitors with generic templates by showcasing Chandler-specific user journeys for investors and visitors.",
+      "**Management & Implementation Plan: Phased Delivery, Training & Seamless Transition:** Present a phased schedule with clear City acceptance gates, role-based training, and a zero-downtime cutover and transition plan. Highlight named key personnel and proactive risk management to differentiate on low-risk delivery.",
+      "**Past Performance: Proven Public-Sector Website Success:** Select municipal and public-sector web redesign projects closely matching Chandler's scope, and show measurable results such as traffic, accessibility conformance, and uptime. Include reference quotes and a relevance mapping table tied to the 30% factor."
+    ],
+    "evidence_needed": [
+      "Solution architecture diagram, UX/design methodology, CMS platform description, support model (tiers, hours, response times), and sample redesign deliverables.",
+      "VPAT/ACR and WCAG 2.1 AA audit results, security controls matrix and certifications, integration/API diagram, and an uptime SLA with credit/remedy terms and historical uptime metrics."
+    ],
+    "enriched_at": "2026-10-30T06:09:19.213939+00:00"
+  },
+  "1531": {
+    "id": "1531",
+    "title": "[AZ-BPM007148] HANDS Maintenance and Operation Support",
+    "agency": "Arizona Department of Health Services (Arizona APP / Procure.AZ.gov)",
+    "jurisdiction_badge": "ARIZONA // APP PROCURE.AZ.GOV & ADOA-ASET",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/05/2026",
+    "source_url": "https://app.az.gov/page.aspx/en/bpm/process_manage_extranet/14055",
+    "dossier_url": "https://signaltender.net/contracts/rfp/az-bpm007148-hands-maintenance-and-operation-support-1531.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "918-29 \u2014 Computer Systems Maintenance and Support Consulting Services",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Arizona ADOA-ASET Statewide Policy P8120 Information Security (NIST 800-53) \u2022 StateRAMP \u2022 AZ Section 508 / WCAG 2.1 AA",
+    "teaming_posture": "AZ SPO Small Business Outreach (A.R.S. 41-2501 Procurement Code) + ADOA Statewide / NASPO ValuePoint Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: Secure, Sustainable HANDS Design, Deployment & Support:** Lead with a low-risk, proven architecture and a mature O&M model for ADHS. Use feature-benefit-proof statements and graphics, and ghost competitors who treat maintenance as an afterthought by showing continuity from design through sustainment. This section carries the heaviest weight (45%), so give it the largest page share.",
+      "**Security, Section 508/WCAG 2.1 AA, Integration & SLA Uptime Assurance:** Use a compliance-traceability table showing how each ADHS security, accessibility, integration, and uptime standard is met, backed by VPAT/ACR and measured SLA history. Make 'compliance by design, verified by evidence' the discriminator.",
+      "**Management & Implementation Plan: Phased Schedule, Training & Seamless Transition:** Show a phased schedule with measurable milestones, role-based training, and a zero-disruption transition that protects continuity of HANDS operations. Name key personnel and governance cadence, and highlight proactive risk mitigation."
+    ],
+    "evidence_needed": [
+      "Solution architecture diagram, maintenance and operations support model (tiers, ticketing, release/patch cadence), and staffing/roles matrix tied to the design-deploy-support lifecycle.",
+      "Security control mapping (e.g., NIST 800-53/State of Arizona/ADOA-ASET policies), VPAT/ACR and WCAG 2.1 AA test results, integration interface specifications, and SLA uptime metrics with historical performance data and remedies."
+    ],
+    "enriched_at": "2026-10-30T00:08:29.839529+00:00"
+  },
+  "1532": {
+    "id": "1532",
+    "title": "[IN-88965] Communication and Messaging System",
+    "agency": "Indiana Department of Administration (IDOA / IOT)",
+    "jurisdiction_badge": "INDIANA // IDOA, IOT & NSWC CRANE",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/30/2026",
+    "source_url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#88965",
+    "dossier_url": "https://signaltender.net/contracts/rfp/in-88965-communication-and-messaging-system-1532.html",
+    "primary_naics": "518210 \u2014 Computing Infrastructure Providers, Data Processing, Web Hosting, and Related Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "204-19 \u2014 Computer Software, Communications / Messaging (Packaged)",
+    "sba_size_standard": "$40.0M annual receipts",
+    "compliance_posture": "Indiana IOT Information Security Framework (NIST 800-53 / IC 4-13.1) \u2022 StateRAMP \u2022 IN Accessibility VPAT",
+    "teaming_posture": "Indiana IDOA MBE (8% Goal) + WBE (11% Goal) + IVOSB (3% Veteran Goal) + IN QPA Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Executive Summary & Secure, Accessible Communication and Messaging Architecture:** Lead with the Technical factor (45%). Show how the design/deploy/support lifecycle delivers reliable, scalable messaging for Indiana agencies. Use a clear architecture graphic and name discriminators such as a proven public-sector platform and single-team accountability. Ghost competitors who rely on generic commercial tools without state-specific integration.",
+      "**Security, Section 508/WCAG 2.1 AA Accessibility, Integration & SLA Uptime Assurance:** Build a compliance crosswalk table so evaluators can score at a glance. Cite the VPAT/ACR, security certifications, and uptime history. Commit to measurable SLA metrics with credits, since uptime is an explicit shall. Highlight integration with existing IOT enterprise systems to reduce risk.",
+      "**Proven Public-Sector Past Performance in Enterprise Messaging:** Select references with similar scale, public-sector customers, and accessibility/security demands (30% weight). For each, give a relevance statement, quantified results (uptime, adoption, on-time delivery), and lessons applied to IDOA/IOT. Tie each reference back to the technical discriminators in Sections 1.0 and 2.0."
+    ],
+    "evidence_needed": [
+      "Reference architecture diagram, deployment model, support tiers/help desk description, and product/platform documentation.",
+      "VPAT/ACR for WCAG 2.1 AA, security certifications and controls mapping (e.g., SOC 2, NIST, FedRAMP or Indiana IOT standards), integration/API specifications, and SLA uptime commitments with credits."
+    ],
+    "enriched_at": "2026-10-30T00:07:58.194567+00:00"
+  },
+  "1567": {
+    "id": "1567",
+    "title": "[OK-OU-OSU-ONENET-RFP-2026-7712] OneNet (Oklahoma State Regents), University of Oklahoma & Oklahoma State University High-Performance AI Research Cloud & Optical Network",
+    "agency": "OneNet (Oklahoma State Regents for Higher Education) & University of Oklahoma IT (OK)",
+    "jurisdiction_badge": "OKLAHOMA // OMES, IS & TINKER AFB CORRIDOR",
+    "vertical": "Cloud & Infrastructure",
+    "closing_date": "12/07/2026",
+    "source_url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OU-OSU-ONENET-RFP-2026-7712",
+    "dossier_url": "https://signaltender.net/contracts/rfp/ok-ou-osu-onenet-rfp-2026-7712-onenet-oklahoma-state-regents-university-of-1567.html",
+    "primary_naics": "518210 \u2014 Computing Infrastructure Providers, Data Processing, Web Hosting, and Related Services",
+    "primary_psc": "DH01 \u2014 IT and Telecom - Compute as a Service: Mainframe/Servers/High-Performance Computing (Cloud)",
+    "primary_nigp": "204-27 \u2014 Computer Services, Data Processing/Hosting (Cloud Computing Services)",
+    "sba_size_standard": "$40.0M annual receipts",
+    "compliance_posture": "Oklahoma OMES Cyber Command Information Security Policy (NIST 800-53 / CMMC 2.0) \u2022 StateRAMP \u2022 OK Electronic & Info Tech Accessibility VPAT",
+    "teaming_posture": "Oklahoma Disabled Veteran Business Enterprise (ODVBE 3% Goal) & Small Business Teaming + OMES Statewide Contract Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.82x (Contractor-Site) \u2022 Target PTW: -5.2% vs. IGCE \u2022 Principal Cloud Arch $165/hr | DevSecOps $146/hr",
+    "key_personnel_lcats": "Program Manager (PMP, 10+ yrs) \u2022 Lead Cloud/DevSecOps Architect (AWS/Azure Pro + CISSP, 8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: Secure, Accessible, SLA-Backed AI Research Cloud & Optical Network:** Weighted at 45%, so lead with a research-driven architecture for AI/GPU workloads on a low-latency optical backbone linking OneNet, OU and OSU. Show security, Section 508/WCAG 2.1 AA, integration and SLA uptime compliance explicitly, with metrics. Ghost competitors who offer generic commercial cloud without research-network integration or accessibility evidence.",
+      "**Management & Implementation Plan: Phased Deployment, Training and Seamless Transition:** Weighted at 25%, so present a low-risk phased schedule with minimal disruption to active research. Highlight a named Oklahoma-based team, role-based training for researchers and IT staff, and a clear transition and risk-mitigation plan.",
+      "**Past Performance on Similar Public-Sector Engagements:** Weighted at 30%, so select 3 to 5 closely relevant higher-education or state research-network and cloud projects. Use a relevance matrix showing scope, scale and outcomes (uptime achieved, on-time delivery), backed by customer testimonials."
+    ],
+    "evidence_needed": [
+      "Reference architecture diagrams (compute/GPU, storage, optical transport), capacity and performance specifications, and design rationale tied to research workloads.",
+      "Support tier structure, NOC/help desk coverage hours, escalation matrix, and sample O&M runbooks or SLA reports."
+    ],
+    "enriched_at": "2026-10-30T12:10:48.246693+00:00"
+  },
+  "1571": {
+    "id": "1571",
+    "title": "[IN-00570] Digital staff visitor entry management",
+    "agency": "Indiana Department of Administration (IDOA / IOT)",
+    "jurisdiction_badge": "INDIANA // IDOA, IOT & NSWC CRANE",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/03/2026",
+    "source_url": "https://www.in.gov/idoa/procurement/current-business-opportunities/#00570",
+    "dossier_url": "https://signaltender.net/contracts/rfp/in-00570-digital-staff-visitor-entry-management-1571.html",
+    "primary_naics": "513210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "204-55 \u2014 Software, Data Base Management (Computer)",
+    "sba_size_standard": "1,500 employees",
+    "compliance_posture": "Indiana IOT Information Security Framework (NIST 800-53 / IC 4-13.1) \u2022 StateRAMP \u2022 IN Accessibility VPAT",
+    "teaming_posture": "Indiana IDOA MBE (8% Goal) + WBE (11% Goal) + IVOSB (3% Veteran Goal) + IN QPA Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Solution Architecture for Secure, Modern Digital Visitor Entry Management:** Lead with the highest-weighted factor (45%). Present a state-ready, configurable architecture with a design-deploy-support lifecycle, and quantify faster check-in, better security awareness, and lower front-desk burden. Ghost legacy paper-log and rigid kiosk-only competitors.",
+      "**Security, Section 508/WCAG 2.1 AA Accessibility, Integration & SLA Assurance:** Use a compliance-by-design theme and show each standard met with evidence (VPAT, certifications, SLA metrics). Make the uptime SLA and visitor-PII protections explicit discriminators, and quote IOT standards back to evaluators.",
+      "**Proven Public-Sector Past Performance:** Select references closest in scope (government facility access or visitor management) and map each to this SOW. Lead with measurable outcomes such as uptime achieved, on-time go-lives, and user satisfaction. Worth 30%, so ensure references are verified and responsive."
+    ],
+    "evidence_needed": [
+      "Architecture diagram covering design, deployment, and support lifecycle; support model description; product/feature compliance mapping.",
+      "Security control mapping to IOT standards, relevant certifications (e.g., SOC 2/FedRAMP if held), data protection and visitor-PII handling plan."
+    ],
+    "enriched_at": "2026-10-30T22:23:23.576978+00:00"
+  },
+  "1578": {
+    "id": "1578",
+    "title": "B26OP04834 \u2013 Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options",
+    "agency": "Chicago Transit Authority (CTA)",
+    "jurisdiction_badge": "ILLINOIS // BIDBUY",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/20/2026",
+    "source_url": "https://transitchicago.bonfirehub.com/opportunities/259072",
+    "dossier_url": "https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-1578.html",
+    "primary_naics": "513210 \u2014 Software Publishers",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "204-47 \u2014 Software, Application (Packaged/Prewritten, Business Function Specific)",
+    "sba_size_standard": "1,500 employees",
+    "compliance_posture": "Illinois DoIT Enterprise Security Policy \u2022 SOC 2 Type II \u2022 IITAA 2.1 WCAG 2.1 AA VPAT",
+    "teaming_posture": "Illinois CEI BEP (20%\u201330% Business Enterprise Goal) + VBP Veteran Participation + 3 SLED Past Perf Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & EHS Solution Architecture: A Proven Web-Based Platform for CTA Safety Outcomes:** Lead with the 45% factor. Map each EHS capability (incident, inspection, audit, compliance tracking) directly to CTA transit operations and show the design-deploy-support lifecycle across the 3-year base and 2 option years. Highlight configurable out-of-the-box functionality that lowers risk and time to value, and ghost competitors' heavy-customization approaches.",
+      "**Security, Accessibility, Integration & SLA Uptime Assurance:** Present a compliance-first assurance story: current security certifications, a VPAT showing WCAG 2.1 AA conformance, documented integration APIs, and a contractual uptime SLA with service credits. Quantify historical uptime. Because the RFP says 'all standards required by CTA,' state explicit full-compliance and flag any CTA standards to confirm during Q&A.",
+      "**Past Performance: Delivering EHS Results for Public-Sector and Transit Agencies:** Select references closest to CTA in size, public-sector governance, and EHS scope. For each, use a challenge-action-result format with quantified outcomes (incident reduction, audit-time savings, adoption rates). Show relevance to the 30% factor and pre-brief references."
+    ],
+    "evidence_needed": [
+      "Solution architecture diagram, EHS module-to-CTA need mapping, hosting model description, product datasheets, and support model for the 3-year base and two option years.",
+      "Security certifications (e.g., SOC 2 Type II, ISO 27001), data encryption and access control description, incident response plan, and pen-test summary."
+    ],
+    "enriched_at": "2026-10-30T22:22:48.689541+00:00"
+  },
+  "1579": {
+    "id": "1579",
+    "title": "B26OP04192 - Request for Proposals (RFP) \u2013 Hosting and Maintenance of a Web-Based Risk Management Information System Solution & Services for a Period of up to Five Years with Two One-Year Options.",
+    "agency": "Chicago Transit Authority (CTA)",
+    "jurisdiction_badge": "ILLINOIS // BIDBUY",
+    "vertical": "Cloud & Infrastructure",
+    "closing_date": "11/30/2026",
+    "source_url": "https://transitchicago.bonfirehub.com/opportunities/260826",
+    "dossier_url": "https://signaltender.net/contracts/rfp/b26op04192-request-for-proposals-rfp-hosting-and-maintenance-of-a-web-1579.html",
+    "primary_naics": "518210 \u2014 Computing Infrastructure Providers, Data Processing, Web Hosting, and Related Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "918-29 \u2014 Data Processing and Hosting Services (including Software as a Service)",
+    "sba_size_standard": "$40.0M annual receipts",
+    "compliance_posture": "Illinois DoIT Enterprise Security Policy \u2022 SOC 2 Type II \u2022 IITAA 2.1 WCAG 2.1 AA VPAT",
+    "teaming_posture": "Illinois CEI BEP (20%\u201330% Business Enterprise Goal) + VBP Veteran Participation + 3 SLED Past Perf Refs",
+    "igce_ptw_posture": "Wrap ~1.82x (Contractor-Site) \u2022 Target PTW: -5.2% vs. IGCE \u2022 Principal Cloud Arch $165/hr | DevSecOps $146/hr",
+    "key_personnel_lcats": "Program Manager (PMP, 10+ yrs) \u2022 Lead Cloud/DevSecOps Architect (AWS/Azure Pro + CISSP, 8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: Secure, Accessible, Cloud-Hosted RMIS Built for CTA:** Lead with a proven, secure, WCAG 2.1 AA-conformant cloud RMIS with a contractually backed uptime SLA. This factor carries 45% of the score. Use the same headings as SOW 3.1 and 3.2 for easy evaluator scoring, and include a quantified SLA table and a VPAT. Ghost competitors that rely on bolt-on accessibility or generic, non-transit hosting.",
+      "**Management & Implementation Plan: Phased Rollout, Training & Seamless Transition:** Show a low-risk phased schedule with named key personnel, defined go-live gates, role-based training, and a transition plan covering the base period and both option years. Highlight data migration experience and a dedicated CTA account lead. Tie each milestone to a CTA benefit.",
+      "**Past Performance on Similar Public-Sector Engagements:** Select references that match CTA in scope (RMIS/claims/risk), sector (public transit or municipal), and scale. For each, give a results table with uptime achieved, on-time implementation, and user adoption. This factor carries 30%, so pre-brief references and use outcome metrics rather than narrative alone."
+    ],
+    "evidence_needed": [
+      "Cloud architecture diagram, hosting environment description (e.g., FedRAMP/SOC 2 hosting provider), maintenance and support model, and release management approach.",
+      "SOC 2 Type II or ISO 27001 reports, data encryption and access control description, incident response plan, and integration interface specifications."
+    ],
+    "enriched_at": "2026-10-30T22:22:10.872905+00:00"
   }
 }

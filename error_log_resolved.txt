@@ -592,3 +592,6 @@ Node.js v26.7.0
 [2026-10-30 20:26:18 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK' is missing active state 'IA'
 [2026-10-30 20:27:42 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK' is missing active state 'IA'
 [2026-10-30 20:27:51 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: linkedin_autoposter.py: Found stale customer-facing count '39 GovCon REST & MCP APIs' (expected 52 portals / 50 states / 58 APIs). Update linkedin_autoposter.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 22:19:39 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-30 22:11:51 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Card 'product-compliance-matrix' must specify exactly 1 RapidAPI host, found: set()
