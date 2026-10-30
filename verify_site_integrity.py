@@ -975,6 +975,30 @@ window.sortSpaContractsTable('due_asc');
 window.sortSpaContractsTable('default');
 window.toggleCheckoutDeliveryDrawer();
 window.highlightRecommendedTier('tier2');
+if (
+  typeof window.openCheckoutLiveProofModal !== 'function' ||
+  typeof window.switchCheckoutProofTab !== 'function' ||
+  typeof window.populateCheckoutProofRfpSelect !== 'function' ||
+  typeof window.selectCheckoutProofRfp !== 'function' ||
+  typeof window.runCheckoutCustomRfpCompile !== 'function' ||
+  typeof window.runCheckoutFoiaVaultPreview !== 'function' ||
+  typeof window.generateCfoProcurementQuote !== 'function' ||
+  typeof window.copyCfoProcurementQuote !== 'function' ||
+  typeof window.printCfoProcurementQuote !== 'function'
+) {
+  throw new Error('Zero-Call Enterprise Proof & CFO Quote Workbench functions are undefined!');
+}
+window.openCheckoutLiveProofModal('tier3');
+window.populateCheckoutProofRfpSelect();
+window.selectCheckoutProofRfp('0');
+window.selectCheckoutProofRfp('');
+window.switchCheckoutProofTab('tier4');
+window.switchCheckoutProofTab('quote', 'tier3');
+var cfoQuoteText = window.generateCfoProcurementQuote('tier3_monthly') || '';
+if (cfoQuoteText.indexOf('FAR 31.205-18') === -1 || cfoQuoteText.indexOf('Micro-Purchase') === -1 || cfoQuoteText.indexOf('ST-Q-') === -1) {
+  throw new Error('CFO / FAR 31.205-18 Procurement Quote generator failed to render compliant justification memo!');
+}
+window.copyCfoProcurementQuote();
 if (typeof window.refreshCrowdWrapIndex !== 'function' || typeof window.confirmBilateralTeamingHandshake !== 'function' || typeof window.launchTier3ProposalAutopilot !== 'function') {
   throw new Error('M1/M2/ProposalAutopilot functions (refreshCrowdWrapIndex / confirmBilateralTeamingHandshake / launchTier3ProposalAutopilot) are undefined!');
 }
@@ -1202,6 +1226,25 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
             fail(f"mcp-server/index.js: ENDPOINT_MAP has {len(js_routes)} tools, expected {n_apis}")
         if re.search(r'description\s*:\s*"API\s*#', mcp_js_src):
             fail("mcp-server/index.js: Found prohibited 'API #XX:' prefix in MCP tool description (violates 5/5 Glama TDQS)")
+
+    # 5. Zero-Call Enterprise Proof & CFO Quote Workbench Parity on #page-checkout
+    for req_wb_id in (
+        "checkout-enterprise-proof-workbench",
+        "checkout-proof-panel-tier3",
+        "checkout-proof-panel-tier4",
+        "checkout-proof-panel-quote",
+        "checkout-foia-state",
+        "checkout-quote-preview-box",
+    ):
+        if f'id="{req_wb_id}"' not in index_txt:
+            fail(f"index.html: Missing required Zero-Call Enterprise Proof Workbench element #{req_wb_id} on #page-checkout")
+    m_foia_sel = re.search(r'<select\s+id="checkout-foia-state"[^>]*>(.*?)</select>', index_txt, flags=re.S)
+    if not m_foia_sel:
+        fail("index.html: Missing <select id='checkout-foia-state'> inside #checkout-proof-panel-tier4")
+    foia_sel_html = m_foia_sel.group(1)
+    for sk in state_keys:
+        if f'value="{sk}"' not in foia_sel_html:
+            fail(f"index.html: <select id='checkout-foia-state'> is missing option value='{sk}' for active state '{sk}'")
 
 
 def check_acquisition_and_email_guardrails() -> None:
@@ -1683,6 +1726,14 @@ def check_mobile_viewport_overflow() -> None:
                 if issues:
                     browser.close()
                     return (f"index.html{route}", issues[:3])
+                if route == "#checkout":
+                    for proof_mode in ("tier3", "tier4", "quote"):
+                        page.evaluate("(m) => { if (window.switchCheckoutProofTab) window.switchCheckoutProofTab(m, 'tier3'); }", proof_mode)
+                        page.wait_for_timeout(40)
+                        pm_issues = page.evaluate(js_scan)
+                        if pm_issues:
+                            browser.close()
+                            return (f"index.html#checkout[proof={proof_mode}]", pm_issues[:3])
 
             for desk_w in (1024, 1280):
                 page.set_viewport_size({"width": desk_w, "height": 900})

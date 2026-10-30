@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T00:09:14Z",
-  "total_rules": 13,
+  "updated_at": "2026-10-30T02:36:09Z",
+  "total_rules": 15,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -158,6 +158,30 @@
       "prevention_rule": "Nightly omniscient_auditor.py runs must actively purge non-RFP/nav-link/synthetic rows and \\ufffd characters from Supabase contracts and usaspending_verified_vault.json, and verify static/SPA dossier button payloads pass real agency and solicitation IDs.",
       "created_at": "2026-10-30T00:00:35Z",
       "last_healed_at": "2026-10-30T00:00:35Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-010-ZERO-CALL-ENTERPRISE-PROOF-AND-CFO-QUOTE-WORKBENCH",
+      "category": "Self-Serve Enterprise Conversion & Zero-Call Proof Workbench",
+      "source": "index.html / verify_site_integrity.py / omniscient_auditor.py / api/routers/support.py",
+      "bug_signature": "Missing or out-of-sync Zero-Call Enterprise Proof Workbench (#checkout-enterprise-proof-workbench), missing active SLED state option in <select id='checkout-foia-state'>, or broken CFO / FAR 31.205-18 Quote generator on #page-checkout",
+      "root_cause": "Adding new SLED state scrapers or modifying #page-checkout without syncing <select id='checkout-foia-state'> and verifying the 3-mode self-serve Proof Workbench (Custom RFP .ZIP Compiler, Live FOIA Rate Vault Preview, and CFO / FAR 31.205-18 Quote Generator).",
+      "fix_applied": "Added automatic <select id='checkout-foia-state'> state-option healer in omniscient_auditor.py and headless VM execution of openCheckoutLiveProofModal(), switchCheckoutProofTab(), and generateCfoProcurementQuote() in verify_site_integrity.py.",
+      "prevention_rule": "Every omniscient_auditor.py and verify_site_integrity.py run must auto-sync all active SLED states into <select id='checkout-foia-state'> and verify all 3 Zero-Call Enterprise Proof Workbench tabs and JS handlers on #page-checkout.",
+      "created_at": "2026-10-30T02:36:02Z",
+      "last_healed_at": "2026-10-30T02:36:02Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-VIEWPORT-NO-OVERFLOW",
+      "category": "Website Mobile & Desktop UX",
+      "source": "`verify_site_integrity.py`",
+      "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#checkout@1024px: ['div [PAST_SCREEN left=531 right=1537 vw=1024] | [2026-10-30 02:29:30 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index",
+      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#checkout@1024px: ['div [PAST_SCREEN left=531 right=1537 vw=1024] | [2026-10-30 02:29:30 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#che",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s))",
+      "prevention_rule": "Enforce zero horizontal overflow or text clipping at 375px mobile and 1024px/1280px desktop viewports using min-w-0, flex-wrap, and bounded badge containers.",
+      "created_at": "2026-10-30T02:36:09Z",
+      "last_healed_at": "2026-10-30T02:36:09Z",
       "times_triggered_and_healed": 1
     }
   ]

@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-30T00:11:45Z",
+  "timestamp": "2026-10-30T02:39:30Z",
   "mode": "fast",
-  "elapsed_seconds": 64.56,
+  "elapsed_seconds": 153.43,
   "status": "HEALTHY",
   "counts": {
     "portals": 28,
     "states": 26,
     "apis": 34,
     "tier2_apis": 24,
-    "learned_rules_total": 13
+    "learned_rules_total": 15
   },
   "pillars": {
     "products": {

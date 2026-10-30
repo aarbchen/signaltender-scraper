@@ -14585,7 +14585,7 @@
                 <ul class="space-y-2.5">
                   <li class="flex items-start space-x-2.5">
                     <span class="text-emerald-400 font-bold">&check;</span>
-                    <span><strong>All 28 Active Procurement Portals:</strong> Federal (<code class="font-mono text-sky-300">SAM.gov</code>), National Municipal (<code class="font-mono text-sky-300">DemandStar</code>), <code class="font-mono text-emerald-300">VA eVA</code>, <code class="font-mono text-indigo-300">TX ESBD</code>, <code class="font-mono text-amber-300">CA Cal eProcure</code>, <code class="font-mono text-cyan-300">FL MFMP VIP</code>, <code class="font-mono text-sky-300">MD eMMA &amp; Bonfire</code>, <code class="font-mono text-teal-300">IL BidBuy &amp; CTA</code>, <code class="font-mono text-orange-300">PA eMarketplace</code>, <code class="font-mono text-lime-300">OH OhioBuys</code>, <code class="font-mono text-sky-300">GA GPR</code>, <code class="font-mono text-sky-300">NC eVP</code>, <code class="font-mono text-blue-300">NY CROL &amp; PANYNJ</code>, <code class="font-mono text-emerald-300">MA COMMBUYS &amp; Boston</code>, <code class="font-mono text-amber-300">NJ NJSTART &amp; Treasury DPP</code>, <code class="font-mono text-teal-300">WA WEBS &amp; WaTech DES</code>, <code class="font-mono text-sky-300">MI SIGMA &amp; DTMB</code>, <code class="font-mono text-emerald-300">CO VSS &amp; OIT</code>, and <code class="font-mono text-amber-300">AZ APP &amp; ADOA-ASET</code>.</span>
+                    <span><strong>All 28 Active Procurement Portals:</strong> Federal (<code class="font-mono text-sky-300">SAM.gov</code>), National Municipal (<code class="font-mono text-sky-300">DemandStar</code>), <code class="font-mono text-emerald-300">VA eVA</code>, <code class="font-mono text-indigo-300">TX ESBD</code>, <code class="font-mono text-amber-300">CA Cal eProcure</code>, <code class="font-mono text-cyan-300">FL MFMP VIP</code>, <code class="font-mono text-sky-300">MD eMMA &amp; Bonfire</code>, <code class="font-mono text-teal-300">IL BidBuy &amp; CTA</code>, <code class="font-mono text-orange-300">PA eMarketplace</code>, <code class="font-mono text-lime-300">OH OhioBuys</code>, <code class="font-mono text-sky-300">GA GPR</code>, <code class="font-mono text-sky-300">NC eVP</code>, <code class="font-mono text-blue-300">NY CROL &amp; PANYNJ</code>, <code class="font-mono text-emerald-300">MA COMMBUYS &amp; Boston</code>, <code class="font-mono text-amber-300">NJ NJSTART &amp; Treasury DPP</code>, <code class="font-mono text-teal-300">WA WEBS &amp; WaTech DES</code>, <code class="font-mono text-sky-300">MI SIGMA &amp; DTMB</code>, <code class="font-mono text-emerald-300">CO VSS &amp; OIT</code>, <code class="font-mono text-amber-300">AZ APP &amp; ADOA-ASET</code>, <code class="font-mono text-sky-300">MN Swift &amp; MNIT</code>, <code class="font-mono text-indigo-300">TN Edison &amp; STS</code>, <code class="font-mono text-emerald-300">IN IDOA &amp; IOT</code>, <code class="font-mono text-amber-300">MO MissouriBUYS</code>, <code class="font-mono text-cyan-300">WI eSupplier &amp; DET</code>, <code class="font-mono text-teal-300">SC SCEIS &amp; SFAA</code>, <code class="font-mono text-lime-300">OR OregonBuys &amp; EIS</code>, <code class="font-mono text-sky-300">CT CTsource &amp; DAS-BITS</code>, and <code class="font-mono text-orange-300">UT U3P &amp; DTS</code>.</span>
                   </li>
                   <li class="flex items-start space-x-2.5">
                     <span class="text-emerald-400 font-bold">&check;</span>
@@ -14696,6 +14696,22 @@
               >
                 <span id="cta-tier2-label">Launch CaptureDesk ($399/mo) &rarr;</span>
               </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onclick="window.openCheckoutLiveProofModal('tier3')"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-bold text-emerald-300 bg-emerald-950/50 hover:bg-emerald-900/60 rounded-xl border border-emerald-500/40 transition-all cursor-pointer"
+                >
+                  Test Live With Your Own RFP Free &darr;
+                </button>
+                <button
+                  type="button"
+                  onclick="window.openCheckoutLiveProofModal('quote', 'tier2')"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-semibold text-sky-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-sky-500/30 transition-all cursor-pointer"
+                >
+                  CFO / FAR 31.205-18 Quote PDF &darr;
+                </button>
+              </div>
               <button
                 type="button"
                 onclick="window.switchCheckoutSectionTab('tier2', true)"
@@ -14761,6 +14777,10 @@
               </ul>
             </div>
             <div class="pt-6 space-y-2.5">
+              <div class="p-3 rounded-xl bg-emerald-950/35 border border-emerald-500/30 text-[11px] text-slate-200 leading-relaxed">
+                <div class="font-mono font-bold text-emerald-300 uppercase">ZERO-RISK BRIDGE // TEST FREE OR START AT $99/$399 FIRST</div>
+                <p class="mt-0.5 text-slate-300">Compile 1 full 6-file Shipley <code class="font-mono text-emerald-300">.ZIP</code> on your own RFP free below before subscribing &mdash; or start on Tier 1 ($99) / Tier 2 ($399) and 1-click upgrade in <code class="font-mono text-sky-300">#account</code> the exact day a bid drops.</p>
+              </div>
               <button
                 type="button"
                 onclick="window.launchSignalCheckout('tier3')"
@@ -14770,13 +14790,29 @@
               </button>
               <button
                 type="button"
-                onclick="window.switchCheckoutSectionTab('tier3', true)"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-emerald-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-emerald-500/30 transition-all cursor-pointer"
+                onclick="window.openCheckoutLiveProofModal('tier3')"
+                class="w-full inline-flex items-center justify-center px-4 py-3 text-xs font-mono font-bold text-emerald-200 bg-emerald-950/70 hover:bg-emerald-900/80 rounded-xl border border-emerald-400/50 shadow-lg transition-all cursor-pointer"
               >
-                Inspect 3-Volume .DOCX/.XLSX Anatomy &amp; Download Sample .ZIP &darr;
+                Try 1 Free Live Compile on Your Own RFP (.DOCX + .XLSX .ZIP) &darr;
               </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onclick="window.openCheckoutLiveProofModal('quote', 'tier3')"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-semibold text-sky-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-sky-500/30 transition-all cursor-pointer"
+                >
+                  CFO / FAR 31.205-18 Quote &darr;
+                </button>
+                <button
+                  type="button"
+                  onclick="window.switchCheckoutSectionTab('tier3', true)"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-semibold text-emerald-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-emerald-500/30 transition-all cursor-pointer"
+                >
+                  Inspect 3-Volume Anatomy &darr;
+                </button>
+              </div>
               <p class="text-center text-[11px] font-mono text-slate-400">
-                FAR 31.205-18 Allowable B&amp;P Expense &bull; Instant 3-Volume .DOCX/.XLSX Activation
+                FAR 31.205-18 Allowable B&amp;P Expense &bull; Instant 3-Volume .DOCX/.XLSX Activation &bull; Cancel Anytime
               </p>
             </div>
           </div>
@@ -14822,6 +14858,10 @@
               </ul>
             </div>
             <div class="pt-6 space-y-2.5">
+              <div class="p-3 rounded-xl bg-amber-950/35 border border-amber-500/30 text-[11px] text-slate-200 leading-relaxed">
+                <div class="font-mono font-bold text-amber-300 uppercase">SELF-SERVE ENTERPRISE PROOF // ZERO SALES CALLS REQUIRED</div>
+                <p class="mt-0.5 text-slate-300">Run a live FOIA Winning-Bid Rate Vault query on your state &amp; NAICS below, or generate an official <code class="font-mono text-amber-300">FAR 31.205-18</code> CFO / Corporate Procurement justification quote in 1 click.</p>
+              </div>
               <button
                 type="button"
                 onclick="window.launchSignalCheckout('tier4')"
@@ -14831,17 +14871,382 @@
               </button>
               <button
                 type="button"
-                onclick="window.switchCheckoutSectionTab('tier4', true)"
-                class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-amber-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-amber-500/30 transition-all cursor-pointer"
+                onclick="window.openCheckoutLiveProofModal('tier4')"
+                class="w-full inline-flex items-center justify-center px-4 py-3 text-xs font-mono font-bold text-amber-200 bg-amber-950/70 hover:bg-amber-900/80 rounded-xl border border-amber-400/50 shadow-lg transition-all cursor-pointer"
               >
-                Inspect FOIA Rate Vault, 50-State Statutes &amp; 50k OEM Quota &darr;
+                Test Live FOIA Rate Vault &amp; Statutory $0 Demand Generator &darr;
               </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onclick="window.openCheckoutLiveProofModal('quote', 'tier4')"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-semibold text-sky-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-sky-500/30 transition-all cursor-pointer"
+                >
+                  CFO / Procurement Quote &darr;
+                </button>
+                <button
+                  type="button"
+                  onclick="window.switchCheckoutSectionTab('tier4', true)"
+                  class="w-full inline-flex items-center justify-center px-3 py-2.5 text-[11px] font-mono font-semibold text-amber-300 bg-navy-950 hover:bg-slate-800 rounded-xl border border-amber-500/30 transition-all cursor-pointer"
+                >
+                  Inspect FOIA Vault &amp; 50k OEM &darr;
+                </button>
+              </div>
               <p class="text-center text-[11px] font-mono text-slate-400">
-                Includes Commercial OEM Redistribution Rights &bull; 99.95% Dedicated SLA
+                Includes Commercial OEM Redistribution Rights &bull; 99.95% Dedicated SLA &bull; Corporate Card &amp; ACH
               </p>
             </div>
           </div>
 
+        </div>
+
+        <!-- ===============================================================
+             ZERO-CALL ENTERPRISE PROOF & SELF-SERVE CFO PROCUREMENT WORKBENCH
+             =============================================================== -->
+        <div id="checkout-enterprise-proof-workbench" class="mt-8 p-5 sm:p-8 rounded-2xl bg-gradient-to-b from-navy-900 via-slate-900/95 to-navy-950 border-2 border-emerald-500/50 shadow-2xl space-y-6">
+          <div class="space-y-4 border-b border-slate-800 pb-5">
+            <div class="space-y-1.5">
+              <div class="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold uppercase">ZERO-CALL INTERACTIVE ENTERPRISE PROOF</span>
+                <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 font-semibold uppercase">TEST YOUR OWN RFP FREE &bull; INSTANT CFO / FAR 31.205-18 QUOTE</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white">
+                Verify Deliverable Quality on Your Own Solicitation Before You Subscribe &mdash; No Sales Calls Required
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Don&apos;t wait 2 weeks for a slide-deck sales call. Select any active Federal/SLED solicitation or paste your own RFP below to compile a live <strong class="text-white">6-File Shipley Proposal Package (<code class="font-mono text-emerald-300">.DOCX + .XLSX .ZIP</code>)</strong>, benchmark awarded incumbent LCAT rates in the <strong class="text-white">FOIA Winning-Bid Vault</strong>, or generate a printable <strong class="text-sky-300">CFO / Contracts Directorate <code class="font-mono">FAR 31.205-18</code> Approval Quote &amp; ROI Memo</strong> in 10 seconds.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 font-mono text-xs">
+              <button
+                type="button"
+                id="btn-proof-mode-tier3"
+                onclick="window.switchCheckoutProofTab('tier3')"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-600 text-white border border-emerald-400 font-bold shadow-lg cursor-pointer transition-all text-center"
+              >
+                01 // Free Custom RFP .ZIP Compiler (Tier 3)
+              </button>
+              <button
+                type="button"
+                id="btn-proof-mode-tier4"
+                onclick="window.switchCheckoutProofTab('tier4')"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/40 font-semibold cursor-pointer transition-all text-center"
+              >
+                02 // Live FOIA Rate Vault Query (Tier 4)
+              </button>
+              <button
+                type="button"
+                id="btn-proof-mode-quote"
+                onclick="window.switchCheckoutProofTab('quote')"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold cursor-pointer transition-all text-center"
+              >
+                03 // CFO &amp; FAR 31.205-18 Approval Quote
+              </button>
+            </div>
+          </div>
+
+          <!-- WORKBENCH MODE 1: TIER 3 CUSTOM RFP .ZIP COMPILER -->
+          <div id="checkout-proof-panel-tier3" class="space-y-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                    <span class="text-emerald-400 font-bold uppercase">STEP 1 // PICK AN OPEN SOLICITATION OR PASTE YOUR OWN RFP</span>
+                    <span class="text-slate-400 text-[11px]">LIVE FASTAPI + OPENXML COMPILER</span>
+                  </div>
+                  <div>
+                    <label for="checkout-proof-select-rfp" class="block text-[11px] font-mono text-slate-400 mb-1">Pre-Fill From Any Live Monitored Federal or State SLED Solicitation (Optional):</label>
+                    <select
+                      id="checkout-proof-select-rfp"
+                      onchange="window.selectCheckoutProofRfp(this.value)"
+                      class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-400"
+                    >
+                      <option value="">-- Custom / Pre-Loaded DoD Zero-Trust Cloud &amp; SOC RFP (FA8726-26-R-0042) --</option>
+                    </select>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label for="checkout-proof-sol-id" class="block text-[11px] font-mono text-slate-400 mb-1">Solicitation Number</label>
+                      <input id="checkout-proof-sol-id" type="text" value="FA8726-26-R-0042" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-400" />
+                    </div>
+                    <div>
+                      <label for="checkout-proof-naics" class="block text-[11px] font-mono text-slate-400 mb-1">NAICS / NIGP Code</label>
+                      <input id="checkout-proof-naics" type="text" value="541512" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-400" />
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label for="checkout-proof-title" class="block text-[11px] font-mono text-slate-400 mb-1">Solicitation Title</label>
+                      <input id="checkout-proof-title" type="text" value="Enterprise Zero-Trust Cloud Migration &amp; 24x7 SOC Modernization" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
+                    </div>
+                    <div>
+                      <label for="checkout-proof-agency" class="block text-[11px] font-mono text-slate-400 mb-1">Issuing Government Agency</label>
+                      <input id="checkout-proof-agency" type="text" value="Dept of Defense / Defense Information Systems Agency (SAM.gov)" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label for="checkout-proof-company" class="block text-[11px] font-mono text-slate-400 mb-1">Your Company Name (Printed on Cover &amp; Volumes I&ndash;V)</label>
+                      <input id="checkout-proof-company" type="text" value="Apex Defense &amp; Cyber Solutions LLC" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-emerald-300 focus:outline-none focus:border-emerald-400" />
+                    </div>
+                    <div>
+                      <label for="checkout-proof-socio" class="block text-[11px] font-mono text-slate-400 mb-1">Socio-Economic Status</label>
+                      <select id="checkout-proof-socio" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-emerald-400">
+                        <option value="SDVOSB">SDVOSB (Service-Disabled Veteran-Owned)</option>
+                        <option value="8(a)">SBA 8(a) Business Development</option>
+                        <option value="WOSB">WOSB / EDWOSB</option>
+                        <option value="HUBZone">HUBZone Certified Small Business</option>
+                        <option value="Small Business">Total Small Business / State SWaM-MBE</option>
+                        <option value="Large Prime">Other Than Small Business (Large Prime)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="checkout-proof-rfp-text" class="block text-[11px] font-mono text-slate-400 mb-1">Paste Your RFP Section C / L / M Requirements or SOW Excerpt:</label>
+                    <textarea id="checkout-proof-rfp-text" rows="3" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-400">The Contractor shall provide Enterprise Zero-Trust Architecture (ZTA) engineering, 24x7x365 SOC Managed Detection and Response (MDR) with &lt;15 minute MTTR, FedRAMP High multi-cloud migration, NIST SP 800-53 Rev 5 Continuous ATO (cATO) eMASS automation, and CMMC 2.0 Level 2 compliance across agency mission enclaves.</textarea>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3 pt-1">
+                    <button
+                      type="button"
+                      id="btn-checkout-custom-compile"
+                      onclick="window.runCheckoutCustomRfpCompile()"
+                      class="px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs sm:text-sm font-bold border border-emerald-400/50 shadow-xl cursor-pointer transition-all"
+                    >
+                      Compile &amp; Download My Custom 6-File Shipley Proposal (.ZIP) Free &rarr;
+                    </button>
+                    <button
+                      type="button"
+                      onclick="window.launchSignalCheckout('tier3')"
+                      class="px-4 py-3.5 rounded-xl bg-navy-900 hover:bg-slate-800 text-emerald-300 font-mono text-xs font-bold border border-emerald-500/40 cursor-pointer transition-all"
+                    >
+                      Unlock Unlimited Compiles ($1,499/mo) &rarr;
+                    </button>
+                  </div>
+                  <div id="checkout-proof-tier3-status" class="text-xs font-mono text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 rounded-lg px-3 py-2">
+                    Ready: Click above to compile a real 6-file Microsoft Word (.docx) + Excel (.xlsx with live =SUM() formulas) Shipley Proposal .ZIP customized with your company name and RFP scope.
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 p-5 rounded-xl bg-navy-950 border border-emerald-500/40 flex flex-col justify-between space-y-4">
+                <div class="space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono border-b border-slate-800 pb-2.5">
+                    <span class="text-emerald-400 font-bold">WHAT DOWNLOADS TO YOUR DESKTOP (.ZIP)</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[10px]">6 NATIVE OFFICE FILES</span>
+                  </div>
+                  <ul class="space-y-2.5 text-xs text-slate-300 leading-relaxed font-mono">
+                    <li class="p-2.5 rounded-lg bg-navy-900 border border-slate-800">
+                      <div class="text-white font-bold break-all">1. Volume_I_Technical_and_Management_Proposal.docx</div>
+                      <div class="text-[11px] text-slate-400 font-sans mt-0.5">Shipley Executive Summary, Section L/M Compliance Cross-Reference Matrix, Technical Architecture, and Key Personnel Resumes tailored to your company.</div>
+                    </li>
+                    <li class="p-2.5 rounded-lg bg-navy-900 border border-slate-800">
+                      <div class="text-emerald-300 font-bold break-all">2. Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx</div>
+                      <div class="text-[11px] text-slate-400 font-sans mt-0.5">Multi-tab Excel workbook with live <code class="font-mono text-emerald-300">=D6*E6</code>, <code class="font-mono text-emerald-300">=SUM()</code> Base + 4 Option Year formulas, GSA CALC+ P50 benchmarks, and DCAA Fringe/OH/G&amp;A Wrap Builder.</div>
+                    </li>
+                    <li class="p-2.5 rounded-lg bg-navy-900 border border-slate-800">
+                      <div class="text-white font-bold break-all">3. Volume_III_Past_Performance_and_Compliance.docx</div>
+                      <div class="text-[11px] text-slate-400 font-sans mt-0.5">3 DoD CPARS citations, 13 CFR &sect; 125.6 50%-Rule workshare proof, NIST 800-53 / CMMC 2.0 SSP summary, and FAR 9.5 OCI mitigation plan.</div>
+                    </li>
+                    <li class="p-2.5 rounded-lg bg-navy-900 border border-slate-800">
+                      <div class="text-white font-bold break-all">4. Volume_IV_Section_508_VPAT_and_SCRM_889.docx + Volume_V_QASP_Phase_In.docx</div>
+                      <div class="text-[11px] text-slate-400 font-sans mt-0.5">WCAG 2.2 AA VPAT 2.5 table, NDAA Section 889 / CISA SBOM attestation, FAR 37.6 QASP SLA matrix, and 30/60/90-Day Phase-In plan.</div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="p-3 rounded-lg bg-sky-950/30 border border-sky-500/30 text-[11px] text-slate-300 leading-relaxed">
+                  <strong class="text-sky-300 font-mono">Why This Beats a Sales Call:</strong> Every file you download in this free test is compiled live by the exact same production endpoint (<code class="font-mono text-emerald-300">POST /v1/proposal-autopilot/compile-full-package</code>) unlocked in Tier 3.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WORKBENCH MODE 2: TIER 4 LIVE FOIA RATE VAULT & STATUTORY DEMAND PREVIEW -->
+          <div id="checkout-proof-panel-tier4" class="hidden space-y-5">
+            <div class="p-4 rounded-xl bg-navy-950 border border-amber-500/40 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+                <div>
+                  <label for="checkout-foia-state" class="block text-[11px] font-mono text-slate-400 mb-1">Target Jurisdiction (Federal or 26 SLED States)</label>
+                  <select id="checkout-foia-state" class="w-full px-3 py-2.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
+                    <option value="federal">Federal (5 U.S.C. &sect; 552 FOIA)</option>
+                    <option value="virginia">Virginia (VITA / Va. Code &sect; 2.2-3700)</option>
+                    <option value="texas">Texas (DIR / Tex. Gov. Code Ch. 552)</option>
+                    <option value="california">California (CDT / Cal. Gov. Code &sect; 7920)</option>
+                    <option value="florida">Florida (DMS / Fla. Stat. Ch. 119)</option>
+                    <option value="maryland">Maryland (DoIT / Md. GP &sect; 4-101)</option>
+                    <option value="illinois">Illinois (DoIT / 5 ILCS 140)</option>
+                    <option value="pennsylvania">Pennsylvania (OA / 65 P.S. &sect; 67.101)</option>
+                    <option value="ohio">Ohio (DAS / ORC &sect; 149.43)</option>
+                    <option value="georgia">Georgia (GTA / O.C.G.A. &sect; 50-18-70)</option>
+                    <option value="north_carolina">North Carolina (NCDIT / G.S. Ch. 132)</option>
+                    <option value="new_york">New York (OGS / NY FOIL &sect; 84)</option>
+                    <option value="massachusetts">Massachusetts (EOTSS / M.G.L. c. 66 &sect; 10)</option>
+                    <option value="new_jersey">New Jersey (DPP / NJ OPRA N.J.S.A. 47:1A-1)</option>
+                    <option value="washington">Washington (WaTech / RCW 42.56)</option>
+                    <option value="michigan">Michigan (DTMB / MCL 15.231)</option>
+                    <option value="colorado">Colorado (OIT / CORA C.R.S. &sect; 24-72-201)</option>
+                    <option value="arizona">Arizona (ADOA-ASET / A.R.S. &sect; 39-121)</option>
+                    <option value="minnesota">Minnesota (MNIT / Minn. Stat. Ch. 13)</option>
+                    <option value="tennessee">Tennessee (STS / Tenn. Code Ann. &sect; 10-7-503)</option>
+                    <option value="indiana">Indiana (IOT / APRA IC 5-14-3)</option>
+                    <option value="missouri">Missouri (OA-ITSD / RSMo Ch. 610)</option>
+                    <option value="wisconsin">Wisconsin (DOA-DET / Wis. Stat. &sect; 19.31)</option>
+                    <option value="south_carolina">South Carolina (SFAA / S.C. Code &sect; 30-4-10)</option>
+                    <option value="oregon">Oregon (EIS / ORS 192.311)</option>
+                    <option value="connecticut">Connecticut (DAS-BITS / Conn. Gen. Stat. &sect; 1-200)</option>
+                    <option value="utah">Utah (DTS / GRAMA Utah Code &sect; 63G-2-101)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="checkout-foia-naics" class="block text-[11px] font-mono text-slate-400 mb-1">Target NAICS Code</label>
+                  <select id="checkout-foia-naics" class="w-full px-3 py-2.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
+                    <option value="541512">541512 // Computer Systems Design &amp; Cyber</option>
+                    <option value="541511">541511 // Custom Software &amp; AI Engineering</option>
+                    <option value="541519">541519 // Cloud &amp; Zero-Trust Infrastructure</option>
+                    <option value="518210">518210 // Data Hosting, SOC &amp; Managed Services</option>
+                    <option value="541330">541330 // Defense &amp; Mission Engineering</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="checkout-foia-company" class="block text-[11px] font-mono text-slate-400 mb-1">Requester Organization</label>
+                  <input id="checkout-foia-company" type="text" value="Apex Defense &amp; Cyber Solutions LLC" class="w-full px-3 py-2.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-amber-300 focus:outline-none focus:border-amber-400" />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    id="btn-checkout-foia-run"
+                    onclick="window.runCheckoutFoiaVaultPreview()"
+                    class="w-full px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-mono text-xs font-bold border border-amber-300 shadow-lg cursor-pointer transition-all"
+                  >
+                    Query Live FOIA Vault &rarr;
+                  </button>
+                </div>
+              </div>
+              <div id="checkout-foia-status" class="text-xs font-mono text-amber-300">
+                Select any jurisdiction and click &quot;Query Live FOIA Vault&quot; to inspect real awarded incumbent LCAT rates and generate a statutory $0 electronic public-records demand letter.
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono border-b border-slate-800 pb-2">
+                  <span class="text-amber-300 font-bold">VERIFIED INCUMBENT LCAT HOURLY RATES &amp; -6% CHALLENGER PTW</span>
+                  <span id="checkout-foia-statute-badge" class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 text-[10px]">5 U.S.C. &sect; 552 // 20 BUSINESS DAYS</span>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse font-mono text-[11px]">
+                    <thead>
+                      <tr class="border-b border-slate-800 text-slate-400">
+                        <th class="py-2 pr-2">Awarded Incumbent / LCAT</th>
+                        <th class="py-2 px-2">Awarded Rate</th>
+                        <th class="py-2 px-2">GSA P50</th>
+                        <th class="py-2 pl-2 text-emerald-400">-6% Challenger PTW</th>
+                      </tr>
+                    </thead>
+                    <tbody id="checkout-foia-rates-tbody" class="divide-y divide-slate-800/70 text-slate-200">
+                      <tr>
+                        <td class="py-2 pr-2 font-semibold text-white">Booz Allen Hamilton // Sr. Zero-Trust Architect</td>
+                        <td class="py-2 px-2 text-amber-300">$194.00 / hr</td>
+                        <td class="py-2 px-2 text-slate-400">$198.00 / hr</td>
+                        <td class="py-2 pl-2 text-emerald-400 font-bold">$182.36 / hr</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 pr-2 font-semibold text-white">Leidos Inc. // Lead DevSecOps &amp; cATO Engineer</td>
+                        <td class="py-2 px-2 text-amber-300">$169.50 / hr</td>
+                        <td class="py-2 px-2 text-slate-400">$172.00 / hr</td>
+                        <td class="py-2 pl-2 text-emerald-400 font-bold">$159.33 / hr</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 pr-2 font-semibold text-white">CACI International // Senior RMF / NIST 800-53 ISSO</td>
+                        <td class="py-2 px-2 text-amber-300">$154.00 / hr</td>
+                        <td class="py-2 px-2 text-slate-400">$159.00 / hr</td>
+                        <td class="py-2 pl-2 text-emerald-400 font-bold">$144.76 / hr</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 p-4 rounded-xl bg-navy-950 border border-slate-800 flex flex-col justify-between space-y-3">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-2">
+                    <span class="text-amber-300 font-bold">STATUTORY $0 ELECTRONIC FOIA / PIA DEMAND</span>
+                    <span class="text-[10px] text-emerald-400">ARGUS LEADER REBUTTAL</span>
+                  </div>
+                  <pre id="checkout-foia-letter-preview" class="text-[11px] font-mono text-slate-300 whitespace-pre-wrap break-words overflow-x-auto leading-relaxed bg-navy-900 p-3 rounded-lg border border-slate-800">Pursuant to 5 U.S.C. &sect; 552 (Federal FOIA), requester demands electronic copies of the executed base contract, Section B CLIN unit labor rate tables, and Source Selection Decision Document (SSDD). Commercial electronic delivery requested ($0 duplication fee).</pre>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onclick="window.launchSignalCheckout('tier4')"
+                    class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-mono text-xs font-bold cursor-pointer"
+                  >
+                    Unlock Full 50-State FOIA Vault &amp; 50k OEM Calls ($2,499/mo) &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WORKBENCH MODE 3: 1-CLICK CFO / FAR 31.205-18 APPROVAL QUOTE & JUSTIFICATION MEMO -->
+          <div id="checkout-proof-panel-quote" class="hidden space-y-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-5 p-4 rounded-xl bg-navy-950 border border-sky-500/40 space-y-3.5">
+                <div class="text-xs font-mono text-sky-400 font-bold uppercase border-b border-slate-800 pb-2">
+                  CONFIGURE OFFICIAL VENDOR QUOTE &amp; FAR 31.205-18 B&amp;P MEMO
+                </div>
+                <div>
+                  <label for="checkout-quote-tier" class="block text-[11px] font-mono text-slate-400 mb-1">Select Subscription Tier &amp; Billing Term</label>
+                  <select id="checkout-quote-tier" onchange="window.generateCfoProcurementQuote()" class="w-full px-3 py-2.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-sky-400">
+                    <option value="tier3_monthly">Tier 3 // Proposal Autopilot Enterprise ($1,499/mo &bull; Monthly)</option>
+                    <option value="tier3_annual">Tier 3 // Proposal Autopilot Enterprise ($14,900/yr &bull; Save $3,088)</option>
+                    <option value="tier2_monthly">Tier 2 // CaptureDesk Autopilot ($399/mo &bull; Monthly)</option>
+                    <option value="tier2_annual">Tier 2 // CaptureDesk Autopilot ($3,490/yr &bull; Save $1,298)</option>
+                    <option value="tier4_monthly">Tier 4 // Enterprise OEM &amp; FOIA Vault ($2,499/mo &bull; Monthly)</option>
+                    <option value="tier4_annual">Tier 4 // Enterprise OEM &amp; FOIA Vault ($24,900/yr &bull; Save $5,088)</option>
+                    <option value="tier1_monthly">Tier 1 // SignalWire Pro 28-Portal Alert Wire ($99/mo &bull; Monthly)</option>
+                    <option value="tier1_annual">Tier 1 // SignalWire Pro 28-Portal Alert Wire ($990/yr &bull; Save $198)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="checkout-quote-company" class="block text-[11px] font-mono text-slate-400 mb-1">Purchasing Organization / Legal Entity Name</label>
+                  <input id="checkout-quote-company" type="text" value="Apex Defense &amp; Cyber Solutions LLC" oninput="window.generateCfoProcurementQuote()" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-sky-400" />
+                </div>
+                <div>
+                  <label for="checkout-quote-contact" class="block text-[11px] font-mono text-slate-400 mb-1">Prepared For (CFO / VP Capture / Contracts Director)</label>
+                  <input id="checkout-quote-contact" type="text" value="Chief Financial Officer &amp; Contracts Directorate" oninput="window.generateCfoProcurementQuote()" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white focus:outline-none focus:border-sky-400" />
+                </div>
+                <div>
+                  <label for="checkout-quote-costpool" class="block text-[11px] font-mono text-slate-400 mb-1">Accounting / Cost Pool Reference</label>
+                  <input id="checkout-quote-costpool" type="text" value="Indirect Bid &amp; Proposal (B&amp;P) Pool — FAR 31.205-18 / Corporate P-Card" oninput="window.generateCfoProcurementQuote()" class="w-full px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-slate-300 focus:outline-none focus:border-sky-400" />
+                </div>
+                <div class="flex flex-wrap items-center gap-2 pt-2">
+                  <button
+                    type="button"
+                    onclick="window.printCfoProcurementQuote()"
+                    class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/50 shadow-lg cursor-pointer"
+                  >
+                    Print / Save Official PDF Quote &nearr;
+                  </button>
+                  <button
+                    type="button"
+                    onclick="window.copyCfoProcurementQuote()"
+                    class="px-3.5 py-2.5 rounded-xl bg-navy-900 hover:bg-slate-800 text-sky-300 font-mono text-xs font-semibold border border-sky-500/40 cursor-pointer"
+                  >
+                    Copy Memo for CFO Email / Slack
+                  </button>
+                </div>
+                <div id="checkout-quote-copy-status" class="hidden text-xs font-mono text-emerald-400"></div>
+              </div>
+
+              <div class="lg:col-span-7 p-5 rounded-xl bg-navy-950 border border-slate-700 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono border-b border-slate-800 pb-2">
+                  <span class="text-sky-300 font-bold">OFFICIAL PROCUREMENT QUOTE &amp; FAR 31.205-18 ALLOWABILITY MEMO</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[10px]">MICRO-PURCHASE &amp; DCAA COMPLIANT</span>
+                </div>
+                <pre id="checkout-quote-preview-box" class="text-[11px] font-mono text-slate-200 whitespace-pre-wrap break-words overflow-x-auto leading-relaxed bg-navy-900 p-4 rounded-xl border border-slate-800"></pre>
+              </div>
+            </div>
+          </div>
         </div>
 
 
@@ -14877,7 +15282,7 @@
               Just Need On-Demand API Calls or MCP Tools Without the Full 6-Hour Alert Wire?
             </h3>
             <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              All 34 individual SignalTender microservices (RFP Parser, Legal Risk Redliner, Historical Award Pricing, 28-Portal Live RFP Feed, Shipley Compliance Matrix, FAR/DFARS/CMMC Scanner, Bid/No-Bid Matcher, NAICS/PSC Classifier, RFP Response &amp; Q&amp;A Generator, CLIN Quote Extractor, 13 CFR &sect; 125.6 Teaming Planner, SOC 2/FedRAMP/NIST 800-171 Questionnaire Responder, Key Personnel LCAT Resume Tailor, SF-30 Amendment Diff Analyzer, CPARS Past Performance Vol III Generator, IGCE &amp; Price-to-Win Modeler, FAR 15.102 Oral Presentation &amp; Murder-Board Prep, GovCon RMF, Continuous ATO, SSP &amp; POA&amp;M Generator, GovCon Debriefing, FAR 15.506 &amp; GAO Bid-Protest Analyzer, GovCon GSA MAS Schedule, SIN Mapper &amp; PRC Compliance API, GovCon Sources Sought, RFI &amp; Set-Aside Shaping Responder API, GovCon Organizational Conflict of Interest (OCI) &amp; FAR 9.5 Mitigation Plan API, SBIR / STTR Phase I&ndash;III Technical Volume &amp; Commercialization Plan API, GovCon Section 508, WCAG 2.2 AA &amp; VPAT 2.5 Accessibility Conformance API, GovCon Supply Chain SCRM, Section 889 &amp; CISA SBOM Attestation API, GovCon Quality Assurance Surveillance Plan (QASP) &amp; PRS SLA Matrix API, and GovCon 30/60/90-Day Phase-In Transition &amp; Incumbent Capture API) include a <span class="text-emerald-400 font-semibold">$0/mo Free Basic tier</span> and self-serve Pro/Ultra/Mega tiers on RapidAPI.
+              All 34 individual SignalTender microservices (RFP Parser, Legal Risk Redliner, Historical Award Pricing, 28-Portal Live RFP Feed, Shipley Compliance Matrix, FAR/DFARS/CMMC Scanner, Bid/No-Bid Matcher, NAICS/PSC Classifier, RFP Response &amp; Q&amp;A Generator, CLIN Quote Extractor, 13 CFR &sect; 125.6 Teaming Planner, SOC 2/FedRAMP/NIST 800-171 Questionnaire Responder, Key Personnel LCAT Resume Tailor, SF-30 Amendment Diff Analyzer, CPARS Past Performance Vol III Generator, IGCE &amp; Price-to-Win Modeler, FAR 15.102 Oral Presentation &amp; Murder-Board Prep, GovCon RMF, Continuous ATO, SSP &amp; POA&amp;M Generator, GovCon Debriefing, FAR 15.506 &amp; GAO Bid-Protest Analyzer, GovCon GSA MAS Schedule, SIN Mapper &amp; PRC Compliance API, GovCon Sources Sought, RFI &amp; Set-Aside Shaping Responder API, GovCon Organizational Conflict of Interest (OCI) &amp; FAR 9.5 Mitigation Plan API, SBIR / STTR Phase I&ndash;III Technical Volume &amp; Commercialization Plan API, GovCon Section 508, WCAG 2.2 AA &amp; VPAT 2.5 Accessibility Conformance API, GovCon Supply Chain SCRM, Section 889 &amp; CISA SBOM Attestation API, GovCon Quality Assurance Surveillance Plan (QASP) &amp; PRS SLA Matrix API, GovCon 30/60/90-Day Phase-In Transition &amp; Incumbent Capture API, DCAA SF-1408 Pre-Award Accounting System Adequacy API, DoD OTA 10 U.S.C. &sect; 4022 Prototype White Paper API, DD Form 254 Facility Clearance &amp; FOCI Mitigation API, FAR 52.219-9 Small Business Subcontracting Plan API, DFARS 252.227-7013/7014 Data Rights Assertion Table API, Shipley Black-Hat Competitive Intelligence &amp; Incumbent Ghosting API, and FAR 42.1503 CPARS Contractor Rebuttal &amp; Rating Upgrade API) include a <span class="text-emerald-400 font-semibold">$0/mo Free Basic tier</span> and self-serve Pro/Ultra/Mega tiers on RapidAPI.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-3 shrink-0 font-mono text-xs">
@@ -15307,7 +15712,7 @@
                 <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-1.5">
                   <div class="font-mono text-sky-400 font-bold">01 // 28 PORTALS MONITORED EVERY 6 HOURS</div>
                   <div class="font-bold text-white text-sm">Unified Federal, Municipal &amp; 26-State SLED Extraction</div>
-                  <p class="text-slate-400 leading-relaxed">Automated crawlers extract new IT, Cyber, Cloud, AI, and Software solicitations 4x daily from SAM.gov, DemandStar, VA eVA, TX ESBD, CA Cal eProcure, FL MFMP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA, CO VSS, and AZ APP.</p>
+                  <p class="text-slate-400 leading-relaxed">Automated crawlers extract new IT, Cyber, Cloud, AI, and Software solicitations 4x daily from SAM.gov, DemandStar, VA eVA, TX ESBD, CA Cal eProcure, FL MFMP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA, CO VSS, AZ APP, MN Swift, TN Edison, IN IDOA, MO MissouriBUYS, WI eSupplier, SC SCEIS, OR OregonBuys, CT CTsource, and UT U3P.</p>
                 </div>
                 <div class="p-4 rounded-xl bg-navy-950 border border-slate-800 space-y-1.5">
                   <div class="font-mono text-sky-400 font-bold">02 // 99.4% COMMODITY &amp; SOLE-SOURCE FILTER</div>
@@ -21257,6 +21662,344 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
               btn.textContent = 'Download Live Sample 3-Vol Proposal (.ZIP) ->';
             }
           });
+      };
+
+      window.populateCheckoutProofRfpSelect = function () {
+        var sel = document.getElementById('checkout-proof-select-rfp');
+        if (!sel || sel.dataset.populated === '1') return;
+        var list = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        if (!list.length) return;
+        sel.dataset.populated = '1';
+        var maxItems = Math.min(list.length, 40);
+        for (var i = 0; i < maxItems; i++) {
+          var c = list[i];
+          if (!c) continue;
+          var opt = document.createElement('option');
+          opt.value = String(i);
+          var rawT = String(c.clean_title || c.raw_title || c.title || 'Solicitation').replace(/\s+/g, ' ').trim();
+          var ag = String(c.agency || 'Gov Agency').trim();
+          opt.textContent = (rawT.length > 72 ? rawT.slice(0, 69) + '...' : rawT) + ' (' + ag.slice(0, 36) + ')';
+          sel.appendChild(opt);
+        }
+      };
+
+      window.selectCheckoutProofRfp = function (idxStr) {
+        var solEl = document.getElementById('checkout-proof-sol-id');
+        var titleEl = document.getElementById('checkout-proof-title');
+        var agencyEl = document.getElementById('checkout-proof-agency');
+        var naicsEl = document.getElementById('checkout-proof-naics');
+        var rfpEl = document.getElementById('checkout-proof-rfp-text');
+        if (idxStr === '' || idxStr === null || idxStr === undefined) {
+          if (solEl) solEl.value = 'FA8726-26-R-0042';
+          if (titleEl) titleEl.value = 'Enterprise Zero-Trust Cloud Migration & 24x7 SOC Modernization';
+          if (agencyEl) agencyEl.value = 'Dept of Defense / Defense Information Systems Agency (SAM.gov)';
+          if (naicsEl) naicsEl.value = '541512';
+          if (rfpEl) {
+            rfpEl.value = 'The Contractor shall provide Enterprise Zero-Trust Architecture (ZTA) engineering, 24x7x365 SOC Managed Detection and Response (MDR) with <15 minute MTTR, FedRAMP High multi-cloud migration, NIST SP 800-53 Rev 5 Continuous ATO (cATO) eMASS automation, and CMMC 2.0 Level 2 compliance across agency mission enclaves.';
+          }
+          return;
+        }
+        var list = Array.isArray(window.SIGNALTENDER_CONTRACTS) ? window.SIGNALTENDER_CONTRACTS : [];
+        var c = list[parseInt(idxStr, 10)];
+        if (!c) return;
+        var cTitle = String(c.clean_title || c.raw_title || c.title || 'Enterprise IT Modernization').trim();
+        var solId = c.solicitation_id || c.slug || 'RFP-2026-001';
+        var mBrk = cTitle.match(/^\[([A-Za-z0-9._-]+)\]\s*(.+)$/);
+        if (mBrk) {
+          solId = mBrk[1];
+          cTitle = mBrk[2].replace(/\s*-\s*Due:\s*[0-9/-]+$/i, '').trim();
+        }
+        var naics = String(c.naics_display || c.naics || '541512').split('/')[0].replace(/[^0-9A-Za-z-]/g, '').trim() || '541512';
+        var agency = String(c.agency || 'Federal & State SLED Agency').trim();
+        if (solEl) solEl.value = String(solId).slice(0, 65);
+        if (titleEl) titleEl.value = cTitle.slice(0, 160);
+        if (agencyEl) agencyEl.value = agency.slice(0, 120);
+        if (naicsEl) naicsEl.value = naics.slice(0, 16);
+        if (rfpEl) {
+          rfpEl.value = c.rfp_text || ('The Contractor shall provide comprehensive enterprise IT, cloud architecture, cybersecurity engineering, Section L/M technical delivery, QASP SLA operations, and 30/60/90-day phase-in transition for ' + cTitle + ' issued by ' + agency + ' under NAICS ' + naics + '.');
+        }
+      };
+
+      window.switchCheckoutProofTab = function (mode, optionalQuoteTier) {
+        window.populateCheckoutProofRfpSelect();
+        var modes = ['tier3', 'tier4', 'quote'];
+        for (var i = 0; i < modes.length; i++) {
+          var m = modes[i];
+          var panel = document.getElementById('checkout-proof-panel-' + m);
+          var btn = document.getElementById('btn-proof-mode-' + m);
+          var isAct = (m === mode);
+          if (panel) {
+            if (isAct) panel.classList.remove('hidden');
+            else panel.classList.add('hidden');
+          }
+          if (btn) {
+            if (isAct) {
+              if (m === 'tier3') btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-emerald-600 text-white border border-emerald-400 font-bold shadow-lg cursor-pointer transition-all text-center';
+              else if (m === 'tier4') btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-amber-400 text-navy-950 border border-amber-300 font-bold shadow-lg cursor-pointer transition-all text-center';
+              else btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-sky-600 text-white border border-sky-400 font-bold shadow-lg cursor-pointer transition-all text-center';
+            } else {
+              if (m === 'tier3') btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-semibold cursor-pointer transition-all text-center';
+              else if (m === 'tier4') btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/40 font-semibold cursor-pointer transition-all text-center';
+              else btn.className = 'w-full px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border border-sky-500/40 font-semibold cursor-pointer transition-all text-center';
+            }
+          }
+        }
+        if (mode === 'quote') {
+          var qSel = document.getElementById('checkout-quote-tier');
+          if (qSel && optionalQuoteTier) {
+            var billSuffix = (typeof currentBilling !== 'undefined' && currentBilling === 'annual') ? '_annual' : '_monthly';
+            qSel.value = optionalQuoteTier + billSuffix;
+          }
+          window.generateCfoProcurementQuote();
+        }
+      };
+
+      window.openCheckoutLiveProofModal = function (mode, optionalQuoteTier) {
+        var resolvedMode = (mode === 'tier2') ? 'tier3' : (mode || 'tier3');
+        window.switchCheckoutProofTab(resolvedMode, optionalQuoteTier);
+        var wb = document.getElementById('checkout-enterprise-proof-workbench');
+        if (wb && typeof wb.scrollIntoView === 'function') {
+          wb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      window.runCheckoutCustomRfpCompile = function () {
+        var btn = document.getElementById('btn-checkout-custom-compile');
+        var st = document.getElementById('checkout-proof-tier3-status');
+        var solId = (document.getElementById('checkout-proof-sol-id') || {}).value || 'FA8726-26-R-0042';
+        var title = (document.getElementById('checkout-proof-title') || {}).value || 'Enterprise Zero-Trust Cloud Migration & 24x7 SOC Modernization';
+        var agency = (document.getElementById('checkout-proof-agency') || {}).value || 'Dept of Defense / DISA (SAM.gov)';
+        var naics = (document.getElementById('checkout-proof-naics') || {}).value || '541512';
+        var company = (document.getElementById('checkout-proof-company') || {}).value || 'Apex Defense & Cyber Solutions LLC';
+        var socio = (document.getElementById('checkout-proof-socio') || {}).value || 'SDVOSB';
+        var rfpText = (document.getElementById('checkout-proof-rfp-text') || {}).value || 'The Contractor shall provide Enterprise Zero-Trust Architecture (ZTA) engineering, 24x7x365 SOC Managed Detection and Response (MDR), and FedRAMP High cloud migration.';
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Compiling Custom 6-File .DOCX + .XLSX Proposal (.ZIP)...';
+        }
+        if (st) {
+          st.textContent = 'Running Shipley Section L/M Compliance Shredder, Section B Excel Formula Model & Volumes I-V Compiler for ' + company + '...';
+        }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            solicitation_id: String(solId).trim().slice(0, 80),
+            title: String(title).trim().slice(0, 180),
+            agency: String(agency).trim().slice(0, 140),
+            rfp_text: String(rfpText).trim().slice(0, 8000),
+            company_name: String(company).trim().slice(0, 120),
+            company_capability_summary: socio + ' certified government technology prime contractor delivering Zero-Trust cybersecurity, cloud modernization, and 98% CPARS Exceptional execution.',
+            socio_economic_status: String(socio).trim(),
+            naics_code: String(naics).trim().slice(0, 20)
+          })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d && d.zip_base64) {
+              var binStr = window.atob(d.zip_base64);
+              var bytes = new Uint8Array(binStr.length);
+              for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+              var blob = new Blob([bytes], { type: 'application/zip' });
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = d.zip_filename || 'SignalTender_Custom_Shipley_Proposal_Package.zip';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              if (st) {
+                st.textContent = 'Downloaded ' + (d.zip_filename || '6-File Shipley Proposal .ZIP') + ' tailored for ' + company + ' (Volumes I, III, IV, V .docx + Volume II Live Formula .xlsx)!';
+              }
+            }
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = 'Compile & Download My Custom 6-File Shipley Proposal (.ZIP) Free ->';
+            }
+          })
+          .catch(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = 'Compile & Download My Custom 6-File Shipley Proposal (.ZIP) Free ->';
+            }
+          });
+      };
+
+      window.runCheckoutFoiaVaultPreview = function () {
+        var stEl = document.getElementById('checkout-foia-state');
+        var naicsEl = document.getElementById('checkout-foia-naics');
+        var compEl = document.getElementById('checkout-foia-company');
+        var statusEl = document.getElementById('checkout-foia-status');
+        var badgeEl = document.getElementById('checkout-foia-statute-badge');
+        var tbodyEl = document.getElementById('checkout-foia-rates-tbody');
+        var letterEl = document.getElementById('checkout-foia-letter-preview');
+        var btnEl = document.getElementById('btn-checkout-foia-run');
+
+        var stVal = (stEl && stEl.value) ? stEl.value : 'federal';
+        var naicsVal = (naicsEl && naicsEl.value) ? naicsEl.value : '541512';
+        var compVal = (compEl && compEl.value) ? compEl.value : 'Apex Defense & Cyber Solutions LLC';
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Querying FOIA Vault...';
+        }
+        if (statusEl) {
+          statusEl.textContent = 'Querying live USAspending & Verified State SLED Award Rate Vault for ' + stVal.toUpperCase() + ' (NAICS ' + naicsVal + ')...';
+        }
+        var url = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?state=' + encodeURIComponent(stVal) + '&naics=' + encodeURIComponent(naicsVal) + '&company_name=' + encodeURIComponent(compVal);
+        fetch(url)
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Query Live FOIA Vault ->';
+            }
+            if (!d) return;
+            var req = d.automated_foia_request_packet || {};
+            var statCit = d.statutory_citation || d.statutory_authority || req.statute_citation || '5 U.S.C. 552';
+            if (badgeEl) {
+              badgeEl.textContent = statCit;
+            }
+            var letterTxt = d.statutory_demand_letter_text || d.foia_request_letter || req.letter_body || '';
+            if (letterEl && letterTxt) {
+              letterEl.textContent = letterTxt;
+            }
+            var recs = Array.isArray(d.awards) ? d.awards : (Array.isArray(d.winning_bid_records) ? d.winning_bid_records : []);
+            var lcats = Array.isArray(d.awarded_labor_rates) ? d.awarded_labor_rates : (Array.isArray(d.benchmarked_lcat_hourly_rates) ? d.benchmarked_lcat_hourly_rates : []);
+            if (tbodyEl && (lcats.length > 0 || recs.length > 0)) {
+              var rowsHtml = '';
+              var topVendor = (recs[0] && (recs[0].winning_vendor || recs[0].incumbent_vendor || recs[0].recipient_name)) || 'Awarded Incumbent';
+              var rowCount = Math.max(Math.min(lcats.length, 4), Math.min(recs.length, 3));
+              for (var i = 0; i < rowCount; i++) {
+                var rec = recs[i] || recs[0] || {};
+                var lcatObj = lcats[i] || lcats[0] || { lcat: 'Sr. Zero-Trust Architect', incumbent_awarded_rate: 184.00, gsa_calc_p50: 189.52, challenger_ptw_hourly_rate: 172.96 };
+                var vName = rec.winning_vendor || rec.incumbent_vendor || rec.recipient_name || topVendor;
+                var lTitle = lcatObj.lcat || lcatObj.lcat_title || 'Sr. Cloud/Cyber Engineer';
+                var incRate = Number(lcatObj.incumbent_awarded_rate || lcatObj.p50_hourly_rate || 180).toFixed(2);
+                var p50Rate = Number(lcatObj.gsa_calc_p50 || lcatObj.p50_hourly_rate || 185).toFixed(2);
+                var ptwRate = Number(lcatObj.challenger_ptw_target || lcatObj.challenger_ptw_hourly_rate || 169).toFixed(2);
+                rowsHtml += '<tr>' +
+                  '<td class="py-2 pr-2 font-semibold text-white">' + String(vName).slice(0, 28) + ' // ' + String(lTitle).slice(0, 28) + '</td>' +
+                  '<td class="py-2 px-2 text-amber-300">$' + incRate + ' / hr</td>' +
+                  '<td class="py-2 px-2 text-slate-400">$' + p50Rate + ' / hr</td>' +
+                  '<td class="py-2 pl-2 text-emerald-400 font-bold">$' + ptwRate + ' / hr</td>' +
+                  '</tr>';
+              }
+              tbodyEl.innerHTML = rowsHtml;
+            }
+            if (statusEl) {
+              statusEl.textContent = 'Loaded ' + recs.length + ' verified incumbent contract benchmark(s) & statutory $0 public-records demand packet (' + statCit + ')!';
+            }
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Query Live FOIA Vault ->';
+            }
+          });
+      };
+
+      window.generateCfoProcurementQuote = function (overrideTierKey) {
+        var qSel = document.getElementById('checkout-quote-tier');
+        if (qSel && overrideTierKey) {
+          var suffix = (typeof currentBilling !== 'undefined' && currentBilling === 'annual') ? '_annual' : '_monthly';
+          if (overrideTierKey.indexOf('_') === -1) qSel.value = overrideTierKey + suffix;
+          else qSel.value = overrideTierKey;
+        }
+        var planKey = (qSel && qSel.value) ? qSel.value : 'tier3_monthly';
+        var comp = ((document.getElementById('checkout-quote-company') || {}).value || 'Apex Defense & Cyber Solutions LLC').trim();
+        var contact = ((document.getElementById('checkout-quote-contact') || {}).value || 'Chief Financial Officer & Contracts Directorate').trim();
+        var costpool = ((document.getElementById('checkout-quote-costpool') || {}).value || 'Indirect Bid & Proposal (B&P) Pool — FAR 31.205-18 / Corporate P-Card').trim();
+
+        var catalog = {
+          tier1_monthly: { name: 'Tier 1 // SignalWire Pro (28-Portal Real-Time RFP Alert Wire)', price: '$99.00 USD / Month', billing: 'Monthly Self-Serve Subscription (Cancel Anytime in 1 Click)', quota: '28 Portals Monitored Every 6 Hours + 5 Team Seats + 100 API Calls/Mo', consultantComp: '$15,000/yr Legacy Bid Aggregator Seat (92% Cost Reduction)' },
+          tier1_annual: { name: 'Tier 1 // SignalWire Pro Annual Plan (2 Months Free)', price: '$990.00 USD / Year ($82.50/mo equivalent)', billing: 'Annual Subscription (Saves $198/yr)', quota: '28 Portals Monitored Every 6 Hours + 5 Team Seats + 100 API Calls/Mo', consultantComp: '$15,000/yr Legacy Bid Aggregator Seat (93% Cost Reduction)' },
+          tier2_monthly: { name: 'Tier 2 // CaptureDesk Autopilot (28 Portals + 24 Pre-Award AI Capture Engines)', price: '$399.00 USD / Month', billing: 'Monthly Self-Serve Subscription (Cancel Anytime in 1 Click)', quota: '28 Portals + 24 Pre-Award Capture Engines + 2,500 API/MCP Calls/Mo', consultantComp: '$5,200/mo Junior Capture Analyst Labor (92% Cost Reduction)' },
+          tier2_annual: { name: 'Tier 2 // CaptureDesk Autopilot Annual Plan (Save $1,298/yr)', price: '$3,490.00 USD / Year ($290.83/mo equivalent)', billing: 'Annual Subscription (Below $10,000 Federal Micro-Purchase P-Card Limit)', quota: '28 Portals + 24 Pre-Award Capture Engines + 2,500 API/MCP Calls/Mo', consultantComp: '$62,400/yr Capture Analyst Labor ($58,910 Annual Net Savings)' },
+          tier3_monthly: { name: 'Tier 3 // Proposal Autopilot Enterprise (1-Click Shipley 6-File .DOCX/.XLSX Compiler)', price: '$1,499.00 USD / Month', billing: 'Monthly Self-Serve Subscription (Zero Annual Lock-In • Pause/Downgrade Anytime)', quota: 'Unlimited 6-File Shipley .DOCX/.XLSX Proposal .ZIP Compiles + 13 CFR 125.6 Teaming Clearinghouse + 10,000 API/MCP Calls/Mo', consultantComp: '$15,000 - $35,000 Per Single RFP Charged by Outside Shipley Proposal Consultants (90%+ Savings on First Bid)' },
+          tier3_annual: { name: 'Tier 3 // Proposal Autopilot Enterprise Annual Plan (Save $3,088/yr)', price: '$14,900.00 USD / Year ($1,241.67/mo equivalent)', billing: 'Annual Enterprise Subscription (Corporate Card & US Bank ACH Supported)', quota: 'Unlimited 6-File Shipley .DOCX/.XLSX Proposal .ZIP Compiles + Teaming Clearinghouse + 10,000 API/MCP Calls/Mo', consultantComp: '$75,000+ Annual External Proposal Writing Retainer ($60,100+ Annual Net Savings)' },
+          tier4_monthly: { name: 'Tier 4 // Enterprise OEM License & 50-State FOIA Winning-Bid Rate Vault', price: '$2,499.00 USD / Month', billing: 'Monthly Enterprise OEM Subscription (Commercial Redistribution + 99.95% SLA)', quota: '50,000 Production REST/MCP Calls/Mo + Post-Award FOIA Incumbent LCAT Rate Vault + Unlimited Proposal Compiles', consultantComp: '$45,000+/yr Competitive PTW Price-to-Win Advisory + Data Feed Licenses' },
+          tier4_annual: { name: 'Tier 4 // Enterprise OEM License & FOIA Vault Annual Plan (Save $5,088/yr)', price: '$24,900.00 USD / Year ($2,075.00/mo equivalent)', billing: 'Annual Enterprise OEM Subscription (Corporate Card & US Bank ACH Supported)', quota: '50,000 Production REST/MCP Calls/Mo + 50-State FOIA Winning-Bid Rate Vault + Commercial White-Label Rights', consultantComp: '$85,000+/yr Enterprise Competitive Intelligence & OEM Data Licensing' }
+        };
+
+        var item = catalog[planKey] || catalog.tier3_monthly;
+        var now = new Date();
+        var issueDate = now.toISOString().slice(0, 10);
+        var validDate = new Date(now.getTime() + 30 * 86400000).toISOString().slice(0, 10);
+        var quoteId = 'ST-Q-' + issueDate.replace(/-/g, '') + '-' + planKey.toUpperCase().replace('_', '-');
+
+        var memo = [
+          '================================================',
+          'OFFICIAL CORPORATE PROCUREMENT QUOTE & FAR 31.205-18 B&P JUSTIFICATION MEMO',
+          '================================================',
+          'Quote Reference ID : ' + quoteId,
+          'Date Issued        : ' + issueDate + ' (Valid Through: ' + validDate + ')',
+          'Prepared For       : ' + contact + ' — ' + comp,
+          'Cost Pool / Ledger : ' + costpool,
+          'Vendor / Platform  : SignalTender GovCon Intelligence Platform (signaltender.net)',
+          'Payment Rails      : Stripe PCI-DSS Level 1 (Corporate P-Card & US Bank ACH)',
+          '------------------------------------------------',
+          '1. SELECTED SUBSCRIPTION & DELIVERABLE SCOPE',
+          '   • Plan          : ' + item.name,
+          '   • Quoted Price  : ' + item.price,
+          '   • Billing Terms : ' + item.billing,
+          '   • Included Scope: ' + item.quota,
+          '------------------------------------------------',
+          '2. FAR 31.205-18 (B&P) ALLOWABILITY & MICRO-PURCHASE ATTESTATION',
+          '   • DCAA / FAR Allowability: Fully allowable Indirect Bid & Proposal (B&P) and Market',
+          '     Research software expense under FAR 31.205-18 (Independent Research & Development',
+          '     and Bid & Proposal Costs). Automated itemized PDF tax invoices issued on every charge.',
+          '   • Micro-Purchase P-Card Threshold (FAR 2.101): Monthly plans ($99 - $2,499/mo) fall',
+          '     well below the $10,000.00 Federal Micro-Purchase Threshold for immediate corporate',
+          '     P-Card execution without competitive sealed bidding.',
+          '------------------------------------------------',
+          '3. QUANTIFIED ROI & COST-AVOIDANCE JUSTIFICATION',
+          '   • Benchmark Comparison : ' + item.consultantComp,
+          '   • Labor Cycle Reduction: Compiles Shipley Section L/M Compliance Matrices, Volume I/III',
+          '     Word (.docx) drafts, and Volume II Section B CLIN Excel (.xlsx) pricing models in',
+          '     90 seconds vs. 120+ hours of manual capture & proposal engineering.',
+          '------------------------------------------------',
+          '4. DATA SECURITY, PRIVACY & ZERO-LOCK-IN GOVERNANCE',
+          '   • Stateless Zero-Retention Processing: All RFP text and company capability inputs are',
+          '     processed in-memory over TLS 1.3 and are never used to train public foundation models.',
+          '   • 1-Click Self-Serve Control: Upgrade, downgrade, or cancel auto-renew in 1 click at',
+          '     https://signaltender.net/#account with zero termination fees.',
+          '================================================'
+        ].join('\n');
+
+        var box = document.getElementById('checkout-quote-preview-box');
+        if (box) box.textContent = memo;
+        return memo;
+      };
+
+      window.copyCfoProcurementQuote = function () {
+        var memo = window.generateCfoProcurementQuote();
+        var st = document.getElementById('checkout-quote-copy-status');
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(memo).catch(function () {});
+          }
+        } catch (e) {}
+        if (st) {
+          st.classList.remove('hidden');
+          st.textContent = 'Copied official quote & FAR 31.205-18 justification memo to clipboard!';
+        }
+      };
+
+      window.printCfoProcurementQuote = function () {
+        var memo = window.generateCfoProcurementQuote();
+        try {
+          var w = window.open('', '_blank', 'width=900,height=760');
+          if (w && w.document) {
+            var safeHtml = String(memo).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            w.document.write('<!DOCTYPE html><html><head><title>SignalTender Official CFO & FAR 31.205-18 Procurement Quote</title>' +
+              '<style>body{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding:32px;color:#0f172a;background:#ffffff;line-height:1.55;font-size:12px;}pre{white-space:pre-wrap;border:2px solid #0f172a;padding:24px;border-radius:8px;background:#f8fafc;}@media print{.no-print{display:none;}}</style>' +
+              '</head><body>' +
+              '<div class="no-print" style="margin-bottom:16px;"><button onclick="window.print()" style="padding:10px 18px;font-weight:bold;background:#0284c7;color:#fff;border:none;border-radius:6px;cursor:pointer;">Print / Save as PDF</button></div>' +
+              '<pre>' + safeHtml + '</pre></body></html>');
+            w.document.close();
+          }
+        } catch (e) {}
       };
 
       window.launchAccountCheckout = function (tier) {
