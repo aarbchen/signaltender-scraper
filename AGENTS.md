@@ -49,6 +49,7 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
    - Never hardcode secrets or API keys; always load from `.env` via `os.getenv()`.
    - Log all caught exceptions to `error_log.txt` and alert via `send_discord_alert()`.
    - Never truncate existing working code when editing files.
+   - **50-State Feature Copy Simplification Rule (RULE-013):** Now that all 50 U.S. states (52 Portals total) are covered, feature copy, headlines, subheadlines, meta descriptions, ROI cards, pricing bullets, and CTA banners **MUST** use simplified 50-State SLED phrasing (ll 50 U.S. State SLED portals / 50-State SLED) instead of dumping 50 state postal codes (VA, TX, CA...) or 50 state portal names inline. Full descriptions of all 50 states covered **MUST** remain in dedicated coverage surfaces (#coverage 52 portal cards, top status ticker, #contract-directory filter pills, #page-contracts state hub directory, Checkout FAQ, System Status grid, and AI Support Concierge).
    - **Evergreen Copy Rule:** Never hardcode exact API counts (e.g., "10 APIs") or exhaustive tool lists in external directory submissions (Glama, MCP registries, RapidAPI profile blurbs, `smithery.yaml`), MCP manifests (`glama.json`, `package.json`, `server.json`), or page `<title>` / `<meta>` tags so that adding future APIs never makes existing listings look outdated.
 
 4. **Mandatory Frontend, SPA & UI Quality Gate (`verify_site_integrity.py`):**

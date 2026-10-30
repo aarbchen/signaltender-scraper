@@ -102,7 +102,7 @@ Why SLED capture teams miss these:
 1. State portals (VA eVA, MD eMMA, TX ESBD) bury IT/cyber RFPs under 99% janitorial, road-salt, and hardware renewal noise.
 2. Reading a 90-page state PDF just to check mandatory certs or LCAT rate ceilings takes 4+ hours per bid.
 
-We built SignalTender to monitor all 52 Federal, Municipal, and 50-State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY) every 6 hours and pre-shred every actionable IT/Cyber RFP into a 24-engine CaptureDesk dossier.
+We built SignalTender to monitor all 52 Federal, Municipal, and 50-State SLED portals nationwide every 6 hours and pre-shred every actionable IT/Cyber RFP into a 25-engine CaptureDesk dossier.
 
 Unlock 3 live pre-shredded RFP dossiers for your state free (zero credit card):
 https://signaltender.net/#inbound-lead-capture-box
@@ -149,7 +149,7 @@ Why do 70% of small-business GovCon proposals fail before pricing is even evalua
 
 Because capture teams discover a killer DFARS 252.204-7012 / CMMC Level 2 flow-down, an unstaffable Key Personnel LCAT requirement, or a 13 CFR 125.6 (50% Rule) workshare violation on Day 18 of a 21-day RFP window.
 
-Here are 3 live Federal & SLED IT solicitations where our 24-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
+Here are 3 live Federal & SLED IT solicitations where our 25-engine CaptureDesk pre-flagged the exact compliance and pricing posture on Day 1:
 
 {fed_bullets}
 
@@ -184,10 +184,10 @@ https://signaltender.net/apis.html
 ## Part 2: 4 High-Signal Reddit & Community Threads
 
 ### 1. `r/govcontracting` — State SLED vs. SAM.gov Capture Playbook
-- **Title:** `We indexed {len(contracts)} open IT & cybersecurity RFPs across SAM.gov + 50 State SLED portals (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY) — here is where competition is lowest right now`
+- **Title:** `We indexed {len(contracts)} open IT & cybersecurity RFPs across SAM.gov + all 50 State SLED portals — here is where competition is lowest right now`
 - **Body:**
 ```markdown
-Over the past few months we built an automated scraper + Shipley capture parser across 52 government procurement portals (SAM.gov, DemandStar, VA eVA, TX SmartBuy ESBD, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL/PASSPort, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA VSS, CO VSS, AZ APP, MN SWIFT, TN Edison, IN IDOA/IOT, MO MissouriBUYS, WI eSupplier/VendorNet, SC SCBO/SFAA, OR OregonBuys, CT CTsource, and UT U3P SciQuest).
+Over the past few months we built an automated scraper + Shipley capture parser across all 52 government procurement portals (Federal SAM.gov, National Municipal DemandStar, and all 50 U.S. State SLED procurement systems).
 
 Three data points that stood out after filtering out 99.4% of non-IT commodity noise (janitorial, construction, raw hardware part renewals):
 

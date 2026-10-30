@@ -617,32 +617,43 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
             if sp in txt and re.search(rf"(?<![0-9]){re.escape(sp)}(?![0-9])", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
-        # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations with zero duplicates
-        expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
-        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,850}", txt):
-            snippet = m.group(0)
-            for abbr in expected_abbrs:
-                occurrences = re.findall(rf"\b{abbr}\b", snippet)
-                if not occurrences:
-                    fail(f"{label}: State abbreviation list '{snippet.strip()}' is missing active state '{abbr}'")
-                if len(occurrences) > 1:
-                    fail(f"{label}: State abbreviation list '{snippet.strip()}' has duplicate state abbreviation '{abbr}'")
+        # 5. RULE-013 (50-State Feature Copy Simplification): Now that all 50 U.S. states are covered,
+        #    feature copy, headlines, meta tags, ROI cards, pricing bullets, and CTA banners must NOT dump
+        #    inline 50-state postal code lists ("VA, TX, CA, FL, MD, IL...") or inline 50-state prose roll-calls.
+        bloated_inline_m = re.search(
+            r"(?:VA,\s*TX,\s*CA,\s*FL,\s*MD|TX,\s*VA,\s*CA,\s*FL,\s*MD|SAM\.gov,\s*DemandStar,\s*VA,\s*TX|Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure)",
+            txt,
+        )
+        if bloated_inline_m:
+            fail(
+                f"{label}: Found bloated inline state roll-call '{bloated_inline_m.group(0)}' in feature copy! "
+                "Simplify feature copy to 'all 50 U.S. State SLED portals' while keeping full state descriptions in dedicated coverage sections."
+            )
 
     # Verify all STATE // XX cards in Section 4 live INSIDE #coverage-portals-grid (never outside the grid container)
     cov_sec_m = re.search(r'<div id="coverage-portals-grid"[^>]*>([\s\S]*?)</section>', index_txt)
     if cov_sec_m:
         cov_body = cov_sec_m.group(1)
-        # Split before any closing grid comments or verify zero "p-6 rounded-2xl" cards exist in #coverage
         if "p-6 rounded-2xl" in cov_body or "Browse WI RFPs" in cov_body:
             fail("index.html: #coverage contains non-standard 'p-6 rounded-2xl' cards outside #coverage-portals-grid")
 
-        # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
-        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,2800}", txt):
-            snippet = m.group(0)
-            for sk in state_keys:
-                state_title = sk.replace("_", " ").title()
-                if state_title not in snippet and state_abbrev_map.get(sk, "") not in snippet:
-                    fail(f"{label}: Prose portal list '{snippet.strip()}' is missing active state '{state_title}'")
+    # 6. Verify FULL descriptions of all 50 states covered remain intact in dedicated coverage surfaces:
+    #    (a) Checkout FAQ "Which government portals are included?" and (b) AI Support Concierge portal-coverage answer.
+    faq_m = re.search(r"Which government portals are included\?</div>\s*<p[^>]*>([\s\S]*?)</p>", index_txt)
+    if not faq_m:
+        fail("index.html: Missing Checkout FAQ 'Which government portals are included?'")
+    faq_portal_txt = faq_m.group(1)
+    concierge_m = re.search(r"50 State SLED Portals:\s*([^\n]+)", index_txt)
+    if not concierge_m:
+        fail("index.html: Missing AI Support Concierge '50 State SLED Portals:' full coverage description")
+    concierge_portal_txt = concierge_m.group(1)
+    for sk in state_keys:
+        state_title = sk.replace("_", " ").title()
+        abbr = state_abbrev_map.get(sk, "")
+        if state_title not in faq_portal_txt and abbr not in faq_portal_txt:
+            fail(f"index.html: Checkout FAQ 'Which government portals are included?' is missing full description for '{state_title}'")
+        if state_title not in concierge_portal_txt and abbr not in concierge_portal_txt:
+            fail(f"index.html: AI Support Concierge portal coverage list is missing '{state_title}'")
 
 
 def check_tier_value_prop_and_capture_moat_parity(index_txt: str) -> None:

@@ -1291,13 +1291,13 @@ def build_two_step_outreach(
         intel_block = (
             f"On #1 ('{human_top_title}' — {human_top_agency}, NAICS {top_intel['primary_naics']}), "
             f"we already mapped the Section L/M evaluation criteria, {top_intel['compliance_posture']}, and teaming posture across our 58 AI capture modules "
-            f"covering SAM.gov, DemandStar & 50-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY)."
+            f"covering Federal (SAM.gov), National Municipal (DemandStar) & all 50 U.S. State SLED portals nationwide."
             f"{recompete_step2_line}"
         )
     else:
         intel_block = (
             f"We already mapped the Section L/M evaluation criteria, incumbent contract history, and teaming posture across our 58 AI capture modules "
-            f"covering SAM.gov, DemandStar & 50-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY)."
+            f"covering Federal (SAM.gov), National Municipal (DemandStar) & all 50 U.S. State SLED portals nationwide."
         )
 
     step2_closers = [

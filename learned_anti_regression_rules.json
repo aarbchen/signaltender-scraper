@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T20:56:19Z",
-  "total_rules": 17,
+  "updated_at": "2026-10-30T21:29:00Z",
+  "total_rules": 18,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -82,8 +82,8 @@
       "source": "omniscient_auditor.py / silent_autopilot_watcher.py / windows_autopilot_guard.py",
       "bug_signature": "Autonomous audit and self-healing jobs running during daytime hours while the operator is actively using the computer",
       "root_cause": "Background watcher and audit invocations lacked a nighttime + Windows user-idle (GetLastInputInfo) gate.",
-      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM – 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
-      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM – 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
+      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM \u2013 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
+      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM \u2013 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
       "created_at": "2026-10-29T20:36:15Z",
       "last_healed_at": "2026-10-29T20:36:15Z",
       "times_triggered_and_healed": 1
@@ -141,7 +141,7 @@
       "category": "Products & Scrapers",
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
-      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
+      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code \u00a7 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
       "fix_applied": "Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
@@ -186,7 +186,7 @@
     },
     {
       "rule_id": "RULE-011-ZERO-PERMISSION-AUTONOMOUS-BUG-AND-BLINDSPOT-HEALING",
-      "category": "Autonomous Bug Remediation & 360° Blindspot Coverage",
+      "category": "Autonomous Bug Remediation & 360\u00b0 Blindspot Coverage",
       "source": "omniscient_auditor.py / auto_error_healer.py / AGENTS.md",
       "bug_signature": "Waiting for user permission before fixing detected bugs, or missing blindspot checks across processed_outbound_replies.json (list vs dict), sent_outreach_log.json DNC, Instantly lead starvation, multi-portal zero-lead rot, Stripe-to-Supabase subscriber provisioning, full 34-endpoint OpenAPI parity, ",
       "root_cause": "Asking for confirmation before fixing bugs and assuming single-schema JSON structures or single-repo git pushes.",
@@ -206,6 +206,18 @@
       "prevention_rule": "Never echo the operator's prompt, internal strategy terms ('no sales calls', 'zero-call', 'zero-risk bridge'), or internal framework names in customer-facing HTML, emails, or AI Concierge responses.",
       "created_at": "2026-10-30T04:07:02Z",
       "last_healed_at": "2026-10-30T04:07:02Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-013-50-STATE-FEATURE-COPY-SIMPLIFICATION",
+      "category": "Customer-Facing Copy & 50-State Coverage Discipline",
+      "source": "index.html / apis.html / pseo_generator.py / outreach_generator.py / verify_site_integrity.py",
+      "bug_signature": "Bloated 50-state postal abbreviation lists (VA, TX, CA, FL, MD, IL...) or 50-state prose lists stuffed inline into feature headlines, subheadlines, meta descriptions, ROI cards, pricing bullets, or CTA banners",
+      "root_cause": "Appending every new state abbreviation into inline feature copy as scrapers expanded from 7 states to all 50 U.S. states.",
+      "fix_applied": "Simplified all inline feature copy to clean 50-State SLED phrasing while preserving and completing full descriptions of all 50 states covered in dedicated coverage sections (#coverage 52 portal cards, top status ticker, #contract-directory filter pills, #page-contracts state hub directory, Checkout FAQ, System Status grid, and AI Support Concierge).",
+      "prevention_rule": "Never dump 50 state postal codes or 50 state portal names inline inside feature copy, headlines, meta tags, ROI cards, pricing bullets, or CTA banners; always keep full descriptions of all 50 states in dedicated coverage surfaces.",
+      "created_at": "2026-10-30T21:29:00Z",
+      "last_healed_at": "2026-10-30T21:29:00Z",
       "times_triggered_and_healed": 1
     }
   ]
