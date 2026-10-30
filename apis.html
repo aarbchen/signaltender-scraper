@@ -11398,7 +11398,7 @@
           return;
         }
 
-        // Sandbox Demo Mode: Ping live FastAPI gateway /v1/health for real network latency & return schema response
+        // Sandbox Demo Mode: Ping live API gateway /v1/health for real network latency & return schema response
         fetch(GATEWAY_BASE + '/v1/health', { method: 'GET' })
           .catch(function () { return null; })
           .finally(function () {

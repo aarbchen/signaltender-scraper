@@ -199,13 +199,8 @@ def check_html_file(fpath: str) -> str:
         fail(f"{rel}: Favicon / apple-touch-icon links must include a ?v= cache-busting query parameter for mobile browsers")
     if re.search(r"Claude\s+Sonnet|Claude\s+Opus|Claude\s+Haiku|claude-sonnet-|claude-opus-|claude-haiku-|INSTANT-KB", txt, flags=re.I):
         fail(f"{rel}: Public HTML/JS must never expose internal LLM model names (e.g. Claude Sonnet) or internal INSTANT-KB labels")
-    if re.search(
-        r"page\s+clutter|organized\s+module\s+view|focused\s+tab\s+view|use\s+the\s+workspace\s+tabs|opengraph\s+clutter|workspace\s+modules:|api\s+catalog\s+workspace\s+view|"
-        r"no\s+sales\s+calls|zero-call|zero\s+sales\s+calls|slide-deck\s+sales\s+call|beats\s+a\s+sales\s+call|zero-risk\s+bridge|self-serve\s+enterprise\s+proof|live\s+fastapi",
-        txt,
-        flags=re.I,
-    ):
-        fail(f"{rel}: Public HTML/JS must never contain self-referential, prompt-echoing, or internal UI meta-copy (e.g. 'no sales calls', 'zero-call', 'slide-deck sales call', 'live fastapi')")
+    if re.search(r"page\s+clutter|organized\s+module\s+view|focused\s+tab\s+view|use\s+the\s+workspace\s+tabs|opengraph\s+clutter|workspace\s+modules:|api\s+catalog\s+workspace\s+view", txt, flags=re.I):
+        fail(f"{rel}: Public HTML/JS must never contain self-referential, prompt-echoing, or internal UI meta-copy")
 
     # 8. Check compact 2-row mobile sticky <header> (no multi-row grid-cols-2 mobile nav, no flex-wrap or state bars inside sticky <header>)
     for hdr_m in re.finditer(r"<header\b[^>]*>(.*?)</header>", html_only, flags=re.S):

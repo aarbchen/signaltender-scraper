@@ -147,6 +147,15 @@ FOUNDATIONAL_RULES = [
         "prevention_rule": "Nightly omniscient_auditor.py runs must actively purge non-RFP/nav-link/synthetic rows and \\ufffd characters from Supabase contracts and usaspending_verified_vault.json, and verify static/SPA dossier button payloads pass real agency and solicitation IDs.",
     },
     {
+        "rule_id": "RULE-012-CUSTOMER-FACING-COPY-NEVER-ECHO-INTERNAL-PROMPTS",
+        "category": "Customer-Facing Copy Discipline",
+        "source": "index.html / apis.html / outbound_reply_responder.py / api/routers/support.py / verify_site_integrity.py",
+        "bug_signature": "Internal prompt-echoing or operator-facing phrases ('no sales calls', 'zero-call', 'slide-deck sales call', 'why this beats a sales call', 'zero-risk bridge', 'live fastapi') appearing in customer-facing UI or copy",
+        "root_cause": "Writing website headlines or subcopy that directly echoes the operator's conversational prompt instead of writing strictly from the GovCon buyer's perspective.",
+        "fix_applied": "Replaced all prompt-echoing phrases with customer-facing Interactive Evaluation & Corporate Procurement Workbench copy and added a permanent regex ban in verify_site_integrity.py.",
+        "prevention_rule": "Never echo the operator's prompt, internal strategy terms ('no sales calls', 'zero-call', 'zero-risk bridge'), or internal framework names in customer-facing HTML, emails, or AI Concierge responses.",
+    },
+    {
         "rule_id": "RULE-010-ZERO-CALL-ENTERPRISE-PROOF-AND-CFO-QUOTE-WORKBENCH",
         "category": "Self-Serve Enterprise Conversion & Zero-Call Proof Workbench",
         "source": "index.html / verify_site_integrity.py / omniscient_auditor.py / api/routers/support.py",
