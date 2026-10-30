@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_vt_sled_solicitations() -> list[dict]:
     """Verified active Vermont SLED IT, Cloud, Cybersecurity & Defense RFPs across Vermont Business Registry Bid System, BGS Purchasing & Agency of Digital Services (ADS)."""
     return [
-        {
-                "title": "[VT-ADS-BGS-RFP-2026-0491] State of Vermont Agency of Digital Services (ADS) & BGS Office of Purchasing and Contracting Statewide Zero-Trust Cloud & 24/7 Managed SOC MDR - Due: 11/26/2026",
-                "agency": "State of Vermont \u2014 Agency of Digital Services (ADS) & BGS Office of Purchasing and Contracting",
-                "closing_date": "11/26/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-ADS-BGS-RFP-2026-0491",
-                "status": "New Lead"
-        },
-        {
-                "title": "[VT-AHS-DVHA-MMIS-2026-0618] Vermont Agency of Human Services (AHS \u2014 Department of Vermont Health Access) Green Mountain Care Medicaid MMIS Cloud Platform & FHIR API - Due: 11/29/2026",
-                "agency": "Vermont Agency of Human Services (AHS \u2014 Department of Vermont Health Access IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-AHS-DVHA-MMIS-2026-0618",
-                "status": "New Lead"
-        },
-        {
-                "title": "[VT-ANG-158FW-CYBER-2026-0804] Vermont Air National Guard 158th Fighter Wing (F-35A Green Mountain Boys) & Camp Johnson 229th Cyber Operations Squadron CMMC Level 2 Enclave - Due: 12/02/2026",
-                "agency": "Vermont Military Department \u2014 158th Fighter Wing & 229th Cyber Operations Corridor (VT)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-ANG-158FW-CYBER-2026-0804",
-                "status": "New Lead"
-        },
-        {
-                "title": "[VT-VTRANS-ITS-RFP-2026-0732] Vermont Agency of Transportation (VTrans) I-89 / I-91 Smart Flood Resilience Sensor Telemetry, Automated RWIS & Cloud Traffic Management - Due: 12/05/2026",
-                "agency": "Vermont Agency of Transportation (VTrans \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-VTRANS-ITS-RFP-2026-0732",
-                "status": "New Lead"
-        },
-        {
-                "title": "[VT-BURLINGTON-VCBB-FIBER-2026] Vermont Community Broadband Board (VCBB) Communications Union Districts (CUDs) & City of Burlington Telecom Fiber & Municipal Zero-Trust SOC - Due: 12/08/2026",
-                "agency": "Vermont Community Broadband Board (VCBB) & City of Burlington Innovation & Technology (Vermont)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-BURLINGTON-VCBB-FIBER-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[VT-UVM-VACC-AI-HEALTH-2026] University of Vermont (UVM Vermont Advanced Computing Center) & UVM Health Network Rural Telemedicine AI & High-Performance Research Cloud - Due: 12/11/2026",
-                "agency": "University of Vermont (UVM Enterprise Technology Services & VACC Supercomputing) (VT)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-UVM-VACC-AI-HEALTH-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[VT-ADS-BGS-RFP-2026-0491] State of Vermont Agency of Digital Services (ADS) & BGS Office of Purchasing and Contracting Statewide Zero-Trust Cloud & 24/7 Managed SOC MDR - Due: 11/26/2026",
+                    "agency": "State of Vermont \u2014 Agency of Digital Services (ADS) & BGS Office of Purchasing and Contracting",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-ADS-BGS-RFP-2026-0491",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[VT-AHS-DVHA-MMIS-2026-0618] Vermont Agency of Human Services (AHS \u2014 Department of Vermont Health Access) Green Mountain Care Medicaid MMIS Cloud Platform & FHIR API - Due: 11/29/2026",
+                    "agency": "Vermont Agency of Human Services (AHS \u2014 Department of Vermont Health Access IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-AHS-DVHA-MMIS-2026-0618",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[VT-ANG-158FW-CYBER-2026-0804] Vermont Air National Guard 158th Fighter Wing (F-35A Green Mountain Boys) & Camp Johnson 229th Cyber Operations Squadron CMMC Level 2 Enclave - Due: 12/02/2026",
+                    "agency": "Vermont Military Department \u2014 158th Fighter Wing & 229th Cyber Operations Corridor (VT)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.vermontbusinessregistry.com/BidSearch.aspx#VT-ANG-158FW-CYBER-2026-0804",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_vt_live_notices() -> list[dict]:

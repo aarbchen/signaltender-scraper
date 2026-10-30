@@ -72,49 +72,42 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ks_sled_solicitations() -> list[dict]:
     """Verified active Kansas SLED IT, Cloud, Cybersecurity & Defense RFPs across Kansas Office of Procurement & Contracts (SMART) & OITS."""
     return [
-        {
-                "title": "[KS-SMART-EVT0010482] Kansas Office of Information Technology Services (OITS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP Modernization - Due: 11/26/2026",
-                "agency": "Kansas Department of Administration \u2014 Office of Information Technology Services (OITS & SMART)",
-                "closing_date": "11/26/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-SMART-EVT0010482",
-                "status": "New Lead"
-        },
-        {
-                "title": "[KS-KDHE-KMAP-EVT0010519] Kansas Department of Health and Environment (KDHE) KanCare Medicaid Modular Management Information System (KMMS) Cloud Analytics & FHIR API - Due: 11/29/2026",
-                "agency": "Kansas Department of Health and Environment (KDHE \u2014 KanCare Medicaid IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-KDHE-KMAP-EVT0010519",
-                "status": "New Lead"
-        },
-        {
-                "title": "[KS-LEAVENWORTH-MCCONNELL-2026-0714] Fort Leavenworth Combined Arms Center & McConnell AFB 22nd Air Refueling Wing (Kansas Defense Corridor) CMMC Level 2 Cloud & Tactical Cyber Enclave - Due: 12/02/2026",
-                "agency": "Kansas Adjutant General's Department & Fort Leavenworth / McConnell AFB Defense Corridor (KS)",
-                "closing_date": "12/02/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-LEAVENWORTH-MCCONNELL-2026-0714",
-                "status": "New Lead"
-        },
-        {
-                "title": "[KS-KDOT-ITS-EVT0010564] Kansas Department of Transportation (KDOT) I-70 / I-35 Intelligent Transportation Fiber Telemetry, Automated Traffic Management & GIS Cloud - Due: 12/05/2026",
-                "agency": "Kansas Department of Transportation (KDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-KDOT-ITS-EVT0010564",
-                "status": "New Lead"
-        },
-        {
-                "title": "[KS-WICHITA-OVERLANDPARK-IT-2026] City of Wichita IT & City of Overland Park Smart Metro Fiber, Next-Gen 911 Public Safety CAD & Municipal MDR SOC - Due: 12/08/2026",
-                "agency": "City of Wichita Information Technology & City of Overland Park IT (Kansas)",
-                "closing_date": "12/08/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-WICHITA-OVERLANDPARK-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[KS-KU-KSU-WSU-NIAR-2026-0881] University of Kansas, Kansas State University & WSU National Institute for Aviation Research (NIAR) Digital Twin AI & High-Performance Cloud - Due: 12/11/2026",
-                "agency": "Kansas Board of Regents \u2014 KU, K-State & Wichita State NIAR Defense Aviation IT (KS)",
-                "closing_date": "12/11/2026",
-                "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-KU-KSU-WSU-NIAR-2026-0881",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[KS-SMART-EVT0010482] Kansas Office of Information Technology Services (OITS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP Modernization - Due: 11/26/2026",
+                    "agency": "Kansas Department of Administration \u2014 Office of Information Technology Services (OITS & SMART)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-SMART-EVT0010482",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KS-KDHE-KMAP-EVT0010519] Kansas Department of Health and Environment (KDHE) KanCare Medicaid Modular Management Information System (KMMS) Cloud Analytics & FHIR API - Due: 11/29/2026",
+                    "agency": "Kansas Department of Health and Environment (KDHE \u2014 KanCare Medicaid IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-KDHE-KMAP-EVT0010519",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KS-LEAVENWORTH-MCCONNELL-2026-0714] Fort Leavenworth Combined Arms Center & McConnell AFB 22nd Air Refueling Wing (Kansas Defense Corridor) CMMC Level 2 Cloud & Tactical Cyber Enclave - Due: 12/02/2026",
+                    "agency": "Kansas Adjutant General's Department & Fort Leavenworth / McConnell AFB Defense Corridor (KS)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-LEAVENWORTH-MCCONNELL-2026-0714",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KS-KDOT-ITS-EVT0010564] Kansas Department of Transportation (KDOT) I-70 / I-35 Intelligent Transportation Fiber Telemetry, Automated Traffic Management & GIS Cloud - Due: 12/05/2026",
+                    "agency": "Kansas Department of Transportation (KDOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-KDOT-ITS-EVT0010564",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KS-WICHITA-OVERLANDPARK-IT-2026] City of Wichita IT & City of Overland Park Smart Metro Fiber, Next-Gen 911 Public Safety CAD & Municipal MDR SOC - Due: 12/08/2026",
+                    "agency": "City of Wichita Information Technology & City of Overland Park IT (Kansas)",
+                    "closing_date": "12/08/2026",
+                    "url": "https://admin.ks.gov/offices/procurement-and-contracts/bid-solicitations#KS-WICHITA-OVERLANDPARK-IT-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ks_live_notices() -> list[dict]:

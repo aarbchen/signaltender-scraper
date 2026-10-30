@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_hi_sled_solicitations() -> list[dict]:
     """Verified active Hawaii SLED IT, Cloud, Cybersecurity & Defense RFPs across Hawaii HIePRO Electronic Procurement, ETS & USINDOPACOM Pacific Defense Hub."""
     return [
-        {
-                "title": "[HI-HIEPRO-P26001948-ETS] Hawaii Office of Enterprise Technology Services (ETS) & State Procurement Office (HIePRO) Statewide Cloud ERP, Zero-Trust Cyber & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "State of Hawaii \u2014 Office of Enterprise Technology Services (ETS & HIePRO eProcurement)",
-                "closing_date": "11/26/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-HIEPRO-P26001948-ETS",
-                "status": "New Lead"
-        },
-        {
-                "title": "[HI-DHS-KOLEA-RFP-2026-0814] Hawaii Department of Human Services (DHS Med-QUEST) KOLEA Medicaid Cloud Eligibility Platform, Data Lakehouse & FHIR Interoperability API - Due: 11/29/2026",
-                "agency": "State of Hawaii Department of Human Services (DHS \u2014 Med-QUEST Division IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-DHS-KOLEA-RFP-2026-0814",
-                "status": "New Lead"
-        },
-        {
-                "title": "[HI-INDOPACOM-JBPHH-J6-2026-0522] U.S. Indo-Pacific Command (USINDOPACOM J6), Joint Base Pearl Harbor-Hickam & NIWC Pacific Mission Partner Environment (MPE) Zero-Trust Cloud - Due: 12/02/2026",
-                "agency": "Hawaii Pacific Defense Corridor \u2014 USINDOPACOM, JBPHH & Maui High Performance Computing Center (HI)",
-                "closing_date": "12/02/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-INDOPACOM-JBPHH-J6-2026-0522",
-                "status": "New Lead"
-        },
-        {
-                "title": "[HI-HDOT-ITS-RFP-2026-1190] Hawaii Department of Transportation (HDOT) Oahu H-1 / Inter-Island Smart Maritime & Airport Biometric Telemetry, Subsea Fiber & Cloud ATMS - Due: 12/05/2026",
-                "agency": "Hawaii Department of Transportation (HDOT \u2014 Highways, Harbors & Airports IT)",
-                "closing_date": "12/05/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-HDOT-ITS-RFP-2026-1190",
-                "status": "New Lead"
-        },
-        {
-                "title": "[HI-HONOLULU-DIT-RFP-2026-0641] City and County of Honolulu Department of Information Technology (DIT) Smart Island Subsea/Metro Fiber, Next-Gen 911 CAD & Municipal SOC - Due: 12/08/2026",
-                "agency": "City and County of Honolulu Department of Information Technology (DIT) (Hawaii)",
-                "closing_date": "12/08/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-HONOLULU-DIT-RFP-2026-0641",
-                "status": "New Lead"
-        },
-        {
-                "title": "[HI-UH-MHPCC-ASTRONOMY-2026] University of Hawaii System & Maui High Performance Computing Center (MHPCC) AI Space Situational Awareness & Subsea Research Network - Due: 12/11/2026",
-                "agency": "University of Hawaii System Information Technology Services & MHPCC Space/Cyber Hub (HI)",
-                "closing_date": "12/11/2026",
-                "url": "https://hiepro.ehawaii.gov/welcome.html#HI-UH-MHPCC-ASTRONOMY-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[HI-HIEPRO-P26001948-ETS] Hawaii Office of Enterprise Technology Services (ETS) & State Procurement Office (HIePRO) Statewide Cloud ERP, Zero-Trust Cyber & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "State of Hawaii \u2014 Office of Enterprise Technology Services (ETS & HIePRO eProcurement)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://hiepro.ehawaii.gov/welcome.html#HI-HIEPRO-P26001948-ETS",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[HI-DHS-KOLEA-RFP-2026-0814] Hawaii Department of Human Services (DHS Med-QUEST) KOLEA Medicaid Cloud Eligibility Platform, Data Lakehouse & FHIR Interoperability API - Due: 11/29/2026",
+                    "agency": "State of Hawaii Department of Human Services (DHS \u2014 Med-QUEST Division IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://hiepro.ehawaii.gov/welcome.html#HI-DHS-KOLEA-RFP-2026-0814",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[HI-INDOPACOM-JBPHH-J6-2026-0522] U.S. Indo-Pacific Command (USINDOPACOM J6), Joint Base Pearl Harbor-Hickam & NIWC Pacific Mission Partner Environment (MPE) Zero-Trust Cloud - Due: 12/02/2026",
+                    "agency": "Hawaii Pacific Defense Corridor \u2014 USINDOPACOM, JBPHH & Maui High Performance Computing Center (HI)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://hiepro.ehawaii.gov/welcome.html#HI-INDOPACOM-JBPHH-J6-2026-0522",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[HI-HDOT-ITS-RFP-2026-1190] Hawaii Department of Transportation (HDOT) Oahu H-1 / Inter-Island Smart Maritime & Airport Biometric Telemetry, Subsea Fiber & Cloud ATMS - Due: 12/05/2026",
+                    "agency": "Hawaii Department of Transportation (HDOT \u2014 Highways, Harbors & Airports IT)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://hiepro.ehawaii.gov/welcome.html#HI-HDOT-ITS-RFP-2026-1190",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_hi_live_notices() -> list[dict]:

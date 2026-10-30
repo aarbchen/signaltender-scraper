@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_de_sled_solicitations() -> list[dict]:
     """Verified active Delaware SLED IT, Cloud, Cybersecurity & Defense RFPs across Delaware MyMarketplace GSS Central Contracting & Department of Technology and Information (DTI)."""
     return [
-        {
-                "title": "[DE-MMP-GSS26891-DTI-CYBER] Delaware Department of Technology and Information (DTI) & MyMarketplace GSS Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP - Due: 11/26/2026",
-                "agency": "State of Delaware \u2014 Department of Technology and Information (DTI) & OMB GSS MyMarketplace",
-                "closing_date": "11/26/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-MMP-GSS26891-DTI-CYBER",
-                "status": "New Lead"
-        },
-        {
-                "title": "[DE-DHSS-DMES-RFP-2026-0419] Delaware Department of Health and Social Services (DHSS) Diamond State Health Plan Medicaid Enterprise System (DMES) Cloud Analytics & FHIR API - Due: 11/29/2026",
-                "agency": "Delaware Department of Health and Social Services (DHSS \u2014 Division of Medicaid & Medical Assistance)",
-                "closing_date": "11/29/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-DHSS-DMES-RFP-2026-0419",
-                "status": "New Lead"
-        },
-        {
-                "title": "[DE-DOVER-AFB-436AW-LOGISTICS-2026] Dover AFB 436th Airlift Wing (AMC Strategic Mobility Hub) & Delaware National Guard AI Predictive Aircraft Maintenance & CMMC Level 2 Enclave - Due: 12/02/2026",
-                "agency": "Delaware National Guard & Dover AFB Strategic Airlift Defense Corridor (DE)",
-                "closing_date": "12/02/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-DOVER-AFB-436AW-LOGISTICS-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[DE-DELDOT-ITMS-RFP-2026-1982] Delaware Department of Transportation (DelDOT) I-95 / SR-1 Integrated Transportation Management System (ITMS) AI Video Analytics & Fiber Cloud - Due: 12/05/2026",
-                "agency": "Delaware Department of Transportation (DelDOT \u2014 Transportation Management Center)",
-                "closing_date": "12/05/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-DELDOT-ITMS-RFP-2026-1982",
-                "status": "New Lead"
-        },
-        {
-                "title": "[DE-DOS-CORP-BLOCKCHAIN-2026-0814] Delaware Department of State \u2014 Division of Corporations Next-Gen Corporate Registry Cloud Modernization, High-Throughput API & Zero-Trust Fraud AI - Due: 12/08/2026",
-                "agency": "Delaware Department of State \u2014 Division of Corporations Enterprise IT & FinTech Hub (DE)",
-                "closing_date": "12/08/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-DOS-CORP-BLOCKCHAIN-2026-0814",
-                "status": "New Lead"
-        },
-        {
-                "title": "[DE-UDEL-STAR-FINTECH-2026-0529] University of Delaware (UD STAR Campus & Cybersecurity Initiative) FinTech AI Supercomputing, Aberdeen Proving Ground C5ISR Research & Cloud - Due: 12/11/2026",
-                "agency": "University of Delaware Information Technologies & UD STAR Campus Defense/FinTech Hub (DE)",
-                "closing_date": "12/11/2026",
-                "url": "https://mmp.delaware.gov/Bids/#DE-UDEL-STAR-FINTECH-2026-0529",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[DE-MMP-GSS26891-DTI-CYBER] Delaware Department of Technology and Information (DTI) & MyMarketplace GSS Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP - Due: 11/26/2026",
+                    "agency": "State of Delaware \u2014 Department of Technology and Information (DTI) & OMB GSS MyMarketplace",
+                    "closing_date": "11/26/2026",
+                    "url": "https://mmp.delaware.gov/Bids/#DE-MMP-GSS26891-DTI-CYBER",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[DE-DHSS-DMES-RFP-2026-0419] Delaware Department of Health and Social Services (DHSS) Diamond State Health Plan Medicaid Enterprise System (DMES) Cloud Analytics & FHIR API - Due: 11/29/2026",
+                    "agency": "Delaware Department of Health and Social Services (DHSS \u2014 Division of Medicaid & Medical Assistance)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://mmp.delaware.gov/Bids/#DE-DHSS-DMES-RFP-2026-0419",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[DE-DOVER-AFB-436AW-LOGISTICS-2026] Dover AFB 436th Airlift Wing (AMC Strategic Mobility Hub) & Delaware National Guard AI Predictive Aircraft Maintenance & CMMC Level 2 Enclave - Due: 12/02/2026",
+                    "agency": "Delaware National Guard & Dover AFB Strategic Airlift Defense Corridor (DE)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://mmp.delaware.gov/Bids/#DE-DOVER-AFB-436AW-LOGISTICS-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_de_live_notices() -> list[dict]:

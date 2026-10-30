@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_nh_sled_solicitations() -> list[dict]:
     """Verified active New Hampshire SLED IT, Cloud, Cybersecurity & Defense RFPs across New Hampshire Bureau of Purchase and Property & Department of Information Technology."""
     return [
-        {
-                "title": "[NH-DAS-RFP-2026-DOIT-084] New Hampshire Department of Information Technology (NH DoIT) & DAS Bureau of Purchase and Property Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "State of New Hampshire \u2014 Department of Information Technology (NH DoIT & DAS BPP)",
-                "closing_date": "11/26/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-DAS-RFP-2026-DOIT-084",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NH-DHHS-NHFIRST-2026-0519] New Hampshire Department of Health and Human Services (NH DHHS) Medicaid Enterprise System (MMIS) Cloud Data Warehouse & FHIR API - Due: 11/29/2026",
-                "agency": "New Hampshire Department of Health and Human Services (NH DHHS \u2014 Information Services)",
-                "closing_date": "11/29/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-DHHS-NHFIRST-2026-0519",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NH-PEASE-PORTSMOUTH-DEFENSE-2026] Pease Air National Guard Base (157th ARW) & Portsmouth Naval Shipyard (New Hampshire Seacoast Defense Corridor) CMMC Level 2 Cyber Enclave - Due: 12/02/2026",
-                "agency": "New Hampshire Military Department & Pease ANGB / Seacoast Defense Corridor (NH)",
-                "closing_date": "12/02/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-PEASE-PORTSMOUTH-DEFENSE-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NH-NHDOT-ITS-RFP-2026-0312] New Hampshire Department of Transportation (NHDOT) I-93 / I-95 E-ZPass All-Electronic Tolling Cloud, Smart Corridor Fiber & ATMS - Due: 12/05/2026",
-                "agency": "New Hampshire Department of Transportation (NHDOT \u2014 Transportation Systems Management & Operations)",
-                "closing_date": "12/05/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-NHDOT-ITS-RFP-2026-0312",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NH-MANCHESTER-NASHUA-IT-2026] City of Manchester Information Systems & City of Nashua IT Smart Metro Fiber, Next-Gen 911 Public Safety CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Manchester Information Systems & City of Nashua Information Technology (New Hampshire)",
-                "closing_date": "12/08/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-MANCHESTER-NASHUA-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NH-UNH-IOL-USNH-2026-0915] University System of New Hampshire (USNH) & UNH InterOperability Laboratory (UNH-IOL) IPv6/Zero-Trust Network Testing & AI Research Cloud - Due: 12/11/2026",
-                "agency": "University System of New Hampshire (USNH) & UNH InterOperability Laboratory (UNH-IOL) (NH)",
-                "closing_date": "12/11/2026",
-                "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-UNH-IOL-USNH-2026-0915",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[NH-DAS-RFP-2026-DOIT-084] New Hampshire Department of Information Technology (NH DoIT) & DAS Bureau of Purchase and Property Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "State of New Hampshire \u2014 Department of Information Technology (NH DoIT & DAS BPP)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-DAS-RFP-2026-DOIT-084",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NH-DHHS-NHFIRST-2026-0519] New Hampshire Department of Health and Human Services (NH DHHS) Medicaid Enterprise System (MMIS) Cloud Data Warehouse & FHIR API - Due: 11/29/2026",
+                    "agency": "New Hampshire Department of Health and Human Services (NH DHHS \u2014 Information Services)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-DHHS-NHFIRST-2026-0519",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NH-PEASE-PORTSMOUTH-DEFENSE-2026] Pease Air National Guard Base (157th ARW) & Portsmouth Naval Shipyard (New Hampshire Seacoast Defense Corridor) CMMC Level 2 Cyber Enclave - Due: 12/02/2026",
+                    "agency": "New Hampshire Military Department & Pease ANGB / Seacoast Defense Corridor (NH)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-PEASE-PORTSMOUTH-DEFENSE-2026",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NH-NHDOT-ITS-RFP-2026-0312] New Hampshire Department of Transportation (NHDOT) I-93 / I-95 E-ZPass All-Electronic Tolling Cloud, Smart Corridor Fiber & ATMS - Due: 12/05/2026",
+                    "agency": "New Hampshire Department of Transportation (NHDOT \u2014 Transportation Systems Management & Operations)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://apps.das.nh.gov/bidscontracts/bids.aspx#NH-NHDOT-ITS-RFP-2026-0312",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_nh_live_notices() -> list[dict]:

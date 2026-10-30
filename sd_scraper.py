@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_sd_sled_solicitations() -> list[dict]:
     """Verified active South Dakota SLED IT, Cloud, Cybersecurity & Defense RFPs across South Dakota Office of Procurement Management (ESM) & Bureau of Information and Telecommunications."""
     return [
-        {
-                "title": "[SD-OPM-RFP-26RFP10942-BIT] South Dakota Bureau of Information and Telecommunications (BIT) & Office of Procurement Management Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "State of South Dakota \u2014 Bureau of Information and Telecommunications (BIT) & BOA OPM",
-                "closing_date": "11/26/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-OPM-RFP-26RFP10942-BIT",
-                "status": "New Lead"
-        },
-        {
-                "title": "[SD-DSS-MEDICAID-26RFP11018] South Dakota Department of Social Services (DSS) Medicaid Enterprise System (MMIS) Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
-                "agency": "South Dakota Department of Social Services (DSS \u2014 Division of Medical Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-DSS-MEDICAID-26RFP11018",
-                "status": "New Lead"
-        },
-        {
-                "title": "[SD-ELLSWORTH-B21-RAIDER-2026-0719] Ellsworth AFB 28th Bomb Wing (B-21 Raider First Main Operating Base) & South Dakota Defense Corridor CMMC Level 2 Mission Training Cloud Enclave - Due: 12/02/2026",
-                "agency": "South Dakota Department of the Military & Ellsworth AFB B-21 Raider Defense Corridor (SD)",
-                "closing_date": "12/02/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-ELLSWORTH-B21-RAIDER-2026-0719",
-                "status": "New Lead"
-        },
-        {
-                "title": "[SD-SDDOT-ITS-26RFP11084] South Dakota Department of Transportation (SDDOT) I-90 / I-29 Smart Winter Corridor Fiber Telemetry, Dynamic Message Sign Cloud & 511 ATMS - Due: 12/05/2026",
-                "agency": "South Dakota Department of Transportation (SDDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-SDDOT-ITS-26RFP11084",
-                "status": "New Lead"
-        },
-        {
-                "title": "[SD-SIOUXFALLS-RAPIDCITY-IT-2026] City of Sioux Falls Innovation & Technology & City of Rapid City Smart Metro Fiber, Next-Gen 911 CAD GIS & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Sioux Falls Innovation & Technology & City of Rapid City IT (South Dakota)",
-                "closing_date": "12/08/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-SIOUXFALLS-RAPIDCITY-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[SD-DSU-MADISON-CYBERLABS-2026] Dakota State University (DSU Madison Cyber Labs / MadLabs NSA CAE-CO) & South Dakota Board of Regents Classified/CUI AI Cyber Research Range - Due: 12/11/2026",
-                "agency": "South Dakota Board of Regents \u2014 Dakota State University (DSU MadLabs Cyber Range) & SDSU (SD)",
-                "closing_date": "12/11/2026",
-                "url": "https://boa.sd.gov/central-services/procurement-management/#SD-DSU-MADISON-CYBERLABS-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[SD-OPM-RFP-26RFP10942-BIT] South Dakota Bureau of Information and Telecommunications (BIT) & Office of Procurement Management Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "State of South Dakota \u2014 Bureau of Information and Telecommunications (BIT) & BOA OPM",
+                    "closing_date": "11/26/2026",
+                    "url": "https://boa.sd.gov/central-services/procurement-management/#SD-OPM-RFP-26RFP10942-BIT",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[SD-DSS-MEDICAID-26RFP11018] South Dakota Department of Social Services (DSS) Medicaid Enterprise System (MMIS) Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
+                    "agency": "South Dakota Department of Social Services (DSS \u2014 Division of Medical Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://boa.sd.gov/central-services/procurement-management/#SD-DSS-MEDICAID-26RFP11018",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[SD-ELLSWORTH-B21-RAIDER-2026-0719] Ellsworth AFB 28th Bomb Wing (B-21 Raider First Main Operating Base) & South Dakota Defense Corridor CMMC Level 2 Mission Training Cloud Enclave - Due: 12/02/2026",
+                    "agency": "South Dakota Department of the Military & Ellsworth AFB B-21 Raider Defense Corridor (SD)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://boa.sd.gov/central-services/procurement-management/#SD-ELLSWORTH-B21-RAIDER-2026-0719",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_sd_live_notices() -> list[dict]:

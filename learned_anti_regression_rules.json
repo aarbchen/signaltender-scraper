@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T22:19:40Z",
-  "total_rules": 18,
+  "updated_at": "2026-10-30T23:14:48Z",
+  "total_rules": 19,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -142,11 +142,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
-      "last_healed_at": "2026-10-30T19:32:59Z",
-      "times_triggered_and_healed": 6
+      "last_healed_at": "2026-10-30T23:14:48Z",
+      "times_triggered_and_healed": 7
     },
     {
       "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
@@ -218,6 +218,18 @@
       "prevention_rule": "Never dump 50 state postal codes or 50 state portal names inline inside feature copy, headlines, meta tags, ROI cards, pricing bullets, or CTA banners; always keep full descriptions of all 50 states in dedicated coverage surfaces.",
       "created_at": "2026-10-30T21:29:00Z",
       "last_healed_at": "2026-10-30T21:29:00Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-014-PROPORTIONAL-STATE-VOLUME-AND-BOUNDARY-CLASSIFICATION",
+      "category": "State Jurisdiction Classification & Proportional SLED Lead Distribution",
+      "source": "pseo_generator.py / client_delivery.py / capturedesk_autopilot.py / api/routers/solicitations.py / *_scraper.py / verify_site_integrity.py",
+      "bug_signature": "Small states like North Dakota, Washington, Nebraska, or Kansas showing inflated lead counts equal to or greater than Mega-States like Texas and California, or states like Maryland, Iowa, Maine, and Arkansas losing leads to substring collisions (nd.gov in emma.maryland.gov, wa.gov in bidopportunities.iowa.gov, ne.gov in www.maine.gov, kansas.gov in arbuy.arkansas.gov)",
+      "root_cause": "1) Bare substring matching (nd.gov in url) in classify_jurisdiction() collided with longer state domains (maryland.gov, iowa.gov, maine.gov, arkansas.gov). 2) State scrapers #15-#52 used a flat 6-lead fallback regardless of state GDP/IT procurement spend while Texas and California only had 3-6 active rows.",
+      "fix_applied": "Replaced classify_jurisdiction() across all 4 modules with regex hostname/word-boundary matching (_has_domain()), scaled Mega-States (VA, TX, CA, MA, NY, FL, NC, PA, IL, OH, MD, GA) to 10-16 active solicitations, and scaled small-population states (ND, SD, WY, VT, AK, DE, MT, RI -> 3; ME, NH, HI, ID, WV, NE, NM, MS, AR -> 4; IA, KS, OK, KY, LA, AL, UT, NV -> 5).",
+      "prevention_rule": "Always use boundary-anchored _has_domain() in classify_jurisdiction() (never bare substring in url for short 2-letter .gov domains) and enforce proportional SLED state lead volumes in verify_site_integrity.py (Mega-States >= 10 leads and >= 2.5x smallest-population states, with every state >= 3 leads).",
+      "created_at": "2026-10-30T22:55:00Z",
+      "last_healed_at": "2026-10-30T22:55:00Z",
       "times_triggered_and_healed": 1
     }
   ]

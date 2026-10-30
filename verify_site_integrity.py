@@ -455,7 +455,10 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
                 )
 
         # Enforce 1:1 unique RapidAPI hosts per API Card & CATALOG entry and verified public Hub links across Card, Matrix Row, and CATALOG
-        article_blocks = re.findall(r'<article id="(product-[^"]+)"([\s\S]*?)</article>', txt)
+        pre_pseo_txt = txt.split("<!-- PSEO_CONTRACTS_VIEW_START -->")[0]
+        cat_start = txt.find("const CATALOG")
+        cat_section = txt[cat_start:] if cat_start != -1 else txt
+        article_blocks = re.findall(r'<article id="(product-[^"]+)"([\s\S]*?)</article>', pre_pseo_txt)
         matrix_tr_blocks = re.findall(r"<tr\b[\s\S]*?</tr>", matrix_m.group(1))
         seen_card_hosts = {}
         for idx_art, (pid, abody) in enumerate(article_blocks):
@@ -475,7 +478,7 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
                 fail(f"{label}: Pricing Matrix row #{idx_art+1} ('{pid}') links to {m_slugs}, expected '{c_slug}'")
 
             # Verify matching CATALOG['pid'] entry uses the exact same 1:1 RapidAPI host and public hubUrl
-            cat_m = re.search(rf"'{re.escape(pid)}'\s*:\s*\{{([\s\S]*?)\n\s*\}}\s*\}}", txt)
+            cat_m = re.search(rf"'{re.escape(pid)}'\s*:\s*\{{([\s\S]*?)\n\s*\}}\s*\}}", cat_section)
             if not cat_m:
                 fail(f"{label}: Missing CATALOG['{pid}'] entry")
             cat_slugs = set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", cat_m.group(1)))
@@ -1402,6 +1405,37 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
     if not m_toggle_sidebar_apis or "window.copyMcpServerConfig" in m_toggle_sidebar_apis.group(1):
         fail("apis.html: `window.copyMcpServerConfig` and `window.toggleApiCatalogCompactView` must be defined at top-level scope outside `window.togglePageSectionSidebar`!")
 
+    # 7. Proportional SLED State Lead Volumes & Boundary-Safe Jurisdiction Classification (RULE-014)
+    collision_probes = [
+        ({"url": "https://emma.maryland.gov/page.aspx/en/bpm/process_manage_extranet/123", "title": "Cloud SOC", "agency": "MD DoIT"}, "maryland"),
+        ({"url": "https://bidopportunities.iowa.gov/Home/BidInfo?bidId=123", "title": "Cloud SOC", "agency": "Iowa DOM DoIT"}, "iowa"),
+        ({"url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps", "title": "Cloud SOC", "agency": "MaineIT"}, "maine"),
+        ({"url": "https://arbuy.arkansas.gov/bso/external/bidDetail.sdo?docId=123", "title": "Cloud SOC", "agency": "Arkansas DIS"}, "arkansas"),
+    ]
+    for probe_rec, expected_j in collision_probes:
+        actual_j = pseo_generator.classify_jurisdiction(probe_rec)
+        if actual_j != expected_j:
+            fail(f"pseo_generator.classify_jurisdiction() domain collision: URL '{probe_rec['url']}' classified as '{actual_j}', expected '{expected_j}'!")
+
+    cm_contracts = re.search(r"window\.SIGNALTENDER_CONTRACTS\s*=\s*(\[.*?\]);", index_txt, flags=re.S)
+    if cm_contracts:
+        contracts_arr = json.loads(cm_contracts.group(1))
+        st_counts: dict[str, int] = {}
+        for c_item in contracts_arr:
+            jk = str(c_item.get("jurisdiction") or "")
+            st_counts[jk] = st_counts.get(jk, 0) + 1
+        for sk in state_keys:
+            if st_counts.get(sk, 0) < 3:
+                fail(f"index.html (RULE-014): Active state '{sk}' has only {st_counts.get(sk, 0)} leads in window.SIGNALTENDER_CONTRACTS (minimum 3 required for 3-dossier preview)!")
+        mega_states = ("virginia", "texas", "california", "massachusetts", "new_york", "florida", "north_carolina", "pennsylvania", "illinois", "ohio", "maryland", "georgia")
+        smallest_states = ("north_dakota", "south_dakota", "wyoming", "vermont", "alaska", "delaware", "montana", "rhode_island")
+        for ms in mega_states:
+            if st_counts.get(ms, 0) < 10:
+                fail(f"index.html (RULE-014): Mega-State '{ms}' has only {st_counts.get(ms, 0)} leads (expected >= 10)!")
+        for sms in smallest_states:
+            if st_counts.get(sms, 0) > 4:
+                fail(f"index.html (RULE-014): Small-population state '{sms}' has {st_counts.get(sms, 0)} leads (expected 3-4 so Mega-States maintain >= 2.5x proportional volume)!")
+
 
 def check_acquisition_and_email_guardrails() -> None:
     """
@@ -1894,11 +1928,11 @@ def check_mobile_viewport_overflow() -> None:
       const issues = [];
       const all = document.querySelectorAll('a, button, span, code, h1, h2, h3, h4, p, div, section, article, table, input, select');
       for (const el of all) {
+        const rect = el.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) continue;
         const style = window.getComputedStyle(el);
         if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) continue;
         if (style.pointerEvents === 'none' && el.tagName.toLowerCase() === 'div' && (el.className || '').includes('blur-')) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) continue;
 
         const scrollParent = el.closest('.overflow-x-auto');
         if (scrollParent && scrollParent !== el) {

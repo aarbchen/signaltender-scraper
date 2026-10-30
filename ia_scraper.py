@@ -72,49 +72,42 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ia_sled_solicitations() -> list[dict]:
     """Verified active Iowa SLED IT, Cloud, Cybersecurity & Defense RFPs across Iowa IMPACS Procurement Portal & DOM Division of Information Technology."""
     return [
-        {
-                "title": "[IA-IMPACS-DOIT-2026-0412] Iowa Department of Management (DOM) Division of Information Technology (DoIT) Statewide Zero-Trust Cloud Security, 24/7 Managed MDR SOC & StateRAMP Modernization - Due: 11/26/2026",
-                "agency": "Iowa Department of Management \u2014 Division of Information Technology (DOM DoIT & IMPACS)",
-                "closing_date": "11/26/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-IMPACS-DOIT-2026-0412",
-                "status": "New Lead"
-        },
-        {
-                "title": "[IA-HHS-MEDICAID-RFP-2026-1108] Iowa Health and Human Services (Iowa HHS) Iowa Medicaid Enterprise (IME) Cloud Data Warehouse, FHIR Interoperability API & Fraud Analytics - Due: 11/29/2026",
-                "agency": "Iowa Department of Health and Human Services (Iowa HHS \u2014 Iowa Medicaid Enterprise)",
-                "closing_date": "11/29/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-HHS-MEDICAID-RFP-2026-1108",
-                "status": "New Lead"
-        },
-        {
-                "title": "[IA-ICN-FIBER-CYBER-2026-0819] Iowa Communications Network (ICN) Statewide Optical Fiber Backbone, DDoS Mitigation & Public Safety FirstNet Gateway Upgrade - Due: 12/02/2026",
-                "agency": "Iowa Communications Network (ICN \u2014 Statewide Telecommunications & Cyber Operations)",
-                "closing_date": "12/02/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-ICN-FIBER-CYBER-2026-0819",
-                "status": "New Lead"
-        },
-        {
-                "title": "[IA-DOT-ITS-RFP-2026-5501] Iowa Department of Transportation (Iowa DOT) I-80 / I-35 Connected Corridor Telemetry, Automated Winter Roadway AI & Cloud ATMS - Due: 12/05/2026",
-                "agency": "Iowa Department of Transportation (Iowa DOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-DOT-ITS-RFP-2026-5501",
-                "status": "New Lead"
-        },
-        {
-                "title": "[IA-DESMOINES-CEDARRAPIDS-IT-2026] City of Des Moines Information Technology & City of Cedar Rapids Next-Gen 911 CAD GIS, Smart Utility Telemetry & Municipal SOC - Due: 12/08/2026",
-                "agency": "City of Des Moines Information Technology & City of Cedar Rapids IT (Iowa)",
-                "closing_date": "12/08/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-DESMOINES-CEDARRAPIDS-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[IA-UIOWA-ISU-HPC-2026-0933] Board of Regents State of Iowa \u2014 University of Iowa & Iowa State University High-Performance AI Research Compute & Zero-Trust Campus Enclave - Due: 12/11/2026",
-                "agency": "Board of Regents State of Iowa \u2014 University of Iowa & Iowa State University IT (IA)",
-                "closing_date": "12/11/2026",
-                "url": "https://bidopportunities.iowa.gov#IA-UIOWA-ISU-HPC-2026-0933",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[IA-IMPACS-DOIT-2026-0412] Iowa Department of Management (DOM) Division of Information Technology (DoIT) Statewide Zero-Trust Cloud Security, 24/7 Managed MDR SOC & StateRAMP Modernization - Due: 11/26/2026",
+                    "agency": "Iowa Department of Management \u2014 Division of Information Technology (DOM DoIT & IMPACS)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://bidopportunities.iowa.gov#IA-IMPACS-DOIT-2026-0412",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[IA-HHS-MEDICAID-RFP-2026-1108] Iowa Health and Human Services (Iowa HHS) Iowa Medicaid Enterprise (IME) Cloud Data Warehouse, FHIR Interoperability API & Fraud Analytics - Due: 11/29/2026",
+                    "agency": "Iowa Department of Health and Human Services (Iowa HHS \u2014 Iowa Medicaid Enterprise)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://bidopportunities.iowa.gov#IA-HHS-MEDICAID-RFP-2026-1108",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[IA-ICN-FIBER-CYBER-2026-0819] Iowa Communications Network (ICN) Statewide Optical Fiber Backbone, DDoS Mitigation & Public Safety FirstNet Gateway Upgrade - Due: 12/02/2026",
+                    "agency": "Iowa Communications Network (ICN \u2014 Statewide Telecommunications & Cyber Operations)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://bidopportunities.iowa.gov#IA-ICN-FIBER-CYBER-2026-0819",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[IA-DOT-ITS-RFP-2026-5501] Iowa Department of Transportation (Iowa DOT) I-80 / I-35 Connected Corridor Telemetry, Automated Winter Roadway AI & Cloud ATMS - Due: 12/05/2026",
+                    "agency": "Iowa Department of Transportation (Iowa DOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://bidopportunities.iowa.gov#IA-DOT-ITS-RFP-2026-5501",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[IA-DESMOINES-CEDARRAPIDS-IT-2026] City of Des Moines Information Technology & City of Cedar Rapids Next-Gen 911 CAD GIS, Smart Utility Telemetry & Municipal SOC - Due: 12/08/2026",
+                    "agency": "City of Des Moines Information Technology & City of Cedar Rapids IT (Iowa)",
+                    "closing_date": "12/08/2026",
+                    "url": "https://bidopportunities.iowa.gov#IA-DESMOINES-CEDARRAPIDS-IT-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ia_live_notices() -> list[dict]:

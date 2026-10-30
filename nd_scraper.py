@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_nd_sled_solicitations() -> list[dict]:
     """Verified active North Dakota SLED IT, Cloud, Cybersecurity & Defense RFPs across North Dakota State Procurement Office (SPO Online) & North Dakota Information Technology (NDIT)."""
     return [
-        {
-                "title": "[ND-SPO-112-2026-0841-NDIT] North Dakota Information Technology (NDIT) & OMB State Procurement Office Statewide Whole-of-State Cyber SOC, Zero-Trust Cloud & STAGEnet - Due: 11/26/2026",
-                "agency": "State of North Dakota \u2014 North Dakota Information Technology (NDIT) & OMB State Procurement",
-                "closing_date": "11/26/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-SPO-112-2026-0841-NDIT",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ND-HHS-SPACES-2026-0914] North Dakota Health and Human Services (ND HHS) SPACES & Medicaid Enterprise System Cloud Data Lakehouse, Eligibility & FHIR API - Due: 11/29/2026",
-                "agency": "North Dakota Department of Health and Human Services (ND HHS \u2014 Medical Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-HHS-SPACES-2026-0914",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ND-GRANDFORKS-MINOT-VANTIS-2026] Grand Forks AFB (319th RW / Space Development Agency Leo Tracking), Minot AFB & Northern Plains UAS Test Site (Vantis BVLOS) CMMC L2 Cloud - Due: 12/02/2026",
-                "agency": "North Dakota Autonomous UAS Network (Vantis) & Grand Forks / Minot AFB Defense Corridor (ND)",
-                "closing_date": "12/02/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-GRANDFORKS-MINOT-VANTIS-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ND-NDDOT-ITS-2026-801-049] North Dakota Department of Transportation (NDDOT) I-94 / I-29 Autonomous Freight & Winter Weather Telemetry, Fiber Backbone & Cloud ATMS - Due: 12/05/2026",
-                "agency": "North Dakota Department of Transportation (NDDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-NDDOT-ITS-2026-801-049",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ND-FARGO-BISMARCK-IT-2026-0522] City of Fargo Information Services & City of Bismarck IT Smart Red River Flood Telemetry, Next-Gen 911 CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Fargo Information Services & City of Bismarck Information Technology (North Dakota)",
-                "closing_date": "12/08/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-FARGO-BISMARCK-IT-2026-0522",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ND-UND-NDSU-AEROSPACE-2026-0718] North Dakota University System \u2014 UND Odegard School of Aerospace / National Security Initiative & NDSU High-Performance AI Research Cloud - Due: 12/11/2026",
-                "agency": "North Dakota University System \u2014 University of North Dakota Aerospace & NDSU IT (ND)",
-                "closing_date": "12/11/2026",
-                "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-UND-NDSU-AEROSPACE-2026-0718",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[ND-SPO-112-2026-0841-NDIT] North Dakota Information Technology (NDIT) & OMB State Procurement Office Statewide Whole-of-State Cyber SOC, Zero-Trust Cloud & STAGEnet - Due: 11/26/2026",
+                    "agency": "State of North Dakota \u2014 North Dakota Information Technology (NDIT) & OMB State Procurement",
+                    "closing_date": "11/26/2026",
+                    "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-SPO-112-2026-0841-NDIT",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ND-HHS-SPACES-2026-0914] North Dakota Health and Human Services (ND HHS) SPACES & Medicaid Enterprise System Cloud Data Lakehouse, Eligibility & FHIR API - Due: 11/29/2026",
+                    "agency": "North Dakota Department of Health and Human Services (ND HHS \u2014 Medical Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-HHS-SPACES-2026-0914",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ND-GRANDFORKS-MINOT-VANTIS-2026] Grand Forks AFB (319th RW / Space Development Agency Leo Tracking), Minot AFB & Northern Plains UAS Test Site (Vantis BVLOS) CMMC L2 Cloud - Due: 12/02/2026",
+                    "agency": "North Dakota Autonomous UAS Network (Vantis) & Grand Forks / Minot AFB Defense Corridor (ND)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://apps.nd.gov/csd/spo/services/bidder/main.htm#ND-GRANDFORKS-MINOT-VANTIS-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_nd_live_notices() -> list[dict]:

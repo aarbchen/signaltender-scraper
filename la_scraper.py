@@ -77,48 +77,41 @@ def get_curated_la_sled_solicitations() -> list[dict]:
     Cyber Corridor, City of New Orleans / Baton Rouge IT, and LSU System.
     """
     return [
-        {
-            "title": "[LA-OTS-LAPAC-3000024819] Louisiana Office of Technology Services (OTS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & LaGov ERP Modernization - Due: 11/24/2026",
-            "agency": "Louisiana Division of Administration — Office of Technology Services (Louisiana OTS & OSP LaPAC)",
-            "closing_date": "11/24/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-OTS-LAPAC-3000024819",
-            "status": "New Lead",
-        },
-        {
-            "title": "[LA-LDH-MES-LAPAC-3000025104] Louisiana Department of Health (LDH) Medicaid Enterprise System (MES) Cloud Data Warehouse, Fraud Analytics & FHIR Interoperability - Due: 11/27/2026",
-            "agency": "Louisiana Department of Health (LDH — Bureau of Health Services Financing & Medicaid IT)",
-            "closing_date": "11/27/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-LDH-MES-LAPAC-3000025104",
-            "status": "New Lead",
-        },
-        {
-            "title": "[LA-DOTD-CPRA-LAPAC-3000024962] Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform - Due: 11/22/2026",
-            "agency": "Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana)",
-            "closing_date": "11/22/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-DOTD-CPRA-LAPAC-3000024962",
-            "status": "New Lead",
-        },
-        {
-            "title": "[LA-BARKSDALE-GSC-2026-0615] Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
-            "agency": "Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA)",
-            "closing_date": "11/30/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-BARKSDALE-GSC-2026-0615",
-            "status": "New Lead",
-        },
-        {
-            "title": "[LA-NOLA-BR-ITI-RFP-2026-4110] City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC - Due: 12/03/2026",
-            "agency": "City of New Orleans Office of Information Technology & Innovation (ITI — Louisiana)",
-            "closing_date": "12/03/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-NOLA-BR-ITI-RFP-2026-4110",
-            "status": "New Lead",
-        },
-        {
-            "title": "[LA-LSU-LONI-RFP-2026-8831] Louisiana State University (LSU) & Louisiana Optical Network Initiative (LONI) AI Supercomputing Cloud, 400G Optical Backbone & Cyber Enclave - Due: 12/06/2026",
-            "agency": "Louisiana State University System (LSU ITS) & Louisiana Optical Network Initiative (LONI)",
-            "closing_date": "12/06/2026",
-            "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-LSU-LONI-RFP-2026-8831",
-            "status": "New Lead",
-        },
+            {
+                    "title": "[LA-OTS-LAPAC-3000024819] Louisiana Office of Technology Services (OTS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & LaGov ERP Modernization - Due: 11/24/2026",
+                    "agency": "Louisiana Division of Administration \u2014 Office of Technology Services (Louisiana OTS & OSP LaPAC)",
+                    "closing_date": "11/24/2026",
+                    "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-OTS-LAPAC-3000024819",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[LA-LDH-MES-LAPAC-3000025104] Louisiana Department of Health (LDH) Medicaid Enterprise System (MES) Cloud Data Warehouse, Fraud Analytics & FHIR Interoperability - Due: 11/27/2026",
+                    "agency": "Louisiana Department of Health (LDH \u2014 Bureau of Health Services Financing & Medicaid IT)",
+                    "closing_date": "11/27/2026",
+                    "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-LDH-MES-LAPAC-3000025104",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[LA-DOTD-CPRA-LAPAC-3000024962] Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform - Due: 11/22/2026",
+                    "agency": "Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana)",
+                    "closing_date": "11/22/2026",
+                    "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-DOTD-CPRA-LAPAC-3000024962",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[LA-BARKSDALE-GSC-2026-0615] Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
+                    "agency": "Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA)",
+                    "closing_date": "11/30/2026",
+                    "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-BARKSDALE-GSC-2026-0615",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[LA-NOLA-BR-ITI-RFP-2026-4110] City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC - Due: 12/03/2026",
+                    "agency": "City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana)",
+                    "closing_date": "12/03/2026",
+                    "url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#LA-NOLA-BR-ITI-RFP-2026-4110",
+                    "status": "New Lead"
+            }
     ]
 
 

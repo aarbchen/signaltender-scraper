@@ -76,55 +76,41 @@ def get_curated_ut_sled_solicitations() -> list[dict]:
     Salt Lake City IT, and University of Utah.
     """
     return [
-        {
-            "title": "[UT-DTS-U3P-SK26094] Utah Division of Technology Services (DTS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
-            "agency": "Utah Department of Government Operations — Division of Technology Services (Utah DTS)",
-            "closing_date": "11/23/2026",
-            "url": "https://purchasing.utah.gov/current-bids/#UT-DTS-U3P-SK26094",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-DHHS-PRISM-U3P-KL26118] Utah Department of Health and Human Services (DHHS) PRISM Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR Interoperability - Due: 11/26/2026",
-            "agency": "Utah Department of Health and Human Services (Utah DHHS — PRISM Medicaid IT)",
-            "closing_date": "11/26/2026",
-            "url": "https://purchasing.utah.gov/current-bids/#UT-DHHS-PRISM-U3P-KL26118",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-UDOT-CV2X-U3P-JH26077] Utah DOT (UDOT) Connected Vehicle (C-V2X) Corridor, Wasatch Front Fiber Backbone & Cloud Traffic Management Platform - Due: 11/21/2026",
-            "agency": "Utah Department of Transportation (UDOT) — Traffic Management & Intelligent Transportation Systems",
-            "closing_date": "11/21/2026",
-            "url": "https://purchasing.utah.gov/current-bids/#UT-UDOT-CV2X-U3P-JH26077",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-HILLAFB-309SMXG-2026-0519] Hill AFB / Ogden ALC 309th Software Engineering Group (309 SMXG) & Utah Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/25/2026",
-            "agency": "Utah Aerospace & Defense Association (47G) & Hill AFB / Ogden ALC Software Corridor (UT)",
-            "closing_date": "11/25/2026",
-            "url": "https://dts.utah.gov/#UT-HILLAFB-309SMXG-2026-0519",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-DPS-BCI-U3P-MR26142] Utah Department of Public Safety (DPS) Bureau of Criminal Identification CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR - Due: 11/28/2026",
-            "agency": "Utah Department of Public Safety (Utah DPS — Bureau of Criminal Identification)",
-            "closing_date": "11/28/2026",
-            "url": "https://purchasing.utah.gov/current-bids/#UT-DPS-BCI-U3P-MR26142",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-SLC-IMS-RFP-2026-0831] Salt Lake City Department of Information Management Services (IMS) & Salt Lake County Cloud ERP, Smart Olympic Corridor GIS & 24/7 MDR SOC - Due: 11/30/2026",
-            "agency": "Salt Lake City Corporation — Information Management Services (IMS) & Salt Lake County IT (Utah)",
-            "closing_date": "11/30/2026",
-            "url": "https://purchasing.utah.gov/current-bids/#UT-SLC-IMS-RFP-2026-0831",
-            "status": "New Lead",
-        },
-        {
-            "title": "[UT-UOFU-UETN-RFP-2026-3910] University of Utah & Utah Education and Telehealth Network (UETN) CHPC AI Supercomputing Cloud, Statewide Optical Network & NIST 800-171 Enclave - Due: 12/04/2026",
-            "agency": "University of Utah (UIT) & Utah Education and Telehealth Network (UETN — Utah)",
-            "closing_date": "12/04/2026",
-            "url": "https://fbs.admin.utah.edu/purchasing/#UT-UOFU-UETN-RFP-2026-3910",
-            "status": "New Lead",
-        },
+            {
+                    "title": "[UT-DTS-U3P-SK26094] Utah Division of Technology Services (DTS) Statewide Zero-Trust SOC, SIEM Telemetry & StateRAMP Cloud Security Modernization - Due: 11/23/2026",
+                    "agency": "Utah Department of Government Operations \u2014 Division of Technology Services (Utah DTS)",
+                    "closing_date": "11/23/2026",
+                    "url": "https://purchasing.utah.gov/current-bids/#UT-DTS-U3P-SK26094",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[UT-DHHS-PRISM-U3P-KL26118] Utah Department of Health and Human Services (DHHS) PRISM Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR Interoperability - Due: 11/26/2026",
+                    "agency": "Utah Department of Health and Human Services (Utah DHHS \u2014 PRISM Medicaid IT)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://purchasing.utah.gov/current-bids/#UT-DHHS-PRISM-U3P-KL26118",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[UT-UDOT-CV2X-U3P-JH26077] Utah DOT (UDOT) Connected Vehicle (C-V2X) Corridor, Wasatch Front Fiber Backbone & Cloud Traffic Management Platform - Due: 11/21/2026",
+                    "agency": "Utah Department of Transportation (UDOT) \u2014 Traffic Management & Intelligent Transportation Systems",
+                    "closing_date": "11/21/2026",
+                    "url": "https://purchasing.utah.gov/current-bids/#UT-UDOT-CV2X-U3P-JH26077",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[UT-HILLAFB-309SMXG-2026-0519] Hill AFB / Ogden ALC 309th Software Engineering Group (309 SMXG) & Utah Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/25/2026",
+                    "agency": "Utah Aerospace & Defense Association (47G) & Hill AFB / Ogden ALC Software Corridor (UT)",
+                    "closing_date": "11/25/2026",
+                    "url": "https://dts.utah.gov/#UT-HILLAFB-309SMXG-2026-0519",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[UT-DPS-BCI-U3P-MR26142] Utah Department of Public Safety (DPS) Bureau of Criminal Identification CJIS Cloud Identity, Next-Gen 911 GIS & Endpoint EDR - Due: 11/28/2026",
+                    "agency": "Utah Department of Public Safety (Utah DPS \u2014 Bureau of Criminal Identification)",
+                    "closing_date": "11/28/2026",
+                    "url": "https://purchasing.utah.gov/current-bids/#UT-DPS-BCI-U3P-MR26142",
+                    "status": "New Lead"
+            }
     ]
 
 

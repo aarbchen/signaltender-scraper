@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ar_sled_solicitations() -> list[dict]:
     """Verified active Arkansas SLED IT, Cloud, Cybersecurity & Defense RFPs across Arkansas ARBuy eProcurement & Division of Information Systems."""
     return [
-        {
-                "title": "[AR-ARBUY-BD-26-0041-DIS] Arkansas Department of Transformation and Shared Services (TSS) Division of Information Systems (DIS) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "Arkansas TSS \u2014 Division of Information Systems (DIS & ARBuy eProcurement)",
-                "closing_date": "11/26/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-ARBUY-BD-26-0041-DIS",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AR-DHS-ARIES-RFP-2026-0912] Arkansas Department of Human Services (DHS) ARIES Medicaid Enterprise Cloud Lakehouse, Eligibility Portal & FHIR Interoperability API - Due: 11/29/2026",
-                "agency": "Arkansas Department of Human Services (DHS \u2014 Division of Medical Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-DHS-ARIES-RFP-2026-0912",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AR-LITTLEROCK-AFB-CYBER-2026-0318] Little Rock AFB 19th Airlift Wing / 189th AW Cyber Training Range & Arkansas Defense Corridor CMMC Level 2 Tactical Cloud Enclave - Due: 12/02/2026",
-                "agency": "Arkansas Military Department & Little Rock AFB Cyber Training Corridor (AR)",
-                "closing_date": "12/02/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-LITTLEROCK-AFB-CYBER-2026-0318",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AR-ARDOT-ITS-RFP-2026-4407] Arkansas Department of Transportation (ARDOT) I-40 / I-30 Smart Freight Corridor Fiber Telemetry, Bridge Sensor AI & Cloud ATMS - Due: 12/05/2026",
-                "agency": "Arkansas Department of Transportation (ARDOT \u2014 Transportation Systems Management)",
-                "closing_date": "12/05/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-ARDOT-ITS-RFP-2026-4407",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AR-LITTLEROCK-NWA-IT-2026-1205] City of Little Rock Information Technology & Northwest Arkansas (Fayetteville/Bentonville) Smart Mobility Fiber & Next-Gen 911 SOC - Due: 12/08/2026",
-                "agency": "City of Little Rock Information Technology & Northwest Arkansas Regional IT (Arkansas)",
-                "closing_date": "12/08/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-LITTLEROCK-NWA-IT-2026-1205",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AR-UARK-UAMS-AREON-2026-0629] Arkansas Research and Education Optical Network (AREON), University of Arkansas & UAMS Clinical AI Cloud & Zero-Trust Network - Due: 12/11/2026",
-                "agency": "University of Arkansas System, UAMS Digital Health & AREON Optical Network (AR)",
-                "closing_date": "12/11/2026",
-                "url": "https://arbuy.arkansas.gov/bso/#AR-UARK-UAMS-AREON-2026-0629",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[AR-ARBUY-BD-26-0041-DIS] Arkansas Department of Transformation and Shared Services (TSS) Division of Information Systems (DIS) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "Arkansas TSS \u2014 Division of Information Systems (DIS & ARBuy eProcurement)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://arbuy.arkansas.gov/bso/#AR-ARBUY-BD-26-0041-DIS",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AR-DHS-ARIES-RFP-2026-0912] Arkansas Department of Human Services (DHS) ARIES Medicaid Enterprise Cloud Lakehouse, Eligibility Portal & FHIR Interoperability API - Due: 11/29/2026",
+                    "agency": "Arkansas Department of Human Services (DHS \u2014 Division of Medical Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://arbuy.arkansas.gov/bso/#AR-DHS-ARIES-RFP-2026-0912",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AR-LITTLEROCK-AFB-CYBER-2026-0318] Little Rock AFB 19th Airlift Wing / 189th AW Cyber Training Range & Arkansas Defense Corridor CMMC Level 2 Tactical Cloud Enclave - Due: 12/02/2026",
+                    "agency": "Arkansas Military Department & Little Rock AFB Cyber Training Corridor (AR)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://arbuy.arkansas.gov/bso/#AR-LITTLEROCK-AFB-CYBER-2026-0318",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AR-ARDOT-ITS-RFP-2026-4407] Arkansas Department of Transportation (ARDOT) I-40 / I-30 Smart Freight Corridor Fiber Telemetry, Bridge Sensor AI & Cloud ATMS - Due: 12/05/2026",
+                    "agency": "Arkansas Department of Transportation (ARDOT \u2014 Transportation Systems Management)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://arbuy.arkansas.gov/bso/#AR-ARDOT-ITS-RFP-2026-4407",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ar_live_notices() -> list[dict]:

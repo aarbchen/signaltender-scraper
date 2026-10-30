@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_mt_sled_solicitations() -> list[dict]:
     """Verified active Montana SLED IT, Cloud, Cybersecurity & Defense RFPs across Montana eMACS Acquisition & Contracting System & State IT Services Division (SITSD)."""
     return [
-        {
-                "title": "[MT-EMACS-DOA-RFP-2026-0718I] Montana Department of Administration \u2014 State Information Technology Services Division (SITSD) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "Montana Department of Administration \u2014 State IT Services Division (SITSD & eMACS)",
-                "closing_date": "11/26/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-EMACS-DOA-RFP-2026-0718I",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MT-DPHHS-MPATH-RFP-2026-0842] Montana Department of Public Health and Human Services (DPHHS) MPATH Modular Medicaid Enterprise Cloud Lakehouse & FHIR API Platform - Due: 11/29/2026",
-                "agency": "Montana Department of Public Health and Human Services (DPHHS \u2014 Technology Services Division)",
-                "closing_date": "11/29/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-DPHHS-MPATH-RFP-2026-0842",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MT-MALMSTROM-SENTINEL-ICBM-2026] Malmstrom AFB 341st Missile Wing (Sentinel ICBM Modernization Corridor) & Montana National Guard CMMC Level 2 Tactical Cyber & Photonics Cloud - Due: 12/02/2026",
-                "agency": "Montana Department of Military Affairs & Malmstrom AFB Defense Corridor (MT)",
-                "closing_date": "12/02/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-MALMSTROM-SENTINEL-ICBM-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MT-MDT-ITS-EMACS-2026-0915] Montana Department of Transportation (MDT) I-90 / I-15 Mountain Pass Automated Road Weather Information System (RWIS), Fiber & Cloud 511 ATMS - Due: 12/05/2026",
-                "agency": "Montana Department of Transportation (MDT \u2014 Information Services & ITS)",
-                "closing_date": "12/05/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-MDT-ITS-EMACS-2026-0915",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MT-BILLINGS-BOZEMAN-HELENA-2026] City of Billings IT, City of Bozeman Photonics/Smart City Hub & City of Helena Next-Gen 911 Public Safety CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Billings Information Technology & City of Bozeman Smart Metro IT (Montana)",
-                "closing_date": "12/08/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-BILLINGS-BOZEMAN-HELENA-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MT-MSU-UMT-PHOTONICS-2026-0611] Montana University System \u2014 Montana State University (MSU Spectrum/Photonics Lab) & University of Montana Cyber Defense AI Research Cloud - Due: 12/11/2026",
-                "agency": "Montana University System \u2014 Montana State University & University of Montana IT (MT)",
-                "closing_date": "12/11/2026",
-                "url": "https://spb.mt.gov/Vendor-Resources#MT-MSU-UMT-PHOTONICS-2026-0611",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[MT-EMACS-DOA-RFP-2026-0718I] Montana Department of Administration \u2014 State Information Technology Services Division (SITSD) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "Montana Department of Administration \u2014 State IT Services Division (SITSD & eMACS)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://spb.mt.gov/Vendor-Resources#MT-EMACS-DOA-RFP-2026-0718I",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[MT-DPHHS-MPATH-RFP-2026-0842] Montana Department of Public Health and Human Services (DPHHS) MPATH Modular Medicaid Enterprise Cloud Lakehouse & FHIR API Platform - Due: 11/29/2026",
+                    "agency": "Montana Department of Public Health and Human Services (DPHHS \u2014 Technology Services Division)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://spb.mt.gov/Vendor-Resources#MT-DPHHS-MPATH-RFP-2026-0842",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[MT-MALMSTROM-SENTINEL-ICBM-2026] Malmstrom AFB 341st Missile Wing (Sentinel ICBM Modernization Corridor) & Montana National Guard CMMC Level 2 Tactical Cyber & Photonics Cloud - Due: 12/02/2026",
+                    "agency": "Montana Department of Military Affairs & Malmstrom AFB Defense Corridor (MT)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://spb.mt.gov/Vendor-Resources#MT-MALMSTROM-SENTINEL-ICBM-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_mt_live_notices() -> list[dict]:

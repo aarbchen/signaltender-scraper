@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_nm_sled_solicitations() -> list[dict]:
     """Verified active New Mexico SLED IT, Cloud, Cybersecurity & Defense RFPs across New Mexico GSD State Purchasing, DoIT & Sandia/Los Alamos National Labs Corridor."""
     return [
-        {
-                "title": "[NM-GSD-SPD-60-00000-26-00084] New Mexico Department of Information Technology (DoIT) & GSD State Purchasing Statewide Zero-Trust Cloud, Broadband & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "New Mexico Department of Information Technology (DoIT) & General Services Department (GSD SPD)",
-                "closing_date": "11/26/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-GSD-SPD-60-00000-26-00084",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NM-HCA-MMIS-RFP-2026-0417] New Mexico Health Care Authority (HCA) Turquoise Care Medicaid Enterprise System (MMIS) Cloud Data Platform, Eligibility & FHIR API - Due: 11/29/2026",
-                "agency": "New Mexico Health Care Authority (HCA \u2014 Medical Assistance Division IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-HCA-MMIS-RFP-2026-0417",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NM-SANDIA-LANL-KIRTLAND-2026-0911] Sandia National Laboratories, Los Alamos National Lab (LANL) & Kirtland AFB Space Rapid Capabilities Office (SpRCO) Q-Cleared Cloud & CMMC L2 Enclave - Due: 12/02/2026",
-                "agency": "New Mexico National Labs & Kirtland AFB / White Sands Missile Range Defense Corridor (NM)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-SANDIA-LANL-KIRTLAND-2026-0911",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NM-NMDOT-ITS-RFP-2026-3302] New Mexico Department of Transportation (NMDOT) I-25 / I-40 Autonomous Freight Corridor Fiber Telemetry & Cloud Traffic Management - Due: 12/05/2026",
-                "agency": "New Mexico Department of Transportation (NMDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-NMDOT-ITS-RFP-2026-3302",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NM-CABQ-SANTAFE-IT-2026-0725] City of Albuquerque Department of Technology & Innovation (DTI) & City of Santa Fe Smart Fiber, Next-Gen 911 CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Albuquerque Department of Technology & Innovation & City of Santa Fe IT (New Mexico)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-CABQ-SANTAFE-IT-2026-0725",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NM-UNM-NMSU-NMT-quantum-2026] University of New Mexico (UNM), New Mexico State University (NMSU) & New Mexico Tech Quantum/AI Supercomputing & Zero-Trust Campus Cloud - Due: 12/11/2026",
-                "agency": "New Mexico Higher Education Department \u2014 UNM, NMSU & New Mexico Tech Cyber Institute (NM)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-UNM-NMSU-NMT-quantum-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[NM-GSD-SPD-60-00000-26-00084] New Mexico Department of Information Technology (DoIT) & GSD State Purchasing Statewide Zero-Trust Cloud, Broadband & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "New Mexico Department of Information Technology (DoIT) & General Services Department (GSD SPD)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-GSD-SPD-60-00000-26-00084",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NM-HCA-MMIS-RFP-2026-0417] New Mexico Health Care Authority (HCA) Turquoise Care Medicaid Enterprise System (MMIS) Cloud Data Platform, Eligibility & FHIR API - Due: 11/29/2026",
+                    "agency": "New Mexico Health Care Authority (HCA \u2014 Medical Assistance Division IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-HCA-MMIS-RFP-2026-0417",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NM-SANDIA-LANL-KIRTLAND-2026-0911] Sandia National Laboratories, Los Alamos National Lab (LANL) & Kirtland AFB Space Rapid Capabilities Office (SpRCO) Q-Cleared Cloud & CMMC L2 Enclave - Due: 12/02/2026",
+                    "agency": "New Mexico National Labs & Kirtland AFB / White Sands Missile Range Defense Corridor (NM)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-SANDIA-LANL-KIRTLAND-2026-0911",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NM-NMDOT-ITS-RFP-2026-3302] New Mexico Department of Transportation (NMDOT) I-25 / I-40 Autonomous Freight Corridor Fiber Telemetry & Cloud Traffic Management - Due: 12/05/2026",
+                    "agency": "New Mexico Department of Transportation (NMDOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://www.generalservices.state.nm.us/state-purchasing/active-itbs-and-rfps/#NM-NMDOT-ITS-RFP-2026-3302",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_nm_live_notices() -> list[dict]:

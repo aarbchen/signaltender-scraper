@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ne_sled_solicitations() -> list[dict]:
     """Verified active Nebraska SLED IT, Cloud, Cybersecurity & Defense RFPs across Nebraska DAS Materiel Purchasing, OCIO & USSTRATCOM Offutt AFB Corridor."""
     return [
-        {
-                "title": "[NE-DAS-RFP-6942-Z1-OCIO] Nebraska Office of the Chief Information Officer (OCIO) & DAS Materiel Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & Network Nebraska - Due: 11/26/2026",
-                "agency": "Nebraska Department of Administrative Services (DAS Materiel) & Office of the CIO (OCIO)",
-                "closing_date": "11/26/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-DAS-RFP-6942-Z1-OCIO",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NE-DHHS-ACCESSNE-RFP-6958] Nebraska Department of Health and Human Services (DHHS) Heritage Health Medicaid & iServe Cloud Portal, Data Lakehouse & FHIR API - Due: 11/29/2026",
-                "agency": "Nebraska Department of Health and Human Services (DHHS \u2014 Information Systems & Technology)",
-                "closing_date": "11/29/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-DHHS-ACCESSNE-RFP-6958",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NE-OFFUTT-USSTRATCOM-J6-2026-0812] Offutt AFB U.S. Strategic Command (USSTRATCOM J6) & 557th Weather Wing NC3 DevSecOps Cloud, AI Weather Modeling & CMMC Level 2 Enclave - Due: 12/02/2026",
-                "agency": "Nebraska Military Department & Offutt AFB / USSTRATCOM Defense Corridor (NE)",
-                "closing_date": "12/02/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-OFFUTT-USSTRATCOM-J6-2026-0812",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NE-NDOT-ITS-RFP-6971-Z1] Nebraska Department of Transportation (NDOT) I-80 Statewide Connected Corridor Fiber Telemetry, Automated Winter Plow GIS & Cloud ATMS - Due: 12/05/2026",
-                "agency": "Nebraska Department of Transportation (NDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-NDOT-ITS-RFP-6971-Z1",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NE-OMAHA-LINCOLN-DOTCOMM-2026] Douglas County / City of Omaha (DOTComm) & City of Lincoln Information Services Smart Fiber, Next-Gen 911 CAD & Regional MDR SOC - Due: 12/08/2026",
-                "agency": "Douglas County / Omaha DOTComm & City of Lincoln Information Services (Nebraska)",
-                "closing_date": "12/08/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-OMAHA-LINCOLN-DOTCOMM-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[NE-NU-UNMC-NSRI-2026-0519] University of Nebraska System, UNMC Clinical AI & National Strategic Research Institute (NSRI UARC) Classified/CUI Research Cloud - Due: 12/11/2026",
-                "agency": "University of Nebraska System & National Strategic Research Institute (NSRI / UNMC) (NE)",
-                "closing_date": "12/11/2026",
-                "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-NU-UNMC-NSRI-2026-0519",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[NE-DAS-RFP-6942-Z1-OCIO] Nebraska Office of the Chief Information Officer (OCIO) & DAS Materiel Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & Network Nebraska - Due: 11/26/2026",
+                    "agency": "Nebraska Department of Administrative Services (DAS Materiel) & Office of the CIO (OCIO)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-DAS-RFP-6942-Z1-OCIO",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NE-DHHS-ACCESSNE-RFP-6958] Nebraska Department of Health and Human Services (DHHS) Heritage Health Medicaid & iServe Cloud Portal, Data Lakehouse & FHIR API - Due: 11/29/2026",
+                    "agency": "Nebraska Department of Health and Human Services (DHHS \u2014 Information Systems & Technology)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-DHHS-ACCESSNE-RFP-6958",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NE-OFFUTT-USSTRATCOM-J6-2026-0812] Offutt AFB U.S. Strategic Command (USSTRATCOM J6) & 557th Weather Wing NC3 DevSecOps Cloud, AI Weather Modeling & CMMC Level 2 Enclave - Due: 12/02/2026",
+                    "agency": "Nebraska Military Department & Offutt AFB / USSTRATCOM Defense Corridor (NE)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-OFFUTT-USSTRATCOM-J6-2026-0812",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[NE-NDOT-ITS-RFP-6971-Z1] Nebraska Department of Transportation (NDOT) I-80 Statewide Connected Corridor Fiber Telemetry, Automated Winter Plow GIS & Cloud ATMS - Due: 12/05/2026",
+                    "agency": "Nebraska Department of Transportation (NDOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://das.nebraska.gov/materiel/bidopps.html#NE-NDOT-ITS-RFP-6971-Z1",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ne_live_notices() -> list[dict]:

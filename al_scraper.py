@@ -77,48 +77,41 @@ def get_curated_al_sled_solicitations() -> list[dict]:
     Defense Corridor, Maxwell-Gunter AFB BES, and University of Alabama / Auburn University.
     """
     return [
-        {
-            "title": "[AL-OIT-STAARS-SRC0000024918] Alabama Office of Information Technology (OIT) Statewide Zero-Trust Cloud Security, Managed SOC MDR & StateRAMP Infrastructure Modernization - Due: 11/25/2026",
-            "agency": "State of Alabama — Office of Information Technology (Alabama OIT & Division of Procurement)",
-            "closing_date": "11/25/2026",
-            "url": "https://alabamabuys.gov/#AL-OIT-STAARS-SRC0000024918",
-            "status": "New Lead",
-        },
-        {
-            "title": "[AL-MEDICAID-MES-RFP-2026-014] Alabama Medicaid Agency Modular Medicaid Enterprise System (MES) Cloud Data Warehouse, Provider Portal & FHIR Interoperability - Due: 11/28/2026",
-            "agency": "Alabama Medicaid Agency — Health Information Technology & MES Procurement Division",
-            "closing_date": "11/28/2026",
-            "url": "https://alabamabuys.gov/#AL-MEDICAID-MES-RFP-2026-014",
-            "status": "New Lead",
-        },
-        {
-            "title": "[AL-HUNTSVILLE-REDSTONE-2026-0812] Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
-            "agency": "City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL)",
-            "closing_date": "11/30/2026",
-            "url": "https://alabamabuys.gov/#AL-HUNTSVILLE-REDSTONE-2026-0812",
-            "status": "New Lead",
-        },
-        {
-            "title": "[AL-ALDOT-TSMO-RFP-2026-059] Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform - Due: 11/23/2026",
-            "agency": "Alabama Department of Transportation (ALDOT) — Transportation Systems Management & Operations",
-            "closing_date": "11/23/2026",
-            "url": "https://alabamabuys.gov/#AL-ALDOT-TSMO-RFP-2026-059",
-            "status": "New Lead",
-        },
-        {
-            "title": "[AL-ALEA-CJIS-STAARS-2026-319] Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring - Due: 12/03/2026",
-            "agency": "Alabama Law Enforcement Agency (ALEA — Criminal Justice Information Services)",
-            "closing_date": "12/03/2026",
-            "url": "https://alabamabuys.gov/#AL-ALEA-CJIS-STAARS-2026-319",
-            "status": "New Lead",
-        },
-        {
-            "title": "[AL-UA-AUBURN-ASC-RFP-2026-704] Alabama Supercomputer Authority (ASA), University of Alabama & Auburn University High-Performance AI Research Cloud & Research Network - Due: 12/06/2026",
-            "agency": "Alabama Supercomputer Authority (ASA) & University of Alabama System IT (Alabama)",
-            "closing_date": "12/06/2026",
-            "url": "https://alabamabuys.gov/#AL-UA-AUBURN-ASC-RFP-2026-704",
-            "status": "New Lead",
-        },
+            {
+                    "title": "[AL-OIT-STAARS-SRC0000024918] Alabama Office of Information Technology (OIT) Statewide Zero-Trust Cloud Security, Managed SOC MDR & StateRAMP Infrastructure Modernization - Due: 11/25/2026",
+                    "agency": "State of Alabama \u2014 Office of Information Technology (Alabama OIT & Division of Procurement)",
+                    "closing_date": "11/25/2026",
+                    "url": "https://alabamabuys.gov/#AL-OIT-STAARS-SRC0000024918",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AL-MEDICAID-MES-RFP-2026-014] Alabama Medicaid Agency Modular Medicaid Enterprise System (MES) Cloud Data Warehouse, Provider Portal & FHIR Interoperability - Due: 11/28/2026",
+                    "agency": "Alabama Medicaid Agency \u2014 Health Information Technology & MES Procurement Division",
+                    "closing_date": "11/28/2026",
+                    "url": "https://alabamabuys.gov/#AL-MEDICAID-MES-RFP-2026-014",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AL-HUNTSVILLE-REDSTONE-2026-0812] Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
+                    "agency": "City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL)",
+                    "closing_date": "11/30/2026",
+                    "url": "https://alabamabuys.gov/#AL-HUNTSVILLE-REDSTONE-2026-0812",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AL-ALDOT-TSMO-RFP-2026-059] Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform - Due: 11/23/2026",
+                    "agency": "Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations",
+                    "closing_date": "11/23/2026",
+                    "url": "https://alabamabuys.gov/#AL-ALDOT-TSMO-RFP-2026-059",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AL-ALEA-CJIS-STAARS-2026-319] Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring - Due: 12/03/2026",
+                    "agency": "Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services)",
+                    "closing_date": "12/03/2026",
+                    "url": "https://alabamabuys.gov/#AL-ALEA-CJIS-STAARS-2026-319",
+                    "status": "New Lead"
+            }
     ]
 
 

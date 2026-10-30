@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_id_sled_solicitations() -> list[dict]:
     """Verified active Idaho SLED IT, Cloud, Cybersecurity & Defense RFPs across Idaho LuMA / IPRO Division of Purchasing, ITS & INL Cyber Energy Corridor."""
     return [
-        {
-                "title": "[ID-IPRO-RFP20262491-ITS] Idaho Office of Information Technology Services (ITS) & Division of Purchasing (LuMA IPRO) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "Idaho Division of Purchasing (LuMA / IPRO) & Office of Information Technology Services (ITS)",
-                "closing_date": "11/26/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-IPRO-RFP20262491-ITS",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ID-DHW-MMIS-RFP20262518] Idaho Department of Health and Welfare (IDHW) Medicaid Enterprise System (MMIS) Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
-                "agency": "Idaho Department of Health and Welfare (IDHW \u2014 Division of Medicaid IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-DHW-MMIS-RFP20262518",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ID-INL-MTNHOME-CYBER-2026-0704] Idaho National Laboratory (INL Cybercore Integration Center) & Mountain Home AFB 366th Fighter Wing ICS/SCADA Critical Infrastructure Defense Cloud - Due: 12/02/2026",
-                "agency": "Idaho National Laboratory (INL) Cyber Energy Corridor & Mountain Home AFB Defense Hub (ID)",
-                "closing_date": "12/02/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-INL-MTNHOME-CYBER-2026-0704",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ID-ITD-ITS-RFP20262544] Idaho Transportation Department (ITD) I-84 / I-15 Mountain Pass Fiber Telemetry, Automated Avalanche/Weather Radar & Cloud 511 ATMS - Due: 12/05/2026",
-                "agency": "Idaho Transportation Department (ITD \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-ITD-ITS-RFP20262544",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ID-BOISE-ADACOUNTY-IT-2026-0918] City of Boise Department of Information Technology & Ada County Smart Metro Fiber, Next-Gen 911 CAD GIS & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Boise Department of Information Technology & Ada County Information Technology (Idaho)",
-                "closing_date": "12/08/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-BOISE-ADACOUNTY-IT-2026-0918",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ID-BSU-UIDAHO-IRON-2026-0330] Idaho Regional Optical Network (IRON), Boise State University & University of Idaho Cyberdome AI Security & High-Performance Cloud - Due: 12/11/2026",
-                "agency": "Idaho State Board of Education \u2014 Boise State University Cyberdome, UI & IRON Network (ID)",
-                "closing_date": "12/11/2026",
-                "url": "https://purchasing.idaho.gov/solicitation-search/#ID-BSU-UIDAHO-IRON-2026-0330",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[ID-IPRO-RFP20262491-ITS] Idaho Office of Information Technology Services (ITS) & Division of Purchasing (LuMA IPRO) Statewide Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "Idaho Division of Purchasing (LuMA / IPRO) & Office of Information Technology Services (ITS)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://purchasing.idaho.gov/solicitation-search/#ID-IPRO-RFP20262491-ITS",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ID-DHW-MMIS-RFP20262518] Idaho Department of Health and Welfare (IDHW) Medicaid Enterprise System (MMIS) Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
+                    "agency": "Idaho Department of Health and Welfare (IDHW \u2014 Division of Medicaid IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://purchasing.idaho.gov/solicitation-search/#ID-DHW-MMIS-RFP20262518",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ID-INL-MTNHOME-CYBER-2026-0704] Idaho National Laboratory (INL Cybercore Integration Center) & Mountain Home AFB 366th Fighter Wing ICS/SCADA Critical Infrastructure Defense Cloud - Due: 12/02/2026",
+                    "agency": "Idaho National Laboratory (INL) Cyber Energy Corridor & Mountain Home AFB Defense Hub (ID)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://purchasing.idaho.gov/solicitation-search/#ID-INL-MTNHOME-CYBER-2026-0704",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ID-ITD-ITS-RFP20262544] Idaho Transportation Department (ITD) I-84 / I-15 Mountain Pass Fiber Telemetry, Automated Avalanche/Weather Radar & Cloud 511 ATMS - Due: 12/05/2026",
+                    "agency": "Idaho Transportation Department (ITD \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://purchasing.idaho.gov/solicitation-search/#ID-ITD-ITS-RFP20262544",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_id_live_notices() -> list[dict]:

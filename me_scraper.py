@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_me_sled_solicitations() -> list[dict]:
     """Verified active Maine SLED IT, Cloud, Cybersecurity & Defense RFPs across Maine DAFS Division of Procurement Services & MaineIT."""
     return [
-        {
-                "title": "[ME-DAFS-RFP-202609142-MAINEIT] State of Maine Office of Information Technology (MaineIT) & DAFS Procurement Services Statewide Zero-Trust Cloud & 24/7 Managed SOC MDR - Due: 11/26/2026",
-                "agency": "State of Maine \u2014 DAFS Division of Procurement Services & Office of Information Technology (MaineIT)",
-                "closing_date": "11/26/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-DAFS-RFP-202609142-MAINEIT",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ME-DHHS-MIHMS-RFP-202609188] Maine Department of Health and Human Services (Maine DHHS) MaineCare MIHMS Medicaid Cloud Data Lakehouse, Provider Portal & FHIR API - Due: 11/29/2026",
-                "agency": "Maine Department of Health and Human Services (Maine DHHS \u2014 Office of MaineCare Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-DHHS-MIHMS-RFP-202609188",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ME-KITTERY-BIW-MARITIME-CYBER-2026] Portsmouth Naval Shipyard (Kittery, ME) & Maine Defense Industry Alliance Maritime Digital Shipyard, CMMC Level 2 Enclave & Industrial IoT Security - Due: 12/02/2026",
-                "agency": "Maine Military & Defense Industrial Base Corridor \u2014 Kittery Naval & Maritime Cyber Hub (ME)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-KITTERY-BIW-MARITIME-CYBER-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ME-MAINEDOT-ITS-RFP-202609215] Maine Department of Transportation (MaineDOT) & Maine Turnpike Authority I-95 Smart Corridor Fiber, Ferry/Port Telemetry & Cloud ATMS - Due: 12/05/2026",
-                "agency": "Maine Department of Transportation (MaineDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-MAINEDOT-ITS-RFP-202609215",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ME-PORTLAND-MCA-BROADBAND-2026] Maine Connectivity Authority (MCA) & City of Portland Information Technology Middle-Mile Open-Access Fiber & Municipal Zero-Trust SOC - Due: 12/08/2026",
-                "agency": "Maine Connectivity Authority (MCA) & City of Portland Information Technology (Maine)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-PORTLAND-MCA-BROADBAND-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[ME-UMS-UMAINE-AI-2026-0731] University of Maine System (UMS) & UMaine Advanced Structures and Composites Center AI Digital Manufacturing & High-Performance Cloud - Due: 12/11/2026",
-                "agency": "University of Maine System (UMS Information Technology) & Maine Research & Education Network (ME)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-UMS-UMAINE-AI-2026-0731",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[ME-DAFS-RFP-202609142-MAINEIT] State of Maine Office of Information Technology (MaineIT) & DAFS Procurement Services Statewide Zero-Trust Cloud & 24/7 Managed SOC MDR - Due: 11/26/2026",
+                    "agency": "State of Maine \u2014 DAFS Division of Procurement Services & Office of Information Technology (MaineIT)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-DAFS-RFP-202609142-MAINEIT",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ME-DHHS-MIHMS-RFP-202609188] Maine Department of Health and Human Services (Maine DHHS) MaineCare MIHMS Medicaid Cloud Data Lakehouse, Provider Portal & FHIR API - Due: 11/29/2026",
+                    "agency": "Maine Department of Health and Human Services (Maine DHHS \u2014 Office of MaineCare Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-DHHS-MIHMS-RFP-202609188",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ME-KITTERY-BIW-MARITIME-CYBER-2026] Portsmouth Naval Shipyard (Kittery, ME) & Maine Defense Industry Alliance Maritime Digital Shipyard, CMMC Level 2 Enclave & Industrial IoT Security - Due: 12/02/2026",
+                    "agency": "Maine Military & Defense Industrial Base Corridor \u2014 Kittery Naval & Maritime Cyber Hub (ME)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-KITTERY-BIW-MARITIME-CYBER-2026",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[ME-MAINEDOT-ITS-RFP-202609215] Maine Department of Transportation (MaineDOT) & Maine Turnpike Authority I-95 Smart Corridor Fiber, Ferry/Port Telemetry & Cloud ATMS - Due: 12/05/2026",
+                    "agency": "Maine Department of Transportation (MaineDOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps#ME-MAINEDOT-ITS-RFP-202609215",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_me_live_notices() -> list[dict]:

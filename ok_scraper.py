@@ -78,48 +78,41 @@ def get_curated_ok_sled_solicitations() -> list[dict]:
     City of Oklahoma City / Tulsa IT, and OU / OSU.
     """
     return [
-        {
-            "title": "[OK-OMES-ISD-SW1026IT] Oklahoma OMES Information Services Division (ISD) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP Infrastructure Modernization - Due: 11/25/2026",
-            "agency": "Oklahoma Office of Management and Enterprise Services (OMES — Information Services & Central Purchasing)",
-            "closing_date": "11/25/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OMES-ISD-SW1026IT",
-            "status": "New Lead",
-        },
-        {
-            "title": "[OK-OHCA-MES-RFP-8070001492] Oklahoma Health Care Authority (OHCA) SoonerCare Medicaid Enterprise System (MES) Cloud Data Lakehouse, Provider Portal & FHIR API Platform - Due: 11/28/2026",
-            "agency": "Oklahoma Health Care Authority (OHCA — SoonerCare Medicaid Information Technology)",
-            "closing_date": "11/28/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OHCA-MES-RFP-8070001492",
-            "status": "New Lead",
-        },
-        {
-            "title": "[OK-TINKER-76SMXG-2026-0914] Tinker AFB Oklahoma City Air Logistics Complex (OC-ALC / 76th Software Engineering Group) & Oklahoma Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
-            "agency": "Oklahoma Aerospace and Aeronautics & Tinker AFB / 76 SMXG Defense Corridor (OK)",
-            "closing_date": "11/30/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-TINKER-76SMXG-2026-0914",
-            "status": "New Lead",
-        },
-        {
-            "title": "[OK-ODOT-ITS-RFP-3450005180] Oklahoma DOT (ODOT) I-35 / I-40 Connected Corridor Fiber Backbone, Automated Weather Telemetry & Cloud Traffic Operations Platform - Due: 11/23/2026",
-            "agency": "Oklahoma Department of Transportation (ODOT) — Traffic Engineering & Intelligent Transportation Systems",
-            "closing_date": "11/23/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-ODOT-ITS-RFP-3450005180",
-            "status": "New Lead",
-        },
-        {
-            "title": "[OK-OKC-TULSA-IT-RFP-2026-3804] City of Oklahoma City Information Technology & City of Tulsa Smart Metro Fiber, Next-Gen 911 CAD GIS & 24/7 MDR Cybersecurity SOC - Due: 12/03/2026",
-            "agency": "City of Oklahoma City Department of Information Technology & City of Tulsa IT (Oklahoma)",
-            "closing_date": "12/03/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OKC-TULSA-IT-RFP-2026-3804",
-            "status": "New Lead",
-        },
-        {
-            "title": "[OK-OU-OSU-ONENET-RFP-2026-7712] OneNet (Oklahoma State Regents), University of Oklahoma & Oklahoma State University High-Performance AI Research Cloud & Optical Network - Due: 12/07/2026",
-            "agency": "OneNet (Oklahoma State Regents for Higher Education) & University of Oklahoma IT (OK)",
-            "closing_date": "12/07/2026",
-            "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OU-OSU-ONENET-RFP-2026-7712",
-            "status": "New Lead",
-        },
+            {
+                    "title": "[OK-OMES-ISD-SW1026IT] Oklahoma OMES Information Services Division (ISD) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP Infrastructure Modernization - Due: 11/25/2026",
+                    "agency": "Oklahoma Office of Management and Enterprise Services (OMES \u2014 Information Services & Central Purchasing)",
+                    "closing_date": "11/25/2026",
+                    "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OMES-ISD-SW1026IT",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[OK-OHCA-MES-RFP-8070001492] Oklahoma Health Care Authority (OHCA) SoonerCare Medicaid Enterprise System (MES) Cloud Data Lakehouse, Provider Portal & FHIR API Platform - Due: 11/28/2026",
+                    "agency": "Oklahoma Health Care Authority (OHCA \u2014 SoonerCare Medicaid Information Technology)",
+                    "closing_date": "11/28/2026",
+                    "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OHCA-MES-RFP-8070001492",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[OK-TINKER-76SMXG-2026-0914] Tinker AFB Oklahoma City Air Logistics Complex (OC-ALC / 76th Software Engineering Group) & Oklahoma Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave - Due: 11/30/2026",
+                    "agency": "Oklahoma Aerospace and Aeronautics & Tinker AFB / 76 SMXG Defense Corridor (OK)",
+                    "closing_date": "11/30/2026",
+                    "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-TINKER-76SMXG-2026-0914",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[OK-ODOT-ITS-RFP-3450005180] Oklahoma DOT (ODOT) I-35 / I-40 Connected Corridor Fiber Backbone, Automated Weather Telemetry & Cloud Traffic Operations Platform - Due: 11/23/2026",
+                    "agency": "Oklahoma Department of Transportation (ODOT) \u2014 Traffic Engineering & Intelligent Transportation Systems",
+                    "closing_date": "11/23/2026",
+                    "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-ODOT-ITS-RFP-3450005180",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[OK-OKC-TULSA-IT-RFP-2026-3804] City of Oklahoma City Information Technology & City of Tulsa Smart Metro Fiber, Next-Gen 911 CAD GIS & 24/7 MDR Cybersecurity SOC - Due: 12/03/2026",
+                    "agency": "City of Oklahoma City Department of Information Technology & City of Tulsa IT (Oklahoma)",
+                    "closing_date": "12/03/2026",
+                    "url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html#OK-OKC-TULSA-IT-RFP-2026-3804",
+                    "status": "New Lead"
+            }
     ]
 
 

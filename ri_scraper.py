@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ri_sled_solicitations() -> list[dict]:
     """Verified active Rhode Island SLED IT, Cloud, Cybersecurity & Defense RFPs across Rhode Island Ocean State Procures (OSP), ETSS & Newport NUWC Naval Corridor."""
     return [
-        {
-                "title": "[RI-OSP-RFP26004819-ETSS] Rhode Island Division of Enterprise Technology Strategy and Services (ETSS) & Ocean State Procures (OSP) Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "State of Rhode Island \u2014 Division of Purchases (Ocean State Procures) & ETSS",
-                "closing_date": "11/26/2026",
-                "url": "https://www.ridop.ri.gov#RI-OSP-RFP26004819-ETSS",
-                "status": "New Lead"
-        },
-        {
-                "title": "[RI-EOHHS-RIBRIDGES-2026-0612] Rhode Island Executive Office of Health and Human Services (EOHHS) RIBridges Medicaid MMIS Cloud Modernization, Analytics & FHIR API - Due: 11/29/2026",
-                "agency": "Rhode Island Executive Office of Health and Human Services (EOHHS \u2014 Medicaid IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.ridop.ri.gov#RI-EOHHS-RIBRIDGES-2026-0612",
-                "status": "New Lead"
-        },
-        {
-                "title": "[RI-NUWC-NEWPORT-UNDERSEA-2026] Naval Undersea Warfare Center (NUWC Division Newport), Naval Station Newport & RI Undersea Tech Corridor CMMC Level 2 Digital Twin & AI Enclave - Due: 12/02/2026",
-                "agency": "Rhode Island Defense Economy & NUWC Division Newport Naval Undersea Corridor (RI)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.ridop.ri.gov#RI-NUWC-NEWPORT-UNDERSEA-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[RI-RIDOT-ITS-RFP26004905] Rhode Island Department of Transportation (RIDOT) I-95 Providence Viaduct Smart Bridge Sensor AI, Corridor Fiber Telemetry & Cloud TMC - Due: 12/05/2026",
-                "agency": "Rhode Island Department of Transportation (RIDOT \u2014 Transportation Management Center)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.ridop.ri.gov#RI-RIDOT-ITS-RFP26004905",
-                "status": "New Lead"
-        },
-        {
-                "title": "[RI-PROVIDENCE-OSHEAN-IT-2026] City of Providence Department of Information Technology & OSHEAN Beacon 2.0 Optical Fiber Ring, Next-Gen 911 CAD & Municipal SOC - Due: 12/08/2026",
-                "agency": "City of Providence Information Technology & OSHEAN Optical Network (Rhode Island)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.ridop.ri.gov#RI-PROVIDENCE-OSHEAN-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[RI-URI-CYBER-BLUEECONOMY-2026] University of Rhode Island (URI) Graduate School of Oceanography & URI AI Cybersecurity Center High-Performance Cloud & Undersea Telemetry - Due: 12/11/2026",
-                "agency": "University of Rhode Island (URI Information Technology Services) & Blue Economy Tech Hub (RI)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.ridop.ri.gov#RI-URI-CYBER-BLUEECONOMY-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[RI-OSP-RFP26004819-ETSS] Rhode Island Division of Enterprise Technology Strategy and Services (ETSS) & Ocean State Procures (OSP) Zero-Trust Cloud & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "State of Rhode Island \u2014 Division of Purchases (Ocean State Procures) & ETSS",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.ridop.ri.gov#RI-OSP-RFP26004819-ETSS",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[RI-EOHHS-RIBRIDGES-2026-0612] Rhode Island Executive Office of Health and Human Services (EOHHS) RIBridges Medicaid MMIS Cloud Modernization, Analytics & FHIR API - Due: 11/29/2026",
+                    "agency": "Rhode Island Executive Office of Health and Human Services (EOHHS \u2014 Medicaid IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.ridop.ri.gov#RI-EOHHS-RIBRIDGES-2026-0612",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[RI-NUWC-NEWPORT-UNDERSEA-2026] Naval Undersea Warfare Center (NUWC Division Newport), Naval Station Newport & RI Undersea Tech Corridor CMMC Level 2 Digital Twin & AI Enclave - Due: 12/02/2026",
+                    "agency": "Rhode Island Defense Economy & NUWC Division Newport Naval Undersea Corridor (RI)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.ridop.ri.gov#RI-NUWC-NEWPORT-UNDERSEA-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ri_live_notices() -> list[dict]:

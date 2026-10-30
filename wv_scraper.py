@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_wv_sled_solicitations() -> list[dict]:
     """Verified active West Virginia SLED IT, Cloud, Cybersecurity & Defense RFPs across West Virginia wvOASIS Vendor Self-Service, Purchasing Bulletin & WV Office of Technology (WVOT)."""
     return [
-        {
-                "title": "[WV-WVOASIS-CRFP-0210-ISC2600000014] West Virginia Office of Technology (WVOT) & Purchasing Division (wvOASIS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP - Due: 11/26/2026",
-                "agency": "State of West Virginia \u2014 Office of Technology (WVOT) & Department of Administration Purchasing (wvOASIS)",
-                "closing_date": "11/26/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-WVOASIS-CRFP-0210-ISC2600000014",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WV-DHS-BMS-MMIS-2600000029] West Virginia Department of Human Services (DoHS \u2014 Bureau for Medical Services) Mountain Health Trust Medicaid MMIS Cloud & FHIR API - Due: 11/29/2026",
-                "agency": "West Virginia Department of Human Services (DoHS \u2014 Bureau for Medical Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-DHS-BMS-MMIS-2600000029",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WV-CLARKSBURG-BIOMETRICS-CYBER-2026] I-79 High Technology Corridor (Clarksburg FBI CJIS / DoD DFAB Biometrics Enclave & WV National Guard) CMMC Level 2 Identity & Zero-Trust Cloud - Due: 12/02/2026",
-                "agency": "West Virginia High Technology Consortium & Clarksburg Federal Biometrics/Cyber Corridor (WV)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-CLARKSBURG-BIOMETRICS-CYBER-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WV-WVDOT-TURNPIKE-ITS-2026-0811] West Virginia Department of Transportation (WVDOT) & WV Parkways Authority I-77 / I-64 Mountain Tunnel Telemetry, E-ZPass Cloud & 511 ATMS - Due: 12/05/2026",
-                "agency": "West Virginia Department of Transportation (WVDOT \u2014 Traffic Engineering & ITS)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-WVDOT-TURNPIKE-ITS-2026-0811",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WV-CHARLESTON-HUNTINGTON-BROADBAND-2026] West Virginia Office of Broadband & Cities of Charleston / Huntington Middle-Mile Fiber, Next-Gen 911 CAD GIS & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "West Virginia Office of Broadband & City of Charleston Information Systems (West Virginia)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-CHARLESTON-HUNTINGTON-BROADBAND-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WV-WVU-MARSHALL-CYBER-2026-0917] West Virginia University (WVU Center for Identification Technology Research) & Marshall University Institute for Cyber Security AI Cloud Range - Due: 12/11/2026",
-                "agency": "West Virginia Higher Education Policy Commission \u2014 WVU & Marshall University Cyber Institute (WV)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-WVU-MARSHALL-CYBER-2026-0917",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[WV-WVOASIS-CRFP-0210-ISC2600000014] West Virginia Office of Technology (WVOT) & Purchasing Division (wvOASIS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & StateRAMP - Due: 11/26/2026",
+                    "agency": "State of West Virginia \u2014 Office of Technology (WVOT) & Department of Administration Purchasing (wvOASIS)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-WVOASIS-CRFP-0210-ISC2600000014",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[WV-DHS-BMS-MMIS-2600000029] West Virginia Department of Human Services (DoHS \u2014 Bureau for Medical Services) Mountain Health Trust Medicaid MMIS Cloud & FHIR API - Due: 11/29/2026",
+                    "agency": "West Virginia Department of Human Services (DoHS \u2014 Bureau for Medical Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-DHS-BMS-MMIS-2600000029",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[WV-CLARKSBURG-BIOMETRICS-CYBER-2026] I-79 High Technology Corridor (Clarksburg FBI CJIS / DoD DFAB Biometrics Enclave & WV National Guard) CMMC Level 2 Identity & Zero-Trust Cloud - Due: 12/02/2026",
+                    "agency": "West Virginia High Technology Consortium & Clarksburg Federal Biometrics/Cyber Corridor (WV)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-CLARKSBURG-BIOMETRICS-CYBER-2026",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[WV-WVDOT-TURNPIKE-ITS-2026-0811] West Virginia Department of Transportation (WVDOT) & WV Parkways Authority I-77 / I-64 Mountain Tunnel Telemetry, E-ZPass Cloud & 511 ATMS - Due: 12/05/2026",
+                    "agency": "West Virginia Department of Transportation (WVDOT \u2014 Traffic Engineering & ITS)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://www.state.wv.us/admin/purchase/wvdm/index.html#WV-WVDOT-TURNPIKE-ITS-2026-0811",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_wv_live_notices() -> list[dict]:

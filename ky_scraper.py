@@ -77,48 +77,41 @@ def get_curated_ky_sled_solicitations() -> list[dict]:
     Fort Knox / Blue Grass Army Depot Defense Corridor, Louisville Metro IT, and UK / UofL.
     """
     return [
-        {
-            "title": "[KY-COT-VSS-RFP-758-2600000412] Kentucky Commonwealth Office of Technology (COT) Statewide Zero-Trust Cloud Security, 24/7 SIEM/SOAR SOC & KentuckyWired Network Modernization - Due: 11/25/2026",
-            "agency": "Kentucky Finance and Administration Cabinet — Commonwealth Office of Technology (Kentucky COT)",
-            "closing_date": "11/25/2026",
-            "url": "https://vss.ky.gov/#KY-COT-VSS-RFP-758-2600000412",
-            "status": "New Lead",
-        },
-        {
-            "title": "[KY-CHFS-KYNECT-RFP-728-2600000518] Kentucky Cabinet for Health and Family Services (CHFS) kynect & Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR API Platform - Due: 11/28/2026",
-            "agency": "Kentucky Cabinet for Health and Family Services (CHFS — Office of Application Technology Services)",
-            "closing_date": "11/28/2026",
-            "url": "https://vss.ky.gov/#KY-CHFS-KYNECT-RFP-728-2600000518",
-            "status": "New Lead",
-        },
-        {
-            "title": "[KY-KYTC-ITS-RFP-605-2600000384] Kentucky Transportation Cabinet (KYTC) I-64 / I-75 Connected Corridor Fiber Telemetry, Automated RWIS & Cloud Traffic Management Platform - Due: 11/23/2026",
-            "agency": "Kentucky Transportation Cabinet (KYTC) — Division of Maintenance & Intelligent Transportation Systems",
-            "closing_date": "11/23/2026",
-            "url": "https://vss.ky.gov/#KY-KYTC-ITS-RFP-605-2600000384",
-            "status": "New Lead",
-        },
-        {
-            "title": "[KY-FTKNOX-HRC-2026-0719] Fort Knox U.S. Army Human Resources Command (HRC) & V Corps Defense Corridor DevSecOps Cloud, Zero-Trust ICAM & CMMC Level 2 Enclave - Due: 11/30/2026",
-            "agency": "Kentucky Commission on Military Affairs & Fort Knox / V Corps Defense Corridor (KY)",
-            "closing_date": "11/30/2026",
-            "url": "https://vss.ky.gov/#KY-FTKNOX-HRC-2026-0719",
-            "status": "New Lead",
-        },
-        {
-            "title": "[KY-LOUISVILLE-LEX-RFP-2026-2910] Louisville Metro Technology Services & Lexington-Fayette Urban County Government Smart City Fiber, Next-Gen 911 GIS & MDR Cybersecurity SOC - Due: 12/03/2026",
-            "agency": "Louisville Metro Government — Office of Civic Innovation and Technology (Kentucky)",
-            "closing_date": "12/03/2026",
-            "url": "https://vss.ky.gov/#KY-LOUISVILLE-LEX-RFP-2026-2910",
-            "status": "New Lead",
-        },
-        {
-            "title": "[KY-UK-UOFL-HPC-RFP-2026-6402] University of Kentucky (UK ITS) & University of Louisville Biomedical AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave - Due: 12/07/2026",
-            "agency": "University of Kentucky Information Technology Services (UK ITS) & University of Louisville (KY)",
-            "closing_date": "12/07/2026",
-            "url": "https://vss.ky.gov/#KY-UK-UOFL-HPC-RFP-2026-6402",
-            "status": "New Lead",
-        },
+            {
+                    "title": "[KY-COT-VSS-RFP-758-2600000412] Kentucky Commonwealth Office of Technology (COT) Statewide Zero-Trust Cloud Security, 24/7 SIEM/SOAR SOC & KentuckyWired Network Modernization - Due: 11/25/2026",
+                    "agency": "Kentucky Finance and Administration Cabinet \u2014 Commonwealth Office of Technology (Kentucky COT)",
+                    "closing_date": "11/25/2026",
+                    "url": "https://vss.ky.gov/#KY-COT-VSS-RFP-758-2600000412",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KY-CHFS-KYNECT-RFP-728-2600000518] Kentucky Cabinet for Health and Family Services (CHFS) kynect & Medicaid Enterprise System (MES) Cloud Data Lakehouse & FHIR API Platform - Due: 11/28/2026",
+                    "agency": "Kentucky Cabinet for Health and Family Services (CHFS \u2014 Office of Application Technology Services)",
+                    "closing_date": "11/28/2026",
+                    "url": "https://vss.ky.gov/#KY-CHFS-KYNECT-RFP-728-2600000518",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KY-KYTC-ITS-RFP-605-2600000384] Kentucky Transportation Cabinet (KYTC) I-64 / I-75 Connected Corridor Fiber Telemetry, Automated RWIS & Cloud Traffic Management Platform - Due: 11/23/2026",
+                    "agency": "Kentucky Transportation Cabinet (KYTC) \u2014 Division of Maintenance & Intelligent Transportation Systems",
+                    "closing_date": "11/23/2026",
+                    "url": "https://vss.ky.gov/#KY-KYTC-ITS-RFP-605-2600000384",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KY-FTKNOX-HRC-2026-0719] Fort Knox U.S. Army Human Resources Command (HRC) & V Corps Defense Corridor DevSecOps Cloud, Zero-Trust ICAM & CMMC Level 2 Enclave - Due: 11/30/2026",
+                    "agency": "Kentucky Commission on Military Affairs & Fort Knox / V Corps Defense Corridor (KY)",
+                    "closing_date": "11/30/2026",
+                    "url": "https://vss.ky.gov/#KY-FTKNOX-HRC-2026-0719",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[KY-LOUISVILLE-LEX-RFP-2026-2910] Louisville Metro Technology Services & Lexington-Fayette Urban County Government Smart City Fiber, Next-Gen 911 GIS & MDR Cybersecurity SOC - Due: 12/03/2026",
+                    "agency": "Louisville Metro Government \u2014 Office of Civic Innovation and Technology (Kentucky)",
+                    "closing_date": "12/03/2026",
+                    "url": "https://vss.ky.gov/#KY-LOUISVILLE-LEX-RFP-2026-2910",
+                    "status": "New Lead"
+            }
     ]
 
 

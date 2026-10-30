@@ -167,2249 +167,267 @@ def slugify_contract(title: str, fallback_id: str = "") -> str:
 
 def classify_jurisdiction(record: dict) -> str:
     title = str(record.get("title") or "").strip()
+    title_upper = title.upper()
     agency = str(record.get("agency") or "").strip().lower()
     url = str(record.get("url") or record.get("source_url") or "").strip().lower()
 
-    if "demandstar.com" in url:
-        return "municipal"
-    if "sam.gov" in url or "sbir.gov" in url:
-        return "federal"
-    if "txsmartbuy.com" in url:
-        return "texas"
-    if "eva.virginia.gov" in url or "cgieva.com" in url:
-        return "virginia"
-    if "caleprocure.ca.gov" in url:
-        return "california"
-    if "myfloridamarketplace.com" in url:
-        return "florida"
-    if "bidbuy.illinois.gov" in url or "transitchicago.bonfirehub.com" in url or "cookcountyil.bonfirehub.com" in url:
-        return "illinois"
-    if "emarketplace.state.pa.us" in url or "dgs.pa.gov" in url or "philaport.bonfirehub.com" in url:
-        return "pennsylvania"
-    if (
-        "ohiobuys.ohio.gov" in url
-        or "ohioauditor.gov" in url
-        or "morpc.org" in url
-        or "franklincountyohio.gov" in url
-        or "columbus.bonfirehub.com" in url
-        or "cincinnati-oh.bonfirehub.com" in url
-        or "westerville.bonfirehub.com" in url
-        or "dps.bonfirehub.com" in url
-        or "akronohio.bonfirehub.com" in url
-    ):
-        return "ohio"
-    if (
-        "doas.state.ga.us" in url
-        or "georgia.gov" in url
-        or "ga.gov" in url
-        or "forsythco.bonfirehub.com" in url
-        or "fultonschools.bonfirehub.com" in url
-        or "cobbk12.bonfirehub.com" in url
-        or "itsmarta.com" in url
-    ):
-        return "georgia"
-    if (
-        "evp.nc.gov" in url
-        or "nc.gov" in url
-        or "unc.edu" in url
-        or "ncsu.edu" in url
-        or "wake.gov" in url
-        or "mecknc.gov" in url
-        or "charlottenc.gov" in url
-        or "durhamnc.gov" in url
-        or "guilfordcountync.gov" in url
-    ):
-        return "north_carolina"
-    if (
-        "a856-cityrecord.nyc.gov" in url
-        or "passport.cityofnewyork.us" in url
-        or "cityofnewyork.us" in url
-        or "panynj.bonfirehub.com" in url
-        or "suffolkcountyny.bonfirehub.com" in url
-        or "rocklandgov.bonfirehub.com" in url
-        or "nyscr.ny.gov" in url
-        or "ogs.ny.gov" in url
-    ):
-        return "new_york"
-    if (
-        "commbuys.com" in url
-        or "mass.gov" in url
-        or "boston.gov" in url
-        or "mbta.com" in url
-        or "massport.com" in url
-        or "masstech.org" in url
-    ):
-        return "massachusetts"
-    if (
-        "njstart.gov" in url
-        or "nj.gov" in url
-        or "njtransit.com" in url
-        or "rutgers.edu" in url
-    ):
-        return "new_jersey"
-    if (
-        "pr-webs-vendor.des.wa.gov" in url
-        or "des.wa.gov" in url
-        or "watech.wa.gov" in url
-        or "wsdot.wa.gov" in url
-        or "hca.wa.gov" in url
-        or "dshs.wa.gov" in url
-        or "dol.wa.gov" in url
-        or "wa.gov" in url
-    ):
-        return "washington"
-    if (
-        "sigma.michigan.gov" in url
-        or "michigan.gov" in url
-    ):
-        return "michigan"
-    if (
-        "colorado.gov" in url
-        or "denvergov.org" in url
-        or "coloradosprings.gov" in url
-        or "cu.edu" in url
-    ):
-        return "colorado"
-    if (
-        "app.az.gov" in url
-        or "procure.az.gov" in url
-        or "azdoa.gov" in url
-        or "az.gov" in url
-        or "phoenix.gov" in url
-        or "maricopa.gov" in url
-        or "asu.edu" in url
-    ):
-        return "arizona"
-    if (
-        "mn.gov" in url
-        or "questcdn.com" in url
-        or "metrocouncil.org" in url
-        or "umn.edu" in url
-        or "hennepin.us" in url
-        or "minneapolismn.gov" in url
-        or "stpaul.gov" in url
-    ):
-        return "minnesota"
-    if (
-        "tn.gov" in url
-        or "tennessee.edu" in url
-        or "tbr.edu" in url
-        or "nashville.gov" in url
-        or "memphistn.gov" in url
-        or "shelbycountytn.gov" in url
-    ):
-        return "tennessee"
-    if (
-        "in.gov/idoa" in url
-        or "iot.in.gov" in url
-        or "fs.gmis.in.gov" in url
-        or "in.gov" in url
-        or "indy.gov" in url
-        or "purdue.edu" in url
-        or "indiana.edu" in url
-    ):
-        return "indiana"
-    if (
-        "missouribuys.mo.gov" in url
-        or "oa.mo.gov" in url
-        or "modot.org" in url
-        or "mo.gov" in url
-        or "stlouis-mo.gov" in url
-        or "kcmo.gov" in url
-        or "umsystem.edu" in url
-    ):
-        return "missouri"
-    if (
-        "esupplier.wi.gov" in url
-        or "vendornet.wi.gov" in url
-        or "doa.wi.gov" in url
-        or "wi.gov" in url
-        or "wisc.edu" in url
-    ):
-        return "wisconsin"
-    if (
-        "scbo.sc.gov" in url
-        or "procurement.sc.gov" in url
-        or "admin.sc.gov" in url
-        or "sc.gov" in url
-        or "clemson.edu" in url
-    ):
-        return "south_carolina"
-    if (
-        "oregonbuys.gov" in url
-        or "oregon.gov" in url
-        or "portland.gov" in url
-        or "ohsu.edu" in url
-        or "oregonstate.edu" in url
-    ):
-        return "oregon"
-    if (
-        "portal.ct.gov" in url
-        or "biznet.ct.gov" in url
-        or "ct.gov" in url
-        or "uconn.edu" in url
-    ):
-        return "connecticut"
-    if (
-        "purchasing.utah.gov" in url
-        or "dts.utah.gov" in url
-        or "utah.gov" in url
-        or "utah.edu" in url
-    ):
-        return "utah"
-    if (
-        "nevadaepro.com" in url
-        or "purchasing.nv.gov" in url
-        or "eits.nv.gov" in url
-        or "nv.gov" in url
-        or "clarkcountynv.gov" in url
-        or "lasvegasnevada.gov" in url
-        or "unlv.edu" in url
-        or "unr.edu" in url
-    ):
-        return "nevada"
-    if (
-        "alabamabuys.gov" in url
-        or "purchasing.alabama.gov" in url
-        or "oit.alabama.gov" in url
-        or "alabama.gov" in url
-        or "huntsvilleal.gov" in url
-        or "birminghamal.gov" in url
-        or "ua.edu" in url
-        or "auburn.edu" in url
-    ):
-        return "alabama"
-    if (
-        "doa.louisiana.gov" in url
-        or "lapac" in url
-        or "louisiana.gov" in url
-        or "la.gov" in url
-        or "nola.gov" in url
-        or "brla.gov" in url
-        or "lsu.edu" in url
-    ):
-        return "louisiana"
-    if (
-        "vss.ky.gov" in url
-        or "finance.ky.gov" in url
-        or "cot.ky.gov" in url
-        or "ky.gov" in url
-        or "louisvilleky.gov" in url
-        or "lexingtonky.gov" in url
-        or "uky.edu" in url
-        or "louisville.edu" in url
-    ):
-        return "kentucky"
-    if (
-        "oklahoma.gov/omes" in url
-        or "omes.ok.gov" in url
-        or "oklahoma.gov" in url
-        or "ok.gov" in url
-        or "okc.gov" in url
-        or "cityoftulsa.org" in url
-        or "ou.edu" in url
-        or "okstate.edu" in url
-    ):
-        return "oklahoma"
-    if (
-        "customerorg=stateofiowa" in url
-        or "das.iowa.gov" in url
-        or "dom.iowa.gov" in url
-        or "iowa.gov" in url
-        or "uiowa.edu" in url
-        or "iastate.edu" in url
-    ):
-        return "iowa"
-    if (
-        "admin.ks.gov" in url
-        or "oits.ks.gov" in url
-        or "ks.gov" in url
-        or "kansas.gov" in url
-        or "ku.edu" in url
-        or "ksu.edu" in url
-    ):
-        return "kansas"
-    if (
-        "arbuy.arkansas.gov" in url
-        or "transform.ar.gov" in url
-        or "arkansas.gov" in url
-        or "ar.gov" in url
-        or "uark.edu" in url
-        or "uams.edu" in url
-    ):
-        return "arkansas"
-    if (
-        "its.ms.gov" in url
-        or "dfa.ms.gov" in url
-        or "ms.gov" in url
-        or "mississippi.gov" in url
-        or "msstate.edu" in url
-        or "olemiss.edu" in url
-    ):
-        return "mississippi"
-    if (
-        "generalservices.state.nm.us" in url
-        or "doit.nm.gov" in url
-        or "nm.gov" in url
-        or "state.nm.us" in url
-        or "unm.edu" in url
-        or "nmsu.edu" in url
-    ):
-        return "new_mexico"
-    if (
-        "das.nebraska.gov" in url
-        or "cio.nebraska.gov" in url
-        or "nebraska.gov" in url
-        or "ne.gov" in url
-        or "nebraska.edu" in url
-        or "unl.edu" in url
-    ):
-        return "nebraska"
-    if (
-        "purchasing.idaho.gov" in url
-        or "its.idaho.gov" in url
-        or "idaho.gov" in url
-        or "id.gov" in url
-        or "boisestate.edu" in url
-        or "uidaho.edu" in url
-    ):
-        return "idaho"
-    if (
-        "hiepro.ehawaii.gov" in url
-        or "hands.ehawaii.gov" in url
-        or "ets.hawaii.gov" in url
-        or "hawaii.gov" in url
-        or "ehawaii.gov" in url
-        or "hawaii.edu" in url
-    ):
-        return "hawaii"
-    if (
-        "das.nh.gov" in url
-        or "doit.nh.gov" in url
-        or "nh.gov" in url
-        or "usnh.edu" in url
-        or "unh.edu" in url
-    ):
-        return "new_hampshire"
-    if (
-        "maine.gov/dafs" in url
-        or "maine.gov/oit" in url
-        or "maine.gov" in url
-        or "maine.edu" in url
-    ):
-        return "maine"
-    if (
-        "ridop.ri.gov" in url
-        or "etss.ri.gov" in url
-        or "ri.gov" in url
-        or "uri.edu" in url
-    ):
-        return "rhode_island"
-    if (
-        "spb.mt.gov" in url
-        or "sitsd.mt.gov" in url
-        or "mt.gov" in url
-        or "montana.edu" in url
-        or "umt.edu" in url
-    ):
-        return "montana"
-    if (
-        "mmp.delaware.gov" in url
-        or "bids.delaware.gov" in url
-        or "dti.delaware.gov" in url
-        or "delaware.gov" in url
-        or "udel.edu" in url
-    ):
-        return "delaware"
-    if (
-        "boa.sd.gov" in url
-        or "bit.sd.gov" in url
-        or "sd.gov" in url
-        or "dsu.edu" in url
-        or "sdstate.edu" in url
-    ):
-        return "south_dakota"
-    if (
-        "apps.nd.gov/csd/spo" in url
-        or "omb.nd.gov" in url
-        or "ndit.nd.gov" in url
-        or "nd.gov" in url
-        or "und.edu" in url
-        or "ndsu.edu" in url
-    ):
-        return "north_dakota"
-    if (
-        "aws.state.ak.us" in url
-        or "iris-vss.alaska.gov" in url
-        or "oit.alaska.gov" in url
-        or "alaska.gov" in url
-        or "state.ak.us" in url
-        or "alaska.edu" in url
-    ):
-        return "alaska"
-    if (
-        "vermontbusinessregistry.com" in url
-        or "bgs.vermont.gov" in url
-        or "ads.vermont.gov" in url
-        or "vermont.gov" in url
-        or "uvm.edu" in url
-    ):
-        return "vermont"
-    if (
-        "wvoasis.gov" in url
-        or "state.wv.us/admin/purchase" in url
-        or "technology.wv.gov" in url
-        or "wv.gov" in url
-        or "wvu.edu" in url
-        or "marshall.edu" in url
-    ):
-        return "west_virginia"
-    if (
-        "ai.wyo.gov" in url
-        or "ets.wyo.gov" in url
-        or "wyo.gov" in url
-        or "wyoming.gov" in url
-        or "uwyo.edu" in url
-    ):
-        return "wyoming"
-    if (
-        "customerorg=stateofiowa" in url
-        or "das.iowa.gov" in url
-        or "dom.iowa.gov" in url
-        or "iowa.gov" in url
-        or "uiowa.edu" in url
-        or "iastate.edu" in url
-    ):
-        return "iowa"
-    if (
-        "admin.ks.gov" in url
-        or "oits.ks.gov" in url
-        or "ks.gov" in url
-        or "kansas.gov" in url
-        or "ku.edu" in url
-        or "ksu.edu" in url
-    ):
-        return "kansas"
-    if (
-        "arbuy.arkansas.gov" in url
-        or "transform.ar.gov" in url
-        or "arkansas.gov" in url
-        or "ar.gov" in url
-        or "uark.edu" in url
-        or "uams.edu" in url
-    ):
-        return "arkansas"
-    if (
-        "its.ms.gov" in url
-        or "dfa.ms.gov" in url
-        or "ms.gov" in url
-        or "mississippi.gov" in url
-        or "msstate.edu" in url
-        or "olemiss.edu" in url
-    ):
-        return "mississippi"
-    if (
-        "generalservices.state.nm.us" in url
-        or "doit.nm.gov" in url
-        or "nm.gov" in url
-        or "state.nm.us" in url
-        or "unm.edu" in url
-        or "nmsu.edu" in url
-    ):
-        return "new_mexico"
-    if (
-        "das.nebraska.gov" in url
-        or "cio.nebraska.gov" in url
-        or "nebraska.gov" in url
-        or "ne.gov" in url
-        or "nebraska.edu" in url
-        or "unl.edu" in url
-    ):
-        return "nebraska"
-    if (
-        "purchasing.idaho.gov" in url
-        or "its.idaho.gov" in url
-        or "idaho.gov" in url
-        or "id.gov" in url
-        or "boisestate.edu" in url
-        or "uidaho.edu" in url
-    ):
-        return "idaho"
-    if (
-        "hiepro.ehawaii.gov" in url
-        or "hands.ehawaii.gov" in url
-        or "ets.hawaii.gov" in url
-        or "hawaii.gov" in url
-        or "ehawaii.gov" in url
-        or "hawaii.edu" in url
-    ):
-        return "hawaii"
-    if (
-        "das.nh.gov" in url
-        or "doit.nh.gov" in url
-        or "nh.gov" in url
-        or "usnh.edu" in url
-        or "unh.edu" in url
-    ):
-        return "new_hampshire"
-    if (
-        "maine.gov/dafs" in url
-        or "maine.gov/oit" in url
-        or "maine.gov" in url
-        or "maine.edu" in url
-    ):
-        return "maine"
-    if (
-        "ridop.ri.gov" in url
-        or "etss.ri.gov" in url
-        or "ri.gov" in url
-        or "uri.edu" in url
-    ):
-        return "rhode_island"
-    if (
-        "spb.mt.gov" in url
-        or "sitsd.mt.gov" in url
-        or "mt.gov" in url
-        or "montana.edu" in url
-        or "umt.edu" in url
-    ):
-        return "montana"
-    if (
-        "mmp.delaware.gov" in url
-        or "bids.delaware.gov" in url
-        or "dti.delaware.gov" in url
-        or "delaware.gov" in url
-        or "udel.edu" in url
-    ):
-        return "delaware"
-    if (
-        "boa.sd.gov" in url
-        or "bit.sd.gov" in url
-        or "sd.gov" in url
-        or "dsu.edu" in url
-        or "sdstate.edu" in url
-    ):
-        return "south_dakota"
-    if (
-        "apps.nd.gov/csd/spo" in url
-        or "omb.nd.gov" in url
-        or "ndit.nd.gov" in url
-        or "nd.gov" in url
-        or "und.edu" in url
-        or "ndsu.edu" in url
-    ):
-        return "north_dakota"
-    if (
-        "aws.state.ak.us" in url
-        or "iris-vss.alaska.gov" in url
-        or "oit.alaska.gov" in url
-        or "alaska.gov" in url
-        or "state.ak.us" in url
-        or "alaska.edu" in url
-    ):
-        return "alaska"
-    if (
-        "vermontbusinessregistry.com" in url
-        or "bgs.vermont.gov" in url
-        or "ads.vermont.gov" in url
-        or "vermont.gov" in url
-        or "uvm.edu" in url
-    ):
-        return "vermont"
-    if (
-        "wvoasis.gov" in url
-        or "state.wv.us/admin/purchase" in url
-        or "technology.wv.gov" in url
-        or "wv.gov" in url
-        or "wvu.edu" in url
-        or "marshall.edu" in url
-    ):
-        return "west_virginia"
-    if (
-        "ai.wyo.gov" in url
-        or "ets.wyo.gov" in url
-        or "wyo.gov" in url
-        or "wyoming.gov" in url
-        or "uwyo.edu" in url
-    ):
-        return "wyoming"
-    if (
-        "nevadaepro.com" in url
-        or "purchasing.nv.gov" in url
-        or "eits.nv.gov" in url
-        or "nv.gov" in url
-        or "clarkcountynv.gov" in url
-        or "lasvegasnevada.gov" in url
-        or "unlv.edu" in url
-        or "unr.edu" in url
-    ):
-        return "nevada"
-    if (
-        "alabamabuys.gov" in url
-        or "purchasing.alabama.gov" in url
-        or "oit.alabama.gov" in url
-        or "alabama.gov" in url
-        or "huntsvilleal.gov" in url
-        or "birminghamal.gov" in url
-        or "ua.edu" in url
-        or "auburn.edu" in url
-    ):
-        return "alabama"
-    if (
-        "doa.louisiana.gov" in url
-        or "lapac" in url
-        or "louisiana.gov" in url
-        or "la.gov" in url
-        or "nola.gov" in url
-        or "brla.gov" in url
-        or "lsu.edu" in url
-    ):
-        return "louisiana"
-    if (
-        "vss.ky.gov" in url
-        or "finance.ky.gov" in url
-        or "cot.ky.gov" in url
-        or "ky.gov" in url
-        or "louisvilleky.gov" in url
-        or "lexingtonky.gov" in url
-        or "uky.edu" in url
-        or "louisville.edu" in url
-    ):
-        return "kentucky"
-    if (
-        "oklahoma.gov/omes" in url
-        or "omes.ok.gov" in url
-        or "oklahoma.gov" in url
-        or "ok.gov" in url
-        or "okc.gov" in url
-        or "cityoftulsa.org" in url
-        or "ou.edu" in url
-        or "okstate.edu" in url
-    ):
-        return "oklahoma"
-    if (
-        "customerorg=stateofiowa" in url
-        or "das.iowa.gov" in url
-        or "dom.iowa.gov" in url
-        or "iowa.gov" in url
-        or "uiowa.edu" in url
-        or "iastate.edu" in url
-    ):
-        return "iowa"
-    if (
-        "admin.ks.gov" in url
-        or "oits.ks.gov" in url
-        or "ks.gov" in url
-        or "kansas.gov" in url
-        or "ku.edu" in url
-        or "ksu.edu" in url
-    ):
-        return "kansas"
-    if (
-        "arbuy.arkansas.gov" in url
-        or "transform.ar.gov" in url
-        or "arkansas.gov" in url
-        or "ar.gov" in url
-        or "uark.edu" in url
-        or "uams.edu" in url
-    ):
-        return "arkansas"
-    if (
-        "its.ms.gov" in url
-        or "dfa.ms.gov" in url
-        or "ms.gov" in url
-        or "mississippi.gov" in url
-        or "msstate.edu" in url
-        or "olemiss.edu" in url
-    ):
-        return "mississippi"
-    if (
-        "generalservices.state.nm.us" in url
-        or "doit.nm.gov" in url
-        or "nm.gov" in url
-        or "state.nm.us" in url
-        or "unm.edu" in url
-        or "nmsu.edu" in url
-    ):
-        return "new_mexico"
-    if (
-        "das.nebraska.gov" in url
-        or "cio.nebraska.gov" in url
-        or "nebraska.gov" in url
-        or "ne.gov" in url
-        or "nebraska.edu" in url
-        or "unl.edu" in url
-    ):
-        return "nebraska"
-    if (
-        "purchasing.idaho.gov" in url
-        or "its.idaho.gov" in url
-        or "idaho.gov" in url
-        or "id.gov" in url
-        or "boisestate.edu" in url
-        or "uidaho.edu" in url
-    ):
-        return "idaho"
-    if (
-        "hiepro.ehawaii.gov" in url
-        or "hands.ehawaii.gov" in url
-        or "ets.hawaii.gov" in url
-        or "hawaii.gov" in url
-        or "ehawaii.gov" in url
-        or "hawaii.edu" in url
-    ):
-        return "hawaii"
-    if (
-        "das.nh.gov" in url
-        or "doit.nh.gov" in url
-        or "nh.gov" in url
-        or "usnh.edu" in url
-        or "unh.edu" in url
-    ):
-        return "new_hampshire"
-    if (
-        "maine.gov/dafs" in url
-        or "maine.gov/oit" in url
-        or "maine.gov" in url
-        or "maine.edu" in url
-    ):
-        return "maine"
-    if (
-        "ridop.ri.gov" in url
-        or "etss.ri.gov" in url
-        or "ri.gov" in url
-        or "uri.edu" in url
-    ):
-        return "rhode_island"
-    if (
-        "spb.mt.gov" in url
-        or "sitsd.mt.gov" in url
-        or "mt.gov" in url
-        or "montana.edu" in url
-        or "umt.edu" in url
-    ):
-        return "montana"
-    if (
-        "mmp.delaware.gov" in url
-        or "bids.delaware.gov" in url
-        or "dti.delaware.gov" in url
-        or "delaware.gov" in url
-        or "udel.edu" in url
-    ):
-        return "delaware"
-    if (
-        "boa.sd.gov" in url
-        or "bit.sd.gov" in url
-        or "sd.gov" in url
-        or "dsu.edu" in url
-        or "sdstate.edu" in url
-    ):
-        return "south_dakota"
-    if (
-        "apps.nd.gov/csd/spo" in url
-        or "omb.nd.gov" in url
-        or "ndit.nd.gov" in url
-        or "nd.gov" in url
-        or "und.edu" in url
-        or "ndsu.edu" in url
-    ):
-        return "north_dakota"
-    if (
-        "aws.state.ak.us" in url
-        or "iris-vss.alaska.gov" in url
-        or "oit.alaska.gov" in url
-        or "alaska.gov" in url
-        or "state.ak.us" in url
-        or "alaska.edu" in url
-    ):
-        return "alaska"
-    if (
-        "vermontbusinessregistry.com" in url
-        or "bgs.vermont.gov" in url
-        or "ads.vermont.gov" in url
-        or "vermont.gov" in url
-        or "uvm.edu" in url
-    ):
-        return "vermont"
-    if (
-        "wvoasis.gov" in url
-        or "state.wv.us/admin/purchase" in url
-        or "technology.wv.gov" in url
-        or "wv.gov" in url
-        or "wvu.edu" in url
-        or "marshall.edu" in url
-    ):
-        return "west_virginia"
-    if (
-        "ai.wyo.gov" in url
-        or "ets.wyo.gov" in url
-        or "wyo.gov" in url
-        or "wyoming.gov" in url
-        or "uwyo.edu" in url
-    ):
-        return "wyoming"
-    if (
-        "customerorg=stateofiowa" in url
-        or "das.iowa.gov" in url
-        or "dom.iowa.gov" in url
-        or "iowa.gov" in url
-        or "uiowa.edu" in url
-        or "iastate.edu" in url
-    ):
-        return "iowa"
-    if (
-        "admin.ks.gov" in url
-        or "oits.ks.gov" in url
-        or "ks.gov" in url
-        or "kansas.gov" in url
-        or "ku.edu" in url
-        or "ksu.edu" in url
-    ):
-        return "kansas"
-    if (
-        "arbuy.arkansas.gov" in url
-        or "transform.ar.gov" in url
-        or "arkansas.gov" in url
-        or "ar.gov" in url
-        or "uark.edu" in url
-        or "uams.edu" in url
-    ):
-        return "arkansas"
-    if (
-        "its.ms.gov" in url
-        or "dfa.ms.gov" in url
-        or "ms.gov" in url
-        or "mississippi.gov" in url
-        or "msstate.edu" in url
-        or "olemiss.edu" in url
-    ):
-        return "mississippi"
-    if (
-        "generalservices.state.nm.us" in url
-        or "doit.nm.gov" in url
-        or "nm.gov" in url
-        or "state.nm.us" in url
-        or "unm.edu" in url
-        or "nmsu.edu" in url
-    ):
-        return "new_mexico"
-    if (
-        "das.nebraska.gov" in url
-        or "cio.nebraska.gov" in url
-        or "nebraska.gov" in url
-        or "ne.gov" in url
-        or "nebraska.edu" in url
-        or "unl.edu" in url
-    ):
-        return "nebraska"
-    if (
-        "purchasing.idaho.gov" in url
-        or "its.idaho.gov" in url
-        or "idaho.gov" in url
-        or "id.gov" in url
-        or "boisestate.edu" in url
-        or "uidaho.edu" in url
-    ):
-        return "idaho"
-    if (
-        "hiepro.ehawaii.gov" in url
-        or "hands.ehawaii.gov" in url
-        or "ets.hawaii.gov" in url
-        or "hawaii.gov" in url
-        or "ehawaii.gov" in url
-        or "hawaii.edu" in url
-    ):
-        return "hawaii"
-    if (
-        "das.nh.gov" in url
-        or "doit.nh.gov" in url
-        or "nh.gov" in url
-        or "usnh.edu" in url
-        or "unh.edu" in url
-    ):
-        return "new_hampshire"
-    if (
-        "maine.gov/dafs" in url
-        or "maine.gov/oit" in url
-        or "maine.gov" in url
-        or "maine.edu" in url
-    ):
-        return "maine"
-    if (
-        "ridop.ri.gov" in url
-        or "etss.ri.gov" in url
-        or "ri.gov" in url
-        or "uri.edu" in url
-    ):
-        return "rhode_island"
-    if (
-        "spb.mt.gov" in url
-        or "sitsd.mt.gov" in url
-        or "mt.gov" in url
-        or "montana.edu" in url
-        or "umt.edu" in url
-    ):
-        return "montana"
-    if (
-        "mmp.delaware.gov" in url
-        or "bids.delaware.gov" in url
-        or "dti.delaware.gov" in url
-        or "delaware.gov" in url
-        or "udel.edu" in url
-    ):
-        return "delaware"
-    if (
-        "boa.sd.gov" in url
-        or "bit.sd.gov" in url
-        or "sd.gov" in url
-        or "dsu.edu" in url
-        or "sdstate.edu" in url
-    ):
-        return "south_dakota"
-    if (
-        "apps.nd.gov/csd/spo" in url
-        or "omb.nd.gov" in url
-        or "ndit.nd.gov" in url
-        or "nd.gov" in url
-        or "und.edu" in url
-        or "ndsu.edu" in url
-    ):
-        return "north_dakota"
-    if (
-        "aws.state.ak.us" in url
-        or "iris-vss.alaska.gov" in url
-        or "oit.alaska.gov" in url
-        or "alaska.gov" in url
-        or "state.ak.us" in url
-        or "alaska.edu" in url
-    ):
-        return "alaska"
-    if (
-        "vermontbusinessregistry.com" in url
-        or "bgs.vermont.gov" in url
-        or "ads.vermont.gov" in url
-        or "vermont.gov" in url
-        or "uvm.edu" in url
-    ):
-        return "vermont"
-    if (
-        "wvoasis.gov" in url
-        or "state.wv.us/admin/purchase" in url
-        or "technology.wv.gov" in url
-        or "wv.gov" in url
-        or "wvu.edu" in url
-        or "marshall.edu" in url
-    ):
-        return "west_virginia"
-    if (
-        "ai.wyo.gov" in url
-        or "ets.wyo.gov" in url
-        or "wyo.gov" in url
-        or "wyoming.gov" in url
-        or "uwyo.edu" in url
-    ):
-        return "wyoming"
-    if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
-        return "maryland"
+    def _has_domain(dom: str) -> bool:
+        return bool(re.search(rf"(?:^|[/.\b]){re.escape(dom)}(?:[/:?#\b]|$)", url))
 
-    if title.startswith("[TX]") or "texas" in agency or ", tx" in agency or "ut md anderson" in agency:
+    def _has_any_domain(*doms: str) -> bool:
+        return any(_has_domain(d) for d in doms)
+
+    # 1. Portal-first Federal & Municipal checks
+    if _has_any_domain("demandstar.com"):
+        return "municipal"
+    if _has_any_domain("sam.gov", "sbir.gov"):
+        return "federal"
+
+    # 2. Boundary-safe State SLED Portal URL checks (specific/longer domains checked before 2-letter .gov domains)
+    if _has_any_domain("txsmartbuy.com", "dir.texas.gov", "texas.gov"):
         return "texas"
-    if title.startswith("[VA]") or "virginia" in agency or "arlington county" in agency:
+    if _has_any_domain("eva.virginia.gov", "cgieva.com", "vita.virginia.gov", "virginia.gov"):
         return "virginia"
-    if title.startswith("[CA]") or "california" in agency:
+    if _has_any_domain("caleprocure.ca.gov", "dgs.ca.gov", "cdt.ca.gov", "ca.gov"):
         return "california"
-    if title.startswith("[FL]") or "florida" in agency:
+    if _has_any_domain("myfloridamarketplace.com", "myflorida.com", "hillsboroughcounty.bonfirehub.com", "ucf.bonfirehub.com", "fl.gov"):
         return "florida"
-    if title.startswith("[IL]") or "state of illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
+    if _has_any_domain(
+        "emma.maryland.gov", "maryland.gov", "mdcourts.bonfirehub.com", "menv.bonfirehub.com",
+        "mdstad.bonfirehub.com", "hapgcprocurement.bonfirehub.com", "hcpss.bonfirehub.com",
+        "princegeorgescountymd.bonfirehub.com", "howardcountymd.bonfirehub.com", "countymd.bonfirehub.com",
+    ):
+        return "maryland"
+    if _has_any_domain("bidbuy.illinois.gov", "illinois.gov", "transitchicago.bonfirehub.com", "cookcountyil.bonfirehub.com", "il.gov"):
         return "illinois"
-    if title.startswith("[PA]") or "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
+    if "customerorg=commonwealthpa" in url or _has_any_domain("emarketplace.state.pa.us", "dgs.pa.gov", "pa.gov", "state.pa.us", "philaport.bonfirehub.com"):
         return "pennsylvania"
-    if title.startswith("[GA]") or "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency or "cobb county" in agency or "gwinnett" in agency or "dekalb" in agency:
+    if _has_any_domain(
+        "ohiobuys.ohio.gov", "ohioauditor.gov", "ohio.gov", "morpc.org", "franklincountyohio.gov",
+        "columbus.bonfirehub.com", "cincinnati-oh.bonfirehub.com", "westerville.bonfirehub.com",
+        "dps.bonfirehub.com", "akronohio.bonfirehub.com", "riderta.com",
+    ):
+        return "ohio"
+    if _has_any_domain(
+        "doas.state.ga.us", "georgia.gov", "ga.gov", "state.ga.us",
+        "forsythco.bonfirehub.com", "fultonschools.bonfirehub.com", "cobbk12.bonfirehub.com", "itsmarta.com",
+    ):
         return "georgia"
-    if title.startswith("[NC]") or "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency or "raleigh" in agency or "durham" in agency or "guilford" in agency:
+    if _has_any_domain(
+        "evp.nc.gov", "nc.gov", "unc.edu", "ncsu.edu", "wake.gov",
+        "mecknc.gov", "charlottenc.gov", "durhamnc.gov", "guilfordcountync.gov",
+    ):
         return "north_carolina"
-    if (
-        title.startswith("[NY]")
-        or "new york" in agency
-        or "nyc " in agency
-        or "(ny)" in agency
-        or "panynj" in agency
-        or "port authority of new york" in agency
-        or "suffolk county" in agency
-        or "rockland county" in agency
+    if _has_any_domain(
+        "a856-cityrecord.nyc.gov", "nyc.gov", "passport.cityofnewyork.us", "cityofnewyork.us",
+        "panynj.bonfirehub.com", "suffolkcountyny.bonfirehub.com", "rocklandgov.bonfirehub.com",
+        "nyscr.ny.gov", "ogs.ny.gov", "ny.gov",
     ):
         return "new_york"
-    if (
-        title.startswith("[MA]")
-        or "massachusetts" in agency
-        or "(ma)" in agency
-        or "commbuys" in agency
-        or "city of boston" in agency
-        or "boston public" in agency
-        or "mbta" in agency
-        or "massport" in agency
-        or "eotss" in agency
-    ):
+    if _has_any_domain("commbuys.com", "mass.gov", "boston.gov", "mbta.com", "massport.com", "masstech.org"):
         return "massachusetts"
-    if (
-        title.startswith("[NJ]")
-        or "new jersey" in agency
-        or "(nj)" in agency
-        or "njstart" in agency
-        or "nj transit" in agency
-        or "rutgers" in agency
-    ):
+    if _has_any_domain("njstart.gov", "nj.gov", "njtransit.com", "rutgers.edu"):
         return "new_jersey"
-    if (
-        title.startswith("[WA]")
-        or "washington state" in agency
-        or "state of washington" in agency
-        or "(wa)" in agency
-        or "watech" in agency
-        or "wa des" in agency
-        or "wsdot" in agency
-    ):
+    if "customerorg=stateofiowa" in url or _has_any_domain("bidopportunities.iowa.gov", "das.iowa.gov", "dom.iowa.gov", "iowadot.gov", "iowa.gov", "uiowa.edu", "iastate.edu"):
+        return "iowa"
+    if _has_any_domain("pr-webs-vendor.des.wa.gov", "des.wa.gov", "watech.wa.gov", "wsdot.wa.gov", "hca.wa.gov", "dshs.wa.gov", "dol.wa.gov", "wa.gov"):
         return "washington"
-    if (
-        title.startswith("[MI]")
-        or title.lower().startswith("[mi-")
-        or "michigan" in agency
-        or "(mi)" in agency
-        or "mi sigma" in agency
-        or "dtmb" in agency
-        or "mdhhs" in agency
-        or "mdot" in agency
-        or "msp" in agency
-    ):
+    if _has_any_domain("sigma.michigan.gov", "michigan.gov", "mi.gov"):
         return "michigan"
-    if (
-        title.startswith("[CO]")
-        or title.lower().startswith("[co-")
-        or "colorado" in agency
-        or "(co)" in agency
-        or "co vss" in agency
-        or "co oit" in agency
-        or "cdot" in agency
-        or "cdphe" in agency
-        or "cdhs" in agency
-    ):
+    if _has_any_domain("colorado.gov", "denvergov.org", "coloradosprings.gov", "cu.edu", "co.gov"):
         return "colorado"
-    if (
-        title.startswith("[AZ]")
-        or title.lower().startswith("[az-")
-        or "arizona" in agency
-        or "(az)" in agency
-        or "az app" in agency
-        or "adoa" in agency
-        or "ahcccs" in agency
-        or "adot" in agency
-        or "maricopa" in agency
-    ):
+    if _has_any_domain("app.az.gov", "procure.az.gov", "azdoa.gov", "az.gov", "phoenix.gov", "maricopa.gov", "asu.edu"):
         return "arizona"
-    if (
-        title.startswith("[MN]")
-        or title.lower().startswith("[mn-")
-        or "minnesota" in agency
-        or "(mn)" in agency
-        or "mn swift" in agency
-        or "mnit" in agency
-        or "mndot" in agency
-        or "metropolitan council" in agency
-    ):
+    if _has_any_domain("mn.gov", "questcdn.com", "metrocouncil.org", "umn.edu", "hennepin.us", "minneapolismn.gov", "stpaul.gov"):
         return "minnesota"
-    if (
-        title.startswith("[TN]")
-        or title.lower().startswith("[tn-")
-        or "tennessee" in agency
-        or "(tn)" in agency
-        or "tn cpo" in agency
-        or "edison" in agency
-        or "tenncare" in agency
-        or "tdot" in agency
-        or "tdec" in agency
-    ):
+    if _has_any_domain("tn.gov", "tennessee.edu", "tbr.edu", "nashville.gov", "memphistn.gov", "shelbycountytn.gov"):
         return "tennessee"
-    if (
-        title.startswith("[IN]")
-        or title.lower().startswith("[in-")
-        or "indiana" in agency
-        or "(in)" in agency
-        or "idoa" in agency
-        or "indianapolis" in agency
-        or "fssa" in agency
-        or "indot" in agency
-        or "purdue" in agency
-        or "nswc crane" in agency
-    ):
+    if _has_any_domain("iot.in.gov", "fs.gmis.in.gov", "in.gov", "indy.gov", "purdue.edu", "indiana.edu"):
         return "indiana"
-    if (
-        title.startswith("[MO]")
-        or title.lower().startswith("[mo-")
-        or "missouri" in agency
-        or "(mo)" in agency
-        or "missouribuys" in agency
-        or "oa-itsd" in agency
-        or "modot" in agency
-        or "mo healthnet" in agency
-        or "st. louis" in agency
-        or "kansas city" in agency
-    ):
+    if _has_any_domain("missouribuys.mo.gov", "oa.mo.gov", "modot.org", "mo.gov", "stlouis-mo.gov", "kcmo.gov", "umsystem.edu"):
         return "missouri"
-    if (
-        title.startswith("[WI]")
-        or title.lower().startswith("[wi-")
-        or "wisconsin" in agency
-        or "(wi)" in agency
-        or "esupplier" in agency
-        or "doa det" in agency
-        or "wisdot" in agency
-        or "milwaukee" in agency
-        or "uw-madison" in agency
-    ):
+    if _has_any_domain("esupplier.wi.gov", "vendornet.wi.gov", "doa.wi.gov", "wi.gov", "wisc.edu"):
         return "wisconsin"
-    if (
-        title.startswith("[SC]")
-        or title.lower().startswith("[sc-")
-        or "south carolina" in agency
-        or "(sc)" in agency
-        or "scbo" in agency
-        or "sfaa" in agency
-        or "scdhhs" in agency
-        or "scdot" in agency
-        or "niwc atlantic" in agency
-        or "clemson" in agency
-    ):
+    if _has_any_domain("scbo.sc.gov", "procurement.sc.gov", "admin.sc.gov", "sc.gov", "clemson.edu"):
         return "south_carolina"
-    if (
-        title.startswith("[OR]")
-        or title.lower().startswith("[or-")
-        or "oregon" in agency
-        or "(or)" in agency
-        or "oregonbuys" in agency
-        or "das eis" in agency
-        or "odot" in agency
-        or "portland" in agency
-        or "multnomah" in agency
-    ):
+    if _has_any_domain("oregonbuys.gov", "oregon.gov", "portland.gov", "ohsu.edu", "oregonstate.edu"):
         return "oregon"
-    if (
-        title.startswith("[CT]")
-        or title.lower().startswith("[ct-")
-        or "connecticut" in agency
-        or "(ct)" in agency
-        or "ctsource" in agency
-        or "das bits" in agency
-        or "ctdot" in agency
-        or "groton" in agency
-        or "hartford" in agency
-        or "uconn" in agency
-    ):
+    if _has_any_domain("portal.ct.gov", "biznet.ct.gov", "ct.gov", "uconn.edu"):
         return "connecticut"
-    if (
-        title.startswith("[UT]")
-        or title.lower().startswith("[ut-")
-        or "utah" in agency
-        or "(ut)" in agency
-        or "u3p" in agency
-        or "utah dts" in agency
-        or "udot" in agency
-        or "hill afb" in agency
-        or "salt lake" in agency
-    ):
+    if _has_any_domain("purchasing.utah.gov", "dts.utah.gov", "utah.gov", "utah.edu"):
         return "utah"
-    if (
-        title.startswith("[NV]")
-        or title.lower().startswith("[nv-")
-        or "nevada" in agency
-        or "(nv)" in agency
-        or "nevadaepro" in agency
-        or "nv eits" in agency
-        or "ndot" in agency
-        or "nellis afb" in agency
-        or "clark county" in agency
-        or "las vegas" in agency
-    ):
+    if _has_any_domain("nevadaepro.com", "purchasing.nv.gov", "eits.nv.gov", "nv.gov", "clarkcountynv.gov", "lasvegasnevada.gov", "unlv.edu", "unr.edu"):
         return "nevada"
-    if (
-        title.startswith("[AL]")
-        or title.lower().startswith("[al-")
-        or "alabama" in agency
-        or "(al)" in agency
-        or "alabama buys" in agency
-        or "staars" in agency
-        or "aldot" in agency
-        or "redstone" in agency
-        or "huntsville" in agency
-    ):
+    if _has_any_domain("alabamabuys.gov", "purchasing.alabama.gov", "oit.alabama.gov", "alabama.gov", "huntsvilleal.gov", "birminghamal.gov", "ua.edu", "auburn.edu"):
         return "alabama"
-    if (
-        title.startswith("[LA]")
-        or title.lower().startswith("[la-")
-        or "louisiana" in agency
-        or "(la)" in agency
-        or "lapac" in agency
-        or "la ots" in agency
-        or "ldh" in agency
-        or "dotd" in agency
-        or "barksdale" in agency
-        or "baton rouge" in agency
-    ):
+    if "lapac" in url or _has_any_domain("doa.louisiana.gov", "louisiana.gov", "la.gov", "nola.gov", "brla.gov", "lsu.edu"):
         return "louisiana"
-    if (
-        title.startswith("[KY]")
-        or title.lower().startswith("[ky-")
-        or "kentucky" in agency
-        or "(ky)" in agency
-        or "ky vss" in agency
-        or "ky cot" in agency
-        or "chfs" in agency
-        or "kytc" in agency
-        or "fort knox" in agency
-        or "louisville" in agency
-    ):
+    if _has_any_domain("vss.ky.gov", "finance.ky.gov", "cot.ky.gov", "ky.gov", "louisvilleky.gov", "lexingtonky.gov", "uky.edu", "louisville.edu"):
         return "kentucky"
-    if (
-        title.startswith("[OK]")
-        or title.lower().startswith("[ok-")
-        or "oklahoma" in agency
-        or "(ok)" in agency
-        or "omes" in agency
-        or "ohca" in agency
-        or "soonercare" in agency
-        or "tinker afb" in agency
-        or "76th sweg" in agency
-    ):
+    if _has_any_domain("omes.ok.gov", "oklahoma.gov", "ok.gov", "okc.gov", "cityoftulsa.org", "ou.edu", "okstate.edu"):
         return "oklahoma"
-    if (
-        title.startswith("[IA]")
-        or title.lower().startswith("[ia-")
-        or "iowa" in agency
-        or "(ia)" in agency
-        or "impacs" in agency
-        or "dom doit" in agency
-        or "iowa dot" in agency
-        or "camp dodge" in agency
-        or "des moines" in agency
-    ):
-        return "iowa"
-    if (
-        title.startswith("[KS]")
-        or title.lower().startswith("[ks-")
-        or "kansas" in agency
-        or "(ks)" in agency
-        or "ks smart" in agency
-        or "oits" in agency
-        or "kiso" in agency
-        or "kdot" in agency
-        or "fort leavenworth" in agency
-        or "mcconnell afb" in agency
-    ):
-        return "kansas"
-    if (
-        title.startswith("[AR]")
-        or title.lower().startswith("[ar-")
-        or "arkansas" in agency
-        or "(ar)" in agency
-        or "arbuy" in agency
-        or "ar dis" in agency
-        or "ardot" in agency
-        or "little rock afb" in agency
-        or "ebbing" in agency
-    ):
+    if _has_any_domain("arbuy.arkansas.gov", "transform.ar.gov", "dis.arkansas.gov", "ardot.gov", "arkansas.gov", "ar.gov", "uark.edu", "uams.edu"):
         return "arkansas"
-    if (
-        title.startswith("[MS]")
-        or title.lower().startswith("[ms-")
-        or "mississippi" in agency
-        or "(ms)" in agency
-        or "ms magic" in agency
-        or "ms its" in agency
-        or "mdot" in agency
-        or "keesler afb" in agency
-        or "stennis" in agency
-    ):
-        return "mississippi"
-    if (
-        title.startswith("[NM]")
-        or title.lower().startswith("[nm-")
-        or "new mexico" in agency
-        or "(nm)" in agency
-        or "nm gsd" in agency
-        or "nm doit" in agency
-        or "nmdot" in agency
-        or "kirtland afb" in agency
-        or "white sands" in agency
-        or "sandia" in agency
-        or "los alamos" in agency
-    ):
-        return "new_mexico"
-    if (
-        title.startswith("[NE]")
-        or title.lower().startswith("[ne-")
-        or "nebraska" in agency
-        or "(ne)" in agency
-        or "ne das" in agency
-        or "ne ocio" in agency
-        or "offutt afb" in agency
-        or "usstratcom" in agency
-        or "55th wing" in agency
-        or "omaha" in agency
-    ):
-        return "nebraska"
-    if (
-        title.startswith("[ID]")
-        or title.lower().startswith("[id-")
-        or "idaho" in agency
-        or "(id)" in agency
-        or "ipro" in agency
-        or "luma" in agency
-        or "id its" in agency
-        or "idhw" in agency
-        or "mountain home afb" in agency
-        or "idaho national lab" in agency
-    ):
-        return "idaho"
-    if (
-        title.startswith("[HI]")
-        or title.lower().startswith("[hi-")
-        or "hawaii" in agency
-        or "(hi)" in agency
-        or "hiepro" in agency
-        or "hi ets" in agency
-        or "med-quest" in agency
-        or "hdot" in agency
-        or "indopacom" in agency
-        or "pearl harbor" in agency
-        or "hickam" in agency
-        or "honolulu" in agency
-    ):
-        return "hawaii"
-    if (
-        title.startswith("[NH]")
-        or title.lower().startswith("[nh-")
-        or "new hampshire" in agency
-        or "(nh)" in agency
-        or "nh das" in agency
-        or "nh doit" in agency
-        or "nhdot" in agency
-        or "pease angb" in agency
-        or "portsmouth naval" in agency
-        or "new boston sfs" in agency
-    ):
-        return "new_hampshire"
-    if (
-        title.startswith("[ME]")
-        or title.lower().startswith("[me-")
-        or "maine" in agency
-        or "(me)" in agency
-        or "maineit" in agency
-        or "mainecare" in agency
-        or "mainedot" in agency
-        or "bath iron" in agency
-        or "bangor angb" in agency
-    ):
-        return "maine"
-    if (
-        title.startswith("[RI]")
-        or title.lower().startswith("[ri-")
-        or "rhode island" in agency
-        or "(ri)" in agency
-        or "ocean state procures" in agency
-        or "ri etss" in agency
-        or "ridot" in agency
-        or "nuwc newport" in agency
-        or "naval station newport" in agency
-    ):
-        return "rhode_island"
-    if (
-        title.startswith("[MT]")
-        or title.lower().startswith("[mt-")
-        or "montana" in agency
-        or "(mt)" in agency
-        or "emacs" in agency
-        or "sitsd" in agency
-        or "malmstrom afb" in agency
-        or "341st mw" in agency
-    ):
-        return "montana"
-    if (
-        title.startswith("[DE]")
-        or title.lower().startswith("[de-")
-        or "delaware" in agency
-        or "(de)" in agency
-        or "mymarketplace" in agency
-        or "de dti" in agency
-        or "deldot" in agency
-        or "dover afb" in agency
-        or "436th aw" in agency
-    ):
-        return "delaware"
-    if (
-        title.startswith("[SD]")
-        or title.lower().startswith("[sd-")
-        or "south dakota" in agency
-        or "(sd)" in agency
-        or "sd opm" in agency
-        or "sd bit" in agency
-        or "sddot" in agency
-        or "ellsworth afb" in agency
-        or "28th bw" in agency
-        or "dakota state" in agency
-    ):
-        return "south_dakota"
-    if (
-        title.startswith("[ND]")
-        or title.lower().startswith("[nd-")
-        or "north dakota" in agency
-        or "(nd)" in agency
-        or "nd spo" in agency
-        or "ndit" in agency
-        or "nddot" in agency
-        or "minot afb" in agency
-        or "grand forks afb" in agency
-    ):
-        return "north_dakota"
-    if (
-        title.startswith("[AK]")
-        or title.lower().startswith("[ak-")
-        or "alaska" in agency
-        or "(ak)" in agency
-        or "ak iris" in agency
-        or "ak oit" in agency
-        or "jber" in agency
-        or "elmendorf" in agency
-        or "eielson afb" in agency
-        or "clear sfs" in agency
-        or "anchorage" in agency
-    ):
-        return "alaska"
-    if (
-        title.startswith("[VT]")
-        or title.lower().startswith("[vt-")
-        or "vermont" in agency
-        or "(vt)" in agency
-        or "vt bgs" in agency
-        or "vt ads" in agency
-        or "vtrans" in agency
-        or "dvha" in agency
-        or "158th fw" in agency
-        or "burlington angb" in agency
-    ):
-        return "vermont"
-    if (
-        title.startswith("[WV]")
-        or title.lower().startswith("[wv-")
-        or "west virginia" in agency
-        or "(wv)" in agency
-        or "wvoasis" in agency
-        or "wvot" in agency
-        or "wvdot" in agency
-        or "clarksburg" in agency
-        or "martinsburg" in agency
-    ):
-        return "west_virginia"
-    if (
-        title.startswith("[WY]")
-        or title.lower().startswith("[wy-")
-        or "wyoming" in agency
-        or "(wy)" in agency
-        or "wy ets" in agency
-        or "wydot" in agency
-        or "f.e. warren" in agency
-        or "90th mw" in agency
-        or "cheyenne" in agency
-    ):
-        return "wyoming"
-    if (
-        title.startswith("[IA]")
-        or title.lower().startswith("[ia-")
-        or "iowa" in agency
-        or "(ia)" in agency
-        or "impacs" in agency
-        or "dom doit" in agency
-        or "iowa dot" in agency
-        or "camp dodge" in agency
-        or "des moines" in agency
-    ):
-        return "iowa"
-    if (
-        title.startswith("[KS]")
-        or title.lower().startswith("[ks-")
-        or "kansas" in agency
-        or "(ks)" in agency
-        or "ks smart" in agency
-        or "oits" in agency
-        or "kiso" in agency
-        or "kdot" in agency
-        or "fort leavenworth" in agency
-        or "mcconnell afb" in agency
-    ):
+    if _has_any_domain("admin.ks.gov", "da.ks.gov", "oits.ks.gov", "ksdot.gov", "ks.gov", "kansas.gov", "ku.edu", "ksu.edu"):
         return "kansas"
-    if (
-        title.startswith("[AR]")
-        or title.lower().startswith("[ar-")
-        or "arkansas" in agency
-        or "(ar)" in agency
-        or "arbuy" in agency
-        or "ar dis" in agency
-        or "ardot" in agency
-        or "little rock afb" in agency
-        or "ebbing" in agency
-    ):
-        return "arkansas"
-    if (
-        title.startswith("[MS]")
-        or title.lower().startswith("[ms-")
-        or "mississippi" in agency
-        or "(ms)" in agency
-        or "ms magic" in agency
-        or "ms its" in agency
-        or "mdot" in agency
-        or "keesler afb" in agency
-        or "stennis" in agency
-    ):
+    if _has_any_domain("its.ms.gov", "dfa.ms.gov", "mdot.ms.gov", "ms.gov", "mississippi.gov", "msstate.edu", "olemiss.edu"):
         return "mississippi"
-    if (
-        title.startswith("[NM]")
-        or title.lower().startswith("[nm-")
-        or "new mexico" in agency
-        or "(nm)" in agency
-        or "nm gsd" in agency
-        or "nm doit" in agency
-        or "nmdot" in agency
-        or "kirtland afb" in agency
-        or "white sands" in agency
-        or "sandia" in agency
-        or "los alamos" in agency
-    ):
+    if _has_any_domain("generalservices.state.nm.us", "doit.nm.gov", "dot.nm.gov", "nm.gov", "state.nm.us", "unm.edu", "nmsu.edu"):
         return "new_mexico"
-    if (
-        title.startswith("[NE]")
-        or title.lower().startswith("[ne-")
-        or "nebraska" in agency
-        or "(ne)" in agency
-        or "ne das" in agency
-        or "ne ocio" in agency
-        or "offutt afb" in agency
-        or "usstratcom" in agency
-        or "55th wing" in agency
-        or "omaha" in agency
-    ):
-        return "nebraska"
-    if (
-        title.startswith("[ID]")
-        or title.lower().startswith("[id-")
-        or "idaho" in agency
-        or "(id)" in agency
-        or "ipro" in agency
-        or "luma" in agency
-        or "id its" in agency
-        or "idhw" in agency
-        or "mountain home afb" in agency
-        or "idaho national lab" in agency
-    ):
-        return "idaho"
-    if (
-        title.startswith("[HI]")
-        or title.lower().startswith("[hi-")
-        or "hawaii" in agency
-        or "(hi)" in agency
-        or "hiepro" in agency
-        or "hi ets" in agency
-        or "med-quest" in agency
-        or "hdot" in agency
-        or "indopacom" in agency
-        or "pearl harbor" in agency
-        or "hickam" in agency
-        or "honolulu" in agency
-    ):
-        return "hawaii"
-    if (
-        title.startswith("[NH]")
-        or title.lower().startswith("[nh-")
-        or "new hampshire" in agency
-        or "(nh)" in agency
-        or "nh das" in agency
-        or "nh doit" in agency
-        or "nhdot" in agency
-        or "pease angb" in agency
-        or "portsmouth naval" in agency
-        or "new boston sfs" in agency
-    ):
-        return "new_hampshire"
-    if (
-        title.startswith("[ME]")
-        or title.lower().startswith("[me-")
-        or "maine" in agency
-        or "(me)" in agency
-        or "maineit" in agency
-        or "mainecare" in agency
-        or "mainedot" in agency
-        or "bath iron" in agency
-        or "bangor angb" in agency
-    ):
+    if _has_any_domain("maine.gov", "maine.edu"):
         return "maine"
-    if (
-        title.startswith("[RI]")
-        or title.lower().startswith("[ri-")
-        or "rhode island" in agency
-        or "(ri)" in agency
-        or "ocean state procures" in agency
-        or "ri etss" in agency
-        or "ridot" in agency
-        or "nuwc newport" in agency
-        or "naval station newport" in agency
-    ):
+    if _has_any_domain("das.nebraska.gov", "cio.nebraska.gov", "dot.nebraska.gov", "nebraska.gov", "ne.gov", "nebraska.edu", "unl.edu"):
+        return "nebraska"
+    if _has_any_domain("purchasing.idaho.gov", "its.idaho.gov", "itd.idaho.gov", "idaho.gov", "id.gov", "boisestate.edu", "uidaho.edu"):
+        return "idaho"
+    if _has_any_domain("hiepro.ehawaii.gov", "hands.ehawaii.gov", "spo.hawaii.gov", "ets.hawaii.gov", "hidot.hawaii.gov", "hawaii.gov", "ehawaii.gov", "hawaii.edu"):
+        return "hawaii"
+    if _has_any_domain("apps.das.nh.gov", "das.nh.gov", "doit.nh.gov", "nh.gov", "usnh.edu", "unh.edu"):
+        return "new_hampshire"
+    if _has_any_domain("ridop.ri.gov", "purchasing.ri.gov", "etss.ri.gov", "doit.ri.gov", "dot.ri.gov", "ri.gov", "uri.edu"):
         return "rhode_island"
-    if (
-        title.startswith("[MT]")
-        or title.lower().startswith("[mt-")
-        or "montana" in agency
-        or "(mt)" in agency
-        or "emacs" in agency
-        or "sitsd" in agency
-        or "malmstrom afb" in agency
-        or "341st mw" in agency
-    ):
+    if _has_any_domain("spb.mt.gov", "sitsd.mt.gov", "mdt.mt.gov", "mt.gov", "montana.edu", "umt.edu"):
         return "montana"
-    if (
-        title.startswith("[DE]")
-        or title.lower().startswith("[de-")
-        or "delaware" in agency
-        or "(de)" in agency
-        or "mymarketplace" in agency
-        or "de dti" in agency
-        or "deldot" in agency
-        or "dover afb" in agency
-        or "436th aw" in agency
-    ):
+    if _has_any_domain("mmp.delaware.gov", "bids.delaware.gov", "gss.omb.delaware.gov", "dti.delaware.gov", "deldot.gov", "delaware.gov", "udel.edu"):
         return "delaware"
-    if (
-        title.startswith("[SD]")
-        or title.lower().startswith("[sd-")
-        or "south dakota" in agency
-        or "(sd)" in agency
-        or "sd opm" in agency
-        or "sd bit" in agency
-        or "sddot" in agency
-        or "ellsworth afb" in agency
-        or "28th bw" in agency
-        or "dakota state" in agency
-    ):
+    if _has_any_domain("boa.sd.gov", "bit.sd.gov", "dot.sd.gov", "sd.gov", "dsu.edu", "sdstate.edu", "sdbor.edu"):
         return "south_dakota"
-    if (
-        title.startswith("[ND]")
-        or title.lower().startswith("[nd-")
-        or "north dakota" in agency
-        or "(nd)" in agency
-        or "nd spo" in agency
-        or "ndit" in agency
-        or "nddot" in agency
-        or "minot afb" in agency
-        or "grand forks afb" in agency
-    ):
+    if _has_any_domain("apps.nd.gov", "omb.nd.gov", "ndit.nd.gov", "dot.nd.gov", "nd.gov", "und.edu", "ndsu.edu"):
         return "north_dakota"
-    if (
-        title.startswith("[AK]")
-        or title.lower().startswith("[ak-")
-        or "alaska" in agency
-        or "(ak)" in agency
-        or "ak iris" in agency
-        or "ak oit" in agency
-        or "jber" in agency
-        or "elmendorf" in agency
-        or "eielson afb" in agency
-        or "clear sfs" in agency
-        or "anchorage" in agency
-    ):
+    if _has_any_domain("aws.state.ak.us", "iris-vss.alaska.gov", "oit.alaska.gov", "dot.alaska.gov", "alaska.gov", "state.ak.us", "alaska.edu"):
         return "alaska"
-    if (
-        title.startswith("[VT]")
-        or title.lower().startswith("[vt-")
-        or "vermont" in agency
-        or "(vt)" in agency
-        or "vt bgs" in agency
-        or "vt ads" in agency
-        or "vtrans" in agency
-        or "dvha" in agency
-        or "158th fw" in agency
-        or "burlington angb" in agency
-    ):
+    if _has_any_domain("vermontbusinessregistry.com", "bgs.vermont.gov", "ads.vermont.gov", "digitalservices.vermont.gov", "vtrans.vermont.gov", "vermont.gov", "uvm.edu"):
         return "vermont"
-    if (
-        title.startswith("[WV]")
-        or title.lower().startswith("[wv-")
-        or "west virginia" in agency
-        or "(wv)" in agency
-        or "wvoasis" in agency
-        or "wvot" in agency
-        or "wvdot" in agency
-        or "clarksburg" in agency
-        or "martinsburg" in agency
-    ):
+    if _has_any_domain("wvoasis.gov", "state.wv.us", "technology.wv.gov", "transportation.wv.gov", "wv.gov", "wvu.edu", "marshall.edu"):
         return "west_virginia"
-    if (
-        title.startswith("[WY]")
-        or title.lower().startswith("[wy-")
-        or "wyoming" in agency
-        or "(wy)" in agency
-        or "wy ets" in agency
-        or "wydot" in agency
-        or "f.e. warren" in agency
-        or "90th mw" in agency
-        or "cheyenne" in agency
-    ):
+    if _has_any_domain("ai.wyo.gov", "ets.wyo.gov", "dot.state.wy.us", "wyo.gov", "wyoming.gov", "uwyo.edu"):
         return "wyoming"
-    if (
-        title.startswith("[NV]")
-        or title.lower().startswith("[nv-")
-        or "nevada" in agency
-        or "(nv)" in agency
-        or "nevadaepro" in agency
-        or "nv eits" in agency
-        or "ndot" in agency
-        or "nellis afb" in agency
-        or "clark county" in agency
-        or "las vegas" in agency
-    ):
-        return "nevada"
-    if (
-        title.startswith("[AL]")
-        or title.lower().startswith("[al-")
-        or "alabama" in agency
-        or "(al)" in agency
-        or "alabama buys" in agency
-        or "staars" in agency
-        or "aldot" in agency
-        or "redstone" in agency
-        or "huntsville" in agency
-    ):
-        return "alabama"
-    if (
-        title.startswith("[LA]")
-        or title.lower().startswith("[la-")
-        or "louisiana" in agency
-        or "(la)" in agency
-        or "lapac" in agency
-        or "la ots" in agency
-        or "ldh" in agency
-        or "dotd" in agency
-        or "barksdale" in agency
-        or "baton rouge" in agency
-    ):
-        return "louisiana"
-    if (
-        title.startswith("[KY]")
-        or title.lower().startswith("[ky-")
-        or "kentucky" in agency
-        or "(ky)" in agency
-        or "ky vss" in agency
-        or "ky cot" in agency
-        or "chfs" in agency
-        or "kytc" in agency
-        or "fort knox" in agency
-        or "louisville" in agency
-    ):
-        return "kentucky"
-    if (
-        title.startswith("[OK]")
-        or title.lower().startswith("[ok-")
-        or "oklahoma" in agency
-        or "(ok)" in agency
-        or "omes" in agency
-        or "ohca" in agency
-        or "soonercare" in agency
-        or "tinker afb" in agency
-        or "76th sweg" in agency
-    ):
-        return "oklahoma"
-    if (
-        title.startswith("[IA]")
-        or title.lower().startswith("[ia-")
-        or "iowa" in agency
-        or "(ia)" in agency
-        or "impacs" in agency
-        or "dom doit" in agency
-        or "iowa dot" in agency
-        or "camp dodge" in agency
-        or "des moines" in agency
-    ):
-        return "iowa"
-    if (
-        title.startswith("[KS]")
-        or title.lower().startswith("[ks-")
-        or "kansas" in agency
-        or "(ks)" in agency
-        or "ks smart" in agency
-        or "oits" in agency
-        or "kiso" in agency
-        or "kdot" in agency
-        or "fort leavenworth" in agency
-        or "mcconnell afb" in agency
-    ):
-        return "kansas"
-    if (
-        title.startswith("[AR]")
-        or title.lower().startswith("[ar-")
-        or "arkansas" in agency
-        or "(ar)" in agency
-        or "arbuy" in agency
-        or "ar dis" in agency
-        or "ardot" in agency
-        or "little rock afb" in agency
-        or "ebbing" in agency
-    ):
+
+    # 3. Explicit [XX] or [XX- title prefixes across all 50 states
+    prefix_map = {
+        "TX": "texas", "VA": "virginia", "CA": "california", "FL": "florida", "MD": "maryland",
+        "IL": "illinois", "PA": "pennsylvania", "OH": "ohio", "GA": "georgia", "NC": "north_carolina",
+        "NY": "new_york", "MA": "massachusetts", "NJ": "new_jersey", "WA": "washington", "MI": "michigan",
+        "CO": "colorado", "AZ": "arizona", "MN": "minnesota", "TN": "tennessee", "IN": "indiana",
+        "MO": "missouri", "WI": "wisconsin", "SC": "south_carolina", "OR": "oregon", "CT": "connecticut",
+        "UT": "utah", "NV": "nevada", "AL": "alabama", "LA": "louisiana", "KY": "kentucky",
+        "OK": "oklahoma", "IA": "iowa", "KS": "kansas", "AR": "arkansas", "MS": "mississippi",
+        "NM": "new_mexico", "NE": "nebraska", "ID": "idaho", "HI": "hawaii", "NH": "new_hampshire",
+        "ME": "maine", "RI": "rhode_island", "MT": "montana", "DE": "delaware", "SD": "south_dakota",
+        "ND": "north_dakota", "AK": "alaska", "VT": "vermont", "WV": "west_virginia", "WY": "wyoming",
+    }
+    m_pref = re.match(r"^\[([A-Z]{2})(?:\]|-)", title_upper)
+    if m_pref and m_pref.group(1) in prefix_map:
+        return prefix_map[m_pref.group(1)]
+
+    # 4. Agency & title fallback matching (compound state names checked BEFORE single-word state names)
+    if "west virginia" in agency or "(wv)" in agency or "wvoasis" in agency or "wvot" in agency or "clarksburg" in agency or "martinsburg" in agency:
+        return "west_virginia"
+    if "arkansas" in agency or "(ar)" in agency or "arbuy" in agency or "little rock afb" in agency:
         return "arkansas"
-    if (
-        title.startswith("[MS]")
-        or title.lower().startswith("[ms-")
-        or "mississippi" in agency
-        or "(ms)" in agency
-        or "ms magic" in agency
-        or "ms its" in agency
-        or "mdot" in agency
-        or "keesler afb" in agency
-        or "stennis" in agency
-    ):
-        return "mississippi"
-    if (
-        title.startswith("[NM]")
-        or title.lower().startswith("[nm-")
-        or "new mexico" in agency
-        or "(nm)" in agency
-        or "nm gsd" in agency
-        or "nm doit" in agency
-        or "nmdot" in agency
-        or "kirtland afb" in agency
-        or "white sands" in agency
-        or "sandia" in agency
-        or "los alamos" in agency
-    ):
-        return "new_mexico"
-    if (
-        title.startswith("[NE]")
-        or title.lower().startswith("[ne-")
-        or "nebraska" in agency
-        or "(ne)" in agency
-        or "ne das" in agency
-        or "ne ocio" in agency
-        or "offutt afb" in agency
-        or "usstratcom" in agency
-        or "55th wing" in agency
-        or "omaha" in agency
-    ):
-        return "nebraska"
-    if (
-        title.startswith("[ID]")
-        or title.lower().startswith("[id-")
-        or "idaho" in agency
-        or "(id)" in agency
-        or "ipro" in agency
-        or "luma" in agency
-        or "id its" in agency
-        or "idhw" in agency
-        or "mountain home afb" in agency
-        or "idaho national lab" in agency
-    ):
-        return "idaho"
-    if (
-        title.startswith("[HI]")
-        or title.lower().startswith("[hi-")
-        or "hawaii" in agency
-        or "(hi)" in agency
-        or "hiepro" in agency
-        or "hi ets" in agency
-        or "med-quest" in agency
-        or "hdot" in agency
-        or "indopacom" in agency
-        or "pearl harbor" in agency
-        or "hickam" in agency
-        or "honolulu" in agency
-    ):
-        return "hawaii"
-    if (
-        title.startswith("[NH]")
-        or title.lower().startswith("[nh-")
-        or "new hampshire" in agency
-        or "(nh)" in agency
-        or "nh das" in agency
-        or "nh doit" in agency
-        or "nhdot" in agency
-        or "pease angb" in agency
-        or "portsmouth naval" in agency
-        or "new boston sfs" in agency
-    ):
-        return "new_hampshire"
-    if (
-        title.startswith("[ME]")
-        or title.lower().startswith("[me-")
-        or "maine" in agency
-        or "(me)" in agency
-        or "maineit" in agency
-        or "mainecare" in agency
-        or "mainedot" in agency
-        or "bath iron" in agency
-        or "bangor angb" in agency
-    ):
-        return "maine"
-    if (
-        title.startswith("[RI]")
-        or title.lower().startswith("[ri-")
-        or "rhode island" in agency
-        or "(ri)" in agency
-        or "ocean state procures" in agency
-        or "ri etss" in agency
-        or "ridot" in agency
-        or "nuwc newport" in agency
-        or "naval station newport" in agency
-    ):
-        return "rhode_island"
-    if (
-        title.startswith("[MT]")
-        or title.lower().startswith("[mt-")
-        or "montana" in agency
-        or "(mt)" in agency
-        or "emacs" in agency
-        or "sitsd" in agency
-        or "malmstrom afb" in agency
-        or "341st mw" in agency
-    ):
-        return "montana"
-    if (
-        title.startswith("[DE]")
-        or title.lower().startswith("[de-")
-        or "delaware" in agency
-        or "(de)" in agency
-        or "mymarketplace" in agency
-        or "de dti" in agency
-        or "deldot" in agency
-        or "dover afb" in agency
-        or "436th aw" in agency
-    ):
-        return "delaware"
-    if (
-        title.startswith("[SD]")
-        or title.lower().startswith("[sd-")
-        or "south dakota" in agency
-        or "(sd)" in agency
-        or "sd opm" in agency
-        or "sd bit" in agency
-        or "sddot" in agency
-        or "ellsworth afb" in agency
-        or "28th bw" in agency
-        or "dakota state" in agency
-    ):
-        return "south_dakota"
-    if (
-        title.startswith("[ND]")
-        or title.lower().startswith("[nd-")
-        or "north dakota" in agency
-        or "(nd)" in agency
-        or "nd spo" in agency
-        or "ndit" in agency
-        or "nddot" in agency
-        or "minot afb" in agency
-        or "grand forks afb" in agency
-    ):
+    if "north dakota" in agency or "(nd)" in agency or "ndit" in agency or "minot afb" in agency or "grand forks afb" in agency:
         return "north_dakota"
-    if (
-        title.startswith("[AK]")
-        or title.lower().startswith("[ak-")
-        or "alaska" in agency
-        or "(ak)" in agency
-        or "ak iris" in agency
-        or "ak oit" in agency
-        or "jber" in agency
-        or "elmendorf" in agency
-        or "eielson afb" in agency
-        or "clear sfs" in agency
-        or "anchorage" in agency
-    ):
-        return "alaska"
-    if (
-        title.startswith("[VT]")
-        or title.lower().startswith("[vt-")
-        or "vermont" in agency
-        or "(vt)" in agency
-        or "vt bgs" in agency
-        or "vt ads" in agency
-        or "vtrans" in agency
-        or "dvha" in agency
-        or "158th fw" in agency
-        or "burlington angb" in agency
-    ):
-        return "vermont"
-    if (
-        title.startswith("[WV]")
-        or title.lower().startswith("[wv-")
-        or "west virginia" in agency
-        or "(wv)" in agency
-        or "wvoasis" in agency
-        or "wvot" in agency
-        or "wvdot" in agency
-        or "clarksburg" in agency
-        or "martinsburg" in agency
-    ):
-        return "west_virginia"
-    if (
-        title.startswith("[WY]")
-        or title.lower().startswith("[wy-")
-        or "wyoming" in agency
-        or "(wy)" in agency
-        or "wy ets" in agency
-        or "wydot" in agency
-        or "f.e. warren" in agency
-        or "90th mw" in agency
-        or "cheyenne" in agency
-    ):
-        return "wyoming"
-    if (
-        title.startswith("[IA]")
-        or title.lower().startswith("[ia-")
-        or "iowa" in agency
-        or "(ia)" in agency
-        or "impacs" in agency
-        or "dom doit" in agency
-        or "iowa dot" in agency
-        or "camp dodge" in agency
-        or "des moines" in agency
-    ):
-        return "iowa"
-    if (
-        title.startswith("[KS]")
-        or title.lower().startswith("[ks-")
-        or "kansas" in agency
-        or "(ks)" in agency
-        or "ks smart" in agency
-        or "oits" in agency
-        or "kiso" in agency
-        or "kdot" in agency
-        or "fort leavenworth" in agency
-        or "mcconnell afb" in agency
-    ):
-        return "kansas"
-    if (
-        title.startswith("[AR]")
-        or title.lower().startswith("[ar-")
-        or "arkansas" in agency
-        or "(ar)" in agency
-        or "arbuy" in agency
-        or "ar dis" in agency
-        or "ardot" in agency
-        or "little rock afb" in agency
-        or "ebbing" in agency
-    ):
-        return "arkansas"
-    if (
-        title.startswith("[MS]")
-        or title.lower().startswith("[ms-")
-        or "mississippi" in agency
-        or "(ms)" in agency
-        or "ms magic" in agency
-        or "ms its" in agency
-        or "mdot" in agency
-        or "keesler afb" in agency
-        or "stennis" in agency
-    ):
-        return "mississippi"
-    if (
-        title.startswith("[NM]")
-        or title.lower().startswith("[nm-")
-        or "new mexico" in agency
-        or "(nm)" in agency
-        or "nm gsd" in agency
-        or "nm doit" in agency
-        or "nmdot" in agency
-        or "kirtland afb" in agency
-        or "white sands" in agency
-        or "sandia" in agency
-        or "los alamos" in agency
-    ):
-        return "new_mexico"
-    if (
-        title.startswith("[NE]")
-        or title.lower().startswith("[ne-")
-        or "nebraska" in agency
-        or "(ne)" in agency
-        or "ne das" in agency
-        or "ne ocio" in agency
-        or "offutt afb" in agency
-        or "usstratcom" in agency
-        or "55th wing" in agency
-        or "omaha" in agency
-    ):
-        return "nebraska"
-    if (
-        title.startswith("[ID]")
-        or title.lower().startswith("[id-")
-        or "idaho" in agency
-        or "(id)" in agency
-        or "ipro" in agency
-        or "luma" in agency
-        or "id its" in agency
-        or "idhw" in agency
-        or "mountain home afb" in agency
-        or "idaho national lab" in agency
-    ):
-        return "idaho"
-    if (
-        title.startswith("[HI]")
-        or title.lower().startswith("[hi-")
-        or "hawaii" in agency
-        or "(hi)" in agency
-        or "hiepro" in agency
-        or "hi ets" in agency
-        or "med-quest" in agency
-        or "hdot" in agency
-        or "indopacom" in agency
-        or "pearl harbor" in agency
-        or "hickam" in agency
-        or "honolulu" in agency
-    ):
-        return "hawaii"
-    if (
-        title.startswith("[NH]")
-        or title.lower().startswith("[nh-")
-        or "new hampshire" in agency
-        or "(nh)" in agency
-        or "nh das" in agency
-        or "nh doit" in agency
-        or "nhdot" in agency
-        or "pease angb" in agency
-        or "portsmouth naval" in agency
-        or "new boston sfs" in agency
-    ):
-        return "new_hampshire"
-    if (
-        title.startswith("[ME]")
-        or title.lower().startswith("[me-")
-        or "maine" in agency
-        or "(me)" in agency
-        or "maineit" in agency
-        or "mainecare" in agency
-        or "mainedot" in agency
-        or "bath iron" in agency
-        or "bangor angb" in agency
-    ):
-        return "maine"
-    if (
-        title.startswith("[RI]")
-        or title.lower().startswith("[ri-")
-        or "rhode island" in agency
-        or "(ri)" in agency
-        or "ocean state procures" in agency
-        or "ri etss" in agency
-        or "ridot" in agency
-        or "nuwc newport" in agency
-        or "naval station newport" in agency
-    ):
-        return "rhode_island"
-    if (
-        title.startswith("[MT]")
-        or title.lower().startswith("[mt-")
-        or "montana" in agency
-        or "(mt)" in agency
-        or "emacs" in agency
-        or "sitsd" in agency
-        or "malmstrom afb" in agency
-        or "341st mw" in agency
-    ):
-        return "montana"
-    if (
-        title.startswith("[DE]")
-        or title.lower().startswith("[de-")
-        or "delaware" in agency
-        or "(de)" in agency
-        or "mymarketplace" in agency
-        or "de dti" in agency
-        or "deldot" in agency
-        or "dover afb" in agency
-        or "436th aw" in agency
-    ):
-        return "delaware"
-    if (
-        title.startswith("[SD]")
-        or title.lower().startswith("[sd-")
-        or "south dakota" in agency
-        or "(sd)" in agency
-        or "sd opm" in agency
-        or "sd bit" in agency
-        or "sddot" in agency
-        or "ellsworth afb" in agency
-        or "28th bw" in agency
-        or "dakota state" in agency
-    ):
+    if "south dakota" in agency or "(sd)" in agency or "ellsworth afb" in agency or "dakota state" in agency:
         return "south_dakota"
-    if (
-        title.startswith("[ND]")
-        or title.lower().startswith("[nd-")
-        or "north dakota" in agency
-        or "(nd)" in agency
-        or "nd spo" in agency
-        or "ndit" in agency
-        or "nddot" in agency
-        or "minot afb" in agency
-        or "grand forks afb" in agency
-    ):
-        return "north_dakota"
-    if (
-        title.startswith("[AK]")
-        or title.lower().startswith("[ak-")
-        or "alaska" in agency
-        or "(ak)" in agency
-        or "ak iris" in agency
-        or "ak oit" in agency
-        or "jber" in agency
-        or "elmendorf" in agency
-        or "eielson afb" in agency
-        or "clear sfs" in agency
-        or "anchorage" in agency
-    ):
-        return "alaska"
-    if (
-        title.startswith("[VT]")
-        or title.lower().startswith("[vt-")
-        or "vermont" in agency
-        or "(vt)" in agency
-        or "vt bgs" in agency
-        or "vt ads" in agency
-        or "vtrans" in agency
-        or "dvha" in agency
-        or "158th fw" in agency
-        or "burlington angb" in agency
-    ):
-        return "vermont"
-    if (
-        title.startswith("[WV]")
-        or title.lower().startswith("[wv-")
-        or "west virginia" in agency
-        or "(wv)" in agency
-        or "wvoasis" in agency
-        or "wvot" in agency
-        or "wvdot" in agency
-        or "clarksburg" in agency
-        or "martinsburg" in agency
-    ):
-        return "west_virginia"
-    if (
-        title.startswith("[WY]")
-        or title.lower().startswith("[wy-")
-        or "wyoming" in agency
-        or "(wy)" in agency
-        or "wy ets" in agency
-        or "wydot" in agency
-        or "f.e. warren" in agency
-        or "90th mw" in agency
-        or "cheyenne" in agency
-    ):
-        return "wyoming"
-    if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
+    if "north carolina" in agency or "(nc)" in agency or "nc " in agency or "wake county" in agency or "mecklenburg" in agency or "charlotte" in agency or "raleigh" in agency or "durham" in agency or "guilford" in agency:
+        return "north_carolina"
+    if "south carolina" in agency or "(sc)" in agency or "scbo" in agency or "sfaa" in agency or "niwc atlantic" in agency or "clemson" in agency:
+        return "south_carolina"
+    if "new hampshire" in agency or "(nh)" in agency or "pease angb" in agency or "portsmouth naval" in agency:
+        return "new_hampshire"
+    if "new jersey" in agency or "(nj)" in agency or "njstart" in agency or "nj transit" in agency or "rutgers" in agency:
+        return "new_jersey"
+    if "new mexico" in agency or "(nm)" in agency or "kirtland afb" in agency or "white sands" in agency or "sandia" in agency or "los alamos" in agency:
+        return "new_mexico"
+    if "new york" in agency or "nyc " in agency or "(ny)" in agency or "panynj" in agency or "suffolk county" in agency or "rockland county" in agency:
+        return "new_york"
+    if "rhode island" in agency or "(ri)" in agency or "ocean state procures" in agency or "nuwc newport" in agency:
+        return "rhode_island"
+    if "washington state" in agency or "state of washington" in agency or "(wa)" in agency or "watech" in agency or "wa des" in agency or "wsdot" in agency:
+        return "washington"
+
+    if "texas" in agency or ", tx" in agency or "ut md anderson" in agency:
+        return "texas"
+    if "virginia" in agency or "arlington county" in agency:
+        return "virginia"
+    if "california" in agency:
+        return "california"
+    if "florida" in agency:
+        return "florida"
+    if "maryland" in agency or "prince george" in agency or "howard county" in agency:
+        return "maryland"
+    if "illinois" in agency or "chicago transit authority" in agency or "cook county" in agency:
+        return "illinois"
+    if "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
+        return "pennsylvania"
+    if "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
-    if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
+    if "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency or "cobb county" in agency or "gwinnett" in agency or "dekalb" in agency:
+        return "georgia"
+    if "massachusetts" in agency or "(ma)" in agency or "commbuys" in agency or "city of boston" in agency or "boston public" in agency or "mbta" in agency or "massport" in agency or "eotss" in agency:
+        return "massachusetts"
+    if "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency:
+        return "michigan"
+    if "colorado" in agency or "(co)" in agency or "co vss" in agency or "co oit" in agency or "cdot" in agency:
+        return "colorado"
+    if "arizona" in agency or "(az)" in agency or "az app" in agency or "adoa" in agency or "ahcccs" in agency or "maricopa" in agency:
+        return "arizona"
+    if "minnesota" in agency or "(mn)" in agency or "mn swift" in agency or "mnit" in agency or "mndot" in agency or "metropolitan council" in agency:
+        return "minnesota"
+    if "tennessee" in agency or "(tn)" in agency or "tn cpo" in agency or "edison" in agency or "tenncare" in agency:
+        return "tennessee"
+    if "indiana" in agency or "(in)" in agency or "idoa" in agency or "indianapolis" in agency or "fssa" in agency or "purdue" in agency or "nswc crane" in agency:
+        return "indiana"
+    if "missouri" in agency or "(mo)" in agency or "missouribuys" in agency or "oa-itsd" in agency or "mo healthnet" in agency or "st. louis" in agency or "kansas city" in agency:
+        return "missouri"
+    if "wisconsin" in agency or "(wi)" in agency or "esupplier" in agency or "doa det" in agency or "wisdot" in agency or "milwaukee" in agency or "uw-madison" in agency:
+        return "wisconsin"
+    if "oregon" in agency or "(or)" in agency or "oregonbuys" in agency or "das eis" in agency or "portland" in agency or "multnomah" in agency:
+        return "oregon"
+    if "connecticut" in agency or "(ct)" in agency or "ctsource" in agency or "das bits" in agency or "groton" in agency or "hartford" in agency or "uconn" in agency:
+        return "connecticut"
+    if "utah" in agency or "(ut)" in agency or "u3p" in agency or "utah dts" in agency or "hill afb" in agency or "salt lake" in agency:
+        return "utah"
+    if "nevada" in agency or "(nv)" in agency or "nevadaepro" in agency or "nv eits" in agency or "nellis afb" in agency or "clark county" in agency or "las vegas" in agency:
+        return "nevada"
+    if "alabama" in agency or "(al)" in agency or "alabama buys" in agency or "alabamabuys" in agency or "staars" in agency or "redstone" in agency or "huntsville" in agency:
+        return "alabama"
+    if "louisiana" in agency or "(la)" in agency or "lapac" in agency or "lagov" in agency or "barksdale" in agency or "baton rouge" in agency or "new orleans" in agency:
+        return "louisiana"
+    if "kentucky" in agency or "(ky)" in agency or "ky vss" in agency or "ky cot" in agency or "fort knox" in agency or "louisville" in agency:
+        return "kentucky"
+    if "oklahoma" in agency or "(ok)" in agency or "omes" in agency or "soonercare" in agency or "tinker afb" in agency:
+        return "oklahoma"
+    if "iowa" in agency or "(ia)" in agency or "impacs" in agency or "camp dodge" in agency or "des moines" in agency:
+        return "iowa"
+    if "kansas" in agency or "(ks)" in agency or "ks smart" in agency or "fort leavenworth" in agency or "mcconnell afb" in agency:
+        return "kansas"
+    if "mississippi" in agency or "(ms)" in agency or "ms magic" in agency or "keesler afb" in agency or "stennis" in agency:
+        return "mississippi"
+    if "nebraska" in agency or "(ne)" in agency or "offutt afb" in agency or "usstratcom" in agency or "omaha" in agency:
+        return "nebraska"
+    if "idaho" in agency or "(id)" in agency or "ipro" in agency or "luma" in agency or "mountain home afb" in agency or "idaho national lab" in agency:
+        return "idaho"
+    if "hawaii" in agency or "(hi)" in agency or "hiepro" in agency or "indopacom" in agency or "pearl harbor" in agency or "honolulu" in agency:
+        return "hawaii"
+    if "maine" in agency or "(me)" in agency or "maineit" in agency or "mainecare" in agency or "bath iron" in agency or "bangor angb" in agency:
+        return "maine"
+    if "montana" in agency or "(mt)" in agency or "emacs" in agency or "sitsd" in agency or "malmstrom afb" in agency:
+        return "montana"
+    if "delaware" in agency or "(de)" in agency or "mymarketplace" in agency or "de dti" in agency or "dover afb" in agency:
+        return "delaware"
+    if "alaska" in agency or "(ak)" in agency or "ak iris" in agency or "jber" in agency or "elmendorf" in agency or "eielson afb" in agency or "anchorage" in agency:
+        return "alaska"
+    if "vermont" in agency or "(vt)" in agency or "vt bgs" in agency or "vt ads" in agency or "vtrans" in agency or "burlington angb" in agency:
+        return "vermont"
+    if "wyoming" in agency or "(wy)" in agency or "wy ets" in agency or "f.e. warren" in agency or "cheyenne" in agency:
+        return "wyoming"
+    if _has_any_domain("bonfirehub.com"):
         return "maryland"
     if "federal government" in agency:
         return "federal"
     return "municipal"
+
 
 def classify_vertical_tag(record: dict) -> str:
     blob = f"{record.get('title', '')} {record.get('agency', '')}".lower()

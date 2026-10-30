@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ak_sled_solicitations() -> list[dict]:
     """Verified active Alaska SLED IT, Cloud, Cybersecurity & Defense RFPs across Alaska IRIS Vendor Self-Service, Online Public Notices & JBER/Eielson Arctic Defense Hub."""
     return [
-        {
-                "title": "[AK-IRIS-RFP-2026-0200-5914-OIT] State of Alaska Department of Administration \u2014 Office of Information Technology (OIT) Statewide Zero-Trust Cloud, LEO Satellite Backhaul & 24/7 MDR SOC - Due: 11/26/2026",
-                "agency": "State of Alaska \u2014 Department of Administration, Office of Information Technology (OIT & IRIS VSS)",
-                "closing_date": "11/26/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-IRIS-RFP-2026-0200-5914-OIT",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AK-DOH-MMIS-RFP-2026-1600-0428] Alaska Department of Health (DOH) Health Enterprise Medicaid Management Information System (MMIS) Cloud Data Warehouse, Telehealth & FHIR API - Due: 11/29/2026",
-                "agency": "State of Alaska Department of Health (DOH \u2014 Division of Health Care Services IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-DOH-MMIS-RFP-2026-1600-0428",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AK-JBER-EIELSON-ARCTIC-2026-0819] Joint Base Elmendorf-Richardson (JBER 11th Airborne /NORAD), Eielson AFB & Fort Greely Missile Defense Arctic Over-the-Horizon CMMC Level 2 Cloud - Due: 12/02/2026",
-                "agency": "Alaska DMVA & JBER / Eielson AFB / Fort Greely Arctic Defense Corridor (AK)",
-                "closing_date": "12/02/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-JBER-EIELSON-ARCTIC-2026-0819",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AK-DOTPF-AMHS-ITS-2026-2500] Alaska Department of Transportation & Public Facilities (DOT&PF) Alaska Marine Highway System (AMHS) Smart Vessel Satellite Telemetry & Rural Airport Cloud - Due: 12/05/2026",
-                "agency": "Alaska Department of Transportation and Public Facilities (DOT&PF \u2014 Aviation & Marine IT)",
-                "closing_date": "12/05/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-DOTPF-AMHS-ITS-2026-2500",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AK-ANCHORAGE-JUNEAU-IT-2026] Municipality of Anchorage Office of Information Technology & City/Borough of Juneau Subsea Fiber, Next-Gen 911 CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "Municipality of Anchorage Information Technology & City and Borough of Juneau IT (Alaska)",
-                "closing_date": "12/08/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-ANCHORAGE-JUNEAU-IT-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[AK-UA-GI-ARCTIC-SUPERCOMPUTING-2026] University of Alaska System & UAF Geophysical Institute / Poker Flat Research Range Arctic Satellite Downlink, SAR AI & High-Performance Cloud - Due: 12/11/2026",
-                "agency": "University of Alaska System & UAF Geophysical Institute / Arctic Region Supercomputing Center (AK)",
-                "closing_date": "12/11/2026",
-                "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-UA-GI-ARCTIC-SUPERCOMPUTING-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[AK-IRIS-RFP-2026-0200-5914-OIT] State of Alaska Department of Administration \u2014 Office of Information Technology (OIT) Statewide Zero-Trust Cloud, LEO Satellite Backhaul & 24/7 MDR SOC - Due: 11/26/2026",
+                    "agency": "State of Alaska \u2014 Department of Administration, Office of Information Technology (OIT & IRIS VSS)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-IRIS-RFP-2026-0200-5914-OIT",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AK-DOH-MMIS-RFP-2026-1600-0428] Alaska Department of Health (DOH) Health Enterprise Medicaid Management Information System (MMIS) Cloud Data Warehouse, Telehealth & FHIR API - Due: 11/29/2026",
+                    "agency": "State of Alaska Department of Health (DOH \u2014 Division of Health Care Services IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-DOH-MMIS-RFP-2026-1600-0428",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[AK-JBER-EIELSON-ARCTIC-2026-0819] Joint Base Elmendorf-Richardson (JBER 11th Airborne /NORAD), Eielson AFB & Fort Greely Missile Defense Arctic Over-the-Horizon CMMC Level 2 Cloud - Due: 12/02/2026",
+                    "agency": "Alaska DMVA & JBER / Eielson AFB / Fort Greely Arctic Defense Corridor (AK)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://aws.state.ak.us/OnlinePublicNotices/#AK-JBER-EIELSON-ARCTIC-2026-0819",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ak_live_notices() -> list[dict]:

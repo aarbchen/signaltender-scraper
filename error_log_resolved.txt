@@ -595,3 +595,6 @@ Node.js v26.7.0
 
 === ARCHIVED & RESOLVED AT 2026-10-30 22:19:39 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-30 22:11:51 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Card 'product-compliance-matrix' must specify exactly 1 RapidAPI host, found: set()
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 23:14:47 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-30 23:07:35 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Missing CATALOG['product-contract-parsing'] entry

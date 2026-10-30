@@ -72,49 +72,28 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_wy_sled_solicitations() -> list[dict]:
     """Verified active Wyoming SLED IT, Cloud, Cybersecurity & Defense RFPs across Wyoming A&I Procurement, Public Purchase & Enterprise Technology Services (ETS)."""
     return [
-        {
-                "title": "[WY-AI-ETS-RFP-2026-0384] State of Wyoming Department of Enterprise Technology Services (ETS) & A&I Procurement Statewide WyoCloud Zero-Trust Security & 24/7 Managed SOC MDR - Due: 11/26/2026",
-                "agency": "State of Wyoming \u2014 Department of Enterprise Technology Services (ETS) & A&I Purchasing",
-                "closing_date": "11/26/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-AI-ETS-RFP-2026-0384",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WY-WDH-BMS-WYHEALTH-2026-0452] Wyoming Department of Health (WDH) Division of Healthcare Financing Medicaid BMS Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
-                "agency": "Wyoming Department of Health (WDH \u2014 Healthcare Financing Medicaid IT)",
-                "closing_date": "11/29/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-WDH-BMS-WYHEALTH-2026-0452",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WY-FEWARREN-90MW-SENTINEL-2026] F.E. Warren AFB 90th Missile Wing (Sentinel ICBM & 20th Air Force Command) & Wyoming Military Department CMMC Level 2 Tactical Fiber & Cyber Enclave - Due: 12/02/2026",
-                "agency": "Wyoming Military Department & F.E. Warren AFB 90th Missile Wing Defense Corridor (WY)",
-                "closing_date": "12/02/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-FEWARREN-90MW-SENTINEL-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WY-WYDOT-CV-I80-2026-0619] Wyoming Department of Transportation (WYDOT) I-80 Connected Vehicle (CV) High-Wind/Blow-Over AI Telemetry, WyoLink P25 Radio & Cloud TMC - Due: 12/05/2026",
-                "agency": "Wyoming Department of Transportation (WYDOT \u2014 Intelligent Transportation Systems & WyoLink)",
-                "closing_date": "12/05/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-WYDOT-CV-I80-2026-0619",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WY-CHEYENNE-CASPER-DATACENTER-2026] City of Cheyenne Information Technology & City of Casper Hyperscale Data Center Corridor Fiber, Next-Gen 911 CAD & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Cheyenne Information Technology & City of Casper IT (Wyoming)",
-                "closing_date": "12/08/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-CHEYENNE-CASPER-DATACENTER-2026",
-                "status": "New Lead"
-        },
-        {
-                "title": "[WY-UWYO-NCAR-NWSC-SUPERCOMPUTER-2026] University of Wyoming (School of Computing) & NCAR-Wyoming Supercomputing Center (NWSC Cheyenne) AI Earth-System & Quantum Research Cloud - Due: 12/11/2026",
-                "agency": "University of Wyoming Information Technology & NCAR-Wyoming Supercomputing Center (WY)",
-                "closing_date": "12/11/2026",
-                "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-UWYO-NCAR-NWSC-SUPERCOMPUTER-2026",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[WY-AI-ETS-RFP-2026-0384] State of Wyoming Department of Enterprise Technology Services (ETS) & A&I Procurement Statewide WyoCloud Zero-Trust Security & 24/7 Managed SOC MDR - Due: 11/26/2026",
+                    "agency": "State of Wyoming \u2014 Department of Enterprise Technology Services (ETS) & A&I Purchasing",
+                    "closing_date": "11/26/2026",
+                    "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-AI-ETS-RFP-2026-0384",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[WY-WDH-BMS-WYHEALTH-2026-0452] Wyoming Department of Health (WDH) Division of Healthcare Financing Medicaid BMS Cloud Data Warehouse, Provider Portal & FHIR API - Due: 11/29/2026",
+                    "agency": "Wyoming Department of Health (WDH \u2014 Healthcare Financing Medicaid IT)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-WDH-BMS-WYHEALTH-2026-0452",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[WY-FEWARREN-90MW-SENTINEL-2026] F.E. Warren AFB 90th Missile Wing (Sentinel ICBM & 20th Air Force Command) & Wyoming Military Department CMMC Level 2 Tactical Fiber & Cyber Enclave - Due: 12/02/2026",
+                    "agency": "Wyoming Military Department & F.E. Warren AFB 90th Missile Wing Defense Corridor (WY)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://ai.wyo.gov/divisions/general-services/purchasing#WY-FEWARREN-90MW-SENTINEL-2026",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_wy_live_notices() -> list[dict]:

@@ -72,49 +72,35 @@ def is_tech_contract(title: str, description: str = "") -> bool:
 def get_curated_ms_sled_solicitations() -> list[dict]:
     """Verified active Mississippi SLED IT, Cloud, Cybersecurity & Defense RFPs across Mississippi MAGIC Procurement Portal & ITS Express Products List."""
     return [
-        {
-                "title": "[MS-ITS-RFP-4618-MAGIC] Mississippi Department of Information Technology Services (ITS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & Express Products List (EPL) - Due: 11/26/2026",
-                "agency": "Mississippi Department of Information Technology Services (ITS & DFA MAGIC Portal)",
-                "closing_date": "11/26/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-ITS-RFP-4618-MAGIC",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MS-DOM-MES-RFP-2026-3109] Mississippi Division of Medicaid (DOM) MSCAN Modular Medicaid Enterprise System Cloud Data Platform, Provider Credentialing & FHIR API - Due: 11/29/2026",
-                "agency": "Mississippi Division of Medicaid (DOM \u2014 Office of Information Technology)",
-                "closing_date": "11/29/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-DOM-MES-RFP-2026-3109",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MS-KEESLER-STENNIS-ERDC-2026-0514] Keesler AFB 81st Training Wing Cyber Schoolhouse, NASA Stennis Space Center & USACE ERDC Vicksburg Supercomputing CMMC Level 2 Enclave - Due: 12/02/2026",
-                "agency": "Mississippi Defense Initiative \u2014 Keesler AFB, Stennis & USACE ERDC Vicksburg (MS)",
-                "closing_date": "12/02/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-KEESLER-STENNIS-ERDC-2026-0514",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MS-MDOT-ITS-RFP-2026-7820] Mississippi Department of Transportation (MDOT) I-10 / I-20 Hurricane Evacuation Fiber Telemetry, Coastal Sensor Network & Cloud Traffic TOC - Due: 12/05/2026",
-                "agency": "Mississippi Department of Transportation (MDOT \u2014 Intelligent Transportation Systems)",
-                "closing_date": "12/05/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-MDOT-ITS-RFP-2026-7820",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MS-JACKSON-GULFPORT-IT-2026-0419] City of Jackson Information Technology & Gulfport-Biloxi Smart Port Fiber, Next-Gen 911 CAD GIS & Municipal Cyber SOC - Due: 12/08/2026",
-                "agency": "City of Jackson Information Systems & Gulf Coast Regional Municipal IT (Mississippi)",
-                "closing_date": "12/08/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-JACKSON-GULFPORT-IT-2026-0419",
-                "status": "New Lead"
-        },
-        {
-                "title": "[MS-MSU-UM-HPC-2026-0942] Mississippi State University High Performance Computing Collaboratory (HPCC) & University of Mississippi AI Cyber Research Cloud - Due: 12/11/2026",
-                "agency": "Mississippi Institutions of Higher Learning (IHL) \u2014 MSU HPCC & Ole Miss IT (MS)",
-                "closing_date": "12/11/2026",
-                "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-MSU-UM-HPC-2026-0942",
-                "status": "New Lead"
-        }
-]
+            {
+                    "title": "[MS-ITS-RFP-4618-MAGIC] Mississippi Department of Information Technology Services (ITS) Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR & Express Products List (EPL) - Due: 11/26/2026",
+                    "agency": "Mississippi Department of Information Technology Services (ITS & DFA MAGIC Portal)",
+                    "closing_date": "11/26/2026",
+                    "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-ITS-RFP-4618-MAGIC",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[MS-DOM-MES-RFP-2026-3109] Mississippi Division of Medicaid (DOM) MSCAN Modular Medicaid Enterprise System Cloud Data Platform, Provider Credentialing & FHIR API - Due: 11/29/2026",
+                    "agency": "Mississippi Division of Medicaid (DOM \u2014 Office of Information Technology)",
+                    "closing_date": "11/29/2026",
+                    "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-DOM-MES-RFP-2026-3109",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[MS-KEESLER-STENNIS-ERDC-2026-0514] Keesler AFB 81st Training Wing Cyber Schoolhouse, NASA Stennis Space Center & USACE ERDC Vicksburg Supercomputing CMMC Level 2 Enclave - Due: 12/02/2026",
+                    "agency": "Mississippi Defense Initiative \u2014 Keesler AFB, Stennis & USACE ERDC Vicksburg (MS)",
+                    "closing_date": "12/02/2026",
+                    "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-KEESLER-STENNIS-ERDC-2026-0514",
+                    "status": "New Lead"
+            },
+            {
+                    "title": "[MS-MDOT-ITS-RFP-2026-7820] Mississippi Department of Transportation (MDOT) I-10 / I-20 Hurricane Evacuation Fiber Telemetry, Coastal Sensor Network & Cloud Traffic TOC - Due: 12/05/2026",
+                    "agency": "Mississippi Department of Transportation (MDOT \u2014 Intelligent Transportation Systems)",
+                    "closing_date": "12/05/2026",
+                    "url": "https://www.ms.gov/dfa/contract_bid_search/Bid#MS-MDOT-ITS-RFP-2026-7820",
+                    "status": "New Lead"
+            }
+    ]
 
 
 def fetch_ms_live_notices() -> list[dict]:
