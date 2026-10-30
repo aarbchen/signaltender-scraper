@@ -3375,32 +3375,104 @@ def _render_layout(
 
     window.renderPageSectionSidebar();
 
-    window.filterStaticContractsTable = function (qVal) {{
-      var anchorEl = document.getElementById('static-rfp-search') || document.activeElement;
-      var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
-      var q = String(qVal || '').trim().toLowerCase();
+    window.__STATIC_RFP_PAGE_SIZE = 10;
+    window.__STATIC_RFP_PAGE = 1;
+
+    window.setStaticContractsPageSize = function (sz) {{
+      window.__STATIC_RFP_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+      window.__STATIC_RFP_PAGE = 1;
+      var tbody = document.querySelector('main table tbody');
+      var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+      if (tblWrap && tblWrap.style) {{
+        tblWrap.style.minHeight = '';
+        if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+      }}
+      var inp = document.getElementById('static-rfp-search');
+      window.filterStaticContractsTable(inp ? inp.value : '', true);
+    }};
+
+    window.setStaticContractsPage = function (p) {{
+      window.__STATIC_RFP_PAGE = Math.max(1, parseInt(p, 10) || 1);
+      var tbody = document.querySelector('main table tbody');
+      var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+      if (tblWrap && tblWrap.style) {{
+        tblWrap.style.minHeight = '';
+        if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+      }}
+      var inp = document.getElementById('static-rfp-search');
+      window.filterStaticContractsTable(inp ? inp.value : '', true);
+      var card = document.getElementById('static-contracts-table-card');
+      if (card && card.getBoundingClientRect) {{
+        var topY = card.getBoundingClientRect().top + (window.pageYOffset || 0) - 90;
+        var docEl = document.documentElement;
+        var prevB = docEl.style.scrollBehavior;
+        docEl.style.scrollBehavior = 'auto';
+        window.scrollTo(0, Math.max(0, topY));
+        docEl.style.scrollBehavior = prevB;
+      }}
+    }};
+
+    window.filterStaticContractsTable = function (qVal, keepPage) {{
+      var inp = document.getElementById('static-rfp-search');
+      var anchorEl = inp || document.activeElement;
+      var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
+      var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+      if (!keepPage) window.__STATIC_RFP_PAGE = 1;
       var tbody = document.querySelector('main table tbody');
       if (!tbody) return;
       var tblWrap = tbody.closest('.overflow-x-auto') || tbody.parentElement;
-      if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
-        tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
-        tblWrap.style.overflowAnchor = 'none';
-        tblWrap.setAttribute('data-locked-min-h', '1');
-      }}
       var rows = tbody.querySelectorAll('tr:not(#static-rfp-empty-row)');
-      var shown = 0;
+      var matched = [];
       for (var i = 0; i < rows.length; i++) {{
         var txt = (rows[i]._stSearchText || (rows[i]._stSearchText = (rows[i].textContent || '').toLowerCase()));
         if (!q || txt.indexOf(q) !== -1) {{
-          rows[i].classList.remove('hidden');
-          shown++;
+          matched.push(rows[i]);
         }} else {{
           rows[i].classList.add('hidden');
         }}
       }}
+      var totalMatched = matched.length;
+      var pSize = window.__STATIC_RFP_PAGE_SIZE || 10;
+      var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+      var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+      if (window.__STATIC_RFP_PAGE > totalPages) window.__STATIC_RFP_PAGE = totalPages;
+      if (window.__STATIC_RFP_PAGE < 1) window.__STATIC_RFP_PAGE = 1;
+      var startIdx = (pSize === 'all') ? 0 : ((window.__STATIC_RFP_PAGE - 1) * effSize);
+      var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+      for (var m = 0; m < totalMatched; m++) {{
+        if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+        else matched[m].classList.add('hidden');
+      }}
+      if (tblWrap && q && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
+        tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+        tblWrap.style.overflowAnchor = 'none';
+        tblWrap.setAttribute('data-locked-min-h', '1');
+      }}
       var badge = document.getElementById('static-rfp-count-badge');
       if (badge) {{
-        badge.textContent = shown + ' OF ' + rows.length + ' SHOWN';
+        if (totalMatched === 0) {{
+          badge.textContent = '0 OF ' + rows.length + ' SHOWN';
+        }} else {{
+          badge.textContent = 'SHOWING ' + (startIdx + 1) + '-' + endIdx + ' OF ' + totalMatched + (totalMatched < rows.length ? (' (' + rows.length + ' TOTAL)') : ' SHOWN');
+        }}
+        if (!document.getElementById('static-rfp-top-size-group') && badge.parentElement && badge.parentElement.insertBefore) {{
+          var szWrap = document.createElement('div');
+          szWrap.id = 'static-rfp-top-size-group';
+          szWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+          szWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+            [10, 20, 50, 'all'].map(function (sz) {{
+              return '<button type="button" data-static-sz="' + sz + '" onclick="window.setStaticContractsPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="static-sz-btn px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+            }}).join('');
+          badge.parentElement.insertBefore(szWrap, badge);
+        }}
+      }}
+      var topBtns = document.querySelectorAll('.static-sz-btn');
+      for (var b = 0; b < topBtns.length; b++) {{
+        var bVal = topBtns[b].getAttribute('data-static-sz');
+        var isAct = String(pSize) === String(bVal);
+        topBtns[b].textContent = (bVal === 'all') ? 'All' : bVal;
+        topBtns[b].className = 'static-sz-btn px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+          (isAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
       }}
       var clearBtn = document.getElementById('static-rfp-clear-btn');
       if (clearBtn) {{
@@ -3415,8 +3487,49 @@ def _render_layout(
         emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query.</td>';
         tbody.appendChild(emptyRow);
       }}
-      if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
+      if (totalMatched === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
       else emptyRow.classList.add('hidden');
+
+      var card = document.getElementById('static-contracts-table-card') || (tblWrap ? tblWrap.parentElement : null);
+      if (card && card.appendChild) {{
+        var pager = document.getElementById('static-rfp-pagination-bar');
+        if (!pager) {{
+          pager = document.createElement('div');
+          pager.id = 'static-rfp-pagination-bar';
+          pager.className = 'px-4 py-3 bg-slate-900/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+          card.appendChild(pager);
+        }}
+        if (rows.length <= 10 && totalMatched <= 10) {{
+          pager.className = 'hidden';
+        }} else {{
+          pager.className = 'px-4 py-3 bg-slate-900/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+          var rangeTxt = totalMatched === 0 ? '0 matching records' : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + totalMatched + '</span>');
+          var szHtml = [10, 20, 50, 'all'].map(function (sz) {{
+            var active = String(pSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setStaticContractsPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }}).join('');
+          var prevDis = window.__STATIC_RFP_PAGE <= 1;
+          var nextDis = window.__STATIC_RFP_PAGE >= totalPages;
+          var navHtml = (pSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setStaticContractsPage(' + (window.__STATIC_RFP_PAGE - 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + window.__STATIC_RFP_PAGE + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setStaticContractsPage(' + (window.__STATIC_RFP_PAGE + 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          pager.innerHTML = '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Rows per page:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }}
+      }}
+
       if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {{
         var deltaY = anchorEl.getBoundingClientRect().top - anchorTopBefore;
         if (Math.abs(deltaY) > 0.5) {{
@@ -3428,6 +3541,80 @@ def _render_layout(
         }}
       }}
     }};
+
+    window.__STATIC_HUBS_PAGE_SIZE = 10;
+    window.__STATIC_HUBS_PAGE = 1;
+    window.setStaticPortalHubsPageSize = function (sz) {{
+      window.__STATIC_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+      window.__STATIC_HUBS_PAGE = 1;
+      var inp = document.getElementById('static-hubs-search');
+      window.filterStaticPortalHubs(inp ? inp.value : '', true);
+    }};
+    window.setStaticPortalHubsPage = function (p) {{
+      window.__STATIC_HUBS_PAGE = Math.max(1, parseInt(p, 10) || 1);
+      var inp = document.getElementById('static-hubs-search');
+      window.filterStaticPortalHubs(inp ? inp.value : '', true);
+    }};
+    window.filterStaticPortalHubs = function (qVal, keepPage) {{
+      var grid = document.getElementById('contracts-portal-hubs-grid');
+      if (!grid) return;
+      if (!document.getElementById('static-hubs-toolbar') && grid.parentElement && grid.parentElement.insertBefore) {{
+        var tb = document.createElement('div');
+        tb.id = 'static-hubs-toolbar';
+        tb.className = 'mb-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
+        tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
+          '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// PORTAL HUBS:</span>' +
+          '<input id="static-hubs-search" type="search" placeholder="Filter 33 federal &amp; state hubs..." oninput="window.filterStaticPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+        '</div>' +
+        '<div id="static-hubs-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
+        grid.parentElement.insertBefore(tb, grid);
+      }}
+      var inp = document.getElementById('static-hubs-search');
+      var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+      if (!keepPage) window.__STATIC_HUBS_PAGE = 1;
+      var cards = grid.querySelectorAll('a');
+      var matched = [];
+      for (var i = 0; i < cards.length; i++) {{
+        var txt = (cards[i]._stHubText || (cards[i]._stHubText = (cards[i].textContent || '').toLowerCase()));
+        if (!q || txt.indexOf(q) !== -1) matched.push(cards[i]);
+        else cards[i].classList.add('hidden');
+      }}
+      var totalMatched = matched.length;
+      var pSize = window.__STATIC_HUBS_PAGE_SIZE || 10;
+      var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+      var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+      if (window.__STATIC_HUBS_PAGE > totalPages) window.__STATIC_HUBS_PAGE = totalPages;
+      var startIdx = (pSize === 'all') ? 0 : ((window.__STATIC_HUBS_PAGE - 1) * effSize);
+      var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+      for (var m = 0; m < totalMatched; m++) {{
+        if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+        else matched[m].classList.add('hidden');
+      }}
+      var rightEl = document.getElementById('static-hubs-toolbar-right');
+      if (rightEl) {{
+        var szBtns = [10, 20, 'all'].map(function (sz) {{
+          var act = String(pSize) === String(sz);
+          var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+          var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+          return '<button type="button" onclick="window.setStaticPortalHubsPageSize(' + arg + ')" class="px-2 py-0.5 rounded border text-[11px] cursor-pointer transition-colors ' +
+            (act ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+        }}).join('');
+        var prevDis = window.__STATIC_HUBS_PAGE <= 1;
+        var nextDis = window.__STATIC_HUBS_PAGE >= totalPages;
+        var navBtns = (pSize === 'all' || totalPages <= 1) ? '' : (
+          '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setStaticPortalHubsPage(' + (window.__STATIC_HUBS_PAGE - 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+            (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+          '<span class="text-[11px] text-slate-400">' + window.__STATIC_HUBS_PAGE + '/' + totalPages + '</span>' +
+          '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setStaticPortalHubsPage(' + (window.__STATIC_HUBS_PAGE + 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+            (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>'
+        );
+        rightEl.innerHTML = '<span class="text-[11px] text-emerald-400">' + (totalMatched === 0 ? '0 shown' : ('Showing ' + (startIdx + 1) + '&ndash;' + endIdx + ' of ' + totalMatched)) + '</span>' +
+          '<span class="text-slate-400 text-[11px] ml-1">SHOW:</span>' + szBtns + navBtns;
+      }}
+    }};
+
+    window.filterStaticContractsTable('', true);
+    window.filterStaticPortalHubs('', true);
 
     window.submitStaticLeadCapture = function () {{
       var emailEl = document.getElementById('static-lead-email');
@@ -6272,12 +6459,50 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         }}
         var emptyRow = document.getElementById('contracts-live-empty');
         if (emptyRow) tbody.appendChild(emptyRow);
+        window.filterContractsDirectory(undefined, true);
       }};
 
-      window.filterContractsDirectory = function (qVal) {{
+      window.__SPA_CONTRACTS_PAGE_SIZE = 10;
+      window.__SPA_CONTRACTS_PAGE = 1;
+
+      window.setSpaContractsPageSize = function (sz) {{
+        window.__SPA_CONTRACTS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        window.__SPA_CONTRACTS_PAGE = 1;
+        var root = document.getElementById('contracts-dynamic-root');
+        var tbody = root ? root.querySelector('table tbody') : null;
+        var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+        if (tblWrap && tblWrap.style) {{
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }}
+        window.filterContractsDirectory(undefined, true);
+      }};
+
+      window.setSpaContractsPage = function (p) {{
+        window.__SPA_CONTRACTS_PAGE = Math.max(1, parseInt(p, 10) || 1);
+        var root = document.getElementById('contracts-dynamic-root');
+        var tbody = root ? root.querySelector('table tbody') : null;
+        var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+        if (tblWrap && tblWrap.style) {{
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }}
+        window.filterContractsDirectory(undefined, true);
+        var card = document.getElementById('static-contracts-table-card');
+        if (card && card.getBoundingClientRect) {{
+          var topY = card.getBoundingClientRect().top + (window.pageYOffset || 0) - 90;
+          var docEl = document.documentElement;
+          var prevB = docEl.style.scrollBehavior;
+          docEl.style.scrollBehavior = 'auto';
+          window.scrollTo(0, Math.max(0, topY));
+          docEl.style.scrollBehavior = prevB;
+        }}
+      }};
+
+      window.filterContractsDirectory = function (qVal, keepPage) {{
         var inp = document.getElementById('contracts-live-search');
         var anchorEl = inp || document.activeElement;
-        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
+        var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
         var rawQ = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim();
         if (rawQ.indexOf('@') !== -1) {{
           rawQ = '';
@@ -6286,6 +6511,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         }}
         var q = rawQ.toLowerCase();
         if (inp && inp.value !== qVal && qVal !== undefined) inp.value = qVal;
+        if (!keepPage) window.__SPA_CONTRACTS_PAGE = 1;
         var clearBtn = document.getElementById('contracts-live-clear');
         if (clearBtn) {{
           if (q) clearBtn.classList.remove('hidden');
@@ -6296,16 +6522,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         var tbody = root.querySelector('table tbody');
         if (!tbody) return;
         var tblWrap = tbody.closest('.overflow-x-auto') || tbody.parentElement;
-        if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
-          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
-          tblWrap.style.overflowAnchor = 'none';
-          tblWrap.setAttribute('data-locked-min-h', '1');
-        }}
         var savedMap = {{}};
         try {{ savedMap = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{{}}') || {{}}; }} catch (e) {{}}
         var qf = window.__SPA_CONTRACTS_QF || 'all';
         var rows = tbody.querySelectorAll('tr:not(#contracts-live-empty)');
-        var shown = 0;
+        var matched = [];
         for (var i = 0; i < rows.length; i++) {{
           var r = rows[i];
           var txt = (r._stSearchText || (r._stSearchText = (r.textContent || '').toLowerCase()));
@@ -6315,15 +6536,42 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           if (qf === 'saved') matchQf = Boolean(savedMap[slugAttr]);
           else if (qf !== 'all') matchQf = (catsAttr.indexOf(qf) !== -1) || (txt.indexOf(qf.split('-')[0]) !== -1);
           if (matchQf && (!q || txt.indexOf(q) !== -1)) {{
-            r.classList.remove('hidden');
-            shown++;
+            matched.push(r);
           }} else {{
             r.classList.add('hidden');
           }}
         }}
+        var totalMatched = matched.length;
+        var pSize = window.__SPA_CONTRACTS_PAGE_SIZE || 10;
+        var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+        var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+        if (window.__SPA_CONTRACTS_PAGE > totalPages) window.__SPA_CONTRACTS_PAGE = totalPages;
+        if (window.__SPA_CONTRACTS_PAGE < 1) window.__SPA_CONTRACTS_PAGE = 1;
+        var startIdx = (pSize === 'all') ? 0 : ((window.__SPA_CONTRACTS_PAGE - 1) * effSize);
+        var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+        for (var m = 0; m < totalMatched; m++) {{
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }}
+        if (tblWrap && q && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {{
+          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+          tblWrap.style.overflowAnchor = 'none';
+          tblWrap.setAttribute('data-locked-min-h', '1');
+        }}
         var cntEl = document.getElementById('contracts-live-count');
         if (cntEl) {{
-          cntEl.textContent = shown + ' OF ' + rows.length + ' SOLICITATIONS SHOWN';
+          if (totalMatched === 0) {{
+            cntEl.textContent = '0 OF ' + rows.length + ' SOLICITATIONS SHOWN';
+          }} else {{
+            cntEl.textContent = 'SHOWING ' + (startIdx + 1) + '-' + endIdx + ' OF ' + totalMatched + ' SOLICITATIONS';
+          }}
+        }}
+        var szBtns = root.querySelectorAll('.spa-rfp-sz-btn');
+        for (var b = 0; b < szBtns.length; b++) {{
+          var bVal = szBtns[b].getAttribute('data-spa-sz');
+          var isAct = String(pSize) === String(bVal);
+          szBtns[b].className = 'spa-rfp-sz-btn px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+            (isAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
         }}
         var emptyRow = document.getElementById('contracts-live-empty');
         if (!emptyRow) {{
@@ -6333,8 +6581,44 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query. <button type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="text-sky-400 underline ml-1 cursor-pointer">Reset filter</button></td>';
           tbody.appendChild(emptyRow);
         }}
-        if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
+        if (totalMatched === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
         else emptyRow.classList.add('hidden');
+
+        var card = document.getElementById('static-contracts-table-card') || (tblWrap ? tblWrap.parentElement : null);
+        if (card && card.appendChild) {{
+          var pager = document.getElementById('spa-contracts-pagination-bar');
+          if (!pager) {{
+            pager = document.createElement('div');
+            pager.id = 'spa-contracts-pagination-bar';
+            pager.className = 'px-4 py-3 bg-slate-900/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            card.appendChild(pager);
+          }}
+          var rangeTxt = totalMatched === 0 ? '0 matching solicitations' : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + totalMatched + '</span> solicitations');
+          var szHtml = [10, 20, 50, 'all'].map(function (sz) {{
+            var active = String(pSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setSpaContractsPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }}).join('');
+          var prevDis = window.__SPA_CONTRACTS_PAGE <= 1;
+          var nextDis = window.__SPA_CONTRACTS_PAGE >= totalPages;
+          var navHtml = (pSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setSpaContractsPage(' + (window.__SPA_CONTRACTS_PAGE - 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + window.__SPA_CONTRACTS_PAGE + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setSpaContractsPage(' + (window.__SPA_CONTRACTS_PAGE + 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          pager.innerHTML = '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }}
+
         if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {{
           var deltaY = anchorEl.getBoundingClientRect().top - anchorTopBefore;
           if (Math.abs(deltaY) > 0.5) {{
@@ -6344,6 +6628,77 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             window.scrollBy(0, deltaY);
             docEl.style.scrollBehavior = prevB;
           }}
+        }}
+      }};
+
+      window.__SPA_HUBS_PAGE_SIZE = 10;
+      window.__SPA_HUBS_PAGE = 1;
+      window.setSpaPortalHubsPageSize = function (sz) {{
+        window.__SPA_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        window.__SPA_HUBS_PAGE = 1;
+        var inp = document.getElementById('spa-hubs-search');
+        window.filterSpaPortalHubs(inp ? inp.value : '', true);
+      }};
+      window.setSpaPortalHubsPage = function (p) {{
+        window.__SPA_HUBS_PAGE = Math.max(1, parseInt(p, 10) || 1);
+        var inp = document.getElementById('spa-hubs-search');
+        window.filterSpaPortalHubs(inp ? inp.value : '', true);
+      }};
+      window.filterSpaPortalHubs = function (qVal, keepPage) {{
+        var grid = document.getElementById('contracts-portal-hubs-grid');
+        if (!grid) return;
+        if (!document.getElementById('spa-hubs-toolbar') && grid.parentElement && grid.parentElement.insertBefore) {{
+          var tb = document.createElement('div');
+          tb.id = 'spa-hubs-toolbar';
+          tb.className = 'mb-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
+          tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
+            '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// PORTAL HUBS:</span>' +
+            '<input id="spa-hubs-search" type="search" placeholder="Filter 33 federal &amp; state hubs..." oninput="window.filterSpaPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+          '</div>' +
+          '<div id="spa-hubs-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
+          grid.parentElement.insertBefore(tb, grid);
+        }}
+        var inp = document.getElementById('spa-hubs-search');
+        var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+        if (!keepPage) window.__SPA_HUBS_PAGE = 1;
+        var cards = grid.querySelectorAll('a');
+        var matched = [];
+        for (var i = 0; i < cards.length; i++) {{
+          var txt = (cards[i]._stHubText || (cards[i]._stHubText = (cards[i].textContent || '').toLowerCase()));
+          if (!q || txt.indexOf(q) !== -1) matched.push(cards[i]);
+          else cards[i].classList.add('hidden');
+        }}
+        var totalMatched = matched.length;
+        var pSize = window.__SPA_HUBS_PAGE_SIZE || 10;
+        var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+        var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+        if (window.__SPA_HUBS_PAGE > totalPages) window.__SPA_HUBS_PAGE = totalPages;
+        var startIdx = (pSize === 'all') ? 0 : ((window.__SPA_HUBS_PAGE - 1) * effSize);
+        var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+        for (var m = 0; m < totalMatched; m++) {{
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }}
+        var rightEl = document.getElementById('spa-hubs-toolbar-right');
+        if (rightEl) {{
+          var szBtns = [10, 20, 'all'].map(function (sz) {{
+            var act = String(pSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setSpaPortalHubsPageSize(' + arg + ')" class="px-2 py-0.5 rounded border text-[11px] cursor-pointer transition-colors ' +
+              (act ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }}).join('');
+          var prevDis = window.__SPA_HUBS_PAGE <= 1;
+          var nextDis = window.__SPA_HUBS_PAGE >= totalPages;
+          var navBtns = (pSize === 'all' || totalPages <= 1) ? '' : (
+            '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setSpaPortalHubsPage(' + (window.__SPA_HUBS_PAGE - 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+            '<span class="text-[11px] text-slate-400">' + window.__SPA_HUBS_PAGE + '/' + totalPages + '</span>' +
+            '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setSpaPortalHubsPage(' + (window.__SPA_HUBS_PAGE + 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>'
+          );
+          rightEl.innerHTML = '<span class="text-[11px] text-emerald-400">' + (totalMatched === 0 ? '0 shown' : ('Showing ' + (startIdx + 1) + '&ndash;' + endIdx + ' of ' + totalMatched)) + '</span>' +
+            '<span class="text-slate-400 text-[11px] ml-1">SHOW:</span>' + szBtns + navBtns;
         }}
       }};
 
@@ -6606,7 +6961,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex flex-wrap items-center gap-2">' +'<div class="flex items-center gap-1 mr-1"><span class="text-slate-400">SHOW:</span><button type="button" data-spa-sz="10" onclick="window.setSpaContractsPageSize(10)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-sky-600 text-white border-sky-400 font-semibold cursor-pointer">10</button><button type="button" data-spa-sz="20" onclick="window.setSpaContractsPageSize(20)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">20</button><button type="button" data-spa-sz="50" onclick="window.setSpaContractsPageSize(50)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">50</button><button type="button" data-spa-sz="all" onclick="window.setSpaContractsPageSize(&quot;all&quot;)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">All</button></div>' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -6621,6 +6976,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                 '</table>' +
               '</div>' +
             '</div>' + renderLeadBox(jKey, jmHub.short);
+          window.filterContractsDirectory('', true);
           if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
           return;
         }}
@@ -6657,7 +7013,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           '</div>' +
           '<div id="contracts-portal-hubs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex flex-wrap items-center gap-2">' +'<div class="flex items-center gap-1 mr-1"><span class="text-slate-400">SHOW:</span><button type="button" data-spa-sz="10" onclick="window.setSpaContractsPageSize(10)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-sky-600 text-white border-sky-400 font-semibold cursor-pointer">10</button><button type="button" data-spa-sz="20" onclick="window.setSpaContractsPageSize(20)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">20</button><button type="button" data-spa-sz="50" onclick="window.setSpaContractsPageSize(50)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">50</button><button type="button" data-spa-sz="all" onclick="window.setSpaContractsPageSize(&quot;all&quot;)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">All</button></div>' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -6672,12 +7028,15 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               '</table>' +
             '</div>' +
           '</div>' + renderLeadBox('all', '');
-        if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
+        window.filterSpaPortalHubs('', true);
         if (window.__PENDING_CONTRACTS_SEARCH) {{
           var pq = window.__PENDING_CONTRACTS_SEARCH;
           window.__PENDING_CONTRACTS_SEARCH = '';
           window.filterContractsDirectory(pq);
+        }} else {{
+          window.filterContractsDirectory('', true);
         }}
+        if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
       }};
     }})();
   </script>

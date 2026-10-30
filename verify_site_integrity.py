@@ -731,14 +731,16 @@ function makeEl(id) {
     },
     getAttribute(k) { return this[k] || null; },
     setAttribute(k, v) { this[k] = v; },
+    removeAttribute(k) { delete this[k]; },
     getBoundingClientRect() { return { top: 120 }; },
     scrollIntoView() {},
     closest() { return makeEl('wrap'); },
     querySelector() { return makeEl('q'); },
     querySelectorAll() { return [makeEl('r1'), makeEl('r2')]; },
     appendChild() {},
-    parentNode: { replaceChild() {}, insertBefore() {} },
-    parentElement: { className: 'divide-y', offsetHeight: 500, style: {}, getAttribute(){return null;}, setAttribute(){} },
+    insertBefore() {},
+    parentNode: { replaceChild() {}, insertBefore() {}, appendChild() {} },
+    parentElement: { className: 'divide-y', offsetHeight: 500, style: {}, getAttribute(){return null;}, setAttribute(){}, removeAttribute(){}, insertBefore(){}, appendChild(){}, parentElement: { insertBefore(){}, appendChild(){} } },
     addEventListener() {}
   };
 }
@@ -789,10 +791,26 @@ if (!document.getElementById('contracts-dynamic-root').innerHTML.includes('CAPTU
 }
 window.filterContractsDirectory('cyber');
 window.filterContractsDirectory('');
+window.setSpaContractsPageSize(20);
+window.setSpaContractsPage(1);
+window.setSpaContractsPageSize(10);
+window.setSpaPortalHubsPageSize(20);
+window.setSpaPortalHubsPageSize(10);
 window.filterApiCatalog('cmmc', 'compliance');
 window.filterApiCatalog('', 'all');
+window.setApiCatalogPageSize(20);
+window.setApiCatalogPage(2);
+window.setApiCatalogPageSize(10);
+window.ensureApiProductVisible('product-cost-accounting-cas-ds2');
 window.filterMainRfpTable('zero-trust', 'federal');
 window.filterMainRfpTable('', 'all');
+window.setMainRfpPageSize(20);
+window.setMainRfpPage(1);
+window.setMainRfpPageSize(10);
+window.setCoveragePortalPageSize(20);
+window.setCoveragePortalPageSize(10);
+window.setIntegrationsApiPageSize(20);
+window.setIntegrationsApiPageSize(10);
 window.openApiSandbox('product-key-personnel');
 window.closeApiSandbox();
 window.setCheckoutBilling('annual');

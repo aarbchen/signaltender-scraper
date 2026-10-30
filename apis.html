@@ -12739,20 +12739,78 @@
 
       var currentApiQuery = '';
       var currentApiCat = 'all';
+      var currentApiPageSize = 10;
+      var currentApiPage = 1;
 
-      window.filterApiCatalog = function (queryVal, catVal) {
+      window.setApiCatalogPageSize = function (sz) {
+        currentApiPageSize = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        currentApiPage = 1;
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+      };
+
+      window.setApiCatalogPage = function (pageNum, scrollContainerId) {
+        currentApiPage = Math.max(1, parseInt(pageNum, 10) || 1);
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+        if (scrollContainerId) {
+          var targetEl = document.getElementById(scrollContainerId);
+          if (targetEl && targetEl.getBoundingClientRect) {
+            var topY = targetEl.getBoundingClientRect().top + (window.pageYOffset || 0) - 96;
+            var docEl = document.documentElement;
+            var prevB = docEl.style.scrollBehavior;
+            docEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, Math.max(0, topY));
+            docEl.style.scrollBehavior = prevB;
+          }
+        }
+      };
+
+      window.ensureApiProductVisible = function (apiId) {
+        if (!apiId) return;
+        var cleanId = String(apiId).replace(/^#/, '');
+        if (!API_META[cleanId]) return;
+        var allKeys = Object.keys(API_META);
+        var q = currentApiQuery.trim().toLowerCase();
+        var matchedNow = allKeys.filter(function (id) {
+          var meta = API_META[id];
+          var art = document.getElementById(id);
+          var cardText = art ? (art._stSearchText || (art._stSearchText = (art.textContent || '').toLowerCase())) : '';
+          var mCat = (currentApiCat === 'all') || (meta.cat === currentApiCat);
+          var mQ = !q || (meta.kw.indexOf(q) !== -1) || (cardText.indexOf(q) !== -1);
+          return mCat && mQ;
+        });
+        if (matchedNow.indexOf(cleanId) === -1) {
+          currentApiQuery = '';
+          currentApiCat = 'all';
+          matchedNow = allKeys;
+        }
+        var pos = matchedNow.indexOf(cleanId);
+        if (pos !== -1 && currentApiPageSize !== 'all') {
+          currentApiPage = Math.floor(pos / currentApiPageSize) + 1;
+        }
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+      };
+
+      window.filterApiCatalog = function (queryVal, catVal, keepPage) {
         var anchorEl = document.activeElement;
         if (!anchorEl || (anchorEl.tagName !== 'INPUT' && anchorEl.tagName !== 'BUTTON')) {
           anchorEl = document.getElementById('api-modules-search') || document.getElementById('api-catalog-search');
         }
-        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
-
-        // Lock Quick-Jump Directory height before hiding any rows so filtering never shifts content below it
-        var dirList = document.getElementById('api-directory-list');
-        if (dirList && !dirList.getAttribute('data-locked-min-h') && dirList.offsetHeight > 0) {
-          dirList.style.minHeight = dirList.offsetHeight + 'px';
-          dirList.setAttribute('data-locked-min-h', '1');
-        }
+        var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
 
         if (queryVal !== null && queryVal !== undefined) {
           var candidateQ = String(queryVal);
@@ -12763,6 +12821,9 @@
         }
         if (catVal !== null && catVal !== undefined) {
           currentApiCat = String(catVal);
+        }
+        if (!keepPage) {
+          currentApiPage = 1;
         }
 
         var topInput = document.getElementById('api-catalog-search');
@@ -12797,49 +12858,171 @@
         }
 
         var q = currentApiQuery.trim().toLowerCase();
-        var totalCount = Object.keys(API_META).length;
-        var matchedCount = 0;
+        var allApiIds = Object.keys(API_META);
+        var totalCount = allApiIds.length;
+        var matchedIds = [];
 
-        Object.keys(API_META).forEach(function (apiId) {
+        allApiIds.forEach(function (apiId) {
           var meta = API_META[apiId];
           var article = document.getElementById(apiId);
           var cardText = article ? (article._stSearchText || (article._stSearchText = (article.textContent || '').toLowerCase())) : '';
           var matchCat = (currentApiCat === 'all') || (meta.cat === currentApiCat);
           var matchQuery = !q || (meta.kw.indexOf(q) !== -1) || (cardText.indexOf(q) !== -1);
-          var isVisible = matchCat && matchQuery;
-          if (isVisible) matchedCount++;
+          if (matchCat && matchQuery) {
+            matchedIds.push(apiId);
+          }
+        });
 
+        var matchedCount = matchedIds.length;
+        var effSize = (currentApiPageSize === 'all') ? Math.max(1, matchedCount) : currentApiPageSize;
+        var totalPages = Math.max(1, Math.ceil(matchedCount / effSize));
+        if (currentApiPage > totalPages) currentApiPage = totalPages;
+        if (currentApiPage < 1) currentApiPage = 1;
+        var startIdx = (currentApiPageSize === 'all') ? 0 : ((currentApiPage - 1) * effSize);
+        var endIdx = (currentApiPageSize === 'all') ? matchedCount : Math.min(matchedCount, startIdx + effSize);
+
+        var pageVisibleSet = {};
+        for (var s = startIdx; s < endIdx; s++) {
+          pageVisibleSet[matchedIds[s]] = true;
+        }
+
+        allApiIds.forEach(function (apiId) {
+          var isPageVisible = Boolean(pageVisibleSet[apiId]);
+          var article = document.getElementById(apiId);
           if (article) {
-            if (isVisible) {
-              article.classList.remove('hidden');
-            } else {
-              article.classList.add('hidden');
-            }
+            if (isPageVisible) article.classList.remove('hidden');
+            else article.classList.add('hidden');
           }
 
-          // Filter corresponding Quick-Jump Directory links
+          // Filter corresponding Quick-Jump Directory links & Pricing Matrix rows
           var dirLinks = document.querySelectorAll('a[href="#' + apiId + '"]');
           for (var j = 0; j < dirLinks.length; j++) {
             var link = dirLinks[j];
-            if (link.parentElement && link.parentElement.className.indexOf('divide-y') !== -1) {
-              if (isVisible) {
-                link.classList.remove('hidden');
-              } else {
-                link.classList.add('hidden');
-              }
+            if (link.parentElement && link.parentElement.className && link.parentElement.className.indexOf('divide-y') !== -1) {
+              if (isPageVisible) link.classList.remove('hidden');
+              else link.classList.add('hidden');
+            }
+            var trEl = link.closest ? link.closest('tr') : null;
+            if (trEl && trEl.closest && trEl.closest('#api-pricing-matrix')) {
+              if (isPageVisible) trEl.classList.remove('hidden');
+              else trEl.classList.add('hidden');
             }
           }
         });
+
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && (q || currentApiCat !== 'all') && !dirList.getAttribute('data-locked-min-h') && dirList.offsetHeight > 0) {
+          dirList.style.minHeight = dirList.offsetHeight + 'px';
+          dirList.setAttribute('data-locked-min-h', '1');
+        }
 
         var dirBadge = document.getElementById('api-dir-count-badge');
         if (dirBadge) {
           dirBadge.textContent = (matchedCount === totalCount && !q && currentApiCat === 'all')
             ? (totalCount + ' LIVE ENDPOINTS')
             : (matchedCount + ' OF ' + totalCount + ' MATCHED');
+          if (!document.getElementById('api-dir-top-size-group') && dirBadge.parentElement && dirBadge.parentElement.insertBefore) {
+            var dirSzWrap = document.createElement('div');
+            dirSzWrap.id = 'api-dir-top-size-group';
+            dirSzWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+            dirSzWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+              [10, 20, 'all'].map(function (sz) {
+                return '<button type="button" data-api-sz="' + sz + '" onclick="window.setApiCatalogPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="api-sz-pill px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+              }).join('');
+            dirBadge.parentElement.insertBefore(dirSzWrap, dirBadge);
+          }
         }
         var modBadge = document.getElementById('api-modules-count-badge');
         if (modBadge) {
           modBadge.textContent = matchedCount + ' / ' + totalCount + ' SHOWN';
+          if (!document.getElementById('api-mod-top-size-group') && modBadge.parentElement && modBadge.parentElement.insertBefore) {
+            var modSzWrap = document.createElement('div');
+            modSzWrap.id = 'api-mod-top-size-group';
+            modSzWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+            modSzWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+              [10, 20, 'all'].map(function (sz) {
+                return '<button type="button" data-api-sz="' + sz + '" onclick="window.setApiCatalogPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="api-sz-pill px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+              }).join('');
+            modBadge.parentElement.insertBefore(modSzWrap, modBadge);
+          }
+        }
+
+        var szPills = document.querySelectorAll('.api-sz-pill');
+        for (var sp = 0; sp < szPills.length; sp++) {
+          var sVal = szPills[sp].getAttribute('data-api-sz');
+          var sAct = String(currentApiPageSize) === String(sVal);
+          szPills[sp].textContent = (sVal === 'all') ? 'All' : sVal;
+          szPills[sp].className = 'api-sz-pill px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+            (sAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
+        }
+
+        function buildApiPagerHtml(itemNoun, scrollTargetId) {
+          var rangeTxt = matchedCount === 0
+            ? ('0 matching ' + itemNoun)
+            : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + matchedCount + '</span> ' + itemNoun);
+          var szHtml = [10, 20, 'all'].map(function (sz) {
+            var active = String(currentApiPageSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + matchedCount + ')' : sz;
+            return '<button type="button" onclick="window.setApiCatalogPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = currentApiPage <= 1;
+          var nextDis = currentApiPage >= totalPages;
+          var navHtml = (currentApiPageSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setApiCatalogPage(' + (currentApiPage - 1) + ', &quot;' + scrollTargetId + '&quot;)" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + currentApiPage + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setApiCatalogPage(' + (currentApiPage + 1) + ', &quot;' + scrollTargetId + '&quot;)" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          return '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }
+
+        // 1. Quick-Jump Directory pagination bar (placed outside #api-directory-list so regex checks stay intact)
+        if (dirList && dirList.parentElement && dirList.parentElement.parentElement && dirList.parentElement.parentElement.insertBefore) {
+          var dirCard = dirList.parentElement;
+          var dirOuter = dirCard.parentElement;
+          var dirPager = document.getElementById('api-dir-pagination-bar');
+          if (!dirPager) {
+            dirPager = document.createElement('div');
+            dirPager.id = 'api-dir-pagination-bar';
+            dirPager.className = 'mt-3 px-4 py-3 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            dirOuter.insertBefore(dirPager, dirCard.nextSibling);
+          }
+          dirPager.innerHTML = buildApiPagerHtml('endpoints in Quick-Jump Directory', 'api-catalog-search');
+        }
+
+        // 2. Full Product Modules pagination bar
+        var modSec = document.getElementById('catalog-modules');
+        if (modSec && modSec.appendChild) {
+          var modPager = document.getElementById('api-modules-pagination-bar');
+          if (!modPager) {
+            modPager = document.createElement('div');
+            modPager.id = 'api-modules-pagination-bar';
+            modPager.className = 'mt-6 p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            modSec.appendChild(modPager);
+          }
+          modPager.innerHTML = buildApiPagerHtml('API specification cards', 'catalog-modules');
+        }
+
+        // 3. Cross-Catalog Pricing Matrix pagination bar
+        var matSec = document.getElementById('api-pricing-matrix');
+        if (matSec && matSec.appendChild) {
+          var matPager = document.getElementById('api-matrix-pagination-bar');
+          if (!matPager) {
+            matPager = document.createElement('div');
+            matPager.id = 'api-matrix-pagination-bar';
+            matPager.className = 'mt-4 p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            matSec.appendChild(matPager);
+          }
+          matPager.innerHTML = buildApiPagerHtml('pricing matrix rows', 'api-pricing-matrix');
         }
 
         var emptyDir = document.getElementById('api-dir-empty');
@@ -12886,16 +13069,17 @@
         }
       };
 
-      // Auto-unhide target API card if clicked via #hash while filtered
+      // Auto-unhide target API card if clicked via #hash while filtered or paginated
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href^="#product-"]') : null;
         if (!a) return;
         var targetId = a.getAttribute('href').slice(1);
-        var el = document.getElementById(targetId);
-        if (el && el.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
-          window.filterApiCatalog('', 'all');
+        if (typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(targetId);
         }
       });
+
+      window.filterApiCatalog('', 'all', true);
 
 
       window.switchOverviewProductTab = function (tabKey, scrollToSection) {
@@ -13450,6 +13634,9 @@
         if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix' || cleanId === 'api-mcp-quickstart-terminal') && typeof window.switchApiCatalogTab === 'function') {
           window.switchApiCatalogTab('all');
         }
+        if (cleanId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(cleanId);
+        }
         var el = document.getElementById(cleanId);
         if (!el) {
           var aliasMap = {
@@ -13758,7 +13945,9 @@
           }
         }
         var targetEl = document.getElementById(secId);
-        if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
+        if (secId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(secId);
+        } else if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
           window.filterApiCatalog('', 'all');
         }
         var ok = window.jumpToPageSection(secId);
@@ -14020,7 +14209,9 @@
           if (typeof window.switchApiCatalogTab === 'function') {
             window.switchApiCatalogTab('all');
           }
-          if (targetEl.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
+          if (clean.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+            window.ensureApiProductVisible(clean);
+          } else if (targetEl.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
             window.filterApiCatalog('', 'all');
           }
         }

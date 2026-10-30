@@ -4397,7 +4397,7 @@
           </div>
 
           <!-- Uniform 4-Column Categorized Microservice Directory Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono text-xs">
+          <div id="integrations-api-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono text-xs">
             <a href="#product-contract-parsing" class="group flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-navy-950/90 hover:bg-slate-900 border border-slate-800/90 hover:border-sky-500/50 transition-all">
               <div class="flex items-center gap-2.5 min-w-0">
                 <span class="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 text-[10px] font-bold shrink-0">#01</span>
@@ -14959,12 +14959,50 @@
         }
         var emptyRow = document.getElementById('contracts-live-empty');
         if (emptyRow) tbody.appendChild(emptyRow);
+        window.filterContractsDirectory(undefined, true);
       };
 
-      window.filterContractsDirectory = function (qVal) {
+      window.__SPA_CONTRACTS_PAGE_SIZE = 10;
+      window.__SPA_CONTRACTS_PAGE = 1;
+
+      window.setSpaContractsPageSize = function (sz) {
+        window.__SPA_CONTRACTS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        window.__SPA_CONTRACTS_PAGE = 1;
+        var root = document.getElementById('contracts-dynamic-root');
+        var tbody = root ? root.querySelector('table tbody') : null;
+        var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+        if (tblWrap && tblWrap.style) {
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }
+        window.filterContractsDirectory(undefined, true);
+      };
+
+      window.setSpaContractsPage = function (p) {
+        window.__SPA_CONTRACTS_PAGE = Math.max(1, parseInt(p, 10) || 1);
+        var root = document.getElementById('contracts-dynamic-root');
+        var tbody = root ? root.querySelector('table tbody') : null;
+        var tblWrap = tbody ? (tbody.closest('.overflow-x-auto') || tbody.parentElement) : null;
+        if (tblWrap && tblWrap.style) {
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }
+        window.filterContractsDirectory(undefined, true);
+        var card = document.getElementById('static-contracts-table-card');
+        if (card && card.getBoundingClientRect) {
+          var topY = card.getBoundingClientRect().top + (window.pageYOffset || 0) - 90;
+          var docEl = document.documentElement;
+          var prevB = docEl.style.scrollBehavior;
+          docEl.style.scrollBehavior = 'auto';
+          window.scrollTo(0, Math.max(0, topY));
+          docEl.style.scrollBehavior = prevB;
+        }
+      };
+
+      window.filterContractsDirectory = function (qVal, keepPage) {
         var inp = document.getElementById('contracts-live-search');
         var anchorEl = inp || document.activeElement;
-        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
+        var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
         var rawQ = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim();
         if (rawQ.indexOf('@') !== -1) {
           rawQ = '';
@@ -14973,6 +15011,7 @@
         }
         var q = rawQ.toLowerCase();
         if (inp && inp.value !== qVal && qVal !== undefined) inp.value = qVal;
+        if (!keepPage) window.__SPA_CONTRACTS_PAGE = 1;
         var clearBtn = document.getElementById('contracts-live-clear');
         if (clearBtn) {
           if (q) clearBtn.classList.remove('hidden');
@@ -14983,16 +15022,11 @@
         var tbody = root.querySelector('table tbody');
         if (!tbody) return;
         var tblWrap = tbody.closest('.overflow-x-auto') || tbody.parentElement;
-        if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {
-          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
-          tblWrap.style.overflowAnchor = 'none';
-          tblWrap.setAttribute('data-locked-min-h', '1');
-        }
         var savedMap = {};
         try { savedMap = JSON.parse((window.localStorage && window.localStorage.getItem('st_saved_rfp_bookmarks')) || '{}') || {}; } catch (e) {}
         var qf = window.__SPA_CONTRACTS_QF || 'all';
         var rows = tbody.querySelectorAll('tr:not(#contracts-live-empty)');
-        var shown = 0;
+        var matched = [];
         for (var i = 0; i < rows.length; i++) {
           var r = rows[i];
           var txt = (r._stSearchText || (r._stSearchText = (r.textContent || '').toLowerCase()));
@@ -15002,15 +15036,42 @@
           if (qf === 'saved') matchQf = Boolean(savedMap[slugAttr]);
           else if (qf !== 'all') matchQf = (catsAttr.indexOf(qf) !== -1) || (txt.indexOf(qf.split('-')[0]) !== -1);
           if (matchQf && (!q || txt.indexOf(q) !== -1)) {
-            r.classList.remove('hidden');
-            shown++;
+            matched.push(r);
           } else {
             r.classList.add('hidden');
           }
         }
+        var totalMatched = matched.length;
+        var pSize = window.__SPA_CONTRACTS_PAGE_SIZE || 10;
+        var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+        var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+        if (window.__SPA_CONTRACTS_PAGE > totalPages) window.__SPA_CONTRACTS_PAGE = totalPages;
+        if (window.__SPA_CONTRACTS_PAGE < 1) window.__SPA_CONTRACTS_PAGE = 1;
+        var startIdx = (pSize === 'all') ? 0 : ((window.__SPA_CONTRACTS_PAGE - 1) * effSize);
+        var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+        for (var m = 0; m < totalMatched; m++) {
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }
+        if (tblWrap && q && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {
+          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+          tblWrap.style.overflowAnchor = 'none';
+          tblWrap.setAttribute('data-locked-min-h', '1');
+        }
         var cntEl = document.getElementById('contracts-live-count');
         if (cntEl) {
-          cntEl.textContent = shown + ' OF ' + rows.length + ' SOLICITATIONS SHOWN';
+          if (totalMatched === 0) {
+            cntEl.textContent = '0 OF ' + rows.length + ' SOLICITATIONS SHOWN';
+          } else {
+            cntEl.textContent = 'SHOWING ' + (startIdx + 1) + '-' + endIdx + ' OF ' + totalMatched + ' SOLICITATIONS';
+          }
+        }
+        var szBtns = root.querySelectorAll('.spa-rfp-sz-btn');
+        for (var b = 0; b < szBtns.length; b++) {
+          var bVal = szBtns[b].getAttribute('data-spa-sz');
+          var isAct = String(pSize) === String(bVal);
+          szBtns[b].className = 'spa-rfp-sz-btn px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+            (isAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
         }
         var emptyRow = document.getElementById('contracts-live-empty');
         if (!emptyRow) {
@@ -15020,8 +15081,44 @@
           emptyRow.innerHTML = '<td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No solicitations matched that search query. <button type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="text-sky-400 underline ml-1 cursor-pointer">Reset filter</button></td>';
           tbody.appendChild(emptyRow);
         }
-        if (shown === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
+        if (totalMatched === 0 && rows.length > 0) emptyRow.classList.remove('hidden');
         else emptyRow.classList.add('hidden');
+
+        var card = document.getElementById('static-contracts-table-card') || (tblWrap ? tblWrap.parentElement : null);
+        if (card && card.appendChild) {
+          var pager = document.getElementById('spa-contracts-pagination-bar');
+          if (!pager) {
+            pager = document.createElement('div');
+            pager.id = 'spa-contracts-pagination-bar';
+            pager.className = 'px-4 py-3 bg-slate-900/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            card.appendChild(pager);
+          }
+          var rangeTxt = totalMatched === 0 ? '0 matching solicitations' : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + totalMatched + '</span> solicitations');
+          var szHtml = [10, 20, 50, 'all'].map(function (sz) {
+            var active = String(pSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setSpaContractsPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = window.__SPA_CONTRACTS_PAGE <= 1;
+          var nextDis = window.__SPA_CONTRACTS_PAGE >= totalPages;
+          var navHtml = (pSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setSpaContractsPage(' + (window.__SPA_CONTRACTS_PAGE - 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + window.__SPA_CONTRACTS_PAGE + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setSpaContractsPage(' + (window.__SPA_CONTRACTS_PAGE + 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          pager.innerHTML = '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }
+
         if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {
           var deltaY = anchorEl.getBoundingClientRect().top - anchorTopBefore;
           if (Math.abs(deltaY) > 0.5) {
@@ -15031,6 +15128,77 @@
             window.scrollBy(0, deltaY);
             docEl.style.scrollBehavior = prevB;
           }
+        }
+      };
+
+      window.__SPA_HUBS_PAGE_SIZE = 10;
+      window.__SPA_HUBS_PAGE = 1;
+      window.setSpaPortalHubsPageSize = function (sz) {
+        window.__SPA_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        window.__SPA_HUBS_PAGE = 1;
+        var inp = document.getElementById('spa-hubs-search');
+        window.filterSpaPortalHubs(inp ? inp.value : '', true);
+      };
+      window.setSpaPortalHubsPage = function (p) {
+        window.__SPA_HUBS_PAGE = Math.max(1, parseInt(p, 10) || 1);
+        var inp = document.getElementById('spa-hubs-search');
+        window.filterSpaPortalHubs(inp ? inp.value : '', true);
+      };
+      window.filterSpaPortalHubs = function (qVal, keepPage) {
+        var grid = document.getElementById('contracts-portal-hubs-grid');
+        if (!grid) return;
+        if (!document.getElementById('spa-hubs-toolbar') && grid.parentElement && grid.parentElement.insertBefore) {
+          var tb = document.createElement('div');
+          tb.id = 'spa-hubs-toolbar';
+          tb.className = 'mb-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
+          tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
+            '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// PORTAL HUBS:</span>' +
+            '<input id="spa-hubs-search" type="search" placeholder="Filter 33 federal &amp; state hubs..." oninput="window.filterSpaPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+          '</div>' +
+          '<div id="spa-hubs-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
+          grid.parentElement.insertBefore(tb, grid);
+        }
+        var inp = document.getElementById('spa-hubs-search');
+        var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+        if (!keepPage) window.__SPA_HUBS_PAGE = 1;
+        var cards = grid.querySelectorAll('a');
+        var matched = [];
+        for (var i = 0; i < cards.length; i++) {
+          var txt = (cards[i]._stHubText || (cards[i]._stHubText = (cards[i].textContent || '').toLowerCase()));
+          if (!q || txt.indexOf(q) !== -1) matched.push(cards[i]);
+          else cards[i].classList.add('hidden');
+        }
+        var totalMatched = matched.length;
+        var pSize = window.__SPA_HUBS_PAGE_SIZE || 10;
+        var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
+        var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+        if (window.__SPA_HUBS_PAGE > totalPages) window.__SPA_HUBS_PAGE = totalPages;
+        var startIdx = (pSize === 'all') ? 0 : ((window.__SPA_HUBS_PAGE - 1) * effSize);
+        var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+        for (var m = 0; m < totalMatched; m++) {
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }
+        var rightEl = document.getElementById('spa-hubs-toolbar-right');
+        if (rightEl) {
+          var szBtns = [10, 20, 'all'].map(function (sz) {
+            var act = String(pSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setSpaPortalHubsPageSize(' + arg + ')" class="px-2 py-0.5 rounded border text-[11px] cursor-pointer transition-colors ' +
+              (act ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = window.__SPA_HUBS_PAGE <= 1;
+          var nextDis = window.__SPA_HUBS_PAGE >= totalPages;
+          var navBtns = (pSize === 'all' || totalPages <= 1) ? '' : (
+            '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setSpaPortalHubsPage(' + (window.__SPA_HUBS_PAGE - 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+            '<span class="text-[11px] text-slate-400">' + window.__SPA_HUBS_PAGE + '/' + totalPages + '</span>' +
+            '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setSpaPortalHubsPage(' + (window.__SPA_HUBS_PAGE + 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>'
+          );
+          rightEl.innerHTML = '<span class="text-[11px] text-emerald-400">' + (totalMatched === 0 ? '0 shown' : ('Showing ' + (startIdx + 1) + '&ndash;' + endIdx + ' of ' + totalMatched)) + '</span>' +
+            '<span class="text-slate-400 text-[11px] ml-1">SHOW:</span>' + szBtns + navBtns;
         }
       };
 
@@ -15293,7 +15461,7 @@
               '</p>' +
               '<div class="flex flex-wrap gap-2 pt-2">' + pills + '</div>' +
             '</div>' +
-            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
+            '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex flex-wrap items-center gap-2">' +'<div class="flex items-center gap-1 mr-1"><span class="text-slate-400">SHOW:</span><button type="button" data-spa-sz="10" onclick="window.setSpaContractsPageSize(10)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-sky-600 text-white border-sky-400 font-semibold cursor-pointer">10</button><button type="button" data-spa-sz="20" onclick="window.setSpaContractsPageSize(20)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">20</button><button type="button" data-spa-sz="50" onclick="window.setSpaContractsPageSize(50)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">50</button><button type="button" data-spa-sz="all" onclick="window.setSpaContractsPageSize(&quot;all&quot;)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">All</button></div>' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
                 '<table class="w-full text-left border-collapse">' +
                   '<thead>' +
                     '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -15308,6 +15476,7 @@
                 '</table>' +
               '</div>' +
             '</div>' + renderLeadBox(jKey, jmHub.short);
+          window.filterContractsDirectory('', true);
           if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
           return;
         }
@@ -15344,7 +15513,7 @@
           '</div>' +
           '<div id="contracts-portal-hubs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +
           '<h2 class="text-xl font-bold text-white font-mono uppercase tracking-wider mb-4">All Verified Open IT &amp; Cybersecurity Solicitations</h2>' +
-          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex items-center gap-2">' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
+          '<div id="static-contracts-table-card" class="rounded-2xl bg-navy-950 border border-slate-800 overflow-hidden shadow-2xl">' +'<div class="p-4 sm:p-5 bg-slate-900/70 border-b border-slate-800 space-y-3">' +'<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">' +'<div class="relative flex-1 flex items-center">' +'<svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" /></svg>' +'<input id="contracts-live-search" type="search" name="st_contracts_live_search_nofill" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-form-type="other" placeholder="Search all open IT &amp; cybersecurity solicitations by keyword, agency, portal, or tag..." oninput="window.filterContractsDirectory(this.value)" class="w-full pl-10 pr-20 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500" />' +'<button id="contracts-live-clear" type="button" onclick="window.filterContractsDirectory(&quot;&quot;)" class="hidden absolute right-2.5 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-mono text-slate-300 border border-slate-700 cursor-pointer">Clear</button>' +'</div>' +'<span id="contracts-live-count" class="text-xs font-mono text-emerald-400 shrink-0">LIVE SEARCH ACTIVE</span>' +'</div>' +'<div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/70 text-[11px] font-mono">' +'<div class="flex flex-wrap items-center gap-1.5">' +'<span class="text-slate-400 mr-1">QUICK FILTER:</span>' +'<button type="button" data-spa-qf="all" onclick="window.setSpaContractsQuickFilter(&quot;all&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold cursor-pointer">All Bids</button>' +'<button type="button" data-spa-qf="cybersecurity" onclick="window.setSpaContractsQuickFilter(&quot;cybersecurity&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cyber &amp; Zero-Trust</button>' +'<button type="button" data-spa-qf="cloud-infrastructure" onclick="window.setSpaContractsQuickFilter(&quot;cloud-infrastructure&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Cloud &amp; Data Center</button>' +'<button type="button" data-spa-qf="software-development" onclick="window.setSpaContractsQuickFilter(&quot;software-development&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 cursor-pointer">Software &amp; AI</button>' +'<button type="button" data-spa-qf="saved" onclick="window.setSpaContractsQuickFilter(&quot;saved&quot;)" class="spa-qf-pill px-2.5 py-1 rounded-md bg-navy-950 hover:bg-slate-800 text-amber-300 border border-amber-500/30 cursor-pointer">&#9733; Saved Bookmarks</button>' +'</div>' +'<div class="flex flex-wrap items-center gap-2">' +'<div class="flex items-center gap-1 mr-1"><span class="text-slate-400">SHOW:</span><button type="button" data-spa-sz="10" onclick="window.setSpaContractsPageSize(10)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-sky-600 text-white border-sky-400 font-semibold cursor-pointer">10</button><button type="button" data-spa-sz="20" onclick="window.setSpaContractsPageSize(20)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">20</button><button type="button" data-spa-sz="50" onclick="window.setSpaContractsPageSize(50)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">50</button><button type="button" data-spa-sz="all" onclick="window.setSpaContractsPageSize(&quot;all&quot;)" class="spa-rfp-sz-btn px-2 py-0.5 rounded border bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700 cursor-pointer">All</button></div>' +'<label for="contracts-live-sort" class="text-slate-400">SORT:</label>' +'<select id="contracts-live-sort" onchange="window.sortSpaContractsTable(this.value)" class="px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-slate-200 focus:border-sky-500 focus:outline-none">' +'<option value="default">Default (Latest Indexed)</option>' +'<option value="due_asc">Closing Soonest First</option>' +'<option value="jur_asc">Jurisdiction (A-Z)</option>' +'<option value="title_asc">Solicitation Title (A-Z)</option>' +'</select>' +'</div>' +'</div>' +'</div>' +'<div class="overflow-x-auto">' +
               '<table class="w-full text-left border-collapse">' +
                 '<thead>' +
                   '<tr class="border-b border-slate-800 bg-slate-900/90 text-[11px] font-mono uppercase tracking-wider text-slate-400">' +
@@ -15359,12 +15528,15 @@
               '</table>' +
             '</div>' +
           '</div>' + renderLeadBox('all', '');
-        if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
+        window.filterSpaPortalHubs('', true);
         if (window.__PENDING_CONTRACTS_SEARCH) {
           var pq = window.__PENDING_CONTRACTS_SEARCH;
           window.__PENDING_CONTRACTS_SEARCH = '';
           window.filterContractsDirectory(pq);
+        } else {
+          window.filterContractsDirectory('', true);
         }
+        if (typeof window.renderPageSectionSidebar === 'function') window.renderPageSectionSidebar();
       };
     })();
   </script>
@@ -24102,6 +24274,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix' || cleanId === 'api-mcp-quickstart-terminal') && typeof window.switchApiCatalogTab === 'function') {
           window.switchApiCatalogTab('all');
         }
+        if (cleanId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(cleanId);
+        }
         var el = document.getElementById(cleanId);
         if (!el) {
           var aliasMap = {
@@ -24337,7 +24512,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           }
         }
         var targetEl = document.getElementById(secId);
-        if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
+        if (secId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(secId);
+        } else if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
           window.filterApiCatalog('', 'all');
         }
         var ok = window.jumpToPageSection(secId);
@@ -24711,7 +24888,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             instantScrollToTop();
           } else {
             var targetEl = document.querySelector(hash);
-            if (targetEl && targetEl.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
+            if (hash.indexOf('#product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+              window.ensureApiProductVisible(hash.slice(1));
+            } else if (targetEl && targetEl.classList.contains('hidden') && typeof window.filterApiCatalog === 'function') {
               window.filterApiCatalog('', 'all');
             }
             if (targetEl) {
@@ -26435,20 +26614,78 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
 
       var currentApiQuery = '';
       var currentApiCat = 'all';
+      var currentApiPageSize = 10;
+      var currentApiPage = 1;
 
-      window.filterApiCatalog = function (queryVal, catVal) {
+      window.setApiCatalogPageSize = function (sz) {
+        currentApiPageSize = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        currentApiPage = 1;
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+      };
+
+      window.setApiCatalogPage = function (pageNum, scrollContainerId) {
+        currentApiPage = Math.max(1, parseInt(pageNum, 10) || 1);
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+        if (scrollContainerId) {
+          var targetEl = document.getElementById(scrollContainerId);
+          if (targetEl && targetEl.getBoundingClientRect) {
+            var topY = targetEl.getBoundingClientRect().top + (window.pageYOffset || 0) - 96;
+            var docEl = document.documentElement;
+            var prevB = docEl.style.scrollBehavior;
+            docEl.style.scrollBehavior = 'auto';
+            window.scrollTo(0, Math.max(0, topY));
+            docEl.style.scrollBehavior = prevB;
+          }
+        }
+      };
+
+      window.ensureApiProductVisible = function (apiId) {
+        if (!apiId) return;
+        var cleanId = String(apiId).replace(/^#/, '');
+        if (!API_META[cleanId]) return;
+        var allKeys = Object.keys(API_META);
+        var q = currentApiQuery.trim().toLowerCase();
+        var matchedNow = allKeys.filter(function (id) {
+          var meta = API_META[id];
+          var art = document.getElementById(id);
+          var cardText = art ? (art._stSearchText || (art._stSearchText = (art.textContent || '').toLowerCase())) : '';
+          var mCat = (currentApiCat === 'all') || (meta.cat === currentApiCat);
+          var mQ = !q || (meta.kw.indexOf(q) !== -1) || (cardText.indexOf(q) !== -1);
+          return mCat && mQ;
+        });
+        if (matchedNow.indexOf(cleanId) === -1) {
+          currentApiQuery = '';
+          currentApiCat = 'all';
+          matchedNow = allKeys;
+        }
+        var pos = matchedNow.indexOf(cleanId);
+        if (pos !== -1 && currentApiPageSize !== 'all') {
+          currentApiPage = Math.floor(pos / currentApiPageSize) + 1;
+        }
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && dirList.style) {
+          dirList.style.minHeight = '';
+          if (dirList.removeAttribute) dirList.removeAttribute('data-locked-min-h');
+        }
+        window.filterApiCatalog(null, null, true);
+      };
+
+      window.filterApiCatalog = function (queryVal, catVal, keepPage) {
         var anchorEl = document.activeElement;
         if (!anchorEl || (anchorEl.tagName !== 'INPUT' && anchorEl.tagName !== 'BUTTON')) {
           anchorEl = document.getElementById('api-modules-search') || document.getElementById('api-catalog-search');
         }
-        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
-
-        // Lock Quick-Jump Directory height before hiding any rows so filtering never shifts content below it
-        var dirList = document.getElementById('api-directory-list');
-        if (dirList && !dirList.getAttribute('data-locked-min-h') && dirList.offsetHeight > 0) {
-          dirList.style.minHeight = dirList.offsetHeight + 'px';
-          dirList.setAttribute('data-locked-min-h', '1');
-        }
+        var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
 
         if (queryVal !== null && queryVal !== undefined) {
           var candidateQ = String(queryVal);
@@ -26459,6 +26696,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         }
         if (catVal !== null && catVal !== undefined) {
           currentApiCat = String(catVal);
+        }
+        if (!keepPage) {
+          currentApiPage = 1;
         }
 
         var topInput = document.getElementById('api-catalog-search');
@@ -26493,49 +26733,171 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         }
 
         var q = currentApiQuery.trim().toLowerCase();
-        var totalCount = Object.keys(API_META).length;
-        var matchedCount = 0;
+        var allApiIds = Object.keys(API_META);
+        var totalCount = allApiIds.length;
+        var matchedIds = [];
 
-        Object.keys(API_META).forEach(function (apiId) {
+        allApiIds.forEach(function (apiId) {
           var meta = API_META[apiId];
           var article = document.getElementById(apiId);
           var cardText = article ? (article._stSearchText || (article._stSearchText = (article.textContent || '').toLowerCase())) : '';
           var matchCat = (currentApiCat === 'all') || (meta.cat === currentApiCat);
           var matchQuery = !q || (meta.kw.indexOf(q) !== -1) || (cardText.indexOf(q) !== -1);
-          var isVisible = matchCat && matchQuery;
-          if (isVisible) matchedCount++;
+          if (matchCat && matchQuery) {
+            matchedIds.push(apiId);
+          }
+        });
 
+        var matchedCount = matchedIds.length;
+        var effSize = (currentApiPageSize === 'all') ? Math.max(1, matchedCount) : currentApiPageSize;
+        var totalPages = Math.max(1, Math.ceil(matchedCount / effSize));
+        if (currentApiPage > totalPages) currentApiPage = totalPages;
+        if (currentApiPage < 1) currentApiPage = 1;
+        var startIdx = (currentApiPageSize === 'all') ? 0 : ((currentApiPage - 1) * effSize);
+        var endIdx = (currentApiPageSize === 'all') ? matchedCount : Math.min(matchedCount, startIdx + effSize);
+
+        var pageVisibleSet = {};
+        for (var s = startIdx; s < endIdx; s++) {
+          pageVisibleSet[matchedIds[s]] = true;
+        }
+
+        allApiIds.forEach(function (apiId) {
+          var isPageVisible = Boolean(pageVisibleSet[apiId]);
+          var article = document.getElementById(apiId);
           if (article) {
-            if (isVisible) {
-              article.classList.remove('hidden');
-            } else {
-              article.classList.add('hidden');
-            }
+            if (isPageVisible) article.classList.remove('hidden');
+            else article.classList.add('hidden');
           }
 
-          // Filter corresponding Quick-Jump Directory links
+          // Filter corresponding Quick-Jump Directory links & Pricing Matrix rows
           var dirLinks = document.querySelectorAll('a[href="#' + apiId + '"]');
           for (var j = 0; j < dirLinks.length; j++) {
             var link = dirLinks[j];
-            if (link.parentElement && link.parentElement.className.indexOf('divide-y') !== -1) {
-              if (isVisible) {
-                link.classList.remove('hidden');
-              } else {
-                link.classList.add('hidden');
-              }
+            if (link.parentElement && link.parentElement.className && link.parentElement.className.indexOf('divide-y') !== -1) {
+              if (isPageVisible) link.classList.remove('hidden');
+              else link.classList.add('hidden');
+            }
+            var trEl = link.closest ? link.closest('tr') : null;
+            if (trEl && trEl.closest && trEl.closest('#api-pricing-matrix')) {
+              if (isPageVisible) trEl.classList.remove('hidden');
+              else trEl.classList.add('hidden');
             }
           }
         });
+
+        var dirList = document.getElementById('api-directory-list');
+        if (dirList && (q || currentApiCat !== 'all') && !dirList.getAttribute('data-locked-min-h') && dirList.offsetHeight > 0) {
+          dirList.style.minHeight = dirList.offsetHeight + 'px';
+          dirList.setAttribute('data-locked-min-h', '1');
+        }
 
         var dirBadge = document.getElementById('api-dir-count-badge');
         if (dirBadge) {
           dirBadge.textContent = (matchedCount === totalCount && !q && currentApiCat === 'all')
             ? (totalCount + ' LIVE ENDPOINTS')
             : (matchedCount + ' OF ' + totalCount + ' MATCHED');
+          if (!document.getElementById('api-dir-top-size-group') && dirBadge.parentElement && dirBadge.parentElement.insertBefore) {
+            var dirSzWrap = document.createElement('div');
+            dirSzWrap.id = 'api-dir-top-size-group';
+            dirSzWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+            dirSzWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+              [10, 20, 'all'].map(function (sz) {
+                return '<button type="button" data-api-sz="' + sz + '" onclick="window.setApiCatalogPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="api-sz-pill px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+              }).join('');
+            dirBadge.parentElement.insertBefore(dirSzWrap, dirBadge);
+          }
         }
         var modBadge = document.getElementById('api-modules-count-badge');
         if (modBadge) {
           modBadge.textContent = matchedCount + ' / ' + totalCount + ' SHOWN';
+          if (!document.getElementById('api-mod-top-size-group') && modBadge.parentElement && modBadge.parentElement.insertBefore) {
+            var modSzWrap = document.createElement('div');
+            modSzWrap.id = 'api-mod-top-size-group';
+            modSzWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+            modSzWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+              [10, 20, 'all'].map(function (sz) {
+                return '<button type="button" data-api-sz="' + sz + '" onclick="window.setApiCatalogPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="api-sz-pill px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+              }).join('');
+            modBadge.parentElement.insertBefore(modSzWrap, modBadge);
+          }
+        }
+
+        var szPills = document.querySelectorAll('.api-sz-pill');
+        for (var sp = 0; sp < szPills.length; sp++) {
+          var sVal = szPills[sp].getAttribute('data-api-sz');
+          var sAct = String(currentApiPageSize) === String(sVal);
+          szPills[sp].textContent = (sVal === 'all') ? 'All' : sVal;
+          szPills[sp].className = 'api-sz-pill px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+            (sAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
+        }
+
+        function buildApiPagerHtml(itemNoun, scrollTargetId) {
+          var rangeTxt = matchedCount === 0
+            ? ('0 matching ' + itemNoun)
+            : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + matchedCount + '</span> ' + itemNoun);
+          var szHtml = [10, 20, 'all'].map(function (sz) {
+            var active = String(currentApiPageSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + matchedCount + ')' : sz;
+            return '<button type="button" onclick="window.setApiCatalogPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = currentApiPage <= 1;
+          var nextDis = currentApiPage >= totalPages;
+          var navHtml = (currentApiPageSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setApiCatalogPage(' + (currentApiPage - 1) + ', &quot;' + scrollTargetId + '&quot;)" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + currentApiPage + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setApiCatalogPage(' + (currentApiPage + 1) + ', &quot;' + scrollTargetId + '&quot;)" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          return '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }
+
+        // 1. Quick-Jump Directory pagination bar (placed outside #api-directory-list so regex checks stay intact)
+        if (dirList && dirList.parentElement && dirList.parentElement.parentElement && dirList.parentElement.parentElement.insertBefore) {
+          var dirCard = dirList.parentElement;
+          var dirOuter = dirCard.parentElement;
+          var dirPager = document.getElementById('api-dir-pagination-bar');
+          if (!dirPager) {
+            dirPager = document.createElement('div');
+            dirPager.id = 'api-dir-pagination-bar';
+            dirPager.className = 'mt-3 px-4 py-3 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            dirOuter.insertBefore(dirPager, dirCard.nextSibling);
+          }
+          dirPager.innerHTML = buildApiPagerHtml('endpoints in Quick-Jump Directory', 'api-catalog-search');
+        }
+
+        // 2. Full Product Modules pagination bar
+        var modSec = document.getElementById('catalog-modules');
+        if (modSec && modSec.appendChild) {
+          var modPager = document.getElementById('api-modules-pagination-bar');
+          if (!modPager) {
+            modPager = document.createElement('div');
+            modPager.id = 'api-modules-pagination-bar';
+            modPager.className = 'mt-6 p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            modSec.appendChild(modPager);
+          }
+          modPager.innerHTML = buildApiPagerHtml('API specification cards', 'catalog-modules');
+        }
+
+        // 3. Cross-Catalog Pricing Matrix pagination bar
+        var matSec = document.getElementById('api-pricing-matrix');
+        if (matSec && matSec.appendChild) {
+          var matPager = document.getElementById('api-matrix-pagination-bar');
+          if (!matPager) {
+            matPager = document.createElement('div');
+            matPager.id = 'api-matrix-pagination-bar';
+            matPager.className = 'mt-4 p-4 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            matSec.appendChild(matPager);
+          }
+          matPager.innerHTML = buildApiPagerHtml('pricing matrix rows', 'api-pricing-matrix');
         }
 
         var emptyDir = document.getElementById('api-dir-empty');
@@ -26599,6 +26961,17 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           }
         }
       });
+
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="#product-"]') : null;
+        if (!a) return;
+        var targetId = a.getAttribute('href').slice(1);
+        if (typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(targetId);
+        }
+      });
+
+      window.filterApiCatalog('', 'all', true);
     })();
   </script>
 
@@ -26606,28 +26979,53 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
     (function () {
       var mainRfpQuery = '';
       var mainRfpPortal = 'all';
+      var mainRfpPageSize = 10;
+      var mainRfpPage = 1;
 
-      window.filterMainRfpTable = function (qVal, portalVal) {
+      window.setMainRfpPageSize = function (sz) {
+        mainRfpPageSize = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        mainRfpPage = 1;
+        var secEl = document.getElementById('contract-directory');
+        var tblWrap = secEl ? secEl.querySelector('.overflow-x-auto') : null;
+        if (tblWrap && tblWrap.style) {
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }
+        window.filterMainRfpTable(null, null, true);
+      };
+
+      window.setMainRfpPage = function (p) {
+        mainRfpPage = Math.max(1, parseInt(p, 10) || 1);
+        var secEl = document.getElementById('contract-directory');
+        var tblWrap = secEl ? secEl.querySelector('.overflow-x-auto') : null;
+        if (tblWrap && tblWrap.style) {
+          tblWrap.style.minHeight = '';
+          if (tblWrap.removeAttribute) tblWrap.removeAttribute('data-locked-min-h');
+        }
+        window.filterMainRfpTable(null, null, true);
+        if (secEl && secEl.getBoundingClientRect) {
+          var topY = secEl.getBoundingClientRect().top + (window.pageYOffset || 0) - 88;
+          var docEl = document.documentElement;
+          var prevB = docEl.style.scrollBehavior;
+          docEl.style.scrollBehavior = 'auto';
+          window.scrollTo(0, Math.max(0, topY));
+          docEl.style.scrollBehavior = prevB;
+        }
+      };
+
+      window.filterMainRfpTable = function (qVal, portalVal, keepPage) {
         var anchorEl = document.activeElement;
         if (!anchorEl || (anchorEl.tagName !== 'INPUT' && anchorEl.tagName !== 'BUTTON')) {
           anchorEl = document.getElementById('main-rfp-search');
         }
-        var anchorTopBefore = (anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
-        var secEl = document.getElementById('contract-directory');
-        if (secEl) {
-          var tblWrap = secEl.querySelector('.overflow-x-auto');
-          if (tblWrap && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {
-            tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
-            tblWrap.style.overflowAnchor = 'none';
-            tblWrap.setAttribute('data-locked-min-h', '1');
-          }
-        }
+        var anchorTopBefore = (!keepPage && anchorEl && anchorEl.getBoundingClientRect) ? anchorEl.getBoundingClientRect().top : null;
         if (qVal !== null && qVal !== undefined) {
           var candMainQ = String(qVal);
           if (candMainQ.indexOf('@') !== -1) candMainQ = '';
           mainRfpQuery = candMainQ;
         }
         if (portalVal !== null && portalVal !== undefined) mainRfpPortal = String(portalVal);
+        if (!keepPage) mainRfpPage = 1;
 
         var inp = document.getElementById('main-rfp-search');
         if (inp && inp.value !== mainRfpQuery) inp.value = mainRfpQuery;
@@ -26659,7 +27057,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         if (!tbody) return;
         var rows = tbody.querySelectorAll('tr:not(#main-rfp-empty-row)');
         var q = mainRfpQuery.trim().toLowerCase();
-        var shown = 0;
+        var matched = [];
 
         for (var j = 0; j < rows.length; j++) {
           var r = rows[j];
@@ -26667,11 +27065,30 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           var matchPortal = (mainRfpPortal === 'all') || (txt.indexOf(mainRfpPortal) !== -1);
           var matchQ = !q || (txt.indexOf(q) !== -1);
           if (matchPortal && matchQ) {
-            r.classList.remove('hidden');
-            shown++;
+            matched.push(r);
           } else {
             r.classList.add('hidden');
           }
+        }
+
+        var shown = matched.length;
+        var effSize = (mainRfpPageSize === 'all') ? Math.max(1, shown) : mainRfpPageSize;
+        var totalPages = Math.max(1, Math.ceil(shown / effSize));
+        if (mainRfpPage > totalPages) mainRfpPage = totalPages;
+        if (mainRfpPage < 1) mainRfpPage = 1;
+        var startIdx = (mainRfpPageSize === 'all') ? 0 : ((mainRfpPage - 1) * effSize);
+        var endIdx = (mainRfpPageSize === 'all') ? shown : Math.min(shown, startIdx + effSize);
+
+        for (var m = 0; m < shown; m++) {
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }
+
+        var tblWrap = sec.querySelector('.overflow-x-auto');
+        if (tblWrap && (q || mainRfpPortal !== 'all') && !tblWrap.getAttribute('data-locked-min-h') && tblWrap.offsetHeight > 0) {
+          tblWrap.style.minHeight = tblWrap.offsetHeight + 'px';
+          tblWrap.style.overflowAnchor = 'none';
+          tblWrap.setAttribute('data-locked-min-h', '1');
         }
 
         var emptyRow = document.getElementById('main-rfp-empty-row');
@@ -26693,6 +27110,60 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           badge.textContent = (shown === rows.length && !q && mainRfpPortal === 'all')
             ? (rows.length + ' PREVIEW LEADS SHOWN')
             : (shown + ' OF ' + rows.length + ' MATCHED');
+          if (!document.getElementById('main-rfp-top-size-group') && badge.parentElement && badge.parentElement.insertBefore) {
+            var mSzWrap = document.createElement('div');
+            mSzWrap.id = 'main-rfp-top-size-group';
+            mSzWrap.className = 'flex items-center gap-1 text-[11px] font-mono shrink-0';
+            mSzWrap.innerHTML = '<span class="text-slate-400 mr-0.5">SHOW:</span>' +
+              [10, 20, 'all'].map(function (sz) {
+                return '<button type="button" data-main-rfp-sz="' + sz + '" onclick="window.setMainRfpPageSize(' + (sz === 'all' ? '&quot;all&quot;' : sz) + ')" class="main-rfp-sz-btn px-2 py-0.5 rounded border cursor-pointer transition-colors"></button>';
+              }).join('');
+            badge.parentElement.insertBefore(mSzWrap, badge);
+          }
+        }
+
+        var mSzBtns = document.querySelectorAll('.main-rfp-sz-btn');
+        for (var b = 0; b < mSzBtns.length; b++) {
+          var bVal = mSzBtns[b].getAttribute('data-main-rfp-sz');
+          var bAct = String(mainRfpPageSize) === String(bVal);
+          mSzBtns[b].textContent = (bVal === 'all') ? 'All' : bVal;
+          mSzBtns[b].className = 'main-rfp-sz-btn px-2 py-0.5 rounded border text-[11px] font-mono cursor-pointer transition-colors ' +
+            (bAct ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700');
+        }
+
+        var tblCard = tblWrap ? tblWrap.parentElement : null;
+        if (tblCard && tblCard.appendChild) {
+          var pager = document.getElementById('main-rfp-pagination-bar');
+          if (!pager) {
+            pager = document.createElement('div');
+            pager.id = 'main-rfp-pagination-bar';
+            pager.className = 'px-4 py-3 bg-slate-900/80 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            tblCard.appendChild(pager);
+          }
+          var rangeTxt = shown === 0 ? '0 matching preview leads' : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + shown + '</span> preview leads');
+          var szHtml = [10, 20, 'all'].map(function (sz) {
+            var active = String(mainRfpPageSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + shown + ')' : sz;
+            return '<button type="button" onclick="window.setMainRfpPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (active ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = mainRfpPage <= 1;
+          var nextDis = mainRfpPage >= totalPages;
+          var navHtml = (mainRfpPageSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setMainRfpPage(' + (mainRfpPage - 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + mainRfpPage + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setMainRfpPage(' + (mainRfpPage + 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          pager.innerHTML = '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
         }
 
         if (anchorEl && anchorTopBefore !== null && anchorEl.getBoundingClientRect) {
@@ -26707,6 +27178,8 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           }
         }
       };
+
+      window.filterMainRfpTable('', 'all', true);
 
 
       var INTERACTIVE_DOSSIERS = {
@@ -27607,8 +28080,25 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         } catch (e) {}
       })();
 
-      window.filterCoveragePortalGrid = function (regionKey) {
-        var key = regionKey || 'all';
+      var currentCovRegion = 'all';
+      var currentCovPageSize = 10;
+      var currentCovPage = 1;
+
+      window.setCoveragePortalPageSize = function (sz) {
+        currentCovPageSize = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        currentCovPage = 1;
+        window.filterCoveragePortalGrid(currentCovRegion, true);
+      };
+
+      window.setCoveragePortalPage = function (p) {
+        currentCovPage = Math.max(1, parseInt(p, 10) || 1);
+        window.filterCoveragePortalGrid(currentCovRegion, true);
+      };
+
+      window.filterCoveragePortalGrid = function (regionKey, keepPage) {
+        var key = regionKey || currentCovRegion || 'all';
+        currentCovRegion = key;
+        if (!keepPage) currentCovPage = 1;
         var grid = document.getElementById('coverage-portals-grid');
         if (!grid) return;
         var regionMap = {
@@ -27618,7 +28108,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           west: ['STATE // CA', 'STATE // WA', 'STATE // CO', 'STATE // AZ', 'STATE // OR', 'STATE // UT', 'STATE // NV']
         };
         var cards = grid.children || (grid.querySelectorAll ? grid.querySelectorAll('div') : []);
-        var shown = 0;
+        var matched = [];
         for (var i = 0; i < cards.length; i++) {
           var card = cards[i];
           var txt = (card.textContent || '');
@@ -27629,11 +28119,21 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             }
           }
           if (match) {
-            card.classList.remove('hidden');
-            shown++;
+            matched.push(card);
           } else {
             card.classList.add('hidden');
           }
+        }
+        var shown = matched.length;
+        var effSize = (currentCovPageSize === 'all') ? Math.max(1, shown) : currentCovPageSize;
+        var totalPages = Math.max(1, Math.ceil(shown / effSize));
+        if (currentCovPage > totalPages) currentCovPage = totalPages;
+        if (currentCovPage < 1) currentCovPage = 1;
+        var startIdx = (currentCovPageSize === 'all') ? 0 : ((currentCovPage - 1) * effSize);
+        var endIdx = (currentCovPageSize === 'all') ? shown : Math.min(shown, startIdx + effSize);
+        for (var m = 0; m < shown; m++) {
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
         }
         var pills = document.querySelectorAll('.cov-region-pill');
         for (var j = 0; j < pills.length; j++) {
@@ -27645,8 +28145,116 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           }
         }
         var badge = document.getElementById('coverage-region-count-badge');
-        if (badge) badge.textContent = shown + ' / ' + cards.length + ' PORTALS SHOWN';
+        if (badge) {
+          badge.textContent = shown + ' / ' + cards.length + ' PORTALS SHOWN';
+        }
+        if (grid.parentElement && grid.parentElement.insertBefore) {
+          var covPager = document.getElementById('coverage-pagination-bar');
+          if (!covPager) {
+            covPager = document.createElement('div');
+            covPager.id = 'coverage-pagination-bar';
+            covPager.className = 'mt-4 p-3 rounded-xl bg-navy-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono';
+            grid.parentElement.insertBefore(covPager, grid.nextSibling);
+          }
+          var rangeTxt = shown === 0 ? '0 portals shown' : ('Showing <span class="text-white font-semibold">' + (startIdx + 1) + '&ndash;' + endIdx + '</span> of <span class="text-emerald-400 font-semibold">' + shown + '</span> portals');
+          var szHtml = [10, 20, 'all'].map(function (sz) {
+            var act = String(currentCovPageSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + shown + ')' : sz;
+            return '<button type="button" onclick="window.setCoveragePortalPageSize(' + arg + ')" class="px-2.5 py-1 rounded border transition-colors cursor-pointer ' +
+              (act ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-950 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = currentCovPage <= 1;
+          var nextDis = currentCovPage >= totalPages;
+          var navHtml = (currentCovPageSize === 'all' || totalPages <= 1) ? '' : (
+            '<div class="flex items-center gap-1.5">' +
+              '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setCoveragePortalPage(' + (currentCovPage - 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+              '<span class="px-2 text-slate-400">Page <span class="text-white font-semibold">' + currentCovPage + '</span> / ' + totalPages + '</span>' +
+              '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setCoveragePortalPage(' + (currentCovPage + 1) + ')" class="px-2.5 py-1 rounded border transition-colors ' +
+                (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-950 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>' +
+            '</div>'
+          );
+          covPager.innerHTML = '<div class="text-slate-400">' + rangeTxt + '</div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<div class="flex items-center gap-1"><span class="text-slate-400 mr-1">Show:</span>' + szHtml + '</div>' +
+              navHtml +
+            '</div>';
+        }
       };
+
+      var intApiPageSize = 10;
+      var intApiPage = 1;
+      window.setIntegrationsApiPageSize = function (sz) {
+        intApiPageSize = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+        intApiPage = 1;
+        var inp = document.getElementById('integrations-api-search');
+        window.filterIntegrationsApiGrid(inp ? inp.value : '', true);
+      };
+      window.setIntegrationsApiPage = function (p) {
+        intApiPage = Math.max(1, parseInt(p, 10) || 1);
+        var inp = document.getElementById('integrations-api-search');
+        window.filterIntegrationsApiGrid(inp ? inp.value : '', true);
+      };
+      window.filterIntegrationsApiGrid = function (qVal, keepPage) {
+        var grid = document.getElementById('integrations-api-grid');
+        if (!grid) return;
+        if (!document.getElementById('integrations-api-toolbar') && grid.parentElement && grid.parentElement.insertBefore) {
+          var tb = document.createElement('div');
+          tb.id = 'integrations-api-toolbar';
+          tb.className = 'p-3 rounded-xl bg-navy-950/90 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
+          tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
+            '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// MICROSERVICES:</span>' +
+            '<input id="integrations-api-search" type="search" placeholder="Filter 39 REST &amp; MCP APIs..." oninput="window.filterIntegrationsApiGrid(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+          '</div>' +
+          '<div id="integrations-api-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
+          grid.parentElement.insertBefore(tb, grid);
+        }
+        var inp = document.getElementById('integrations-api-search');
+        var q = String(qVal !== undefined ? qVal : (inp ? inp.value : '')).trim().toLowerCase();
+        if (!keepPage) intApiPage = 1;
+        var links = grid.querySelectorAll('a');
+        var matched = [];
+        for (var i = 0; i < links.length; i++) {
+          var txt = (links[i]._stIntText || (links[i]._stIntText = (links[i].textContent || '').toLowerCase()));
+          if (!q || txt.indexOf(q) !== -1) matched.push(links[i]);
+          else links[i].classList.add('hidden');
+        }
+        var totalMatched = matched.length;
+        var effSize = (intApiPageSize === 'all') ? Math.max(1, totalMatched) : intApiPageSize;
+        var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
+        if (intApiPage > totalPages) intApiPage = totalPages;
+        var startIdx = (intApiPageSize === 'all') ? 0 : ((intApiPage - 1) * effSize);
+        var endIdx = (intApiPageSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+        for (var m = 0; m < totalMatched; m++) {
+          if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
+          else matched[m].classList.add('hidden');
+        }
+        var rightEl = document.getElementById('integrations-api-toolbar-right');
+        if (rightEl) {
+          var szBtns = [10, 20, 'all'].map(function (sz) {
+            var act = String(intApiPageSize) === String(sz);
+            var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
+            var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
+            return '<button type="button" onclick="window.setIntegrationsApiPageSize(' + arg + ')" class="px-2 py-0.5 rounded border text-[11px] cursor-pointer transition-colors ' +
+              (act ? 'bg-sky-600 text-white border-sky-400 font-semibold' : 'bg-navy-900 hover:bg-slate-800 text-slate-300 border-slate-700') + '">' + lbl + '</button>';
+          }).join('');
+          var prevDis = intApiPage <= 1;
+          var nextDis = intApiPage >= totalPages;
+          var navBtns = (intApiPageSize === 'all' || totalPages <= 1) ? '' : (
+            '<button type="button" ' + (prevDis ? 'disabled ' : '') + 'onclick="window.setIntegrationsApiPage(' + (intApiPage - 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (prevDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-900 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">&larr; Prev</button>' +
+            '<span class="text-[11px] text-slate-400">' + intApiPage + '/' + totalPages + '</span>' +
+            '<button type="button" ' + (nextDis ? 'disabled ' : '') + 'onclick="window.setIntegrationsApiPage(' + (intApiPage + 1) + ')" class="px-2 py-0.5 rounded border text-[11px] ' +
+              (nextDis ? 'bg-navy-950/50 text-slate-600 border-slate-800 cursor-not-allowed' : 'bg-navy-900 hover:bg-slate-800 text-slate-200 border-slate-700 cursor-pointer') + '">Next &rarr;</button>'
+          );
+          rightEl.innerHTML = '<span class="text-[11px] text-emerald-400">' + (totalMatched === 0 ? '0 shown' : ('Showing ' + (startIdx + 1) + '&ndash;' + endIdx + ' of ' + totalMatched)) + '</span>' +
+            '<span class="text-slate-400 text-[11px] ml-1">SHOW:</span>' + szBtns + navBtns;
+        }
+      };
+
+      window.filterCoveragePortalGrid('all', true);
+      window.filterIntegrationsApiGrid('', true);
 
       window.__CHECKOUT_DELIVERY_COLLAPSED = false;
       window.toggleCheckoutDeliveryDrawer = function (forceExpand) {
