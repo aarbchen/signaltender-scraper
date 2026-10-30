@@ -1419,7 +1419,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
 
             max_instantly_active_buffer = int(
                 os.getenv("INSTANTLY_MAX_ACTIVE_BUFFER")
-                or max(245, len(warmed_account_emails) * 90 if len(warmed_account_emails) > 6 else 245)
+                or max(950, len(warmed_account_emails) * 150)
             )
             available_slots = max(0, max_instantly_active_buffer - len(existing_inst_emails))
             new_leads_to_push = [

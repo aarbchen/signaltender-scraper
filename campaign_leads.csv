@@ -257,9 +257,9 @@ Eduardo,eduardo.marques@chickasaw.com,Chickasaw Strategic Pointe,Chickasaw Strat
 
 Our ingestion pipeline monitors Illinois BidBuy, Chicago/Cook County portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Saw Chickasaw Strategic Pointe's active USD 20M HHS FDA award (75F40126F19001, running through 2031-09-24) and wanted to pass along 3 live IT/cyber bids currently open for response:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 217d to PoP End] VA (36C10B24F0161): USD 34M incumbent contract (Oddball, PoP ending 2027-06-04) entering FAR 19.502-2 Sources Sought shaping window
@@ -268,9 +268,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.
 
 You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Chickasaw Strategic Pointe's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?
 
@@ -280,14 +280,14 @@ Founder, SignalTender",Re: Chickasaw Strategic Pointe (75F40126F19001) — 3 ope
 
 Wanted to follow up one last time regarding our automated 28-portal Federal and 26-State SLED capture & proposal suite.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): VA 36C10B24F0161 ($34M incumbent Oddball, PoP ends 2027-06-04) -> Challenger PTW Ceiling $10.4M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): IBM ($5.11M at Treasury, 2099CA27F00010) -> ~$1.53M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot
 
 Because Chickasaw Strategic Pointe operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):
 
@@ -312,7 +312,7 @@ Last note from me so I don't clutter your inbox.
 
 If Chickasaw Strategic Pointe has a live SAM.gov or Illinois & Federal RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.
 
-Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Regards,
 Aaron Chen
@@ -320,9 +320,9 @@ Founder, SignalTender",{{RANDOM | Chickasaw Strategic Pointe's HHS FDA contract 
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Noticed Chickasaw Strategic Pointe's USD 20M contract with Food and Drug Administration (FDA) (75F40126F19001, PoP through 2031-09-24) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl: | Saw Chickasaw Strategic Pointe's active USD 20M HHS FDA award (75F40126F19001, running through 2031-09-24) and wanted to pass along 3 live IT/cyber bids currently open for response: | While mapping HHS FDA IT primes (Chickasaw Strategic Pointe's USD 20M contract 75F40126F19001, PoP ending 2031-09-24), our classifier flagged 3 open solicitations aligned with Chickasaw Strategic Pointe:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 217d to PoP End] VA (36C10B24F0161): USD 34M incumbent contract (Oddball, PoP ending 2027-06-04) entering FAR 19.502-2 Sources Sought shaping window
@@ -331,19 +331,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, Post-Award FOIA Incumbent LCAT Rate Benchmark, and 1-Click 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Chickasaw Strategic Pointe's territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Chickasaw Strategic Pointe's territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Chickasaw Strategic Pointe's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M breakdown, FOIA incumbent rate benchmark, and 1-Click 6-File .DOCX/.XLSX Proposal .ZIP Compiler for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -353,14 +353,14 @@ Founder, SignalTender","{{RANDOM | Hi Eduardo, | Hey Eduardo, | Hello Eduardo,}}
 
 {{RANDOM | Quick follow-up in case Chickasaw Strategic Pointe is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): VA 36C10B24F0161 ($34M incumbent Oddball, PoP ends 2027-06-04) -> Challenger PTW Ceiling $10.4M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): IBM ($5.11M at Treasury, 2099CA27F00010) -> ~$1.53M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot
 
 Because Chickasaw Strategic Pointe operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):
 
@@ -379,14 +379,14 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot,"75F40126F19001 | CHICKASAW STRATEGIC POINTE, LLC | $20M (HHS FDA)",38,MBX-38,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,ENTERPRISE_OEM_FOIA
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Chickasaw%20Strategic%20Pointe#proposal-autopilot,"75F40126F19001 | CHICKASAW STRATEGIC POINTE, LLC | $20M (HHS FDA)",38,MBX-38,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,ENTERPRISE_OEM_FOIA
 Stefanie,stefanie.murphy@sikich.com,Sikich,Sikich's Treasury BFS contract (20341422F00009) + 3 Illinois & Federal IT bids,"Stefanie —
 
 I track newly released public-sector technology solicitations across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (28 federal and state portals total). Saw Sikich's active USD 38.3M Treasury BFS award (20341422F00009, running through 2027-01-15) and wanted to pass along 3 live IT/cyber bids currently open for response:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 150d to PoP End] HUD (86615324C00012): USD 34M incumbent contract (Reverse Market Insight, PoP ending 2027-03-29) entering FAR 19.502-2 Sources Sought shaping window
@@ -395,9 +395,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.
 
 You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Sikich's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?
 
@@ -407,14 +407,14 @@ Founder, SignalTender",Re: Sikich's Treasury BFS contract (20341422F00009) + 3 I
 
 Wanted to follow up one last time regarding our automated 28-portal Federal and 26-State SLED capture & proposal suite.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): HUD 86615324C00012 ($34M incumbent Reverse Market Insight, PoP ends 2027-03-29) -> Challenger PTW Ceiling $12.6M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Anthropic ($3.57M at HHS, 7571TE27C00003) -> ~$1.07M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot
 
 Because Sikich operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):
 
@@ -439,7 +439,7 @@ Last note from me so I don't clutter your inbox.
 
 If Sikich has a live SAM.gov or Illinois & Federal RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.
 
-Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Best regards,
 Aaron Chen
@@ -447,9 +447,9 @@ Founder, SignalTender",{{RANDOM | Sikich's Treasury BFS contract (20341422F00009
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Noticed Sikich's USD 38.3M contract with Bureau of the Fiscal Service (20341422F00009, PoP through 2027-01-15) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl: | Saw Sikich's active USD 38.3M Treasury BFS award (20341422F00009, running through 2027-01-15) and wanted to pass along 3 live IT/cyber bids currently open for response: | While mapping Treasury BFS IT primes (Sikich's USD 38.3M contract 20341422F00009, PoP ending 2027-01-15), our classifier flagged 3 open solicitations aligned with Sikich:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 150d to PoP End] HUD (86615324C00012): USD 34M incumbent contract (Reverse Market Insight, PoP ending 2027-03-29) entering FAR 19.502-2 Sources Sought shaping window
@@ -458,19 +458,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, Post-Award FOIA Incumbent LCAT Rate Benchmark, and 1-Click 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Sikich's territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Sikich's territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Sikich's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M breakdown, FOIA incumbent rate benchmark, and 1-Click 6-File .DOCX/.XLSX Proposal .ZIP Compiler for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -480,14 +480,14 @@ Founder, SignalTender","{{RANDOM | Hi Stefanie, | Hey Stefanie, | Hello Stefanie
 
 {{RANDOM | Quick follow-up in case Sikich is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): HUD 86615324C00012 ($34M incumbent Reverse Market Insight, PoP ends 2027-03-29) -> Challenger PTW Ceiling $12.6M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Anthropic ($3.57M at HHS, 7571TE27C00003) -> ~$1.07M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot
 
 Because Sikich operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):
 
@@ -506,7 +506,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sikich#proposal-autopilot,20341422F00009 | SIKICH FEDERAL INC. | $38.3M (Treasury BFS),45,MBX-45,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,ENTERPRISE_OEM_FOIA
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sikich#proposal-autopilot,20341422F00009 | SIKICH FEDERAL INC. | $38.3M (Treasury BFS),45,MBX-45,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,ENTERPRISE_OEM_FOIA
 Stephen,stephen.willingham@sparksoftcorp.com,Sparksoft,Sparksoft (75FCMC24F0116) — 3 open Maryland & Federal IT & cyber solicitations,"Stephen —
 
 Our ingestion pipeline monitors Maryland eMMA, county Bonfire portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Saw Sparksoft's active USD 75.4M HHS award (75FCMC24F0116, running through 2027-09-16) and wanted to pass along 3 live IT/cyber bids currently open for response:
@@ -2162,9 +2162,9 @@ Edita,edita.kvrgic@sentinelit.com,Sentinel Technologies,Sentinel Technologies (6
 
 We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. While mapping Railroad Retirement Board IT primes (Sentinel Technologies' USD 747K contract 60RRBH23F1127, PoP ending 2027-09-29), our classifier flagged 3 open solicitations aligned with Sentinel Technologies:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 45d to PoP End] USAF (FA873022F0001): USD 34.5M incumbent contract (Omni Federal, PoP ending 2026-12-14) entering FAR 19.502-2 Sources Sought shaping window
@@ -2173,9 +2173,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.
 
 You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Sentinel Technologies' radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?
 
@@ -2185,14 +2185,14 @@ Founder, SignalTender",Re: Sentinel Technologies (60RRBH23F1127) — 3 open Illi
 
 Wanted to follow up one last time regarding our automated 28-portal Federal and 26-State SLED capture & proposal suite.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): USAF FA873022F0001 ($34.5M incumbent Omni Federal, PoP ends 2026-12-14) -> Challenger PTW Ceiling $6.48M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): VivSoft Technologies ($10.5M at GSA FAS, 47QFSA27F0001) -> ~$3.14M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -2217,7 +2217,7 @@ Last note from me so I don't clutter your inbox.
 
 If Sentinel Technologies has a live SAM.gov or Illinois & Federal RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.
 
-Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Regards,
 Aaron Chen
@@ -2225,9 +2225,9 @@ Founder, SignalTender",{{RANDOM | Sentinel Technologies' Railroad Retirement Boa
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Noticed Sentinel Technologies' USD 747K contract with Railroad Retirement Board (60RRBH23F1127, PoP through 2027-09-29) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl: | Saw Sentinel Technologies' active USD 747K Railroad Retirement Board award (60RRBH23F1127, running through 2027-09-29) and wanted to pass along 3 live IT/cyber bids currently open for response: | While mapping Railroad Retirement Board IT primes (Sentinel Technologies' USD 747K contract 60RRBH23F1127, PoP ending 2027-09-29), our classifier flagged 3 open solicitations aligned with Sentinel Technologies:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 45d to PoP End] USAF (FA873022F0001): USD 34.5M incumbent contract (Omni Federal, PoP ending 2026-12-14) entering FAR 19.502-2 Sources Sought shaping window
@@ -2236,19 +2236,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Sentinel Technologies' territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Sentinel Technologies' territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Sentinel Technologies' radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 6-File Shipley Proposal .ZIP Compiler for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -2258,14 +2258,14 @@ Founder, SignalTender","{{RANDOM | Hi Edita, | Hey Edita, | Hello Edita,}}
 
 {{RANDOM | Quick follow-up in case Sentinel Technologies is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): USAF FA873022F0001 ($34.5M incumbent Omni Federal, PoP ends 2026-12-14) -> Challenger PTW Ceiling $6.48M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): VivSoft Technologies ($10.5M at GSA FAS, 47QFSA27F0001) -> ~$3.14M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -2284,7 +2284,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Sentinel%20Technologies#proposal-autopilot,"60RRBH23F1127 | SENTINEL TECHNOLOGIES, INC. | $747K (Railroad Retirement Board)",15,MBX-15,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Sentinel%20Technologies#proposal-autopilot,"60RRBH23F1127 | SENTINEL TECHNOLOGIES, INC. | $747K (Railroad Retirement Board)",15,MBX-15,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
 Capture,contracts@decisiveinstincts.com,Decisive Instincts,M6785425F4900 (U.S. Navy) + 3 open California & Federal IT RFPs for Decisive Instincts,"Hi Decisive Instincts team,
 
 I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across California Cal eProcure, DemandStar, and SAM.gov. Noticed Decisive Instincts' USD 18.5M contract with U.S. Department of the Navy (M6785425F4900, PoP through 2027-06-30) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:
@@ -2543,9 +2543,9 @@ Capture,contracts@atpgov.com,ATP GOV,W9124823C1000 (U.S. Army) + 3 open Illinois
 
 I track newly released public-sector technology solicitations across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (28 federal and state portals total). While mapping U.S. Army IT primes (Atp Gov's USD 4.37M contract W9124823C1000, PoP ending 2027-01-31), our classifier flagged 3 open solicitations aligned with Atp Gov:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 93d to PoP End] Dept. of Education (91990024F0014): USD 33.8M incumbent contract (T-rex Solutions, PoP ending 2027-01-31) entering FAR 19.502-2 Sources Sought shaping window
@@ -2554,9 +2554,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.
 
 You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Atp Gov's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?
 
@@ -2566,14 +2566,14 @@ Founder, SignalTender",Re: W9124823C1000 (U.S. Army) + 3 open Illinois & Federal
 
 Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): Dept. of Education 91990024F0014 ($33.8M incumbent T-rex Solutions, PoP ends 2027-01-31) -> Challenger PTW Ceiling $11.3M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Innovate ($1.57M at HHS HRSA, 75R60226F80069) -> ~$471K FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -2598,7 +2598,7 @@ Closing the loop on this—I won't follow up again unless I hear from you.
 
 If your capture team is evaluating any Federal or Illinois & Federal IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for Atp Gov at no cost.
 
-Direct pre-loaded compiler link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
+Direct pre-loaded compiler link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
 
 Regards,
 Aaron Chen
@@ -2606,9 +2606,9 @@ Founder, SignalTender",{{RANDOM | Atp Gov's U.S. Army contract (W9124823C1000) +
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Noticed Atp Gov's USD 4.37M contract with U.S. Department of the Army (W9124823C1000, PoP through 2027-01-31) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl: | Saw Atp Gov's active USD 4.37M U.S. Army award (W9124823C1000, running through 2027-01-31) and wanted to pass along 3 live IT/cyber bids currently open for response: | While mapping U.S. Army IT primes (Atp Gov's USD 4.37M contract W9124823C1000, PoP ending 2027-01-31), our classifier flagged 3 open solicitations aligned with Atp Gov:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 93d to PoP End] Dept. of Education (91990024F0014): USD 33.8M incumbent contract (T-rex Solutions, PoP ending 2027-01-31) entering FAR 19.502-2 Sources Sought shaping window
@@ -2617,19 +2617,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Atp Gov's territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Atp Gov's territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Atp Gov's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 6-File Shipley Proposal .ZIP Compiler for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -2639,14 +2639,14 @@ Founder, SignalTender","{{RANDOM | Hi Atp Gov team, | Hello Atp Gov team,}}
 
 {{RANDOM | Quick follow-up in case Atp Gov is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): Dept. of Education 91990024F0014 ($33.8M incumbent T-rex Solutions, PoP ends 2027-01-31) -> Challenger PTW Ceiling $11.3M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Innovate ($1.57M at HHS HRSA, 75R60226F80069) -> ~$471K FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -2665,7 +2665,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=ATP%20GOV#proposal-autopilot,"W9124823C1000 | ATP GOV, LLC | $4.37M (U.S. Army)",8,MBX-08,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=ATP%20GOV#proposal-autopilot,"W9124823C1000 | ATP GOV, LLC | $4.37M (U.S. Army)",8,MBX-08,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
 Capture,partnerships@clarity.com,Clarity Innovations,Clarity Innovations' USAF contract (FA873022F0003) + 3 Maryland & Federal IT bids,"Hi Clarity Innovations team,
 
 Our ingestion pipeline monitors Maryland eMMA, county Bonfire portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed Clarity Innovations' USD 71M contract with U.S. Department of the Air Force (FA873022F0003, PoP through 2026-12-14) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:
@@ -7115,9 +7115,9 @@ Chad,chusko@irislighttech.com,"Iris Light Technologies, Inc.",FA864925P0492 (USA
 
 I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. While mapping USAF IT primes (Iris Light Technologies' USD 1.8M contract FA864925P0492, PoP ending 2027-06-01), our classifier flagged 3 open solicitations aligned with Iris Light Technologies:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 93d to PoP End] Dept. of Education (91990024F0014): USD 33.8M incumbent contract (T-rex Solutions, PoP ending 2027-01-31) entering FAR 19.502-2 Sources Sought shaping window
@@ -7126,9 +7126,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.
 
 I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Iris Light Technologies' territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Iris Light Technologies' territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?
 
@@ -7138,14 +7138,14 @@ Founder, SignalTender",Re: FA864925P0492 (USAF) + 3 open Illinois & Federal IT R
 
 Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): Dept. of Education 91990024F0014 ($33.8M incumbent T-rex Solutions, PoP ends 2027-01-31) -> Challenger PTW Ceiling $11.3M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Accenture Federal Services ($11.1M at DOE, 89303027FIM000232) -> ~$3.32M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -7170,7 +7170,7 @@ Last note from me so I don't clutter your inbox.
 
 If Iris Light Technologies has a live SAM.gov or Illinois & Federal RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.
 
-Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Best regards,
 Aaron Chen
@@ -7178,9 +7178,9 @@ Founder, SignalTender",{{RANDOM | Iris Light Technologies' USAF contract (FA8649
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Noticed Iris Light Technologies' USD 1.8M contract with U.S. Department of the Air Force (FA864925P0492, PoP through 2027-06-01) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl: | Saw Iris Light Technologies' active USD 1.8M USAF award (FA864925P0492, running through 2027-06-01) and wanted to pass along 3 live IT/cyber bids currently open for response: | While mapping USAF IT primes (Iris Light Technologies' USD 1.8M contract FA864925P0492, PoP ending 2027-06-01), our classifier flagged 3 open solicitations aligned with Iris Light Technologies:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 93d to PoP End] Dept. of Education (91990024F0014): USD 33.8M incumbent contract (T-rex Solutions, PoP ending 2027-01-31) entering FAR 19.502-2 Sources Sought shaping window
@@ -7189,19 +7189,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Iris Light Technologies' territory filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Iris Light Technologies' territory filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Iris Light Technologies' radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 6-File Shipley Proposal .ZIP Compiler for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -7211,14 +7211,14 @@ Founder, SignalTender","{{RANDOM | Hi Chad, | Hey Chad, | Hello Chad,}}
 
 {{RANDOM | Quick follow-up in case Iris Light Technologies is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): Dept. of Education 91990024F0014 ($33.8M incumbent T-rex Solutions, PoP ends 2027-01-31) -> Challenger PTW Ceiling $11.3M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Accenture Federal Services ($11.1M at DOE, 89303027FIM000232) -> ~$3.32M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:
 
@@ -7237,7 +7237,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot,FA864925P0492 | IRIS LIGHT TECHNOLOGIES INC | $1.8M (USAF),28,MBX-28,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Iris%20Light%20Technologies%2C%20Inc.#proposal-autopilot,FA864925P0492 | IRIS LIGHT TECHNOLOGIES INC | $1.8M (USAF),28,MBX-28,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,PRIME_PROPOSAL_AUTOPILOT
 See-Mong,seemong@pangeatech.ai,Pangea,DOT FTA 69319525F30128N + new Georgia & Federal IT bids for Pangea,"Hey See-Mong,
 
 Our ingestion pipeline monitors Georgia DOAS GPR, Atlanta metro portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed Pangea's USD 567K contract with Federal Transit Administration (FTA) (69319525F30128N, PoP through 2027-02-22) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:
@@ -12195,9 +12195,9 @@ Amit,amit.das@tagoretech.com,"Tagore Technology, Inc.",Illinois & Federal IT & c
 
 Our ingestion pipeline monitors Illinois BidBuy, Chicago/Cook County portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Thought these 3 open solicitations from today's 6-hour crawl might fit Tagore Technology's capture pipeline:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 147d to PoP End] DISA (HC102824F2000): USD 34.6M incumbent contract (Booz Allen Hamilton, PoP ending 2027-03-26) entering FAR 19.502-2 Sources Sought shaping window
@@ -12206,9 +12206,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.
 
 You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Tagore Technology's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?
 
@@ -12218,14 +12218,14 @@ Founder, SignalTender",Re: Illinois & Federal IT & cyber RFPs for Tagore Technol
 
 Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): DISA HC102824F2000 ($34.6M incumbent Booz Allen Hamilton, PoP ends 2027-03-26) -> Challenger PTW Ceiling $10.6M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Booz Allen Hamilton ($14.1M at Commerce NOAA, 1305M226F0401) -> ~$4.24M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -12250,7 +12250,7 @@ Last note from me so I don't clutter your inbox.
 
 If Tagore Technology has a live SAM.gov or Illinois & Federal RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.
 
-Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) or Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Best regards,
 Aaron Chen
@@ -12258,9 +12258,9 @@ Founder, SignalTender",{{RANDOM | 3 open Illinois & Federal IT bids for Tagore T
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Since Tagore Technology delivers public-sector technology, I pulled 3 active solicitations from our latest crawl: | Noticed Tagore Technology's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response: | Thought these 3 open solicitations from today's 6-hour crawl might fit Tagore Technology's capture pipeline:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 147d to PoP End] DISA (HC102824F2000): USD 34.6M incumbent contract (Booz Allen Hamilton, PoP ending 2027-03-26) entering FAR 19.502-2 Sources Sought shaping window
@@ -12269,19 +12269,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Tagore Technology's state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Tagore Technology's state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Tagore Technology's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -12291,14 +12291,14 @@ Founder, SignalTender","{{RANDOM | Hi Amit, | Hey Amit, | Hello Amit,}}
 
 {{RANDOM | Quick follow-up in case Tagore Technology is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): DISA HC102824F2000 ($34.6M incumbent Booz Allen Hamilton, PoP ends 2027-03-26) -> Challenger PTW Ceiling $10.6M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Booz Allen Hamilton ($14.1M at Commerce NOAA, 1305M226F0401) -> ~$4.24M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -12317,7 +12317,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot,HC102824F2000 | BOOZ ALLEN HAMILTON | $34.6M (DISA),29,MBX-29,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Tagore%20Technology%2C%20Inc.#proposal-autopilot,HC102824F2000 | BOOZ ALLEN HAMILTON | $34.6M (DISA),29,MBX-29,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
 Jose,j.bahamonde@lelantostech.com,Lelantos Inc.,Jose — 3 open New York & Federal IT RFPs,"Hi Jose,
 
 I run an automated procurement monitor that tracks NYS Contract Reporter, NYC PASSPort, and SAM.gov (plus 25 other state SLED portals) every 6 hours. Since Lelantos delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:
@@ -14862,9 +14862,9 @@ Yu,yukambe@nanopatterntechnologies.com,"Nanopattern Technologies, Inc.",Open Ill
 
 I track newly released public-sector technology solicitations across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (28 federal and state portals total). Noticed Nanopattern Technologies' work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 234d to PoP End] HHS CMS (75FCMC22F0067): USD 34M incumbent contract (Acentra Health, PoP ending 2027-06-21) entering FAR 19.502-2 Sources Sought shaping window
@@ -14873,9 +14873,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Unlike legacy feeds cluttered with printer ink and license renewals, our pipeline isolates net-new software, cloud, and cybersecurity work.
 
 I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Nanopattern Technologies' state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Nanopattern Technologies' state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?
 
@@ -14885,14 +14885,14 @@ Founder, SignalTender",Re: Open Illinois & Federal IT solicitations (Nanopattern
 
 Quick follow-up in case Nanopattern Technologies is expanding its Illinois & Federal capture and proposal pipeline this quarter.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): HHS CMS 75FCMC22F0067 ($34M incumbent Acentra Health, PoP ends 2027-06-21) -> Challenger PTW Ceiling $6.25M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Spire Global Subsidiary ($16.6M at Commerce NOAA, 1332KP26F0082) -> ~$4.97M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -14917,7 +14917,7 @@ Closing the loop on this—I won't follow up again unless I hear from you.
 
 If your capture team is evaluating any Federal or Illinois & Federal IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for Nanopattern Technologies at no cost.
 
-Direct pre-loaded compiler link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
+Direct pre-loaded compiler link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
 
 Regards,
 Aaron Chen
@@ -14925,9 +14925,9 @@ Founder, SignalTender",{{RANDOM | 3 open Illinois & Federal IT bids for Nanopatt
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Since Nanopattern Technologies delivers public-sector technology, I pulled 3 active solicitations from our latest crawl: | Noticed Nanopattern Technologies' work in the space and wanted to pass along 3 live IT/cyber bids currently open for response: | Thought these 3 open solicitations from today's 6-hour crawl might fit Nanopattern Technologies' capture pipeline:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 234d to PoP End] HHS CMS (75FCMC22F0067): USD 34M incumbent contract (Acentra Health, PoP ending 2027-06-21) entering FAR 19.502-2 Sources Sought shaping window
@@ -14936,19 +14936,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Nanopattern Technologies' state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Nanopattern Technologies' state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Nanopattern Technologies' radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -14958,14 +14958,14 @@ Founder, SignalTender","{{RANDOM | Hi Yu, | Hey Yu, | Hello Yu,}}
 
 {{RANDOM | Quick follow-up in case Nanopattern Technologies is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): HHS CMS 75FCMC22F0067 ($34M incumbent Acentra Health, PoP ends 2027-06-21) -> Challenger PTW Ceiling $6.25M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): Spire Global Subsidiary ($16.6M at Commerce NOAA, 1332KP26F0082) -> ~$4.97M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -14984,14 +14984,14 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot,75FCMC22F0067 | ACENTRA HEALTH | $34M (HHS CMS),43,MBX-43,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Nanopattern%20Technologies%2C%20Inc.#proposal-autopilot,75FCMC22F0067 | ACENTRA HEALTH | $34M (HHS CMS),43,MBX-43,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
 Robin,rgb@network-perception.com,"Network Perception, Inc.",Network Perception / 3 open public-sector IT contracts,"Hi Robin,
 
 We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. Since Network Perception delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 218d to PoP End] DOJ (15JPSS23F00000389): USD 34.4M incumbent contract (Network Designs, PoP ending 2027-06-05) entering FAR 19.502-2 Sources Sought shaping window
@@ -15000,9 +15000,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.
 
 I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Network Perception's state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Network Perception's state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?
 
@@ -15012,14 +15012,14 @@ Founder, SignalTender",Re: Network Perception / 3 open public-sector IT contract
 
 Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): DOJ 15JPSS23F00000389 ($34.4M incumbent Network Designs, PoP ends 2027-06-05) -> Challenger PTW Ceiling $7.92M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): 1 Source Consulting ($2M at DHS USCIS, 70SBUR26F00000284) -> ~$601K FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -15044,7 +15044,7 @@ Closing the loop on this—I won't follow up again unless I hear from you.
 
 If your capture team is evaluating any Federal or Illinois & Federal IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for Network Perception at no cost.
 
-Direct pre-loaded compiler link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
+Direct pre-loaded compiler link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
 
 Regards,
 Aaron Chen
@@ -15052,9 +15052,9 @@ Founder, SignalTender",{{RANDOM | 3 open Illinois & Federal IT bids for Network 
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Since Network Perception delivers public-sector technology, I pulled 3 active solicitations from our latest crawl: | Noticed Network Perception's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response: | Thought these 3 open solicitations from today's 6-hour crawl might fit Network Perception's capture pipeline:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 218d to PoP End] DOJ (15JPSS23F00000389): USD 34.4M incumbent contract (Network Designs, PoP ending 2027-06-05) entering FAR 19.502-2 Sources Sought shaping window
@@ -15063,19 +15063,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Network Perception's state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Network Perception's state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Network Perception's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -15085,14 +15085,14 @@ Founder, SignalTender","{{RANDOM | Hi Robin, | Hey Robin, | Hello Robin,}}
 
 {{RANDOM | Quick follow-up in case Network Perception is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): DOJ 15JPSS23F00000389 ($34.4M incumbent Network Designs, PoP ends 2027-06-05) -> Challenger PTW Ceiling $7.92M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): 1 Source Consulting ($2M at DHS USCIS, 70SBUR26F00000284) -> ~$601K FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -15111,14 +15111,14 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Network%20Perception%2C%20Inc.#proposal-autopilot,"15JPSS23F00000389 | NETWORK DESIGNS, INC. | $34.4M (DOJ)",34,MBX-34,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Network%20Perception%2C%20Inc.#proposal-autopilot,"15JPSS23F00000389 | NETWORK DESIGNS, INC. | $34.4M (DOJ)",34,MBX-34,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
 Channah,naiman@pirouette-software.com,Pirouette Software Consulting,New Illinois & Federal tech & cyber solicitations for Pirouette Software Consulting,"Channah —
 
 We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with Pirouette Software Consulting:
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 212d to PoP End] USAF (FA489023F0026): USD 34.6M incumbent contract (Tenax Technologies, PoP ending 2027-05-30) entering FAR 19.502-2 Sources Sought shaping window
@@ -15127,9 +15127,9 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs.
 
 I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Pirouette Software Consulting's state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Pirouette Software Consulting's state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?
 
@@ -15139,14 +15139,14 @@ Founder, SignalTender",Re: New Illinois & Federal tech & cyber solicitations for
 
 Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): USAF FA489023F0026 ($34.6M incumbent Tenax Technologies, PoP ends 2027-05-30) -> Challenger PTW Ceiling $7.21M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): IBM ($5.11M at Treasury, 2099CA27F00010) -> ~$1.53M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -15171,7 +15171,7 @@ Closing the loop on this—I won't follow up again unless I hear from you.
 
 If your capture team is evaluating any Federal or Illinois & Federal IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for Pirouette Software Consulting at no cost.
 
-Direct pre-loaded compiler link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
+Direct pre-loaded compiler link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot | Free Explorer Portal ($0/mo): https://signaltender.net/#signup
 
 Regards,
 Aaron Chen
@@ -15179,9 +15179,9 @@ Founder, SignalTender",{{RANDOM | 3 open Illinois & Federal IT bids for Pirouett
 
 {{RANDOM | I run an automated procurement monitor that tracks Illinois BidBuy, Chicago/Cook County portals, and SAM.gov (plus 25 other state SLED portals) every 6 hours. | We maintain a live public-sector RFP engine covering Illinois BidBuy, Chicago/Cook County portals, and SAM.gov and 25 additional state procurement portals every 6 hours. | I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Illinois BidBuy, Chicago/Cook County portals, and SAM.gov.}} {{RANDOM | Since Pirouette Software Consulting delivers public-sector technology, I pulled 3 active solicitations from our latest crawl: | Noticed Pirouette Software Consulting's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response: | Thought these 3 open solicitations from today's 6-hour crawl might fit Pirouette Software Consulting's capture pipeline:}}
 
-1. B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options — Chicago Transit Authority (CTA) (Due: 11/20/2026 | NAICS 541512 • Illinois DoIT Security)
-2. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
-3. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+1. Federal Revenue Enhancement and Claiming Systems Support Services — State of Illinois (CFS - Children and Family Services) (Due: 11/13/2026 | NAICS 541512 • Illinois DoIT Security)
+2. JPMC SOURCEWELL RFP 110426 Digital Procurement Platforms with Related Services for Operational Goods — State of Illinois (CPOGS - CPO Office for General Services) (Due: 11/04/2026 | NAICS 541512 • Illinois DoIT Security)
+3. B26OP01976 - Request for Proposals (RFP) Web-based Docket Management System for a period of up to three years with two one-year options — Chicago Transit Authority (CTA) (Due: 11/02/2026 | NAICS 511210 • SOC 2 Type II / NIST CSF 2.0)
 
 Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 • [Recompete Radar — 212d to PoP End] USAF (FA489023F0026): USD 34.6M incumbent contract (Tenax Technologies, PoP ending 2027-05-30) entering FAR 19.502-2 Sources Sought shaping window
@@ -15190,19 +15190,19 @@ Plus 2 pre-RFP & subcontracting signals from today's USAspending wire:
 {{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}
 
 {{RANDOM | I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Pirouette Software Consulting's state & NAICS filters.
+You can also launch the pre-loaded 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot) or claim a Free Explorer Account (https://signaltender.net/#signup) to save Pirouette Software Consulting's state & NAICS filters.
 
 Are you actively bidding Illinois & Federal IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list? | You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
+Or test the 1-Click 6-File Proposal .ZIP Compiler (https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot) and Free Explorer Portal (https://signaltender.net/#signup) anytime.
 
 Is Illinois & Federal IT/cyber on Pirouette Software Consulting's radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)? | Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:
-https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
+https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
 
-Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
+Pre-loaded 6-File Proposal .ZIP Compiler: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot | Free Explorer Portal: https://signaltender.net/#signup
 
 Worth sending over future Illinois & Federal IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?}}
 
@@ -15212,14 +15212,14 @@ Founder, SignalTender","{{RANDOM | Hi Channah, | Hey Channah, | Hello Channah,}}
 
 {{RANDOM | Quick follow-up in case Pirouette Software Consulting is expanding its Illinois & Federal capture pipeline this quarter. | Following up briefly on the Illinois & Federal IT solicitations I sent over earlier this week. | Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}
 
-For example, on 'B26OP04834 – Request for Proposals (RFP) for a Web-Based Environmental Health and Safety Management Software System (EHS), Including Implementation, Support and Services for Three Years with Two One-Year Options' (Chicago Transit Authority (CTA)), our CaptureDesk engine already pre-computed:
+For example, on 'Federal Revenue Enhancement and Claiming Systems Support Services' (State of Illinois (CFS - Children and Family Services)), our CaptureDesk engine already pre-computed:
 • Classification: NAICS 541512 — Computer Systems Design Services (SBA Cap: $34.0M annual receipts)
 • Cyber & Clause Posture: Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT
 • Teaming & Past Performance: 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs
 • 90-180d Recompete PTW & Shaping (API #16 + API #21): USAF FA489023F0026 ($34.6M incumbent Tenax Technologies, PoP ends 2027-05-30) -> Challenger PTW Ceiling $7.21M/yr (-8% PTW target) + FAR 19.502-2 Rule-of-Two Set-Aside Brief
 • Fresh Prime Subcontracting Wire (API #11): IBM ($5.11M at Treasury, 2099CA27F00010) -> ~$1.53M FAR 52.219-9 Small-Business Sub Pool (30%)
-• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html
-• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot
+• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html
+• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot
 
 Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):
 
@@ -15238,7 +15238,7 @@ https://signaltender.net/#checkout
 
 {{RANDOM | Best, | Regards, | Best regards,}}
 Aaron Chen
-Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943.html,https://signaltender.net/?sol_id=b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-943&company=Pirouette%20Software%20Consulting#proposal-autopilot,FA489023F0026 | TENAX TECHNOLOGIES | $34.6M (USAF),31,MBX-31,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
+Founder, SignalTender",Illinois & Federal,https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html,https://signaltender.net/?sol_id=26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671&company=Pirouette%20Software%20Consulting#proposal-autopilot,FA489023F0026 | TENAX TECHNOLOGIES | $34.6M (USAF),31,MBX-31,541512 — Computer Systems Design Services,Illinois DoIT Security • SOC 2 Type II • IITAA 2.1 VPAT | 13 CFR § 125.6 (50% Rule) + 3 CPARS Vol. III Past Perf Refs,GROWTH_SLED_SUBCONTRACTOR
 Stephen,russell@agilitydata.com,Agility Data Research,3 open Maryland & Federal IT bids for Agility Data Research,"Stephen —
 
 I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Maryland eMMA, county Bonfire portals, and SAM.gov. Since Agility Data Research delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:
