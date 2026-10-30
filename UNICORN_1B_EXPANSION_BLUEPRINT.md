@@ -1,7 +1,7 @@
 # SignalTender $1B+ Unicorn Expansion Blueprint (Phase 2 — Post-$1M ARR Master Plan)
 
-> **Status:** Deferred Strategic & Architectural Blueprint (Revisit once Phase 1 crosses **$1M–$3M ARR** and Day 38 of `daily_expansion_roadmap.json` completes all 50 U.S. State SLED Portals + 58 GovCon APIs).
-> **Core Principle:** Keep Phase 1 (`$0` → `$1M–$3M ARR`, 100% solo/automated, 50-State IT/Cyber focus) completely untouched while it compounds cash flow. Trigger this blueprint in stages funded entirely by operating profits.
+> **Status:** Deferred Strategic & Architectural Blueprint (**Day 38 of `daily_expansion_roadmap.json` is now 100% COMPLETED — all 52 Portals / 50 U.S. States + 58 GovCon APIs are live**; Phase 1 Feature Freeze is now in effect until Phase 1 crosses **$1M–$3M ARR**).
+> **Core Principle:** Keep Phase 1 (`$0` → `$1M–$3M ARR`, 100% solo/automated, 50-State IT/Cyber focus with **50% revenue reinvestment into scaling from 6 → 300 warmed mailboxes**) completely feature-frozen while it compounds cash flow. Trigger this blueprint in stages funded entirely by operating profits.
 
 ---
 
@@ -24,9 +24,9 @@ At a top-decile Vertical AI + Embedded FinTech multiple of **12x–14x ARR** (dr
 
 Do **not** build Phase 2 until Phase 1 hits its cash-flow trigger:
 
-1. **Gate 0 (Current — $0 to $1M ARR | Months 1–12):**
-   * Complete Days 1–38 of `d:\Daas\daily_expansion_roadmap.json` (**52 Portals / All 50 U.S. States + 58 GovCon APIs**).
-   * Scale `govcon_lead_harvester.py` + `outreach_generator.py` from 2 sending mailboxes to **10–15 warm sending domains** (`500–750 PIID-personalized emails/day`).
+1. **Gate 0 (Current — $0 to $1M+ ARR | Months 1–12 | Feature Freeze Active):**
+   * **DONE:** Completed Days 1–38 of `d:\Daas\daily_expansion_roadmap.json` (**52 Portals / All 50 U.S. States + 58 GovCon APIs + Moats 1–4 live in `proposal_compiler.py`**).
+   * **IN PROGRESS:** Reinvest **50% of gross revenue** each month into scaling `govcon_lead_harvester.py` + `outreach_generator.py` from **6 warmed mailboxes (`180/day`)** to **300 warmed mailboxes (`9,000/day` / `~189,000/mo`)** across IT/Cyber and adjacent NAICS sectors.
    * Accumulate **1,000+ statutory FOIA / State PIA rate records** in `GET /v1/proposal-autopilot/foia-winning-bid-vault` and **500+ verified teaming partners** in `POST /v1/proposal-autopilot/teaming-clearinghouse`.
 2. **Gate 1 ($1M ARR → $10M ARR | Months 12–24):**
    * **Trigger:** `$83,333+/mo` MRR + Day 38 of the 50-state rollout completed.
@@ -91,13 +91,14 @@ Once Day 38 of `daily_expansion_roadmap.json` completes all 50 State Portals, ap
 ### Module D: Sovereign Air-Gapped Enterprise Appliance (`SignalTender GovCloud Enclave OEM`)
 To close **$100,000–$250,000/yr** contracts with Top-500 Defense Primes (*Booz Allen, Leidos, SAIC, CACI, Peraton*) that cannot send `DFARS 252.204-7012` Controlled Unclassified Information (`CUI`) to public SaaS endpoints:
 1. Package `d:\Data API Ecosystem` (`main.py`, `mcp_server.py`, and all 70 routers) as a **stateless, zero-egress Docker container + Kubernetes Helm Chart**.
-2. Swap public LLM calls for an environment-configurable **AWS Bedrock (`anthropic.claude-3-7-sonnet` inside `us-gov-west-1` AWS GovCloud)** or **Azure Government OpenAI (`DoD IL4 / IL5`)** adapter.
+2. Swap public LLM calls for an environment-configurable **AWS Bedrock (`claude-sonnet-5-5` inside `us-gov-west-1` AWS GovCloud)** or **Azure Government (`DoD IL4 / IL5`)** adapter.
 3. Ship with an automated **FIPS 140-3 TLS + Zero-Data-Retention Attestation endpoint** (`POST /v1/enclave/health-and-airgap-attestation`) so Prime CISOs can approve deployment inside their own VPC in `< 48 hours`.
 
 ---
 
-### Module E: Post-Award Contract Lifecycle Management (CLM) Loop (`135%+` Net Dollar Retention)
-Add a **"Mark Proposal as WON → Launch Post-Award Workspace"** button to every compiled `.ZIP` package in the Client Portal:
+### Module E: Post-Award Contract Lifecycle Management (CLM) Loop & Persistent Company RAG Vault (`10/10 Memory Lock-In` & `135%+` NDR)
+Add a **Persistent Company Past-Performance, CPARS & Resume RAG Vault** plus a **"Mark Proposal as WON → Launch Post-Award Workspace"** button to every compiled `.ZIP` package in the Client Portal:
+0. **Persistent Past-Performance & Key Personnel RAG Vault (`10/10 Switching-Cost Moat`):** Subscribers upload their historical winning Technical Volumes (`.docx`/`.pdf`), CPARS evaluations, and employee resumes into an encrypted per-tenant vault so every 1-Click 6-File Shipley `.ZIP` compilation automatically cites their exact historical contract numbers, quantified past-performance metrics, and real personnel bios.
 1. **1-Click `Volume_II.xlsx` → `WAWF / PIEE` CLIN Billing:** Parses the winning Excel CLIN schedule and generates monthly EDI/XML invoice payloads ready for DoD PIEE Wide Area Workflow.
 2. **Live `DCAA SF-1408` Indirect Rate Burn vs. PTW Baseline:** Tracks actual monthly Fringe, Overhead, and G&A pools against the `1.78x–1.85x` wrap rate modeled at bid time, alerting the CFO before a cost-reimbursable ceiling overrun occurs.
 3. **Continuous `CPARS` Evidence Vault:** Every monthly deliverable and SLA metric is automatically logged and formatted into an annual `FAR 42.1503` **EXCEPTIONAL / VERY RELEVANT** CPARS narrative—which then auto-populates `Volume_III_Past_Performance_Teaming_and_Compliance.docx` for the contractor's next bid on SignalTender.
