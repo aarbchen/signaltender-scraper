@@ -87,9 +87,34 @@ API_NUM_MIRROR_OVERRIDE: Dict[int, str] = {
     32: "compliance",
     33: "capture",
     34: "capture",
+    35: "pricing",
+    36: "capture",
+    37: "pricing",
+    38: "pricing",
+    39: "pricing",
+    40: "compliance",
+    41: "compliance",
+    42: "capture",
+    43: "security",
+    44: "compliance",
+    45: "capture",
+    46: "compliance",
+    47: "compliance",
+    48: "security",
+    49: "capture",
+    50: "pricing",
+    51: "compliance",
+    52: "security",
+    53: "security",
+    54: "pricing",
+    55: "compliance",
+    56: "proposal",
+    57: "pricing",
+    58: "pricing",
 }
 
 STUDIO_SHORT_TITLES: Dict[int, str] = {
+    21: "GovCon Sources Sought, RFI & Set-Aside Shaping Responder API",
     22: "GovCon OCI & FAR 9.5 Mitigation Plan Generator API",
     23: "SBIR / STTR Phase I-III Commercialization Plan API",
     24: "GovCon Section 508, WCAG 2.2 AA & VPAT 2.5 Auditor API",
@@ -103,6 +128,30 @@ STUDIO_SHORT_TITLES: Dict[int, str] = {
     32: "DFARS 252 227 7013 7014 7017 Data Rights Assertion API",
     33: "GovCon Shipley Black Hat Incumbent Ghosting API",
     34: "GovCon CPARS Self Assessment 14 Day Rebuttal API",
+    35: "GovCon REA Constructive Change CDA Claim API",
+    36: "SBA Mentor Protege 13 CFR 125 8 Joint Venture API",
+    37: "GovCon SCA FAR 52 222 41 Wage Determination Mapper API",
+    38: "GovCon EVMS ANSI 748 IPMDR Variance Narrative API",
+    39: "GovCon CAS 48 CFR 9904 DS1 DS2 Disclosure Auditor API",
+    40: "ITAR 22 CFR 120 130 EAR TCP Export Compliance API",
+    41: "DoD CDRL DD Form 1423 DID Schedule Extractor API",
+    42: "FAR 6 302 8 405 6 Sole Source J and A LSJ Drafter API",
+    43: "DFARS 252 204 7012 72 Hour DIBNet CIRCIA Incident API",
+    44: "DOE NNSA National Lab MO DEAR 48 CFR Ch 9 Auditor API",
+    45: "GWAC IDIQ Task Order Fair Opportunity FAR 16 505 API",
+    46: "GovCon GFP FAR 52 245 1 PIEE Property Management API",
+    47: "DoD OCONUS INDOPACOM SOFA Defense Base Act SPOT API",
+    48: "CUI 32 CFR 2002 DoDI 5200 48 Handling Plan API",
+    49: "SLED Cooperative Purchasing NASPO Sourcewell Piggyback API",
+    50: "FAR Part 48 VECP FAR 52 248 1 Shared Savings Modeler API",
+    51: "FAR 52 203 13 Business Ethics PIA OIG Disclosure API",
+    52: "DoD FedRAMP Moderate Equivalency 3PAO BOE Auditor API",
+    53: "Federal AI Governance OMB M 24 10 NIST AI RMF 1 0 API",
+    54: "FAR Part 49 T4C SF 1435 1438 Settlement Calculator API",
+    55: "GovCon MA Contract Novation FAR 42 1204 Package API",
+    56: "SSEB Source Selection Simulator Shipley Proposal Scorer API",
+    57: "GSA FAS Sales Reporting Portal TDR IFF Audit Reconciler API",
+    58: "FAR Subpart 16 4 Award Fee CPAF CPIF FPIF Maximizer API",
 }
 
 
@@ -178,9 +227,10 @@ def _parse_cookie_str(cookie_str: str) -> Dict[str, str]:
     return out
 
 
-def _persist_rolled_cookies(s: requests.Session) -> None:
-    """Merge any Set-Cookie values from `s.cookies` back into `d:\\Daas\\.env` and `.rapidapi_session.json`."""
-    if not s.cookies:
+def _persist_rolled_cookies(s: requests.Session, allow_empty_csrf: bool = False) -> None:
+    """Merge valid Set-Cookie values from `s.cookies` back into `d:\\Daas\\.env` and `.rapidapi_session.json`."""
+    csrf_tok = (s.headers.get("csrf-token") or "").strip()
+    if not csrf_tok and not allow_empty_csrf:
         return
     current_map = _parse_cookie_str(s.headers.get("Cookie", ""))
     changed = False
@@ -188,8 +238,15 @@ def _persist_rolled_cookies(s: requests.Session) -> None:
         if c.value and current_map.get(c.name) != c.value:
             current_map[c.name] = c.value
             changed = True
-    if not changed and SESSION_PATH.exists():
+    if not current_map.get("connect.sid") or not current_map.get("jwt_auth"):
         return
+    if not changed and SESSION_PATH.exists():
+        try:
+            existing_sess = json.loads(SESSION_PATH.read_text(encoding="utf-8"))
+            if existing_sess.get("csrf_token") == csrf_tok:
+                return
+        except Exception:
+            pass
 
     new_cookie_str = "; ".join(f"{k}={v}" for k, v in current_map.items())
     s.headers["Cookie"] = new_cookie_str
@@ -198,7 +255,7 @@ def _persist_rolled_cookies(s: requests.Session) -> None:
         json.dumps(
             {
                 "cookie": new_cookie_str,
-                "csrf_token": s.headers.get("csrf-token", ""),
+                "csrf_token": csrf_tok,
                 "updated_at": int(time.time()),
             },
             indent=2,
@@ -206,20 +263,61 @@ def _persist_rolled_cookies(s: requests.Session) -> None:
         encoding="utf-8",
     )
 
-    env_path = DAAS_DIR / ".env"
-    if env_path.exists():
-        lines = env_path.read_text(encoding="utf-8").splitlines()
-        new_lines = []
-        found = False
-        for line in lines:
-            if line.startswith("RAPIDAPI_STUDIO_COOKIE="):
+    for env_path in (DAAS_DIR / ".env", ECOSYSTEM_DIR / ".env"):
+        if env_path.exists():
+            lines = env_path.read_text(encoding="utf-8").splitlines()
+            new_lines = []
+            found = False
+            for line in lines:
+                if line.startswith("RAPIDAPI_STUDIO_COOKIE="):
+                    new_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{new_cookie_str}'")
+                    found = True
+                else:
+                    new_lines.append(line)
+            if not found and env_path == DAAS_DIR / ".env":
                 new_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{new_cookie_str}'")
-                found = True
-            else:
-                new_lines.append(line)
-        if not found:
-            new_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{new_cookie_str}'")
-        env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8", newline="\n")
+            env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8", newline="\n")
+
+
+def update_rapidapi_cookie(raw_input: str) -> bool:
+    """
+    Accept either a full Cookie header string or a bare `connect.sid` value (`s%3A...`),
+    merge it with existing RapidAPI cookies in `.env`, verify the GraphQL session, and persist.
+    """
+    clean = (raw_input or "").strip().strip("'").strip('"')
+    if not clean:
+        return False
+    load_dotenv(DAAS_DIR / ".env", override=True)
+    existing_str = (os.getenv("RAPIDAPI_STUDIO_COOKIE") or "").strip().strip("'").strip('"')
+    cookie_map = _parse_cookie_str(existing_str)
+    if "=" in clean and (";" in clean or "connect.sid=" in clean):
+        incoming_map = _parse_cookie_str(clean)
+        cookie_map.update(incoming_map)
+    else:
+        if clean.startswith("connect.sid="):
+            clean = clean.split("=", 1)[1].strip()
+        cookie_map["connect.sid"] = clean
+    merged_str = "; ".join(f"{k}={v}" for k, v in cookie_map.items() if k and v)
+    SESSION_PATH.write_text(
+        json.dumps({"cookie": merged_str, "csrf_token": "", "updated_at": int(time.time())}, indent=2),
+        encoding="utf-8",
+    )
+    os.environ["RAPIDAPI_STUDIO_COOKIE"] = merged_str
+    for env_path in (DAAS_DIR / ".env", ECOSYSTEM_DIR / ".env"):
+        if env_path.exists():
+            lines = env_path.read_text(encoding="utf-8").splitlines()
+            updated_lines = []
+            found = False
+            for line in lines:
+                if line.startswith("RAPIDAPI_STUDIO_COOKIE="):
+                    updated_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{merged_str}'")
+                    found = True
+                else:
+                    updated_lines.append(line)
+            if not found and env_path == DAAS_DIR / ".env":
+                updated_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{merged_str}'")
+            env_path.write_text("\n".join(updated_lines) + "\n", encoding="utf-8", newline="\n")
+    return keepalive_rapidapi_session()
 
 
 def load_rapidapi_session() -> requests.Session:
@@ -227,12 +325,18 @@ def load_rapidapi_session() -> requests.Session:
     load_dotenv(DAAS_DIR / ".env", override=True)
     cookie_str = (os.getenv("RAPIDAPI_STUDIO_COOKIE") or "").strip().strip("'").strip('"')
     saved_csrf = ""
+    saved_ua = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+    )
     if SESSION_PATH.exists():
         try:
             sess_data = json.loads(SESSION_PATH.read_text(encoding="utf-8"))
             if sess_data.get("cookie"):
                 cookie_str = sess_data["cookie"]
             saved_csrf = sess_data.get("csrf_token", "")
+            if sess_data.get("user_agent"):
+                saved_ua = sess_data["user_agent"]
         except Exception:
             pass
 
@@ -242,10 +346,7 @@ def load_rapidapi_session() -> requests.Session:
     s = requests.Session()
     s.headers.update(
         {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
-            ),
+            "User-Agent": saved_ua,
             "Cookie": cookie_str,
             "Accept": "application/json",
             "Origin": "https://rapidapi.com",
@@ -259,7 +360,6 @@ def load_rapidapi_session() -> requests.Session:
         s.headers["csrf-token"] = saved_csrf
 
     csrf_resp = s.get("https://rapidapi.com/gateway/csrf", timeout=20)
-    _persist_rolled_cookies(s)
     if csrf_resp.status_code == 200:
         csrf_tok = csrf_resp.json().get("csrfToken", "")
         if csrf_tok:
@@ -268,13 +368,289 @@ def load_rapidapi_session() -> requests.Session:
     return s
 
 
-def keepalive_rapidapi_session() -> bool:
-    """Ping `/gateway/csrf` with `x-rapidapi-Rolling-Key: true` and persist rolled cookies to prevent expiry."""
+def _save_verified_browser_session(cookies_list: List[Dict[str, Any]], csrf_tok: str, user_agent: str) -> bool:
+    """Persist verified browser cookies + csrfToken + userAgent to `.rapidapi_session.json` and `.env`."""
+    load_dotenv(DAAS_DIR / ".env", override=True)
+    cmap = _parse_cookie_str((os.getenv("RAPIDAPI_STUDIO_COOKIE") or "").strip().strip("'").strip('"'))
+    for c in cookies_list:
+        if "rapidapi.com" in str(c.get("domain", "")) and c.get("name") and c.get("value"):
+            cmap[c["name"]] = c["value"]
+    if not cmap.get("connect.sid") and not cmap.get("jwt_auth"):
+        return False
+    cookie_str = "; ".join(f"{k}={v}" for k, v in cmap.items() if k and v)
+    SESSION_PATH.write_text(
+        json.dumps(
+            {
+                "cookie": cookie_str,
+                "csrf_token": csrf_tok or "",
+                "user_agent": user_agent or "",
+                "updated_at": int(time.time()),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    os.environ["RAPIDAPI_STUDIO_COOKIE"] = cookie_str
+    for env_path in (DAAS_DIR / ".env", ECOSYSTEM_DIR / ".env"):
+        if env_path.exists():
+            lines = env_path.read_text(encoding="utf-8").splitlines()
+            new_lines = []
+            found = False
+            for line in lines:
+                if line.startswith("RAPIDAPI_STUDIO_COOKIE="):
+                    new_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{cookie_str}'")
+                    found = True
+                else:
+                    new_lines.append(line)
+            if not found and env_path == DAAS_DIR / ".env":
+                new_lines.append(f"RAPIDAPI_STUDIO_COOKIE='{cookie_str}'")
+            env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8", newline="\n")
+    return True
+
+
+def _clone_cookies_into_headless_profile(cookies_list: List[Dict[str, Any]]) -> None:
+    """Copy verified RapidAPI cookies into `d:\\Daas\\.rapidapi_google_chrome_profile` for 100% headless keepalive."""
+    r_cookies = []
+    for c in cookies_list:
+        if "rapidapi.com" in str(c.get("domain", "")) and c.get("name") and c.get("value"):
+            clean_c: Dict[str, Any] = {
+                "name": c["name"],
+                "value": c["value"],
+                "domain": c.get("domain", ".rapidapi.com"),
+                "path": c.get("path", "/"),
+                "secure": bool(c.get("secure", True)),
+                "httpOnly": bool(c.get("httpOnly", False)),
+            }
+            if c.get("sameSite") in ("Strict", "Lax", "None"):
+                clean_c["sameSite"] = c["sameSite"]
+            if isinstance(c.get("expires"), (int, float)) and c["expires"] > 0:
+                clean_c["expires"] = c["expires"]
+            else:
+                clean_c["expires"] = int(time.time()) + 86400 * 30
+            r_cookies.append(clean_c)
+    if not r_cookies:
+        return
+    try:
+        from playwright.sync_api import sync_playwright
+
+        profile_dir = DAAS_DIR / ".rapidapi_google_chrome_profile"
+        with sync_playwright() as p:
+            ctx = p.chromium.launch_persistent_context(
+                str(profile_dir),
+                channel="chrome",
+                headless=True,
+                ignore_default_args=["--enable-automation"],
+                args=["--disable-blink-features=AutomationControlled"],
+            )
+            ctx.add_cookies(r_cookies)
+            ctx.close()
+    except Exception as exc:
+        print(f"[!] Note cloning cookies into headless profile: {exc}", flush=True)
+
+
+def capture_session_from_active_chrome_cdp(timeout_ms: int = 120000) -> bool:
+    """
+    Connect to the user's running Google Chrome via `DevToolsActivePort` (`chrome://inspect/#remote-debugging`),
+    mint/extract `connect.sid` + `jwt_auth` + `csrfToken`, persist to `.rapidapi_session.json` + `.env`,
+    and clone the cookies into `d:\\Daas\\.rapidapi_google_chrome_profile` so background automation never prompts again.
+    """
+    port_file = Path(os.path.expanduser(r"~\AppData\Local\Google\Chrome\User Data\DevToolsActivePort"))
+    if not port_file.exists():
+        return False
+    try:
+        lines = [ln.strip() for ln in port_file.read_text(encoding="utf-8").splitlines() if ln.strip()]
+        if len(lines) < 2:
+            return False
+        ws_url = f"ws://127.0.0.1:{lines[0]}{lines[1]}"
+        print(
+            f"[*] Connecting to active Chrome ({ws_url})... "
+            "If Chrome shows 'Allow remote debugging?', click Allow once!",
+            flush=True,
+        )
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            browser = p.chromium.connect_over_cdp(ws_url, timeout=timeout_ms)
+            ctx = browser.contexts[0]
+            target_page = None
+            for pg in ctx.pages:
+                if "rapidapi.com" in (pg.url or ""):
+                    target_page = pg
+                    break
+            created_temp = False
+            if target_page is None:
+                target_page = ctx.new_page()
+                created_temp = True
+            if "/studio" not in (target_page.url or ""):
+                target_page.goto("https://rapidapi.com/studio", wait_until="domcontentloaded", timeout=30000)
+                target_page.wait_for_timeout(3000)
+
+            eval_res = target_page.evaluate(
+                """async () => {
+                const ua = navigator.userAgent;
+                const cr = await fetch('https://rapidapi.com/gateway/csrf', {credentials: 'include'});
+                const cj = await cr.json();
+                const csrfToken = cj.csrfToken || '';
+                const gr = await fetch('https://rapidapi.com/gateway/graphql', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'content-type': 'application/json',
+                        'csrf-token': csrfToken,
+                        'rapid-client': 'provider-dashboard-service',
+                        'x-entity-id': '12383419',
+                        'x-rapidapi-Rolling-Key': 'true'
+                    },
+                    body: JSON.stringify({query: 'query { api(id: "api_4c6bdfeb-1400-4466-a1f7-87fcdeb819d4") { id } }'})
+                });
+                const gj = await gr.json();
+                return {ua, csrfToken, gqlOk: Boolean(gj && gj.data && gj.data.api && gj.data.api.id), gj};
+            }"""
+            )
+            all_cookies = ctx.cookies()
+            if created_temp:
+                try:
+                    target_page.close()
+                except Exception:
+                    pass
+        if eval_res and eval_res.get("gqlOk"):
+            _save_verified_browser_session(
+                all_cookies,
+                eval_res.get("csrfToken", ""),
+                eval_res.get("ua", ""),
+            )
+            _clone_cookies_into_headless_profile(all_cookies)
+            print("[+] Captured active RapidAPI Studio session from Chrome & cloned to headless profile!", flush=True)
+            return True
+    except Exception as exc:
+        print(f"[!] Active Chrome CDP note: {exc}", flush=True)
+    return False
+
+
+def refresh_session_via_persistent_browser(interactive: bool = False) -> bool:
+    """
+    Use the dedicated Playwright persistent Chrome profile (`d:\\Daas\\.rapidapi_google_chrome_profile`)
+    that belongs directly to Python automation (zero Chrome 'Allow remote debugging?' popups).
+    - When `interactive=True` (`--login-browser`), first attempts a 1-click capture from active Chrome CDP
+      (`DevToolsActivePort`), and otherwise opens the persistent profile window.
+    - When `interactive=False` (default background keepalive fallback), runs 100% headlessly
+      using the saved persistent profile to refresh `connect.sid` and `csrf-token`.
+    """
+    if interactive and capture_session_from_active_chrome_cdp(timeout_ms=90000):
+        return True
+
+    profile_dir = DAAS_DIR / ".rapidapi_google_chrome_profile"
+    if not interactive and not profile_dir.exists():
+        return False
+    try:
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            launch_kwargs: Dict[str, Any] = {
+                "user_data_dir": str(profile_dir),
+                "headless": not interactive,
+                "ignore_default_args": ["--enable-automation"],
+                "args": ["--disable-blink-features=AutomationControlled"],
+                "viewport": {"width": 1280, "height": 860},
+            }
+            try:
+                ctx = p.chromium.launch_persistent_context(channel="chrome", **launch_kwargs)
+            except Exception:
+                ctx = p.chromium.launch_persistent_context(**launch_kwargs)
+
+            page = ctx.pages[0] if ctx.pages else ctx.new_page()
+            page.goto(
+                "https://rapidapi.com/auth/login?referral=/studio" if interactive else "https://rapidapi.com/studio",
+                wait_until="domcontentloaded",
+                timeout=45000,
+            )
+
+            deadline = time.time() + (300 if interactive else 25)
+            saved_ok = False
+            while time.time() < deadline:
+                all_cookies = ctx.cookies()
+                cmap = {
+                    c["name"]: c["value"]
+                    for c in all_cookies
+                    if "rapidapi.com" in str(c.get("domain", "")) and c.get("name") and c.get("value")
+                }
+                if cmap.get("connect.sid") or cmap.get("jwt_auth"):
+                    if not cmap.get("connect.sid") and "/studio" not in (page.url or ""):
+                        try:
+                            page.goto("https://rapidapi.com/studio", wait_until="domcontentloaded", timeout=25000)
+                            page.wait_for_timeout(2500)
+                            all_cookies = ctx.cookies()
+                        except Exception:
+                            pass
+                    eval_res = page.evaluate(
+                        """async () => {
+                        try {
+                            const ua = navigator.userAgent;
+                            const cr = await fetch('https://rapidapi.com/gateway/csrf', {credentials: 'include'});
+                            const cj = await cr.json();
+                            const csrfToken = cj.csrfToken || '';
+                            const gr = await fetch('https://rapidapi.com/gateway/graphql', {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {
+                                    'content-type': 'application/json',
+                                    'csrf-token': csrfToken,
+                                    'rapid-client': 'provider-dashboard-service',
+                                    'x-entity-id': '12383419',
+                                    'x-rapidapi-Rolling-Key': 'true'
+                                },
+                                body: JSON.stringify({query: 'query { api(id: "api_4c6bdfeb-1400-4466-a1f7-87fcdeb819d4") { id } }'})
+                            });
+                            const gj = await gr.json();
+                            return {ua, csrfToken, gqlOk: Boolean(gj && gj.data && gj.data.api && gj.data.api.id)};
+                        } catch (e) {
+                            return {gqlOk: false};
+                        }
+                    }"""
+                    )
+                    if eval_res and eval_res.get("gqlOk"):
+                        all_cookies = ctx.cookies()
+                        saved_ok = _save_verified_browser_session(
+                            all_cookies,
+                            eval_res.get("csrfToken", ""),
+                            eval_res.get("ua", ""),
+                        )
+                        if saved_ok:
+                            print("[+] Captured live connect.sid + csrfToken from persistent Chrome profile!", flush=True)
+                            break
+                page.wait_for_timeout(2000)
+
+            ctx.close()
+            if saved_ok:
+                return keepalive_rapidapi_session()
+    except Exception as exc:
+        print(f"[!] Persistent browser error: {exc}", flush=True)
+    return False
+
+
+def keepalive_rapidapi_session(allow_browser_refresh: bool = False) -> bool:
+    """
+    Ping `/gateway/csrf` AND execute a lightweight authenticated `POST /gateway/graphql` query
+    with `x-rapidapi-Rolling-Key: true` so RapidAPI's Express session (`connect.sid`) genuinely rolls
+    and never expires. Only spawns Playwright browser refresh if `allow_browser_refresh=True`.
+    """
     try:
         s = load_rapidapi_session()
-        return bool(s.headers.get("csrf-token"))
+        if s.headers.get("csrf-token"):
+            res = gql(
+                s,
+                'query { api(id: "api_4c6bdfeb-1400-4466-a1f7-87fcdeb819d4") { id } }',
+            )
+            if res.get("action") != "force_logout":
+                api_id = ((res.get("data") or {}).get("api") or {}).get("id")
+                if api_id:
+                    _persist_rolled_cookies(s)
+                    return True
     except Exception:
-        return False
+        pass
+    if allow_browser_refresh:
+        return refresh_session_via_persistent_browser(interactive=False)
+    return False
 
 
 def gql(
@@ -287,8 +663,13 @@ def gql(
     if op_name:
         payload["operationName"] = op_name
     r = s.post(GQL_URL, json=payload, timeout=45)
-    _persist_rolled_cookies(s)
-    return r.json()
+    try:
+        data = r.json()
+    except Exception:
+        return {"status_code": r.status_code, "raw": r.text[:300]}
+    if r.status_code == 200 and data.get("action") != "force_logout":
+        _persist_rolled_cookies(s)
+    return data
 
 
 def sync_secret_to_env_and_security(new_secret: str) -> None:
@@ -843,7 +1224,7 @@ def publish_day_api(day_num: int, sample_payload: Dict[str, Any], endpoint_name:
     title = api_cfg["title"]
     route = api_cfg["route"]
     summary = api_cfg["summary"]
-    product_slug = api_cfg.get("slug", f"api-{api_num}")
+    product_slug = api_cfg.get("slug") or api_cfg.get("product_id", f"product-api-{api_num}").replace("product-", "")
     category = API_NUM_MIRROR_OVERRIDE.get(api_num, api_cfg.get("category", "capture"))
     ep_title = endpoint_name or shorten_studio_title(api_num, title).replace(" API", "")
 
@@ -935,20 +1316,131 @@ def sync_completed_days_to_rapidapi(days: Optional[List[int]] = None) -> List[Di
     return results
 
 
+def get_unposted_completed_days() -> List[int]:
+    """
+    Probe live RapidAPI gateway (`https://<rapid_host><path>`) for every completed roadmap day.
+    Returns any day whose standalone RapidAPI project returns 404 (`API doesn't exists`).
+    """
+    from seed_rapidapi_telemetry import ENDPOINTS
+
+    load_dotenv(DAAS_DIR / ".env", override=True)
+    rkey = (os.getenv("RAPIDAPI_KEY") or "").strip()
+    ep_by_num: Dict[int, Dict[str, Any]] = {}
+    for ep in ENDPOINTS:
+        m_id = str(ep.get("id", ""))
+        if m_id.startswith("API "):
+            try:
+                ep_by_num[int(m_id.split(" ")[1])] = ep
+            except ValueError:
+                pass
+
+    roadmap = json.loads(ROADMAP_PATH.read_text(encoding="utf-8"))
+    unposted: List[int] = []
+    for item in roadmap.get("items", []):
+        if item.get("status") != "completed":
+            continue
+        day_num = int(item["day"])
+        api_num = int(item["api"]["api_number"])
+        ep = ep_by_num.get(api_num)
+        if not ep:
+            continue
+        host = ep.get("rapid_host", "")
+        path = ep.get("path", "")
+        if not host or not path:
+            continue
+        try:
+            resp = requests.post(
+                f"https://{host}{path}",
+                headers={
+                    "X-RapidAPI-Key": rkey,
+                    "X-RapidAPI-Host": host,
+                    "Content-Type": "application/json",
+                },
+                json={},
+                timeout=12,
+            )
+            if resp.status_code == 404 and "doesn't exists" in resp.text:
+                unposted.append(day_num)
+        except Exception:
+            pass
+    return unposted
+
+
+def auto_sync_unposted_apis(commit_and_push: bool = True) -> Dict[str, Any]:
+    """
+    Check if any completed roadmap APIs are missing from RapidAPI Studio (`404 API doesn't exists`).
+    If any are missing and the RapidAPI Studio session is active, automatically publish them,
+    register their proxy secrets in `core/security.py`, and push to GitHub/Render.
+    """
+    unposted_days = get_unposted_completed_days()
+    if not unposted_days:
+        return {"status": "ALL_POSTED", "unposted_days": [], "published": []}
+    if not keepalive_rapidapi_session():
+        return {"status": "SESSION_EXPIRED", "unposted_days": unposted_days, "published": []}
+    published = sync_completed_days_to_rapidapi(unposted_days)
+    if commit_and_push and published:
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "add", "core/security.py"],
+                cwd=str(ECOSYSTEM_DIR),
+                timeout=20,
+                check=False,
+            )
+            diff_ec = subprocess.run(
+                ["git", "diff", "--cached", "--quiet"],
+                cwd=str(ECOSYSTEM_DIR),
+                timeout=15,
+            )
+            if diff_ec.returncode != 0:
+                subprocess.run(
+                    ["git", "commit", "-m", f"chore(security): register RapidAPI Studio SHA-256 proxy digests for days {unposted_days}"],
+                    cwd=str(ECOSYSTEM_DIR),
+                    timeout=30,
+                    check=False,
+                )
+                subprocess.run(
+                    ["git", "push", "origin", "main"],
+                    cwd=str(ECOSYSTEM_DIR),
+                    timeout=60,
+                    check=False,
+                )
+        except Exception as exc:
+            report_error("rapidapi_headless_publisher.py", f"Auto-push ecosystem security.py note: {exc}")
+    return {"status": "SYNCED", "unposted_days": unposted_days, "published": published}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Headless RapidAPI Studio & Render Publisher")
     parser.add_argument("--check-session", action="store_true", help="Verify RAPIDAPI_STUDIO_COOKIE is valid and roll cookie")
-    parser.add_argument("--sync-missing", action="store_true", help="Publish all completed roadmap APIs (#22-#25+) to Rapid Studio & Public Hub")
+    parser.add_argument("--login-browser", action="store_true", help="Open persistent automation Chromium profile once to log into RapidAPI Studio and auto-sync all APIs")
+    parser.add_argument("--set-cookie", type=str, help="Update RAPIDAPI_STUDIO_COOKIE (or connect.sid) and sync missing APIs")
+    parser.add_argument("--check-unposted", action="store_true", help="List completed roadmap days not yet live on RapidAPI")
+    parser.add_argument("--sync-missing", action="store_true", help="Publish all unposted completed roadmap APIs to Rapid Studio & Public Hub")
     parser.add_argument("--day", type=int, help="Publish a specific roadmap day number")
     args = parser.parse_args()
-    if args.check_session:
-        sess = load_rapidapi_session()
-        out = gql(
-            sess,
-            'query { api(id: "api_4c6bdfeb-1400-4466-a1f7-87fcdeb819d4") { id slugifiedName visibility currentVersion { id } } }',
-        )
-        print("[+] Headless RapidAPI GraphQL session verified:", out)
+    if args.login_browser:
+        ok = refresh_session_via_persistent_browser(interactive=True)
+        print("[+] Persistent Chromium profile authenticated:", ok)
+        if ok:
+            res = auto_sync_unposted_apis(commit_and_push=True)
+            print("[+] Auto-sync result:", json.dumps(res, indent=2))
+    elif args.set_cookie:
+        ok = update_rapidapi_cookie(args.set_cookie)
+        print("[+] Cookie updated; session active:", ok)
+        if ok:
+            res = auto_sync_unposted_apis(commit_and_push=True)
+            print("[+] Auto-sync result:", json.dumps(res, indent=2))
+    elif args.check_session:
+        ok = keepalive_rapidapi_session()
+        print("[+] Headless RapidAPI GraphQL session active:", ok)
+        if not ok:
+            raise SystemExit(1)
+    elif args.check_unposted:
+        days = get_unposted_completed_days()
+        print("[*] Unposted completed roadmap days:", days)
     elif args.sync_missing:
-        sync_completed_days_to_rapidapi()
+        res = auto_sync_unposted_apis(commit_and_push=True)
+        print("[+] Sync-missing result:", json.dumps(res, indent=2))
     elif args.day:
         sync_completed_days_to_rapidapi([args.day])

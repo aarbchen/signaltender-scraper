@@ -764,13 +764,14 @@ BAD_LOCAL_PARTS = {
     "pr", "ir", "firstname", "lastname",
     "first.last", "yourname", "example", "user", "email",
     "human.resources", "humanresources", "investor", "investors", "grants",
+    "sbir", "sttr", "sba", "application", "applications",
 }
 
 BAD_LOCAL_SUBSTRINGS = (
     "info", "contact", "hello", "inquir", "enquir", "support", "help", "privacy",
     "dpo", "legal", "abuse", "dmca", "noreply", "no-reply", "webmaster", "postmaster",
     "security", "psirt", "career", "job", "hr", "human.resource", "humanresource",
-    "investor", "grant", "recruit", "talent", "employ", "resume",
+    "investor", "grant", "sbir", "sttr", "recruit", "talent", "employ", "resume",
     "billing", "account", "invoice", "claim", "unsub", "media", "press", "news", "theteam",
     "marketing", "events", "admin", "office", "general", "reception", "frontdesk",
     "feedback", "service", "customercare", "u003e", "%20", "sales", "teambox", "connect",
@@ -781,7 +782,7 @@ ROLE_LOCAL_PARTS = {
     "contracts", "contracting", "capture", "bd", "bizdev", "growth",
     "partner", "partners", "partnerships", "engage", "stars3", "starsiii",
     "ciosp3", "ciosp4", "oasis", "vets2", "sewp", "gsa", "vehicles",
-    "federal", "sled", "govcon", "proposals", "rfp", "teaming", "ipsecureinc",
+    "federal", "sled", "govcon", "proposals", "rfp", "teaming", "ipsecureinc", "usa", "uk", "us", "president", "ceo", "cto", "founder", "alliances", "contractmanager",
 }
 
 COMPANY_CLEAN_OVERRIDES = {
@@ -1449,7 +1450,17 @@ NON_IT_BIO_AG_MAT_REGEX = re.compile(
     r"\bhearing\b|\bearmold|\bvocal\b|\bbehavioral\s+health|\bmental\s+health|\bdiagnostic|\bimplant|"
     r"\bprosthe|\bmaterial\s+handl|\bmicrosensor|\bfluidic|\bmicrofluidic|\binsulin|\btumor|\bcancer|"
     r"\bdisability|\bdisabilities|\bstudent|\breading\s+disabil|\bcharging\s+infrastruct|\bev\s+charg|"
-    r"\bgravitronic|\bsuperconduct|\boscillator|\bbuilding\s+automation|\bindoor\s+position)",
+    r"\bgravitronic|\bsuperconduct|\boscillator|\bbuilding\s+automation|\bindoor\s+position|"
+    r"\binjection\b|yadonai|\bbleeding\b|intraoperative|rediminds|angiograph|angioinsight|tomograph|"
+    r"neuraltrak|tissue\s+culture|live\s+cell|37-degrees|37degrees|\baging\b|older\s+adult|foresightcares|"
+    r"\bcaregiver|firstthen|corequantum|\bk-12\b|\bteacher\b|math\s+instruction|hensun|stem\s+career|"
+    r"skillsgapp|\bcurriculum\b|employability|esteleverage|substance\s+use|tenvos|african\s+language|"
+    r"esmglobal|\bflywheel|revterra|\belectrolyzer|hplus-us|fiber\s+laser|photopica|irislight|"
+    r"quantum\s+dot|vuemen|nanopattern|\bmicroscope|monstrsense|\bmineral\b|stratajam|natural\s+resource|"
+    r"terraai|radioisotop|directkinetics|wireless\s+power|terra-watts|yanktech|wireless\s+charg|"
+    r"deepcharge|space\s+balloon|spaceloon|quasarusa|diffract|millimeterwave|organicrobotics|"
+    r"tatumrobotics|diamondagetechnology|elektrum|semergy|gmt-semi|linebird|sonovoice|vellex|"
+    r"giwotech|designerecosystem|earthsense|quantum-ec|automatsoln|emaginest|macula-vision|aimetrics|quantivly|qsimulate|zepsor|tendo\.tech|phlux|informuta|luxnour|ravenspacesystems|tricrobotics|trellisrobotics)",
     re.I,
 )
 

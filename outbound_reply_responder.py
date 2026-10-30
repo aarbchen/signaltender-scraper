@@ -41,12 +41,12 @@ CAMPAIGN_CSV_PATH = os.path.join(BASE_DIR, "campaign_leads.csv")
 INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
 
 
-def _lookup_prospect_context(from_email: str) -> dict:
+def _lookup_prospect_context(from_email: str, reply_text: str = "") -> dict:
     """
     Look up `from_email` (with corporate-domain fallback if a teammate replies from another
-    inbox at the same company) in `campaign_leads.csv` and `govcon_prospect_intelligence.json`
-    so `classify_and_draft_reply()` knows the exact 3 RFPs, Top Contract Dossier URL,
-    USAspending Award ID, and Recompete/Subcontracting matches that were sent to this prospect.
+    inbox at the same company) in `campaign_leads.csv`, with automatic fallback to Instantly.ai V2
+    `POST /api/v2/leads/list` (`custom_variables` payload) and quoted-thread `1. / 2. / 3.` parsing
+    if the prospect was rotated out of `campaign_leads.csv`.
     """
     clean_em = str(from_email or "").strip().lower()
     dom = clean_em.split("@", 1)[1] if "@" in clean_em else ""
@@ -67,6 +67,49 @@ def _lookup_prospect_context(from_email: str) -> dict:
             pass
 
     target = matched_row or domain_row or {}
+    if not target and INSTANTLY_API_KEY and INSTANTLY_CAMPAIGN_ID and clean_em:
+        try:
+            r_inst = requests.post(
+                "https://api.instantly.ai/api/v2/leads/list",
+                headers={"Authorization": f"Bearer {INSTANTLY_API_KEY}", "Content-Type": "application/json"},
+                json={"campaign": INSTANTLY_CAMPAIGN_ID, "search": dom or clean_em, "limit": 10},
+                timeout=8,
+            )
+            if r_inst.status_code == 200:
+                items = (r_inst.json() or {}).get("items") or []
+                picked = None
+                for it in items:
+                    if str(it.get("email") or "").strip().lower() == clean_em:
+                        picked = it
+                        break
+                if picked is None and items:
+                    picked = items[0]
+                if picked:
+                    pl = picked.get("payload") or {}
+                    target = {
+                        "First Name": str(picked.get("first_name") or pl.get("firstName") or "").strip(),
+                        "Company": str(picked.get("company_name") or pl.get("companyName") or "").strip(),
+                        "Matched State": str(pl.get("matched_state") or "Federal & State SLED").strip(),
+                        "Top Contract Dossier URL": str(pl.get("top_dossier_url") or f"{SITE_BASE_URL}/contracts").strip(),
+                        "Compiler Deep-Link URL": str(pl.get("compiler_deeplink_url") or f"{SITE_BASE_URL}/#proposal-autopilot").strip(),
+                        "Top Contract NAICS": str(pl.get("top_naics") or "541512 — Computer Systems Design Services").strip(),
+                        "Top Contract Posture": str(pl.get("top_posture") or "").strip(),
+                        "Subject Line": str(pl.get("subject_line") or "").strip(),
+                        "Email Body": str(pl.get("email_body") or "").strip(),
+                        "Followup Body": str(pl.get("followup_body") or "").strip(),
+                    }
+        except Exception:
+            pass
+
+    if not target.get("Email Body") and reply_text:
+        quoted_123 = []
+        for q_ln in str(reply_text).splitlines():
+            clean_q = q_ln.lstrip("> ").strip()
+            if clean_q.startswith(("1. ", "2. ", "3. ")):
+                quoted_123.append(clean_q)
+        if quoted_123:
+            target = dict(target)
+            target["Email Body"] = "\n".join(quoted_123[:3])
     company = str(target.get("Company") or "").strip()
     award_profile = None
     if company and os.path.exists(INTEL_JSON_PATH):
@@ -243,7 +286,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     ):
         return {"intent": "OUT_OF_OFFICE", "reply_body": ""}
 
-    ctx = _lookup_prospect_context(from_email)
+    ctx = _lookup_prospect_context(from_email, reply_text=reply_text)
     comp_label = ctx["company"] or "your team"
     state_label = ctx["matched_state"] or "Federal & State SLED"
     top_dossier_url = ctx["top_dossier_url"] or f"{SITE_BASE_URL}/contracts"

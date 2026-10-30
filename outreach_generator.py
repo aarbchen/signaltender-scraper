@@ -678,7 +678,9 @@ GENERIC_PERSON_NAMES = {
     "contracts", "contract", "partner", "partners", "partnerships", "growth",
     "bd", "bizdev", "admin", "procurement", "proposals", "rfp", "bids",
     "inquiries", "general", "office", "marketing", "support", "careers",
-    "solutions", "services", "gov", "stars", "engage", "",
+    "solutions", "services", "gov", "stars", "engage", "usa", "uk", "us", "eu", "apac",
+    "president", "ceo", "cto", "cfo", "coo", "ciso", "founder", "owner", "director",
+    "manager", "application", "applications", "contractmanager", "alliances", "ipsecureinc", "",
 }
 
 
@@ -1316,7 +1318,11 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                 replied_inst_emails.add(em)
                             elif lead_status == 3:
                                 completed_non_responders.append((em, lid))
-                            elif not govcon_lead_harvester.is_verified_it_cyber_prospect(comp_it, em, str((it.get('payload') or {}).get('subject_line') or '')):
+                            elif (
+                                not govcon_lead_harvester.is_verified_it_cyber_prospect(comp_it, em, str((it.get('payload') or {}).get('subject_line') or ''))
+                                or not str((it.get('payload') or {}).get('subject_line') or '').strip()
+                                or not str((it.get('payload') or {}).get('email_body') or '').strip()
+                            ):
                                 non_it_or_invalid_to_purge.append((em, lid))
                             elif has_started_sequence:
                                 in_flight_inst_emails.add(em)
@@ -1396,6 +1402,9 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             "spintax_body_2": item_row.get("Spintax Body 2", ""),
                             "matched_state": item_row.get("Matched State", ""),
                             "top_dossier_url": item_row.get("Top Contract Dossier URL", ""),
+                            "compiler_deeplink_url": item_row.get("Compiler Deep-Link URL", ""),
+                            "top_naics": item_row.get("Top Contract NAICS", ""),
+                            "top_posture": item_row.get("Top Contract Posture", ""),
                             "target_segment": item_row.get("Target Segment", "PRIME_PROPOSAL_AUTOPILOT"),
                         },
                     }
@@ -1449,6 +1458,9 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                             "spintax_body_2": item.get("Spintax Body 2", ""),
                             "matched_state": item.get("Matched State", ""),
                             "top_dossier_url": item.get("Top Contract Dossier URL", ""),
+                            "compiler_deeplink_url": item.get("Compiler Deep-Link URL", ""),
+                            "top_naics": item.get("Top Contract NAICS", ""),
+                            "top_posture": item.get("Top Contract Posture", ""),
                             "target_segment": item.get("Target Segment", "PRIME_PROPOSAL_AUTOPILOT"),
                         },
                     }

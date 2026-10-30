@@ -690,6 +690,30 @@ def audit_and_heal_products(auto_fix: bool = True) -> tuple[list[dict], list[str
     # 11. Audit All 8 Stripe Checkout Plans, `st_live_...` Subscriber API Key Auth, `#account` & AI Support Concierge
     try:
         import importlib.util
+        import types
+        if str(ECOSYSTEM_DIR) not in sys.path:
+            sys.path.insert(0, str(ECOSYSTEM_DIR))
+        if "fastapi" not in sys.modules:
+            fa_stub = types.ModuleType("fastapi")
+            fa_stub.Header = lambda *a, **k: None
+            fa_stub.HTTPException = Exception
+            fa_stub.status = types.SimpleNamespace(HTTP_401_UNAUTHORIZED=401, HTTP_403_FORBIDDEN=403)
+            sys.modules["fastapi"] = fa_stub
+        if "core.config" not in sys.modules:
+            sys.modules.setdefault("core", types.ModuleType("core"))
+            cfg_stub = types.ModuleType("core.config")
+            cfg_stub.settings = types.SimpleNamespace(
+                RAPIDAPI_PROXY_SECRET=os.getenv("RAPIDAPI_PROXY_SECRET", "signaltender-test-secret"),
+                ANTHROPIC_API_KEY=os.getenv("ANTHROPIC_API_KEY", ""),
+                SUPABASE_URL=os.getenv("SUPABASE_URL", ""),
+                SUPABASE_KEY=os.getenv("SUPABASE_KEY", ""),
+            )
+            sys.modules["core.config"] = cfg_stub
+        try:
+            import rapidapi_headless_publisher
+            rapidapi_headless_publisher.auto_sync_unposted_apis(commit_and_push=auto_fix)
+        except Exception:
+            pass
         sec_spec = importlib.util.spec_from_file_location("eco_security", str(ECOSYSTEM_DIR / "core" / "security.py"))
         if sec_spec and sec_spec.loader:
             sec_mod = importlib.util.module_from_spec(sec_spec)
@@ -1263,6 +1287,48 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                             cur_lead = d_ll.get("next_starting_after")
                             if not cur_lead or not it_ll:
                                 break
+                        import govcon_lead_harvester
+                        bad_inst_leads = []
+                        for x_lead in lead_items:
+                            x_id = str(x_lead.get("id") or "").strip()
+                            x_em = str(x_lead.get("email") or "").strip().lower()
+                            x_comp = str(x_lead.get("company_name") or "").strip()
+                            x_pl = x_lead.get("payload") or {}
+                            x_subj = str(x_pl.get("subject_line") or "").strip()
+                            x_body = str(x_pl.get("email_body") or "").strip()
+                            x_fup = str(x_pl.get("followup_body") or "").strip()
+                            x_brk = str(x_pl.get("breakup_body") or "").strip()
+                            all_b = f"{x_body} {x_fup} {x_brk}"
+                            if x_id and (
+                                not x_subj
+                                or not x_body
+                                or "http://" in all_b
+                                or "https://" in all_b
+                                or "$" in all_b
+                                or not govcon_lead_harvester.is_verified_it_cyber_prospect(x_comp, x_em, x_subj)
+                            ):
+                                bad_inst_leads.append((x_em, x_id))
+                        if bad_inst_leads:
+                            if auto_fix:
+                                for b_em, b_id in bad_inst_leads:
+                                    try:
+                                        requests.delete(
+                                            f"https://api.instantly.ai/api/v2/leads/{b_id}",
+                                            headers={"Authorization": f"Bearer {inst_key}"},
+                                            timeout=10,
+                                        )
+                                    except Exception:
+                                        pass
+                                fixed_events.append({
+                                    "component": "Instantly.ai V2 Lead Hygiene Guard",
+                                    "issue": f"Detected {len(bad_inst_leads)} malformed/blank/non-IT/link-bearing lead(s) in campaign {inst_cid}",
+                                    "fix": f"Automatically purged {len(bad_inst_leads)} invalid lead(s) via DELETE /api/v2/leads/{{id}}.",
+                                    "rule_id": "RULE-003-OUTBOUND-DOSSIER-URL-INTEGRITY",
+                                })
+                            else:
+                                unfixed_issues.append(
+                                    f"Instantly campaign {inst_cid} contains {len(bad_inst_leads)} blank/non-IT/link-bearing lead(s): {[e for e, _ in bad_inst_leads[:5]]}"
+                                )
                         uncontacted_step1 = [x for x in lead_items if not x.get("timestamp_last_contact")]
                         remaining_l = len(uncontacted_step1)
                         if lead_items and remaining_l < 30:
