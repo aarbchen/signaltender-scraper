@@ -137,6 +137,15 @@ FOUNDATIONAL_RULES = [
         "fix_applied": "Enforced strict 50-state _infer_target_jurisdiction() matching, CPRA/PIA/FOIL statutory citation alignment across Volume V header & body, pure corporate USAspending teaming partners, _lookup_offeror_verified_profile() auto-enrichment, and runtime _enforce_proposal_package_quality_gate().",
         "prevention_rule": "Every compiled 6-file Shipley Proposal .ZIP package and API deliverable must pass _enforce_proposal_package_quality_gate() and check_product_output_quality_controls() with 100% jurisdiction isolation, corporate teaming partner verification, and intact LCAT parsing.",
     },
+    {
+        "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
+        "category": "Database Hygiene & Static Dossier Payload Integrity",
+        "source": "omniscient_auditor.py / pseo_generator.py / mainscraper.py / govcon_lead_harvester.py",
+        "bug_signature": "Scraped navigation/policy links, synthetic 'State PoP Modernization' rows, UTF-8 replacement characters (\\ufffd), or masked '[Verified Agency]' / 'static' button arguments in /contracts/rfp/*.html",
+        "root_cause": "Broad portal HTML scraping or post-award synthesis inserting non-RFP rows into Supabase contracts, and static RFP dossier templates passing c['masked_agency'] instead of c['agency'] into window.compileShipleyProposalZip().",
+        "fix_applied": "Added automatic nightly Supabase contracts semantic hygiene & UTF-8 auto-healer in omniscient_auditor.py, removed Tier-4 State PoP Modernization & SLED-*-COOP synthesis, and bound static/SPA RFP dossier action buttons to real issuing agency and solicitation slug.",
+        "prevention_rule": "Nightly omniscient_auditor.py runs must actively purge non-RFP/nav-link/synthetic rows and \\ufffd characters from Supabase contracts and usaspending_verified_vault.json, and verify static/SPA dossier button payloads pass real agency and solicitation IDs.",
+    },
 ]
 
 
@@ -456,6 +465,60 @@ def audit_and_heal_products(auto_fix: bool = True) -> tuple[list[dict], list[str
                 f"seed_rapidapi_telemetry.py has {len(seed_ids)} ENDPOINTS, expected {n_apis} to match index.html/apis.html"
             )
 
+    # 7. Audit & Auto-Heal USAspending Verified Vault Purity across both repos (zero synthetic SLED-* or state pool rows)
+    vault_paths = [
+        BASE_DIR / "usaspending_verified_vault.json",
+        ECOSYSTEM_DIR / "api" / "routers" / "usaspending_verified_vault.json",
+    ]
+    purged_vault_count = 0
+    for vp in vault_paths:
+        if not vp.exists():
+            continue
+        try:
+            v_data = json.loads(vp.read_text(encoding="utf-8"))
+            is_list_root = isinstance(v_data, list)
+            orig_awards = v_data if is_list_root else (v_data.get("awards") or [])
+            clean_awards = []
+            for aw in orig_awards:
+                if not isinstance(aw, dict):
+                    continue
+                aw_id = str(aw.get("award_id") or "").strip().upper()
+                recip = str(aw.get("recipient_name") or "").strip().lower()
+                if aw_id.startswith("SLED-") or any(tok in recip for tok in ("pool", "schedule", "cooperative", "multiple award", "statewide it")):
+                    continue
+                clean_awards.append(aw)
+            if len(clean_awards) != len(orig_awards):
+                diff_n = len(orig_awards) - len(clean_awards)
+                if auto_fix:
+                    if is_list_root:
+                        vp.write_text(json.dumps(clean_awards, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                    else:
+                        v_data["awards"] = clean_awards
+                        v_data["count"] = len(clean_awards)
+                        vp.write_text(json.dumps(v_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                    purged_vault_count += diff_n
+                else:
+                    unfixed_issues.append(f"{vp.name} contains {diff_n} synthetic SLED-*/pool rows")
+        except Exception as exc:
+            unfixed_issues.append(f"Failed to audit {vp}: {exc}")
+
+    if purged_vault_count > 0:
+        fixed_events.append({
+            "component": "usaspending_verified_vault.json (Daas & Data API Ecosystem)",
+            "issue": f"Detected {purged_vault_count} synthetic SLED-*/Statewide Pool row(s) in USAspending verified vault",
+            "fix": "Purged all non-corporate SLED-*/pool entries from both vault JSON files so FAR 9.6 teaming exhibits only cite verified corporate vendors.",
+            "rule_id": "RULE-008-PRODUCT-OUTPUT-QUALITY-GATE",
+        })
+
+    # 8. Execute Multi-Jurisdiction Product Deliverable Quality Gate (CA/TX/Fed .ZIP unpack, .docx/.xlsx XML & LCAT verification)
+    try:
+        import verify_site_integrity
+        qual_errors = verify_site_integrity.check_product_output_quality_controls()
+        if qual_errors:
+            unfixed_issues.extend(qual_errors)
+    except Exception as exc:
+        unfixed_issues.append(f"check_product_output_quality_controls() execution error: {exc}")
+
     return fixed_events, unfixed_issues
 
 
@@ -465,10 +528,11 @@ def audit_and_heal_products(auto_fix: bool = True) -> tuple[list[dict], list[str
 def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[str]]:
     """
     Audits and auto-heals all customer acquisition channels:
-      1. Programmatic SEO (`/contracts/**/*.html`, `sitemap.xml`, JSON-LD, OpenGraph `?v=` cache-buster).
-      2. Outbound Cold Email (`campaign_leads.csv`, `outbox_ready_queue.json`, DNC filtering, live dossier URL existence, count parity).
-      3. Social Autoposter Queues (`linkedin_ready_posts.json`, `x_ready_posts.json`, `urn:li:organization:146880945` lock).
-      4. Inbound Lead Capture Magnet (`/v1/leads/capture` & `#inbound-lead-capture` state coverage).
+      1. Live Supabase `contracts` semantic hygiene (auto-purging nav/policy links, `State PoP Modernization`, non-http URLs, and `\\ufffd` chars).
+      2. Programmatic SEO (`/contracts/**/*.html`, `sitemap.xml`, JSON-LD, OpenGraph `?v=` cache-buster, unmasked button payloads).
+      3. Outbound Cold Email (`campaign_leads.csv`, `outbox_ready_queue.json`, DNC filtering, live dossier URL existence, count parity).
+      4. Social Autoposter Queues (`linkedin_ready_posts.json`, `x_ready_posts.json`, `urn:li:organization:146880945` lock).
+      5. Inbound Lead Capture Magnet (`/v1/leads/capture` & `#inbound-lead-capture` state coverage).
     Returns `(auto_fixed_events, unfixed_issues)`.
     """
     fixed_events: list[dict] = []
@@ -497,15 +561,92 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
         else:
             unfixed_issues.append(f"Found {len(sf30_files)} synthetic SF-30 HTML files in contracts/rfp/")
 
-    # 2. Check pSEO pages, sitemap.xml, and OpenGraph cache-buster parity
+    # 1b. Audit & Auto-Heal Live Supabase `contracts` Semantic Hygiene & UTF-8 Replacement Characters
+    sb_url = os.getenv("SUPABASE_URL", "").strip()
+    sb_key = os.getenv("SUPABASE_KEY", "").strip()
+    db_purged_ids: list = []
+    db_patched_ids: list = []
+    if sb_url and sb_key:
+        try:
+            import pseo_generator
+            sb_headers = {"apikey": sb_key, "Authorization": f"Bearer {sb_key}", "Content-Type": "application/json"}
+            resp_db = requests.get(
+                f"{sb_url}/rest/v1/contracts?select=id,title,agency,source_url&limit=1000",
+                headers=sb_headers,
+                timeout=15,
+            )
+            if resp_db.status_code == 200:
+                for row in resp_db.json():
+                    r_id = row.get("id")
+                    r_title = str(row.get("title") or "")
+                    r_url = str(row.get("source_url") or "").strip()
+                    if r_url.startswith("subscriber://"):
+                        continue
+                    is_bad_row = (
+                        not r_url.startswith("http")
+                        or "state pop modernization:" in r_title.lower()
+                        or pseo_generator.is_commodity_it_spam(r_title)
+                    )
+                    if is_bad_row:
+                        if auto_fix and r_id is not None:
+                            requests.delete(f"{sb_url}/rest/v1/contracts?id=eq.{r_id}", headers=sb_headers, timeout=10)
+                            db_purged_ids.append(r_id)
+                            bad_slug = pseo_generator.slugify(r_title)
+                            bad_html = BASE_DIR / "contracts" / "rfp" / f"{bad_slug}.html"
+                            if bad_html.exists():
+                                try:
+                                    bad_html.unlink()
+                                except Exception:
+                                    pass
+                        else:
+                            unfixed_issues.append(f"Supabase contracts row #{r_id} failed semantic RFP hygiene: '{r_title[:70]}'")
+                    elif "\ufffd" in r_title:
+                        if auto_fix and r_id is not None:
+                            clean_t = re.sub(r"\s*\ufffd+\s*", " - ", r_title)
+                            clean_t = re.sub(r"\s{2,}", " ", clean_t).strip()
+                            requests.patch(
+                                f"{sb_url}/rest/v1/contracts?id=eq.{r_id}",
+                                headers=sb_headers,
+                                json={"title": clean_t},
+                                timeout=10,
+                            )
+                            db_patched_ids.append(r_id)
+                        else:
+                            unfixed_issues.append(f"Supabase contracts row #{r_id} contains UTF-8 replacement character (\\ufffd)")
+        except Exception as exc:
+            unfixed_issues.append(f"Supabase contracts semantic hygiene check failed: {exc}")
+
+    if db_purged_ids or db_patched_ids:
+        fixed_events.append({
+            "component": "Supabase `contracts` Database & /contracts/rfp/",
+            "issue": f"Detected {len(db_purged_ids)} non-RFP/nav-link/synthetic row(s) and {len(db_patched_ids)} UTF-8 `\\ufffd` title(s) in Supabase `contracts`",
+            "fix": f"Automatically purged {len(db_purged_ids)} noisy row(s) and cleaned {len(db_patched_ids)} title(s) in Supabase `contracts`.",
+            "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
+        })
+
+    # 2. Check pSEO pages, sitemap.xml, OpenGraph cache-buster parity, and static RFP button payloads
     index_txt = (BASE_DIR / "index.html").read_text(encoding="utf-8", errors="replace")
     og_ver_m = re.search(r"og-banner\.png\?v=(\d+)", index_txt)
     expected_og_tag = f"og-banner.png?v={og_ver_m.group(1)}" if og_ver_m else "og-banner.png?v=7"
 
     contracts_hub = BASE_DIR / "contracts" / "index.html"
     sitemap_path = BASE_DIR / "sitemap.xml"
-    needs_pseo_regen = False
+    needs_pseo_regen = bool(db_purged_ids or db_patched_ids)
     pseo_reasons: list[str] = []
+    if db_purged_ids or db_patched_ids:
+        pseo_reasons.append(f"Supabase contracts healed ({len(db_purged_ids)} purged, {len(db_patched_ids)} patched)")
+
+    # Also check static /contracts/rfp/*.html files for masked '[Verified Agency]' button payloads or '\ufffd'
+    rfp_html_files = glob.glob(str(BASE_DIR / "contracts" / "rfp" / "*.html"))
+    for rf_p in rfp_html_files[:80]:
+        try:
+            rf_txt = pathlib.Path(rf_p).read_text(encoding="utf-8", errors="replace")
+            if ("\ufffd" in rf_txt) or re.search(r"compileShipleyProposalZip\([^)]*\[Verified Agency\]", rf_txt):
+                needs_pseo_regen = True
+                pseo_reasons.append(f"Static RFP page {os.path.basename(rf_p)} had masked button payload or \\ufffd char")
+                break
+        except Exception:
+            pass
 
     if not contracts_hub.exists() or not sitemap_path.exists():
         needs_pseo_regen = True
@@ -608,7 +749,7 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                     outreach_reasons.append(f"Row #{r_idx+1} contains unreplaced template placeholder")
                     break
                 for kp in range(3, n_portals):
-                    if f"{kp} portals" in body_blob or f"{kp}-Portal" in body_blob or f"{kp} Federal" in body_blob:
+                    if re.search(rf"(?<![0-9])(?:{kp}\s+portals|{kp}-Portal|{kp}\s+Federal)", body_blob):
                         needs_outreach_regen = True
                         outreach_reasons.append(f"campaign_leads.csv contains stale portal count '{kp}' (expected {n_portals})")
                         break
@@ -651,7 +792,7 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
             for xp in posts_list:
                 txt = str(xp.get("text") or xp.get("tweet") or "")
                 for kp in range(3, n_portals):
-                    if f"{kp}-Portal" in txt or f"{kp} Portals" in txt:
+                    if re.search(rf"(?<![0-9])(?:{kp}-Portal|{kp}\s+Portals)", txt):
                         stale_x = True
                         break
             if stale_x and auto_fix:

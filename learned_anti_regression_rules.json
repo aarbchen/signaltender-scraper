@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-29T23:45:59Z",
-  "total_rules": 12,
+  "updated_at": "2026-10-30T00:09:14Z",
+  "total_rules": 13,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -94,11 +94,11 @@
       "source": "outreach_generator.py (campaign_leads.csv & outbox_ready_queue.json)",
       "bug_signature": "campaign_leads.csv contains stale portal count '8' (expected 28)",
       "root_cause": "campaign_leads.csv contains stale portal count '8' (expected 28)",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 4 local + 3 remote alert(s))",
+      "fix_applied": "Re-ran `outreach_generator.py` to regenerate fresh, DNC-filtered `campaign_leads.csv` and `outbox_ready_queue.json` with verified dossier URLs and current portal/API counts.",
       "prevention_rule": "Enforce 100% portal/state count and abbreviation roll-call parity across index.html, apis.html, pseo_generator.py, and all outbound/conversion surfaces before any commit.",
       "created_at": "2026-10-29T20:53:12Z",
-      "last_healed_at": "2026-10-29T23:45:59Z",
-      "times_triggered_and_healed": 2
+      "last_healed_at": "2026-10-30T00:09:14Z",
+      "times_triggered_and_healed": 5
     },
     {
       "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
@@ -142,10 +142,22 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 4 local + 3 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
-      "last_healed_at": "2026-10-29T22:07:43Z",
+      "last_healed_at": "2026-10-30T00:09:12Z",
+      "times_triggered_and_healed": 2
+    },
+    {
+      "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
+      "category": "Database Hygiene & Static Dossier Payload Integrity",
+      "source": "omniscient_auditor.py / pseo_generator.py / mainscraper.py / govcon_lead_harvester.py",
+      "bug_signature": "Scraped navigation/policy links, synthetic 'State PoP Modernization' rows, UTF-8 replacement characters (\\ufffd), or masked '[Verified Agency]' / 'static' button arguments in /contracts/rfp/*.html",
+      "root_cause": "Broad portal HTML scraping or post-award synthesis inserting non-RFP rows into Supabase contracts, and static RFP dossier templates passing c['masked_agency'] instead of c['agency'] into window.compileShipleyProposalZip().",
+      "fix_applied": "Added automatic nightly Supabase contracts semantic hygiene & UTF-8 auto-healer in omniscient_auditor.py, removed Tier-4 State PoP Modernization & SLED-*-COOP synthesis, and bound static/SPA RFP dossier action buttons to real issuing agency and solicitation slug.",
+      "prevention_rule": "Nightly omniscient_auditor.py runs must actively purge non-RFP/nav-link/synthetic rows and \\ufffd characters from Supabase contracts and usaspending_verified_vault.json, and verify static/SPA dossier button payloads pass real agency and solicitation IDs.",
+      "created_at": "2026-10-30T00:00:35Z",
+      "last_healed_at": "2026-10-30T00:00:35Z",
       "times_triggered_and_healed": 1
     }
   ]

@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-29T20:53:12Z",
+  "timestamp": "2026-10-30T00:11:45Z",
   "mode": "fast",
-  "elapsed_seconds": 1099.72,
-  "status": "ACTION_REQUIRED",
+  "elapsed_seconds": 64.56,
+  "status": "HEALTHY",
   "counts": {
     "portals": 28,
     "states": 26,
     "apis": 34,
     "tier2_apis": 24,
-    "learned_rules_total": 8
+    "learned_rules_total": 13
   },
   "pillars": {
     "products": {
@@ -16,25 +16,16 @@
       "unfixed_issues": []
     },
     "acquisition_channels": {
-      "auto_fixed": [
-        {
-          "component": "outreach_generator.py (campaign_leads.csv & outbox_ready_queue.json)",
-          "issue": "campaign_leads.csv contains stale portal count '8' (expected 28)",
-          "fix": "Re-ran `outreach_generator.py` to regenerate fresh, DNC-filtered `campaign_leads.csv` and `outbox_ready_queue.json` with verified dossier URLs and current portal/API counts.",
-          "rule_id": "RULE-003-OUTBOUND-DOSSIER-URL-INTEGRITY"
-        }
-      ],
+      "auto_fixed": [],
       "unfixed_issues": []
     },
     "website_and_checkout": {
       "auto_fixed": [],
-      "unfixed_issues": [
-        "verify_site_integrity.py failed: [FAIL] Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, client_delivery=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, capturedesk=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200, expected=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-e-200"
-      ]
+      "unfixed_issues": []
     }
   },
   "telemetry": {
-    "open_remote_errors": 1,
-    "open_local_errors": 1
+    "open_remote_errors": 0,
+    "open_local_errors": 0
   }
 }
