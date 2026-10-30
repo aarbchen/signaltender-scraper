@@ -1392,9 +1392,6 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
             stale_pairs_dict: dict[str, str] = {}
             for em, lid in completed_non_responders + non_it_or_invalid_to_purge:
                 stale_pairs_dict[em] = lid
-            for em, lid in unsent_inst_ids.items():
-                if em not in valid_email_set:
-                    stale_pairs_dict[em] = lid
             stale_pairs = list(stale_pairs_dict.items())
             if stale_pairs:
                 def _del_stale(pair: tuple[str, str]) -> int:

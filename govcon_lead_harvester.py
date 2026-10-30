@@ -1434,16 +1434,22 @@ COMPETITOR_OR_EXCLUDED_DOMAINS = {
 }
 
 NON_IT_BIO_AG_MAT_REGEX = re.compile(
-    r"(\bbiotech|\bbiomed|\bmedical\b|\bmedicine\b|\bhealthcare\b|\bpharma|\btherapeut|\bclinical\b|"
-    r"\bsurgical\b|\borthoped|\boncolog|\bcardiol|\bhematol|\bpathology\b|\brna\b|\bdna\b|\bgenomic|"
-    r"\bgene\s+therap|\bcell\s+therap|\bstem\s+cell|\bchemical\b|\bcatalys|\bpolymer\b|\bcoating|"
-    r"\bbattery\b|\bsolar\s+cell|\bwind\s+turbine|\bhydroelectric|\bbiofuel|\bagricultur|\bagronom|"
-    r"\bfarming\b|\bcrop\b|\blivestock\b|\bcattle\b|\bpoultry\b|\bdairy\b|\bfishery|\baquacultur|"
-    r"\bforestry\b|\btimber\b|\blumber\b|\bmetallurg|\balloy\b|\bceramic|\btextile|\bapparel\b|"
-    r"\bfootwear\b|\bferment|\benzyme|\bprotein\b|\bpeptide|\bvaccine|\bimmunol|\bdental\b|"
-    r"\bcement\b|\bconcrete\b|\basphalt\b|\bpaving\b|\broofing\b|\bplumbing\b|\bhvac\b|"
-    r"\baerogel\b|\bmyceli|\bfungi\b|\bcrystallin|luce|inode|\bink\b|c-motive|x-ray|xray|\breva\b|"
-    r"cytocyber|\bgaming\b|winterstudio|\bcinema\b|\bbeverage\b|carbon\s*capture|helixearth)",
+    r"(\bbiotech|\bbiomed|\bmedical\b|\bmedicine\b|\bhealthcare\b|\bhealth\s+care\b|\bpharma|\btherap|"
+    r"\bclinical\b|\bsurgical\b|\borthoped|\boncolog|\bcardiol|\bhematol|\bpathology\b|\brna\b|\bdna\b|"
+    r"\bgenomic|\bstem\s+cell|\bchemical\b|\bcatalys|\bpolymer\b|\bcoating|\bbattery\b|\bsolar\s+cell|"
+    r"\bwind\s+turbine|\bhydroelectric|\bbiofuel|\bagricultur|\bagronom|\bfarming\b|\bcrop\b|\blivestock\b|"
+    r"\bcattle\b|\bpoultry\b|\bdairy\b|\bfishery|\baquacultur|\bforestry\b|\btimber\b|\blumber\b|"
+    r"\bmetallurg|\balloy\b|\bceramic|\btextile|\bapparel\b|\bfootwear\b|\bferment|\benzyme|\bprotein\b|"
+    r"\bpeptide|\bvaccine|\bimmunol|\bdental\b|\bcement\b|\bconcrete\b|\basphalt\b|\bpaving\b|"
+    r"\broofing\b|\bplumbing\b|\bhvac\b|\baerogel\b|\bmyceli|\bfungi\b|\bcrystallin|luce|inode|\bink\b|"
+    r"c-motive|x-ray|xray|\breva\b|cytocyber|\bgaming\b|winterstudio|\bcinema\b|\bbeverage\b|"
+    r"carbon\s*capture|helixearth|\bpatient|\bdisease|\bglucose\b|\bblood\b|\bcatheter|\bsickle\b|"
+    r"\bviral\b|\bvirus\b|\bsars\b|\bcovid|\bantibod|\bphage\b|\bbacteri|\bmicroalga|\balgae\b|"
+    r"\btidal\b|\belastomer|\bmxene|\breactor\b|\bsemiconductor|\bwafer\b|\bcryo-em|\bcryoem|"
+    r"\bhearing\b|\bearmold|\bvocal\b|\bbehavioral\s+health|\bmental\s+health|\bdiagnostic|\bimplant|"
+    r"\bprosthe|\bmaterial\s+handl|\bmicrosensor|\bfluidic|\bmicrofluidic|\binsulin|\btumor|\bcancer|"
+    r"\bdisability|\bdisabilities|\bstudent|\breading\s+disabil|\bcharging\s+infrastruct|\bev\s+charg|"
+    r"\bgravitronic|\bsuperconduct|\boscillator|\bbuilding\s+automation|\bindoor\s+position)",
     re.I,
 )
 
@@ -1594,7 +1600,14 @@ def discover_federal_sbir_and_tech_named_executives(
             if not _domain_matches_company_name(dom, comp_raw):
                 continue
             title_low = title_raw.lower()
-            if not any(tk in title_low for tk in topic_keywords) and not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(f"{comp_raw} {dom} {title_raw}"):
+            if not re.search(
+                r"(\bcyber|\bsoftware\b|\bcloud\b|artificial\s+intelligence|machine\s+learning|"
+                r"network\s+security|data\s+analytics|\bencryption\b|computer\s+vision|zero\s+trust|"
+                r"edge\s+computing|large\s+language|\bllm\b|\bdevsecops\b|distributed\s+system|"
+                r"\bdatabase\b|\bblockchain\b|\bcryptograph|\bintrusion\b|\bvulnerability\b|\bmalware\b|"
+                r"\bauthentication\b|\bsaas\b|static\s+code)",
+                title_low,
+            ):
                 continue
             upper_combo = f" {comp_raw.upper()} {title_raw.upper()} "
             if any(w in upper_combo for w in SBIR_NON_IT_WORDS):
@@ -2803,13 +2816,14 @@ def run_harvester() -> Dict[str, Any]:
     # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
     if len(public_contacts) < 2500 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
-        before_sbir_cnt = len(public_contacts)
-        public_contacts = discover_federal_sbir_and_tech_named_executives(
+        before_usa_cnt = len(public_contacts)
+        public_contacts = discover_usaspending_small_business_websites(
             public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
         )
-        if len(public_contacts) - before_sbir_cnt < dynamic_harvest_target // 2:
-            public_contacts = discover_usaspending_small_business_websites(
-                public_contacts, mx_cache, max_new_per_run=max(20, dynamic_harvest_target - (len(public_contacts) - before_sbir_cnt))
+        usa_added = len(public_contacts) - before_usa_cnt
+        if usa_added < dynamic_harvest_target:
+            public_contacts = discover_federal_sbir_and_tech_named_executives(
+                public_contacts, mx_cache, max_new_per_run=max(20, dynamic_harvest_target - usa_added)
             )
 
     cleaned_public: List[Dict[str, str]] = []
