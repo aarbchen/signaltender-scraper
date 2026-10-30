@@ -919,10 +919,7 @@ def _get_live_mx_hosts(domain: str) -> List[str]:
             if p[1] and p[1] != "." and "0.0.0.0" not in p[1] and "(root)" not in p[1]
             and not any(pk in p[1] for pk in parked_mx_tokens)
         ]
-        if hosts:
-            return hosts
-        if "mail exchanger" in out.lower() or "non-existent domain" in out.lower() or "can't find" in out.lower():
-            return []
+        return hosts
     except Exception:
         pass
 
@@ -1437,15 +1434,16 @@ COMPETITOR_OR_EXCLUDED_DOMAINS = {
 }
 
 NON_IT_BIO_AG_MAT_REGEX = re.compile(
-    r"(bio|med|health|pharma|therap|diag|clin|surg|ortho|neuro|cell|gene|rna|dna|onco|cardio|hemo|"
-    r"opti|laser|photon|chem|cataly|poly|mater|coat|batt|solar|wind|fusion|energ|power|fuel|hydro|"
-    r"water|agri|agro|farm|crop|seed|food|feed|pepper|produce|snack|brand|milk|reef|coral|ocean|"
-    r"marine|fish|aqua|forest|soil|mine|metal|alloy|ceram|glass|textil|fabric|wear|bike|motor|"
-    r"propul|lunar|planet|acoustic|ultraso|microscop|spectr|instru|device|valve|pump|heat|therm|cool|"
-    r"ferment|enzy|protei|peptid|vaccin|immu|dental|livestock|cattle|poultry|timber|lumber|cement|"
-    r"concrete|asphalt|paving|roofing|plumbing|hvac|fluid|aerogel|hyphae|mycel|fungi|crystal|cristallin|"
-    r"luce|inode|\bink\b|c-motive|motive|x-ray|xray|\breva\b|cyto|cytocyber|environ|ecolog|gaming|"
-    r"winterstudio|cinema|film|beverage|carbon\s*capture|helixearth)",
+    r"(\bbiotech|\bbiomed|\bmedical\b|\bmedicine\b|\bhealthcare\b|\bpharma|\btherapeut|\bclinical\b|"
+    r"\bsurgical\b|\borthoped|\boncolog|\bcardiol|\bhematol|\bpathology\b|\brna\b|\bdna\b|\bgenomic|"
+    r"\bgene\s+therap|\bcell\s+therap|\bstem\s+cell|\bchemical\b|\bcatalys|\bpolymer\b|\bcoating|"
+    r"\bbattery\b|\bsolar\s+cell|\bwind\s+turbine|\bhydroelectric|\bbiofuel|\bagricultur|\bagronom|"
+    r"\bfarming\b|\bcrop\b|\blivestock\b|\bcattle\b|\bpoultry\b|\bdairy\b|\bfishery|\baquacultur|"
+    r"\bforestry\b|\btimber\b|\blumber\b|\bmetallurg|\balloy\b|\bceramic|\btextile|\bapparel\b|"
+    r"\bfootwear\b|\bferment|\benzyme|\bprotein\b|\bpeptide|\bvaccine|\bimmunol|\bdental\b|"
+    r"\bcement\b|\bconcrete\b|\basphalt\b|\bpaving\b|\broofing\b|\bplumbing\b|\bhvac\b|"
+    r"\baerogel\b|\bmyceli|\bfungi\b|\bcrystallin|luce|inode|\bink\b|c-motive|x-ray|xray|\breva\b|"
+    r"cytocyber|\bgaming\b|winterstudio|\bcinema\b|\bbeverage\b|carbon\s*capture|helixearth)",
     re.I,
 )
 
@@ -1486,7 +1484,7 @@ def is_verified_it_cyber_prospect(
     if title_or_keywords and NON_IT_BIO_AG_MAT_REGEX.search(title_or_keywords):
         return False
     if "541715" in str(naics_codes or ""):
-        if not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(combo):
+        if not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(f"{combo} {title_or_keywords or ''}"):
             return False
     return True
 
@@ -1524,26 +1522,30 @@ def discover_federal_sbir_and_tech_named_executives(
     newly_verified: List[Dict[str, str]] = []
     for _wave in range(3):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in range(1, 2501, 25):
-            for prog in ("SBIR", "STTR"):
-                cur_key = f"sbir2023_it_cursor:{prog}:{off}"
-                if not mx_cache.get(cur_key):
-                    mx_cache[cur_key] = True
-                    batch_queries.append((prog, "2023_plus", off))
-                    if len(batch_queries) >= 24:
-                        break
-            if len(batch_queries) >= 24:
+        for off in (1, 26, 51, 76, 101, 126, 151, 176, 201):
+            for kw in topic_keywords:
+                for prog in ("SBIR", "STTR"):
+                    cur_key = f"sbir_kw_it_v3:{prog}:{kw}:{off}"
+                    if not mx_cache.get(cur_key):
+                        mx_cache[cur_key] = True
+                        batch_queries.append((prog, kw, off))
+                        if len(batch_queries) >= 28:
+                            break
+                if len(batch_queries) >= 28:
+                    break
+            if len(batch_queries) >= 28:
                 break
 
         if not batch_queries:
             break
 
         def _fetch_batch(q_item: Tuple[str, str, int]) -> List[Dict[str, Any]]:
-            prog, _cohort, off = q_item
+            prog, kw_q, off = q_item
             try:
                 params_dict: Dict[str, Any] = {
                     "fundProgramName": prog,
-                    "dateStart": "01/01/2023",
+                    "keyword": kw_q,
+                    "dateStart": "01/01/2020",
                     "offset": off,
                     "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                     "rpp": 25,
@@ -1571,7 +1573,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 yr = int(start_dt.split("/")[-1])
             except Exception:
                 yr = 0
-            if yr < 2023:
+            if yr < 2020:
                 continue
             em = str(a.get("piEmail") or "").strip().lower()
             fn = str(a.get("piFirstName") or "").strip().title()
@@ -1592,13 +1594,13 @@ def discover_federal_sbir_and_tech_named_executives(
             if not _domain_matches_company_name(dom, comp_raw):
                 continue
             title_low = title_raw.lower()
-            if not any(tk in title_low for tk in topic_keywords):
+            if not any(tk in title_low for tk in topic_keywords) and not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(f"{comp_raw} {dom} {title_raw}"):
                 continue
             upper_combo = f" {comp_raw.upper()} {title_raw.upper()} "
             if any(w in upper_combo for w in SBIR_NON_IT_WORDS):
                 continue
             comp_clean = clean_company_display_name(comp_raw.title())
-            if not is_verified_it_cyber_prospect(comp_clean, em, title_raw, "541511, 541512, 541715"):
+            if not is_verified_it_cyber_prospect(comp_clean, em, title_raw, "541511, 541512"):
                 continue
             seen_emails.add(em)
             seen_domains.add(dom)
@@ -1612,7 +1614,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 "City": city,
                 "State": st_full,
                 "Website": f"https://{dom}",
-                "NAICS Codes": "541511, 541512, 541715",
+                "NAICS Codes": "541511, 541512",
                 "Industry": "information technology & services",
                 "Keywords": f"govcon, sbir, {st_full.lower()} sled rfp, sam.gov, cybersecurity, cloud, software, {title_raw[:120]}",
                 "Primary Email Catch-all Status": "Not Catch-all",
@@ -1623,10 +1625,6 @@ def discover_federal_sbir_and_tech_named_executives(
 
             def _verify_4point_candidate(c_cand: Dict[str, str]) -> bool:
                 em_cand = c_cand["Email"]
-                dom_cand = em_cand.split("@", 1)[1]
-                if not _check_corporate_website_alive(dom_cand):
-                    mx_cache[dom_cand] = False
-                    return False
                 return verify_email_domain_mx(em_cand, mx_cache, verify_smtp=False)
 
             with ThreadPoolExecutor(max_workers=16) as pool:
@@ -2800,17 +2798,19 @@ def run_harvester() -> Dict[str, Any]:
         warmed_mb_count = outbound_mailer._detect_live_instantly_mailbox_count(fallback=2)
     except Exception:
         warmed_mb_count = 2
-    dynamic_harvest_target = max(25, warmed_mb_count * 12)
+    dynamic_harvest_target = max(80, warmed_mb_count * 18)
 
     # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
     if len(public_contacts) < 2500 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
+        before_sbir_cnt = len(public_contacts)
         public_contacts = discover_federal_sbir_and_tech_named_executives(
             public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
         )
-        public_contacts = discover_usaspending_small_business_websites(
-            public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
-        )
+        if len(public_contacts) - before_sbir_cnt < dynamic_harvest_target // 2:
+            public_contacts = discover_usaspending_small_business_websites(
+                public_contacts, mx_cache, max_new_per_run=max(20, dynamic_harvest_target - (len(public_contacts) - before_sbir_cnt))
+            )
 
     cleaned_public: List[Dict[str, str]] = []
     for spec in public_contacts:

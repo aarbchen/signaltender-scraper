@@ -1243,44 +1243,46 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                     ana_list = r_ana.json() if isinstance(r_ana.json(), list) else [r_ana.json()]
                     if ana_list and isinstance(ana_list[0], dict):
                         a0 = ana_list[0]
-                        total_l = int(a0.get("leads_count") or 0)
-                        contacted_l = int(a0.get("contacted_count") or 0)
-                        remaining_l = max(0, total_l - contacted_l)
-                        if remaining_l == 0 and outbox_path.exists():
-                            try:
-                                q_items = json.loads(outbox_path.read_text(encoding="utf-8"))
-                                q_list = q_items if isinstance(q_items, list) else (q_items.get("leads") or [])
-                                sent_set: set[str] = set()
-                                if sent_log_path.exists():
-                                    sl_raw = json.loads(sent_log_path.read_text(encoding="utf-8"))
-                                    if isinstance(sl_raw, dict):
-                                        sent_set = {str(x).strip().lower() for x in (sl_raw.get("sent") or [])}
-                                unsent_ready = [
-                                    item for item in q_list
-                                    if isinstance(item, dict)
-                                    and str(item.get("email") or item.get("Email") or "").strip().lower() not in sent_set
-                                    and str(item.get("email") or item.get("Email") or "").strip().lower() not in dnc_emails
-                                ]
-                                if unsent_ready:
-                                    if auto_fix:
-                                        subprocess.run(
-                                            [str(BASE_DIR / "daas_env" / "Scripts" / "python.exe"), str(BASE_DIR / "instantly_dispatcher.py")],
-                                            cwd=str(BASE_DIR),
-                                            capture_output=True,
-                                            text=True,
-                                        )
-                                        fixed_events.append({
-                                            "component": "instantly_dispatcher.py (Outbound Lead Queue Refill)",
-                                            "issue": f"Outbound campaign had 0 remaining uncontacted leads while {len(unsent_ready)} fresh leads waited in outbox_ready_queue.json",
-                                            "fix": f"Executed `instantly_dispatcher.py` to replenish active campaign with {len(unsent_ready)} fresh leads.",
-                                            "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
-                                        })
-                                    else:
-                                        unfixed_issues.append(
-                                            f"Instantly campaign {inst_cid} is starved (0 remaining uncontacted leads, {len(unsent_ready)} unsent in outbox_ready_queue.json)"
-                                        )
-                            except Exception:
-                                pass
+                        lead_items = []
+                        cur_lead = None
+                        for _ in range(5):
+                            b_payload = {"campaign": inst_cid, "limit": 100}
+                            if cur_lead:
+                                b_payload["starting_after"] = cur_lead
+                            r_ll = requests.post(
+                                "https://api.instantly.ai/api/v2/leads/list",
+                                headers=inst_headers,
+                                json=b_payload,
+                                timeout=10,
+                            )
+                            if r_ll.status_code != 200:
+                                break
+                            d_ll = r_ll.json() or {}
+                            it_ll = d_ll.get("items") or []
+                            lead_items.extend(it_ll)
+                            cur_lead = d_ll.get("next_starting_after")
+                            if not cur_lead or not it_ll:
+                                break
+                        uncontacted_step1 = [x for x in lead_items if not x.get("timestamp_last_contact")]
+                        remaining_l = len(uncontacted_step1)
+                        if lead_items and remaining_l < 30:
+                            if auto_fix:
+                                subprocess.run(
+                                    [str(BASE_DIR / "daas_env" / "Scripts" / "python.exe"), str(BASE_DIR / "outreach_generator.py")],
+                                    cwd=str(BASE_DIR),
+                                    capture_output=True,
+                                    text=True,
+                                )
+                                fixed_events.append({
+                                    "component": "outreach_generator.py & govcon_lead_harvester.py (Step 1 Queue Refill)",
+                                    "issue": f"Instantly campaign {inst_cid} had only {remaining_l} uncontacted Step 1 lead(s) remaining (< 30 buffer)",
+                                    "fix": "Executed `outreach_generator.py` to harvest new DNS/MX-verified IT/Cyber executives and sync them into Instantly V2.",
+                                    "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                                })
+                            else:
+                                unfixed_issues.append(
+                                    f"Instantly campaign {inst_cid} low on uncontacted Step 1 leads ({remaining_l} remaining < 30 buffer)"
+                                )
 
                 # Check Unibox for unanswered external prospect replies (supporting both list of UUIDs & dict schemas)
                 r_unibox = requests.get("https://api.instantly.ai/api/v2/emails?limit=25&ue_type=2", headers=inst_headers, timeout=10)
