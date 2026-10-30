@@ -519,6 +519,162 @@ def audit_and_heal_products(auto_fix: bool = True) -> tuple[list[dict], list[str
     except Exception as exc:
         unfixed_issues.append(f"check_product_output_quality_controls() execution error: {exc}")
 
+    # 9. Audit & Auto-Heal CaptureDesk AI Dossier Cache (`capturedesk_dossiers.json`)
+    dossiers_cache_path = BASE_DIR / "capturedesk_dossiers.json"
+    if dossiers_cache_path.exists():
+        try:
+            raw_d_txt = dossiers_cache_path.read_text(encoding="utf-8", errors="replace")
+            json.loads(raw_d_txt)
+            if "\ufffd" in raw_d_txt:
+                if auto_fix:
+                    clean_d_txt = raw_d_txt.replace("\ufffd", "-")
+                    dossiers_cache_path.write_text(clean_d_txt, encoding="utf-8")
+                    fixed_events.append({
+                        "component": "capturedesk_dossiers.json",
+                        "issue": "UTF-8 replacement character (\\ufffd) detected in cached AI dossiers",
+                        "fix": "Cleaned \\ufffd characters from capturedesk_dossiers.json.",
+                        "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
+                    })
+                else:
+                    unfixed_issues.append("capturedesk_dossiers.json contains \\ufffd replacement characters")
+        except Exception as exc:
+            unfixed_issues.append(f"capturedesk_dossiers.json invalid JSON: {exc}")
+
+    # 10. Audit & Auto-Heal Discord Bot Guild/Role Hierarchy & All 5 Paid Channel Webhooks
+    bot_tok = (os.getenv("DISCORD_BOT_TOKEN") or "").strip()
+    env_guild_id = (os.getenv("DISCORD_GUILD_ID") or "").strip()
+    verified_guild_id = "1555743205423841300"
+    for wk_name in (
+        "DISCORD_WEBHOOK_URL",
+        "DISCORD_CONTENT_WEBHOOK_URL",
+        "DISCORD_CAPTUREDESK_WEBHOOK_URL",
+        "DISCORD_TIER3_WEBHOOK_URL",
+        "DISCORD_TIER4_WEBHOOK_URL",
+    ):
+        wk_url = (os.getenv(wk_name) or "").strip()
+        if not wk_url:
+            continue
+        try:
+            rw = requests.get(wk_url, timeout=8)
+            if rw.status_code != 200:
+                unfixed_issues.append(f"Discord webhook {wk_name} returned HTTP {rw.status_code}")
+            else:
+                wk_gid = str((rw.json() or {}).get("guild_id") or "").strip()
+                if wk_gid:
+                    verified_guild_id = wk_gid
+        except Exception as exc:
+            unfixed_issues.append(f"Discord webhook {wk_name} check failed: {exc}")
+
+    if bot_tok:
+        try:
+            r_guilds = requests.get(
+                "https://discord.com/api/v10/users/@me/guilds",
+                headers={"Authorization": f"Bot {bot_tok}"},
+                timeout=8,
+            )
+            if r_guilds.status_code == 200:
+                bot_guild_ids = {str(g.get("id") or "") for g in (r_guilds.json() or [])}
+                if verified_guild_id in bot_guild_ids and env_guild_id != verified_guild_id:
+                    if auto_fix:
+                        for ep in (BASE_DIR / ".env", ECOSYSTEM_DIR / ".env"):
+                            if ep.exists():
+                                etxt = ep.read_text(encoding="utf-8", errors="replace")
+                                etxt_new = re.sub(
+                                    r"^DISCORD_GUILD_ID=.*$",
+                                    f"DISCORD_GUILD_ID={verified_guild_id}",
+                                    etxt,
+                                    flags=re.M,
+                                )
+                                if etxt_new != etxt:
+                                    ep.write_text(etxt_new, encoding="utf-8")
+                        os.environ["DISCORD_GUILD_ID"] = verified_guild_id
+                        fixed_events.append({
+                            "component": "DISCORD_GUILD_ID (.env & Stripe Role Provisioner)",
+                            "issue": f"DISCORD_GUILD_ID mismatch ({env_guild_id} vs verified guild {verified_guild_id})",
+                            "fix": f"Auto-healed DISCORD_GUILD_ID to {verified_guild_id} across both .env files.",
+                            "rule_id": "RULE-008-PRODUCT-OUTPUT-QUALITY-GATE",
+                        })
+                    else:
+                        unfixed_issues.append(f"DISCORD_GUILD_ID ({env_guild_id}) does not match bot guild ({verified_guild_id})")
+
+                # Verify Bot role position is strictly above Tier 1..4 subscriber roles
+                r_roles = requests.get(
+                    f"https://discord.com/api/v10/guilds/{verified_guild_id}/roles",
+                    headers={"Authorization": f"Bot {bot_tok}"},
+                    timeout=8,
+                )
+                if r_roles.status_code == 200:
+                    roles_map = {str(rl.get("id") or ""): rl for rl in (r_roles.json() or [])}
+                    bot_roles = [rl for rl in roles_map.values() if rl.get("name") == "SignalTender" and rl.get("managed")]
+                    bot_pos = max((int(rl.get("position") or 0) for rl in bot_roles), default=6)
+                    for r_id_check in (
+                        "1560069889010573342",
+                        "1561229442242576404",
+                        "1563914003862782012",
+                        "1563914342464888882",
+                    ):
+                        if r_id_check not in roles_map:
+                            unfixed_issues.append(f"Discord subscriber role {r_id_check} missing in guild {verified_guild_id}")
+                        elif int(roles_map[r_id_check].get("position") or 0) >= bot_pos:
+                            unfixed_issues.append(
+                                f"Discord role {roles_map[r_id_check].get('name')} position >= Bot position ({bot_pos})"
+                            )
+            else:
+                unfixed_issues.append(f"Discord Bot token check returned HTTP {r_guilds.status_code}")
+        except Exception as exc:
+            unfixed_issues.append(f"Discord Bot guild/role check failed: {exc}")
+
+    # 11. Audit All 8 Stripe Checkout Plans, `st_live_...` Subscriber API Key Auth, `#account` & AI Support Concierge
+    try:
+        import importlib.util
+        sec_spec = importlib.util.spec_from_file_location("eco_security", str(ECOSYSTEM_DIR / "core" / "security.py"))
+        if sec_spec and sec_spec.loader:
+            sec_mod = importlib.util.module_from_spec(sec_spec)
+            sec_spec.loader.exec_module(sec_mod)
+            sub_key = sec_mod.generate_subscriber_api_key("verify-subscriber@signaltender.net")
+            if not str(sub_key).startswith("st_live_"):
+                unfixed_issues.append("generate_subscriber_api_key() failed to issue valid st_live_ key")
+
+        idx_html_now = (BASE_DIR / "index.html").read_text(encoding="utf-8", errors="replace")
+        sw_path = ECOSYSTEM_DIR / "api" / "routers" / "stripe_webhook.py"
+        sw_text = sw_path.read_text(encoding="utf-8", errors="replace") if sw_path.exists() else ""
+        idx_links = dict(
+            re.findall(
+                r"(tier[1-4]_(?:monthly|annual))\s*:\s*'(https://buy\.stripe\.com/[A-Za-z0-9]+)'",
+                idx_html_now,
+            )
+        )
+        if len(idx_links) < 8:
+            unfixed_issues.append(f"index.html window.SIGNAL_CHECKOUT_LINKS has only {len(idx_links)}/8 Stripe URLs")
+        elif sw_text:
+            for k_link, expected_url in idx_links.items():
+                if expected_url not in sw_text:
+                    unfixed_issues.append(f"Stripe checkout URL {expected_url} ({k_link}) missing in stripe_webhook.py")
+
+        for plan_id in ("tier1", "tier2", "tier3", "tier4"):
+            for bill_id in ("monthly", "annual"):
+                r_co = requests.post(
+                    "https://b2b-contract-parser-api.onrender.com/v1/billing/create-checkout-session",
+                    json={"plan": plan_id, "billing": bill_id, "email": "audit@signaltender.net"},
+                    timeout=10,
+                )
+                if r_co.status_code != 200:
+                    unfixed_issues.append(f"Live POST /v1/billing/create-checkout-session ({plan_id}/{bill_id}) returned {r_co.status_code}")
+                else:
+                    base_co_url = str((r_co.json() or {}).get("base_checkout_url") or "")
+                    if not base_co_url.startswith("https://buy.stripe.com/"):
+                        unfixed_issues.append(f"Stripe checkout URL {base_co_url} ({plan_id}/{bill_id}) is not a valid buy.stripe.com link")
+
+        r_sup = requests.post(
+            "https://b2b-contract-parser-api.onrender.com/v1/support/chat",
+            json={"message": "What is included in Tier 3 and Tier 4?"},
+            timeout=12,
+        )
+        if r_sup.status_code != 200 or "$1,499" not in r_sup.text:
+            unfixed_issues.append(f"Live POST /v1/support/chat smoke check failed (HTTP {r_sup.status_code})")
+    except Exception as exc:
+        unfixed_issues.append(f"Stripe Checkout / Subscriber Key / Support Concierge audit error: {exc}")
+
     return fixed_events, unfixed_issues
 
 
@@ -667,7 +823,7 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
             needs_pseo_regen = True
             pseo_reasons.append(f"sitemap.xml malformed XML: {xml_exc}")
 
-    # Verify every contract in window.SIGNALTENDER_CONTRACTS has a matching file on disk
+    # Verify every contract in window.SIGNALTENDER_CONTRACTS has a matching file on disk and no expired closing_date
     cm = re.search(r"window\.SIGNALTENDER_CONTRACTS\s*=\s*(\[.*?\]);\s*window\.SIGNALTENDER_JURISDICTIONS", index_txt, flags=re.S)
     if cm:
         try:
@@ -680,6 +836,28 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
             if missing_rfp_pages:
                 needs_pseo_regen = True
                 pseo_reasons.append(f"{len(missing_rfp_pages)} embedded SPA contract(s) missing static /contracts/rfp/<slug>.html file")
+
+            today_iso = datetime.now().strftime("%Y-%m-%d")
+            expired_in_spa = []
+            for c in embedded_contracts:
+                cd_raw = str(c.get("closing_date") or "").strip()
+                if re.match(r"^\d{4}-\d{2}-\d{2}$", cd_raw) and cd_raw < today_iso:
+                    expired_in_spa.append(c.get("slug"))
+            if expired_in_spa:
+                needs_pseo_regen = True
+                pseo_reasons.append(f"{len(expired_in_spa)} expired solicitation(s) still present in window.SIGNALTENDER_CONTRACTS")
+        except Exception:
+            pass
+
+    # Check /contracts/recompetes/*.html for mangled .title() corporate suffixes (' Llc', ' Usa ') or '\ufffd'
+    recompete_files = glob.glob(str(BASE_DIR / "contracts" / "recompetes" / "*.html"))
+    for rc_p in recompete_files[:40]:
+        try:
+            rc_txt = pathlib.Path(rc_p).read_text(encoding="utf-8", errors="replace")
+            if "\ufffd" in rc_txt or re.search(r"\b(?:Llc|Inc\.|Corp\.|Usa)\b", rc_txt):
+                needs_pseo_regen = True
+                pseo_reasons.append(f"Recompete page {os.path.basename(rc_p)} had mangled corporate suffix or \\ufffd")
+                break
         except Exception:
             pass
 
@@ -808,6 +986,145 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                     "fix": "Regenerated `x_ready_posts.json` with current portal/state counts.",
                     "rule_id": "RULE-002-PORTAL-STATE-API-COUNT-PARITY",
                 })
+        except Exception:
+            pass
+
+    # 5. Audit & Auto-Heal Live Instantly.ai Outbound + Transactional Campaigns, 6-Mailbox Pool & Unread Prospect Replies
+    inst_key = (os.getenv("INSTANTLY_API_KEY") or "").strip()
+    inst_cid = (os.getenv("INSTANTLY_CAMPAIGN_ID") or "").strip()
+    inst_sub_cid = (os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID") or "").strip()
+    if inst_key and inst_cid:
+        inst_headers = {"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"}
+        try:
+            r_accts = requests.get("https://api.instantly.ai/api/v2/accounts?limit=100", headers=inst_headers, timeout=10)
+            if r_accts.status_code == 402:
+                unfixed_issues.append("Instantly.ai returned HTTP 402 Payment Required — outbound sending is paused until plan is active!")
+            elif r_accts.status_code != 200:
+                unfixed_issues.append(f"Instantly.ai GET /api/v2/accounts returned HTTP {r_accts.status_code}")
+            else:
+                acct_items = (r_accts.json() or {}).get("items") or []
+                warmed_emails = [
+                    str(a.get("email") or "").strip().lower()
+                    for a in acct_items
+                    if int(a.get("status") or 0) == 1 and int(a.get("stat_warmup_score") or 0) >= 85
+                ]
+                expected_daily_cap = max(30, len(warmed_emails) * 30)
+
+                r_camp = requests.get(f"https://api.instantly.ai/api/v2/campaigns/{inst_cid}", headers=inst_headers, timeout=10)
+                if r_camp.status_code == 200:
+                    c_data = r_camp.json() or {}
+                    c_name = str(c_data.get("name") or "")
+                    c_status = int(c_data.get("status") or 0)
+                    c_limit = int(c_data.get("daily_limit") or 0)
+                    c_emails = [str(e).strip().lower() for e in (c_data.get("email_list") or [])]
+
+                    patch_body: dict = {}
+                    if "\ufffd" in c_name:
+                        patch_body["name"] = c_name.replace("\ufffd", "-")
+                    if warmed_emails and set(warmed_emails) != set(c_emails):
+                        patch_body["email_list"] = warmed_emails
+                    if warmed_emails and c_limit != expected_daily_cap:
+                        patch_body["daily_limit"] = expected_daily_cap
+
+                    if patch_body:
+                        if auto_fix:
+                            requests.patch(
+                                f"https://api.instantly.ai/api/v2/campaigns/{inst_cid}",
+                                headers=inst_headers,
+                                json=patch_body,
+                                timeout=10,
+                            )
+                            fixed_events.append({
+                                "component": "Instantly.ai Outbound Campaign (c7727dff-92cc-4621-9e96-c960938d5a47)",
+                                "issue": f"Campaign config drift detected ({list(patch_body.keys())})",
+                                "fix": f"Synchronized {len(warmed_emails)} warmed mailboxes (daily_limit={expected_daily_cap}) and cleaned campaign metadata.",
+                                "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                            })
+                        else:
+                            unfixed_issues.append(f"Instantly campaign {inst_cid} drift: {list(patch_body.keys())}")
+
+                    if c_status != 1:
+                        if auto_fix:
+                            r_act = requests.post(
+                                f"https://api.instantly.ai/api/v2/campaigns/{inst_cid}/activate",
+                                headers=inst_headers,
+                                json={},
+                                timeout=10,
+                            )
+                            if 200 <= r_act.status_code < 300:
+                                fixed_events.append({
+                                    "component": "Instantly.ai Outbound Campaign (c7727dff-92cc-4621-9e96-c960938d5a47)",
+                                    "issue": f"Outbound campaign status was {c_status} (not ACTIVE=1)",
+                                    "fix": "Automatically re-activated outbound campaign via POST /api/v2/campaigns/{id}/activate.",
+                                    "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                                })
+                            else:
+                                unfixed_issues.append(f"Failed to activate Instantly campaign {inst_cid}: HTTP {r_act.status_code}")
+                        else:
+                            unfixed_issues.append(f"Instantly outbound campaign {inst_cid} is not ACTIVE (status={c_status})")
+
+                # Check Transactional Subscriber Campaign email_list parity
+                if inst_sub_cid and warmed_emails:
+                    r_sub_c = requests.get(f"https://api.instantly.ai/api/v2/campaigns/{inst_sub_cid}", headers=inst_headers, timeout=10)
+                    if r_sub_c.status_code == 200:
+                        sc_data = r_sub_c.json() or {}
+                        sc_emails = [str(e).strip().lower() for e in (sc_data.get("email_list") or [])]
+                        if set(warmed_emails) != set(sc_emails) and auto_fix:
+                            requests.patch(
+                                f"https://api.instantly.ai/api/v2/campaigns/{inst_sub_cid}",
+                                headers=inst_headers,
+                                json={"email_list": warmed_emails},
+                                timeout=10,
+                            )
+
+                # Check Unibox for unanswered external prospect replies
+                r_unibox = requests.get("https://api.instantly.ai/api/v2/emails?limit=25&ue_type=2", headers=inst_headers, timeout=10)
+                if r_unibox.status_code == 200:
+                    our_domains = ("getsignaltender.com", "trysignaltender.com", "signaltenderdesk.com", "signaltendergov.com", "signaltender.net")
+                    proc_map = {}
+                    if proc_replies_path.exists():
+                        try:
+                            proc_map = (json.loads(proc_replies_path.read_text(encoding="utf-8")) or {}).get("processed") or {}
+                        except Exception:
+                            proc_map = {}
+                    unanswered_replies = []
+                    for msg_item in (r_unibox.json() or {}).get("items") or []:
+                        from_em = str(msg_item.get("from_address_email") or "").strip().lower()
+                        msg_id = str(msg_item.get("id") or "").strip()
+                        if not from_em or any(from_em.endswith("@" + d) for d in our_domains):
+                            continue
+                        if from_em not in proc_map and msg_id not in proc_map:
+                            unanswered_replies.append(from_em)
+                    if unanswered_replies:
+                        if auto_fix:
+                            subprocess.run(
+                                [str(BASE_DIR / "daas_env" / "Scripts" / "python.exe"), str(BASE_DIR / "outbound_reply_responder.py")],
+                                cwd=str(BASE_DIR),
+                                capture_output=True,
+                                text=True,
+                            )
+                            fixed_events.append({
+                                "component": "outbound_reply_responder.py (Instantly Unibox)",
+                                "issue": f"Detected {len(unanswered_replies)} unprocessed prospect reply(ies) in Instantly Unibox",
+                                "fix": "Executed `outbound_reply_responder.py` to classify and respond to unread prospect replies.",
+                                "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                            })
+                        else:
+                            unfixed_issues.append(f"{len(unanswered_replies)} unprocessed prospect reply(ies) in Instantly Unibox")
+        except Exception as exc:
+            unfixed_issues.append(f"Instantly.ai live campaign/mailbox audit error: {exc}")
+
+    # 6. Audit Satellite Sending Domain DNS Deliverability (MX & SPF via Google DoH)
+    for send_dom in ("getsignaltender.com", "trysignaltender.com"):
+        try:
+            r_mx = requests.get(f"https://dns.google/resolve?name={send_dom}&type=MX", timeout=8)
+            r_txt = requests.get(f"https://dns.google/resolve?name={send_dom}&type=TXT", timeout=8)
+            mx_ans = (r_mx.json() or {}).get("Answer") or [] if r_mx.status_code == 200 else []
+            txt_ans = (r_txt.json() or {}).get("Answer") or [] if r_txt.status_code == 200 else []
+            if not mx_ans:
+                unfixed_issues.append(f"Sending domain {send_dom} is missing DNS MX records!")
+            if not any("v=spf1" in str(t.get("data") or "").lower() for t in txt_ans):
+                unfixed_issues.append(f"Sending domain {send_dom} is missing DNS SPF (v=spf1) TXT record!")
         except Exception:
             pass
 
@@ -956,6 +1273,7 @@ def audit_and_heal_website(auto_fix: bool = True, run_playwright: bool = False) 
 
     # 6. Execute verify_site_integrity.py subprocess check
     env_copy = dict(os.environ)
+    env_copy["OMNISCIENT_PILLAR1_QUALITY_VERIFIED"] = "1"
     if not run_playwright:
         env_copy["CI"] = "1"  # Skip Playwright in fast mode; run full Playwright when run_playwright=True
     else:
@@ -972,6 +1290,23 @@ def audit_and_heal_website(auto_fix: bool = True, run_playwright: bool = False) 
     if r_ver.returncode != 0:
         err_out = (r_ver.stdout + "\n" + r_ver.stderr).strip()
         unfixed_issues.append(f"verify_site_integrity.py failed: {err_out[-600:]}")
+
+    # 7. Audit Live Public Website (`https://signaltender.net`) & Live Render Gateway (`/v1/health`) Reachability
+    live_urls = (
+        "https://signaltender.net/",
+        "https://signaltender.net/apis.html",
+        "https://signaltender.net/contracts/",
+        "https://signaltender.net/sitemap.xml",
+        "https://signaltender.net/robots.txt",
+        "https://b2b-contract-parser-api.onrender.com/v1/health",
+    )
+    for l_url in live_urls:
+        try:
+            rl = requests.get(l_url, timeout=12)
+            if rl.status_code != 200:
+                unfixed_issues.append(f"Live public URL {l_url} returned HTTP {rl.status_code}")
+        except Exception as exc:
+            unfixed_issues.append(f"Live public URL {l_url} unreachable: {exc}")
 
     return fixed_events, unfixed_issues
 
