@@ -31,15 +31,9 @@ client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY")) if os.
 ERROR_LOG_PATH = "error_log.txt"
 ERROR_SCREENSHOT_PATH = "error_debug.png"
 
-# Your Decodo residential proxy credentials
-PROXY_HOST = "us.decodo.com"
-PROXY_PORT = "10001"  # Sticky session port so authenticated DemandStar sessions do not drop mid-scrape
-PROXY_USER = "sphmb5n9of"
-PROXY_PASS = "y7x~OwTiQim03Ooh4p"
-
-# Your free DemandStar credentials
-DEMANDSTAR_USER = "jouanlychen12@gmail.com"
-DEMANDSTAR_PASS = "7440131a"
+# DemandStar credentials
+DEMANDSTAR_USER = os.getenv("DEMANDSTAR_USER", "jouanlychen12@gmail.com")
+DEMANDSTAR_PASS = os.getenv("DEMANDSTAR_PASS", "7440131a")
 
 LOGIN_URL = "https://www.demandstar.com/app/login"
 TARGET_URL = "https://www.demandstar.com/app/suppliers/bids"
@@ -235,12 +229,6 @@ async def run_scraper(push_to_db: bool = True):
         print("[!] ERROR: SUPABASE_URL or SUPABASE_KEY not found in .env")
         return supabase_records
 
-    proxy_config = {
-        "server": f"http://{PROXY_HOST}:{PROXY_PORT}",
-        "username": PROXY_USER,
-        "password": PROXY_PASS,
-    }
-
     import gc
 
     all_bids_data = []
@@ -269,7 +257,6 @@ async def run_scraper(push_to_db: bool = True):
         )
 
         context = await browser.new_context(
-            proxy=proxy_config,
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
             viewport={"width": 1024, "height": 600},
         )
@@ -282,39 +269,12 @@ async def run_scraper(push_to_db: bool = True):
 
         page = await context.new_page()
 
-        print(f"[*] Navigating to {LOGIN_URL} via proxy ({PROXY_HOST}:{PROXY_PORT})...")
+        print(f"[*] Navigating to {LOGIN_URL} (direct connection)...")
         try:
-            proxy_login_ok = False
-            try:
-                await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=25000)
-                print("[*] Waiting for login form to render...")
-                username_input = page.locator("#userName")
-                await username_input.wait_for(state="visible", timeout=15000)
-                proxy_login_ok = True
-            except Exception as proxy_err:
-                print(
-                    f"[!] Decodo proxy blocked or stalled on DemandStar login ({proxy_err}). "
-                    "Falling back to direct connection...",
-                    flush=True,
-                )
-                await context.close()
-                context = await browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-                    viewport={"width": 1024, "height": 600},
-                )
-                await context.route(
-                    "**/*",
-                    lambda route: route.abort()
-                    if route.request.resource_type in ("image", "media", "font")
-                    else route.continue_(),
-                )
-                page = await context.new_page()
-
-            if not proxy_login_ok:
-                await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=45000)
-                print("[*] Waiting for login form to render (direct connection)...")
-                username_input = page.locator("#userName")
-                await username_input.wait_for(state="visible", timeout=45000)
+            await page.goto(LOGIN_URL, wait_until="domcontentloaded", timeout=45000)
+            print("[*] Waiting for login form to render (direct connection)...")
+            username_input = page.locator("#userName")
+            await username_input.wait_for(state="visible", timeout=45000)
             
             print("[*] Injecting credentials...")
             await username_input.fill(DEMANDSTAR_USER)

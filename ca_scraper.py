@@ -31,12 +31,6 @@ client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY")) if os.
 ERROR_LOG_PATH = "error_log.txt"
 ERROR_SCREENSHOT_PATH = "error_debug.png"
 
-# Decodo rotating residential proxy configuration (ports 10000 / 10001)
-PROXY_HOST = os.getenv("DECODO_PROXY_HOST", "us.decodo.com")
-PROXY_PORTS = ["10000", "10001"]
-PROXY_USER = os.getenv("DECODO_PROXY_USER", "sphmb5n9of")
-PROXY_PASS = os.getenv("DECODO_PROXY_PASS", "y7x~OwTiQim03Ooh4p")
-
 # California State Contracts Register (Cal eProcure)
 TARGET_URL = "https://caleprocure.ca.gov/pages/Events-BS3/event-search.aspx"
 MAX_PAGES = 3
@@ -429,16 +423,6 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
         print("[!] ERROR: SUPABASE_URL or SUPABASE_KEY not found in .env", flush=True)
         return supabase_records
 
-    selected_port = random.choice(PROXY_PORTS)
-    # Decodo blocks all *.gov targets at the proxy gateway with HTTP 403 ("restricted target").
-    # Setting bypass="*.gov" routes commercial traffic through Decodo while routing .ca.gov directly.
-    proxy_config = {
-        "server": f"http://{PROXY_HOST}:{selected_port}",
-        "username": PROXY_USER,
-        "password": PROXY_PASS,
-        "bypass": "*.gov",
-    }
-
     all_extracted_events = []
 
     async with Stealth().use_async(async_playwright()) as p:
@@ -447,12 +431,11 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
 
         try:
             print(
-                f"[*] Launching Stealth browser via Decodo proxy ({PROXY_HOST}:{selected_port}, bypass='*.gov')...",
+                "[*] Launching Stealth browser for California Cal eProcure (direct connection)...",
                 flush=True,
             )
             browser = await p.chromium.launch(
                 headless=True,
-                proxy=proxy_config,
                 args=[
                     "--disable-blink-features=AutomationControlled",
                     "--no-sandbox",

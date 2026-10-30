@@ -32,12 +32,6 @@ client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY")) if os.
 ERROR_LOG_PATH = "error_log.txt"
 ERROR_SCREENSHOT_PATH = "error_debug.png"
 
-# Decodo rotating residential proxy configuration (ports 10000 / 10001)
-PROXY_HOST = os.getenv("DECODO_PROXY_HOST", "us.decodo.com")
-PROXY_PORTS = ["10000", "10001"]
-PROXY_USER = os.getenv("DECODO_PROXY_USER", "sphmb5n9of")
-PROXY_PASS = os.getenv("DECODO_PROXY_PASS", "y7x~OwTiQim03Ooh4p")
-
 # Illinois State (BidBuy) & Chicago / Cook County Public Procurement Portals
 BIDBUY_SEARCH_URL = "https://www.bidbuy.illinois.gov/bso/view/search/external/advancedSearchBid.xhtml?openBids=true"
 BIDBUY_AJAX_URL = "https://www.bidbuy.illinois.gov/bso/view/search/external/advancedSearchBid.xhtml"
@@ -438,21 +432,13 @@ def _scrape_bonfire_http(agency_name: str, base_url: str, captured_by_url: dict)
 
 async def _scrape_bidbuy_playwright_fallback(captured_by_url: dict):
     """Fallback to Playwright Stealth if direct HTTP to Illinois BidBuy returned 0 rows."""
-    selected_port = random.choice(PROXY_PORTS)
-    proxy_config = {
-        "server": f"http://{PROXY_HOST}:{selected_port}",
-        "username": PROXY_USER,
-        "password": PROXY_PASS,
-        "bypass": "*.gov,*.illinois.gov,*.bonfirehub.com,*.google.com,*.gstatic.com",
-    }
     async with Stealth().use_async(async_playwright()) as p:
         browser = None
         page = None
         try:
-            print("[*] Launching Stealth browser fallback for Illinois BidBuy...", flush=True)
+            print("[*] Launching Stealth browser fallback for Illinois BidBuy (direct connection)...", flush=True)
             browser = await p.chromium.launch(
                 headless=True,
-                proxy=proxy_config,
                 args=[
                     "--disable-blink-features=AutomationControlled",
                     "--no-sandbox",
