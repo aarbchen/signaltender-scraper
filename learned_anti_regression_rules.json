@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T02:36:09Z",
-  "total_rules": 15,
+  "updated_at": "2026-10-30T03:04:53Z",
+  "total_rules": 16,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -94,11 +94,11 @@
       "source": "outreach_generator.py (campaign_leads.csv & outbox_ready_queue.json)",
       "bug_signature": "campaign_leads.csv contains stale portal count '8' (expected 28)",
       "root_cause": "campaign_leads.csv contains stale portal count '8' (expected 28)",
-      "fix_applied": "Re-ran `outreach_generator.py` to regenerate fresh, DNC-filtered `campaign_leads.csv` and `outbox_ready_queue.json` with verified dossier URLs and current portal/API counts.",
+      "fix_applied": "Executed `pseo_generator.py` to replenish active jurisdiction coverage across all portals.",
       "prevention_rule": "Enforce 100% portal/state count and abbreviation roll-call parity across index.html, apis.html, pseo_generator.py, and all outbound/conversion surfaces before any commit.",
       "created_at": "2026-10-29T20:53:12Z",
-      "last_healed_at": "2026-10-30T00:09:14Z",
-      "times_triggered_and_healed": 5
+      "last_healed_at": "2026-10-30T03:04:53Z",
+      "times_triggered_and_healed": 6
     },
     {
       "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
@@ -182,6 +182,18 @@
       "prevention_rule": "Enforce zero horizontal overflow or text clipping at 375px mobile and 1024px/1280px desktop viewports using min-w-0, flex-wrap, and bounded badge containers.",
       "created_at": "2026-10-30T02:36:09Z",
       "last_healed_at": "2026-10-30T02:36:09Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-011-ZERO-PERMISSION-AUTONOMOUS-BUG-AND-BLINDSPOT-HEALING",
+      "category": "Autonomous Bug Remediation & 360° Blindspot Coverage",
+      "source": "omniscient_auditor.py / auto_error_healer.py / AGENTS.md",
+      "bug_signature": "Waiting for user permission before fixing detected bugs, or missing blindspot checks across processed_outbound_replies.json (list vs dict), sent_outreach_log.json DNC, Instantly lead starvation, multi-portal zero-lead rot, Stripe-to-Supabase subscriber provisioning, full 34-endpoint OpenAPI parity, ",
+      "root_cause": "Asking for confirmation before fixing bugs and assuming single-schema JSON structures or single-repo git pushes.",
+      "fix_applied": "Patched all 8 blindspots in omniscient_auditor.py and auto_error_healer.py, and codified the standing rule to immediately fix any detected bug without asking for user permission.",
+      "prevention_rule": "Never ask the user for permission before fixing a bug or blindspot; always remediate bugs immediately, verify end-to-end across both d:\\Daas and d:\\Data API Ecosystem, and codify the anti-regression rule.",
+      "created_at": "2026-10-30T03:01:16Z",
+      "last_healed_at": "2026-10-30T03:01:16Z",
       "times_triggered_and_healed": 1
     }
   ]

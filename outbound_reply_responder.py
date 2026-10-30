@@ -244,7 +244,7 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 24-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n"
         f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Teaming Clearinghouse.\n"
         f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n\n"
-        f"No sales calls needed: you can test-drive 1 Free Custom RFP .ZIP Compile on your own solicitation, query the live FOIA Rate Vault, or generate a 1-page CFO / FAR 31.205-18 B&P Justification Quote directly on our checkout page (or start on Tier 1/2 and 1-click upgrade on bid day):\n"
+        f"You can also test-drive a custom 6-file Shipley Proposal .ZIP compilation on your own solicitation, benchmark incumbent LCAT rates in the FOIA Rate Vault, or generate an official FAR 31.205-18 corporate procurement quote directly on our Plans & Pricing page:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"
     )

@@ -199,8 +199,13 @@ def check_html_file(fpath: str) -> str:
         fail(f"{rel}: Favicon / apple-touch-icon links must include a ?v= cache-busting query parameter for mobile browsers")
     if re.search(r"Claude\s+Sonnet|Claude\s+Opus|Claude\s+Haiku|claude-sonnet-|claude-opus-|claude-haiku-|INSTANT-KB", txt, flags=re.I):
         fail(f"{rel}: Public HTML/JS must never expose internal LLM model names (e.g. Claude Sonnet) or internal INSTANT-KB labels")
-    if re.search(r"page\s+clutter|organized\s+module\s+view|focused\s+tab\s+view|use\s+the\s+workspace\s+tabs|opengraph\s+clutter|workspace\s+modules:|api\s+catalog\s+workspace\s+view", txt, flags=re.I):
-        fail(f"{rel}: Public HTML/JS must never contain self-referential, prompt-echoing, or internal UI meta-copy")
+    if re.search(
+        r"page\s+clutter|organized\s+module\s+view|focused\s+tab\s+view|use\s+the\s+workspace\s+tabs|opengraph\s+clutter|workspace\s+modules:|api\s+catalog\s+workspace\s+view|"
+        r"no\s+sales\s+calls|zero-call|zero\s+sales\s+calls|slide-deck\s+sales\s+call|beats\s+a\s+sales\s+call|zero-risk\s+bridge|self-serve\s+enterprise\s+proof|live\s+fastapi",
+        txt,
+        flags=re.I,
+    ):
+        fail(f"{rel}: Public HTML/JS must never contain self-referential, prompt-echoing, or internal UI meta-copy (e.g. 'no sales calls', 'zero-call', 'slide-deck sales call', 'live fastapi')")
 
     # 8. Check compact 2-row mobile sticky <header> (no multi-row grid-cols-2 mobile nav, no flex-wrap or state bars inside sticky <header>)
     for hdr_m in re.finditer(r"<header\b[^>]*>(.*?)</header>", html_only, flags=re.S):
@@ -1606,7 +1611,7 @@ def check_product_output_quality_controls() -> None:
         if "5 U.S.C. § 552" not in vol5_fed:
             fail("proposal_compiler.py: Federal DISA package failed to cite Federal FOIA (`5 U.S.C. § 552`)!")
 
-        # Verify Vault, Wrap Index, and Bilateral Teaming Handshake endpoints & response schema keys
+        # Verify Vault, Wrap Index, FOIA Winning-Bid Vault (Tier 4), Teaming Clearinghouse (Tier 4), and Bilateral Teaming Handshake endpoints
         inst_vault = await pc.get_institutional_bid_vault(company_name="Fuse Integration")
         if not (inst_vault.get("verified_company_profile") or {}).get("uei") == "DZZ3WVXGEHW8":
             fail("proposal_compiler.py: `get_institutional_bid_vault` failed to return verified UEI for Fuse Integration!")
@@ -1614,6 +1619,62 @@ def check_product_output_quality_controls() -> None:
         for req_wk in ("sample_size", "sample_size_submissions", "p25_competitive_wrap", "p50_median_wrap", "p75_ceiling_wrap"):
             if req_wk not in wrap_res:
                 fail(f"proposal_compiler.py: `get_market_wrap_index` missing required frontend/API key '{req_wk}'")
+
+        # Tier 4 Output Verification A: FOIA / CPRA / PIA Winning-Bid Vault & Statutory Demand Generator across CA, TX, and Federal
+        foia_ca = await pc.get_foia_winning_bid_vault(
+            state="california",
+            naics="541512",
+            solicitation_id="0000034018",
+            title="Caltrans Enterprise Traffic Management & Cloud Telemetry Modernization",
+            agency="California Department of Transportation (Caltrans)",
+            company_name="Fuse Integration",
+        )
+        foia_ca_letter = str(foia_ca.get("statutory_demand_letter_text") or "")
+        if "Cal. Gov't Code § 7920.000" not in foia_ca_letter or "5 U.S.C. § 552" in foia_ca_letter:
+            fail("proposal_compiler.py (Tier 4 FOIA Vault): California CPRA demand letter missing `Cal. Gov't Code § 7920.000` or leaked Federal FOIA!")
+        if not foia_ca.get("awarded_labor_rates") or not foia_ca.get("awards"):
+            fail("proposal_compiler.py (Tier 4 FOIA Vault): Missing `awarded_labor_rates` or `awards` in California FOIA vault output!")
+
+        foia_tx = await pc.get_foia_winning_bid_vault(
+            state="texas",
+            naics="541512",
+            solicitation_id="TX-DIR-CPO-5194",
+            title="Texas DIR Zero-Trust Cloud Security Operations",
+            agency="Texas Department of Information Resources (DIR)",
+            company_name="Apex Cyber Defense LLC",
+        )
+        foia_tx_letter = str(foia_tx.get("statutory_demand_letter_text") or "")
+        if "Tex. Gov't Code Ch. 552" not in foia_tx_letter or "5 U.S.C. § 552" in foia_tx_letter:
+            fail("proposal_compiler.py (Tier 4 FOIA Vault): Texas PIA demand letter missing `Tex. Gov't Code Ch. 552` or leaked Federal FOIA!")
+
+        # Tier 4 Output Verification B: 13 CFR § 125.6 Two-Sided Teaming Clearinghouse Matchmaker & Partner POC Mailto
+        tc_res = await pc.request_compliant_teaming_slot(
+            pc.TeamingSlotRequest(
+                company_name="Fuse Integration",
+                email="capture@fuseintegration.com",
+                uei_or_cage="DZZ3WVXGEHW8",
+                socioeconomic_status="Small Business",
+                teaming_role="Prime Seeking Subcontractor",
+                naics_focus="541512",
+                solicitation_id="0000034018",
+                solicitation_title="Caltrans Enterprise Cloud Modernization",
+                issuing_agency="California Department of Transportation (Caltrans)",
+                proposed_workshare_pct=44.0,
+                suppress_alert=True,
+            )
+        )
+        if tc_res.get("status") != "matched" or "13 CFR § 125.6" not in str(tc_res.get("cfr_125_6_ruling") or ""):
+            fail("proposal_compiler.py (Tier 4 Teaming Clearinghouse): Missing compliant `13 CFR § 125.6` ruling!")
+        tc_partners = tc_res.get("matched_partners") or []
+        if len(tc_partners) < 2:
+            fail(f"proposal_compiler.py (Tier 4 Teaming Clearinghouse): Expected >= 2 verified corporate partners, got {len(tc_partners)}")
+        for tcp in tc_partners:
+            p_nm = str(tcp.get("company_name") or "")
+            if any(bad_p in p_nm for bad_p in ("Pool", "Schedule", "Statewide", "Llc", "22Nd")):
+                fail(f"proposal_compiler.py (Tier 4 Teaming Clearinghouse): Invalid/non-corporate partner '{p_nm}' in matched_partners!")
+            if not str(tcp.get("partner_mailto_link") or "").startswith("mailto:") or not tcp.get("sam_uei"):
+                fail(f"proposal_compiler.py (Tier 4 Teaming Clearinghouse): Partner '{p_nm}' missing `partner_mailto_link` or `sam_uei`!")
+
         hs_res = await pc.confirm_teaming_handshake(
             pc.TeamingHandshakeRequest(
                 prime_company="Fuse Integration",

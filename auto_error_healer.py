@@ -199,7 +199,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             except Exception:
                 pass
 
-    # 0b. Verify live Render deployment health & critical router endpoints on b2b-contract-parser-api
+    # 0b. Verify live Render deployment health, all 34+ catalog routes in /openapi.json, & live RAPIDAPI_PROXY_SECRET auth
     try:
         h_resp = requests.get(f"{TELEMETRY_API_BASE}/v1/health", timeout=8)
         if h_resp.status_code != 200:
@@ -207,7 +207,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         oa_resp = requests.get(f"{TELEMETRY_API_BASE}/openapi.json", timeout=8)
         if oa_resp.status_code == 200:
             oa_paths = oa_resp.json().get("paths", {})
-            for req_path in (
+            required_routes = list((
                 "/v1/health",
                 "/v1/webhooks/register-destination",
                 "/v1/webhooks/subscriber-access",
@@ -217,9 +217,31 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                 "/v1/proposal-autopilot/compile-full-package",
                 "/v1/proposal-autopilot/teaming-clearinghouse",
                 "/v1/proposal-autopilot/foia-winning-bid-vault",
-            ):
+            ))
+            seed_file = BASE_DIR / "seed_rapidapi_telemetry.py"
+            if seed_file.exists():
+                seed_routes = re.findall(r'"path"\s*:\s*"(/v1/[^"]+)"', seed_file.read_text(encoding="utf-8", errors="replace"))
+                for sr in seed_routes:
+                    if sr not in required_routes:
+                        required_routes.append(sr)
+            for req_path in required_routes:
                 if req_path not in oa_paths:
                     issues.append(f"Render live OpenAPI missing expected route {req_path} (possible failed deploy)")
+
+        # Verify live Render container accepts our local RAPIDAPI_PROXY_SECRET
+        raw_sec = (os.getenv("RAPIDAPI_PROXY_SECRET") or "").strip()
+        if raw_sec:
+            first_sec = [s.strip() for s in raw_sec.split(",") if s.strip()][0]
+            auth_probe = requests.get(
+                f"{TELEMETRY_API_BASE}/v1/solicitations/live",
+                params={"state": "virginia", "limit": 1},
+                headers={"X-RapidAPI-Proxy-Secret": first_sec},
+                timeout=8,
+            )
+            if auth_probe.status_code in (401, 403):
+                issues.append(
+                    f"Live Render /v1/solicitations/live rejected local RAPIDAPI_PROXY_SECRET with HTTP {auth_probe.status_code} (Render env drift)"
+                )
     except Exception:
         pass
 
