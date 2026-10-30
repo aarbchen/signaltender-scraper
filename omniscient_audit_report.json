@@ -1,19 +1,22 @@
 {
-  "timestamp": "2026-10-30T03:12:40Z",
+  "timestamp": "2026-10-30T10:09:56Z",
   "mode": "fast",
-  "elapsed_seconds": 172.25,
-  "status": "HEALTHY",
+  "elapsed_seconds": 168.83,
+  "status": "ACTION_REQUIRED",
   "counts": {
     "portals": 28,
     "states": 26,
     "apis": 34,
     "tier2_apis": 24,
-    "learned_rules_total": 16
+    "learned_rules_total": 17
   },
   "pillars": {
     "products": {
       "auto_fixed": [],
-      "unfixed_issues": []
+      "unfixed_issues": [
+        "check_product_output_quality_controls() execution error: 'NoneType' object has no attribute 'reconfigure'",
+        "Stripe Checkout / Subscriber Key / Support Concierge audit error: No module named 'fastapi'"
+      ]
     },
     "acquisition_channels": {
       "auto_fixed": [],
@@ -21,11 +24,13 @@
     },
     "website_and_checkout": {
       "auto_fixed": [],
-      "unfixed_issues": []
+      "unfixed_issues": [
+        "verify_site_integrity.py failed: [FAIL] api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34"
+      ]
     }
   },
   "telemetry": {
-    "open_remote_errors": 0,
-    "open_local_errors": 0
+    "open_remote_errors": 1,
+    "open_local_errors": 1
   }
 }

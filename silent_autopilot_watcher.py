@@ -13,6 +13,7 @@ code error is detected in telemetry), it prints a `[WAKEUP_AGENT]` payload and e
 which automatically wakes Argon in the conversation to execute the fix or daily build.
 """
 
+import ctypes
 import json
 import os
 import sys
@@ -23,6 +24,25 @@ from error_telemetry import configure_utf8_stdio
 import auto_error_healer
 
 configure_utf8_stdio()
+
+
+def prevent_windows_sleep() -> None:
+    """
+    Use Windows Kernel32 SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED)
+    so Windows never enters Sleep or S0 Modern Standby overnight while silent_autopilot_watcher.py is running
+    (while still allowing the physical monitor screen to turn off).
+    """
+    if os.name != "nt":
+        return
+    try:
+        ES_CONTINUOUS = 0x80000000
+        ES_SYSTEM_REQUIRED = 0x00000001
+        ES_AWAYMODE_REQUIRED = 0x00000040
+        ctypes.windll.kernel32.SetThreadExecutionState(
+            ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED
+        )
+    except Exception:
+        pass
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROADMAP_PATH = os.path.join(BASE_DIR, "daily_expansion_roadmap.json")
@@ -116,6 +136,48 @@ def write_watcher_heartbeat() -> None:
             pass
 
 
+def is_expansion_build_in_progress() -> bool:
+    """
+    Return True if another Antigravity conversation is actively executing a multi-file build
+    (e.g., transcript.jsonl modified in the last 10 minutes while mcp.py tool count > index.html article count).
+    Prevents false-alarm self-healing wakeups or auto-deploy collisions mid-build.
+    """
+    now_ts = time.time()
+    try:
+        mcp_path = r"d:\Data API Ecosystem\api\routers\mcp.py"
+        idx_path = os.path.join(BASE_DIR, "index.html")
+        if os.path.exists(mcp_path) and os.path.exists(idx_path):
+            with open(mcp_path, "r", encoding="utf-8", errors="ignore") as f:
+                mcp_txt = f.read()
+            with open(idx_path, "r", encoding="utf-8", errors="ignore") as f:
+                idx_txt = f.read()
+            mcp_routes = mcp_txt.count('"/v1/')
+            idx_articles = idx_txt.count('<article id="product-')
+            if mcp_routes != idx_articles and (now_ts - os.path.getmtime(mcp_path)) < 2700:
+                return True
+    except Exception:
+        pass
+    try:
+        import glob
+        brain_glob = os.path.expanduser(r"~\.gemini\antigravity\brain\*\.system_generated\logs\transcript.jsonl")
+        recent_tx = [p for p in glob.glob(brain_glob) if (now_ts - os.path.getmtime(p)) < 300]
+        # If more than 0 conversations had tool activity in the last 5 minutes, check if git working tree is dirty
+        if recent_tx:
+            import subprocess
+            st = subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=BASE_DIR,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            if st.returncode == 0 and len(st.stdout.strip().splitlines()) > 3:
+                return True
+    except Exception:
+        pass
+    return False
+
+
 def is_daily_expansion_due() -> tuple[bool, str]:
     """Return (True, reason) if today's 5-scraper + 5-API daily expansion quota has not been completed yet."""
     if not os.path.exists(ROADMAP_PATH):
@@ -163,13 +225,15 @@ def is_daily_expansion_due() -> tuple[bool, str]:
 
 
 def main() -> int:
+    prevent_windows_sleep()
     claim_primary_watcher()
     print(
         "[*] Silent Autopilot & Self-Healing Watcher active in background "
-        "(zero chat interruptions unless an error or new daily build requires action).",
+        "(Windows Sleep/Standby blocked via SetThreadExecutionState; zero chat interruptions unless action required).",
         flush=True,
     )
     while True:
+        prevent_windows_sleep()
         write_watcher_heartbeat()
         if not is_primary_watcher():
             time.sleep(CHECK_INTERVAL_SECONDS)
@@ -185,6 +249,11 @@ def main() -> int:
                 continue
         except Exception:
             pass
+
+        # Avoid mid-build collisions or false-alarm wakeups when another tab is actively building APIs/scrapers
+        if is_expansion_build_in_progress():
+            time.sleep(CHECK_INTERVAL_SECONDS)
+            continue
 
         try:
             import rapidapi_headless_publisher

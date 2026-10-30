@@ -170,6 +170,16 @@ def check_html_file(fpath: str) -> str:
             "#contracts/connecticut",
             "#contracts/ut",
             "#contracts/utah",
+            "#contracts/nv",
+            "#contracts/nevada",
+            "#contracts/al",
+            "#contracts/alabama",
+            "#contracts/la",
+            "#contracts/louisiana",
+            "#contracts/ky",
+            "#contracts/kentucky",
+            "#contracts/ok",
+            "#contracts/oklahoma",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -345,6 +355,11 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "dfars-252-227-7013-7014-7017-data-rights-assertion-api",
             "govcon-shipley-black-hat-incumbent-ghosting-api",
             "govcon-cpars-self-assessment-14-day-rebuttal-api",
+            "govcon-rea-constructive-change-cda-claim-api",
+            "sba-mentor-protege-13-cfr-125-8-joint-venture-api",
+            "govcon-sca-far-52-222-41-wage-determination-mapper-api",
+            "govcon-evms-ansi-748-ipmdr-variance-narrative-api",
+            "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api",
         }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
             if rslug not in verified_rapidapi_studio_slugs:
@@ -541,7 +556,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         if "lg:top-[65px]" in txt:
             fail(f"{label}: Found 'lg:top-[65px]' sticky sub-bar offset; must be 'lg:top-[80px]' to clear the 80px header")
         for sp in stale_patterns:
-            if sp in txt and re.search(rf"(?<![0-9]){re.escape(sp)}", txt):
+            if sp in txt and re.search(rf"(?<![0-9]){re.escape(sp)}(?![0-9])", txt):
                 fail(f"{label}: Found stale portal/state count string '{sp}' (expected {n_portals} portals / {n_states} states)")
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations with zero duplicates
@@ -1221,7 +1236,7 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
     if os.path.exists(mcp_js_path):
         with open(mcp_js_path, "r", encoding="utf-8", errors="replace") as jf:
             mcp_js_src = jf.read()
-        js_routes = re.findall(r'^\s*([a-z0-9_]+)\s*:\s*\{\s*method\s*:\s*"(?:GET|POST)"', mcp_js_src, flags=re.M)
+        js_routes = re.findall(r'^\s*["\']?([a-z0-9_]+)["\']?\s*:\s*\{\s*["\']?method["\']?\s*:\s*"(?:GET|POST)"', mcp_js_src, flags=re.M)
         if len(js_routes) != n_apis:
             fail(f"mcp-server/index.js: ENDPOINT_MAP has {len(js_routes)} tools, expected {n_apis}")
         if re.search(r'description\s*:\s*"API\s*#', mcp_js_src):
@@ -1245,6 +1260,35 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
     for sk in state_keys:
         if f'value="{sk}"' not in foia_sel_html:
             fail(f"index.html: <select id='checkout-foia-state'> is missing option value='{sk}' for active state '{sk}'")
+
+    # 6. Website Harmony, Sidebar Section Coverage & Zero Numeric Emoji Entities
+    for label, txt in (("index.html", index_txt), ("apis.html", apis_txt)):
+        num_emoji_m = re.search(r"&#(?:12[789]\d{3}|x1[fF][0-9a-fA-F]{3});", txt)
+        if num_emoji_m:
+            fail(f"{label}: Found prohibited numeric emoji HTML entity '{num_emoji_m.group(0)}' (violates Zero Emojis rule)")
+        for req_sidebar_sec in (
+            "inbound-lead-capture-box",
+            "checkout-plan-recommender-bar",
+            "checkout-enterprise-proof-workbench",
+            "checkout-benchmark-section",
+            "account-tier3-proposal-card",
+            "account-tier4-foia-card",
+            "api-mcp-quickstart-terminal",
+            "contracts-rfp-workbench-card",
+        ):
+            if req_sidebar_sec not in txt:
+                fail(f"{label}: renderPageSectionSidebar / jumpToPageSection is missing required section '{req_sidebar_sec}'")
+
+    m_integ = re.search(r'<section\s+id="integrations"[^>]*>(.*?)</section>', index_txt, flags=re.S)
+    if not m_integ:
+        fail("index.html: Missing <section id='integrations'> on #page-main")
+    integ_links = re.findall(r'href="#(product-[a-z0-9-]+)"', m_integ.group(1))
+    if len(integ_links) != n_apis or len(set(integ_links)) != n_apis:
+        fail(f"index.html: <section id='integrations'> has {len(integ_links)} product links ({len(set(integ_links))} unique), expected {n_apis} unique API cards with zero duplicates!")
+
+    m_toggle_sidebar_apis = re.search(r"window\.togglePageSectionSidebar\s*=\s*function\s*\([^)]*\)\s*\{(.*?)\n\s*\};\s*\n\s*window\.copyMcpServerConfig", apis_txt, flags=re.S)
+    if not m_toggle_sidebar_apis or "window.copyMcpServerConfig" in m_toggle_sidebar_apis.group(1):
+        fail("apis.html: `window.copyMcpServerConfig` and `window.toggleApiCatalogCompactView` must be defined at top-level scope outside `window.togglePageSectionSidebar`!")
 
 
 def check_acquisition_and_email_guardrails() -> None:

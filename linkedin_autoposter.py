@@ -492,7 +492,7 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
         )
     fallback_text = (
         "LIVE GOVCON & STATE SLED IT/CYBER PROCUREMENT BRIEFING\n\n"
-        "Here are 3 open government software, cloud, and cybersecurity solicitations our autonomous 28-portal capture engine indexed and shredded today:\n\n"
+        "Here are 3 open government software, cloud, and cybersecurity solicitations our autonomous 33-portal capture engine indexed and shredded today:\n\n"
         + "\n\n".join(rfp_lines)
         + "\n\nEach dossier includes NAICS/SBA size caps, CMMC 2.0 / NIST 800-171 / StateRAMP posture, 13 CFR 125.6 workshare math, and IGCE Price-to-Win benchmarks.\n\n"
         "Unlock 3 free pre-shredded dossiers for your state or route 6-hour alerts to your inbox, Slack, Teams, or Discord:\n"
@@ -509,7 +509,7 @@ def generate_claude_linkedin_post(live_rfps: list[dict]) -> str:
             "Write a sharp, executive-grade LinkedIn Company Page post "
             "(plain text, zero markdown bold `**`, zero emojis) highlighting these 3 newly indexed open Federal/State SLED IT & cybersecurity RFPs:\n\n"
             + "\n\n".join(rfp_lines)
-            + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 28 Federal & State SLED portals "
+            + "\n\nInclude the exact dossier URLs above, mention how SignalTender strips 99.4% of commodity noise across 33 Federal & State SLED portals "
             "and pre-computes Shipley Section L/M matrices, CMMC/NIST compliance, and IGCE Price-to-Win bands, and end with https://signaltender.net/contracts/ "
             "plus 6-8 relevant GovCon hashtags. Keep under 1,800 characters."
         )
@@ -584,7 +584,7 @@ def publish_via_linkedin_api(post_text: str) -> tuple[bool, str]:
                     {
                         "status": "READY",
                         "description": {
-                            "text": "Real-time Federal (SAM.gov) & 26-State SLED IT/Cyber RFP intelligence, pre-shredded Shipley Section L/M capture dossiers, and 34 GovCon REST & MCP APIs."
+                            "text": "Real-time Federal (SAM.gov) & 31-State SLED IT/Cyber RFP intelligence, pre-shredded Shipley Section L/M capture dossiers, and 39 GovCon REST & MCP APIs."
                         },
                         "originalUrl": "https://signaltender.net/contracts/",
                         "title": {"text": "SignalTender — Live Federal & State SLED IT/Cyber Contract Directory"},

@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cost Accounting Standards (CAS / 48 CFR 9904) Coverage & DS-1 Disclosure Auditor API",
+    "version": "1.0.0",
+    "description": "Evaluates contractor award history and cost accounting practices under 48 CFR Chapter 99 (FAR Part 30 & FAR 52.230-1 through 52.230-6) to determine Cost Accounting Standards (CAS) exemptions, Modified CAS (CAS 401, 402, 405, 406), or Full CAS coverage (>= $50M threshold), audit CAS 401\u2013420 compliance, draft Form CASB DS-1 (8-Part Disclosure Statement) narratives, and model FAR 52.230-6 General Dollar Magnitude (GDM) cost-impact remedies."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/cost-accounting-cas-ds2": {
+      "post": {
+        "summary": "Determine CAS Coverage (Full vs. Modified vs. Exempt) & Audit Form CASB DS-1 Disclosure Statements",
+        "operationId": "generate_cost_accounting_cas_ds2",
+        "description": "Evaluates contractor award history and cost accounting practices under 48 CFR Chapter 99 (FAR Part 30 & FAR 52.230-1 through 52.230-6) to determine Cost Accounting Standards (CAS) exemptions, Modified CAS (CAS 401, 402, 405, 406), or Full CAS coverage (>= $50M threshold), audit CAS 401\u2013420 compliance, draft Form CASB DS-1 (8-Part Disclosure Statement) narratives, and model FAR 52.230-6 General Dollar Magnitude (GDM) cost-impact remedies.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_awards_and_accounting_practices_text"
+                ],
+                "properties": {
+                  "contract_awards_and_accounting_practices_text": {
+                    "type": "string",
+                    "description": "Target contract value/type, prior-year net CAS-covered awards, small business status, indirect cost pools, and planned accounting changes.",
+                    "example": "TARGET AWARD: $38.5M Negotiated DoD CPFF Engineering Contract. PRIOR YEAR CAS AWARDS: $56.2M net CAS-covered awards. PRACTICES: Fringe (30.8%) on Total Labor; Overhead (24.5%) on DL + Fringe; G&A (11.2%) on Total Cost Input (TCI). PLANNED CHANGE: Move Cloud SecOps Tooling ($620K/yr) from G&A to Engineering Overhead."
+                  },
+                  "cas_coverage_and_disclosure_mode": {
+                    "type": "string",
+                    "default": "CAS_Coverage_Determination_And_DS1_Eight_Part_Audit",
+                    "description": "CAS coverage determination and Form CASB DS-1 / DS-2 audit mode."
+                  },
+                  "accounting_change_cost_impact_posture": {
+                    "type": "string",
+                    "default": "FAR_52_230_6_Cost_Impact_And_Desirable_Change_Analysis",
+                    "description": "FAR 52.230-6 cost-impact modeling posture (Unilateral, Desirable, or Required change)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

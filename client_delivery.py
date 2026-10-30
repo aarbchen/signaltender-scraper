@@ -53,6 +53,11 @@ JURISDICTION_WEBHOOKS = {
     "oregon": os.getenv("DISCORD_OREGON_WEBHOOK_URL"),
     "connecticut": os.getenv("DISCORD_CONNECTICUT_WEBHOOK_URL"),
     "utah": os.getenv("DISCORD_UTAH_WEBHOOK_URL"),
+    "nevada": os.getenv("DISCORD_NEVADA_WEBHOOK_URL"),
+    "alabama": os.getenv("DISCORD_ALABAMA_WEBHOOK_URL"),
+    "louisiana": os.getenv("DISCORD_LOUISIANA_WEBHOOK_URL"),
+    "kentucky": os.getenv("DISCORD_KENTUCKY_WEBHOOK_URL"),
+    "oklahoma": os.getenv("DISCORD_OKLAHOMA_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -84,6 +89,11 @@ JURISDICTION_LABELS = {
     "oregon": "OREGON // OREGONBUYS & DAS EIS",
     "connecticut": "CONNECTICUT // CTSOURCE, DAS BITS & GROTON DEFENSE",
     "utah": "UTAH // U3P SCIQUEST, DTS & HILL AFB CORRIDOR",
+    "nevada": "NEVADA // NEVADAEPRO, EITS & NELLIS AFB CORRIDOR",
+    "alabama": "ALABAMA // ALABAMA BUYS STAARS, OIT & REDSTONE DEFENSE",
+    "louisiana": "LOUISIANA // LAPAC, LAGOV & OTS",
+    "kentucky": "KENTUCKY // KY VSS, COT & FORT KNOX CORRIDOR",
+    "oklahoma": "OKLAHOMA // OMES, IS & TINKER AFB CORRIDOR",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -309,6 +319,114 @@ def classify_jurisdiction(record: dict) -> str:
         or "utah.edu" in url
     ):
         return "utah"
+    if (
+        "nevadaepro.com" in url
+        or "purchasing.nv.gov" in url
+        or "eits.nv.gov" in url
+        or "nv.gov" in url
+        or "clarkcountynv.gov" in url
+        or "lasvegasnevada.gov" in url
+        or "unlv.edu" in url
+        or "unr.edu" in url
+    ):
+        return "nevada"
+    if (
+        "alabamabuys.gov" in url
+        or "purchasing.alabama.gov" in url
+        or "oit.alabama.gov" in url
+        or "alabama.gov" in url
+        or "huntsvilleal.gov" in url
+        or "birminghamal.gov" in url
+        or "ua.edu" in url
+        or "auburn.edu" in url
+    ):
+        return "alabama"
+    if (
+        "doa.louisiana.gov" in url
+        or "lapac" in url
+        or "louisiana.gov" in url
+        or "la.gov" in url
+        or "nola.gov" in url
+        or "brla.gov" in url
+        or "lsu.edu" in url
+    ):
+        return "louisiana"
+    if (
+        "vss.ky.gov" in url
+        or "finance.ky.gov" in url
+        or "cot.ky.gov" in url
+        or "ky.gov" in url
+        or "louisvilleky.gov" in url
+        or "lexingtonky.gov" in url
+        or "uky.edu" in url
+        or "louisville.edu" in url
+    ):
+        return "kentucky"
+    if (
+        "oklahoma.gov/omes" in url
+        or "omes.ok.gov" in url
+        or "oklahoma.gov" in url
+        or "ok.gov" in url
+        or "okc.gov" in url
+        or "cityoftulsa.org" in url
+        or "ou.edu" in url
+        or "okstate.edu" in url
+    ):
+        return "oklahoma"
+    if (
+        "nevadaepro.com" in url
+        or "purchasing.nv.gov" in url
+        or "eits.nv.gov" in url
+        or "nv.gov" in url
+        or "clarkcountynv.gov" in url
+        or "lasvegasnevada.gov" in url
+        or "unlv.edu" in url
+        or "unr.edu" in url
+    ):
+        return "nevada"
+    if (
+        "alabamabuys.gov" in url
+        or "purchasing.alabama.gov" in url
+        or "oit.alabama.gov" in url
+        or "alabama.gov" in url
+        or "huntsvilleal.gov" in url
+        or "birminghamal.gov" in url
+        or "ua.edu" in url
+        or "auburn.edu" in url
+    ):
+        return "alabama"
+    if (
+        "doa.louisiana.gov" in url
+        or "lapac" in url
+        or "louisiana.gov" in url
+        or "la.gov" in url
+        or "nola.gov" in url
+        or "brla.gov" in url
+        or "lsu.edu" in url
+    ):
+        return "louisiana"
+    if (
+        "vss.ky.gov" in url
+        or "finance.ky.gov" in url
+        or "cot.ky.gov" in url
+        or "ky.gov" in url
+        or "louisvilleky.gov" in url
+        or "lexingtonky.gov" in url
+        or "uky.edu" in url
+        or "louisville.edu" in url
+    ):
+        return "kentucky"
+    if (
+        "oklahoma.gov/omes" in url
+        or "omes.ok.gov" in url
+        or "oklahoma.gov" in url
+        or "ok.gov" in url
+        or "okc.gov" in url
+        or "cityoftulsa.org" in url
+        or "ou.edu" in url
+        or "okstate.edu" in url
+    ):
+        return "oklahoma"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -517,6 +635,132 @@ def classify_jurisdiction(record: dict) -> str:
         or "salt lake" in agency
     ):
         return "utah"
+    if (
+        title.startswith("[NV]")
+        or title.lower().startswith("[nv-")
+        or "nevada" in agency
+        or "(nv)" in agency
+        or "nevadaepro" in agency
+        or "nv eits" in agency
+        or "ndot" in agency
+        or "nellis afb" in agency
+        or "clark county" in agency
+        or "las vegas" in agency
+    ):
+        return "nevada"
+    if (
+        title.startswith("[AL]")
+        or title.lower().startswith("[al-")
+        or "alabama" in agency
+        or "(al)" in agency
+        or "alabama buys" in agency
+        or "staars" in agency
+        or "aldot" in agency
+        or "redstone" in agency
+        or "huntsville" in agency
+    ):
+        return "alabama"
+    if (
+        title.startswith("[LA]")
+        or title.lower().startswith("[la-")
+        or "louisiana" in agency
+        or "(la)" in agency
+        or "lapac" in agency
+        or "la ots" in agency
+        or "ldh" in agency
+        or "dotd" in agency
+        or "barksdale" in agency
+        or "baton rouge" in agency
+    ):
+        return "louisiana"
+    if (
+        title.startswith("[KY]")
+        or title.lower().startswith("[ky-")
+        or "kentucky" in agency
+        or "(ky)" in agency
+        or "ky vss" in agency
+        or "ky cot" in agency
+        or "chfs" in agency
+        or "kytc" in agency
+        or "fort knox" in agency
+        or "louisville" in agency
+    ):
+        return "kentucky"
+    if (
+        title.startswith("[OK]")
+        or title.lower().startswith("[ok-")
+        or "oklahoma" in agency
+        or "(ok)" in agency
+        or "omes" in agency
+        or "ohca" in agency
+        or "soonercare" in agency
+        or "tinker afb" in agency
+        or "76th sweg" in agency
+    ):
+        return "oklahoma"
+    if (
+        title.startswith("[NV]")
+        or title.lower().startswith("[nv-")
+        or "nevada" in agency
+        or "(nv)" in agency
+        or "nevadaepro" in agency
+        or "nv eits" in agency
+        or "ndot" in agency
+        or "nellis afb" in agency
+        or "clark county" in agency
+        or "las vegas" in agency
+    ):
+        return "nevada"
+    if (
+        title.startswith("[AL]")
+        or title.lower().startswith("[al-")
+        or "alabama" in agency
+        or "(al)" in agency
+        or "alabama buys" in agency
+        or "staars" in agency
+        or "aldot" in agency
+        or "redstone" in agency
+        or "huntsville" in agency
+    ):
+        return "alabama"
+    if (
+        title.startswith("[LA]")
+        or title.lower().startswith("[la-")
+        or "louisiana" in agency
+        or "(la)" in agency
+        or "lapac" in agency
+        or "la ots" in agency
+        or "ldh" in agency
+        or "dotd" in agency
+        or "barksdale" in agency
+        or "baton rouge" in agency
+    ):
+        return "louisiana"
+    if (
+        title.startswith("[KY]")
+        or title.lower().startswith("[ky-")
+        or "kentucky" in agency
+        or "(ky)" in agency
+        or "ky vss" in agency
+        or "ky cot" in agency
+        or "chfs" in agency
+        or "kytc" in agency
+        or "fort knox" in agency
+        or "louisville" in agency
+    ):
+        return "kentucky"
+    if (
+        title.startswith("[OK]")
+        or title.lower().startswith("[ok-")
+        or "oklahoma" in agency
+        or "(ok)" in agency
+        or "omes" in agency
+        or "ohca" in agency
+        or "soonercare" in agency
+        or "tinker afb" in agency
+        or "76th sweg" in agency
+    ):
+        return "oklahoma"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -726,11 +970,11 @@ def format_subscriber_email_briefing(
     """
     Build an organized, executive-formatted 6-hour email briefing tailored by subscription tier:
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
+          Section I: 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Email combining BOTH:
             Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded capture memos)
-            Section II: Complete 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section II: Complete 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     Returns `(subject, plain_text_body, html_body)`.
     """
     from datetime import datetime, timezone
@@ -792,10 +1036,10 @@ def format_subscriber_email_briefing(
     if norm_tier == "tier_1":
         lines.append("SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (28 Federal, State SLED & Municipal Portals)")
+        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (33 Federal, State SLED & Municipal Portals)")
         lines.append(
             f"Cycle Summary   : {total_wire} Newly Vetted High-Signal IT/Cyber RFPs "
-            f"(Federal: {fed_count} | 26-State SLED: {sled_count} | Municipal: {muni_count})"
+            f"(Federal: {fed_count} | 31-State SLED: {sled_count} | Municipal: {muni_count})"
         )
         lines.append(pwin_plain_line)
     else:
@@ -805,9 +1049,9 @@ def format_subscriber_email_briefing(
             "tier_2": "SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING",
         }
         tier_plan_map = {
-            "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (28 Portals + 24-API Capture Suite + 50k API Calls/Mo)",
-            "tier_3": "Tier 3 // Proposal Autopilot Enterprise (28 Portals + 24-API Capture Suite + 1-Click 6-File Shipley .ZIP Compiler)",
-            "tier_2": "Tier 2 // CaptureDesk Autopilot (28 Portals + 24-API Capture Suite)",
+            "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (33 Portals + 24-API Capture Suite + 50k API Calls/Mo)",
+            "tier_3": "Tier 3 // Proposal Autopilot Enterprise (33 Portals + 24-API Capture Suite + 1-Click 6-File Shipley .ZIP Compiler)",
+            "tier_2": "Tier 2 // CaptureDesk Autopilot (33 Portals + 24-API Capture Suite)",
         }
         lines.append(tier_header_map.get(norm_tier, tier_header_map["tier_2"]))
         lines.append(f"Cycle Timestamp : {cycle_ts}")
@@ -823,7 +1067,7 @@ def format_subscriber_email_briefing(
             f"  • SECTION I   : CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
         )
         lines.append(
-            f"  • SECTION II  : COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
+            f"  • SECTION II  : COMPLETE 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
         )
         lines.append("  • SECTION III : ENTERPRISE API, MCP, PROPOSAL .ZIP & SELF-SERVICE DELIVERY CONTROLS")
     lines.append(rule_heavy)
@@ -882,13 +1126,13 @@ def format_subscriber_email_briefing(
         lines.append("")
 
     wire_section_title = (
-        "SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE"
+        "SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE"
         if norm_tier != "tier_1"
-        else "SECTION I // 28-PORTAL LIVE RFP ALERT WIRE"
+        else "SECTION I // 33-PORTAL LIVE RFP ALERT WIRE"
     )
     lines.append(wire_section_title)
     lines.append(
-        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 28 government portals."
+        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 33 government portals."
     )
     lines.append(rule_light)
 
@@ -922,9 +1166,9 @@ def format_subscriber_email_briefing(
         else "SECTION II // SUBSCRIBER DIRECTORY & DELIVERY CONTROLS"
     )
     lines.append(ctrl_section_title)
-    lines.append(f"  • Full 28-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
+    lines.append(f"  • Full 33-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
     if norm_tier != "tier_1":
-        lines.append(f"  • 34-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
+        lines.append(f"  • 39-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
         lines.append("  • Remote Streamable-HTTP MCP Server          : https://b2b-contract-parser-api.onrender.com/mcp")
     if norm_tier in ("tier_3", "tier_4"):
         lines.append("  • 1-Click 6-File Shipley Proposal .ZIP       : https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package")
@@ -944,7 +1188,7 @@ def format_subscriber_email_briefing(
         "tier_4": "TIER 4 // ENTERPRISE OEM & FOIA VAULT (DOSSIERS + FOIA VAULT + LIVE WIRE)",
         "tier_3": "TIER 3 // PROPOSAL AUTOPILOT (.ZIP COMPILER + DOSSIERS + LIVE WIRE)",
         "tier_2": "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)",
-        "tier_1": "TIER 1 // SIGNALWIRE PRO (28-PORTAL LIVE RFP WIRE)",
+        "tier_1": "TIER 1 // SIGNALWIRE PRO (33-PORTAL LIVE RFP WIRE)",
     }
     tier_pill = tier_pill_map.get(norm_tier, tier_pill_map["tier_2"])
     tier_accent = "#f59e0b" if norm_tier == "tier_4" else ("#10b981" if norm_tier == "tier_3" else ("#6366f1" if norm_tier == "tier_2" else "#0ea5e9"))
@@ -1051,9 +1295,9 @@ def format_subscriber_email_briefing(
         """
 
     wire_header_label = (
-        f"SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        f"SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
         if norm_tier != "tier_1"
-        else f"SECTION I // 28-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        else f"SECTION I // 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
     )
 
     html_body = f"""
@@ -1062,7 +1306,7 @@ def format_subscriber_email_briefing(
         <div style="font-family:monospace;font-size:11px;color:{tier_accent};font-weight:700;letter-spacing:0.06em;">{escape(tier_pill)}</div>
         <h2 style="margin:6px 0 4px 0;font-size:20px;color:#ffffff;">SignalTender 6-Hour GovCon Capture Briefing</h2>
         <div style="font-size:12px;color:#94a3b8;font-family:monospace;">
-          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 26-State SLED: {sled_count} | Municipal: {muni_count}
+          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 31-State SLED: {sled_count} | Municipal: {muni_count}
         </div>
         {pwin_html_badge}
       </div>
@@ -1074,7 +1318,7 @@ def format_subscriber_email_briefing(
         {''.join(wire_html_rows)}
       </div>
       <div style="border-top:1px solid #1e293b;padding-top:14px;font-size:12px;color:#94a3b8;line-height:1.6;">
-        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 28-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
+        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 33-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
       </div>
     </div>
     """.strip()
@@ -1161,7 +1405,7 @@ def _send_subscriber_email_briefing(
     Send an organized, tier-specific 6-hour briefing email ONLY to active subscribers
     who opted in (`email_briefings_enabled: True`).
     Tier 2 subscribers receive BOTH CaptureDesk Autopilot 24-API Dossiers (Section I)
-    and the Complete 28-Portal Live RFP Alert Wire (Section II) in the same single email.
+    and the Complete 33-Portal Live RFP Alert Wire (Section II) in the same single email.
     """
     clean_to = str(to_email or "").strip().lower()
     if not clean_to or "@" not in clean_to or clean_to.endswith("@signaltender.net"):
@@ -1234,11 +1478,11 @@ def format_external_webhook_payload(
     both Subscription Tier (`tier_1` vs `tier_2`) and Destination Platform (`Slack`,
     `Microsoft Teams`, `Discord`, or `CRM / Zapier / Make.com / n8n / HubSpot / Salesforce`):
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
+          Section I: 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Dispatch combining BOTH:
             Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded memos)
-            Section II: Complete 28-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section II: Complete 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     """
     from datetime import datetime, timezone
 
@@ -1280,10 +1524,10 @@ def format_external_webhook_payload(
             s_lines.append("*SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE*")
             s_lines.append(
                 f"`Cycle: {cycle_label}` • *{total_wire} Vetted IT/Cyber RFPs* "
-                f"(Federal: `{fed_count}` | 26-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` | 31-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
             )
             s_lines.append("─" * 46)
-            s_lines.append("*SECTION I // 28-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION I // 33-PORTAL LIVE RFP ALERT WIRE*")
         else:
             s_lines.append("*SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING*")
             s_lines.append(
@@ -1292,7 +1536,7 @@ def format_external_webhook_payload(
             )
             s_lines.append(
                 "• *Section I:* CaptureDesk Autopilot 24-API Executive Dossiers\n"
-                "• *Section II:* Complete 28-Portal Live RFP Alert Wire"
+                "• *Section II:* Complete 33-Portal Live RFP Alert Wire"
             )
             s_lines.append("─" * 46)
             if resolved_dossiers:
@@ -1328,7 +1572,7 @@ def format_external_webhook_payload(
                         s_lines.append(f"  *7. Shipley Section L/M Win Strategy (#05/#17/#19/#33):*\n{theme_str}")
                     s_lines.append(f"  *8. Action Links:* <{d_src}|Official Portal Bid ↗>  |  <{d_url}|Open Full 24-API Dossier →>")
                     s_lines.append("─" * 46)
-            s_lines.append("*SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE*")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1347,7 +1591,7 @@ def format_external_webhook_payload(
                 f"  • *Buyer:* {agency} | *Due:* `{closing_date}`\n"
                 f"  • <{link}|Official Government Portal ↗>  |  <{dossier_url}|Unlocked SignalTender Brief →>"
             )
-        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 28-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
+        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 33-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
         return {"text": "\n".join(s_lines)}
 
     # 2. Native Microsoft Teams Markdown Card (`**bold**`, `[Label](url)`)
@@ -1357,10 +1601,10 @@ def format_external_webhook_payload(
             t_lines.append("### SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE")
             t_lines.append(
                 f"**Cycle:** `{cycle_label}` | **Total Vetted RFPs:** `{total_wire}` "
-                f"(Federal: `{fed_count}` • 26-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` • 31-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
             )
             t_lines.append("---")
-            t_lines.append("#### SECTION I // 28-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION I // 33-PORTAL LIVE RFP ALERT WIRE")
         else:
             t_lines.append("### SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING")
             t_lines.append(
@@ -1369,7 +1613,7 @@ def format_external_webhook_payload(
             )
             t_lines.append(
                 "- **Section I:** CaptureDesk Autopilot 24-API Executive Dossiers\n"
-                "- **Section II:** Complete 28-Portal Live RFP Alert Wire"
+                "- **Section II:** Complete 33-Portal Live RFP Alert Wire"
             )
             t_lines.append("---")
             if resolved_dossiers:
@@ -1402,7 +1646,7 @@ def format_external_webhook_payload(
                         f"- **7. Action Links:** [Official Portal Bid ↗]({d_src}) | [Open Full 24-API Dossier →]({d_url})"
                     )
                 t_lines.append("---")
-            t_lines.append("#### SECTION II // COMPLETE 28-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1488,7 +1732,7 @@ def format_external_webhook_payload(
         return {
             "event": "signaltender.cycle_briefing.dispatched",
             "tier": "tier_1",
-            "tier_name": "Tier 1 // SignalWire Pro (28-Portal Live RFP Alert Wire)",
+            "tier_name": "Tier 1 // SignalWire Pro (33-Portal Live RFP Alert Wire)",
             "platform": platform,
             "cycle_timestamp_utc": cycle_iso,
             "summary": {
@@ -1536,9 +1780,9 @@ def format_external_webhook_payload(
         )
 
     tier_names_map = {
-        "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (50k API Calls/Mo + 24-API Dossiers + 28-Portal Wire)",
-        "tier_3": "Tier 3 // Proposal Autopilot Enterprise (6-File Shipley .ZIP Compiler + 24-API Dossiers + 28-Portal Wire)",
-        "tier_2": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 28-Portal Live Wire)",
+        "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (50k API Calls/Mo + 24-API Dossiers + 33-Portal Wire)",
+        "tier_3": "Tier 3 // Proposal Autopilot Enterprise (6-File Shipley .ZIP Compiler + 24-API Dossiers + 33-Portal Wire)",
+        "tier_2": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 33-Portal Live Wire)",
     }
     return {
         "event": "signaltender.cycle_briefing.dispatched",

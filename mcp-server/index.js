@@ -22,40 +22,45 @@ const SIGNALTENDER_API_KEY = process.env.SIGNALTENDER_API_KEY || "";
 const RAPIDAPI_PROXY_SECRET = process.env.RAPIDAPI_PROXY_SECRET || "";
 
 const RAPIDAPI_HOSTS = {
-  parse_b2b_contract: "b2b-contract-parsing-api.p.rapidapi.com",
-  audit_contract_risks: "ai-contract-risk-redline-auditor-api.p.rapidapi.com",
-  search_historical_awards: "historical-procurement-pricing-api.p.rapidapi.com",
-  get_live_solicitations: "live-sled-federal-open-rfp-feed-api.p.rapidapi.com",
-  generate_compliance_matrix: "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
-  scan_far_dfars_clauses: "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
-  match_capability_statement: "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
-  classify_naics_psc_nigp: "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
-  generate_rfp_response: "ai-rfp-response-clarification-q-a-generator-api.p.rapidapi.com",
-  extract_pricing_schedule: "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
-  generate_teaming_strategy: "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
-  answer_security_questionnaire: "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
-  match_key_personnel: "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
-  analyze_rfp_amendment_diff: "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
-  generate_cpars_past_performance: "cpars-past-performance-volume-generator-api.p.rapidapi.com",
-  generate_igce_price_to_win: "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
-  generate_oral_presentation_prep: "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
-  generate_ato_rmf_package: "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
-  analyze_debriefing_bid_protest: "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
-  generate_gsa_mas_offer: "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
-  generate_sources_sought_response: "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
-  generate_oci_mitigation_plan: "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
-  generate_sbir_sttr_commercialization: "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
-  audit_section_508_vpat: "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
-  audit_supply_chain_scrm: "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com",
-  generate_quality_assurance_qasp: "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
-  generate_phase_in_transition_plan: "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
-  audit_dcaa_accounting_sf1408: "dcaa-pre-award-sf1408-accounting-system-auditor-api.p.rapidapi.com",
-  generate_ota_white_paper: "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com",
-  audit_foci_dd254_clearance: "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api.p.rapidapi.com",
-  generate_small_business_participation: "far-52-219-9-subcontracting-plan-esrs-calculator-api.p.rapidapi.com",
-  generate_data_rights_assertion_table: "dfars-252-227-7013-7014-7017-data-rights-assertion-api.p.rapidapi.com",
-  generate_capture_black_hat_review: "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
-  generate_post_award_cpar_rebuttal: "govcon-cpars-self-assessment-14-day-rebuttal-api.p.rapidapi.com"
+  "parse_b2b_contract": "b2b-contract-parsing-api.p.rapidapi.com",
+  "audit_contract_risks": "ai-contract-risk-redline-auditor-api.p.rapidapi.com",
+  "search_historical_awards": "historical-procurement-pricing-api.p.rapidapi.com",
+  "get_live_solicitations": "live-sled-federal-open-rfp-feed-api.p.rapidapi.com",
+  "generate_compliance_matrix": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+  "scan_far_dfars_clauses": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "match_capability_statement": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "classify_naics_psc_nigp": "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
+  "generate_rfp_response": "ai-rfp-response-clarification-q-a-generator-api.p.rapidapi.com",
+  "extract_pricing_schedule": "b2b-quote-invoice-clin-table-extractor-api.p.rapidapi.com",
+  "generate_teaming_strategy": "govcon-teaming-partner-subcontracting-plan-api.p.rapidapi.com",
+  "answer_security_questionnaire": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "match_key_personnel": "govcon-key-personnel-lcat-resume-tailoring-api.p.rapidapi.com",
+  "analyze_rfp_amendment_diff": "rfp-amendment-q-a-change-impact-analyzer-api.p.rapidapi.com",
+  "generate_cpars_past_performance": "cpars-past-performance-volume-generator-api.p.rapidapi.com",
+  "generate_igce_price_to_win": "govcon-igce-wrap-rate-price-to-win-modeler-api.p.rapidapi.com",
+  "generate_oral_presentation_prep": "govcon-oral-presentation-tech-demo-murder-board-prep-api.p.rapidapi.com",
+  "generate_ato_rmf_package": "govcon-rmf-continuous-ato-cato-ssp-poa-m-generator-api.p.rapidapi.com",
+  "analyze_debriefing_bid_protest": "govcon-debriefing-far-15-506-gao-bid-protest-analyzer-api.p.rapidapi.com",
+  "generate_gsa_mas_offer": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_sources_sought_response": "govcon-sources-sought-rfi-set-aside-shaping-responder-api.p.rapidapi.com",
+  "generate_oci_mitigation_plan": "govcon-oci-far-9-5-mitigation-plan-generator-api.p.rapidapi.com",
+  "generate_sbir_sttr_commercialization": "sbir-sttr-phase-i-iii-commercialization-plan-api.p.rapidapi.com",
+  "audit_section_508_vpat": "govcon-section-508-wcag-2-2-aa-vpat-2-5-auditor-api.p.rapidapi.com",
+  "audit_supply_chain_scrm": "govcon-supply-chain-scrm-ndaa-889-taa-sbom-auditor-api.p.rapidapi.com",
+  "generate_quality_assurance_qasp": "govcon-qasp-prs-sla-kpi-surveillance-matrix-api.p.rapidapi.com",
+  "generate_phase_in_transition_plan": "govcon-30-60-90-day-phase-in-transition-plan-api.p.rapidapi.com",
+  "audit_dcaa_accounting_sf1408": "dcaa-pre-award-sf1408-accounting-system-auditor-api.p.rapidapi.com",
+  "generate_ota_white_paper": "dod-ota-10-usc-4022-prototype-white-paper-api.p.rapidapi.com",
+  "audit_foci_dd254_clearance": "dcsa-fcl-dd254-foci-sf328-clearance-auditor-api.p.rapidapi.com",
+  "generate_small_business_participation": "far-52-219-9-subcontracting-plan-esrs-calculator-api.p.rapidapi.com",
+  "generate_data_rights_assertion_table": "dfars-252-227-7013-7014-7017-data-rights-assertion-api.p.rapidapi.com",
+  "generate_capture_black_hat_review": "govcon-shipley-black-hat-incumbent-ghosting-api.p.rapidapi.com",
+  "generate_post_award_cpar_rebuttal": "govcon-cpars-self-assessment-14-day-rebuttal-api.p.rapidapi.com",
+  "generate_rea_equitable_adjustment": "govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com",
+  "generate_mentor_protege_jv_agreement": "sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com",
+  "audit_service_contract_act_wage": "govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com",
+  "generate_evms_ipmdr_variance_analysis": "govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com",
+  "generate_cost_accounting_cas_ds2": "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -296,7 +301,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 28-portal procurement database. This is a read-only, stateless, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 33-portal procurement database. This is a read-only, stateless, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -337,9 +342,14 @@ const TOOLS = [
             "oregon",
             "connecticut",
             "utah",
+            "nevada",
+            "alabama",
+            "louisiana",
+            "kentucky",
+            "oklahoma",
             "municipal"
           ],
-          "description": "Filter by portal jurisdiction: 'federal', 'texas', 'virginia', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', or 'municipal'."
+          "description": "Filter by portal jurisdiction: 'federal', 'texas', 'virginia', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', 'nevada', 'alabama', 'louisiana', 'kentucky', 'oklahoma', or 'municipal'."
         },
         "category": {
           "type": "string",
@@ -1056,7 +1066,7 @@ const TOOLS = [
         },
         "limitations_on_subcontracting_audit": {
           "type": "object",
-          "description": "Automated audit of the workshare split under 13 CFR § 125.6 and FAR 52.219-14 (50% Rule & Ostensible Subcontractor test)."
+          "description": "Automated audit of the workshare split under 13 CFR \u00a7 125.6 and FAR 52.219-14 (50% Rule & Ostensible Subcontractor test)."
         },
         "capability_gaps_and_partner_archetypes": {
           "type": "array",
@@ -2015,10 +2025,10 @@ const TOOLS = [
   },
   {
     "name": "generate_sbir_sttr_commercialization",
-    "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
-    "description": "Convert R&D technical specifications and an SBIR/STTR solicitation topic description into a DoD/AFWERX/SpaceWERX/NSF SBIR/STTR Technical Work Plan, a TRL 1–9 progression matrix, a Phase III Dual-Use Commercialization & Transition Plan, and a pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertion schedule. This is a read-only, stateless, non-destructive R&D proposal and IP compliance generator (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters and `company_technology_and_ip_baseline` accepts 20 to 35,000 characters). Use this tool when preparing Phase I, Phase II, Direct-to-Phase II (AFWERX/SpaceWERX), or Phase III SBIR/STTR technical volumes, commercialization plans, and DFARS 252.227-7018 IP data-rights tables; use `generate_rfp_response` instead for standard FAR Part 15 technical approach volumes, or `scan_far_dfars_clauses` for general Section I clause flow-down audits.",
+    "title": "Generate SBIR / STTR Phase I\u2013III Technical Work Plan, TRL Matrix & Commercialization Plan",
+    "description": "Convert R&D technical specifications and an SBIR/STTR solicitation topic description into a DoD/AFWERX/SpaceWERX/NSF SBIR/STTR Technical Work Plan, a TRL 1\u20139 progression matrix, a Phase III Dual-Use Commercialization & Transition Plan, and a pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertion schedule. This is a read-only, stateless, non-destructive R&D proposal and IP compliance generator (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters and `company_technology_and_ip_baseline` accepts 20 to 35,000 characters). Use this tool when preparing Phase I, Phase II, Direct-to-Phase II (AFWERX/SpaceWERX), or Phase III SBIR/STTR technical volumes, commercialization plans, and DFARS 252.227-7018 IP data-rights tables; use `generate_rfp_response` instead for standard FAR Part 15 technical approach volumes, or `scan_far_dfars_clauses` for general Section I clause flow-down audits.",
     "annotations": {
-      "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
+      "title": "Generate SBIR / STTR Phase I\u2013III Technical Work Plan, TRL Matrix & Commercialization Plan",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -2090,7 +2100,7 @@ const TOOLS = [
         },
         "phase_iii_dual_use_commercialization_and_work_plan_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. § 638(r)(4) Phase III sole-source transition roadmap."
+          "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. \u00a7 638(r)(4) Phase III sole-source transition roadmap."
         }
       }
     }
@@ -2705,7 +2715,7 @@ const TOOLS = [
   {
     "name": "audit_foci_dd254_clearance",
     "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
-    "description": "Audit DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328 — Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards, returning an FCL & FOCI executive overview, a DD Form 254 Block 10/11 safeguarding matrix (COMSEC, SCI, SIPRNet, CUI), an SF 328 foreign interest factor audit, a DCSA FOCI mitigation agreement blueprint (Board Resolution, SCA, SSA with NID, or Proxy/Voting Trust with ECP and TCP controls), and a Key Management Personnel (KMP) Exclusion Resolution & NISP eMASS checklist. This is a read-only, stateless, non-destructive industrial security audit call (requires X-RapidAPI-Key; `dd254_and_ownership_cap_table_text` accepts 20 to 45,000 characters, while `target_facility_clearance_level` and `foreign_ownership_and_board_context` calibrate DCSA FCL safeguarding and 32 CFR 117.11 FOCI mitigation instruments). Use this tool when auditing DD Form 254 classified safeguarding requirements, SF 328 foreign ownership/LP triggers, or DCSA FCL / FOCI mitigation agreements; use `generate_ato_rmf_package` instead for DoD RMF / Continuous ATO (cATO) NIST 800-53 System Security Plans, or `match_key_personnel` for individual candidate security clearance and LCAT resume verification.",
+    "description": "Audit DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328 \u2014 Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards, returning an FCL & FOCI executive overview, a DD Form 254 Block 10/11 safeguarding matrix (COMSEC, SCI, SIPRNet, CUI), an SF 328 foreign interest factor audit, a DCSA FOCI mitigation agreement blueprint (Board Resolution, SCA, SSA with NID, or Proxy/Voting Trust with ECP and TCP controls), and a Key Management Personnel (KMP) Exclusion Resolution & NISP eMASS checklist. This is a read-only, stateless, non-destructive industrial security audit call (requires X-RapidAPI-Key; `dd254_and_ownership_cap_table_text` accepts 20 to 45,000 characters, while `target_facility_clearance_level` and `foreign_ownership_and_board_context` calibrate DCSA FCL safeguarding and 32 CFR 117.11 FOCI mitigation instruments). Use this tool when auditing DD Form 254 classified safeguarding requirements, SF 328 foreign ownership/LP triggers, or DCSA FCL / FOCI mitigation agreements; use `generate_ato_rmf_package` instead for DoD RMF / Continuous ATO (cATO) NIST 800-53 System Security Plans, or `match_key_personnel` for individual candidate security clearance and LCAT resume verification.",
     "annotations": {
       "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
       "readOnlyHint": true,
@@ -2924,7 +2934,7 @@ const TOOLS = [
         },
         "mosa_and_deferred_ordering_protection_plan": {
           "type": "object",
-          "description": "10 U.S.C. § 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
+          "description": "10 U.S.C. \u00a7 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
         },
         "pre_award_ip_negotiation_checklist": {
           "type": "array",
@@ -3084,44 +3094,505 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "generate_rea_equitable_adjustment",
+    "title": "Generate FAR Part 43 REA, Constructive Change & Eichleay CDA Claim Package",
+    "description": "Analyze post-award scope creep, out-of-scope COR technical directions, Government-Furnished Equipment/Information (GFE/GFI) or ATO delays, and stop-work orders under FAR 52.243-1/2/3/4, FAR 52.242-14/15/17, and the Contract Disputes Act (41 U.S.C. 7101) to generate a Request for Equitable Adjustment (REA) or Certified CDA Claim package containing a 5-element constructive change proof, a DCAA-auditable Quantum Cost Schedule (direct labor, indirect burden, Eichleay unabsorbed home office overhead, FAR 31.205-33 allowable REA preparation costs, and DFARS 215.404-71 weighted guidelines profit), an Eichleay 3-step standby overhead and CPM schedule extension analysis, and verbatim DFARS 252.243-7002 and CDA 41 U.S.C. 7103 certifications. This is a read-only, stateless, non-destructive post-award contract claims and quantum analysis generator (requires X-RapidAPI-Key; `contract_change_and_delay_facts` accepts 20 to 45,000 characters, while `remedy_clause_and_submission_type` and `quantum_pricing_methodology` calibrate non-adversarial FAR Part 43 REAs vs. interest-bearing CDA claims). Use this tool when quantifying post-award constructive changes, Government delays, or Eichleay standby overhead for a Contracting Officer REA or CDA claim; use `analyze_debriefing_bid_protest` instead for pre-award or post-award GAO/COFC bid protests under FAR 15.506, or `generate_post_award_cpar_rebuttal` for FAR 42.1503 CPARS rating rebuttals.",
+    "annotations": {
+      "title": "Generate FAR Part 43 REA, Constructive Change & Eichleay CDA Claim Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "contract_change_and_delay_facts": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Chronology of out-of-scope COR/CO technical directions, Government-furnished equipment/information (GFE/GFI) or ATO delays, stop-work orders, standby labor costs, and company overhead figures (20 to 45,000 characters)."
+        },
+        "remedy_clause_and_submission_type": {
+          "type": "string",
+          "default": "FAR_52_243_1_Constructive_Change_And_FAR_52_242_17_Delay_Non_Adversarial_REA",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target remedy clause and submission posture (e.g., Non-Adversarial FAR Part 43 REA under FAR 52.243-1/2/3/4 & DFARS 252.243-7002 vs. Certified CDA Claim under 41 U.S.C. 7103; defaults to 'FAR_52_243_1_Constructive_Change_And_FAR_52_242_17_Delay_Non_Adversarial_REA')."
+        },
+        "quantum_pricing_methodology": {
+          "type": "string",
+          "default": "Segregated_Actual_Labor_Hours_Plus_Eichleay_Standby_Overhead_And_FAR_31_205_33_Prep_Costs",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Quantum pricing method (Segregated Actual Costs, Modified Total Cost, Jury Verdict Method, Eichleay Unabsorbed Home Office Overhead, and FAR 31.205-33 REA Preparation Cost recovery; defaults to 'Segregated_Actual_Labor_Hours_Plus_Eichleay_Standby_Overhead_And_FAR_31_205_33_Prep_Costs')."
+        }
+      },
+      "required": [
+        "contract_change_and_delay_facts"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "rea_entitlement_executive_overview": {
+          "type": "object",
+          "description": "High-level REA vs. CDA legal posture, 5-element constructive change proof, and total recommended adjustment."
+        },
+        "rea_quantum_cost_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "DCAA-auditable Quantum Cost Breakdown across direct labor, indirect pools, Eichleay standby overhead, REA preparation costs (FAR 31.205-33), and weighted guidelines profit."
+        },
+        "eichleay_and_delay_schedule_analysis": {
+          "type": "object",
+          "description": "Eichleay 3-step unabsorbed home office overhead calculation and Critical Path Method (CPM) schedule extension justification."
+        },
+        "statutory_certification_and_notice_block": {
+          "type": "object",
+          "description": "Verbatim DFARS 252.243-7002 REA and CDA 41 U.S.C. 7103 certifications, timely notice defense, and SF-30 reservation-of-rights language."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_mentor_protege_jv_agreement",
+    "title": "Generate SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement",
+    "description": "Audit and generate SBA All-Small Mentor-Prot\u00e9g\u00e9 Program Agreements (13 CFR 125.9) and unpopulated Joint Venture Operating Agreements (13 CFR 125.8, 121.103(h), 124.513 8(a), 126.616 HUBZone, 127.506 WOSB, 128.402 SDVOSB), returning an SBA affiliation safe-harbor overview, all mandatory 13 CFR 125.8(b)(2) Operating Agreement clauses (Prot\u00e9g\u00e9 Managing Venturer & Responsible Manager controls neutralizing OHA negative-control protests, >= 40% substantive Prot\u00e9g\u00e9 workshare, commensurate profit distribution, dual-signature JV bank account, and equipment/labor schedules), a quantitative 40% Prot\u00e9g\u00e9 workshare and FAR 52.219-14 audit, and a 6-year SBA MPP Developmental Plan blueprint. This is a read-only, stateless, non-destructive GovCon corporate structuring and SBA compliance generator (requires X-RapidAPI-Key; `mentor_and_protege_profile_text` accepts 20 to 45,000 characters, while `target_set_aside_and_jv_type` and `agreement_deliverable_scope` calibrate SBA socio-economic JV rules and developmental assistance plans). Use this tool when drafting or auditing an SBA 13 CFR 125.8 Joint Venture Operating Agreement or 13 CFR 125.9 Mentor-Prot\u00e9g\u00e9 Developmental Plan to survive OHA size/status protests; use `generate_teaming_strategy` instead for standard FAR Subpart 9.6 Prime/Subcontractor Teaming Agreements, or `generate_small_business_participation` for Large Business Prime FAR 52.219-9 Subcontracting Plans.",
+    "annotations": {
+      "title": "Generate SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mentor_and_protege_profile_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Profiles of the Prot\u00e9g\u00e9 (Managing Venturer) and Mentor (Partner Venturer), socioeconomic certifications (Small, 8(a), SDVOSB, WOSB, HUBZone), target solicitation details, and proposed workshare split (20 to 45,000 characters)."
+        },
+        "target_set_aside_and_jv_type": {
+          "type": "string",
+          "default": "Unpopulated_SDVOSB_And_All_Small_MPP_Joint_Venture_13_CFR_125_8_And_128_402",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target socioeconomic set-aside and SBA JV regulation (13 CFR 125.8 Small Business, 128.402 SDVOSB, 124.513 8(a), 127.506 WOSB, or 126.616 HUBZone; defaults to 'Unpopulated_SDVOSB_And_All_Small_MPP_Joint_Venture_13_CFR_125_8_And_128_402')."
+        },
+        "agreement_deliverable_scope": {
+          "type": "string",
+          "default": "Full_13_CFR_125_8_JV_Operating_Agreement_Clauses_Plus_13_CFR_125_9_MPP_Developmental_Plan",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Deliverable scope: 13 CFR 125.8(b)(2) Joint Venture Operating Agreement + Solicitation Addendum Clauses, 13 CFR 125.9 SBA Mentor-Prot\u00e9g\u00e9 Developmental Plan, and OHA Size/Status Protest Pre-Audit (defaults to 'Full_13_CFR_125_8_JV_Operating_Agreement_Clauses_Plus_13_CFR_125_9_MPP_Developmental_Plan')."
+        }
+      },
+      "required": [
+        "mentor_and_protege_profile_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "mentor_protege_and_jv_overview": {
+          "type": "object",
+          "description": "Executive overview of SBA regulatory compliance, unpopulated LLC structure, affiliation safe harbor, and 2-year rule."
+        },
+        "thirteen_cfr_125_8_mandatory_clauses": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Complete set of 13 CFR 125.8(b)(2) mandatory Joint Venture Operating Agreement clauses neutralizing OHA protest traps."
+        },
+        "forty_percent_workshare_and_limitations_audit": {
+          "type": "object",
+          "description": "Quantitative audit of FAR 52.219-14 Limitations on Subcontracting and the mandatory >= 40% Prot\u00e9g\u00e9 workshare rule."
+        },
+        "sba_mpp_developmental_plan_blueprint": {
+          "type": "object",
+          "description": "SBA All-Small Mentor-Prot\u00e9g\u00e9 Program (13 CFR 125.9) developmental assistance blueprint and term compliance check."
+        }
+      }
+    }
+  },
+  {
+    "name": "audit_service_contract_act_wage",
+    "title": "Map RFP LCATs to DOL SCA Wage Determinations & Audit Fringe / FAR 52.222-43 Compliance",
+    "description": "Map solicitation labor categories (LCATs) to Department of Labor (DOL) SAM.gov Service Contract Act (SCA / FAR 52.222-41) Directory of Occupations 5-digit codes and Davis-Bacon Act classifications, audit FLSA 29 CFR Part 541 exempt vs. non-exempt status, compute mandatory Health & Welfare (H&W) fringe obligations (Standard vs. EO 13706 Paid Sick Leave), Vacation (including EO 14055 predecessor seniority credit), and 11 Federal Holidays hourly loads, and generate an SF 1444 conformance and FAR 52.222-43 Option Year price adjustment compliance narrative. This is a read-only, stateless, non-destructive labor compliance and pricing audit call (requires X-RapidAPI-Key; `rfp_labor_categories_and_locality_text` accepts 20 to 45,000 characters, while `wage_determination_and_fringe_mode` and `audit_objective` calibrate H&W rates, holiday counts, and FAR 52.222-43 zero-escalation rules). Use this tool when mapping RFP labor categories to DOL SCA Wage Determinations, calculating H&W and vacation fringe floors, or preparing SF 1444 conformance requests; use `generate_igce_price_to_win` instead for full multi-year CLIN wrap-rate and Price-to-Win modeling, or `match_key_personnel` to evaluate candidate resumes against LCAT education/experience requirements.",
+    "annotations": {
+      "title": "Map RFP LCATs to DOL SCA Wage Determinations & Audit Fringe / FAR 52.222-43 Compliance",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_labor_categories_and_locality_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Solicitation labor categories (LCATs), job duties, proposed base hourly rates, place of performance county/MSA, and applicable DOL Wage Determination or CBA details (20 to 45,000 characters)."
+        },
+        "wage_determination_and_fringe_mode": {
+          "type": "string",
+          "default": "SAM_DOL_SCA_Directory_6th_Ed_With_EO_13706_HW_And_11_Federal_Holidays",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Wage determination and fringe calculation mode (Standard H&W vs. EO 13706 Paid Sick Leave H&W, 11 Federal Holidays including Juneteenth, and predecessor seniority vacation accrual; defaults to 'SAM_DOL_SCA_Directory_6th_Ed_With_EO_13706_HW_And_11_Federal_Holidays')."
+        },
+        "audit_objective": {
+          "type": "string",
+          "default": "Map_DOL_Codes_Verify_Wage_Floors_And_Calculate_FAR_52_222_43_Baseline",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Audit objective: DOL 5-digit Occupation Code mapping, FLSA 29 CFR 541 exemption check, H&W/Vacation/Holiday build-up, SF 1444 conformance check, and FAR 52.222-43 price adjustment baseline (defaults to 'Map_DOL_Codes_Verify_Wage_Floors_And_Calculate_FAR_52_222_43_Baseline')."
+        }
+      },
+      "required": [
+        "rfp_labor_categories_and_locality_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "sca_wage_compliance_overview": {
+          "type": "object",
+          "description": "High-level SCA/DBA statutory compliance overview, locality Wage Determination profile, and H&W fringe rate."
+        },
+        "sca_labor_category_mappings": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "LCAT-by-LCAT mapping to DOL SCA Directory of Occupations codes, FLSA exemption audit, and total minimum hourly cost floor."
+        },
+        "far_52_222_43_price_adjustment_and_sf1444_plan": {
+          "type": "object",
+          "description": "FAR 52.222-43 Option Year price adjustment protection rules, SF 1444 conformance playbook, and incumbent seniority vacation audit."
+        },
+        "cost_volume_boe_sca_narrative_template": {
+          "type": "string",
+          "description": "Paste-ready Cost Volume Narrative warranting SCA compliance, zero Option Year SCA escalation contingency per FAR 52.222-43, and bona fide fringe benefit plan administration."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_evms_ipmdr_variance_analysis",
+    "title": "Calculate EVMS Metrics (CPI, SPI, TCPI, IEAC) & Generate IPMDR Format 5 Narratives",
+    "description": "Calculate Earned Value Management System (EVMS) performance indices (CV, CV%, SV, SV%, CPI, SPI, TCPI_BAC, VAC, and 3-method Independent Estimate at Completion [IEAC]) across Work Breakdown Structure (WBS) Control Accounts under DFARS 252.234-7001/7002, FAR 52.234-4, and NDIA EIA-748-D (32 Guidelines), and generate ready-to-submit DI-MGMT-81861C IPMDR Format 5 Root-Cause Variance Analysis (isolating Rate vs. Usage and Schedule drivers), Critical Path impact assessments, and Control Account Manager (CAM) Corrective Action Plans with Estimated Completion Dates (ECDs). This is a read-only, stateless, non-destructive earned-value calculation and CDRL narrative generator (requires X-RapidAPI-Key; `wbs_control_account_metrics_text` accepts 20 to 45,000 characters, while `variance_reporting_thresholds` and `evms_reporting_standard` calibrate CDRL breach flags and EIA-748 Management Reserve / baseline integrity audits). Use this tool when computing WBS Control Account CPI/SPI/TCPI/IEAC metrics and drafting monthly IPMR/IPMDR Format 5 Variance Analysis CDRL narratives; use `audit_dcaa_accounting_sf1408` instead for pre-award DCAA SF 1408 accounting system adequacy, or `generate_quality_assurance_qasp` for FAR 37.6 QASP and SLA surveillance matrices.",
+    "annotations": {
+      "title": "Calculate EVMS Metrics (CPI, SPI, TCPI, IEAC) & Generate IPMDR Format 5 Narratives",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "wbs_control_account_metrics_text": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "WBS Control Account metrics (BCWS/PV, BCWP/EV, ACWP/AC, BAC), technical/schedule/rate variance drivers, Management Reserve (MR) balance, and contract reporting thresholds (20 to 45,000 characters)."
+        },
+        "variance_reporting_thresholds": {
+          "type": "string",
+          "default": "Plus_Minus_10_Percent_And_50000_USD_Cumulative_Format_5",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Contract CDRL variance reporting thresholds (e.g., +/- 10% and +/- $50,000 current period or cumulative CV/SV; defaults to 'Plus_Minus_10_Percent_And_50000_USD_Cumulative_Format_5')."
+        },
+        "evms_reporting_standard": {
+          "type": "string",
+          "default": "DI_MGMT_81861C_IPMDR_Format_5_And_EIA_748_D_32_Guidelines",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target EVMS reporting DID and standard (DI-MGMT-81861C IPMDR Format 5, DFARS 252.234-7002, and EIA-748-D 32 Guidelines; defaults to 'DI_MGMT_81861C_IPMDR_Format_5_And_EIA_748_D_32_Guidelines')."
+        }
+      },
+      "required": [
+        "wbs_control_account_metrics_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "evms_executive_program_summary": {
+          "type": "object",
+          "description": "Program-level EVMS rollup, CPI/SPI/TCPI realism check, and EIA-748 compliance overview."
+        },
+        "control_account_format_5_narratives": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Ready-to-submit IPMDR Format 5 Variance Analysis narratives with Root Cause, Impact, and CAM Corrective Action Plans for each WBS Control Account."
+        },
+        "ieac_and_baseline_integrity_audit": {
+          "type": "object",
+          "description": "3-method Independent Estimate at Completion (IEAC) comparison, Management Reserve audit, and EIA-748 baseline integrity controls."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_cost_accounting_cas_ds2",
+    "title": "Audit CAS Coverage (Modified vs. Full CAS) & Draft CASB Form DS-1 Disclosure Sections",
+    "description": "Determine Cost Accounting Standards (CAS / 48 CFR Chapter 99) exemptions vs. Modified CAS ($2M trigger contract / < $50M net CAS-covered awards) vs. Full CAS (>= $50M net CAS-covered awards or single award >= $50M) under FAR 52.230-1 through 52.230-6, audit contractor cost accounting practices against CAS 401, CAS 402, CAS 405, CAS 406, CAS 410 (Total Cost Input vs. Value-Added G&A base), and CAS 418, and generate paste-ready CASB Form DS-1 Disclosure Statement Continuation Sheet narratives across Parts I, II, III, IV, and VII plus FAR 52.230-6 General Dollar Magnitude (GDM) cost-impact governance rules. This is a read-only, stateless, non-destructive GovCon cost accounting compliance and disclosure generator (requires X-RapidAPI-Key; `contractor_accounting_and_awards_profile` accepts 20 to 45,000 characters, while `target_cas_coverage_and_ds_form` and `g_and_a_allocation_base_preference` calibrate Modified vs. Full CAS audits and CAS 410 G&A base distortion checks). Use this tool when determining FAR Part 30 CAS coverage tiers, auditing CAS 401-420 compliance, or drafting a CASB Form DS-1 Disclosure Statement; use `audit_dcaa_accounting_sf1408` instead for pre-award Standard Form 1408 accounting system surveys, or `generate_igce_price_to_win` for proposal LCAT wrap-rate pricing.",
+    "annotations": {
+      "title": "Audit CAS Coverage (Modified vs. Full CAS) & Draft CASB Form DS-1 Disclosure Sections",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "contractor_accounting_and_awards_profile": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 45000,
+          "description": "Contractor business size status, prior/current year net CAS-covered awards, contract types, direct vs. indirect charging rules, Fringe/Overhead/G&A pool structures, and pass-through subcontract volume (20 to 45,000 characters)."
+        },
+        "target_cas_coverage_and_ds_form": {
+          "type": "string",
+          "default": "Full_CAS_19_Standards_Transition_And_CASB_DS1_Disclosure_Statement",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target CAS coverage evaluation and disclosure form (CAS Exemption Audit, Modified CAS 401/402/405/406, Full CAS 19 Standards, or CASB DS-1 / DS-2 Disclosure Statement preparation; defaults to 'Full_CAS_19_Standards_Transition_And_CASB_DS1_Disclosure_Statement')."
+        },
+        "g_and_a_allocation_base_preference": {
+          "type": "string",
+          "default": "Evaluate_Total_Cost_Input_TCI_vs_Value_Added_Base_Under_CAS_410",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "CAS 410 G&A allocation base preference (Total Cost Input [TCI], Value-Added Cost Input excluding direct material/subcontracts, or Single Element Cost Input; defaults to 'Evaluate_Total_Cost_Input_TCI_vs_Value_Added_Base_Under_CAS_410')."
+        }
+      },
+      "required": [
+        "contractor_accounting_and_awards_profile"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "cas_applicability_and_coverage_determination": {
+          "type": "object",
+          "description": "48 CFR 9903 CAS exemption vs. Modified CAS vs. Full CAS determination and FAR 52.230 clause mapping."
+        },
+        "core_cas_standards_compliance_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Audit of CAS 401, CAS 402, CAS 405, CAS 406, CAS 410, and CAS 418 compliance against DCAA CAM Chapter 8."
+        },
+        "casb_ds1_disclosure_statement_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready CASB Form DS-1 Disclosure Statement Continuation Sheet narratives across Parts I, II, III, IV, and VII."
+        },
+        "far_52_230_6_cost_impact_and_change_governance": {
+          "type": "object",
+          "description": "FAR 52.230-6 60-day CFAO advance notice rules and General Dollar Magnitude (GDM) cost-impact governance."
+        }
+      }
+    }
   }
 ];
 
 const ENDPOINT_MAP = {
-  parse_b2b_contract: { method: "POST", path: "/v1/parse/contract" },
-  audit_contract_risks: { method: "POST", path: "/v1/parse/contract-risks" },
-  search_historical_awards: { method: "POST", path: "/v1/awards/search" },
-  get_live_solicitations: { method: "GET", path: "/v1/solicitations/live" },
-  generate_compliance_matrix: { method: "POST", path: "/v1/generate/compliance-matrix" },
-  scan_far_dfars_clauses: { method: "POST", path: "/v1/audit/far-dfars-clauses" },
-  match_capability_statement: { method: "POST", path: "/v1/match/capability-statement" },
-  classify_naics_psc_nigp: { method: "POST", path: "/v1/classify/naics-psc-nigp" },
-  generate_rfp_response: { method: "POST", path: "/v1/generate/rfp-response" },
-  extract_pricing_schedule: { method: "POST", path: "/v1/extract/pricing-schedule" },
-  generate_teaming_strategy: { method: "POST", path: "/v1/generate/teaming-strategy" },
-  answer_security_questionnaire: { method: "POST", path: "/v1/audit/security-questionnaire" },
-  match_key_personnel: { method: "POST", path: "/v1/match/key-personnel" },
-  analyze_rfp_amendment_diff: { method: "POST", path: "/v1/analyze/amendment-diff" },
-  generate_cpars_past_performance: { method: "POST", path: "/v1/generate/past-performance" },
-  generate_igce_price_to_win: { method: "POST", path: "/v1/generate/price-to-win" },
-  generate_oral_presentation_prep: { method: "POST", path: "/v1/generate/oral-presentation-prep" },
-  generate_ato_rmf_package: { method: "POST", path: "/v1/generate/ato-rmf-package" },
-  analyze_debriefing_bid_protest: { method: "POST", path: "/v1/generate/debriefing-bid-protest" },
-  generate_gsa_mas_offer: { method: "POST", path: "/v1/generate/gsa-mas-offer" },
-  generate_sources_sought_response: { method: "POST", path: "/v1/generate/sources-sought-response" },
-  generate_oci_mitigation_plan: { method: "POST", path: "/v1/generate/oci-mitigation-plan" },
-  generate_sbir_sttr_commercialization: { method: "POST", path: "/v1/generate/sbir-sttr-commercialization" },
-  audit_section_508_vpat: { method: "POST", path: "/v1/audit/section-508-vpat" },
-  audit_supply_chain_scrm: { method: "POST", path: "/v1/audit/supply-chain-scrm" },
-  generate_quality_assurance_qasp: { method: "POST", path: "/v1/generate/quality-assurance-qasp" },
-  generate_phase_in_transition_plan: { method: "POST", path: "/v1/generate/phase-in-transition-plan" },
-  audit_dcaa_accounting_sf1408: { method: "POST", path: "/v1/audit/dcaa-accounting-sf1408" },
-  generate_ota_white_paper: { method: "POST", path: "/v1/generate/ota-white-paper" },
-  audit_foci_dd254_clearance: { method: "POST", path: "/v1/audit/foci-dd254-clearance" },
-  generate_small_business_participation: { method: "POST", path: "/v1/generate/small-business-participation" },
-  generate_data_rights_assertion_table: { method: "POST", path: "/v1/generate/data-rights-assertion-table" },
-  generate_capture_black_hat_review: { method: "POST", path: "/v1/generate/capture-black-hat-review" },
-  generate_post_award_cpar_rebuttal: { method: "POST", path: "/v1/generate/post-award-cpar-rebuttal" }
+  "parse_b2b_contract": {
+    "method": "POST",
+    "path": "/v1/parse/contract"
+  },
+  "audit_contract_risks": {
+    "method": "POST",
+    "path": "/v1/parse/contract-risks"
+  },
+  "search_historical_awards": {
+    "method": "POST",
+    "path": "/v1/awards/search"
+  },
+  "get_live_solicitations": {
+    "method": "GET",
+    "path": "/v1/solicitations/live"
+  },
+  "generate_compliance_matrix": {
+    "method": "POST",
+    "path": "/v1/generate/compliance-matrix"
+  },
+  "scan_far_dfars_clauses": {
+    "method": "POST",
+    "path": "/v1/audit/far-dfars-clauses"
+  },
+  "match_capability_statement": {
+    "method": "POST",
+    "path": "/v1/match/capability-statement"
+  },
+  "classify_naics_psc_nigp": {
+    "method": "POST",
+    "path": "/v1/classify/naics-psc-nigp"
+  },
+  "generate_rfp_response": {
+    "method": "POST",
+    "path": "/v1/generate/rfp-response"
+  },
+  "extract_pricing_schedule": {
+    "method": "POST",
+    "path": "/v1/extract/pricing-schedule"
+  },
+  "generate_teaming_strategy": {
+    "method": "POST",
+    "path": "/v1/generate/teaming-strategy"
+  },
+  "answer_security_questionnaire": {
+    "method": "POST",
+    "path": "/v1/audit/security-questionnaire"
+  },
+  "match_key_personnel": {
+    "method": "POST",
+    "path": "/v1/match/key-personnel"
+  },
+  "analyze_rfp_amendment_diff": {
+    "method": "POST",
+    "path": "/v1/analyze/amendment-diff"
+  },
+  "generate_cpars_past_performance": {
+    "method": "POST",
+    "path": "/v1/generate/past-performance"
+  },
+  "generate_igce_price_to_win": {
+    "method": "POST",
+    "path": "/v1/generate/price-to-win"
+  },
+  "generate_oral_presentation_prep": {
+    "method": "POST",
+    "path": "/v1/generate/oral-presentation-prep"
+  },
+  "generate_ato_rmf_package": {
+    "method": "POST",
+    "path": "/v1/generate/ato-rmf-package"
+  },
+  "analyze_debriefing_bid_protest": {
+    "method": "POST",
+    "path": "/v1/generate/debriefing-bid-protest"
+  },
+  "generate_gsa_mas_offer": {
+    "method": "POST",
+    "path": "/v1/generate/gsa-mas-offer"
+  },
+  "generate_sources_sought_response": {
+    "method": "POST",
+    "path": "/v1/generate/sources-sought-response"
+  },
+  "generate_oci_mitigation_plan": {
+    "method": "POST",
+    "path": "/v1/generate/oci-mitigation-plan"
+  },
+  "generate_sbir_sttr_commercialization": {
+    "method": "POST",
+    "path": "/v1/generate/sbir-sttr-commercialization"
+  },
+  "audit_section_508_vpat": {
+    "method": "POST",
+    "path": "/v1/audit/section-508-vpat"
+  },
+  "audit_supply_chain_scrm": {
+    "method": "POST",
+    "path": "/v1/audit/supply-chain-scrm"
+  },
+  "generate_quality_assurance_qasp": {
+    "method": "POST",
+    "path": "/v1/generate/quality-assurance-qasp"
+  },
+  "generate_phase_in_transition_plan": {
+    "method": "POST",
+    "path": "/v1/generate/phase-in-transition-plan"
+  },
+  "audit_dcaa_accounting_sf1408": {
+    "method": "POST",
+    "path": "/v1/audit/dcaa-accounting-sf1408"
+  },
+  "generate_ota_white_paper": {
+    "method": "POST",
+    "path": "/v1/generate/ota-white-paper"
+  },
+  "audit_foci_dd254_clearance": {
+    "method": "POST",
+    "path": "/v1/audit/foci-dd254-clearance"
+  },
+  "generate_small_business_participation": {
+    "method": "POST",
+    "path": "/v1/generate/small-business-participation"
+  },
+  "generate_data_rights_assertion_table": {
+    "method": "POST",
+    "path": "/v1/generate/data-rights-assertion-table"
+  },
+  "generate_capture_black_hat_review": {
+    "method": "POST",
+    "path": "/v1/generate/capture-black-hat-review"
+  },
+  "generate_post_award_cpar_rebuttal": {
+    "method": "POST",
+    "path": "/v1/generate/post-award-cpar-rebuttal"
+  },
+  "generate_rea_equitable_adjustment": {
+    "method": "POST",
+    "path": "/v1/generate/rea-equitable-adjustment"
+  },
+  "generate_mentor_protege_jv_agreement": {
+    "method": "POST",
+    "path": "/v1/generate/mentor-protege-jv-agreement"
+  },
+  "audit_service_contract_act_wage": {
+    "method": "POST",
+    "path": "/v1/audit/service-contract-act-wage"
+  },
+  "generate_evms_ipmdr_variance_analysis": {
+    "method": "POST",
+    "path": "/v1/generate/evms-ipmdr-variance-analysis"
+  },
+  "generate_cost_accounting_cas_ds2": {
+    "method": "POST",
+    "path": "/v1/generate/cost-accounting-cas-ds2"
+  }
 };
 
 async function callSignalTenderEndpoint(toolName, args) {
@@ -3227,7 +3698,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.14.0"
+            version: "1.22.0"
           }
         }
       });

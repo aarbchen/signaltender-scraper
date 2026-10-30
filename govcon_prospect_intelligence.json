@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-10-30T00:05:27+00:00",
-  "total_verified_mx_contacts": 182,
-  "not_catchall_priority_tier_count": 182,
+  "updated_at": "2026-10-30T10:17:37+00:00",
+  "total_verified_mx_contacts": 180,
+  "not_catchall_priority_tier_count": 180,
   "catchall_secondary_tier_count": 0,
-  "purged_legacy_or_invalid_rows": 0,
+  "purged_legacy_or_invalid_rows": 2,
   "added_verified_inbound_leads": 0,
   "added_website_harvested_govcon_contacts": 0,
   "verified_usaspending_award_profiles_count": 275,
@@ -11,7 +11,7 @@
   "fresh_prime_subcontract_wire_count": 12,
   "state_distribution": {
     "California": 44,
-    "Florida": 6,
+    "Florida": 4,
     "Georgia": 4,
     "Illinois": 9,
     "Maryland": 10,
@@ -30,7 +30,7 @@
   },
   "usaspending_naics_541512_top_recipients": [
     {
-      "amount": 7529970387.43,
+      "amount": 7649061590.86,
       "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
       "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
       "code": "067641597",
@@ -38,7 +38,7 @@
       "total_outlays": null
     },
     {
-      "amount": 7019100989.54,
+      "amount": 7020348100.95,
       "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
       "name": "ACCENTURE FEDERAL SERVICES LLC",
       "code": "139727148",
@@ -46,7 +46,7 @@
       "total_outlays": null
     },
     {
-      "amount": 5882271886.84,
+      "amount": 6072013946.19,
       "recipient_id": "ffca72e5-fba2-798a-6969-2a6c45e9f985-C",
       "name": "BOOZ ALLEN HAMILTON INC",
       "code": "006928857",
@@ -62,7 +62,7 @@
       "total_outlays": null
     },
     {
-      "amount": 3762920755.18,
+      "amount": 3762948243.26,
       "recipient_id": "28eee911-76af-7147-f760-4ec5f90bec2d-C",
       "name": "CACI, INC. - FEDERAL",
       "code": "114896066",
@@ -70,7 +70,7 @@
       "total_outlays": null
     },
     {
-      "amount": 3531884467.89,
+      "amount": 3660574215.86,
       "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
       "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
       "code": "078883327",
@@ -78,7 +78,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2820673826.32,
+      "amount": 2827773650.75,
       "recipient_id": "129fccb1-783c-9fd1-7b6d-6ddea65ace79-C",
       "name": "PERATON INC.",
       "code": "602938771",
@@ -86,7 +86,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2791856637.62,
+      "amount": 2809598763.86,
       "recipient_id": "92663aec-4451-0476-502b-d8c6919e98e0-C",
       "name": "DELOITTE CONSULTING LLP",
       "code": "019121586",
@@ -94,7 +94,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2336914041.33,
+      "amount": 2380946380.89,
       "recipient_id": "dbceb126-f729-60e7-d55a-ba235f519653-C",
       "name": "THUNDERCAT TECHNOLOGY, LLC",
       "code": "809887164",
@@ -102,7 +102,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2270062364.1,
+      "amount": 2278602553.77,
       "recipient_id": "2a4d3db7-e268-7b36-3610-c75337f0b7e1-C",
       "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
       "code": "089896737",
@@ -110,7 +110,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2236255622.84,
+      "amount": 2242532590.28,
       "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
       "name": "FCN, INC.",
       "code": "615378007",
@@ -134,7 +134,7 @@
       "total_outlays": null
     },
     {
-      "amount": 2042849104.69,
+      "amount": 2044462550.72,
       "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
       "name": "CGI FEDERAL INC.",
       "code": "145969783",
@@ -142,7 +142,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1990430014.47,
+      "amount": 1995317176.71,
       "recipient_id": "d46ad2a7-ed19-9535-4f24-787705845610-C",
       "name": "V3GATE, LLC",
       "code": "808862598",
@@ -158,7 +158,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1509147774.2,
+      "amount": 1538471966.75,
       "recipient_id": "625ff1da-e9a2-cbdc-c8b3-fdd521fd1efc-C",
       "name": "MINBURN TECHNOLOGY GROUP, LLC",
       "code": "965431815",
@@ -174,7 +174,7 @@
       "total_outlays": null
     },
     {
-      "amount": 1200061404.27,
+      "amount": 1247308769.94,
       "recipient_id": "dd77b7c3-663e-cb91-229f-5766a50e9b7f-C",
       "name": "MICROSOFT CORPORATION",
       "code": "081466849",
@@ -182,11 +182,11 @@
       "total_outlays": null
     },
     {
-      "amount": 1193247050.68,
-      "recipient_id": "49aa319d-7bfb-ef1b-d43e-e82eed09d3bf-C",
-      "name": "CACI NSS, LLC",
-      "code": "080175220",
-      "uei": "EELEC8QCC3N8",
+      "amount": 1207558252.45,
+      "recipient_id": "6ffc4386-853e-ef89-67e8-22c28ddcf15c-C",
+      "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+      "code": "835130485",
+      "uei": "VV9KH3L99VE3",
       "total_outlays": null
     }
   ],
@@ -4957,6 +4957,21 @@
     },
     {
       "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
+      "award_id": "70FB8027F00000002",
+      "prime_recipient": "V3GATE",
+      "award_amount": 2199000.0,
+      "award_amount_fmt": "$2.2M",
+      "awarding_sub_agency": "FEMA",
+      "awarding_sub_agency_short": "DHS FEMA",
+      "start_date": "2026-11-01",
+      "end_date": "2027-10-31",
+      "description": "THE PURPOSE OF THIS BPA IS FOR THE PROCUREMENT OF THE SALESFORCE SOFTWARE LICENSES.",
+      "api11_sb_subcontract_pool_usd": 659700.0,
+      "api11_sb_subcontract_pool_fmt": "~$660K FAR 52.219-9 Small-Business Sub Pool (30%)",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70FB8027F00000002_7022_70FB8026A00000008_7022"
+    },
+    {
+      "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
       "award_id": "75R60226F80069",
       "prime_recipient": "INNOVATE!",
       "award_amount": 1569312.0,
@@ -5029,21 +5044,6 @@
       "api11_sb_subcontract_pool_usd": 1533500.0,
       "api11_sb_subcontract_pool_fmt": "~$1.53M FAR 52.219-9 Small-Business Sub Pool (30%)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_2099CA27F00010_2099_2033H623D00002_2036"
-    },
-    {
-      "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
-      "award_id": "70SBUR26F00000284",
-      "prime_recipient": "1 SOURCE CONSULTING, INC.",
-      "award_amount": 2003826.24,
-      "award_amount_fmt": "$2M",
-      "awarding_sub_agency": "U.S. Citizenship and Immigration Services (USCIS)",
-      "awarding_sub_agency_short": "DHS USCIS",
-      "start_date": "2026-10-12",
-      "end_date": "2027-10-11",
-      "description": "TECHNICAL & MISSION SUPPORT SERVICES FOR USCIS OFFICE OF SECURITY AND INTEGRITY (OSI) & OFFICE OF INVESTIGATIONS (OI)",
-      "api11_sb_subcontract_pool_usd": 601147.87,
-      "api11_sb_subcontract_pool_fmt": "~$601K FAR 52.219-9 Small-Business Sub Pool (30%)",
-      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70SBUR26F00000284_7003_47QTCA19D00AQ_4732"
     }
   ]
 }

@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API",
+    "version": "1.0.0",
+    "description": "Analyzes post-award scope creep, government Furnished Equipment (GFE) delays, defective specifications, or stop-work orders under FAR 52.243-1/2/3/4, FAR 52.242-14/15/17, and the Contract Disputes Act (41 U.S.C. 7101-7109) to generate a legally structured Request for Equitable Adjustment (REA) with DCAA-auditable quantum cost tables, Eichleay unabsorbed home-office overhead analysis,FAR 31.205-33 billable preparation cost segregation, and SF-30 bilateral modification text."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/rea-equitable-adjustment": {
+      "post": {
+        "summary": "Generate a FAR 52.243 Request for Equitable Adjustment (REA), Constructive Change Analysis & CDA Claim Package",
+        "operationId": "generate_rea_equitable_adjustment",
+        "description": "Analyzes post-award scope creep, government Furnished Equipment (GFE) delays, defective specifications, or stop-work orders under FAR 52.243-1/2/3/4, FAR 52.242-14/15/17, and the Contract Disputes Act (41 U.S.C. 7101-7109) to generate a legally structured Request for Equitable Adjustment (REA) with DCAA-auditable quantum cost tables, Eichleay unabsorbed home-office overhead analysis,FAR 31.205-33 billable preparation cost segregation, and SF-30 bilateral modification text.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_changes_and_delay_events_text"
+                ],
+                "properties": {
+                  "contract_changes_and_delay_events_text": {
+                    "type": "string",
+                    "description": "Unstructured contract number, type (FFP/CPFF/T&M), COR/CO emails, technical directions, GFE delays, stop-work notices, and labor/ODC hours impacted.",
+                    "example": "CONTRACT: FA8726-25-C-0089 (USAF Tactical Zero-Trust Cloud Migration, FFP + T&M CLINs, $14.2M Ceiling). EVENT 1 (GFE DELAY): Government failed to deliver 12 Accredited Cross-Domain Guard appliances by Nov 1, 2025 per Section H.8; actual delivery occurred Jan 14, 2026 (74-day delay), forcing 6 cleared engineers into standby/re-sequencing (1,480 direct labor hours). EVENT 2 (CONSTRUCTIVE CHANGE): COR directed out-of-scope legacy mainframe COBOL feed integration (2,120 engineering hours)."
+                  },
+                  "entitlement_and_relief_pathway": {
+                    "type": "string",
+                    "default": "FAR_52_243_Changes_Clause_REA_Pre_Claim_Negotiation",
+                    "description": "Target FAR entitlement clause and REA vs. Certified CDA Claim posture."
+                  },
+                  "indirect_rate_and_profit_assumptions": {
+                    "type": "string",
+                    "default": "Standard_DCAA_Fringe_Overhead_GA_Plus_Weighted_Guidelines_Profit",
+                    "description": "Contractor indirect wrap rates (Fringe, Overhead, G&A) and profit/Eichleay assumptions."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

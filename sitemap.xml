@@ -2,3447 +2,3717 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://signaltender.net/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/apis.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-ou-osu-onenet-rfp-2026-7712-onenet-oklahoma-state-regents-university-of-1567.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-okc-tulsa-it-rfp-2026-3804-city-of-oklahoma-city-information-technology-1566.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-odot-its-rfp-3450005180-oklahoma-dot-odot-i-35-i-40-connected-corridor-1565.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-tinker-76smxg-2026-0914-tinker-afb-oklahoma-city-air-logistics-complex-1564.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-ohca-mes-rfp-8070001492-oklahoma-health-care-authority-ohca-soonercare-1563.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ok-omes-isd-sw1026it-oklahoma-omes-information-services-division-isd-1562.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-uk-uofl-hpc-rfp-2026-6402-university-of-kentucky-uk-its-university-of-1561.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-louisville-lex-rfp-2026-2910-louisville-metro-technology-services-1560.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-ftknox-hrc-2026-0719-fort-knox-u-s-army-human-resources-command-hrc-v-1559.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-kytc-its-rfp-605-2600000384-kentucky-transportation-cabinet-kytc-i-64-i-1558.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-chfs-kynect-rfp-728-2600000518-kentucky-cabinet-for-health-and-family-1557.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/ky-cot-vss-rfp-758-2600000412-kentucky-commonwealth-office-of-technology-1556.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-lsu-loni-rfp-2026-8831-louisiana-state-university-lsu-louisiana-optical-1555.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-barksdale-gsc-2026-0615-barksdale-afb-air-force-global-strike-command-1553.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-dotd-cpra-lapac-3000024962-louisiana-dotd-coastal-protection-and-1552.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-ldh-mes-lapac-3000025104-louisiana-department-of-health-ldh-medicaid-1551.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/la-ots-lapac-3000024819-louisiana-office-of-technology-services-ots-1550.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-ua-auburn-asc-rfp-2026-704-alabama-supercomputer-authority-asa-1549.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-aldot-tsmo-rfp-2026-059-alabama-dot-aldot-i-65-i-20-connected-corridor-1547.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-huntsville-redstone-2026-0812-huntsville-redstone-arsenal-cummings-1546.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-medicaid-mes-rfp-2026-014-alabama-medicaid-agency-modular-medicaid-1545.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/al-oit-staars-src0000024918-alabama-office-of-information-technology-oit-1544.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/nv-nshe-unlv-unr-rfp-2649-nevada-system-of-higher-education-unlv-unr-high-1543.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/nv-clark-lv-rfp-2026-0918-clark-county-information-technology-city-of-las-1542.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/nv-nellis-53wg-2026-0412-nellis-afb-53rd-wing-nevada-test-and-training-1541.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/nv-dhhs-dwss-epro-3260-26-nevada-department-of-health-and-human-services-1540.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/rfp/nv-eits-epro-99swc-s2601-nevada-enterprise-it-services-eits-office-of-1539.html</loc>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-88965-communication-and-messaging-system-1532.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm007148-hands-maintenance-and-operation-support-1531.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm007854-request-for-proposals-city-of-chandler-economic-development-1530.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/dot-ss-27-9023-dg-self-serve-motor-pool-system-1528.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/b26op04834-request-for-proposals-rfp-for-a-web-based-environmental-health-1527.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cybersecurity-engineering-and-dod-risk-management-framework-rmf-support-1524.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wiring-system-repair-set-for-the-v-22-aircraft-fms-1523.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/security-technology-integration-and-operations-support-stios-1522.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000034240-enterprise-identity-access-management-icam-fido2-mfa-tax-fraud-1521.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000034189-statewide-cjis-compliant-next-gen-cad-rms-tactical-radio-1520.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000034105-medi-cal-enterprise-systems-mes-modular-cloud-data-warehouse-1519.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/epin-84627p0002-lidar-based-street-tree-inventory-for-new-york-city-1514.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cybersecurity-management-support-services-1513.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/b21-utilities-site-improvements-communications-electrical-infrastructure-1512.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/amphibious-cvn-engineering-and-ship-control-systems-1511.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/communications-network-engineering-cybersecurity-and-information-1510.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/c5isrt-next-generation-cybersecurity-and-information-assurance-1509.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/technology-hardware-software-and-services-esc-region-19-allied-states-1404.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/umd-proc-2026-0319-research-computing-cloud-enclave-nist-800-171-cmmc-2-0-1399.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/hcg-it-2026-088-enterprise-cloud-service-desk-itsm-ai-virtual-agent-zero-1398.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pgc-oit-rfp-2026-114-countywide-enterprise-cloud-erp-identity-access-1397.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mdot-sha-2026-its09-statewide-intelligent-transportation-systems-its-1396.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mdh-opass-27-19408-next-generation-medicaid-enterprise-system-mes-modular-1395.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/md-doit-bpm046812-enterprise-zero-trust-network-architecture-cloud-siem-1394.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-uofu-uetn-rfp-2026-3910-university-of-utah-utah-education-and-1393.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-slc-ims-rfp-2026-0831-salt-lake-city-department-of-information-1392.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-dps-bci-u3p-mr26142-utah-department-of-public-safety-dps-bureau-of-1391.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-hillafb-309smxg-2026-0519-hill-afb-ogden-alc-309th-software-engineering-1390.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-dhhs-prism-u3p-kl26118-utah-department-of-health-and-human-services-1389.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ut-dts-u3p-sk26094-utah-division-of-technology-services-dts-statewide-zero-1388.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-uconn-its-rfp-2026-0719-university-of-connecticut-uconn-its-high-1387.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-hartford-stamford-rfp-2026-612-city-of-hartford-city-of-stamford-1386.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-despp-cjis-26despp0317-connecticut-despp-state-police-collect-cjis-1385.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-groton-defense-26decd0411-groton-naval-submarine-hartford-aerospace-1384.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-ctdot-its-26dot0089-connecticut-dot-ctdot-i-95-i-84-corridor-1383.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-dss-mes-26dss1904-connecticut-department-of-social-services-dss-husky-1382.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ct-das-bits-26psx0142-connecticut-das-bureau-of-information-technology-1381.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-osu-ohsu-rfp-2026-8840-oregon-state-university-ohsu-collaborative-ai-1380.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-dor-employment-s-15000-00012218-oregon-department-of-revenue-employment-1379.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-portland-bts-rfp-2026-1482-city-of-portland-bureau-of-technology-1378.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-osp-cjis-s-25700-00011734-oregon-state-police-osp-law-enforcement-data-1377.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-odot-its-s-73000-00011960-oregon-dot-odot-tripcheck-next-gen-1376.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-oha-odhs-s-44300-00012095-oregon-health-authority-oha-odhs-one-1375.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/or-das-eis-s-10700-00011842-oregon-das-enterprise-information-services-eis-1374.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-clemson-usc-rfp-2026-9301-clemson-university-university-of-south-1373.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-columbia-chs-rfp-2026-419-city-of-columbia-city-of-charleston-municipal-1372.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-sled-cjis-5400027845-south-carolina-law-enforcement-division-sled-cjis-1371.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-charleston-niwc-2026-0812-charleston-niwc-atlantic-dual-use-c5isr-1370.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-scdot-its-5400028319-south-carolina-dot-scdot-statewide-intelligent-1369.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-dhhs-mes-5400028102-south-carolina-dhhs-healthy-connections-medicaid-1368.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sc-sfaa-otis-5400027914-south-carolina-admin-otis-sfaa-statewide-zero-1367.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-uwmadison-doit-rfp-26-5501-university-of-wisconsin-madison-doit-high-1366.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-madison-it-rfp-2026-9412-city-of-madison-dane-county-regional-public-1365.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-mke-itmd-rfp-2026-1904-city-of-milwaukee-information-technology-1364.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-doj-time-rfp-455026-08-wisconsin-department-of-justice-doj-time-system-1363.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-wisdot-rfp-395026-its-wisconsin-dot-wisdot-statewide-traffic-operations-1362.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-dhs-cares-rfp-435026-m14-wisconsin-dhs-forwardhealth-medicaid-1361.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wi-doa-det-rfp-28310-jh-wisconsin-doa-division-of-enterprise-technology-1360.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-kcmo-ums-rfp-2026-7731-city-of-kansas-city-kcmo-university-of-missouri-1359.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-stl-itsa-rfp-2026-4410-city-of-st-louis-information-technology-services-1358.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-dps-mshp-rfp-26-1108-missouri-department-of-public-safety-highway-1357.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-nga-geoint-rfp-2026-0942-st-louis-nga-west-geospatial-corridor-ai-ml-1356.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-modot-rfp-2026-60514-missouri-dot-modot-traveler-information-system-1355.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-dss-mhd-rfps30034902601892-missouri-dss-mo-healthnet-medicaid-1354.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mo-oa-itsd-rfps30034902601418-missouri-oa-itsd-statewide-zero-trust-soc-1353.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-crane-rfp-26-81509-nswc-crane-dual-use-defense-microelectronics-1352.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-purdue-iu-rfp-2026-9104-purdue-university-indiana-university-high-1351.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-indy-isa-rfp-2026-0418-city-of-indianapolis-marion-county-information-1350.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-idoa-isp-26-77930-indiana-state-police-idoa-cjis-cloud-identity-1349.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-indot-rfp-26-80215-indiana-dot-indot-next-gen-intelligent-1348.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-fssa-rfp-26-78412-indiana-fssa-medicaid-enterprise-system-mes-cloud-1347.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-iot-rfp-26-79104-indiana-office-of-technology-iot-statewide-zero-trust-1346.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-utk-rfp-2026-8830-university-of-tennessee-system-enterprise-ai-research-1341.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-memphis-rfp-2026-6104-city-of-memphis-information-technology-911-1340.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-nashville-rfq-394810-metropolitan-government-of-nashville-davidson-1339.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-dshs-34901-01284-tennessee-department-of-safety-homeland-security-cjis-1338.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-tdot-40100-26815-tennessee-dot-tdot-smartway-intelligent-transportation-1337.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-tenncare-31865-00942-tenncare-mes-cloud-data-lakehouse-medicaid-fraud-1336.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tn-cpo-rfp-31701-03418-tennessee-strategic-technology-solutions-sts-1335.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-umn-rfp-2026-4410-university-of-minnesota-research-computing-high-1313.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-hennepin-rfp-2026-0819-hennepin-county-it-health-services-integrated-1312.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-metcouncil-26p094-twin-cities-metropolitan-council-city-of-minneapolis-1311.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-dps-bca-2026-16504-minnesota-bureau-of-criminal-apprehension-bca-cjis-1310.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-mndot-2026-8941205-mndot-intelligent-transportation-systems-its-1309.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-dhs-2026-16488-minnesota-medicaid-mhcp-modular-enterprise-data-1308.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mn-swift-2000016412-mnit-services-statewide-zero-trust-identity-soc-siem-1307.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cu-psc-2026-rfp-7741-university-of-colorado-cu-boulder-anschutz-nist-800-1306.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cosprings-2026-rfp-r26-094-city-of-colorado-springs-front-range-municipal-1305.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/denver-ts-2026-rfp-1148-city-and-county-of-denver-technology-services-1304.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/co-cdhs-2026-rfp-ihaa-0529-colorado-department-of-human-services-cdhs-1303.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/co-cdot-2026-rfp-haa-0314-colorado-department-of-transportation-cdot-i-70-1302.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/co-cdphe-2026-rfp-faa-0892-colorado-dept-of-public-health-environment-1301.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/co-oit-2026-rfp-sfaa-0418-colorado-governor-s-office-of-information-1300.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/umich-2026-rfp-9142-university-of-michigan-michigan-medicine-enterprise-1299.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-msp-2026-240000002085-michigan-state-police-msp-cjis-compliant-next-gen-1298.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-leo-2026-240000002048-unemployment-insurance-agency-uia-next-gen-cloud-1297.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-dtmb-2026-240000002011-milogin-statewide-citizen-workforce-enterprise-1296.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-mdot-2026-240000001967-statewide-intelligent-transportation-systems-its-1295.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-mdhhs-2026-240000001934-mibridges-medicaid-enterprise-systems-mes-cloud-1294.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/mi-dtmb-2026-240000001892-michigan-cyber-security-mcs-enterprise-zero-1293.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-dshs-26-409-wa-department-of-social-and-health-services-dshs-integrated-1292.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-uw-2026-308-university-of-washington-uw-research-computing-cloud-1291.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-dol-2026-053-wa-department-of-licensing-dol-digital-credential-identity-1290.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-wsdot-26-114-wsdot-intelligent-transportation-systems-its-telemetry-1289.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-hca-2026-819-wa-health-care-authority-hca-apple-health-medicaid-1288.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-des-08226-wa-department-of-enterprise-services-des-statewide-cloud-1287.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wa-watech-2026-0412-watech-statewide-zero-trust-network-architecture-ztna-1286.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-1285.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1206-132719-rfp-112-26-centralized-train-control-software-network-1284.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-24-1827-134491-enterprise-hmis-cloud-data-systems-administration-1283.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-26-1367-126829-2026-cyber-01-cyber-resilient-massachusetts-soc-1282.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-19-1411-134446-a460-enterprise-digital-data-capture-cloud-analytics-1281.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-19-1131-133972-enterprise-gis-asset-management-systems-integration-1280.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1010-134380-rfp-0050-2027-enterprise-facilities-it-asset-management-1279.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1114-134145-rfp-2027-006-technolutions-slate-crm-integration-1278.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-2222-134527-cloud-learning-management-system-lms-digital-curriculum-1277.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1107-132075-enterprise-investigations-case-management-tracking-1276.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1080-132917-statewide-contract-its82-digital-it-accessibility-1275.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1110-134139-fy27-its86-veterans-digital-services-portal-cloud-1274.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1060-134163-rfq-27-04987-enterprise-microsoft-365-m365-cloud-1273.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/bd-27-1060-134242-rfq-27-05723-enterprise-observability-cloud-telemetry-1272.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm007827-problem-gambling-app-1145.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-70662-nonst-2027-000000120-rfp-no-27-0008-enterprise-resource-planning-1108.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/48400-erfi-002022-2027-legal-and-contract-software-1107.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/financial-planning-analysis-platform-rfp-16972-1101.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfi-2000004463-computerized-maintenance-management-system-cmms-1100.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfi-fema-supply-chain-management-system-scms-1094.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sensitive-but-unclassified-encrypted-sbu-e-radio-cybersecurity-industry-day-1093.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ss-26-27-76-nova-software-platform-1090.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/enterprise-electronic-security-systems-ess-nationwide-operations-1089.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm006971-biometric-products-services-1078.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm007840-amazon-cognito-identity-provider-implementation-legacy-user-1077.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/az-bpm006796-it-advisory-assessment-verification-and-validation-consulting-1076.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/computer-technology-and-related-solutions-1075.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/access-control-improvements-at-piedmont-virginia-community-college-1046.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-340-27-ye-document-management-system-for-human-resources-1045.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/special-notice-91st-cyber-operations-center-progressive-design-build-ot-1040.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cybersecurity-and-information-assurance-1039.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/shift-log-and-operational-rounds-system-software-and-implementation-1033.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/strategic-distributed-antenna-system-partnership-995.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/dms-26-itn-0042-statewide-cloud-security-operations-soc-zero-trust-920.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfi-27-00004-computer-assisted-mass-appraisal-cama-system-919.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/25dpp01151-t2949-fiscal-intermediary-financial-claims-processing-software-917.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01302-t2774-automated-document-imaging-pre-processing-data-ingestion-916.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01314-t2870-transmission-facility-management-for-new-jersey-public-915.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01325-t3161-nj-labor-tax-integrated-solution-for-ui-tdi-fli-workforce-914.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01212-t1932-contracted-system-administrator-csa-for-the-childrens-913.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01199-t2775-data-entry-verification-services-division-of-revenue-and-912.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01253-t1628-enhanced-motor-vehicle-inspection-maintenance-system-911.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26dpp01287-t2314-njkids-application-maintenance-and-support-for-nj-acses-910.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000034018-intelligent-transportation-systems-its-network-infrastructure-903.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000033942-statewide-artificial-intelligence-genai-data-platform-cloud-902.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/0000033891-enterprise-cloud-security-operations-siem-monitoring-zero-trust-901.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfq-sa-2706-request-for-qualification-for-applications-engineering-systems-899.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/request-for-information-rfi-for-group-1-and-group-2-unmanned-aircraft-896.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/epin-07227y0423-visitor-fingerprint-identification-system-vfis-886.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/2027-itn-0007-sc-college-of-nursing-ehr-practice-management-revenue-cycle-884.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-automobile-insurance-shopping-access-solution-883.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/da01-rfi-action-only-healthcare-data-auditing-billing-and-coding-880.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/secure-and-confidential-data-capturing-dor-0478-26-870.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/27-494dot-finad-b-54339-re-bid-freight-data-forecasting-ifb-869.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-ds-2026-4132-next-generation-911-ng911-cloud-cad-rms-emergency-gis-867.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-ds-2026-4119-24x7-managed-detection-response-mdr-municipal-soc-zero-866.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-ds-2026-4108-enterprise-cloud-erp-utility-billing-saas-citizen-payment-865.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cbm-software-and-analytics-development-cbm-862.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/computer-hardware-software-services-consulting-and-support-cycle-10-858.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/dhs-network-operations-security-center-nosc-network-cloud-and-cyber-850.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/shared-micromobility-data-management-rfq033920-849.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/learning-management-system-25-rfp-12233-848.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cyber-security-engineering-and-risk-management-framework-support-843.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/engineering-support-for-the-asymmetric-systems-841.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/united-states-army-western-hemisphere-command-usawhc-g-6-information-840.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/da01-corp-vcs-standalone-it-support-contract-rfi-va-27-00012857-839.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/commercial-maritime-test-platform-and-event-support-services-838.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pin-26req0374-bid-extension-virtual-chief-information-security-officer-734.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/2026-20-electronic-medical-record-system-for-jail-medical-units-728.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000002328-request-for-proposals-for-performance-of-expert-726.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000001925-request-for-proposals-for-performance-of-expert-725.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000001843-performance-of-expert-professional-asset-life-cycle-724.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000000852-request-for-proposals-for-performance-of-expert-723.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000000850-request-for-proposals-for-performance-of-expert-722.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-6000003517-performance-of-expert-professional-information-technology-721.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pin-85827y1399-leveraging-ground-scanning-technology-to-build-719.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pin-mhp-1125-rfp-for-provider-data-management-services-718.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/guilford-rfp-2026-205-enterprise-network-switch-refresh-sd-wan-fiber-716.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/durham-rfp-2026-074-smart-city-iot-water-telemetry-esri-enterprise-gis-715.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdor-47-2026-0019-integrated-tax-administration-saas-modernization-714.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/meck-rfp-269-2026-112-managed-detection-and-response-mdr-vulnerability-712.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/wake-rfp-2026-049-countywide-enterprise-resource-planning-erp-cloud-711.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncsu-2026-rfp-8821-enterprise-it-service-management-itsm-ai-virtual-agent-710.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/unc-ch-2026-rfp-3014-research-cloud-enclave-nist-800-171-cmmc-level-2-high-709.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdot-54-2026-0062-intelligent-transportation-systems-its-cloud-telemetry-708.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdhhs-30-2026-0118-nctracks-next-gen-medicaid-enterprise-data-warehouse-707.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdit-41-2026-0091-statewide-cloud-identity-governance-okta-entra-icam-706.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/ncdit-41-2026-0084-enterprise-zero-trust-network-access-ztna-cloud-siem-705.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-72200-nonst-2027-000000093-enterprise-resource-planning-erp-software-702.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-66096-nonst-2026-000000217-26rfp1645291a-st-ai-powered-digital-water-701.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-77523-nonst-2026-000000087-gis-mapping-services-700.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-29016-nonst-2027-000000075-rfp828-interactive-web-mapping-and-dashboard-699.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/53000-erfp-002089-2027-csu-enterprise-it-service-management-and-helpdesk-698.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-77598-nonst-2027-000000040-2026-22-virtual-server-refresh-695.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pe-63352-nonst-2027-000000018-rfp-managed-it-services-provider-26-004-694.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/cph-telephonic-on-demand-communications-network-platform-rfq033851-688.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/gohio-commute-statewide-mobility-saas-platform-data-portal-rfp-gohio-2026-687.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/medicaid-eligibility-system-data-technical-audit-services-aos-2026-001-686.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26-118-s-managed-information-technology-services-rfp-684.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/state-medicaid-data-analytics-oversight-solution-26-rfi-21377-681.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/pa-next-gen-vital-records-management-system-vrms-6100065757-679.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/doc-wireless-bridges-6100066813-677.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/b26op01976-request-for-proposals-rfp-web-based-docket-management-system-675.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/27-448doit-admin-b-52519-cdb-construction-management-automation-and-674.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/27-494dot-finad-b-53247-cmms-rfp-673.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26-448doit-infot-b-53319-erp-production-support-rfp-672.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26-418dcfs-procu-b-53611-federal-revenue-enhancement-and-claiming-systems-671.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/27-510cpogs-cpogs-b-54510-jpmc-sourcewell-rfp-110426-digital-procurement-668.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/short-term-lending-database-651.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/re-bid-rfp-26-27-022-data-networking-aviation-training-facility-building-630.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/request-for-competitive-sealed-proposals-unified-digital-experience-ude-619.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/communications-and-information-capabilities-secure-software-as-a-service-605.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sources-sought-notice-for-indefinite-delivery-indefinite-quantity-idiq-job-603.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sources-sought-for-indefinite-delivery-indefinite-quantity-idiq-multiple-602.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/n1515-league-management-platform-system-522.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/sponsored-programs-administration-software-as-a-service-520.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfi-cyberspace-operations-forces-and-support-cof-ii-508.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/request-for-information-rfi-kc-46-software-integration-laboratory-507.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/26-0007-investment-analytics-software-504.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfq-007-26-off-duty-detail-management-software-for-florida-highway-patrol-502.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/tax-software-and-support-480.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-27-012-statewide-integrative-corrections-intelligence-platform-352.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/itn-2026-046-statewide-mobile-panic-alert-system-351.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/in-17231-advanced-business-intelligence-and-analytics-platform-350.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/for-point-of-sale-software-and-implementation-services-340.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/software-licensing-opportunity-correlateiq-correlation-based-system-329.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/end-user-computing-euc-services-259.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/request-for-information-multi-x-security-mxs-platform-operations-and-249.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/hazardous-weather-notification-system-239.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/senior-cybercrime-advisor-231.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-185-26-intrusion-monitoring-security-camera-systems-227.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/outdoor-recreational-license-sales-and-customer-engagement-solution-211.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/faculty-information-management-system-208.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/broadband-connectivity-services-207.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-206.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/afrl-rfmm-pxi-timing-synchronization-and-data-acquisition-system-204.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/information-technology-support-services-next-gen-203.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/enterprise-rfid-technology-installation-and-azure-wims-integration-201.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-scans-200.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/rfp/aoi-27-a002-commercial-technology-accelerator-199.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/federal/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/federal/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/federal/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/federal/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/federal/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/texas/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/texas/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/texas/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/texas/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/texas/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/virginia/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/virginia/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/virginia/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/virginia/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/virginia/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/california/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/california/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/california/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/california/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/california/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/florida/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/florida/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/florida/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/florida/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/florida/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/maryland/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/maryland/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/maryland/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/maryland/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/maryland/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/illinois/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/illinois/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/illinois/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/illinois/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/illinois/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/pennsylvania/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/pennsylvania/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/pennsylvania/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/pennsylvania/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/pennsylvania/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/ohio/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/ohio/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/ohio/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/ohio/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/ohio/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/georgia/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/north_carolina/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/north_carolina/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/north_carolina/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/north_carolina/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/north_carolina/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_york/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_york/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_york/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_york/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_york/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/massachusetts/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/massachusetts/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/massachusetts/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/massachusetts/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/massachusetts/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_jersey/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_jersey/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_jersey/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_jersey/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/new_jersey/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/washington/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/washington/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/washington/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/washington/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/washington/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/michigan/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/michigan/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/michigan/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/michigan/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/michigan/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/colorado/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/colorado/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/colorado/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/colorado/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/colorado/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/arizona/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/arizona/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/arizona/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/arizona/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/arizona/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/minnesota/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/minnesota/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/minnesota/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/minnesota/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/minnesota/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/tennessee/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/tennessee/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/tennessee/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/tennessee/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/tennessee/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/indiana/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/indiana/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/indiana/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/indiana/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/indiana/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/missouri/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/missouri/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/missouri/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/missouri/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/missouri/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/wisconsin/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/wisconsin/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/wisconsin/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/wisconsin/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/wisconsin/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/south_carolina/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/south_carolina/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/south_carolina/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/south_carolina/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/south_carolina/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/oregon/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/oregon/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/oregon/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/oregon/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/oregon/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/connecticut/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/connecticut/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/connecticut/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/connecticut/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/connecticut/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/utah/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/utah/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/utah/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/utah/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/utah/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/nevada/index.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/nevada/cybersecurity.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/nevada/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/nevada/software-development.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/nevada/network-telecom.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/alabama/index.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/alabama/cybersecurity.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/alabama/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/alabama/software-development.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/alabama/network-telecom.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/louisiana/index.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/louisiana/cybersecurity.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/louisiana/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/louisiana/software-development.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/louisiana/network-telecom.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/kentucky/index.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/kentucky/cybersecurity.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/kentucky/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/kentucky/software-development.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/kentucky/network-telecom.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/oklahoma/index.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/oklahoma/cybersecurity.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/oklahoma/cloud-infrastructure.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/oklahoma/software-development.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/oklahoma/network-telecom.html</loc>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/municipal/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/municipal/cybersecurity.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/municipal/cloud-infrastructure.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/municipal/software-development.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/municipal/network-telecom.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102823f0110.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa489023f0026.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n91023f00001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w519tc25f0241.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102824f2000.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa873022f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15jpss23f00000389.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qaca26c0044.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102826f0016.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b24f0161.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc22f0046.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n98023f00043.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/86615324c00012.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc22f0067.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/91990024f0014.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1305m226f0401.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1332kp26f0082.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1332kp26f0081.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1332kp26f0080.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b27f0345.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfsa27f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://signaltender.net/contracts/recompetes/70fb8027f00000002.html</loc>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75r60226f80069.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/89303027fim000232.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/7571te27c00003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/9531cb27f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2099ca27f00010.html</loc>
-    <lastmod>2026-10-29</lastmod>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://signaltender.net/contracts/recompetes/70sbur26f00000284.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/20341422f00009.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc24f0139.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/83310124f0125.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c24727f0023.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70fa2023f00000025.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc25fj103.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102821f6000.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc26f0030.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc22f0014.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc21f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc24f0116.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/31310022c0005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc26f0086.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75d30122f15377.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfla23f0215.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc23f0009.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/12314423f0346.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa875023f1002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102824f6600.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa877323c0006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/50310224f0014.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70sbur22f00000197.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/he125422f3025.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0042124f0287.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70ctd022fr0000005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75d30122f14587.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hq003426fe338.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70t03024f7667n039.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6523622f3017.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70ctd021fr0000226.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa865018c1075.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht001126ce017.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa701422f0082.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80tech22fa001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70sbur26f00000203.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70ctd023fr0000053.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2031za24f00430.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15jpss20f00000937.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/16pbgc22m0006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b25f0284.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1333bj23f00280040.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/htc71124fd007.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/31310018f0052.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2032h523f00366.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10g26f0014.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc24f0170.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa700026c0005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10x25f0052.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b26f0110.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0042125f0484.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6426724f3003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/68herd22f0017.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6134026f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w912dy24f0617.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfwa23f0026.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w900kk23f0008.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2023h225f00140.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n94022f00002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc24f0019.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/m6785425f4900.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b24f0145.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15f06722f0000665.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa877321f0124.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hu000125f0023.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w91rus22c0021.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w52p1j20f0184.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102822f0167.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b25f0106.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfma21f0025.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b24f0354.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70b04c26f00001147.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc24f0122.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/h9241524f0075.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/205ae926f00059.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/273fcc22f0167.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/88310323f00247.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/7571te26f80367.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70ctd022fr0000017.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w9124823c1000.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/13tech26f0030.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15f06723f0001542.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70z07925fald00003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/28321326fds030074.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/19aqmm22c0031.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w15p7t23c0006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfca21c0021.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa873022f0003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht942524f0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc22f0093.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/50310222f0056.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0419f0183.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc25fj013.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102822f0013.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0042122f3000.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w519tc24c0026.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hs002125ce010.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2032h524f00375.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/12314422f0296.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/12314425f0177.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70sbur22f00000182.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa283523f0045.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/693ka923f00037.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht001123c0092.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70us0921f3oth0138.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/89233122fna400443.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfea25f0012.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht942524f0213.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfla25f0072.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70cmsd24fr0000011.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70sbur23f00000126.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa800325c0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n93022f00001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w15p7t25f0087.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0001423f3003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70rsat25fc0000007.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0424f0429.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b26f0125.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfda22f0035.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0002425cs171.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75acf123f80037.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc23f0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0422c0063.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht001523f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/697dck26c00180.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/spe60422fa0ds.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/91990023c0010.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b23n10340005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/ht001523c0005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/693ka825f00308.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b22n10370001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/693ka922f00062.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w15qkn22c0085.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/12314426p0018.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/12319822f0062.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w15qkn23f0687.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa448425f0161.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/91003121f0334.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w912dy22f0556.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15f06723f0001741.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/95332422f0042.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa877326f0053.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b23f0066.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10b24n10250026.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15jpss22f00000690.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qaca25f0218.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/sp470924f0096.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc19f0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10g27c0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa703724c0001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0003924c0003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/2032h526f00080.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa703723c0006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w91crb24c0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w900kk26fa015.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa821721f0039.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/19aqmm20f2794.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/6913g625c100022.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc22ca230.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6833525f0318.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc26c0165.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0001423c2004.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc26c0164.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hr001126ce013.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/sp470125c0033.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75f40126f19001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa872623fb098.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0426c0015.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6833522c0196.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc20c0149.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170125ca273.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/15f06725p0000829.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170126ca129.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w912cg25c0008.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/47qfla22f0191.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc108426f3026.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa857125c0035.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa701423c0029.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170125ca192.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc26c0040.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w911nf22c0024.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0003919c0020.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa239426cb019.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6833526f1047.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70rsat26c00000023.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa254125cb044.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa945322ca117.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hq003423p0199.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w519tc25p0074.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70rsat24c00000019.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1333nd26pnb030633.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0001425c1310.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/91990026c0030.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/6913g623c100014.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0426c0006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n95023p00752.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w56kgy26f0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170125c0048.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140f1s24p0012.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/sp470126f0095.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hc102824f6640.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa942226c0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa254125cb018.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864925p0251.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/6913g625p800037.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6523623c1006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w912hz24f0336.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w911nf26ca025.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864925p0492.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w912cg23c0016.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170126ca174.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hq072725ce001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6833523c0473.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa254125cb102.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864926p0199.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/69319525f30128n.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0426c0040.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75d30124c19752.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc25c0100.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa955025cb007.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n93025c00030.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc25c0197.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0425c0016.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864924p0580.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864924p0276.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864926p0065.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n91023c00010.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864925p0086.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864924p0792.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc23ca082.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa238525cb007.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hr001126ce016.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa254125cb072.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w5170125c0058.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc25ca004.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80jsc022ca012.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w911nf25p0005.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa864925p0003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc26c0213.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc22ca132.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6833526c0159.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc26c0002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa880226c0004.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75f40126c00019.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa865023c1095.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hq003424p0144.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa865023c5006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/80nssc25c0075.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa237726pb002.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa945124cx029.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa857126c0018.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n0001423c4003.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n98025f00001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w50s8x25ca010.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/hq003425c0009.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/1305m326f0178.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/140d0424f0535.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/70t04026c7573n006.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/n6449822p4010.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75d30126c21285.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/sp470124f0285.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/fa881025fb004.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75n91026f00001.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/h9821022f0173.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/sp470123c0078.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/75fcmc25fj069.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/36c10x25n0268.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w911sa26fa255.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/60rrbh23f1127.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/w91qex26fa021.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://signaltender.net/contracts/recompetes/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>daily</changefreq>
   </url>
 </urlset>

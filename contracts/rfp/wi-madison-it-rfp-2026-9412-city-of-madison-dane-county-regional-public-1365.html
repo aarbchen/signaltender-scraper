@@ -1229,7 +1229,7 @@
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">28 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">33 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="../../index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -1251,7 +1251,7 @@
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 26-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 31-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-2 2xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
           <a href="../../index.html#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
@@ -1276,10 +1276,15 @@
             </svg>
             <span class="hidden sm:inline lg:hidden 2xl:inline st-theme-label">Light</span>
           </button>
-<div class="flex items-center gap-1 sm:gap-1.5 2xl:pr-2 2xl:border-r 2xl:border-slate-800">
-            <a href="../../index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
-            <a href="../../index.html#account" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
+<div id="static-contracts-auth-links" class="flex items-center gap-1 sm:gap-1.5 2xl:pr-2 2xl:border-r 2xl:border-slate-800">
+            <a href="../../index.html#login" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900 rounded-lg transition-colors whitespace-nowrap">Log In</a>
+            <a href="../../index.html#signup" class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap">Sign Up</a>
           </div>
+          <a id="static-contracts-auth-user" href="../../index.html#account" class="hidden items-center gap-1.5 px-2.5 py-1.5 sm:py-2 text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap shrink-0">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span id="static-contracts-auth-user-name">My Account</span>
+            <span>&rarr;</span>
+          </a>
           <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="hidden 2xl:inline-flex items-center whitespace-nowrap px-3 py-1.5 2xl:px-3.5 2xl:py-2 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg border border-sky-400/30 transition-all">
             Unlock All RFP Links &rarr;
           </a>
@@ -1299,7 +1304,7 @@
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="../../contracts/index.html">Portal: All (28)</option>
+          <option value="../../contracts/index.html">Portal: All (33)</option>
           <option value="../../contracts/federal/index.html">Federal (SAM.gov)</option>
           <option value="../../contracts/texas/index.html">Texas (ESBD)</option>
           <option value="../../contracts/virginia/index.html">Virginia (eVA)</option>
@@ -1327,6 +1332,11 @@
           <option value="../../contracts/oregon/index.html">Oregon (OregonBuys)</option>
           <option value="../../contracts/connecticut/index.html">Connecticut (CTsource)</option>
           <option value="../../contracts/utah/index.html">Utah (U3P)</option>
+          <option value="../../contracts/nevada/index.html">Nevada (NevadaEPro)</option>
+          <option value="../../contracts/alabama/index.html">Alabama (Alabama Buys)</option>
+          <option value="../../contracts/louisiana/index.html">Louisiana (LaPAC)</option>
+          <option value="../../contracts/kentucky/index.html">Kentucky (VSS)</option>
+          <option value="../../contracts/oklahoma/index.html">Oklahoma (OMES)</option>
           <option value="../../contracts/municipal/index.html">Municipal</option>
         </select>
         <nav aria-label="State and Portal Quick Jump" class="hidden sm:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
@@ -1358,6 +1368,11 @@
           <a href="../../contracts/oregon/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Oregon</a>
           <a href="../../contracts/connecticut/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Connecticut</a>
           <a href="../../contracts/utah/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Utah</a>
+          <a href="../../contracts/nevada/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Nevada</a>
+          <a href="../../contracts/alabama/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Alabama</a>
+          <a href="../../contracts/louisiana/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Louisiana</a>
+          <a href="../../contracts/kentucky/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Kentucky</a>
+          <a href="../../contracts/oklahoma/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Oklahoma</a>
           <a href="../../contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
       </div>
@@ -1375,7 +1390,7 @@
               Prepared for Your Capture Team &mdash; Live Pre-Shredded IT &amp; Cybersecurity Dossier
             </div>
             <p class="text-xs text-slate-300">
-              All 28 Federal &amp; 26-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
+              All 33 Federal &amp; 31-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
@@ -1468,7 +1483,7 @@
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official WI eSupplier, VendorNet, DOA DET &amp; UW-Madison Electronic Q&amp;A &amp; Contracting Officer Portal (City of Madison Information Technology Department &amp; Dane County (Wisconsin))" class="blur-sm select-none break-words">contracting.officer@esupplier.wi.gov &bull; Electronic Q&amp;A Desk (City of Madison Information Technology Department &amp; Dane County (Wisconsin))</span></div>
                       <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33</span></div>
                     </div>
-                    <div class="pt-3 space-y-2.5">
+                    <div id="static-rfp-workbench-card" class="pt-3 space-y-2.5">
                       <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
                         <a href="https://signaltender.net/index.html#checkout-tier1" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[240px] inline-flex items-center justify-center px-5 py-3 text-xs sm:text-sm font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg shadow-lg transition-all">
                           Unlock Direct RFP Link &amp; Capture Dossier &rarr;
@@ -1526,7 +1541,7 @@
                 </div>
               </div>
 
-              <div class="lg:col-span-4 space-y-6">
+              <div id="static-rfp-plans-card" class="lg:col-span-4 space-y-6">
                 <div class="p-6 rounded-2xl bg-navy-900 border border-slate-800 space-y-4">
                   <div class="flex items-center justify-between">
                     <span class="text-xs font-mono text-sky-400 uppercase font-semibold">SIGNALWIRE PRO &bull; $99/MO</span>
@@ -1534,7 +1549,7 @@
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 26-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 31-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
@@ -1557,13 +1572,13 @@
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">34 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">39 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 34 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 39 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
                   <a href="../../apis.html#product-sources-sought-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 34 APIs &amp; MCP Server &rarr;
+                    Explore 39 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -1598,7 +1613,7 @@
               <div class="sm:col-span-1 xl:col-span-3">
                 <label for="static-lead-state" class="sr-only">Target Portal</label>
                 <select id="static-lead-state" data-default-state="wisconsin" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">
-                  <option value="all">All 28 Portals (Fed + 26 States)</option>
+                  <option value="all">All 33 Portals (Fed + 31 States)</option>
                   <option value="federal">Federal (SAM.gov)</option>
                   <option value="virginia">Virginia (eVA)</option>
                   <option value="texas">Texas (SmartBuy ESBD)</option>
@@ -1626,6 +1641,11 @@
                   <option value="oregon">Oregon (OregonBuys &amp; DAS EIS)</option>
                   <option value="connecticut">Connecticut (CTsource &amp; DAS BITS)</option>
                   <option value="utah">Utah (U3P &amp; Utah DTS)</option>
+                  <option value="nevada">Nevada (NevadaEPro &amp; EITS)</option>
+                  <option value="alabama">Alabama (Alabama Buys &amp; OIT)</option>
+                  <option value="louisiana">Louisiana (LaPAC &amp; OTS)</option>
+                  <option value="kentucky">Kentucky (KY VSS &amp; COT)</option>
+                  <option value="oklahoma">Oklahoma (OMES &amp; IS)</option>
                   <option value="municipal">Municipal (DemandStar)</option>
                 </select>
               </div>
@@ -1925,7 +1945,7 @@
         <div>&copy; 2026 SignalTender (signaltender.net). All rights reserved.</div>
         <div class="flex items-center space-x-2 text-slate-400">
           <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span>ALL 28 FEDERAL &amp; SLED PORTAL MONITORS ACTIVE</span>
+          <span>ALL 33 FEDERAL &amp; SLED PORTAL MONITORS ACTIVE</span>
         </div>
       </div>
     </div>
@@ -1936,15 +1956,78 @@
         if (!sectionId) return false;
         var cleanId = String(sectionId).replace(/^#/, '');
         var el = document.getElementById(cleanId);
+        if (!el) {
+          var aliasMap = {
+            'contracts-live-table-card': 'static-contracts-table-card',
+            'static-contracts-table-card': 'contracts-live-table-card',
+            'contracts-top-section': 'static-contracts-top-section',
+            'static-contracts-top-section': 'contracts-top-section',
+            'spa-contracts-lead-box': 'static-inbound-lead-box',
+            'static-inbound-lead-box': 'spa-contracts-lead-box',
+            'contracts-rfp-workbench-card': 'static-rfp-workbench-card',
+            'static-rfp-workbench-card': 'contracts-rfp-workbench-card',
+            'contracts-rfp-plans-card': 'static-rfp-plans-card',
+            'static-rfp-plans-card': 'contracts-rfp-plans-card'
+          };
+          if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
+        }
         if (!el) return false;
         var docEl = document.documentElement;
         docEl.style.scrollBehavior = 'auto';
+        if (cleanId === 'overview' || cleanId === 'contracts-top-section' || cleanId === 'static-contracts-top-section' || cleanId === 'static-rfp-scope-card') {
+          window.scrollTo(0, 0);
+          return true;
+        }
+        var stickyBottom = 88;
+        if (typeof window.getComputedStyle === 'function' && document.querySelectorAll) {
+          var vw = window.innerWidth || docEl.clientWidth || 0;
+          var sNodes = document.querySelectorAll('header.sticky, .sticky, [class*="lg:sticky"]');
+          for (var si = 0; si < sNodes.length; si++) {
+            var sn = sNodes[si];
+            if (sn.closest && sn.closest('#page-section-sidebar-root')) continue;
+            if (sn.offsetParent === null || !sn.getBoundingClientRect) continue;
+            var scs = window.getComputedStyle(sn);
+            if (scs.position !== 'sticky' && scs.position !== 'fixed') continue;
+            var sr = sn.getBoundingClientRect();
+            if (sr.height <= 0 || sr.bottom <= 0 || sr.top > 200) continue;
+            if (sn.tagName !== 'HEADER' && sr.width < vw * 0.6) continue;
+            if (sr.bottom > stickyBottom) stickyBottom = sr.bottom;
+          }
+        }
+        var offsetPad = Math.max(88, Math.round(stickyBottom + 14));
         var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : { top: 0 };
         var currentY = window.pageYOffset || docEl.scrollTop || 0;
-        var targetY = Math.max(0, Math.round(rect.top + currentY - 88));
+        var targetY = Math.max(0, Math.round(rect.top + currentY - offsetPad));
         window.scrollTo(0, targetY);
+        if (cleanId === 'contracts-live-table-card' || cleanId === 'static-contracts-table-card') {
+          var tblInput = document.getElementById('contracts-live-search') || document.getElementById('static-rfp-search');
+          if (tblInput && typeof tblInput.focus === 'function') {
+            try { tblInput.focus({ preventScroll: true }); } catch (_e) {}
+          }
+        }
         return true;
       };
+
+      (function syncStaticContractsHeaderAuth() {
+        try {
+          var raw = window.localStorage ? window.localStorage.getItem('st_account_profile') : null;
+          if (!raw) return;
+          var prof = JSON.parse(raw);
+          if (!prof || (!prof.email && !prof.name)) return;
+          var linksEl = document.getElementById('static-contracts-auth-links');
+          var userEl = document.getElementById('static-contracts-auth-user');
+          var nameEl = document.getElementById('static-contracts-auth-user-name');
+          if (linksEl) linksEl.classList.add('hidden');
+          if (userEl) {
+            userEl.classList.remove('hidden');
+            userEl.classList.add('inline-flex');
+          }
+          if (nameEl) {
+            var disp = String(prof.name || prof.email || 'My Account').split(' ')[0];
+            nameEl.textContent = disp.length > 14 ? disp.slice(0, 14) : disp;
+          }
+        } catch (_e) {}
+      })();
 
       window.__PAGE_SIDEBAR_OPEN = false;
 
@@ -2125,7 +2208,7 @@
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 28 portals operational', color: 'text-emerald-400', action: 'trust_status' },
+            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 33 portals operational', color: 'text-emerald-400', action: 'trust_status' },
             { icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' },
             { icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' },
             { icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' },
@@ -2139,13 +2222,14 @@
             pageTitle = 'Client Account Portal';
             rawItems = [
               { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
-              { icon: 'card', id: 'account-plan-badge', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
-              { icon: 'chat', id: 'account-pill-discord', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
-              { icon: 'sliders', id: 'account-alert-filters-card', label: '28-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
+              { icon: 'card', id: 'account-billing-card', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
+              { icon: 'chat', id: 'account-distribution-card', label: 'Distribution & Team CC', kw: 'slack teams crm webhook email discord team cc seats', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'account-alert-filters-card', label: '33-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
               { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
+              { icon: 'doc', id: 'account-tier3-proposal-card', label: 'Tier 3 Proposal .ZIP Compiler', kw: 'shipley proposal compiler zip docx xlsx 13 cfr 125.6 teaming clearinghouse', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'account-tier4-foia-card', label: 'Tier 4 FOIA & Recompete Radar', kw: 'foia pia incumbent rate vault 90 180 day recompete radar', color: 'text-amber-300' },
               { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
-              { icon: 'code', id: 'account-api-key-value', label: 'Enterprise API Key & MCP', kw: 'api key st_live mcp claude cursor config', color: 'text-amber-300' },
-              { icon: 'shield', id: 'account-profile-name', label: 'Profile & Password Security', kw: 'name company password security logout', color: 'text-slate-300' }
+              { icon: 'code', id: 'account-apikey-security-grid', label: 'API Key, MCP & Security', kw: 'api key st_live mcp claude cursor config profile password security', color: 'text-amber-300' }
             ];
           } else {
             pageTitle = 'Account Sign In / Sign Up';
@@ -2159,14 +2243,15 @@
           currentPageKey = 'checkout';
           pageTitle = 'Plans & B2B Checkout';
           rawItems = [
-            { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
-            { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1: SignalWire ($99/mo)', kw: 'tier 1 signalwire pro 99 leads alerts', color: 'text-sky-400' },
-            { icon: 'cpu', id: 'checkout-card-tier2', label: 'Tier 2: CaptureDesk ($399/mo)', kw: 'tier 2 capturedesk autopilot 399 dossiers api', color: 'text-indigo-300' },
-            { icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3: Proposal .ZIP ($1,499)', kw: 'tier 3 proposal compiler zip docx xlsx 1499', color: 'text-emerald-400' },
-            { icon: 'globe', id: 'checkout-card-tier4', label: 'Tier 4: OEM & FOIA ($2,499)', kw: 'tier 4 oem foia vault 2499 50k calls', color: 'text-amber-300' },
-            { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live 4-Tier Channel Preview', kw: 'sample preview feed discord dossier foia', color: 'text-emerald-400' },
+            { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing slack teams crm webhook email routing', color: 'text-sky-400' },
+            { icon: 'flag', id: 'checkout-plan-recommender-bar', label: 'Interactive Plan Recommender', kw: 'which plan fits my team goal recommender', color: 'text-sky-400' },
+            { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1 & Tier 2 Plans ($99 / $399)', kw: 'tier 1 signalwire pro 99 tier 2 capturedesk autopilot 399 leads dossiers api', color: 'text-sky-400' },
+            { icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3 & Tier 4 Enterprise ($1.5k+)', kw: 'tier 3 proposal autopilot shipley zip docx xlsx teaming 1499 tier 4 oem foia vault 2499', color: 'text-emerald-400' },
+            { icon: 'cpu', id: 'checkout-enterprise-proof-workbench', label: 'Enterprise Proof & CFO Quote', kw: 'live tier 3 zip demo tier 4 foia demand letter cfo net-30 quote pdf', color: 'text-indigo-300' },
+            { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live 4-Tier Channel Preview', kw: 'sample preview feed slack teams webhook dossier foia', color: 'text-emerald-400' },
             { icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
-            { icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
+            { icon: 'table', id: 'checkout-benchmark-section', label: 'Cost Benchmark & Onboarding', kw: 'govwin bgov comparison 60 second onboarding', color: 'text-sky-400' },
+            { icon: 'help', id: 'checkout-faq-section', label: 'Procurement & Security FAQ', kw: 'faq questions cancellation security', color: 'text-slate-300' }
           ];
         } else if (contractsPage && !contractsPage.classList.contains('hidden')) {
           currentPageKey = 'contracts';
@@ -2175,12 +2260,21 @@
             rawItems = [
               { icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'contracts-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' },
+              { icon: 'card', id: 'contracts-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 39 apis mcp server', color: 'text-sky-400' },
               { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'pulse', id: 'contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Filters', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'table', id: 'contracts-live-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -2190,6 +2284,7 @@
           pageTitle = 'API & MCP Catalog';
           rawItems = [
             { icon: 'table', id: 'api-directory-list', label: 'Quick-Jump API Directory', kw: 'directory index table search endpoints', color: 'text-sky-400' },
+            { icon: 'cpu', id: 'api-mcp-quickstart-terminal', label: 'Unified Gateway & MCP Setup', kw: 'mcp server claude cursor windsurf npx health quickstart', color: 'text-indigo-300' },
             { icon: 'bolt', id: 'rapidapi-sandbox-modal', label: 'Interactive Studio Playground', kw: 'sandbox test try live api playground json', color: 'text-emerald-400', action: 'sandbox' },
             { icon: 'code', id: 'catalog-modules', label: 'Endpoint Specs & Schemas', kw: 'modules cards schemas request response curl', color: 'text-indigo-300' },
             { icon: 'card', id: 'api-pricing-matrix', label: 'Tier & Quota Pricing Matrix', kw: 'pricing plans basic pro ultra mega rate limits', color: 'text-amber-300' }
@@ -2201,12 +2296,22 @@
             rawItems = [
               { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'static-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' },
+              { icon: 'card', id: 'static-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 39 apis mcp server', color: 'text-sky-400' },
               { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
+              { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
+            ];
+          } else if (document.getElementById('contracts-portal-hubs-grid')) {
+            rawItems = [
+              { icon: 'pulse', id: 'static-contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'flag', id: 'static-recompete-radar-card', label: 'Recompete Radar & FOIA Wire', kw: 'recompete radar 90 180d prime subcontracting foia vault', color: 'text-amber-300' },
+              { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { icon: 'globe', id: 'static-contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'globe', id: 'static-contracts-top-section', label: 'Portal & Category Filters', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -2216,12 +2321,13 @@
           pageTitle = 'Platform Overview';
           rawItems = [
             { icon: 'pulse', id: 'overview', label: 'Hero & 4-Tier Overview', kw: 'top hero federal sled portals summary tier 1 tier 2 tier 3 tier 4', color: 'text-sky-400' },
-            { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
+            { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'slack teams crm webhook email discord alerts live wire feed', color: 'text-sky-400' },
             { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
             { icon: 'doc', id: 'proposal-foia-moat', label: 'Proposal .ZIP & FOIA Moat', kw: 'tier 3 tier 4 proposal compiler zip docx xlsx foia teaming', color: 'text-emerald-400' },
-            { icon: 'table', id: 'contract-directory', label: '28-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
+            { icon: 'table', id: 'contract-directory', label: '33-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
             { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
-            { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
+            { icon: 'link', id: 'integrations', label: 'Slack, Teams, CRM & APIs', kw: 'webhooks hubspot salesforce slack teams json 39 apis', color: 'text-amber-300' },
+            { icon: 'bolt', id: 'inbound-lead-capture-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock lead capture', color: 'text-emerald-400' }
           ];
         }
 
@@ -2355,7 +2461,7 @@
       if (statusEl) {
         statusEl.classList.remove('hidden');
         statusEl.className = 'mt-3 text-xs font-mono text-sky-300';
-        statusEl.textContent = 'Querying live 28-portal CaptureDesk database & emailing your 3 dossiers...';
+        statusEl.textContent = 'Querying live 33-portal CaptureDesk database & emailing your 3 dossiers...';
       }
       fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', {
         method: 'POST',

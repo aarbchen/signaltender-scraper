@@ -90,6 +90,11 @@ JURISDICTION_LABELS = {
     "oregon": "OREGON // OREGONBUYS & DAS EIS",
     "connecticut": "CONNECTICUT // CTSOURCE, DAS BITS & GROTON DEFENSE",
     "utah": "UTAH // U3P SCIQUEST, DTS & HILL AFB CORRIDOR",
+    "nevada": "NEVADA // NEVADAEPRO, EITS & NELLIS AFB CORRIDOR",
+    "alabama": "ALABAMA // ALABAMA BUYS STAARS, OIT & REDSTONE DEFENSE",
+    "louisiana": "LOUISIANA // LAPAC, LAGOV & OTS",
+    "kentucky": "KENTUCKY // KY VSS, COT & FORT KNOX CORRIDOR",
+    "oklahoma": "OKLAHOMA // OMES, IS & TINKER AFB CORRIDOR",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -302,6 +307,60 @@ def classify_jurisdiction(record: dict) -> str:
         or "utah.edu" in url
     ):
         return "utah"
+    if (
+        "nevadaepro.com" in url
+        or "purchasing.nv.gov" in url
+        or "eits.nv.gov" in url
+        or "nv.gov" in url
+        or "clarkcountynv.gov" in url
+        or "lasvegasnevada.gov" in url
+        or "unlv.edu" in url
+        or "unr.edu" in url
+    ):
+        return "nevada"
+    if (
+        "alabamabuys.gov" in url
+        or "purchasing.alabama.gov" in url
+        or "oit.alabama.gov" in url
+        or "alabama.gov" in url
+        or "huntsvilleal.gov" in url
+        or "birminghamal.gov" in url
+        or "ua.edu" in url
+        or "auburn.edu" in url
+    ):
+        return "alabama"
+    if (
+        "doa.louisiana.gov" in url
+        or "lapac" in url
+        or "louisiana.gov" in url
+        or "la.gov" in url
+        or "nola.gov" in url
+        or "brla.gov" in url
+        or "lsu.edu" in url
+    ):
+        return "louisiana"
+    if (
+        "vss.ky.gov" in url
+        or "finance.ky.gov" in url
+        or "cot.ky.gov" in url
+        or "ky.gov" in url
+        or "louisvilleky.gov" in url
+        or "lexingtonky.gov" in url
+        or "uky.edu" in url
+        or "louisville.edu" in url
+    ):
+        return "kentucky"
+    if (
+        "oklahoma.gov/omes" in url
+        or "omes.ok.gov" in url
+        or "oklahoma.gov" in url
+        or "ok.gov" in url
+        or "okc.gov" in url
+        or "cityoftulsa.org" in url
+        or "ou.edu" in url
+        or "okstate.edu" in url
+    ):
+        return "oklahoma"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -510,6 +569,69 @@ def classify_jurisdiction(record: dict) -> str:
         or "salt lake" in agency
     ):
         return "utah"
+    if (
+        title.startswith("[NV]")
+        or title.lower().startswith("[nv-")
+        or "nevada" in agency
+        or "(nv)" in agency
+        or "nevadaepro" in agency
+        or "nv eits" in agency
+        or "ndot" in agency
+        or "nellis afb" in agency
+        or "clark county" in agency
+        or "las vegas" in agency
+    ):
+        return "nevada"
+    if (
+        title.startswith("[AL]")
+        or title.lower().startswith("[al-")
+        or "alabama" in agency
+        or "(al)" in agency
+        or "alabama buys" in agency
+        or "staars" in agency
+        or "aldot" in agency
+        or "redstone" in agency
+        or "huntsville" in agency
+    ):
+        return "alabama"
+    if (
+        title.startswith("[LA]")
+        or title.lower().startswith("[la-")
+        or "louisiana" in agency
+        or "(la)" in agency
+        or "lapac" in agency
+        or "la ots" in agency
+        or "ldh" in agency
+        or "dotd" in agency
+        or "barksdale" in agency
+        or "baton rouge" in agency
+    ):
+        return "louisiana"
+    if (
+        title.startswith("[KY]")
+        or title.lower().startswith("[ky-")
+        or "kentucky" in agency
+        or "(ky)" in agency
+        or "ky vss" in agency
+        or "ky cot" in agency
+        or "chfs" in agency
+        or "kytc" in agency
+        or "fort knox" in agency
+        or "louisville" in agency
+    ):
+        return "kentucky"
+    if (
+        title.startswith("[OK]")
+        or title.lower().startswith("[ok-")
+        or "oklahoma" in agency
+        or "(ok)" in agency
+        or "omes" in agency
+        or "ohca" in agency
+        or "soonercare" in agency
+        or "tinker afb" in agency
+        or "76th sweg" in agency
+    ):
+        return "oklahoma"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -827,6 +949,21 @@ def enrich_contract_dossier(record: dict) -> dict:
     elif j_key == "utah":
         compliance_posture = "Utah DTS Enterprise Information Security Policy R895-5 (NIST 800-53 / CMMC 2.0) • StateRAMP • Utah Accessibility VPAT"
         teaming_posture = "Utah Division of Purchasing Small/Veteran Business Outreach + U3P Cooperative Contract / NASPO ValuePoint Alignment + 3 SLED Refs"
+    elif j_key == "nevada":
+        compliance_posture = "Nevada EITS State Information Security Program (NIST 800-53 / NRS 242) • StateRAMP / CJIS • NV ADA WCAG 2.1 AA VPAT"
+        teaming_posture = "Nevada Local Emerging Small Business (ESB) & Veteran Preference (5% NRS 333.3366) + NevadaEPro Master Contract Alignment + 3 SLED Refs"
+    elif j_key == "alabama":
+        compliance_posture = "Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0) • StateRAMP • Alabama Accessibility VPAT"
+        teaming_posture = "Alabama ADECA Small/Minority Business Outreach + Huntsville Defense Subcontracting & Alabama Buys STAARS Alignment + 3 SLED Refs"
+    elif j_key == "louisiana":
+        compliance_posture = "Louisiana OTS Information Security Policy (NIST 800-53 / R.S. 39:15.1) • StateRAMP • LA Section 508 VPAT"
+        teaming_posture = "Louisiana Hudson Initiative (SEBD Small Entrepreneurship) & Veteran Initiative (10%–12% Pref) + LaMAS Alignment + 3 SLED Refs"
+    elif j_key == "kentucky":
+        compliance_posture = "Kentucky COT Enterprise Security Standards CIO-091 (NIST 800-53 / CMMC 2.0) • StateRAMP • KY Accessible IT VPAT"
+        teaming_posture = "Kentucky Finance Cabinet Small/Minority/Service-Disabled Veteran Business Outreach + KY COT Master Agreement Alignment + 3 SLED Refs"
+    elif j_key == "oklahoma":
+        compliance_posture = "Oklahoma OMES Cyber Command Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • OK Electronic & Info Tech Accessibility VPAT"
+        teaming_posture = "Oklahoma Disabled Veteran Business Enterprise (ODVBE 3% Goal) & Small Business Teaming + OMES Statewide Contract Alignment + 3 SLED Refs"
     elif j_key == "california":
         compliance_posture = "CalCloud / SIMM 5305-A Security • SOC 2 Type II / FedRAMP • Gov Code § 11546.7 WCAG 2.1 AA"
         teaming_posture = "CA DGS Small Business (5% SB Preference) + 3%–5% DVBE Participation + 3 State/Local Refs"
@@ -1092,7 +1229,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 print(f" -> [CaptureDesk] Dispatched {len(new_dossiers)} individual CaptureDesk dossier(s) to DISCORD_CAPTUREDESK_WEBHOOK_URL.", flush=True)
 
             # External Tier 2 webhooks (Slack, MS Teams, Zapier, Make, n8n, CRM) are dispatched in a single
-            # unified Section I (CaptureDesk Dossiers) + Section II (28-Portal Live Wire) payload via client_delivery.py.
+            # unified Section I (CaptureDesk Dossiers) + Section II (33-Portal Live Wire) payload via client_delivery.py.
             if __name__ == "__main__":
                 try:
                     import client_delivery

@@ -143,6 +143,11 @@ To scale from initial post-warmup launch (Oct 31) to `$86,000+ MRR` (`$1M+ ARR`)
 - **API #32 (Live):** FAR 52.227-14 & DFARS 252.227-7013/7014 IP & Technical Data Rights API (`POST /v1/generate/data-rights-assertion-table`) + Portal #26 Oregon OregonBuys & EIS (`or_scraper.py`) (Live).
 - **API #33 (Live):** GovCon Black-Hat Competitive Intelligence, Incumbent Vulnerability & Ghosting API (`POST /v1/generate/capture-black-hat-review`) + Portal #27 Connecticut CTsource & DAS BITS (`ct_scraper.py`) (Live).
 - **API #34 (Live):** GovCon CPARS Self-Assessment, Interim Evaluation & 14-Day Rebuttal API (`POST /v1/generate/post-award-cpar-rebuttal`) + Portal #28 Utah U3P SciQuest & DTS (`ut_scraper.py`) (Live).
+- **API #35 (Live):** GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API (`POST /v1/generate/rea-equitable-adjustment`) + Portal #29 Nevada NevadaEPro & EITS (`nv_scraper.py`) (Live).
+- **API #36 (Live):** SBA Mentor-Protégé (13 CFR 125.9) & Joint Venture Operating Agreement Compliance API (`POST /v1/generate/mentor-protege-jv-agreement`) + Portal #30 Alabama Buys STAARS & OIT (`al_scraper.py`) (Live).
+- **API #37 (Live):** Service Contract Act (SCA / FAR 52.222-41) & Davis-Bacon Wage Determination Mapper API (`POST /v1/audit/service-contract-act-wage`) + Portal #31 Louisiana LaPAC / LaGov & OTS (`la_scraper.py`) (Live).
+- **API #38 (Live):** GovCon Earned Value Management System (EVMS / EIA-748) & IPMDR Variance Narrative API (`POST /v1/generate/evms-ipmdr-variance-analysis`) + Portal #32 Kentucky eProcurement VSS & COT (`ky_scraper.py`) (Live).
+- **API #39 (Live):** Cost Accounting Standards (CAS / 48 CFR 9904) Coverage & DS-1 Disclosure Auditor API (`POST /v1/generate/cost-accounting-cas-ds2`) + Portal #33 Oklahoma OMES Central Purchasing & IS (`ok_scraper.py`) (Live).
 
 ---
 

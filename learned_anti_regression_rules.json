@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T03:04:53Z",
-  "total_rules": 16,
+  "updated_at": "2026-10-30T10:43:20Z",
+  "total_rules": 17,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -70,11 +70,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_in",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: API_META['product-live-solicitations'].kw in index.html does not match apis.html! | verify_site_integrity.py: verify_site_integrity.py FAIL: api/routers/mcp.py: TOOL_ROUTE_MAP has 0 tools, expected 34 | verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j3",
-      "fix_applied": "Verified permanent anti-regression guardrails across all 4 tiers, 28 scrapers, and 34 APIs",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote alert(s))",
       "prevention_rule": "Enforce 1:1 parity across index.html, apis.html, CATALOG, API_META, mcp.py, mcp-server/index.js, and seed_rapidapi_telemetry.py on every API update.",
       "created_at": "2026-10-29T20:34:18Z",
-      "last_healed_at": "2026-10-29T20:34:18Z",
-      "times_triggered_and_healed": 1
+      "last_healed_at": "2026-10-30T10:43:20Z",
+      "times_triggered_and_healed": 3
     },
     {
       "rule_id": "RULE-006-NIGHTTIME-AWAY-EXECUTION-ONLY",
@@ -145,8 +145,8 @@
       "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
-      "last_healed_at": "2026-10-30T00:09:12Z",
-      "times_triggered_and_healed": 2
+      "last_healed_at": "2026-10-30T06:37:58Z",
+      "times_triggered_and_healed": 4
     },
     {
       "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",
@@ -194,6 +194,18 @@
       "prevention_rule": "Never ask the user for permission before fixing a bug or blindspot; always remediate bugs immediately, verify end-to-end across both d:\\Daas and d:\\Data API Ecosystem, and codify the anti-regression rule.",
       "created_at": "2026-10-30T03:01:16Z",
       "last_healed_at": "2026-10-30T03:01:16Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-012-CUSTOMER-FACING-COPY-NEVER-ECHO-INTERNAL-PROMPTS",
+      "category": "Customer-Facing Copy Discipline",
+      "source": "index.html / apis.html / outbound_reply_responder.py / api/routers/support.py / verify_site_integrity.py",
+      "bug_signature": "Internal prompt-echoing or operator-facing phrases ('no sales calls', 'zero-call', 'slide-deck sales call', 'why this beats a sales call', 'zero-risk bridge', 'live fastapi') appearing in customer-facing UI or copy",
+      "root_cause": "Writing website headlines or subcopy that directly echoes the operator's conversational prompt instead of writing strictly from the GovCon buyer's perspective.",
+      "fix_applied": "Replaced all prompt-echoing phrases with customer-facing Interactive Evaluation & Corporate Procurement Workbench copy and added a permanent regex ban in verify_site_integrity.py.",
+      "prevention_rule": "Never echo the operator's prompt, internal strategy terms ('no sales calls', 'zero-call', 'zero-risk bridge'), or internal framework names in customer-facing HTML, emails, or AI Concierge responses.",
+      "created_at": "2026-10-30T04:07:02Z",
+      "last_healed_at": "2026-10-30T04:07:02Z",
       "times_triggered_and_healed": 1
     }
   ]

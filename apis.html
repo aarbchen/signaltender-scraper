@@ -1510,20 +1510,29 @@
             </svg>
             <span class="hidden sm:inline lg:hidden 2xl:inline st-theme-label">Light</span>
           </button>
-<div class="flex items-center gap-1 sm:gap-1.5 sm:pl-2 sm:border-l sm:border-slate-800 shrink-0">
+<div id="apis-standalone-auth-links" class="flex items-center gap-1 sm:gap-1.5 sm:pl-2 sm:border-l sm:border-slate-800 shrink-0">
           <a
-            href="index.html#account"
+            href="index.html#login"
             class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-semibold text-slate-200 hover:text-white hover:bg-slate-900/90 rounded-lg transition-colors whitespace-nowrap"
           >
             Log In
           </a>
           <a
-            href="index.html#account"
+            href="index.html#signup"
             class="inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono font-bold text-emerald-300 hover:text-white bg-emerald-500/10 hover:bg-emerald-600 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap"
           >
             Sign Up
           </a>
         </div>
+        <a
+          id="apis-standalone-auth-user"
+          href="index.html#account"
+          class="hidden items-center gap-1.5 px-2.5 py-1.5 sm:py-2 sm:ml-2 text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all whitespace-nowrap shrink-0"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          <span id="apis-standalone-auth-user-name">My Account</span>
+          <span>&rarr;</span>
+        </a>
         <a
           href="https://rapidapi.com/user/aarbchen"
           target="_blank"
@@ -1630,7 +1639,7 @@
           <div>
             <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-3 border-b border-slate-800/80">
               <span>ACTIVE MICROSERVICE DIRECTORY (CLICK TO JUMP TO MODULE)</span>
-              <span id="api-dir-count-badge" class="text-emerald-400">34 LIVE ENDPOINTS</span>
+              <span id="api-dir-count-badge" class="text-emerald-400">39 LIVE ENDPOINTS</span>
             </div>
 
             <!-- Instant API Search & Category Filter Bar -->
@@ -1647,7 +1656,7 @@
                   data-lpignore="true"
                   data-1p-ignore="true"
                   data-form-type="other"
-                  placeholder="Search 34 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
+                  placeholder="Search 39 APIs (CMMC, CLIN, LCAT, SOC 2, /v1/parse)..."
                   oninput="window.filterApiCatalog(this.value, null)"
                   class="w-full pl-9 pr-20 py-2 rounded-lg bg-navy-900 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
                 />
@@ -1663,11 +1672,11 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (34)</button>
+                <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1 rounded-md bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (39)</button>
                 <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal (4)</button>
                 <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security (8)</button>
-                <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (5)</button>
-                <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (13)</button>
+                <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy (9)</button>
+                <button type="button" data-api-cat="capture" onclick="window.filterApiCatalog(null, 'capture')" class="api-cat-pill px-2.5 py-1 rounded-md bg-navy-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Capture, Teaming &amp; HR (14)</button>
                 <button type="button" data-api-compact-toggle="1" onclick="window.toggleApiCatalogCompactView()" class="ml-auto px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-sky-300 border border-sky-500/30 transition-all cursor-pointer" title="Switch between Full Spec + JSON Cards and Compact Scannable Cards">Compact Card View</button>
               </div>
             </div>
@@ -1727,7 +1736,7 @@
                   <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">04</span>
                   <div class="min-w-0">
                     <div class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors truncate">Live SLED &amp; Federal Open RFP Feed API</div>
-                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 28-Portal AI-Vetted Open IT/Cyber Solicitations</div>
+                    <div class="text-[11px] text-slate-400 truncate">GET /v1/solicitations/live &bull; 33-Portal AI-Vetted Open IT/Cyber Solicitations</div>
                   </div>
                 </div>
                 <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
@@ -2240,6 +2249,95 @@
                   <span class="text-cyan-400">&darr;</span>
                 </div>
               </a>
+            <!-- Directory Row 35 -->
+            <a href="#product-rea-equitable-adjustment" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+              <div class="flex items-center space-x-3 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold shrink-0">35</span>
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-white font-sans font-semibold group-hover:text-amber-300 transition-colors">GovCon REA, Constructive Change &amp; CDA Claim API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-400 text-navy-950 font-bold shrink-0">New</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/rea-equitable-adjustment &bull; Constructive Change Analysis, Modified Total Cost Quantum, Eichleay Delay Overhead &amp; DFARS 252.243-7002 / CDA Certification</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded bg-amber-950/40 border border-amber-500/30 text-amber-200 text-[11px]">$0 &ndash; $399/mo</span>
+                <span class="text-amber-400">&darr;</span>
+              </div>
+            </a>
+
+            <!-- Directory Row 36 -->
+            <a href="#product-mentor-protege-jv-agreement" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+              <div class="flex items-center space-x-3 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold shrink-0">36</span>
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-white font-sans font-semibold group-hover:text-emerald-300 transition-colors">SBA Mentor-Prot&eacute;g&eacute; &amp; JV Compliance API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold shrink-0">New</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/mentor-protege-jv-agreement &bull; 12-Point 13 CFR 125.8(b)(2) JV Operating Agreement Audit, 40% Prot&eacute;g&eacute; Workshare Math &amp; Affiliation Shield</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 text-[11px]">$0 &ndash; $399/mo</span>
+                <span class="text-emerald-400">&darr;</span>
+              </div>
+            </a>
+
+            <!-- Directory Row 37 -->
+            <a href="#product-service-contract-act-wage" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+              <div class="flex items-center space-x-3 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30 font-bold shrink-0">37</span>
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-white font-sans font-semibold group-hover:text-sky-300 transition-colors">SCA (FAR 52.222-41) &amp; Wage Determination Mapper API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-sky-400 text-navy-950 font-bold shrink-0">New</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate">POST /v1/audit/service-contract-act-wage &bull; SAM.gov WD Occupation Crosswalk, EO 13706 H&amp;W ($4.98/$5.36), SF-1444 Conformance &amp; Option-Year Price Adjustment</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded bg-sky-950/40 border border-sky-500/30 text-sky-200 text-[11px]">$0 &ndash; $399/mo</span>
+                <span class="text-sky-400">&darr;</span>
+              </div>
+            </a>
+
+            <!-- Directory Row 38 -->
+            <a href="#product-evms-ipmdr-variance-analysis" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+              <div class="flex items-center space-x-3 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-bold shrink-0">38</span>
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-white font-sans font-semibold group-hover:text-indigo-300 transition-colors">GovCon EVMS (EIA-748) &amp; IPMDR Variance API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-indigo-400 text-navy-950 font-bold shrink-0">New</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/evms-ipmdr-variance-analysis &bull; Control Account CPI/SPI/TCPI Math, Composite EAC vs. IEAC Sanity Check, IPMDR Format 5 VARs &amp; IBR Prep</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded bg-indigo-950/40 border border-indigo-500/30 text-indigo-200 text-[11px]">$0 &ndash; $399/mo</span>
+                <span class="text-indigo-400">&darr;</span>
+              </div>
+            </a>
+
+            <!-- Directory Row 39 -->
+            <a href="#product-cost-accounting-cas-ds2" class="py-3 flex items-center justify-between gap-3 hover:bg-navy-900/70 px-2 rounded transition-colors group">
+              <div class="flex items-center space-x-3 min-w-0 flex-1">
+                <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold shrink-0">39</span>
+                <div class="min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-white font-sans font-semibold group-hover:text-cyan-300 transition-colors">CAS (48 CFR 9904) &amp; DS-1 Disclosure Auditor API</span>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-400 text-navy-950 font-bold shrink-0">New</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate">POST /v1/generate/cost-accounting-cas-ds2 &bull; CAS Exemption &amp; Modified/Full Coverage ($2.5M / $50M), CAS 401–420 Consistency Audit &amp; Cost-Impact Calculator</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded bg-cyan-950/40 border border-cyan-500/30 text-cyan-200 text-[11px]">$0 &ndash; $399/mo</span>
+                <span class="text-cyan-400">&darr;</span>
+              </div>
+            </a>
             </div>
           </div>
 
@@ -2250,7 +2348,7 @@
         </div>
 
         <!-- Right (5 cols): Unified Gateway Authentication & GET Health Probe Terminal -->
-        <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between">
+        <div id="api-mcp-quickstart-terminal" class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between">
           <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <span class="h-2.5 w-2.5 rounded-full bg-sky-500/70"></span>
@@ -2276,7 +2374,7 @@
             <div class="border-t border-slate-800/80 pt-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sky-400 font-semibold text-[11px]">// OFFICIAL MCP SERVER (CLAUDE &bull; CURSOR &bull; WINDSURF)</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">34 MCP TOOLS</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] shrink-0">39 MCP TOOLS</span>
               </div>
               <div class="text-slate-400 text-[11px]"># 2. Add to <code class="text-slate-200">claude_desktop_config.json</code> or <code class="text-slate-200">.cursor/mcp.json</code>:</div>
               <pre class="text-slate-200 text-[11px] bg-navy-900/90 p-3 rounded-lg border border-slate-800 whitespace-pre-wrap break-words"><code>{
@@ -2291,7 +2389,7 @@
   }
 }</code></pre>
               <div class="text-[11px] text-slate-400">
-                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> , <span class="text-slate-200">generate_gsa_mas_offer</span> , <span class="text-slate-200">generate_sources_sought_response</span> , <span class="text-slate-200">generate_oci_mitigation_plan</span> , <span class="text-slate-200">generate_sbir_sttr_commercialization</span> , <span class="text-slate-200">audit_section_508_vpat</span> , <span class="text-slate-200">audit_supply_chain_scrm</span> , <span class="text-slate-200">generate_quality_assurance_qasp</span> , <span class="text-slate-200">generate_phase_in_transition_plan</span>, <span class="text-slate-200">audit_dcaa_accounting_sf1408</span>, <span class="text-slate-200">generate_ota_white_paper</span>, <span class="text-slate-200">audit_foci_dd254_clearance</span>, <span class="text-slate-200">generate_small_business_participation</span>, <span class="text-slate-200">generate_data_rights_assertion_table</span>, <span class="text-slate-200">generate_capture_black_hat_review</span> &amp; <span class="text-slate-200">generate_post_award_cpar_rebuttal</span>.
+                Exposes <span class="text-slate-200">parse_b2b_contract</span>, <span class="text-slate-200">audit_contract_risks</span>, <span class="text-slate-200">get_live_solicitations</span>, <span class="text-slate-200">generate_compliance_matrix</span>, <span class="text-slate-200">scan_far_dfars_clauses</span>, <span class="text-slate-200">match_capability_statement</span>, <span class="text-slate-200">classify_naics_psc_nigp</span>, <span class="text-slate-200">generate_rfp_response</span>, <span class="text-slate-200">extract_pricing_schedule</span>, <span class="text-slate-200">generate_teaming_strategy</span> , <span class="text-slate-200">answer_security_questionnaire</span> , <span class="text-slate-200">match_key_personnel</span>, <span class="text-slate-200">analyze_rfp_amendment_diff</span> , <span class="text-slate-200">generate_cpars_past_performance</span> , <span class="text-slate-200">generate_igce_price_to_win</span> , <span class="text-slate-200">generate_oral_presentation_prep</span> , <span class="text-slate-200">generate_ato_rmf_package</span> , <span class="text-slate-200">analyze_debriefing_bid_protest</span> , <span class="text-slate-200">generate_gsa_mas_offer</span> , <span class="text-slate-200">generate_sources_sought_response</span> , <span class="text-slate-200">generate_oci_mitigation_plan</span> , <span class="text-slate-200">generate_sbir_sttr_commercialization</span> , <span class="text-slate-200">audit_section_508_vpat</span> , <span class="text-slate-200">audit_supply_chain_scrm</span> , <span class="text-slate-200">generate_quality_assurance_qasp</span> , <span class="text-slate-200">generate_phase_in_transition_plan</span>, <span class="text-slate-200">audit_dcaa_accounting_sf1408</span>, <span class="text-slate-200">generate_ota_white_paper</span>, <span class="text-slate-200">audit_foci_dd254_clearance</span>, <span class="text-slate-200">generate_small_business_participation</span>, <span class="text-slate-200">generate_data_rights_assertion_table</span>, <span class="text-slate-200">generate_capture_black_hat_review</span>, <span class="text-slate-200">generate_post_award_cpar_rebuttal</span>, <span class="text-slate-200">generate_rea_equitable_adjustment</span>, <span class="text-slate-200">generate_mentor_protege_jv_agreement</span>, <span class="text-slate-200">audit_service_contract_act_wage</span>, <span class="text-slate-200">generate_evms_ipmdr_variance_analysis</span> &amp; <span class="text-slate-200">generate_cost_accounting_cas_ds2</span>.
               </div>
             </div>
           </div>
@@ -2377,10 +2475,10 @@
               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-navy-950 border border-slate-700/90 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 transition-colors"
             />
           </div>
-          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">34 / 34 SHOWN</span>
+          <span id="api-modules-count-badge" class="hidden sm:inline-flex shrink-0 px-2.5 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">39 / 39 SHOWN</span>
         </div>
         <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] shrink-0">
-          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (34)</button>
+          <button type="button" data-api-cat="all" onclick="window.filterApiCatalog(null, 'all')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-sky-600 text-white border border-sky-400 font-semibold transition-all cursor-pointer">All (39)</button>
           <button type="button" data-api-cat="rfp" onclick="window.filterApiCatalog(null, 'rfp')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">RFP &amp; Proposal</button>
           <button type="button" data-api-cat="compliance" onclick="window.filterApiCatalog(null, 'compliance')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Legal &amp; Security</button>
           <button type="button" data-api-cat="pricing" onclick="window.filterApiCatalog(null, 'pricing')" class="api-cat-pill px-2.5 py-1.5 rounded-lg bg-navy-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-all cursor-pointer">Pricing &amp; Taxonomy</button>
@@ -2973,7 +3071,7 @@
                 Live SLED &amp; Federal Open RFP Feed API
               </h2>
               <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
-                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">28 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA, CO VSS, AZ APP, MN SWIFT, TN Edison CPO, IN IDOA, MO MissouriBUYS, WI eSupplier, SC SCBO, OR OregonBuys, CT CTsource, and UT U3P) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
+                Stream active, AI-vetted government IT, software, cloud, and cybersecurity solicitations across <strong class="text-white">33 Federal, State SLED, and Municipal portals</strong> (SAM.gov, DemandStar, TX ESBD, VA eVA, CA Cal eProcure, FL MFMP VIP, MD eMMA, IL BidBuy, PA eMarketplace, OH OhioBuys, GA GPR, NC eVP, NY CROL &amp; PANYNJ, MA COMMBUYS, NJ NJSTART, WA WEBS, MI SIGMA, CO VSS, AZ APP, MN SWIFT, TN Edison CPO, IN IDOA, MO MissouriBUYS, WI eSupplier, SC SCBO, OR OregonBuys, CT CTsource, UT U3P, NV NevadaEPro, AL AlabamaBuys, LA LaPAC, KY VSS, and OK OMES) via instant REST filters (<code class="text-cyan-300 font-mono">state</code>, <code class="text-cyan-300 font-mono">category</code>, <code class="text-cyan-300 font-mono">keyword</code>, <code class="text-cyan-300 font-mono">closing_after</code>).
               </p>
 
               <!-- Product-Specific Features Grid -->
@@ -2981,8 +3079,8 @@
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
                   <span class="text-cyan-400 font-mono font-bold mt-0.5">&check;</span>
                   <div>
-                    <div class="font-semibold text-white">28-Portal Unified REST Feed</div>
-                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, and UT in one schema.</div>
+                    <div class="font-semibold text-white">33-Portal Unified REST Feed</div>
+                    <div class="text-slate-400 mt-0.5">Aggregates SAM.gov, DemandStar, TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, and OK in one schema.</div>
                   </div>
                 </div>
                 <div class="p-3 rounded-lg bg-navy-900/70 border border-slate-800/80 flex items-start space-x-2.5">
@@ -3075,7 +3173,7 @@
               <div class="p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 flex flex-col justify-between">
                 <pre class="text-slate-300"><code>{
   <span class="text-sky-400">"total_count"</span>: <span class="text-cyan-300">2</span>,
-  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">28</span>,
+  <span class="text-sky-400">"portals_monitored"</span>: <span class="text-emerald-300">33</span>,
   <span class="text-sky-400">"solicitations"</span>: [
     {
       <span class="text-sky-400">"solicitation_id"</span>: <span class="text-slate-100">"230"</span>,
@@ -8352,6 +8450,713 @@
         </div>
       </article>
 
+      <!-- =================================================================
+           PRODUCT 35: GOVCON REQUEST FOR EQUITABLE ADJUSTMENT (REA), CONSTRUCTIVE CHANGE & CDA CLAIM API (LIVE)
+           ================================================================= -->
+      <article id="product-rea-equitable-adjustment" class="rounded-2xl bg-navy-900/85 border-2 border-amber-500/35 shadow-2xl overflow-hidden">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">API #35</span>
+            <span class="inline-flex items-center space-x-1.5 text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>LIVE ON RAPIDAPI</span>
+            </span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-amber-300 border border-slate-700">FAR 52.243-1 / 41 U.S.C. 7103 CDA</span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">MCP: generate_rea_equitable_adjustment</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-rea-equitable-adjustment')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-rea-constructive-change-cda-claim-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+            >
+              Subscribe ($0 Basic) &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left 7 Cols: Specs, Value Prop & Pricing Tiers -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                GovCon REA, Constructive Change &amp; CDA Claim API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                Constructive Change Analysis, Modified Total Cost Quantum, Eichleay Delay Overhead &amp; DFARS 252.243-7002 / CDA Certification. Deterministic Pydantic V2 schema validation with zero-retention in-memory processing and native MCP support via <code class="text-amber-300 font-mono">generate_rea_equitable_adjustment</code>.
+              </p>
+            </div>
+
+            <!-- Endpoint Route Box -->
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <span class="text-white font-semibold">/v1/generate/rea-equitable-adjustment</span>
+              </div>
+              <span class="text-slate-400">Host: <code class="text-amber-300">govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                // RAPIDAPI SUBSCRIPTION TIERS &amp; QUOTAS
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-slate-400 text-[10px]">BASIC (FREE)</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-emerald-400 mt-1">10 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">PRO</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-950/30 border border-amber-500/40">
+                  <div class="text-amber-300 text-[10px] font-bold">ULTRA &bull; BEST</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">MEGA</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Example -->
+            <div class="rounded-xl bg-navy-950 border border-slate-800 p-4">
+              <div class="text-[11px] font-mono text-slate-400 mb-2">// SAMPLE REQUEST PAYLOAD (POST /v1/generate/rea-equitable-adjustment)</div>
+              <pre class="font-mono text-[11px] text-slate-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">curl --request POST \
+  --url https://govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com/v1/generate/rea-equitable-adjustment \
+  --header 'Content-Type: application/json' \
+  --header 'X-RapidAPI-Host: govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --data '{
+    "contract_change_and_cost_impact_text": "CONTRACT: W52P1J-25-C-0092 (U.S. Army Zero-Trust Tactical Cloud & Cross-Domain Enclave Modernization, FFP + Time & Materials CLINs, Base Value $18,400,000). GOVERNMENT DIRECTION & DELAY EVENTS: (1) On June 12, 2026, the COR directed Contractor via email and Technical Direction Letter #14 to refactor the Cross-Domain Solution (CDS) pipeline to support an unscheduled NSA Raise-the-Bar (RTB) 4.2 hardware baseline not specified in Section C SOW 3.4, requiring 3,420 additional Senior DevSecOps & FPGA Engineering hours ($564,300 direct labor); (2) Government Furnished Equipment (GFE Type-1 HAIPE/TACLANE encryptors) scheduled for delivery on July 1, 2026 arrived 45 calendar days late on August 15, 2026, causing a 45-day critical-path standby delay.",
+    "entitlement_and_change_clause_regime": "FAR_52_243_1_Changes_Fixed_Price_And_FAR_52_242_17_Government_Delay",
+    "submission_posture_and_certification_tier": "Pre_Dispute_REA_Under_DFARS_252_243_7002_Allowable_Under_FAR_31_205_47"
+}'</pre>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Structured JSON Response Preview -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-semibold">200 OK &bull; application/json</span>
+              <span class="text-slate-400">Pydantic V2 Verified</span>
+            </div>
+            <pre class="p-4 font-mono text-[11px] text-emerald-300/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">{
+  "contract_and_claim_title": "REA-2026-01 // W52P1J-25-C-0092 — Constructive Change (TDL #14 NSA RTB 4.2) & 45-Day Late GFE Delay",
+  "recommended_submission_vehicle": "REQUEST_FOR_EQUITABLE_ADJUSTMENT_REA",
+  "governing_change_clauses_invoked": [
+    "FAR 52.243-1 (Changes—Fixed-Price, Alt I)",
+    "FAR 52.242-17 (Government Delay of Work)",
+    "FAR 52.245-1 (Government Property — Late GFE Delivery)",
+    "DFARS 252.243-7002 (Requests for Equitable Adjustment)"
+  ],
+  "total_equitable_adjustment_quantum_usd": 1142850.0,
+  "schedule_extension_days_requested": 45,
+  "quantum_cost_elements": [
+    {
+      "cost_element_id": "QCE-01",
+      "category": "DIRECT_LABOR_HOURS_AND_LCAT_ESCALATION",
+      "description": "3,420 Sr. DevSecOps & FPGA hrs for unscheduled NSA RTB 4.2 CDS refactor (TDL #14)",
+      "direct_base_usd": 564300.0,
+      "indirect_burden_usd": 270864.0,
+      "profit_or_fee_usd": 66813.12,
+      "total_claimed_usd": 901977.12,
+      "pricing_methodology": "ACTUAL_SEGREGATED_CHARGE_CODE_COSTS"
+    },
+    {
+      "cost_element_id": "QCE-02",
+      "category": "UNABSORBED_HOME_OFFICE_OVERHEAD_EICHLEAY",
+      "description": "45-day critical-path standby delay due to late GFE Type-1 TACLANE delivery",
+      "direct_base_usd": 195400.0,
+      "indirect_burden_usd": 45472.88,
+      "profit_or_fee_usd": 0.0,
+      "total_claimed_usd": 240872.88,
+      "pricing_methodology": "EICHLEAY_DAILY_ALLO_FORMULA"
+    }
+  ],
+  "statutory_certification_block": "I certify that the request is made in good faith, and that the supporting data are accurate and complete to the best of my knowledge and belief (DFARS 252.243-7002(b) / 10 U.S.C. 3862(a)).",
+  "far_31_205_47_preparation_cost_allowability_note": "Submitted as a pre-dispute contract administration REA prior to CO Final Decision; legal, accounting, and consulting preparation costs remain 100% allowable under FAR 31.205-33 (Bill Strong Enterprises)."
+}</pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- =================================================================
+           PRODUCT 36: SBA MENTOR-PROTÉGÉ (13 CFR 125.9) & JOINT VENTURE OPERATING AGREEMENT COMPLIANCE API (LIVE)
+           ================================================================= -->
+      <article id="product-mentor-protege-jv-agreement" class="rounded-2xl bg-navy-900/85 border-2 border-emerald-500/35 shadow-2xl overflow-hidden">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">API #36</span>
+            <span class="inline-flex items-center space-x-1.5 text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>LIVE ON RAPIDAPI</span>
+            </span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-emerald-300 border border-slate-700">13 CFR 125.8 / 125.9 SBA JV</span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">MCP: generate_mentor_protege_jv_agreement</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-mentor-protege-jv-agreement')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/sba-mentor-protege-13-cfr-125-8-joint-venture-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+            >
+              Subscribe ($0 Basic) &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left 7 Cols: Specs, Value Prop & Pricing Tiers -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                SBA Mentor-Prot&eacute;g&eacute; &amp; JV Compliance API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                12-Point 13 CFR 125.8(b)(2) JV Operating Agreement Audit, 40% Prot&eacute;g&eacute; Workshare Math &amp; Affiliation Shield. Deterministic Pydantic V2 schema validation with zero-retention in-memory processing and native MCP support via <code class="text-emerald-300 font-mono">generate_mentor_protege_jv_agreement</code>.
+              </p>
+            </div>
+
+            <!-- Endpoint Route Box -->
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <span class="text-white font-semibold">/v1/generate/mentor-protege-jv-agreement</span>
+              </div>
+              <span class="text-slate-400">Host: <code class="text-emerald-300">sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                // RAPIDAPI SUBSCRIPTION TIERS &amp; QUOTAS
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-slate-400 text-[10px]">BASIC (FREE)</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-emerald-400 mt-1">10 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-emerald-300 text-[10px]">PRO</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/40">
+                  <div class="text-emerald-300 text-[10px] font-bold">ULTRA &bull; BEST</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">MEGA</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Example -->
+            <div class="rounded-xl bg-navy-950 border border-slate-800 p-4">
+              <div class="text-[11px] font-mono text-slate-400 mb-2">// SAMPLE REQUEST PAYLOAD (POST /v1/generate/mentor-protege-jv-agreement)</div>
+              <pre class="font-mono text-[11px] text-slate-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">curl --request POST \
+  --url https://sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com/v1/generate/mentor-protege-jv-agreement \
+  --header 'Content-Type: application/json' \
+  --header 'X-RapidAPI-Host: sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --data '{
+    "jv_structure_and_solicitation_context_text": "SOLICITATION: 47QTCB26R0015 \u2014 GSA Polaris / DoD Zero-Trust Cyber Operations Task Order ($45,000,000 5-Year SDVOSB Set-Aside under NAICS 541512). JOINT VENTURE ENTITIES: 'Aegis-Vanguard Cyber JV LLC' (Unpopulated Separate Legal Entity LLC registered in SAM.gov with dedicated UEI & CAGE). PROTEGE (51% Managing Venturer): Aegis Federal Cyber LLC (Verified SDVOSB & Small Business). MENTOR (49% Partner): Vanguard Defense Systems Inc. (Large Business DoD Prime, approved under SBA MPP Agreement #MPP-2025-8841). PROPOSED WORKSHARE: Total non-administrative labor & subcontracts = $36,000,000; Protege Aegis performs $15,120,000 (42.0% of JV work) including the Dedicated Employed Responsible Manager; Mentor Vanguard performs $20,880,000 (58.0% of JV work).",
+    "target_set_aside_and_jv_regulation": "SDVOSB_And_SBA_Mentor_Protege_JV_13_CFR_125_8_125_9_And_128_402",
+    "two_year_clock_and_past_awards_context": "First_Award_Within_24_Month_13_CFR_121_103_h_Window"
+}'</pre>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Structured JSON Response Preview -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-semibold">200 OK &bull; application/json</span>
+              <span class="text-slate-400">Pydantic V2 Verified</span>
+            </div>
+            <pre class="p-4 font-mono text-[11px] text-emerald-300/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">{
+  "joint_venture_entity_name": "Aegis-Vanguard Cyber JV LLC (Unpopulated Separate Legal Entity)",
+  "target_socioeconomic_program": "SDVOSB & SBA Mentor-Protege JV (13 CFR 125.8, 125.9 & 128.402)",
+  "overall_sba_jv_compliance_ruling": "COMPLIANT_AFFILIATION_SHIELD_INTACT",
+  "workshare_and_subcontracting_math": {
+    "total_contract_ceiling_usd": 45000000.0,
+    "jv_total_performed_work_usd": 36000000.0,
+    "protege_performed_work_usd": 15120000.0,
+    "mentor_performed_work_usd": 20880000.0,
+    "protege_share_of_jv_work_pct": 42.0,
+    "mentor_share_of_jv_work_pct": 58.0,
+    "meets_40_pct_protege_substantive_floor": true,
+    "meets_13_cfr_125_6_overall_limit": true
+  },
+  "two_year_rule_13_cfr_121_103_h_status": "WITHIN_2_YEAR_WINDOW (0 months elapsed since first award; unlimited bids permitted within 24-month clock)",
+  "protest_proof_operating_agreement_clauses": [
+    "Section 4.1 (Unilateral Control): Protege Managing Venturer holds 51% voting control over all day-to-day contract performance; Mentor negative consent is strictly limited to extraordinary corporate actions (bankruptcy, litigation settlement, or dissolution).",
+    "Section 5.2 (Responsible Manager): Project Manager is a W-2 employee of Protege Aegis Federal Cyber LLC and is NOT employed by or Dual-Hatted with Mentor within the preceding 24 months."
+  ]
+}</pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- =================================================================
+           PRODUCT 37: SERVICE CONTRACT ACT (SCA / FAR 52.222-41) & DAVIS-BACON WAGE DETERMINATION MAPPER API (LIVE)
+           ================================================================= -->
+      <article id="product-service-contract-act-wage" class="rounded-2xl bg-navy-900/85 border-2 border-sky-500/35 shadow-2xl overflow-hidden">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold">API #37</span>
+            <span class="inline-flex items-center space-x-1.5 text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>LIVE ON RAPIDAPI</span>
+            </span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-sky-300 border border-slate-700">FAR 52.222-41 / 52.222-43 SCA</span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">MCP: audit_service_contract_act_wage</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-service-contract-act-wage')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-sca-far-52-222-41-wage-determination-mapper-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+            >
+              Subscribe ($0 Basic) &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left 7 Cols: Specs, Value Prop & Pricing Tiers -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                SCA (FAR 52.222-41) &amp; Wage Determination Mapper API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                SAM.gov WD Occupation Crosswalk, EO 13706 H&amp;W ($4.98/$5.36), SF-1444 Conformance &amp; Option-Year Price Adjustment. Deterministic Pydantic V2 schema validation with zero-retention in-memory processing and native MCP support via <code class="text-sky-300 font-mono">audit_service_contract_act_wage</code>.
+              </p>
+            </div>
+
+            <!-- Endpoint Route Box -->
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <span class="text-white font-semibold">/v1/audit/service-contract-act-wage</span>
+              </div>
+              <span class="text-slate-400">Host: <code class="text-sky-300">govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                // RAPIDAPI SUBSCRIPTION TIERS &amp; QUOTAS
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-slate-400 text-[10px]">BASIC (FREE)</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-emerald-400 mt-1">10 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-sky-300 text-[10px]">PRO</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-sky-950/30 border border-sky-500/40">
+                  <div class="text-sky-300 text-[10px] font-bold">ULTRA &bull; BEST</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">MEGA</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Example -->
+            <div class="rounded-xl bg-navy-950 border border-slate-800 p-4">
+              <div class="text-[11px] font-mono text-slate-400 mb-2">// SAMPLE REQUEST PAYLOAD (POST /v1/audit/service-contract-act-wage)</div>
+              <pre class="font-mono text-[11px] text-slate-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">curl --request POST \
+  --url https://govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com/v1/audit/service-contract-act-wage \
+  --header 'Content-Type: application/json' \
+  --header 'X-RapidAPI-Host: govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --data '{
+    "solicitation_lcat_and_wd_text": "SOLICITATION: FA4890-26-R-0029 \u2014 USAF ACC Enterprise IT Service Desk, Network Operations & Facility Cabling Support (Langley AFB / Hampton Roads, VA). incorporated DOL Wage Determination: WD 2015-4341 (Rev. 26), Subject to Executive Order 13706 Paid Sick Leave ($4.98/hr H&W or $5.36/hr standard H&W on 2,080 paid hours/year). STAFFING ROSTER: (1) 18 FTEs 'Tier-1 IT Help Desk Specialist' (Non-Exempt SCA) proposed at $23.80/hr base wage; (2) 8 FTEs 'Tier-2 Systems Administrator' (Non-Exempt SCA) proposed at $31.10/hr base wage; (3) 4 FTEs 'Junior Cloud Automation Technician' (Non-Exempt SCA, no exact Directory match); (4) 6 FTEs 'Principal Zero-Trust Architect' (FLSA Exempt Professional).",
+    "wage_regime_and_eo_13706_mode": "SCA_FAR_52_222_41_With_EO_13706_Paid_Sick_Leave_And_FAR_52_222_43",
+    "collective_bargaining_agreement_cba_context": "Standard_DOL_Area_Wage_Determination_No_Predecessor_CBA"
+}'</pre>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Structured JSON Response Preview -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-semibold">200 OK &bull; application/json</span>
+              <span class="text-slate-400">Pydantic V2 Verified</span>
+            </div>
+            <pre class="p-4 font-mono text-[11px] text-emerald-300/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">{
+  "solicitation_and_locality_title": "FA4890-26-R-0029 // Hampton Roads / Newport News-Virginia Beach, VA MSA",
+  "applicable_wage_determination_number": "DOL WD 2015-4341 (Rev. 26)",
+  "overall_sca_compliance_posture": "UNDERPAYMENT_DEFICIENCY_DETECTED",
+  "health_and_welfare_fringe_model": {
+    "eo_13706_paid_sick_leave_applies": true,
+    "applicable_hw_hourly_rate_usd": 4.98,
+    "annual_hw_hours_basis_per_fte": 2080,
+    "annual_hw_cost_per_fte_usd": 10358.4,
+    "vacation_and_holiday_accrual_summary": "2 weeks (80 hrs) paid vacation after 1 yr (3 wks after 5 yrs; 4 wks after 15 yrs) + 11 Federal Paid Holidays (88 hrs/yr)"
+  },
+  "occupation_crosswalk_table": [
+    {
+      "bidder_lcat_title": "Tier-1 IT Help Desk Specialist (18 FTEs)",
+      "flsa_exemption_status": "SCA_NON_EXEMPT_COVERED",
+      "dol_occupation_code": "14160",
+      "dol_occupation_title": "Personal Computer Support Technician",
+      "wd_minimum_hourly_wage_usd": 25.42,
+      "proposed_base_hourly_wage_usd": 23.8,
+      "hourly_wage_delta_usd": -1.62,
+      "hw_fringe_hourly_rate_usd": 4.98,
+      "compliance_status": "UNDERPAID_VIOLATION_REQUIRES_RAISE"
+    },
+    {
+      "bidder_lcat_title": "Junior Cloud Automation Technician (4 FTEs)",
+      "flsa_exemption_status": "SCA_NON_EXEMPT_COVERED",
+      "dol_occupation_code": "SF-1444-REQ",
+      "dol_occupation_title": "Unlisted Class — Conformance Bound to 14170 System Support Specialist",
+      "wd_minimum_hourly_wage_usd": 29.85,
+      "proposed_base_hourly_wage_usd": 30.5,
+      "hourly_wage_delta_usd": 0.65,
+      "hw_fringe_hourly_rate_usd": 4.98,
+      "compliance_status": "REQUIRES_SF1444_CONFORMANCE"
+    }
+  ],
+  "far_52_222_43_price_adjustment_clause_guidance": "Exclude G&A, overhead, and profit from future FAR 52.222-43 option-year WD escalation claims; only actual deltas in base wages, H&W, FICA (7.65%), FUTA/SUTA, and Workers' Comp are reimbursable."
+}</pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- =================================================================
+           PRODUCT 38: GOVCON EARNED VALUE MANAGEMENT SYSTEM (EVMS / EIA-748) & IPMDR VARIANCE NARRATIVE API (LIVE)
+           ================================================================= -->
+      <article id="product-evms-ipmdr-variance-analysis" class="rounded-2xl bg-navy-900/85 border-2 border-indigo-500/35 shadow-2xl overflow-hidden">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 font-bold">API #38</span>
+            <span class="inline-flex items-center space-x-1.5 text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>LIVE ON RAPIDAPI</span>
+            </span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-indigo-300 border border-slate-700">DFARS 252.234-7002 / EIA-748</span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">MCP: generate_evms_ipmdr_variance_analysis</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-evms-ipmdr-variance-analysis')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-evms-ansi-748-ipmdr-variance-narrative-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+            >
+              Subscribe ($0 Basic) &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left 7 Cols: Specs, Value Prop & Pricing Tiers -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                GovCon EVMS (EIA-748) &amp; IPMDR Variance API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                Control Account CPI/SPI/TCPI Math, Composite EAC vs. IEAC Sanity Check, IPMDR Format 5 VARs &amp; IBR Prep. Deterministic Pydantic V2 schema validation with zero-retention in-memory processing and native MCP support via <code class="text-indigo-300 font-mono">generate_evms_ipmdr_variance_analysis</code>.
+              </p>
+            </div>
+
+            <!-- Endpoint Route Box -->
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <span class="text-white font-semibold">/v1/generate/evms-ipmdr-variance-analysis</span>
+              </div>
+              <span class="text-slate-400">Host: <code class="text-indigo-300">govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                // RAPIDAPI SUBSCRIPTION TIERS &amp; QUOTAS
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-slate-400 text-[10px]">BASIC (FREE)</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-emerald-400 mt-1">10 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-indigo-300 text-[10px]">PRO</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/40">
+                  <div class="text-indigo-300 text-[10px] font-bold">ULTRA &bull; BEST</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">MEGA</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Example -->
+            <div class="rounded-xl bg-navy-950 border border-slate-800 p-4">
+              <div class="text-[11px] font-mono text-slate-400 mb-2">// SAMPLE REQUEST PAYLOAD (POST /v1/generate/evms-ipmdr-variance-analysis)</div>
+              <pre class="font-mono text-[11px] text-slate-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">curl --request POST \
+  --url https://govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com/v1/generate/evms-ipmdr-variance-analysis \
+  --header 'Content-Type: application/json' \
+  --header 'X-RapidAPI-Host: govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --data '{
+    "control_account_metrics_and_variance_context": "PROGRAM: USSF Next-Gen OPIR Ground Data Processing & Cyber Defense Segment (Contract FA8810-25-C-0014, CPFF, Total BAC = $64,000,000; DFARS 252.234-7002 EVMS Required; Variance Thresholds: +/-7% or +/-$100,000). REPORTING PERIOD: October 2026. CONTROL ACCOUNT 1.04.02 (Cross-Domain Zero-Trust Telemetry Pipeline): BAC = $8,500,000; BCWS (PV) = $4,200,000; BCWP (EV) = $3,696,000; ACWP (AC) = $4,158,000. CONTROL ACCOUNT 1.06.01 (Cloud FPGA Ingestion Cluster): BAC = $6,200,000; BCWS = $3,100,000; BCWP = $2,976,000; ACWP = $3,440,000.",
+    "evms_tier_and_reporting_standard": "DoD_DFARS_252_234_7002_EIA_748_32_Guidelines_IPMDR_Format_5",
+    "eac_forecasting_methodology": "Composite_CPI_Times_SPI_Risk_Adjusted_IEAC"
+}'</pre>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Structured JSON Response Preview -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-semibold">200 OK &bull; application/json</span>
+              <span class="text-slate-400">Pydantic V2 Verified</span>
+            </div>
+            <pre class="p-4 font-mono text-[11px] text-emerald-300/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">{
+  "program_and_reporting_period": "FA8810-25-C-0014 // USSF Next-Gen OPIR Ground Segment — IPMDR October 2026",
+  "evms_compliance_tier": "TIER_50M_TO_100M_FORMAL_EIA_748_EVMS",
+  "program_summary_metrics": {
+    "total_bac_usd": 64000000.0,
+    "cumulative_bcws_pv_usd": 31500000.0,
+    "cumulative_bcwp_ev_usd": 29610000.0,
+    "cumulative_acwp_ac_usd": 32180000.0,
+    "cost_variance_cv_usd": -2570000.0,
+    "schedule_variance_sv_usd": -1890000.0,
+    "cumulative_cpi": 0.92,
+    "cumulative_spi": 0.94,
+    "tcpi_to_bac": 1.081,
+    "ieac_cpi_only_usd": 69565217.39,
+    "ieac_composite_cpi_spi_usd": 71386430.68,
+    "management_eac_realism_status": "REALISTIC_WITHIN_IEAC_BAND"
+  },
+  "control_account_format5_narratives": [
+    {
+      "wbs_control_account_id": "WBS 1.04.02",
+      "control_account_title": "Cross-Domain Zero-Trust Telemetry Pipeline (CAM: J. Mercer)",
+      "cpi": 0.89,
+      "spi": 0.88,
+      "tcpi_to_bac": 1.106,
+      "threshold_breach_type": "BOTH_CV_AND_SV_BREACH (CV: -$462K / -12.5%; SV: -$504K / -12.0%)",
+      "root_cause_technical_isolation": "NSA RTB 4.2 schema revision required refactoring 14 gRPC protocol buffers (3,100 unplanned Sr. DevSecOps hrs) while awaiting late GFE cryptographic test keys.",
+      "corrective_action_plan_cap": "CAP-104-A: Automated schema fuzzing pipeline deployed Oct 18 (reducing test cycle 38%); $280K Management Reserve (MR) authorized via BCP-019."
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- =================================================================
+           PRODUCT 39: COST ACCOUNTING STANDARDS (CAS / 48 CFR 9904) COVERAGE & DS-1 DISCLOSURE AUDITOR API (LIVE)
+           ================================================================= -->
+      <article id="product-cost-accounting-cas-ds2" class="rounded-2xl bg-navy-900/85 border-2 border-cyan-500/35 shadow-2xl overflow-hidden">
+        <!-- Module Top Bar -->
+        <div class="px-6 py-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-bold">API #39</span>
+            <span class="inline-flex items-center space-x-1.5 text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>LIVE ON RAPIDAPI</span>
+            </span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-cyan-300 border border-slate-700">48 CFR 9904 / CASB DS-1</span>
+            <span class="font-mono text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">MCP: generate_cost_accounting_cas_ds2</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button
+              type="button"
+              onclick="window.openApiSandbox('product-cost-accounting-cas-ds2')"
+              class="px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-xs font-mono font-semibold text-emerald-300 transition-all cursor-pointer whitespace-nowrap"
+            >
+              &#9654; Try Live in Browser
+            </button>
+            <a
+              href="https://rapidapi.com/aarbchen/api/govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-mono font-semibold text-white shadow-md transition-colors"
+            >
+              Subscribe ($0 Basic) &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Module Body -->
+        <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Left 7 Cols: Specs, Value Prop & Pricing Tiers -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <h3 class="text-2xl font-extrabold text-white tracking-tight">
+                CAS (48 CFR 9904) &amp; DS-1 Disclosure Auditor API
+              </h3>
+              <p class="mt-2 text-sm text-slate-300 leading-relaxed">
+                CAS Exemption &amp; Modified/Full Coverage ($2.5M / $50M), CAS 401–420 Consistency Audit &amp; Cost-Impact Calculator. Deterministic Pydantic V2 schema validation with zero-retention in-memory processing and native MCP support via <code class="text-cyan-300 font-mono">generate_cost_accounting_cas_ds2</code>.
+              </p>
+            </div>
+
+            <!-- Endpoint Route Box -->
+            <div class="p-3.5 rounded-xl bg-navy-950 border border-slate-800 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+              <div class="flex items-center space-x-2.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">POST</span>
+                <span class="text-white font-semibold">/v1/generate/cost-accounting-cas-ds2</span>
+              </div>
+              <span class="text-slate-400">Host: <code class="text-cyan-300">govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com</code></span>
+            </div>
+
+            <!-- 4-Tier Pricing Strip -->
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5">
+                // RAPIDAPI SUBSCRIPTION TIERS &amp; QUOTAS
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-slate-400 text-[10px]">BASIC (FREE)</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$0<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-emerald-400 mt-1">10 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-cyan-300 text-[10px]">PRO</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$49<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">200 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/40">
+                  <div class="text-cyan-300 text-[10px] font-bold">ULTRA &bull; BEST</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$149<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-white mt-1">1,000 req / mo</div>
+                </div>
+                <div class="p-3 rounded-xl bg-navy-950 border border-slate-800">
+                  <div class="text-amber-300 text-[10px]">MEGA</div>
+                  <div class="text-base font-extrabold text-white mt-0.5">$399<span class="text-xs font-normal text-slate-400">/mo</span></div>
+                  <div class="text-[11px] text-slate-300 mt-1">4,000 req / mo</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Example -->
+            <div class="rounded-xl bg-navy-950 border border-slate-800 p-4">
+              <div class="text-[11px] font-mono text-slate-400 mb-2">// SAMPLE REQUEST PAYLOAD (POST /v1/generate/cost-accounting-cas-ds2)</div>
+              <pre class="font-mono text-[11px] text-slate-300 overflow-x-auto whitespace-pre-wrap leading-relaxed">curl --request POST \
+  --url https://govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com/v1/generate/cost-accounting-cas-ds2 \
+  --header 'Content-Type: application/json' \
+  --header 'X-RapidAPI-Host: govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com' \
+  --header 'X-RapidAPI-Key: YOUR_RAPIDAPI_KEY' \
+  --data '{
+    "contract_portfolio_and_accounting_practices_text": "CONTRACTOR PROFILE: Mid-Tier Defense Cyber & Systems Engineering Prime (Other Than Small Business under NAICS 541330; FY2025 Net CAS-Covered Awards = $54,200,000; current Solicitation W15P7T-26-R-0044 is a $32,000,000 Cost-Plus-Fixed-Fee [CPFF] contract containing FAR 52.230-2 and FAR 52.230-6). ACCOUNTING PRACTICES: (1) Bid & Proposal (B&P) estimates bundle Systems Engineering & Program Management as direct labor on proposals, but general ledger books PM/QA into the Engineering Overhead Pool; (2) G&A expense pool ($9.2M) is allocated on a Total Cost Input (TCI) base ($68M), but a new $22M pass-through cloud hardware buy is distorting G&A allocation; (3) Unallowable executive lobbying and M&A legal expenses ($185K) were recorded in G&A Account 6410 without excluding their allocable G&A burden.",
+    "cas_coverage_and_disclosure_regime": "Full_CAS_Coverage_48_CFR_9904_401_Through_420_And_CASB_DS1",
+    "accounting_change_type": "Desirable_Change_Switching_GA_Base_From_TCI_To_Value_Added_CAS_410"
+}'</pre>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Structured JSON Response Preview -->
+          <div class="lg:col-span-5 rounded-xl bg-navy-950 border border-slate-800 overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-semibold">200 OK &bull; application/json</span>
+              <span class="text-slate-400">Pydantic V2 Verified</span>
+            </div>
+            <pre class="p-4 font-mono text-[11px] text-emerald-300/95 overflow-x-auto whitespace-pre-wrap leading-relaxed">{
+  "contractor_and_segment_title": "Mid-Tier Defense Cyber Prime // Corporate Home Office & Federal Systems Segment",
+  "determined_cas_coverage_tier": "FULL_CAS_COVERAGE_48_CFR_9904_ALL_19_STANDARDS",
+  "casb_ds1_or_ds2_filing_requirement": "MANDATORY_CASB_DS1_PRIOR_TO_AWARD (Net CAS-covered awards $54.2M exceeded the $50.0M Full CAS & DS-1 statutory trigger)",
+  "overall_cas_compliance_posture": "MATERIAL_CAS_NONCOMPLIANCE_DETECTED",
+  "cas_standard_audit_findings": [
+    {
+      "cas_standard_number": "CAS 401 & CAS 402",
+      "cas_standard_title": "Consistency in Estimating/Accumulating Costs & Allocating Costs Incurred for the Same Purpose",
+      "compliance_status": "NONCOMPLIANT_HIGH_AUDIT_RISK",
+      "identified_practice_or_deficiency": "Estimating PM/QA as direct labor in proposals while booking actual PM/QA into the Engineering Overhead Pool violates CAS 401 consistency and creates CAS 402 double-counting risk.",
+      "remediation_and_ds1_draft_language": "Update CASB DS-1 Part II Item 2.1.0 to define a bright-line charging policy: PM/QA dedicated >20 hrs/wk to a single contract is Direct Labor; multi-project oversight is Indirect Engineering Overhead."
+    },
+    {
+      "cas_standard_number": "CAS 405 (48 CFR 9904.405)",
+      "cas_standard_title": "Accounting for Unallowable Costs",
+      "compliance_status": "NONCOMPLIANT_HIGH_AUDIT_RISK",
+      "identified_practice_or_deficiency": "$185,000 in FAR 31.205-22/27 unallowable lobbying and M&A costs were left in G&A Account 6410 without segregating directly associated costs.",
+      "remediation_and_ds1_draft_language": "Immediately transfer $185,000 + directly associated labor/travel to segregated Account 9990 (FAR 31.205 Unallowable Suspense Pool) excluded from all provisional billing rates."
+    }
+  ],
+  "accounting_change_cost_impact_summary": {
+    "change_classification": "DESIRABLE_CHANGE_NO_INCREASED_GOV_COST",
+    "cost_shift_on_flexibly_priced_contracts_usd": -142500.0,
+    "cost_shift_on_fixed_price_contracts_usd": 142500.0,
+    "estimated_government_recovery_with_interest_usd": 0.0,
+    "far_52_230_6_submission_timeline": "Submit 60-day advance notification of proposed G&A Value-Added base transition to CFAO with request for Desirable Change determination."
+  }
+}</pre>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -8518,7 +9323,7 @@
                     <span class="font-sans font-bold text-sm text-white">Live SLED &amp; Federal Open RFP Feed API</span>
                   </div>
                   <div class="text-cyan-300 text-[11px] mt-0.5">GET /v1/solicitations/live</div>
-                  <div class="font-sans text-[11px] text-slate-400 mt-1">28-Portal Filtered IT &amp; Cyber RFPs</div>
+                  <div class="font-sans text-[11px] text-slate-400 mt-1">33-Portal Filtered IT &amp; Cyber RFPs</div>
                 </td>
                 <td class="py-5 px-4">
                   <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
@@ -9791,6 +10596,221 @@
                   </a>
                 </td>
               </tr>
+              <tr class="hover:bg-navy-900/60 transition-colors bg-amber-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">35</span>
+                    <a href="#product-rea-equitable-adjustment" class="text-sm font-sans font-bold text-white hover:text-amber-400 transition-colors">
+                      GovCon REA, Constructive Change &amp; CDA Claim API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-amber-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-amber-300 text-[11px]">POST /v1/generate/rea-equitable-adjustment</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">Constructive Change Analysis, Modified Total Cost Quantum, Eichleay Delay Overhead &amp; DFARS 252.243-7002 / CDA Certification</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-amber-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-amber-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-amber-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-rea-constructive-change-cda-claim-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+              <tr class="hover:bg-navy-900/60 transition-colors bg-emerald-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">36</span>
+                    <a href="#product-mentor-protege-jv-agreement" class="text-sm font-sans font-bold text-white hover:text-emerald-400 transition-colors">
+                      SBA Mentor-Prot&eacute;g&eacute; &amp; JV Compliance API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-emerald-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-emerald-300 text-[11px]">POST /v1/generate/mentor-protege-jv-agreement</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">12-Point 13 CFR 125.8(b)(2) JV Operating Agreement Audit, 40% Prot&eacute;g&eacute; Workshare Math &amp; Affiliation Shield</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-emerald-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-emerald-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-emerald-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/sba-mentor-protege-13-cfr-125-8-joint-venture-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+              <tr class="hover:bg-navy-900/60 transition-colors bg-sky-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold">37</span>
+                    <a href="#product-service-contract-act-wage" class="text-sm font-sans font-bold text-white hover:text-sky-400 transition-colors">
+                      SCA (FAR 52.222-41) &amp; Wage Determination Mapper API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-sky-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-sky-300 text-[11px]">POST /v1/audit/service-contract-act-wage</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">SAM.gov WD Occupation Crosswalk, EO 13706 H&amp;W ($4.98/$5.36), SF-1444 Conformance &amp; Option-Year Price Adjustment</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-sky-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-sky-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-sky-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-sky-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-sca-far-52-222-41-wage-determination-mapper-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+              <tr class="hover:bg-navy-900/60 transition-colors bg-indigo-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 font-bold">38</span>
+                    <a href="#product-evms-ipmdr-variance-analysis" class="text-sm font-sans font-bold text-white hover:text-indigo-400 transition-colors">
+                      GovCon EVMS (EIA-748) &amp; IPMDR Variance API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-indigo-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-indigo-300 text-[11px]">POST /v1/generate/evms-ipmdr-variance-analysis</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">Control Account CPI/SPI/TCPI Math, Composite EAC vs. IEAC Sanity Check, IPMDR Format 5 VARs &amp; IBR Prep</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-indigo-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-indigo-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-indigo-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-indigo-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-evms-ansi-748-ipmdr-variance-narrative-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
+              <tr class="hover:bg-navy-900/60 transition-colors bg-cyan-950/15">
+                <td class="py-5 px-5">
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-bold">39</span>
+                    <a href="#product-cost-accounting-cas-ds2" class="text-sm font-sans font-bold text-white hover:text-cyan-400 transition-colors">
+                      CAS (48 CFR 9904) &amp; DS-1 Disclosure Auditor API
+                    </a>
+                    <span class="px-1.5 py-0.2 text-[9px] uppercase rounded bg-cyan-400 text-navy-950 font-bold">New</span>
+                  </div>
+                  <div class="mt-1 text-cyan-300 text-[11px]">POST /v1/generate/cost-accounting-cas-ds2</div>
+                  <div class="mt-0.5 text-[11px] text-slate-400">CAS Exemption &amp; Modified/Full Coverage ($2.5M / $50M), CAS 401–420 Consistency Audit &amp; Cost-Impact Calculator</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-white">$0<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-300 mt-0.5"><strong>10</strong> req / mo</div>
+                  <div class="text-emerald-400 text-[10px]">Hard limit &bull; 10/hr</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-cyan-300">$49<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>200</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.25 / extra</div>
+                </td>
+                <td class="py-5 px-4 bg-sky-500/5 border-x border-sky-500/20">
+                  <div class="text-base font-extrabold text-cyan-300">$149<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-white mt-0.5"><strong>1,000</strong> req / mo</div>
+                  <div class="text-cyan-300/90 text-[10px]">+$0.15 / extra</div>
+                </td>
+                <td class="py-5 px-4">
+                  <div class="text-base font-extrabold text-cyan-300">$399<span class="text-slate-400 text-xs font-normal">/mo</span></div>
+                  <div class="text-slate-200 mt-0.5"><strong>4,000</strong> req / mo</div>
+                  <div class="text-slate-400 text-[10px]">+$0.10 / extra</div>
+                </td>
+                <td class="py-5 px-5 text-right">
+                  <a
+                    href="https://rapidapi.com/aarbchen/api/govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center px-3 py-2 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-semibold transition-colors"
+                  >
+                    Subscribe &nearr;
+                  </a>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -9848,10 +10868,10 @@
             // TURNKEY CAPTURE ALERTS &bull; NO CODING REQUIRED
           </div>
           <h3 class="text-xl font-bold text-white">
-            Want Live Federal, Municipal &amp; 26-State SLED Contract Alerts Without Writing Code?
+            Want Live Federal, Municipal &amp; 31-State SLED Contract Alerts Without Writing Code?
           </h3>
           <p class="text-xs sm:text-sm text-slate-400 max-w-2xl">
-            Our <strong class="text-slate-200">All-Access Multi-Channel Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, Massachusetts COMMBUYS &amp; Boston, New Jersey NJSTART &amp; Treasury DPP, Washington WEBS &amp; WaTech DES, Michigan SIGMA VSS &amp; DTMB, Colorado VSS &amp; OIT, Arizona APP &amp; ADOA-ASET, Minnesota SWIFT &amp; MNIT Services, Tennessee Edison CPO &amp; STS, Indiana IDOA &amp; IOT, MissouriBUYS &amp; OA-ITSD, Wisconsin eSupplier &amp; DET, South Carolina SCBO &amp; SFAA, OregonBuys &amp; EIS, Connecticut CTsource &amp; BITS, and Utah U3P &amp; DTS IT &amp; cybersecurity opportunities straight to your team in Slack, Microsoft Teams, CRM, Email, or Discord.
+            Our <strong class="text-slate-200">All-Access Multi-Channel Alert Wire ($99/mo)</strong> delivers pre-vetted SAM.gov, DemandStar, Virginia eVA, Texas ESBD, California Cal eProcure, Florida MFMP VIP, Maryland eMMA, Illinois BidBuy, Pennsylvania eMarketplace, Ohio Buys, Georgia Procurement Registry, North Carolina eVP, New York CROL &amp; PANYNJ, Massachusetts COMMBUYS &amp; Boston, New Jersey NJSTART &amp; Treasury DPP, Washington WEBS &amp; WaTech DES, Michigan SIGMA VSS &amp; DTMB, Colorado VSS &amp; OIT, Arizona APP &amp; ADOA-ASET, Minnesota SWIFT &amp; MNIT Services, Tennessee Edison CPO &amp; STS, Indiana IDOA &amp; IOT, MissouriBUYS &amp; OA-ITSD, Wisconsin eSupplier &amp; DET, South Carolina SCBO &amp; SFAA, OregonBuys &amp; EIS, Connecticut CTsource &amp; BITS, Utah U3P &amp; DTS, Nevada NevadaEPro &amp; EITS, Alabama Buys (STAARS) &amp; OIT, Louisiana LaPAC &amp; OTS, Kentucky VSS &amp; COT, and Oklahoma OMES &amp; Information Services IT &amp; cybersecurity opportunities straight to your team in Slack, Microsoft Teams, CRM, Email, or Discord.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-3 shrink-0">
@@ -10015,48 +11035,11 @@
           <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
           <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcaa-pre-award-sf1408-accounting-system-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCAA SF 1408 Accounting Auditor API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dod-ota-10-usc-4022-prototype-white-paper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DoD OTA 10 U.S.C. 4022 White Paper API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dcsa-fcl-dd254-foci-sf328-clearance-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DCSA FCL, DD Form 254 &amp; FOCI API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/far-52-219-9-subcontracting-plan-esrs-calculator-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">FAR 52.219-9 Subcontracting Plan API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/dfars-252-227-7013-7014-7017-data-rights-assertion-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">DFARS 252.227 Data Rights Assertion API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-shipley-black-hat-incumbent-ghosting-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Shipley Black-Hat &amp; Incumbent Ghosting API &nearr;</a></li>
-          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cpars-self-assessment-14-day-rebuttal-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CPARS Self-Assessment &amp; Rebuttal API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/govcon-rea-constructive-change-cda-claim-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GovCon REA &amp; CDA Claim API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/sba-mentor-protege-13-cfr-125-8-joint-venture-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SBA Mentor-Prot&eacute;g&eacute; &amp; JV API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/govcon-sca-far-52-222-41-wage-determination-mapper-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SCA &amp; Davis-Bacon Wage Mapper API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/govcon-evms-ansi-748-ipmdr-variance-narrative-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GovCon EVMS &amp; IPMDR Variance API &nearr;</a></li>
+          <li><a href="https://rapidapi.com/aarbchen/api/govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">CAS 48 CFR 9904 &amp; DS-1 Auditor API &nearr;</a></li>
         </ul>
       </div>
 
@@ -10355,18 +11338,18 @@
       <!-- Modal Main Grid: Left Endpoint Selector (3 cols) + Center Request/Code (4.5 cols) + Right Live Response (4.5 cols) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
 
-        <!-- Column 1 (3 cols): 34-API Endpoint Switcher Sidebar -->
+        <!-- Column 1 (3 cols): 39-API Endpoint Switcher Sidebar -->
         <div class="lg:col-span-3 bg-navy-900/50 p-3 overflow-y-auto max-h-48 lg:max-h-none flex flex-col justify-between">
           <div>
                         <div class="px-2 py-1.5 text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>SELECT MICROSERVICE (34)</span>
+              <span>SELECT MICROSERVICE (39)</span>
               <span class="text-emerald-400">LIVE</span>
             </div>
             <div class="px-1 pb-2">
               <input
                 id="sandbox-sidebar-search"
                 type="text"
-                placeholder="Filter 34 endpoints..."
+                placeholder="Filter 39 endpoints..."
                 oninput="window.filterSandboxSidebar(this.value)"
                 class="w-full px-2.5 py-1.5 rounded-lg bg-navy-950 border border-slate-800 focus:border-sky-500 focus:outline-none text-[11px] font-mono text-white placeholder-slate-500"
               />
@@ -11117,6 +12100,86 @@
             cpar_submission_mode: "Proactive_Annual_CPARS_Self_Assessment_And_14_Day_Rebuttal_Package",
             target_far_42_1503_rating_goal: "Upgrade_To_Exceptional_And_Very_Good_With_Positive_Rec"
           }
+        },
+        'product-rea-equitable-adjustment': {
+          num: '35',
+          id: 'product-rea-equitable-adjustment',
+          title: 'GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API',
+          method: 'POST',
+          path: '/v1/generate/rea-equitable-adjustment',
+          host: 'govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-rea-constructive-change-cda-claim-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-rea-constructive-change-cda-claim-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            "contract_change_and_cost_impact_text": "CONTRACT: W52P1J-25-C-0092 (U.S. Army Zero-Trust Tactical Cloud & Cross-Domain Enclave Modernization, FFP + Time & Materials CLINs, Base Value $18,400,000). GOVERNMENT DIRECTION & DELAY EVENTS: (1) On June 12, 2026, the COR directed Contractor via email and Technical Direction Letter #14 to refactor the Cross-Domain Solution (CDS) pipeline to support an unscheduled NSA Raise-the-Bar (RTB) 4.2 hardware baseline not specified in Section C SOW 3.4, requiring 3,420 additional Senior DevSecOps & FPGA Engineering hours ($564,300 direct labor); (2) Government Furnished Equipment (GFE Type-1 HAIPE/TACLANE encryptors) scheduled for delivery on July 1, 2026 arrived 45 calendar days late on August 15, 2026, causing a 45-day critical-path standby delay.",
+            "entitlement_and_change_clause_regime": "FAR_52_243_1_Changes_Fixed_Price_And_FAR_52_242_17_Government_Delay",
+            "submission_posture_and_certification_tier": "Pre_Dispute_REA_Under_DFARS_252_243_7002_Allowable_Under_FAR_31_205_47"
+}
+        },
+        'product-mentor-protege-jv-agreement': {
+          num: '36',
+          id: 'product-mentor-protege-jv-agreement',
+          title: 'SBA Mentor-Protégé (13 CFR 125.9) & Joint Venture Operating Agreement Compliance API',
+          method: 'POST',
+          path: '/v1/generate/mentor-protege-jv-agreement',
+          host: 'sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/sba-mentor-protege-13-cfr-125-8-joint-venture-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/sba-mentor-protege-13-cfr-125-8-joint-venture-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            "jv_structure_and_solicitation_context_text": "SOLICITATION: 47QTCB26R0015 \u2014 GSA Polaris / DoD Zero-Trust Cyber Operations Task Order ($45,000,000 5-Year SDVOSB Set-Aside under NAICS 541512). JOINT VENTURE ENTITIES: 'Aegis-Vanguard Cyber JV LLC' (Unpopulated Separate Legal Entity LLC registered in SAM.gov with dedicated UEI & CAGE). PROTEGE (51% Managing Venturer): Aegis Federal Cyber LLC (Verified SDVOSB & Small Business). MENTOR (49% Partner): Vanguard Defense Systems Inc. (Large Business DoD Prime, approved under SBA MPP Agreement #MPP-2025-8841). PROPOSED WORKSHARE: Total non-administrative labor & subcontracts = $36,000,000; Protege Aegis performs $15,120,000 (42.0% of JV work) including the Dedicated Employed Responsible Manager; Mentor Vanguard performs $20,880,000 (58.0% of JV work).",
+            "target_set_aside_and_jv_regulation": "SDVOSB_And_SBA_Mentor_Protege_JV_13_CFR_125_8_125_9_And_128_402",
+            "two_year_clock_and_past_awards_context": "First_Award_Within_24_Month_13_CFR_121_103_h_Window"
+}
+        },
+        'product-service-contract-act-wage': {
+          num: '37',
+          id: 'product-service-contract-act-wage',
+          title: 'Service Contract Act (SCA / FAR 52.222-41) & Davis-Bacon Wage Determination Mapper API',
+          method: 'POST',
+          path: '/v1/audit/service-contract-act-wage',
+          host: 'govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-sca-far-52-222-41-wage-determination-mapper-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-sca-far-52-222-41-wage-determination-mapper-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            "solicitation_lcat_and_wd_text": "SOLICITATION: FA4890-26-R-0029 \u2014 USAF ACC Enterprise IT Service Desk, Network Operations & Facility Cabling Support (Langley AFB / Hampton Roads, VA). incorporated DOL Wage Determination: WD 2015-4341 (Rev. 26), Subject to Executive Order 13706 Paid Sick Leave ($4.98/hr H&W or $5.36/hr standard H&W on 2,080 paid hours/year). STAFFING ROSTER: (1) 18 FTEs 'Tier-1 IT Help Desk Specialist' (Non-Exempt SCA) proposed at $23.80/hr base wage; (2) 8 FTEs 'Tier-2 Systems Administrator' (Non-Exempt SCA) proposed at $31.10/hr base wage; (3) 4 FTEs 'Junior Cloud Automation Technician' (Non-Exempt SCA, no exact Directory match); (4) 6 FTEs 'Principal Zero-Trust Architect' (FLSA Exempt Professional).",
+            "wage_regime_and_eo_13706_mode": "SCA_FAR_52_222_41_With_EO_13706_Paid_Sick_Leave_And_FAR_52_222_43",
+            "collective_bargaining_agreement_cba_context": "Standard_DOL_Area_Wage_Determination_No_Predecessor_CBA"
+}
+        },
+        'product-evms-ipmdr-variance-analysis': {
+          num: '38',
+          id: 'product-evms-ipmdr-variance-analysis',
+          title: 'GovCon Earned Value Management System (EVMS / EIA-748) & IPMDR Variance Narrative API',
+          method: 'POST',
+          path: '/v1/generate/evms-ipmdr-variance-analysis',
+          host: 'govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-evms-ansi-748-ipmdr-variance-narrative-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-evms-ansi-748-ipmdr-variance-narrative-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            "control_account_metrics_and_variance_context": "PROGRAM: USSF Next-Gen OPIR Ground Data Processing & Cyber Defense Segment (Contract FA8810-25-C-0014, CPFF, Total BAC = $64,000,000; DFARS 252.234-7002 EVMS Required; Variance Thresholds: +/-7% or +/-$100,000). REPORTING PERIOD: October 2026. CONTROL ACCOUNT 1.04.02 (Cross-Domain Zero-Trust Telemetry Pipeline): BAC = $8,500,000; BCWS (PV) = $4,200,000; BCWP (EV) = $3,696,000; ACWP (AC) = $4,158,000. CONTROL ACCOUNT 1.06.01 (Cloud FPGA Ingestion Cluster): BAC = $6,200,000; BCWS = $3,100,000; BCWP = $2,976,000; ACWP = $3,440,000.",
+            "evms_tier_and_reporting_standard": "DoD_DFARS_252_234_7002_EIA_748_32_Guidelines_IPMDR_Format_5",
+            "eac_forecasting_methodology": "Composite_CPI_Times_SPI_Risk_Adjusted_IEAC"
+}
+        },
+        'product-cost-accounting-cas-ds2': {
+          num: '39',
+          id: 'product-cost-accounting-cas-ds2',
+          title: 'Cost Accounting Standards (CAS / 48 CFR 9904) Coverage & DS-1 Disclosure Auditor API',
+          method: 'POST',
+          path: '/v1/generate/cost-accounting-cas-ds2',
+          host: 'govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com',
+          hubUrl: 'https://rapidapi.com/aarbchen/api/govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api',
+          pricingUrl: 'https://rapidapi.com/aarbchen/api/govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api/pricing',
+          tierSummary: 'Basic $0 (10/mo) • Pro $49 • Ultra $149 • Mega $399',
+          samplePayload: {
+            "contract_portfolio_and_accounting_practices_text": "CONTRACTOR PROFILE: Mid-Tier Defense Cyber & Systems Engineering Prime (Other Than Small Business under NAICS 541330; FY2025 Net CAS-Covered Awards = $54,200,000; current Solicitation W15P7T-26-R-0044 is a $32,000,000 Cost-Plus-Fixed-Fee [CPFF] contract containing FAR 52.230-2 and FAR 52.230-6). ACCOUNTING PRACTICES: (1) Bid & Proposal (B&P) estimates bundle Systems Engineering & Program Management as direct labor on proposals, but general ledger books PM/QA into the Engineering Overhead Pool; (2) G&A expense pool ($9.2M) is allocated on a Total Cost Input (TCI) base ($68M), but a new $22M pass-through cloud hardware buy is distorting G&A allocation; (3) Unallowable executive lobbying and M&A legal expenses ($185K) were recorded in G&A Account 6410 without excluding their allocable G&A burden.",
+            "cas_coverage_and_disclosure_regime": "Full_CAS_Coverage_48_CFR_9904_401_Through_420_And_CASB_DS1",
+            "accounting_change_type": "Desirable_Change_Switching_GA_Base_From_TCI_To_Value_Added_CAS_410"
+}
         }
       };
 
@@ -11534,7 +12597,7 @@
         if (e.key === 'Escape') window.closeApiSandbox();
       });
 
-      // Enhance all 34 API product cards on the page so users can switch languages & test in-place without leaving
+      // Enhance all 39 API product cards on the page so users can switch languages & test in-place without leaving
       function enhanceProductCards() {
         Object.keys(CATALOG).forEach(function (apiId) {
           var article = document.getElementById(apiId);
@@ -11636,7 +12699,7 @@
         'product-contract-parsing': { cat: 'rfp', kw: '01 b2b contract parsing rfp sow extraction json deliverables ceiling deadline /v1/parse/contract' },
         'product-risk-auditor': { cat: 'compliance', kw: '02 ai contract risk redline auditor legal indemnification liability termination /v1/parse/contract-risks' },
         'product-historical-pricing': { cat: 'pricing', kw: '03 historical procurement pricing sam.gov federal awards clin labor rates incumbent /v1/awards/search /v1/awards/contractor' },
-        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys new jersey njstart washington webs watech michigan sigma dtmb colorado vss oit arizona app procure.az.gov adoa aset minnesota swift mnit tennessee edison sts indiana idoa iot missouri missouribuys wisconsin esupplier det south carolina scbo sfaa oregon oregonbuys eis connecticut ctsource bits utah u3p dts /v1/solicitations/live' },
+        'product-live-solicitations': { cat: 'rfp', kw: '04 live sled federal open rfp feed sam.gov demandstar virginia texas california florida maryland illinois pennsylvania ohio georgia north carolina new york massachusetts commbuys new jersey njstart washington webs watech michigan sigma dtmb colorado vss oit arizona app procure.az.gov adoa aset minnesota swift mnit tennessee edison sts indiana idoa iot missouri missouribuys wisconsin esupplier det south carolina scbo sfaa oregon oregonbuys eis connecticut ctsource bits utah u3p dts nevada nevadaepro eits alabama alabamabuys staars louisiana lapac ots kentucky vss cot oklahoma omes /v1/solicitations/live' },
         'product-compliance-matrix': { cat: 'rfp', kw: '05 rfp compliance matrix proposal outline shipley section l section m shall must checklist /v1/generate/compliance-matrix' },
         'product-far-dfars-scanner': { cat: 'compliance', kw: '06 far dfars cmmc clause risk scanner dod flow-downs cas nist 800-171 cui /v1/audit/far-dfars-clauses' },
         'product-capability-matcher': { cat: 'capture', kw: '07 ai bid no-bid capability matcher pwin score gap analysis past performance /v1/match/capability-statement' },
@@ -11666,7 +12729,12 @@
         'product-small-business-participation': { cat: 'capture', num: '31', kw: 'far 52.219-9 subcontracting plan esrs isr ssr dfars 252.219-7003 small business participation sdb 8a wosb sdvosb hubzone liquidated damages 52.219-16 /v1/generate/small-business-participation' },
         'product-data-rights-assertion-table': { cat: 'compliance', num: '32', kw: 'far 52.227-14 dfars 252.227-7013 252.227-7014 252.227-7017 data rights assertion table ip technical data computer software gpr limited restricted sbir 252.227-7018 mosa 10 usc 4401 /v1/generate/data-rights-assertion-table' },
         'product-capture-black-hat-review': { cat: 'capture', num: '33', kw: 'shipley black hat review competitive intelligence incumbent vulnerability ghosting section l m swot ptw landmine questions best value tradeoff lpta /v1/generate/capture-black-hat-review' },
-        'product-post-award-cpar-rebuttal': { cat: 'capture', num: '34', kw: 'cpars self assessment 14 day rebuttal far 42.1503 reviewing official assessing official table 42-1 excusable delay sf-30 gfe past performance rating upgrade /v1/generate/post-award-cpar-rebuttal' }
+        'product-post-award-cpar-rebuttal': { cat: 'capture', num: '34', kw: 'cpars self assessment 14 day rebuttal far 42.1503 reviewing official assessing official table 42-1 excusable delay sf-30 gfe past performance rating upgrade /v1/generate/post-award-cpar-rebuttal' },
+        'product-rea-equitable-adjustment': { cat: 'pricing', num: '35', kw: '35 govcon request for equitable adjustment rea constructive change cda claim contract disputes act 41 usc 7103 far 52.243-1 52.243-2 52.242-14 stop work delay defective gfe eichleay unabsorbed home office overhead dfars 252.243-7002 /v1/generate/rea-equitable-adjustment' },
+        'product-mentor-protege-jv-agreement': { cat: 'capture', num: '36', kw: '36 sba mentor protege 13 cfr 125.8 125.9 joint venture operating agreement compliance unpopulated jv 40% protege workshare responsible manager 2 year rule 13 cfr 121.103 affiliation shield sdvosb 128.402 8a 124.513 wosb 127.506 /v1/generate/mentor-protege-jv-agreement' },
+        'product-service-contract-act-wage': { cat: 'pricing', num: '37', kw: '37 service contract act sca far 52.222-41 52.222-43 52.222-42 davis bacon dba wage determination wd directory of occupations 14160 14170 health and welfare h&w $4.98 $5.36 eo 13706 paid sick leave sf-1444 conformance 29 cfr 4 /v1/audit/service-contract-act-wage' },
+        'product-evms-ipmdr-variance-analysis': { cat: 'pricing', num: '38', kw: '38 govcon earned value management system evms ansi eia-748 32 guidelines dfars 252.234-7001 252.234-7002 ipmdr format 5 variance analysis report var bcws bcwp acwp bac cpi spi tcpi eac ieac vac ibr integrated baseline review /v1/generate/evms-ipmdr-variance-analysis' },
+        'product-cost-accounting-cas-ds2': { cat: 'pricing', num: '39', kw: '39 cost accounting standards cas 48 cfr 9903 9904 casb ds-1 ds-2 disclosure statement modified cas 401 402 405 406 410 418 full cas $2.5m $50m trigger g&a tci value added cost impactfar 52.230-2 52.230-6 /v1/generate/cost-accounting-cas-ds2' }
       };
 
       var currentApiQuery = '';
@@ -11868,8 +12936,8 @@
         }
         var stepMeta = {
           wire: {
-            title: 'Stage 1: 6-Hour Federal & 26-State SLED Solicitation Wire (Tier 1)',
-            desc: 'Automated discovery across 28 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
+            title: 'Stage 1: 6-Hour Federal & 31-State SLED Solicitation Wire (Tier 1)',
+            desc: 'Automated discovery across 33 Federal, SLED, and Defense portals with 99.4% non-IT commodity noise removed before leads reach your capture team.',
             nextTab: 'dossiers',
             nextLabel: 'Explore 24-API Capture Dossiers ->'
           },
@@ -11883,17 +12951,17 @@
             title: 'Stage 3: 90-Second Shipley 3-Volume Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
             desc: 'Compile ready-to-submit Technical, Past Performance, and IGCE Pricing .DOCX/.XLSX volumes, enforce 13 CFR 125.6 workshare limits, and benchmark competitor labor rates.',
             nextTab: 'coverage',
-            nextLabel: 'Explore 28-Portal Coverage Matrix ->'
+            nextLabel: 'Explore 33-Portal Coverage Matrix ->'
           },
           coverage: {
-            title: 'Stage 4: Unified 28-Portal Federal, Defense & 26-State SLED Coverage',
-            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, and UT procurement portals.',
+            title: 'Stage 4: Unified 33-Portal Federal, Defense & 31-State SLED Coverage',
+            desc: 'Continuous 6-hour extraction across SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, and OK procurement portals.',
             nextTab: 'integrations',
-            nextLabel: 'Explore Slack, Teams, CRM & 34 APIs ->'
+            nextLabel: 'Explore Slack, Teams, CRM & 39 APIs ->'
           },
           integrations: {
-            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 34 Stateless APIs',
-            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 34 GovCon microservices via REST and Model Context Protocol (MCP).',
+            title: 'Stage 5: Native Slack, Microsoft Teams, CRM Webhooks & 39 Stateless APIs',
+            desc: 'Stream structured JSON dossiers into Salesforce, HubSpot, Slack, or Microsoft Teams, or invoke all 39 GovCon microservices via REST and Model Context Protocol (MCP).',
             nextTab: 'wire',
             nextLabel: 'Return to Live Solicitation Wire ->'
           },
@@ -12344,12 +13412,15 @@
           'capture-moat': 'dossiers',
           'proposal-foia-moat': 'proposal',
           'coverage': 'coverage',
-          'integrations': 'integrations'
+          'integrations': 'integrations',
+          'inbound-lead-capture-box': 'all'
         };
         if (overviewTabMap[cleanId] && typeof window.switchOverviewProductTab === 'function') {
           window.switchOverviewProductTab('all', false);
         }
         var checkoutTabMap = {
+          'checkout-plan-recommender-bar': 'all',
+          'checkout-enterprise-proof-workbench': 'all',
           'checkout-live-feed-preview': 'preview',
           'capture-roi-calculator': 'roi',
           'checkout-benchmark-section': 'benchmark',
@@ -12366,6 +13437,8 @@
           'account-distribution-card': 'billing',
           'account-alert-filters-card': 'filters',
           'account-company-vault-card': 'filters',
+          'account-tier3-proposal-card': 'pipeline',
+          'account-tier4-foia-card': 'pipeline',
           'account-bid-board-card': 'pipeline',
           'account-api-key-value': 'pipeline',
           'account-profile-name': 'pipeline',
@@ -12374,7 +13447,7 @@
         if (accountTabMap[cleanId] && typeof window.switchAccountWorkspaceTab === 'function') {
           window.switchAccountWorkspaceTab('all');
         }
-        if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix') && typeof window.switchApiCatalogTab === 'function') {
+        if ((cleanId.indexOf('product-') === 0 || cleanId === 'catalog-modules' || cleanId === 'api-pricing-matrix' || cleanId === 'api-mcp-quickstart-terminal') && typeof window.switchApiCatalogTab === 'function') {
           window.switchApiCatalogTab('all');
         }
         var el = document.getElementById(cleanId);
@@ -12385,7 +13458,11 @@
             'contracts-top-section': 'static-contracts-top-section',
             'static-contracts-top-section': 'contracts-top-section',
             'spa-contracts-lead-box': 'static-inbound-lead-box',
-            'static-inbound-lead-box': 'spa-contracts-lead-box'
+            'static-inbound-lead-box': 'spa-contracts-lead-box',
+            'contracts-rfp-workbench-card': 'static-rfp-workbench-card',
+            'static-rfp-workbench-card': 'contracts-rfp-workbench-card',
+            'contracts-rfp-plans-card': 'static-rfp-plans-card',
+            'static-rfp-plans-card': 'contracts-rfp-plans-card'
           };
           if (aliasMap[cleanId]) el = document.getElementById(aliasMap[cleanId]);
         }
@@ -12490,6 +13567,20 @@
           if (mobBtn) mobBtn.classList.add('hidden');
           if (typeof window.renderPageSectionSidebar === 'function') {
             window.renderPageSectionSidebar();
+          }
+        } else {
+          drawer.classList.add('hidden');
+          drawer.classList.remove('flex');
+          if (backdrop) backdrop.classList.add('hidden');
+          if (mobBtn) mobBtn.classList.remove('hidden');
+          var sInp = document.getElementById('page-sidebar-search-input');
+          if (sInp && sInp.value) {
+            sInp.value = '';
+            if (typeof window.filterPageSidebar === 'function') window.filterPageSidebar('');
+          }
+        }
+        return nextState;
+      };
 
       window.copyMcpServerConfig = function (btnEl) {
         var mcpJson = JSON.stringify({
@@ -12551,20 +13642,27 @@
           }, 650);
         }, { passive: true });
       })();
+
+      (function syncStandaloneApisHeaderAuth() {
+        try {
+          var raw = window.localStorage ? window.localStorage.getItem('st_account_profile') : null;
+          if (!raw) return;
+          var prof = JSON.parse(raw);
+          if (!prof || (!prof.email && !prof.name)) return;
+          var linksEl = document.getElementById('apis-standalone-auth-links');
+          var userEl = document.getElementById('apis-standalone-auth-user');
+          var nameEl = document.getElementById('apis-standalone-auth-user-name');
+          if (linksEl) linksEl.classList.add('hidden');
+          if (userEl) {
+            userEl.classList.remove('hidden');
+            userEl.classList.add('inline-flex');
           }
-        } else {
-          drawer.classList.add('hidden');
-          drawer.classList.remove('flex');
-          if (backdrop) backdrop.classList.add('hidden');
-          if (mobBtn) mobBtn.classList.remove('hidden');
-          var sInp = document.getElementById('page-sidebar-search-input');
-          if (sInp && sInp.value) {
-            sInp.value = '';
-            if (typeof window.filterPageSidebar === 'function') window.filterPageSidebar('');
+          if (nameEl) {
+            var disp = String(prof.name || prof.email || 'My Account').split(' ')[0];
+            nameEl.textContent = disp.length > 14 ? disp.slice(0, 14) : disp;
           }
-        }
-        return nextState;
-      };
+        } catch (_e) {}
+      })();
 
       window.openSidebarAndFocusSearch = function () {
         window.togglePageSectionSidebar(true);
@@ -12713,7 +13811,7 @@
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 28 portals operational', color: 'text-emerald-400', action: 'trust_status' },
+            { icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 33 portals operational', color: 'text-emerald-400', action: 'trust_status' },
             { icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' },
             { icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' },
             { icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' },
@@ -12728,9 +13826,11 @@
             rawItems = [
               { icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' },
               { icon: 'card', id: 'account-billing-card', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' },
-              { icon: 'chat', id: 'account-distribution-card', label: 'Distribution & Team CC', kw: 'discord email webhook team cc seats', color: 'text-indigo-300' },
-              { icon: 'sliders', id: 'account-alert-filters-card', label: '28-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
+              { icon: 'chat', id: 'account-distribution-card', label: 'Distribution & Team CC', kw: 'slack teams crm webhook email discord team cc seats', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'account-alert-filters-card', label: '33-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' },
               { icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' },
+              { icon: 'doc', id: 'account-tier3-proposal-card', label: 'Tier 3 Proposal .ZIP Compiler', kw: 'shipley proposal compiler zip docx xlsx 13 cfr 125.6 teaming clearinghouse', color: 'text-emerald-400' },
+              { icon: 'globe', id: 'account-tier4-foia-card', label: 'Tier 4 FOIA & Recompete Radar', kw: 'foia pia incumbent rate vault 90 180 day recompete radar', color: 'text-amber-300' },
               { icon: 'table', id: 'account-bid-board-card', label: 'Saved RFP Bid Board', kw: 'pipeline bid board saved rfps stage', color: 'text-emerald-400' },
               { icon: 'code', id: 'account-apikey-security-grid', label: 'API Key, MCP & Security', kw: 'api key st_live mcp claude cursor config profile password security', color: 'text-amber-300' }
             ];
@@ -12746,12 +13846,15 @@
           currentPageKey = 'checkout';
           pageTitle = 'Plans & B2B Checkout';
           rawItems = [
-            { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing email webhook routing', color: 'text-sky-400' },
+            { icon: 'sliders', id: 'btn-billing-monthly', label: 'Billing & Delivery Setup', kw: 'monthly annual billing slack teams crm webhook email routing', color: 'text-sky-400' },
+            { icon: 'flag', id: 'checkout-plan-recommender-bar', label: 'Interactive Plan Recommender', kw: 'which plan fits my team goal recommender', color: 'text-sky-400' },
             { icon: 'bolt', id: 'checkout-card-tier1', label: 'Tier 1 & Tier 2 Plans ($99 / $399)', kw: 'tier 1 signalwire pro 99 tier 2 capturedesk autopilot 399 leads dossiers api', color: 'text-sky-400' },
             { icon: 'doc', id: 'checkout-card-tier3', label: 'Tier 3 & Tier 4 Enterprise ($1.5k+)', kw: 'tier 3 proposal autopilot shipley zip docx xlsx teaming 1499 tier 4 oem foia vault 2499', color: 'text-emerald-400' },
-            { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live Channel Feed Preview', kw: 'sample preview feed discord dossier', color: 'text-emerald-400' },
+            { icon: 'cpu', id: 'checkout-enterprise-proof-workbench', label: 'Enterprise Proof & CFO Quote', kw: 'live tier 3 zip demo tier 4 foia demand letter cfo net-30 quote pdf', color: 'text-indigo-300' },
+            { icon: 'chat', id: 'checkout-live-feed-preview', label: 'Live 4-Tier Channel Preview', kw: 'sample preview feed slack teams webhook dossier foia', color: 'text-emerald-400' },
             { icon: 'chart', id: 'capture-roi-calculator', label: 'Capture ROI Calculator', kw: 'calculator roi hours saved labor rate', color: 'text-amber-300' },
-            { icon: 'help', id: 'checkout-faq-section', label: 'Cost Benchmark & FAQ', kw: 'govwin bgov comparison faq questions', color: 'text-slate-300' }
+            { icon: 'table', id: 'checkout-benchmark-section', label: 'Cost Benchmark & Onboarding', kw: 'govwin bgov comparison 60 second onboarding', color: 'text-sky-400' },
+            { icon: 'help', id: 'checkout-faq-section', label: 'Procurement & Security FAQ', kw: 'faq questions cancellation security', color: 'text-slate-300' }
           ];
         } else if (contractsPage && !contractsPage.classList.contains('hidden')) {
           currentPageKey = 'contracts';
@@ -12760,18 +13863,21 @@
             rawItems = [
               { icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'contracts-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' },
+              { icon: 'card', id: 'contracts-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 34 apis mcp server', color: 'text-sky-400' },
               { icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else if (document.getElementById('contracts-portal-hubs-grid')) {
             rawItems = [
-              { icon: 'table', id: 'contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
-              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'pulse', id: 'contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-top-section', label: 'Portal & Category Filters', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'table', id: 'contracts-live-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -12781,6 +13887,7 @@
           pageTitle = 'API & MCP Catalog';
           rawItems = [
             { icon: 'table', id: 'api-directory-list', label: 'Quick-Jump API Directory', kw: 'directory index table search endpoints', color: 'text-sky-400' },
+            { icon: 'cpu', id: 'api-mcp-quickstart-terminal', label: 'Unified Gateway & MCP Setup', kw: 'mcp server claude cursor windsurf npx health quickstart', color: 'text-indigo-300' },
             { icon: 'bolt', id: 'rapidapi-sandbox-modal', label: 'Interactive Studio Playground', kw: 'sandbox test try live api playground json', color: 'text-emerald-400', action: 'sandbox' },
             { icon: 'code', id: 'catalog-modules', label: 'Endpoint Specs & Schemas', kw: 'modules cards schemas request response curl', color: 'text-indigo-300' },
             { icon: 'card', id: 'api-pricing-matrix', label: 'Tier & Quota Pricing Matrix', kw: 'pricing plans basic pro ultra mega rate limits', color: 'text-amber-300' }
@@ -12792,18 +13899,22 @@
             rawItems = [
               { icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' },
               { icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' },
+              { icon: 'sliders', id: 'static-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' },
+              { icon: 'card', id: 'static-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 34 apis mcp server', color: 'text-sky-400' },
               { icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else if (document.getElementById('contracts-portal-hubs-grid')) {
             rawItems = [
-              { icon: 'table', id: 'static-contracts-top-section', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
-              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'pulse', id: 'static-contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' },
+              { icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'flag', id: 'static-recompete-radar-card', label: 'Recompete Radar & FOIA Wire', kw: 'recompete radar 90 180d prime subcontracting foia vault', color: 'text-amber-300' },
+              { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
           } else {
             rawItems = [
-              { icon: 'globe', id: 'static-contracts-top-section', label: 'Portal & Category Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
+              { icon: 'globe', id: 'static-contracts-top-section', label: 'Portal & Category Filters', kw: 'states federal categories filter hubs', color: 'text-sky-400' },
               { icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' },
               { icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }
             ];
@@ -12812,12 +13923,14 @@
           currentPageKey = 'overview';
           pageTitle = 'Platform Overview';
           rawItems = [
-            { icon: 'pulse', id: 'overview', label: 'Hero & 28-Portal Overview', kw: 'top hero federal sled portals summary', color: 'text-sky-400' },
-            { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'discord slack email alerts live wire feed', color: 'text-sky-400' },
+            { icon: 'pulse', id: 'overview', label: 'Hero & 4-Tier Overview', kw: 'top hero federal sled portals summary tier 1 tier 2 tier 3 tier 4', color: 'text-sky-400' },
+            { icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'slack teams crm webhook email discord alerts live wire feed', color: 'text-sky-400' },
             { icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' },
-            { icon: 'table', id: 'contract-directory', label: '28-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
+            { icon: 'doc', id: 'proposal-foia-moat', label: 'Proposal .ZIP & FOIA Moat', kw: 'tier 3 tier 4 proposal compiler zip docx xlsx foia teaming', color: 'text-emerald-400' },
+            { icon: 'table', id: 'contract-directory', label: '33-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' },
             { icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' },
-            { icon: 'link', id: 'integrations', label: 'CRM, Slack & Webhooks', kw: 'webhooks hubspot salesforce slack teams json', color: 'text-amber-300' }
+            { icon: 'link', id: 'integrations', label: 'Slack, Teams, CRM & APIs', kw: 'webhooks hubspot salesforce slack teams json 34 apis', color: 'text-amber-300' },
+            { icon: 'bolt', id: 'inbound-lead-capture-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock lead capture', color: 'text-emerald-400' }
           ];
         }
 

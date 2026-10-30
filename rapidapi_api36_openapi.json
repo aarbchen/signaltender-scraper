@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement Compliance API",
+    "version": "1.0.0",
+    "description": "Audits and generates SBA All-Small Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 126.616 / 127.506 / 128.402), validating the mandatory 40% Prot\u00e9g\u00e9 substantive workshare floor, Managing Venturer operational control, Employed Responsible Manager designation, Special JV Bank Account cosignature rules, and 13 CFR 121.103(h) affiliation & ostensible-subcontractor safe harbors."
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/mentor-protege-jv-agreement": {
+      "post": {
+        "summary": "Audit & Generate an SBA All-Small Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement (13 CFR 125.8)",
+        "operationId": "generate_mentor_protege_jv_agreement",
+        "description": "Audits and generates SBA All-Small Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 126.616 / 127.506 / 128.402), validating the mandatory 40% Prot\u00e9g\u00e9 substantive workshare floor, Managing Venturer operational control, Employed Responsible Manager designation, Special JV Bank Account cosignature rules, and 13 CFR 121.103(h) affiliation & ostensible-subcontractor safe harbors.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "mentor_protege_and_solicitation_text"
+                ],
+                "properties": {
+                  "mentor_protege_and_solicitation_text": {
+                    "type": "string",
+                    "description": "Target solicitation, NAICS code, Prot\u00e9g\u00e9 (Managing Venturer) & Mentor details, SBA MPA approval status, and proposed labor/subcontract workshare.",
+                    "example": "TARGET SOLICITATION: W52P1J-26-R-0074 ($45M SDVOSB Set-Aside, NAICS 541512). UNPOPULATED JV: Aegis-Vanguard Cyber JV LLC. PROTEGE: Vanguard Defense Cyber LLC (51% owner, Responsible Manager Marcus Vance, performs 44% of JV labor). MENTOR: Aegis Global Federal Corp (49% owner, SBA MPA #MPA-2025-8841, performs 56% of JV labor)."
+                  },
+                  "joint_venture_set_aside_program": {
+                    "type": "string",
+                    "default": "SBA_All_Small_Mentor_Protege_JV_13_CFR_125_8_And_125_9",
+                    "description": "Target SBA socioeconomic set-aside regime (All-Small MPA, 8(a), SDVOSB, WOSB, HUBZone)."
+                  },
+                  "jv_structure_and_workshare_mode": {
+                    "type": "string",
+                    "default": "Unpopulated_LLC_40Pct_Protege_Workshare_Floor",
+                    "description": "Unpopulated LLC structure and 13 CFR 125.8(c) workshare enforcement mode."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

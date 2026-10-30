@@ -558,3 +558,31 @@ Node.js v26.7.0
 
 === ARCHIVED & RESOLVED AT 2026-10-30 02:36:08 UTC: Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
 [2026-10-30 02:29:30 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Mobile 375px viewport overflow on index.html#checkout@1024px: ['div [PAST_SCREEN left=531 right=1537 vw=1024] "01 // Free Custom RFP .ZIP Compiler (Tier 3) 02 // Live FOIA Rate Vaul" (flex flex-wrap items-center gap-2 shrink-0 font-mono text-xs)', 'button [PAST_SCREEN left=886 right=1211 vw=1024] "02 // Live FOIA Rate Vault Query (Tier 4)" (px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-amber-300 border bo)', 'button [PAST_SCREEN left=1219 right=1537 vw=1024] "03 // CFO & FAR 31.205-18 Approval Quote" (px-3.5 py-2.5 rounded-xl bg-navy-950 hover:bg-slate-800 text-sky-300 border bord)']
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 04:07:55 UTC: Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 1 local + 0 remote alert(s)) ===
+[2026-10-30 03:24:06 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: proposal_compiler.py (Tier 3 Volume V [alabama]): Missing statutory citation 'Ala. Code § 36-12-40 (Alabama Open Records Law — Public Procurement Disclosure & $0 Electronic Delivery)'!
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 10:09:38 UTC: Mid-build state during 39-API expansion in 928481bc; guarded by is_expansion_build_in_progress() in silent_autopilot_watcher.py ===
+[2026-10-30 09:41:07 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34
+[2026-10-30 09:41:35 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34
+[2026-10-30 09:58:50 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34
+[2026-10-30 10:00:23 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 10:10:06 UTC: Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-10-30 10:09:52 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34
+
+=== ARCHIVED & RESOLVED AT 2026-10-30 10:43:19 UTC: Auto-healed & verified by auto_error_healer.py (33/33 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote alert(s)) ===
+[2026-10-30 10:17:24 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale API count string 'test all 34 AI APIs' (expected 39 APIs)
+[2026-10-30 10:18:48 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Top telemetry bar ticker 'SAM.GOV &bull; DEMANDSTAR &bull; VA eVA &bull; TX ESBD &bull; CA Cal eProcure &bull; FL MFMP &bull; MD eMMA &bull; IL BidBuy &bull; PA eMarketplace &bull; OH OhioBuys &bull; GA GPR &bull; NC eVP &bull; NY CROL &bull; MA COMMBUYS &bull; NJ NJSTART &bull; WA WEBS &bull; MI SIGMA &bull; CO VSS &bull; AZ APP &bull; MN SWIFT &bull; TN EDISON &bull; IN IDOA &bull; MO MISSOURIBUYS &bull; WI eSupplier &bull; SC SCBO &bull; OR OregonBuys &bull; CT CTsource &bull; UT U3P' is missing portal abbreviation 'NV' for 'nevada'
+[2026-10-30 10:19:15 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string 'Select All 3' (expected 33 portals / 31 states)
+[2026-10-30 10:20:07 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '28-PORTAL' (expected 33 portals / 31 states)
+[2026-10-30 10:20:48 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '28 / 28 Active' (expected 33 portals / 31 states)
+[2026-10-30 10:21:24 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '28 / 28 Active' (expected 33 portals / 31 states)
+[2026-10-30 10:22:15 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Found stale portal/state count string '"portals_monitored"</span>: <span class="text-emerald-300">28</span>' (expected 33 portals / 31 states)
+[2026-10-30 10:23:24 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: State abbreviation list 'SAM.gov, DemandStar, VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT' is missing active state 'NV'
+[2026-10-30 10:23:59 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: pseo_generator.py: State abbreviation list 'TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT' is missing active state 'NV'
+[2026-10-30 10:25:57 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: linkedin_autoposter.py: Found stale customer-facing count '34 GovCon REST & MCP APIs' (expected 33 portals / 31 states / 39 APIs). Update linkedin_autoposter.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-30 10:27:12 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/proposal_compiler.py: Found stale customer-facing count '26 State SLED' (expected 33 portals / 31 states / 39 APIs). Update api/routers/proposal_compiler.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-30 10:27:59 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/proposal_compiler.py: Found stale customer-facing count '27 State SLED' (expected 33 portals / 31 states / 39 APIs). Update api/routers/proposal_compiler.py and regenerate campaign_leads.csv / outbox_ready_queue.json.
+[2026-10-30 10:32:49 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: mcp-server/index.js: ENDPOINT_MAP has 0 tools, expected 39
+[2026-10-30 10:33:29 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: mcp-server/index.js: ENDPOINT_MAP has 0 tools, expected 39

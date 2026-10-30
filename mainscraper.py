@@ -751,6 +751,36 @@ PORTAL_FALLBACK_ENDPOINTS = {
         "default_agency": "State of Utah (U3P SciQuest / DTS)",
         "pop_state_code": "UT",
     },
+    "Nevada SLED (NevadaEPro / EITS)": {
+        "portal_url": "https://nevadaepro.com/bso/view/search/external/advancedSearchBid.xhtml",
+        "socrata_json": "",
+        "default_agency": "State of Nevada (NevadaEPro / EITS)",
+        "pop_state_code": "NV",
+    },
+    "Alabama SLED (Alabama Buys / OIT)": {
+        "portal_url": "https://alabamabuys.gov",
+        "socrata_json": "",
+        "default_agency": "State of Alabama (Alabama Buys / OIT)",
+        "pop_state_code": "AL",
+    },
+    "Louisiana SLED (LaPAC / OTS)": {
+        "portal_url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm",
+        "socrata_json": "",
+        "default_agency": "State of Louisiana (LaPAC / OTS)",
+        "pop_state_code": "LA",
+    },
+    "Kentucky SLED (KY VSS / COT)": {
+        "portal_url": "https://vss.ky.gov",
+        "socrata_json": "",
+        "default_agency": "Commonwealth of Kentucky (KY VSS / COT)",
+        "pop_state_code": "KY",
+    },
+    "Oklahoma SLED (OMES / IS)": {
+        "portal_url": "https://oklahoma.gov/omes/services/purchasing/solicitations.html",
+        "socrata_json": "",
+        "default_agency": "State of Oklahoma (OMES / Information Services)",
+        "pop_state_code": "OK",
+    },
 }
 
 
@@ -959,6 +989,11 @@ async def run_master_orchestrator(
         _run_source("Oregon SLED (OregonBuys / DAS EIS)", "import or_scraper", "or_scraper.run_scraper(push_to_db=False)"),
         _run_source("Connecticut SLED (CTsource / DAS BITS)", "import ct_scraper", "ct_scraper.run_scraper(push_to_db=False)"),
         _run_source("Utah SLED (U3P SciQuest / DTS)", "import ut_scraper", "ut_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Nevada SLED (NevadaEPro / EITS)", "import nv_scraper", "nv_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Alabama SLED (Alabama Buys / OIT)", "import al_scraper", "al_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Louisiana SLED (LaPAC / OTS)", "import la_scraper", "la_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Kentucky SLED (KY VSS / COT)", "import ky_scraper", "ky_scraper.run_scraper(push_to_db=False)"),
+        _run_source("Oklahoma SLED (OMES / IS)", "import ok_scraper", "ok_scraper.run_scraper(push_to_db=False)"),
         return_exceptions=True,
     )
 
@@ -991,6 +1026,11 @@ async def run_master_orchestrator(
         "Oregon SLED (OregonBuys / DAS EIS)",
         "Connecticut SLED (CTsource / DAS BITS)",
         "Utah SLED (U3P SciQuest / DTS)",
+        "Nevada SLED (NevadaEPro / EITS)",
+        "Alabama SLED (Alabama Buys / OIT)",
+        "Louisiana SLED (LaPAC / OTS)",
+        "Kentucky SLED (KY VSS / COT)",
+        "Oklahoma SLED (OMES / IS)",
     ]
     combined_records = []
 
