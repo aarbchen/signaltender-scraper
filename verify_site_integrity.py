@@ -23,7 +23,8 @@ import subprocess
 import sys
 import tempfile
 
-sys.stdout.reconfigure(encoding="utf-8")
+if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -794,8 +795,8 @@ window.filterContractsDirectory('');
 window.setSpaContractsPageSize(20);
 window.setSpaContractsPage(1);
 window.setSpaContractsPageSize(10);
-window.setSpaPortalHubsPageSize(20);
-window.setSpaPortalHubsPageSize(10);
+window.setSpaPortalHubsPageSize(24);
+window.setSpaPortalHubsPageSize(12);
 window.filterApiCatalog('cmmc', 'compliance');
 window.filterApiCatalog('', 'all');
 window.setApiCatalogPageSize(20);
@@ -807,10 +808,10 @@ window.filterMainRfpTable('', 'all');
 window.setMainRfpPageSize(20);
 window.setMainRfpPage(1);
 window.setMainRfpPageSize(10);
-window.setCoveragePortalPageSize(20);
-window.setCoveragePortalPageSize(10);
-window.setIntegrationsApiPageSize(20);
-window.setIntegrationsApiPageSize(10);
+window.setCoveragePortalPageSize(24);
+window.setCoveragePortalPageSize(12);
+window.setIntegrationsApiPageSize(24);
+window.setIntegrationsApiPageSize(12);
 window.openApiSandbox('product-key-personnel');
 window.closeApiSandbox();
 window.setCheckoutBilling('annual');

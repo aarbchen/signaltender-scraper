@@ -2930,10 +2930,10 @@
       }
     };
 
-    window.__STATIC_HUBS_PAGE_SIZE = 10;
+    window.__STATIC_HUBS_PAGE_SIZE = 12;
     window.__STATIC_HUBS_PAGE = 1;
     window.setStaticPortalHubsPageSize = function (sz) {
-      window.__STATIC_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+      window.__STATIC_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 12);
       window.__STATIC_HUBS_PAGE = 1;
       var inp = document.getElementById('static-hubs-search');
       window.filterStaticPortalHubs(inp ? inp.value : '', true);
@@ -2968,19 +2968,23 @@
         else cards[i].classList.add('hidden');
       }
       var totalMatched = matched.length;
-      var pSize = window.__STATIC_HUBS_PAGE_SIZE || 10;
+      var pSize = window.__STATIC_HUBS_PAGE_SIZE || 12;
       var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
       var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
       if (window.__STATIC_HUBS_PAGE > totalPages) window.__STATIC_HUBS_PAGE = totalPages;
       var startIdx = (pSize === 'all') ? 0 : ((window.__STATIC_HUBS_PAGE - 1) * effSize);
       var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+      if (pSize !== 'all' && totalMatched >= effSize && (endIdx - startIdx) < effSize) {
+        startIdx = Math.max(0, totalMatched - effSize);
+        endIdx = totalMatched;
+      }
       for (var m = 0; m < totalMatched; m++) {
         if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
         else matched[m].classList.add('hidden');
       }
       var rightEl = document.getElementById('static-hubs-toolbar-right');
       if (rightEl) {
-        var szBtns = [10, 20, 'all'].map(function (sz) {
+        var szBtns = [12, 24, 'all'].map(function (sz) {
           var act = String(pSize) === String(sz);
           var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
           var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;

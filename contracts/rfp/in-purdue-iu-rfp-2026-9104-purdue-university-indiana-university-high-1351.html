@@ -1536,7 +1536,7 @@
                 <div id="static-rfp-related-card" class="p-6 rounded-2xl bg-navy-900/60 border border-slate-800">
                   <h2 class="text-base font-bold text-white font-mono uppercase tracking-wider mb-3">More Open Indiana IT Solicitations</h2>
                   <ul class="text-sm space-y-1">
-                    <li class="py-2 border-b border-slate-800/70"><a href="in-88965-communication-and-messaging-system-1532.html" class="text-sky-400 hover:underline font-medium">[IN-88965] Communication and Messaging System</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-crane-rfp-26-81509-nswc-crane-dual-use-defense-microelectronics-1352.html" class="text-sky-400 hover:underline font-medium">[IN-CRANE-RFP-26-81509] NSWC Crane Dual-Use Defense &amp; Microelectronics Corridor Secure DevSecOps Cloud, EW/Cyber Simulation &amp; CMMC Level 2 Automation</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-04)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-indy-isa-rfp-2026-0418-city-of-indianapolis-marion-county-information-1350.html" class="text-sky-400 hover:underline font-medium">[IN-INDY-ISA-RFP-2026-0418] City of Indianapolis &amp; Marion County Information Services Agency (ISA) Enterprise Cloud ERP/CRM, Municipal GIS &amp; 24/7 MDR</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-28)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-idoa-isp-26-77930-indiana-state-police-idoa-cjis-cloud-identity-1349.html" class="text-sky-400 hover:underline font-medium">[IN-IDOA-ISP-26-77930] Indiana State Police &amp; IDOA CJIS Cloud Identity, Automated License Plate Reader (ALPR) Analytics &amp; Endpoint EDR</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-25)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-indot-rfp-26-80215-indiana-dot-indot-next-gen-intelligent-1348.html" class="text-sky-400 hover:underline font-medium">[IN-INDOT-RFP-26-80215] Indiana DOT (INDOT) Next-Gen Intelligent Transportation Systems (ITS), Statewide Fiber Network &amp; Cloud ATMS Platform</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-21)</span></li>
+                    <li class="py-2 border-b border-slate-800/70"><a href="in-00570-digital-staff-visitor-entry-management-1571.html" class="text-sky-400 hover:underline font-medium">[IN-00570] Digital staff visitor entry management</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-03)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-88965-communication-and-messaging-system-1532.html" class="text-sky-400 hover:underline font-medium">[IN-88965] Communication and Messaging System</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-30)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-crane-rfp-26-81509-nswc-crane-dual-use-defense-microelectronics-1352.html" class="text-sky-400 hover:underline font-medium">[IN-CRANE-RFP-26-81509] NSWC Crane Dual-Use Defense &amp; Microelectronics Corridor Secure DevSecOps Cloud, EW/Cyber Simulation &amp; CMMC Level 2 Automation</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-12-04)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-indy-isa-rfp-2026-0418-city-of-indianapolis-marion-county-information-1350.html" class="text-sky-400 hover:underline font-medium">[IN-INDY-ISA-RFP-2026-0418] City of Indianapolis &amp; Marion County Information Services Agency (ISA) Enterprise Cloud ERP/CRM, Municipal GIS &amp; 24/7 MDR</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-28)</span></li><li class="py-2 border-b border-slate-800/70"><a href="in-idoa-isp-26-77930-indiana-state-police-idoa-cjis-cloud-identity-1349.html" class="text-sky-400 hover:underline font-medium">[IN-IDOA-ISP-26-77930] Indiana State Police &amp; IDOA CJIS Cloud Identity, Automated License Plate Reader (ALPR) Analytics &amp; Endpoint EDR</a> <span class="text-slate-500 font-mono text-xs ml-2">(2026-11-25)</span></li>
                   </ul>
                 </div>
               </div>
@@ -2555,10 +2555,10 @@
       }
     };
 
-    window.__STATIC_HUBS_PAGE_SIZE = 10;
+    window.__STATIC_HUBS_PAGE_SIZE = 12;
     window.__STATIC_HUBS_PAGE = 1;
     window.setStaticPortalHubsPageSize = function (sz) {
-      window.__STATIC_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 10);
+      window.__STATIC_HUBS_PAGE_SIZE = (sz === 'all' || sz === 0) ? 'all' : (parseInt(sz, 10) || 12);
       window.__STATIC_HUBS_PAGE = 1;
       var inp = document.getElementById('static-hubs-search');
       window.filterStaticPortalHubs(inp ? inp.value : '', true);
@@ -2593,19 +2593,23 @@
         else cards[i].classList.add('hidden');
       }
       var totalMatched = matched.length;
-      var pSize = window.__STATIC_HUBS_PAGE_SIZE || 10;
+      var pSize = window.__STATIC_HUBS_PAGE_SIZE || 12;
       var effSize = (pSize === 'all') ? Math.max(1, totalMatched) : pSize;
       var totalPages = Math.max(1, Math.ceil(totalMatched / effSize));
       if (window.__STATIC_HUBS_PAGE > totalPages) window.__STATIC_HUBS_PAGE = totalPages;
       var startIdx = (pSize === 'all') ? 0 : ((window.__STATIC_HUBS_PAGE - 1) * effSize);
       var endIdx = (pSize === 'all') ? totalMatched : Math.min(totalMatched, startIdx + effSize);
+      if (pSize !== 'all' && totalMatched >= effSize && (endIdx - startIdx) < effSize) {
+        startIdx = Math.max(0, totalMatched - effSize);
+        endIdx = totalMatched;
+      }
       for (var m = 0; m < totalMatched; m++) {
         if (m >= startIdx && m < endIdx) matched[m].classList.remove('hidden');
         else matched[m].classList.add('hidden');
       }
       var rightEl = document.getElementById('static-hubs-toolbar-right');
       if (rightEl) {
-        var szBtns = [10, 20, 'all'].map(function (sz) {
+        var szBtns = [12, 24, 'all'].map(function (sz) {
           var act = String(pSize) === String(sz);
           var arg = (sz === 'all') ? '&quot;all&quot;' : sz;
           var lbl = (sz === 'all') ? 'All (' + totalMatched + ')' : sz;
