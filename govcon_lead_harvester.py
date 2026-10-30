@@ -1319,11 +1319,11 @@ def discover_usaspending_small_business_websites(
     for st_code, st_full in active_states:
         # Track next page cursor in mx_cache keys `page_cursor:<ST>:<idx>`
         start_pg = 1
-        for p_try in range(1, 35):
+        for p_try in range(1, 75):
             if not mx_cache.get(f"usaspending_pg:{st_code}:{p_try}"):
                 start_pg = p_try
                 break
-        for pg in range(start_pg, min(start_pg + pages_per_state, 35)):
+        for pg in range(start_pg, min(start_pg + pages_per_state, 75)):
             mx_cache[f"usaspending_pg:{st_code}:{pg}"] = True
             try:
                 resp = requests.post(
@@ -1528,7 +1528,7 @@ def discover_federal_sbir_and_tech_named_executives(
     newly_verified: List[Dict[str, str]] = []
     for _wave in range(3):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in (1, 26, 51, 76, 101, 126, 151, 176, 201):
+        for off in range(226, 851, 25):
             for kw in topic_keywords:
                 for prog in ("SBIR", "STTR"):
                     cur_key = f"sbir_kw_it_v3:{prog}:{kw}:{off}"

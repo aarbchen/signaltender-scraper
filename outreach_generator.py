@@ -947,21 +947,21 @@ def build_two_step_outreach(
 
     if target_segment == "ENTERPRISE_OEM_FOIA":
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown, Post-Award FOIA Incumbent LCAT Rate Benchmark, and 1-Click 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} territory filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier, FOIA incumbent labor rate vault, and 90-second 6-File Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
-            f"Here is the direct Section L/M breakdown, FOIA incumbent rate benchmark, and 1-Click 6-File .DOCX/.XLSX Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
+            f"Mind if I reply with the direct solicitation links, incumbent labor-rate benchmarks, and pre-shredded Section L/M compliance briefs for these {bid_count}?",
+            f"Want me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these {bid_count}?",
+            f"Is {region_label} IT/cyber on {comp_possessive} radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these {bid_count} if useful.",
         ]
     elif target_segment == "PRIME_PROPOSAL_AUTOPILOT":
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown and 1-Click 6-File Shipley Proposal .ZIP Compiler (Vol I .docx + Vol II live-formula CLIN .xlsx + Vol III-V .docx) for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} territory filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier and 90-second 6-File Shipley Proposal .ZIP Compiler (.docx + live-formula .xlsx) for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
-            f"Here is the direct Section L/M breakdown, 13 CFR 125.6 Teaming Slot verifier, and 1-Click 6-File Shipley Proposal .ZIP Compiler for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
+            f"Mind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these {bid_count}?",
+            f"Want me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these {bid_count}?",
+            f"Are you bidding {region_label} IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these {bid_count} if useful.",
         ]
     else:
         step1_ctas = [
-            f"I posted the pre-shredded Section L/M breakdown, 1-Click 13 CFR 125.6 Compliant Teaming Slot request, and 6-File Shipley Proposal .ZIP Compiler for #1 here:\n{clean_dossier_url}\n\nYou can also launch the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or claim a Free Explorer Account ({clean_portal_url}) to save {comp_possessive} state & NAICS filters.\n\nAre you actively bidding {region_label} IT work right now (or reply 'ZIP' and I'll send the 6-file Shipley .DOCX/.XLSX package directly), or should I take you off my list?",
-            f"You can inspect the pre-shredded capture dossier, request a 13 CFR 125.6 subcontracting slot, or compile a 6-File Shipley .DOCX/.XLSX proposal draft for #1 here:\n{clean_dossier_url}\n\nOr test the 1-Click 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) and Free Explorer Portal ({clean_portal_url}) anytime.\n\nIs {region_label} IT/cyber on {comp_possessive} radar this quarter (or reply 'ZIP' for the direct .DOCX/.XLSX compiler package)?",
-            f"Here is the direct Section L/M, NAICS, 13 CFR 125.6 Teaming Exchange & 6-File Proposal .ZIP breakdown for #1:\n{clean_dossier_url}\n\nPre-loaded 6-File Proposal .ZIP Compiler: {compiler_deeplink_url} | Free Explorer Portal: {clean_portal_url}\n\nWorth sending over future {region_label} IT scopes when they hit the wire (or reply 'ZIP' to grab the 6-file proposal package)?",
+            f"Mind if I reply with the direct solicitation links, Section L/M compliance shreds, and subcontracting/teaming breakdowns for these {bid_count}?",
+            f"Want me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these {bid_count}?",
+            f"Is {region_label} IT/cyber on {comp_possessive} radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these {bid_count} if helpful.",
         ]
 
     signoffs = [
@@ -975,95 +975,61 @@ def build_two_step_outreach(
         f"{_pick_variant(seed, 2, greetings)}\n\n"
         f"{_pick_variant(seed, 3, openers)} "
         f"{_pick_variant(seed, 4, relevance_lines)}\n\n"
-        f"{payload_text}"
-        f"{recompete_and_sub_step1}\n"
-        f"{_pick_variant(seed, 5, value_props).replace(',sole-source', ', sole-source')}\n\n"
+        f"{payload_text}\n"
         f"{_pick_variant(seed, 6, step1_ctas)}\n\n"
         f"{_pick_variant(seed, 7, signoffs)}"
     )
 
     # -------------------------------------------------------------------------
-    # STEP 2 (TOUCH 2 - DAY +3): PERSONA-SEGMENTED 4-TIER PITCH
+    # STEP 2 (TOUCH 2 - DAY +3): ZERO-LINK, ZERO-PRICE CONVERSATIONAL BUMP
     # -------------------------------------------------------------------------
     step2_intros = [
-        f"Quick follow-up in case {clean_comp} is expanding its {region_label} capture and proposal pipeline this quarter.",
-        f"Following up briefly on the {region_label} IT solicitations and pre-shredded capture dossiers I sent over earlier this week.",
-        f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.",
-        f"Wanted to follow up one last time regarding our automated 33-portal Federal and 31-State SLED capture & proposal suite.",
+        f"Quick follow-up on the {region_label} IT & cybersecurity solicitations above in case {clean_comp} is bidding public-sector tech work this quarter.",
+        f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
+        f"Circling back with one quick note in case your capture team is evaluating {region_label} IT or cybersecurity bids this month.",
+        f"Wanted to follow up briefly regarding the open {region_label} IT solicitations from our 33-portal Federal and 31-State SLED monitor.",
     ]
     intel_block = ""
     if top_intel:
         human_top_title = format_human_title_for_email(top_intel["clean_title"])
         human_top_agency = clean_agency_for_email(top_intel["agency"])
-        recompete_step2_lines = ""
-        if recompete_item and subcontract_item:
-            recompete_step2_lines = (
-                f"• 90-180d Recompete PTW & Shaping (API #16 + API #21): {recompete_item['awarding_sub_agency_short']} {recompete_item['award_id']} "
-                f"({recompete_item['award_amount_fmt']} incumbent {clean_company_for_copy(recompete_item['incumbent_recipient'])}, PoP ends {recompete_item['end_date']}) -> "
-                f"Challenger PTW Ceiling {recompete_item['api16_ptw_challenger_ceiling_fmt']} + FAR 19.502-2 Rule-of-Two Set-Aside Brief\n"
-                f"• Fresh Prime Subcontracting Wire (API #11): {clean_company_for_copy(subcontract_item['prime_recipient'])} ({subcontract_item['award_amount_fmt']} at {subcontract_item['awarding_sub_agency_short']}, {subcontract_item['award_id']}) -> "
-                f"{subcontract_item['api11_sb_subcontract_pool_fmt']}\n"
+        recompete_step2_line = ""
+        if recompete_item:
+            rec_amt_clean = str(recompete_item.get("award_amount_fmt") or "").replace("$", "USD ")
+            recompete_step2_line = (
+                f" We also flagged {recompete_item['awarding_sub_agency_short']} contract {recompete_item['award_id']} "
+                f"({rec_amt_clean} incumbent {clean_company_for_copy(recompete_item['incumbent_recipient'])}, PoP ending {recompete_item['end_date']}) "
+                f"entering its recompete shaping window."
             )
         intel_block = (
-            f"For example, on '{human_top_title}' ({human_top_agency}), our CaptureDesk engine already pre-computed:\n"
-            f"• Classification: NAICS {top_intel['primary_naics']} (SBA Cap: {top_intel['sba_size_standard']})\n"
-            f"• Cyber & Clause Posture: {top_intel['compliance_posture']}\n"
-            f"• Teaming & Past Performance: {top_intel['teaming_posture']}\n"
-            f"{recompete_step2_lines}"
-            f"• Live Dossier & 1-Click 3-Volume Proposal .ZIP Compiler: {clean_dossier_url}\n"
-            f"• Direct 1-Click Pre-Loaded .ZIP Proposal Compiler Link: {compiler_deeplink_url}\n\n"
+            f"On #1 ('{human_top_title}' — {human_top_agency}, NAICS {top_intel['primary_naics']}), "
+            f"we already mapped the Section L/M evaluation criteria, {top_intel['compliance_posture']}, and teaming posture across our 39 AI capture modules "
+            f"covering SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK)."
+            f"{recompete_step2_line}"
+        )
+    else:
+        intel_block = (
+            f"We already mapped the Section L/M evaluation criteria, incumbent contract history, and teaming posture across our 39 AI capture modules "
+            f"covering SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK)."
         )
 
-    if target_segment == "ENTERPRISE_OEM_FOIA":
-        step2_tiers = [
-            (
-                f"{intel_block}"
-                f"Because {clean_comp} operates at Prime/Enterprise scale, we built SignalTender to replace $25,000/RFP proposal consultants and $18,000+/yr legacy GovWin seats with four self-serve tiers (leading with our FOIA Rate Vault & 1-Click Proposal .ZIP Compiler):\n\n"
-                f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA / State PIA Incumbent Winning LCAT Rate Vault (verified awarded labor rates & expiring PoPs across Federal & 31 SLED states) + 50,000 REST/MCP API calls/mo (@signaltender/mcp-server) for internal Copilot/Claude capture workflows.\n"
-                f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing editable Word .docx Volume I Technical + live-formula Excel .xlsx Volume II Cost/CLIN Model + Word .docx Volume III Past Performance/OCI in 90s) + 13 CFR § 125.6 Verified Teaming Clearinghouse.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 24-API Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), and CPARS Volume III citations across all 33 Federal & 31-State SLED portals.\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT/Cyber alert wire."
-            ),
-        ]
-    elif target_segment == "PRIME_PROPOSAL_AUTOPILOT":
-        step2_tiers = [
-            (
-                f"{intel_block}"
-                f"Instead of paying $15,000–$35,000 per RFP to outside Shipley proposal consultants or $15,000+/yr for legacy GovWin seats, Prime capture teams plug into SignalTender completely self-serve:\n\n"
-                f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo — Most Popular for Primes): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP with editable Word .docx Volume I Technical/Management + live-formula Excel .xlsx Volume II CLIN Pricing & PTW + Word .docx Volume III CPARS/13 CFR § 125.6/OCI in 90 seconds) + Verified 13 CFR § 125.6 Teaming Clearinghouse.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Automated 24-Engine AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, and 39 REST/MCP APIs (@signaltender/mcp-server).\n"
-                f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent Winning LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT/Cyber alerts + 90-180d Recompete Wire."
-            ),
-        ]
-    else:
-        step2_tiers = [
-            (
-                f"{intel_block}"
-                f"Instead of paying $15,000+/yr for legacy GovWin seats or $25,000 per RFP for proposal consultants, capture teams plug into SignalTender completely self-serve (zero sales calls or demos):\n\n"
-                f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 6-hour SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT/Cyber alerts + 90-180d Recompete & 30% Subcontracting Wire routed to Discord, Slack, MS Teams, or Webhook.\n"
-                f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Everything in Tier 1 + automated AI Section L/M Compliance Matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 Amendment Diffs, and 39 REST/MCP APIs (@signaltender/mcp-server).\n"
-                f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing native Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Verified Teaming Clearinghouse.\n"
-                f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent Winning LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license."
-            ),
-        ]
-
     step2_closers = [
-        f"You can create a Free Explorer Account ($0/mo — no credit card required) to save {comp_possessive} state & NAICS alert filters, Capture Vault, and Bid Board at:\n{clean_portal_url}\n\nOr activate any plan (Tier 1 $99/mo, Tier 2 $399/mo, Tier 3 Proposal .ZIP $1,499/mo, or Tier 4 FOIA/OEM $2,499/mo) in 60 seconds at:\n{clean_checkout_url}\n\nClassified as an allowable Bid & Proposal (B&P) market-research expense under FAR 31.205-18 (instant itemized PDF receipt for corporate P-Cards & 1-click auto-renew pause in #account).",
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to configure your territory filters and test all 39 AI Capture APIs:\n{clean_portal_url}\n\nOr start a month-to-month SignalWire ($99/mo), CaptureDesk ($399/mo), Proposal Autopilot ($1,499/mo), or Enterprise OEM & FOIA Vault ($2,499/mo) plan anytime at:\n{clean_checkout_url}\n\n100% self-serve, FAR 31.205-18 allowable B&P expense (corporate P-Card & DCAA PDF invoice ready), no demos required.",
+        f"Want me to reply with the direct solicitation links and pre-shredded Section L/M capture brief for #1, or should I hold off?",
+        f"Mind if I send over the direct agency solicitation links and Section L/M compliance matrix for #1?",
+        f"Worth sending over the direct solicitation links and incumbent breakdown for #1, or is {clean_comp} focused elsewhere right now?",
     ]
 
     step2_subject = f"Re: {step1_subject}"
     step2_body = (
         f"{_pick_variant(seed, 8, greetings)}\n\n"
         f"{_pick_variant(seed, 9, step2_intros)}\n\n"
-        f"{_pick_variant(seed, 10, step2_tiers)}\n\n"
+        f"{intel_block}\n\n"
         f"{_pick_variant(seed, 11, step2_closers)}\n\n"
         f"{_pick_variant(seed, 12, signoffs)}"
     )
 
     # -------------------------------------------------------------------------
-    # NATIVE INSTANTLY / SMARTLEAD {{RANDOM | ...}} SPINTAX TEMPLATES
+    # NATIVE INSTANTLY / SMARTLEAD {{RANDOM | ...}} SPINTAX TEMPLATES (ZERO-LINK)
     # -------------------------------------------------------------------------
     spintax_greeting = (
         f"{{{{RANDOM | Hi {clean_comp} team, | Hello {clean_comp} team,}}}}"
@@ -1100,25 +1066,17 @@ def build_two_step_outreach(
         f"We maintain a live public-sector RFP engine covering {portal_focus} and 30 additional state procurement portals every 6 hours. | "
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.}}}} "
         f"{spintax_relevance_1}\n\n"
-        f"{payload_text}"
-        f"{recompete_and_sub_step1}\n"
-        f"{{{{RANDOM | Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes. | "
-        f"Everything is pre-filtered to remove low-value maintenance renewals and hardware reselling so your team only sees actionable IT & cyber RFPs. | "
-        f"Each solicitation is de-duplicated every 6 hours and pre-shredded with NAICS, SBA size caps, compliance posture, and teaming requirements.}}}}\n\n"
+        f"{payload_text}\n"
         f"{{{{RANDOM | {step1_ctas[0]} | {step1_ctas[1]} | {step1_ctas[2]}}}}}\n\n"
         f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )
     spintax_body_2 = (
         f"{spintax_greeting}\n\n"
-        f"{{{{RANDOM | Quick follow-up in case {clean_comp} is expanding its {region_label} capture pipeline this quarter. | "
+        f"{{{{RANDOM | Quick follow-up on the {region_label} IT & cybersecurity solicitations above in case {clean_comp} is bidding public-sector tech work this quarter. | "
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week. | "
-        f"Circling back with one quick note in case your team tracks Federal or State SLED IT & cybersecurity bids.}}}}\n\n"
-        f"{ step2_tiers[0] }\n\n"
-        f"{{{{RANDOM | You can create a Free Explorer Account ($0/mo — no credit card required) to save your state/NAICS filters and Capture Vault at: | "
-        f"Claim a Free Explorer Account ($0/mo) in our Client Portal to track bids and test all 39 AI APIs at:}}}}\n{clean_portal_url}\n\n"
-        f"{{{{RANDOM | Or activate full 6-hour dispatches (Tier 1 $99/mo, Tier 2 $399/mo, Tier 3 Proposal .ZIP $1,499/mo, or Tier 4 FOIA/OEM $2,499/mo) in 60 seconds here: | "
-        f"Or start a month-to-month Tier 1 ($99/mo), Tier 2 ($399/mo), Tier 3 ($1,499/mo), or Tier 4 ($2,499/mo) plan anytime at:}}}}\n{clean_checkout_url}\n\n"
-        f"{{{{RANDOM | No contracts or onboarding calls—cancel anytime in 1 click. | 100% self-serve, FAR 31.205-18 allowable B&P expense, no demos required.}}}}\n\n"
+        f"Circling back with one quick note in case your capture team tracks Federal or State SLED IT & cybersecurity bids.}}}}\n\n"
+        f"{intel_block}\n\n"
+        f"{{{{RANDOM | {step2_closers[0]} | {step2_closers[1]} | {step2_closers[2]}}}}}\n\n"
         f"{{{{RANDOM | Best, | Regards, | Best regards,}}}}\nAaron Chen\nFounder, SignalTender"
     )
 
@@ -1127,15 +1085,13 @@ def build_two_step_outreach(
         (
             f"{_pick_variant(seed, 13, greetings)}\n\n"
             f"Last note from me so I don't clutter your inbox.\n\n"
-            f"If {clean_comp} has a live SAM.gov or {region_label} RFP on your desk this week, reply with the Solicitation Number (or 'ZIP' for #1 from my first note) and I'll run a complete 6-file Shipley .DOCX/.XLSX proposal + Section L/M compliance shred for your team on the house so you can benchmark it against your current process.\n\n"
-            f"Otherwise, you can always use the pre-loaded 6-File Proposal .ZIP Compiler ({compiler_deeplink_url}) or Free Explorer Portal ({clean_portal_url}) anytime.\n\n"
+            f"If {clean_comp} has a live SAM.gov or {region_label} RFP on your desk this month, reply 'SEND' (or reply with the Solicitation Number) and I'll send over the direct agency links plus a complete 6-file Shipley proposal & Section L/M compliance shred for your team on the house.\n\n"
             f"{_pick_variant(seed, 14, signoffs)}"
         ),
         (
             f"{_pick_variant(seed, 13, greetings)}\n\n"
             f"Closing the loop on this—I won't follow up again unless I hear from you.\n\n"
-            f"If your capture team is evaluating any Federal or {region_label} IT solicitation right now, reply with the Solicitation ID (or 'ZIP') and I will generate the 6-file Shipley Proposal .ZIP (Word .docx Vol I/III + live-formula Excel .xlsx Vol II Cost Model) for {clean_comp} at no cost.\n\n"
-            f"Direct pre-loaded compiler link: {compiler_deeplink_url} | Free Explorer Portal ($0/mo): {clean_portal_url}\n\n"
+            f"If your capture team is evaluating any Federal or {region_label} IT solicitation right now, reply 'SEND' (or share the Solicitation ID) and I will send the direct solicitation links and Section L/M compliance matrix for {clean_comp} at no cost.\n\n"
             f"{_pick_variant(seed, 14, signoffs)}"
         ),
     ]
