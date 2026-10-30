@@ -751,7 +751,7 @@ ENDPOINTS = [
         "path": "/v1/generate/rea-equitable-adjustment",
         "rapid_host": "govcon-rea-constructive-change-cda-claim-api.p.rapidapi.com",
         "payload": {
-            "contract_changes_and_delay_events_text": (
+            "contract_change_and_delay_facts": (
                 "CONTRACT: FA8726-25-C-0089 (USAF Tactical Zero-Trust Cloud Migration, FFP + T&M CLINs, $14.2M Ceiling). "
                 "EVENT 1 (GFE DELAY): Government failed to deliver 12 Accredited Cross-Domain Guard appliances by Nov 1, 2025 "
                 "per Section H.8; actual delivery occurred Jan 14, 2026 (74-day Government-caused delay), forcing 6 cleared "
@@ -759,8 +759,8 @@ ENDPOINTS = [
                 "EVENT 2 (CONSTRUCTIVE CHANGE): On Dec 3, 2025, COR directed via Technical Direction Email #19 that contractor "
                 "integrate an out-of-scope legacy mainframe COBOL feed not listed in PWS Section 3.2 (2,120 additional engineering hours)."
             ),
-            "entitlement_and_relief_pathway": "FAR_52_243_Changes_Clause_REA_Pre_Claim_Negotiation",
-            "indirect_rate_and_profit_assumptions": "Standard_DCAA_Fringe_Overhead_GA_Plus_Weighted_Guidelines_Profit",
+            "remedy_clause_and_submission_type": "FAR_52_243_Changes_Clause_REA_Pre_Claim_Negotiation",
+            "quantum_pricing_methodology": "Standard_DCAA_Fringe_Overhead_GA_Plus_Weighted_Guidelines_Profit",
         },
     },
     {
@@ -770,7 +770,7 @@ ENDPOINTS = [
         "path": "/v1/generate/mentor-protege-jv-agreement",
         "rapid_host": "sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com",
         "payload": {
-            "mentor_protege_and_solicitation_text": (
+            "mentor_and_protege_profile_text": (
                 "TARGET SOLICITATION: W52P1J-26-R-0074 (U.S. Army ACC-Rock Island Enterprise Cyber SOC & Zero-Trust Engineering, "
                 "$45M Total Small Business / SDVOSB Set-Aside, NAICS 541512, $34M Size Standard). "
                 "UNPOPULATED JV NAME: Aegis-Vanguard Cyber JV LLC. "
@@ -779,8 +779,8 @@ ENDPOINTS = [
                 "PARTNER VENTURER (MENTOR): Aegis Global Federal Corp (Large Business, SBA Approved Mentor-Protege Agreement #MPA-2025-8841, "
                 "49% Ownership, performs 56% of total JV labor hours)."
             ),
-            "joint_venture_set_aside_program": "SBA_All_Small_Mentor_Protege_JV_13_CFR_125_8_And_125_9",
-            "jv_structure_and_workshare_mode": "Unpopulated_LLC_40Pct_Protege_Workshare_Floor",
+            "target_set_aside_and_jv_type": "SBA_All_Small_Mentor_Protege_JV_13_CFR_125_8_And_125_9",
+            "agreement_deliverable_scope": "Unpopulated_LLC_40Pct_Protege_Workshare_Floor",
         },
     },
     {
@@ -790,7 +790,7 @@ ENDPOINTS = [
         "path": "/v1/audit/service-contract-act-wage",
         "rapid_host": "govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com",
         "payload": {
-            "solicitation_lcats_and_locality_text": (
+            "rfp_labor_categories_and_locality_text": (
                 "SOLICITATION: 47QTCK-26-R-0055 (Federal Enterprise Service Desk, Network Operations & Records Administration, "
                 "Place of Performance: Arlington, VA / Washington-Arlington-Alexandria DC-VA-MD-WV Locality, WD 2015-4281 Rev 28). "
                 "PROPOSED LCATS & BASE RATES: (1) Tier 1 IT Service Desk Specialist (12 FTEs, Proposed Base Wage: $24.10/hr, "
@@ -798,8 +798,8 @@ ENDPOINTS = [
                 "(3) Technical Documentation & CDRL Specialist (3 FTEs, Proposed Base Wage: $33.25/hr); "
                 "(4) Senior Zero-Trust Cloud Architect (4 FTEs, Salaried FLSA Exempt $168,000/yr)."
             ),
-            "prevailing_wage_statutory_regime": "McNamara_OHara_Service_Contract_Act_SCA_FAR_52_222_41",
-            "executive_order_and_fringe_posture": "EO_13706_Paid_Sick_Leave_H_And_W_ Plus_FAR_52_222_43_Price_Adjustment",
+            "wage_determination_and_fringe_mode": "McNamara_OHara_Service_Contract_Act_SCA_FAR_52_222_41",
+            "audit_objective": "EO_13706_Paid_Sick_Leave_H_And_W_ Plus_FAR_52_222_43_Price_Adjustment",
         },
     },
     {
@@ -809,7 +809,7 @@ ENDPOINTS = [
         "path": "/v1/generate/evms-ipmdr-variance-analysis",
         "rapid_host": "govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com",
         "payload": {
-            "wbs_earned_value_metrics_text": (
+            "wbs_control_account_metrics_text": (
                 "CONTRACT: N00024-25-C-5410 (U.S. Navy Combat System Cloud & Sensor Fusion Modernization, CPFF, DFARS 252.234-7002 EVMS Required). "
                 "PROGRAM BUDGET AT COMPLETION (BAC): $24,500,000. REPORTING PERIOD: October 2026. "
                 "WBS 1.2 (Zero-Trust Tactical Edge K8s Platform): BCWS = $4,200,000; BCWP = $3,780,000; ACWP = $4,150,000; WBS BAC = $8,500,000 "
@@ -817,8 +817,8 @@ ENDPOINTS = [
                 "WBS 1.3 (DevSecOps Automated RMF Pipeline): BCWS = $2,800,000; BCWP = $2,940,000; ACWP = $2,710,000; WBS BAC = $5,500,000. "
                 "WBS 1.4 (System Integration & Test Lab): BCWS = $1,900,000; BCWP = $1,710,000; ACWP = $1,995,000; WBS BAC = $4,800,000."
             ),
-            "evms_compliance_and_cdrl_regime": "DFARS_252_234_7002_EIA_748_32_Guidelines_And_DID_DI_MGMT_81861C_IPMDR",
-            "eac_forecasting_methodology": "Composite_CPI_Times_SPI_Weighted_And_Bottom_Up_ETC",
+            "variance_reporting_thresholds": "DFARS_252_234_7002_EIA_748_32_Guidelines_And_DID_DI_MGMT_81861C_IPMDR",
+            "evms_reporting_standard": "Composite_CPI_Times_SPI_Weighted_And_Bottom_Up_ETC",
         },
     },
     {
@@ -828,7 +828,7 @@ ENDPOINTS = [
         "path": "/v1/generate/cost-accounting-cas-ds2",
         "rapid_host": "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com",
         "payload": {
-            "contract_awards_and_accounting_practices_text": (
+            "contractor_accounting_and_awards_profile": (
                 "TARGET AWARD: $38.5M Negotiated DoD CPFF Engineering Contract (Non-Commercial, Certified Cost or Pricing Data required under FAR 15.403-4). "
                 "BUSINESS UNIT PRIOR YEAR CAS-COVERED AWARDS: $56.2M in net CAS-covered awards during prior cost accounting period (including one $12M CAS-covered task order). "
                 "BUSINESS UNIT STATUS: Commercial & Defense Systems Segment (currently transitioning from Modified CAS to Full CAS >= $50M threshold). "
@@ -836,8 +836,8 @@ ENDPOINTS = [
                 "Engineering Overhead (24.5%) allocated on Direct Labor + Direct Fringe; G&A (11.2%) allocated on Total Cost Input (TCI). "
                 "PLANNED ACCOUNTING CHANGE: Effective Jan 1, 2027, contractor proposes to move Cloud SecOps DevSecOps Tooling ($620K/yr) from G&A Pool to Engineering Overhead Pool."
             ),
-            "cas_coverage_and_disclosure_mode": "CAS_Coverage_Determination_And_DS1_Eight_Part_Audit",
-            "accounting_change_cost_impact_posture": "FAR_52_230_6_Cost_Impact_And_Desirable_Change_Analysis",
+            "target_cas_coverage_and_ds_form": "CAS_Coverage_Determination_And_DS1_Eight_Part_Audit",
+            "g_and_a_allocation_base_preference": "FAR_52_230_6_Cost_Impact_And_Desirable_Change_Analysis",
         },
     },
 ]

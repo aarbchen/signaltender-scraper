@@ -23,20 +23,20 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "solicitation_lcats_and_locality_text"
+                  "rfp_labor_categories_and_locality_text"
                 ],
                 "properties": {
-                  "solicitation_lcats_and_locality_text": {
+                  "rfp_labor_categories_and_locality_text": {
                     "type": "string",
                     "description": "RFP labor categories, FTE counts, places of performance, Wage Determination (WD) numbers, and proposed base wages + H&W fringe.",
                     "example": "SOLICITATION: 47QTCK-26-R-0055 (Arlington, VA Locality, WD 2015-4281 Rev 28). LCATS: (1) Tier 1 IT Service Desk Specialist (12 FTEs, Proposed Base: $24.10/hr, H&W: $4.98/hr); (2) Tier 2 Network Technician (8 FTEs, Proposed Base: $31.50/hr); (3) Technical Writer (3 FTEs, Proposed Base: $33.25/hr); (4) Principal Cloud Architect (4 FTEs, FLSA Exempt $168,000/yr)."
                   },
-                  "prevailing_wage_statutory_regime": {
+                  "wage_determination_and_fringe_mode": {
                     "type": "string",
                     "default": "McNamara_OHara_Service_Contract_Act_SCA_FAR_52_222_41",
                     "description": "Governing statutory wage regime (SCA FAR 52.222-41, CBA 4(c), or Davis-Bacon)."
                   },
-                  "executive_order_and_fringe_posture": {
+                  "audit_objective": {
                     "type": "string",
                     "default": "EO_13706_Paid_Sick_Leave_H_And_W_Plus_FAR_52_222_43_Price_Adjustment",
                     "description": "Health & Welfare fringe tier (EO 13706 vs. Standard) and FAR 52.222-43 option-year price adjustment modeling."

@@ -23,20 +23,20 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "wbs_earned_value_metrics_text"
+                  "wbs_control_account_metrics_text"
                 ],
                 "properties": {
-                  "wbs_earned_value_metrics_text": {
+                  "wbs_control_account_metrics_text": {
                     "type": "string",
                     "description": "WBS Control Account metrics (BCWS, BCWP, ACWP, BAC), reporting period, variance thresholds, and technical/supply-chain root causes.",
                     "example": "CONTRACT: N00024-25-C-5410 (U.S. Navy Combat System Cloud Modernization, CPFF, DFARS 252.234-7002 EVMS Required). PROGRAM BAC: $24,500,000. WBS 1.2 (Zero-Trust Edge K8s): BCWS=$4,200,000; BCWP=$3,780,000; ACWP=$4,150,000; BAC=$8,500,000. WBS 1.3 (DevSecOps Pipeline): BCWS=$2,800,000; BCWP=$2,940,000; ACWP=$2,710,000; BAC=$5,500,000."
                   },
-                  "evms_compliance_and_cdrl_regime": {
+                  "variance_reporting_thresholds": {
                     "type": "string",
                     "default": "DFARS_252_234_7002_EIA_748_32_Guidelines_And_DID_DI_MGMT_81861C_IPMDR",
                     "description": "Governing EVMS statutory clause and CDRL IPMDR Format 5 reporting standard."
                   },
-                  "eac_forecasting_methodology": {
+                  "evms_reporting_standard": {
                     "type": "string",
                     "default": "Composite_CPI_Times_SPI_Weighted_And_Bottom_Up_ETC",
                     "description": "Independent Estimate at Completion (IEAC) statistical forecasting formula."

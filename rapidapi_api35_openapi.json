@@ -23,20 +23,20 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "contract_changes_and_delay_events_text"
+                  "contract_change_and_delay_facts"
                 ],
                 "properties": {
-                  "contract_changes_and_delay_events_text": {
+                  "contract_change_and_delay_facts": {
                     "type": "string",
                     "description": "Unstructured contract number, type (FFP/CPFF/T&M), COR/CO emails, technical directions, GFE delays, stop-work notices, and labor/ODC hours impacted.",
                     "example": "CONTRACT: FA8726-25-C-0089 (USAF Tactical Zero-Trust Cloud Migration, FFP + T&M CLINs, $14.2M Ceiling). EVENT 1 (GFE DELAY): Government failed to deliver 12 Accredited Cross-Domain Guard appliances by Nov 1, 2025 per Section H.8; actual delivery occurred Jan 14, 2026 (74-day delay), forcing 6 cleared engineers into standby/re-sequencing (1,480 direct labor hours). EVENT 2 (CONSTRUCTIVE CHANGE): COR directed out-of-scope legacy mainframe COBOL feed integration (2,120 engineering hours)."
                   },
-                  "entitlement_and_relief_pathway": {
+                  "remedy_clause_and_submission_type": {
                     "type": "string",
                     "default": "FAR_52_243_Changes_Clause_REA_Pre_Claim_Negotiation",
                     "description": "Target FAR entitlement clause and REA vs. Certified CDA Claim posture."
                   },
-                  "indirect_rate_and_profit_assumptions": {
+                  "quantum_pricing_methodology": {
                     "type": "string",
                     "default": "Standard_DCAA_Fringe_Overhead_GA_Plus_Weighted_Guidelines_Profit",
                     "description": "Contractor indirect wrap rates (Fringe, Overhead, G&A) and profit/Eichleay assumptions."

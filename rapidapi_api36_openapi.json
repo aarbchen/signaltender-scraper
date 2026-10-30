@@ -23,20 +23,20 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "mentor_protege_and_solicitation_text"
+                  "mentor_and_protege_profile_text"
                 ],
                 "properties": {
-                  "mentor_protege_and_solicitation_text": {
+                  "mentor_and_protege_profile_text": {
                     "type": "string",
                     "description": "Target solicitation, NAICS code, Prot\u00e9g\u00e9 (Managing Venturer) & Mentor details, SBA MPA approval status, and proposed labor/subcontract workshare.",
                     "example": "TARGET SOLICITATION: W52P1J-26-R-0074 ($45M SDVOSB Set-Aside, NAICS 541512). UNPOPULATED JV: Aegis-Vanguard Cyber JV LLC. PROTEGE: Vanguard Defense Cyber LLC (51% owner, Responsible Manager Marcus Vance, performs 44% of JV labor). MENTOR: Aegis Global Federal Corp (49% owner, SBA MPA #MPA-2025-8841, performs 56% of JV labor)."
                   },
-                  "joint_venture_set_aside_program": {
+                  "target_set_aside_and_jv_type": {
                     "type": "string",
                     "default": "SBA_All_Small_Mentor_Protege_JV_13_CFR_125_8_And_125_9",
                     "description": "Target SBA socioeconomic set-aside regime (All-Small MPA, 8(a), SDVOSB, WOSB, HUBZone)."
                   },
-                  "jv_structure_and_workshare_mode": {
+                  "agreement_deliverable_scope": {
                     "type": "string",
                     "default": "Unpopulated_LLC_40Pct_Protege_Workshare_Floor",
                     "description": "Unpopulated LLC structure and 13 CFR 125.8(c) workshare enforcement mode."

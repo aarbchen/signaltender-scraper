@@ -23,20 +23,20 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "contract_awards_and_accounting_practices_text"
+                  "contractor_accounting_and_awards_profile"
                 ],
                 "properties": {
-                  "contract_awards_and_accounting_practices_text": {
+                  "contractor_accounting_and_awards_profile": {
                     "type": "string",
                     "description": "Target contract value/type, prior-year net CAS-covered awards, small business status, indirect cost pools, and planned accounting changes.",
                     "example": "TARGET AWARD: $38.5M Negotiated DoD CPFF Engineering Contract. PRIOR YEAR CAS AWARDS: $56.2M net CAS-covered awards. PRACTICES: Fringe (30.8%) on Total Labor; Overhead (24.5%) on DL + Fringe; G&A (11.2%) on Total Cost Input (TCI). PLANNED CHANGE: Move Cloud SecOps Tooling ($620K/yr) from G&A to Engineering Overhead."
                   },
-                  "cas_coverage_and_disclosure_mode": {
+                  "target_cas_coverage_and_ds_form": {
                     "type": "string",
                     "default": "CAS_Coverage_Determination_And_DS1_Eight_Part_Audit",
                     "description": "CAS coverage determination and Form CASB DS-1 / DS-2 audit mode."
                   },
-                  "accounting_change_cost_impact_posture": {
+                  "g_and_a_allocation_base_preference": {
                     "type": "string",
                     "default": "FAR_52_230_6_Cost_Impact_And_Desirable_Change_Analysis",
                     "description": "FAR 52.230-6 cost-impact modeling posture (Unilateral, Desirable, or Required change)."
