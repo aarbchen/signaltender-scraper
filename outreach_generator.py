@@ -1316,7 +1316,7 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                 replied_inst_emails.add(em)
                             elif lead_status == 3:
                                 completed_non_responders.append((em, lid))
-                            elif not govcon_lead_harvester.is_verified_it_cyber_prospect(comp_it, em):
+                            elif not govcon_lead_harvester.is_verified_it_cyber_prospect(comp_it, em, str((it.get('payload') or {}).get('subject_line') or '')):
                                 non_it_or_invalid_to_purge.append((em, lid))
                             elif has_started_sequence:
                                 in_flight_inst_emails.add(em)

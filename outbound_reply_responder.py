@@ -222,6 +222,27 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     ):
         return {"intent": "UNSUBSCRIBE", "reply_body": ""}
 
+    subj_low = str(subject or "").lower()
+    if (
+        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:"))
+        or any(
+            ooo_p in low
+            for ooo_p in (
+                "out of the office",
+                "out of office",
+                "currently away from",
+                "limited access to email",
+                "on vacation until",
+                "on parental leave",
+                "on medical leave",
+                "away from my desk",
+                "auto-reply",
+                "automatic reply",
+            )
+        )
+    ):
+        return {"intent": "OUT_OF_OFFICE", "reply_body": ""}
+
     ctx = _lookup_prospect_context(from_email)
     comp_label = ctx["company"] or "your team"
     state_label = ctx["matched_state"] or "Federal & State SLED"
@@ -229,13 +250,25 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     compiler_deeplink_url = ctx.get("compiler_deeplink_url") or f"{SITE_BASE_URL}/#proposal-autopilot"
     fname_greeting = f"Hi {ctx['first_name']},\n\n" if ctx["first_name"] and ctx["first_name"].lower() not in ("capture", "team", "there", "contracts", "partnerships") else ""
 
+    matched_lines = [
+        ln.strip()
+        for ln in str(ctx.get("original_email_body") or "").splitlines()
+        if ln.strip().startswith(("1. ", "2. ", "3. "))
+    ]
+    matched_3_block = (
+        "Here are the 3 open solicitations we flagged for " + comp_label + ":\n" + "\n".join(matched_lines) + "\n\n"
+        if matched_lines
+        else ""
+    )
+
     default_reply = (
         f"{fname_greeting}Appreciate the quick reply!\n\n"
-        f"Here is the direct CaptureDesk dossier for #1 from the {state_label} IT/Cyber list I sent over to {comp_label} (including the Section L/M compliance matrix, NAICS {ctx['top_naics']}, and official agency portal link):\n"
+        f"{matched_3_block}"
+        f"Here is the direct CaptureDesk dossier & official agency portal link for #1 from the {state_label} IT/Cyber list (including the Section L/M compliance matrix and NAICS {ctx['top_naics']}):\n"
         f"{top_dossier_url}\n\n"
         f"And here is your pre-loaded 1-Click 6-File Shipley Proposal .ZIP Compiler deep-link (Vol I Technical .docx + Vol II Live-Formula Section B Cost .xlsx + Vol III CPARS/OCI .docx + Vol IV FAR 9.6 Teaming .docx + Vol V FOIA Demand .docx):\n"
         f"{compiler_deeplink_url}\n\n"
-        f"And here is the full live directory of pre-shredded Federal & 31-State SLED IT/Cyber dossiers:\n"
+        f"And here is the full live directory of pre-shredded Federal & 31-State SLED IT/Cyber dossiers (Covering #1, #2, #3, and all active bids):\n"
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 39 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
