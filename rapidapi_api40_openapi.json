@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan API",
+    "version": "1.0.0",
+    "description": "Classifies defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP).",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/itar-ear-export-control": {
+      "post": {
+        "summary": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance",
+        "operationId": "Audit GovCon ITAR USML EAR CCL And TCP Export Control",
+        "description": "Classifies defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "technical_deliverables_and_rfp_export_text"
+                ],
+                "properties": {
+                  "technical_deliverables_and_rfp_export_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance API.",
+                    "example": "SOLICITATION W31P4Q-26-R-0118 (U.S. Army Aviation & Missile Command \u2014 Multi-Spectral EO/IR Counter-UAS Seeker & Fire-Control Firmware): Section C.3 Deliverables: (1) Real-time FPGA infrared target-tracking and seeker guidance firmware source code; (2) Ruggedized commercial-off-the-shelf (COTS) Linux mission processor board with AES-256 cryptographic bus; (3) Field Maintenance Technical Manuals (TM) and ICDs delivered to NATO coalition partners under Foreign Military Sales (FMS). Includes DFARS 252.225-7048 (Export-Controlled Items) and DoDI 5230.24 Distribution Statement D."
+                  },
+                  "target_export_regime": {
+                    "type": "string",
+                    "default": "ITAR_22_CFR_120_130_And_EAR_15_CFR_730_774_Dual_Audit",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "foreign_national_and_oconus_context": {
+                    "type": "string",
+                    "default": "U.S. Persons Only on ITAR USML Technical Data; Evaluate Deemed Export Rule (22 CFR 120.50 / 15 CFR 734.13)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

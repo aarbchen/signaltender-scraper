@@ -1,9 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "GovCon Earned Value Management System (EVMS / EIA-748) & IPMDR Variance Narrative API",
+    "title": "GovCon EVMS ANSI 748 IPMDR Variance Narrative API",
     "version": "1.0.0",
-    "description": "Ingests Work Breakdown Structure (WBS) Control Account cost and schedule metrics (BCWS, BCWP, ACWP, BAC) to compute Earned Value Management (EVMS) indices (CV, SV, CPI, SPI, TCPI, IEAC, VAC) and draft audit-ready Format 5 Integrated Program Management Data and Analysis Report (IPMDR / CDRL DID DI-MGMT-81861C) Variance Analysis Narratives with Root Cause, Program Impact, Corrective Action Plans (CAP), and EIA-748 32-Guideline DCMA surveillance checks under FAR 52.234-4 and DFARS 252.234-7002."
+    "description": "Ingests Work Breakdown Structure (WBS) Control Account cost and schedule metrics (BCWS, BCWP, ACWP, BAC) to compute Earned Value Management (EVMS) indices (CV, SV, CPI, SPI, TCPI, IEAC, VAC) and draft audit-ready Format 5 Integrated Program Management Data and Analysis Report (IPMDR / CDRL DID DI-MGMT-81861C) Variance Analysis Narratives with Root Cause, Program Impact, Corrective Action Plans (CAP), and EIA-748 32-Guideline DCMA surveillance checks under FAR 52.234-4 and DFARS 252.234-7002.",
+    "x-category": "Business"
   },
   "servers": [
     {

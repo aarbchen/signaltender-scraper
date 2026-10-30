@@ -307,6 +307,158 @@ JURISDICTIONS = {
         "headline": "Open Oklahoma State (OMES / IS) & Tinker AFB Aerospace/Defense IT Contracts",
         "description": "Live State of Oklahoma OMES Central Purchasing and Information Services (Cyber Command, OHCA SoonerCare Medicaid, ODOT), Tinker AFB OC-ALC 76th SWEG Defense Corridor, Oklahoma City/Tulsa, and OU/OSU IT, cloud, cybersecurity, and software solicitations.",
     },
+    "iowa": {
+        "name": "Iowa (IMPACS SciQuest, DOM DoIT & Guard Enclave)",
+        "short": "Iowa",
+        "portal": "IA IMPACS SciQuest, DOM DoIT, HHS, Iowa DOT & Camp Dodge",
+        "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        "headline": "Open Iowa State (IMPACS / DOM DoIT) & Des Moines IT Contracts",
+        "description": "Live State of Iowa IMPACS eProcurement (Department of Management DoIT, Iowa HHS Medicaid, Iowa DOT, Iowa National Guard Camp Dodge, Des Moines, UIowa/ISU) IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "kansas": {
+        "name": "Kansas (SMART eProcurement, OITS & Fort Leavenworth Corridor)",
+        "short": "Kansas",
+        "portal": "KS SMART eProcurement, OITS, KDHE, KDOT & Fort Leavenworth",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
+        "headline": "Open Kansas State (SMART / OITS) & Fort Leavenworth / McConnell AFB IT Contracts",
+        "description": "Live State of Kansas SMART eProcurement (Office of Information Technology Services, KISO, KDHE KanCare Medicaid, KDOT, Fort Leavenworth / McConnell AFB Defense Corridor, KU/K-State) IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "arkansas": {
+        "name": "Arkansas (ARBuy Periscope, DIS & Little Rock AFB Corridor)",
+        "short": "Arkansas",
+        "portal": "AR ARBuy Periscope, DIS, DHS, ARDOT & Little Rock AFB",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open Arkansas State (ARBuy / DIS) & Little Rock AFB IT Contracts",
+        "description": "Live State of Arkansas ARBuy eProcurement (Division of Information Systems, Arkansas DHS Medicaid, ARDOT, Little Rock AFB 19th AW / Ebbing ANGB Defense Corridor, UAMS/UArk) IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "mississippi": {
+        "name": "Mississippi (MAGIC, Dept. of ITS & Keesler AFB / Stennis Corridor)",
+        "short": "Mississippi",
+        "portal": "MS MAGIC, Dept. of ITS, DOM, MDOT & Keesler AFB / Stennis",
+        "badge_class": "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+        "headline": "Open Mississippi State (MAGIC / ITS) & Keesler AFB / Stennis Space IT Contracts",
+        "description": "Live State of Mississippi MAGIC and Department of Information Technology Services (ITS EPL, Division of Medicaid, MDOT, Keesler AFB 81st TRW / NASA Stennis Space Center / Ingalls Defense Corridor, MSU/Ole Miss) IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "new_mexico": {
+        "name": "New Mexico (GSD Share, DoIT & Kirtland AFB / Sandia-LANL Corridor)",
+        "short": "New Mexico",
+        "portal": "NM GSD Share, DoIT, HCA, NMDOT & Kirtland AFB / Sandia-LANL",
+        "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        "headline": "Open New Mexico State (GSD / DoIT) & Kirtland AFB / Sandia-LANL Defense IT Contracts",
+        "description": "Live State of New Mexico GSD State Purchasing and Department of Information Technology (DoIT, Health Care Authority Medicaid, NMDOT), Kirtland AFB AFRL / White Sands Missile Range / Sandia & Los Alamos National Labs Corridor, and UNM/NMSU IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "nebraska": {
+        "name": "Nebraska (DAS Materiel, OCIO & Offutt AFB USSTRATCOM Corridor)",
+        "short": "Nebraska",
+        "portal": "NE DAS Materiel, OCIO, DHHS, NDOT & Offutt AFB USSTRATCOM",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
+        "headline": "Open Nebraska State (DAS Materiel / OCIO) & Offutt AFB USSTRATCOM IT Contracts",
+        "description": "Live State of Nebraska DAS Materiel Purchasing and Office of the CIO (OCIO, DHHS Heritage Health Medicaid, NDOT), Offutt AFB USSTRATCOM / 55th Wing Defense Corridor, Omaha/Lincoln, and University of Nebraska IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "idaho": {
+        "name": "Idaho (IPRO LUMA, Office of ITS & INL / Mountain Home Corridor)",
+        "short": "Idaho",
+        "portal": "ID IPRO LUMA, Office of ITS, IDHW, ITD & INL / Mountain Home AFB",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open Idaho State (IPRO LUMA / ITS) & INL National Lab / Boise IT Contracts",
+        "description": "Live State of Idaho Division of Purchasing IPRO / LUMA and Office of Information Technology Services (ITS, IDHW Medicaid, ITD), Idaho National Laboratory (INL) Cybercore & Mountain Home AFB 366th FW Corridor, and BSU/UIdaho IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "hawaii": {
+        "name": "Hawaii (HIePRO HANDS, ETS & INDOPACOM / Pearl Harbor-Hickam)",
+        "short": "Hawaii",
+        "portal": "HI HIePRO HANDS, ETS, DHS, HDOT & USINDOPACOM / JBPHH",
+        "badge_class": "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+        "headline": "Open Hawaii State (HIePRO / ETS) & USINDOPACOM / Pearl Harbor Defense IT Contracts",
+        "description": "Live State of Hawaii SPO HIePRO / HANDS and Office of Enterprise Technology Services (ETS, DHS Med-QUEST, HDOT), USINDOPACOM / Joint Base Pearl Harbor-Hickam / DISA Pacific Defense Corridor, City & County of Honolulu, and UH System IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "new_hampshire": {
+        "name": "New Hampshire (DAS Purchase & Property, DoIT & Pease ANGB)",
+        "short": "New Hampshire",
+        "portal": "NH DAS Purchase & Property, DoIT, DHHS, NHDOT & Pease ANGB",
+        "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        "headline": "Open New Hampshire State (DAS / DoIT) & Portsmouth / Pease Defense IT Contracts",
+        "description": "Live State of New Hampshire DAS Bureau of Purchase and Property and Department of Information Technology (DoIT, NH DHHS Medicaid, NHDOT), Portsmouth Naval Shipyard / Pease ANGB / New Boston SFS Corridor, and USNH IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "maine": {
+        "name": "Maine (DAFS Procurement Services, MaineIT & Bath / Portsmouth Naval)",
+        "short": "Maine",
+        "portal": "ME DAFS Procurement, MaineIT, DHHS, MaineDOT & Bath / PNSY",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
+        "headline": "Open Maine State (DAFS / MaineIT) & Portsmouth / Bath Naval Defense IT Contracts",
+        "description": "Live State of Maine DAFS Division of Procurement Services and Office of Information Technology (MaineIT, DHHS MaineCare, MaineDOT), Portsmouth Naval Shipyard / Bath Iron Works / Bangor ANGB Defense Corridor, and UMS IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "rhode_island": {
+        "name": "Rhode Island (Ocean State Procures, ETSS & NUWC Newport Corridor)",
+        "short": "Rhode Island",
+        "portal": "RI Ocean State Procures, ETSS, EOHHS, RIDOT & NUWC Newport",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open Rhode Island State (OSP / ETSS) & NUWC Newport Undersea Defense IT Contracts",
+        "description": "Live State of Rhode Island Ocean State Procures (OSP / WebProcure, Division of Enterprise Technology Strategy and Services ETSS, EOHHS Medicaid, RIDOT), Naval Station Newport / NUWC Division Newport Undersea Warfare Corridor, and URI IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "montana": {
+        "name": "Montana (eMACS SciQuest, SITSD & Malmstrom AFB Defense Corridor)",
+        "short": "Montana",
+        "portal": "MT eMACS SciQuest, SITSD, DPHHS, MDT & Malmstrom AFB",
+        "badge_class": "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+        "headline": "Open Montana State (eMACS / SITSD) & Malmstrom AFB ICBM Defense IT Contracts",
+        "description": "Live State of Montana eMACS eProcurement (State Information Technology Services Division SITSD, DPHHS Medicaid, MDT), Malmstrom AFB 341st Missile Wing Sentinel ICBM Defense Corridor, and MSU/UMontana IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "delaware": {
+        "name": "Delaware (MyMarketplace Bonfire, DTI & Dover AFB Corridor)",
+        "short": "Delaware",
+        "portal": "DE MyMarketplace, DTI, DHSS, DelDOT & Dover AFB",
+        "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        "headline": "Open Delaware State (MyMarketplace / DTI) & Dover AFB Mobility IT Contracts",
+        "description": "Live State of Delaware MyMarketplace (Government Support Services, Department of Technology and Information DTI, DHSS Medicaid, DelDOT), Dover AFB 436th Airlift Wing Defense Corridor, and University of Delaware IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "south_dakota": {
+        "name": "South Dakota (OPM eProcurement, BIT & Ellsworth AFB B-21 Corridor)",
+        "short": "South Dakota",
+        "portal": "SD OPM eProcurement, BIT, DSS, SDDOT & Ellsworth AFB B-21",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
+        "headline": "Open South Dakota State (OPM / BIT) & Ellsworth AFB B-21 Raider Defense IT Contracts",
+        "description": "Live State of South Dakota Office of Procurement Management (OPM) and Bureau of Information and Telecommunications (BIT, DSS Medicaid, SDDOT), Ellsworth AFB 28th Bomb Wing B-21 Raider Beddown Defense Corridor, and Dakota State University Madison Cyber Labs IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "north_dakota": {
+        "name": "North Dakota (OMB SPO, NDIT & Minot / Grand Forks AFB Corridor)",
+        "short": "North Dakota",
+        "portal": "ND OMB SPO, NDIT, HHS, NDDOT & Minot / Grand Forks AFB",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open North Dakota State (OMB SPO / NDIT) & Minot / Grand Forks UAS Defense IT Contracts",
+        "description": "Live State of North Dakota OMB State Procurement Office (SPO) and North Dakota Information Technology (NDIT Joint Cyber Operations, HHS Medicaid, NDDOT), Minot AFB 5th BW / 91st MW & Grand Forks AFB RQ-4 / Northern Plains UAS Test Site Corridor, and UND/NDSU IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "alaska": {
+        "name": "Alaska (IRIS VSS / OPN, OIT & JBER / Eielson Arctic Defense Corridor)",
+        "short": "Alaska",
+        "portal": "AK IRIS VSS / OPN, OIT, DOH, DOT&PF & JBER / Eielson / Clear SFS",
+        "badge_class": "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+        "headline": "Open Alaska State (IRIS / OIT) & JBER / Eielson AFB Arctic Defense IT Contracts",
+        "description": "Live State of Alaska IRIS Vendor Self-Service & Online Public Notices (Office of Information Technology OIT, Alaska DOH Medicaid, DOT&PF), Joint Base Elmendorf-Richardson (JBER) ALCOM / Eielson AFB 354th FW / Clear Space Force Station LRDR Arctic Defense Corridor, and UA System IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "vermont": {
+        "name": "Vermont (BGS Electronic Bid System, ADS & Burlington ANGB Corridor)",
+        "short": "Vermont",
+        "portal": "VT BGS Bid System, Agency of Digital Services (ADS), AHS & VTrans",
+        "badge_class": "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        "headline": "Open Vermont State (BGS / ADS) & Burlington F-35 ANGB Cyber IT Contracts",
+        "description": "Live State of Vermont BGS Office of Purchasing & Contracting Electronic Bid System and Agency of Digital Services (ADS, Agency of Human Services DVHA Medicaid, VTrans), 158th Fighter Wing F-35A Burlington ANGB / Camp Ethan Allen Corridor, and UVM IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "west_virginia": {
+        "name": "West Virginia (wvOASIS VSS, WVOT & CJIS Clarksburg Federal Corridor)",
+        "short": "West Virginia",
+        "portal": "WV wvOASIS VSS, WVOT, DoHS, WVDOT & FBI CJIS / USCG Clarksburg",
+        "badge_class": "bg-sky-500/10 text-sky-300 border-sky-500/30",
+        "headline": "Open West Virginia State (wvOASIS / WVOT) & FBI CJIS / Clarksburg Biometrics IT Contracts",
+        "description": "Live State of West Virginia Purchasing Division wvOASIS Vendor Self-Service and Office of Technology (WVOT, DoHS BMS Medicaid, WVDOT), FBI CJIS Clarksburg / NOAA Fairmont / USCG Operations Systems Center Federal I-79 Corridor, and WVU/Marshall IT, cloud, cybersecurity, and software solicitations.",
+    },
+    "wyoming": {
+        "name": "Wyoming (A&I Public Purchase, ETS & F.E. Warren AFB Sentinel Corridor)",
+        "short": "Wyoming",
+        "portal": "WY A&I Public Purchase, ETS, WDH, WYDOT & F.E. Warren AFB",
+        "badge_class": "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+        "headline": "Open Wyoming State (A&I / ETS) & F.E. Warren AFB Sentinel ICBM Defense IT Contracts",
+        "description": "Live State of Wyoming Administration & Information (A&I Procurement / Public Purchase, Enterprise Technology Services ETS, WDH Medicaid, WYDOT), F.E. Warren AFB 90th Missile Wing Sentinel GBSD Defense Corridor, NCAR-Wyoming Supercomputing Center, and UWyo IT, cloud, cybersecurity, and software solicitations.",
+    },
     "municipal": {
         "name": "National Municipal (DemandStar)",
         "short": "Municipal SLED",
@@ -728,6 +880,328 @@ def classify_jurisdiction(rec: dict) -> str:
     ):
         return "oklahoma"
     if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
         "nevadaepro.com" in url
         or "purchasing.nv.gov" in url
         or "eits.nv.gov" in url
@@ -781,6 +1255,328 @@ def classify_jurisdiction(rec: dict) -> str:
         or "okstate.edu" in url
     ):
         return "oklahoma"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -1053,6 +1849,486 @@ def classify_jurisdiction(rec: dict) -> str:
     ):
         return "oklahoma"
     if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
         title.startswith("[NV]")
         or title.lower().startswith("[nv-")
         or "nevada" in agency
@@ -1115,6 +2391,486 @@ def classify_jurisdiction(rec: dict) -> str:
         or "76th sweg" in agency
     ):
         return "oklahoma"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -2393,7 +4149,7 @@ def _render_layout(
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">33 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">52 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="{root_prefix}index.html" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -2415,7 +4171,7 @@ def _render_layout(
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 31-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 50-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-2 2xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
           <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
@@ -2468,7 +4224,7 @@ def _render_layout(
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="{root_prefix}contracts/index.html">Portal: All (33)</option>
+          <option value="{root_prefix}contracts/index.html">Portal: All (52)</option>
           <option value="{root_prefix}contracts/federal/index.html">Federal (SAM.gov)</option>
           <option value="{root_prefix}contracts/texas/index.html">Texas (ESBD)</option>
           <option value="{root_prefix}contracts/virginia/index.html">Virginia (eVA)</option>
@@ -2501,6 +4257,25 @@ def _render_layout(
           <option value="{root_prefix}contracts/louisiana/index.html">Louisiana (LaPAC)</option>
           <option value="{root_prefix}contracts/kentucky/index.html">Kentucky (VSS)</option>
           <option value="{root_prefix}contracts/oklahoma/index.html">Oklahoma (OMES)</option>
+          <option value="{root_prefix}contracts/iowa/index.html">Iowa (IMPACS)</option>
+          <option value="{root_prefix}contracts/kansas/index.html">Kansas (SMART)</option>
+          <option value="{root_prefix}contracts/arkansas/index.html">Arkansas (ARBuy)</option>
+          <option value="{root_prefix}contracts/mississippi/index.html">Mississippi (MAGIC)</option>
+          <option value="{root_prefix}contracts/new_mexico/index.html">New Mexico (GSD)</option>
+          <option value="{root_prefix}contracts/nebraska/index.html">Nebraska (DAS)</option>
+          <option value="{root_prefix}contracts/idaho/index.html">Idaho (IPRO)</option>
+          <option value="{root_prefix}contracts/hawaii/index.html">Hawaii (HIePRO)</option>
+          <option value="{root_prefix}contracts/new_hampshire/index.html">New Hampshire (DAS)</option>
+          <option value="{root_prefix}contracts/maine/index.html">Maine (DAFS)</option>
+          <option value="{root_prefix}contracts/rhode_island/index.html">Rhode Island (OSP)</option>
+          <option value="{root_prefix}contracts/montana/index.html">Montana (eMACS)</option>
+          <option value="{root_prefix}contracts/delaware/index.html">Delaware (MMP)</option>
+          <option value="{root_prefix}contracts/south_dakota/index.html">South Dakota (OPM)</option>
+          <option value="{root_prefix}contracts/north_dakota/index.html">North Dakota (SPO)</option>
+          <option value="{root_prefix}contracts/alaska/index.html">Alaska (IRIS)</option>
+          <option value="{root_prefix}contracts/vermont/index.html">Vermont (BGS)</option>
+          <option value="{root_prefix}contracts/west_virginia/index.html">West Virginia (wvOASIS)</option>
+          <option value="{root_prefix}contracts/wyoming/index.html">Wyoming (A&I)</option>
           <option value="{root_prefix}contracts/municipal/index.html">Municipal</option>
         </select>
         <nav aria-label="State and Portal Quick Jump" class="hidden sm:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
@@ -2537,6 +4312,25 @@ def _render_layout(
           <a href="{root_prefix}contracts/louisiana/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Louisiana</a>
           <a href="{root_prefix}contracts/kentucky/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Kentucky</a>
           <a href="{root_prefix}contracts/oklahoma/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Oklahoma</a>
+          <a href="{root_prefix}contracts/iowa/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Iowa</a>
+          <a href="{root_prefix}contracts/kansas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Kansas</a>
+          <a href="{root_prefix}contracts/arkansas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Arkansas</a>
+          <a href="{root_prefix}contracts/mississippi/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Mississippi</a>
+          <a href="{root_prefix}contracts/new_mexico/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New Mexico</a>
+          <a href="{root_prefix}contracts/nebraska/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Nebraska</a>
+          <a href="{root_prefix}contracts/idaho/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Idaho</a>
+          <a href="{root_prefix}contracts/hawaii/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Hawaii</a>
+          <a href="{root_prefix}contracts/new_hampshire/index.html" class="shrink-0 hover:text-sky-400 transition-colors">New Hampshire</a>
+          <a href="{root_prefix}contracts/maine/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Maine</a>
+          <a href="{root_prefix}contracts/rhode_island/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Rhode Island</a>
+          <a href="{root_prefix}contracts/montana/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Montana</a>
+          <a href="{root_prefix}contracts/delaware/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Delaware</a>
+          <a href="{root_prefix}contracts/south_dakota/index.html" class="shrink-0 hover:text-sky-400 transition-colors">South Dakota</a>
+          <a href="{root_prefix}contracts/north_dakota/index.html" class="shrink-0 hover:text-sky-400 transition-colors">North Dakota</a>
+          <a href="{root_prefix}contracts/alaska/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Alaska</a>
+          <a href="{root_prefix}contracts/vermont/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Vermont</a>
+          <a href="{root_prefix}contracts/west_virginia/index.html" class="shrink-0 hover:text-sky-400 transition-colors">West Virginia</a>
+          <a href="{root_prefix}contracts/wyoming/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Wyoming</a>
           <a href="{root_prefix}contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
       </div>
@@ -2554,7 +4348,7 @@ def _render_layout(
               Prepared for Your Capture Team &mdash; Live Pre-Shredded IT &amp; Cybersecurity Dossier
             </div>
             <p class="text-xs text-slate-300">
-              All 33 Federal &amp; 31-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
+              All 52 Federal &amp; 50-State SLED Portals monitored every 6 hours. Zero annual contracts &bull; Instant 60-second self-serve activation.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5 shrink-0 font-mono text-xs">
@@ -2600,7 +4394,7 @@ def _render_layout(
               <div class="sm:col-span-1 xl:col-span-3">
                 <label for="static-lead-state" class="sr-only">Target Portal</label>
                 <select id="static-lead-state" data-default-state="{default_state}" class="w-full px-3 py-2.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs font-mono text-white">
-                  <option value="all">All 33 Portals (Fed + 31 States)</option>
+                  <option value="all">All 52 Portals (Fed + 50 States)</option>
                   <option value="federal">Federal (SAM.gov)</option>
                   <option value="virginia">Virginia (eVA)</option>
                   <option value="texas">Texas (SmartBuy ESBD)</option>
@@ -2633,6 +4427,25 @@ def _render_layout(
                   <option value="louisiana">Louisiana (LaPAC &amp; OTS)</option>
                   <option value="kentucky">Kentucky (KY VSS &amp; COT)</option>
                   <option value="oklahoma">Oklahoma (OMES &amp; IS)</option>
+                  <option value="iowa">Iowa (IMPACS &amp; DOM DoIT)</option>
+                  <option value="kansas">Kansas (SMART &amp; OITS)</option>
+                  <option value="arkansas">Arkansas (ARBuy &amp; DIS)</option>
+                  <option value="mississippi">Mississippi (MAGIC &amp; ITS)</option>
+                  <option value="new_mexico">New Mexico (GSD &amp; DoIT)</option>
+                  <option value="nebraska">Nebraska (DAS Materiel &amp; OCIO)</option>
+                  <option value="idaho">Idaho (IPRO LUMA &amp; ITS)</option>
+                  <option value="hawaii">Hawaii (HIePRO &amp; ETS)</option>
+                  <option value="new_hampshire">New Hampshire (DAS &amp; DoIT)</option>
+                  <option value="maine">Maine (DAFS &amp; MaineIT)</option>
+                  <option value="rhode_island">Rhode Island (OSP &amp; ETSS)</option>
+                  <option value="montana">Montana (eMACS &amp; SITSD)</option>
+                  <option value="delaware">Delaware (MyMarketplace &amp; DTI)</option>
+                  <option value="south_dakota">South Dakota (OPM &amp; BIT)</option>
+                  <option value="north_dakota">North Dakota (OMB SPO &amp; NDIT)</option>
+                  <option value="alaska">Alaska (IRIS OPN &amp; OIT)</option>
+                  <option value="vermont">Vermont (BGS &amp; ADS)</option>
+                  <option value="west_virginia">West Virginia (wvOASIS &amp; WVOT)</option>
+                  <option value="wyoming">Wyoming (A&amp;I &amp; ETS)</option>
                   <option value="municipal">Municipal (DemandStar)</option>
                 </select>
               </div>
@@ -3195,7 +5008,7 @@ def _render_layout(
           currentPageKey = 'trust';
           pageTitle = 'Trust, Status & Support';
           rawItems = [
-            {{ icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 33 portals operational', color: 'text-emerald-400', action: 'trust_status' }},
+            {{ icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 52 portals operational', color: 'text-emerald-400', action: 'trust_status' }},
             {{ icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' }},
             {{ icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' }},
             {{ icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' }},
@@ -3211,7 +5024,7 @@ def _render_layout(
               {{ icon: 'pulse', id: 'account-dispatch-telemetry-card', label: '6-Hr Telemetry & Dispatch', kw: 'telemetry scan dispatch briefing now', color: 'text-emerald-400' }},
               {{ icon: 'card', id: 'account-billing-card', label: 'Plan, Billing & Receipts', kw: 'subscription plan billing cadence receipt', color: 'text-sky-400' }},
               {{ icon: 'chat', id: 'account-distribution-card', label: 'Distribution & Team CC', kw: 'slack teams crm webhook email discord team cc seats', color: 'text-indigo-300' }},
-              {{ icon: 'sliders', id: 'account-alert-filters-card', label: '33-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' }},
+              {{ icon: 'sliders', id: 'account-alert-filters-card', label: '52-Portal & NAICS Filters', kw: 'territory state portals naics keywords set aside', color: 'text-sky-400' }},
               {{ icon: 'folder', id: 'account-company-vault-card', label: 'Company Capture Vault', kw: 'vault capability statement past performance rates', color: 'text-indigo-300' }},
               {{ icon: 'doc', id: 'account-tier3-proposal-card', label: 'Tier 3 Proposal .ZIP Compiler', kw: 'shipley proposal compiler zip docx xlsx 13 cfr 125.6 teaming clearinghouse', color: 'text-emerald-400' }},
               {{ icon: 'globe', id: 'account-tier4-foia-card', label: 'Tier 4 FOIA & Recompete Radar', kw: 'foia pia incumbent rate vault 90 180 day recompete radar', color: 'text-amber-300' }},
@@ -3246,16 +5059,16 @@ def _render_layout(
           if (document.getElementById('contracts-rfp-ai-shred-card')) {{
             rawItems = [
               {{ icon: 'doc', id: 'contracts-top-section', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' }},
-              {{ icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
+              {{ icon: 'cpu', id: 'contracts-rfp-ai-shred-card', label: 'CaptureDesk 25-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
               {{ icon: 'sliders', id: 'contracts-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' }},
-              {{ icon: 'card', id: 'contracts-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 39 apis mcp server', color: 'text-sky-400' }},
+              {{ icon: 'card', id: 'contracts-rfp-plans-card', label: 'SignalWire Plans & 58 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 58 apis mcp server', color: 'text-sky-400' }},
               {{ icon: 'globe', id: 'contracts-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
           }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
             rawItems = [
               {{ icon: 'pulse', id: 'contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' }},
-              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
+              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: '52 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
               {{ icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'spa-contracts-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
@@ -3282,16 +5095,16 @@ def _render_layout(
           if (document.getElementById('static-rfp-ai-shred-card')) {{
             rawItems = [
               {{ icon: 'doc', id: 'static-rfp-scope-card', label: 'Solicitation Scope & Agency', kw: 'title agency deadline portal scope', color: 'text-sky-400' }},
-              {{ icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 24-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
+              {{ icon: 'cpu', id: 'static-rfp-ai-shred-card', label: 'CaptureDesk 25-API Shred', kw: 'naics igce ptw cmmc rmf lcats cpars shred', color: 'text-indigo-300' }},
               {{ icon: 'sliders', id: 'static-rfp-workbench-card', label: 'Proposal .ZIP, Teaming & FOIA', kw: 'compile 6-file zip pwin studio 13 cfr 125.6 teaming foia vault', color: 'text-emerald-400' }},
-              {{ icon: 'card', id: 'static-rfp-plans-card', label: 'SignalWire Plans & 39 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 39 apis mcp server', color: 'text-sky-400' }},
+              {{ icon: 'card', id: 'static-rfp-plans-card', label: 'SignalWire Plans & 58 APIs', kw: 'tier 1 tier 2 tier 3 tier 4 plans 58 apis mcp server', color: 'text-sky-400' }},
               {{ icon: 'globe', id: 'static-rfp-related-card', label: 'Related Portal Solicitations', kw: 'similar more open bids related', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
             ];
           }} else if (document.getElementById('contracts-portal-hubs-grid')) {{
             rawItems = [
               {{ icon: 'pulse', id: 'static-contracts-top-section', label: 'Directory Overview & Stats', kw: 'header overview verified open solicitations', color: 'text-sky-400' }},
-              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: '33 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
+              {{ icon: 'globe', id: 'contracts-portal-hubs-grid', label: '52 Portal & State Hubs', kw: 'states federal categories filter hubs', color: 'text-sky-400' }},
               {{ icon: 'flag', id: 'static-recompete-radar-card', label: 'Recompete Radar & FOIA Wire', kw: 'recompete radar 90 180d prime subcontracting foia vault', color: 'text-amber-300' }},
               {{ icon: 'table', id: 'static-contracts-table-card', label: 'Live RFP Search & Table', kw: 'table solicitations search bids due dates', color: 'text-emerald-400' }},
               {{ icon: 'bolt', id: 'static-inbound-lead-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock', color: 'text-amber-300' }}
@@ -3311,9 +5124,9 @@ def _render_layout(
             {{ icon: 'chat', id: 'discord-terminal', label: 'Live 6-Hr Alert Feed', kw: 'slack teams crm webhook email discord alerts live wire feed', color: 'text-sky-400' }},
             {{ icon: 'cpu', id: 'capture-moat', label: 'AI Capture Dossiers', kw: 'capturedesk shipley igce ptw rmf cmmc shred', color: 'text-indigo-300' }},
             {{ icon: 'doc', id: 'proposal-foia-moat', label: 'Proposal .ZIP & FOIA Moat', kw: 'tier 3 tier 4 proposal compiler zip docx xlsx foia teaming', color: 'text-emerald-400' }},
-            {{ icon: 'table', id: 'contract-directory', label: '33-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' }},
+            {{ icon: 'table', id: 'contract-directory', label: '52-Portal Live RFP Table', kw: 'solicitations rfps bids table filter preview', color: 'text-emerald-400' }},
             {{ icon: 'globe', id: 'coverage', label: 'Portal Coverage & ROI', kw: 'states coverage sam demandstar roi savings', color: 'text-sky-400' }},
-            {{ icon: 'link', id: 'integrations', label: 'Slack, Teams, CRM & APIs', kw: 'webhooks hubspot salesforce slack teams json 39 apis', color: 'text-amber-300' }},
+            {{ icon: 'link', id: 'integrations', label: 'Slack, Teams, CRM & APIs', kw: 'webhooks hubspot salesforce slack teams json 58 apis', color: 'text-amber-300' }},
             {{ icon: 'bolt', id: 'inbound-lead-capture-box', label: 'Unlock 3 Free Dossiers', kw: 'free sample dossiers email unlock lead capture', color: 'text-emerald-400' }}
           ];
         }}
@@ -3639,7 +5452,7 @@ def _render_layout(
       if (statusEl) {{
         statusEl.classList.remove('hidden');
         statusEl.className = 'mt-3 text-xs font-mono text-sky-300';
-        statusEl.textContent = 'Querying live 33-portal CaptureDesk database & emailing your 3 dossiers...';
+        statusEl.textContent = 'Querying live 52-portal CaptureDesk database & emailing your 3 dossiers...';
       }}
       fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', {{
         method: 'POST',
@@ -4841,6 +6654,82 @@ def generate_pseo_site() -> int:
                 compliance_posture = "Kentucky COT Enterprise Security Standards CIO-091 (NIST 800-53 / CMMC 2.0) • StateRAMP • KY Accessible IT VPAT"
             elif j_key == "oklahoma":
                 compliance_posture = "Oklahoma OMES Cyber Command Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • OK Electronic & Info Tech Accessibility VPAT"
+            elif j_key == "iowa":
+                compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+            elif j_key == "kansas":
+                compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+            elif j_key == "arkansas":
+                compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+            elif j_key == "mississippi":
+                compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+            elif j_key == "new_mexico":
+                compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+            elif j_key == "nebraska":
+                compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+            elif j_key == "idaho":
+                compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+            elif j_key == "hawaii":
+                compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+            elif j_key == "new_hampshire":
+                compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+            elif j_key == "maine":
+                compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+            elif j_key == "rhode_island":
+                compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+            elif j_key == "montana":
+                compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+            elif j_key == "delaware":
+                compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+            elif j_key == "south_dakota":
+                compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+            elif j_key == "north_dakota":
+                compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+            elif j_key == "alaska":
+                compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+            elif j_key == "vermont":
+                compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+            elif j_key == "west_virginia":
+                compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+            elif j_key == "wyoming":
+                compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
+            elif j_key == "iowa":
+                compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+            elif j_key == "kansas":
+                compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+            elif j_key == "arkansas":
+                compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+            elif j_key == "mississippi":
+                compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+            elif j_key == "new_mexico":
+                compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+            elif j_key == "nebraska":
+                compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+            elif j_key == "idaho":
+                compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+            elif j_key == "hawaii":
+                compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+            elif j_key == "new_hampshire":
+                compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+            elif j_key == "maine":
+                compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+            elif j_key == "rhode_island":
+                compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+            elif j_key == "montana":
+                compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+            elif j_key == "delaware":
+                compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+            elif j_key == "south_dakota":
+                compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+            elif j_key == "north_dakota":
+                compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+            elif j_key == "alaska":
+                compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+            elif j_key == "vermont":
+                compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+            elif j_key == "west_virginia":
+                compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+            elif j_key == "wyoming":
+                compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
             elif j_key == "nevada":
                 compliance_posture = "Nevada EITS State Information Security Program (NIST 800-53 / NRS 242) • StateRAMP / CJIS • NV ADA WCAG 2.1 AA VPAT"
             elif j_key == "alabama":
@@ -4851,6 +6740,82 @@ def generate_pseo_site() -> int:
                 compliance_posture = "Kentucky COT Enterprise Security Standards CIO-091 (NIST 800-53 / CMMC 2.0) • StateRAMP • KY Accessible IT VPAT"
             elif j_key == "oklahoma":
                 compliance_posture = "Oklahoma OMES Cyber Command Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • OK Electronic & Info Tech Accessibility VPAT"
+            elif j_key == "iowa":
+                compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+            elif j_key == "kansas":
+                compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+            elif j_key == "arkansas":
+                compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+            elif j_key == "mississippi":
+                compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+            elif j_key == "new_mexico":
+                compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+            elif j_key == "nebraska":
+                compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+            elif j_key == "idaho":
+                compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+            elif j_key == "hawaii":
+                compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+            elif j_key == "new_hampshire":
+                compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+            elif j_key == "maine":
+                compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+            elif j_key == "rhode_island":
+                compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+            elif j_key == "montana":
+                compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+            elif j_key == "delaware":
+                compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+            elif j_key == "south_dakota":
+                compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+            elif j_key == "north_dakota":
+                compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+            elif j_key == "alaska":
+                compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+            elif j_key == "vermont":
+                compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+            elif j_key == "west_virginia":
+                compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+            elif j_key == "wyoming":
+                compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
+            elif j_key == "iowa":
+                compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+            elif j_key == "kansas":
+                compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+            elif j_key == "arkansas":
+                compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+            elif j_key == "mississippi":
+                compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+            elif j_key == "new_mexico":
+                compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+            elif j_key == "nebraska":
+                compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+            elif j_key == "idaho":
+                compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+            elif j_key == "hawaii":
+                compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+            elif j_key == "new_hampshire":
+                compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+            elif j_key == "maine":
+                compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+            elif j_key == "rhode_island":
+                compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+            elif j_key == "montana":
+                compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+            elif j_key == "delaware":
+                compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+            elif j_key == "south_dakota":
+                compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+            elif j_key == "north_dakota":
+                compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+            elif j_key == "alaska":
+                compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+            elif j_key == "vermont":
+                compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+            elif j_key == "west_virginia":
+                compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+            elif j_key == "wyoming":
+                compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
             elif j_key == "california":
                 compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
             else:
@@ -4920,6 +6885,82 @@ def generate_pseo_site() -> int:
                 teaming_posture = "Kentucky Finance Cabinet Small/Minority/Service-Disabled Veteran Business Outreach • KY COT Master Agreement Eligible"
             elif j_key == "oklahoma":
                 teaming_posture = "Oklahoma Disabled Veteran Business Enterprise (ODVBE 3% Goal) & Small Business Teaming • OMES Statewide Contract (SW1025) Eligible"
+            elif j_key == "iowa":
+                teaming_posture = "Iowa Targeted Small Business (TSB) & Service-Disabled Veteran Business Outreach • IA IMPACS / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "kansas":
+                teaming_posture = "Kansas Certified Disabled Veteran & Minority/Women Business Outreach • KS SMART Statewide Contract Eligible"
+            elif j_key == "arkansas":
+                teaming_posture = "Arkansas Economic Development Commission Minority & Women-Owned / SDVOSB Business Outreach • ARBuy Master Contract Eligible"
+            elif j_key == "mississippi":
+                teaming_posture = "Mississippi MDA Minority & Small Business Development + ITS Express Products List (EPL) / Master Contract Eligible"
+            elif j_key == "new_mexico":
+                teaming_posture = "New Mexico Resident Business / Resident Veteran Business (5%–10% NMSA 13-1-21 Pref) • NM GSD Statewide Price Agreement Eligible"
+            elif j_key == "nebraska":
+                teaming_posture = "Nebraska Resident Bidder & Small/Veteran Business Subcontracting • NE DAS Materiel / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "idaho":
+                teaming_posture = "Idaho Small Business & Veteran Outreach • Idaho DOP Statewide Blanket Purchase Order (SBPO) / NASPO ValuePoint Eligible"
+            elif j_key == "hawaii":
+                teaming_posture = "Hawaii Small Business & Native Hawaiian Organization (NHO 8(a) DoD Subcontracting) • HI SPO Price & Vendor List Eligible"
+            elif j_key == "new_hampshire":
+                teaming_posture = "New Hampshire Small & Veteran-Owned Business Outreach • NH DAS Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "maine":
+                teaming_posture = "Maine Small Business & Veteran-Owned Vendor Outreach • MaineIT Master Agreement / NASPO ValuePoint Eligible"
+            elif j_key == "rhode_island":
+                teaming_posture = "Rhode Island Office of Diversity, Equity and Opportunity (ODEO MBE/WBE/VBE 15% Goal) • RI Master Price Agreement (MPA) Eligible"
+            elif j_key == "montana":
+                teaming_posture = "Montana Small & Veteran Business Outreach • MT SPB Term Contract / NASPO ValuePoint Eligible"
+            elif j_key == "delaware":
+                teaming_posture = "Delaware Office of Supplier Diversity (OSD Minority/Women/Veteran/Service-Disabled Veteran) • DE GSS Central Contract Eligible"
+            elif j_key == "south_dakota":
+                teaming_posture = "South Dakota Resident & Disabled Veteran Vendor Outreach + Dakota State Cyber R&D Teaming • SD OPM Statewide Contract Eligible"
+            elif j_key == "north_dakota":
+                teaming_posture = "North Dakota Approved Bidders List & Small/Veteran Business Outreach • ND OMB Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "alaska":
+                teaming_posture = "Alaska Bidder (5% AS 36.30.321) & Alaska Veteran Preference + ANC 8(a) Defense Teaming • AK DOA Master Agreement Eligible"
+            elif j_key == "vermont":
+                teaming_posture = "Vermont Small, Women & Veteran-Owned Business Outreach • VT BGS Statewide IT Retainer Contract / NASPO ValuePoint Eligible"
+            elif j_key == "west_virginia":
+                teaming_posture = "West Virginia Small, Women & Minority-Owned (SWAM) & Resident Veteran Preference (W. Va. Code 5A-3-37) • wvOASIS Statewide Contract Eligible"
+            elif j_key == "wyoming":
+                teaming_posture = "Wyoming Resident Contractor Preference (5% W.S. 16-6-102) & Veteran Business Outreach • WY A&I / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "iowa":
+                teaming_posture = "Iowa Targeted Small Business (TSB) & Service-Disabled Veteran Business Outreach • IA IMPACS / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "kansas":
+                teaming_posture = "Kansas Certified Disabled Veteran & Minority/Women Business Outreach • KS SMART Statewide Contract Eligible"
+            elif j_key == "arkansas":
+                teaming_posture = "Arkansas Economic Development Commission Minority & Women-Owned / SDVOSB Business Outreach • ARBuy Master Contract Eligible"
+            elif j_key == "mississippi":
+                teaming_posture = "Mississippi MDA Minority & Small Business Development + ITS Express Products List (EPL) / Master Contract Eligible"
+            elif j_key == "new_mexico":
+                teaming_posture = "New Mexico Resident Business / Resident Veteran Business (5%–10% NMSA 13-1-21 Pref) • NM GSD Statewide Price Agreement Eligible"
+            elif j_key == "nebraska":
+                teaming_posture = "Nebraska Resident Bidder & Small/Veteran Business Subcontracting • NE DAS Materiel / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "idaho":
+                teaming_posture = "Idaho Small Business & Veteran Outreach • Idaho DOP Statewide Blanket Purchase Order (SBPO) / NASPO ValuePoint Eligible"
+            elif j_key == "hawaii":
+                teaming_posture = "Hawaii Small Business & Native Hawaiian Organization (NHO 8(a) DoD Subcontracting) • HI SPO Price & Vendor List Eligible"
+            elif j_key == "new_hampshire":
+                teaming_posture = "New Hampshire Small & Veteran-Owned Business Outreach • NH DAS Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "maine":
+                teaming_posture = "Maine Small Business & Veteran-Owned Vendor Outreach • MaineIT Master Agreement / NASPO ValuePoint Eligible"
+            elif j_key == "rhode_island":
+                teaming_posture = "Rhode Island Office of Diversity, Equity and Opportunity (ODEO MBE/WBE/VBE 15% Goal) • RI Master Price Agreement (MPA) Eligible"
+            elif j_key == "montana":
+                teaming_posture = "Montana Small & Veteran Business Outreach • MT SPB Term Contract / NASPO ValuePoint Eligible"
+            elif j_key == "delaware":
+                teaming_posture = "Delaware Office of Supplier Diversity (OSD Minority/Women/Veteran/Service-Disabled Veteran) • DE GSS Central Contract Eligible"
+            elif j_key == "south_dakota":
+                teaming_posture = "South Dakota Resident & Disabled Veteran Vendor Outreach + Dakota State Cyber R&D Teaming • SD OPM Statewide Contract Eligible"
+            elif j_key == "north_dakota":
+                teaming_posture = "North Dakota Approved Bidders List & Small/Veteran Business Outreach • ND OMB Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "alaska":
+                teaming_posture = "Alaska Bidder (5% AS 36.30.321) & Alaska Veteran Preference + ANC 8(a) Defense Teaming • AK DOA Master Agreement Eligible"
+            elif j_key == "vermont":
+                teaming_posture = "Vermont Small, Women & Veteran-Owned Business Outreach • VT BGS Statewide IT Retainer Contract / NASPO ValuePoint Eligible"
+            elif j_key == "west_virginia":
+                teaming_posture = "West Virginia Small, Women & Minority-Owned (SWAM) & Resident Veteran Preference (W. Va. Code 5A-3-37) • wvOASIS Statewide Contract Eligible"
+            elif j_key == "wyoming":
+                teaming_posture = "Wyoming Resident Contractor Preference (5% W.S. 16-6-102) & Veteran Business Outreach • WY A&I / NASPO ValuePoint Master Contract Eligible"
             elif j_key == "nevada":
                 teaming_posture = "Nevada Local Emerging Small Business (ESB) & Veteran Preference (5% NRS 333.3366) • NevadaEPro Master Contract Eligible"
             elif j_key == "alabama":
@@ -4930,6 +6971,82 @@ def generate_pseo_site() -> int:
                 teaming_posture = "Kentucky Finance Cabinet Small/Minority/Service-Disabled Veteran Business Outreach • KY COT Master Agreement Eligible"
             elif j_key == "oklahoma":
                 teaming_posture = "Oklahoma Disabled Veteran Business Enterprise (ODVBE 3% Goal) & Small Business Teaming • OMES Statewide Contract (SW1025) Eligible"
+            elif j_key == "iowa":
+                teaming_posture = "Iowa Targeted Small Business (TSB) & Service-Disabled Veteran Business Outreach • IA IMPACS / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "kansas":
+                teaming_posture = "Kansas Certified Disabled Veteran & Minority/Women Business Outreach • KS SMART Statewide Contract Eligible"
+            elif j_key == "arkansas":
+                teaming_posture = "Arkansas Economic Development Commission Minority & Women-Owned / SDVOSB Business Outreach • ARBuy Master Contract Eligible"
+            elif j_key == "mississippi":
+                teaming_posture = "Mississippi MDA Minority & Small Business Development + ITS Express Products List (EPL) / Master Contract Eligible"
+            elif j_key == "new_mexico":
+                teaming_posture = "New Mexico Resident Business / Resident Veteran Business (5%–10% NMSA 13-1-21 Pref) • NM GSD Statewide Price Agreement Eligible"
+            elif j_key == "nebraska":
+                teaming_posture = "Nebraska Resident Bidder & Small/Veteran Business Subcontracting • NE DAS Materiel / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "idaho":
+                teaming_posture = "Idaho Small Business & Veteran Outreach • Idaho DOP Statewide Blanket Purchase Order (SBPO) / NASPO ValuePoint Eligible"
+            elif j_key == "hawaii":
+                teaming_posture = "Hawaii Small Business & Native Hawaiian Organization (NHO 8(a) DoD Subcontracting) • HI SPO Price & Vendor List Eligible"
+            elif j_key == "new_hampshire":
+                teaming_posture = "New Hampshire Small & Veteran-Owned Business Outreach • NH DAS Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "maine":
+                teaming_posture = "Maine Small Business & Veteran-Owned Vendor Outreach • MaineIT Master Agreement / NASPO ValuePoint Eligible"
+            elif j_key == "rhode_island":
+                teaming_posture = "Rhode Island Office of Diversity, Equity and Opportunity (ODEO MBE/WBE/VBE 15% Goal) • RI Master Price Agreement (MPA) Eligible"
+            elif j_key == "montana":
+                teaming_posture = "Montana Small & Veteran Business Outreach • MT SPB Term Contract / NASPO ValuePoint Eligible"
+            elif j_key == "delaware":
+                teaming_posture = "Delaware Office of Supplier Diversity (OSD Minority/Women/Veteran/Service-Disabled Veteran) • DE GSS Central Contract Eligible"
+            elif j_key == "south_dakota":
+                teaming_posture = "South Dakota Resident & Disabled Veteran Vendor Outreach + Dakota State Cyber R&D Teaming • SD OPM Statewide Contract Eligible"
+            elif j_key == "north_dakota":
+                teaming_posture = "North Dakota Approved Bidders List & Small/Veteran Business Outreach • ND OMB Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "alaska":
+                teaming_posture = "Alaska Bidder (5% AS 36.30.321) & Alaska Veteran Preference + ANC 8(a) Defense Teaming • AK DOA Master Agreement Eligible"
+            elif j_key == "vermont":
+                teaming_posture = "Vermont Small, Women & Veteran-Owned Business Outreach • VT BGS Statewide IT Retainer Contract / NASPO ValuePoint Eligible"
+            elif j_key == "west_virginia":
+                teaming_posture = "West Virginia Small, Women & Minority-Owned (SWAM) & Resident Veteran Preference (W. Va. Code 5A-3-37) • wvOASIS Statewide Contract Eligible"
+            elif j_key == "wyoming":
+                teaming_posture = "Wyoming Resident Contractor Preference (5% W.S. 16-6-102) & Veteran Business Outreach • WY A&I / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "iowa":
+                teaming_posture = "Iowa Targeted Small Business (TSB) & Service-Disabled Veteran Business Outreach • IA IMPACS / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "kansas":
+                teaming_posture = "Kansas Certified Disabled Veteran & Minority/Women Business Outreach • KS SMART Statewide Contract Eligible"
+            elif j_key == "arkansas":
+                teaming_posture = "Arkansas Economic Development Commission Minority & Women-Owned / SDVOSB Business Outreach • ARBuy Master Contract Eligible"
+            elif j_key == "mississippi":
+                teaming_posture = "Mississippi MDA Minority & Small Business Development + ITS Express Products List (EPL) / Master Contract Eligible"
+            elif j_key == "new_mexico":
+                teaming_posture = "New Mexico Resident Business / Resident Veteran Business (5%–10% NMSA 13-1-21 Pref) • NM GSD Statewide Price Agreement Eligible"
+            elif j_key == "nebraska":
+                teaming_posture = "Nebraska Resident Bidder & Small/Veteran Business Subcontracting • NE DAS Materiel / NASPO ValuePoint Master Contract Eligible"
+            elif j_key == "idaho":
+                teaming_posture = "Idaho Small Business & Veteran Outreach • Idaho DOP Statewide Blanket Purchase Order (SBPO) / NASPO ValuePoint Eligible"
+            elif j_key == "hawaii":
+                teaming_posture = "Hawaii Small Business & Native Hawaiian Organization (NHO 8(a) DoD Subcontracting) • HI SPO Price & Vendor List Eligible"
+            elif j_key == "new_hampshire":
+                teaming_posture = "New Hampshire Small & Veteran-Owned Business Outreach • NH DAS Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "maine":
+                teaming_posture = "Maine Small Business & Veteran-Owned Vendor Outreach • MaineIT Master Agreement / NASPO ValuePoint Eligible"
+            elif j_key == "rhode_island":
+                teaming_posture = "Rhode Island Office of Diversity, Equity and Opportunity (ODEO MBE/WBE/VBE 15% Goal) • RI Master Price Agreement (MPA) Eligible"
+            elif j_key == "montana":
+                teaming_posture = "Montana Small & Veteran Business Outreach • MT SPB Term Contract / NASPO ValuePoint Eligible"
+            elif j_key == "delaware":
+                teaming_posture = "Delaware Office of Supplier Diversity (OSD Minority/Women/Veteran/Service-Disabled Veteran) • DE GSS Central Contract Eligible"
+            elif j_key == "south_dakota":
+                teaming_posture = "South Dakota Resident & Disabled Veteran Vendor Outreach + Dakota State Cyber R&D Teaming • SD OPM Statewide Contract Eligible"
+            elif j_key == "north_dakota":
+                teaming_posture = "North Dakota Approved Bidders List & Small/Veteran Business Outreach • ND OMB Statewide Contract / NASPO ValuePoint Eligible"
+            elif j_key == "alaska":
+                teaming_posture = "Alaska Bidder (5% AS 36.30.321) & Alaska Veteran Preference + ANC 8(a) Defense Teaming • AK DOA Master Agreement Eligible"
+            elif j_key == "vermont":
+                teaming_posture = "Vermont Small, Women & Veteran-Owned Business Outreach • VT BGS Statewide IT Retainer Contract / NASPO ValuePoint Eligible"
+            elif j_key == "west_virginia":
+                teaming_posture = "West Virginia Small, Women & Minority-Owned (SWAM) & Resident Veteran Preference (W. Va. Code 5A-3-37) • wvOASIS Statewide Contract Eligible"
+            elif j_key == "wyoming":
+                teaming_posture = "Wyoming Resident Contractor Preference (5% W.S. 16-6-102) & Veteran Business Outreach • WY A&I / NASPO ValuePoint Master Contract Eligible"
             elif j_key == "california":
                 teaming_posture = "CA DGS SB (5%) + DVBE • Prime ≥51% Core Scope"
             else:
@@ -4938,7 +7055,7 @@ def generate_pseo_site() -> int:
             locality_delta = {
                 "federal": 8, "new_york": 10, "california": 9, "massachusetts": 7, "washington": 7, "virginia": 6, "maryland": 6,
                 "illinois": 3, "pennsylvania": 2, "michigan": 2, "colorado": 4, "arizona": 1, "minnesota": 2, "tennessee": -1, "indiana": -1, "missouri": -1,
-                "wisconsin": 0, "south_carolina": -1, "oregon": 3, "connecticut": 5, "utah": 1, "nevada": 2, "alabama": -1, "louisiana": -2, "kentucky": -2, "oklahoma": -2, "nevada": 2, "alabama": -1, "louisiana": -2, "kentucky": -2, "oklahoma": -2,
+                "wisconsin": 0, "south_carolina": -1, "oregon": 3, "connecticut": 5, "utah": 1, "nevada": 2, "alabama": -1, "louisiana": -2, "kentucky": -2, "oklahoma": -2, "iowa": -2, "kansas": -2, "arkansas": -3, "mississippi": -3, "new_mexico": 0, "nebraska": -1, "idaho": -1, "hawaii": 6, "new_hampshire": 3, "maine": 1, "rhode_island": 4, "montana": -1, "delaware": 3, "south_dakota": -2, "north_dakota": -2, "alaska": 8, "vermont": 1, "west_virginia": -2, "wyoming": -1, "iowa": -2, "kansas": -2, "arkansas": -3, "mississippi": -3, "new_mexico": 0, "nebraska": -1, "idaho": -1, "hawaii": 6, "new_hampshire": 3, "maine": 1, "rhode_island": 4, "montana": -1, "delaware": 3, "south_dakota": -2, "north_dakota": -2, "alaska": 8, "vermont": 1, "west_virginia": -2, "wyoming": -1, "nevada": 2, "alabama": -1, "louisiana": -2, "kentucky": -2, "oklahoma": -2, "iowa": -2, "kansas": -2, "arkansas": -3, "mississippi": -3, "new_mexico": 0, "nebraska": -1, "idaho": -1, "hawaii": 6, "new_hampshire": 3, "maine": 1, "rhode_island": 4, "montana": -1, "delaware": 3, "south_dakota": -2, "north_dakota": -2, "alaska": 8, "vermont": 1, "west_virginia": -2, "wyoming": -1, "iowa": -2, "kansas": -2, "arkansas": -3, "mississippi": -3, "new_mexico": 0, "nebraska": -1, "idaho": -1, "hawaii": 6, "new_hampshire": 3, "maine": 1, "rhode_island": 4, "montana": -1, "delaware": 3, "south_dakota": -2, "north_dakota": -2, "alaska": 8, "vermont": 1, "west_virginia": -2, "wyoming": -1,
                 "texas": 1, "florida": 0, "ohio": -2, "georgia": 0, "north_carolina": -1, "municipal": -2,
             }.get(j_key, 0)
             id_jitter = (sum(ord(ch) for ch in rec_id) % 5) - 2
@@ -5141,7 +7258,7 @@ def generate_pseo_site() -> int:
                         <div class="text-slate-200">{html.escape(c['key_personnel_lcats'])}</div>
                       </div>
                       <div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">
-                        <div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS, DEBRIEF/PROTEST, QASP, TRANSITION &amp; BLACK-HAT (API #15 / #17 / #19 / #26 / #27 / #33)</div>
+                        <div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS, DEBRIEF/PROTEST, QASP, TRANSITION, BLACK-HAT &amp; RED-TEAM (API #15 / #17 / #19 / #26 / #27 / #33 / #56)</div>
                         <div class="text-slate-200">{html.escape(c['cpars_benchmark'])}</div>
                       </div>
                     </div>
@@ -5150,7 +7267,7 @@ def generate_pseo_site() -> int:
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="{html.escape(c['url'], quote=True)}" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/{c['id']}98412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">{html.escape(c['agency'])} - Procurement Division</span></div>
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="{html.escape(real_co_routing, quote=True)}" class="blur-sm select-none break-words">contracting.officer@{html.escape(portal_host)} &bull; Electronic Q&amp;A Desk ({html.escape(c['agency'])})</span></div>
-                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33</span></div>
+                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33/#56/#56</span></div>
                     </div>
                     <div id="static-rfp-workbench-card" class="pt-3 space-y-2.5">
                       <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
@@ -5218,11 +7335,11 @@ def generate_pseo_site() -> int:
                   </div>
                   <div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 31-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
+                    Get every pre-vetted Federal (SAM.gov), DemandStar, and 50-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.
                   </p>
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
-                    <li>&check; Tier 2 CaptureDesk ($399/mo) 24-API Auto-Dossiers</li>
+                    <li>&check; Tier 2 CaptureDesk ($399/mo) 25-API Auto-Dossiers</li>
                     <li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>
                     <li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>
                   </ul>
@@ -5241,13 +7358,13 @@ def generate_pseo_site() -> int:
                 </div>
 
                 <div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">
-                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">39 LIVE APIs &amp; MCP SERVER</div>
+                  <div class="text-xs font-mono text-indigo-400 uppercase font-semibold">58 LIVE APIs &amp; MCP SERVER</div>
                   <div class="text-lg font-bold text-white">Automate Your Bid Response</div>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 39 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
+                    Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 58 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.
                   </p>
                   <a href="../../apis.html#product-sources-sought-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">
-                    Explore 39 APIs &amp; MCP Server &rarr;
+                    Explore 58 APIs &amp; MCP Server &rarr;
                   </a>
                 </div>
               </div>
@@ -5469,7 +7586,7 @@ def generate_pseo_site() -> int:
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, Colorado, Arizona, Minnesota, Tennessee, Indiana, Missouri, Wisconsin, South Carolina, Oregon, Connecticut, Utah, Nevada, Alabama, Louisiana, Kentucky, and Oklahoma.
+            Explore {len(enriched_contracts)} live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, Colorado, Arizona, Minnesota, Tennessee, Indiana, Missouri, Wisconsin, South Carolina, Oregon, Connecticut, Utah, Nevada, Alabama, Louisiana, Kentucky, Oklahoma, Iowa, Kansas, Arkansas, Mississippi, New Mexico, Nebraska, Idaho, Hawaii, New Hampshire, Maine, Rhode Island, Montana, Delaware, South Dakota, North Dakota, Alaska, Vermont, West Virginia, and Wyoming.
           </p>
         </div>
 
@@ -5539,7 +7656,7 @@ def generate_pseo_site() -> int:
 
         hub_html = _render_layout(
             page_title="Live Government IT & Cybersecurity Contracts Directory (Federal & SLED) | SignalTender",
-            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT, software, cloud, and cybersecurity RFPs.",
+            meta_desc="Browse live pre-vetted Federal (SAM.gov) and State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY) IT, software, cloud, and cybersecurity RFPs.",
             canonical_path="contracts/index.html",
             body_html=hub_body,
             root_prefix="../",
@@ -5673,6 +7790,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               <a href="#contracts/louisiana" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Louisiana</a>
               <a href="#contracts/kentucky" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">Kentucky</a>
               <a href="#contracts/oklahoma" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Oklahoma</a>
+              <a href="#contracts/iowa" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">Iowa</a>
+              <a href="#contracts/kansas" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Kansas</a>
+              <a href="#contracts/arkansas" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Arkansas</a>
+              <a href="#contracts/mississippi" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Mississippi</a>
+              <a href="#contracts/new_mexico" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">New Mexico</a>
+              <a href="#contracts/nebraska" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Nebraska</a>
+              <a href="#contracts/idaho" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Idaho</a>
+              <a href="#contracts/hawaii" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Hawaii</a>
+              <a href="#contracts/new_hampshire" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">New Hampshire</a>
+              <a href="#contracts/maine" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Maine</a>
+              <a href="#contracts/rhode_island" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Rhode Island</a>
+              <a href="#contracts/montana" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Montana</a>
+              <a href="#contracts/delaware" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">Delaware</a>
+              <a href="#contracts/south_dakota" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">South Dakota</a>
+              <a href="#contracts/north_dakota" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">North Dakota</a>
+              <a href="#contracts/alaska" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-indigo-300">Alaska</a>
+              <a href="#contracts/vermont" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-amber-300">Vermont</a>
+              <a href="#contracts/west_virginia" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">West Virginia</a>
+              <a href="#contracts/wyoming" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-emerald-300">Wyoming</a>
               <a href="#contracts/municipal" class="px-2.5 py-1 rounded bg-navy-950 hover:bg-slate-800 border border-slate-800 text-sky-300">Municipal</a>
             </div>
             <a href="#contracts" class="text-sky-400 hover:text-sky-300 font-semibold">
@@ -5737,7 +7873,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 min-h-[2.25rem] py-1.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <div class="flex items-center space-x-2.5 shrink-0">
           <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">33 PORTALS ACTIVE</span></span>
+          <span class="font-mono text-slate-300">LIVE GOVCON INTELLIGENCE WIRE &bull; <span class="text-emerald-400">52 PORTALS ACTIVE</span></span>
         </div>
         <div class="flex items-center space-x-3 sm:space-x-4 font-mono text-slate-400 shrink-0">
           <a href="#overview" class="hover:text-sky-400 transition-colors">&larr; Main Platform</a>
@@ -5759,7 +7895,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             <span class="text-[23px] font-semibold tracking-[-0.03em] text-white leading-none whitespace-nowrap">SignalTender</span>
             <span class="hidden sm:inline-flex ml-1.5 items-center whitespace-nowrap text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-900 text-sky-400/90 border border-slate-800 leading-none">LIVE RFP INDEX</span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 31-STATE SLED CONTRACT DIRECTORY</span>
+          <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 50-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <!-- Full-Width Organized Site Navigation Bar -->
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-2 2xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
@@ -5815,7 +7951,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
       <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
         <label for="mobile-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
         <select id="mobile-contracts-portal-select" onchange="if(this.value) window.location.hash=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="#contracts">Portal: All (33)</option>
+          <option value="#contracts">Portal: All (52)</option>
           <option value="#contracts/federal">Federal (SAM.gov)</option>
           <option value="#contracts/texas">Texas (ESBD)</option>
           <option value="#contracts/virginia">Virginia (eVA)</option>
@@ -5848,6 +7984,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <option value="#contracts/louisiana">Louisiana (LaPAC)</option>
           <option value="#contracts/kentucky">Kentucky (VSS)</option>
           <option value="#contracts/oklahoma">Oklahoma (OMES)</option>
+          <option value="#contracts/iowa">Iowa (IMPACS)</option>
+          <option value="#contracts/kansas">Kansas (SMART)</option>
+          <option value="#contracts/arkansas">Arkansas (ARBuy)</option>
+          <option value="#contracts/mississippi">Mississippi (MAGIC)</option>
+          <option value="#contracts/new_mexico">New Mexico (GSD)</option>
+          <option value="#contracts/nebraska">Nebraska (DAS)</option>
+          <option value="#contracts/idaho">Idaho (IPRO)</option>
+          <option value="#contracts/hawaii">Hawaii (HIePRO)</option>
+          <option value="#contracts/new_hampshire">New Hampshire (DAS)</option>
+          <option value="#contracts/maine">Maine (DAFS)</option>
+          <option value="#contracts/rhode_island">Rhode Island (OSP)</option>
+          <option value="#contracts/montana">Montana (eMACS)</option>
+          <option value="#contracts/delaware">Delaware (MMP)</option>
+          <option value="#contracts/south_dakota">South Dakota (OPM)</option>
+          <option value="#contracts/north_dakota">North Dakota (SPO)</option>
+          <option value="#contracts/alaska">Alaska (IRIS)</option>
+          <option value="#contracts/vermont">Vermont (BGS)</option>
+          <option value="#contracts/west_virginia">West Virginia (wvOASIS)</option>
+          <option value="#contracts/wyoming">Wyoming (A&I)</option>
           <option value="#contracts/municipal">Municipal</option>
         </select>
         <nav aria-label="State and Portal Quick Jump" class="hidden sm:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
@@ -5884,6 +8039,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           <a href="#contracts/louisiana" class="shrink-0 hover:text-sky-400 transition-colors">Louisiana</a>
           <a href="#contracts/kentucky" class="shrink-0 hover:text-sky-400 transition-colors">Kentucky</a>
           <a href="#contracts/oklahoma" class="shrink-0 hover:text-sky-400 transition-colors">Oklahoma</a>
+          <a href="#contracts/iowa" class="shrink-0 hover:text-sky-400 transition-colors">Iowa</a>
+          <a href="#contracts/kansas" class="shrink-0 hover:text-sky-400 transition-colors">Kansas</a>
+          <a href="#contracts/arkansas" class="shrink-0 hover:text-sky-400 transition-colors">Arkansas</a>
+          <a href="#contracts/mississippi" class="shrink-0 hover:text-sky-400 transition-colors">Mississippi</a>
+          <a href="#contracts/new_mexico" class="shrink-0 hover:text-sky-400 transition-colors">New Mexico</a>
+          <a href="#contracts/nebraska" class="shrink-0 hover:text-sky-400 transition-colors">Nebraska</a>
+          <a href="#contracts/idaho" class="shrink-0 hover:text-sky-400 transition-colors">Idaho</a>
+          <a href="#contracts/hawaii" class="shrink-0 hover:text-sky-400 transition-colors">Hawaii</a>
+          <a href="#contracts/new_hampshire" class="shrink-0 hover:text-sky-400 transition-colors">New Hampshire</a>
+          <a href="#contracts/maine" class="shrink-0 hover:text-sky-400 transition-colors">Maine</a>
+          <a href="#contracts/rhode_island" class="shrink-0 hover:text-sky-400 transition-colors">Rhode Island</a>
+          <a href="#contracts/montana" class="shrink-0 hover:text-sky-400 transition-colors">Montana</a>
+          <a href="#contracts/delaware" class="shrink-0 hover:text-sky-400 transition-colors">Delaware</a>
+          <a href="#contracts/south_dakota" class="shrink-0 hover:text-sky-400 transition-colors">South Dakota</a>
+          <a href="#contracts/north_dakota" class="shrink-0 hover:text-sky-400 transition-colors">North Dakota</a>
+          <a href="#contracts/alaska" class="shrink-0 hover:text-sky-400 transition-colors">Alaska</a>
+          <a href="#contracts/vermont" class="shrink-0 hover:text-sky-400 transition-colors">Vermont</a>
+          <a href="#contracts/west_virginia" class="shrink-0 hover:text-sky-400 transition-colors">West Virginia</a>
+          <a href="#contracts/wyoming" class="shrink-0 hover:text-sky-400 transition-colors">Wyoming</a>
           <a href="#contracts/municipal" class="shrink-0 hover:text-sky-400 transition-colors">Municipal</a>
         </nav>
       </div>
@@ -5910,7 +8084,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         var stVal = prefState || 'all';
         var stTitle = prefLabel ? ('Unlock 3 Live Pre-Shredded ' + esc(prefLabel) + ' IT/Cyber RFP Dossiers Free') : 'Unlock 3 Live Pre-Shredded IT &amp; Cyber RFP Dossiers Free';
         var opts = [
-          ['all', 'All 33 Portals (Fed + 31 States)'],
+          ['all', 'All 52 Portals (Fed + 50 States)'],
           ['federal', 'Federal (SAM.gov)'],
           ['virginia', 'Virginia (eVA)'],
           ['texas', 'Texas (SmartBuy ESBD)'],
@@ -5943,6 +8117,25 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           ['louisiana', 'Louisiana (LaPAC & OTS)'],
           ['kentucky', 'Kentucky (KY VSS & COT)'],
           ['oklahoma', 'Oklahoma (OMES & IS)'],
+          ['iowa', 'Iowa (IMPACS & DOM DoIT)'],
+          ['kansas', 'Kansas (SMART & OITS)'],
+          ['arkansas', 'Arkansas (ARBuy & DIS)'],
+          ['mississippi', 'Mississippi (MAGIC & ITS)'],
+          ['new_mexico', 'New Mexico (GSD & DoIT)'],
+          ['nebraska', 'Nebraska (DAS Materiel & OCIO)'],
+          ['idaho', 'Idaho (IPRO LUMA & ITS)'],
+          ['hawaii', 'Hawaii (HIePRO & ETS)'],
+          ['new_hampshire', 'New Hampshire (DAS & DoIT)'],
+          ['maine', 'Maine (DAFS & MaineIT)'],
+          ['rhode_island', 'Rhode Island (OSP & ETSS)'],
+          ['montana', 'Montana (eMACS & SITSD)'],
+          ['delaware', 'Delaware (MyMarketplace & DTI)'],
+          ['south_dakota', 'South Dakota (OPM & BIT)'],
+          ['north_dakota', 'North Dakota (OMB SPO & NDIT)'],
+          ['alaska', 'Alaska (IRIS OPN & OIT)'],
+          ['vermont', 'Vermont (BGS & ADS)'],
+          ['west_virginia', 'West Virginia (wvOASIS & WVOT)'],
+          ['wyoming', 'Wyoming (A&I & ETS)'],
           ['municipal', 'Municipal (DemandStar)']
         ].map(function (pair) {{
           var selAttr = pair[0] === stVal ? ' selected' : '';
@@ -6036,7 +8229,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<div class="text-slate-400 text-[11px] mt-1">' + esc(buyerAgency) + ' &bull; Due: <span class="text-amber-300">' + esc(d.closing_date || 'Open') + '</span></div>' +
                 '</div>' +
                 '<div class="flex flex-wrap gap-1.5 pt-1">' +
-                  '<a href="' + safeSpaRoute + '" class="inline-flex items-center justify-center px-2.5 py-1.5 rounded bg-indigo-600/25 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/40 text-[11px] transition-colors">24-API Dossier &rarr;</a>' +
+                  '<a href="' + safeSpaRoute + '" class="inline-flex items-center justify-center px-2.5 py-1.5 rounded bg-indigo-600/25 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/40 text-[11px] transition-colors">25-API Dossier &rarr;</a>' +
                   '<a href="' + safeBidUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-2.5 py-1.5 rounded bg-emerald-600/20 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/40 text-[11px] transition-colors">Official Bid Portal &nearr;</a>' +
                 '</div>' +
               '</div>';
@@ -6347,7 +8540,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
 
       function renderRows(list) {{
         if (!list || !list.length) {{
-          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 33 portals.</td></tr>';
+          return '<tr><td colspan="5" class="py-8 px-5 text-center font-mono text-xs text-slate-400">No open solicitations currently in this view — our 6-hour scraper pipeline continuously indexes new bids across all 52 portals.</td></tr>';
         }}
         var isRowUnlocked = false;
         try {{
@@ -6812,7 +9005,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div class="text-slate-200">' + esc(item.key_personnel_lcats || 'Engagement PM (PMP) • Lead Enterprise Systems Architect') + '</div>' +
                       '</div>' +
                       '<div class="p-3 rounded-lg bg-navy-900 border border-slate-800 space-y-1">' +
-                        '<div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS, DEBRIEF/PROTEST, QASP, TRANSITION &amp; BLACK-HAT (API #15 / #17 / #19 / #26 / #27 / #33)</div>' +
+                        '<div class="text-[10px] text-sky-300 font-bold">06. CPARS, ORALS, DEBRIEF/PROTEST, QASP, TRANSITION, BLACK-HAT &amp; RED-TEAM (API #15 / #17 / #19 / #26 / #27 / #33 / #56)</div>' +
                         '<div class="text-slate-200">' + esc(item.cpars_benchmark || 'Substantial Confidence • 3 Very Relevant Refs (5-Yr Window)') + '</div>' +
                       '</div>' +
                     '</div>' +
@@ -6833,7 +9026,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                         '<div><strong class="text-slate-200">Official Government Bid URL:</strong> <span class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/' + esc(item.id) + '98412</span></div>' +
                         '<div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span class="blur-sm select-none">' + esc(item.agency) + ' - Procurement Division</span></div>' +
                         '<div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span class="blur-sm select-none break-words">contracting.officer@' + esc(portalHost) + ' &bull; Electronic Q&amp;A Desk (' + esc(item.agency) + ')</span></div>' +
-                        '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33</span></div>' +
+                        '<div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33/#56/#56</span></div>' +
                       '</div>';
                     }})() +
                     '<div id="contracts-rfp-workbench-card" class="pt-3 space-y-2.5">' +
@@ -6892,11 +9085,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</div>' +
                   '<div class="text-2xl font-extrabold text-white">Stop Hunting Portals Manually</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 31-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
+                    'Get every pre-vetted Federal (SAM.gov), DemandStar, and 50-State SLED (TX, VA, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY) IT &amp; cybersecurity solicitation pushed directly to your team every 6 hours.' +
                   '</p>' +
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
-                    '<li>&check; Tier 2 CaptureDesk ($399/mo) 24-API Auto-Dossiers</li>' +
+                    '<li>&check; Tier 2 CaptureDesk ($399/mo) 25-API Auto-Dossiers</li>' +
                     '<li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>' +
                     '<li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>' +
                   '</ul>' +
@@ -6914,13 +9107,13 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '</a>' +
                 '</div>' +
                 '<div class="p-6 rounded-2xl bg-navy-900 border border-indigo-500/30 space-y-3">' +
-                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">39 LIVE APIs &amp; MCP SERVER</div>' +
+                  '<div class="text-xs font-mono text-indigo-400 uppercase font-semibold">58 LIVE APIs &amp; MCP SERVER</div>' +
                   '<div class="text-lg font-bold text-white">Automate Your Bid Response</div>' +
                   '<p class="text-xs text-slate-300 leading-relaxed">' +
-                    'Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 39 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
+                    'Shape pre-RFP Sources Sought &amp; RFI set-asides (FAR 19.502-2 Rule-of-Two), generate GSA MAS Schedule SIN matrices, 0.75% IFF ceiling rate cards &amp; GSAR 552.238-81 PRC compliance packages, analyze FAR 15.506 Post-Award Debriefings &amp; GAO Bid-Protest viability, generate NIST 800-53 Rev 5 RMF, Continuous ATO (cATO), SSP &amp; POA&amp;M packages, FAR 15.102 Oral Presentation &amp; Murder-Board prep, model IGCE wrap-rates &amp; Price-to-Win, generate CPARS &amp; Past Performance Volume III citations, diff SF-30 RFP amendments, tailor Key Personnel &amp; GSA LCAT resumes, auto-answer SOC 2, FedRAMP &amp; NIST 800-171 security questionnaires, generate 13 CFR &sect; 125.6 (50% Rule) teaming plans, extract Section B CLIN pricing tables, draft Shipley proposal narratives &amp; CO Q&amp;A, classify NAICS/SIC/PSC/UNSPSC codes, score Bid/No-Bid Pwin (0&ndash;100), audit FAR/DFARS &amp; CMMC 2.0 flow-downs, or shred this RFP into a compliance matrix via our 58 RapidAPI microservices &amp; <code class="text-indigo-200">@signaltender/mcp-server</code>.' +
                   '</p>' +
                   '<a href="#product-sources-sought-response" class="w-full inline-flex items-center justify-center px-4 py-2.5 text-xs font-mono font-semibold text-indigo-300 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 rounded-lg transition-all">' +
-                    'Explore 39 APIs &amp; MCP Server &rarr;' +
+                    'Explore 58 APIs &amp; MCP Server &rarr;' +
                   '</a>' +
                 '</div>' +
               '</div>' +
@@ -7016,7 +9209,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
               'Federal &amp; State SLED IT Contract Directory' +
             '</h1>' +
             '<p class="text-slate-300 text-base max-w-3xl">' +
-              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, Colorado, Arizona, Minnesota, Tennessee, Indiana, Missouri, Wisconsin, South Carolina, Oregon, Connecticut, Utah, Nevada, Alabama, Louisiana, Kentucky, and Oklahoma.' +
+              'Explore ' + all.length + ' live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, Colorado, Arizona, Minnesota, Tennessee, Indiana, Missouri, Wisconsin, South Carolina, Oregon, Connecticut, Utah, Nevada, Alabama, Louisiana, Kentucky, Oklahoma, Iowa, Kansas, Arkansas, Mississippi, New Mexico, Nebraska, Idaho, Hawaii, New Hampshire, Maine, Rhode Island, Montana, Delaware, South Dakota, North Dakota, Alaska, Vermont, West Virginia, and Wyoming.' +
             '</p>' +
           '</div>' +
           '<div id="contracts-portal-hubs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">' + cardsHtml + '</div>' +

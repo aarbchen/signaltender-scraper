@@ -58,6 +58,25 @@ JURISDICTION_WEBHOOKS = {
     "louisiana": os.getenv("DISCORD_LOUISIANA_WEBHOOK_URL"),
     "kentucky": os.getenv("DISCORD_KENTUCKY_WEBHOOK_URL"),
     "oklahoma": os.getenv("DISCORD_OKLAHOMA_WEBHOOK_URL"),
+    "iowa": os.getenv("DISCORD_IOWA_WEBHOOK_URL"),
+    "kansas": os.getenv("DISCORD_KANSAS_WEBHOOK_URL"),
+    "arkansas": os.getenv("DISCORD_ARKANSAS_WEBHOOK_URL"),
+    "mississippi": os.getenv("DISCORD_MISSISSIPPI_WEBHOOK_URL"),
+    "new_mexico": os.getenv("DISCORD_NEW_MEXICO_WEBHOOK_URL"),
+    "nebraska": os.getenv("DISCORD_NEBRASKA_WEBHOOK_URL"),
+    "idaho": os.getenv("DISCORD_IDAHO_WEBHOOK_URL"),
+    "hawaii": os.getenv("DISCORD_HAWAII_WEBHOOK_URL"),
+    "new_hampshire": os.getenv("DISCORD_NEW_HAMPSHIRE_WEBHOOK_URL"),
+    "maine": os.getenv("DISCORD_MAINE_WEBHOOK_URL"),
+    "rhode_island": os.getenv("DISCORD_RHODE_ISLAND_WEBHOOK_URL"),
+    "montana": os.getenv("DISCORD_MONTANA_WEBHOOK_URL"),
+    "delaware": os.getenv("DISCORD_DELAWARE_WEBHOOK_URL"),
+    "south_dakota": os.getenv("DISCORD_SOUTH_DAKOTA_WEBHOOK_URL"),
+    "north_dakota": os.getenv("DISCORD_NORTH_DAKOTA_WEBHOOK_URL"),
+    "alaska": os.getenv("DISCORD_ALASKA_WEBHOOK_URL"),
+    "vermont": os.getenv("DISCORD_VERMONT_WEBHOOK_URL"),
+    "west_virginia": os.getenv("DISCORD_WEST_VIRGINIA_WEBHOOK_URL"),
+    "wyoming": os.getenv("DISCORD_WYOMING_WEBHOOK_URL"),
     "municipal": os.getenv("DISCORD_MUNICIPAL_WEBHOOK_URL"),
 }
 
@@ -94,6 +113,25 @@ JURISDICTION_LABELS = {
     "louisiana": "LOUISIANA // LAPAC, LAGOV & OTS",
     "kentucky": "KENTUCKY // KY VSS, COT & FORT KNOX CORRIDOR",
     "oklahoma": "OKLAHOMA // OMES, IS & TINKER AFB CORRIDOR",
+    "iowa": "IOWA // IMPACS SCIQUEST, DOM DOIT & CAMP DODGE CORRIDOR",
+    "kansas": "KANSAS // KS SMART, OITS & FORT LEAVENWORTH CORRIDOR",
+    "arkansas": "ARKANSAS // ARBUY PERISCOPE, DIS & LITTLE ROCK AFB CORRIDOR",
+    "mississippi": "MISSISSIPPI // MS MAGIC, DEPT OF ITS & KEESLER AFB CORRIDOR",
+    "new_mexico": "NEW MEXICO // NM GSD SHARE, DOIT & KIRTLAND AFB / SANDIA CORRIDOR",
+    "nebraska": "NEBRASKA // NE DAS MATERIEL, OCIO & OFFUTT AFB USSTRATCOM CORRIDOR",
+    "idaho": "IDAHO // ID IPRO LUMA, ITS & INL / MOUNTAIN HOME CORRIDOR",
+    "hawaii": "HAWAII // HIEPRO HANDS, ETS & USINDOPACOM / PEARL HARBOR CORRIDOR",
+    "new_hampshire": "NEW HAMPSHIRE // NH DAS BPP, DOIT & PORTSMOUTH / PEASE CORRIDOR",
+    "maine": "MAINE // ME DAFS PROCUREMENT, MAINEIT & NAVAL CORRIDOR",
+    "rhode_island": "RHODE ISLAND // RI OSP, ETSS & NUWC NEWPORT DEFENSE CORRIDOR",
+    "montana": "MONTANA // MT EMACS, SITSD & MALMSTROM AFB CORRIDOR",
+    "delaware": "DELAWARE // DE MYMARKETPLACE, DTI & DOVER AFB CORRIDOR",
+    "south_dakota": "SOUTH DAKOTA // SD OPM, BIT & ELLSWORTH AFB B-21 CORRIDOR",
+    "north_dakota": "NORTH DAKOTA // ND OMB SPO, NDIT & MINOT / GRAND FORKS CORRIDOR",
+    "alaska": "ALASKA // AK IRIS OPN, OIT & JBER / EIELSON ARCTIC CORRIDOR",
+    "vermont": "VERMONT // VT BGS BID SYSTEM, ADS & BURLINGTON ANGB CORRIDOR",
+    "west_virginia": "WEST VIRGINIA // WVOASIS VSS, WVOT & FBI CJIS CORRIDOR",
+    "wyoming": "WYOMING // WY A&I, ETS & F.E. WARREN AFB SENTINEL CORRIDOR",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 
@@ -374,6 +412,328 @@ def classify_jurisdiction(record: dict) -> str:
     ):
         return "oklahoma"
     if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
         "nevadaepro.com" in url
         or "purchasing.nv.gov" in url
         or "eits.nv.gov" in url
@@ -427,6 +787,328 @@ def classify_jurisdiction(record: dict) -> str:
         or "okstate.edu" in url
     ):
         return "oklahoma"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
+    if (
+        "customerorg=stateofiowa" in url
+        or "das.iowa.gov" in url
+        or "dom.iowa.gov" in url
+        or "iowa.gov" in url
+        or "uiowa.edu" in url
+        or "iastate.edu" in url
+    ):
+        return "iowa"
+    if (
+        "admin.ks.gov" in url
+        or "oits.ks.gov" in url
+        or "ks.gov" in url
+        or "kansas.gov" in url
+        or "ku.edu" in url
+        or "ksu.edu" in url
+    ):
+        return "kansas"
+    if (
+        "arbuy.arkansas.gov" in url
+        or "transform.ar.gov" in url
+        or "arkansas.gov" in url
+        or "ar.gov" in url
+        or "uark.edu" in url
+        or "uams.edu" in url
+    ):
+        return "arkansas"
+    if (
+        "its.ms.gov" in url
+        or "dfa.ms.gov" in url
+        or "ms.gov" in url
+        or "mississippi.gov" in url
+        or "msstate.edu" in url
+        or "olemiss.edu" in url
+    ):
+        return "mississippi"
+    if (
+        "generalservices.state.nm.us" in url
+        or "doit.nm.gov" in url
+        or "nm.gov" in url
+        or "state.nm.us" in url
+        or "unm.edu" in url
+        or "nmsu.edu" in url
+    ):
+        return "new_mexico"
+    if (
+        "das.nebraska.gov" in url
+        or "cio.nebraska.gov" in url
+        or "nebraska.gov" in url
+        or "ne.gov" in url
+        or "nebraska.edu" in url
+        or "unl.edu" in url
+    ):
+        return "nebraska"
+    if (
+        "purchasing.idaho.gov" in url
+        or "its.idaho.gov" in url
+        or "idaho.gov" in url
+        or "id.gov" in url
+        or "boisestate.edu" in url
+        or "uidaho.edu" in url
+    ):
+        return "idaho"
+    if (
+        "hiepro.ehawaii.gov" in url
+        or "hands.ehawaii.gov" in url
+        or "ets.hawaii.gov" in url
+        or "hawaii.gov" in url
+        or "ehawaii.gov" in url
+        or "hawaii.edu" in url
+    ):
+        return "hawaii"
+    if (
+        "das.nh.gov" in url
+        or "doit.nh.gov" in url
+        or "nh.gov" in url
+        or "usnh.edu" in url
+        or "unh.edu" in url
+    ):
+        return "new_hampshire"
+    if (
+        "maine.gov/dafs" in url
+        or "maine.gov/oit" in url
+        or "maine.gov" in url
+        or "maine.edu" in url
+    ):
+        return "maine"
+    if (
+        "ridop.ri.gov" in url
+        or "etss.ri.gov" in url
+        or "ri.gov" in url
+        or "uri.edu" in url
+    ):
+        return "rhode_island"
+    if (
+        "spb.mt.gov" in url
+        or "sitsd.mt.gov" in url
+        or "mt.gov" in url
+        or "montana.edu" in url
+        or "umt.edu" in url
+    ):
+        return "montana"
+    if (
+        "mmp.delaware.gov" in url
+        or "bids.delaware.gov" in url
+        or "dti.delaware.gov" in url
+        or "delaware.gov" in url
+        or "udel.edu" in url
+    ):
+        return "delaware"
+    if (
+        "boa.sd.gov" in url
+        or "bit.sd.gov" in url
+        or "sd.gov" in url
+        or "dsu.edu" in url
+        or "sdstate.edu" in url
+    ):
+        return "south_dakota"
+    if (
+        "apps.nd.gov/csd/spo" in url
+        or "omb.nd.gov" in url
+        or "ndit.nd.gov" in url
+        or "nd.gov" in url
+        or "und.edu" in url
+        or "ndsu.edu" in url
+    ):
+        return "north_dakota"
+    if (
+        "aws.state.ak.us" in url
+        or "iris-vss.alaska.gov" in url
+        or "oit.alaska.gov" in url
+        or "alaska.gov" in url
+        or "state.ak.us" in url
+        or "alaska.edu" in url
+    ):
+        return "alaska"
+    if (
+        "vermontbusinessregistry.com" in url
+        or "bgs.vermont.gov" in url
+        or "ads.vermont.gov" in url
+        or "vermont.gov" in url
+        or "uvm.edu" in url
+    ):
+        return "vermont"
+    if (
+        "wvoasis.gov" in url
+        or "state.wv.us/admin/purchase" in url
+        or "technology.wv.gov" in url
+        or "wv.gov" in url
+        or "wvu.edu" in url
+        or "marshall.edu" in url
+    ):
+        return "west_virginia"
+    if (
+        "ai.wyo.gov" in url
+        or "ets.wyo.gov" in url
+        or "wyo.gov" in url
+        or "wyoming.gov" in url
+        or "uwyo.edu" in url
+    ):
+        return "wyoming"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "maryland"
 
@@ -699,6 +1381,486 @@ def classify_jurisdiction(record: dict) -> str:
     ):
         return "oklahoma"
     if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
         title.startswith("[NV]")
         or title.lower().startswith("[nv-")
         or "nevada" in agency
@@ -761,6 +1923,486 @@ def classify_jurisdiction(record: dict) -> str:
         or "76th sweg" in agency
     ):
         return "oklahoma"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
+    if (
+        title.startswith("[IA]")
+        or title.lower().startswith("[ia-")
+        or "iowa" in agency
+        or "(ia)" in agency
+        or "impacs" in agency
+        or "dom doit" in agency
+        or "iowa dot" in agency
+        or "camp dodge" in agency
+        or "des moines" in agency
+    ):
+        return "iowa"
+    if (
+        title.startswith("[KS]")
+        or title.lower().startswith("[ks-")
+        or "kansas" in agency
+        or "(ks)" in agency
+        or "ks smart" in agency
+        or "oits" in agency
+        or "kiso" in agency
+        or "kdot" in agency
+        or "fort leavenworth" in agency
+        or "mcconnell afb" in agency
+    ):
+        return "kansas"
+    if (
+        title.startswith("[AR]")
+        or title.lower().startswith("[ar-")
+        or "arkansas" in agency
+        or "(ar)" in agency
+        or "arbuy" in agency
+        or "ar dis" in agency
+        or "ardot" in agency
+        or "little rock afb" in agency
+        or "ebbing" in agency
+    ):
+        return "arkansas"
+    if (
+        title.startswith("[MS]")
+        or title.lower().startswith("[ms-")
+        or "mississippi" in agency
+        or "(ms)" in agency
+        or "ms magic" in agency
+        or "ms its" in agency
+        or "mdot" in agency
+        or "keesler afb" in agency
+        or "stennis" in agency
+    ):
+        return "mississippi"
+    if (
+        title.startswith("[NM]")
+        or title.lower().startswith("[nm-")
+        or "new mexico" in agency
+        or "(nm)" in agency
+        or "nm gsd" in agency
+        or "nm doit" in agency
+        or "nmdot" in agency
+        or "kirtland afb" in agency
+        or "white sands" in agency
+        or "sandia" in agency
+        or "los alamos" in agency
+    ):
+        return "new_mexico"
+    if (
+        title.startswith("[NE]")
+        or title.lower().startswith("[ne-")
+        or "nebraska" in agency
+        or "(ne)" in agency
+        or "ne das" in agency
+        or "ne ocio" in agency
+        or "offutt afb" in agency
+        or "usstratcom" in agency
+        or "55th wing" in agency
+        or "omaha" in agency
+    ):
+        return "nebraska"
+    if (
+        title.startswith("[ID]")
+        or title.lower().startswith("[id-")
+        or "idaho" in agency
+        or "(id)" in agency
+        or "ipro" in agency
+        or "luma" in agency
+        or "id its" in agency
+        or "idhw" in agency
+        or "mountain home afb" in agency
+        or "idaho national lab" in agency
+    ):
+        return "idaho"
+    if (
+        title.startswith("[HI]")
+        or title.lower().startswith("[hi-")
+        or "hawaii" in agency
+        or "(hi)" in agency
+        or "hiepro" in agency
+        or "hi ets" in agency
+        or "med-quest" in agency
+        or "hdot" in agency
+        or "indopacom" in agency
+        or "pearl harbor" in agency
+        or "hickam" in agency
+        or "honolulu" in agency
+    ):
+        return "hawaii"
+    if (
+        title.startswith("[NH]")
+        or title.lower().startswith("[nh-")
+        or "new hampshire" in agency
+        or "(nh)" in agency
+        or "nh das" in agency
+        or "nh doit" in agency
+        or "nhdot" in agency
+        or "pease angb" in agency
+        or "portsmouth naval" in agency
+        or "new boston sfs" in agency
+    ):
+        return "new_hampshire"
+    if (
+        title.startswith("[ME]")
+        or title.lower().startswith("[me-")
+        or "maine" in agency
+        or "(me)" in agency
+        or "maineit" in agency
+        or "mainecare" in agency
+        or "mainedot" in agency
+        or "bath iron" in agency
+        or "bangor angb" in agency
+    ):
+        return "maine"
+    if (
+        title.startswith("[RI]")
+        or title.lower().startswith("[ri-")
+        or "rhode island" in agency
+        or "(ri)" in agency
+        or "ocean state procures" in agency
+        or "ri etss" in agency
+        or "ridot" in agency
+        or "nuwc newport" in agency
+        or "naval station newport" in agency
+    ):
+        return "rhode_island"
+    if (
+        title.startswith("[MT]")
+        or title.lower().startswith("[mt-")
+        or "montana" in agency
+        or "(mt)" in agency
+        or "emacs" in agency
+        or "sitsd" in agency
+        or "malmstrom afb" in agency
+        or "341st mw" in agency
+    ):
+        return "montana"
+    if (
+        title.startswith("[DE]")
+        or title.lower().startswith("[de-")
+        or "delaware" in agency
+        or "(de)" in agency
+        or "mymarketplace" in agency
+        or "de dti" in agency
+        or "deldot" in agency
+        or "dover afb" in agency
+        or "436th aw" in agency
+    ):
+        return "delaware"
+    if (
+        title.startswith("[SD]")
+        or title.lower().startswith("[sd-")
+        or "south dakota" in agency
+        or "(sd)" in agency
+        or "sd opm" in agency
+        or "sd bit" in agency
+        or "sddot" in agency
+        or "ellsworth afb" in agency
+        or "28th bw" in agency
+        or "dakota state" in agency
+    ):
+        return "south_dakota"
+    if (
+        title.startswith("[ND]")
+        or title.lower().startswith("[nd-")
+        or "north dakota" in agency
+        or "(nd)" in agency
+        or "nd spo" in agency
+        or "ndit" in agency
+        or "nddot" in agency
+        or "minot afb" in agency
+        or "grand forks afb" in agency
+    ):
+        return "north_dakota"
+    if (
+        title.startswith("[AK]")
+        or title.lower().startswith("[ak-")
+        or "alaska" in agency
+        or "(ak)" in agency
+        or "ak iris" in agency
+        or "ak oit" in agency
+        or "jber" in agency
+        or "elmendorf" in agency
+        or "eielson afb" in agency
+        or "clear sfs" in agency
+        or "anchorage" in agency
+    ):
+        return "alaska"
+    if (
+        title.startswith("[VT]")
+        or title.lower().startswith("[vt-")
+        or "vermont" in agency
+        or "(vt)" in agency
+        or "vt bgs" in agency
+        or "vt ads" in agency
+        or "vtrans" in agency
+        or "dvha" in agency
+        or "158th fw" in agency
+        or "burlington angb" in agency
+    ):
+        return "vermont"
+    if (
+        title.startswith("[WV]")
+        or title.lower().startswith("[wv-")
+        or "west virginia" in agency
+        or "(wv)" in agency
+        or "wvoasis" in agency
+        or "wvot" in agency
+        or "wvdot" in agency
+        or "clarksburg" in agency
+        or "martinsburg" in agency
+    ):
+        return "west_virginia"
+    if (
+        title.startswith("[WY]")
+        or title.lower().startswith("[wy-")
+        or "wyoming" in agency
+        or "(wy)" in agency
+        or "wy ets" in agency
+        or "wydot" in agency
+        or "f.e. warren" in agency
+        or "90th mw" in agency
+        or "cheyenne" in agency
+    ):
+        return "wyoming"
     if title.startswith("[OH]") or "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
         return "ohio"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
@@ -862,7 +2504,7 @@ def _post_batches_to_webhook(records: list[dict], webhook_url: str, label: str =
 
 
 def _resolve_dossiers_for_cycle(records: list[dict], passed_dossiers: list[dict] | None = None) -> list[dict]:
-    """Load or resolve the CaptureDesk Autopilot 24-API dossiers corresponding to the current 6-hour cycle."""
+    """Load or resolve the CaptureDesk Autopilot 25-API dossiers corresponding to the current 6-hour cycle."""
     if passed_dossiers:
         return list(passed_dossiers)
     import json
@@ -970,11 +2612,11 @@ def format_subscriber_email_briefing(
     """
     Build an organized, executive-formatted 6-hour email briefing tailored by subscription tier:
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
+          Section I: 52-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations with direct official portal links).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Email combining BOTH:
-            Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded capture memos)
-            Section II: Complete 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section I: CaptureDesk Autopilot 25-API Executive Dossiers (8-part pre-shredded capture memos)
+            Section II: Complete 52-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     Returns `(subject, plain_text_body, html_body)`.
     """
     from datetime import datetime, timezone
@@ -1012,17 +2654,17 @@ def format_subscriber_email_briefing(
     elif norm_tier == "tier_3":
         subject = (
             f"[SignalTender // Tier 3 Proposal Autopilot] 6-Hour Executive Capture Briefing — "
-            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+            f"{len(resolved_dossiers)} CaptureDesk 25-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
         )
     elif norm_tier == "tier_4":
         subject = (
             f"[SignalTender // Tier 4 Enterprise OEM & FOIA Vault] 6-Hour Executive Capture Briefing — "
-            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+            f"{len(resolved_dossiers)} CaptureDesk 25-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
         )
     else:
         subject = (
             f"[SignalTender // Tier 2 Autopilot] 6-Hour Executive Capture Briefing — "
-            f"{len(resolved_dossiers)} CaptureDesk 24-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
+            f"{len(resolved_dossiers)} CaptureDesk 25-API Dossiers + {total_wire} Live Wire RFPs ({cycle_ts})"
         )
 
     # -------------------------------------------------------------------------
@@ -1036,45 +2678,45 @@ def format_subscriber_email_briefing(
     if norm_tier == "tier_1":
         lines.append("SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE BRIEFING")
         lines.append(f"Cycle Timestamp : {cycle_ts}")
-        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (33 Federal, State SLED & Municipal Portals)")
+        lines.append("Plan Tier       : Tier 1 // SignalWire Pro (52 Federal, State SLED & Municipal Portals)")
         lines.append(
             f"Cycle Summary   : {total_wire} Newly Vetted High-Signal IT/Cyber RFPs "
-            f"(Federal: {fed_count} | 31-State SLED: {sled_count} | Municipal: {muni_count})"
+            f"(Federal: {fed_count} | 50-State SLED: {sled_count} | Municipal: {muni_count})"
         )
         lines.append(pwin_plain_line)
     else:
         tier_header_map = {
-            "tier_4": "SIGNALTENDER // TIER 4 — ENTERPRISE OEM, FOIA WINNING-BID VAULT & 24-API CAPTUREDESK BRIEFING",
-            "tier_3": "SIGNALTENDER // TIER 3 — PROPOSAL AUTOPILOT (.ZIP COMPILER), TEAMING & 24-API CAPTUREDESK BRIEFING",
+            "tier_4": "SIGNALTENDER // TIER 4 — ENTERPRISE OEM, FOIA WINNING-BID VAULT & 25-API CAPTUREDESK BRIEFING",
+            "tier_3": "SIGNALTENDER // TIER 3 — PROPOSAL AUTOPILOT (.ZIP COMPILER), TEAMING & 25-API CAPTUREDESK BRIEFING",
             "tier_2": "SIGNALTENDER // TIER 2 — UNIFIED CAPTUREDESK AUTOPILOT & LIVE RFP WIRE BRIEFING",
         }
         tier_plan_map = {
-            "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (33 Portals + 24-API Capture Suite + 50k API Calls/Mo)",
-            "tier_3": "Tier 3 // Proposal Autopilot Enterprise (33 Portals + 24-API Capture Suite + 1-Click 6-File Shipley .ZIP Compiler)",
-            "tier_2": "Tier 2 // CaptureDesk Autopilot (33 Portals + 24-API Capture Suite)",
+            "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (52 Portals + 25-API Capture Suite + 50k API Calls/Mo)",
+            "tier_3": "Tier 3 // Proposal Autopilot Enterprise (52 Portals + 25-API Capture Suite + 1-Click 6-File Shipley .ZIP Compiler)",
+            "tier_2": "Tier 2 // CaptureDesk Autopilot (52 Portals + 25-API Capture Suite)",
         }
         lines.append(tier_header_map.get(norm_tier, tier_header_map["tier_2"]))
         lines.append(f"Cycle Timestamp : {cycle_ts}")
         lines.append(f"Plan Tier       : {tier_plan_map.get(norm_tier, tier_plan_map['tier_2'])}")
         lines.append(
-            f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 24-API CaptureDesk Dossiers + "
+            f"Cycle Summary   : {len(resolved_dossiers)} Pre-Shredded 25-API CaptureDesk Dossiers + "
             f"{total_wire} Newly Vetted Live Wire RFPs (Federal: {fed_count} | SLED: {sled_count} | Municipal: {muni_count})"
         )
         lines.append(pwin_plain_line)
         lines.append(rule_light)
         lines.append("TABLE OF CONTENTS (UNIFIED SINGLE-EMAIL BRIEFING)")
         lines.append(
-            f"  • SECTION I   : CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
+            f"  • SECTION I   : CAPTUREDESK AUTOPILOT 25-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} Deep-Dive Packages)"
         )
         lines.append(
-            f"  • SECTION II  : COMPLETE 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
+            f"  • SECTION II  : COMPLETE 52-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} of {total_wire} Vetted Solicitations)"
         )
         lines.append("  • SECTION III : ENTERPRISE API, MCP, PROPOSAL .ZIP & SELF-SERVICE DELIVERY CONTROLS")
     lines.append(rule_heavy)
     lines.append("")
 
     if norm_tier != "tier_1" and resolved_dossiers:
-        lines.append("SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS")
+        lines.append("SECTION I // CAPTUREDESK AUTOPILOT 25-API EXECUTIVE DOSSIERS")
         lines.append("Pre-shredded Bid/No-Go memos, IGCE/Wrap/PTW models, CMMC/NIST/RMF gates, and Shipley win themes.")
         lines.append(rule_light)
         for idx, d in enumerate(resolved_dossiers, start=1):
@@ -1112,7 +2754,7 @@ def format_subscriber_email_briefing(
             lines.append(f"  6. Teaming Mandate (#11): {d_team}")
             themes = [str(t).replace("**", "").strip() for t in (d.get("win_themes") or [])[:3] if t]
             if themes:
-                lines.append("  7. Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33):")
+                lines.append("  7. Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33/#56):")
                 for t_item in themes:
                     lines.append(f"       - {t_item}")
             ev_list = [str(e).replace("**", "").strip() for e in (d.get("evidence_needed") or [])[:2] if e]
@@ -1121,18 +2763,18 @@ def format_subscriber_email_briefing(
                 for e_item in ev_list:
                     lines.append(f"       - {e_item}")
             lines.append(f"  8. Official Portal URL  : {d_src}")
-            lines.append(f"     24-API Web Dossier   : {d_url}")
+            lines.append(f"     25-API Web Dossier   : {d_url}")
             lines.append(rule_light)
         lines.append("")
 
     wire_section_title = (
-        "SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE"
+        "SECTION II // COMPLETE 52-PORTAL LIVE RFP ALERT WIRE"
         if norm_tier != "tier_1"
-        else "SECTION I // 33-PORTAL LIVE RFP ALERT WIRE"
+        else "SECTION I // 52-PORTAL LIVE RFP ALERT WIRE"
     )
     lines.append(wire_section_title)
     lines.append(
-        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 33 government portals."
+        "All newly discovered, AI-vetted IT, Cloud, Cybersecurity & Software RFPs across 52 government portals."
     )
     lines.append(rule_light)
 
@@ -1166,9 +2808,9 @@ def format_subscriber_email_briefing(
         else "SECTION II // SUBSCRIBER DIRECTORY & DELIVERY CONTROLS"
     )
     lines.append(ctrl_section_title)
-    lines.append(f"  • Full 33-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
+    lines.append(f"  • Full 52-Portal Live Directory (Un-Blurred) : {SITE_BASE_URL}/contracts")
     if norm_tier != "tier_1":
-        lines.append(f"  • 39-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
+        lines.append(f"  • 58-API GovCon Capture Studio               : {SITE_BASE_URL}/apis.html")
         lines.append("  • Remote Streamable-HTTP MCP Server          : https://b2b-contract-parser-api.onrender.com/mcp")
     if norm_tier in ("tier_3", "tier_4"):
         lines.append("  • 1-Click 6-File Shipley Proposal .ZIP       : https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package")
@@ -1188,7 +2830,7 @@ def format_subscriber_email_briefing(
         "tier_4": "TIER 4 // ENTERPRISE OEM & FOIA VAULT (DOSSIERS + FOIA VAULT + LIVE WIRE)",
         "tier_3": "TIER 3 // PROPOSAL AUTOPILOT (.ZIP COMPILER + DOSSIERS + LIVE WIRE)",
         "tier_2": "TIER 2 // CAPTUREDESK AUTOPILOT (UNIFIED DOSSIERS + LIVE WIRE)",
-        "tier_1": "TIER 1 // SIGNALWIRE PRO (33-PORTAL LIVE RFP WIRE)",
+        "tier_1": "TIER 1 // SIGNALWIRE PRO (52-PORTAL LIVE RFP WIRE)",
     }
     tier_pill = tier_pill_map.get(norm_tier, tier_pill_map["tier_2"])
     tier_accent = "#f59e0b" if norm_tier == "tier_4" else ("#10b981" if norm_tier == "tier_3" else ("#6366f1" if norm_tier == "tier_2" else "#0ea5e9"))
@@ -1236,12 +2878,12 @@ def format_subscriber_email_briefing(
                     <tr><td style="padding:4px 0;color:#94a3b8;">Teaming &amp; Sub Goal (#11):</td><td style="padding:4px 0;">{d_team}</td></tr>
                   </table>
                   <div style="font-size:12px;color:#cbd5e1;margin-bottom:10px;">
-                    <strong style="color:#a5b4fc;">Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33):</strong>
+                    <strong style="color:#a5b4fc;">Tailored Shipley Section L/M Win Strategy (#05/#17/#19/#33/#56):</strong>
                     <ul style="margin:6px 0 0 18px;padding:0;">{themes_li}</ul>
                   </div>
                   <div style="margin-top:10px;">
                     <a href="{d_src}" style="display:inline-block;padding:7px 12px;background:#1e293b;color:#38bdf8;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;border:1px solid #334155;margin-right:8px;">Official Portal Bid &nearr;</a>
-                    <a href="{d_url}" style="display:inline-block;padding:7px 12px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;font-weight:700;">Open Full 24-API Dossier &rarr;</a>
+                    <a href="{d_url}" style="display:inline-block;padding:7px 12px;background:#4f46e5;color:#ffffff;text-decoration:none;border-radius:6px;font-size:12px;font-family:monospace;font-weight:700;">Open Full 25-API Dossier &rarr;</a>
                   </div>
                 </div>
                 """
@@ -1288,16 +2930,16 @@ def format_subscriber_email_briefing(
         section_i_html = f"""
         <div style="margin-top:18px;margin-bottom:22px;">
           <div style="font-family:monospace;font-size:12px;font-weight:700;color:#a5b4fc;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid #312e81;padding-bottom:6px;margin-bottom:12px;">
-            SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} PACKAGES)
+            SECTION I // CAPTUREDESK AUTOPILOT 25-API EXECUTIVE DOSSIERS ({len(resolved_dossiers)} PACKAGES)
           </div>
           {''.join(dossier_html_cards)}
         </div>
         """
 
     wire_header_label = (
-        f"SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        f"SECTION II // COMPLETE 52-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
         if norm_tier != "tier_1"
-        else f"SECTION I // 33-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
+        else f"SECTION I // 52-PORTAL LIVE RFP ALERT WIRE ({len(wire_items)} OF {total_wire} SOLICITATIONS)"
     )
 
     html_body = f"""
@@ -1306,7 +2948,7 @@ def format_subscriber_email_briefing(
         <div style="font-family:monospace;font-size:11px;color:{tier_accent};font-weight:700;letter-spacing:0.06em;">{escape(tier_pill)}</div>
         <h2 style="margin:6px 0 4px 0;font-size:20px;color:#ffffff;">SignalTender 6-Hour GovCon Capture Briefing</h2>
         <div style="font-size:12px;color:#94a3b8;font-family:monospace;">
-          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 31-State SLED: {sled_count} | Municipal: {muni_count}
+          Cycle: {escape(cycle_ts)} &bull; Federal: {fed_count} | 50-State SLED: {sled_count} | Municipal: {muni_count}
         </div>
         {pwin_html_badge}
       </div>
@@ -1318,7 +2960,7 @@ def format_subscriber_email_briefing(
         {''.join(wire_html_rows)}
       </div>
       <div style="border-top:1px solid #1e293b;padding-top:14px;font-size:12px;color:#94a3b8;line-height:1.6;">
-        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 33-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
+        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 52-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
       </div>
     </div>
     """.strip()
@@ -1404,8 +3046,8 @@ def _send_subscriber_email_briefing(
     """
     Send an organized, tier-specific 6-hour briefing email ONLY to active subscribers
     who opted in (`email_briefings_enabled: True`).
-    Tier 2 subscribers receive BOTH CaptureDesk Autopilot 24-API Dossiers (Section I)
-    and the Complete 33-Portal Live RFP Alert Wire (Section II) in the same single email.
+    Tier 2 subscribers receive BOTH CaptureDesk Autopilot 25-API Dossiers (Section I)
+    and the Complete 52-Portal Live RFP Alert Wire (Section II) in the same single email.
     """
     clean_to = str(to_email or "").strip().lower()
     if not clean_to or "@" not in clean_to or clean_to.endswith("@signaltender.net"):
@@ -1478,11 +3120,11 @@ def format_external_webhook_payload(
     both Subscription Tier (`tier_1` vs `tier_2`) and Destination Platform (`Slack`,
     `Microsoft Teams`, `Discord`, or `CRM / Zapier / Make.com / n8n / HubSpot / Salesforce`):
       - Tier 1 (`tier_1` / SignalWire Pro):
-          Section I: 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
+          Section I: 52-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations).
       - Tier 2 (`tier_2` / CaptureDesk Autopilot):
           Single Unified 6-Hour Dispatch combining BOTH:
-            Section I: CaptureDesk Autopilot 24-API Executive Dossiers (8-part pre-shredded memos)
-            Section II: Complete 33-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
+            Section I: CaptureDesk Autopilot 25-API Executive Dossiers (8-part pre-shredded memos)
+            Section II: Complete 52-Portal Live RFP Alert Wire (all newly discovered IT/Cyber solicitations)
     """
     from datetime import datetime, timezone
 
@@ -1524,23 +3166,23 @@ def format_external_webhook_payload(
             s_lines.append("*SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE*")
             s_lines.append(
                 f"`Cycle: {cycle_label}` • *{total_wire} Vetted IT/Cyber RFPs* "
-                f"(Federal: `{fed_count}` | 31-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` | 50-State SLED: `{sled_count}` | Municipal: `{muni_count}`)"
             )
             s_lines.append("─" * 46)
-            s_lines.append("*SECTION I // 33-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION I // 52-PORTAL LIVE RFP ALERT WIRE*")
         else:
             s_lines.append("*SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING*")
             s_lines.append(
-                f"`Cycle: {cycle_label}` • *{len(resolved_dossiers)} CaptureDesk 24-API Dossiers* + "
+                f"`Cycle: {cycle_label}` • *{len(resolved_dossiers)} CaptureDesk 25-API Dossiers* + "
                 f"*{total_wire} Live Wire RFPs* (Federal: `{fed_count}` | SLED: `{sled_count}` | Municipal: `{muni_count}`)"
             )
             s_lines.append(
-                "• *Section I:* CaptureDesk Autopilot 24-API Executive Dossiers\n"
-                "• *Section II:* Complete 33-Portal Live RFP Alert Wire"
+                "• *Section I:* CaptureDesk Autopilot 25-API Executive Dossiers\n"
+                "• *Section II:* Complete 52-Portal Live RFP Alert Wire"
             )
             s_lines.append("─" * 46)
             if resolved_dossiers:
-                s_lines.append("*SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS*")
+                s_lines.append("*SECTION I // CAPTUREDESK AUTOPILOT 25-API EXECUTIVE DOSSIERS*")
                 for idx, d in enumerate(resolved_dossiers, start=1):
                     d_title = clean_title_text(str(d.get("title") or "Government IT Solicitation"))
                     d_agency = str(d.get("agency") or "Government Agency").strip()
@@ -1569,10 +3211,10 @@ def format_external_webhook_payload(
                     s_lines.append(f"  *5. IGCE, Wrap & PTW (#16/#20):* `{d_ptw}`")
                     s_lines.append(f"  *6. Key LCATs & Teaming (#11/#13):* `{d_lcat}` | `{d_team}`")
                     if theme_str:
-                        s_lines.append(f"  *7. Shipley Section L/M Win Strategy (#05/#17/#19/#33):*\n{theme_str}")
-                    s_lines.append(f"  *8. Action Links:* <{d_src}|Official Portal Bid ↗>  |  <{d_url}|Open Full 24-API Dossier →>")
+                        s_lines.append(f"  *7. Shipley Section L/M Win Strategy (#05/#17/#19/#33/#56):*\n{theme_str}")
+                    s_lines.append(f"  *8. Action Links:* <{d_src}|Official Portal Bid ↗>  |  <{d_url}|Open Full 25-API Dossier →>")
                     s_lines.append("─" * 46)
-            s_lines.append("*SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE*")
+            s_lines.append("*SECTION II // COMPLETE 52-PORTAL LIVE RFP ALERT WIRE*")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1591,7 +3233,7 @@ def format_external_webhook_payload(
                 f"  • *Buyer:* {agency} | *Due:* `{closing_date}`\n"
                 f"  • <{link}|Official Government Portal ↗>  |  <{dossier_url}|Unlocked SignalTender Brief →>"
             )
-        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 33-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
+        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 52-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
         return {"text": "\n".join(s_lines)}
 
     # 2. Native Microsoft Teams Markdown Card (`**bold**`, `[Label](url)`)
@@ -1601,23 +3243,23 @@ def format_external_webhook_payload(
             t_lines.append("### SIGNALTENDER // TIER 1 — 6-HOUR LIVE RFP ALERT WIRE")
             t_lines.append(
                 f"**Cycle:** `{cycle_label}` | **Total Vetted RFPs:** `{total_wire}` "
-                f"(Federal: `{fed_count}` • 31-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
+                f"(Federal: `{fed_count}` • 50-State SLED: `{sled_count}` • Municipal: `{muni_count}`)"
             )
             t_lines.append("---")
-            t_lines.append("#### SECTION I // 33-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION I // 52-PORTAL LIVE RFP ALERT WIRE")
         else:
             t_lines.append("### SIGNALTENDER // TIER 2 — UNIFIED 6-HOUR CAPTUREDESK AUTOPILOT & LIVE WIRE BRIEFING")
             t_lines.append(
-                f"**Cycle:** `{cycle_label}` | **{len(resolved_dossiers)} CaptureDesk 24-API Dossiers** + "
+                f"**Cycle:** `{cycle_label}` | **{len(resolved_dossiers)} CaptureDesk 25-API Dossiers** + "
                 f"**{total_wire} Live Wire RFPs** (Federal: `{fed_count}` • SLED: `{sled_count}` • Municipal: `{muni_count}`)"
             )
             t_lines.append(
-                "- **Section I:** CaptureDesk Autopilot 24-API Executive Dossiers\n"
-                "- **Section II:** Complete 33-Portal Live RFP Alert Wire"
+                "- **Section I:** CaptureDesk Autopilot 25-API Executive Dossiers\n"
+                "- **Section II:** Complete 52-Portal Live RFP Alert Wire"
             )
             t_lines.append("---")
             if resolved_dossiers:
-                t_lines.append("#### SECTION I // CAPTUREDESK AUTOPILOT 24-API EXECUTIVE DOSSIERS")
+                t_lines.append("#### SECTION I // CAPTUREDESK AUTOPILOT 25-API EXECUTIVE DOSSIERS")
                 for idx, d in enumerate(resolved_dossiers, start=1):
                     d_title = clean_title_text(str(d.get("title") or "Government IT Solicitation"))
                     d_agency = str(d.get("agency") or "Government Agency").strip()
@@ -1643,10 +3285,10 @@ def format_external_webhook_payload(
                         f"- **4. Cyber & RMF Gates (#06/#18):** `{d_comp}`\n"
                         f"- **5. IGCE, Wrap & PTW (#16/#20):** `{d_ptw}`\n"
                         f"- **6. Key LCATs & Teaming (#11/#13):** `{d_lcat}` | `{d_team}`\n"
-                        f"- **7. Action Links:** [Official Portal Bid ↗]({d_src}) | [Open Full 24-API Dossier →]({d_url})"
+                        f"- **7. Action Links:** [Official Portal Bid ↗]({d_src}) | [Open Full 25-API Dossier →]({d_url})"
                     )
                 t_lines.append("---")
-            t_lines.append("#### SECTION II // COMPLETE 33-PORTAL LIVE RFP ALERT WIRE")
+            t_lines.append("#### SECTION II // COMPLETE 52-PORTAL LIVE RFP ALERT WIRE")
 
         for idx, rec in enumerate(wire_items[:10], start=1):
             raw_title = str(rec.get("title") or "N/A").strip()
@@ -1678,11 +3320,11 @@ def format_external_webhook_payload(
             if "?unlocked=1" not in d_url:
                 d_url = f"{d_url}?unlocked=1"
             d_block = (
-                f"**[SECTION I // CAPTUREDESK 24-API DOSSIER]** `{d0.get('jurisdiction_badge', 'FEDERAL')}`\n"
+                f"**[SECTION I // CAPTUREDESK 25-API DOSSIER]** `{d0.get('jurisdiction_badge', 'FEDERAL')}`\n"
                 f"**Solicitation:** {clean_title_text(str(d0.get('title') or ''))}\n"
                 f"**NAICS/PSC:** `{d0.get('primary_naics', '541512')}` | `{d0.get('primary_psc', 'D399')}` | **IGCE/PTW:** `{d0.get('igce_ptw_posture', '')}`\n"
                 f"**Cyber/RMF:** `{d0.get('compliance_posture', '')}`\n"
-                f"**Official Portal:** <{d0.get('source_url', '')}> | **24-API Dossier:** <{d_url}>\n"
+                f"**Official Portal:** <{d0.get('source_url', '')}> | **25-API Dossier:** <{d_url}>\n"
                 f"{'─' * 44}"
             )
             blocks.append(d_block)
@@ -1732,7 +3374,7 @@ def format_external_webhook_payload(
         return {
             "event": "signaltender.cycle_briefing.dispatched",
             "tier": "tier_1",
-            "tier_name": "Tier 1 // SignalWire Pro (33-Portal Live RFP Alert Wire)",
+            "tier_name": "Tier 1 // SignalWire Pro (52-Portal Live RFP Alert Wire)",
             "platform": platform,
             "cycle_timestamp_utc": cycle_iso,
             "summary": {
@@ -1780,9 +3422,9 @@ def format_external_webhook_payload(
         )
 
     tier_names_map = {
-        "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (50k API Calls/Mo + 24-API Dossiers + 33-Portal Wire)",
-        "tier_3": "Tier 3 // Proposal Autopilot Enterprise (6-File Shipley .ZIP Compiler + 24-API Dossiers + 33-Portal Wire)",
-        "tier_2": "Tier 2 // CaptureDesk Autopilot (Unified 24-API Dossiers + 33-Portal Live Wire)",
+        "tier_4": "Tier 4 // Enterprise OEM & FOIA Winning-Bid Vault (50k API Calls/Mo + 25-API Dossiers + 52-Portal Wire)",
+        "tier_3": "Tier 3 // Proposal Autopilot Enterprise (6-File Shipley .ZIP Compiler + 25-API Dossiers + 52-Portal Wire)",
+        "tier_2": "Tier 2 // CaptureDesk Autopilot (Unified 25-API Dossiers + 52-Portal Live Wire)",
     }
     return {
         "event": "signaltender.cycle_briefing.dispatched",
@@ -1814,7 +3456,7 @@ def _dispatch_to_external_customer_webhooks(
     Dispatch newly discovered RFPs to any active subscriber external webhooks
     (Slack, Microsoft Teams, Zapier, Make.com, n8n, HubSpot, Salesforce) AND
     dispatch tier-specific 6-Hour Email Briefings (with Tier 2 combining both
-    CaptureDesk Autopilot 24-API Dossiers and the Live RFP Alert Wire in one unified package)
+    CaptureDesk Autopilot 25-API Dossiers and the Live RFP Alert Wire in one unified package)
     stored in Supabase with status='SUBSCRIBER_ACTIVE'.
     """
     import json
@@ -2002,7 +3644,7 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
                 f"Our CaptureDesk engine has already generated the Shipley Section L/M Compliance Matrix, "
                 f"CPARS Volume III Past Performance citations, 13 CFR § 125.6 Teaming Plan, and IGCE Price-to-Win "
                 f"model for this solicitation.\n\n"
-                f"You can unlock the full un-blurred official portal link, 24-API CaptureDesk suite, and 1-Click 6-File Shipley Proposal .ZIP Compiler in 60 seconds "
+                f"You can unlock the full un-blurred official portal link, 25-API CaptureDesk suite, and 1-Click 6-File Shipley Proposal .ZIP Compiler in 60 seconds "
                 f"(Tier 1 SignalWire Pro $99/mo, Tier 2 CaptureDesk Autopilot $399/mo, Tier 3 Proposal Autopilot $1,499/mo, or Tier 4 Enterprise OEM & FOIA Vault $2,499/mo — FAR 31.205-18 Corporate P-Card Ready with 1-click non-renewing pass toggle) here:\n"
                 f"{SITE_BASE_URL}/#checkout\n\n"
                 f"Or manage your saved bids and alert filters in your Client Portal:\n"

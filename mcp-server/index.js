@@ -60,7 +60,26 @@ const RAPIDAPI_HOSTS = {
   "generate_mentor_protege_jv_agreement": "sba-mentor-protege-13-cfr-125-8-joint-venture-api.p.rapidapi.com",
   "audit_service_contract_act_wage": "govcon-sca-far-52-222-41-wage-determination-mapper-api.p.rapidapi.com",
   "generate_evms_ipmdr_variance_analysis": "govcon-evms-ansi-748-ipmdr-variance-narrative-api.p.rapidapi.com",
-  "generate_cost_accounting_cas_ds2": "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com"
+  "generate_cost_accounting_cas_ds2": "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api.p.rapidapi.com",
+  "audit_itar_ear_export_control": "govcon-itar-usml-ear-ccl-tcp-export-control-api.p.rapidapi.com",
+  "generate_cdrls_did_data_deliverables": "dod-cdrl-dd-form-1423-did-schedule-tracker-api.p.rapidapi.com",
+  "generate_justification_ja_sole_source": "far-6-302-13-501-sole-source-ja-lsj-generator-api.p.rapidapi.com",
+  "audit_cyber_incident_dfars_7012": "dfars-252-204-7012-dibnet-72hr-incident-report-api.p.rapidapi.com",
+  "generate_doe_national_lab_mando_subcontract": "doe-dear-48-cfr-952-970-national-lab-compliance-api.p.rapidapi.com",
+  "generate_gwac_task_order_fair_opportunity": "far-16-505-oasis-polaris-sewp-task-order-shaper-api.p.rapidapi.com",
+  "audit_govt_furnished_property_gfp": "far-52-245-1-dfars-piee-gfp-property-management-api.p.rapidapi.com",
+  "generate_oconus_sofa_defense_logistics": "dod-oconus-sofa-dba-sync-spot-deployment-compliance-api.p.rapidapi.com",
+  "generate_cui_marking_distribution_plan": "dod-32-cfr-2002-dodi-5200-48-cui-marking-plan-api.p.rapidapi.com",
+  "generate_state_local_cooperative_piggyback": "naspo-sourcewell-omnia-tips-sled-coop-piggyback-api.p.rapidapi.com",
+  "generate_value_engineering_vecp": "far-part-48-52-248-1-vecp-shared-savings-proposal-api.p.rapidapi.com",
+  "audit_organizational_ethics_far_52_203_13": "far-52-203-13-business-ethics-oig-disclosure-auditor-api.p.rapidapi.com",
+  "generate_fedramp_equivalency_body_of_evidence": "dod-fedramp-moderate-equivalency-memorandum-boe-api.p.rapidapi.com",
+  "generate_ai_governance_nist_ai_rmf_omb_m24": "federal-ai-governance-omb-m-24-10-nist-ai-rmf-api.p.rapidapi.com",
+  "generate_termination_for_convenience_settlement": "far-part-49-sf-1435-1436-t4c-settlement-proposal-api.p.rapidapi.com",
+  "generate_novated_merger_change_of_name_far_42": "far-42-1204-govcon-m-a-novation-agreement-package-api.p.rapidapi.com",
+  "generate_section_l_m_proposal_red_team_scorer": "sseb-color-team-pink-red-gold-proposal-scorer-api.p.rapidapi.com",
+  "generate_gsa_tdr_quarterly_sales_iff_reconciler": "gsa-fas-srp-tdr-iff-cav-ioa-audit-reconciler-api.p.rapidapi.com",
+  "generate_award_fee_plan_incentive_maximizer": "far-16-401-cpaf-cpif-award-fee-board-presentation-api.p.rapidapi.com"
 };
 
 const TOOLS = [
@@ -301,7 +320,7 @@ const TOOLS = [
   {
     "name": "get_live_solicitations",
     "title": "Get Live Open Federal & State SLED RFPs",
-    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and State/Local SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 33-portal procurement database. This is a read-only, stateless, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
+    "description": "Retrieve currently open, AI-vetted Federal (SAM.gov) and All-50-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY, DemandStar) IT, Cloud, and Cybersecurity solicitations from SignalTender's 52-portal procurement database. This is a read-only, stateless, non-destructive live database query (requires X-RapidAPI-Key; all four filter parameters are optional and combinable, returning up to `limit` [default 10, max 50] active solicitations whose closing dates have not passed). Use this tool when discovering active open RFPs to bid on right now; use `search_historical_awards` instead for past awarded contracts and incumbent pricing, or `match_capability_statement` once you have selected an RFP to score Bid/No-Bid Pwin.",
     "annotations": {
       "title": "Get Live Open Federal & State SLED RFPs",
       "readOnlyHint": true,
@@ -347,9 +366,28 @@ const TOOLS = [
             "louisiana",
             "kentucky",
             "oklahoma",
+            "iowa",
+            "kansas",
+            "arkansas",
+            "mississippi",
+            "new_mexico",
+            "nebraska",
+            "idaho",
+            "hawaii",
+            "new_hampshire",
+            "maine",
+            "rhode_island",
+            "montana",
+            "delaware",
+            "south_dakota",
+            "north_dakota",
+            "alaska",
+            "vermont",
+            "west_virginia",
+            "wyoming",
             "municipal"
           ],
-          "description": "Filter by portal jurisdiction: 'federal', 'texas', 'virginia', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', 'nevada', 'alabama', 'louisiana', 'kentucky', 'oklahoma', or 'municipal'."
+          "description": "Filter by portal jurisdiction: 'federal', 'texas', 'virginia', 'california', 'florida', 'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina', 'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona', 'minnesota', 'tennessee', 'indiana', 'missouri', 'wisconsin', 'south_carolina', 'oregon', 'connecticut', 'utah', 'nevada', 'alabama', 'louisiana', 'kentucky', 'oklahoma', 'iowa', 'kansas', 'arkansas', 'mississippi', 'new_mexico', 'nebraska', 'idaho', 'hawaii', 'new_hampshire', 'maine', 'rhode_island', 'montana', 'delaware', 'south_dakota', 'north_dakota', 'alaska', 'vermont', 'west_virginia', 'wyoming', or 'municipal'."
         },
         "category": {
           "type": "string",
@@ -3433,6 +3471,1355 @@ const TOOLS = [
         }
       }
     }
+  },
+  {
+    "name": "audit_itar_ear_export_control",
+    "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance",
+    "description": "Classify defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP). Returns a strictly validated `ItarEarExportResponse` JSON object containing `export_jurisdiction_overview`, `usml_and_eccn_classification_matrix`, `technology_control_plan_tcp_controls`, and `deemed_export_and_ddtc_bis_licensing` grounded in 22 CFR Parts 120\u2013130 (ITAR USML Categories IV & XI), 15 CFR Parts 730\u2013774 (EAR CCL), & DFARS 252.225-7048. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `technical_deliverables_and_rfp_export_text` accepts 15 to 45,000 characters, while `target_export_regime` and `foreign_national_and_oconus_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "technical_deliverables_and_rfp_export_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance (15 to 45,000 characters)."
+        },
+        "target_export_regime": {
+          "type": "string",
+          "default": "ITAR_22_CFR_120_130_And_EAR_15_CFR_730_774_Dual_Audit",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'ITAR_22_CFR_120_130_And_EAR_15_CFR_730_774_Dual_Audit')."
+        },
+        "foreign_national_and_oconus_context": {
+          "type": "string",
+          "default": "U.S. Persons Only on ITAR USML Technical Data; Evaluate Deemed Export Rule (22 CFR 120.50 / 15 CFR 734.13)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'U.S. Persons Only on ITAR USML Technical Data; Evaluate Deemed Export Rule (22 CFR 120.50 / 15 CFR 734.13)')."
+        }
+      },
+      "required": [
+        "technical_deliverables_and_rfp_export_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "export_jurisdiction_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "usml_and_eccn_classification_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "technology_control_plan_tcp_controls": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "deemed_export_and_ddtc_bis_licensing": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_cdrls_did_data_deliverables",
+    "title": "DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor",
+    "description": "Extract all Contract Data Requirements List (CDRL / DD Form 1423) items from DoD RFPs, maps Data Item Descriptions (DIDs), Block 4 authority, submission frequencies, inspection/acceptance codes, and builds a WBS Data Delivery Calendar. Returns a strictly validated `CdrlDd1423Response` JSON object containing `cdrl_schedule_overview`, `dd_form_1423_extracted_items`, `did_tailoring_and_delivery_calendar`, and `piee_wawf_and_block18_pricing_governance` grounded in DFARS Subpart 227.71, DoD 5010.12-M (Procedures for the Acquisition and Management of Technical Data), & ASSIST DID Registry. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `rfp_exhibit_a_cdrl_and_pws_text` accepts 15 to 45,000 characters, while `contract_award_and_pop_start_context` and `dd1423_pricing_group_strategy` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_exhibit_a_cdrl_and_pws_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor (15 to 45,000 characters)."
+        },
+        "contract_award_and_pop_start_context": {
+          "type": "string",
+          "default": "Contract Award / Post-Award Conference (PAC) = Day 0; 12-Month Base Period + 4 Option Years",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'Contract Award / Post-Award Conference (PAC) = Day 0; 12-Month Base Period + 4 Option Years')."
+        },
+        "dd1423_pricing_group_strategy": {
+          "type": "string",
+          "default": "Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV \u2014 NSP vs. Separately Priced Data CLIN)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV \u2014 NSP vs. Separately Priced Data CLIN)')."
+        }
+      },
+      "required": [
+        "rfp_exhibit_a_cdrl_and_pws_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "cdrl_schedule_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "dd_form_1423_extracted_items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "did_tailoring_and_delivery_calendar": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "piee_wawf_and_block18_pricing_governance": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_justification_ja_sole_source",
+    "title": "FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter",
+    "description": "Draft a complete 12-Part FAR 6.303-2 Justification & Approval (J&A), FAR 8.405-6 Limited Sources Justification (LSJ), or FAR 16.505(b)(2) Fair Opportunity Exception package for Contracting Officers. Returns a strictly validated `SoleSourceJaResponse` JSON object containing `statutory_exception_overview`, `far_6_303_2_twelve_part_ja_sections`, `unacceptable_delay_and_duplicative_cost_quantification`, and `sam_gov_posting_and_approval_routing` grounded in FAR 6.302-1 (10 U.S.C. \u00a7 3204(a)(1) / 41 U.S.C. \u00a7 3304(a)(1)), FAR 6.303-2 (12 Mandatory Content Elements), & FAR 8.405-6 / 16.505(b)(2). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sole_source_requirement_and_vendor_uniqueness_text` accepts 15 to 45,000 characters, while `statutory_authority_pathway` and `estimated_dollar_value_and_approval_tier` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sole_source_requirement_and_vendor_uniqueness_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter (15 to 45,000 characters)."
+        },
+        "statutory_authority_pathway": {
+          "type": "string",
+          "default": "FAR_6_302_1_Only_One_Responsible_Source_10_USC_3204_a_1",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'FAR_6_302_1_Only_One_Responsible_Source_10_USC_3204_a_1')."
+        },
+        "estimated_dollar_value_and_approval_tier": {
+          "type": "string",
+          "default": "$18.5M Total Estimated Value \u2014 Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to '$18.5M Total Estimated Value \u2014 Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)')."
+        }
+      },
+      "required": [
+        "sole_source_requirement_and_vendor_uniqueness_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "statutory_exception_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "far_6_303_2_twelve_part_ja_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "unacceptable_delay_and_duplicative_cost_quantification": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "sam_gov_posting_and_approval_routing": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "audit_cyber_incident_dfars_7012",
+    "title": "DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package",
+    "description": "Evaluate CUI/CDI security incidents against DFARS 252.204-7012, CISA CIRCIA, and FedRAMP incident SLAs, generating a structured 72-hour DoD DIBNet ICF report, 90-day forensic media preservation checklist, and subcontractor flow-down notifications. Returns a strictly validated `Dfars7012IncidentResponse` JSON object containing `incident_reporting_determination`, `dibnet_72_hour_icf_report_fields`, `forensic_90_day_preservation_and_sla_clock`, and `dc3_damage_assessment_and_prime_flowdown_notices` grounded in DFARS 252.204-7012(c)\u2013(m) (72-Hour DoD DIBNet Reporting & 90-Day Image Preservation), CISA CIRCIA (6 U.S.C. \u00a7 681b), & NIST SP 800-61r2. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `security_incident_telemetry_and_affected_contracts_text` accepts 15 to 45,000 characters, while `regulatory_reporting_regimes` and `assurance_certificate_and_cloud_posture` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "security_incident_telemetry_and_affected_contracts_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package (15 to 45,000 characters)."
+        },
+        "regulatory_reporting_regimes": {
+          "type": "string",
+          "default": "DFARS_252_204_7012_72Hr_DIBNet_Plus_CISA_CIRCIA_72Hr_And_FedRAMP_US_CERT",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'DFARS_252_204_7012_72Hr_DIBNet_Plus_CISA_CIRCIA_72Hr_And_FedRAMP_US_CERT')."
+        },
+        "assurance_certificate_and_cloud_posture": {
+          "type": "string",
+          "default": "DoD ECA Medium Token Assurance Certificate Active; Enclave Hosted on AWS GovCloud (US) FedRAMP High / IL5",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'DoD ECA Medium Token Assurance Certificate Active; Enclave Hosted on AWS GovCloud (US) FedRAMP High / IL5')."
+        }
+      },
+      "required": [
+        "security_incident_telemetry_and_affected_contracts_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "incident_reporting_determination": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "dibnet_72_hour_icf_report_fields": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "forensic_90_day_preservation_and_sla_clock": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "dc3_damage_assessment_and_prime_flowdown_notices": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_doe_national_lab_mando_subcontract",
+    "title": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor",
+    "description": "Audit DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers. Returns a strictly validated `DoeDearSubcontractResponse` JSON object containing `doe_national_lab_subcontract_overview`, `dear_48_cfr_952_970_clause_audit_matrix`, `q_l_clearance_foci_and_doe_o_142_3b_controls`, and `patent_rights_and_crada_tech_transfer_strategy` grounded in 48 CFR Chapter 9 (DEAR Parts 952 & 970), 10 CFR Part 710 (Q/L Access Authorizations), DOE O 142.3B, & DOE O 470.4B. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `doe_national_lab_rfp_and_dear_clauses_text` accepts 15 to 45,000 characters, while `target_national_lab_and_mando_prime` and `clearance_and_ip_posture` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "doe_national_lab_rfp_and_dear_clauses_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor (15 to 45,000 characters)."
+        },
+        "target_national_lab_and_mando_prime": {
+          "type": "string",
+          "default": "Sandia_National_Laboratories_NTESS_And_Los_Alamos_National_Lab_Triad_NNSA",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'Sandia_National_Laboratories_NTESS_And_Los_Alamos_National_Lab_Triad_NNSA')."
+        },
+        "clearance_and_ip_posture": {
+          "type": "string",
+          "default": "DOE Q-Clearance / L-Clearance Cross-Over from DoD TS/Secret + Domestic Small Business Patent Retention (DEAR 952.227-11)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'DOE Q-Clearance / L-Clearance Cross-Over from DoD TS/Secret + Domestic Small Business Patent Retention (DEAR 952.227-11)')."
+        }
+      },
+      "required": [
+        "doe_national_lab_rfp_and_dear_clauses_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "doe_national_lab_subcontract_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "dear_48_cfr_952_970_clause_audit_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "q_l_clearance_foci_and_doe_o_142_3b_controls": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "patent_rights_and_crada_tech_transfer_strategy": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_gwac_task_order_fair_opportunity",
+    "title": "GWAC / IDIQ Task Order Fair Opportunity (FAR 16.505) & Pool Selection Optimizer",
+    "description": "Match task order TORFPs across OASIS+, GSA Polaris, 8(a) STARS III, VETS 2, NASA SEWP, and NITAAC CIO-SP3/4 against vendor contract pools, scoring self-scoring scorecard matrices and drafting rapid 5-day TORFP responses. Returns a strictly validated `GwacTaskOrderResponse` JSON object containing `gwac_fair_opportunity_overview`, `vehicle_pool_and_scorecard_alignment_matrix`, `rapid_torfp_technical_and_staffing_sections`, and `far_16_505_protest_thresholds_and_ombudsman_governance` grounded in FAR 16.505(b)(1) (Fair Opportunity), FAR 16.505(a)(10) ($10M Civilian / $25M DoD Task Order Protest Jurisdictional Cap), & GSAR 552.216-74. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `torfp_scope_and_vehicle_holders_text` accepts 15 to 45,000 characters, while `target_gwac_or_mac_vehicles` and `turnaround_window_and_evaluation_mode` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GWAC / IDIQ Task Order Fair Opportunity (FAR 16.505) & Pool Selection Optimizer workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "GWAC / IDIQ Task Order Fair Opportunity (FAR 16.505) & Pool Selection Optimizer",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "torfp_scope_and_vehicle_holders_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for GWAC / IDIQ Task Order Fair Opportunity (FAR 16.505) & Pool Selection Optimizer (15 to 45,000 characters)."
+        },
+        "target_gwac_or_mac_vehicles": {
+          "type": "string",
+          "default": "GSA_OASIS_Plus_Unrestricted_And_SB_GSA_Polaris_8a_STARS_III_VETS_2_CIO_SP3",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'GSA_OASIS_Plus_Unrestricted_And_SB_GSA_Polaris_8a_STARS_III_VETS_2_CIO_SP3')."
+        },
+        "turnaround_window_and_evaluation_mode": {
+          "type": "string",
+          "default": "5-Business-Day Rapid TORFP Turnaround | FAR 16.505(b)(1) Highest Technically Rated Offeror (HTRO) / Fair Opportunity",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to '5-Business-Day Rapid TORFP Turnaround | FAR 16.505(b)(1) Highest Technically Rated Offeror (HTRO) / Fair Opportunity')."
+        }
+      },
+      "required": [
+        "torfp_scope_and_vehicle_holders_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "gwac_fair_opportunity_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "vehicle_pool_and_scorecard_alignment_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "rapid_torfp_technical_and_staffing_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "far_16_505_protest_thresholds_and_ombudsman_governance": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "audit_govt_furnished_property_gfp",
+    "title": "Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan",
+    "description": "Audit GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, generating a DCMA-ready Property Management System Plan (PMSP), PIEE GFP Module reporting workflow, and IUID marking checklist. Returns a strictly validated `GfpPropertyAuditResponse` JSON object containing `gfp_property_system_overview`, `far_52_245_1_ten_lifecycle_outcomes_audit`, `gfp_cap_line_item_and_iuid_registry_table`, and `piee_gfp_module_and_plant_clearance_workflow` grounded in FAR 52.245-1, DFARS 252.245-7003 (Contractor Property Management System Administration), DFARS 252.245-7005 (PIEE GFP Module), & MIL-STD-130N. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `gfp_attachment_and_property_clauses_text` accepts 15 to 45,000 characters, while `dcma_property_system_audit_scope` and `liability_and_cap_regime` calibrate the regulatory regime and threshold assumptions). Use this tool when executing Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "gfp_attachment_and_property_clauses_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan (15 to 45,000 characters)."
+        },
+        "dcma_property_system_audit_scope": {
+          "type": "string",
+          "default": "FAR_52_245_1_10_Lifecycle_Outcomes_DFARS_252_245_7005_PIEE_GFP_Module_And_MIL_STD_130_IUID",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'FAR_52_245_1_10_Lifecycle_Outcomes_DFARS_252_245_7005_PIEE_GFP_Module_And_MIL_STD_130_IUID')."
+        },
+        "liability_and_cap_regime": {
+          "type": "string",
+          "default": "FAR 52.245-1(h) Limited Risk of Loss (Government Self-Insures Except Willful Misconduct / Revoked PMSA)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FAR 52.245-1(h) Limited Risk of Loss (Government Self-Insures Except Willful Misconduct / Revoked PMSA)')."
+        }
+      },
+      "required": [
+        "gfp_attachment_and_property_clauses_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "gfp_property_system_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "far_52_245_1_ten_lifecycle_outcomes_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "gfp_cap_line_item_and_iuid_registry_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "piee_gfp_module_and_plant_clearance_workflow": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_oconus_sofa_defense_logistics",
+    "title": "DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance",
+    "description": "Evaluate Pacific/OCONUS defense IT solicitations for Status of Forces Agreement (SOFA) TESA/TDY accreditation, FAR 52.228-3 Defense Base Act (DBA) insurance wraps, DFARS 252.225-7040 SPOT synchronization, and COLA/Post Allowance rate structures. Returns a strictly validated `OconusSofaDbaResponse` JSON object containing `oconus_theater_deployment_overview`, `sofa_host_nation_accreditation_matrix`, `dba_insurance_and_dssr_allowance_model`, and `spot_loa_and_crc_deployment_checklist` grounded in FAR 52.228-3 (42 U.S.C. \u00a7\u00a7 1651\u20131654 Defense Base Act), DFARS 252.225-7040 / 252.225-7995 (SPOT LOA), & DSSR Chapters 130/220/650. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `oconus_pws_and_theater_clauses_text` accepts 15 to 45,000 characters, while `target_combatant_command_and_host_nations` and `dba_and_dssr_allowance_assumptions` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "oconus_pws_and_theater_clauses_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance (15 to 45,000 characters)."
+        },
+        "target_combatant_command_and_host_nations": {
+          "type": "string",
+          "default": "USINDOPACOM_USFJ_Japan_USFK_Korea_Guam_And_USEUCOM_Germany_DOCPER_TESA",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'USINDOPACOM_USFJ_Japan_USFK_Korea_Guam_And_USEUCOM_Germany_DOCPER_TESA')."
+        },
+        "dba_and_dssr_allowance_assumptions": {
+          "type": "string",
+          "default": "FAR 52.228-3 Defense Base Act (DBA) Insurance + DSSR Living Quarters Allowance (LQA), Post Allowance (COLA), & Danger Pay",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FAR 52.228-3 Defense Base Act (DBA) Insurance + DSSR Living Quarters Allowance (LQA), Post Allowance (COLA), & Danger Pay')."
+        }
+      },
+      "required": [
+        "oconus_pws_and_theater_clauses_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "oconus_theater_deployment_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "sofa_host_nation_accreditation_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "dba_insurance_and_dssr_allowance_model": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "spot_loa_and_crc_deployment_checklist": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_cui_marking_distribution_plan",
+    "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan",
+    "description": "Analyze deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A\u2013F), and a CUI Sanitization & Spill Response SOP. Returns a strictly validated `CuiMarkingPlanResponse` JSON object containing `cui_registry_governance_overview`, `deliverable_cui_banner_and_distribution_matrix`, `portion_marking_and_designation_indicator_blocks`, and `nist_800_88_sanitization_and_spill_response_sop` grounded in 32 CFR Part 2002 (NARA CUI Program), DoDI 5200.48 (Controlled Unclassified Information), DoDI 5230.24 (Distribution Statements), & NIST SP 800-88 Rev. 1. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `deliverables_and_security_classification_guide_text` accepts 15 to 45,000 characters, while `cui_authority_framework` and `controlling_dod_office_and_ldc_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "deliverables_and_security_classification_guide_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan (15 to 45,000 characters)."
+        },
+        "cui_authority_framework": {
+          "type": "string",
+          "default": "32_CFR_Part_2002_NARA_CUI_Registry_DoDI_5200_48_And_DoDI_5230_24_Distribution_Statements",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to '32_CFR_Part_2002_NARA_CUI_Registry_DoDI_5200_48_And_DoDI_5230_24_Distribution_Statements')."
+        },
+        "controlling_dod_office_and_ldc_context": {
+          "type": "string",
+          "default": "Controlling DoD Office: AFLCMC/HNC (Hanscom AFB, MA) | Limited Dissemination Controls: NOFORN, FEDCON, DL ONLY",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Controlling DoD Office: AFLCMC/HNC (Hanscom AFB, MA) | Limited Dissemination Controls: NOFORN, FEDCON, DL ONLY')."
+        }
+      },
+      "required": [
+        "deliverables_and_security_classification_guide_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "cui_registry_governance_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "deliverable_cui_banner_and_distribution_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "portion_marking_and_designation_indicator_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "nist_800_88_sanitization_and_spill_response_sop": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_state_local_cooperative_piggyback",
+    "title": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper",
+    "description": "Evaluate state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP. Returns a strictly validated `SledCoopPiggybackResponse` JSON object containing `sled_cooperative_piggyback_overview`, `eligible_cooperative_vehicles_matrix`, `participating_addendum_and_distributor_pathways`, and `statutory_interlocal_authority_and_cpo_memo` grounded in 40 U.S.C. \u00a7 502(c) (GSA Cooperative Purchasing for IT/Cyber SINs), ABA Model Procurement Code Article 10 (Intergovernmental Relations), & State Participating Addendum Statutes. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sled_buyer_requirement_and_vendor_contracts_text` accepts 15 to 45,000 characters, while `target_cooperative_portfolios` and `vendor_direct_vs_distributor_model` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sled_buyer_requirement_and_vendor_contracts_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper (15 to 45,000 characters)."
+        },
+        "target_cooperative_portfolios": {
+          "type": "string",
+          "default": "NASPO_ValuePoint_Cloud_AR2472_Sourcewell_OMNIA_Partners_TIPS_USA_TX_DIR_And_GSA_Coop_Purchasing",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'NASPO_ValuePoint_Cloud_AR2472_Sourcewell_OMNIA_Partners_TIPS_USA_TX_DIR_And_GSA_Coop_Purchasing')."
+        },
+        "vendor_direct_vs_distributor_model": {
+          "type": "string",
+          "default": "Evaluate Both Direct Master Agreement Holdership and Carahsoft / TD SYNNEX / Ingram Micro Authorized Reseller Piggyback",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Evaluate Both Direct Master Agreement Holdership and Carahsoft / TD SYNNEX / Ingram Micro Authorized Reseller Piggyback')."
+        }
+      },
+      "required": [
+        "sled_buyer_requirement_and_vendor_contracts_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "sled_cooperative_piggyback_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "eligible_cooperative_vehicles_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "participating_addendum_and_distributor_pathways": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "statutory_interlocal_authority_and_cpo_memo": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_value_engineering_vecp",
+    "title": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler",
+    "description": "Transform cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty. Returns a strictly validated `VecpFar48Response` JSON object containing `vecp_shared_savings_overview`, `instant_concurrent_and_future_savings_table`, `far_52_248_1_c_eight_element_proposal_package`, and `collateral_savings_and_data_rights_protection` grounded in FAR Part 48 (Value Engineering) & FAR 52.248-1(c)\u2013(i) (50%/50% to 75%/25% Voluntary VECP Incentive Sharing & 36\u201360 Month Future Acquisition Royalty). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `baseline_contract_and_proposed_engineering_change_text` accepts 15 to 45,000 characters, while `far_part_48_sharing_regime` and `development_and_government_implementation_costs` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "baseline_contract_and_proposed_engineering_change_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler (15 to 45,000 characters)."
+        },
+        "far_part_48_sharing_regime": {
+          "type": "string",
+          "default": "FAR_52_248_1_Voluntary_Incentive_Fixed_Price_50_50_To_75_25_Contractor_Share",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'FAR_52_248_1_Voluntary_Incentive_Fixed_Price_50_50_To_75_25_Contractor_Share')."
+        },
+        "development_and_government_implementation_costs": {
+          "type": "string",
+          "default": "Contractor VECP Development Cost: $320,000 | Government Test/ECP Implementation Cost: $180,000 | 36-Month Sharing Period",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Contractor VECP Development Cost: $320,000 | Government Test/ECP Implementation Cost: $180,000 | 36-Month Sharing Period')."
+        }
+      },
+      "required": [
+        "baseline_contract_and_proposed_engineering_change_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "vecp_shared_savings_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "instant_concurrent_and_future_savings_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "far_52_248_1_c_eight_element_proposal_package": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "collateral_savings_and_data_rights_protection": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "audit_organizational_ethics_far_52_203_13",
+    "title": "FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure",
+    "description": "Audit compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion. Returns a strictly validated `EthicsMandatoryDisclosureResponse` JSON object containing `credible_evidence_and_ethics_overview`, `far_52_203_13_and_pia_trigger_audit_matrix`, `oig_disclosure_submission_and_pge_wall_memos`, and `far_9_4_present_responsibility_and_internal_controls` grounded in FAR 52.203-13 (Contractor Code of Business Ethics and Conduct), 31 U.S.C. \u00a7 3729 (False Claims Act), FAR 3.104 (41 U.S.C. \u00a7 2101\u20132107 PIA), & 18 U.S.C. \u00a7 207. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `compliance_incident_or_former_official_hiring_text` accepts 15 to 45,000 characters, while `audit_focus_regime` and `contract_value_and_performance_duration` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "compliance_incident_or_former_official_hiring_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure (15 to 45,000 characters)."
+        },
+        "audit_focus_regime": {
+          "type": "string",
+          "default": "FAR_52_203_13_Credible_Evidence_OIG_Disclosure_FAR_3_104_PIA_And_18_USC_207_Revolving_Door",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'FAR_52_203_13_Credible_Evidence_OIG_Disclosure_FAR_3_104_PIA_And_18_USC_207_Revolving_Door')."
+        },
+        "contract_value_and_performance_duration": {
+          "type": "string",
+          "default": "Active Contract > $6.0M Threshold and > 120 Days Performance (Full FAR 52.203-13(c) Internal Control System Required)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Active Contract > $6.0M Threshold and > 120 Days Performance (Full FAR 52.203-13(c) Internal Control System Required)')."
+        }
+      },
+      "required": [
+        "compliance_incident_or_former_official_hiring_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "credible_evidence_and_ethics_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "far_52_203_13_and_pia_trigger_audit_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "oig_disclosure_submission_and_pge_wall_memos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "far_9_4_present_responsibility_and_internal_controls": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_fedramp_equivalency_body_of_evidence",
+    "title": "DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor",
+    "description": "Audit cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency Memorandum (100% 3PAO assessment, zero unmitigated high/moderate POA&Ms, KSIs) and generates a complete Cloud Equivalency Body of Evidence (BoE) checklist. Returns a strictly validated `FedrampEquivalencyResponse` JSON object containing `dod_cio_equivalency_overview`, `body_of_evidence_boe_8_artifact_checklist`, `three_pao_100_pct_and_zero_poam_remediation_matrix`, and `dibcs_72hr_incident_reporting_and_prime_verification` grounded in DoD CIO Memorandum 'Federal Risk and Authorization Management Program Moderate Equivalency for Cloud Service Provider's Cloud Service Offerings' (Jan 2, 2024) & DFARS 252.204-7012(b)(2)(ii)(D). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `cloud_service_offering_and_3pao_posture_text` accepts 15 to 45,000 characters, while `target_equivalency_standard` and `underlying_iaas_and_fips_posture` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cloud_service_offering_and_3pao_posture_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor (15 to 45,000 characters)."
+        },
+        "target_equivalency_standard": {
+          "type": "string",
+          "default": "DoD_CIO_Jan_2024_FedRAMP_Moderate_Equivalency_Memo_DFARS_252_204_7012_c_d_And_FedRAMP_Rev5",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'DoD_CIO_Jan_2024_FedRAMP_Moderate_Equivalency_Memo_DFARS_252_204_7012_c_d_And_FedRAMP_Rev5')."
+        },
+        "underlying_iaas_and_fips_posture": {
+          "type": "string",
+          "default": "Hosted on AWS GovCloud (US) FedRAMP High JAB P-ATO; FIPS 140-3 Validated Cryptographic Modules",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Hosted on AWS GovCloud (US) FedRAMP High JAB P-ATO; FIPS 140-3 Validated Cryptographic Modules')."
+        }
+      },
+      "required": [
+        "cloud_service_offering_and_3pao_posture_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "dod_cio_equivalency_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "body_of_evidence_boe_8_artifact_checklist": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "three_pao_100_pct_and_zero_poam_remediation_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "dibcs_72hr_incident_reporting_and_prime_verification": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_ai_governance_nist_ai_rmf_omb_m24",
+    "title": "Federal AI Governance, OMB M-24-10/M-24-18 & NIST AI RMF 1.0 Compliance Package",
+    "description": "Evaluate AI/ML/LLM solutions proposed for federal and SLED agencies against OMB Memoranda M-24-10 & M-24-18, NIST AI RMF 1.0 (Govern, Map, Measure, Manage), and DoD Responsible AI (RAI) Toolkit, outputting a Safety-Impact Classification & Model Card. Returns a strictly validated `AiGovernanceOmbResponse` JSON object containing `omb_safety_and_rights_impact_overview`, `nist_ai_rmf_govern_map_measure_manage_matrix`, `omb_m_24_10_and_m_24_18_minimum_practices_audit`, and `federal_ai_system_card_and_hitl_safeguards` grounded in OMB Memorandum M-24-10, OMB Memorandum M-24-18 (Advancing the Responsible Acquisition of AI in Government), NIST AI 100-1 (AI RMF 1.0), NIST AI 600-1, & DoD CDAO RAI Shield. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `proposed_ai_system_and_agency_use_case_text` accepts 15 to 45,000 characters, while `target_ai_governance_frameworks` and `deployment_enclave_and_training_data_policy` calibrate the regulatory regime and threshold assumptions). Use this tool when executing Federal AI Governance, OMB M-24-10/M-24-18 & NIST AI RMF 1.0 Compliance Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "Federal AI Governance, OMB M-24-10/M-24-18 & NIST AI RMF 1.0 Compliance Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "proposed_ai_system_and_agency_use_case_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for Federal AI Governance, OMB M-24-10/M-24-18 & NIST AI RMF 1.0 Compliance Package (15 to 45,000 characters)."
+        },
+        "target_ai_governance_frameworks": {
+          "type": "string",
+          "default": "OMB_M_24_10_OMB_M_24_18_NIST_AI_RMF_1_0_NIST_AI_600_1_GenAI_And_DoD_CDAO_RAI_Toolkit",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'OMB_M_24_10_OMB_M_24_18_NIST_AI_RMF_1_0_NIST_AI_600_1_GenAI_And_DoD_CDAO_RAI_Toolkit')."
+        },
+        "deployment_enclave_and_training_data_policy": {
+          "type": "string",
+          "default": "Stateless RAG on Agency Tenant (Zero Training on Government CUI/PII; Open-Format Export to Prevent Vendor Lock-In)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Stateless RAG on Agency Tenant (Zero Training on Government CUI/PII; Open-Format Export to Prevent Vendor Lock-In)')."
+        }
+      },
+      "required": [
+        "proposed_ai_system_and_agency_use_case_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "omb_safety_and_rights_impact_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "nist_ai_rmf_govern_map_measure_manage_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "omb_m_24_10_and_m_24_18_minimum_practices_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "federal_ai_system_card_and_hitl_safeguards": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_termination_for_convenience_settlement",
+    "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator",
+    "description": "Compute recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal. Returns a strictly validated `T4cSettlementResponse` JSON object containing `t4c_settlement_executive_overview`, `sf_1435_1436_recoverable_quantum_schedule`, `subcontractor_settlement_and_sf_1428_inventory_schedule`, and `far_31_205_42_allowability_and_one_year_filing_clock` grounded in FAR Part 49, FAR 52.249-2 (Termination for Convenience of the Government), FAR 31.205-42 (Termination Costs), & Standard Forms 1435 / 1436 / 1437 / 1438 / 1428. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `termination_notice_and_incurred_cost_ledger_text` accepts 15 to 45,000 characters, while `settlement_proposal_basis_and_form` and `contract_type_and_clause_regime` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "termination_notice_and_incurred_cost_ledger_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator (15 to 45,000 characters)."
+        },
+        "settlement_proposal_basis_and_form": {
+          "type": "string",
+          "default": "SF_1435_Inventory_Basis_Preferred_Under_FAR_49_206_2_vs_SF_1436_Total_Cost_Basis",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'SF_1435_Inventory_Basis_Preferred_Under_FAR_49_206_2_vs_SF_1436_Total_Cost_Basis')."
+        },
+        "contract_type_and_clause_regime": {
+          "type": "string",
+          "default": "FAR 52.249-2 Fixed-Price Termination for Convenience (vs. FAR 52.249-6 Cost-Reimbursement / FAR 52.212-4(l) Commercial)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FAR 52.249-2 Fixed-Price Termination for Convenience (vs. FAR 52.249-6 Cost-Reimbursement / FAR 52.212-4(l) Commercial)')."
+        }
+      },
+      "required": [
+        "termination_notice_and_incurred_cost_ledger_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "t4c_settlement_executive_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "sf_1435_1436_recoverable_quantum_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "subcontractor_settlement_and_sf_1428_inventory_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "far_31_205_42_allowability_and_one_year_filing_clock": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_novated_merger_change_of_name_far_42",
+    "title": "GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package",
+    "description": "Generate a complete FAR 42.1204 Three-Party Novation Agreement package for GovCon asset/stock acquisitions, auditing anti-assignment exceptions (41 U.S.C. 6305), SAM.gov UEI/CAGE transfer checklists, and SBA recertification triggers under 13 CFR 121.404(g). Returns a strictly validated `NovationFar42Response` JSON object containing `transaction_structure_and_novation_overview`, `far_42_1204_document_checklist_and_three_party_agreement`, `sba_13_cfr_121_404_recertification_and_backlog_audit`, and `sam_uei_cage_and_dcsa_fcl_transition_runbook` grounded in 41 U.S.C. \u00a7 6305 (Anti-Assignment Act), FAR Subpart 42.12 (FAR 42.1204 Novation & FAR 42.1205 Change-of-Name), & 13 CFR \u00a7 121.404(g). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `m_and_a_transaction_and_contract_backlog_text` accepts 15 to 45,000 characters, while `deal_structure_and_pathway` and `small_business_and_clearance_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "m_and_a_transaction_and_contract_backlog_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package (15 to 45,000 characters)."
+        },
+        "deal_structure_and_pathway": {
+          "type": "string",
+          "default": "Asset_Purchase_Requiring_FAR_42_1204_Three_Party_Novation_vs_Stock_Purchase_Or_FAR_42_1205_Change_Of_Name",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'Asset_Purchase_Requiring_FAR_42_1204_Three_Party_Novation_vs_Stock_Purchase_Or_FAR_42_1205_Change_Of_Name')."
+        },
+        "small_business_and_clearance_context": {
+          "type": "string",
+          "default": "Audit 13 CFR 121.404(g) 30-Day SBA Size Recertification, GWAC/MAC Eligibility, & DCSA 32 CFR 117 Changed Condition Package",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Audit 13 CFR 121.404(g) 30-Day SBA Size Recertification, GWAC/MAC Eligibility, & DCSA 32 CFR 117 Changed Condition Package')."
+        }
+      },
+      "required": [
+        "m_and_a_transaction_and_contract_backlog_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "transaction_structure_and_novation_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "far_42_1204_document_checklist_and_three_party_agreement": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "sba_13_cfr_121_404_recertification_and_backlog_audit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "sam_uei_cage_and_dcsa_fcl_transition_runbook": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_section_l_m_proposal_red_team_scorer",
+    "title": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer",
+    "description": "Simulate a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites. Returns a strictly validated `RedTeamEvaluatorResponse` JSON object containing `sseb_consensus_evaluation_overview`, `factor_by_factor_color_and_risk_scorecard`, `sseb_strengths_weaknesses_deficiencies_and_rewrites`, and `competitive_range_and_gold_team_recovery_plan` grounded in FAR 15.305 (Proposal Evaluation), DoD Source Selection Procedures (DFARS PGI 215.3 \u2014 Blue/Purple/Green/Yellow/Red Consensus Grading), & Shipley Color Team Standards. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `rfp_section_l_m_and_draft_proposal_text` accepts 15 to 45,000 characters, while `source_selection_grading_methodology` and `color_team_review_stage` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "rfp_section_l_m_and_draft_proposal_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer (15 to 45,000 characters)."
+        },
+        "source_selection_grading_methodology": {
+          "type": "string",
+          "default": "DoD_Source_Selection_Procedures_2022_Color_Adjectival_Blue_Purple_Green_Yellow_Red_And_FAR_15_305",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'DoD_Source_Selection_Procedures_2022_Color_Adjectival_Blue_Purple_Green_Yellow_Red_And_FAR_15_305')."
+        },
+        "color_team_review_stage": {
+          "type": "string",
+          "default": "Red_Team_Full_SSEB_Simulation_With_Paste_Ready_Feature_Benefit_Proof_Upgrades_To_Blue_Outstanding",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Red_Team_Full_SSEB_Simulation_With_Paste_Ready_Feature_Benefit_Proof_Upgrades_To_Blue_Outstanding')."
+        }
+      },
+      "required": [
+        "rfp_section_l_m_and_draft_proposal_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "sseb_consensus_evaluation_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "factor_by_factor_color_and_risk_scorecard": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "sseb_strengths_weaknesses_deficiencies_and_rewrites": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "competitive_range_and_gold_team_recovery_plan": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_gsa_tdr_quarterly_sales_iff_reconciler",
+    "title": "GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler",
+    "description": "Audit commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule sales, calculate quarterly 0.75% IFF remittance, validate Transactional Data Reporting (TDR) 16-field data elements, and prepare for a GSA IOA Contractor Assistance Visit (CAV). Returns a strictly validated `GsaTdrIffAuditResponse` JSON object containing `gsa_srp_and_iff_reconciliation_overview`, `invoice_schedule_vs_open_market_classification_table`, `tdr_16_field_validation_and_ioa_cav_checklist`, and `iff_remittance_calendar_and_price_reductions_safe_harbor` grounded in GSAR 552.238-80 (Industrial Funding Fee and Sales Reporting \u2014 0.75% IFF within 30 days of quarter close), GSAR 552.238-81 (TDR), & GSA IOA Contractor Assistance Visit (CAV) Guide. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `quarterly_invoice_ledger_and_gsa_contract_text` accepts 15 to 45,000 characters, while `gsa_reporting_regime` and `reporting_quarter_and_sins` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "quarterly_invoice_ledger_and_gsa_contract_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler (15 to 45,000 characters)."
+        },
+        "gsa_reporting_regime": {
+          "type": "string",
+          "default": "GSAR_552_238_80_IFF_0_75_Pct_GSAR_552_238_81_TDR_16_Data_Elements_And_IOA_CAV_Readiness",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'GSAR_552_238_80_IFF_0_75_Pct_GSAR_552_238_81_TDR_16_Data_Elements_And_IOA_CAV_Readiness')."
+        },
+        "reporting_quarter_and_sins": {
+          "type": "string",
+          "default": "FY2026 Q4 (July 1 \u2013 Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FY2026 Q4 (July 1 \u2013 Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM')."
+        }
+      },
+      "required": [
+        "quarterly_invoice_ledger_and_gsa_contract_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "gsa_srp_and_iff_reconciliation_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "invoice_schedule_vs_open_market_classification_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "tdr_16_field_validation_and_ioa_cav_checklist": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "iff_remittance_calendar_and_price_reductions_safe_harbor": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
+  },
+  {
+    "name": "generate_award_fee_plan_incentive_maximizer",
+    "title": "FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer",
+    "description": "Model CPAF, CPIF, and FPIF share-ratio curves (overrun/underrun ceiling geometry under FAR 16.401) and transforms periodic performance metrics into an Award-Fee Evaluation Board (AFEB) self-assessment presentation to maximize unearned/rollover fee pools. Returns a strictly validated `CpafCpifAwardFeeResponse` JSON object containing `award_and_incentive_fee_geometry_overview`, `cpif_fpif_share_ratio_and_pta_sensitivity_table`, `afeb_table_16_1_self_assessment_briefing_sections`, and `far_16_401_e_4_rollover_rules_and_afdo_strategy` grounded in FAR Subpart 16.4 (Incentive Contracts), FAR 16.401(e)(3) Table 16-1 (Standard Award-Fee Adjectival Ratings), FAR 16.401(e)(4) (Rollover Prohibition), & DFARS 216.405-2. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `incentive_or_award_fee_plan_and_period_metrics_text` accepts 15 to 45,000 characters, while `contract_fee_structure_type` and `evaluation_period_and_pool_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "annotations": {
+      "title": "FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "incentive_or_award_fee_plan_and_period_metrics_text": {
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 45000,
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer (15 to 45,000 characters)."
+        },
+        "contract_fee_structure_type": {
+          "type": "string",
+          "default": "Combined_CPAF_Award_Fee_Adjectival_Table_16_1_And_CPIF_FPIF_Share_Ratio_PTA_Geometry",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Target regulatory regime, statutory authority, or evaluation framework (defaults to 'Combined_CPAF_Award_Fee_Adjectival_Table_16_1_And_CPIF_FPIF_Share_Ratio_PTA_Geometry')."
+        },
+        "evaluation_period_and_pool_context": {
+          "type": "string",
+          "default": "Award-Fee Period 04 (6-Month Evaluation Pool: $1,250,000 Available Award Fee + Base Fee 2.0%)",
+          "minLength": 2,
+          "maxLength": 2000,
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Award-Fee Period 04 (6-Month Evaluation Pool: $1,250,000 Available Award Fee + Base Fee 2.0%)')."
+        }
+      },
+      "required": [
+        "incentive_or_award_fee_plan_and_period_metrics_text"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Execution status ('success')."
+        },
+        "award_and_incentive_fee_geometry_overview": {
+          "type": "object",
+          "description": "Executive determination overview, regulatory citations, and readiness score."
+        },
+        "cpif_fpif_share_ratio_and_pta_sensitivity_table": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Structured line-by-line regulatory audit, classification, or quantitative schedule rows."
+        },
+        "afeb_table_16_1_self_assessment_briefing_sections": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Paste-ready compliance narratives, control specifications, or submission sections."
+        },
+        "far_16_401_e_4_rollover_rules_and_afdo_strategy": {
+          "type": "object",
+          "description": "Statutory governance protocol and actionable submission verification checklist."
+        }
+      }
+    }
   }
 ];
 
@@ -3592,6 +4979,82 @@ const ENDPOINT_MAP = {
   "generate_cost_accounting_cas_ds2": {
     "method": "POST",
     "path": "/v1/generate/cost-accounting-cas-ds2"
+  },
+  "audit_itar_ear_export_control": {
+    "method": "POST",
+    "path": "/v1/audit/itar-ear-export-control"
+  },
+  "generate_cdrls_did_data_deliverables": {
+    "method": "POST",
+    "path": "/v1/generate/cdrls-did-data-deliverables"
+  },
+  "generate_justification_ja_sole_source": {
+    "method": "POST",
+    "path": "/v1/generate/justification-ja-sole-source"
+  },
+  "audit_cyber_incident_dfars_7012": {
+    "method": "POST",
+    "path": "/v1/audit/cyber-incident-dfars-7012"
+  },
+  "generate_doe_national_lab_mando_subcontract": {
+    "method": "POST",
+    "path": "/v1/generate/doe-national-lab-mando-subcontract"
+  },
+  "generate_gwac_task_order_fair_opportunity": {
+    "method": "POST",
+    "path": "/v1/generate/gwac-task-order-fair-opportunity"
+  },
+  "audit_govt_furnished_property_gfp": {
+    "method": "POST",
+    "path": "/v1/audit/govt-furnished-property-gfp"
+  },
+  "generate_oconus_sofa_defense_logistics": {
+    "method": "POST",
+    "path": "/v1/generate/oconus-sofa-defense-logistics"
+  },
+  "generate_cui_marking_distribution_plan": {
+    "method": "POST",
+    "path": "/v1/generate/cui-marking-distribution-plan"
+  },
+  "generate_state_local_cooperative_piggyback": {
+    "method": "POST",
+    "path": "/v1/generate/state-local-cooperative-piggyback"
+  },
+  "generate_value_engineering_vecp": {
+    "method": "POST",
+    "path": "/v1/generate/value-engineering-vecp"
+  },
+  "audit_organizational_ethics_far_52_203_13": {
+    "method": "POST",
+    "path": "/v1/audit/organizational-ethics-far-52-203-13"
+  },
+  "generate_fedramp_equivalency_body_of_evidence": {
+    "method": "POST",
+    "path": "/v1/generate/fedramp-equivalency-body-of-evidence"
+  },
+  "generate_ai_governance_nist_ai_rmf_omb_m24": {
+    "method": "POST",
+    "path": "/v1/generate/ai-governance-nist-ai-rmf-omb-m24"
+  },
+  "generate_termination_for_convenience_settlement": {
+    "method": "POST",
+    "path": "/v1/generate/termination-for-convenience-settlement"
+  },
+  "generate_novated_merger_change_of_name_far_42": {
+    "method": "POST",
+    "path": "/v1/generate/novated-merger-change-of-name-far-42"
+  },
+  "generate_section_l_m_proposal_red_team_scorer": {
+    "method": "POST",
+    "path": "/v1/generate/section-l-m-proposal-red-team-scorer"
+  },
+  "generate_gsa_tdr_quarterly_sales_iff_reconciler": {
+    "method": "POST",
+    "path": "/v1/generate/gsa-tdr-quarterly-sales-iff-reconciler"
+  },
+  "generate_award_fee_plan_incentive_maximizer": {
+    "method": "POST",
+    "path": "/v1/generate/award-fee-plan-incentive-maximizer"
   }
 };
 
@@ -3698,7 +5161,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "@signaltender/mcp-server",
-            version: "1.22.0"
+            version: "1.41.0"
           }
         }
       });

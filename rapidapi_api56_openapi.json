@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SSEB Source Selection Simulator & Shipley API",
+    "version": "1.0.0",
+    "description": "Simulates a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/section-l-m-proposal-red-team-scorer": {
+      "post": {
+        "summary": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer",
+        "operationId": "Generate SSEB Source Selection And Red Team Proposal Score",
+        "description": "Simulates a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "rfp_section_l_m_and_draft_proposal_text"
+                ],
+                "properties": {
+                  "rfp_section_l_m_and_draft_proposal_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer API.",
+                    "example": "RFP SECTION M EVALUATION CRITERIA (Solicitation FA8732-26-R-0077 \u2014 Best-Value Tradeoff): Factor 1: Technical & Zero-Trust Cloud Architecture (Most Important) \u2014 Subfactor 1.1 Automated IL5 DevSecOps & cATO Pipeline; Subfactor 1.2 14-Day Zero-Downtime SOC Cutover. Factor 2: Management & Key Personnel. DRAFT PROPOSAL EXCERPT (Section 2.1): 'Our team has extensive experience with AWS GovCloud and Kubernetes. We will work closely with the Government ISSM after award to develop a System Security Plan and transition the SOC within 30 to 45 days using industry best practices.'"
+                  },
+                  "source_selection_grading_methodology": {
+                    "type": "string",
+                    "default": "DoD_Source_Selection_Procedures_2022_Color_Adjectival_Blue_Purple_Green_Yellow_Red_And_FAR_15_305",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "color_team_review_stage": {
+                    "type": "string",
+                    "default": "Red_Team_Full_SSEB_Simulation_With_Paste_Ready_Feature_Benefit_Proof_Upgrades_To_Blue_Outstanding",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee API",
+    "version": "1.0.0",
+    "description": "Models CPAF, CPIF, and FPIF share-ratio curves (overrun/underrun ceiling geometry under FAR 16.401) and transforms periodic performance metrics into an Award-Fee Evaluation Board (AFEB) self-assessment presentation to maximize unearned/rollover fee pools.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/award-fee-plan-incentive-maximizer": {
+      "post": {
+        "summary": "FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer",
+        "operationId": "Generate FAR 16 401 CPAF CPIF Award Fee Board Presentation",
+        "description": "Models CPAF, CPIF, and FPIF share-ratio curves (overrun/underrun ceiling geometry under FAR 16.401) and transforms periodic performance metrics into an Award-Fee Evaluation Board (AFEB) self-assessment presentation to maximize unearned/rollover fee pools.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "incentive_or_award_fee_plan_and_period_metrics_text"
+                ],
+                "properties": {
+                  "incentive_or_award_fee_plan_and_period_metrics_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for FAR Subpart 16.4 Award-Fee (CPAF) & Incentive-Fee (CPIF / FPIF) Evaluation Maximizer API.",
+                    "example": "CONTRACT N00024-25-C-6201 (NAVSEA Combat System Software Sustainment \u2014 CPAF / CPIF Hybrid): Target Cost: $25,000,000 | Target Fee: $2,000,000 (8.0%) | Minimum Fee: $500,000 (2.0%) | Maximum Fee: $3,500,000 (14.0%) | Underrun Share Ratio: 70/30 (Govt/Contractor) | Overrun Share Ratio: 60/40 (Govt/Contractor). Award-Fee Pool ($1,250,000 Period 04): Contractor achieved 99.98% operational availability, delivered 14/14 software builds 9 days ahead of schedule, automated STIG hardening saving 4,200 engineering hours, and closed zero P1 cyber defects."
+                  },
+                  "contract_fee_structure_type": {
+                    "type": "string",
+                    "default": "Combined_CPAF_Award_Fee_Adjectival_Table_16_1_And_CPIF_FPIF_Share_Ratio_PTA_Geometry",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "evaluation_period_and_pool_context": {
+                    "type": "string",
+                    "default": "Award-Fee Period 04 (6-Month Evaluation Pool: $1,250,000 Available Award Fee + Base Fee 2.0%)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

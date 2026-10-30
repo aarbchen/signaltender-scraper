@@ -83,12 +83,40 @@ def send_discord_alert(content: str) -> bool:
 
 
 def main() -> int:
+    # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
+    #    and automatically publish any unposted completed roadmap APIs if session is active.
+    try:
+        import rapidapi_headless_publisher
+        rapidapi_headless_publisher.keepalive_rapidapi_session()
+        rapidapi_headless_publisher.auto_sync_unposted_apis(commit_and_push=True)
+    except Exception:
+        pass
+
+    # 2. Check outbound replies 24/7 even when VS Code is reset or closed
+    try:
+        import outbound_reply_responder
+        outbound_reply_responder.run_reply_responder()
+    except Exception:
+        pass
+
     alive, detail = is_watcher_alive()
     if alive:
         print(f"[+] Watcher alive: {detail}", flush=True)
         return 0
 
     # Watcher is NOT alive (VS Code was reset or closed).
+    # Respawn `silent_autopilot_watcher.py` from this Task Scheduler process so it stays online.
+    try:
+        import subprocess
+        pythonw_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "pythonw.exe")
+        if not os.path.exists(pythonw_exe):
+            pythonw_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
+        watcher_script = os.path.join(BASE_DIR, "silent_autopilot_watcher.py")
+        proc = subprocess.Popen([pythonw_exe, watcher_script], cwd=BASE_DIR)
+        print(f"[*] Respawned silent_autopilot_watcher.py (PID {proc.pid})", flush=True)
+    except Exception:
+        pass
+
     # Enforce RULE-006 & Resolved-only policy: only run omniscient_auditor.py at night (11:00 PM – 6:00 AM)
     # when the user is away (>= 30m idle), auto-fix any deterministic issues, and dispatch [RESOLVED] only when healed.
     try:

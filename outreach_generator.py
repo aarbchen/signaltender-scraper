@@ -132,6 +132,25 @@ STATE_ALIASES = {
     "la": "la", "louisiana": "la",
     "ky": "ky", "kentucky": "ky",
     "ok": "ok", "oklahoma": "ok",
+    "ia": "ia", "iowa": "ia", "iowa": "ia",
+    "ks": "ks", "kansas": "ks", "kansas": "ks",
+    "ar": "ar", "arkansas": "ar", "arkansas": "ar",
+    "ms": "ms", "mississippi": "ms", "mississippi": "ms",
+    "nm": "nm", "new_mexico": "nm", "new mexico": "nm",
+    "ne": "ne", "nebraska": "ne", "nebraska": "ne",
+    "id": "id", "idaho": "id", "idaho": "id",
+    "hi": "hi", "hawaii": "hi", "hawaii": "hi",
+    "nh": "nh", "new_hampshire": "nh", "new hampshire": "nh",
+    "me": "me", "maine": "me", "maine": "me",
+    "ri": "ri", "rhode_island": "ri", "rhode island": "ri",
+    "mt": "mt", "montana": "mt", "montana": "mt",
+    "de": "de", "delaware": "de", "delaware": "de",
+    "sd": "sd", "south_dakota": "sd", "south dakota": "sd",
+    "nd": "nd", "north_dakota": "nd", "north dakota": "nd",
+    "ak": "ak", "alaska": "ak", "alaska": "ak",
+    "vt": "vt", "vermont": "vt", "vermont": "vt",
+    "wv": "wv", "west_virginia": "wv", "west virginia": "wv",
+    "wy": "wy", "wyoming": "wy", "wyoming": "wy",
 }
 
 
@@ -255,6 +274,82 @@ def detect_contract_region(rec: dict) -> str:
         return "ky"
     if "oklahoma.gov/omes" in url or "omes.ok.gov" in url or "oklahoma.gov" in url or "ok.gov" in url or "okc.gov" in url or "cityoftulsa.org" in url or "ou.edu" in url or "okstate.edu" in url:
         return "ok"
+    if "customerorg=stateofiowa" in url or "das.iowa.gov" in url or "dom.iowa.gov" in url or "iowa.gov" in url or "uiowa.edu" in url or "iastate.edu" in url:
+        return "ia"
+    if "admin.ks.gov" in url or "oits.ks.gov" in url or "ks.gov" in url or "kansas.gov" in url or "ku.edu" in url or "ksu.edu" in url:
+        return "ks"
+    if "arbuy.arkansas.gov" in url or "transform.ar.gov" in url or "arkansas.gov" in url or "ar.gov" in url or "uark.edu" in url or "uams.edu" in url:
+        return "ar"
+    if "its.ms.gov" in url or "dfa.ms.gov" in url or "ms.gov" in url or "mississippi.gov" in url or "msstate.edu" in url or "olemiss.edu" in url:
+        return "ms"
+    if "generalservices.state.nm.us" in url or "doit.nm.gov" in url or "nm.gov" in url or "state.nm.us" in url or "unm.edu" in url or "nmsu.edu" in url:
+        return "nm"
+    if "das.nebraska.gov" in url or "cio.nebraska.gov" in url or "nebraska.gov" in url or "ne.gov" in url or "nebraska.edu" in url or "unl.edu" in url:
+        return "ne"
+    if "purchasing.idaho.gov" in url or "its.idaho.gov" in url or "idaho.gov" in url or "id.gov" in url or "boisestate.edu" in url or "uidaho.edu" in url:
+        return "id"
+    if "hiepro.ehawaii.gov" in url or "hands.ehawaii.gov" in url or "ets.hawaii.gov" in url or "hawaii.gov" in url or "ehawaii.gov" in url or "hawaii.edu" in url:
+        return "hi"
+    if "das.nh.gov" in url or "doit.nh.gov" in url or "nh.gov" in url or "usnh.edu" in url or "unh.edu" in url:
+        return "nh"
+    if "maine.gov/dafs" in url or "maine.gov/oit" in url or "maine.gov" in url or "maine.edu" in url:
+        return "me"
+    if "ridop.ri.gov" in url or "etss.ri.gov" in url or "ri.gov" in url or "uri.edu" in url:
+        return "ri"
+    if "spb.mt.gov" in url or "sitsd.mt.gov" in url or "mt.gov" in url or "montana.edu" in url or "umt.edu" in url:
+        return "mt"
+    if "mmp.delaware.gov" in url or "bids.delaware.gov" in url or "dti.delaware.gov" in url or "delaware.gov" in url or "udel.edu" in url:
+        return "de"
+    if "boa.sd.gov" in url or "bit.sd.gov" in url or "sd.gov" in url or "dsu.edu" in url or "sdstate.edu" in url:
+        return "sd"
+    if "apps.nd.gov/csd/spo" in url or "omb.nd.gov" in url or "ndit.nd.gov" in url or "nd.gov" in url or "und.edu" in url or "ndsu.edu" in url:
+        return "nd"
+    if "aws.state.ak.us" in url or "iris-vss.alaska.gov" in url or "oit.alaska.gov" in url or "alaska.gov" in url or "state.ak.us" in url or "alaska.edu" in url:
+        return "ak"
+    if "vermontbusinessregistry.com" in url or "bgs.vermont.gov" in url or "ads.vermont.gov" in url or "vermont.gov" in url or "uvm.edu" in url:
+        return "vt"
+    if "wvoasis.gov" in url or "state.wv.us/admin/purchase" in url or "technology.wv.gov" in url or "wv.gov" in url or "wvu.edu" in url or "marshall.edu" in url:
+        return "wv"
+    if "ai.wyo.gov" in url or "ets.wyo.gov" in url or "wyo.gov" in url or "wyoming.gov" in url or "uwyo.edu" in url:
+        return "wy"
+    if "customerorg=stateofiowa" in url or "das.iowa.gov" in url or "dom.iowa.gov" in url or "iowa.gov" in url or "uiowa.edu" in url or "iastate.edu" in url:
+        return "ia"
+    if "admin.ks.gov" in url or "oits.ks.gov" in url or "ks.gov" in url or "kansas.gov" in url or "ku.edu" in url or "ksu.edu" in url:
+        return "ks"
+    if "arbuy.arkansas.gov" in url or "transform.ar.gov" in url or "arkansas.gov" in url or "ar.gov" in url or "uark.edu" in url or "uams.edu" in url:
+        return "ar"
+    if "its.ms.gov" in url or "dfa.ms.gov" in url or "ms.gov" in url or "mississippi.gov" in url or "msstate.edu" in url or "olemiss.edu" in url:
+        return "ms"
+    if "generalservices.state.nm.us" in url or "doit.nm.gov" in url or "nm.gov" in url or "state.nm.us" in url or "unm.edu" in url or "nmsu.edu" in url:
+        return "nm"
+    if "das.nebraska.gov" in url or "cio.nebraska.gov" in url or "nebraska.gov" in url or "ne.gov" in url or "nebraska.edu" in url or "unl.edu" in url:
+        return "ne"
+    if "purchasing.idaho.gov" in url or "its.idaho.gov" in url or "idaho.gov" in url or "id.gov" in url or "boisestate.edu" in url or "uidaho.edu" in url:
+        return "id"
+    if "hiepro.ehawaii.gov" in url or "hands.ehawaii.gov" in url or "ets.hawaii.gov" in url or "hawaii.gov" in url or "ehawaii.gov" in url or "hawaii.edu" in url:
+        return "hi"
+    if "das.nh.gov" in url or "doit.nh.gov" in url or "nh.gov" in url or "usnh.edu" in url or "unh.edu" in url:
+        return "nh"
+    if "maine.gov/dafs" in url or "maine.gov/oit" in url or "maine.gov" in url or "maine.edu" in url:
+        return "me"
+    if "ridop.ri.gov" in url or "etss.ri.gov" in url or "ri.gov" in url or "uri.edu" in url:
+        return "ri"
+    if "spb.mt.gov" in url or "sitsd.mt.gov" in url or "mt.gov" in url or "montana.edu" in url or "umt.edu" in url:
+        return "mt"
+    if "mmp.delaware.gov" in url or "bids.delaware.gov" in url or "dti.delaware.gov" in url or "delaware.gov" in url or "udel.edu" in url:
+        return "de"
+    if "boa.sd.gov" in url or "bit.sd.gov" in url or "sd.gov" in url or "dsu.edu" in url or "sdstate.edu" in url:
+        return "sd"
+    if "apps.nd.gov/csd/spo" in url or "omb.nd.gov" in url or "ndit.nd.gov" in url or "nd.gov" in url or "und.edu" in url or "ndsu.edu" in url:
+        return "nd"
+    if "aws.state.ak.us" in url or "iris-vss.alaska.gov" in url or "oit.alaska.gov" in url or "alaska.gov" in url or "state.ak.us" in url or "alaska.edu" in url:
+        return "ak"
+    if "vermontbusinessregistry.com" in url or "bgs.vermont.gov" in url or "ads.vermont.gov" in url or "vermont.gov" in url or "uvm.edu" in url:
+        return "vt"
+    if "wvoasis.gov" in url or "state.wv.us/admin/purchase" in url or "technology.wv.gov" in url or "wv.gov" in url or "wvu.edu" in url or "marshall.edu" in url:
+        return "wv"
+    if "ai.wyo.gov" in url or "ets.wyo.gov" in url or "wyo.gov" in url or "wyoming.gov" in url or "uwyo.edu" in url:
+        return "wy"
     if "emma.maryland.gov" in url or "maryland.gov" in url or "countymd.bonfirehub.com" in url:
         return "md"
     if "demandstar.com" in url:
@@ -319,6 +414,82 @@ def detect_contract_region(rec: dict) -> str:
         return "ky"
     if title.startswith("[OK]") or title.lower().startswith("[ok-") or "oklahoma" in agency or "(ok)" in agency or "omes" in agency or "ohca" in agency or "soonercare" in agency or "tinker afb" in agency or "76th sweg" in agency:
         return "ok"
+    if title.startswith("[IA]") or title.lower().startswith("[ia-") or "iowa" in agency or "(ia)" in agency or "impacs" in agency or "dom doit" in agency or "iowa dot" in agency or "camp dodge" in agency or "des moines" in agency:
+        return "ia"
+    if title.startswith("[KS]") or title.lower().startswith("[ks-") or "kansas" in agency or "(ks)" in agency or "ks smart" in agency or "oits" in agency or "kiso" in agency or "kdot" in agency or "fort leavenworth" in agency or "mcconnell afb" in agency:
+        return "ks"
+    if title.startswith("[AR]") or title.lower().startswith("[ar-") or "arkansas" in agency or "(ar)" in agency or "arbuy" in agency or "ar dis" in agency or "ardot" in agency or "little rock afb" in agency or "ebbing" in agency:
+        return "ar"
+    if title.startswith("[MS]") or title.lower().startswith("[ms-") or "mississippi" in agency or "(ms)" in agency or "ms magic" in agency or "ms its" in agency or "mdot" in agency or "keesler afb" in agency or "stennis" in agency:
+        return "ms"
+    if title.startswith("[NM]") or title.lower().startswith("[nm-") or "new mexico" in agency or "(nm)" in agency or "nm gsd" in agency or "nm doit" in agency or "nmdot" in agency or "kirtland afb" in agency or "white sands" in agency or "sandia" in agency or "los alamos" in agency:
+        return "nm"
+    if title.startswith("[NE]") or title.lower().startswith("[ne-") or "nebraska" in agency or "(ne)" in agency or "ne das" in agency or "ne ocio" in agency or "offutt afb" in agency or "usstratcom" in agency or "55th wing" in agency or "omaha" in agency:
+        return "ne"
+    if title.startswith("[ID]") or title.lower().startswith("[id-") or "idaho" in agency or "(id)" in agency or "ipro" in agency or "luma" in agency or "id its" in agency or "idhw" in agency or "mountain home afb" in agency or "idaho national lab" in agency:
+        return "id"
+    if title.startswith("[HI]") or title.lower().startswith("[hi-") or "hawaii" in agency or "(hi)" in agency or "hiepro" in agency or "hi ets" in agency or "med-quest" in agency or "hdot" in agency or "indopacom" in agency or "pearl harbor" in agency or "hickam" in agency or "honolulu" in agency:
+        return "hi"
+    if title.startswith("[NH]") or title.lower().startswith("[nh-") or "new hampshire" in agency or "(nh)" in agency or "nh das" in agency or "nh doit" in agency or "nhdot" in agency or "pease angb" in agency or "portsmouth naval" in agency or "new boston sfs" in agency:
+        return "nh"
+    if title.startswith("[ME]") or title.lower().startswith("[me-") or "maine" in agency or "(me)" in agency or "maineit" in agency or "mainecare" in agency or "mainedot" in agency or "bath iron" in agency or "bangor angb" in agency:
+        return "me"
+    if title.startswith("[RI]") or title.lower().startswith("[ri-") or "rhode island" in agency or "(ri)" in agency or "ocean state procures" in agency or "ri etss" in agency or "ridot" in agency or "nuwc newport" in agency or "naval station newport" in agency:
+        return "ri"
+    if title.startswith("[MT]") or title.lower().startswith("[mt-") or "montana" in agency or "(mt)" in agency or "emacs" in agency or "sitsd" in agency or "malmstrom afb" in agency or "341st mw" in agency:
+        return "mt"
+    if title.startswith("[DE]") or title.lower().startswith("[de-") or "delaware" in agency or "(de)" in agency or "mymarketplace" in agency or "de dti" in agency or "deldot" in agency or "dover afb" in agency or "436th aw" in agency:
+        return "de"
+    if title.startswith("[SD]") or title.lower().startswith("[sd-") or "south dakota" in agency or "(sd)" in agency or "sd opm" in agency or "sd bit" in agency or "sddot" in agency or "ellsworth afb" in agency or "28th bw" in agency or "dakota state" in agency:
+        return "sd"
+    if title.startswith("[ND]") or title.lower().startswith("[nd-") or "north dakota" in agency or "(nd)" in agency or "nd spo" in agency or "ndit" in agency or "nddot" in agency or "minot afb" in agency or "grand forks afb" in agency:
+        return "nd"
+    if title.startswith("[AK]") or title.lower().startswith("[ak-") or "alaska" in agency or "(ak)" in agency or "ak iris" in agency or "ak oit" in agency or "jber" in agency or "elmendorf" in agency or "eielson afb" in agency or "clear sfs" in agency or "anchorage" in agency:
+        return "ak"
+    if title.startswith("[VT]") or title.lower().startswith("[vt-") or "vermont" in agency or "(vt)" in agency or "vt bgs" in agency or "vt ads" in agency or "vtrans" in agency or "dvha" in agency or "158th fw" in agency or "burlington angb" in agency:
+        return "vt"
+    if title.startswith("[WV]") or title.lower().startswith("[wv-") or "west virginia" in agency or "(wv)" in agency or "wvoasis" in agency or "wvot" in agency or "wvdot" in agency or "clarksburg" in agency or "martinsburg" in agency:
+        return "wv"
+    if title.startswith("[WY]") or title.lower().startswith("[wy-") or "wyoming" in agency or "(wy)" in agency or "wy ets" in agency or "wydot" in agency or "f.e. warren" in agency or "90th mw" in agency or "cheyenne" in agency:
+        return "wy"
+    if title.startswith("[IA]") or title.lower().startswith("[ia-") or "iowa" in agency or "(ia)" in agency or "impacs" in agency or "dom doit" in agency or "iowa dot" in agency or "camp dodge" in agency or "des moines" in agency:
+        return "ia"
+    if title.startswith("[KS]") or title.lower().startswith("[ks-") or "kansas" in agency or "(ks)" in agency or "ks smart" in agency or "oits" in agency or "kiso" in agency or "kdot" in agency or "fort leavenworth" in agency or "mcconnell afb" in agency:
+        return "ks"
+    if title.startswith("[AR]") or title.lower().startswith("[ar-") or "arkansas" in agency or "(ar)" in agency or "arbuy" in agency or "ar dis" in agency or "ardot" in agency or "little rock afb" in agency or "ebbing" in agency:
+        return "ar"
+    if title.startswith("[MS]") or title.lower().startswith("[ms-") or "mississippi" in agency or "(ms)" in agency or "ms magic" in agency or "ms its" in agency or "mdot" in agency or "keesler afb" in agency or "stennis" in agency:
+        return "ms"
+    if title.startswith("[NM]") or title.lower().startswith("[nm-") or "new mexico" in agency or "(nm)" in agency or "nm gsd" in agency or "nm doit" in agency or "nmdot" in agency or "kirtland afb" in agency or "white sands" in agency or "sandia" in agency or "los alamos" in agency:
+        return "nm"
+    if title.startswith("[NE]") or title.lower().startswith("[ne-") or "nebraska" in agency or "(ne)" in agency or "ne das" in agency or "ne ocio" in agency or "offutt afb" in agency or "usstratcom" in agency or "55th wing" in agency or "omaha" in agency:
+        return "ne"
+    if title.startswith("[ID]") or title.lower().startswith("[id-") or "idaho" in agency or "(id)" in agency or "ipro" in agency or "luma" in agency or "id its" in agency or "idhw" in agency or "mountain home afb" in agency or "idaho national lab" in agency:
+        return "id"
+    if title.startswith("[HI]") or title.lower().startswith("[hi-") or "hawaii" in agency or "(hi)" in agency or "hiepro" in agency or "hi ets" in agency or "med-quest" in agency or "hdot" in agency or "indopacom" in agency or "pearl harbor" in agency or "hickam" in agency or "honolulu" in agency:
+        return "hi"
+    if title.startswith("[NH]") or title.lower().startswith("[nh-") or "new hampshire" in agency or "(nh)" in agency or "nh das" in agency or "nh doit" in agency or "nhdot" in agency or "pease angb" in agency or "portsmouth naval" in agency or "new boston sfs" in agency:
+        return "nh"
+    if title.startswith("[ME]") or title.lower().startswith("[me-") or "maine" in agency or "(me)" in agency or "maineit" in agency or "mainecare" in agency or "mainedot" in agency or "bath iron" in agency or "bangor angb" in agency:
+        return "me"
+    if title.startswith("[RI]") or title.lower().startswith("[ri-") or "rhode island" in agency or "(ri)" in agency or "ocean state procures" in agency or "ri etss" in agency or "ridot" in agency or "nuwc newport" in agency or "naval station newport" in agency:
+        return "ri"
+    if title.startswith("[MT]") or title.lower().startswith("[mt-") or "montana" in agency or "(mt)" in agency or "emacs" in agency or "sitsd" in agency or "malmstrom afb" in agency or "341st mw" in agency:
+        return "mt"
+    if title.startswith("[DE]") or title.lower().startswith("[de-") or "delaware" in agency or "(de)" in agency or "mymarketplace" in agency or "de dti" in agency or "deldot" in agency or "dover afb" in agency or "436th aw" in agency:
+        return "de"
+    if title.startswith("[SD]") or title.lower().startswith("[sd-") or "south dakota" in agency or "(sd)" in agency or "sd opm" in agency or "sd bit" in agency or "sddot" in agency or "ellsworth afb" in agency or "28th bw" in agency or "dakota state" in agency:
+        return "sd"
+    if title.startswith("[ND]") or title.lower().startswith("[nd-") or "north dakota" in agency or "(nd)" in agency or "nd spo" in agency or "ndit" in agency or "nddot" in agency or "minot afb" in agency or "grand forks afb" in agency:
+        return "nd"
+    if title.startswith("[AK]") or title.lower().startswith("[ak-") or "alaska" in agency or "(ak)" in agency or "ak iris" in agency or "ak oit" in agency or "jber" in agency or "elmendorf" in agency or "eielson afb" in agency or "clear sfs" in agency or "anchorage" in agency:
+        return "ak"
+    if title.startswith("[VT]") or title.lower().startswith("[vt-") or "vermont" in agency or "(vt)" in agency or "vt bgs" in agency or "vt ads" in agency or "vtrans" in agency or "dvha" in agency or "158th fw" in agency or "burlington angb" in agency:
+        return "vt"
+    if title.startswith("[WV]") or title.lower().startswith("[wv-") or "west virginia" in agency or "(wv)" in agency or "wvoasis" in agency or "wvot" in agency or "wvdot" in agency or "clarksburg" in agency or "martinsburg" in agency:
+        return "wv"
+    if title.startswith("[WY]") or title.lower().startswith("[wy-") or "wyoming" in agency or "(wy)" in agency or "wy ets" in agency or "wydot" in agency or "f.e. warren" in agency or "90th mw" in agency or "cheyenne" in agency:
+        return "wy"
     if title.startswith("[MD]") or "maryland" in agency or "prince george" in agency or "howard county" in agency or "bonfirehub.com" in url:
         return "md"
     return "fed"
@@ -405,6 +576,82 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0) • StateRAMP • KY VPAT"
     elif reg == "ok":
         compliance_posture = "Oklahoma OMES Cyber Command Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • OK VPAT"
+    elif reg == "ia":
+        compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+    elif reg == "ks":
+        compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+    elif reg == "ar":
+        compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+    elif reg == "ms":
+        compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+    elif reg == "nm":
+        compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+    elif reg == "ne":
+        compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+    elif reg == "id":
+        compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+    elif reg == "hi":
+        compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+    elif reg == "nh":
+        compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+    elif reg == "me":
+        compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+    elif reg == "ri":
+        compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+    elif reg == "mt":
+        compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+    elif reg == "de":
+        compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+    elif reg == "sd":
+        compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+    elif reg == "nd":
+        compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+    elif reg == "ak":
+        compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+    elif reg == "vt":
+        compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+    elif reg == "wv":
+        compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+    elif reg == "wy":
+        compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
+    elif reg == "ia":
+        compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
+    elif reg == "ks":
+        compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
+    elif reg == "ar":
+        compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
+    elif reg == "ms":
+        compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
+    elif reg == "nm":
+        compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
+    elif reg == "ne":
+        compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
+    elif reg == "id":
+        compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
+    elif reg == "hi":
+        compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
+    elif reg == "nh":
+        compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
+    elif reg == "me":
+        compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
+    elif reg == "ri":
+        compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
+    elif reg == "mt":
+        compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
+    elif reg == "de":
+        compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
+    elif reg == "sd":
+        compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
+    elif reg == "nd":
+        compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
+    elif reg == "ak":
+        compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
+    elif reg == "vt":
+        compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
+    elif reg == "wv":
+        compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
+    elif reg == "wy":
+        compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
     elif reg == "ca":
         compliance_posture = "CalCloud SIMM 5305-A • SOC 2 Type II • WCAG 2.1 AA"
     elif reg == "fed":
@@ -462,7 +709,7 @@ ACRONYM_TOKENS = {
     "NYC", "NYS", "MBTA", "CTA", "MARTA", "WMATA", "AWS", "VPN", "DNS", "WAN",
     "LAN", "SD-WAN", "VOIP", "PBX", "SIP", "API", "SQL", "ETL", "BI", "II",
     "III", "IV", "USA", "US", "VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH",
-    "GA", "NC", "NY", "MA", "NJ", "WA", "MI", "CO", "AZ", "MN", "TN", "IN", "MO", "WI", "SC", "OR", "CT", "UT", "NV", "AL", "LA", "KY", "OK",
+    "GA", "NC", "NY", "MA", "NJ", "WA", "MI", "CO", "AZ", "MN", "TN", "IN", "MO", "WI", "SC", "OR", "CT", "UT", "NV", "AL", "LA", "KY", "OK", "IA", "KS", "AR", "MS", "NM", "NE", "ID", "HI", "NH", "ME", "RI", "MT", "DE", "SD", "ND", "AK", "VT", "WV", "WY", "IA", "KS", "AR", "MS", "NM", "NE", "ID", "HI", "NH", "ME", "RI", "MT", "DE", "SD", "ND", "AK", "VT", "WV", "WY",
     "MNIT", "SWIFT", "IDOA", "IOT", "ITSD", "WISDOT", "SCDOT", "ODOT", "CTDOT", "UDOT", "NDOT", "ALDOT", "DOTD", "KYTC", "OMES", "OHCA", "EITS", "STAARS", "LAPAC", "COT", "CHFS", "SCBO", "SFAA", "BITS", "DTS", "U3P", "OHSU",
 }
 
@@ -637,6 +884,25 @@ STATE_DISPLAY_NAMES = {
     "la": "Louisiana",
     "ky": "Kentucky",
     "ok": "Oklahoma",
+    "ia": "Iowa",
+    "ks": "Kansas",
+    "ar": "Arkansas",
+    "ms": "Mississippi",
+    "nm": "New Mexico",
+    "ne": "Nebraska",
+    "id": "Idaho",
+    "hi": "Hawaii",
+    "nh": "New Hampshire",
+    "me": "Maine",
+    "ri": "Rhode Island",
+    "mt": "Montana",
+    "de": "Delaware",
+    "sd": "South Dakota",
+    "nd": "North Dakota",
+    "ak": "Alaska",
+    "vt": "Vermont",
+    "wv": "West Virginia",
+    "wy": "Wyoming",
 }
 
 STATE_PORTAL_LABELS = {
@@ -671,6 +937,25 @@ STATE_PORTAL_LABELS = {
     "la": "Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov",
     "ky": "Kentucky eProcurement VSS, Kentucky COT, and SAM.gov",
     "ok": "Oklahoma OMES Central Purchasing, Tinker AFB, and SAM.gov",
+    "ia": "Iowa IMPACS eProcurement, Iowa DOM DoIT, and SAM.gov",
+    "ks": "Kansas SMART eProcurement, Kansas OITS/Fort Leavenworth, and SAM.gov",
+    "ar": "Arkansas ARBuy Periscope, Arkansas DIS, and SAM.gov",
+    "ms": "Mississippi MAGIC/ITS, Keesler AFB/Stennis, and SAM.gov",
+    "nm": "New Mexico GSD Share, NM DoIT/Kirtland AFB, and SAM.gov",
+    "ne": "Nebraska DAS Materiel, Nebraska OCIO/Offutt AFB, and SAM.gov",
+    "id": "Idaho IPRO LUMA, Idaho ITS/INL, and SAM.gov",
+    "hi": "Hawaii HIePRO HANDS, Hawaii ETS/INDOPACOM, and SAM.gov",
+    "nh": "New Hampshire DAS BPP, NH DoIT, and SAM.gov",
+    "me": "Maine DAFS Procurement, MaineIT, and SAM.gov",
+    "ri": "Rhode Island Ocean State Procures, RI ETSS/NUWC Newport, and SAM.gov",
+    "mt": "Montana eMACS SciQuest, Montana SITSD/Malmstrom AFB, and SAM.gov",
+    "de": "Delaware MyMarketplace, Delaware DTI/Dover AFB, and SAM.gov",
+    "sd": "South Dakota OPM, SD BIT/Ellsworth AFB, and SAM.gov",
+    "nd": "North Dakota OMB SPO, NDIT/Grand Forks AFB, and SAM.gov",
+    "ak": "Alaska IRIS Online Public Notices, Alaska OIT/JBER, and SAM.gov",
+    "vt": "Vermont BGS Bid System, Vermont ADS, and SAM.gov",
+    "wv": "West Virginia wvOASIS, WVOT/FBI CJIS Corridor, and SAM.gov",
+    "wy": "Wyoming A&I Public Purchase, Wyoming ETS/F.E. Warren AFB, and SAM.gov",
 }
 
 GENERIC_PERSON_NAMES = {
@@ -797,7 +1082,7 @@ def build_two_step_outreach(
     """
     norm_state = STATE_ALIASES.get(str(prospect_state or "").strip().lower(), "")
     region_label = f"{STATE_DISPLAY_NAMES[norm_state]} & Federal" if norm_state in STATE_DISPLAY_NAMES else "Federal & State SLED"
-    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 31 state SLED portals")
+    portal_focus = STATE_PORTAL_LABELS.get(norm_state, "SAM.gov, DemandStar, and 50 state SLED portals")
     clean_domain = site_base_url.replace("https://", "").replace("http://", "").strip("/")
     clean_comp = clean_company_for_copy(company)
     seed = f"{email.lower().strip()}::{clean_comp.lower().strip()}"
@@ -870,11 +1155,11 @@ def build_two_step_outreach(
         ]
 
     openers = [
-        f"I run an automated procurement monitor that tracks {portal_focus} (plus 30 other state SLED portals) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 30 additional state procurement portals every 6 hours.",
+        f"I run an automated procurement monitor that tracks {portal_focus} (plus 49 other state SLED portals) every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 49 additional state procurement portals every 6 hours.",
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.",
         f"Our ingestion pipeline monitors {portal_focus} every 6 hours for net-new IT, cloud, and cybersecurity solicitations.",
-        f"I track newly released public-sector technology solicitations across {portal_focus} (33 federal and state portals total).",
+        f"I track newly released public-sector technology solicitations across {portal_focus} (52 federal and state portals total).",
     ]
     value_props = [
         "Our classifier strips out 99% of commodity hardware, toner, sole-source, and COTS renewal noise so capture teams only see net-new services and engineering scopes.",
@@ -989,7 +1274,7 @@ def build_two_step_outreach(
         f"Quick follow-up on the {region_label} IT & cybersecurity solicitations above in case {clean_comp} is bidding public-sector tech work this quarter.",
         f"Following up briefly on the {region_label} IT solicitations I sent over earlier this week.",
         f"Circling back with one quick note in case your capture team is evaluating {region_label} IT or cybersecurity bids this month.",
-        f"Wanted to follow up briefly regarding the open {region_label} IT solicitations from our 33-portal Federal and 31-State SLED monitor.",
+        f"Wanted to follow up briefly regarding the open {region_label} IT solicitations from our 52-portal Federal and 50-State SLED monitor.",
     ]
     intel_block = ""
     if top_intel:
@@ -1005,14 +1290,14 @@ def build_two_step_outreach(
             )
         intel_block = (
             f"On #1 ('{human_top_title}' — {human_top_agency}, NAICS {top_intel['primary_naics']}), "
-            f"we already mapped the Section L/M evaluation criteria, {top_intel['compliance_posture']}, and teaming posture across our 39 AI capture modules "
-            f"covering SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK)."
+            f"we already mapped the Section L/M evaluation criteria, {top_intel['compliance_posture']}, and teaming posture across our 58 AI capture modules "
+            f"covering SAM.gov, DemandStar & 50-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY)."
             f"{recompete_step2_line}"
         )
     else:
         intel_block = (
-            f"We already mapped the Section L/M evaluation criteria, incumbent contract history, and teaming posture across our 39 AI capture modules "
-            f"covering SAM.gov, DemandStar & 31-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK)."
+            f"We already mapped the Section L/M evaluation criteria, incumbent contract history, and teaming posture across our 58 AI capture modules "
+            f"covering SAM.gov, DemandStar & 50-State SLED (VA, TX, CA, FL, MD, IL, PA, OH, GA, NC, NY, MA, NJ, WA, MI, CO, AZ, MN, TN, IN, MO, WI, SC, OR, CT, UT, NV, AL, LA, KY, OK, IA, KS, AR, MS, NM, NE, ID, HI, NH, ME, RI, MT, DE, SD, ND, AK, VT, WV, WY)."
         )
 
     step2_closers = [
@@ -1064,8 +1349,8 @@ def build_two_step_outreach(
 
     spintax_body_1 = (
         f"{spintax_greeting}\n\n"
-        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 30 other state SLED portals) every 6 hours. | "
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 30 additional state procurement portals every 6 hours. | "
+        f"{{{{RANDOM | I run an automated procurement monitor that tracks {portal_focus} (plus 49 other state SLED portals) every 6 hours. | "
+        f"We maintain a live public-sector RFP engine covering {portal_focus} and 49 additional state procurement portals every 6 hours. | "
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.}}}} "
         f"{spintax_relevance_1}\n\n"
         f"{payload_text}\n"

@@ -239,58 +239,57 @@ def main() -> int:
             time.sleep(CHECK_INTERVAL_SECONDS)
             continue
 
-        # Enforce RULE-006: Only execute audits, self-healing, and background jobs at night (11:00 PM – 6:00 AM)
-        # when the user is away from the computer (>= 30 minutes idle via GetLastInputInfo).
+        # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
+        #    and automatically publish any unposted completed roadmap APIs if session is active.
         try:
-            import omniscient_auditor
-            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=1800)
-            if not night_allowed:
-                time.sleep(CHECK_INTERVAL_SECONDS)
-                continue
+            import rapidapi_headless_publisher
+            rapidapi_headless_publisher.keepalive_rapidapi_session()
+            rapidapi_headless_publisher.auto_sync_unposted_apis(commit_and_push=True)
         except Exception:
             pass
 
-        # Avoid mid-build collisions or false-alarm wakeups when another tab is actively building APIs/scrapers
+        # 2. Avoid mid-build collisions or false-alarm wakeups when another tab is actively building APIs/scrapers
         if is_expansion_build_in_progress():
             time.sleep(CHECK_INTERVAL_SECONDS)
             continue
 
-        try:
-            import rapidapi_headless_publisher
-            rapidapi_headless_publisher.keepalive_rapidapi_session()
-        except Exception:
-            pass
+        # 3. Poll outbound email replies 24/7
         try:
             import outbound_reply_responder
             outbound_reply_responder.run_reply_responder()
         except Exception:
             pass
-        # 1. Run 360° Omniscient Auditor first to auto-fix any deterministic bugs across
-        #    Products, Acquisition Channels, and Website (and codify a rule + send [RESOLVED] if fixed)
+
+        # 4. Enforce RULE-006: Only execute heavy Omniscient Auditor runs at night (11:00 PM – 6:00 AM)
+        #    when the user is away from the computer (>= 30 minutes idle via GetLastInputInfo).
+        night_allowed = False
         try:
             import omniscient_auditor
-            omniscient_auditor.run_omniscient_audit(mode="fast", auto_fix=True, auto_deploy=True, force_now=True)
+            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=1800)
+            if night_allowed:
+                omniscient_auditor.run_omniscient_audit(mode="fast", auto_fix=True, auto_deploy=True, force_now=True)
         except Exception:
             pass
 
-        # 2. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
-        remote_errors = auto_error_healer.fetch_remote_open_errors()
-        local_errors = auto_error_healer.read_local_unacknowledged_errors()
-        contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
+        # 5. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
+        if night_allowed:
+            remote_errors = auto_error_healer.fetch_remote_open_errors()
+            local_errors = auto_error_healer.read_local_unacknowledged_errors()
+            contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
 
-        if remote_errors or local_errors or contract_issues:
-            print(
-                "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
-                f"Open remote errors: {len(remote_errors)} | "
-                f"Local errors: {len(local_errors)} | "
-                f"Contract issues: {len(contract_issues)}\n"
-                "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
-                "and restart silent_autopilot_watcher.py.",
-                flush=True,
-            )
-            return 0
+            if remote_errors or local_errors or contract_issues:
+                print(
+                    "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
+                    f"Open remote errors: {len(remote_errors)} | "
+                    f"Local errors: {len(local_errors)} | "
+                    f"Contract issues: {len(contract_issues)}\n"
+                    "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
+                    "and restart silent_autopilot_watcher.py.",
+                    flush=True,
+                )
+                return 0
 
-        # 2. Check if today's 2:00 AM Central daily expansion is due
+        # 6. Check if today's 2:00 AM Central daily expansion is due
         due, reason = is_daily_expansion_due()
         if due:
             print(

@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR API",
+    "version": "1.0.0",
+    "description": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/doe-national-lab-mando-subcontract": {
+      "post": {
+        "summary": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor",
+        "operationId": "Generate DOE NNSA National Lab DEAR 48 CFR Compliance Package",
+        "description": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "doe_national_lab_rfp_and_dear_clauses_text"
+                ],
+                "properties": {
+                  "doe_national_lab_rfp_and_dear_clauses_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR Ch. 9) Compliance Auditor API.",
+                    "example": "SOLICITATION SNL-RFP-2026-88412 (Sandia National Laboratories / NTESS M&O Prime Contract DE-NA0003525 \u2014 High-Performance Computing AI/ML Simulation & Zero-Trust Enclave Engineering): General Terms & Conditions: Incorporates DEAR 48 CFR 952.204-2 (Security Requirements \u2014 DOE Q & L Clearances), DEAR 952.204-70 (Classification/Declassification), DEAR 970.5227-1 / 952.227-11 (Patent Rights \u2014 Retention by the Contractor), DOE Order 142.3B (Unclassified Foreign National Visits and Assignments Program), and DOE Order 205.1C (Department of Energy Cyber Security Program)."
+                  },
+                  "target_national_lab_and_mando_prime": {
+                    "type": "string",
+                    "default": "Sandia_National_Laboratories_NTESS_And_Los_Alamos_National_Lab_Triad_NNSA",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "clearance_and_ip_posture": {
+                    "type": "string",
+                    "default": "DOE Q-Clearance / L-Clearance Cross-Over from DoD TS/Secret + Domestic Small Business Patent Retention (DEAR 952.227-11)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

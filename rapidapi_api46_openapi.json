@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Government-Furnished Property (GFP / FAR 52.245-1) & API",
+    "version": "1.0.0",
+    "description": "Audits GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, generating a DCMA-ready Property Management System Plan (PMSP), PIEE GFP Module reporting workflow, and IUID marking checklist.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/audit/govt-furnished-property-gfp": {
+      "post": {
+        "summary": "Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan",
+        "operationId": "Audit Government Furnished Property FAR 52 245 1 And PIEE Plan",
+        "description": "Audits GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, generating a DCMA-ready Property Management System Plan (PMSP), PIEE GFP Module reporting workflow, and IUID marking checklist.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "gfp_attachment_and_property_clauses_text"
+                ],
+                "properties": {
+                  "gfp_attachment_and_property_clauses_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for Government-Furnished Property (GFP / FAR 52.245-1) & PIEE Property Management Plan API.",
+                    "example": "RFP ATTACHMENT J-4 CONSOLIDATED GOVERNMENT-FURNISHED PROPERTY (GFP) SCHEDULE (Contract W56HZV-26-C-0084): (1) 18x KG-175D TACLANE Type-1HAIPE Encryptors (Serially Managed, Unit Acq Cost: $24,500 ea, COMSEC/CCI); (2) 45x Dell Latitude Rugged GFE Engineer Laptops (Unit Acq Cost: $3,800 ea, Non-Serially Managed); (3) 2x Environmental Thermal Shock Chambers (Special Test Equipment [STE], Unit Acq Cost: $142,000 ea); (4) 400x Titanium Sensor Housings (Contractor-Acquired Property [CAP] under Cost-Reimbursable CLIN 0004). Includes FAR 52.245-1, FAR 52.245-9, DFARS 252.211-7003 (IUID), and DFARS 252.245-7005."
+                  },
+                  "dcma_property_system_audit_scope": {
+                    "type": "string",
+                    "default": "FAR_52_245_1_10_Lifecycle_Outcomes_DFARS_252_245_7005_PIEE_GFP_Module_And_MIL_STD_130_IUID",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "liability_and_cap_regime": {
+                    "type": "string",
+                    "default": "FAR 52.245-1(h) Limited Risk of Loss (Government Self-Insures Except Willful Misconduct / Revoked PMSA)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

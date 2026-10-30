@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FAR Part 49 Termination for Convenience (T4C / SF API",
+    "version": "1.0.0",
+    "description": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/termination-for-convenience-settlement": {
+      "post": {
+        "summary": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator",
+        "operationId": "Generate FAR Part 49 T4C SF 1435 1436 Settlement Proposal",
+        "description": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "termination_notice_and_incurred_cost_ledger_text"
+                ],
+                "properties": {
+                  "termination_notice_and_incurred_cost_ledger_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator API.",
+                    "example": "TERMINATION NOTICE: Contracting Officer issued Complete Notice of Termination for Convenience under FAR 52.249-2 on Contract W15P7T-25-C-0082 ($12.0M Ceiling, $4.1M Progress/Milestone Payments received to date). Incurred Costs to Date of Termination: Direct Labor $2,450,000; Fringe/OH/G&A Indirects $1,980,000; Raw Materials & Unfinished Work-in-Process (WIP) $620,000; Subcontractor Termination Claims (2 Subcontractors < $100K TCO delegation threshold): $385,000; Post-Termination Accounting, Legal & Plant Clearance Settlement Expenses (FAR 31.205-42(g)): $145,000. Target Profit on Work Performed: 10.0%."
+                  },
+                  "settlement_proposal_basis_and_form": {
+                    "type": "string",
+                    "default": "SF_1435_Inventory_Basis_Preferred_Under_FAR_49_206_2_vs_SF_1436_Total_Cost_Basis",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "contract_type_and_clause_regime": {
+                    "type": "string",
+                    "default": "FAR 52.249-2 Fixed-Price Termination for Convenience (vs. FAR 52.249-6 Cost-Reimbursement / FAR 52.212-4(l) Commercial)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

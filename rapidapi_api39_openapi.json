@@ -1,9 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Cost Accounting Standards (CAS / 48 CFR 9904) Coverage & DS-1 Disclosure Auditor API",
+    "title": "GovCon CAS 48 CFR 9904 DS1 DS2 Disclosure Auditor API",
     "version": "1.0.0",
-    "description": "Evaluates contractor award history and cost accounting practices under 48 CFR Chapter 99 (FAR Part 30 & FAR 52.230-1 through 52.230-6) to determine Cost Accounting Standards (CAS) exemptions, Modified CAS (CAS 401, 402, 405, 406), or Full CAS coverage (>= $50M threshold), audit CAS 401\u2013420 compliance, draft Form CASB DS-1 (8-Part Disclosure Statement) narratives, and model FAR 52.230-6 General Dollar Magnitude (GDM) cost-impact remedies."
+    "description": "Evaluates contractor award history and cost accounting practices under 48 CFR Chapter 99 (FAR Part 30 & FAR 52.230-1 through 52.230-6) to determine Cost Accounting Standards (CAS) exemptions, Modified CAS (CAS 401, 402, 405, 406), or Full CAS coverage (>= $50M threshold), audit CAS 401420 compliance, draft Form CASB DS-1 (8-Part Disclosure Statement) narratives, and model FAR 52.230-6 General Dollar Magnitude (GDM) cost-impact remedies.",
+    "x-category": "Business"
   },
   "servers": [
     {

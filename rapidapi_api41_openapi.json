@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DoD CDRL (DD Form 1423) & Data Item Description (DID) API",
+    "version": "1.0.0",
+    "description": "Extracts all Contract Data Requirements List (CDRL / DD Form 1423) items from DoD RFPs, maps Data Item Descriptions (DIDs), Block 4 authority, submission frequencies, inspection/acceptance codes, and builds a WBS Data Delivery Calendar.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/cdrls-did-data-deliverables": {
+      "post": {
+        "summary": "DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor",
+        "operationId": "Generate DoD CDRL DD Form 1423 And DID Delivery Schedule",
+        "description": "Extracts all Contract Data Requirements List (CDRL / DD Form 1423) items from DoD RFPs, maps Data Item Descriptions (DIDs), Block 4 authority, submission frequencies, inspection/acceptance codes, and builds a WBS Data Delivery Calendar.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "rfp_exhibit_a_cdrl_and_pws_text"
+                ],
+                "properties": {
+                  "rfp_exhibit_a_cdrl_and_pws_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for DoD CDRL (DD Form 1423) & Data Item Description (DID) Schedule Extractor API.",
+                    "example": "EXHIBIT A \u2014 CONTRACT DATA REQUIREMENTS LIST (DD FORM 1423-1): CDRL A001: Program Management Plan (PMP), Authority: DI-MGMT-80004A, PWS Para 3.1, Freq: ONE/R, First Sub: 30 DAC, Dist: Statement D, Block 18: NSP. CDRL A002: Monthly Contract Status Report (MSR), Authority: DI-MGMT-80368A, PWS Para 3.2, Freq: MTHLY, Sub: 10th business day, Inspection/Acceptance: DD (Destination/Destination). CDRL A003: Software Product Specification (SPS) & Source Code Baseline, Authority: DI-IPSC-81441A, PWS Para 4.4, Freq: ASREQ/R, Sub: 15 days prior to FCA/PCA. CDRL A004: System Security Plan (SSP) & RMF Continuous Monitoring Package, Authority: DI-MGMT-82001, PWS Para 5.1, Freq: QTRLY, Sub: 45 DAC."
+                  },
+                  "contract_award_and_pop_start_context": {
+                    "type": "string",
+                    "default": "Contract Award / Post-Award Conference (PAC) = Day 0; 12-Month Base Period + 4 Option Years",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "dd1423_pricing_group_strategy": {
+                    "type": "string",
+                    "default": "Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV \u2014 NSP vs. Separately Priced Data CLIN)",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "GovCon Request for Equitable Adjustment (REA), Constructive Change & CDA Claim API",
+    "title": "GovCon REA Constructive Change CDA Claim API",
     "version": "1.0.0",
-    "description": "Analyzes post-award scope creep, government Furnished Equipment (GFE) delays, defective specifications, or stop-work orders under FAR 52.243-1/2/3/4, FAR 52.242-14/15/17, and the Contract Disputes Act (41 U.S.C. 7101-7109) to generate a legally structured Request for Equitable Adjustment (REA) with DCAA-auditable quantum cost tables, Eichleay unabsorbed home-office overhead analysis,FAR 31.205-33 billable preparation cost segregation, and SF-30 bilateral modification text."
+    "description": "Analyzes post-award scope creep, government Furnished Equipment (GFE) delays, defective specifications, or stop-work orders under FAR 52.243-1/2/3/4, FAR 52.242-14/15/17, and the Contract Disputes Act (41 U.S.C. 7101-7109) to generate a legally structured Request for Equitable Adjustment (REA) with DCAA-auditable quantum cost tables, Eichleay unabsorbed home-office overhead analysis,FAR 31.205-33 billable preparation cost segregation, and SF-30 bilateral modification text.",
+    "x-category": "Business"
   },
   "servers": [
     {

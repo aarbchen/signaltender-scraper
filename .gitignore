@@ -2,6 +2,8 @@
 .env
 *.env
 .rapidapi_session.json
+.rapidapi_chrome_profile/
+.rapidapi_google_chrome_profile/
 
 # Virtual environments
 daas_env/
@@ -34,3 +36,5 @@ sled-scraper/bids_master.json
 
 
 .rapidapi_session.json
+.rapidapi_chrome_profile/
+.rapidapi_google_chrome_profile/

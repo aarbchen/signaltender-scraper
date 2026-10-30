@@ -2,7 +2,7 @@ from error_telemetry import configure_utf8_stdio, report_error
 configure_utf8_stdio()
 """
 SignalTender — Automated X (Twitter) API v2 RFP Broadcaster (`x_autoposter.py`)
-Publishes high-signal open Federal (SAM.gov), Municipal (DemandStar), and 31-State SLED
+Publishes high-signal open Federal (SAM.gov), Municipal (DemandStar), and 50-State SLED
 IT, Cybersecurity, Cloud, and AI solicitations directly to the official SignalTender X account
 via `POST https://api.x.com/2/tweets` using zero-dependency RFC 5849 OAuth 1.0a HMAC-SHA1 signing.
 """
@@ -70,6 +70,25 @@ JURISDICTION_SHORT_TAGS = {
     "louisiana": "LOUISIANA // LAPAC & OTS",
     "kentucky": "KENTUCKY // KY VSS & COT",
     "oklahoma": "OKLAHOMA // OMES & IS",
+    "iowa": "IOWA // IA IMPACS & DOM DOIT",
+    "kansas": "KANSAS // KS SMART & OITS",
+    "arkansas": "ARKANSAS // AR ARBUY & DIS",
+    "mississippi": "MISSISSIPPI // MS MAGIC & ITS",
+    "new_mexico": "NEW MEXICO // NM GSD & DOIT",
+    "nebraska": "NEBRASKA // NE DAS & OCIO",
+    "idaho": "IDAHO // ID IPRO & ITS",
+    "hawaii": "HAWAII // HI HIEPRO & ETS",
+    "new_hampshire": "NEW HAMPSHIRE // NH DAS & DOIT",
+    "maine": "MAINE // ME DAFS & MAINEIT",
+    "rhode_island": "RHODE ISLAND // RI OSP & ETSS",
+    "montana": "MONTANA // MT EMACS & SITSD",
+    "delaware": "DELAWARE // DE MMP & DTI",
+    "south_dakota": "SOUTH DAKOTA // SD OPM & BIT",
+    "north_dakota": "NORTH DAKOTA // ND SPO & NDIT",
+    "alaska": "ALASKA // AK IRIS & OIT",
+    "vermont": "VERMONT // VT BGS & ADS",
+    "west_virginia": "WEST VIRGINIA // WV WVOASIS & WVOT",
+    "wyoming": "WYOMING // WY A&I & ETS",
     "municipal": "MUNICIPAL // DEMANDSTAR",
 }
 

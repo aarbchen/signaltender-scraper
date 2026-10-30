@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & API",
+    "version": "1.0.0",
+    "description": "Audits cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency Memorandum (100% 3PAO assessment, zero unmitigated high/moderate POA&Ms, KSIs) and generates a complete Cloud Equivalency Body of Evidence (BoE) checklist.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/fedramp-equivalency-body-of-evidence": {
+      "post": {
+        "summary": "DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor",
+        "operationId": "Generate DoD FedRAMP Moderate Equivalency Body Of Evidence",
+        "description": "Audits cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency Memorandum (100% 3PAO assessment, zero unmitigated high/moderate POA&Ms, KSIs) and generates a complete Cloud Equivalency Body of Evidence (BoE) checklist.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "cloud_service_offering_and_3pao_posture_text"
+                ],
+                "properties": {
+                  "cloud_service_offering_and_3pao_posture_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for DoD FedRAMP Moderate Equivalency (2024 DoD CIO Memo) & 3PAO Body of Evidence Auditor API.",
+                    "example": "CLOUD SERVICE OFFERING (CSO): SentinelMesh SaaS Engineering Collaboration & CUI Document Vault used by a Defense Prime to store Controlled Technical Information (CTI / CUI). Current Posture: Hosted on AWS GovCloud (US-West); holds SOC 2 Type II and ISO 27001, plus an A2LA-accredited 3PAO FedRAMP Moderate Rev 5 Security Assessment Report (SAR) covering 295 of 323 controls, with 2 open Moderate POA&Ms (FIPS 140-2/3 TLS proxy validation in staging and automated 30-day vulnerability scan feed)."
+                  },
+                  "target_equivalency_standard": {
+                    "type": "string",
+                    "default": "DoD_CIO_Jan_2024_FedRAMP_Moderate_Equivalency_Memo_DFARS_252_204_7012_c_d_And_FedRAMP_Rev5",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "underlying_iaas_and_fips_posture": {
+                    "type": "string",
+                    "default": "Hosted on AWS GovCloud (US) FedRAMP High JAB P-ATO; FIPS 140-3 Validated Cryptographic Modules",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

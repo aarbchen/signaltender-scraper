@@ -8,7 +8,7 @@
     "url": "https://github.com/aarbchen/signaltender-scraper",
     "source": "github"
   },
-  "version": "1.22.0",
+  "version": "1.41.0",
   "remotes": [
     {
       "type": "streamable-http",

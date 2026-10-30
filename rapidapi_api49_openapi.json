@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SLED Cooperative Purchasing (NASPO ValuePoint, API",
+    "version": "1.0.0",
+    "description": "Evaluates state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/state-local-cooperative-piggyback": {
+      "post": {
+        "summary": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper",
+        "operationId": "Generate SLED Cooperative Purchasing NASPO Sourcewell Piggyback Map",
+        "description": "Evaluates state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sled_buyer_requirement_and_vendor_contracts_text"
+                ],
+                "properties": {
+                  "sled_buyer_requirement_and_vendor_contracts_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper API.",
+                    "example": "BUYER OPPORTUNITY: City of Charlotte, NC & Wake County Public School System seeking $1.85M Zero-Trust Cloud Security, SIEM Telemetry, and Managed SOC Onboarding before June 30 fiscal year-end. Vendor Contract Vehicles: Hold GSA MAS SIN 54151S & SIN 54151HACS (Cooperative Purchasing Authorized), listed on Carahsoft NASPO ValuePoint Cloud Solutions Master Agreement (AR2472 / Utah Lead State with active NC Participating Addendum), and TIPS Technology Solutions Contract #230105."
+                  },
+                  "target_cooperative_portfolios": {
+                    "type": "string",
+                    "default": "NASPO_ValuePoint_Cloud_AR2472_Sourcewell_OMNIA_Partners_TIPS_USA_TX_DIR_And_GSA_Coop_Purchasing",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "vendor_direct_vs_distributor_model": {
+                    "type": "string",
+                    "default": "Evaluate Both Direct Master Agreement Holdership and Carahsoft / TD SYNNEX / Ingram Micro Authorized Reseller Piggyback",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

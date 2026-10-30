@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FAR Part 48 Value Engineering Change Proposal (VECP / API",
+    "version": "1.0.0",
+    "description": "Transforms cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty.",
+    "x-category": "Business"
+  },
+  "servers": [
+    {
+      "url": "https://b2b-contract-parser-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/v1/generate/value-engineering-vecp": {
+      "post": {
+        "summary": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler",
+        "operationId": "Generate FAR Part 48 VECP Shared Savings Proposal Model",
+        "description": "Transforms cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "baseline_contract_and_proposed_engineering_change_text"
+                ],
+                "properties": {
+                  "baseline_contract_and_proposed_engineering_change_text": {
+                    "type": "string",
+                    "description": "Primary solicitation or contract input text for FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler API.",
+                    "example": "ACTIVE CONTRACT: FA8732-25-C-0044 (USAF Enterprise Cloud & Telemetry Platform, $48.0M Firm-Fixed-Price, includes FAR 52.248-1 Value Engineering). Proposed VECP-2026-01: Replace legacy x86 persistent EC2/RDS analytics clusters and manual Tier-1 log triage with Graviton4 serverless Iceberg lakehouse + automated AI SOAR playbooks. Reduces annual AWS GovCloud infrastructure and sustainment labor cost by $3,400,000/year across the remaining 2 Instant Contract Option Years ($6.8M gross instant savings) plus $4.2M across 2 Future follow-on task orders."
+                  },
+                  "far_part_48_sharing_regime": {
+                    "type": "string",
+                    "default": "FAR_52_248_1_Voluntary_Incentive_Fixed_Price_50_50_To_75_25_Contractor_Share",
+                    "description": "Target regulatory regime or statutory framework."
+                  },
+                  "development_and_government_implementation_costs": {
+                    "type": "string",
+                    "default": "Contractor VECP Development Cost: $320,000 | Government Test/ECP Implementation Cost: $180,000 | 36-Month Sharing Period",
+                    "description": "Operational context and threshold parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Structured JSON compliance and capture analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  }
+}

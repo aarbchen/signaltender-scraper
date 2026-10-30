@@ -181,6 +181,44 @@ def check_html_file(fpath: str) -> str:
             "#contracts/kentucky",
             "#contracts/ok",
             "#contracts/oklahoma",
+            "#contracts/ia",
+            "#contracts/iowa",
+            "#contracts/ks",
+            "#contracts/kansas",
+            "#contracts/ar",
+            "#contracts/arkansas",
+            "#contracts/ms",
+            "#contracts/mississippi",
+            "#contracts/nm",
+            "#contracts/new_mexico",
+            "#contracts/ne",
+            "#contracts/nebraska",
+            "#contracts/id",
+            "#contracts/idaho",
+            "#contracts/hi",
+            "#contracts/hawaii",
+            "#contracts/nh",
+            "#contracts/new_hampshire",
+            "#contracts/me",
+            "#contracts/maine",
+            "#contracts/ri",
+            "#contracts/rhode_island",
+            "#contracts/mt",
+            "#contracts/montana",
+            "#contracts/de",
+            "#contracts/delaware",
+            "#contracts/sd",
+            "#contracts/south_dakota",
+            "#contracts/nd",
+            "#contracts/north_dakota",
+            "#contracts/ak",
+            "#contracts/alaska",
+            "#contracts/vt",
+            "#contracts/vermont",
+            "#contracts/wv",
+            "#contracts/west_virginia",
+            "#contracts/wy",
+            "#contracts/wyoming",
         "#contracts/municipal",
     }
     for h in sorted(hashes):
@@ -361,6 +399,25 @@ def check_catalog_parity_and_ui(index_txt: str, apis_txt: str) -> None:
             "govcon-sca-far-52-222-41-wage-determination-mapper-api",
             "govcon-evms-ansi-748-ipmdr-variance-narrative-api",
             "govcon-cas-48-cfr-9904-ds1-ds2-disclosure-auditor-api",
+            "govcon-itar-usml-ear-ccl-tcp-export-control-api",
+            "dod-cdrl-dd-form-1423-did-schedule-tracker-api",
+            "far-6-302-13-501-sole-source-ja-lsj-generator-api",
+            "dfars-252-204-7012-dibnet-72hr-incident-report-api",
+            "doe-dear-48-cfr-952-970-national-lab-compliance-api",
+            "far-16-505-oasis-polaris-sewp-task-order-shaper-api",
+            "far-52-245-1-dfars-piee-gfp-property-management-api",
+            "dod-oconus-sofa-dba-sync-spot-deployment-compliance-api",
+            "dod-32-cfr-2002-dodi-5200-48-cui-marking-plan-api",
+            "naspo-sourcewell-omnia-tips-sled-coop-piggyback-api",
+            "far-part-48-52-248-1-vecp-shared-savings-proposal-api",
+            "far-52-203-13-business-ethics-oig-disclosure-auditor-api",
+            "dod-fedramp-moderate-equivalency-memorandum-boe-api",
+            "federal-ai-governance-omb-m-24-10-nist-ai-rmf-api",
+            "far-part-49-sf-1435-1436-t4c-settlement-proposal-api",
+            "far-42-1204-govcon-m-a-novation-agreement-package-api",
+            "sseb-color-team-pink-red-gold-proposal-scorer-api",
+            "gsa-fas-srp-tdr-iff-cav-ioa-audit-reconciler-api",
+            "far-16-401-cpaf-cpif-award-fee-board-presentation-api",
         }
         for rslug in set(re.findall(r"https://rapidapi\.com/aarbchen/api/([a-z0-9-]+)", txt)):
             if rslug not in verified_rapidapi_studio_slugs:
@@ -562,7 +619,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
 
         # 5. Enforce that EVERY inline state-abbreviation list (e.g. "VA, TX, CA, FL..." or "TX, VA, CA, FL...") includes ALL active state abbreviations with zero duplicates
         expected_abbrs = [state_abbrev_map.get(sk, sk[:2].upper()) for sk in state_keys]
-        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,450}", txt):
+        for m in re.finditer(r"(?:VA,\s*TX,\s*CA,\s*FL|TX,\s*VA,\s*CA,\s*FL|SAM\.gov,\s*DemandStar,\s*VA,\s*TX)[^)<\n]{0,850}", txt):
             snippet = m.group(0)
             for abbr in expected_abbrs:
                 occurrences = re.findall(rf"\b{abbr}\b", snippet)
@@ -580,7 +637,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
             fail("index.html: #coverage contains non-standard 'p-6 rounded-2xl' cards outside #coverage-portals-grid")
 
         # 6. Enforce that every prose portal roll-call ("Virginia eVA, Texas ESBD, California Cal eProcure...") includes all active states
-        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,1400}", txt):
+        for m in re.finditer(r"Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure[^.<\n]{0,2800}", txt):
             snippet = m.group(0)
             for sk in state_keys:
                 state_title = sk.replace("_", " ").title()
