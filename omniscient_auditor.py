@@ -146,6 +146,15 @@ FOUNDATIONAL_RULES = [
         "fix_applied": "Added automatic nightly Supabase contracts semantic hygiene & UTF-8 auto-healer in omniscient_auditor.py, removed Tier-4 State PoP Modernization & SLED-*-COOP synthesis, and bound static/SPA RFP dossier action buttons to real issuing agency and solicitation slug.",
         "prevention_rule": "Nightly omniscient_auditor.py runs must actively purge non-RFP/nav-link/synthetic rows and \\ufffd characters from Supabase contracts and usaspending_verified_vault.json, and verify static/SPA dossier button payloads pass real agency and solicitation IDs.",
     },
+    {
+        "rule_id": "RULE-010-ZERO-CALL-ENTERPRISE-PROOF-AND-CFO-QUOTE-WORKBENCH",
+        "category": "Self-Serve Enterprise Conversion & Zero-Call Proof Workbench",
+        "source": "index.html / verify_site_integrity.py / omniscient_auditor.py / api/routers/support.py",
+        "bug_signature": "Missing or out-of-sync Zero-Call Enterprise Proof Workbench (#checkout-enterprise-proof-workbench), missing active SLED state option in <select id='checkout-foia-state'>, or broken CFO / FAR 31.205-18 Quote generator on #page-checkout",
+        "root_cause": "Adding new SLED state scrapers or modifying #page-checkout without syncing <select id='checkout-foia-state'> and verifying the 3-mode self-serve Proof Workbench (Custom RFP .ZIP Compiler, Live FOIA Rate Vault Preview, and CFO / FAR 31.205-18 Quote Generator).",
+        "fix_applied": "Added automatic <select id='checkout-foia-state'> state-option healer in omniscient_auditor.py and headless VM execution of openCheckoutLiveProofModal(), switchCheckoutProofTab(), and generateCfoProcurementQuote() in verify_site_integrity.py.",
+        "prevention_rule": "Every omniscient_auditor.py and verify_site_integrity.py run must auto-sync all active SLED states into <select id='checkout-foia-state'> and verify all 3 Zero-Call Enterprise Proof Workbench tabs and JS handlers on #page-checkout.",
+    },
 ]
 
 
@@ -727,16 +736,47 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
             import pseo_generator
             sb_headers = {"apikey": sb_key, "Authorization": f"Bearer {sb_key}", "Content-Type": "application/json"}
             resp_db = requests.get(
-                f"{sb_url}/rest/v1/contracts?select=id,title,agency,source_url&limit=1000",
+                f"{sb_url}/rest/v1/contracts?select=id,title,agency,url,status&limit=1000",
                 headers=sb_headers,
                 timeout=15,
             )
-            if resp_db.status_code == 200:
+            if resp_db.status_code != 200:
+                unfixed_issues.append(f"Supabase GET /rest/v1/contracts returned HTTP {resp_db.status_code}: {resp_db.text[:160]}")
+            else:
                 for row in resp_db.json():
                     r_id = row.get("id")
                     r_title = str(row.get("title") or "")
-                    r_url = str(row.get("source_url") or "").strip()
-                    if r_url.startswith("subscriber://"):
+                    r_url = str(row.get("url") or "").strip()
+                    r_status = str(row.get("status") or "").strip()
+                    if r_url.startswith("subscriber://") or r_status.startswith("SUBSCRIBER_"):
+                        low_sub = f"{r_url} {r_title}".lower()
+                        if any(
+                            syn_k in low_sub
+                            for syn_k in (
+                                "@apexdefense.io",
+                                "@capturedesk-partner.com",
+                                "client.portal.audit.",
+                                "apex-defense-cyber-solutions",
+                                "apex-cyber-solutions",
+                            )
+                        ):
+                            if auto_fix and r_id is not None:
+                                requests.delete(f"{sb_url}/rest/v1/contracts?id=eq.{r_id}", headers=sb_headers, timeout=10)
+                                db_purged_ids.append(r_id)
+                            else:
+                                unfixed_issues.append(f"Supabase contracts row #{r_id} is a synthetic test subscriber/teaming record ({r_url})")
+                        elif "\ufffd" in r_title:
+                            if auto_fix and r_id is not None:
+                                clean_sub_t = r_title.replace("\ufffd", "-")
+                                requests.patch(
+                                    f"{sb_url}/rest/v1/contracts?id=eq.{r_id}",
+                                    headers=sb_headers,
+                                    json={"title": clean_sub_t},
+                                    timeout=10,
+                                )
+                                db_patched_ids.append(r_id)
+                            else:
+                                unfixed_issues.append(f"Supabase subscriber/cache row #{r_id} contains UTF-8 replacement character (\\ufffd)")
                         continue
                     is_bad_row = (
                         not r_url.startswith("http")
@@ -1114,17 +1154,58 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
         except Exception as exc:
             unfixed_issues.append(f"Instantly.ai live campaign/mailbox audit error: {exc}")
 
-    # 6. Audit Satellite Sending Domain DNS Deliverability (MX & SPF via Google DoH)
-    for send_dom in ("getsignaltender.com", "trysignaltender.com"):
+    # 6. Audit & Auto-Heal Authoritative Cloudflare DNS Deliverability (MX, SPF, DMARC & BIMI) + LinkedIn OAuth Token Liveness
+    cf_token = (os.getenv("CLOUDFLARE_API_TOKEN") or "").strip()
+    if cf_token:
         try:
-            r_mx = requests.get(f"https://dns.google/resolve?name={send_dom}&type=MX", timeout=8)
-            r_txt = requests.get(f"https://dns.google/resolve?name={send_dom}&type=TXT", timeout=8)
-            mx_ans = (r_mx.json() or {}).get("Answer") or [] if r_mx.status_code == 200 else []
-            txt_ans = (r_txt.json() or {}).get("Answer") or [] if r_txt.status_code == 200 else []
-            if not mx_ans:
-                unfixed_issues.append(f"Sending domain {send_dom} is missing DNS MX records!")
-            if not any("v=spf1" in str(t.get("data") or "").lower() for t in txt_ans):
-                unfixed_issues.append(f"Sending domain {send_dom} is missing DNS SPF (v=spf1) TXT record!")
+            cf_headers = {"Authorization": f"Bearer {cf_token}", "Content-Type": "application/json"}
+            r_zones = requests.get("https://api.cloudflare.com/client/v4/zones?per_page=50", headers=cf_headers, timeout=10)
+            if r_zones.status_code == 200:
+                zone_map = {str(z.get("name") or "").lower(): z for z in (r_zones.json() or {}).get("result") or []}
+                for dom_name in ("signaltender.net", "getsignaltender.com", "trysignaltender.com"):
+                    z_obj = zone_map.get(dom_name)
+                    if not z_obj or z_obj.get("status") != "active":
+                        unfixed_issues.append(f"Cloudflare zone {dom_name} missing or not active")
+                        continue
+                    z_id = z_obj.get("id")
+                    r_recs = requests.get(
+                        f"https://api.cloudflare.com/client/v4/zones/{z_id}/dns_records?per_page=100",
+                        headers=cf_headers,
+                        timeout=10,
+                    )
+                    recs = (r_recs.json() or {}).get("result") or [] if r_recs.status_code == 200 else []
+                    has_dmarc = any(r.get("type") == "TXT" and r.get("name") == f"_dmarc.{dom_name}" for r in recs)
+                    has_bimi = any(r.get("type") == "TXT" and r.get("name") == f"default._bimi.{dom_name}" for r in recs)
+                    has_mx = any(r.get("type") == "MX" for r in recs)
+                    has_spf = any(r.get("type") == "TXT" and "v=spf1" in str(r.get("content") or "").lower() for r in recs)
+                    is_sat = dom_name in ("getsignaltender.com", "trysignaltender.com")
+                    if not has_dmarc or not has_bimi or (is_sat and (not has_mx or not has_spf)):
+                        if auto_fix and is_sat:
+                            import autonomous_mailbox_scaler
+                            autonomous_mailbox_scaler.provision_cloudflare_zone_and_redirect(dom_name)
+                            fixed_events.append({
+                                "component": f"Cloudflare DNS ({dom_name})",
+                                "issue": f"Missing MX/SPF/DMARC/BIMI record on satellite domain {dom_name}",
+                                "fix": f"Automatically re-provisioned MX, SPF, DMARC, and BIMI DNS records for {dom_name} via Cloudflare API.",
+                                "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                            })
+                        else:
+                            unfixed_issues.append(
+                                f"Cloudflare DNS record missing on {dom_name} (MX={has_mx}, SPF={has_spf}, DMARC={has_dmarc}, BIMI={has_bimi})"
+                            )
+        except Exception as exc:
+            unfixed_issues.append(f"Cloudflare DNS audit failed: {exc}")
+
+    li_token = (os.getenv("LINKEDIN_ACCESS_TOKEN") or "").strip()
+    if li_token:
+        try:
+            r_li = requests.get(
+                "https://api.linkedin.com/v2/userinfo",
+                headers={"Authorization": f"Bearer {li_token}"},
+                timeout=8,
+            )
+            if r_li.status_code != 200:
+                unfixed_issues.append(f"LinkedIn OAuth token check returned HTTP {r_li.status_code} (token may be expired)")
         except Exception:
             pass
 
@@ -1254,6 +1335,25 @@ def audit_and_heal_website(auto_fix: bool = True, run_playwright: bool = False) 
                 if old_st in api_txt:
                     api_txt = re.sub(rf"(?<![0-9]){re.escape(old_st)}", new_st, api_txt)
 
+        # 5b. Auto-heal <select id="checkout-foia-state"> in #checkout-enterprise-proof-workbench so every active SLED state has an <option>
+        m_foia_sel = re.search(r'(<select\s+id="checkout-foia-state"[^>]*>)(.*?)(</select>)', idx_txt, flags=re.S)
+        if m_foia_sel:
+            sel_inner = m_foia_sel.group(2)
+            missing_foia_opts: list[str] = []
+            for sk in state_keys:
+                if f'value="{sk}"' not in sel_inner:
+                    st_title = sk.replace("_", " ").title()
+                    missing_foia_opts.append(f'                    <option value="{sk}">{st_title} (State SLED / Statutory Open Records)</option>')
+            if missing_foia_opts:
+                new_inner = sel_inner.rstrip() + "\n" + "\n".join(missing_foia_opts) + "\n                  "
+                idx_txt = idx_txt[: m_foia_sel.start(2)] + new_inner + idx_txt[m_foia_sel.end(2) :]
+                fixed_events.append({
+                    "component": "index.html (#checkout-foia-state in Zero-Call Enterprise Proof Workbench)",
+                    "issue": f"Missing {len(missing_foia_opts)} active state option(s) in <select id='checkout-foia-state'>",
+                    "fix": f"Automatically injected {len(missing_foia_opts)} state <option> tag(s) into #checkout-foia-state on #page-checkout.",
+                    "rule_id": "RULE-010-ZERO-CALL-ENTERPRISE-PROOF-AND-CFO-QUOTE-WORKBENCH",
+                })
+
         if idx_txt != orig_idx:
             index_path.write_text(idx_txt, encoding="utf-8")
             fixed_events.append({
@@ -1273,7 +1373,6 @@ def audit_and_heal_website(auto_fix: bool = True, run_playwright: bool = False) 
 
     # 6. Execute verify_site_integrity.py subprocess check
     env_copy = dict(os.environ)
-    env_copy["OMNISCIENT_PILLAR1_QUALITY_VERIFIED"] = "1"
     if not run_playwright:
         env_copy["CI"] = "1"  # Skip Playwright in fast mode; run full Playwright when run_playwright=True
     else:
@@ -1307,6 +1406,23 @@ def audit_and_heal_website(auto_fix: bool = True, run_playwright: bool = False) 
                 unfixed_issues.append(f"Live public URL {l_url} returned HTTP {rl.status_code}")
         except Exception as exc:
             unfixed_issues.append(f"Live public URL {l_url} unreachable: {exc}")
+
+    # 8. Audit TLS / SSL Certificate Expiration (>= 7 days remaining) on Primary & Backend Domains
+    import socket
+    import ssl
+    for tls_host in ("signaltender.net", "b2b-contract-parser-api.onrender.com"):
+        try:
+            ctx = ssl.create_default_context()
+            with ctx.wrap_socket(socket.socket(), server_hostname=tls_host) as s:
+                s.settimeout(6)
+                s.connect((tls_host, 443))
+                cert = s.getpeercert()
+                exp_dt = datetime.strptime(str(cert.get("notAfter") or ""), "%b %d %H:%M:%S %Y %Z")
+                days_left = (exp_dt - datetime.now(timezone.utc).replace(tzinfo=None)).days
+                if days_left < 7:
+                    unfixed_issues.append(f"TLS/SSL certificate for {tls_host} expires in {days_left} days!")
+        except Exception as exc:
+            unfixed_issues.append(f"TLS/SSL certificate check failed for {tls_host}: {exc}")
 
     return fixed_events, unfixed_issues
 
