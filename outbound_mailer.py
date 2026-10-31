@@ -117,7 +117,11 @@ def _detect_live_instantly_mailbox_count(fallback: int = 2) -> int:
         )
         if r.status_code == 200:
             items = (r.json() or {}).get("items") or []
-            warmed_items = [x for x in items if is_instantly_account_warmed(x)]
+            warmed_items = [
+                x for x in items
+                if "signaltender" in str((x or {}).get("email") or "").lower()
+                and is_instantly_account_warmed(x)
+            ]
             if warmed_items:
                 _CACHED_INSTANTLY_MAILBOX_COUNT = len(warmed_items)
                 return _CACHED_INSTANTLY_MAILBOX_COUNT

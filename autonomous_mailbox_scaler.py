@@ -325,13 +325,17 @@ def fetch_live_instantly_accounts() -> Tuple[List[Dict[str, Any]], List[str], Li
             timeout=10,
         )
         if resp.status_code == 200:
-            items = (resp.json() or {}).get("items") or []
+            raw_items = (resp.json() or {}).get("items") or []
+            items = []
             warmed = []
             warming = []
-            for a in items:
+            for a in raw_items:
                 if not isinstance(a, dict) or not a.get("email"):
                     continue
                 em = str(a.get("email") or "").strip().lower()
+                if "signaltender" not in em:
+                    continue
+                items.append(a)
                 if outbound_mailer.is_instantly_account_warmed(a):
                     warmed.append(em)
                 else:
