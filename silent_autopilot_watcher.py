@@ -185,6 +185,8 @@ def is_daily_expansion_due() -> tuple[bool, str]:
     try:
         with open(ROADMAP_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
+        if data.get("feature_freeze") or int(data.get("daily_quota") or 0) <= 0:
+            return False, ""
         daily_quota = int(data.get("daily_quota") or 5)
         last_date = str(data.get("last_completed_date") or "").strip()
         completed_today_date = str(data.get("completed_today_date") or "").strip()
