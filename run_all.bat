@@ -9,28 +9,32 @@ echo ========================================================
 echo.
 
 echo [*] Running Unified 52-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
-python mainscraper.py >> D:\Daas\error_log.txt 2>&1
+python mainscraper.py >> D:\Daas\pipeline_run.log 2>&1
 
 echo [*] Ensuring Programmatic SEO Static Pages and Sitemap are up to date...
-python pseo_generator.py >> D:\Daas\error_log.txt 2>&1
+python pseo_generator.py >> D:\Daas\pipeline_run.log 2>&1
 
 echo [*] Running Tier 2 CaptureDesk Autopilot Multi-API Dossier Enrichment...
-python capturedesk_autopilot.py >> D:\Daas\error_log.txt 2>&1
+python capturedesk_autopilot.py >> D:\Daas\pipeline_run.log 2>&1
 
 echo [*] Seeding RapidAPI 200 OK Telemetry Across All API Storefronts...
-python seed_rapidapi_telemetry.py >> D:\Daas\error_log.txt 2>&1
+python seed_rapidapi_telemetry.py >> D:\Daas\pipeline_run.log 2>&1
 
 echo [*] Harvesting Multi-State GovCon Prospects & Inbound Funnel Leads...
-python govcon_lead_harvester.py >> D:\Daas\error_log.txt 2>&1
+python govcon_lead_harvester.py >> D:\Daas\pipeline_run.log 2>&1
 
-if exist "D:\Daas\apollo-contacts.csv" (
+if exist "D:\Daas\govcon_prospects.csv" (
+    echo [*] Refreshing Outbound Outreach Payload (campaign_leads.csv & outbox_ready_queue.json) from Supabase...
+    python outreach_generator.py >> D:\Daas\pipeline_run.log 2>&1
+    python outbound_mailer.py >> D:\Daas\pipeline_run.log 2>&1
+) else if exist "D:\Daas\apollo-contacts.csv" (
     echo [*] Refreshing Apollo Outreach Payload (campaign_leads.csv) from Supabase...
-    python outreach_generator.py >> D:\Daas\error_log.txt 2>&1
-    python outbound_mailer.py >> D:\Daas\error_log.txt 2>&1
+    python outreach_generator.py >> D:\Daas\pipeline_run.log 2>&1
+    python outbound_mailer.py >> D:\Daas\pipeline_run.log 2>&1
 )
 
 echo [*] Running 360-Degree Omniscient Auditor & Self-Healer...
-python omniscient_auditor.py --mode fast >> D:\Daas\error_log.txt 2>&1
+python omniscient_auditor.py --mode fast >> D:\Daas\pipeline_run.log 2>&1
 
 echo.
 echo ========================================================

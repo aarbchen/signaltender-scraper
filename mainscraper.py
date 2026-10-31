@@ -92,6 +92,13 @@ commodity_it_exclusions = [
     r"computer,\s*rackmount",
     r"synthetic\s+aperture\s+radar",
 ]
+try:
+    from pseo_generator import COMMODITY_IT_EXCLUSIONS as _PSEO_COMMODITY_EXCLUSIONS
+    for _pat in _PSEO_COMMODITY_EXCLUSIONS:
+        if _pat not in commodity_it_exclusions:
+            commodity_it_exclusions.append(_pat)
+except Exception:
+    pass
 
 B2B_EXTRACTION_SYSTEM_PROMPT = (
     "You are a strict B2B government contract quality control filter and extractor.\n"

@@ -139,25 +139,25 @@ STATE_ALIASES = {
     "la": "la", "louisiana": "la",
     "ky": "ky", "kentucky": "ky",
     "ok": "ok", "oklahoma": "ok",
-    "ia": "ia", "iowa": "ia", "iowa": "ia",
-    "ks": "ks", "kansas": "ks", "kansas": "ks",
-    "ar": "ar", "arkansas": "ar", "arkansas": "ar",
-    "ms": "ms", "mississippi": "ms", "mississippi": "ms",
+    "ia": "ia", "iowa": "ia",
+    "ks": "ks", "kansas": "ks",
+    "ar": "ar", "arkansas": "ar",
+    "ms": "ms", "mississippi": "ms",
     "nm": "nm", "new_mexico": "nm", "new mexico": "nm",
-    "ne": "ne", "nebraska": "ne", "nebraska": "ne",
-    "id": "id", "idaho": "id", "idaho": "id",
-    "hi": "hi", "hawaii": "hi", "hawaii": "hi",
+    "ne": "ne", "nebraska": "ne",
+    "id": "id", "idaho": "id",
+    "hi": "hi", "hawaii": "hi",
     "nh": "nh", "new_hampshire": "nh", "new hampshire": "nh",
-    "me": "me", "maine": "me", "maine": "me",
+    "me": "me", "maine": "me",
     "ri": "ri", "rhode_island": "ri", "rhode island": "ri",
-    "mt": "mt", "montana": "mt", "montana": "mt",
-    "de": "de", "delaware": "de", "delaware": "de",
+    "mt": "mt", "montana": "mt",
+    "de": "de", "delaware": "de",
     "sd": "sd", "south_dakota": "sd", "south dakota": "sd",
     "nd": "nd", "north_dakota": "nd", "north dakota": "nd",
-    "ak": "ak", "alaska": "ak", "alaska": "ak",
-    "vt": "vt", "vermont": "vt", "vermont": "vt",
+    "ak": "ak", "alaska": "ak",
+    "vt": "vt", "vermont": "vt",
     "wv": "wv", "west_virginia": "wv", "west virginia": "wv",
-    "wy": "wy", "wyoming": "wy", "wyoming": "wy",
+    "wy": "wy", "wyoming": "wy",
 }
 
 
@@ -421,8 +421,8 @@ ACRONYM_TOKENS = {
     "NYC", "NYS", "MBTA", "CTA", "MARTA", "WMATA", "AWS", "VPN", "DNS", "WAN",
     "LAN", "SD-WAN", "VOIP", "PBX", "SIP", "API", "SQL", "ETL", "BI", "II",
     "III", "IV", "USA", "US", "VA", "TX", "CA", "FL", "MD", "IL", "PA", "OH",
-    "GA", "NC", "NY", "MA", "NJ", "WA", "MI", "CO", "AZ", "MN", "TN", "IN", "MO", "WI", "SC", "OR", "CT", "UT", "NV", "AL", "LA", "KY", "OK", "IA", "KS", "AR", "MS", "NM", "NE", "ID", "HI", "NH", "ME", "RI", "MT", "DE", "SD", "ND", "AK", "VT", "WV", "WY", "IA", "KS", "AR", "MS", "NM", "NE", "ID", "HI", "NH", "ME", "RI", "MT", "DE", "SD", "ND", "AK", "VT", "WV", "WY",
-    "MNIT", "SWIFT", "IDOA", "IOT", "ITSD", "WISDOT", "SCDOT", "ODOT", "CTDOT", "UDOT", "NDOT", "ALDOT", "DOTD", "KYTC", "OMES", "OHCA", "EITS", "STAARS", "LAPAC", "COT", "CHFS", "SCBO", "SFAA", "BITS", "DTS", "U3P", "OHSU",
+    "GA", "NC", "NY", "MA", "NJ", "WA", "MI", "CO", "AZ", "MN", "TN", "IN", "MO", "WI", "SC", "OR", "CT", "UT", "NV", "AL", "LA", "KY", "OK", "IA", "KS", "AR", "MS", "NM", "NE", "ID", "HI", "NH", "ME", "RI", "MT", "DE", "SD", "ND", "AK", "VT", "WV", "WY",
+    "MNIT", "SWIFT", "IDOA", "IOT", "ITSD", "WISDOT", "SCDOT", "ODOT", "CTDOT", "UDOT", "NDOT", "ALDOT", "DOTD", "KYTC", "OMES", "OHCA", "EITS", "STAARS", "LAPAC", "COT", "CHFS", "SCBO", "SFAA", "BITS", "DTS", "U3P", "OHSU", "BOI",
 }
 
 LOWER_PARTICLES = {"a", "an", "and", "as", "at", "by", "for", "from", "in", "of", "on", "or", "the", "to", "via", "with"}
@@ -439,16 +439,20 @@ def format_human_title_for_email(raw_title: str) -> str:
     # Strip leading bracketed IDs or state prefixes e.g. [0000040452], [RFQ-007-26], [TX], 26RFP1645291A-ST, RFP828 -
     while True:
         new_s = re.sub(r"^\s*\[[^\]]+\]\s*", "", s)
-        new_s = re.sub(r"^\s*(?:RFx|RFP|RFQ|ITN|IFB|RFI)\s*[-:#]?\s*\d+[A-Za-z0-9_-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
-        new_s = re.sub(r"^\s*\d{2,4}(?:RFP|RFQ|ITN|IFB|RFI)[A-Za-z0-9_-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
+        new_s = re.sub(r"^\s*(?:RFx|RFP|RFQ|ITN|IFB|RFI)\s*[-:#]?\s*\d+[A-Za-z0-9_/-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
+        new_s = re.sub(r"^\s*\d{2,4}(?:RFP|RFQ|ITN|IFB|RFI)[A-Za-z0-9_/-]*\s*[-–—:]?\s*", "", new_s, flags=re.IGNORECASE)
         new_s = re.sub(r"^\s*(?:RFx|RFP|RFQ|ITN|IFB|RFI)\s+(?=[A-Z0-9])", "", new_s, flags=re.IGNORECASE)
+        new_s = re.sub(r"^\s*/[A-Za-z]{1,4}\b\s*[-–—:]?\s*", "", new_s)
+        new_s = re.sub(r"^\s*[A-Z]{2,5}-\d{2,4}-\d{2,4}(?:-[A-Z0-9]+)?\s*[-–—:]?\s*", "", new_s)
+        new_s = re.sub(r"^\s*Request\s+for\s+(?:Proposals?|Qualifications?|Quotes?|Information)\s*[:;–—-]+\s*", "", new_s, flags=re.IGNORECASE)
         if new_s == s:
             break
         s = new_s.strip()
 
-    # Strip noisy cooperative cross-state parenthetical tags
+    # Strip noisy cooperative cross-state parenthetical tags and trailing semicolon solicitation IDs
     s = re.sub(r"\s*\([^)]*(?:ITN|RFP|RFQ|Solicitation|Contract)\s*#[^)]*\)", "", s, flags=re.IGNORECASE).strip()
     s = re.sub(r"\s*—\s*Sourcewell.*$", "", s, flags=re.IGNORECASE).strip()
+    s = re.sub(r"\s*;\s*[A-Za-z0-9_-]*\d[A-Za-z0-9_-]*\s*$", "", s).strip()
 
     # Check if title is predominantly screaming ALL-CAPS
     alpha_chars = [c for c in s if c.isalpha()]
@@ -868,7 +872,7 @@ def build_two_step_outreach(
 
     openers = [
         f"I run an automated procurement monitor that tracks {portal_focus} (plus 49 other state SLED portals) every 6 hours.",
-        f"We maintain a live public-sector RFP engine covering {portal_focus} and 49 additional state procurement portals every 6 hours.",
+        f"We maintain a live public-sector RFP engine covering {portal_focus} (plus 49 additional state procurement portals) every 6 hours.",
         f"I built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across {portal_focus}.",
         f"Our ingestion pipeline monitors {portal_focus} every 6 hours for net-new IT, cloud, and cybersecurity solicitations.",
         f"I track newly released public-sector technology solicitations across {portal_focus} (52 federal and state portals total).",

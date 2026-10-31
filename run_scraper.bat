@@ -9,14 +9,17 @@ echo ========================================================
 echo.
 
 echo [*] Running Unified 52-Portal Master Orchestrator (Supabase + Discord + pSEO Sync)...
-python mainscraper.py >> D:\Daas\error_log.txt 2>&1
+python mainscraper.py >> D:\Daas\pipeline_run.log 2>&1
 
 echo [*] Ensuring Programmatic SEO Static Pages and Sitemap are up to date...
-python pseo_generator.py >> D:\Daas\error_log.txt 2>&1
+python pseo_generator.py >> D:\Daas\pipeline_run.log 2>&1
 
-if exist "D:\Daas\apollo-contacts.csv" (
+if exist "D:\Daas\govcon_prospects.csv" (
+    echo [*] Refreshing Outbound Outreach Payload (campaign_leads.csv & outbox_ready_queue.json) from Supabase...
+    python outreach_generator.py >> D:\Daas\pipeline_run.log 2>&1
+) else if exist "D:\Daas\apollo-contacts.csv" (
     echo [*] Refreshing Apollo Outreach Payload (campaign_leads.csv) from Supabase...
-    python outreach_generator.py >> D:\Daas\error_log.txt 2>&1
+    python outreach_generator.py >> D:\Daas\pipeline_run.log 2>&1
 )
 
 echo.

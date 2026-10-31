@@ -567,6 +567,15 @@ COMMODITY_IT_EXCLUSIONS = [
     r"sourcing\s+event\s*#",
     r"on\s+behalf\s+of\s+participating",
     r"not\s+eligible\s+for\s+electronic\s+submission",
+    r"fire\s*alarm",
+    r"wiring\s+system\s+repair",
+    r"v-22\s+aircraft",
+    r"ship\s+control\s+systems",
+    r"utilities\s*(?:&amp;|&)\s*site\s+improvements",
+    r"street\s+tree\s+inventory",
+    r"construction\s+contract",
+    r"general\s+construction",
+    r"naics\s+236\d{3}",
 ]
 
 
@@ -787,10 +796,6 @@ def classify_jurisdiction(rec: dict) -> str:
         "ME": "maine", "RI": "rhode_island", "MT": "montana", "DE": "delaware", "SD": "south_dakota",
         "ND": "north_dakota", "AK": "alaska", "VT": "vermont", "WV": "west_virginia", "WY": "wyoming",
     }
-    if re.search(r",\s*[a-z .'-]+county,\s*[a-z]{2}\b", agency):
-        return "municipal"
-    if title_upper.startswith(("[IN-17231", "IN-17231")):
-        return "florida"
     if re.search(r",\s*[a-z .'-]+county,\s*[a-z]{2}\b", agency):
         return "municipal"
     if title_upper.startswith(("[IN-17231", "IN-17231")):

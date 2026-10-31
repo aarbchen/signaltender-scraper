@@ -1,27 +1,4 @@
 {
-  "353": {
-    "id": "353",
-    "title": "[K27-0034-81] District Court of Maryland for Allegany County AiPhone System - Due: 11/05/2026",
-    "agency": "Maryland Judiciary (AOC)",
-    "closing_date": "11/05/2026",
-    "source_url": "https://mdcourts.bonfirehub.com/opportunities/258449",
-    "dossier_url": "https://signaltender.net/contracts/rfp/k27-0034-81-district-court-of-maryland-for-allegany-county-aiphone-system-353.html",
-    "primary_naics": "541512 \u2014 IT Systems Design",
-    "primary_psc": "DA01 \u2014 IT & Telecom: Business Application/Application Development",
-    "sba_size_standard": "$34.0M Annual Receipts",
-    "win_themes": [
-      "Zero-downtime transition & rapid onboarding aligned with agency SLA targets.",
-      "Pre-vetted NIST 800-171 / Zero-Trust security controls and continuous monitoring.",
-      "Fixed-price milestone predictability with senior cleared technical key personnel."
-    ],
-    "enriched_at": "2026-10-18T04:15:14.950654+00:00",
-    "compliance_posture": "Maryland DoIT Security Manual \u2022 NIST 800-53 \u2022 MD NVA VPAT",
-    "teaming_posture": "Maryland MBE (15%\u201329% Goal) + VSBE (1%\u20135% Goal) + 3 Public Refs",
-    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
-    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
-    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
-    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture"
-  },
   "352": {
     "id": "352",
     "title": "[RFP-27-012] Statewide Integrative Corrections Intelligence Platform",

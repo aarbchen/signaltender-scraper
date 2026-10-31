@@ -292,10 +292,6 @@ def classify_jurisdiction(record: dict) -> str:
         return "municipal"
     if title_upper.startswith(("[IN-17231", "IN-17231")):
         return "florida"
-    if re.search(r",\s*[a-z .'-]+county,\s*[a-z]{2}\b", agency):
-        return "municipal"
-    if title_upper.startswith(("[IN-17231", "IN-17231")):
-        return "florida"
     m_pref = re.match(r"^\[([A-Z]{2})(?:\]|-)", title_upper)
     if m_pref and m_pref.group(1) in prefix_map:
         return prefix_map[m_pref.group(1)]
@@ -1066,6 +1062,15 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                     for k, v in remote_cache.items():
                         if k not in existing_dossiers and isinstance(v, dict):
                             existing_dossiers[k] = v
+        except Exception:
+            pass
+
+        try:
+            import pseo_generator
+            existing_dossiers = {
+                k: v for k, v in existing_dossiers.items()
+                if isinstance(v, dict) and not pseo_generator.is_commodity_it_spam(str(v.get("title") or ""))
+            }
         except Exception:
             pass
 
