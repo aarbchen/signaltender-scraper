@@ -703,6 +703,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Mike",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (CA)",
+    "Company Name": "Trident CPM Consulting",
+    "Email": "mike@tridentcpm.com",
+    "City": "",
+    "State": "California",
+    "Website": "https://tridentcpm.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, california sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Patrick",
     "Last Name": "Gbele",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -839,6 +852,34 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, florida sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Devu",
+    "Last Name": "Shila",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Unknot.Id Inc.",
+    "Email": "devums@unknot.id",
+    "City": "Orlando",
+    "State": "Florida",
+    "Website": "https://unknot.id",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  IMPULSE: Implicit private authentication with ultrasonic signals from mobile ecosystem",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Leandro",
+    "Last Name": "Veltri",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Usencryption Inc.",
+    "Email": "leandro@usencryption.com",
+    "City": "Orlando",
+    "State": "Florida",
+    "Website": "https://usencryption.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, florida sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  Enabling Computation on Encrypted Data on the Cloud and Beyond",
+    "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
     "First Name": "See-Mong",
@@ -1352,6 +1393,20 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "David",
+    "Last Name": "King",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Enerblock",
+    "Email": "dking@enerblock.com",
+    "City": "Sudbury",
+    "State": "Massachusetts",
+    "Website": "https://enerblock.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  A Retrofittable Storage + Blockchain Module for Distributed Energy Resources",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
     "First Name": "Faye",
     "Last Name": "Wu",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -1402,20 +1457,6 @@
     "City": "Cambridge",
     "State": "Massachusetts",
     "Website": "https://quantumformatics.com",
-    "NAICS Codes": "541511, 541512, 541715",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Lael",
-    "Last Name": "Odhner",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Righthand Robotics",
-    "Email": "lael@righthandrobotics.com",
-    "City": "Cambridge",
-    "State": "Massachusetts",
-    "Website": "https://righthandrobotics.com",
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software",
@@ -2316,6 +2357,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Purchase",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (TX)",
+    "Company Name": "Vista Global Solutions",
+    "Email": "purchase@vistaglobalsolutions.com",
+    "City": "",
+    "State": "Texas",
+    "Website": "https://vistaglobalsolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Capture",
     "Last Name": "Team",
     "Title": "Small Business IT & Cyber Capture Lead (VA)",
@@ -2357,18 +2411,17 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Jonathan",
-    "Last Name": "Hedstrom",
-    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
-    "Company Name": "Black Lattice Technologies, Inc.",
-    "Email": "jchedstrom@blacklattice.com",
-    "City": "Salt Lake City",
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Carahsoft Technology",
+    "Email": "contracts@carahsoft.com",
+    "City": "",
     "State": "Virginia",
-    "Website": "https://blacklattice.com",
-    "NAICS Codes": "541511, 541512, 541715",
+    "Website": "https://carahsoft.com",
+    "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
-    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
-    "Primary Email Catch-all Status": "Not Catch-all"
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Ganapati",
@@ -2657,6 +2710,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Andrew",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Parra Consulting",
+    "Email": "andrew@parrait.com",
+    "City": "",
+    "State": "Virginia",
+    "Website": "https://parrait.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Leslie",
     "Last Name": "Canavera",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -2683,6 +2749,19 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Mschweitzer",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Security Solutions Technology",
+    "Email": "mschweitzer@securitysolutionstechnology.com",
+    "City": "",
+    "State": "Virginia",
+    "Website": "https://securitysolutionstechnology.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Adrummond",
@@ -2720,6 +2799,19 @@
     "State": "Virginia",
     "Website": "https://steerbridge.com",
     "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Glenn",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (VA)",
+    "Company Name": "Success BY Design",
+    "Email": "glenn@success.com",
+    "City": "",
+    "State": "Virginia",
+    "Website": "https://success.com",
+    "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
@@ -2814,6 +2906,20 @@
     "NAICS Codes": "541511, 541512, 541715",
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, washington sled rfp, sam.gov, cybersecurity, cloud, software",
+    "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Pouya",
+    "Last Name": "Motakef",
+    "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
+    "Company Name": "Xmize",
+    "Email": "pouya.motakef@x-mize.com",
+    "City": "Mclean",
+    "State": "Virginia",
+    "Website": "https://x-mize.com",
+    "NAICS Codes": "541511, 541512",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, sbir, virginia sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  Scalable optimization-based wire routing software for custom circuit design",
     "Primary Email Catch-all Status": "Not Catch-all"
   }
 ]

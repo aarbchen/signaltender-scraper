@@ -1135,30 +1135,19 @@ def _crawl_single_contractor_site(
     email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(domain), re.I)
     mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
 
-    for u in (
-        f"https://{domain}/contract-vehicles",
-        f"https://{domain}/contracts",
-        f"https://{domain}/gsa",
-        f"https://{domain}/leadership",
-        f"https://{domain}/team",
-        f"https://{domain}/government",
-        f"https://{domain}/about",
-        f"https://{domain}/about-us",
-        f"https://{domain}/contact",
-        f"https://{domain}/contact-us",
-        f"https://{domain}",
-        f"https://www.{domain}",
-    ):
+    root_base = None
+    for root_u in (f"https://{domain}", f"https://www.{domain}"):
         try:
-            r = requests.get(u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
-            if r.status_code == 200 and r.text:
-                low_html = r.text.lower()
+            r0 = requests.get(root_u, headers=headers, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
+            if r0.status_code == 200 and r0.text:
+                low_html = r0.text.lower()
                 if any(pk in low_html for pk in PARKED_PAGE_MARKERS):
                     return None
+                root_base = root_u
                 if not has_tech_signal and any(sig in low_html for sig in TECH_GOVCON_PAGE_SIGNALS):
                     has_tech_signal = True
                 decoded = (
-                    r.text.replace("&#64;", "@")
+                    r0.text.replace("&#64;", "@")
                     .replace("&#x40;", "@")
                     .replace("%40", "@")
                     .replace("&#46;", ".")
@@ -1168,10 +1157,44 @@ def _crawl_single_contractor_site(
                     clean = re.sub(r"^[0-9-]+", "", clean)
                     if _score_candidate_email(clean, domain) > 0:
                         found.add(clean)
-                if found and has_tech_signal:
-                    break
+                break
         except Exception:
             continue
+
+    if not root_base:
+        return None
+
+    if not (found and has_tech_signal):
+        for u in (
+            f"{root_base}/contact",
+            f"{root_base}/contact-us",
+            f"{root_base}/about",
+            f"{root_base}/team",
+            f"{root_base}/government",
+        ):
+            try:
+                r = requests.get(u, headers=headers, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
+                if r.status_code == 200 and r.text:
+                    low_html = r.text.lower()
+                    if any(pk in low_html for pk in PARKED_PAGE_MARKERS):
+                        return None
+                    if not has_tech_signal and any(sig in low_html for sig in TECH_GOVCON_PAGE_SIGNALS):
+                        has_tech_signal = True
+                    decoded = (
+                        r.text.replace("&#64;", "@")
+                        .replace("&#x40;", "@")
+                        .replace("%40", "@")
+                        .replace("&#46;", ".")
+                    )
+                    for m in list(mailto_re.findall(decoded)) + list(email_re.findall(decoded)):
+                        clean = m.strip().lower().rstrip(".")
+                        clean = re.sub(r"^[0-9-]+", "", clean)
+                        if _score_candidate_email(clean, domain) > 0:
+                            found.add(clean)
+                    if found and has_tech_signal:
+                        break
+            except Exception:
+                continue
 
     if not found or not has_tech_signal:
         return None
@@ -1304,47 +1327,47 @@ def discover_usaspending_small_business_websites(
 
     states = get_active_harvester_states()
 
-    deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 180
+    deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 220
     if deep_harvest:
-        active_states = states
-        pages_per_state = 3
+        active_states = states[:12]
+        pages_per_state = 2
     else:
         now_utc = datetime.now(timezone.utc)
         slot_idx = ((now_utc.timetuple().tm_yday * 4) + (now_utc.hour // 6)) % len(states)
-        active_states = [states[(slot_idx + i) % len(states)] for i in range(4)]
+        active_states = [states[(slot_idx + i) % len(states)] for i in range(6)]
         pages_per_state = 2
 
     candidates: List[Tuple[str, str, str, str, str, str, str, str]] = []
-    url = "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/"
+    url = "https://api.usaspending.gov/api/v2/search/spending_by_award/"
 
     for st_code, st_full in active_states:
-        # Track next page cursor in mx_cache keys `page_cursor:<ST>:<idx>`
         start_pg = 1
-        for p_try in range(1, 75):
-            if not mx_cache.get(f"usaspending_pg:{st_code}:{p_try}"):
+        for p_try in range(1, 90):
+            if not mx_cache.get(f"usaspending_award_pg:{st_code}:{p_try}"):
                 start_pg = p_try
                 break
-        for pg in range(start_pg, min(start_pg + pages_per_state, 75)):
-            mx_cache[f"usaspending_pg:{st_code}:{pg}"] = True
+        for pg in range(start_pg, min(start_pg + pages_per_state, 90)):
+            mx_cache[f"usaspending_award_pg:{st_code}:{pg}"] = True
             try:
                 resp = requests.post(
                     url,
                     json={
-                        "fields": ["Recipient Name", "Award Amount"],
+                        "fields": ["Award ID", "Recipient Name", "Award Amount"],
                         "filters": {
                             "time_period": [{"start_date": "2023-01-01", "end_date": "2026-12-31"}],
+                            "award_type_codes": ["A", "B", "C", "D"],
                             "naics_codes": {"require": ["541511", "541512", "541513", "541519", "518210", "541611"]},
-                            "recipient_type_names": ["small_business"],
+                            "award_amounts": [{"lower_bound": 75000, "upper_bound": 15000000}],
                             "place_of_performance_locations": [{"country": "USA", "state": st_code}],
                         },
                         "limit": 50,
                         "page": pg,
                     },
-                    timeout=8,
+                    timeout=12,
                 )
                 if resp.status_code == 200:
                     for item in (resp.json().get("results") or []):
-                        raw_nm = str(item.get("name") or "").strip()
+                        raw_nm = str(item.get("Recipient Name") or item.get("name") or "").strip()
                         disp, dom_cands = _candidate_domains_for_recipient(raw_nm)
                         for dom in dom_cands:
                             cache_key = f"crawled:{dom}"
@@ -1369,7 +1392,7 @@ def discover_usaspending_small_business_websites(
 
     newly_found: List[Dict[str, str]] = []
     with ThreadPoolExecutor(max_workers=28) as pool:
-        futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in candidates[:280]]
+        futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in candidates[:84]]
         for fut in as_completed(futs):
             res = fut.result()
             if res and verify_email_domain_mx(res["Email"], mx_cache):
@@ -1415,13 +1438,9 @@ SBIR_NON_IT_WORDS = (
 )
 
 SBIR_STATE_MAP = {
-    "VA": "Virginia", "TX": "Texas", "CA": "California", "FL": "Florida",
-    "MD": "Maryland", "IL": "Illinois", "PA": "Pennsylvania", "OH": "Ohio",
-    "GA": "Georgia", "NC": "North Carolina", "NY": "New York", "MA": "Massachusetts",
-    "NJ": "New Jersey", "WA": "Washington", "MI": "Michigan",
-    "CO": "Colorado", "AZ": "Arizona", "AL": "Georgia", "SC": "North Carolina",
-    "TN": "Tennessee", "IN": "Ohio", "WI": "Illinois", "MN": "Minnesota",
-    "CT": "New York", "NH": "Massachusetts", "DE": "Maryland", "DC": "Virginia",
+    **{v: k for k, v in US_STATE_NAME_TO_POSTAL.items()},
+    "DC": "Virginia",
+    "PR": "Florida",
 }
 
 HEALTH_IT_CONTRACTOR_WHITELIST = {
@@ -1534,23 +1553,27 @@ def discover_federal_sbir_and_tech_named_executives(
         "natural language", "large language", "llm", "devsecops", "5g", "distributed system",
         "database", "blockchain", "cryptograph", "intrusion", "vulnerability", "malware",
         "authentication", "analytics", "neural network", "saas", "api", "cyber",
+        "information security", "cloud security", "application security", "threat intelligence",
+        "software engineering", "enterprise software", "data science", "computer security",
+        "secure communications", "cloud computing", "system integration", "generative ai",
+        "anomaly detection", "incident response", "supply chain security", "firmware security",
     )
 
     newly_verified: List[Dict[str, str]] = []
-    for _wave in range(3):
+    for _wave in range(6):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in range(226, 851, 25):
+        for off in range(1, 351, 25):
             for kw in topic_keywords:
-                for prog in ("SBIR", "STTR"):
-                    cur_key = f"sbir_kw_it_v3:{prog}:{kw}:{off}"
+                for prog in ("ALL", "SBIR", "STTR"):
+                    cur_key = f"sbir_kw_it_v4:{prog}:{kw}:{off}"
                     if not mx_cache.get(cur_key):
                         mx_cache[cur_key] = True
                         batch_queries.append((prog, kw, off))
-                        if len(batch_queries) >= 28:
+                        if len(batch_queries) >= 32:
                             break
-                if len(batch_queries) >= 28:
+                if len(batch_queries) >= 32:
                     break
-            if len(batch_queries) >= 28:
+            if len(batch_queries) >= 32:
                 break
 
         if not batch_queries:
@@ -1560,17 +1583,18 @@ def discover_federal_sbir_and_tech_named_executives(
             prog, kw_q, off = q_item
             try:
                 params_dict: Dict[str, Any] = {
-                    "fundProgramName": prog,
                     "keyword": kw_q,
-                    "dateStart": "01/01/2020",
+                    "dateStart": "01/01/2019",
                     "offset": off,
                     "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                     "rpp": 25,
                 }
+                if prog != "ALL":
+                    params_dict["fundProgramName"] = prog
                 r = requests.get(
                     "https://api.nsf.gov/services/v1/awards.json",
                     params=params_dict,
-                    timeout=5,
+                    timeout=6,
                 )
                 if r.status_code == 200:
                     return (r.json().get("response") or {}).get("award") or []
@@ -1590,7 +1614,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 yr = int(start_dt.split("/")[-1])
             except Exception:
                 yr = 0
-            if yr < 2020:
+            if yr < 2019:
                 continue
             em = str(a.get("piEmail") or "").strip().lower()
             fn = str(a.get("piFirstName") or "").strip().title()

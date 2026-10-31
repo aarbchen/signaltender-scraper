@@ -1175,7 +1175,10 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
             elif r_accts.status_code != 200:
                 unfixed_issues.append(f"Instantly.ai GET /api/v2/accounts returned HTTP {r_accts.status_code}")
             else:
-                acct_items = (r_accts.json() or {}).get("items") or []
+                acct_items = [
+                    a for a in ((r_accts.json() or {}).get("items") or [])
+                    if "signaltender" in str((a or {}).get("email") or "").strip().lower()
+                ]
                 disconnected_accts = [
                     str(a.get("email") or "").strip().lower()
                     for a in acct_items
@@ -1271,7 +1274,7 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                         a0 = ana_list[0]
                         lead_items = []
                         cur_lead = None
-                        for _ in range(5):
+                        for _ in range(12):
                             b_payload = {"campaign": inst_cid, "limit": 100}
                             if cur_lead:
                                 b_payload["starting_after"] = cur_lead
@@ -1333,23 +1336,58 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                                 )
                         uncontacted_step1 = [x for x in lead_items if not x.get("timestamp_last_contact")]
                         remaining_l = len(uncontacted_step1)
-                        if lead_items and remaining_l < 30:
+                        refill_stamp_path = BASE_DIR / ".last_step1_refill_ts"
+                        last_refill_ts = 0.0
+                        if refill_stamp_path.exists():
+                            try:
+                                last_refill_ts = float(refill_stamp_path.read_text(encoding="utf-8").strip() or "0")
+                            except Exception:
+                                last_refill_ts = 0.0
+                        if lead_items and remaining_l < 5 and (time.time() - last_refill_ts) > 21600:
                             if auto_fix:
+                                try:
+                                    refill_stamp_path.write_text(str(time.time()), encoding="utf-8")
+                                except Exception:
+                                    pass
+                                prev_total_leads = len(lead_items)
                                 subprocess.run(
                                     [str(BASE_DIR / "daas_env" / "Scripts" / "python.exe"), str(BASE_DIR / "outreach_generator.py")],
                                     cwd=str(BASE_DIR),
                                     capture_output=True,
                                     text=True,
                                 )
-                                fixed_events.append({
-                                    "component": "outreach_generator.py & govcon_lead_harvester.py (Step 1 Queue Refill)",
-                                    "issue": f"Instantly campaign {inst_cid} had only {remaining_l} uncontacted Step 1 lead(s) remaining (< 30 buffer)",
-                                    "fix": "Executed `outreach_generator.py` to harvest new DNS/MX-verified IT/Cyber executives and sync them into Instantly V2.",
-                                    "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
-                                })
+                                post_items = []
+                                cur_p = None
+                                for _ in range(12):
+                                    bp = {"campaign": inst_cid, "limit": 100}
+                                    if cur_p:
+                                        bp["starting_after"] = cur_p
+                                    r_p = requests.post(
+                                        "https://api.instantly.ai/api/v2/leads/list",
+                                        headers=inst_headers,
+                                        json=bp,
+                                        timeout=10,
+                                    )
+                                    if r_p.status_code != 200:
+                                        break
+                                    dp = r_p.json() or {}
+                                    itp = dp.get("items") or []
+                                    post_items.extend(itp)
+                                    cur_p = dp.get("next_starting_after")
+                                    if not cur_p or not itp:
+                                        break
+                                post_uncontacted = len([x for x in post_items if not x.get("timestamp_last_contact")])
+                                newly_added_cnt = max(0, post_uncontacted - remaining_l, len(post_items) - prev_total_leads)
+                                if newly_added_cnt > 0:
+                                    fixed_events.append({
+                                        "component": "outreach_generator.py & govcon_lead_harvester.py (Step 1 Queue Refill)",
+                                        "issue": f"Instantly campaign {inst_cid} had only {remaining_l} uncontacted Step 1 lead(s) remaining (< 5 buffer)",
+                                        "fix": f"Executed `outreach_generator.py` and synced {newly_added_cnt} new DNS/MX-verified IT/Cyber executives into Instantly V2 (uncontacted Step 1 queue now {post_uncontacted}).",
+                                        "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
+                                    })
                             else:
                                 unfixed_issues.append(
-                                    f"Instantly campaign {inst_cid} low on uncontacted Step 1 leads ({remaining_l} remaining < 30 buffer)"
+                                    f"Instantly campaign {inst_cid} low on uncontacted Step 1 leads ({remaining_l} remaining < 5 buffer)"
                                 )
 
                 # Check Unibox for unanswered external prospect replies (supporting both list of UUIDs & dict schemas)

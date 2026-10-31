@@ -74,6 +74,9 @@ def is_instantly_account_warmed(acct: Dict[str, Any], min_score: int = 85, min_d
     """
     if not isinstance(acct, dict) or int(acct.get("status") or 0) != 1:
         return False
+    em_low = str(acct.get("email") or "").strip().lower()
+    if "signaltender" not in em_low:
+        return False
     score = int(acct.get("stat_warmup_score") or 0)
     if score < min_score:
         return False

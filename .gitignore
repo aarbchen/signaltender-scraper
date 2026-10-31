@@ -4,6 +4,8 @@
 .rapidapi_session.json
 .rapidapi_chrome_profile/
 .rapidapi_google_chrome_profile/
+.last_step1_refill_ts
+.autopilot_watcher_heartbeat.json
 
 # Virtual environments
 daas_env/
@@ -38,3 +40,5 @@ sled-scraper/bids_master.json
 .rapidapi_session.json
 .rapidapi_chrome_profile/
 .rapidapi_google_chrome_profile/
+.last_step1_refill_ts
+.autopilot_watcher_heartbeat.json
