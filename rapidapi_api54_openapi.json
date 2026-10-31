@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "FAR Part 49 Termination for Convenience (T4C / SF API",
+    "title": "FAR Part 49 T4C SF 1435 1438 Settlement Calculator API",
     "version": "1.0.0",
-    "description": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal.",
-    "x-category": "Business"
+    "x-category": "Business",
+    "description": "Computes recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal."
   },
   "servers": [
     {
@@ -53,14 +53,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "type": "object"
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error"
           }
         }
       }

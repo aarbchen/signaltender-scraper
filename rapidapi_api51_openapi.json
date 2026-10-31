@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "FAR 52.203-13 Business Ethics, Procurement Integrity API",
+    "title": "FAR 52 203 13 Business Ethics PIA OIG Disclosure API",
     "version": "1.0.0",
-    "description": "Audits compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion.",
-    "x-category": "Business"
+    "x-category": "Business",
+    "description": "Audits compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion."
   },
   "servers": [
     {
@@ -53,14 +53,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "type": "object"
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error"
           }
         }
       }

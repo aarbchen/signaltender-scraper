@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "DOE / NNSA National Lab M&O Subcontract & DEAR (48 CFR API",
+    "title": "DOE NNSA National Lab MO DEAR 48 CFR Ch 9 Auditor API",
     "version": "1.0.0",
-    "description": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers.",
-    "x-category": "Business"
+    "x-category": "Business",
+    "description": "Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (Sandia, LANL, ORNL, LLNL) for DEAR 48 CFR 952/970 clauses, Q-Clearance / L-Clearance requirements, Foreign National Unclassified Visits (DOE O 142.3B), and patent waivers."
   },
   "servers": [
     {
@@ -53,14 +53,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "type": "object"
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error"
           }
         }
       }

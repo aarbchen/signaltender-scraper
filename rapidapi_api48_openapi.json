@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 API",
+    "title": "CUI 32 CFR 2002 DoDI 5200 48 Handling Plan API",
     "version": "1.0.0",
-    "description": "Analyzes deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A\u2013F), and a CUI Sanitization & Spill Response SOP.",
-    "x-category": "Business"
+    "x-category": "Business",
+    "description": "Analyzes deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (AF), and a CUI Sanitization & Spill Response SOP."
   },
   "servers": [
     {
@@ -53,14 +53,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "type": "object"
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error"
           }
         }
       }

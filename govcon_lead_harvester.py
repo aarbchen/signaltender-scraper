@@ -1731,7 +1731,7 @@ def fetch_inbound_leads_from_supabase(mx_cache: Dict[str, bool]) -> List[Dict[st
                     "status": "eq.SUBSCRIBER_INBOUND_LEAD",
                     "select": "id,title,agency,url,status",
                     "order": "id.desc",
-                    "limit": "200",
+                    "limit": "1000",
                 },
                 headers=headers,
                 timeout=10,

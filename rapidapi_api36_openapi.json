@@ -3,8 +3,8 @@
   "info": {
     "title": "SBA Mentor Protege 13 CFR 125 8 Joint Venture API",
     "version": "1.0.0",
-    "description": "Audits and generates SBA All-Small Mentor-Protg (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 126.616 / 127.506 / 128.402), validating the mandatory 40% Protg substantive workshare floor, Managing Venturer operational control, Employed Responsible Manager designation, Special JV Bank Account cosignature rules, and 13 CFR 121.103(h) affiliation & ostensible-subcontractor safe harbors.",
-    "x-category": "Business"
+    "x-category": "Business",
+    "description": "Audits and generates SBA All-Small Mentor-Protg (13 CFR 125.9) and Joint Venture Operating Agreements (13 CFR 125.8 / 124.513 / 126.616 / 127.506 / 128.402), validating the mandatory 40% Protg substantive workshare floor, Managing Venturer operational control, Employed Responsible Manager designation, Special JV Bank Account cosignature rules, and 13 CFR 121.103(h) affiliation & ostensible-subcontractor safe harbors."
   },
   "servers": [
     {
@@ -53,14 +53,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "type": "object"
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error"
           }
         }
       }

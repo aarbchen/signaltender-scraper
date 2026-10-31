@@ -348,11 +348,13 @@ def build_promotional_posts() -> list[dict]:
                 .select("*")
                 .in_("status", ["New Lead", "Delivered", "NEW"])
                 .order("id", desc=True)
-                .limit(60)
+                .limit(1000)
                 .execute()
             )
             rows = resp.data if resp and getattr(resp, "data", None) else []
             today = datetime.now().date()
+            rfp_dir = os.path.join(BASE_DIR, "contracts", "rfp")
+            seen_jurs = set()
             for r in rows:
                 t = str(r.get("title") or "").strip()
                 if not t or pseo_generator.is_commodity_it_spam(t):
@@ -362,7 +364,12 @@ def build_promotional_posts() -> list[dict]:
                     continue
                 clean_t = pseo_generator.clean_display_title(t)
                 slug = pseo_generator.slugify(t, fallback_id=str(r.get("id") or "rfp"))
+                if os.path.isdir(rfp_dir) and not os.path.exists(os.path.join(rfp_dir, f"{slug}.html")):
+                    continue
                 j_key = pseo_generator.classify_jurisdiction(r)
+                if j_key in seen_jurs and len(rows) > 12:
+                    continue
+                seen_jurs.add(j_key)
                 j_short = pseo_generator.JURISDICTIONS.get(j_key, {}).get("short", "GovCon")
                 live_rfps.append({
                     "title": clean_t,

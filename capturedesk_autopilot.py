@@ -288,6 +288,10 @@ def classify_jurisdiction(record: dict) -> str:
         "ME": "maine", "RI": "rhode_island", "MT": "montana", "DE": "delaware", "SD": "south_dakota",
         "ND": "north_dakota", "AK": "alaska", "VT": "vermont", "WV": "west_virginia", "WY": "wyoming",
     }
+    if re.search(r",\s*[a-z .'-]+county,\s*[a-z]{2}\b", agency):
+        return "municipal"
+    if title_upper.startswith(("[IN-17231", "IN-17231")):
+        return "florida"
     m_pref = re.match(r"^\[([A-Z]{2})(?:\]|-)", title_upper)
     if m_pref and m_pref.group(1) in prefix_map:
         return prefix_map[m_pref.group(1)]
@@ -307,12 +311,12 @@ def classify_jurisdiction(record: dict) -> str:
         return "south_carolina"
     if "new hampshire" in agency or "(nh)" in agency or "pease angb" in agency or "portsmouth naval" in agency:
         return "new_hampshire"
+    if "panynj" in agency or "port authority of new york" in agency or "new york" in agency or "nyc " in agency or "(ny)" in agency or "suffolk county" in agency or "rockland county" in agency:
+        return "new_york"
     if "new jersey" in agency or "(nj)" in agency or "njstart" in agency or "nj transit" in agency or "rutgers" in agency:
         return "new_jersey"
     if "new mexico" in agency or "(nm)" in agency or "kirtland afb" in agency or "white sands" in agency or "sandia" in agency or "los alamos" in agency:
         return "new_mexico"
-    if "new york" in agency or "nyc " in agency or "(ny)" in agency or "panynj" in agency or "suffolk county" in agency or "rockland county" in agency:
-        return "new_york"
     if "rhode island" in agency or "(ri)" in agency or "ocean state procures" in agency or "nuwc newport" in agency:
         return "rhode_island"
     if "washington state" in agency or "state of washington" in agency or "(wa)" in agency or "watech" in agency or "wa des" in agency or "wsdot" in agency:
@@ -332,10 +336,10 @@ def classify_jurisdiction(record: dict) -> str:
         return "illinois"
     if "pennsylvania" in agency or "philadelphia" in agency or agency.startswith("pa "):
         return "pennsylvania"
-    if "ohio" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
-        return "ohio"
     if "georgia" in agency or "(ga)" in agency or "fulton county" in agency or "atlanta" in agency or "cobb county" in agency or "gwinnett" in agency or "dekalb" in agency:
         return "georgia"
+    if "ohio" in agency or "(oh)" in agency or "columbus" in agency or "morpc" in agency or "franklin county" in agency:
+        return "ohio"
     if "massachusetts" in agency or "(ma)" in agency or "commbuys" in agency or "city of boston" in agency or "boston public" in agency or "mbta" in agency or "massport" in agency or "eotss" in agency:
         return "massachusetts"
     if "michigan" in agency or "(mi)" in agency or "mi sigma" in agency or "dtmb" in agency:
@@ -1058,7 +1062,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
             supabase.table(TABLE_NAME)
             .select("id, title, agency, closing_date, url, status")
             .order("id", desc=True)
-            .limit(250)
+            .limit(1000)
             .execute()
         )
         rows = [

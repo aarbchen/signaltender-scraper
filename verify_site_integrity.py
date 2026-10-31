@@ -649,7 +649,7 @@ def check_portal_parity_and_telemetry(index_txt: str, apis_txt: str) -> None:
         #    feature copy, headlines, meta tags, ROI cards, pricing bullets, and CTA banners must NOT dump
         #    inline 50-state postal code lists ("VA, TX, CA, FL, MD, IL...") or inline 50-state prose roll-calls.
         bloated_inline_m = re.search(
-            r"(?:VA,\s*TX,\s*CA,\s*FL,\s*MD|TX,\s*VA,\s*CA,\s*FL,\s*MD|SAM\.gov,\s*DemandStar,\s*VA,\s*TX|Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure)",
+            r"(?:VA,\s*TX,\s*CA,\s*FL,\s*MD|TX,\s*VA,\s*CA,\s*FL,\s*MD|SAM\.gov,\s*DemandStar,\s*VA,\s*TX|SAM\.gov,\s*DemandStar,\s*Texas,\s*Virginia|Virginia eVA,\s*Texas ESBD,\s*California Cal eProcure)",
             txt,
         )
         if bloated_inline_m:

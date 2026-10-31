@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-30T23:14:48Z",
+  "updated_at": "2026-10-31T01:56:14Z",
   "total_rules": 19,
   "rules": [
     {
@@ -118,11 +118,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-s | [2026-10-29 20:53:09 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-s | [2026-10-29 20:53:09 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cyb | [2026-10-29 20:59:17 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FA",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (28/28 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s))",
       "prevention_rule": "Enforce 1:1 parity between window.SIGNALTENDER_CONTRACTS, /contracts/rfp/*.html static files, and sitemap.xml with valid JSON-LD and cache-busted OpenGraph tags.",
       "created_at": "2026-10-29T21:48:43Z",
-      "last_healed_at": "2026-10-29T21:48:43Z",
-      "times_triggered_and_healed": 1
+      "last_healed_at": "2026-10-31T01:56:14Z",
+      "times_triggered_and_healed": 2
     },
     {
       "rule_id": "RULE-008-PRODUCT-OUTPUT-QUALITY-GATE",

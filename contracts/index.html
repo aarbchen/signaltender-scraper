@@ -1301,64 +1301,83 @@
     </header>
 
     <div class="border-b border-slate-800/70 bg-navy-900/60">
-      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
-        <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
-        <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="../contracts/index.html">Portal: All (52)</option>
-          <option value="../contracts/federal/index.html">Federal (SAM.gov)</option>
-          <option value="../contracts/texas/index.html">Texas (ESBD)</option>
-          <option value="../contracts/virginia/index.html">Virginia (eVA)</option>
-          <option value="../contracts/california/index.html">California</option>
-          <option value="../contracts/florida/index.html">Florida (MFMP)</option>
-          <option value="../contracts/maryland/index.html">Maryland (eMMA)</option>
-          <option value="../contracts/illinois/index.html">Illinois (BidBuy)</option>
-          <option value="../contracts/pennsylvania/index.html">Pennsylvania</option>
-          <option value="../contracts/ohio/index.html">Ohio (OhioBuys)</option>
-          <option value="../contracts/georgia/index.html">Georgia (GPR)</option>
-          <option value="../contracts/north_carolina/index.html">North Carolina</option>
-          <option value="../contracts/new_york/index.html">New York (CROL)</option>
-          <option value="../contracts/massachusetts/index.html">Massachusetts</option>
-          <option value="../contracts/new_jersey/index.html">New Jersey</option>
-          <option value="../contracts/washington/index.html">Washington</option>
-          <option value="../contracts/michigan/index.html">Michigan (SIGMA)</option>
-          <option value="../contracts/colorado/index.html">Colorado (VSS)</option>
-          <option value="../contracts/arizona/index.html">Arizona (APP)</option>
-          <option value="../contracts/minnesota/index.html">Minnesota (SWIFT)</option>
-          <option value="../contracts/tennessee/index.html">Tennessee (Edison)</option>
-          <option value="../contracts/indiana/index.html">Indiana (IDOA)</option>
-          <option value="../contracts/missouri/index.html">Missouri (MissouriBUYS)</option>
-          <option value="../contracts/wisconsin/index.html">Wisconsin (eSupplier)</option>
-          <option value="../contracts/south_carolina/index.html">South Carolina (SCBO)</option>
-          <option value="../contracts/oregon/index.html">Oregon (OregonBuys)</option>
-          <option value="../contracts/connecticut/index.html">Connecticut (CTsource)</option>
-          <option value="../contracts/utah/index.html">Utah (U3P)</option>
-          <option value="../contracts/nevada/index.html">Nevada (NevadaEPro)</option>
-          <option value="../contracts/alabama/index.html">Alabama (Alabama Buys)</option>
-          <option value="../contracts/louisiana/index.html">Louisiana (LaPAC)</option>
-          <option value="../contracts/kentucky/index.html">Kentucky (VSS)</option>
-          <option value="../contracts/oklahoma/index.html">Oklahoma (OMES)</option>
-          <option value="../contracts/iowa/index.html">Iowa (IMPACS)</option>
-          <option value="../contracts/kansas/index.html">Kansas (SMART)</option>
-          <option value="../contracts/arkansas/index.html">Arkansas (ARBuy)</option>
-          <option value="../contracts/mississippi/index.html">Mississippi (MAGIC)</option>
-          <option value="../contracts/new_mexico/index.html">New Mexico (GSD)</option>
-          <option value="../contracts/nebraska/index.html">Nebraska (DAS)</option>
-          <option value="../contracts/idaho/index.html">Idaho (IPRO)</option>
-          <option value="../contracts/hawaii/index.html">Hawaii (HIePRO)</option>
-          <option value="../contracts/new_hampshire/index.html">New Hampshire (DAS)</option>
-          <option value="../contracts/maine/index.html">Maine (DAFS)</option>
-          <option value="../contracts/rhode_island/index.html">Rhode Island (OSP)</option>
-          <option value="../contracts/montana/index.html">Montana (eMACS)</option>
-          <option value="../contracts/delaware/index.html">Delaware (MMP)</option>
-          <option value="../contracts/south_dakota/index.html">South Dakota (OPM)</option>
-          <option value="../contracts/north_dakota/index.html">North Dakota (SPO)</option>
-          <option value="../contracts/alaska/index.html">Alaska (IRIS)</option>
-          <option value="../contracts/vermont/index.html">Vermont (BGS)</option>
-          <option value="../contracts/west_virginia/index.html">West Virginia (wvOASIS)</option>
-          <option value="../contracts/wyoming/index.html">Wyoming (A&I)</option>
-          <option value="../contracts/municipal/index.html">Municipal</option>
-        </select>
-        <nav aria-label="State and Portal Quick Jump" class="hidden sm:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5">
+        <div class="flex items-center justify-between gap-2.5 text-[11px] font-mono">
+          <div class="hidden sm:flex items-center gap-3 text-slate-300 overflow-hidden">
+            <span class="hidden md:inline text-slate-500 uppercase tracking-wider shrink-0">// HUBS:</span>
+            <a href="../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals (52)</a>
+            <a href="../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal (SAM.gov)</a>
+            <a href="../contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal (DemandStar)</a>
+            <a href="../contracts/texas/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Texas</a>
+            <a href="../contracts/virginia/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Virginia</a>
+            <a href="../contracts/california/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">California</a>
+            <a href="../contracts/florida/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Florida</a>
+            <a href="../contracts/maryland/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Maryland</a>
+            <a href="../contracts/illinois/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Illinois</a>
+            <a href="../contracts/pennsylvania/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Pennsylvania</a>
+            <a href="../contracts/new_york/index.html" class="hidden 2xl:inline shrink-0 hover:text-sky-400 transition-colors">New York</a>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+            <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
+            <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="w-full sm:w-auto shrink-0 px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none cursor-pointer">
+              <option value="../contracts/index.html">Portal: All (52)</option>
+              <option value="../contracts/federal/index.html">Federal (SAM.gov)</option>
+              <option value="../contracts/texas/index.html">Texas (ESBD)</option>
+              <option value="../contracts/virginia/index.html">Virginia (eVA)</option>
+              <option value="../contracts/california/index.html">California</option>
+              <option value="../contracts/florida/index.html">Florida (MFMP)</option>
+              <option value="../contracts/maryland/index.html">Maryland (eMMA)</option>
+              <option value="../contracts/illinois/index.html">Illinois (BidBuy)</option>
+              <option value="../contracts/pennsylvania/index.html">Pennsylvania</option>
+              <option value="../contracts/ohio/index.html">Ohio (OhioBuys)</option>
+              <option value="../contracts/georgia/index.html">Georgia (GPR)</option>
+              <option value="../contracts/north_carolina/index.html">North Carolina</option>
+              <option value="../contracts/new_york/index.html">New York (CROL)</option>
+              <option value="../contracts/massachusetts/index.html">Massachusetts</option>
+              <option value="../contracts/new_jersey/index.html">New Jersey</option>
+              <option value="../contracts/washington/index.html">Washington</option>
+              <option value="../contracts/michigan/index.html">Michigan (SIGMA)</option>
+              <option value="../contracts/colorado/index.html">Colorado (VSS)</option>
+              <option value="../contracts/arizona/index.html">Arizona (APP)</option>
+              <option value="../contracts/minnesota/index.html">Minnesota (SWIFT)</option>
+              <option value="../contracts/tennessee/index.html">Tennessee (Edison)</option>
+              <option value="../contracts/indiana/index.html">Indiana (IDOA)</option>
+              <option value="../contracts/missouri/index.html">Missouri (MissouriBUYS)</option>
+              <option value="../contracts/wisconsin/index.html">Wisconsin (eSupplier)</option>
+              <option value="../contracts/south_carolina/index.html">South Carolina (SCBO)</option>
+              <option value="../contracts/oregon/index.html">Oregon (OregonBuys)</option>
+              <option value="../contracts/connecticut/index.html">Connecticut (CTsource)</option>
+              <option value="../contracts/utah/index.html">Utah (U3P)</option>
+              <option value="../contracts/nevada/index.html">Nevada (NevadaEPro)</option>
+              <option value="../contracts/alabama/index.html">Alabama (Alabama Buys)</option>
+              <option value="../contracts/louisiana/index.html">Louisiana (LaPAC)</option>
+              <option value="../contracts/kentucky/index.html">Kentucky (VSS)</option>
+              <option value="../contracts/oklahoma/index.html">Oklahoma (OMES)</option>
+              <option value="../contracts/iowa/index.html">Iowa (IMPACS)</option>
+              <option value="../contracts/kansas/index.html">Kansas (SMART)</option>
+              <option value="../contracts/arkansas/index.html">Arkansas (ARBuy)</option>
+              <option value="../contracts/mississippi/index.html">Mississippi (MAGIC)</option>
+              <option value="../contracts/new_mexico/index.html">New Mexico (GSD)</option>
+              <option value="../contracts/nebraska/index.html">Nebraska (DAS)</option>
+              <option value="../contracts/idaho/index.html">Idaho (IPRO)</option>
+              <option value="../contracts/hawaii/index.html">Hawaii (HIePRO)</option>
+              <option value="../contracts/new_hampshire/index.html">New Hampshire (DAS)</option>
+              <option value="../contracts/maine/index.html">Maine (DAFS)</option>
+              <option value="../contracts/rhode_island/index.html">Rhode Island (OSP)</option>
+              <option value="../contracts/montana/index.html">Montana (eMACS)</option>
+              <option value="../contracts/delaware/index.html">Delaware (MMP)</option>
+              <option value="../contracts/south_dakota/index.html">South Dakota (OPM)</option>
+              <option value="../contracts/north_dakota/index.html">North Dakota (SPO)</option>
+              <option value="../contracts/alaska/index.html">Alaska (IRIS)</option>
+              <option value="../contracts/vermont/index.html">Vermont (BGS)</option>
+              <option value="../contracts/west_virginia/index.html">West Virginia (wvOASIS)</option>
+              <option value="../contracts/wyoming/index.html">Wyoming (A&amp;I)</option>
+              <option value="../contracts/municipal/index.html">Municipal</option>
+            </select>
+            <button type="button" onclick="var el=document.getElementById('static-all-portals-drawer'); if(el){el.classList.toggle('hidden'); this.textContent=el.classList.contains('hidden')?'All 50 States ▾':'Hide States ▴';}" class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] font-mono text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 whitespace-nowrap">All 50 States &#9662;</button>
+          </div>
+        </div>
+        <nav id="static-all-portals-drawer" aria-label="State and Portal Quick Jump" class="hidden pt-2 mt-1.5 border-t border-slate-800/70 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
           <a href="../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
           <a href="../contracts/texas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
@@ -1447,13 +1466,13 @@
       
         <div id="static-contracts-top-section" class="mb-10 space-y-4">
           <div class="inline-flex items-center px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
-            // LIVE GOVCON DIRECTORY &bull; 392 VERIFIED OPEN IT SOLICITATIONS
+            // LIVE GOVCON DIRECTORY &bull; 391 VERIFIED OPEN IT SOLICITATIONS
           </div>
           <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Federal &amp; State SLED IT Contract Directory
           </h1>
           <p class="text-slate-300 text-base max-w-3xl">
-            Explore 392 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across SAM.gov, DemandStar, Texas, Virginia, California, Florida, Maryland, Illinois, Pennsylvania, Ohio, Georgia, North Carolina, New York, Massachusetts, New Jersey, Washington, Michigan, Colorado, Arizona, Minnesota, Tennessee, Indiana, Missouri, Wisconsin, South Carolina, Oregon, Connecticut, Utah, Nevada, Alabama, Louisiana, Kentucky, Oklahoma, Iowa, Kansas, Arkansas, Mississippi, New Mexico, Nebraska, Idaho, Hawaii, New Hampshire, Maine, Rhode Island, Montana, Delaware, South Dakota, North Dakota, Alaska, Vermont, West Virginia, and Wyoming.
+            Explore 391 live, AI-vetted government IT, software, cloud, and cybersecurity RFPs across Federal (SAM.gov), National Municipal (DemandStar), and all 50 U.S. State SLED procurement portals.
           </p>
         </div>
 
@@ -1466,7 +1485,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live pre-vetted federal government IT, software, cloud migration, and cybersecurity solicitations extracted from SAM.gov.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">36 Open Leads</span>
+                <span class="text-emerald-400">37 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1478,7 +1497,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Texas SLED IT, software development, telecom, and cybersecurity RFPs from the Electronic State Business Daily (ESBD).</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">15 Open Leads</span>
+                <span class="text-emerald-400">16 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1490,7 +1509,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Virginia eVA procurement opportunities for enterprise software, cloud infrastructure, cybersecurity, and IT consulting.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">16 Open Leads</span>
+                <span class="text-emerald-400">15 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1514,7 +1533,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Florida Vendor Information Portal (MFMP VIP) IT invitations to negotiate (ITNs), RFPs, and agency technology bids.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">12 Open Leads</span>
+                <span class="text-emerald-400">10 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1538,7 +1557,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live Illinois BidBuy (DoIT, IDOT, CMS) and Chicago/Cook County solicitations for enterprise software, ERP, cloud, and telecom.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">11 Open Leads</span>
+                <span class="text-emerald-400">10 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1574,7 +1593,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live State of Georgia Procurement Registry (DOAS GPR / Team Georgia Marketplace), Fulton County, Atlanta Regional Commission, and Georgia Regents IT, cloud, AI, SaaS, ERP, and cybersecurity solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">10 Open Leads</span>
+                <span class="text-emerald-400">11 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1598,7 +1617,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live New York City (City Record Online / PASSPort / OTI / H+H), Port Authority of NY &amp; NJ (PANYNJ), Suffolk County, and Rockland County IT, cloud, cybersecurity, data analytics, and GIS solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">13 Open Leads</span>
+                <span class="text-emerald-400">11 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1802,7 +1821,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live State of Alabama Buys / STAARS (Office of Information Technology, Alabama Medicaid, ALDOT), Huntsville Redstone Arsenal &amp; NASA MSFC Defense Corridor, and UA/Auburn IT, cloud, cybersecurity, and software solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">5 Open Leads</span>
+                <span class="text-emerald-400">6 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -1814,7 +1833,7 @@
                 <p class="text-xs text-slate-400 mt-1">Live State of Louisiana LaPAC and LaGov Procurement (Office of Technology Services, Louisiana Department of Health Medicaid, DOTD, Cyber Innovation Center / Barksdale AFB, New Orleans, LSU) IT, cloud, cybersecurity, and software solicitations.</p>
               </div>
               <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400">5 Open Leads</span>
+                <span class="text-emerald-400">6 Open Leads</span>
                 <span class="text-sky-400">Browse Hub &rarr;</span>
               </div>
             </a>
@@ -2139,6 +2158,223 @@
               </thead>
               <tbody class="text-xs">
                 
+        <tr data-rfp-slug="la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751" data-rfp-due="2026-11-25" data-rfp-jur="Louisiana" data-rfp-title="[LA-5E39EC] All vendors that wish to receive email notifications of bid opportunities must be registered in LaGov via the vendor enrollment portal." data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border-indigo-500/30">
+              LOUISIANA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [LA-5E39EC] All vendors that wish to receive email notifications of bid opportunities must be registered in LaGov via the vendor enrollment portal.
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Louisiana Office [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-25
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751" onclick="window.toggleRfpBookmark(&quot;la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750" data-rfp-due="2026-11-26" data-rfp-jur="Alabama" data-rfp-title="[AL-C7707E] Welcome to Alabama Buys State of Alabama eProcurement Portal" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              ALABAMA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [AL-C7707E] Welcome to Alabama Buys State of Alabama eProcurement Portal
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State of [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-26
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750" onclick="window.toggleRfpBookmark(&quot;al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="p27077-childcare-management-software-1749" data-rfp-due="2026-12-01" data-rfp-jur="Georgia" data-rfp-title="[P27077] Childcare Management Software" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
+              GEORGIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/p27077-childcare-management-software-1749.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              [P27077] Childcare Management Software
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Cobb County [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-12-01
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="p27077-childcare-management-software-1749" onclick="window.toggleRfpBookmark(&quot;p27077-childcare-management-software-1749&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/p27077-childcare-management-software-1749.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="rfp-scc-26-030-boi-boi-information-payment-processing-system-1747" data-rfp-due="2026-11-24" data-rfp-jur="Virginia" data-rfp-title="RFP SCC-26-030-BOI BOI Information &amp; Payment Processing System" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-scc-26-030-boi-boi-information-payment-processing-system-1747.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              RFP SCC-26-030-BOI BOI Information &amp; Payment Processing System
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            State Corporation [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-24
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="rfp-scc-26-030-boi-boi-information-payment-processing-system-1747" onclick="window.toggleRfpBookmark(&quot;rfp-scc-26-030-boi-boi-information-payment-processing-system-1747&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/rfp-scc-26-030-boi-boi-information-payment-processing-system-1747.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="rfp-27-27-gs-software-as-service-asset-management-solution-1746" data-rfp-due="2026-11-17" data-rfp-jur="Virginia" data-rfp-title="RFP 27-27/GS SOFTWARE AS SERVICE-ASSET MANAGEMENT SOLUTION" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+              VIRGINIA
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              RFP 27-27/GS SOFTWARE AS SERVICE-ASSET MANAGEMENT SOLUTION
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            City of Hampton
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-17
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="rfp-27-27-gs-software-as-service-asset-management-solution-1746" onclick="window.toggleRfpBookmark(&quot;rfp-27-27-gs-software-as-service-asset-management-solution-1746&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="artificial-intelligence-agent-testing-and-evaluation-platform-1745" data-rfp-due="2026-11-16" data-rfp-jur="Texas" data-rfp-title="Artificial Intelligence Agent Testing and Evaluation Platform" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border-indigo-500/30">
+              TEXAS
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              Artificial Intelligence Agent Testing and Evaluation Platform
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Teacher Retirement [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            2026-11-16
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="artificial-intelligence-agent-testing-and-evaluation-platform-1745" onclick="window.toggleRfpBookmark(&quot;artificial-intelligence-agent-testing-and-evaluation-platform-1745&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
+        <tr data-rfp-slug="ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741" data-rfp-due="Open / Rolling" data-rfp-jur="Federal" data-rfp-title="(EAR048) Repair Fire Alarm System Eareckson Air Station Facilities" data-rfp-cats="software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
+          <td class="py-4 px-5 font-mono whitespace-nowrap">
+            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-400 border-sky-500/30">
+              FEDERAL
+            </span>
+          </td>
+          <td class="py-4 px-5">
+            <a href="rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
+              (EAR048) Repair Fire Alarm System Eareckson Air Station Facilities
+            </a>
+            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise Software</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Systems Integration</span>
+            </div>
+          </td>
+          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
+            Federal Government [Verified Agency]
+          </td>
+          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
+            Open / Rolling
+          </td>
+          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
+            <div class="inline-flex items-center justify-end gap-1.5">
+              <button type="button" data-bookmark-btn="ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741" onclick="window.toggleRfpBookmark(&quot;ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
+              <a href="rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
+                View Dossier &rarr;
+              </a>
+            </div>
+          </td>
+        </tr>
+        
+
         <tr data-rfp-slug="mi-mdot-cav-2026-0104-michigan-department-of-transportation-mdot-i-94-1740" data-rfp-due="2026-12-12" data-rfp-jur="Michigan" data-rfp-title="[MI-MDOT-CAV-2026-0104] Michigan Department of Transportation (MDOT) I-94 Connected &amp; Automated Vehicle (CAV) Corridor Telemetry Cloud &amp; GIS Analytics" data-rfp-cats="cloud-infrastructure,software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
           <td class="py-4 px-5 font-mono whitespace-nowrap">
             <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
@@ -5021,223 +5257,6 @@
           </td>
         </tr>
         
-
-        <tr data-rfp-slug="ne-dhhs-accessne-rfp-6958-nebraska-department-of-health-and-human-services-1611" data-rfp-due="2026-11-29" data-rfp-jur="Nebraska" data-rfp-title="[NE-DHHS-ACCESSNE-RFP-6958] Nebraska Department of Health and Human Services (DHHS) Heritage Health Medicaid &amp; iServe Cloud Portal, Data Lakehouse &amp; FHIR API" data-rfp-cats="cloud-infrastructure,software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              NEBRASKA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/ne-dhhs-accessne-rfp-6958-nebraska-department-of-health-and-human-services-1611.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NE-DHHS-ACCESSNE-RFP-6958] Nebraska Department of Health and Human Services (DHHS) Heritage Health Medicaid &amp; iServe Cloud Portal, Data Lakehouse &amp; FHIR API
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Nebraska Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-29
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="ne-dhhs-accessne-rfp-6958-nebraska-department-of-health-and-human-services-1611" onclick="window.toggleRfpBookmark(&quot;ne-dhhs-accessne-rfp-6958-nebraska-department-of-health-and-human-services-1611&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/ne-dhhs-accessne-rfp-6958-nebraska-department-of-health-and-human-services-1611.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="ne-das-rfp-6942-z1-ocio-nebraska-office-of-the-chief-information-officer-1610" data-rfp-due="2026-11-26" data-rfp-jur="Nebraska" data-rfp-title="[NE-DAS-RFP-6942-Z1-OCIO] Nebraska Office of the Chief Information Officer (OCIO) &amp; DAS Materiel Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR &amp; Network Nebraska" data-rfp-cats="cybersecurity,cloud-infrastructure,network-telecom" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-sky-500/10 text-sky-300 border-sky-500/30">
-              NEBRASKA
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/ne-das-rfp-6942-z1-ocio-nebraska-office-of-the-chief-information-officer-1610.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NE-DAS-RFP-6942-Z1-OCIO] Nebraska Office of the Chief Information Officer (OCIO) &amp; DAS Materiel Statewide Zero-Trust Cloud Security, 24/7 Managed SOC MDR &amp; Network Nebraska
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Nebraska Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-26
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="ne-das-rfp-6942-z1-ocio-nebraska-office-of-the-chief-information-officer-1610" onclick="window.toggleRfpBookmark(&quot;ne-das-rfp-6942-z1-ocio-nebraska-office-of-the-chief-information-officer-1610&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/ne-das-rfp-6942-z1-ocio-nebraska-office-of-the-chief-information-officer-1610.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="nm-nmdot-its-rfp-2026-3302-new-mexico-department-of-transportation-nmdot-i-1607" data-rfp-due="2026-12-05" data-rfp-jur="New Mexico" data-rfp-title="[NM-NMDOT-ITS-RFP-2026-3302] New Mexico Department of Transportation (NMDOT) I-25 / I-40 Autonomous Freight Corridor Fiber Telemetry &amp; Cloud Traffic Management" data-rfp-cats="cloud-infrastructure,network-telecom" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW MEXICO
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/nm-nmdot-its-rfp-2026-3302-new-mexico-department-of-transportation-nmdot-i-1607.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NM-NMDOT-ITS-RFP-2026-3302] New Mexico Department of Transportation (NMDOT) I-25 / I-40 Autonomous Freight Corridor Fiber Telemetry &amp; Cloud Traffic Management
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            New Mexico [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-05
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="nm-nmdot-its-rfp-2026-3302-new-mexico-department-of-transportation-nmdot-i-1607" onclick="window.toggleRfpBookmark(&quot;nm-nmdot-its-rfp-2026-3302-new-mexico-department-of-transportation-nmdot-i-1607&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/nm-nmdot-its-rfp-2026-3302-new-mexico-department-of-transportation-nmdot-i-1607.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="nm-sandia-lanl-kirtland-2026-0911-sandia-national-laboratories-los-alamos-1606" data-rfp-due="2026-12-02" data-rfp-jur="New Mexico" data-rfp-title="[NM-SANDIA-LANL-KIRTLAND-2026-0911] Sandia National Laboratories, Los Alamos National Lab (LANL) &amp; Kirtland AFB Space Rapid Capabilities Office (SpRCO) Q-Cleared Cloud &amp; CMMC L2 Enclave" data-rfp-cats="cloud-infrastructure" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW MEXICO
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/nm-sandia-lanl-kirtland-2026-0911-sandia-national-laboratories-los-alamos-1606.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NM-SANDIA-LANL-KIRTLAND-2026-0911] Sandia National Laboratories, Los Alamos National Lab (LANL) &amp; Kirtland AFB Space Rapid Capabilities Office (SpRCO) Q-Cleared Cloud &amp; CMMC L2 Enclave
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            New Mexico [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-02
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="nm-sandia-lanl-kirtland-2026-0911-sandia-national-laboratories-los-alamos-1606" onclick="window.toggleRfpBookmark(&quot;nm-sandia-lanl-kirtland-2026-0911-sandia-national-laboratories-los-alamos-1606&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/nm-sandia-lanl-kirtland-2026-0911-sandia-national-laboratories-los-alamos-1606.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="nm-hca-mmis-rfp-2026-0417-new-mexico-health-care-authority-hca-turquoise-1605" data-rfp-due="2026-11-29" data-rfp-jur="New Mexico" data-rfp-title="[NM-HCA-MMIS-RFP-2026-0417] New Mexico Health Care Authority (HCA) Turquoise Care Medicaid Enterprise System (MMIS) Cloud Data Platform, Eligibility &amp; FHIR API" data-rfp-cats="cloud-infrastructure,software-development" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW MEXICO
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/nm-hca-mmis-rfp-2026-0417-new-mexico-health-care-authority-hca-turquoise-1605.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NM-HCA-MMIS-RFP-2026-0417] New Mexico Health Care Authority (HCA) Turquoise Care Medicaid Enterprise System (MMIS) Cloud Data Platform, Eligibility &amp; FHIR API
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            New Mexico [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-29
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="nm-hca-mmis-rfp-2026-0417-new-mexico-health-care-authority-hca-turquoise-1605" onclick="window.toggleRfpBookmark(&quot;nm-hca-mmis-rfp-2026-0417-new-mexico-health-care-authority-hca-turquoise-1605&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/nm-hca-mmis-rfp-2026-0417-new-mexico-health-care-authority-hca-turquoise-1605.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="nm-gsd-spd-60-00000-26-00084-new-mexico-department-of-information-1604" data-rfp-due="2026-11-26" data-rfp-jur="New Mexico" data-rfp-title="[NM-GSD-SPD-60-00000-26-00084] New Mexico Department of Information Technology (DoIT) &amp; GSD State Purchasing Statewide Zero-Trust Cloud, Broadband &amp; 24/7 MDR SOC" data-rfp-cats="cybersecurity,cloud-infrastructure,network-telecom" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-amber-500/10 text-amber-300 border-amber-500/30">
-              NEW MEXICO
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/nm-gsd-spd-60-00000-26-00084-new-mexico-department-of-information-1604.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [NM-GSD-SPD-60-00000-26-00084] New Mexico Department of Information Technology (DoIT) &amp; GSD State Purchasing Statewide Zero-Trust Cloud, Broadband &amp; 24/7 MDR SOC
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cybersecurity</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Zero-Trust / SOC</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            New Mexico [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-11-26
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="nm-gsd-spd-60-00000-26-00084-new-mexico-department-of-information-1604" onclick="window.toggleRfpBookmark(&quot;nm-gsd-spd-60-00000-26-00084-new-mexico-department-of-information-1604&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/nm-gsd-spd-60-00000-26-00084-new-mexico-department-of-information-1604.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
-
-        <tr data-rfp-slug="ms-mdot-its-rfp-2026-7820-mississippi-department-of-transportation-mdot-i-1601" data-rfp-due="2026-12-05" data-rfp-jur="Mississippi" data-rfp-title="[MS-MDOT-ITS-RFP-2026-7820] Mississippi Department of Transportation (MDOT) I-10 / I-20 Hurricane Evacuation Fiber Telemetry, Coastal Sensor Network &amp; Cloud Traffic TOC" data-rfp-cats="cloud-infrastructure,network-telecom" class="hover:bg-navy-900/60 transition-colors border-b border-slate-800/70">
-          <td class="py-4 px-5 font-mono whitespace-nowrap">
-            <span class="px-2.5 py-1 rounded border text-[11px] font-semibold bg-indigo-500/10 text-indigo-300 border-indigo-500/30">
-              MISSISSIPPI
-            </span>
-          </td>
-          <td class="py-4 px-5">
-            <a href="rfp/ms-mdot-its-rfp-2026-7820-mississippi-department-of-transportation-mdot-i-1601.html" class="font-bold text-white hover:text-sky-400 text-sm transition-colors block">
-              [MS-MDOT-ITS-RFP-2026-7820] Mississippi Department of Transportation (MDOT) I-10 / I-20 Hurricane Evacuation Fiber Telemetry, Coastal Sensor Network &amp; Cloud Traffic TOC
-            </a>
-            <div class="flex flex-wrap gap-1.5 mt-1.5 font-mono text-[10px]">
-              <span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Cloud Architecture</span><span class="px-2 py-0.5 rounded bg-navy-900 border border-slate-800 text-slate-300">Enterprise SaaS</span>
-            </div>
-          </td>
-          <td class="py-4 px-4 text-slate-300 font-mono text-xs">
-            Mississippi Department [Verified Agency]
-          </td>
-          <td class="py-4 px-4 font-mono text-amber-300 whitespace-nowrap text-xs">
-            2026-12-05
-          </td>
-          <td class="py-4 px-5 text-right font-mono whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-1.5">
-              <button type="button" data-bookmark-btn="ms-mdot-its-rfp-2026-7820-mississippi-department-of-transportation-mdot-i-1601" onclick="window.toggleRfpBookmark(&quot;ms-mdot-its-rfp-2026-7820-mississippi-department-of-transportation-mdot-i-1601&quot;, this)" title="Save solicitation to bookmarks" class="px-2 py-1.5 rounded border border-slate-700 bg-navy-900 hover:bg-slate-800 text-slate-400 hover:text-amber-300 text-[11px] transition-colors cursor-pointer">&#9734; Save</button>
-              <a href="rfp/ms-mdot-its-rfp-2026-7820-mississippi-department-of-transportation-mdot-i-1601.html" class="inline-flex items-center px-3 py-1.5 rounded bg-slate-900 hover:bg-sky-600 hover:text-white border border-slate-700 text-sky-400 text-xs transition-colors">
-                View Dossier &rarr;
-              </a>
-            </div>
-          </td>
-        </tr>
-        
               </tbody>
             </table>
           </div>
@@ -6255,7 +6274,7 @@
         tb.className = 'mb-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
         tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
           '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// PORTAL HUBS:</span>' +
-          '<input id="static-hubs-search" type="search" placeholder="Filter 33 federal &amp; state hubs..." oninput="window.filterStaticPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+          '<input id="static-hubs-search" type="search" placeholder="Filter 52 federal &amp; state hubs..." oninput="window.filterStaticPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
         '</div>' +
         '<div id="static-hubs-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
         grid.parentElement.insertBefore(tb, grid);
@@ -6456,10 +6475,13 @@
       } catch (e) {}
       var effTitle = titleVal || (matchedContract && (matchedContract.clean_title || matchedContract.title)) || 'Government IT & Cybersecurity Solicitation';
       var effSolNum = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      var rawBracketSrc = String((matchedContract && matchedContract.raw_title) || effTitle || '');
+      if (rawBracketSrc.charAt(0) === '[' && rawBracketSrc.indexOf(']') > 1) {
+        var closeBrk = rawBracketSrc.indexOf(']');
+        effSolNum = rawBracketSrc.slice(1, closeBrk).trim();
+      }
       if (String(effTitle).charAt(0) === '[' && String(effTitle).indexOf(']') > 1) {
-        var closeBrk = String(effTitle).indexOf(']');
-        effSolNum = String(effTitle).slice(1, closeBrk).trim();
-        effTitle = String(effTitle).slice(closeBrk + 1).split(' - Due:')[0].trim();
+        effTitle = String(effTitle).slice(String(effTitle).indexOf(']') + 1).split(' - Due:')[0].trim();
       }
       try {
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
@@ -6480,6 +6502,7 @@
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
+            target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             wrap_rate: wrapRate
           })
         });

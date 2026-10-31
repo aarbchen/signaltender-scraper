@@ -1301,64 +1301,83 @@
     </header>
 
     <div class="border-b border-slate-800/70 bg-navy-900/60">
-      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex items-center gap-2.5">
-        <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
-        <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="sm:hidden shrink-0 px-2 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none">
-          <option value="../../contracts/index.html">Portal: All (52)</option>
-          <option value="../../contracts/federal/index.html">Federal (SAM.gov)</option>
-          <option value="../../contracts/texas/index.html">Texas (ESBD)</option>
-          <option value="../../contracts/virginia/index.html">Virginia (eVA)</option>
-          <option value="../../contracts/california/index.html">California</option>
-          <option value="../../contracts/florida/index.html">Florida (MFMP)</option>
-          <option value="../../contracts/maryland/index.html">Maryland (eMMA)</option>
-          <option value="../../contracts/illinois/index.html">Illinois (BidBuy)</option>
-          <option value="../../contracts/pennsylvania/index.html">Pennsylvania</option>
-          <option value="../../contracts/ohio/index.html">Ohio (OhioBuys)</option>
-          <option value="../../contracts/georgia/index.html">Georgia (GPR)</option>
-          <option value="../../contracts/north_carolina/index.html">North Carolina</option>
-          <option value="../../contracts/new_york/index.html">New York (CROL)</option>
-          <option value="../../contracts/massachusetts/index.html">Massachusetts</option>
-          <option value="../../contracts/new_jersey/index.html">New Jersey</option>
-          <option value="../../contracts/washington/index.html">Washington</option>
-          <option value="../../contracts/michigan/index.html">Michigan (SIGMA)</option>
-          <option value="../../contracts/colorado/index.html">Colorado (VSS)</option>
-          <option value="../../contracts/arizona/index.html">Arizona (APP)</option>
-          <option value="../../contracts/minnesota/index.html">Minnesota (SWIFT)</option>
-          <option value="../../contracts/tennessee/index.html">Tennessee (Edison)</option>
-          <option value="../../contracts/indiana/index.html">Indiana (IDOA)</option>
-          <option value="../../contracts/missouri/index.html">Missouri (MissouriBUYS)</option>
-          <option value="../../contracts/wisconsin/index.html">Wisconsin (eSupplier)</option>
-          <option value="../../contracts/south_carolina/index.html">South Carolina (SCBO)</option>
-          <option value="../../contracts/oregon/index.html">Oregon (OregonBuys)</option>
-          <option value="../../contracts/connecticut/index.html">Connecticut (CTsource)</option>
-          <option value="../../contracts/utah/index.html">Utah (U3P)</option>
-          <option value="../../contracts/nevada/index.html">Nevada (NevadaEPro)</option>
-          <option value="../../contracts/alabama/index.html">Alabama (Alabama Buys)</option>
-          <option value="../../contracts/louisiana/index.html">Louisiana (LaPAC)</option>
-          <option value="../../contracts/kentucky/index.html">Kentucky (VSS)</option>
-          <option value="../../contracts/oklahoma/index.html">Oklahoma (OMES)</option>
-          <option value="../../contracts/iowa/index.html">Iowa (IMPACS)</option>
-          <option value="../../contracts/kansas/index.html">Kansas (SMART)</option>
-          <option value="../../contracts/arkansas/index.html">Arkansas (ARBuy)</option>
-          <option value="../../contracts/mississippi/index.html">Mississippi (MAGIC)</option>
-          <option value="../../contracts/new_mexico/index.html">New Mexico (GSD)</option>
-          <option value="../../contracts/nebraska/index.html">Nebraska (DAS)</option>
-          <option value="../../contracts/idaho/index.html">Idaho (IPRO)</option>
-          <option value="../../contracts/hawaii/index.html">Hawaii (HIePRO)</option>
-          <option value="../../contracts/new_hampshire/index.html">New Hampshire (DAS)</option>
-          <option value="../../contracts/maine/index.html">Maine (DAFS)</option>
-          <option value="../../contracts/rhode_island/index.html">Rhode Island (OSP)</option>
-          <option value="../../contracts/montana/index.html">Montana (eMACS)</option>
-          <option value="../../contracts/delaware/index.html">Delaware (MMP)</option>
-          <option value="../../contracts/south_dakota/index.html">South Dakota (OPM)</option>
-          <option value="../../contracts/north_dakota/index.html">North Dakota (SPO)</option>
-          <option value="../../contracts/alaska/index.html">Alaska (IRIS)</option>
-          <option value="../../contracts/vermont/index.html">Vermont (BGS)</option>
-          <option value="../../contracts/west_virginia/index.html">West Virginia (wvOASIS)</option>
-          <option value="../../contracts/wyoming/index.html">Wyoming (A&I)</option>
-          <option value="../../contracts/municipal/index.html">Municipal</option>
-        </select>
-        <nav aria-label="State and Portal Quick Jump" class="hidden sm:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-1.5">
+        <div class="flex items-center justify-between gap-2.5 text-[11px] font-mono">
+          <div class="hidden sm:flex items-center gap-3 text-slate-300 overflow-hidden">
+            <span class="hidden md:inline text-slate-500 uppercase tracking-wider shrink-0">// HUBS:</span>
+            <a href="../../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals (52)</a>
+            <a href="../../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal (SAM.gov)</a>
+            <a href="../../contracts/municipal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Municipal (DemandStar)</a>
+            <a href="../../contracts/texas/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Texas</a>
+            <a href="../../contracts/virginia/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Virginia</a>
+            <a href="../../contracts/california/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">California</a>
+            <a href="../../contracts/florida/index.html" class="hidden lg:inline shrink-0 hover:text-sky-400 transition-colors">Florida</a>
+            <a href="../../contracts/maryland/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Maryland</a>
+            <a href="../../contracts/illinois/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Illinois</a>
+            <a href="../../contracts/pennsylvania/index.html" class="hidden xl:inline shrink-0 hover:text-sky-400 transition-colors">Pennsylvania</a>
+            <a href="../../contracts/new_york/index.html" class="hidden 2xl:inline shrink-0 hover:text-sky-400 transition-colors">New York</a>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+            <label for="static-contracts-portal-select" class="sr-only">Jump to State or Portal</label>
+            <select id="static-contracts-portal-select" onchange="if(this.value) window.location.href=this.value;" class="w-full sm:w-auto shrink-0 px-2.5 py-1 rounded-md bg-navy-950 border border-slate-700 text-[11px] font-mono text-sky-400 focus:border-sky-500 focus:outline-none cursor-pointer">
+              <option value="../../contracts/index.html">Portal: All (52)</option>
+              <option value="../../contracts/federal/index.html">Federal (SAM.gov)</option>
+              <option value="../../contracts/texas/index.html">Texas (ESBD)</option>
+              <option value="../../contracts/virginia/index.html">Virginia (eVA)</option>
+              <option value="../../contracts/california/index.html">California</option>
+              <option value="../../contracts/florida/index.html">Florida (MFMP)</option>
+              <option value="../../contracts/maryland/index.html">Maryland (eMMA)</option>
+              <option value="../../contracts/illinois/index.html">Illinois (BidBuy)</option>
+              <option value="../../contracts/pennsylvania/index.html">Pennsylvania</option>
+              <option value="../../contracts/ohio/index.html">Ohio (OhioBuys)</option>
+              <option value="../../contracts/georgia/index.html">Georgia (GPR)</option>
+              <option value="../../contracts/north_carolina/index.html">North Carolina</option>
+              <option value="../../contracts/new_york/index.html">New York (CROL)</option>
+              <option value="../../contracts/massachusetts/index.html">Massachusetts</option>
+              <option value="../../contracts/new_jersey/index.html">New Jersey</option>
+              <option value="../../contracts/washington/index.html">Washington</option>
+              <option value="../../contracts/michigan/index.html">Michigan (SIGMA)</option>
+              <option value="../../contracts/colorado/index.html">Colorado (VSS)</option>
+              <option value="../../contracts/arizona/index.html">Arizona (APP)</option>
+              <option value="../../contracts/minnesota/index.html">Minnesota (SWIFT)</option>
+              <option value="../../contracts/tennessee/index.html">Tennessee (Edison)</option>
+              <option value="../../contracts/indiana/index.html">Indiana (IDOA)</option>
+              <option value="../../contracts/missouri/index.html">Missouri (MissouriBUYS)</option>
+              <option value="../../contracts/wisconsin/index.html">Wisconsin (eSupplier)</option>
+              <option value="../../contracts/south_carolina/index.html">South Carolina (SCBO)</option>
+              <option value="../../contracts/oregon/index.html">Oregon (OregonBuys)</option>
+              <option value="../../contracts/connecticut/index.html">Connecticut (CTsource)</option>
+              <option value="../../contracts/utah/index.html">Utah (U3P)</option>
+              <option value="../../contracts/nevada/index.html">Nevada (NevadaEPro)</option>
+              <option value="../../contracts/alabama/index.html">Alabama (Alabama Buys)</option>
+              <option value="../../contracts/louisiana/index.html">Louisiana (LaPAC)</option>
+              <option value="../../contracts/kentucky/index.html">Kentucky (VSS)</option>
+              <option value="../../contracts/oklahoma/index.html">Oklahoma (OMES)</option>
+              <option value="../../contracts/iowa/index.html">Iowa (IMPACS)</option>
+              <option value="../../contracts/kansas/index.html">Kansas (SMART)</option>
+              <option value="../../contracts/arkansas/index.html">Arkansas (ARBuy)</option>
+              <option value="../../contracts/mississippi/index.html">Mississippi (MAGIC)</option>
+              <option value="../../contracts/new_mexico/index.html">New Mexico (GSD)</option>
+              <option value="../../contracts/nebraska/index.html">Nebraska (DAS)</option>
+              <option value="../../contracts/idaho/index.html">Idaho (IPRO)</option>
+              <option value="../../contracts/hawaii/index.html">Hawaii (HIePRO)</option>
+              <option value="../../contracts/new_hampshire/index.html">New Hampshire (DAS)</option>
+              <option value="../../contracts/maine/index.html">Maine (DAFS)</option>
+              <option value="../../contracts/rhode_island/index.html">Rhode Island (OSP)</option>
+              <option value="../../contracts/montana/index.html">Montana (eMACS)</option>
+              <option value="../../contracts/delaware/index.html">Delaware (MMP)</option>
+              <option value="../../contracts/south_dakota/index.html">South Dakota (OPM)</option>
+              <option value="../../contracts/north_dakota/index.html">North Dakota (SPO)</option>
+              <option value="../../contracts/alaska/index.html">Alaska (IRIS)</option>
+              <option value="../../contracts/vermont/index.html">Vermont (BGS)</option>
+              <option value="../../contracts/west_virginia/index.html">West Virginia (wvOASIS)</option>
+              <option value="../../contracts/wyoming/index.html">Wyoming (A&amp;I)</option>
+              <option value="../../contracts/municipal/index.html">Municipal</option>
+            </select>
+            <button type="button" onclick="var el=document.getElementById('static-all-portals-drawer'); if(el){el.classList.toggle('hidden'); this.textContent=el.classList.contains('hidden')?'All 50 States ▾':'Hide States ▴';}" class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] font-mono text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 whitespace-nowrap">All 50 States &#9662;</button>
+          </div>
+        </div>
+        <nav id="static-all-portals-drawer" aria-label="State and Portal Quick Jump" class="hidden pt-2 mt-1.5 border-t border-slate-800/70 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 py-1 text-[11px] font-mono text-slate-300">
           <a href="../../contracts/index.html" class="shrink-0 text-sky-400 font-semibold hover:text-sky-300 transition-colors">All Portals</a>
           <a href="../../contracts/federal/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Federal</a>
           <a href="../../contracts/texas/index.html" class="shrink-0 hover:text-sky-400 transition-colors">Texas</a>
@@ -1519,7 +1538,7 @@
                       <div><strong class="text-slate-200">Official Government Bid URL:</strong> <span id="dossier-bid-url-mask" data-real-url="https://purchasing.uconn.edu/#CT-UCONN-ITS-RFP-2026-0719" class="blur-sm select-none break-all">https://portal.government.gov/solicitation/view/138798412</span></div>
                       <div><strong class="text-slate-200">Full Issuing Buyer &amp; Contracting Officer:</strong> <span id="dossier-agency-mask" class="blur-sm select-none">University of Connecticut (UConn ITS) &amp; Connecticut Education Network (CEN — Connecticut) - Procurement Division</span></div>
                       <div><strong class="text-slate-200">Contracting Office &amp; RFI / Q&amp;A Submission Routing:</strong> <span id="dossier-co-routing-mask" data-real-routing="Official CT CTsource Bid Board, DAS BITS, CTDOT &amp; Groton/Hartford Electronic Q&amp;A &amp; Contracting Officer Portal (University of Connecticut (UConn ITS) &amp; Connecticut Education Network (CEN — Connecticut))" class="blur-sm select-none break-words">contracting.officer@purchasing.uconn.edu &bull; Electronic Q&amp;A Desk (University of Connecticut (UConn ITS) &amp; Connecticut Education Network (CEN — Connecticut))</span></div>
-                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33/#56/#56</span></div>
+                      <div><strong class="text-slate-200">Shipley Section L/M Compliance Matrix, SF-30 Diff &amp; CPARS Vol. III:</strong> <span class="blur-sm select-none break-words">Pre-built in #capturedesk-autopilot &amp; API #05/#06/#14/#15/#16/#17/#18/#19/#20/#21/#26/#27/#33/#56</span></div>
                     </div>
                     <div id="static-rfp-workbench-card" class="pt-3 space-y-2.5">
                       <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
@@ -2634,7 +2653,7 @@
         tb.className = 'mb-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono';
         tb.innerHTML = '<div class="flex items-center gap-2 flex-1 min-w-[220px]">' +
           '<span class="text-sky-400 font-semibold uppercase tracking-wider shrink-0">// PORTAL HUBS:</span>' +
-          '<input id="static-hubs-search" type="search" placeholder="Filter 33 federal &amp; state hubs..." oninput="window.filterStaticPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
+          '<input id="static-hubs-search" type="search" placeholder="Filter 52 federal &amp; state hubs..." oninput="window.filterStaticPortalHubs(this.value)" class="w-full max-w-xs px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none" />' +
         '</div>' +
         '<div id="static-hubs-toolbar-right" class="flex flex-wrap items-center gap-2"></div>';
         grid.parentElement.insertBefore(tb, grid);
@@ -2835,10 +2854,13 @@
       } catch (e) {}
       var effTitle = titleVal || (matchedContract && (matchedContract.clean_title || matchedContract.title)) || 'Government IT & Cybersecurity Solicitation';
       var effSolNum = String(slugVal || 'RFP-2026').slice(0, 48).toUpperCase();
+      var rawBracketSrc = String((matchedContract && matchedContract.raw_title) || effTitle || '');
+      if (rawBracketSrc.charAt(0) === '[' && rawBracketSrc.indexOf(']') > 1) {
+        var closeBrk = rawBracketSrc.indexOf(']');
+        effSolNum = rawBracketSrc.slice(1, closeBrk).trim();
+      }
       if (String(effTitle).charAt(0) === '[' && String(effTitle).indexOf(']') > 1) {
-        var closeBrk = String(effTitle).indexOf(']');
-        effSolNum = String(effTitle).slice(1, closeBrk).trim();
-        effTitle = String(effTitle).slice(closeBrk + 1).split(' - Due:')[0].trim();
+        effTitle = String(effTitle).slice(String(effTitle).indexOf(']') + 1).split(' - Due:')[0].trim();
       }
       try {
         var resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
@@ -2859,6 +2881,7 @@
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
+            target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             wrap_rate: wrapRate
           })
         });
