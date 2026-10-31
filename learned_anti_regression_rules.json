@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-31T02:17:05Z",
+  "updated_at": "2026-10-31T04:28:40Z",
   "total_rules": 20,
   "rules": [
     {
@@ -94,11 +94,11 @@
       "source": "outreach_generator.py (campaign_leads.csv & outbox_ready_queue.json)",
       "bug_signature": "campaign_leads.csv contains stale portal count '8' (expected 28)",
       "root_cause": "campaign_leads.csv contains stale portal count '8' (expected 28)",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s))",
       "prevention_rule": "Enforce 100% portal/state count and abbreviation roll-call parity across index.html, apis.html, pseo_generator.py, and all outbound/conversion surfaces before any commit.",
       "created_at": "2026-10-29T20:53:12Z",
-      "last_healed_at": "2026-10-31T02:17:05Z",
-      "times_triggered_and_healed": 8
+      "last_healed_at": "2026-10-31T04:28:40Z",
+      "times_triggered_and_healed": 9
     },
     {
       "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",

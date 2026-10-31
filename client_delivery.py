@@ -600,8 +600,10 @@ def _compute_subscriber_pwin_summary(
         c_prof.get("socioeconomic_status")
         or "Small Business / 8(a) / SDVOSB Eligible"
     ).strip()
-    naics_list = a_filt.get("naics") if isinstance(a_filt.get("naics"), list) and a_filt.get("naics") else ["541512", "541511", "541519"]
-    states_list = a_filt.get("states") if isinstance(a_filt.get("states"), list) and a_filt.get("states") else ["federal", "virginia", "texas"]
+    raw_naics = a_filt.get("naics_codes") or a_filt.get("naics")
+    naics_list = raw_naics if isinstance(raw_naics, list) and raw_naics else ["541512", "541511", "541519"]
+    raw_states = a_filt.get("portals") or a_filt.get("states")
+    states_list = raw_states if isinstance(raw_states, list) and raw_states else ["federal", "virginia", "texas"]
 
     naics_str = ", ".join(str(n) for n in naics_list[:3])
     states_norm = {str(s).strip().lower() for s in states_list}
@@ -985,7 +987,7 @@ def format_subscriber_email_briefing(
         {''.join(wire_html_rows)}
       </div>
       <div style="border-top:1px solid #1e293b;padding-top:14px;font-size:12px;color:#94a3b8;line-height:1.6;">
-        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 52-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#checkout" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
+        <div><strong>Subscriber Quick Links:</strong> <a href="{SITE_BASE_URL}/contracts" style="color:#38bdf8;">Live 52-Portal Directory</a> &bull; <a href="{SITE_BASE_URL}/#account" style="color:#38bdf8;">Delivery Settings</a> &bull; <a href="{escape(disable_url)}" style="color:#f87171;">Pause Email Briefings</a></div>
       </div>
     </div>
     """.strip()
@@ -1258,7 +1260,7 @@ def format_external_webhook_payload(
                 f"  • *Buyer:* {agency} | *Due:* `{closing_date}`\n"
                 f"  • <{link}|Official Government Portal ↗>  |  <{dossier_url}|Unlocked SignalTender Brief →>"
             )
-        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 52-Portal Directory> • <{SITE_BASE_URL}/#checkout|Delivery Settings>")
+        s_lines.append(f"<{SITE_BASE_URL}/contracts|View Full 52-Portal Directory> • <{SITE_BASE_URL}/#account|Delivery Settings>")
         return {"text": "\n".join(s_lines)}
 
     # 2. Native Microsoft Teams Markdown Card (`**bold**`, `[Label](url)`)
@@ -1503,6 +1505,30 @@ def _dispatch_to_external_customer_webhooks(
             sub_tier = str(meta.get("tier") or "tier_2").strip().lower()
             if str(meta.get("status") or "") == "canceled" or sub_tier == "canceled":
                 continue
+            # Personalize records for this subscriber based on saved alert_filters (portals/states + include/exclude keywords)
+            af_sub = meta.get("alert_filters") if isinstance(meta.get("alert_filters"), dict) else {}
+            raw_sub_portals = af_sub.get("portals") or af_sub.get("states") or []
+            sub_portals = {
+                str(p).strip().lower().replace(" ", "_")
+                for p in raw_sub_portals
+                if str(p).strip() and str(p).strip().lower() not in ("all", "all_portals", "52_portals")
+            }
+            sub_inc_kws = [k.strip().lower() for k in str(af_sub.get("include_keywords") or "").split(",") if k.strip()]
+            sub_exc_kws = [k.strip().lower() for k in str(af_sub.get("exclude_keywords") or "").split(",") if k.strip()]
+
+            sub_records = [
+                r for r in records
+                if (not sub_portals or classify_jurisdiction(r) in sub_portals)
+                and not any(ek in f"{r.get('title', '')} {r.get('agency', '')}".lower() for ek in sub_exc_kws)
+            ] or list(records)
+            if sub_inc_kws:
+                inc_hits = [
+                    r for r in sub_records
+                    if any(ik in f"{r.get('title', '')} {r.get('agency', '')}".lower() for ik in sub_inc_kws)
+                ]
+                inc_rest = [r for r in sub_records if r not in inc_hits]
+                sub_records = inc_hits + inc_rest
+
             sub_email = str(meta.get("email") or "").strip().lower()
             if sub_email and "@" in sub_email and bool(meta.get("email_briefings_enabled", False)):
                 team_cc = meta.get("team_cc_emails") if isinstance(meta.get("team_cc_emails"), list) else []
@@ -1510,7 +1536,7 @@ def _dispatch_to_external_customer_webhooks(
                 for recip_email in email_recipients:
                     _send_subscriber_email_briefing(
                         to_email=recip_email,
-                        records=records,
+                        records=sub_records,
                         tier=sub_tier,
                         dossiers=dossiers,
                         subscriber_meta=meta,
@@ -1522,7 +1548,7 @@ def _dispatch_to_external_customer_webhooks(
             payload = format_external_webhook_payload(
                 tier=sub_tier,
                 webhook_url=w_url,
-                records=records,
+                records=sub_records,
                 dossiers=dossiers,
                 destination_type=dest_type,
             )
@@ -1590,11 +1616,25 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
         }
 
         open_resp = supabase.table(TABLE_NAME).select("*").order("id", desc=True).limit(1000).execute()
-        all_contracts = [
-            r for r in (open_resp.data if open_resp and getattr(open_resp, "data", None) else [])
-            if not str(r.get("url") or "").startswith(("subscriber://", "treasury://"))
-            and not str(r.get("status") or "").startswith("SUBSCRIBER_")
-        ]
+        rfp_html_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts", "rfp")
+        all_contracts = []
+        for r in (open_resp.data if open_resp and getattr(open_resp, "data", None) else []):
+            r_url = str(r.get("url") or "").strip()
+            r_st = str(r.get("status") or "").strip().upper()
+            r_title = str(r.get("title") or "").strip()
+            if (
+                r_url.startswith(("subscriber://", "treasury://", "telemetry://"))
+                or r_st.startswith("SUBSCRIBER_")
+                or "TELEMETRY" in r_st
+                or r_st in ("FILTERED_NOISE", "EXPIRED")
+                or not r_title
+                or is_commodity_it_spam(r_title)
+            ):
+                continue
+            cand_slug = slugify_contract(r_title, fallback_id=str(r.get("id") or ""))
+            if os.path.isdir(rfp_html_dir) and not os.path.exists(os.path.join(rfp_html_dir, f"{cand_slug}.html")):
+                continue
+            all_contracts.append(r)
 
         closing_soon_by_jurisdiction: dict[str, list[ tuple[int, dict] ]] = {}
         for rec in all_contracts:
@@ -1628,7 +1668,8 @@ def _dispatch_closing_soon_nudges_for_inbound_leads(supabase: Client) -> int:
 
             af = meta.get("alert_filters") if isinstance(meta.get("alert_filters"), dict) else {}
             cp = meta.get("company_profile") if isinstance(meta.get("company_profile"), dict) else {}
-            af_states = af.get("states") if isinstance(af.get("states"), list) and af.get("states") else []
+            raw_af_states = af.get("portals") or af.get("states")
+            af_states = raw_af_states if isinstance(raw_af_states, list) and raw_af_states else []
             target_state = str(
                 meta.get("target_state")
                 or (af_states[0] if af_states else "virginia")

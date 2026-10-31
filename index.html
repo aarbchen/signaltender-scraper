@@ -23157,7 +23157,12 @@
                 />
               </div>
               <div class="space-y-1.5">
-                <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
+                <div class="flex items-center justify-between">
+                  <label for="account-login-password" class="block text-xs font-mono uppercase tracking-wider text-slate-300">Password</label>
+                  <button type="button" onclick="window.toggleAccountPasswordResetBox()" class="text-[11px] font-mono text-sky-400 hover:text-sky-300 underline cursor-pointer">
+                    Forgot Password?
+                  </button>
+                </div>
                 <input
                   id="account-login-password"
                   name="password"
@@ -23166,6 +23171,27 @@
                   placeholder="Enter your password (6+ characters)"
                   class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500"
                 />
+              </div>
+              <div id="account-password-reset-box" class="hidden p-3.5 rounded-xl bg-navy-950 border border-sky-500/40 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-mono font-bold text-sky-400 uppercase">Self-Serve Password Recovery</span>
+                  <button type="button" onclick="window.toggleAccountPasswordResetBox(false)" class="text-[11px] font-mono text-slate-400 hover:text-white cursor-pointer">&times; Close</button>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  Enter your work email above and click <strong class="text-white">Send 6-Digit Recovery Code</strong>, then enter the code and your new password below.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" id="btn-account-send-reset-code" onclick="window.requestAccountPasswordResetCode()" class="px-3 py-1.5 rounded-lg bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/40 text-[11px] font-mono font-bold cursor-pointer">
+                    Send 6-Digit Recovery Code &rarr;
+                  </button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <input id="account-reset-code-input" type="text" maxlength="10" placeholder="6-Digit Recovery Code" class="px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white placeholder-slate-500" />
+                  <input id="account-reset-new-password" type="password" placeholder="New Password (6+ chars)" class="px-3 py-2 rounded-lg bg-navy-900 border border-slate-700 text-xs font-mono text-white placeholder-slate-500" />
+                </div>
+                <button type="button" id="btn-account-confirm-reset" onclick="window.confirmAccountPasswordReset()" class="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold cursor-pointer">
+                  Verify Code &amp; Set New Password &rarr;
+                </button>
               </div>
               <div class="p-3 rounded-lg bg-navy-950/90 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
                 <strong class="text-slate-200">Subscribed via Stripe Checkout?</strong> Enter the email you used at checkout and choose a password (6+ characters) on your first login to claim your account.
@@ -25124,7 +25150,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
                 <p class="text-xs text-slate-400">Every portal below is polled every 6 hours, de-noised for IT/Cyber/Cloud NAICS, and synced to the live directory.</p>
               </div>
               <span class="px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-mono font-bold">
-                28 / 52 PORTALS ACTIVE
+                52 / 52 PORTALS ACTIVE
               </span>
             </div>
 
@@ -25538,7 +25564,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
               <div class="text-xs font-mono uppercase text-amber-300 font-bold">// HARDENED CUSTOMER FEEDBACK QUEUE</div>
               <h2 class="text-xl font-extrabold text-white">Shape the SignalTender Roadmap</h2>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Want us to add a specific State SLED procurement portal (e.g., Washington WEBS, Michigan SIGMA, New Jersey NJSTART, Colorado VSS) or a new GovCon AI API endpoint? Submit your request here.
+                All 50 U.S. State SLED portals, Federal SAM.gov, and National DemandStar (52 portals total) are live. Want us to add a specialized municipal/county sub-portal, agency board, or workflow enhancement? Submit your request here.
               </p>
               <div class="p-4 rounded-xl bg-navy-950 border border-emerald-500/30 space-y-2 text-xs font-mono">
                 <div class="text-emerald-400 font-bold">&check; Multi-Layer WAF Security Active</div>
@@ -26452,7 +26478,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         window.submitAiConciergeContact(true);
       };
 
-      var __CONCIERGE_COMPROMISING_RE = /system\s+prompt|initial\s+prompt|developer\s+prompt|hidden\s+prompt|your\s+instructions|your\s+rules|repeat\s+(?:the\s+)?(?:text|words|instructions|above)|verbatim|what\s+were\s+you\s+told|ignore\s+(?:all\s+)?(?:previous|prior|above)|disregard\s+(?:all\s+)?(?:previous|prior|above)|forget\s+(?:all\s+)?(?:previous|prior|above)|developer\s+mode|debug\s+mode|maintenance\s+mode|jailbreak|dan\s+mode|pretend\s+(?:you\s+are|to\s+be)|act\s+as\s+(?:a|an|the)|i\s+am\s+(?:the\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\s+your\s+(?:prompt|instructions)|encode\s+your\s+(?:prompt|instructions)|base64|rot13|bypass\s+(?:security|auth|authentication|paywall|rate\s+limit|filter|waf|captcha|verification)|give\s+me\s+(?:a|an|your|the)\s+(?:free\s+|valid\s+|working\s+|admin\s+|production\s+)?(?:api\s+key|st_live|secret|token|password|credentials|promo\s+code|coupon)|share\s+(?:a|an|your|the)\s+(?:valid\s+|working\s+)?(?:api\s+key|st_live|secret|token|password|credentials)|env\s*var|environment\s+variable|\.env\b|os\.getenv|os\.environ|connection\s+string|database\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\s+secret|webhook\s+secret|discord\s+webhook\s+url|proxy\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\s+key|session\s+token|jwt\s+secret|source\s+code|github\s+repo|git\s+repo|file\s+path|directory\s+structure|stack\s+trace|server\s+ip|internal\s+url|where\s+are\s+you\s+hosted|what\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|which\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|render\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\s+does\s+(?:your|the)\s+scraper\s+work|scraper\s+(?:code|script|architecture|ip|proxy|logic)|mainscraper|sledscraper|pbkdf2|hash\s+iterations|hashing\s+algorithm|how\s+do\s+you\s+hash|list\s+of\s+(?:customers|subscribers|users|clients|accounts)|who\s+are\s+your\s+(?:customers|subscribers|clients|users)|subscriber\s+(?:emails|list|database|count|numbers)|customer\s+(?:emails|list|data|database)|how\s+many\s+(?:customers|subscribers|users|clients)|other\s+(?:users|customers|subscribers|accounts)|dump\s+(?:the\s+)?(?:database|users|table)|admin\s+(?:account|password|login|email|panel)|founder(?:s|'s)?\s+(?:personal|phone|address|password|net\s+worth|email)|company\s+(?:revenue|mrr|arr|bank\s+account|financials|profits)|how\s+much\s+(?:money|revenue)\s+do\s+you\s+make|exploit|vulnerability|open\s+ports|sql\s+injection|how\s+to\s+hack/i;
+      var __CONCIERGE_COMPROMISING_RE = /system\s+prompt|initial\s+prompt|developer\s+prompt|hidden\s+prompt|your\s+instructions|your\s+rules|repeat\s+(?:the\s+)?(?:text|words|instructions|above)|verbatim|what\s+were\s+you\s+told|ignore\s+(?:all\s+)?(?:previous|prior|above)|disregard\s+(?:all\s+)?(?:previous|prior|above)|forget\s+(?:all\s+)?(?:previous|prior|above)|developer\s+mode|debug\s+mode|maintenance\s+mode|jailbreak|dan\s+mode|pretend\s+(?:you\s+are|to\s+be)|act\s+as\s+(?:a|an|the)|i\s+am\s+(?:the\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\s+your\s+(?:prompt|instructions)|encode\s+your\s+(?:prompt|instructions)|base64|rot13|bypass\s+(?:security|auth|authentication|paywall|rate\s+limit|filter|waf|captcha|verification)|give\s+me\s+(?:a|an|your|the)\s+(?:free\s+|valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|st_live|secret|token|password|credentials)|share\s+(?:a|an|your|the)\s+(?:valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|st_live|secret|token|password|credentials)|env\s*var|environment\s+variable|\.env\b|os\.getenv|os\.environ|connection\s+string|database\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\s+secret|webhook\s+secret|discord\s+webhook\s+url|proxy\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\s+key|session\s+token|jwt\s+secret|source\s+code|github\s+repo|git\s+repo|file\s+path|directory\s+structure|stack\s+trace|server\s+ip|internal\s+url|where\s+are\s+you\s+hosted|what\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|which\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|render\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\s+does\s+(?:your|the)\s+scraper\s+work|scraper\s+(?:code|script|architecture|ip|proxy|logic)|mainscraper|sledscraper|pbkdf2|hash\s+iterations|hashing\s+algorithm|how\s+do\s+you\s+hash|list\s+of\s+(?:customers|subscribers|users|clients|accounts)|who\s+are\s+your\s+(?:customers|subscribers|clients|users)|subscriber\s+(?:emails|list|database|count|numbers)|customer\s+(?:emails|list|data|database)|how\s+many\s+(?:customers|subscribers|users|clients)|other\s+(?:users|customers|subscribers|accounts)|dump\s+(?:the\s+)?(?:database|users|table)|admin\s+(?:account|password|login|email|panel)|founder(?:s|'s)?\s+(?:personal|phone|address|password|net\s+worth|email)|company\s+(?:revenue|mrr|arr|bank\s+account|financials|profits)|how\s+much\s+(?:money|revenue)\s+do\s+you\s+make|exploit|vulnerability|open\s+ports|sql\s+injection|how\s+to\s+hack/i;
 
       function buildLocalConciergeFallback(topic, qText) {
         var q = String(qText || '').trim().toLowerCase();
@@ -26536,7 +26562,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         }
         if (/portal|state|sled|sam\.gov|demandstar|virginia|texas|california|florida|maryland|illinois|pennsylvania|ohio|georgia|carolina|new york|massachusetts|new jersey|washington|michigan/i.test(q)) {
           return {
-            answer: 'SignalTender continuously monitors 52 Federal, National Municipal, and State SLED portals every 6 hours:\n• Federal & National: SAM.gov (Federal), SBIR.gov, and DemandStar (National Municipal).\n• 50 State SLED Portals: Virginia (eVA), Texas (ESBD), California (Cal eProcure), Florida (MFMP VIP), Maryland (eMMA), Illinois (BidBuy), Pennsylvania (eMarketplace), Ohio (OhioBuys), Georgia (DOAS GPR), North Carolina (NC eVP), New York (NYC CROL / PASSPort / PANYNJ), Massachusetts (COMMBUYS & MBTA), New Jersey (NJSTART & Treasury DPP), Washington (WEBS & WaTech DES), Michigan (SIGMA VSS & DTMB), Colorado (VSS & OIT), Arizona (APP Procure.AZ.gov & ADOA-ASET), Minnesota (SWIFT & MNIT), Tennessee (Edison CPO & STS), Indiana (IDOA & IOT), Missouri (MissouriBUYS & OA-ITSD), Wisconsin (WI eSupplier & DET), South Carolina (SCBO & SFAA), Oregon (OregonBuys & DAS EIS), Connecticut (CTsource & BITS), Utah (Utah U3P & DTS), Nevada (NevadaEPro & EITS), Alabama (Alabama Buys STAARS & OIT), Louisiana (LaPAC & OTS), Kentucky (KY VSS & COT), Oklahoma (OMES & Information Services), Iowa (IMPACS & DOM DoIT), Kansas (SMART & OITS), Arkansas (ARBuy & DIS), Mississippi (MAGIC & ITS), New Mexico (GSD & DoIT), Nebraska (DAS & OCIO), Idaho (IPRO & ITS), Hawaii (HIePRO & ETS), New Hampshire (DAS & DoIT), Maine (DAFS & MaineIT), Rhode Island (OSP & ETSS), Montana (eMACS & SITSD), Delaware (MyMarketplace & DTI), South Dakota (OPM & BIT), North Dakota (SPO & NDIT), Alaska (IRIS & OIT), Vermont (BGS & ADS), West Virginia (wvOASIS & WVOT), and Wyoming (A&I & ETS).\n• Need Another State? Submit your target state in the Secure Feedback & Portal Request tab (#feedback).',
+            answer: 'SignalTender continuously monitors 52 Federal, National Municipal, and State SLED portals every 6 hours:\n• Federal & National: SAM.gov (Federal), SBIR.gov, and DemandStar (National Municipal).\n• 50 State SLED Portals: Virginia (eVA), Texas (ESBD), California (Cal eProcure), Florida (MFMP VIP), Maryland (eMMA), Illinois (BidBuy), Pennsylvania (eMarketplace), Ohio (OhioBuys), Georgia (DOAS GPR), North Carolina (NC eVP), New York (NYC CROL / PASSPort / PANYNJ), Massachusetts (COMMBUYS & MBTA), New Jersey (NJSTART & Treasury DPP), Washington (WEBS & WaTech DES), Michigan (SIGMA VSS & DTMB), Colorado (VSS & OIT), Arizona (APP Procure.AZ.gov & ADOA-ASET), Minnesota (SWIFT & MNIT), Tennessee (Edison CPO & STS), Indiana (IDOA & IOT), Missouri (MissouriBUYS & OA-ITSD), Wisconsin (WI eSupplier & DET), South Carolina (SCBO & SFAA), Oregon (OregonBuys & DAS EIS), Connecticut (CTsource & BITS), Utah (Utah U3P & DTS), Nevada (NevadaEPro & EITS), Alabama (Alabama Buys STAARS & OIT), Louisiana (LaPAC & OTS), Kentucky (KY VSS & COT), Oklahoma (OMES & Information Services), Iowa (IMPACS & DOM DoIT), Kansas (SMART & OITS), Arkansas (ARBuy & DIS), Mississippi (MAGIC & ITS), New Mexico (GSD & DoIT), Nebraska (DAS & OCIO), Idaho (IPRO & ITS), Hawaii (HIePRO & ETS), New Hampshire (DAS & DoIT), Maine (DAFS & MaineIT), Rhode Island (OSP & ETSS), Montana (eMACS & SITSD), Delaware (MyMarketplace & DTI), South Dakota (OPM & BIT), North Dakota (SPO & NDIT), Alaska (IRIS & OIT), Vermont (BGS & ADS), West Virginia (wvOASIS & WVOT), and Wyoming (A&I & ETS).\n• Custom Municipal / Agency Sub-Portals: All 50 state procurement portals are live. Submit specialized municipal/county sub-portal or feature requests in the Secure Feedback tab (#feedback).',
             actions: [
               { label: 'Browse Live 52-Portal RFP Directory', href: '#contracts' },
               { label: 'Request a New State Portal (#feedback)', href: '#feedback' },
@@ -26545,7 +26571,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           };
         }
         return {
-          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 58 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr [Save $198]): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 52 Federal & 50-State SLED portals.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr [Save $1,298]): Everything in Tier 1 PLUS full 24-API pre-shredded CaptureDesk AI Dossiers and a production Enterprise API Key.\n• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo or $14,900/yr [Save $3,088]): Everything in Tier 2 PLUS 1-Click 3-Volume Shipley Proposal (.DOCX + .XLSX .ZIP) compilation and 13 CFR 125.6 Teaming Clearinghouse priority.\n• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo or $24,900/yr [Save $5,088]): Everything in Tier 3 PLUS 50,000 REST/MCP API calls/mo and programmatic access to the Post-Award FOIA / State PIA Winning-Bid Rate Vault.',
+          answer: '• Free Explorer ($0/mo): No credit card required. Save your Company Capture Vault, unlock 3 live state dossiers, and test all 58 APIs in the sandbox.\n• Tier 1 — SignalWire Pro ($99/mo or $990/yr [Save $198]): Real-time 6-hour de-noised IT & Cyber RFP alerts across all 52 Federal & 50-State SLED portals.\n• Tier 2 — CaptureDesk Autopilot ($399/mo or $3,490/yr [Save $1,298]): Everything in Tier 1 PLUS full 25-API pre-shredded CaptureDesk AI Dossiers and a production Enterprise API Key (2,500 calls/mo).\n• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo or $14,900/yr [Save $3,088]): Everything in Tier 2 PLUS 1-Click 6-File Shipley Proposal (.DOCX + .XLSX .ZIP — Volumes I–V + Manifest) compilation, 10,000 API calls/mo, and 13 CFR 125.6 Teaming Clearinghouse priority.\n• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo or $24,900/yr [Save $5,088]): Everything in Tier 3 PLUS 50,000 REST/MCP API calls/mo and programmatic access to the Post-Award FOIA / State PIA Winning-Bid Rate Vault.',
           actions: [
             { label: 'Compare All 4 Plans ($99 - $2,499/mo)', href: '#checkout' },
             { label: '1-Click Proposal .ZIP & FOIA Moat', href: '#proposal-foia-moat' },
@@ -27113,11 +27139,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
 
         // Populate Alert Filters (52 portals + NAICS + keywords)
         var af = (data.alert_filters && typeof data.alert_filters === 'object') ? data.alert_filters : {};
-        var defaultPortals = [
-          'federal', 'municipal', 'virginia', 'texas', 'california', 'florida',
-          'maryland', 'illinois', 'pennsylvania', 'ohio', 'georgia', 'north_carolina',
-          'new_york', 'massachusetts', 'new_jersey', 'washington', 'michigan', 'colorado', 'arizona'
-        ];
+        var defaultPortals = Object.keys(PORTAL_LABELS);
         var activePortals = (Array.isArray(af.portals) && af.portals.length) ? af.portals : defaultPortals;
         window.__ACCOUNT_SELECTED_PORTALS = activePortals.slice();
         var defaultSetAsides = ['full_open', 'small_business', '8a', 'sdvosb', 'wosb', 'hubzone', 'state_mbe'];
@@ -27753,7 +27775,7 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
           .then(function (res) {
             if (res.ok && res.data) {
-              renderDispatchedPreview(localMatched.length ? localMatched : (res.data.dispatched_leads || []), res.data.message);
+              renderDispatchedPreview((Array.isArray(res.data.dispatched_leads) && res.data.dispatched_leads.length) ? res.data.dispatched_leads : localMatched, res.data.message);
             } else {
               renderDispatchedPreview(localMatched, 'Instant briefing compiled (' + localMatched.length + ' matched solicitations).');
             }
@@ -28014,6 +28036,117 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             }
             statusEl.className = 'text-xs font-mono text-sky-400 pt-1';
             statusEl.textContent = 'Network error while connecting to authentication server.';
+          });
+      };
+
+      window.toggleAccountPasswordResetBox = function (forceState) {
+        var box = document.getElementById('account-password-reset-box');
+        if (!box) return;
+        var show = typeof forceState === 'boolean' ? forceState : box.classList.contains('hidden');
+        box.classList.toggle('hidden', !show);
+      };
+
+      window.requestAccountPasswordResetCode = function () {
+        var emailEl = document.getElementById('account-login-email');
+        var btn = document.getElementById('btn-account-send-reset-code');
+        var statusEl = document.getElementById('account-auth-status');
+        var email = emailEl ? emailEl.value.trim().toLowerCase() : '';
+        if (statusEl) statusEl.classList.remove('hidden');
+        if (!email || email.indexOf('@') === -1) {
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+            statusEl.textContent = 'Please enter your work email address in the Work Email field above first.';
+          }
+          if (emailEl) emailEl.focus();
+          return;
+        }
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending Code...'; }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btn) { btn.disabled = false; btn.textContent = 'Resend 6-Digit Recovery Code ->'; }
+            if (!res.ok) {
+              if (statusEl) {
+                statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+                statusEl.textContent = (res.data && res.data.detail) || 'Could not send recovery code.';
+              }
+              return;
+            }
+            if (statusEl) {
+              statusEl.className = 'text-xs font-mono text-emerald-400 pt-1';
+              statusEl.textContent = (res.data && res.data.message) || ('Recovery code sent to ' + email + '.');
+            }
+          })
+          .catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = 'Send 6-Digit Recovery Code ->'; }
+            if (statusEl) {
+              statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+              statusEl.textContent = 'Network error while requesting recovery code.';
+            }
+          });
+      };
+
+      window.confirmAccountPasswordReset = function () {
+        var emailEl = document.getElementById('account-login-email');
+        var codeEl = document.getElementById('account-reset-code-input');
+        var pwEl = document.getElementById('account-reset-new-password');
+        var btn = document.getElementById('btn-account-confirm-reset');
+        var statusEl = document.getElementById('account-auth-status');
+        var email = emailEl ? emailEl.value.trim().toLowerCase() : '';
+        var code = codeEl ? codeEl.value.trim() : '';
+        var newPw = pwEl ? pwEl.value : '';
+        if (statusEl) statusEl.classList.remove('hidden');
+        if (!email || email.indexOf('@') === -1) {
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+            statusEl.textContent = 'Please enter your work email address above.';
+          }
+          return;
+        }
+        if (!code || code.length < 6) {
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+            statusEl.textContent = 'Please enter the 6-digit recovery code sent to your email.';
+          }
+          return;
+        }
+        if (!newPw || newPw.length < 6) {
+          if (statusEl) {
+            statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+            statusEl.textContent = 'New password must be at least 6 characters.';
+          }
+          return;
+        }
+        if (btn) { btn.disabled = true; btn.textContent = 'Verifying & Updating Password...'; }
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/webhooks/account/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, reset_code: code, new_password: newPw })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btn) { btn.disabled = false; btn.textContent = 'Verify Code & Set New Password ->'; }
+            if (!res.ok) {
+              if (statusEl) {
+                statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+                statusEl.textContent = (res.data && res.data.detail) || 'Invalid or expired recovery code.';
+              }
+              return;
+            }
+            if (statusEl) statusEl.classList.add('hidden');
+            window.toggleAccountPasswordResetBox(false);
+            window.renderAccountDashboard(res.data);
+          })
+          .catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = 'Verify Code & Set New Password ->'; }
+            if (statusEl) {
+              statusEl.className = 'text-xs font-mono text-amber-300 pt-1';
+              statusEl.textContent = 'Network error while resetting password.';
+            }
           });
       };
 
@@ -28406,8 +28539,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         }
         var vaultRaw = {};
         try {
-          vaultRaw = JSON.parse(localStorage.getItem('st_company_capture_vault') || '{}');
+          vaultRaw = JSON.parse(localStorage.getItem('st_company_capture_profile') || localStorage.getItem('st_company_capture_vault') || '{}');
         } catch (e) {}
+        var acctProf = (currentAccountProfile && currentAccountProfile.company_profile) ? currentAccountProfile.company_profile : {};
         var reqSolId = (pre && pre.solicitation_id) ? pre.solicitation_id : 'FA8726-26-R-0042';
         var reqTitle = (pre && pre.title) ? pre.title : 'Enterprise Zero-Trust Cloud Migration & SOC Modernization';
         var reqAgency = (pre && pre.agency) ? pre.agency : 'Dept of Defense / Defense Information Systems Agency (SAM.gov)';
@@ -28423,9 +28557,9 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             title: reqTitle,
             agency: reqAgency,
             rfp_text: reqRfpText,
-            company_name: vaultRaw.company || 'Apex Defense & Cyber Solutions LLC',
-            company_capability_summary: vaultRaw.capability || 'SDVOSB & CMMC Level 2 certified federal cybersecurity and cloud engineering prime contractor with 98% CPARS Exceptional ratings.',
-            socio_economic_status: 'SDVOSB',
+            company_name: vaultRaw.company_name || vaultRaw.company || (currentAccountProfile && currentAccountProfile.company) || 'Apex Defense & Cyber Solutions LLC',
+            company_capability_summary: vaultRaw.capabilities || vaultRaw.capability || acctProf.capabilities || 'SDVOSB & CMMC Level 2 certified federal cybersecurity and cloud engineering prime contractor with 98% CPARS Exceptional ratings.',
+            socio_economic_status: vaultRaw.set_aside || acctProf.set_aside || 'SDVOSB',
             naics_code: reqNaics
           })
         })

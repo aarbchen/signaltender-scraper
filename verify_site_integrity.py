@@ -2146,7 +2146,7 @@ def main() -> int:
     if os.path.exists(support_py_path):
         with open(support_py_path, "r", encoding="utf-8") as sf:
             stxt = sf.read()
-        for req_tier in ("Tier 1", "Tier 2", "Tier 3", "Tier 4", "$1,499", "$2,499", "1-Click 3-Volume Shipley Proposal", "Winning-Bid Rate Vault"):
+        for req_tier in ("Tier 1", "Tier 2", "Tier 3", "Tier 4", "$1,499", "$2,499", "1-Click 6-File Shipley Proposal", "Winning-Bid Rate Vault"):
             if req_tier not in stxt:
                 fail(f"api/routers/support.py: AI Concierge knowledge base missing required tier fact '{req_tier}'")
     check_conversion_and_distribution_surfaces(index_txt)

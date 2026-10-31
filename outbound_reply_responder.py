@@ -315,10 +315,10 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 58 AI Capture APIs:\n"
         f"{SITE_BASE_URL}/#signup\n\n"
-        f"When your team is ready for automated 6-hour dispatches, un-blurred portal links, or 1-click 3-volume Shipley proposal compilation, we have four instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
+        f"When your team is ready for automated 6-hour dispatches, un-blurred portal links, or 1-click 6-file Shipley proposal compilation, we have four instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 52-portal Federal & State SLED IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 25-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n"
-        f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal Compiler (.ZIP containing Word .docx Volume I/III + live-formula Excel .xlsx Volume II Cost Model in 90s) + 13 CFR § 125.6 Teaming Clearinghouse.\n"
+        f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 6-File Shipley Proposal Compiler (.ZIP containing Word .docx Volumes I, III, IV, V + live-formula Excel .xlsx Volume II Cost Model + Manifest in 90s) + 13 CFR § 125.6 Teaming Clearinghouse.\n"
         f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n\n"
         f"You can also test-drive a custom 6-file Shipley Proposal .ZIP compilation on your own solicitation, benchmark incumbent LCAT rates in the FOIA Rate Vault, or generate an official FAR 31.205-18 corporate procurement quote directly on our Plans & Pricing page:\n"
         f"{SITE_BASE_URL}/#checkout\n\n"
@@ -404,23 +404,30 @@ def run_reply_responder() -> dict:
     unsub_count = 0
 
     try:
-        resp = None
-        for attempt in range(3):
-            try:
-                resp = requests.get(
-                    "https://api.instantly.ai/api/v2/emails",
-                    params={"campaign_id": INSTANTLY_CAMPAIGN_ID, "email_type": "received", "limit": 50},
-                    headers=headers,
-                    timeout=20,
-                )
-                break
-            except requests.exceptions.RequestException:
-                if attempt < 2:
-                    time.sleep(1.5 * (attempt + 1))
-        if resp is None or resp.status_code != 200:
-            return {"status": "ok", "checked": 0}
-
-        items = resp.json().get("items") or []
+        sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
+        campaign_ids = [cid for cid in [INSTANTLY_CAMPAIGN_ID, sub_cid] if cid]
+        items = []
+        seen_item_ids = set()
+        for cid in campaign_ids:
+            resp = None
+            for attempt in range(3):
+                try:
+                    resp = requests.get(
+                        "https://api.instantly.ai/api/v2/emails",
+                        params={"campaign_id": cid, "email_type": "received", "limit": 50},
+                        headers=headers,
+                        timeout=20,
+                    )
+                    break
+                except requests.exceptions.RequestException:
+                    if attempt < 2:
+                        time.sleep(1.5 * (attempt + 1))
+            if resp is not None and resp.status_code == 200:
+                for it in (resp.json().get("items") or []):
+                    it_id = str(it.get("id") or "").strip()
+                    if it_id and it_id not in seen_item_ids:
+                        seen_item_ids.add(it_id)
+                        items.append(it)
         for msg in items:
             msg_id = str(msg.get("id") or "").strip()
             # ue_type == 2 indicates an inbound reply from a lead in Instantly V2
