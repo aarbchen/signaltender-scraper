@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-31T04:28:40Z",
-  "total_rules": 20,
+  "updated_at": "2026-10-31T05:40:11Z",
+  "total_rules": 21,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -243,6 +243,18 @@
       "created_at": "2026-10-31T01:55:00Z",
       "last_healed_at": "2026-10-31T01:55:00Z",
       "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-ACQUISITION-OUTBOUND-SYNC",
+      "category": "Acquisition Channels",
+      "source": "outreach_generator.py & govcon_lead_harvester.py (Step 1 Queue Refill)",
+      "bug_signature": "Instantly campaign c7727dff-92cc-4621-9e96-c960938d5a47 had only 1 uncontacted Step 1 lead(s) remaining (< 30 buffer)",
+      "root_cause": "Instantly campaign c7727dff-92cc-4621-9e96-c960938d5a47 had only 1 uncontacted Step 1 lead(s) remaining (< 30 buffer)",
+      "fix_applied": "Executed `outreach_generator.py` to harvest new DNS/MX-verified IT/Cyber executives and sync them into Instantly V2.",
+      "prevention_rule": "Verify every outbound lead row in campaign_leads.csv and outbox_ready_queue.json has live /contracts/rfp/<slug>.html URLs, current portal/API counts, and zero DNC addresses.",
+      "created_at": "2026-10-31T05:40:11Z",
+      "last_healed_at": "2026-10-31T05:40:11Z",
+      "times_triggered_and_healed": 2
     }
   ]
 }

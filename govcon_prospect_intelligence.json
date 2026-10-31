@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-10-31T03:55:38+00:00",
+  "updated_at": "2026-10-31T05:36:14+00:00",
   "total_verified_mx_contacts": 206,
   "not_catchall_priority_tier_count": 206,
   "catchall_secondary_tier_count": 0,
-  "purged_legacy_or_invalid_rows": 1,
+  "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
   "added_website_harvested_govcon_contacts": 0,
   "verified_usaspending_award_profiles_count": 296,

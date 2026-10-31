@@ -257,21 +257,47 @@ def main() -> int:
             time.sleep(CHECK_INTERVAL_SECONDS)
             continue
 
-        # 3. Poll outbound email replies 24/7
+        # 3. Poll outbound email replies 24/7 via fresh subprocess so code updates on disk take effect immediately
+        python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
+        if not os.path.exists(python_exe):
+            python_exe = sys.executable
+        no_win_flag = getattr(__import__("subprocess"), "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
         try:
-            import outbound_reply_responder
-            outbound_reply_responder.run_reply_responder()
+            import subprocess
+            subprocess.run(
+                [python_exe, os.path.join(BASE_DIR, "outbound_reply_responder.py")],
+                cwd=BASE_DIR,
+                capture_output=True,
+                text=True,
+                timeout=180,
+                creationflags=no_win_flag,
+            )
         except Exception:
             pass
 
-        # 4. Enforce RULE-006: Only execute heavy Omniscient Auditor runs at night (11:00 PM – 6:00 AM)
-        #    when the user is away from the computer (>= 30 minutes idle via GetLastInputInfo).
+        # 4. Enforce RULE-006: Execute Omniscient Auditor at night (11:00 PM – 6:00 AM)
+        #    when the user is away from the computer (>= 15 minutes idle via GetLastInputInfo).
         night_allowed = False
         try:
+            import subprocess
             import omniscient_auditor
-            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=1800)
+            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
             if night_allowed:
-                omniscient_auditor.run_omniscient_audit(mode="fast", auto_fix=True, auto_deploy=True, force_now=True)
+                subprocess.run(
+                    [
+                        python_exe,
+                        os.path.join(BASE_DIR, "omniscient_auditor.py"),
+                        "--mode",
+                        "fast",
+                        "--auto-deploy",
+                        "--force-now",
+                    ],
+                    cwd=BASE_DIR,
+                    capture_output=True,
+                    text=True,
+                    timeout=900,
+                    creationflags=no_win_flag,
+                )
         except Exception:
             pass
 

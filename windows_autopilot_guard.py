@@ -99,34 +99,51 @@ def main() -> int:
     except Exception:
         pass
 
+    import subprocess
+    python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
+    if not os.path.exists(python_exe):
+        python_exe = sys.executable
+    no_win_flag = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+
     alive, detail = is_watcher_alive()
+    if not alive:
+        # Watcher is NOT alive (VS Code was reset or closed).
+        # Respawn `silent_autopilot_watcher.py` using python.exe + CREATE_NO_WINDOW so stdout/stderr are never None.
+        try:
+            watcher_script = os.path.join(BASE_DIR, "silent_autopilot_watcher.py")
+            proc = subprocess.Popen([python_exe, watcher_script], cwd=BASE_DIR, creationflags=no_win_flag)
+            print(f"[*] Respawned silent_autopilot_watcher.py (PID {proc.pid})", flush=True)
+        except Exception:
+            pass
+
+    # Enforce RULE-006 & Resolved-only policy: at night (11:00 PM – 6:00 AM) when user is away (>= 15m idle),
+    # ensure omniscient_auditor.py runs if watcher was dead OR if omniscient_audit_report.json is > 45m old.
+    try:
+        import omniscient_auditor
+        allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
+        report_path = os.path.join(BASE_DIR, "omniscient_audit_report.json")
+        report_age = (time.time() - os.path.getmtime(report_path)) if os.path.exists(report_path) else 999999.0
+        if allowed and (not alive or report_age > 2700):
+            subprocess.run(
+                [
+                    python_exe,
+                    os.path.join(BASE_DIR, "omniscient_auditor.py"),
+                    "--mode",
+                    "fast",
+                    "--auto-deploy",
+                    "--force-now",
+                ],
+                cwd=BASE_DIR,
+                capture_output=True,
+                text=True,
+                timeout=900,
+                creationflags=no_win_flag,
+            )
+    except Exception:
+        pass
     if alive:
         print(f"[+] Watcher alive: {detail}", flush=True)
         return 0
-
-    # Watcher is NOT alive (VS Code was reset or closed).
-    # Respawn `silent_autopilot_watcher.py` from this Task Scheduler process so it stays online.
-    try:
-        import subprocess
-        pythonw_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "pythonw.exe")
-        if not os.path.exists(pythonw_exe):
-            pythonw_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
-        watcher_script = os.path.join(BASE_DIR, "silent_autopilot_watcher.py")
-        proc = subprocess.Popen([pythonw_exe, watcher_script], cwd=BASE_DIR)
-        print(f"[*] Respawned silent_autopilot_watcher.py (PID {proc.pid})", flush=True)
-    except Exception:
-        pass
-
-    # Enforce RULE-006 & Resolved-only policy: only run omniscient_auditor.py at night (11:00 PM – 6:00 AM)
-    # when the user is away (>= 30m idle), auto-fix any deterministic issues, and dispatch [RESOLVED] only when healed.
-    try:
-        import omniscient_auditor
-        allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=1800)
-        if not allowed:
-            return 0
-        omniscient_auditor.run_omniscient_audit(mode="fast", auto_fix=True, auto_deploy=True, force_now=True)
-    except Exception:
-        pass
     try:
         auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
     except Exception:

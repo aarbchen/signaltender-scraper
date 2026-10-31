@@ -579,6 +579,8 @@ def audit_and_heal_products(auto_fix: bool = True) -> tuple[list[dict], list[str
         qual_errors = verify_site_integrity.check_product_output_quality_controls()
         if qual_errors:
             unfixed_issues.extend(qual_errors)
+        else:
+            os.environ["OMNISCIENT_PILLAR1_QUALITY_VERIFIED"] = "1"
     except Exception as exc:
         unfixed_issues.append(f"check_product_output_quality_controls() execution error: {exc}")
 
