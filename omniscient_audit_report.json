@@ -1,36 +1,38 @@
 {
-  "timestamp": "2026-10-30T10:09:56Z",
+  "timestamp": "2026-10-31T05:40:39Z",
   "mode": "fast",
-  "elapsed_seconds": 168.83,
-  "status": "ACTION_REQUIRED",
+  "elapsed_seconds": 599.11,
+  "status": "HEALTHY",
   "counts": {
-    "portals": 28,
-    "states": 26,
-    "apis": 34,
-    "tier2_apis": 24,
-    "learned_rules_total": 17
+    "portals": 52,
+    "states": 50,
+    "apis": 58,
+    "tier2_apis": 25,
+    "learned_rules_total": 21
   },
   "pillars": {
     "products": {
       "auto_fixed": [],
-      "unfixed_issues": [
-        "check_product_output_quality_controls() execution error: 'NoneType' object has no attribute 'reconfigure'",
-        "Stripe Checkout / Subscriber Key / Support Concierge audit error: No module named 'fastapi'"
-      ]
+      "unfixed_issues": []
     },
     "acquisition_channels": {
-      "auto_fixed": [],
+      "auto_fixed": [
+        {
+          "component": "outreach_generator.py & govcon_lead_harvester.py (Step 1 Queue Refill)",
+          "issue": "Instantly campaign c7727dff-92cc-4621-9e96-c960938d5a47 had only 1 uncontacted Step 1 lead(s) remaining (< 30 buffer)",
+          "fix": "Executed `outreach_generator.py` to harvest new DNS/MX-verified IT/Cyber executives and sync them into Instantly V2.",
+          "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY"
+        }
+      ],
       "unfixed_issues": []
     },
     "website_and_checkout": {
       "auto_fixed": [],
-      "unfixed_issues": [
-        "verify_site_integrity.py failed: [FAIL] api/routers/mcp.py: ENDPOINT_MAP has 39 tools, expected 34"
-      ]
+      "unfixed_issues": []
     }
   },
   "telemetry": {
-    "open_remote_errors": 1,
-    "open_local_errors": 1
+    "open_remote_errors": 0,
+    "open_local_errors": 0
   }
 }
