@@ -1162,6 +1162,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                         if not isinstance(a, dict) or not a.get("email"):
                             continue
                         em_addr = str(a.get("email") or "").strip()
+                        if "signaltender" not in em_addr.lower():
+                            continue
                         if outbound_mailer.is_instantly_account_warmed(a):
                             warmed_account_emails.append(em_addr)
                             if int(a.get("warmup_status") or 0) == 1:
