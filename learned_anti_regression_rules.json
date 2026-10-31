@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-31T01:56:14Z",
-  "total_rules": 19,
+  "updated_at": "2026-10-31T01:55:00Z",
+  "total_rules": 20,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -230,6 +230,18 @@
       "prevention_rule": "Always use boundary-anchored _has_domain() in classify_jurisdiction() (never bare substring in url for short 2-letter .gov domains) and enforce proportional SLED state lead volumes in verify_site_integrity.py (Mega-States >= 10 leads and >= 2.5x smallest-population states, with every state >= 3 leads).",
       "created_at": "2026-10-30T22:55:00Z",
       "last_healed_at": "2026-10-30T22:55:00Z",
+      "times_triggered_and_healed": 1
+    },
+    {
+      "rule_id": "RULE-015-ZERO-DEAD-LINKS-AND-392-CONTRACT-JURISDICTION-ACCURACY",
+      "category": "Proposal Compiler Jurisdiction Isolation, Outbound URL Integrity & Filter Pill Precision",
+      "source": "api/routers/proposal_compiler.py / api/routers/stripe_webhook.py / outreach_generator.py / index.html / verify_site_integrity.py",
+      "bug_signature": "1) proposal_compiler._infer_target_jurisdiction() misclassifying 61/392 active solicitations when url='' due to DOT acronym substring collisions (mdot in nmdot/MI-MDOT/MS-MDOT, odot in modot/OK-ODOT/OR-ODOT, tdot in ctdot, cdot in scdot, vdot in wvdot, vita in vital records). 2) filterMainRfpTable('virginia') and ('kansas') matching 'west virginia' and 'arkansas'. 3) outreach_generator.detect_contract_region() matching 'nd.gov' in 'maryland.gov' and 'ne.gov' in 'maine.gov'. 4) .limit(35/200/250/400/500) truncating active contracts across 6 pipeline modules.",
+      "root_cause": "Running state_agency_kw_map substring checks before [XX-] prefix and full state name checks in _infer_target_jurisdiction(), using txt.indexOf(mainRfpPortal) without excluding compound state names in filterMainRfpTable(), and using pre-50-state row limits (.limit(35/200/250)).",
+      "fix_applied": "Unified _infer_target_jurisdiction() with boundary-safe domain, [XX-] prefix, DemandStar county signature, and word-boundary matching (0/392 mismatches even with url=''), delegated outreach_generator.detect_contract_region() to pseo_generator.classify_jurisdiction(), excluded compound state collisions in filterMainRfpTable(), and raised Supabase contract query limits to 1000 across all pipeline modules.",
+      "prevention_rule": "Verify on every build that proposal_compiler._infer_target_jurisdiction() achieves 100% accuracy (0 mismatches) across all active contracts in window.SIGNALTENDER_CONTRACTS even when url='', that every /contracts/rfp/*.html link in index.html, campaign_leads.csv, and outbox_ready_queue.json exists on disk, and that filterMainRfpTable() has zero virginia/west_virginia or kansas/arkansas collisions.",
+      "created_at": "2026-10-31T01:55:00Z",
+      "last_healed_at": "2026-10-31T01:55:00Z",
       "times_triggered_and_healed": 1
     }
   ]

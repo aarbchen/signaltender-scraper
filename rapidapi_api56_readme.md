@@ -4,7 +4,7 @@ Simulates a Government Source Selection Evaluation Board (SSEB) under FAR 15.305
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/section-l-m-proposal-red-team-scorer`
-- **RapidAPI Host**: `sseb-color-team-pink-red-gold-proposal-scorer-api.p.rapidapi.com`
+- **RapidAPI Host**: `sseb-source-selection-simulator-shipley-proposal-scorer-api.p.rapidapi.com`
 - **Governing Citations**: FAR 15.305 (Proposal Evaluation), DoD Source Selection Procedures (DFARS PGI 215.3 — Blue/Purple/Green/Yellow/Red Consensus Grading), & Shipley Color Team Standards
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_section_l_m_proposal_red_team_scorer`)

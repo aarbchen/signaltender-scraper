@@ -4,7 +4,7 @@ Evaluates AI/ML/LLM solutions proposed for federal and SLED agencies against OMB
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/ai-governance-nist-ai-rmf-omb-m24`
-- **RapidAPI Host**: `federal-ai-governance-omb-m-24-10-nist-ai-rmf-api.p.rapidapi.com`
+- **RapidAPI Host**: `federal-ai-governance-omb-m-24-10-nist-ai-rmf-1-0-api.p.rapidapi.com`
 - **Governing Citations**: OMB Memorandum M-24-10, OMB Memorandum M-24-18 (Advancing the Responsible Acquisition of AI in Government), NIST AI 100-1 (AI RMF 1.0), NIST AI 600-1, & DoD CDAO RAI Shield
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_ai_governance_nist_ai_rmf_omb_m24`)

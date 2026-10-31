@@ -4,7 +4,7 @@ Extracts all Contract Data Requirements List (CDRL / DD Form 1423) items from Do
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/cdrls-did-data-deliverables`
-- **RapidAPI Host**: `dod-cdrl-dd-form-1423-did-schedule-tracker-api.p.rapidapi.com`
+- **RapidAPI Host**: `dod-cdrl-dd-form-1423-did-schedule-extractor-api.p.rapidapi.com`
 - **Governing Citations**: DFARS Subpart 227.71, DoD 5010.12-M (Procedures for the Acquisition and Management of Technical Data), & ASSIST DID Registry
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_cdrls_did_data_deliverables`)

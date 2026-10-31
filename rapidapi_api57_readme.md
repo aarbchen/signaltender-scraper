@@ -4,7 +4,7 @@ Audits commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/gsa-tdr-quarterly-sales-iff-reconciler`
-- **RapidAPI Host**: `gsa-fas-srp-tdr-iff-cav-ioa-audit-reconciler-api.p.rapidapi.com`
+- **RapidAPI Host**: `gsa-fas-sales-reporting-portal-tdr-iff-audit-reconciler-api.p.rapidapi.com`
 - **Governing Citations**: GSAR 552.238-80 (Industrial Funding Fee and Sales Reporting — 0.75% IFF within 30 days of quarter close), GSAR 552.238-81 (TDR), & GSA IOA Contractor Assistance Visit (CAV) Guide
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_gsa_tdr_quarterly_sales_iff_reconciler`)

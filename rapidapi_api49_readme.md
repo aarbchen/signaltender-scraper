@@ -4,7 +4,7 @@ Evaluates state and municipal IT procurements to identify eligible NASPO ValuePo
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/state-local-cooperative-piggyback`
-- **RapidAPI Host**: `naspo-sourcewell-omnia-tips-sled-coop-piggyback-api.p.rapidapi.com`
+- **RapidAPI Host**: `sled-cooperative-purchasing-naspo-sourcewell-piggyback-api.p.rapidapi.com`
 - **Governing Citations**: 40 U.S.C. § 502(c) (GSA Cooperative Purchasing for IT/Cyber SINs), ABA Model Procurement Code Article 10 (Intergovernmental Relations), & State Participating Addendum Statutes
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_state_local_cooperative_piggyback`)

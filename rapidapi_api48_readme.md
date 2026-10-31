@@ -4,7 +4,7 @@ Analyzes deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/cui-marking-distribution-plan`
-- **RapidAPI Host**: `dod-32-cfr-2002-dodi-5200-48-cui-marking-plan-api.p.rapidapi.com`
+- **RapidAPI Host**: `cui-32-cfr-2002-dodi-5200-48-handling-plan-api.p.rapidapi.com`
 - **Governing Citations**: 32 CFR Part 2002 (NARA CUI Program), DoDI 5200.48 (Controlled Unclassified Information), DoDI 5230.24 (Distribution Statements), & NIST SP 800-88 Rev. 1
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_cui_marking_distribution_plan`)

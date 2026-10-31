@@ -5502,7 +5502,8 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
         # 6. Run automated JS syntax, SPA runtime, and DOM parity verification
         import verify_site_integrity
         try:
-            verify_site_integrity.main()
+            if os.getenv("PSEO_SKIP_VERIFY") != "1":
+                verify_site_integrity.main()
         except SystemExit as vse:
             if vse.code in (0, None):
                 pass

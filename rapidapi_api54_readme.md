@@ -4,7 +4,7 @@ Computes recoverable sunk costs, subcontractor termination claims, settlement ex
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/termination-for-convenience-settlement`
-- **RapidAPI Host**: `far-part-49-sf-1435-1436-t4c-settlement-proposal-api.p.rapidapi.com`
+- **RapidAPI Host**: `far-part-49-t4c-sf-1435-1438-settlement-calculator-api.p.rapidapi.com`
 - **Governing Citations**: FAR Part 49, FAR 52.249-2 (Termination for Convenience of the Government), FAR 31.205-42 (Termination Costs), & Standard Forms 1435 / 1436 / 1437 / 1438 / 1428
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_termination_for_convenience_settlement`)

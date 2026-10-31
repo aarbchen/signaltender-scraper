@@ -4,7 +4,7 @@ Generates a complete FAR 42.1204 Three-Party Novation Agreement package for GovC
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/novated-merger-change-of-name-far-42`
-- **RapidAPI Host**: `far-42-1204-govcon-m-a-novation-agreement-package-api.p.rapidapi.com`
+- **RapidAPI Host**: `govcon-ma-contract-novation-far-42-1204-package-api.p.rapidapi.com`
 - **Governing Citations**: 41 U.S.C. § 6305 (Anti-Assignment Act), FAR Subpart 42.12 (FAR 42.1204 Novation & FAR 42.1205 Change-of-Name), & 13 CFR § 121.404(g)
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_novated_merger_change_of_name_far_42`)

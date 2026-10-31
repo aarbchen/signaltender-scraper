@@ -4,7 +4,7 @@ Transforms cloud FinOps, AI automation, or architecture optimizations on an acti
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/value-engineering-vecp`
-- **RapidAPI Host**: `far-part-48-52-248-1-vecp-shared-savings-proposal-api.p.rapidapi.com`
+- **RapidAPI Host**: `far-part-48-vecp-far-52-248-1-shared-savings-modeler-api.p.rapidapi.com`
 - **Governing Citations**: FAR Part 48 (Value Engineering) & FAR 52.248-1(c)–(i) (50%/50% to 75%/25% Voluntary VECP Incentive Sharing & 36–60 Month Future Acquisition Royalty)
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_value_engineering_vecp`)

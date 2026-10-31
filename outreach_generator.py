@@ -225,12 +225,17 @@ JURISDICTION_TO_REGION_CODE = {
 
 def detect_contract_region(rec: dict) -> str:
     """Classify a Supabase contract record into 'fed', 'other', or one of the 50 2-letter state codes using boundary-safe pseo_generator.classify_jurisdiction."""
+    if isinstance(rec, dict) and "_cached_region" in rec:
+        return rec["_cached_region"]
     try:
         import pseo_generator
         j_key = pseo_generator.classify_jurisdiction(rec)
-        return JURISDICTION_TO_REGION_CODE.get(j_key, "fed")
+        reg = JURISDICTION_TO_REGION_CODE.get(j_key, "fed")
     except Exception:
-        return "fed"
+        reg = "fed"
+    if isinstance(rec, dict):
+        rec["_cached_region"] = reg
+    return reg
 
 
 def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> dict:

@@ -4,7 +4,7 @@ Evaluates Pacific/OCONUS defense IT solicitations for Status of Forces Agreement
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/oconus-sofa-defense-logistics`
-- **RapidAPI Host**: `dod-oconus-sofa-dba-sync-spot-deployment-compliance-api.p.rapidapi.com`
+- **RapidAPI Host**: `dod-oconus-indopacom-sofa-defense-base-act-spot-api.p.rapidapi.com`
 - **Governing Citations**: FAR 52.228-3 (42 U.S.C. §§ 1651–1654 Defense Base Act), DFARS 252.225-7040 / 252.225-7995 (SPOT LOA), & DSSR Chapters 130/220/650
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_oconus_sofa_defense_logistics`)

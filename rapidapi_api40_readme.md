@@ -4,7 +4,7 @@ Classifies defense/dual-use technical deliverables against USML Categories (ITAR
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/audit/itar-ear-export-control`
-- **RapidAPI Host**: `govcon-itar-usml-ear-ccl-tcp-export-control-api.p.rapidapi.com`
+- **RapidAPI Host**: `itar-22-cfr-120-130-ear-tcp-export-compliance-api.p.rapidapi.com`
 - **Governing Citations**: 22 CFR Parts 120–130 (ITAR USML Categories IV & XI), 15 CFR Parts 730–774 (EAR CCL), & DFARS 252.225-7048
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`audit_itar_ear_export_control`)

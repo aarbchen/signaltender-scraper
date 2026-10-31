@@ -4,7 +4,7 @@ Matches task order TORFPs across OASIS+, GSA Polaris, 8(a) STARS III, VETS 2, NA
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/gwac-task-order-fair-opportunity`
-- **RapidAPI Host**: `far-16-505-oasis-polaris-sewp-task-order-shaper-api.p.rapidapi.com`
+- **RapidAPI Host**: `gwac-idiq-task-order-fair-opportunity-far-16-505-api.p.rapidapi.com`
 - **Governing Citations**: FAR 16.505(b)(1) (Fair Opportunity), FAR 16.505(a)(10) ($10M Civilian / $25M DoD Task Order Protest Jurisdictional Cap), & GSAR 552.216-74
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_gwac_task_order_fair_opportunity`)

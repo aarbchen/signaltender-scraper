@@ -4,7 +4,7 @@ Audits GFP/GFE/GFI attachments under FAR 52.245-1 and DFARS 252.245-7003/7005, g
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/audit/govt-furnished-property-gfp`
-- **RapidAPI Host**: `far-52-245-1-dfars-piee-gfp-property-management-api.p.rapidapi.com`
+- **RapidAPI Host**: `govcon-gfp-far-52-245-1-piee-property-management-api.p.rapidapi.com`
 - **Governing Citations**: FAR 52.245-1, DFARS 252.245-7003 (Contractor Property Management System Administration), DFARS 252.245-7005 (PIEE GFP Module), & MIL-STD-130N
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`audit_govt_furnished_property_gfp`)

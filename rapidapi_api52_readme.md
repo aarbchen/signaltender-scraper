@@ -4,7 +4,7 @@ Audits cloud service offerings against the DoD CIO FedRAMP Moderate Equivalency 
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/fedramp-equivalency-body-of-evidence`
-- **RapidAPI Host**: `dod-fedramp-moderate-equivalency-memorandum-boe-api.p.rapidapi.com`
+- **RapidAPI Host**: `dod-fedramp-moderate-equivalency-3pao-boe-auditor-api.p.rapidapi.com`
 - **Governing Citations**: DoD CIO Memorandum 'Federal Risk and Authorization Management Program Moderate Equivalency for Cloud Service Provider's Cloud Service Offerings' (Jan 2, 2024) & DFARS 252.204-7012(b)(2)(ii)(D)
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_fedramp_equivalency_body_of_evidence`)

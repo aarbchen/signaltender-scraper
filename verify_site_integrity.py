@@ -1436,6 +1436,39 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
             if st_counts.get(sms, 0) > 4:
                 fail(f"index.html (RULE-014): Small-population state '{sms}' has {st_counts.get(sms, 0)} leads (expected 3-4 so Mega-States maintain >= 2.5x proportional volume)!")
 
+    # 8. Zero Dead /contracts/rfp/*.html Links, Homepage Filter Disambiguation & Outreach Region Parity (RULE-015)
+    rfp_disk_dir = os.path.join(BASE_DIR, "contracts", "rfp")
+    if os.path.isdir(rfp_disk_dir):
+        disk_rfp_files = set(os.listdir(rfp_disk_dir))
+        for surf_label, surf_txt in (("index.html", index_txt), ("apis.html", apis_txt)):
+            for m_rfp in re.finditer(r"/contracts/rfp/([a-z0-9-]+\.html)", surf_txt):
+                rfp_fn = m_rfp.group(1)
+                if rfp_fn not in disk_rfp_files:
+                    fail(f"{surf_label} (RULE-015): References dead RFP dossier URL '/contracts/rfp/{rfp_fn}' not found in contracts/rfp/!")
+        for q_fn in ("campaign_leads.csv", "outbox_ready_queue.json"):
+            q_path = os.path.join(BASE_DIR, q_fn)
+            if os.path.exists(q_path):
+                with open(q_path, "r", encoding="utf-8", errors="replace") as qf:
+                    q_txt = qf.read()
+                for m_rfp in re.finditer(r"/contracts/rfp/([a-z0-9-]+\.html)", q_txt):
+                    rfp_fn = m_rfp.group(1)
+                    if rfp_fn not in disk_rfp_files:
+                        fail(f"{q_fn} (RULE-015): Contains dead RFP dossier link '/contracts/rfp/{rfp_fn}' not found in contracts/rfp/!")
+
+    if "rowText.indexOf('west virginia') !== -1" not in index_txt or "rowText.indexOf('arkansas') !== -1" not in index_txt:
+        fail("index.html (RULE-015): `window.filterMainRfpTable` is missing boundary exclusion for 'west virginia' vs 'virginia' or 'arkansas' vs 'kansas'!")
+
+    import outreach_generator
+    og_probes = [
+        ({"url": "https://www.maine.gov/dafs/bbm/procurementservices/vendors/rfps", "title": "Cloud SOC", "agency": "MaineIT"}, "me"),
+        ({"url": "https://emma.maryland.gov/page.aspx/en/bpm/process_manage_extranet/123", "title": "Cloud SOC", "agency": "MD DoIT"}, "md"),
+        ({"url": "https://bidopportunities.iowa.gov/Home/BidInfo?bidId=123", "title": "Cloud SOC", "agency": "Iowa DOM DoIT"}, "ia"),
+    ]
+    for og_rec, exp_reg in og_probes:
+        got_reg = outreach_generator.detect_contract_region(dict(og_rec))
+        if got_reg != exp_reg:
+            fail(f"outreach_generator.detect_contract_region() (RULE-015): URL '{og_rec['url']}' returned '{got_reg}', expected '{exp_reg}'!")
+
 
 def check_acquisition_and_email_guardrails() -> None:
     """
@@ -1905,6 +1938,26 @@ def check_product_output_quality_controls() -> None:
         for req_hk in ("target_partner_name", "target_partner_uei", "solicitation_title", "nda_ta_reference_id"):
             if not hs_res.get(req_hk):
                 fail(f"proposal_compiler.py: `confirm_teaming_handshake` missing required frontend/API key '{req_hk}'")
+
+        # RULE-015: Verify _infer_target_jurisdiction acronym/prefix disambiguation when url=""
+        jur_acronym_probes = [
+            ("MI-MDOT-2026-08", "[MI-MDOT-2026-08] Connected Corridor V2X", "Michigan Department of Transportation (MDOT)", "michigan"),
+            ("MS-MDOT-2026-03", "[MS-MDOT-2026-03] Intelligent Transportation Systems", "Mississippi Department of Transportation (MDOT)", "mississippi"),
+            ("NM-NMDOT-2026-03", "[NM-NMDOT-2026-03] ITS Statewide Fiber & Traffic", "New Mexico Department of Transportation (NMDOT)", "new_mexico"),
+            ("OK-ODOT-2026-06", "[OK-ODOT-2026-06] Intelligent Transportation Systems", "Oklahoma Department of Transportation (ODOT)", "oklahoma"),
+            ("OR-ODOT-2026-04", "[OR-ODOT-2026-04] Automated Tolling Back-Office", "Oregon Department of Transportation (ODOT)", "oregon"),
+            ("MO-MODOT-2026-04", "[MO-MODOT-2026-04] Statewide Intelligent Transportation", "Missouri Department of Transportation (MoDOT)", "missouri"),
+            ("CT-CTDOT-2026-02", "[CT-CTDOT-2026-02] Public Transit Automated Fare", "Connecticut Department of Transportation (CTDOT)", "connecticut"),
+            ("SC-SCDOT-2026-02", "[SC-SCDOT-2026-02] Intelligent Transportation System", "South Carolina Department of Transportation (SCDOT)", "south_carolina"),
+            ("WV-WVDOT-2026-04", "[WV-WVDOT-2026-04] Turnpike Tolling Back-Office", "West Virginia Department of Transportation (WVDOT)", "west_virginia"),
+            ("PA-DOH-2026-01", "Vital Records Electronic Birth & Death Registry", "Pennsylvania Department of Health", "pennsylvania"),
+            ("PANYNJ-2026-01", "Zero-Trust Cloud & SOC Modernization", "Port Authority of New York and New Jersey (PANYNJ)", "new_york"),
+            ("IN-17231", "[IN-17231] Enterprise Software Asset Management", "Department of Management Services", "florida"),
+        ]
+        for p_sid, p_title, p_ag, exp_j in jur_acronym_probes:
+            got_j = pc._infer_target_jurisdiction(p_sid, p_title, p_ag, "")
+            if got_j != exp_j:
+                fail(f"proposal_compiler._infer_target_jurisdiction() (RULE-015): ({p_sid!r}, {p_ag!r}) inferred '{got_j}', expected '{exp_j}'!")
 
     asyncio.run(_run_compiler_suite())
 

@@ -4,7 +4,7 @@ Audits DOE/NNSA Management & Operating (M&O) National Laboratory solicitations (
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/generate/doe-national-lab-mando-subcontract`
-- **RapidAPI Host**: `doe-dear-48-cfr-952-970-national-lab-compliance-api.p.rapidapi.com`
+- **RapidAPI Host**: `doe-nnsa-national-lab-mo-dear-48-cfr-ch-9-auditor-api.p.rapidapi.com`
 - **Governing Citations**: 48 CFR Chapter 9 (DEAR Parts 952 & 970), 10 CFR Part 710 (Q/L Access Authorizations), DOE O 142.3B, & DOE O 470.4B
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`generate_doe_national_lab_mando_subcontract`)

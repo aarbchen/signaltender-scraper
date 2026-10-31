@@ -4,7 +4,7 @@ Audits compliance incidents, overpayments, and hiring of former government offic
 
 ## Key Capabilities
 - **Endpoint**: `POST /v1/audit/organizational-ethics-far-52-203-13`
-- **RapidAPI Host**: `far-52-203-13-business-ethics-oig-disclosure-auditor-api.p.rapidapi.com`
+- **RapidAPI Host**: `far-52-203-13-business-ethics-pia-oig-disclosure-api.p.rapidapi.com`
 - **Governing Citations**: FAR 52.203-13 (Contractor Code of Business Ethics and Conduct), 31 U.S.C. § 3729 (False Claims Act), FAR 3.104 (41 U.S.C. § 2101–2107 PIA), & 18 U.S.C. § 207
 - **Architecture**: 100% Stateless, Zero Payload Retention, Strict Pydantic V2 JSON Schema Enforcement
 - **MCP Support**: Included in `@signaltender/mcp-server` and remote Streamable-HTTP `/mcp` (`audit_organizational_ethics_far_52_203_13`)
