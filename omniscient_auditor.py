@@ -1416,12 +1416,9 @@ def audit_and_heal_acquisition(auto_fix: bool = True) -> tuple[list[dict], list[
                             pass
                     unanswered_replies = []
                     for msg_item in (r_unibox.json() or {}).get("items") or []:
-                        eacct_em = str(msg_item.get("eaccount") or "").strip().lower()
-                        if eacct_em and "signaltender" not in eacct_em:
-                            continue
                         from_em = str(msg_item.get("from_address_email") or "").strip().lower()
                         msg_id = str(msg_item.get("id") or "").strip()
-                        if not from_em or "camberdesk" in from_em or any(from_em.endswith("@" + d) for d in our_domains):
+                        if not from_em or any(from_em.endswith("@" + d) for d in our_domains):
                             continue
                         if from_em not in proc_ids_or_emails and msg_id not in proc_ids_or_emails:
                             unanswered_replies.append(from_em)
