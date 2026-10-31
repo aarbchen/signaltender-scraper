@@ -1609,20 +1609,17 @@ def discover_federal_sbir_and_tech_named_executives(
     )
 
     newly_verified: List[Dict[str, str]] = []
-    for _wave in range(6):
+    for _wave in range(16):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in range(1, 351, 25):
-            for kw in topic_keywords:
-                for prog in ("ALL", "SBIR", "STTR"):
-                    cur_key = f"sbir_kw_it_v4:{prog}:{kw}:{off}"
-                    if not mx_cache.get(cur_key):
-                        mx_cache[cur_key] = True
-                        batch_queries.append((prog, kw, off))
-                        if len(batch_queries) >= 32:
-                            break
-                if len(batch_queries) >= 32:
-                    break
-            if len(batch_queries) >= 32:
+        for off in range(1, 6001, 25):
+            for prog in ("SBIR", "STTR"):
+                cur_key = f"sbir_page_v5:{prog}:{off}"
+                if not mx_cache.get(cur_key):
+                    mx_cache[cur_key] = True
+                    batch_queries.append((prog, "", off))
+                    if len(batch_queries) >= 28:
+                        break
+            if len(batch_queries) >= 28:
                 break
 
         if not batch_queries:
@@ -1632,14 +1629,14 @@ def discover_federal_sbir_and_tech_named_executives(
             prog, kw_q, off = q_item
             try:
                 params_dict: Dict[str, Any] = {
-                    "keyword": kw_q,
+                    "fundProgramName": prog,
                     "dateStart": "01/01/2019",
                     "offset": off,
                     "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                     "rpp": 25,
                 }
-                if prog != "ALL":
-                    params_dict["fundProgramName"] = prog
+                if kw_q:
+                    params_dict["keyword"] = kw_q
                 r = requests.get(
                     "https://api.nsf.gov/services/v1/awards.json",
                     params=params_dict,
@@ -1685,11 +1682,13 @@ def discover_federal_sbir_and_tech_named_executives(
                 continue
             title_low = title_raw.lower()
             if not re.search(
-                r"(\bcyber|\bsoftware\b|\bcloud\b|artificial\s+intelligence|machine\s+learning|"
+                r"(\bcyber|\bsoftware\b|\bcloud\b|artificial\s+intelligence|machine\s+learning|deep\s+learning|"
+                r"\bai-driven\b|\bai-enabled\b|generative\s+ai|neural\s+network|homomorphic|multi-party\s+computation|"
                 r"network\s+security|data\s+analytics|\bencryption\b|computer\s+vision|zero\s+trust|"
                 r"edge\s+computing|large\s+language|\bllm\b|\bdevsecops\b|distributed\s+system|"
                 r"\bdatabase\b|\bblockchain\b|\bcryptograph|\bintrusion\b|\bvulnerability\b|\bmalware\b|"
-                r"\bauthentication\b|\bsaas\b|static\s+code)",
+                r"\bauthentication\b|\bsaas\b|static\s+code|threat\s+intel|digital\s+twin|\bcompiler\b|"
+                r"natural\s+language\s+processing|anomaly\s+detection|incident\s+response|firmware\s+security)",
                 title_low,
             ):
                 continue
