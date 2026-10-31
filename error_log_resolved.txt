@@ -604,3 +604,7 @@ Node.js v26.7.0
 
 [!] pseo_generator.py error: [Errno 2] No such file or directory: 'D:\\Daas\\contracts\\rfp\\tn-memphis-rfp-2026-6104-city-of-memphis-information-technology-911-1340.html'
 [2026-10-31 01:52:02 UTC] [LOCAL] [pseo_generator.py] pseo_generator.py error: [Errno 2] No such file or directory: 'D:\\Daas\\contracts\\rfp\\tn-memphis-rfp-2026-6104-city-of-memphis-information-technology-911-1340.html'
+
+=== ARCHIVED & RESOLVED AT 2026-10-31 02:17:05 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 2 local + 1 remote alert(s)) ===
+[2026-10-31 02:11:39 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html (RULE-015): `window.filterMainRfpTable` is missing boundary exclusion for 'west virginia' vs 'virginia' or 'arkansas' vs 'kansas'!
+[2026-10-31 02:13:26 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: proposal_compiler._infer_target_jurisdiction() (RULE-015): ('PA-DOH-2026-01', 'Pennsylvania Department of Health') inferred 'texas', expected 'pennsylvania'!

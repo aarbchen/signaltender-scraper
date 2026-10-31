@@ -1455,7 +1455,7 @@ def check_anti_regression_guardrails(index_txt: str, apis_txt: str) -> None:
                     if rfp_fn not in disk_rfp_files:
                         fail(f"{q_fn} (RULE-015): Contains dead RFP dossier link '/contracts/rfp/{rfp_fn}' not found in contracts/rfp/!")
 
-    if "rowText.indexOf('west virginia') !== -1" not in index_txt or "rowText.indexOf('arkansas') !== -1" not in index_txt:
+    if "txt.indexOf('west virginia') !== -1" not in index_txt or "txt.indexOf('arkansas') !== -1" not in index_txt:
         fail("index.html (RULE-015): `window.filterMainRfpTable` is missing boundary exclusion for 'west virginia' vs 'virginia' or 'arkansas' vs 'kansas'!")
 
     import outreach_generator
@@ -1955,7 +1955,7 @@ def check_product_output_quality_controls() -> None:
             ("IN-17231", "[IN-17231] Enterprise Software Asset Management", "Department of Management Services", "florida"),
         ]
         for p_sid, p_title, p_ag, exp_j in jur_acronym_probes:
-            got_j = pc._infer_target_jurisdiction(p_sid, p_title, p_ag, "")
+            got_j = pc._infer_target_jurisdiction(agency=p_ag, title=p_title, solicitation_id=p_sid, url="")
             if got_j != exp_j:
                 fail(f"proposal_compiler._infer_target_jurisdiction() (RULE-015): ({p_sid!r}, {p_ag!r}) inferred '{got_j}', expected '{exp_j}'!")
 
