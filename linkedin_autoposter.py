@@ -65,7 +65,7 @@ LINKEDIN_COMPANY_PROFILE = {
         "wrap-rate & Price-to-Win models, CPARS Volume III past performance citations, SF-30 amendment diffs, "
         "NIST 800-53 RMF / Continuous ATO (cATO) packages, FAR 15.102 Oral Presentation murder-board prep, "
         "FAR 15.506 Post-Award Debriefing & GAO Bid-Protest analysis, and GSA MAS Schedule SIN mapping.\n"
-        "• Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 3-Volume Shipley Proposal .ZIP Compiler "
+        "• Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 6-File Shipley Proposal .ZIP Compiler "
         "(editable Word .docx Volume I Technical + live-formula Excel .xlsx Volume II Cost/CLIN Model + Word .docx "
         "Volume III CPARS & 13 CFR § 125.6 Workshare in 90 seconds) and Verified Teaming Clearinghouse.\n"
         "• Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Post-Award FOIA / State PIA Incumbent Winning LCAT "

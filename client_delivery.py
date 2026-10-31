@@ -165,6 +165,9 @@ def slugify_contract(title: str, fallback_id: str = "") -> str:
     return slug
 
 
+slugify = slugify_contract
+
+
 def classify_jurisdiction(record: dict) -> str:
     title = str(record.get("title") or "").strip()
     title_upper = title.upper()
@@ -1742,7 +1745,7 @@ def deliver_leads(client_webhook_url: str = None) -> int:
         spam_urls = []
         for r in raw_records:
             t_str = str(r.get("title") or "")
-            s_slug = slugify(t_str, r.get("id", "rfp"))
+            s_slug = slugify_contract(t_str, str(r.get("id") or "rfp"))
             if _is_spam(t_str) or not os.path.exists(os.path.join(rfp_dir, f"{s_slug}.html")):
                 if r.get("url"):
                     spam_urls.append(r["url"])

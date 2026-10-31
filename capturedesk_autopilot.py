@@ -477,6 +477,9 @@ def slugify_contract(title: str, fallback_id: str = "") -> str:
     return f"{slug}-{fallback_id}" if fallback_id else slug
 
 
+slugify = slugify_contract
+
+
 def enrich_contract_dossier(record: dict) -> dict:
     """
     Enriches a single Supabase contract record using the live NAICS/PSC/SIC/NIGP Classifier
@@ -919,7 +922,6 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
     clean_title = strip_due_suffix(dossier.get("title", ""))
     j_badge = dossier.get("jurisdiction_badge") or JURISDICTION_LABELS.get(classify_jurisdiction(dossier), "FEDERAL // SAM.GOV")
     vertical = dossier.get("vertical") or classify_vertical_tag(dossier)
-    themes_formatted = "\n".join(f"  • {_clip_bullet(t, 235)}" for t in dossier.get("win_themes", [])[:2])
     nigp_part = f" | NIGP `{dossier['primary_nigp']}`" if dossier.get("primary_nigp") else ""
     posture_line = ""
     if dossier.get("compliance_posture") or dossier.get("teaming_posture"):
@@ -931,10 +933,6 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
             f"**Cyber, RMF/cATO & Teaming Posture (API #06/#11/#12/#18):** `{c_pos}` | `{t_pos}`\n"
             f"**IGCE Wrap-Rate, PTW, Key LCATs, Orals, Protest, GSA MAS, RFI Shaping, QASP, Transition, Black-Hat & Red-Team Scorer (API #13/#15/#16/#17/#19/#20/#21/#26/#27/#33/#56):** `{ptw_pos}` | `{lcat_pos}`\n"
         )
-    evidence_lines = ""
-    if dossier.get("evidence_needed"):
-        ev_formatted = "\n".join(f"  • {_clip_bullet(e, 195)}" for e in dossier["evidence_needed"][:2])
-        evidence_lines = f"**Required Proof & Proposal Evidence:**\n{ev_formatted}\n"
 
     footer = (
         f"**Official Portal:** <{dossier['source_url']}>\n"
@@ -942,18 +940,28 @@ def format_capturedesk_discord_embed(dossier: dict) -> str:
         f"{'─' * 44}"
     )
     max_body_len = 1920 - len(footer)
-    body = (
+    header_block = (
         f"**[{j_badge}]** • `{vertical}`\n"
         f"**Solicitation:** {clean_title}\n"
         f"**Buyer Agency:** {dossier['agency']} | **Closing Date:** `{dossier['closing_date']}`\n"
         f"**Industry & Size Classification:** NAICS `{dossier['primary_naics']}` | PSC `{dossier['primary_psc']}`{nigp_part} | SBA Size: `{dossier['sba_size_standard']}`\n"
         f"{posture_line}"
-        f"**Tailored Shipley Win Strategy:**\n{themes_formatted}\n"
+        f"**Tailored Shipley Win Strategy:**\n"
     )
+    raw_themes = [t for t in (dossier.get("win_themes") or [])[:2] if str(t or "").strip()]
+    avail_for_themes = max(160, max_body_len - len(header_block) - 14)
+    per_bullet_budget = min(235, max(80, avail_for_themes // max(1, len(raw_themes))))
+    themes_formatted = "\n".join(f"  • {_clip_bullet(t, per_bullet_budget)}" for t in raw_themes)
+    body = f"{header_block}{themes_formatted}\n"
+
+    evidence_lines = ""
+    if dossier.get("evidence_needed"):
+        ev_formatted = "\n".join(f"  • {_clip_bullet(e, 180)}" for e in dossier["evidence_needed"][:2])
+        evidence_lines = f"**Required Proof & Proposal Evidence:**\n{ev_formatted}\n"
     if evidence_lines and len(body) + len(evidence_lines) <= max_body_len:
         body += evidence_lines
-    if len(body) > max_body_len:
-        body = body[: max_body_len - 4].rsplit(" ", 1)[0].rstrip("*,;:-") + ".\n"
+    if len(body) > max_body_len and raw_themes:
+        body = f"{header_block}  • {_clip_bullet(raw_themes[0], avail_for_themes)}\n"
     if body.count("**") % 2 == 1:
         body = body.rstrip("\n") + "**\n"
     return body + footer
@@ -971,7 +979,7 @@ def format_tier3_proposal_vip_brief(dossier: dict) -> str:
         f"**[{j_badge}]** • `{vertical}`\n"
         f"**Solicitation:** {clean_title}\n"
         f"**Buyer Agency:** {dossier['agency']} | **Closing Date:** `{dossier['closing_date']}` | **NAICS:** `{dossier['primary_naics']}`\n"
-        f"• **3-Volume Shipley Package Ready (.ZIP):** `Volume_I_Technical_Management_and_Section_LM_Matrix.docx` + `Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx` (live `=SUM()` formulas) + `Volume_III_Past_Performance_Teaming_and_Compliance.docx` + `Volume_IV_FAR_Subpart_9_6_Teaming_Agreement.docx`.\n"
+        f"• **6-File Shipley Package Ready (.ZIP):** `Volume_I_Technical_and_Management_Proposal.docx` + `Volume_II_CLIN_Cost_and_Price_to_Win_Model.xlsx` (live `=SUM()` formulas) + `Volume_III_Past_Performance_Teaming_and_Compliance.docx` + `Volume_IV_FAR_Subpart_9_6_Teaming_Agreement_and_13_CFR_125_6_Exhibit_A.docx` + `Volume_V_Statutory_FOIA_and_State_PIA_Incumbent_Contract_Demand.docx`.\n"
         f"• **13 CFR § 125.6 & Key LCAT Baseline:** `{t_pos}` | `{lcat_pos}` (`{ptw_pos}`)\n"
         f"**Compile .ZIP & Match Teaming Partners:** <{dossier['dossier_url']}> | **Official Portal:** <{dossier['source_url']}>\n"
         f"{'─' * 44}"
@@ -1015,7 +1023,7 @@ def _is_actionable_rfp_row(row: dict) -> bool:
         due_dt = pseo_generator.parse_due_date(row)
         if due_dt is not None and due_dt < datetime.now(timezone.utc).date():
             return False
-        s_slug = slugify(raw_title, row.get("id", "rfp"))
+        s_slug = slugify_contract(raw_title, str(row.get("id") or "rfp"))
         rfp_path = os.path.join(BASE_DIR, "contracts", "rfp", f"{s_slug}.html")
         if os.path.exists(os.path.join(BASE_DIR, "contracts", "rfp")) and not os.path.exists(rfp_path):
             return False

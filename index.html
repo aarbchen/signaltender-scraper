@@ -2371,7 +2371,7 @@
                 <div class="flex items-start space-x-2 min-w-0">
                   <span class="text-emerald-400 font-bold shrink-0">01.</span>
                   <div class="min-w-0 break-words">
-                    <div class="text-white font-bold text-[11px] tracking-tight break-all">Volume_I_Technical_Management.docx</div>
+                    <div class="text-white font-bold text-[11px] tracking-tight break-all">Volume_I_Technical_and_Management_Proposal.docx</div>
                     <div class="text-[11px] text-slate-400 break-words">Shipley Section L/M Compliance Matrix, Executive Summary, Win Themes, Technical Approach &amp; Tailored Key Personnel LCAT Resumes.</div>
                   </div>
                 </div>
@@ -22531,7 +22531,7 @@
                     <span class="text-emerald-400 font-bold">VOLUME I // TECHNICAL (.DOCX)</span>
                     <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 text-[10px] shrink-0">WORD DOCUMENT</span>
                   </div>
-                  <div class="font-mono text-white font-bold text-[11px] sm:text-xs tracking-tight break-all">Volume_I_Technical_Management.docx</div>
+                  <div class="font-mono text-white font-bold text-[11px] sm:text-xs tracking-tight break-all">Volume_I_Technical_and_Management_Proposal.docx</div>
                   <ul class="space-y-2 text-slate-300 leading-relaxed break-words">
                     <li>&bull; <strong>Shipley Title Page &amp; Executive Summary:</strong> Agency-tailored Win Themes, Ghosting Strategy &amp; Value Proposition Boxes.</li>
                     <li>&bull; <strong>Complete Section L/M Crosswalk Table:</strong> Maps every <code class="font-mono text-white">SHALL</code> requirement ID to Section M evaluation weights and exact proposal page/paragraph numbers.</li>
@@ -22942,7 +22942,7 @@
             </div>
             <div class="p-5 rounded-xl bg-navy-900/60 border border-emerald-500/30">
               <div class="font-bold text-white mb-1">What does Tier 3 Proposal Autopilot ($1,499/mo) compile?</div>
-              <p class="text-slate-400">Tier 3 chains our Shipley compliance, technical narrative, LCAT resume, Section B CLIN pricing, IGCE wrap-rate, CPARS, 13 CFR &sect; 125.6 workshare, and FAR 9.5 OCI engines into a single 90-second download (<code class="text-emerald-300">.ZIP</code>) containing editable Word (<code class="text-slate-200">Volume_I_Technical_Management.docx</code>, <code class="text-slate-200">Volume_III_Past_Performance_Compliance.docx</code>) and live-formula Excel (<code class="text-slate-200">Volume_II_Cost_Price_Model.xlsx</code>) files.</p>
+              <p class="text-slate-400">Tier 3 chains our Shipley compliance, technical narrative, LCAT resume, Section B CLIN pricing, IGCE wrap-rate, CPARS, 13 CFR &sect; 125.6 workshare, and FAR 9.5 OCI engines into a single 90-second download (<code class="text-emerald-300">.ZIP</code>) containing editable Word (<code class="text-slate-200">Volume_I_Technical_and_Management_Proposal.docx</code>, <code class="text-slate-200">Volume_III_Past_Performance_Compliance.docx</code>) and live-formula Excel (<code class="text-slate-200">Volume_II_Cost_Price_Model.xlsx</code>) files.</p>
             </div>
             <div class="p-5 rounded-xl bg-navy-900/60 border border-amber-500/30">
               <div class="font-bold text-white mb-1">What is included in Tier 4 Enterprise OEM ($2,499/mo)?</div>
@@ -31759,6 +31759,8 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
         return '{\n  "status": "ok"\n}';
       }
 
+      window.CATALOG = CATALOG;
+
       function buildSnippet(api, payloadStr, lang, apiKey) {
         var keyToUse = apiKey && apiKey.trim() ? apiKey.trim() : 'YOUR_RAPIDAPI_KEY';
         var url = 'https://' + api.host + api.path;
@@ -31776,7 +31778,11 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           if (api.method === 'GET') {
             return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.json())';
           }
-          return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + payloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
+          var pyPayloadStr = payloadStr
+            .replace(/:\s*true(\s*[,}\]])/g, ': True$1')
+            .replace(/:\s*false(\s*[,}\]])/g, ': False$1')
+            .replace(/:\s*null(\s*[,}\]])/g, ': None$1');
+          return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + pyPayloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
         }
 
         if (lang === 'node') {
@@ -31980,18 +31986,42 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
 
         if (savedRapidKey) {
           var isDirectKey = savedRapidKey.indexOf('st_live_') === 0;
-          var liveUrl = isDirectKey ? (GATEWAY_BASE + api.path) : ('https://' + api.host + api.path);
-          var fetchOpts = {
-            method: api.method,
-            headers: isDirectKey
-              ? { 'X-SignalTender-Key': savedRapidKey, 'Accept': 'application/json' }
-              : { 'X-RapidAPI-Key': savedRapidKey, 'X-RapidAPI-Host': api.host, 'Accept': 'application/json' }
-          };
-          if (api.method === 'POST') {
-            fetchOpts.headers['Content-Type'] = 'application/json';
-            fetchOpts.body = JSON.stringify(parsedInput);
+          var cleanPath = api.path;
+          if (api.method === 'GET' && parsedInput && typeof parsedInput === 'object') {
+            var qsParams = new URLSearchParams();
+            Object.keys(parsedInput).forEach(function (k) {
+              if (parsedInput[k] !== undefined && parsedInput[k] !== null && parsedInput[k] !== '') {
+                qsParams.set(k, String(parsedInput[k]));
+              }
+            });
+            var qsStr = qsParams.toString();
+            cleanPath = api.path.split('?')[0] + (qsStr ? ('?' + qsStr) : '');
           }
-          fetch(liveUrl, fetchOpts)
+          var callLiveTarget = function (targetHost) {
+            var liveUrl = isDirectKey ? (GATEWAY_BASE + cleanPath) : ('https://' + targetHost + cleanPath);
+            var fetchOpts = {
+              method: api.method,
+              headers: isDirectKey
+                ? { 'X-SignalTender-Key': savedRapidKey, 'Accept': 'application/json' }
+                : { 'X-RapidAPI-Key': savedRapidKey, 'X-RapidAPI-Host': targetHost, 'Accept': 'application/json' }
+            };
+            if (api.method === 'POST') {
+              fetchOpts.headers['Content-Type'] = 'application/json';
+              fetchOpts.body = JSON.stringify(parsedInput);
+            }
+            return fetch(liveUrl, fetchOpts);
+          };
+          callLiveTarget(api.host)
+            .then(function (r) {
+              if (!isDirectKey && (r.status === 403 || r.status === 404) && api.hubUrl && api.hubUrl.indexOf('/api/') !== -1) {
+                var mirrorSlug = api.hubUrl.split('/api/')[1].split('/')[0].trim();
+                var mirrorHost = mirrorSlug ? (mirrorSlug + '.p.rapidapi.com') : '';
+                if (mirrorHost && mirrorHost !== api.host) {
+                  return callLiveTarget(mirrorHost);
+                }
+              }
+              return r;
+            })
             .then(function (r) {
               var elapsed = Math.round(performance.now() - startTime);
               if (latencyBadge) latencyBadge.textContent = elapsed + ' ms';

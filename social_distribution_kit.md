@@ -1,6 +1,6 @@
 # SignalTender Pre-Oct 31 Organic Distribution & Conversion Playbook
 
-**Generated:** `2026-10-31 02:09 UTC`
+**Generated:** `2026-10-31 03:20 UTC`
 **Live Indexed Solicitations:** `391 Open IT & Cybersecurity RFPs across 52 Government Portals`
 **Platform Lock:** `52 Portals (Federal + 50 State SLED) & 58 B2B/GovCon AI Capture APIs`
 
@@ -129,7 +129,7 @@ Here are 3 live Federal & SLED IT solicitations where our 25-engine CaptureDesk 
   - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $166/hr | Lead Software Eng $147/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/rfp-scc-26-030-boi-boi-information-payment-processing-system-1747.html
 
-Run any live RFP through our interactive 25-API Capture Studio in your browser:
+Run any live RFP through our interactive 58-API Capture Studio in your browser:
 https://signaltender.net/apis.html
 ```
 
@@ -215,7 +215,7 @@ Here are 3 live examples open right now:
   - IGCE / PTW Posture: Wrap 1.80x • PTW -5.3% vs IGCE • Solutions Arch $167/hr | Lead Software Eng $148/hr
   - Full AI Dossier: https://signaltender.net/contracts/rfp/ear048-repair-fire-alarm-system-eareckson-air-station-facilities-1741.html
 
-If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across 26 states + DemandStar here:
+If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across all 50 U.S. states + DemandStar here:
 https://signaltender.net/contracts/
 ```
 
@@ -252,12 +252,12 @@ https://signaltender.net/contracts/cybersecurity/
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
 It exposes 58 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 52 Federal & State SLED portals)
-- `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
-- `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
-- `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
-- `analyze_govcon_debriefing_protest` (FAR 15.506 debriefing Q&A & GAO bid-protest viability)
-- `generate_gsa_mas_schedule_offer` (GSA MAS Large Category F SIN mapper & 0.75% IFF calculator)
+- `get_live_solicitations` (live open IT/Cyber RFPs across 52 Federal & State SLED portals)
+- `generate_compliance_matrix` (Shipley Section C/L/M shredder)
+- `generate_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
+- `generate_ato_rmf_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
+- `analyze_debriefing_bid_protest` (FAR 15.506 debriefing Q&A & GAO bid-protest viability)
+- `generate_gsa_mas_offer` (GSA MAS Large Category F SIN mapper & 0.75% IFF calculator)
 
 Quickstart:
 ```bash

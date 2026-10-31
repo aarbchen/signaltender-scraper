@@ -487,7 +487,7 @@ CATEGORIES = {
     },
     "network-telecom": {
         "name": "Network, Fiber, Telecom & Hardware",
-        "patterns": [r"network", r"fiber", r"broadband", r"telecom", r"audio/visual", r"hardware", r"computer", r"wireless", r"intercom", r"aiphone", r"alert"],
+        "patterns": [r"network", r"fiber", r"broadband", r"telecom", r"audio/visual", r"hardware", r"computer", r"wireless", r"alert"],
         "tags": ["Network Infrastructure", "Telecom / Fiber", "Enterprise Hardware"],
     },
 }
@@ -5528,7 +5528,7 @@ Sitemap: {SITE_BASE_URL}/sitemap.xml
 
         print(
             f"[+] Programmatic SEO build complete! Generated {pages_built} static HTML pages in /contracts "
-            f"({len(enriched_contracts)} individual RFP dossiers + 36 state/category hubs), updated sitemap.xml, "
+            f"({len(enriched_contracts)} individual RFP dossiers + 56 state/category hubs), updated sitemap.xml, "
             f"and synced embedded SPA directory in index.html.",
             flush=True,
         )

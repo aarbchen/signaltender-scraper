@@ -99,6 +99,13 @@ commodity_it_exclusions = [
     r"copiers?\s+lease",
     r"title:\s*line\s+",
 ]
+try:
+    from pseo_generator import COMMODITY_IT_EXCLUSIONS as _PSEO_COMMODITY_EXCLUSIONS
+    for _pat in _PSEO_COMMODITY_EXCLUSIONS:
+        if _pat not in commodity_it_exclusions:
+            commodity_it_exclusions.append(_pat)
+except Exception:
+    pass
 
 STATE_ALIASES = {
     "tx": "tx", "texas": "tx",
@@ -319,44 +326,6 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
         compliance_posture = "Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0) • StateRAMP • KY VPAT"
     elif reg == "ok":
         compliance_posture = "Oklahoma OMES Cyber Command Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • OK VPAT"
-    elif reg == "ia":
-        compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
-    elif reg == "ks":
-        compliance_posture = "Kansas ITEC Information Technology Security Standards Policy 7230A (NIST 800-53 / CMMC 2.0) • StateRAMP • KS ITEC 1210 Accessibility VPAT"
-    elif reg == "ar":
-        compliance_posture = "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • AR Act 1227 Technology Accessibility VPAT"
-    elif reg == "ms":
-        compliance_posture = "Mississippi ITS Enterprise Security Policy (NIST 800-53 / Miss. Code 25-53-201) • StateRAMP • MS ITS Accessibility VPAT"
-    elif reg == "nm":
-        compliance_posture = "New Mexico DoIT Cybersecurity & NMAC 1.12.20 Security Rule (NIST 800-53 / CMMC 2.0 / DOE DEAR) • StateRAMP • NM Accessibility VPAT"
-    elif reg == "ne":
-        compliance_posture = "Nebraska NITC Information Security Policy 8-101 (NIST 800-53 / CMMC 2.0) • StateRAMP • Nebraska Technology Access Clause VPAT"
-    elif reg == "id":
-        compliance_posture = "Idaho ITA Enterprise Security Policies S4000 (NIST 800-53 / CMMC 2.0) • StateRAMP • Idaho Standard P5030 Accessibility VPAT"
-    elif reg == "hi":
-        compliance_posture = "Hawaii ETS Enterprise Security & HRS 487N PII Protection (NIST 800-53 / CMMC 2.0) • StateRAMP • Hawaii HRS 368-1.5 Accessibility VPAT"
-    elif reg == "nh":
-        compliance_posture = "New Hampshire DoIT Statewide Information Security Manual (NIST 800-53 / RSA 21-R) • StateRAMP • NH Accessible IT WCAG 2.1 AA VPAT"
-    elif reg == "me":
-        compliance_posture = "MaineIT Enterprise Information Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • Maine Digital Accessibility Policy VPAT"
-    elif reg == "ri":
-        compliance_posture = "Rhode Island ETSS Enterprise Cybersecurity Policy (NIST 800-53 / R.I. Gen. Laws 42-64.13) • StateRAMP • RI Accessibility VPAT"
-    elif reg == "mt":
-        compliance_posture = "Montana SITSD Enterprise Information Security Policy (NIST 800-53 / MCA 2-17-534) • StateRAMP • Montana Accessible IT VPAT"
-    elif reg == "de":
-        compliance_posture = "Delaware DTI Enterprise Security Standards & Terms and Conditions Governing Cloud Services (NIST 800-53 / StateRAMP) • DE VPAT"
-    elif reg == "sd":
-        compliance_posture = "South Dakota BIT Information Technology Security Policy (NIST 800-53 / CMMC 2.0) • StateRAMP • SD BIT Accessibility VPAT"
-    elif reg == "nd":
-        compliance_posture = "North Dakota NDIT Enterprise Information Security Standards (NIST 800-53 / NDCC 54-59) • StateRAMP • NDIT Accessibility VPAT"
-    elif reg == "ak":
-        compliance_posture = "Alaska OIT Information Security Policies (NIST 800-53 / CMMC 2.0 / AS 45.48) • StateRAMP • Alaska Accessible IT VPAT"
-    elif reg == "vt":
-        compliance_posture = "Vermont Agency of Digital Services (ADS) Cybersecurity Standard (NIST 800-53 / 3 V.S.A. 3303) • StateRAMP • VT Accessibility VPAT"
-    elif reg == "wv":
-        compliance_posture = "West Virginia Office of Technology (WVOT) Information Security Policy (NIST 800-53 / FBI CJIS / W. Va. Code 5A-6) • StateRAMP • WV VPAT"
-    elif reg == "wy":
-        compliance_posture = "Wyoming ETS Enterprise Information Security Policies (NIST 800-53 / CMMC 2.0 / W.S. 9-2-2906) • StateRAMP • WY ETS Accessibility VPAT"
     elif reg == "ia":
         compliance_posture = "Iowa DOM DoIT Enterprise Information Security Standards (NIST 800-53 / CMMC 2.0) • StateRAMP • Iowa ICT Accessibility VPAT"
     elif reg == "ks":

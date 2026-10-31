@@ -153,7 +153,7 @@ Here are 3 live Federal & SLED IT solicitations where our 25-engine CaptureDesk 
 
 {fed_bullets}
 
-Run any live RFP through our interactive 25-API Capture Studio in your browser:
+Run any live RFP through our interactive 58-API Capture Studio in your browser:
 https://signaltender.net/apis.html
 ```
 
@@ -211,7 +211,7 @@ A lot of MSP owners assume "government contracting" means 18-month DoD sales cyc
 Here are 3 live examples open right now:
 {ny_ma_bullets}
 
-If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across 26 states + DemandStar here:
+If you want to check open Municipal & State SLED IT bids in your state without digging through clunky state portals, we maintain a live de-noised index across all 50 U.S. states + DemandStar here:
 https://signaltender.net/contracts/
 ```
 
@@ -234,12 +234,12 @@ https://signaltender.net/contracts/cybersecurity/
 We just shipped v1.6.0 of `@signaltender/mcp-server` (listed on the Official MCP Registry as `io.github.aarbchen/signaltender-mcp` and available via Remote Streamable HTTP at `https://b2b-contract-parser-api.onrender.com/mcp`).
 
 It exposes 58 stateless, read-only tools for Claude Desktop, Cursor, and autonomous capture agents:
-- `get_live_gov_solicitations` (live open IT/Cyber RFPs across 52 Federal & State SLED portals)
-- `generate_rfp_compliance_matrix` (Shipley Section C/L/M shredder)
-- `model_govcon_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
-- `generate_govcon_rmf_ato_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
-- `analyze_govcon_debriefing_protest` (FAR 15.506 debriefing Q&A & GAO bid-protest viability)
-- `generate_gsa_mas_schedule_offer` (GSA MAS Large Category F SIN mapper & 0.75% IFF calculator)
+- `get_live_solicitations` (live open IT/Cyber RFPs across 52 Federal & State SLED portals)
+- `generate_compliance_matrix` (Shipley Section C/L/M shredder)
+- `generate_igce_price_to_win` (DCAA wrap-rate & P25/P50/P75 LCAT pricing)
+- `generate_ato_rmf_package` (NIST 800-53 Rev 5 SSP, eMASS POA&M & cATO roadmap)
+- `analyze_debriefing_bid_protest` (FAR 15.506 debriefing Q&A & GAO bid-protest viability)
+- `generate_gsa_mas_offer` (GSA MAS Large Category F SIN mapper & 0.75% IFF calculator)
 
 Quickstart:
 ```bash

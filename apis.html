@@ -16608,6 +16608,8 @@
         return '{\n  "status": "ok"\n}';
       }
 
+      window.CATALOG = CATALOG;
+
       function buildSnippet(api, payloadStr, lang, apiKey) {
         var keyToUse = apiKey && apiKey.trim() ? apiKey.trim() : 'YOUR_RAPIDAPI_KEY';
         var url = 'https://' + api.host + api.path;
@@ -16625,7 +16627,11 @@
           if (api.method === 'GET') {
             return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.json())';
           }
-          return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + payloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
+          var pyPayloadStr = payloadStr
+            .replace(/:\s*true(\s*[,}\]])/g, ': True$1')
+            .replace(/:\s*false(\s*[,}\]])/g, ': False$1')
+            .replace(/:\s*null(\s*[,}\]])/g, ': None$1');
+          return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + pyPayloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
         }
 
         if (lang === 'node') {
@@ -16831,18 +16837,42 @@
         // If user provided a live RapidAPI key, call the RapidAPI host directly
         if (savedRapidKey) {
           var isDirectKey = savedRapidKey.indexOf('st_live_') === 0;
-          var liveUrl = isDirectKey ? (GATEWAY_BASE + api.path) : ('https://' + api.host + api.path);
-          var fetchOpts = {
-            method: api.method,
-            headers: isDirectKey
-              ? { 'X-SignalTender-Key': savedRapidKey, 'Accept': 'application/json' }
-              : { 'X-RapidAPI-Key': savedRapidKey, 'X-RapidAPI-Host': api.host, 'Accept': 'application/json' }
-          };
-          if (api.method === 'POST') {
-            fetchOpts.headers['Content-Type'] = 'application/json';
-            fetchOpts.body = JSON.stringify(parsedInput);
+          var cleanPath = api.path;
+          if (api.method === 'GET' && parsedInput && typeof parsedInput === 'object') {
+            var qsParams = new URLSearchParams();
+            Object.keys(parsedInput).forEach(function (k) {
+              if (parsedInput[k] !== undefined && parsedInput[k] !== null && parsedInput[k] !== '') {
+                qsParams.set(k, String(parsedInput[k]));
+              }
+            });
+            var qsStr = qsParams.toString();
+            cleanPath = api.path.split('?')[0] + (qsStr ? ('?' + qsStr) : '');
           }
-          fetch(liveUrl, fetchOpts)
+          var callLiveTarget = function (targetHost) {
+            var liveUrl = isDirectKey ? (GATEWAY_BASE + cleanPath) : ('https://' + targetHost + cleanPath);
+            var fetchOpts = {
+              method: api.method,
+              headers: isDirectKey
+                ? { 'X-SignalTender-Key': savedRapidKey, 'Accept': 'application/json' }
+                : { 'X-RapidAPI-Key': savedRapidKey, 'X-RapidAPI-Host': targetHost, 'Accept': 'application/json' }
+            };
+            if (api.method === 'POST') {
+              fetchOpts.headers['Content-Type'] = 'application/json';
+              fetchOpts.body = JSON.stringify(parsedInput);
+            }
+            return fetch(liveUrl, fetchOpts);
+          };
+          callLiveTarget(api.host)
+            .then(function (r) {
+              if (!isDirectKey && (r.status === 403 || r.status === 404) && api.hubUrl && api.hubUrl.indexOf('/api/') !== -1) {
+                var mirrorSlug = api.hubUrl.split('/api/')[1].split('/')[0].trim();
+                var mirrorHost = mirrorSlug ? (mirrorSlug + '.p.rapidapi.com') : '';
+                if (mirrorHost && mirrorHost !== api.host) {
+                  return callLiveTarget(mirrorHost);
+                }
+              }
+              return r;
+            })
             .then(function (r) {
               var elapsed = Math.round(performance.now() - startTime);
               if (latencyBadge) latencyBadge.textContent = elapsed + ' ms';

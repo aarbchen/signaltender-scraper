@@ -189,10 +189,30 @@ const TOOLS = [
         "focus_categories": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "INDEMNIFICATION",
+              "LIMITATION_OF_LIABILITY",
+              "TERMINATION",
+              "IP_OWNERSHIP",
+              "PAYMENT_TERMS",
+              "AUTO_RENEWAL",
+              "CONFIDENTIALITY",
+              "DATA_PRIVACY_SECURITY",
+              "NON_COMPETE_EXCLUSIVITY",
+              "GOVERNING_LAW_DISPUTE",
+              "WARRANTY_SLA",
+              "OTHER"
+            ]
           },
           "maxItems": 100,
-          "description": "Optional list of specific clause risk categories to prioritize during the audit."
+          "description": "Optional list of specific clause risk categories to prioritize during the audit.",
+          "default": [
+            "INDEMNIFICATION",
+            "LIMITATION_OF_LIABILITY",
+            "TERMINATION",
+            "IP_OWNERSHIP"
+          ]
         }
       },
       "required": [
@@ -409,7 +429,7 @@ const TOOLS = [
           "type": "string",
           "minLength": 1,
           "maxLength": 100000,
-          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "pattern": "^\d{4}-\d{2}-\d{2}$",
           "description": "Return only solicitations closing on or after this ISO 8601 date (YYYY-MM-DD)."
         },
         "limit": {
@@ -1104,7 +1124,7 @@ const TOOLS = [
         },
         "limitations_on_subcontracting_audit": {
           "type": "object",
-          "description": "Automated audit of the workshare split under 13 CFR \u00a7 125.6 and FAR 52.219-14 (50% Rule & Ostensible Subcontractor test)."
+          "description": "Automated audit of the workshare split under 13 CFR § 125.6 and FAR 52.219-14 (50% Rule & Ostensible Subcontractor test)."
         },
         "capability_gaps_and_partner_archetypes": {
           "type": "array",
@@ -2063,10 +2083,10 @@ const TOOLS = [
   },
   {
     "name": "generate_sbir_sttr_commercialization",
-    "title": "Generate SBIR / STTR Phase I\u2013III Technical Work Plan, TRL Matrix & Commercialization Plan",
-    "description": "Convert R&D technical specifications and an SBIR/STTR solicitation topic description into a DoD/AFWERX/SpaceWERX/NSF SBIR/STTR Technical Work Plan, a TRL 1\u20139 progression matrix, a Phase III Dual-Use Commercialization & Transition Plan, and a pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertion schedule. This is a read-only, stateless, non-destructive R&D proposal and IP compliance generator (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters and `company_technology_and_ip_baseline` accepts 20 to 35,000 characters). Use this tool when preparing Phase I, Phase II, Direct-to-Phase II (AFWERX/SpaceWERX), or Phase III SBIR/STTR technical volumes, commercialization plans, and DFARS 252.227-7018 IP data-rights tables; use `generate_rfp_response` instead for standard FAR Part 15 technical approach volumes, or `scan_far_dfars_clauses` for general Section I clause flow-down audits.",
+    "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
+    "description": "Convert R&D technical specifications and an SBIR/STTR solicitation topic description into a DoD/AFWERX/SpaceWERX/NSF SBIR/STTR Technical Work Plan, a TRL 1–9 progression matrix, a Phase III Dual-Use Commercialization & Transition Plan, and a pre-award DFARS 252.227-7018 / FAR 52.227-20 SBIR Data Rights assertion schedule. This is a read-only, stateless, non-destructive R&D proposal and IP compliance generator (requires X-RapidAPI-Key; `sbir_sttr_topic_and_rd_specs` accepts 20 to 45,000 characters and `company_technology_and_ip_baseline` accepts 20 to 35,000 characters). Use this tool when preparing Phase I, Phase II, Direct-to-Phase II (AFWERX/SpaceWERX), or Phase III SBIR/STTR technical volumes, commercialization plans, and DFARS 252.227-7018 IP data-rights tables; use `generate_rfp_response` instead for standard FAR Part 15 technical approach volumes, or `scan_far_dfars_clauses` for general Section I clause flow-down audits.",
     "annotations": {
-      "title": "Generate SBIR / STTR Phase I\u2013III Technical Work Plan, TRL Matrix & Commercialization Plan",
+      "title": "Generate SBIR / STTR Phase I–III Technical Work Plan, TRL Matrix & Commercialization Plan",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -2138,7 +2158,7 @@ const TOOLS = [
         },
         "phase_iii_dual_use_commercialization_and_work_plan_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. \u00a7 638(r)(4) Phase III sole-source transition roadmap."
+          "description": "Complete, paste-ready SBIR/STTR Volume 2 Technical Work Plan & Commercialization Plan narrative including Customer Memorandum (MOU) justification, TAM/SAM/SOM dual-use revenue forecast, and 15 U.S.C. § 638(r)(4) Phase III sole-source transition roadmap."
         }
       }
     }
@@ -2146,7 +2166,7 @@ const TOOLS = [
   {
     "name": "audit_section_508_vpat",
     "title": "Audit Revised Section 508, WCAG 2.2 AA & Generate VPAT 2.5 Accessibility Conformance Report (ACR)",
-    "description": "Audit software, cloud SaaS portals, and electronic deliverables against Revised Section 508 (36 CFR Part 1194 / FAR Subpart 39.2), W3C WCAG 2.1 / 2.2 Level A & AA Success Criteria, and State SLED digital accessibility laws (such as Colorado HB21-1110) to generate an Accessibility Readiness Score (0-100), a structured ITI VPAT 2.5 Conformance Matrix (WCAG 2.2 Level A/AA + Revised Section 508 Chapters 3, 5, and 6), an Engineering Accessibility Remediation POA&M Roadmap, and a paste-ready VPAT 2.5 ACR & Equally Effective Alternate Access Plan (EEAAP) proposal narrative. This is a read-only, stateless, non-destructive accessibility compliance generator (requires X-RapidAPI-Key; `product_architecture_and_ui_specs` accepts 20 to 45,000 characters and `known_accessibility_test_results_or_gaps` accepts 10 to 35,000 characters). Use this tool when auditing software/SaaS accessibility or generating a Section 508 VPAT 2.5 ACR table for federal/SLED proposals; use `answer_security_questionnaire` instead for cybersecurity/SOC 2/NIST 800-171 questionnaires, or `scan_far_dfars_clauses` for general Section I FAR/DFARS clause flow-down audits.",
+    "description": "Audit software, cloud SaaS portals, and electronic deliverables against Revised Section 508 (36 CFR Part 1194 / FAR Subpart 58.2), W3C WCAG 2.1 / 2.2 Level A & AA Success Criteria, and State SLED digital accessibility laws (such as Colorado HB21-1110) to generate an Accessibility Readiness Score (0-100), a structured ITI VPAT 2.5 Conformance Matrix (WCAG 2.2 Level A/AA + Revised Section 508 Chapters 3, 5, and 6), an Engineering Accessibility Remediation POA&M Roadmap, and a paste-ready VPAT 2.5 ACR & Equally Effective Alternate Access Plan (EEAAP) proposal narrative. This is a read-only, stateless, non-destructive accessibility compliance generator (requires X-RapidAPI-Key; `product_architecture_and_ui_specs` accepts 20 to 45,000 characters and `known_accessibility_test_results_or_gaps` accepts 10 to 35,000 characters). Use this tool when auditing software/SaaS accessibility or generating a Section 508 VPAT 2.5 ACR table for federal/SLED proposals; use `answer_security_questionnaire` instead for cybersecurity/SOC 2/NIST 800-171 questionnaires, or `scan_far_dfars_clauses` for general Section I FAR/DFARS clause flow-down audits.",
     "annotations": {
       "title": "Audit Revised Section 508, WCAG 2.2 AA & Generate VPAT 2.5 Accessibility Conformance Report (ACR)",
       "readOnlyHint": true,
@@ -2195,7 +2215,7 @@ const TOOLS = [
         },
         "overall_section_508_determination": {
           "type": "string",
-          "description": "Overall Section 508 / WCAG 2.2 AA procurement conformance determination under FAR 39.2 and ITI VPAT 2.5 standards."
+          "description": "Overall Section 508 / WCAG 2.2 AA procurement conformance determination under FAR 58.2 and ITI VPAT 2.5 standards."
         },
         "executive_vpat_summary": {
           "type": "string",
@@ -2217,7 +2237,7 @@ const TOOLS = [
         },
         "ready_to_submit_vpat_2_5_acr_narrative": {
           "type": "string",
-          "description": "Complete, paste-ready ITI VPAT 2.5 Accessibility Conformance Report (ACR) & FAR 39.2 Proposal Volume narrative including evaluation methodology (DHS Trusted Tester v5, axe-core, NVDA/JAWS) and Equally Effective Alternate Access Plan (EEAAP) language."
+          "description": "Complete, paste-ready ITI VPAT 2.5 Accessibility Conformance Report (ACR) & FAR 58.2 Proposal Volume narrative including evaluation methodology (DHS Trusted Tester v5, axe-core, NVDA/JAWS) and Equally Effective Alternate Access Plan (EEAAP) language."
         }
       }
     }
@@ -2267,19 +2287,85 @@ const TOOLS = [
         "bom_line_items": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "line_item_id": {
+                "type": "string",
+                "description": "Unique BOM / CLIN line identifier (e.g., 'CLIN 0001')."
+              },
+              "part_number": {
+                "type": "string",
+                "description": "Manufacturer part number (MPN), SKU, or NSN."
+              },
+              "description": {
+                "type": "string",
+                "description": "Short item description."
+              },
+              "manufacturer": {
+                "type": "string",
+                "description": "Original Equipment Manufacturer (OEM) legal entity."
+              },
+              "country_of_origin": {
+                "type": "string",
+                "description": "Country of origin / substantial transformation (e.g., 'US', 'Taiwan')."
+              }
+            },
+            "required": [
+              "line_item_id",
+              "part_number",
+              "manufacturer",
+              "country_of_origin"
+            ]
           },
           "minItems": 1,
           "maxItems": 200,
-          "description": "Hardware / COTS Bill of Materials line items to screen (1 to 200 lines)."
+          "description": "Hardware / COTS Bill of Materials line items to screen (1 to 200 lines).",
+          "default": [
+            {
+              "line_item_id": "CLIN-0001",
+              "part_number": "C9300-48P-E",
+              "description": "48-Port PoE+ Enterprise Network Switch",
+              "manufacturer": "Cisco Systems, Inc.",
+              "country_of_origin": "US"
+            }
+          ]
         },
         "software_components": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Software component / package name (e.g., 'openssl')."
+              },
+              "version": {
+                "type": "string",
+                "description": "Component version string (e.g., '3.0.13')."
+              },
+              "license": {
+                "type": "string",
+                "description": "SPDX license identifier (e.g., 'Apache-2.0')."
+              },
+              "supplier": {
+                "type": "string",
+                "description": "Component supplier or maintainer organization."
+              }
+            },
+            "required": [
+              "name"
+            ]
           },
           "maxItems": 500,
-          "description": "Software Bill of Materials (SBOM) components for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components)."
+          "description": "Software Bill of Materials (SBOM) components for NTIA minimum-elements and CISA secure software attestation review (0 to 500 components).",
+          "default": [
+            {
+              "name": "openssl",
+              "version": "3.0.13",
+              "license": "Apache-2.0",
+              "supplier": "OpenSSL Software Foundation"
+            }
+          ]
         },
         "sbom_format": {
           "type": "string",
@@ -2307,7 +2393,6 @@ const TOOLS = [
         "additional_supplier_notes": {
           "type": "string",
           "default": "",
-          "minLength": 1,
           "maxLength": 20000,
           "description": "Optional sub-tier supplier attestations, SAM.gov FAR 52.204-24/26 representations, ownership/affiliation notes, or existing C-SCRM program documentation (0 to 20,000 characters)."
         }
@@ -2753,7 +2838,7 @@ const TOOLS = [
   {
     "name": "audit_foci_dd254_clearance",
     "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
-    "description": "Audit DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328 \u2014 Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards, returning an FCL & FOCI executive overview, a DD Form 254 Block 10/11 safeguarding matrix (COMSEC, SCI, SIPRNet, CUI), an SF 328 foreign interest factor audit, a DCSA FOCI mitigation agreement blueprint (Board Resolution, SCA, SSA with NID, or Proxy/Voting Trust with ECP and TCP controls), and a Key Management Personnel (KMP) Exclusion Resolution & NISP eMASS checklist. This is a read-only, stateless, non-destructive industrial security audit call (requires X-RapidAPI-Key; `dd254_and_ownership_cap_table_text` accepts 20 to 45,000 characters, while `target_facility_clearance_level` and `foreign_ownership_and_board_context` calibrate DCSA FCL safeguarding and 32 CFR 117.11 FOCI mitigation instruments). Use this tool when auditing DD Form 254 classified safeguarding requirements, SF 328 foreign ownership/LP triggers, or DCSA FCL / FOCI mitigation agreements; use `generate_ato_rmf_package` instead for DoD RMF / Continuous ATO (cATO) NIST 800-53 System Security Plans, or `match_key_personnel` for individual candidate security clearance and LCAT resume verification.",
+    "description": "Audit DD Form 254 Contract Security Classification Specifications (Blocks 10, 11, 13), Standard Form 328 (SF 328 — Certificate Pertaining to Foreign Interests), and corporate cap-table / foreign investor structures against 32 CFR Part 117 (NISPOM) and Defense Counterintelligence and Security Agency (DCSA) Facility Clearance (FCL) and Foreign Ownership, Control, or Influence (FOCI) mitigation standards, returning an FCL & FOCI executive overview, a DD Form 254 Block 10/11 safeguarding matrix (COMSEC, SCI, SIPRNet, CUI), an SF 328 foreign interest factor audit, a DCSA FOCI mitigation agreement blueprint (Board Resolution, SCA, SSA with NID, or Proxy/Voting Trust with ECP and TCP controls), and a Key Management Personnel (KMP) Exclusion Resolution & NISP eMASS checklist. This is a read-only, stateless, non-destructive industrial security audit call (requires X-RapidAPI-Key; `dd254_and_ownership_cap_table_text` accepts 20 to 45,000 characters, while `target_facility_clearance_level` and `foreign_ownership_and_board_context` calibrate DCSA FCL safeguarding and 32 CFR 117.11 FOCI mitigation instruments). Use this tool when auditing DD Form 254 classified safeguarding requirements, SF 328 foreign ownership/LP triggers, or DCSA FCL / FOCI mitigation agreements; use `generate_ato_rmf_package` instead for DoD RMF / Continuous ATO (cATO) NIST 800-53 System Security Plans, or `match_key_personnel` for individual candidate security clearance and LCAT resume verification.",
     "annotations": {
       "title": "Audit DCSA Facility Clearance (FCL), DD Form 254 & FOCI Mitigation",
       "readOnlyHint": true,
@@ -2972,7 +3057,7 @@ const TOOLS = [
         },
         "mosa_and_deferred_ordering_protection_plan": {
           "type": "object",
-          "description": "10 U.S.C. \u00a7 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
+          "description": "10 U.S.C. § 4401 MOSA interface boundary plan, black-box encapsulation strategy, and DFARS 252.227-7027/7037 audit defense."
         },
         "pre_award_ip_negotiation_checklist": {
           "type": "array",
@@ -3203,10 +3288,10 @@ const TOOLS = [
   },
   {
     "name": "generate_mentor_protege_jv_agreement",
-    "title": "Generate SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement",
-    "description": "Audit and generate SBA All-Small Mentor-Prot\u00e9g\u00e9 Program Agreements (13 CFR 125.9) and unpopulated Joint Venture Operating Agreements (13 CFR 125.8, 121.103(h), 124.513 8(a), 126.616 HUBZone, 127.506 WOSB, 128.402 SDVOSB), returning an SBA affiliation safe-harbor overview, all mandatory 13 CFR 125.8(b)(2) Operating Agreement clauses (Prot\u00e9g\u00e9 Managing Venturer & Responsible Manager controls neutralizing OHA negative-control protests, >= 40% substantive Prot\u00e9g\u00e9 workshare, commensurate profit distribution, dual-signature JV bank account, and equipment/labor schedules), a quantitative 40% Prot\u00e9g\u00e9 workshare and FAR 52.219-14 audit, and a 6-year SBA MPP Developmental Plan blueprint. This is a read-only, stateless, non-destructive GovCon corporate structuring and SBA compliance generator (requires X-RapidAPI-Key; `mentor_and_protege_profile_text` accepts 20 to 45,000 characters, while `target_set_aside_and_jv_type` and `agreement_deliverable_scope` calibrate SBA socio-economic JV rules and developmental assistance plans). Use this tool when drafting or auditing an SBA 13 CFR 125.8 Joint Venture Operating Agreement or 13 CFR 125.9 Mentor-Prot\u00e9g\u00e9 Developmental Plan to survive OHA size/status protests; use `generate_teaming_strategy` instead for standard FAR Subpart 9.6 Prime/Subcontractor Teaming Agreements, or `generate_small_business_participation` for Large Business Prime FAR 52.219-9 Subcontracting Plans.",
+    "title": "Generate SBA Mentor-Protégé (13 CFR 125.9) & Joint Venture Operating Agreement",
+    "description": "Audit and generate SBA All-Small Mentor-Protégé Program Agreements (13 CFR 125.9) and unpopulated Joint Venture Operating Agreements (13 CFR 125.8, 121.103(h), 124.513 8(a), 126.616 HUBZone, 127.506 WOSB, 128.402 SDVOSB), returning an SBA affiliation safe-harbor overview, all mandatory 13 CFR 125.8(b)(2) Operating Agreement clauses (Protégé Managing Venturer & Responsible Manager controls neutralizing OHA negative-control protests, >= 40% substantive Protégé workshare, commensurate profit distribution, dual-signature JV bank account, and equipment/labor schedules), a quantitative 40% Protégé workshare and FAR 52.219-14 audit, and a 6-year SBA MPP Developmental Plan blueprint. This is a read-only, stateless, non-destructive GovCon corporate structuring and SBA compliance generator (requires X-RapidAPI-Key; `mentor_and_protege_profile_text` accepts 20 to 45,000 characters, while `target_set_aside_and_jv_type` and `agreement_deliverable_scope` calibrate SBA socio-economic JV rules and developmental assistance plans). Use this tool when drafting or auditing an SBA 13 CFR 125.8 Joint Venture Operating Agreement or 13 CFR 125.9 Mentor-Protégé Developmental Plan to survive OHA size/status protests; use `generate_teaming_strategy` instead for standard FAR Subpart 9.6 Prime/Subcontractor Teaming Agreements, or `generate_small_business_participation` for Large Business Prime FAR 52.219-9 Subcontracting Plans.",
     "annotations": {
-      "title": "Generate SBA Mentor-Prot\u00e9g\u00e9 (13 CFR 125.9) & Joint Venture Operating Agreement",
+      "title": "Generate SBA Mentor-Protégé (13 CFR 125.9) & Joint Venture Operating Agreement",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -3219,7 +3304,7 @@ const TOOLS = [
           "type": "string",
           "minLength": 20,
           "maxLength": 45000,
-          "description": "Profiles of the Prot\u00e9g\u00e9 (Managing Venturer) and Mentor (Partner Venturer), socioeconomic certifications (Small, 8(a), SDVOSB, WOSB, HUBZone), target solicitation details, and proposed workshare split (20 to 45,000 characters)."
+          "description": "Profiles of the Protégé (Managing Venturer) and Mentor (Partner Venturer), socioeconomic certifications (Small, 8(a), SDVOSB, WOSB, HUBZone), target solicitation details, and proposed workshare split (20 to 45,000 characters)."
         },
         "target_set_aside_and_jv_type": {
           "type": "string",
@@ -3233,7 +3318,7 @@ const TOOLS = [
           "default": "Full_13_CFR_125_8_JV_Operating_Agreement_Clauses_Plus_13_CFR_125_9_MPP_Developmental_Plan",
           "minLength": 2,
           "maxLength": 2000,
-          "description": "Deliverable scope: 13 CFR 125.8(b)(2) Joint Venture Operating Agreement + Solicitation Addendum Clauses, 13 CFR 125.9 SBA Mentor-Prot\u00e9g\u00e9 Developmental Plan, and OHA Size/Status Protest Pre-Audit (defaults to 'Full_13_CFR_125_8_JV_Operating_Agreement_Clauses_Plus_13_CFR_125_9_MPP_Developmental_Plan')."
+          "description": "Deliverable scope: 13 CFR 125.8(b)(2) Joint Venture Operating Agreement + Solicitation Addendum Clauses, 13 CFR 125.9 SBA Mentor-Protégé Developmental Plan, and OHA Size/Status Protest Pre-Audit (defaults to 'Full_13_CFR_125_8_JV_Operating_Agreement_Clauses_Plus_13_CFR_125_9_MPP_Developmental_Plan')."
         }
       },
       "required": [
@@ -3260,11 +3345,11 @@ const TOOLS = [
         },
         "forty_percent_workshare_and_limitations_audit": {
           "type": "object",
-          "description": "Quantitative audit of FAR 52.219-14 Limitations on Subcontracting and the mandatory >= 40% Prot\u00e9g\u00e9 workshare rule."
+          "description": "Quantitative audit of FAR 52.219-14 Limitations on Subcontracting and the mandatory >= 40% Protégé workshare rule."
         },
         "sba_mpp_developmental_plan_blueprint": {
           "type": "object",
-          "description": "SBA All-Small Mentor-Prot\u00e9g\u00e9 Program (13 CFR 125.9) developmental assistance blueprint and term compliance check."
+          "description": "SBA All-Small Mentor-Protégé Program (13 CFR 125.9) developmental assistance blueprint and term compliance check."
         }
       }
     }
@@ -3474,10 +3559,10 @@ const TOOLS = [
   },
   {
     "name": "audit_itar_ear_export_control",
-    "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance",
-    "description": "Classify defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP). Returns a strictly validated `ItarEarExportResponse` JSON object containing `export_jurisdiction_overview`, `usml_and_eccn_classification_matrix`, `technology_control_plan_tcp_controls`, and `deemed_export_and_ddtc_bis_licensing` grounded in 22 CFR Parts 120\u2013130 (ITAR USML Categories IV & XI), 15 CFR Parts 730\u2013774 (EAR CCL), & DFARS 252.225-7048. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `technical_deliverables_and_rfp_export_text` accepts 15 to 45,000 characters, while `target_export_regime` and `foreign_national_and_oconus_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "title": "ITAR (22 CFR 120–130), EAR & Technology Control Plan (TCP) Export Compliance",
+    "description": "Classify defense/dual-use technical deliverables against USML Categories (ITAR) and CCL ECCNs (EAR), flags DFARS 252.225-7048 export obligations, and generates a facility Technology Control Plan (TCP). Returns a strictly validated `ItarEarExportResponse` JSON object containing `export_jurisdiction_overview`, `usml_and_eccn_classification_matrix`, `technology_control_plan_tcp_controls`, and `deemed_export_and_ddtc_bis_licensing` grounded in 22 CFR Parts 120–130 (ITAR USML Categories IV & XI), 15 CFR Parts 730–774 (EAR CCL), & DFARS 252.225-7048. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `technical_deliverables_and_rfp_export_text` accepts 15 to 45,000 characters, while `target_export_regime` and `foreign_national_and_oconus_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing ITAR (22 CFR 120–130), EAR & Technology Control Plan (TCP) Export Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
-      "title": "ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance",
+      "title": "ITAR (22 CFR 120–130), EAR & Technology Control Plan (TCP) Export Compliance",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -3490,7 +3575,7 @@ const TOOLS = [
           "type": "string",
           "minLength": 15,
           "maxLength": 45000,
-          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for ITAR (22 CFR 120\u2013130), EAR & Technology Control Plan (TCP) Export Compliance (15 to 45,000 characters)."
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for ITAR (22 CFR 120–130), EAR & Technology Control Plan (TCP) Export Compliance (15 to 45,000 characters)."
         },
         "target_export_regime": {
           "type": "string",
@@ -3572,10 +3657,10 @@ const TOOLS = [
         },
         "dd1423_pricing_group_strategy": {
           "type": "string",
-          "default": "Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV \u2014 NSP vs. Separately Priced Data CLIN)",
+          "default": "Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV — NSP vs. Separately Priced Data CLIN)",
           "minLength": 2,
           "maxLength": 2000,
-          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV \u2014 NSP vs. Separately Priced Data CLIN)')."
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'Map DD Form 1423 Block 18 Price Groups (Group I, II, III, IV — NSP vs. Separately Priced Data CLIN)')."
         }
       },
       "required": [
@@ -3617,7 +3702,7 @@ const TOOLS = [
   {
     "name": "generate_justification_ja_sole_source",
     "title": "FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter",
-    "description": "Draft a complete 12-Part FAR 6.303-2 Justification & Approval (J&A), FAR 8.405-6 Limited Sources Justification (LSJ), or FAR 16.505(b)(2) Fair Opportunity Exception package for Contracting Officers. Returns a strictly validated `SoleSourceJaResponse` JSON object containing `statutory_exception_overview`, `far_6_303_2_twelve_part_ja_sections`, `unacceptable_delay_and_duplicative_cost_quantification`, and `sam_gov_posting_and_approval_routing` grounded in FAR 6.302-1 (10 U.S.C. \u00a7 3204(a)(1) / 41 U.S.C. \u00a7 3304(a)(1)), FAR 6.303-2 (12 Mandatory Content Elements), & FAR 8.405-6 / 16.505(b)(2). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sole_source_requirement_and_vendor_uniqueness_text` accepts 15 to 45,000 characters, while `statutory_authority_pathway` and `estimated_dollar_value_and_approval_tier` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Draft a complete 12-Part FAR 6.303-2 Justification & Approval (J&A), FAR 8.405-6 Limited Sources Justification (LSJ), or FAR 16.505(b)(2) Fair Opportunity Exception package for Contracting Officers. Returns a strictly validated `SoleSourceJaResponse` JSON object containing `statutory_exception_overview`, `far_6_303_2_twelve_part_ja_sections`, `unacceptable_delay_and_duplicative_cost_quantification`, and `sam_gov_posting_and_approval_routing` grounded in FAR 6.302-1 (10 U.S.C. § 3204(a)(1) / 41 U.S.C. § 3304(a)(1)), FAR 6.303-2 (12 Mandatory Content Elements), & FAR 8.405-6 / 16.505(b)(2). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sole_source_requirement_and_vendor_uniqueness_text` accepts 15 to 45,000 characters, while `statutory_authority_pathway` and `estimated_dollar_value_and_approval_tier` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "FAR 6.302 / FAR 8.405-6 Sole-Source Justification & Approval (J&A / LSJ) Drafter",
       "readOnlyHint": true,
@@ -3643,10 +3728,10 @@ const TOOLS = [
         },
         "estimated_dollar_value_and_approval_tier": {
           "type": "string",
-          "default": "$18.5M Total Estimated Value \u2014 Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)",
+          "default": "$18.5M Total Estimated Value — Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)",
           "minLength": 2,
           "maxLength": 2000,
-          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to '$18.5M Total Estimated Value \u2014 Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)')."
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to '$18.5M Total Estimated Value — Competition Advocate Approval Tier ($750K to $15M / $20M DoD PEO/HCA Threshold)')."
         }
       },
       "required": [
@@ -3688,7 +3773,7 @@ const TOOLS = [
   {
     "name": "audit_cyber_incident_dfars_7012",
     "title": "DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package",
-    "description": "Evaluate CUI/CDI security incidents against DFARS 252.204-7012, CISA CIRCIA, and FedRAMP incident SLAs, generating a structured 72-hour DoD DIBNet ICF report, 90-day forensic media preservation checklist, and subcontractor flow-down notifications. Returns a strictly validated `Dfars7012IncidentResponse` JSON object containing `incident_reporting_determination`, `dibnet_72_hour_icf_report_fields`, `forensic_90_day_preservation_and_sla_clock`, and `dc3_damage_assessment_and_prime_flowdown_notices` grounded in DFARS 252.204-7012(c)\u2013(m) (72-Hour DoD DIBNet Reporting & 90-Day Image Preservation), CISA CIRCIA (6 U.S.C. \u00a7 681b), & NIST SP 800-61r2. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `security_incident_telemetry_and_affected_contracts_text` accepts 15 to 45,000 characters, while `regulatory_reporting_regimes` and `assurance_certificate_and_cloud_posture` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Evaluate CUI/CDI security incidents against DFARS 252.204-7012, CISA CIRCIA, and FedRAMP incident SLAs, generating a structured 72-hour DoD DIBNet ICF report, 90-day forensic media preservation checklist, and subcontractor flow-down notifications. Returns a strictly validated `Dfars7012IncidentResponse` JSON object containing `incident_reporting_determination`, `dibnet_72_hour_icf_report_fields`, `forensic_90_day_preservation_and_sla_clock`, and `dc3_damage_assessment_and_prime_flowdown_notices` grounded in DFARS 252.204-7012(c)–(m) (72-Hour DoD DIBNet Reporting & 90-Day Image Preservation), CISA CIRCIA (6 U.S.C. § 681b), & NIST SP 800-61r2. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `security_incident_telemetry_and_affected_contracts_text` accepts 15 to 45,000 characters, while `regulatory_reporting_regimes` and `assurance_certificate_and_cloud_posture` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "DFARS 252.204-7012 (72-Hour DIBNet) & CIRCIA Cyber Incident Reporting Package",
       "readOnlyHint": true,
@@ -3972,7 +4057,7 @@ const TOOLS = [
   {
     "name": "generate_oconus_sofa_defense_logistics",
     "title": "DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance",
-    "description": "Evaluate Pacific/OCONUS defense IT solicitations for Status of Forces Agreement (SOFA) TESA/TDY accreditation, FAR 52.228-3 Defense Base Act (DBA) insurance wraps, DFARS 252.225-7040 SPOT synchronization, and COLA/Post Allowance rate structures. Returns a strictly validated `OconusSofaDbaResponse` JSON object containing `oconus_theater_deployment_overview`, `sofa_host_nation_accreditation_matrix`, `dba_insurance_and_dssr_allowance_model`, and `spot_loa_and_crc_deployment_checklist` grounded in FAR 52.228-3 (42 U.S.C. \u00a7\u00a7 1651\u20131654 Defense Base Act), DFARS 252.225-7040 / 252.225-7995 (SPOT LOA), & DSSR Chapters 130/220/650. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `oconus_pws_and_theater_clauses_text` accepts 15 to 45,000 characters, while `target_combatant_command_and_host_nations` and `dba_and_dssr_allowance_assumptions` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Evaluate Pacific/OCONUS defense IT solicitations for Status of Forces Agreement (SOFA) TESA/TDY accreditation, FAR 52.228-3 Defense Base Act (DBA) insurance wraps, DFARS 252.225-7040 SPOT synchronization, and COLA/Post Allowance rate structures. Returns a strictly validated `OconusSofaDbaResponse` JSON object containing `oconus_theater_deployment_overview`, `sofa_host_nation_accreditation_matrix`, `dba_insurance_and_dssr_allowance_model`, and `spot_loa_and_crc_deployment_checklist` grounded in FAR 52.228-3 (42 U.S.C. §§ 1651–1654 Defense Base Act), DFARS 252.225-7040 / 252.225-7995 (SPOT LOA), & DSSR Chapters 130/220/650. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `oconus_pws_and_theater_clauses_text` accepts 15 to 45,000 characters, while `target_combatant_command_and_host_nations` and `dba_and_dssr_allowance_assumptions` calibrate the regulatory regime and threshold assumptions). Use this tool when executing DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "DoD OCONUS / INDOPACOM Deployment, SOFA, Defense Base Act (DBA) & SPOT Compliance",
       "readOnlyHint": true,
@@ -4043,7 +4128,7 @@ const TOOLS = [
   {
     "name": "generate_cui_marking_distribution_plan",
     "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan",
-    "description": "Analyze deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A\u2013F), and a CUI Sanitization & Spill Response SOP. Returns a strictly validated `CuiMarkingPlanResponse` JSON object containing `cui_registry_governance_overview`, `deliverable_cui_banner_and_distribution_matrix`, `portion_marking_and_designation_indicator_blocks`, and `nist_800_88_sanitization_and_spill_response_sop` grounded in 32 CFR Part 2002 (NARA CUI Program), DoDI 5200.48 (Controlled Unclassified Information), DoDI 5230.24 (Distribution Statements), & NIST SP 800-88 Rev. 1. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `deliverables_and_security_classification_guide_text` accepts 15 to 45,000 characters, while `cui_authority_framework` and `controlling_dod_office_and_ldc_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Analyze deliverables against the NARA CUI Registry, 32 CFR Part 2002, and DoDI 5200.48 to generate exact CUI banner/portion markings, DoD Distribution Statements (A–F), and a CUI Sanitization & Spill Response SOP. Returns a strictly validated `CuiMarkingPlanResponse` JSON object containing `cui_registry_governance_overview`, `deliverable_cui_banner_and_distribution_matrix`, `portion_marking_and_designation_indicator_blocks`, and `nist_800_88_sanitization_and_spill_response_sop` grounded in 32 CFR Part 2002 (NARA CUI Program), DoDI 5200.48 (Controlled Unclassified Information), DoDI 5230.24 (Distribution Statements), & NIST SP 800-88 Rev. 1. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `deliverables_and_security_classification_guide_text` accepts 15 to 45,000 characters, while `cui_authority_framework` and `controlling_dod_office_and_ldc_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "Controlled Unclassified Information (CUI / 32 CFR 2002 & DoDI 5200.48) Handling Plan",
       "readOnlyHint": true,
@@ -4114,7 +4199,7 @@ const TOOLS = [
   {
     "name": "generate_state_local_cooperative_piggyback",
     "title": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper",
-    "description": "Evaluate state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP. Returns a strictly validated `SledCoopPiggybackResponse` JSON object containing `sled_cooperative_piggyback_overview`, `eligible_cooperative_vehicles_matrix`, `participating_addendum_and_distributor_pathways`, and `statutory_interlocal_authority_and_cpo_memo` grounded in 40 U.S.C. \u00a7 502(c) (GSA Cooperative Purchasing for IT/Cyber SINs), ABA Model Procurement Code Article 10 (Intergovernmental Relations), & State Participating Addendum Statutes. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sled_buyer_requirement_and_vendor_contracts_text` accepts 15 to 45,000 characters, while `target_cooperative_portfolios` and `vendor_direct_vs_distributor_model` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Evaluate state and municipal IT procurements to identify eligible NASPO ValuePoint, Sourcewell, OMNIA Partners, TIPS, TX DIR, and GSA Cooperative Purchasing (SIN 54151S/HACS) piggyback vehicles that bypass a 6-month competitive RFP. Returns a strictly validated `SledCoopPiggybackResponse` JSON object containing `sled_cooperative_piggyback_overview`, `eligible_cooperative_vehicles_matrix`, `participating_addendum_and_distributor_pathways`, and `statutory_interlocal_authority_and_cpo_memo` grounded in 40 U.S.C. § 502(c) (GSA Cooperative Purchasing for IT/Cyber SINs), ABA Model Procurement Code Article 10 (Intergovernmental Relations), & State Participating Addendum Statutes. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `sled_buyer_requirement_and_vendor_contracts_text` accepts 15 to 45,000 characters, while `target_cooperative_portfolios` and `vendor_direct_vs_distributor_model` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "SLED Cooperative Purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS & DIR) Piggyback Mapper",
       "readOnlyHint": true,
@@ -4185,7 +4270,7 @@ const TOOLS = [
   {
     "name": "generate_value_engineering_vecp",
     "title": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler",
-    "description": "Transform cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%\u201375% shared-savings royalty. Returns a strictly validated `VecpFar48Response` JSON object containing `vecp_shared_savings_overview`, `instant_concurrent_and_future_savings_table`, `far_52_248_1_c_eight_element_proposal_package`, and `collateral_savings_and_data_rights_protection` grounded in FAR Part 48 (Value Engineering) & FAR 52.248-1(c)\u2013(i) (50%/50% to 75%/25% Voluntary VECP Incentive Sharing & 36\u201360 Month Future Acquisition Royalty). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `baseline_contract_and_proposed_engineering_change_text` accepts 15 to 45,000 characters, while `far_part_48_sharing_regime` and `development_and_government_implementation_costs` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Transform cloud FinOps, AI automation, or architecture optimizations on an active contract into a formal FAR 52.248-1 Value Engineering Change Proposal (VECP), calculating Instant/Concurrent/Future acquisition savings and the contractor's 50%–75% shared-savings royalty. Returns a strictly validated `VecpFar48Response` JSON object containing `vecp_shared_savings_overview`, `instant_concurrent_and_future_savings_table`, `far_52_248_1_c_eight_element_proposal_package`, and `collateral_savings_and_data_rights_protection` grounded in FAR Part 48 (Value Engineering) & FAR 52.248-1(c)–(i) (50%/50% to 75%/25% Voluntary VECP Incentive Sharing & 36–60 Month Future Acquisition Royalty). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `baseline_contract_and_proposed_engineering_change_text` accepts 15 to 45,000 characters, while `far_part_48_sharing_regime` and `development_and_government_implementation_costs` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "FAR Part 48 Value Engineering Change Proposal (VECP / FAR 52.248-1) & Shared-Savings Modeler",
       "readOnlyHint": true,
@@ -4256,7 +4341,7 @@ const TOOLS = [
   {
     "name": "audit_organizational_ethics_far_52_203_13",
     "title": "FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure",
-    "description": "Audit compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion. Returns a strictly validated `EthicsMandatoryDisclosureResponse` JSON object containing `credible_evidence_and_ethics_overview`, `far_52_203_13_and_pia_trigger_audit_matrix`, `oig_disclosure_submission_and_pge_wall_memos`, and `far_9_4_present_responsibility_and_internal_controls` grounded in FAR 52.203-13 (Contractor Code of Business Ethics and Conduct), 31 U.S.C. \u00a7 3729 (False Claims Act), FAR 3.104 (41 U.S.C. \u00a7 2101\u20132107 PIA), & 18 U.S.C. \u00a7 207. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `compliance_incident_or_former_official_hiring_text` accepts 15 to 45,000 characters, while `audit_focus_regime` and `contract_value_and_performance_duration` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Audit compliance incidents, overpayments, and hiring of former government officials against FAR 52.203-13 (Mandatory Disclosure Rule), False Claims Act (31 U.S.C. 3729), and Procurement Integrity Act (FAR 3.104), generating an Internal Control System & Post-Government Employment opinion. Returns a strictly validated `EthicsMandatoryDisclosureResponse` JSON object containing `credible_evidence_and_ethics_overview`, `far_52_203_13_and_pia_trigger_audit_matrix`, `oig_disclosure_submission_and_pge_wall_memos`, and `far_9_4_present_responsibility_and_internal_controls` grounded in FAR 52.203-13 (Contractor Code of Business Ethics and Conduct), 31 U.S.C. § 3729 (False Claims Act), FAR 3.104 (41 U.S.C. § 2101–2107 PIA), & 18 U.S.C. § 207. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `compliance_incident_or_former_official_hiring_text` accepts 15 to 45,000 characters, while `audit_focus_regime` and `contract_value_and_performance_duration` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "FAR 52.203-13 Business Ethics, Procurement Integrity Act & OIG Mandatory Disclosure",
       "readOnlyHint": true,
@@ -4468,10 +4553,10 @@ const TOOLS = [
   },
   {
     "name": "generate_termination_for_convenience_settlement",
-    "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator",
-    "description": "Compute recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal. Returns a strictly validated `T4cSettlementResponse` JSON object containing `t4c_settlement_executive_overview`, `sf_1435_1436_recoverable_quantum_schedule`, `subcontractor_settlement_and_sf_1428_inventory_schedule`, and `far_31_205_42_allowability_and_one_year_filing_clock` grounded in FAR Part 49, FAR 52.249-2 (Termination for Convenience of the Government), FAR 31.205-42 (Termination Costs), & Standard Forms 1435 / 1436 / 1437 / 1438 / 1428. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `termination_notice_and_incurred_cost_ledger_text` accepts 15 to 45,000 characters, while `settlement_proposal_basis_and_form` and `contract_type_and_clause_regime` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435–1438) Settlement Proposal Calculator",
+    "description": "Compute recoverable sunk costs, subcontractor termination claims, settlement expenses, and profit on work performed under FAR Part 49 and FAR 52.249-2, generating an Inventory Basis (SF 1435) or Total Cost Basis (SF 1436) T4C Settlement Proposal. Returns a strictly validated `T4cSettlementResponse` JSON object containing `t4c_settlement_executive_overview`, `sf_1435_1436_recoverable_quantum_schedule`, `subcontractor_settlement_and_sf_1428_inventory_schedule`, and `far_31_205_42_allowability_and_one_year_filing_clock` grounded in FAR Part 49, FAR 52.249-2 (Termination for Convenience of the Government), FAR 31.205-42 (Termination Costs), & Standard Forms 1435 / 1436 / 1437 / 1438 / 1428. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `termination_notice_and_incurred_cost_ledger_text` accepts 15 to 45,000 characters, while `settlement_proposal_basis_and_form` and `contract_type_and_clause_regime` calibrate the regulatory regime and threshold assumptions). Use this tool when executing FAR Part 49 Termination for Convenience (T4C / SF 1435–1438) Settlement Proposal Calculator workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
-      "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator",
+      "title": "FAR Part 49 Termination for Convenience (T4C / SF 1435–1438) Settlement Proposal Calculator",
       "readOnlyHint": true,
       "destructiveHint": false,
       "idempotentHint": true,
@@ -4484,7 +4569,7 @@ const TOOLS = [
           "type": "string",
           "minLength": 15,
           "maxLength": 45000,
-          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR Part 49 Termination for Convenience (T4C / SF 1435\u20131438) Settlement Proposal Calculator (15 to 45,000 characters)."
+          "description": "Primary solicitation text, clause excerpts, deliverable schedule, or technical/financial context for FAR Part 49 Termination for Convenience (T4C / SF 1435–1438) Settlement Proposal Calculator (15 to 45,000 characters)."
         },
         "settlement_proposal_basis_and_form": {
           "type": "string",
@@ -4540,7 +4625,7 @@ const TOOLS = [
   {
     "name": "generate_novated_merger_change_of_name_far_42",
     "title": "GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package",
-    "description": "Generate a complete FAR 42.1204 Three-Party Novation Agreement package for GovCon asset/stock acquisitions, auditing anti-assignment exceptions (41 U.S.C. 6305), SAM.gov UEI/CAGE transfer checklists, and SBA recertification triggers under 13 CFR 121.404(g). Returns a strictly validated `NovationFar42Response` JSON object containing `transaction_structure_and_novation_overview`, `far_42_1204_document_checklist_and_three_party_agreement`, `sba_13_cfr_121_404_recertification_and_backlog_audit`, and `sam_uei_cage_and_dcsa_fcl_transition_runbook` grounded in 41 U.S.C. \u00a7 6305 (Anti-Assignment Act), FAR Subpart 42.12 (FAR 42.1204 Novation & FAR 42.1205 Change-of-Name), & 13 CFR \u00a7 121.404(g). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `m_and_a_transaction_and_contract_backlog_text` accepts 15 to 45,000 characters, while `deal_structure_and_pathway` and `small_business_and_clearance_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Generate a complete FAR 42.1204 Three-Party Novation Agreement package for GovCon asset/stock acquisitions, auditing anti-assignment exceptions (41 U.S.C. 6305), SAM.gov UEI/CAGE transfer checklists, and SBA recertification triggers under 13 CFR 121.404(g). Returns a strictly validated `NovationFar42Response` JSON object containing `transaction_structure_and_novation_overview`, `far_42_1204_document_checklist_and_three_party_agreement`, `sba_13_cfr_121_404_recertification_and_backlog_audit`, and `sam_uei_cage_and_dcsa_fcl_transition_runbook` grounded in 41 U.S.C. § 6305 (Anti-Assignment Act), FAR Subpart 42.12 (FAR 42.1204 Novation & FAR 42.1205 Change-of-Name), & 13 CFR § 121.404(g). This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `m_and_a_transaction_and_contract_backlog_text` accepts 15 to 45,000 characters, while `deal_structure_and_pathway` and `small_business_and_clearance_context` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "GovCon M&A Contract Novation (FAR 42.1204) & Change-of-Name Due Diligence Package",
       "readOnlyHint": true,
@@ -4611,7 +4696,7 @@ const TOOLS = [
   {
     "name": "generate_section_l_m_proposal_red_team_scorer",
     "title": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer",
-    "description": "Simulate a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites. Returns a strictly validated `RedTeamEvaluatorResponse` JSON object containing `sseb_consensus_evaluation_overview`, `factor_by_factor_color_and_risk_scorecard`, `sseb_strengths_weaknesses_deficiencies_and_rewrites`, and `competitive_range_and_gold_team_recovery_plan` grounded in FAR 15.305 (Proposal Evaluation), DoD Source Selection Procedures (DFARS PGI 215.3 \u2014 Blue/Purple/Green/Yellow/Red Consensus Grading), & Shipley Color Team Standards. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `rfp_section_l_m_and_draft_proposal_text` accepts 15 to 45,000 characters, while `source_selection_grading_methodology` and `color_team_review_stage` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Simulate a Government Source Selection Evaluation Board (SSEB) under FAR 15.305, grading a draft proposal volume against RFP Section L/M into DoD Color/Adjectival Ratings (Blue/Outstanding to Red/Unacceptable) with exact Strengths, Weaknesses, Deficiencies, and page-level rewrites. Returns a strictly validated `RedTeamEvaluatorResponse` JSON object containing `sseb_consensus_evaluation_overview`, `factor_by_factor_color_and_risk_scorecard`, `sseb_strengths_weaknesses_deficiencies_and_rewrites`, and `competitive_range_and_gold_team_recovery_plan` grounded in FAR 15.305 (Proposal Evaluation), DoD Source Selection Procedures (DFARS PGI 215.3 — Blue/Purple/Green/Yellow/Red Consensus Grading), & Shipley Color Team Standards. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `rfp_section_l_m_and_draft_proposal_text` accepts 15 to 45,000 characters, while `source_selection_grading_methodology` and `color_team_review_stage` calibrate the regulatory regime and threshold assumptions). Use this tool when executing SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "SSEB Source Selection Simulator & Shipley Pink/Red/Gold Team Proposal Scorer",
       "readOnlyHint": true,
@@ -4682,7 +4767,7 @@ const TOOLS = [
   {
     "name": "generate_gsa_tdr_quarterly_sales_iff_reconciler",
     "title": "GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler",
-    "description": "Audit commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule sales, calculate quarterly 0.75% IFF remittance, validate Transactional Data Reporting (TDR) 16-field data elements, and prepare for a GSA IOA Contractor Assistance Visit (CAV). Returns a strictly validated `GsaTdrIffAuditResponse` JSON object containing `gsa_srp_and_iff_reconciliation_overview`, `invoice_schedule_vs_open_market_classification_table`, `tdr_16_field_validation_and_ioa_cav_checklist`, and `iff_remittance_calendar_and_price_reductions_safe_harbor` grounded in GSAR 552.238-80 (Industrial Funding Fee and Sales Reporting \u2014 0.75% IFF within 30 days of quarter close), GSAR 552.238-81 (TDR), & GSA IOA Contractor Assistance Visit (CAV) Guide. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `quarterly_invoice_ledger_and_gsa_contract_text` accepts 15 to 45,000 characters, while `gsa_reporting_regime` and `reporting_quarter_and_sins` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
+    "description": "Audit commercial vs. GSA Schedule invoices to separate Open-Market vs. Schedule sales, calculate quarterly 0.75% IFF remittance, validate Transactional Data Reporting (TDR) 16-field data elements, and prepare for a GSA IOA Contractor Assistance Visit (CAV). Returns a strictly validated `GsaTdrIffAuditResponse` JSON object containing `gsa_srp_and_iff_reconciliation_overview`, `invoice_schedule_vs_open_market_classification_table`, `tdr_16_field_validation_and_ioa_cav_checklist`, and `iff_remittance_calendar_and_price_reductions_safe_harbor` grounded in GSAR 552.238-80 (Industrial Funding Fee and Sales Reporting — 0.75% IFF within 30 days of quarter close), GSAR 552.238-81 (TDR), & GSA IOA Contractor Assistance Visit (CAV) Guide. This is a read-only, stateless, non-destructive GovCon compliance and capture analysis call (requires X-RapidAPI-Key or X-SignalTender-Key; `quarterly_invoice_ledger_and_gsa_contract_text` accepts 15 to 45,000 characters, while `gsa_reporting_regime` and `reporting_quarter_and_sins` calibrate the regulatory regime and threshold assumptions). Use this tool when executing GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler workflows; use `scan_far_dfars_clauses` instead for general FAR/DFARS clause flow-down audits, or `generate_compliance_matrix` for general Section L/M 'shall' requirement extraction.",
     "annotations": {
       "title": "GSA FAS Sales Reporting Portal (SRP), TDR Line-Item & IFF CAV/IOA Audit Reconciler",
       "readOnlyHint": true,
@@ -4708,10 +4793,10 @@ const TOOLS = [
         },
         "reporting_quarter_and_sins": {
           "type": "string",
-          "default": "FY2026 Q4 (July 1 \u2013 Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM",
+          "default": "FY2026 Q4 (July 1 – Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM",
           "minLength": 2,
           "maxLength": 2000,
-          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FY2026 Q4 (July 1 \u2013 Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM')."
+          "description": "Operational context, threshold parameters, or compliance posture assumptions (defaults to 'FY2026 Q4 (July 1 – Sept 30; SRP Filing Due Oct 30) | SINs: 54151S, 54151HACS, 518210C, OLM')."
         }
       },
       "required": [
