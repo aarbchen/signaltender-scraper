@@ -1451,7 +1451,53 @@ HEALTH_IT_CONTRACTOR_WHITELIST = {
 COMPETITOR_OR_EXCLUDED_DOMAINS = {
     "technomile.com", "deltek.com", "govwin.com", "higherlogic.com",
     "group.com", "alvarez.com", "rossassociates.com", "eprentise.com", "truveta.com",
+    "camberdesk.com", "trycamberdesk.com", "getcamberdesk.com", "camberdesk.io", "camberdesk.net",
 }
+
+_CAMBERDESK_EXCLUSION_CACHE: Optional[Tuple[set[str], set[str]]] = None
+
+
+def _load_camberdesk_excluded_emails_and_domains() -> Tuple[set[str], set[str]]:
+    """
+    Loads all prospect emails and corporate domains from CamberDesk (`D:\\CamberDesk`)
+    so SignalTender and CamberDesk maintain 100% zero-overlap across all harvested leads,
+    CSV queues, and Instantly.ai campaigns.
+    """
+    global _CAMBERDESK_EXCLUSION_CACHE
+    if _CAMBERDESK_EXCLUSION_CACHE is not None:
+        return _CAMBERDESK_EXCLUSION_CACHE
+
+    ex_emails: set[str] = set()
+    ex_domains: set[str] = {
+        "camberdesk.com", "trycamberdesk.com", "getcamberdesk.com", "camberdesk.io", "camberdesk.net"
+    }
+    camber_json = r"D:\CamberDesk\verified_public_dot_contacts.json"
+    camber_csv = r"D:\CamberDesk\campaign_leads.csv"
+    if os.path.exists(camber_json):
+        try:
+            with open(camber_json, "r", encoding="utf-8") as f:
+                rows = json.load(f)
+                if isinstance(rows, list):
+                    for r in rows:
+                        if isinstance(r, dict):
+                            em = str(r.get("email") or r.get("Email") or "").strip().lower()
+                            if "@" in em:
+                                ex_emails.add(em)
+                                ex_domains.add(em.split("@", 1)[1])
+        except Exception:
+            pass
+    if os.path.exists(camber_csv):
+        try:
+            with open(camber_csv, "r", encoding="utf-8-sig", newline="") as cf:
+                for r in csv.DictReader(cf):
+                    em = str(r.get("Email") or r.get("email") or "").strip().lower()
+                    if "@" in em:
+                        ex_emails.add(em)
+                        ex_domains.add(em.split("@", 1)[1])
+        except Exception:
+            pass
+    _CAMBERDESK_EXCLUSION_CACHE = (ex_emails, ex_domains)
+    return _CAMBERDESK_EXCLUSION_CACHE
 
 NON_IT_BIO_AG_MAT_REGEX = re.compile(
     r"(\bbiotech|\bbiomed|\bmedical\b|\bmedicine\b|\bhealthcare\b|\bhealth\s+care\b|\bpharma|\btherap|"
@@ -1506,7 +1552,10 @@ def is_verified_it_cyber_prospect(
     if "@" not in em:
         return False
     local, dom = em.split("@", 1)
-    if dom in COMPETITOR_OR_EXCLUDED_DOMAINS:
+    if dom in COMPETITOR_OR_EXCLUDED_DOMAINS or "camberdesk" in dom:
+        return False
+    camber_emails, camber_domains = _load_camberdesk_excluded_emails_and_domains()
+    if em in camber_emails or dom in camber_domains:
         return False
     if local in BAD_LOCAL_PARTS or any(
         sub in local for sub in ("human.resource", "humanresource", "investor", "grant", "news", "theteam", "webmaster")

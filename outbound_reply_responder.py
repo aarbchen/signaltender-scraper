@@ -437,7 +437,7 @@ def run_reply_responder() -> dict:
 
             from_email = str(msg.get("from_address_email") or msg.get("lead") or "").strip()
             eaccount = str(msg.get("eaccount") or "").strip()
-            if (eaccount and "signaltender" not in eaccount.lower()) or "camberdesk" in from_email.lower():
+            if "signaltender" not in eaccount.lower() or "camberdesk" in eaccount.lower() or "camberdesk" in from_email.lower():
                 continue
             subject = str(msg.get("subject") or "Re: Open IT RFPs").strip()
             body_obj = msg.get("body") or {}

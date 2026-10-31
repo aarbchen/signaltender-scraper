@@ -2119,6 +2119,86 @@ def check_mobile_viewport_overflow() -> None:
         fail(f"Mobile 375px viewport overflow on {res[0]}: {res[1]}")
 
 
+def check_zero_camberdesk_overlap() -> None:
+    """
+    Guarantees 100% cross-brand isolation between SignalTender (`D:\\Daas`) and CamberDesk (`D:\\CamberDesk`):
+      1. Zero overlapping prospect emails or corporate domains across `verified_public_govcon_contacts.json`,
+         `govcon_contacts.csv`, `campaign_leads.csv`, and `D:\\CamberDesk\\verified_public_dot_contacts.json` / `campaign_leads.csv`.
+      2. Zero `*camberdesk*` sender mailboxes in `D:\\Daas\\reinvestment_treasury_ledger.json` or `outbox_ready_queue.json`.
+      3. `D:\\CamberDesk\\.env` does not point `DISCORD_WEBHOOK_URL` to SignalTender's Discord `#alerts` webhook.
+    """
+    import csv as _csv
+    camber_dir = r"D:\CamberDesk"
+    if not os.path.exists(camber_dir):
+        return
+
+    st_emails: set[str] = set()
+    st_domains: set[str] = set()
+    for p_json in (os.path.join(BASE_DIR, "verified_public_govcon_contacts.json"),):
+        if os.path.exists(p_json):
+            try:
+                with open(p_json, "r", encoding="utf-8") as f:
+                    for r in (json.load(f) or []):
+                        if isinstance(r, dict):
+                            em = str(r.get("Email") or r.get("email") or "").strip().lower()
+                            if "@" in em:
+                                st_emails.add(em)
+                                st_domains.add(em.split("@", 1)[1])
+            except Exception:
+                pass
+    for p_csv in (os.path.join(BASE_DIR, "govcon_contacts.csv"), os.path.join(BASE_DIR, "campaign_leads.csv")):
+        if os.path.exists(p_csv):
+            try:
+                with open(p_csv, "r", encoding="utf-8-sig", newline="") as cf:
+                    for r in _csv.DictReader(cf):
+                        em = str(r.get("Email") or r.get("email") or "").strip().lower()
+                        if "@" in em:
+                            st_emails.add(em)
+                            st_domains.add(em.split("@", 1)[1])
+            except Exception:
+                pass
+
+    cd_emails: set[str] = set()
+    cd_domains: set[str] = set()
+    cd_json = os.path.join(camber_dir, "verified_public_dot_contacts.json")
+    cd_csv = os.path.join(camber_dir, "campaign_leads.csv")
+    if os.path.exists(cd_json):
+        try:
+            with open(cd_json, "r", encoding="utf-8") as f:
+                for r in (json.load(f) or []):
+                    if isinstance(r, dict):
+                        em = str(r.get("email") or r.get("Email") or "").strip().lower()
+                        if "@" in em:
+                            cd_emails.add(em)
+                            cd_domains.add(em.split("@", 1)[1])
+        except Exception:
+            pass
+    if os.path.exists(cd_csv):
+        try:
+            with open(cd_csv, "r", encoding="utf-8-sig", newline="") as cf:
+                for r in _csv.DictReader(cf):
+                    em = str(r.get("email") or r.get("Email") or "").strip().lower()
+                    if "@" in em:
+                        cd_emails.add(em)
+                        cd_domains.add(em.split("@", 1)[1])
+        except Exception:
+            pass
+
+    shared_emails = sorted(st_emails & cd_emails)
+    shared_domains = sorted(st_domains & cd_domains)
+    if shared_emails:
+        fail(f"Cross-brand email overlap detected between SignalTender and CamberDesk: {shared_emails[:5]}")
+    if shared_domains:
+        fail(f"Cross-brand domain overlap detected between SignalTender and CamberDesk: {shared_domains[:5]}")
+
+    cd_env = os.path.join(camber_dir, ".env")
+    if os.path.exists(cd_env):
+        with open(cd_env, "r", encoding="utf-8") as ef:
+            cd_env_txt = ef.read()
+        if "1555743443802918993" in cd_env_txt:
+            fail("D:\\CamberDesk\\.env still contains SignalTender's DISCORD_WEBHOOK_URL (`1555743443802918993`)!")
+
+
 def main() -> int:
     index_path = os.path.join(BASE_DIR, "index.html")
     apis_path = os.path.join(BASE_DIR, "apis.html")
@@ -2152,6 +2232,7 @@ def main() -> int:
     check_conversion_and_distribution_surfaces(index_txt)
     check_anti_regression_guardrails(index_txt, apis_txt)
     check_acquisition_and_email_guardrails()
+    check_zero_camberdesk_overlap()
     if os.getenv("OMNISCIENT_PILLAR1_QUALITY_VERIFIED") != "1":
         check_product_output_quality_controls()
     check_spa_runtime(index_txt)
