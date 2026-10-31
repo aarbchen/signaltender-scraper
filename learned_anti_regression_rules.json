@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
   "updated_at": "2026-10-31T15:51:35Z",
-  "total_rules": 21,
+  "total_rules": 22,
   "rules": [
     {
       "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
@@ -82,8 +82,8 @@
       "source": "omniscient_auditor.py / silent_autopilot_watcher.py / windows_autopilot_guard.py",
       "bug_signature": "Autonomous audit and self-healing jobs running during daytime hours while the operator is actively using the computer",
       "root_cause": "Background watcher and audit invocations lacked a nighttime + Windows user-idle (GetLastInputInfo) gate.",
-      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM – 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
-      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM – 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
+      "fix_applied": "Enforced is_nighttime_and_user_away() (11:00 PM \u2013 6:00 AM local time AND >= 30 minutes of keyboard/mouse idle time) across omniscient_auditor.py, silent_autopilot_watcher.py, and windows_autopilot_guard.py.",
+      "prevention_rule": "Autonomous full-system audits and self-healing runs must only execute at night (11:00 PM \u2013 6:00 AM local time) when the user is away (>= 30m idle via GetLastInputInfo), unless explicitly invoked with --force-now.",
       "created_at": "2026-10-29T20:36:15Z",
       "last_healed_at": "2026-10-29T20:36:15Z",
       "times_triggered_and_healed": 1
@@ -141,7 +141,7 @@
       "category": "Products & Scrapers",
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
-      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
+      "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code \u00a7 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
       "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 0 local + 1 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
@@ -186,7 +186,7 @@
     },
     {
       "rule_id": "RULE-011-ZERO-PERMISSION-AUTONOMOUS-BUG-AND-BLINDSPOT-HEALING",
-      "category": "Autonomous Bug Remediation & 360° Blindspot Coverage",
+      "category": "Autonomous Bug Remediation & 360\u00b0 Blindspot Coverage",
       "source": "omniscient_auditor.py / auto_error_healer.py / AGENTS.md",
       "bug_signature": "Waiting for user permission before fixing detected bugs, or missing blindspot checks across processed_outbound_replies.json (list vs dict), sent_outreach_log.json DNC, Instantly lead starvation, multi-portal zero-lead rot, Stripe-to-Supabase subscriber provisioning, full 34-endpoint OpenAPI parity, ",
       "root_cause": "Asking for confirmation before fixing bugs and assuming single-schema JSON structures or single-repo git pushes.",
@@ -255,6 +255,18 @@
       "created_at": "2026-10-31T05:40:11Z",
       "last_healed_at": "2026-10-31T10:56:06Z",
       "times_triggered_and_healed": 98
+    },
+    {
+      "rule_id": "RULE-016-ZERO-CAMBERDESK-OVERLAP",
+      "category": "Cross-Brand Isolation (SignalTender <-> CamberDesk)",
+      "source": "govcon_lead_harvester.py / outreach_generator.py / outbound_reply_responder.py / api/routers/stripe_webhook.py / verify_site_integrity.py",
+      "bug_signature": "Cross-brand overlap between SignalTender (Federal/SLED IT & Cyber) and CamberDesk (Heavy-Civil/DOT) across prospect emails/domains, Instantly.ai mailboxes/campaigns, Unibox reply responders, Stripe checkout webhooks, or Discord webhooks",
+      "root_cause": "Running both autonomous platforms on the same machine and Instantly.ai workspace without explicit cross-repo exclusion fences and brand filters.",
+      "fix_applied": "Added mutual email/domain exclusion fences (_load_camberdesk_excluded_emails_and_domains() and is_excluded_by_signaltender()), enforced skip_if_in_workspace: True, filtered Instantly mailboxes/Unibox replies strictly by *signaltender* vs *camberdesk*, added _is_camberdesk_stripe_event() guard in stripe_webhook.py, separated CAMBERDESK_DISCORD_WEBHOOK_URL, and added check_zero_camberdesk_overlap() in verify_site_integrity.py.",
+      "prevention_rule": "Maintain 100% zero overlap between SignalTender and CamberDesk across prospect emails, corporate domains, Instantly.ai campaigns/mailboxes (*signaltender* vs *camberdesk*), Unibox reply responders, Stripe checkout webhooks (_is_camberdesk_stripe_event()), and Discord webhooks.",
+      "created_at": "2026-10-31T16:35:00Z",
+      "last_healed_at": "2026-10-31T16:35:00Z",
+      "times_triggered_and_healed": 1
     }
   ]
 }
