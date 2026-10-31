@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-31T10:38:02Z",
+  "timestamp": "2026-10-31T10:46:40Z",
   "mode": "fast",
-  "elapsed_seconds": 147.74,
+  "elapsed_seconds": 145.2,
   "status": "HEALTHY",
   "counts": {
     "portals": 52,
