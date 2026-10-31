@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-10-31T10:11:18Z",
+  "timestamp": "2026-10-31T10:19:45Z",
   "mode": "fast",
-  "elapsed_seconds": 146.9,
-  "status": "ACTION_REQUIRED",
+  "elapsed_seconds": 159.14,
+  "status": "HEALTHY",
   "counts": {
     "portals": 52,
     "states": 50,
@@ -13,9 +13,7 @@
   "pillars": {
     "products": {
       "auto_fixed": [],
-      "unfixed_issues": [
-        "Discord Bot token check returned HTTP 429"
-      ]
+      "unfixed_issues": []
     },
     "acquisition_channels": {
       "auto_fixed": [
