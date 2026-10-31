@@ -3,8 +3,20 @@ services:
     name: daas-contract-scraper
     runtime: python
     schedule: "0 */6 * * *"
-    buildCommand: pip install -r requirements.txt && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium
+    buildCommand: pip install -r requirements.txt && python -c "import pathlib, subprocess; p = pathlib.Path('node_modules/playwright-core/.local-browsers'); subprocess.run(['playwright', 'install', 'chromium'], check=True) if not p.exists() or not any(p.iterdir()) else print('Playwright Chromium already cached')"
     startCommand: python mainscraper.py
+    buildFilter:
+      ignoredPaths:
+        - "*.html"
+        - "*.md"
+        - "*.csv"
+        - "*.png"
+        - "contracts/**"
+        - "mcp-server/**"
+        - "verify_site_integrity.py"
+        - "govcon_lead_harvester.py"
+        - "outbox_ready_queue.json"
+        - "daily_expansion_roadmap.json"
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: "0"

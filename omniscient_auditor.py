@@ -1825,8 +1825,22 @@ def run_omniscient_audit(
                     )
                     if (st_chk.stdout or "").strip():
                         subprocess.run(["git", "add", "-A"], cwd=str(repo_dir), check=False)
+                        diff_chk = subprocess.run(
+                            ["git", "diff", "--cached", "--name-only"],
+                            cwd=str(repo_dir),
+                            capture_output=True,
+                            text=True,
+                            check=False,
+                        )
+                        staged_files = [ln.strip() for ln in (diff_chk.stdout or "").splitlines() if ln.strip()]
+                        needs_render_build = any(
+                            f.endswith((".py", "requirements.txt", "render.yaml", "Dockerfile"))
+                            and not f.startswith(("test_", "verify_", "govcon_lead_harvester.py", "rapidapi_headless_publisher.py"))
+                            for f in staged_files
+                        )
+                        skip_tag = "" if needs_render_build else " [skip render]"
                         subprocess.run(
-                            ["git", "commit", "-m", f"fix(self-healer): auto-heal {comp_str[:72]} & codify anti-regression rule"],
+                            ["git", "commit", "-m", f"fix(self-healer): auto-heal {comp_str[:72]} & codify anti-regression rule{skip_tag}"],
                             cwd=str(repo_dir),
                             check=False,
                             capture_output=True,
