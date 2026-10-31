@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-10-31T08:29:03Z",
+  "updated_at": "2026-10-31T08:41:27Z",
   "total_rules": 21,
   "rules": [
     {
@@ -253,8 +253,8 @@
       "fix_applied": "Executed `outreach_generator.py` to harvest new DNS/MX-verified IT/Cyber executives and sync them into Instantly V2.",
       "prevention_rule": "Verify every outbound lead row in campaign_leads.csv and outbox_ready_queue.json has live /contracts/rfp/<slug>.html URLs, current portal/API counts, and zero DNC addresses.",
       "created_at": "2026-10-31T05:40:11Z",
-      "last_healed_at": "2026-10-31T08:29:03Z",
-      "times_triggered_and_healed": 54
+      "last_healed_at": "2026-10-31T08:41:27Z",
+      "times_triggered_and_healed": 57
     }
   ]
 }
