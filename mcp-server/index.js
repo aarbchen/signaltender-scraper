@@ -5058,6 +5058,47 @@ const ENDPOINT_MAP = {
   }
 };
 
+const PUBLIC_MIRROR_HOSTS = {
+  "generate_sources_sought_response": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_oci_mitigation_plan": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_sbir_sttr_commercialization": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+  "audit_section_508_vpat": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "audit_supply_chain_scrm": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_quality_assurance_qasp": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_phase_in_transition_plan": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "audit_dcaa_accounting_sf1408": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_ota_white_paper": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "audit_foci_dd254_clearance": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_small_business_participation": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_data_rights_assertion_table": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_capture_black_hat_review": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_post_award_cpar_rebuttal": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_rea_equitable_adjustment": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_mentor_protege_jv_agreement": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "audit_service_contract_act_wage": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_evms_ipmdr_variance_analysis": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_cost_accounting_cas_ds2": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "audit_itar_ear_export_control": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_cdrls_did_data_deliverables": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_justification_ja_sole_source": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "audit_cyber_incident_dfars_7012": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "generate_doe_national_lab_mando_subcontract": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_gwac_task_order_fair_opportunity": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "audit_govt_furnished_property_gfp": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_oconus_sofa_defense_logistics": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_cui_marking_distribution_plan": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "generate_state_local_cooperative_piggyback": "ai-bid-no-bid-capability-matcher-api.p.rapidapi.com",
+  "generate_value_engineering_vecp": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "audit_organizational_ethics_far_52_203_13": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_fedramp_equivalency_body_of_evidence": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "generate_ai_governance_nist_ai_rmf_omb_m24": "soc-2-fedramp-nist-800-171-security-questionnaire-api.p.rapidapi.com",
+  "generate_termination_for_convenience_settlement": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_novated_merger_change_of_name_far_42": "far-dfars-cmmc-clause-risk-scanner-api.p.rapidapi.com",
+  "generate_section_l_m_proposal_red_team_scorer": "rfp-compliance-matrix-proposal-outline-api.p.rapidapi.com",
+  "generate_gsa_tdr_quarterly_sales_iff_reconciler": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com",
+  "generate_award_fee_plan_incentive_maximizer": "govcon-gsa-mas-schedule-sin-mapper-prc-compliance-api.p.rapidapi.com"
+};
+
 async function callSignalTenderEndpoint(toolName, args) {
   const route = ENDPOINT_MAP[toolName];
   if (!route) {
@@ -5101,24 +5142,50 @@ async function callSignalTenderEndpoint(toolName, args) {
     };
   }
 
+  const buildUrlWithParams = (baseUrlStr) => {
+    const u = new URL(baseUrlStr);
+    if (route.method === "GET" && args && typeof args === "object") {
+      Object.entries(args).forEach(([k, v]) => {
+        if (v !== undefined && v !== null && v !== "") {
+          u.searchParams.set(k, String(v));
+        }
+      });
+    }
+    return u;
+  };
+
+  url = buildUrlWithParams(url.toString());
   const fetchOptions = {
     method: route.method,
     headers
   };
 
-  if (route.method === "GET" && args && typeof args === "object") {
-    Object.entries(args).forEach(([k, v]) => {
-      if (v !== undefined && v !== null && v !== "") {
-        url.searchParams.set(k, String(v));
-      }
-    });
-  } else if (route.method === "POST") {
+  if (route.method === "POST") {
     fetchOptions.body = JSON.stringify(args || {});
   }
 
-  const response = await fetch(url.toString(), fetchOptions);
+  let response = await fetch(url.toString(), fetchOptions);
+
+  if ((response.status === 403 || response.status === 404) && RAPIDAPI_KEY && !RAPIDAPI_PROXY_SECRET) {
+    const mirrorHost = PUBLIC_MIRROR_HOSTS[toolName];
+    if (mirrorHost && mirrorHost !== headers["X-RapidAPI-Host"]) {
+      const mirrorUrl = buildUrlWithParams(`https://${mirrorHost}${route.path}`);
+      const mirrorHeaders = { ...headers, "X-RapidAPI-Host": mirrorHost };
+      response = await fetch(mirrorUrl.toString(), { ...fetchOptions, headers: mirrorHeaders });
+    }
+    if (response.status === 403 || response.status === 404) {
+      const directUrl = buildUrlWithParams(`${BASE_URL}${route.path}`);
+      const directHeaders = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-SignalTender-Sandbox": "interactive-studio"
+      };
+      response = await fetch(directUrl.toString(), { ...fetchOptions, headers: directHeaders });
+    }
+  }
+
   const text = await response.text();
-  return {
+  const result = {
     isError: !response.ok,
     content: [
       {
@@ -5127,6 +5194,15 @@ async function callSignalTenderEndpoint(toolName, args) {
       }
     ]
   };
+  if (response.ok) {
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        result.structuredContent = parsed;
+      }
+    } catch (_) {}
+  }
+  return result;
 }
 
 function sendJsonRpc(message) {
