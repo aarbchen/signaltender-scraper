@@ -2998,6 +2998,15 @@ def _render_layout(
           window.togglePageSectionSidebar(false);
           return true;
         }}
+        if (customAction && customAction.indexOf('trust_') === 0) {{
+          var tKey = customAction.replace('trust_', '');
+          window.location.hash = '#' + tKey;
+          if (typeof window.switchTrustTab === 'function') {{
+            window.switchTrustTab(tKey);
+          }}
+          window.togglePageSectionSidebar(false);
+          return true;
+        }}
         if (customAction === 'auth_login') {{
           if (typeof window.switchAccountAuthTab === 'function') {{
             window.switchAccountAuthTab('login');
@@ -3008,7 +3017,9 @@ def _render_layout(
           }}
         }}
         var targetEl = document.getElementById(secId);
-        if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {{
+        if (secId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {{
+          window.ensureApiProductVisible(secId);
+        }} else if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {{
           window.filterApiCatalog('', 'all');
         }}
         var ok = window.jumpToPageSection(secId);
@@ -3602,7 +3613,7 @@ def _render_layout(
           var pAttr = JSON.parse(rawAttr);
           if (pAttr && pAttr.co) compName = pAttr.co;
         }}
-        var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var profKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {{
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
           if (rawP) {{
@@ -3658,7 +3669,6 @@ def _render_layout(
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
-            target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             wrap_rate: wrapRate
           }})
@@ -3828,7 +3838,7 @@ def _render_layout(
           var pA = JSON.parse(rawA);
           if (pA && pA.co) compName = pA.co;
         }}
-        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var pKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < pKeys.length; pk++) {{
           var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
           if (rp && compName === 'Your Capture Team LLC') {{
@@ -5150,7 +5160,7 @@ def generate_pseo_site() -> int:
                   <ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">
                     <li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>
                     <li>&check; Tier 2 CaptureDesk ($399/mo) 25-API Auto-Dossiers</li>
-                    <li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>
+                    <li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 6-File .DOCX/.XLSX Proposal .ZIP</li>
                     <li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>
                   </ul>
                   <a href="{WHOP_TIER1_URL}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">
@@ -6093,7 +6103,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           var pAttr = JSON.parse(rawAttr);
           if (pAttr && pAttr.co) compName = pAttr.co;
         }}
-        var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var profKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {{
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
           if (rawP) {{
@@ -6149,7 +6159,6 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
-            target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             wrap_rate: wrapRate
           }})
@@ -6319,7 +6328,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
           var pA = JSON.parse(rawA);
           if (pA && pA.co) compName = pA.co;
         }}
-        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var pKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < pKeys.length; pk++) {{
           var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
           if (rp && compName === 'Your Capture Team LLC') {{
@@ -6925,7 +6934,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                   '<ul class="text-xs font-mono text-slate-300 space-y-2 pt-2">' +
                     '<li>&check; 99.4% Commodity &amp; Renewal Spam Stripped</li>' +
                     '<li>&check; Tier 2 CaptureDesk ($399/mo) 25-API Auto-Dossiers</li>' +
-                    '<li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 3-Vol .DOCX/.XLSX Proposal .ZIP</li>' +
+                    '<li class="text-emerald-300">&check; Tier 3 ($1,499/mo) 1-Click 6-File .DOCX/.XLSX Proposal .ZIP</li>' +
                     '<li class="text-amber-300">&check; Tier 4 ($2,499/mo) 50k OEM API Calls &amp; FOIA Rate Vault</li>' +
                   '</ul>' +
                   '<a href="#checkout-tier1" class="w-full inline-flex items-center justify-center px-5 py-2.5 text-xs font-mono font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition-all">' +

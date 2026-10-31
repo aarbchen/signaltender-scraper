@@ -2099,6 +2099,15 @@
           window.togglePageSectionSidebar(false);
           return true;
         }
+        if (customAction && customAction.indexOf('trust_') === 0) {
+          var tKey = customAction.replace('trust_', '');
+          window.location.hash = '#' + tKey;
+          if (typeof window.switchTrustTab === 'function') {
+            window.switchTrustTab(tKey);
+          }
+          window.togglePageSectionSidebar(false);
+          return true;
+        }
         if (customAction === 'auth_login') {
           if (typeof window.switchAccountAuthTab === 'function') {
             window.switchAccountAuthTab('login');
@@ -2109,7 +2118,9 @@
           }
         }
         var targetEl = document.getElementById(secId);
-        if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
+        if (secId.indexOf('product-') === 0 && typeof window.ensureApiProductVisible === 'function') {
+          window.ensureApiProductVisible(secId);
+        } else if (targetEl && targetEl.classList.contains('hidden') && secId.indexOf('product-') === 0 && typeof window.filterApiCatalog === 'function') {
           window.filterApiCatalog('', 'all');
         }
         var ok = window.jumpToPageSection(secId);
@@ -2703,7 +2714,7 @@
           var pAttr = JSON.parse(rawAttr);
           if (pAttr && pAttr.co) compName = pAttr.co;
         }
-        var profKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var profKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < profKeys.length; pk++) {
           var rawP = window.localStorage && window.localStorage.getItem(profKeys[pk]);
           if (rawP) {
@@ -2759,7 +2770,6 @@
             company_name: compName,
             company_capability_summary: capSummary,
             uei_cage: ueiCage,
-            target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             target_jurisdiction: (matchedContract && matchedContract.jurisdiction) || undefined,
             wrap_rate: wrapRate
           })
@@ -2929,7 +2939,7 @@
           var pA = JSON.parse(rawA);
           if (pA && pA.co) compName = pA.co;
         }
-        var pKeys = ['st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
+        var pKeys = ['st_company_capture_profile', 'st_company_profile_v1', 'st_company_capture_vault', 'st_account_profile'];
         for (var pk = 0; pk < pKeys.length; pk++) {
           var rp = window.localStorage && window.localStorage.getItem(pKeys[pk]);
           if (rp && compName === 'Your Capture Team LLC') {

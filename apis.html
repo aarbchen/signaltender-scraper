@@ -16612,38 +16612,58 @@
 
       function buildSnippet(api, payloadStr, lang, apiKey) {
         var keyToUse = apiKey && apiKey.trim() ? apiKey.trim() : 'YOUR_RAPIDAPI_KEY';
-        var url = 'https://' + api.host + api.path;
+        var isDirectKey = keyToUse.indexOf('st_live_') === 0;
+        var baseUrl = isDirectKey ? (GATEWAY_BASE + api.path) : ('https://' + api.host + api.path);
+        var url = baseUrl;
         if (api.method === 'GET') {
           try {
             var qObj = JSON.parse(payloadStr);
             var qs = Object.keys(qObj).map(function (k) {
               return encodeURIComponent(k) + '=' + encodeURIComponent(qObj[k]);
             }).join('&');
-            url = 'https://' + api.host + api.path.split('?')[0] + (qs ? '?' + qs : '');
+            var baseNoQs = isDirectKey ? (GATEWAY_BASE + api.path.split('?')[0]) : ('https://' + api.host + api.path.split('?')[0]);
+            url = baseNoQs + (qs ? '?' + qs : '');
           } catch (e) {}
         }
 
         if (lang === 'python') {
           if (api.method === 'GET') {
+            if (isDirectKey) {
+              return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-SignalTender-Key": "' + keyToUse + '"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.json())';
+            }
             return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.json())';
           }
           var pyPayloadStr = payloadStr
             .replace(/:\s*true(\s*[,}\]])/g, ': True$1')
             .replace(/:\s*false(\s*[,}\]])/g, ': False$1')
             .replace(/:\s*null(\s*[,}\]])/g, ': None$1');
+          if (isDirectKey) {
+            return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-SignalTender-Key": "' + keyToUse + '",\n    "Content-Type": "application/json"\n}\npayload = ' + pyPayloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
+          }
           return 'import requests\n\nurl = "' + url + '"\nheaders = {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n}\npayload = ' + pyPayloadStr + '\n\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.json())';
         }
 
         if (lang === 'node') {
           if (api.method === 'GET') {
+            if (isDirectKey) {
+              return 'const response = await fetch("' + url + '", {\n  method: "GET",\n  headers: {\n    "X-SignalTender-Key": "' + keyToUse + '"\n  }\n});\nconst data = await response.json();\nconsole.log(data);';
+            }
             return 'const response = await fetch("' + url + '", {\n  method: "GET",\n  headers: {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '"\n  }\n});\nconst data = await response.json();\nconsole.log(data);';
+          }
+          if (isDirectKey) {
+            return 'const response = await fetch("' + url + '", {\n  method: "POST",\n  headers: {\n    "X-SignalTender-Key": "' + keyToUse + '",\n    "Content-Type": "application/json"\n  },\n  body: JSON.stringify(' + payloadStr + ')\n});\nconst data = await response.json();\nconsole.log(data);';
           }
           return 'const response = await fetch("' + url + '", {\n  method: "POST",\n  headers: {\n    "X-RapidAPI-Key": "' + keyToUse + '",\n    "X-RapidAPI-Host": "' + api.host + '",\n    "Content-Type": "application/json"\n  },\n  body: JSON.stringify(' + payloadStr + ')\n});\nconst data = await response.json();\nconsole.log(data);';
         }
 
-        // Default: cURL
         if (api.method === 'GET') {
+          if (isDirectKey) {
+            return 'curl --request GET \\\n  --url \'' + url + '\' \\\n  --header \'X-SignalTender-Key: ' + keyToUse + '\'';
+          }
           return 'curl --request GET \\\n  --url \'' + url + '\' \\\n  --header \'X-RapidAPI-Key: ' + keyToUse + '\' \\\n  --header \'X-RapidAPI-Host: ' + api.host + '\'';
+        }
+        if (isDirectKey) {
+          return 'curl --request POST \\\n  --url \'' + url + '\' \\\n  --header \'X-SignalTender-Key: ' + keyToUse + '\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'' + payloadStr.replace(/'/g, "\\'") + '\'';
         }
         return 'curl --request POST \\\n  --url \'' + url + '\' \\\n  --header \'X-RapidAPI-Key: ' + keyToUse + '\' \\\n  --header \'X-RapidAPI-Host: ' + api.host + '\' \\\n  --header \'Content-Type: application/json\' \\\n  --data \'' + payloadStr.replace(/'/g, "\\'") + '\'';
       }
@@ -16751,7 +16771,7 @@
         var modeBadge = document.getElementById('sandbox-mode-badge');
         if (modeBadge) {
           if (savedRapidKey) {
-            modeBadge.textContent = 'LIVE RAPIDAPI KEY';
+            modeBadge.textContent = savedRapidKey.indexOf('st_live_') === 0 ? 'LIVE ENTERPRISE KEY' : 'LIVE RAPIDAPI KEY';
             modeBadge.className = 'px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px]';
           } else {
             modeBadge.textContent = 'SANDBOX DEMO';
@@ -16977,6 +16997,14 @@
         try {
           var sCap = localStorage.getItem('st_company_capability');
           var sWrap = localStorage.getItem('st_company_wrap');
+          if (!sCap || !sWrap) {
+            var rawVault = localStorage.getItem('st_company_capture_profile') || localStorage.getItem('st_company_capture_vault');
+            if (rawVault) {
+              var vObj = JSON.parse(rawVault);
+              if (!sCap && (vObj.capabilities || vObj.capability)) sCap = vObj.capabilities || vObj.capability;
+              if (!sWrap && vObj.wrap_rate) sWrap = String(vObj.wrap_rate).indexOf('x') !== -1 ? String(vObj.wrap_rate) : (vObj.wrap_rate + 'x Fully Burdened Wrap Rate');
+            }
+          }
           if (sCap && sCap.trim()) cap = sCap;
           if (sWrap && sWrap.trim()) wrap = sWrap;
         } catch (e) {}
@@ -16996,6 +17024,16 @@
         try {
           localStorage.setItem('st_company_capability', capVal);
           localStorage.setItem('st_company_wrap', wrapVal);
+          var existingProf = {};
+          try { existingProf = JSON.parse(localStorage.getItem('st_company_capture_profile') || localStorage.getItem('st_company_capture_vault') || '{}') || {}; } catch (_e) {}
+          existingProf.capabilities = capVal;
+          existingProf.capability = capVal;
+          var mWrap = String(wrapVal).match(/([0-9]+\.[0-9]+)/);
+          if (mWrap && parseFloat(mWrap[1]) >= 1.0 && parseFloat(mWrap[1]) <= 4.0) {
+            existingProf.wrap_rate = mWrap[1];
+          }
+          localStorage.setItem('st_company_capture_profile', JSON.stringify(existingProf));
+          localStorage.setItem('st_company_capture_vault', JSON.stringify(existingProf));
         } catch (e) {}
         if (statusEl) {
           statusEl.textContent = '✓ Profile Saved';
@@ -17007,19 +17045,35 @@
         var prof = window.loadSavedCompanyProfile();
         var editorEl = document.getElementById('sandbox-payload-editor');
         if (!editorEl) return;
+        var effRfpText = customRfpText || window._stLastShredRfpText || '';
         try {
           var obj = JSON.parse(editorEl.value || '{}');
-          if (obj.hasOwnProperty('company_capability_text')) obj.company_capability_text = prof.capability;
-          if (obj.hasOwnProperty('company_profile_text')) obj.company_profile_text = prof.capability;
-          if (obj.hasOwnProperty('prime_capability_text')) obj.prime_capability_text = prof.capability;
-          if (obj.hasOwnProperty('company_security_posture_text')) obj.company_security_posture_text = prof.capability;
-          if (obj.hasOwnProperty('cloud_hosting_and_inherited_controls_context')) obj.cloud_hosting_and_inherited_controls_context = prof.capability;
+          var capKeys = [
+            'company_capability_statement', 'company_capability_text', 'company_profile_text',
+            'prime_capability_text', 'company_context_and_capabilities', 'bidder_capabilities',
+            'security_posture_summary', 'company_security_posture_text',
+            'cloud_hosting_and_inherited_controls_context', 'vendor_capability_and_socioeconomic_profile',
+            'project_history_text', 'company_technology_and_ip_baseline',
+            'contractor_performance_and_cure_context', 'contractor_quality_and_iso_posture',
+            'challenger_or_incumbent_transition_posture', 'challenger_capability_and_incumbent_intel_text'
+          ];
+          for (var ci = 0; ci < capKeys.length; ci++) {
+            if (obj.hasOwnProperty(capKeys[ci])) obj[capKeys[ci]] = prof.capability;
+          }
           if (obj.hasOwnProperty('indirect_rate_assumptions')) obj.indirect_rate_assumptions = prof.wrap;
-          if (customRfpText) {
-            if (obj.hasOwnProperty('rfp_text')) obj.rfp_text = customRfpText;
-            if (obj.hasOwnProperty('contract_text')) obj.contract_text = customRfpText;
-            if (obj.hasOwnProperty('rfp_scope_text')) obj.rfp_scope_text = customRfpText;
-            if (obj.hasOwnProperty('rfp_clins_and_sow_text')) obj.rfp_clins_and_sow_text = customRfpText;
+          if (obj.hasOwnProperty('bidder_indirect_wrap_assumptions')) obj.bidder_indirect_wrap_assumptions = prof.wrap;
+          if (effRfpText) {
+            var rfpKeys = [
+              'rfp_text', 'raw_text', 'contract_text', 'rfp_scope_text', 'rfp_clins_and_sow_text',
+              'solicitation_text', 'description_text', 'rfp_section_text', 'document_text',
+              'lcat_or_rfp_requirements', 'base_solicitation_text', 'rfp_section_l_m_requirements',
+              'rfp_section_b_and_sow_text', 'sources_sought_or_rfi_notice_text',
+              'target_solicitation_and_sow_text', 'pws_or_sow_deliverables_text',
+              'solicitation_transition_and_sow_text', 'rfp_section_l_m_and_draft_proposal_text'
+            ];
+            for (var ri = 0; ri < rfpKeys.length; ri++) {
+              if (obj.hasOwnProperty(rfpKeys[ri])) obj[rfpKeys[ri]] = effRfpText;
+            }
           }
           editorEl.value = JSON.stringify(obj, null, 2);
           window.updateSandboxCodePreview();
@@ -17036,15 +17090,20 @@
         if (Array.isArray(window.SIGNALTENDER_CONTRACTS)) {
           for (var i = 0; i < window.SIGNALTENDER_CONTRACTS.length; i++) {
             var c = window.SIGNALTENDER_CONTRACTS[i];
-            if (c.slug === slugOrTitle || c.title === slugOrTitle) {
-              rfpText = 'SOLICITATION: ' + c.title + ' | ISSUING AGENCY: ' + c.agency + ' | CLOSING DATE: ' + c.closing_date + ' | SOURCE PORTAL: ' + c.source_url + ' | TECHNICAL SCOPE: Contractor shall deliver enterprise IT, cybersecurity, cloud engineering, and compliance deliverables in accordance with agency Statement of Work (SOW) and Section L/M instructions.';
+            if (c.slug === slugOrTitle || c.clean_title === slugOrTitle || c.raw_title === slugOrTitle || c.title === slugOrTitle) {
+              var cTitle = c.clean_title || c.title || slugOrTitle;
+              var cDue = c.due_str || c.closing_date || 'Active Open Window';
+              var cUrl = c.url || c.source_url || portalUrl || '';
+              var cScope = c.rfp_text || 'Contractor shall deliver enterprise IT, cybersecurity, cloud engineering, and compliance deliverables in accordance with agency Statement of Work (SOW) and Section L/M instructions.';
+              rfpText = 'SOLICITATION: ' + cTitle + ' | ISSUING AGENCY: ' + (c.agency || agencyName || 'Government Agency') + ' | CLOSING DATE: ' + cDue + (cUrl ? (' | SOURCE PORTAL: ' + cUrl) : '') + ' | TECHNICAL SCOPE: ' + cScope;
               break;
             }
           }
         }
         if (!rfpText) {
-          rfpText = 'SOLICITATION: ' + (slugOrTitle || 'Enterprise Government IT RFP') + (agencyName ? (' | AGENCY: ' + agencyName) : '') + (portalUrl ? (' | PORTAL: ' + portalUrl) : '');
+          rfpText = 'SOLICITATION: ' + (slugOrTitle || 'Enterprise Government IT RFP') + (agencyName ? (' | AGENCY: ' + agencyName) : '') + (portalUrl ? (' | PORTAL: ' + portalUrl) : '') + ' | TECHNICAL SCOPE: Contractor shall deliver enterprise IT, cybersecurity, cloud engineering, and compliance deliverables in accordance with agency Statement of Work (SOW) and Section L/M instructions.';
         }
+        window._stLastShredRfpText = rfpText;
         window.openApiSandbox('product-capability-matcher');
         window.applyCompanyProfileToSandbox(rfpText);
       };
@@ -17624,10 +17683,10 @@
             title: 'Stage 2: 25-API CaptureDesk AI Dossiers & Section L/M Shredding (Tier 2)',
             desc: 'Every actionable solicitation arrives pre-shredded with Bid/No-Bid P-Win scoring, Section L/M compliance matrices, incumbent spend, and teaming gap analysis.',
             nextTab: 'proposal',
-            nextLabel: 'Explore 3-Vol Proposal .ZIP & FOIA Vault ->'
+            nextLabel: 'Explore 6-File Proposal .ZIP & FOIA Vault ->'
           },
           proposal: {
-            title: 'Stage 3: 90-Second Shipley 3-Volume Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
+            title: 'Stage 3: 90-Second Shipley 6-File Proposal .ZIP & FOIA Rate Vault (Tiers 3-4)',
             desc: 'Compile ready-to-submit Technical, Past Performance, and IGCE Pricing .DOCX/.XLSX volumes, enforce 13 CFR 125.6 workshare limits, and benchmark competitor labor rates.',
             nextTab: 'coverage',
             nextLabel: 'Explore 52-Portal Coverage Matrix ->'
@@ -17646,7 +17705,7 @@
           },
           all: {
             title: 'SignalTender End-to-End GovCon Capture, Proposal & FOIA Intelligence Suite',
-            desc: 'From 6-hour multi-portal RFP discovery and 25-API capture shredding to 90-second 3-Volume Shipley .DOCX/.XLSX compilation and FOIA competitor price-to-win intelligence.',
+            desc: 'From 6-hour multi-portal RFP discovery and 25-API capture shredding to 90-second 6-File Shipley .DOCX/.XLSX compilation and FOIA competitor price-to-win intelligence.',
             nextTab: 'wire',
             nextLabel: 'Explore Stage 1: Solicitation Wire ->'
           }
@@ -17861,14 +17920,16 @@
         var compName = (document.getElementById('account-profile-company') || {}).value || (currentAccountProfile && currentAccountProfile.company) || 'Apex Defense & Cyber Solutions LLC';
         var capSummary = (document.getElementById('account-vault-capabilities') || {}).value || 'Zero-Trust Architecture, FedRAMP Cloud Engineering, AI/LLM Automation, and Managed SOC/MDR.';
         var socio = (document.getElementById('account-vault-setaside') || {}).value || 'SDVOSB';
+        var ueiVal = (document.getElementById('account-vault-uei') || {}).value || '';
+        var wrapVal = parseFloat((document.getElementById('account-vault-wrap') || {}).value || '1.82') || 1.82;
 
         if (btn) {
           btn.disabled = true;
-          btn.textContent = 'Compiling 3-Volume .DOCX + .XLSX Package (.ZIP)...';
+          btn.textContent = 'Compiling 6-File .DOCX + .XLSX Package (.ZIP)...';
         }
         if (st) {
           st.classList.remove('hidden');
-          st.textContent = 'Running Shipley Vol I (.docx), Live-Formula Vol II (.xlsx), and CPARS/OCI Vol III (.docx) compilers...';
+          st.textContent = 'Running Shipley Vol I (.docx), Live-Formula Vol II (.xlsx), Vol III CPARS/OCI, Vol IV FAR 9.6 Teaming & Vol V FOIA compilers...';
         }
         fetch('https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/compile-full-package', {
           method: 'POST',
@@ -17878,9 +17939,13 @@
             title: title,
             agency: agency,
             rfp_text: rfpText,
+            rfp_file_base64: window._stUploadedRfpBase64 || null,
+            rfp_filename: window._stUploadedRfpFilename || null,
             company_name: compName,
             company_capability_summary: capSummary,
             socio_economic_status: socio,
+            uei_or_cage: ueiVal || undefined,
+            wrap_rate: wrapVal,
             naics_code: naics
           })
         })
@@ -17888,7 +17953,7 @@
           .then(function (d) {
             if (btn) {
               btn.disabled = false;
-              btn.innerHTML = 'Compile &amp; Download 3-Volume Shipley Package (.ZIP) &darr;';
+              btn.innerHTML = 'Compile &amp; Download 6-File Shipley Package (.ZIP) &darr;';
             }
             if (d && d.zip_base64) {
               var binStr = window.atob(d.zip_base64);
@@ -17897,11 +17962,11 @@
               var blob = new Blob([bytes], { type: 'application/zip' });
               var a = document.createElement('a');
               a.href = URL.createObjectURL(blob);
-              a.download = d.zip_filename || ('SignalTender_Shipley_3Vol_' + solId.replace(/[^a-zA-Z0-9_-]/g, '_') + '.zip');
+              a.download = d.zip_filename || ('SignalTender_Shipley_6File_' + solId.replace(/[^a-zA-Z0-9_-]/g, '_') + '.zip');
               document.body.appendChild(a);
               a.click();
               document.body.removeChild(a);
-              if (st) st.innerHTML = '&check; Downloaded <strong>' + (d.zip_filename || '3-Volume Shipley Proposal .ZIP') + '</strong>!';
+              if (st) st.innerHTML = '&check; Downloaded <strong>' + (d.zip_filename || '6-File Shipley Proposal .ZIP') + '</strong>!';
               if (resBox) {
                 resBox.classList.remove('hidden');
                 var files = Array.isArray(d.files_included) ? d.files_included.join(' &bull; ') : 'Volume_I.docx &bull; Volume_II.xlsx &bull; Volume_III.docx &bull; Volume_IV_FAR_9_6_Teaming.docx &bull; Volume_V_FOIA_Demand.docx';
@@ -17916,7 +17981,7 @@
           .catch(function () {
             if (btn) {
               btn.disabled = false;
-              btn.innerHTML = 'Compile &amp; Download 3-Volume Shipley Package (.ZIP) &darr;';
+              btn.innerHTML = 'Compile &amp; Download 6-File Shipley Package (.ZIP) &darr;';
             }
             if (st) st.textContent = 'Compiled package ready. Please retry if your browser blocked the pop-up download.';
           });
@@ -17995,8 +18060,9 @@
           btn.disabled = true;
           btn.textContent = 'Querying Vault...';
         }
+        var compName = (document.getElementById('account-profile-company') || {}).value || (currentAccountProfile && currentAccountProfile.company) || 'Apex Defense & Cyber Solutions LLC';
         var url = 'https://b2b-contract-parser-api.onrender.com/v1/proposal-autopilot/foia-winning-bid-vault?jurisdiction=' +
-          encodeURIComponent(jur) + '&agency=' + encodeURIComponent(agency) + '&solicitation_id=' + encodeURIComponent(contractId);
+          encodeURIComponent(jur) + '&agency=' + encodeURIComponent(agency) + '&solicitation_id=' + encodeURIComponent(contractId) + '&company_name=' + encodeURIComponent(compName);
 
         fetch(url)
           .then(function (r) { return r.json(); })
@@ -18114,10 +18180,10 @@
           'account-billing-card': 'billing',
           'account-pill-discord': 'billing',
           'account-distribution-card': 'billing',
+          'account-tier3-proposal-card': 'proposal',
+          'account-tier4-foia-card': 'foia',
           'account-alert-filters-card': 'filters',
           'account-company-vault-card': 'filters',
-          'account-tier3-proposal-card': 'pipeline',
-          'account-tier4-foia-card': 'pipeline',
           'account-bid-board-card': 'pipeline',
           'account-api-key-value': 'pipeline',
           'account-profile-name': 'pipeline',
@@ -18426,6 +18492,15 @@
         if (customAction === 'sandbox') {
           if (typeof window.openApiSandbox === 'function') {
             window.openApiSandbox('product-contract-parsing');
+          }
+          window.togglePageSectionSidebar(false);
+          return true;
+        }
+        if (customAction && customAction.indexOf('trust_') === 0) {
+          var tKey = customAction.replace('trust_', '');
+          window.location.hash = '#' + tKey;
+          if (typeof window.switchTrustTab === 'function') {
+            window.switchTrustTab(tKey);
           }
           window.togglePageSectionSidebar(false);
           return true;

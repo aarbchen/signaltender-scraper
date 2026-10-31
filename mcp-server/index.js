@@ -5196,16 +5196,21 @@ async function callSignalTenderEndpoint(toolName, args) {
     "Accept": "application/json"
   };
 
+  const argStKey = (args && typeof args === "object" && typeof args.signaltender_key === "string") ? args.signaltender_key.trim() : "";
+  const argRapidKey = (args && typeof args === "object" && typeof args.rapidapi_key === "string") ? args.rapidapi_key.trim() : "";
+  const effectiveStKey = SIGNALTENDER_API_KEY || argStKey || (RAPIDAPI_KEY.startsWith("st_live_") ? RAPIDAPI_KEY : "") || (argRapidKey.startsWith("st_live_") ? argRapidKey : "");
+  const effectiveRapidKey = (!effectiveStKey && (RAPIDAPI_KEY || argRapidKey)) ? (RAPIDAPI_KEY || argRapidKey) : "";
+
   if (RAPIDAPI_PROXY_SECRET) {
     url = new URL(`${BASE_URL}${route.path}`);
     headers["X-RapidAPI-Proxy-Secret"] = RAPIDAPI_PROXY_SECRET;
-  } else if (SIGNALTENDER_API_KEY || RAPIDAPI_KEY.startsWith("st_live_")) {
+  } else if (effectiveStKey) {
     url = new URL(`${BASE_URL}${route.path}`);
-    headers["X-SignalTender-Key"] = SIGNALTENDER_API_KEY || RAPIDAPI_KEY;
-  } else if (RAPIDAPI_KEY) {
+    headers["X-SignalTender-Key"] = effectiveStKey;
+  } else if (effectiveRapidKey) {
     const rapidHost = RAPIDAPI_HOSTS[toolName];
     url = new URL(`https://${rapidHost}${route.path}`);
-    headers["X-RapidAPI-Key"] = RAPIDAPI_KEY;
+    headers["X-RapidAPI-Key"] = effectiveRapidKey;
     headers["X-RapidAPI-Host"] = rapidHost;
   } else {
     return {
@@ -5227,13 +5232,21 @@ async function callSignalTenderEndpoint(toolName, args) {
     };
   }
 
+  const cleanedArgs = {};
+  if (args && typeof args === "object") {
+    Object.entries(args).forEach(([k, v]) => {
+      if (k === "rapidapi_key" || k === "signaltender_key") return;
+      if (v === undefined || v === null) return;
+      if (typeof v === "string" && v.trim() === "") return;
+      cleanedArgs[k] = v;
+    });
+  }
+
   const buildUrlWithParams = (baseUrlStr) => {
     const u = new URL(baseUrlStr);
-    if (route.method === "GET" && args && typeof args === "object") {
-      Object.entries(args).forEach(([k, v]) => {
-        if (v !== undefined && v !== null && v !== "") {
-          u.searchParams.set(k, String(v));
-        }
+    if (route.method === "GET") {
+      Object.entries(cleanedArgs).forEach(([k, v]) => {
+        u.searchParams.set(k, String(v));
       });
     }
     return u;
@@ -5246,7 +5259,7 @@ async function callSignalTenderEndpoint(toolName, args) {
   };
 
   if (route.method === "POST") {
-    fetchOptions.body = JSON.stringify(args || {});
+    fetchOptions.body = JSON.stringify(cleanedArgs);
   }
 
   let response = await fetch(url.toString(), fetchOptions);
