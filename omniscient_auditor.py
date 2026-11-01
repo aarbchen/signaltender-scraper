@@ -173,6 +173,15 @@ FOUNDATIONAL_RULES = [
         "fix_applied": "Patched all 8 blindspots in omniscient_auditor.py and auto_error_healer.py, and codified the standing rule to immediately fix any detected bug without asking for user permission.",
         "prevention_rule": "Never ask the user for permission before fixing a bug or blindspot; always remediate bugs immediately, verify end-to-end across both d:\\Daas and d:\\Data API Ecosystem, and codify the anti-regression rule.",
     },
+    {
+        "rule_id": "RULE-017-ZERO-UNNECESSARY-AI-TOKEN-WASTE",
+        "category": "Cost Discipline & LLM Token Efficiency",
+        "source": "services/llm_parser.py / *_scraper.py / mainscraper.py / capturedesk_autopilot.py / verify_site_integrity.py / silent_autopilot_watcher.py",
+        "bug_signature": "Daily Anthropic billing spikes caused by calling claude-sonnet-5-5 on already-stored Supabase contract URLs, uncached 6-hour RapidAPI telemetry probes, use_llm_synthesis=True inside verify_site_integrity.py, backward historical dossier enrichment in capturedesk_autopilot.py, or un-gated 15-minute overnight omniscient_auditor.py loops.",
+        "root_cause": "Missing pre-Supabase URL deduplication before client.messages.create(), uncached identical telemetry payloads in llm_parser.py, missing max_cached_id watermark in capturedesk_autopilot.py, and missing _LAST_OMNISCIENT_AUDIT_DATE once-per-night guard in watchers.",
+        "fix_applied": "Added SHA-256 _ANTHROPIC_MESSAGE_CACHE in llm_parser.py, pre-Supabase _pre_existing_urls filtering and [Fast-Pass] short-circuits across all scrapers, max_cached_id watermark in capturedesk_autopilot.py, use_llm_synthesis=False in verify_site_integrity.py, and once-per-calendar-night _LAST_OMNISCIENT_AUDIT_DATE guard across both SignalTender and CamberDesk watchers.",
+        "prevention_rule": "Never spend Anthropic LLM tokens on URLs already in Supabase, deterministic [XX-...] notices, repeat RapidAPI telemetry probes (serve from _ANTHROPIC_MESSAGE_CACHE), historical CaptureDesk rows (id <= max_cached_id), integrity checks (use_llm_synthesis=False), or >1x/night background auditor runs.",
+    },
 ]
 
 
@@ -1769,6 +1778,26 @@ def run_omniscient_audit(
     acq_fixed, acq_issues = audit_and_heal_acquisition(auto_fix=auto_fix)
     web_fixed, web_issues = audit_and_heal_website(auto_fix=auto_fix, run_playwright=run_playwright)
 
+    # Also screen CamberDesk (`D:\CamberDesk\omniscient_auditor.py`) on every nightly Omniscient Audit run
+    camberdesk_report: dict = {}
+    camberdesk_dir = pathlib.Path(r"D:\CamberDesk")
+    camberdesk_auditor = camberdesk_dir / "omniscient_auditor.py"
+    if camberdesk_auditor.exists():
+        print("[*] Screening CamberDesk 3-Pillar Omniscient Auditor (D:\\CamberDesk\\omniscient_auditor.py)...", flush=True)
+        try:
+            cd_cmd = [sys.executable, str(camberdesk_auditor), "--mode", mode, "--force-now"]
+            if auto_deploy:
+                cd_cmd.append("--auto-deploy")
+            subprocess.run(cd_cmd, cwd=str(camberdesk_dir), capture_output=True, text=True, timeout=600, check=False)
+            cd_report_path = camberdesk_dir / "omniscient_audit_report.json"
+            if cd_report_path.exists():
+                camberdesk_report = json.loads(cd_report_path.read_text(encoding="utf-8"))
+                for p_name, p_data in (camberdesk_report.get("pillars") or {}).items():
+                    for iss in (p_data.get("issues") or []):
+                        web_issues.append(f"[CamberDesk // {p_name}] {iss}")
+        except Exception as cd_exc:
+            web_issues.append(f"[CamberDesk Omniscient Audit] Execution error: {cd_exc}")
+
     all_fixed = prod_fixed + acq_fixed + web_fixed
     all_unfixed = prod_issues + acq_issues + web_issues
 
@@ -1867,6 +1896,7 @@ def run_omniscient_audit(
             "products": {"auto_fixed": prod_fixed, "unfixed_issues": prod_issues},
             "acquisition_channels": {"auto_fixed": acq_fixed, "unfixed_issues": acq_issues},
             "website_and_checkout": {"auto_fixed": web_fixed, "unfixed_issues": web_issues},
+            "camberdesk_ecosystem": camberdesk_report,
         },
         "telemetry": {
             "open_remote_errors": len(remote_errors),
