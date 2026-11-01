@@ -251,6 +251,14 @@ def is_daily_expansion_due() -> tuple[bool, str]:
 
 def main() -> int:
     prevent_windows_sleep()
+    if os.name == "nt":
+        try:
+            import signal
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
+            if hasattr(signal, "SIGBREAK"):
+                signal.signal(signal.SIGBREAK, signal.SIG_IGN)
+        except Exception:
+            pass
     claim_primary_watcher()
     print(
         "[*] Silent Autopilot & Self-Healing Watcher active in background "
@@ -258,107 +266,111 @@ def main() -> int:
         flush=True,
     )
     while True:
-        prevent_windows_sleep()
-        write_watcher_heartbeat()
-        if not is_primary_watcher():
-            time.sleep(CHECK_INTERVAL_SECONDS)
-            continue
-
-        # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
-        #    and automatically publish any unposted completed roadmap APIs if session is active.
         try:
-            import rapidapi_headless_publisher
-            rapidapi_headless_publisher.keepalive_rapidapi_session()
-            rapidapi_headless_publisher.auto_sync_unposted_apis(commit_and_push=True)
-        except Exception:
-            pass
+            prevent_windows_sleep()
+            write_watcher_heartbeat()
+            if not is_primary_watcher():
+                time.sleep(CHECK_INTERVAL_SECONDS)
+                continue
 
-        # 2. Avoid mid-build collisions or false-alarm wakeups when another tab is actively building APIs/scrapers
-        if is_expansion_build_in_progress():
-            time.sleep(CHECK_INTERVAL_SECONDS)
-            continue
+            # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
+            try:
+                import rapidapi_headless_publisher
+                rapidapi_headless_publisher.keepalive_rapidapi_session()
+            except Exception:
+                pass
 
-        # 3. Poll outbound email replies 24/7 via fresh subprocess so code updates on disk take effect immediately
-        python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
-        if not os.path.exists(python_exe):
-            python_exe = sys.executable
-        no_win_flag = getattr(__import__("subprocess"), "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
-        try:
-            import subprocess
-            subprocess.run(
-                [python_exe, os.path.join(BASE_DIR, "outbound_reply_responder.py")],
-                cwd=BASE_DIR,
-                capture_output=True,
-                text=True,
-                timeout=180,
-                creationflags=no_win_flag,
-            )
-        except Exception:
-            pass
+            # 2. Avoid mid-build collisions or false-alarm wakeups when another tab is actively building APIs/scrapers
+            if is_expansion_build_in_progress():
+                time.sleep(CHECK_INTERVAL_SECONDS)
+                continue
 
-        # 4. Enforce RULE-006: Execute Omniscient Auditor at night (11:00 PM – 6:00 AM)
-        #    when the user is away from the computer (>= 15 minutes idle via GetLastInputInfo).
-        night_allowed = False
-        try:
-            import subprocess
-            import omniscient_auditor
-            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
-            today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
-            if night_allowed and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
-                globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
+            # 3. Poll outbound email replies 24/7 via fresh subprocess so code updates on disk take effect immediately
+            python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
+            if not os.path.exists(python_exe):
+                python_exe = sys.executable
+            no_win_flag = getattr(__import__("subprocess"), "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+            try:
+                import subprocess
                 subprocess.run(
-                    [
-                        python_exe,
-                        os.path.join(BASE_DIR, "omniscient_auditor.py"),
-                        "--mode",
-                        "fast",
-                        "--auto-deploy",
-                        "--force-now",
-                    ],
+                    [python_exe, os.path.join(BASE_DIR, "outbound_reply_responder.py")],
                     cwd=BASE_DIR,
                     capture_output=True,
                     text=True,
-                    timeout=900,
+                    timeout=180,
                     creationflags=no_win_flag,
                 )
-        except Exception:
-            pass
+            except Exception:
+                pass
 
-        # 5. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
-        if night_allowed:
-            remote_errors = auto_error_healer.fetch_remote_open_errors()
-            local_errors = auto_error_healer.read_local_unacknowledged_errors()
-            contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
+            # 4. Enforce RULE-006: Execute Omniscient Auditor at night (11:00 PM – 6:00 AM)
+            #    when the user is away from the computer (>= 15 minutes idle via GetLastInputInfo).
+            night_allowed = False
+            try:
+                import subprocess
+                import omniscient_auditor
+                night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
+                today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
+                if night_allowed and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
+                    globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
+                    subprocess.run(
+                        [
+                            python_exe,
+                            os.path.join(BASE_DIR, "omniscient_auditor.py"),
+                            "--mode",
+                            "fast",
+                            "--auto-deploy",
+                            "--force-now",
+                        ],
+                        cwd=BASE_DIR,
+                        capture_output=True,
+                        text=True,
+                        timeout=900,
+                        creationflags=no_win_flag,
+                    )
+            except Exception:
+                pass
 
-            if remote_errors or local_errors or contract_issues:
+            # 5. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
+            if night_allowed:
+                remote_errors = auto_error_healer.fetch_remote_open_errors()
+                local_errors = auto_error_healer.read_local_unacknowledged_errors()
+                contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
+
+                if remote_errors or local_errors or contract_issues:
+                    print(
+                        "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
+                        f"Open remote errors: {len(remote_errors)} | "
+                        f"Local errors: {len(local_errors)} | "
+                        f"Contract issues: {len(contract_issues)}\n"
+                        "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
+                        "and restart silent_autopilot_watcher.py.",
+                        flush=True,
+                    )
+                    return 0
+
+            # 6. Check if today's 2:00 AM Central daily expansion is due
+            due, reason = is_daily_expansion_due()
+            if due:
                 print(
-                    "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
-                    f"Open remote errors: {len(remote_errors)} | "
-                    f"Local errors: {len(local_errors)} | "
-                    f"Contract issues: {len(contract_issues)}\n"
-                    "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
+                    f"\n[WAKEUP_AGENT: DAILY_EXPANSION_DUE]\n{reason}\n"
+                    "Please execute the next pending item in daily_expansion_roadmap.json end-to-end "
                     "and restart silent_autopilot_watcher.py.",
                     flush=True,
                 )
                 return 0
+        except BaseException:
+            pass
 
-        # 6. Check if today's 2:00 AM Central daily expansion is due
-        due, reason = is_daily_expansion_due()
-        if due:
-            print(
-                f"\n[WAKEUP_AGENT: DAILY_EXPANSION_DUE]\n{reason}\n"
-                "Please execute the next pending item in daily_expansion_roadmap.json end-to-end "
-                "and restart silent_autopilot_watcher.py.",
-                flush=True,
-            )
-            return 0
-
-        time.sleep(CHECK_INTERVAL_SECONDS)
+        try:
+            time.sleep(CHECK_INTERVAL_SECONDS)
+        except BaseException:
+            pass
 
 
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except KeyboardInterrupt:
+    except BaseException:
         sys.exit(0)
 

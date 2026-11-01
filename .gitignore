@@ -42,3 +42,6 @@ sled-scraper/bids_master.json
 .rapidapi_google_chrome_profile/
 .last_step1_refill_ts
 .autopilot_watcher_heartbeat.json
+
+# Consolidated FastAPI Gateway repo (b2b-contract-parser-api)
+api_gateway/

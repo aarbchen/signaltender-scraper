@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-11-01T06:22:50Z",
+  "timestamp": "2026-11-01T11:09:12Z",
   "mode": "fast",
-  "elapsed_seconds": 84.48,
+  "elapsed_seconds": 113.51,
   "status": "HEALTHY",
   "counts": {
     "portals": 52,
     "states": 50,
     "apis": 58,
     "tier2_apis": 25,
-    "learned_rules_total": 22
+    "learned_rules_total": 23
   },
   "pillars": {
     "products": {
@@ -22,6 +22,30 @@
     "website_and_checkout": {
       "auto_fixed": [],
       "unfixed_issues": []
+    },
+    "camberdesk_ecosystem": {
+      "timestamp": "2026-11-01T11:09:11.845475+00:00",
+      "mode": "fast",
+      "elapsed_seconds": 26.72,
+      "status": "healthy",
+      "total_learned_rules": 18,
+      "pillars": {
+        "pillar_1_products": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        },
+        "pillar_2_acquisition": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        },
+        "pillar_3_website_and_edge": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        }
+      }
     }
   },
   "telemetry": {

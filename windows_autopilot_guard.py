@@ -84,11 +84,9 @@ def send_discord_alert(content: str) -> bool:
 
 def main() -> int:
     # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
-    #    and automatically publish any unposted completed roadmap APIs if session is active.
     try:
         import rapidapi_headless_publisher
         rapidapi_headless_publisher.keepalive_rapidapi_session()
-        rapidapi_headless_publisher.auto_sync_unposted_apis(commit_and_push=True)
     except Exception:
         pass
 
