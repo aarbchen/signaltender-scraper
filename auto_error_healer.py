@@ -222,6 +222,72 @@ def archive_local_error_log(resolution_note: str) -> None:
         pass
 
 
+def discover_latest_anthropic_models() -> dict[str, str]:
+    """
+    Query Anthropic's official `GET /v1/models` endpoint (cached for 12 hours in `.frontier_model_cache.json`)
+    to automatically discover the highest semantic version of `claude-sonnet-*`, `claude-haiku-*`, and `claude-opus-*`.
+    """
+    defaults = {
+        "sonnet": "claude-sonnet-5-5",
+        "haiku": "claude-haiku-5-5",
+        "opus": "claude-opus-5-5",
+    }
+    cache_path = BASE_DIR / ".frontier_model_cache.json"
+    now_ts = datetime.now(timezone.utc).timestamp()
+    if cache_path.exists():
+        try:
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            if now_ts - float(cached.get("timestamp") or 0) < 43200 and cached.get("sonnet"):
+                return {
+                    "sonnet": str(cached.get("sonnet") or defaults["sonnet"]),
+                    "haiku": str(cached.get("haiku") or defaults["haiku"]),
+                    "opus": str(cached.get("opus") or defaults["opus"]),
+                }
+        except Exception:
+            pass
+
+    api_key = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
+    if not api_key:
+        return defaults
+
+    try:
+        resp = requests.get(
+            "https://api.anthropic.com/v1/models",
+            headers={"x-api-key": api_key, "anthropic-version": "2023-06-01"},
+            timeout=8,
+        )
+        if resp.status_code == 200:
+            items = (resp.json() or {}).get("data") or []
+            best_versions: dict[str, tuple[tuple[int, int], str]] = {
+                "sonnet": ((5, 5), defaults["sonnet"]),
+                "haiku": ((5, 5), defaults["haiku"]),
+                "opus": ((5, 5), defaults["opus"]),
+            }
+            ver_re = re.compile(r"^claude-(sonnet|haiku|opus)-(\d+)(?:-(\d+))?$")
+            for item in items:
+                mid = str((item or {}).get("id") or "").strip()
+                m = ver_re.match(mid)
+                if not m:
+                    continue
+                family = m.group(1)
+                major = int(m.group(2))
+                minor = int(m.group(3) or 0)
+                if (major, minor) > best_versions[family][0]:
+                    best_versions[family] = ((major, minor), mid)
+            discovered = {k: v[1] for k, v in best_versions.items()}
+            try:
+                cache_path.write_text(
+                    json.dumps({"timestamp": now_ts, **discovered}, indent=2),
+                    encoding="utf-8",
+                )
+            except Exception:
+                pass
+            return discovered
+    except Exception:
+        pass
+    return defaults
+
+
 def verify_scraper_contracts_and_rls_safety() -> list[str]:
     """
     Static + dynamic contract audit across all scrapers, pipeline scripts, AND
@@ -334,8 +400,17 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
 
     # 2. Verify all monitored files:
     #    - Do not use .upsert() on contracts (which triggers Supabase PostgREST RLS 42501)
-    #    - Do not use legacy 4.x / 3.x models
+    #    - Automatically discover & upgrade to the latest frontier Sonnet & Haiku models from `/v1/models`
     #    - Wire report_error() inside send_discord_alert() so 100% of Discord alerts reach /v1/telemetry/report-error
+    frontier = discover_latest_anthropic_models()
+    latest_sonnet = frontier["sonnet"]
+    latest_haiku = frontier["haiku"]
+    sonnet_model_pattern = re.compile(
+        r"\bclaude-(?:3-(?:5-|7-)?sonnet[a-z0-9\-]*|sonnet-[0-9]+(?:-[0-9]+)*)"
+    )
+    haiku_model_pattern = re.compile(
+        r"\bclaude-(?:3-(?:5-)?haiku[a-z0-9\-]*|haiku-[0-9]+(?:-[0-9]+)*)"
+    )
     for rel_path in ALL_MONITORED_FILES:
         full_p = BASE_DIR / rel_path
         if full_p.exists():
@@ -344,10 +419,20 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                 issues.append(
                     f"{rel_path} still contains `.upsert(` which triggers Supabase PostgREST RLS 42501; use SELECT + `.insert(`."
                 )
-            if any(m in src for m in ("claude-sonnet-4", "claude-haiku-4", "claude-haiku-5", "claude-3-")):
-                issues.append(
-                    f"{rel_path} still contains a legacy model ID; use `os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-5-5')`."
-                )
+            bad_sonnets = {m for m in sonnet_model_pattern.findall(src) if m != latest_sonnet}
+            bad_haikus = {m for m in haiku_model_pattern.findall(src) if m != latest_haiku}
+            if bad_sonnets or bad_haikus:
+                healed_src = sonnet_model_pattern.sub(latest_sonnet, src)
+                healed_src = haiku_model_pattern.sub(latest_haiku, healed_src)
+                try:
+                    full_p.write_text(healed_src, encoding="utf-8")
+                    print(
+                        f"  [AUTO-HEALED] Auto-upgraded Anthropic model(s) -> '{latest_sonnet}' / '{latest_haiku}' in {rel_path}"
+                    )
+                except Exception as exc:
+                    issues.append(
+                        f"{rel_path} contains outdated Anthropic model ID(s) and auto-heal failed: {exc}"
+                    )
             m_alert = re.search(r"def\s+send_discord_alert\s*\([^)]*\)\s*(?:->\s*[^:]+)?\s*:(.*?)(?:\ndef\s|\nasync\s+def\s|\Z)", src, flags=re.S)
             if m_alert:
                 alert_body = m_alert.group(1)
@@ -359,6 +444,25 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                     issues.append(
                         f"{rel_path}: `send_discord_alert()` violates RULE-001 (posts raw [ALERT] detection webhook to Discord instead of silent report_error() + [RESOLVED]-only alerting)."
                     )
+
+    # Also auto-upgrade frontier Sonnet & Haiku model IDs in d:\Data API Ecosystem (core/config.py & services/llm_parser.py)
+    eco_dir_models = pathlib.Path(r"D:\Data API Ecosystem")
+    for eco_rel in ("core/config.py", "services/llm_parser.py"):
+        eco_fp = eco_dir_models / eco_rel
+        if eco_fp.exists():
+            eco_src = eco_fp.read_text(encoding="utf-8", errors="replace")
+            bad_eco_s = {m for m in sonnet_model_pattern.findall(eco_src) if m != latest_sonnet}
+            bad_eco_h = {m for m in haiku_model_pattern.findall(eco_src) if m != latest_haiku}
+            if bad_eco_s or bad_eco_h:
+                healed_eco = sonnet_model_pattern.sub(latest_sonnet, eco_src)
+                healed_eco = haiku_model_pattern.sub(latest_haiku, healed_eco)
+                try:
+                    eco_fp.write_text(healed_eco, encoding="utf-8")
+                    print(
+                        f"  [AUTO-HEALED] Auto-upgraded Anthropic model(s) -> '{latest_sonnet}' / '{latest_haiku}' in Data API Ecosystem/{eco_rel}"
+                    )
+                except Exception:
+                    pass
 
     # 3. Verify linkedin_autoposter.py strictly targets SignalTender Company Page (urn:li:organization:146880945)
     li_path = BASE_DIR / "linkedin_autoposter.py"
