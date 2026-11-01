@@ -72,10 +72,28 @@ PORKBUN_SECRET_KEY = (os.getenv("PORKBUN_SECRET_KEY") or "").strip()
 GOOGLE_WORKSPACE_ADMIN_TOKEN = (os.getenv("GOOGLE_WORKSPACE_ADMIN_TOKEN") or "").strip()
 MAILFORGE_API_KEY = (os.getenv("MAILFORGE_API_KEY") or os.getenv("INFRAFORGE_API_KEY") or "").strip()
 
-REINVESTMENT_RATIO = float(os.getenv("REINVESTMENT_RATIO") or "0.50")
+REINVESTMENT_RATIO = float(os.getenv("REINVESTMENT_RATIO") or "0.80")
 COST_PER_SENDING_POD_USD = float(os.getenv("COST_PER_SENDING_POD_USD") or "21.00")  # ~$10.44 domain + 3 x $3.50 mailboxes
 MAILBOXES_PER_DOMAIN = 3
 SENDS_PER_MAILBOX_PER_DAY = 30
+
+
+def compute_dynamic_reinvestment_ratio(active_mailbox_count: int = 3) -> Tuple[float, str]:
+    """
+    3-Stage Dynamic Step-Down Reinvestment Curve:
+      - Stage 1: Ignition (3 -> 35 mailboxes / < 12 domains): 80% reinvestment (0.80)
+      - Stage 2: Expansion (36 -> 71 mailboxes / 12-23 domains): 50% reinvestment (0.50)
+      - Stage 3: Cash-Cow Harvest (72+ mailboxes / 24+ domains): 5% maintenance reinvestment (0.05)
+    """
+    env_override = (os.getenv("REINVESTMENT_RATIO") or "").strip()
+    if env_override:
+        val = float(env_override)
+        return val, f"Custom Env Override ({int(val * 100)}%)"
+    if active_mailbox_count < 36:
+        return 0.80, "Stage 1: Ignition (80% Reinvestment — 3 to 36 Mailboxes)"
+    if active_mailbox_count < 72:
+        return 0.50, "Stage 2: Expansion (50% Reinvestment — 36 to 72 Mailboxes)"
+    return 0.05, "Stage 3: Cash-Cow Harvest (5% Maintenance — 72+ Mailboxes Cap Reached)"
 
 TIER_DEFAULT_USD = {
     "tier_1": 99.00,
@@ -935,7 +953,11 @@ def record_stripe_conversion_reinvestment(
     credited = set(ledger.get("credited_conversion_keys") or [])
 
     if tx_key not in credited and amount_usd > 0:
-        reinvest_usd = round(amount_usd * REINVESTMENT_RATIO, 2)
+        active_mb_count = len(ledger.get("provisioned_mailboxes") or []) or 3
+        active_ratio, stage_label = compute_dynamic_reinvestment_ratio(active_mb_count)
+        ledger["reinvestment_ratio"] = active_ratio
+        ledger["reinvestment_stage"] = stage_label
+        reinvest_usd = round(amount_usd * active_ratio, 2)
         ledger["total_gross_revenue_usd"] = round(float(ledger.get("total_gross_revenue_usd") or 0.0) + amount_usd, 2)
         ledger["total_reinvestment_allocated_usd"] = round(
             float(ledger.get("total_reinvestment_allocated_usd") or 0.0) + reinvest_usd, 2
@@ -958,9 +980,13 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
     ensure_signaltender_avatar_png()
     ledger = _load_local_ledger()
     ledger = sync_revenue_treasury_from_supabase(ledger)
+    active_mb_count = len(ledger.get("provisioned_mailboxes") or []) or 3
+    active_ratio, stage_label = compute_dynamic_reinvestment_ratio(active_mb_count)
+    ledger["reinvestment_ratio"] = active_ratio
+    ledger["reinvestment_stage"] = stage_label
 
     if simulate_revenue_usd > 0:
-        sim_reinvest = round(simulate_revenue_usd * REINVESTMENT_RATIO, 2)
+        sim_reinvest = round(simulate_revenue_usd * active_ratio, 2)
         avail_usd = round(float(ledger.get("available_reinvestment_balance_usd") or 0.0) + sim_reinvest, 2)
     else:
         avail_usd = float(ledger.get("available_reinvestment_balance_usd") or 0.0)
@@ -1050,7 +1076,8 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
         _save_local_ledger(ledger)
 
     summary = {
-        "reinvestment_ratio": f"{int(REINVESTMENT_RATIO * 100)}%",
+        "reinvestment_ratio": f"{int(active_ratio * 100)}%",
+        "reinvestment_stage": stage_label,
         "cost_per_3_mailbox_pod_usd": COST_PER_SENDING_POD_USD,
         "total_gross_revenue_usd": ledger.get("total_gross_revenue_usd", 0.0),
         "total_50pct_reinvestment_allocated_usd": ledger.get("total_reinvestment_allocated_usd", 0.0),
