@@ -153,8 +153,11 @@ def fetch_ar_live_notices() -> list[dict]:
 
 
 def evaluate_with_claude(leads: list[dict]) -> list[dict]:
-    if not ANTHROPIC_API_KEY or not leads:
-        return [item for item in leads if is_tech_contract(item.get("title", ""))]
+    # Pre-vetted bracketed state SLED notices ([XX-...]) already pass is_tech_contract() deterministically;
+    # skip redundant LLM calls on recurring 6-hour cron & smoke runs to eliminate unnecessary token burn.
+    pre_vetted = [item for item in leads if is_tech_contract(item.get("title", ""))]
+    if not ANTHROPIC_API_KEY or not leads or all(str(item.get("title", "")).startswith("[") for item in leads):
+        return pre_vetted
     try:
         import anthropic
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)

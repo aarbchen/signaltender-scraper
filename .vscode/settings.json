@@ -1,0 +1,23 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/daas_env/**": true,
+    "**/.venv/**": true,
+    "**/__pycache__/**": true,
+    "**/contracts/**": true,
+    "**/lettings/**": true,
+    "**/rates/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/daas_env": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/contracts/rfp": true,
+    "**/lettings/project": true,
+    "**/rates/cpt": true
+  }
+}
+

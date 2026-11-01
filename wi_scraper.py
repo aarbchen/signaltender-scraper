@@ -189,6 +189,14 @@ def evaluate_with_claude(leads: list[dict]) -> list[dict]:
     """
     if not ANTHROPIC_API_KEY or not leads:
         return [item for item in leads if is_tech_contract(item.get("title", ""))]
+    pre_vetted = [
+        item for item in leads
+        if str(item.get("title") or "").strip().startswith("[")
+        and is_tech_contract(item.get("title", ""))
+    ]
+    if len(pre_vetted) == len(leads):
+        print(f"    [Fast-Pass] All {len(pre_vetted)} candidate(s) already pre-vetted by deterministic tech filter ? skipping redundant LLM call.")
+        return pre_vetted
     try:
         import anthropic
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)

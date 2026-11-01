@@ -65,6 +65,34 @@ def claim_primary_watcher() -> None:
         pass
 
 
+def is_pid_running(pid: int) -> bool:
+    """Safely check if a process PID is alive without sending CTRL_C_EVENT (sig 0) on Windows."""
+    if pid <= 0:
+        return False
+    if os.name == "nt":
+        try:
+            PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+            STILL_ACTIVE = 259
+            kernel32 = ctypes.windll.kernel32
+            handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, int(pid))
+            if not handle:
+                return False
+            try:
+                exit_code = ctypes.c_ulong()
+                if kernel32.GetExitCodeProcess(handle, ctypes.byref(exit_code)):
+                    return exit_code.value == STILL_ACTIVE
+                return True
+            finally:
+                kernel32.CloseHandle(handle)
+        except Exception:
+            return False
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
 def is_primary_watcher() -> bool:
     """Return True if this process is the elected primary watcher (or if the primary PID is no longer alive)."""
     if not os.path.exists(HEARTBEAT_PATH):
@@ -75,12 +103,9 @@ def is_primary_watcher() -> bool:
         prim = int(hb.get("primary_pid") or hb.get("pid") or 0)
         if prim <= 0 or prim == os.getpid():
             return True
-        # Check if primary_pid is still alive on Windows/POSIX
-        try:
-            os.kill(prim, 0)
+        if is_pid_running(prim):
             return False
-        except OSError:
-            return True
+        return True
     except Exception:
         return True
 
@@ -96,16 +121,12 @@ def write_watcher_heartbeat() -> None:
                 with open(HEARTBEAT_PATH, "r", encoding="utf-8") as rf:
                     old_hb = json.load(rf)
                 old_prim = int(old_hb.get("primary_pid") or 0)
-                if old_prim > 0 and old_prim != os.getpid():
-                    try:
-                        os.kill(old_prim, 0)
-                        prim = old_prim
-                    except OSError:
-                        prim = os.getpid()
+                if old_prim > 0 and old_prim != os.getpid() and is_pid_running(old_prim):
+                    prim = old_prim
             except Exception:
                 pass
         with open(HEARTBEAT_PATH, "w", encoding="utf-8") as f:
-            json.dump({"pid": os.getpid(), "primary_pid": prim, "timestamp": now_ts, "updated_at": now_iso}, f)
+            json.dump({"pid": prim, "primary_pid": prim, "timestamp": now_ts, "updated_at": now_iso}, f)
     except Exception:
         pass
 
@@ -282,7 +303,9 @@ def main() -> int:
             import subprocess
             import omniscient_auditor
             night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
-            if night_allowed:
+            today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
+            if night_allowed and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
+                globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
                 subprocess.run(
                     [
                         python_exe,

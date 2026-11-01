@@ -1765,6 +1765,7 @@ def check_product_output_quality_controls() -> None:
             key_personnel_lcats="Cleared Cyber Program Manager (PMP/CISSP) • Lead Zero-Trust Cloud Architect • Senior DevSecOps Automation Engineer",
             past_performance_refs="",
             rfp_text="",
+            use_llm_synthesis=False,
             download_zip=False,
             suppress_vault_persist=True,
         )

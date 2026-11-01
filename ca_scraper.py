@@ -612,6 +612,20 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
             )
 
     # Validate candidates through Anthropic B2B quality control prompt if configured
+    # Pre-filter out URLs already in Supabase BEFORE invoking Claude so we never pay tokens twice for the same RFP
+    _pre_existing_urls = set()
+    if (supabase or (SUPABASE_URL and SUPABASE_KEY)) and candidate_records:
+        try:
+            _db_pre = supabase or create_client(SUPABASE_URL, SUPABASE_KEY)
+            _pre_resp = _db_pre.table(TABLE_NAME).select("url").execute()
+            _pre_existing_urls = {r.get("url") for r in (_pre_resp.data or []) if r.get("url")}
+        except Exception:
+            pass
+    _already_in_db_records = [r for r in candidate_records if r.get("url") in _pre_existing_urls]
+    candidate_records = [r for r in candidate_records if r.get("url") not in _pre_existing_urls]
+    if _already_in_db_records and not candidate_records:
+        print(f"[*] [Fast-Pass] All {len(_already_in_db_records)} candidate(s) already in Supabase `{TABLE_NAME}` ? skipping redundant LLM call.", flush=True)
+
     if candidate_records and client:
         try:
             print(
@@ -672,6 +686,7 @@ async def run_scraper(push_to_db: bool = True) -> list[dict]:
             supabase_records = candidate_records
     else:
         supabase_records = candidate_records
+    supabase_records = _already_in_db_records + supabase_records
 
     # Exact URL deduplication + 85% fuzzy title deduplication
     supabase_records = list({r["url"]: r for r in supabase_records}.values())

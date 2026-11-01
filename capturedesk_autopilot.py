@@ -1092,6 +1092,7 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
             print(" -> [CaptureDesk] No contracts found in Supabase.", flush=True)
             return []
 
+        max_cached_id = max((int(k) for k in existing_dossiers.keys() if str(k).isdigit()), default=0)
         new_dossiers = []
         for row in rows:
             rec_id = str(row.get("id") or "")
@@ -1101,6 +1102,9 @@ def run_capturedesk_autopilot(force_refresh_ids: list[str] | None = None) -> lis
                 if rec_id not in force_refresh_ids:
                     continue
             elif rec_id in existing_dossiers:
+                continue
+            elif max_cached_id > 0 and rec_id.isdigit() and int(rec_id) <= max_cached_id:
+                # Historical row older than our highest cached dossier ID ? never re-burn LLM tokens walking backward
                 continue
             dossier = enrich_contract_dossier(row)
             existing_dossiers[rec_id] = dossier

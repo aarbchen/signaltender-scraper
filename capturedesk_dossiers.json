@@ -748,5 +748,125 @@
       "SOC 2 Type II or ISO 27001 reports, data encryption and access control description, incident response plan, and integration interface specifications."
     ],
     "enriched_at": "2026-10-30T22:22:10.872905+00:00"
+  },
+  "1750": {
+    "id": "1750",
+    "title": "[AL-C7707E] Welcome to Alabama Buys State of Alabama eProcurement Portal",
+    "agency": "State of Alabama Division of Procurement & OIT (Alabama Buys)",
+    "jurisdiction_badge": "ALABAMA // ALABAMA BUYS STAARS, OIT & REDSTONE DEFENSE",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/26/2026",
+    "source_url": "https://alabamabuys.gov/#C7707E",
+    "dossier_url": "https://signaltender.net/contracts/rfp/al-c7707e-welcome-to-alabama-buys-state-of-alabama-eprocurement-portal-1750.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "920-45 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0) \u2022 StateRAMP \u2022 Alabama Accessibility VPAT",
+    "teaming_posture": "Alabama ADECA Small/Minority Business Outreach + Huntsville Defense Subcontracting & Alabama Buys STAARS Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Technical Approach & Architecture: A Secure, Scalable Alabama Buys eProcurement Platform:** Weighted at 45%, so lead with a clear architecture diagram and a design-deploy-support lifecycle. Emphasize data/AI-enabled procurement analytics and low-risk modernization alongside STAARS/OIT. Ghost competitors who offer generic COTS without State-specific configuration.",
+      "**Security, Section 508/WCAG 2.1 AA Accessibility, Integration & Uptime SLA Assurance:** Build a compliance crosswalk showing each standard met with evidence (VPAT, security certifications, uptime history). Discriminator: contractually backed SLA with credits and continuous automated accessibility testing.",
+      "**Management & Implementation Plan: Phased Delivery, Training & Seamless Transition:** Present a phased schedule with decision gates, role-based training, and a zero-disruption cutover for vendors and agencies. Highlight named key personnel, risk mitigation, and governance cadence with the State."
+    ],
+    "evidence_needed": [
+      "Reference architecture diagram, design/deployment methodology, support model (tiers, hours, escalation), and data/AI capability description.",
+      "Security control mapping to State/OIT policies (e.g., NIST 800-53), applicable certifications (SOC 2, FedRAMP/StateRAMP if held), and incident response plan."
+    ],
+    "enriched_at": "2026-11-01T06:12:56.126613+00:00"
+  },
+  "1751": {
+    "id": "1751",
+    "title": "[LA-5E39EC] All vendors that wish to receive email notifications of bid opportunities must be registered in LaGov via the vendor enrollment portal.",
+    "agency": "Louisiana Office of State Procurement & OTS (LaPAC)",
+    "jurisdiction_badge": "LOUISIANA // LAPAC, LAGOV & OTS",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/25/2026",
+    "source_url": "https://wwwcfprd.doa.louisiana.gov/osp/lapac/pubMain.cfm#5E39EC",
+    "dossier_url": "https://signaltender.net/contracts/rfp/la-5e39ec-all-vendors-that-wish-to-receive-email-notifications-of-bid-1751.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "920-45 \u2014 Computer Software Consulting and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Louisiana OTS Information Security Policy (NIST 800-53 / R.S. 39:15.1) \u2022 StateRAMP \u2022 LA Section 508 VPAT",
+    "teaming_posture": "Louisiana Hudson Initiative (SEBD Small Entrepreneurship) & Veteran Initiative (10%\u201312% Pref) + LaMAS Alignment + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Executive Summary & Understanding of LaPAC/OTS Mission:** Open with the customer's procurement-modernization outcomes: a secure, accessible, low-risk solution delivered in phases. State discriminators up front (public-sector track record, 508/WCAG-ready architecture, proven transition) and map them to the three Section M factors.",
+      "**Technical Approach & Solution Architecture (45%):** Carry the heaviest page share because this factor carries 45%. Show design-deploy-support end to end, then a dedicated subsection (2.2) for security, Section 508/WCAG 2.1 AA, integration and SLA uptime backed by VPAT and uptime metrics. Ghost competitors who treat accessibility and SLAs as afterthoughts, and use compliance callouts for every 'shall'.",
+      "**Management & Implementation Plan: Phased Schedule, Training & Transition (25%):** Feature a phased schedule with measurable milestones, a role-based training plan and a zero-disruption transition with rollback. Name key personnel and governance cadence. Stress minimal operational risk to LaPAC vendors and buyers during cutover."
+    ],
+    "evidence_needed": [
+      "Solution architecture diagram, design-deploy-support lifecycle description, support tier model, and technology stack with data/AI components.",
+      "VPAT/ACR, WCAG 2.1 AA test results, security controls mapping (e.g., NIST 800-53/State OTS policy), integration interface specs, and proposed uptime SLA with historical uptime metrics."
+    ],
+    "enriched_at": "2026-11-01T06:12:20.370493+00:00"
+  },
+  "1755": {
+    "id": "1755",
+    "title": "[AR-C22391] Register for Periscope S2G notifications",
+    "agency": "State of Arkansas (ARBuy / DIS)",
+    "jurisdiction_badge": "ARKANSAS // ARBUY PERISCOPE, DIS & LITTLE ROCK AFB CORRIDOR",
+    "vertical": "Enterprise Software, Data & AI",
+    "closing_date": "11/26/2026",
+    "source_url": "https://arbuy.arkansas.gov/bso/#C22391",
+    "dossier_url": "https://signaltender.net/contracts/rfp/ar-c22391-register-for-periscope-s2g-notifications-1755.html",
+    "primary_naics": "541512 \u2014 Computer Systems Design Services",
+    "primary_psc": "DA01 \u2014 IT and Telecom - Business Application/Application Development Support Services (Labor)",
+    "primary_nigp": "918-29 \u2014 Consulting Services, Computer Software and Systems Integration",
+    "sba_size_standard": "$34.0M annual receipts",
+    "compliance_posture": "Arkansas DIS State Cyber Security Office Standards (NIST 800-53 / CMMC 2.0) \u2022 StateRAMP \u2022 AR Act 1227 Technology Accessibility VPAT",
+    "teaming_posture": "Arkansas Economic Development Commission Minority & Women-Owned / SDVOSB Business Outreach \u2022 ARBuy Master Contract Eligible + 3 SLED Refs",
+    "igce_ptw_posture": "Wrap ~1.80x (Contractor-Site) \u2022 Target PTW: -5.5% vs. IGCE \u2022 Sr. Solutions Arch $162/hr | Lead Software Eng $146/hr",
+    "key_personnel_lcats": "Engagement Program Manager (PMP/CSM, 10+ yrs) \u2022 Lead Enterprise Systems Architect (8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Executive Summary: Compliant, Low-Risk Delivery of Periscope S2G Notification Registration for Arkansas:** Open with a clear understanding of the ARBuy/DIS mission and a single discriminator: proven public-sector delivery that is accessible, secure, and live on schedule. Mirror the Section M factor order and weights, and point to the sections where each is addressed.",
+      "**Technical Approach & Architecture: Secure, Accessible, Integrated, SLA-Backed Solution:** This is the 45% factor, so give it the largest page share. Use a single architecture diagram and a compliance table covering security, Section 508/WCAG 2.1 AA, ARBuy/DIS integration, and the SLA uptime commitment. Offer a measurable uptime guarantee and VPAT evidence, and ghost competitors who treat accessibility and SLAs as afterthoughts.",
+      "**Management & Implementation Plan: Phased Schedule, Training & Seamless Transition:** Present a phased schedule with named milestones, a role-based training plan, and a transition plan with a clear handover. Highlight named key personnel, governance cadence with DIS, and risk mitigations to show low execution risk."
+    ],
+    "evidence_needed": [
+      "Solution architecture diagram, design/deployment methodology, support model (tiers, hours, escalation), and a notification-registration workflow description.",
+      "VPAT/ACR and WCAG 2.1 AA test results, security control mapping and certifications, integration/interface specs with ARBuy/DIS, and proposed SLA uptime metric with credits and monitoring approach."
+    ],
+    "enriched_at": "2026-11-01T00:13:08.144025+00:00"
+  },
+  "1756": {
+    "id": "1756",
+    "title": "RFP#185-26 Intrusion, Monitoring & Security Camera Systems",
+    "agency": "Virginia Alcoholic Beverage Control Authority",
+    "jurisdiction_badge": "VIRGINIA // eVA",
+    "vertical": "Cybersecurity & Zero-Trust",
+    "closing_date": "01/15/2027",
+    "source_url": "https://mvendor.cgieva.com/Vendor/public/IVDetails.jsp?PageTitle=SO%20Details&rfp_id_lot=128279&rfp_id_round=128279",
+    "dossier_url": "https://signaltender.net/contracts/rfp/rfp-185-26-intrusion-monitoring-security-camera-systems-1756.html",
+    "primary_naics": "561621 \u2014 Security Systems Services (except Locksmiths)",
+    "primary_psc": "6350 \u2014 Miscellaneous Alarm, Signal, and Security Detection Systems",
+    "primary_nigp": "280-50 \u2014 Closed Circuit Television (CCTV) Systems and Equipment, Security",
+    "sba_size_standard": "$25.0M annual receipts",
+    "compliance_posture": "VITA SEC 530 Enterprise Cloud Standard \u2022 SOC 2 Type II \u2022 Virginia IT Accessibility Act VPAT",
+    "teaming_posture": "Virginia DSBSD SWaM Plan: 42% Small, Women- & Minority-Owned (SWaM) Goal + 3 Public-Sector Refs",
+    "igce_ptw_posture": "Wrap ~1.84x (Contractor-Site) \u2022 Target PTW: -4.5% vs. IGCE \u2022 Sr. Cyber Arch $168/hr | SecOps Eng $148/hr",
+    "key_personnel_lcats": "Program Manager (PMP/CISSP, 10+ yrs) \u2022 Principal Zero-Trust/SOC Architect (CISSP/CISM, 8+ yrs)",
+    "cpars_relevance_benchmark": "Substantial Confidence Target \u2022 3 Very Relevant Refs (Within 5 Yrs, Exceptional Quality/Schedule CPARS)",
+    "ostensible_sub_risk": "LOW RISK (13 CFR \u00a7 121.103(h)(3)) \u2014 Prime retains \u226551% labor, PM authority & core architecture",
+    "win_themes": [
+      "**Zero-Trust Intrusion, Monitoring & Camera System Architecture:** Highest-weighted factor (45%). Lead with a zero-trust-by-design architecture covering the full design-deploy-support lifecycle, with a clear diagram and quantified benefits. Ghost competitors who offer siloed, perimeter-only camera/alarm products by emphasizing unified identity-based device trust and a single pane of glass.",
+      "**Security, Accessibility (508/WCAG 2.1 AA) & Integration Compliance:** Show line-by-line compliance with security, accessibility, and integration standards, backed by a VPAT and a control-mapping table. Discriminator: proven integration with existing VA ABC systems at zero disruption to store and warehouse operations.",
+      "**Support Model & SLA Uptime Assurance:** Convert SLA compliance into a measurable guarantee with proactive health monitoring, spares, and defined escalation. Cite historical uptime metrics as proof of reliability."
+    ],
+    "evidence_needed": [
+      "Reference architecture diagram showing zero-trust segmentation, device identity and authentication, and a design-deploy-support lifecycle with named tooling and OEM certifications.",
+      "Security control mapping (e.g., NIST SP 800-53/COV security standards), relevant certifications, and encryption, access control, and logging descriptions."
+    ],
+    "enriched_at": "2026-11-01T00:12:21.011240+00:00"
   }
 }

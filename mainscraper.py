@@ -444,6 +444,31 @@ async def scrape_and_extract(url: str, selector: str, keyword: str, push_to_db: 
                 "contact_email": line.get("contactEmail") or "",
             })
 
+        # Pre-filter ESBD candidates by tech_keywords and existing Supabase URLs before calling Claude
+        esbd_candidates = [
+            c for c in esbd_candidates
+            if any(re.search(pattern, c["raw_title"].lower()) for pattern in tech_keywords)
+        ]
+        _esbd_existing_urls = set()
+        if esbd_candidates and SUPABASE_URL and SUPABASE_KEY:
+            try:
+                _db_esbd = _get_supabase_client()
+                _esbd_resp = _db_esbd.table(TABLE_NAME).select("url").execute()
+                _esbd_existing_urls = {r.get("url") for r in (_esbd_resp.data or []) if r.get("url")}
+            except Exception:
+                pass
+        _already_vetted_esbd = [
+            c for c in esbd_candidates
+            if c.get("bid_id") and f"https://www.txsmartbuy.com/esbd/{c['bid_id'].strip()}" in _esbd_existing_urls
+        ]
+        esbd_candidates = [
+            c for c in esbd_candidates
+            if not (c.get("bid_id") and f"https://www.txsmartbuy.com/esbd/{c['bid_id'].strip()}" in _esbd_existing_urls)
+        ]
+        raw_candidates.extend(_already_vetted_esbd)
+        if _already_vetted_esbd and not esbd_candidates:
+            print(f"[*] [Fast-Pass] All {len(_already_vetted_esbd)} Texas ESBD tech candidate(s) already in Supabase ? skipping redundant LLM call.", flush=True)
+
         if esbd_candidates and llm_client:
             try:
                 esbd_snippet = json.dumps(
