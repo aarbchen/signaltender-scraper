@@ -1778,7 +1778,7 @@ def run_omniscient_audit(
     acq_fixed, acq_issues = audit_and_heal_acquisition(auto_fix=auto_fix)
     web_fixed, web_issues = audit_and_heal_website(auto_fix=auto_fix, run_playwright=run_playwright)
 
-    # Also screen CamberDesk (`D:\CamberDesk\omniscient_auditor.py`) on every nightly Omniscient Audit run
+    # Also screen CamberDesk (`D:\CamberDesk\omniscient_auditor.py`) and RubricWard (`D:\RubricWard\omniscient_auditor.py`) on every nightly Omniscient Audit run
     camberdesk_report: dict = {}
     camberdesk_dir = pathlib.Path(r"D:\CamberDesk")
     camberdesk_auditor = camberdesk_dir / "omniscient_auditor.py"
@@ -1797,6 +1797,25 @@ def run_omniscient_audit(
                         web_issues.append(f"[CamberDesk // {p_name}] {iss}")
         except Exception as cd_exc:
             web_issues.append(f"[CamberDesk Omniscient Audit] Execution error: {cd_exc}")
+
+    rubricward_report: dict = {}
+    rubricward_dir = pathlib.Path(r"D:\RubricWard")
+    rubricward_auditor = rubricward_dir / "omniscient_auditor.py"
+    if rubricward_auditor.exists():
+        print("[*] Screening RubricWard 3-Pillar Omniscient Auditor (D:\\RubricWard\\omniscient_auditor.py)...", flush=True)
+        try:
+            rw_cmd = [sys.executable, str(rubricward_auditor), "--mode", mode, "--force-now"]
+            if auto_deploy:
+                rw_cmd.append("--auto-deploy")
+            subprocess.run(rw_cmd, cwd=str(rubricward_dir), capture_output=True, text=True, timeout=600, check=False)
+            rw_report_path = rubricward_dir / "omniscient_audit_report.json"
+            if rw_report_path.exists():
+                rubricward_report = json.loads(rw_report_path.read_text(encoding="utf-8"))
+                for p_name, p_data in (rubricward_report.get("pillars") or {}).items():
+                    for iss in (p_data.get("issues") or []):
+                        web_issues.append(f"[RubricWard // {p_name}] {iss}")
+        except Exception as rw_exc:
+            web_issues.append(f"[RubricWard Omniscient Audit] Execution error: {rw_exc}")
 
     all_fixed = prod_fixed + acq_fixed + web_fixed
     all_unfixed = prod_issues + acq_issues + web_issues
@@ -1897,6 +1916,7 @@ def run_omniscient_audit(
             "acquisition_channels": {"auto_fixed": acq_fixed, "unfixed_issues": acq_issues},
             "website_and_checkout": {"auto_fixed": web_fixed, "unfixed_issues": web_issues},
             "camberdesk_ecosystem": camberdesk_report,
+            "rubricward_ecosystem": rubricward_report,
         },
         "telemetry": {
             "open_remote_errors": len(remote_errors),
