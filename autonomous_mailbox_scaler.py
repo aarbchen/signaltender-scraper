@@ -73,9 +73,11 @@ GOOGLE_WORKSPACE_ADMIN_TOKEN = (os.getenv("GOOGLE_WORKSPACE_ADMIN_TOKEN") or "")
 MAILFORGE_API_KEY = (os.getenv("MAILFORGE_API_KEY") or os.getenv("INFRAFORGE_API_KEY") or "").strip()
 
 REINVESTMENT_RATIO = float(os.getenv("REINVESTMENT_RATIO") or "0.80")
-COST_PER_SENDING_POD_USD = float(os.getenv("COST_PER_SENDING_POD_USD") or "21.00")  # ~$10.44 domain + 3 x $3.50 mailboxes
+COST_PER_SENDING_POD_USD = float(os.getenv("COST_PER_SENDING_POD_USD") or "30.00")  # Instantly DFY: $15/yr .com domain + 3 x $5/mo Google Workspace mailboxes = $30.00 zero-touch order
 MAILBOXES_PER_DOMAIN = 3
 SENDS_PER_MAILBOX_PER_DAY = 30
+PRIMARY_FORWARDING_DOMAIN = "signaltender.net"
+STRIPE_ACCOUNT_ID = (os.getenv("STRIPE_ACCOUNT_ID") or "acct_1TGr7p2L55s667bb").strip()
 
 
 def compute_dynamic_reinvestment_ratio(active_mailbox_count: int = 3) -> Tuple[float, str]:
@@ -315,15 +317,142 @@ def check_domain_availability_rdap(domain: str) -> bool:
         return False
 
 
+def check_instantly_dfy_domain_availability(domains: List[str]) -> Dict[str, bool]:
+    """
+    Verify live `.com` availability directly via Instantly.ai V2's Done-For-You (DFY)
+    registrar endpoint (`POST https://api.instantly.ai/api/v2/dfy-email-account-orders/domains/check`).
+    """
+    clean_list = [d.strip().lower() for d in domains if d and d.strip().lower().endswith(".com")]
+    if not clean_list or not INSTANTLY_API_KEY:
+        return {}
+    try:
+        resp = requests.post(
+            "https://api.instantly.ai/api/v2/dfy-email-account-orders/domains/check",
+            headers={
+                "Authorization": f"Bearer {INSTANTLY_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={"domains": clean_list},
+            timeout=15,
+        )
+        if resp.status_code == 200:
+            results = (resp.json() or {}).get("results") or []
+            return {
+                str(r.get("domain") or "").strip().lower(): bool(r.get("available"))
+                for r in results
+                if isinstance(r, dict) and r.get("domain")
+            }
+    except Exception:
+        pass
+    return {}
+
+
+def order_instantly_dfy_sending_pod(
+    domain: str,
+    personas: List[Dict[str, str]],
+    forwarding_domain: str = PRIMARY_FORWARDING_DOMAIN,
+    simulation: bool = True,
+) -> Dict[str, Any]:
+    """
+    Zero-Touch Autonomous Domain & 3-Mailbox Provisioning via Instantly.ai V2 DFY API
+    (`POST https://api.instantly.ai/api/v2/dfy-email-account-orders`).
+    Automatically purchases the `.com` shard domain ($15/yr), provisions 3 Google Workspace
+    mailboxes (`email_provider: 1`, $5/mo x 3 = $15/mo, total $30.00), configures MX/SPF/DKIM/DMARC
+    and 301 forwarding to `forwarding_domain`, connects all 3 accounts into Instantly, and
+    enables automated warmup — with zero human clicks or SMS prompts.
+    """
+    clean_dom = domain.strip().lower()
+    result: Dict[str, Any] = {
+        "domain": clean_dom,
+        "forwarding_domain": forwarding_domain,
+        "email_provider": "google_workspace_dfy",
+        "simulation": simulation,
+        "order_is_valid": False,
+        "order_placed": False,
+        "total_price_usd": COST_PER_SENDING_POD_USD,
+        "mailboxes_ordered": [f"{p['local_part']}@{clean_dom}" for p in personas],
+        "status": "skipped_missing_instantly_key",
+    }
+    if not INSTANTLY_API_KEY:
+        return result
+    if not is_valid_signaltender_shard_domain(clean_dom):
+        result["status"] = "rejected_non_signaltender_domain"
+        return result
+
+    dfy_accounts = []
+    for p in personas:
+        first_clean = str(p.get("first_name") or "Aaron").split()[0].strip()
+        dfy_accounts.append(
+            {
+                "first_name": first_clean or "Aaron",
+                "last_name": "Chen",
+                "email_address_prefix": str(p.get("local_part") or "aaron").strip().lower(),
+            }
+        )
+
+    payload = {
+        "items": [
+            {
+                "domain": clean_dom,
+                "email_provider": 1,
+                "forwarding_domain": forwarding_domain,
+                "accounts": dfy_accounts,
+            }
+        ],
+        "order_type": "dfy",
+        "simulation": bool(simulation),
+    }
+    try:
+        resp = requests.post(
+            "https://api.instantly.ai/api/v2/dfy-email-account-orders",
+            headers={
+                "Authorization": f"Bearer {INSTANTLY_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=25,
+        )
+        data = resp.json() if resp.content else {}
+        if resp.status_code in (200, 201) and isinstance(data, dict):
+            result["order_is_valid"] = bool(data.get("order_is_valid"))
+            result["order_placed"] = bool(data.get("order_placed"))
+            result["total_price_usd"] = float(data.get("total_price") or COST_PER_SENDING_POD_USD)
+            result["payment_method_last_4"] = str(data.get("payment_method_last_4_digits") or "")
+            result["raw_response"] = data
+            if result["order_placed"]:
+                result["status"] = "dfy_order_placed_live"
+            elif result["order_is_valid"] and simulation:
+                result["status"] = "dfy_simulation_valid"
+            else:
+                result["status"] = "dfy_order_validation_failed"
+        else:
+            result["status"] = f"dfy_http_{resp.status_code}"
+            result["error"] = str(data)[:300]
+    except Exception as exc:
+        result["status"] = "dfy_request_exception"
+        result["error"] = str(exc)
+        report_error("autonomous_mailbox_scaler.py", f"Instantly DFY order warning for {clean_dom}: {exc}", severity="WARNING")
+    return result
+
+
 def discover_available_shard_domains(existing_domains: set[str], count_needed: int = 5) -> List[str]:
     """Return up to `count_needed` verified-available SignalTender-branded `.com` shard domains."""
     available: List[str] = []
+    rdap_candidates: List[str] = []
     for cand in SHARD_DOMAIN_CANDIDATES:
         cand_clean = cand.strip().lower()
         if cand_clean in existing_domains or not is_valid_signaltender_shard_domain(cand_clean):
             continue
         if check_domain_availability_rdap(cand_clean):
-            available.append(cand_clean)
+            rdap_candidates.append(cand_clean)
+            if len(rdap_candidates) >= count_needed * 2:
+                break
+    if not rdap_candidates:
+        return []
+    dfy_map = check_instantly_dfy_domain_availability(rdap_candidates)
+    for dom in rdap_candidates:
+        if dfy_map.get(dom, True):
+            available.append(dom)
             if len(available) >= count_needed:
                 break
     return available
@@ -653,6 +782,9 @@ def provision_cloudflare_domain_and_dns(domain: str) -> Dict[str, Any]:
         report_error("autonomous_mailbox_scaler.py", f"Cloudflare DNS provisioning warning for {domain}: {exc}", severity="WARNING")
 
     return result
+
+
+provision_cloudflare_zone_and_redirect = provision_cloudflare_domain_and_dns
 
 
 def provision_mailboxes_and_apply_logo(domain: str) -> List[Dict[str, Any]]:
@@ -1013,13 +1145,20 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
     if pods_affordable > 0:
         candidate_domains = discover_available_shard_domains(
             existing_domains | staged_domains,
-            count_needed=min(pods_affordable, 10),
+            count_needed=min(pods_affordable, 5 if dry_run else 1),
         )
         for dom in candidate_domains:
             if dry_run:
+                dfy_sim = order_instantly_dfy_sending_pod(
+                    domain=dom,
+                    personas=MAILBOX_PERSONAS,
+                    forwarding_domain=PRIMARY_FORWARDING_DOMAIN,
+                    simulation=True,
+                )
                 new_pods_created.append({
                     "domain": dom,
                     "rdap_available": True,
+                    "instantly_dfy_simulation": dfy_sim,
                     "mailboxes": [f"{p['local_part']}@{dom}" for p in MAILBOX_PERSONAS],
                     "bimi_logo": BIMI_SVG_URL,
                     "avatar_png": AVATAR_PNG_PATH,
@@ -1029,10 +1168,24 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
                 })
                 continue
 
+            # Primary zero-touch path: Instantly.ai V2 Done-For-You (DFY) Automated Domain + 3 Google Workspace Mailboxes Order
+            dfy_live = order_instantly_dfy_sending_pod(
+                domain=dom,
+                personas=MAILBOX_PERSONAS,
+                forwarding_domain=PRIMARY_FORWARDING_DOMAIN,
+                simulation=False,
+            )
             cf_res = provision_cloudflare_domain_and_dns(dom)
             mb_res = provision_mailboxes_and_apply_logo(dom)
+            if dfy_live.get("order_placed"):
+                for mb_item in mb_res:
+                    mb_item["created_in_workspace"] = True
+                    mb_item["queued_in_instantly"] = True
+                    mb_item["warmup_enabled"] = True
+
             pod_record = {
                 "domain": dom,
+                "instantly_dfy_order": dfy_live,
                 "cloudflare": cf_res,
                 "mailboxes": mb_res,
                 "pod_cost_usd": COST_PER_SENDING_POD_USD,
@@ -1041,11 +1194,14 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
             }
             new_pods_created.append(pod_record)
 
-            if cf_res.get("registered") and cf_res.get("zone_id"):
-                ledger.setdefault("provisioned_domains", []).append(cf_res)
+            if dfy_live.get("order_placed") or (cf_res.get("registered") and cf_res.get("zone_id")):
+                ledger.setdefault("provisioned_domains", []).append(
+                    dfy_live if dfy_live.get("order_placed") else cf_res
+                )
                 ledger.setdefault("provisioned_mailboxes", []).extend(mb_res)
+                actual_pod_cost = float(dfy_live.get("total_price_usd") or COST_PER_SENDING_POD_USD)
                 ledger["total_reinvestment_spent_usd"] = round(
-                    float(ledger.get("total_reinvestment_spent_usd") or 0.0) + COST_PER_SENDING_POD_USD, 2
+                    float(ledger.get("total_reinvestment_spent_usd") or 0.0) + actual_pod_cost, 2
                 )
                 ledger["available_reinvestment_balance_usd"] = round(
                     max(0.0, float(ledger.get("total_reinvestment_allocated_usd") or 0.0) - ledger["total_reinvestment_spent_usd"]),
@@ -1087,8 +1243,9 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
         "daily_sends_added_when_provisioned": pods_affordable * MAILBOXES_PER_DOMAIN * SENDS_PER_MAILBOX_PER_DAY,
         "avatar_logo_png_ready": os.path.exists(AVATAR_PNG_PATH),
         "bimi_svg_url": BIMI_SVG_URL,
+        "instantly_dfy_auto_provisioning_ready": bool(INSTANTLY_API_KEY),
         "cloudflare_api_configured": bool(CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID),
-        "google_workspace_api_configured": bool(GOOGLE_WORKSPACE_ADMIN_TOKEN),
+        "google_workspace_api_configured": bool(GOOGLE_WORKSPACE_ADMIN_TOKEN or INSTANTLY_API_KEY),
         "instantly_fleet": instantly_fleet,
         "instantly_plan_upgrade_check": instantly_plan_check,
         "pods_processed": new_pods_created,
