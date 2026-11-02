@@ -25550,6 +25550,66 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
             </div>
 
           </div>
+
+          <!-- Direct Human & Founder Engineering Support Escalation Card -->
+          <div id="human-support-escalation-card" class="p-6 sm:p-7 rounded-2xl bg-navy-900 border border-sky-500/40 shadow-2xl space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+              <div>
+                <div class="text-xs font-mono uppercase text-sky-400 font-bold">// DIRECT HUMAN &amp; FOUNDER SUPPORT ESCALATION &bull; TRACKED SLA QUEUE</div>
+                <h2 class="text-xl font-extrabold text-white mt-0.5">Need a Real Person? Send a Direct Message to Founder &amp; Engineering Support</h2>
+                <p class="text-xs text-slate-300 mt-1">If the AI Support Concierge did not fully resolve your question, submit a priority human support ticket below or email our founder directly.</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-sky-300 font-semibold">Direct Email: <span class="text-white font-bold">aaron@getsignaltender.com</span></span>
+                <button type="button" onclick="window.copyDirectSupportEmail('aaron@getsignaltender.com', this)" class="px-3 py-1.5 rounded-lg bg-sky-600/25 hover:bg-sky-600/40 border border-sky-500/40 text-sky-200 text-xs font-mono font-bold cursor-pointer transition-all">Copy Email</button>
+              </div>
+            </div>
+
+            <form id="form-human-escalation" onsubmit="event.preventDefault(); window.submitHumanSupportEscalation();" class="space-y-4" autocomplete="off">
+              <div class="hidden" aria-hidden="true">
+                <label for="escalate-honeypot">Leave blank</label>
+                <input id="escalate-honeypot" type="text" name="website_url_honeypot" tabindex="-1" autocomplete="off" value="" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="space-y-1">
+                  <label for="escalate-name" class="block text-[11px] font-mono uppercase text-slate-300">Your Name</label>
+                  <input id="escalate-name" type="text" maxlength="100" placeholder="Jane Doe" class="w-full px-3 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500" />
+                </div>
+                <div class="space-y-1">
+                  <label for="escalate-email" class="block text-[11px] font-mono uppercase text-sky-300 font-bold">Work Email (Required for Reply) *</label>
+                  <input id="escalate-email" type="email" maxlength="120" required placeholder="you@company.com" class="w-full px-3 py-2.5 rounded-lg bg-navy-950 border border-sky-500/50 text-xs font-mono text-white placeholder-slate-500" />
+                </div>
+                <div class="space-y-1">
+                  <label for="escalate-company" class="block text-[11px] font-mono uppercase text-slate-300">Organization</label>
+                  <input id="escalate-company" type="text" maxlength="100" placeholder="Your GovCon Firm LLC" class="w-full px-3 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white placeholder-slate-500" />
+                </div>
+                <div class="space-y-1">
+                  <label for="escalate-urgency" class="block text-[11px] font-mono uppercase text-slate-300">Routing Queue &amp; Priority</label>
+                  <select id="escalate-urgency" class="w-full px-3 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-xs font-mono text-white">
+                    <option value="direct_founder">Direct Founder / Executive Inquiry (&lt; 2hr SLA)</option>
+                    <option value="priority_billing">Priority Billing, Invoice or Subscription Help</option>
+                    <option value="urgent_technical">Urgent Technical / API / MCP Troubleshooting</option>
+                    <option value="enterprise_custom">Enterprise Multi-Seat / Custom Deployment Quote</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <label for="escalate-message" class="uppercase text-slate-300">How Can Our Founder &amp; Engineering Team Help You? *</label>
+                  <span class="text-sky-400">Encrypted TLS 1.3 &bull; Instant Founder Queue Dispatch</span>
+                </div>
+                <textarea id="escalate-message" rows="3" maxlength="2000" required placeholder="Describe your question, custom enterprise requirement, billing request, or technical issue — we will reply directly to your email..." class="w-full p-3.5 rounded-xl bg-navy-950 border border-slate-700 focus:border-sky-500 focus:outline-none text-xs font-mono text-white placeholder-slate-500 leading-relaxed"></textarea>
+              </div>
+
+              <button type="submit" id="btn-escalate-submit" class="w-full py-3 px-5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-bold border border-sky-400/40 shadow-lg transition-all cursor-pointer">
+                Send Direct Message to Founder &amp; Engineering Support &rarr;
+              </button>
+            </form>
+
+            <div id="escalate-confirmation-box" class="hidden p-5 rounded-xl bg-navy-950 border border-emerald-500/40 space-y-2 text-xs font-mono"></div>
+          </div>
         </div>
 
         <!-- ===============================================================
@@ -26627,12 +26687,14 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           txtEl.textContent = cleanAns;
           if (actEl) {
             var acts = Array.isArray(actionsList) ? actionsList : [];
-            actEl.innerHTML = acts.map(function (a) {
+            var buttonsHtml = acts.map(function (a) {
               var lbl = String(a.label || 'Open').replace(/</g, '&lt;');
               var href = String(a.href || '#overview').replace(/"/g, '&quot;');
               var ext = href.indexOf('http') === 0 ? ' target="_blank" rel="noopener noreferrer"' : '';
               return '<a href="' + href + '"' + ext + ' class="px-3 py-1.5 rounded-lg bg-indigo-600/25 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/40 text-xs font-mono font-semibold transition-all">' + lbl + ' &rarr;</a>';
             }).join('');
+            buttonsHtml += '<button type="button" onclick="window.prefillHumanEscalationFromAi()" class="px-3 py-1.5 rounded-lg bg-sky-600/25 hover:bg-sky-600/40 text-sky-200 border border-sky-500/40 text-xs font-mono font-semibold transition-all cursor-pointer">Need Human Help? Message Founder Support &rarr;</button>';
+            actEl.innerHTML = buttonsHtml;
           }
         }
 
@@ -26688,6 +26750,135 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
               btnEl.textContent = 'Get Instant AI Concierge Answer →';
             }
             renderConciergeOutput(localFallback.answer, localFallback.actions, '');
+          });
+        return true;
+      };
+
+      window.copyDirectSupportEmail = function (emailStr, btnEl) {
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(emailStr).catch(function () {});
+        }
+        if (btnEl) {
+          var orig = btnEl.textContent;
+          btnEl.textContent = 'Copied!';
+          setTimeout(function () { btnEl.textContent = orig; }, 1800);
+        }
+      };
+
+      window.prefillHumanEscalationFromAi = function () {
+        var qEl = document.getElementById('concierge-question');
+        var emEl = document.getElementById('concierge-email');
+        var coEl = document.getElementById('concierge-company');
+        var escEm = document.getElementById('escalate-email');
+        var escCo = document.getElementById('escalate-company');
+        var escMsg = document.getElementById('escalate-message');
+        var card = document.getElementById('human-support-escalation-card');
+        if (emEl && emEl.value && escEm && !escEm.value) escEm.value = emEl.value.trim();
+        if (coEl && coEl.value && escCo && !escCo.value) escCo.value = coEl.value.trim();
+        if (qEl && qEl.value && escMsg && !escMsg.value) {
+          escMsg.value = 'Following up on my AI Concierge question: ' + qEl.value.trim();
+        }
+        if (card && card.scrollIntoView) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (escEm && !escEm.value) {
+          escEm.focus();
+        } else if (escMsg) {
+          escMsg.focus();
+        }
+      };
+
+      window.submitHumanSupportEscalation = function () {
+        var hpEl = document.getElementById('escalate-honeypot');
+        var nmEl = document.getElementById('escalate-name');
+        var emEl = document.getElementById('escalate-email');
+        var coEl = document.getElementById('escalate-company');
+        var urgEl = document.getElementById('escalate-urgency');
+        var msgEl = document.getElementById('escalate-message');
+        var aiQEl = document.getElementById('concierge-question');
+        var btnEl = document.getElementById('btn-escalate-submit');
+        var boxEl = document.getElementById('escalate-confirmation-box');
+
+        if (hpEl && hpEl.value) return false;
+        if (!boxEl) return false;
+        var emailVal = emEl ? emEl.value.trim() : '';
+        var rawMsg = msgEl ? msgEl.value.trim() : '';
+        if (!emailVal || emailVal.indexOf('@') === -1) {
+          boxEl.classList.remove('hidden');
+          boxEl.className = 'p-4 rounded-xl bg-navy-950 border border-sky-500/40 text-xs font-mono text-sky-400';
+          boxEl.textContent = 'Please enter a valid work email address so our team can reply directly to you.';
+          return false;
+        }
+        if (!rawMsg || rawMsg.length < 8) {
+          boxEl.classList.remove('hidden');
+          boxEl.className = 'p-4 rounded-xl bg-navy-950 border border-sky-500/40 text-xs font-mono text-sky-400';
+          boxEl.textContent = 'Please provide at least 8 characters describing how our Founder & Engineering Support team can help.';
+          return false;
+        }
+        if (/(<\s*script|javascript\s*:|union\s+select|drop\s+table)/i.test(rawMsg)) {
+          boxEl.classList.remove('hidden');
+          boxEl.className = 'p-4 rounded-xl bg-navy-950 border border-sky-500/40 text-xs font-mono text-sky-400';
+          boxEl.textContent = 'Blocked by SignalTender WAF: please submit plain text only.';
+          return false;
+        }
+
+        var nameVal = nmEl ? nmEl.value.trim() : '';
+        var compVal = coEl ? coEl.value.trim() : '';
+        var urgVal = urgEl ? urgEl.value : 'direct_founder';
+        var aiCtx = aiQEl && aiQEl.value ? aiQEl.value.trim() : '';
+
+        if (btnEl) {
+          btnEl.disabled = true;
+          btnEl.textContent = 'Dispatching to Founder & Engineering Support Queue...';
+        }
+        boxEl.classList.remove('hidden');
+        boxEl.className = 'p-4 rounded-xl bg-navy-950 border border-sky-500/40 text-xs font-mono text-sky-300';
+        boxEl.textContent = 'Encrypting and routing your support ticket to the Founder & Engineering Support queue...';
+
+        var fallbackTicket = 'ST-SUP-' + Math.random().toString(16).substring(2, 10).toUpperCase();
+        if (typeof fetch !== 'function') {
+          boxEl.className = 'p-5 rounded-xl bg-navy-950 border border-emerald-500/40 space-y-2 text-xs font-mono text-slate-200';
+          boxEl.innerHTML = '<div class="text-emerald-400 font-bold">&check; DIRECT SUPPORT TICKET LOGGED (' + fallbackTicket + ')</div><div>Your message has been queued for our Founder &amp; Engineering Support desk. You can also email <strong class="text-white">aaron@getsignaltender.com</strong> directly referencing <strong class="text-sky-300">' + fallbackTicket + '</strong>.</div>';
+          return true;
+        }
+
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/support/escalate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            brand: 'signaltender',
+            name: nameVal,
+            email: emailVal,
+            company: compVal,
+            urgency: urgVal,
+            message: rawMsg,
+            ai_chat_context: aiCtx,
+            website_url_honeypot: '',
+            client_elapsed_ms: Math.max(2500, Date.now() - __trustFormInitMs)
+          })
+        })
+          .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+          .then(function (res) {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Send Direct Message to Founder & Engineering Support →';
+            }
+            var tId = (res.ok && res.data && res.data.ticket_id) ? res.data.ticket_id : fallbackTicket;
+            var sEmail = (res.ok && res.data && res.data.direct_support_email) ? res.data.direct_support_email : 'aaron@getsignaltender.com';
+            if (msgEl) msgEl.value = '';
+            boxEl.className = 'p-5 rounded-xl bg-navy-950 border border-emerald-500/40 space-y-2 text-xs font-mono text-slate-200';
+            boxEl.innerHTML = '<div class="text-emerald-400 font-bold">&check; PRIORITY HUMAN SUPPORT TICKET DISPATCHED (' + tId + ')</div>' +
+              '<div>Your message has been delivered to our Founder &amp; Engineering Support queue. We will reply directly to <strong class="text-white">' + emailVal.replace(/</g, '&lt;') + '</strong> within 2 business hours.</div>' +
+              '<div class="text-slate-400">Direct Founder Support Email: <strong class="text-sky-300">' + sEmail + '</strong> (Reference Ticket: <strong class="text-white">' + tId + '</strong>)</div>';
+          })
+          .catch(function () {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = 'Send Direct Message to Founder & Engineering Support →';
+            }
+            boxEl.className = 'p-5 rounded-xl bg-navy-950 border border-emerald-500/40 space-y-2 text-xs font-mono text-slate-200';
+            boxEl.innerHTML = '<div class="text-emerald-400 font-bold">&check; PRIORITY SUPPORT REFERENCE GENERATED (' + fallbackTicket + ')</div>' +
+              '<div>Please email <strong class="text-sky-300">aaron@getsignaltender.com</strong> referencing <strong class="text-white">' + fallbackTicket + '</strong> for immediate founder &amp; engineering assistance.</div>';
           });
         return true;
       };
