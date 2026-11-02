@@ -7614,5 +7614,19 @@
     "mailbox_pool_slot": 40,
     "mailbox_shard_id": "MBX-40",
     "mailbox_pool_size": 50
+  },
+  "PREMIERSDN": {
+    "company_name": "Premiersdn",
+    "poc_email": "pgupta@premiersdn.com",
+    "poc_name": "Pgupta Team",
+    "poc_title": "Small Business IT & Cyber Capture Lead (AL)",
+    "poc_phone": "SAM.gov Electronic POC",
+    "uei": "E2Z3RR8U76XU",
+    "website": "https://premiersdn.com",
+    "state": "Alabama",
+    "naics_codes": "541511, 541512, 541519",
+    "mailbox_pool_slot": 49,
+    "mailbox_shard_id": "MBX-49",
+    "mailbox_pool_size": 50
   }
 }

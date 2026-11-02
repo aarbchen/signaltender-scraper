@@ -648,3 +648,7 @@ Error: Admin user did not receive #account-admin-bar switcher!
     at node:internal/main/run_main_module:33:47
 
 Node.js v26.7.0
+
+=== ARCHIVED & RESOLVED AT 2026-11-02 06:58:54 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 2 local + 0 remote alert(s)) ===
+[2026-11-02 06:46:13 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Broken internal hash link #concierge (no matching id='concierge' or SPA route)
+[2026-11-02 06:49:06 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Tag imbalance for <div>: open=5029, close=5028

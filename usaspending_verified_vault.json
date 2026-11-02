@@ -4180,6 +4180,28 @@
     "uei": "7DXHTKT9MAXB"
   },
   {
+    "award_id": "70Z0G324FOIPL0044",
+    "jurisdiction": "alabama",
+    "agency": "Department of Homeland Security",
+    "sub_agency": "U.S. Coast Guard (USCG)",
+    "sub_agency_short": "USCG",
+    "winning_vendor": "PREMIERSDN, LLC",
+    "award_amount_usd": 3011457.33,
+    "award_amount_fmt": "$3.01M",
+    "pop_end_date": "2026-08-29",
+    "naics": "541512",
+    "parent_vehicle": "IDV / 47QTCB22D0010",
+    "description": "SAROPS HELP DESK & SUPPORT SERVICES",
+    "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70Z0G324FOIPL0044_7008_47QTCB22D0010_4732",
+    "statutory_authority": "Ala. Code \u00a7 36-12-40 (Alabama Open Records Law \u2014 Public Procurement Disclosure)",
+    "foia_status": "Verified USAspending.gov FPDS Award Record",
+    "poc_email": "pgupta@premiersdn.com",
+    "poc_name": "Pgupta Team",
+    "poc_title": "Small Business IT & Cyber Capture Lead (AL)",
+    "poc_phone": "SAM.gov Electronic POC",
+    "uei": "E2Z3RR8U76XU"
+  },
+  {
     "award_id": "FA254125CB018",
     "jurisdiction": "federal",
     "agency": "Department of Defense",

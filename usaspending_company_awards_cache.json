@@ -5477,5 +5477,21 @@
     "is_active": true,
     "description": "LWW BMJ SUBSCRIPTION ACCESS",
     "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_36C77622C0133_3600_-NONE-_-NONE-"
+  },
+  "PREMIERSDN": {
+    "company_name": "Premiersdn",
+    "matched_recipient_name": "PREMIERSDN, LLC",
+    "award_id": "70Z0G324FOIPL0044",
+    "award_amount": 3011457.33,
+    "award_amount_fmt": "$3.01M",
+    "award_amount_clean": "USD 3.01M",
+    "awarding_agency": "Department of Homeland Security",
+    "awarding_sub_agency": "U.S. Coast Guard (USCG)",
+    "awarding_sub_agency_short": "USCG",
+    "start_date": "2024-08-30",
+    "end_date": "2026-08-29",
+    "is_active": false,
+    "description": "SAROPS HELP DESK & SUPPORT SERVICES",
+    "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70Z0G324FOIPL0044_7008_47QTCB22D0010_4732"
   }
 }

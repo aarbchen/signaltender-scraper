@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "description": "SignalTender Self-Improving Anti-Regression Rule Ledger. Automatically populated by omniscient_auditor.py and auto_error_healer.py on every bug fix and enforced on every subsequent run.",
-  "updated_at": "2026-11-02T05:13:25Z",
+  "updated_at": "2026-11-02T07:14:55Z",
   "total_rules": 23,
   "rules": [
     {
@@ -94,11 +94,11 @@
       "source": "outreach_generator.py (campaign_leads.csv & outbox_ready_queue.json)",
       "bug_signature": "campaign_leads.csv contains stale portal count '8' (expected 28)",
       "root_cause": "campaign_leads.csv contains stale portal count '8' (expected 28)",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s))",
+      "fix_applied": "Automatically purged 2 noisy row(s) and cleaned 0 title(s) in Supabase `contracts`.; Executed `pseo_generator.py` to rebuild all static RFP pages, state hubs, `sitemap.xml`, and embedded SPA contract directory.",
       "prevention_rule": "Enforce 100% portal/state count and abbreviation roll-call parity across index.html, apis.html, pseo_generator.py, and all outbound/conversion surfaces before any commit.",
       "created_at": "2026-10-29T20:53:12Z",
-      "last_healed_at": "2026-10-31T04:28:40Z",
-      "times_triggered_and_healed": 9
+      "last_healed_at": "2026-11-02T07:14:55Z",
+      "times_triggered_and_healed": 11
     },
     {
       "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY",
@@ -118,11 +118,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-s | [2026-10-29 20:53:09 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cybersecurity-service-provider-cssp-j34-external-vulnerability-s | [2026-10-29 20:53:09 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Slug mismatch across Daas modules: pseo=disa-cyb | [2026-10-29 20:59:17 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FA",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 3 local + 2 remote alert(s))",
+      "fix_applied": "Automatically purged 2 noisy row(s) and cleaned 0 title(s) in Supabase `contracts`.",
       "prevention_rule": "Enforce 1:1 parity between window.SIGNALTENDER_CONTRACTS, /contracts/rfp/*.html static files, and sitemap.xml with valid JSON-LD and cache-busted OpenGraph tags.",
       "created_at": "2026-10-29T21:48:43Z",
-      "last_healed_at": "2026-10-31T01:56:14Z",
-      "times_triggered_and_healed": 2
+      "last_healed_at": "2026-11-02T07:14:54Z",
+      "times_triggered_and_healed": 3
     },
     {
       "rule_id": "RULE-008-PRODUCT-OUTPUT-QUALITY-GATE",
@@ -142,11 +142,11 @@
       "source": "`verify_site_integrity.py`",
       "bug_signature": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov'",
       "root_cause": "verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Non-corporate or mangled entity token 'Pool' found in Volume III/IV teaming partners! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py: Texas DIR package failed to cite Texas PIA (`Tex. Gov't Code § 552.001`)! | verify_site_integrity.py: verify_site_integrity.py FAIL: proposal_compiler.py:",
-      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote alert(s))",
+      "fix_applied": "Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 2 local + 0 remote alert(s))",
       "prevention_rule": "Enforce async def run_scraper(push_to_db=True), deterministic SHA-256 IDs, anchored dates, RLS-safe SELECT + .insert(), and silent telemetry across all scraper modules.",
       "created_at": "2026-10-29T22:07:43Z",
-      "last_healed_at": "2026-11-02T05:13:25Z",
-      "times_triggered_and_healed": 15
+      "last_healed_at": "2026-11-02T06:58:55Z",
+      "times_triggered_and_healed": 16
     },
     {
       "rule_id": "RULE-009-SEMANTIC-DATABASE-AND-STATIC-PAYLOAD-HYGIENE",

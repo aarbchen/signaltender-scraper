@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-01T06:04:04+00:00",
-  "total_verified_mx_contacts": 230,
-  "not_catchall_priority_tier_count": 230,
+  "updated_at": "2026-11-02T07:10:49+00:00",
+  "total_verified_mx_contacts": 231,
+  "not_catchall_priority_tier_count": 231,
   "catchall_secondary_tier_count": 0,
-  "purged_legacy_or_invalid_rows": 4,
+  "purged_legacy_or_invalid_rows": 0,
   "added_verified_inbound_leads": 0,
-  "added_website_harvested_govcon_contacts": 0,
-  "verified_usaspending_award_profiles_count": 307,
+  "added_website_harvested_govcon_contacts": 1,
+  "verified_usaspending_award_profiles_count": 308,
   "expiring_recompete_wire_count": 15,
   "fresh_prime_subcontract_wire_count": 12,
   "state_distribution": {
@@ -27,7 +27,7 @@
     "Washington": 4,
     "Arizona": 3,
     "Colorado": 5,
-    "Alabama": 4,
+    "Alabama": 5,
     "Louisiana": 9,
     "Minnesota": 1,
     "Kentucky": 2,
@@ -35,7 +35,168 @@
     "Oklahoma": 1,
     "Wisconsin": 1
   },
-  "usaspending_naics_541512_top_recipients": [],
+  "usaspending_naics_541512_top_recipients": [
+    {
+      "amount": 8067117483.3,
+      "recipient_id": "455555be-773d-eab1-1e6b-7b94400b757e-C",
+      "name": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
+      "code": "067641597",
+      "uei": "SMNWM6HN79X5",
+      "total_outlays": null
+    },
+    {
+      "amount": 7036907695.95,
+      "recipient_id": "d41a6b8a-9d6a-0d28-7e24-989e31731aad-C",
+      "name": "ACCENTURE FEDERAL SERVICES LLC",
+      "code": "139727148",
+      "uei": "C47BNA8GM833",
+      "total_outlays": null
+    },
+    {
+      "amount": 6130223590.23,
+      "recipient_id": "ffca72e5-fba2-798a-6969-2a6c45e9f985-C",
+      "name": "BOOZ ALLEN HAMILTON INC",
+      "code": "006928857",
+      "uei": "JCBMLGPE6Z71",
+      "total_outlays": null
+    },
+    {
+      "amount": 5726871306.52,
+      "recipient_id": "5ddb264f-234b-872c-2571-4731fde123c6-C",
+      "name": "LEIDOS, INC.",
+      "code": "833063105",
+      "uei": "UE9QJD4KK1L6",
+      "total_outlays": null
+    },
+    {
+      "amount": 3955617614.63,
+      "recipient_id": "9232b26d-789d-bdd2-5a6d-28714f1dfa2c-C",
+      "name": "ORACLE HEALTH GOVERNMENT SERVICES, INC.",
+      "code": "080898173",
+      "uei": "DT2KS3HH5FP5",
+      "total_outlays": null
+    },
+    {
+      "amount": 3780060333.76,
+      "recipient_id": "28eee911-76af-7147-f760-4ec5f90bec2d-C",
+      "name": "CACI, INC. - FEDERAL",
+      "code": "114896066",
+      "uei": "N3PBJAVNKF61",
+      "total_outlays": null
+    },
+    {
+      "amount": 3756272398.96,
+      "recipient_id": "20af0683-f17d-1f8f-38ee-2f11bd124559-C",
+      "name": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+      "code": "078883327",
+      "uei": "MMLKPW9JLX64",
+      "total_outlays": null
+    },
+    {
+      "amount": 2924617975.61,
+      "recipient_id": "129fccb1-783c-9fd1-7b6d-6ddea65ace79-C",
+      "name": "PERATON INC.",
+      "code": "602938771",
+      "uei": "ZBPQEJVECCT4",
+      "total_outlays": null
+    },
+    {
+      "amount": 2816853510.3,
+      "recipient_id": "92663aec-4451-0476-502b-d8c6919e98e0-C",
+      "name": "DELOITTE CONSULTING LLP",
+      "code": "019121586",
+      "uei": "CKV2L9GZKJK3",
+      "total_outlays": null
+    },
+    {
+      "amount": 2445411309.43,
+      "recipient_id": "dbceb126-f729-60e7-d55a-ba235f519653-C",
+      "name": "THUNDERCAT TECHNOLOGY, LLC",
+      "code": "809887164",
+      "uei": "UER4AJLUB8D5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2346807265.72,
+      "recipient_id": "333909ba-42cf-a1ce-3959-1ede2882d7f6-C",
+      "name": "PERATON ENTERPRISE SOLUTIONS LLC",
+      "code": "077817617",
+      "uei": "MBSRAWAQ9559",
+      "total_outlays": null
+    },
+    {
+      "amount": 2329678811.28,
+      "recipient_id": "3792ca7f-d5d2-d89c-872b-8c64e4e6390e-C",
+      "name": "FCN, INC.",
+      "code": "615378007",
+      "uei": "JEANDJTZ8HJ3",
+      "total_outlays": null
+    },
+    {
+      "amount": 2294498057.28,
+      "recipient_id": "2a4d3db7-e268-7b36-3610-c75337f0b7e1-C",
+      "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+      "code": "089896737",
+      "uei": "H1KHJPJH9R51",
+      "total_outlays": null
+    },
+    {
+      "amount": 2149568192.05,
+      "recipient_id": "d86df7af-f6c1-a07a-ccc4-ec74331bafc5-C",
+      "name": "CGI FEDERAL INC.",
+      "code": "145969783",
+      "uei": "TRKEP1HEBNS5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2124178125.43,
+      "recipient_id": "fd25b722-602d-ec58-3a7a-d6555b8d8ea7-C",
+      "name": "SALIENT CRGT, INC.",
+      "code": "849550983",
+      "uei": "Q5LJNF15T2R5",
+      "total_outlays": null
+    },
+    {
+      "amount": 2032611032.39,
+      "recipient_id": "d46ad2a7-ed19-9535-4f24-787705845610-C",
+      "name": "V3GATE, LLC",
+      "code": "808862598",
+      "uei": "J4KHM5JY79E3",
+      "total_outlays": null
+    },
+    {
+      "amount": 1844922557.11,
+      "recipient_id": "30b32b62-ffbf-d7e6-5b9d-95a295b95a6d-C",
+      "name": "BOOZ ALLEN HAMILTON INC",
+      "code": "085631448",
+      "uei": "KHK6E1JW9C15",
+      "total_outlays": null
+    },
+    {
+      "amount": 1545880285.29,
+      "recipient_id": "625ff1da-e9a2-cbdc-c8b3-fdd521fd1efc-C",
+      "name": "MINBURN TECHNOLOGY GROUP, LLC",
+      "code": "965431815",
+      "uei": "WN8JFVZTBCA5",
+      "total_outlays": null
+    },
+    {
+      "amount": 1494118050.28,
+      "recipient_id": "ceac1920-9ceb-17a6-9bf7-026817a02917-C",
+      "name": "MANTECH ADVANCED SYSTEMS INTERNATIONAL, INC.",
+      "code": "139627525",
+      "uei": "JY2BDT2K58Z6",
+      "total_outlays": null
+    },
+    {
+      "amount": 1258503243.52,
+      "recipient_id": "dd77b7c3-663e-cb91-229f-5766a50e9b7f-C",
+      "name": "MICROSOFT CORPORATION",
+      "code": "081466849",
+      "uei": "FMVPEWNJGLM1",
+      "total_outlays": null
+    }
+  ],
   "company_award_profiles": {
     "SIKICH": {
       "company_name": "Sikich",
@@ -4948,6 +5109,22 @@
       "is_active": true,
       "description": "LWW BMJ SUBSCRIPTION ACCESS",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_36C77622C0133_3600_-NONE-_-NONE-"
+    },
+    "PREMIERSDN": {
+      "company_name": "Premiersdn",
+      "matched_recipient_name": "PREMIERSDN, LLC",
+      "award_id": "70Z0G324FOIPL0044",
+      "award_amount": 3011457.33,
+      "award_amount_fmt": "$3.01M",
+      "award_amount_clean": "USD 3.01M",
+      "awarding_agency": "Department of Homeland Security",
+      "awarding_sub_agency": "U.S. Coast Guard (USCG)",
+      "awarding_sub_agency_short": "USCG",
+      "start_date": "2024-08-30",
+      "end_date": "2026-08-29",
+      "is_active": false,
+      "description": "SAROPS HELP DESK & SUPPORT SERVICES",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_70Z0G324FOIPL0044_7008_47QTCB22D0010_4732"
     }
   },
   "expiring_recompete_wire": [
@@ -4961,12 +5138,12 @@
       "awarding_sub_agency_short": "DISA",
       "start_date": "2023-02-04",
       "end_date": "2027-02-03",
-      "days_until_expiration": 94,
+      "days_until_expiration": 93,
       "duration_years": 4.0,
       "description": "TECHNICAL OPERATIONS SUPPORT (TOS) TO 318 CYBER OPERATIONS GROUP (COG) OPERATING LOCATION BRAVO (OL-B) JOINT INFORMATION OPERATIONS RANGE (JIOR).",
       "api16_incumbent_annual_burn_fmt": "$8.73M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$8.03M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (94d to PoP end 2027-02-03)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (93d to PoP end 2027-02-03)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_HC102823F0110_9700_GS35F355GA_4732"
     },
     {
@@ -4979,12 +5156,12 @@
       "awarding_sub_agency_short": "USAF",
       "start_date": "2022-12-27",
       "end_date": "2027-05-30",
-      "days_until_expiration": 210,
+      "days_until_expiration": 209,
       "duration_years": 4.42,
       "description": "MQ-9 REAPER REMOTELY PILOTED AIRCRAFT SQUADRON OPERATIONS CENTER FIELD MAINTENANCE SITE SUPPORT.",
       "api16_incumbent_annual_burn_fmt": "$7.84M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$7.21M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (210d to PoP end 2027-05-30)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (209d to PoP end 2027-05-30)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_FA489023F0026_9700_FA489022D0004_9700"
     },
     {
@@ -4997,12 +5174,12 @@
       "awarding_sub_agency_short": "HHS NIH",
       "start_date": "2023-06-12",
       "end_date": "2026-12-11",
-      "days_until_expiration": 40,
+      "days_until_expiration": 39,
       "duration_years": 3.5,
       "description": "NATIONAL CANCER INSTITUTE (NCI) INFORMATION TECHNOLOGY (IT) BLANKET PURCHASE AGREEMENT (BPA) - IT INFRASTRUCTURE AND OPERATIONS",
       "api16_incumbent_annual_burn_fmt": "$9.88M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$9.09M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (40d to PoP end 2026-12-11)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (39d to PoP end 2026-12-11)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75N91023F00001_7529_75N91023A00009_7529"
     },
     {
@@ -5015,12 +5192,12 @@
       "awarding_sub_agency_short": "U.S. Army",
       "start_date": "2025-06-03",
       "end_date": "2027-06-02",
-      "days_until_expiration": 213,
+      "days_until_expiration": 212,
       "duration_years": 2.0,
       "description": "12MONTH BASE PERIOD 12MONTH OP. EST ACCELERATING DATA AND ARTIFICIAL INTELLIGENCE(ADA)INCIDENT RESPONSE(IR)TEAMS SUPPORT DATA DRIVEN DECISION MAKING TO SCALE DATA, ANALYTICS, AND AI AT THE CHIEF DIGIT",
       "api16_incumbent_annual_burn_fmt": "$17.3M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$15.9M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (213d to PoP end 2027-06-02)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (212d to PoP end 2027-06-02)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_W519TC25F0241_9700_W52P1J22G0174_9700"
     },
     {
@@ -5033,12 +5210,12 @@
       "awarding_sub_agency_short": "DISA",
       "start_date": "2024-03-27",
       "end_date": "2027-03-26",
-      "days_until_expiration": 145,
+      "days_until_expiration": 144,
       "duration_years": 3.0,
       "description": "PUBLIC KEY INFRASTRUCTURE MODERNIZATION",
       "api16_incumbent_annual_burn_fmt": "$11.5M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$10.6M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (145d to PoP end 2027-03-26)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (144d to PoP end 2027-03-26)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_HC102824F2000_9700_HC104718D2004_9700"
     },
     {
@@ -5051,12 +5228,12 @@
       "awarding_sub_agency_short": "USAF",
       "start_date": "2022-01-21",
       "end_date": "2026-12-14",
-      "days_until_expiration": 43,
+      "days_until_expiration": 42,
       "duration_years": 4.9,
       "description": "ENTERPRISE DEVELOPER/DESIGNER OPERATIONAL REQUIREMENT (ENDOR)",
       "api16_incumbent_annual_burn_fmt": "$7.04M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$6.48M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (43d to PoP end 2026-12-14)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (42d to PoP end 2026-12-14)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_FA873022F0001_9700_FA830721G0018_9700"
     },
     {
@@ -5069,12 +5246,12 @@
       "awarding_sub_agency_short": "DOJ",
       "start_date": "2023-06-05",
       "end_date": "2027-06-05",
-      "days_until_expiration": 216,
+      "days_until_expiration": 215,
       "duration_years": 4.0,
       "description": "JOCIO SDS JMD IT SUPPORT SERVICES",
       "api16_incumbent_annual_burn_fmt": "$8.61M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$7.92M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (216d to PoP end 2027-06-05)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (215d to PoP end 2027-06-05)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_15JPSS23F00000389_1501_15JPSS18DPZM00011_1501"
     },
     {
@@ -5087,12 +5264,12 @@
       "awarding_sub_agency_short": "GSA FAS",
       "start_date": "2025-01-06",
       "end_date": "2027-01-05",
-      "days_until_expiration": 65,
+      "days_until_expiration": 64,
       "duration_years": 2.0,
       "description": "AS PART OF OPMS MODERNIZATION EFFORT, THE OCIO IS ESTABLISHING A COMBINED CYBER AND NETWORK VENDOR SUPPORTED SERVICES CONTRACT ENTERPRISE CYBER, INFRASTRUCTURE, AND NETWORK OPERATIONS SUPPORT SERVICES",
       "api16_incumbent_annual_burn_fmt": "$17.2M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$15.8M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (65d to PoP end 2027-01-05)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (64d to PoP end 2027-01-05)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_47QACA26C0044_4732_-NONE-_-NONE-"
     },
     {
@@ -5105,12 +5282,12 @@
       "awarding_sub_agency_short": "DISA",
       "start_date": "2026-03-14",
       "end_date": "2027-03-13",
-      "days_until_expiration": 132,
+      "days_until_expiration": 131,
       "duration_years": 1.0,
       "description": "DEFENSE INFORMATION SYSTEMS AGENCY (DISA) CYBERSPACE OPERATIONS DIRECTORATE (CE) COMPREHENSIVE SUPPORT SERVICES (DCCSS)",
       "api16_incumbent_annual_burn_fmt": "$34.2M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$31.5M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (132d to PoP end 2027-03-13)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (131d to PoP end 2027-03-13)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_HC102826F0016_9700_HC102820D0001_9700"
     },
     {
@@ -5123,12 +5300,12 @@
       "awarding_sub_agency_short": "VA",
       "start_date": "2024-06-05",
       "end_date": "2027-06-04",
-      "days_until_expiration": 215,
+      "days_until_expiration": 214,
       "duration_years": 3.0,
       "description": "ENTERPRISE NOTIFICATIONS",
       "api16_incumbent_annual_burn_fmt": "$11.3M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$10.4M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (215d to PoP end 2027-06-04)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (214d to PoP end 2027-06-04)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_36C10B24F0161_3600_GS35F666GA_4732"
     },
     {
@@ -5141,12 +5318,12 @@
       "awarding_sub_agency_short": "HHS CMS",
       "start_date": "2022-05-15",
       "end_date": "2027-04-14",
-      "days_until_expiration": 164,
+      "days_until_expiration": 163,
       "duration_years": 4.91,
       "description": "THE PURPOSE OF THIS CONTRACT IS TO PROCURE MARKETPLACE STATE SECURITY AND PRIVACY SUPPORT SERVICES.  THE CONTRACT WILL PROVIDE SECURITY OVERSIGHT, MONITOR DATA ANALYSIS AND GOVERNANCE COMPLIANCE FOR C",
       "api16_incumbent_annual_burn_fmt": "$6.93M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$6.38M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (164d to PoP end 2027-04-14)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (163d to PoP end 2027-04-14)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75FCMC22F0046_7530_75N98120D00065_7529"
     },
     {
@@ -5159,12 +5336,12 @@
       "awarding_sub_agency_short": "HHS NIH",
       "start_date": "2022-12-19",
       "end_date": "2026-12-18",
-      "days_until_expiration": 47,
+      "days_until_expiration": 46,
       "duration_years": 4.0,
       "description": "NITAAC E-GOS LEGACY & NEXT GEN WITH SHAREPOINT SUPPORT SERVICES",
       "api16_incumbent_annual_burn_fmt": "$8.5M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$7.82M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (47d to PoP end 2026-12-18)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (46d to PoP end 2026-12-18)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75N98023F00043_7529_47QTCA18D008J_4732"
     },
     {
@@ -5177,12 +5354,12 @@
       "awarding_sub_agency_short": "HUD",
       "start_date": "2024-09-30",
       "end_date": "2027-03-29",
-      "days_until_expiration": 148,
+      "days_until_expiration": 147,
       "duration_years": 2.49,
       "description": "HOME EQUITY CONVERSION MORTGAGE (HECM)",
       "api16_incumbent_annual_burn_fmt": "$13.7M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$12.6M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (148d to PoP end 2027-03-29)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (147d to PoP end 2027-03-29)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_86615324C00012_8600_-NONE-_-NONE-"
     },
     {
@@ -5195,12 +5372,12 @@
       "awarding_sub_agency_short": "HHS CMS",
       "start_date": "2022-06-22",
       "end_date": "2027-06-21",
-      "days_until_expiration": 232,
+      "days_until_expiration": 231,
       "duration_years": 5.0,
       "description": "THE PURPOSE OF THIS REQUEST IS TO RECOMPETE THE ENCOUNTER DATA PROCESSING SYSTEM WHICH COLLECTS AND VALIDATES ENCOUNTER DATA TO SUPPORT MPPG 002915 ENCOUNTER DATA COLLECTIONS FROM MEDICARE ADVANTAGE P",
       "api16_incumbent_annual_burn_fmt": "$6.8M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$6.25M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (232d to PoP end 2027-06-21)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (231d to PoP end 2027-06-21)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_75FCMC22F0067_7530_GS35F711GA_4732"
     },
     {
@@ -5213,12 +5390,12 @@
       "awarding_sub_agency_short": "Dept. of Education",
       "start_date": "2024-05-01",
       "end_date": "2027-01-31",
-      "days_until_expiration": 91,
+      "days_until_expiration": 90,
       "duration_years": 2.75,
       "description": "PORTFOLIO OF INTEGRATED VALUE ORIENTED TECHNOLOGIES - HOSTING (PIVOT-H)",
       "api16_incumbent_annual_burn_fmt": "$12.3M/yr",
       "api16_ptw_challenger_ceiling_fmt": "$11.3M/yr (-8% PTW target)",
-      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (91d to PoP end 2027-01-31)",
+      "api21_sources_sought_action": "FAR 19.502-2 Rule-of-Two Set-Aside Shaping Window Open (90d to PoP end 2027-01-31)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_91990024F0014_9100_75N98120D00097_7529"
     }
   ],
@@ -5315,6 +5492,21 @@
     },
     {
       "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
+      "award_id": "80TECH27F0013",
+      "prime_recipient": "ASK SAGE, INC.",
+      "award_amount": 4455000.0,
+      "award_amount_fmt": "$4.46M",
+      "awarding_sub_agency": "NASA",
+      "awarding_sub_agency_short": "NASA",
+      "start_date": "2026-11-01",
+      "end_date": "2027-04-30",
+      "description": "ASK SAGE ANNUAL SUBSCRIPTION 5B - ASK SAGE TOKENS/MONTH ENTERPRISE PACK (QTY 6)",
+      "api11_sb_subcontract_pool_usd": 1336500.0,
+      "api11_sb_subcontract_pool_fmt": "~$1.34M FAR 52.219-9 Small-Business Sub Pool (30%)",
+      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_80TECH27F0013_8000_W9128Z25DA001_9700"
+    },
+    {
+      "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
       "award_id": "47QPCA27F0003",
       "prime_recipient": "BIXAL SOLUTIONS INCORPORATED",
       "award_amount": 2244087.92,
@@ -5387,21 +5579,6 @@
       "api11_sb_subcontract_pool_usd": 1071900.0,
       "api11_sb_subcontract_pool_fmt": "~$1.07M FAR 52.219-9 Small-Business Sub Pool (30%)",
       "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_7571TE27C00003_7571_-NONE-_-NONE-"
-    },
-    {
-      "signal_type": "FRESH_PRIME_SUBCONTRACT_WIRE",
-      "award_id": "9531CB27F0001",
-      "prime_recipient": "GOLDEN IT",
-      "award_amount": 1567334.4,
-      "award_amount_fmt": "$1.57M",
-      "awarding_sub_agency": "Consumer Financial Protection Bureau (CFPB)",
-      "awarding_sub_agency_short": "CFPB",
-      "start_date": "2026-10-21",
-      "end_date": "2027-10-20",
-      "description": "MICROSOFT SERVICES CALL 0001",
-      "api11_sb_subcontract_pool_usd": 470200.32,
-      "api11_sb_subcontract_pool_fmt": "~$470K FAR 52.219-9 Small-Business Sub Pool (30%)",
-      "usaspending_url": "https://www.usaspending.gov/award/CONT_AWD_9531CB27F0001_955F_9531CB26A0006_955F"
     }
   ]
 }

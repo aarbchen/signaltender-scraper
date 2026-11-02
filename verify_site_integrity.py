@@ -128,6 +128,7 @@ def check_html_file(fpath: str) -> str:
         "#status",
         "#security",
         "#trust",
+        "#concierge",
         "#contact",
         "#support",
         "#feedback",
@@ -1066,6 +1067,7 @@ window.switchTrustTab('security');
 window.switchTrustTab('terms');
 window.switchTrustTab('privacy');
 window.switchTrustTab('contact');
+window.switchTrustTab('concierge');
 window.prefillConciergeQuestion('plans_and_pricing', 'What is the difference between Tier 1 ($99), Tier 2 ($399), Tier 3 ($1,499), and Tier 4 ($2,499)?');
 var conciergeText = (document.getElementById('concierge-answer-text') || {}).textContent || '';
 if (!conciergeText || conciergeText.indexOf('Tier 1') === -1 || conciergeText.indexOf('Tier 3') === -1 || conciergeText.indexOf('Tier 4') === -1) {
