@@ -652,3 +652,6 @@ Node.js v26.7.0
 === ARCHIVED & RESOLVED AT 2026-11-02 06:58:54 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 2 local + 0 remote alert(s)) ===
 [2026-11-02 06:46:13 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Broken internal hash link #concierge (no matching id='concierge' or SPA route)
 [2026-11-02 06:49:06 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: Tag imbalance for <div>: open=5029, close=5028
+
+=== ARCHIVED & RESOLVED AT 2026-11-02 19:16:40 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 1 local + 1 remote alert(s)) ===
+[2026-11-02 19:14:29 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: outreach_generator.py: Found stale customer-facing count '31-State SLED' (expected 52 portals / 50 states / 58 APIs). Update outreach_generator.py and regenerate campaign_leads.csv / outbox_ready_queue.json.

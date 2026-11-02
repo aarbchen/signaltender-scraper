@@ -681,8 +681,45 @@ GENERIC_PERSON_NAMES = {
     "inquiries", "general", "office", "marketing", "support", "careers",
     "solutions", "services", "gov", "stars", "engage", "usa", "uk", "us", "eu", "apac",
     "president", "ceo", "cto", "cfo", "coo", "ciso", "founder", "owner", "director",
-    "manager", "application", "applications", "contractmanager", "alliances", "ipsecureinc", "",
+    "manager", "application", "applications", "contractmanager", "alliances", "ipsecureinc",
+    "tbuzan", "rdepew", "bbertram", "jfeusi", "ksweeten", "rknowski", "scarlson", "jcheng", "",
 }
+
+KNOWN_HUMAN_FIRST_NAMES = {
+    "aaron", "adam", "alan", "alex", "alexander", "amanda", "amy", "andrea", "andrew", "andy", "angela",
+    "anna", "anne", "anthony", "ashley", "austin", "barbara", "ben", "benjamin", "beth", "bill", "blake",
+    "bob", "brad", "bradley", "brandon", "brenda", "brent", "brett", "brian", "bruce", "bryan", "carl",
+    "carlos", "carol", "catherine", "chad", "charles", "chris", "christina", "christine", "christopher",
+    "cindy", "claire", "craig", "curtis", "cynthia", "dan", "dana", "daniel", "dave", "david", "dean",
+    "deborah", "denise", "dennis", "derek", "diana", "don", "donald", "donna", "doug", "douglas", "drew",
+    "ed", "edward", "elizabeth", "emily", "eric", "erik", "erin", "frank", "fred", "gary", "george",
+    "greg", "gregory", "heather", "helen", "henry", "hunter", "jack", "jacob", "james", "jamie", "jane",
+    "janet", "jason", "jay", "jeff", "jeffrey", "jennifer", "jeremy", "jessica", "jill", "jim", "joe",
+    "joel", "john", "jon", "jonathan", "jordan", "jose", "joseph", "josh", "joshua", "julie", "justin",
+    "karen", "kate", "katherine", "kathleen", "kathy", "katie", "keith", "kelly", "ken", "kenneth",
+    "kevin", "kim", "kimberly", "kyle", "larry", "laura", "lauren", "leslie", "linda", "lisa", "lori",
+    "luke", "marc", "marcus", "margaret", "maria", "mark", "mary", "matt", "matthew", "megan", "melissa",
+    "michael", "michelle", "mike", "miriam", "nancy", "nathan", "nicholas", "nick", "nicole", "pam",
+    "pat", "patricia", "patrick", "paul", "peter", "phil", "philip", "rachel", "randy", "ray", "raymond",
+    "rebecca", "rich", "richard", "rick", "rob", "robert", "roger", "ron", "ronald", "ryan", "sam",
+    "samuel", "sandra", "sara", "sarah", "scott", "sean", "shane", "shannon", "sharon", "shawn",
+    "stephanie", "stephen", "steve", "steven", "susan", "tammy", "taylor", "teresa", "thomas", "tim",
+    "timothy", "todd", "tom", "tony", "travis", "troy", "tyler", "victoria", "vincent", "wendy", "will",
+    "william", "zach", "zachary",
+}
+
+
+def is_dotless_handle_name(fname: str, email: str) -> bool:
+    """Detects when `fname` was derived from a dotless `first_initial + last_name` email handle like `tbuzan@`."""
+    clean_fn = str(fname or "").strip().lower()
+    if not clean_fn or clean_fn in GENERIC_PERSON_NAMES:
+        return True
+    local = str(email or "").strip().lower().split("@")[0] if "@" in str(email or "") else ""
+    if "." not in local and "_" not in local and clean_fn == local and clean_fn not in KNOWN_HUMAN_FIRST_NAMES:
+        return True
+    if clean_fn not in KNOWN_HUMAN_FIRST_NAMES and len(clean_fn) >= 5 and "." not in local:
+        return True
+    return False
 
 
 def clean_company_for_copy(raw_company: str) -> str:
@@ -804,7 +841,9 @@ def build_two_step_outreach(
     seed = f"{email.lower().strip()}::{clean_comp.lower().strip()}"
     comp_possessive = possessive_company(clean_comp)
     clean_fname = str(fname or "").strip()
-    is_generic_name = clean_fname.lower() in GENERIC_PERSON_NAMES
+    is_generic_name = is_dotless_handle_name(clean_fname, email)
+    if is_generic_name:
+        clean_fname = "Capture"
 
     # -------------------------------------------------------------------------
     # STEP 1 (TOUCH 1): DELIVERABILITY-FIRST LIVE RFP DROP (Zero $ signs, 1 clean canonical URL)
@@ -1329,6 +1368,17 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                 non_it_or_invalid_to_purge.append((em, lid))
                             elif has_started_sequence:
                                 in_flight_inst_emails.add(em)
+                                p_vars = it.get("payload") or {}
+                                fb_txt = str(p_vars.get("followup_body") or "")
+                                eb_txt = str(p_vars.get("email_body") or "")
+                                if (
+                                    "39 AI " + "capture modules" in fb_txt
+                                    or "31-State " + "SLED" in fb_txt
+                                    or "58 AI capture modules" not in fb_txt
+                                    or (is_dotless_handle_name(str(it.get("first_name") or ""), em) and str(it.get("first_name") or "").strip().lower() not in ("capture", "there", "team"))
+                                    or any(h in eb_txt for h in ("Hi Tbuzan", "Hey Tbuzan", "Hello Tbuzan", "Hi Rdepew", "Hi Bbertram"))
+                                ):
+                                    unsent_inst_ids[em] = lid
                             else:
                                 unsent_inst_ids[em] = lid
                 starting_after = l_json.get("next_starting_after")
@@ -1800,9 +1850,9 @@ def generate_outreach():
                 )
 
                 lead_item = {
-                    "First Name": fname,
+                    "First Name": "Capture" if is_dotless_handle_name(fname, email) else fname,
                     "Email": email,
-                    "Company": company,
+                    "Company": clean_company_for_copy(company),
                     **sequence_data,
                 }
                 writer.writerow(lead_item)
