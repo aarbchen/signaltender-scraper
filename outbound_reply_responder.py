@@ -331,6 +331,24 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     ):
         return {"intent": "OUT_OF_OFFICE", "reply_body": ""}
 
+    em_low = str(from_email or "").lower()
+    if (
+        em_low.startswith(("mailer-daemon@", "postmaster@", "noreply-dmarc@", "bounces@"))
+        or subj_low.startswith(("undeliverable:", "delivery status notification", "returned mail:", "mail delivery failed", "failure notice"))
+        or any(
+            b_p in low
+            for b_p in (
+                "delivery to the following recipient failed",
+                "550 5.1.1",
+                "address not found",
+                "user unknown",
+                "mailbox unavailable",
+                "does not exist",
+            )
+        )
+    ):
+        return {"intent": "BOUNCE", "reply_body": ""}
+
     ctx = _lookup_prospect_context(from_email, reply_text=reply_text)
     comp_label = ctx["company"] or "your team"
     state_label = ctx["matched_state"] or "Federal & State SLED"
@@ -684,7 +702,7 @@ def run_reply_responder() -> dict:
                         )
                     except Exception:
                         pass
-            elif intent == "UNSUBSCRIBE":
+            elif intent in ("UNSUBSCRIBE", "BOUNCE"):
                 unsub_count += 1
                 if from_email and "@" in from_email:
                     clean_unsub = from_email.strip().lower()

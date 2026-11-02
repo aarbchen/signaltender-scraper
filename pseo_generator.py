@@ -2208,11 +2208,10 @@ def _render_layout(
           <span class="hidden sm:block text-[11px] font-mono text-slate-500 tracking-tight leading-none whitespace-nowrap mt-1">FEDERAL &amp; 50-STATE SLED CONTRACT DIRECTORY</span>
         </a>
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-2 2xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
-          <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
-          <a href="{root_prefix}contracts/index.html" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
-          <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
-          <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
-          <a href="{root_prefix}index.html#contact" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Contact</a>
+          <a href="{root_prefix}index.html#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
+          <a href="{root_prefix}index.html#checkout" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
         <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
           <button
@@ -2246,12 +2245,11 @@ def _render_layout(
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-5 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
-          <a href="{root_prefix}index.html#overview" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
-          <a href="{root_prefix}contracts/index.html" class="px-1 sm:px-2 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFPs</a>
-          <a href="{root_prefix}apis.html" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
-          <a href="{root_prefix}index.html#checkout" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Pricing</a>
-          <a href="{root_prefix}index.html#contact" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Contact</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+          <a href="{root_prefix}index.html#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+          <a href="{root_prefix}contracts/index.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
+          <a href="{root_prefix}apis.html" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
+          <a href="{root_prefix}index.html#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
@@ -2787,8 +2785,8 @@ def _render_layout(
             <span>System Status (99.95% SLA)</span>
           </a>
           <a href="{root_prefix}index.html#security" class="text-slate-300 hover:text-sky-400 transition-colors">Security &amp; Zero-Retention Trust</a>
-          <a href="{root_prefix}index.html#contact" class="text-sky-300 font-semibold hover:text-white transition-colors">Contact Support Team</a>
-          <a href="{root_prefix}index.html#contact" class="text-slate-300 hover:text-indigo-300 transition-colors">Instant AI Support Concierge</a>
+          <a href="{root_prefix}index.html#contact" class="text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
+          <a href="{root_prefix}index.html#concierge" class="text-slate-300 hover:text-indigo-300 transition-colors">Instant AI Support Concierge</a>
           <a href="{root_prefix}index.html#feedback" class="text-slate-300 hover:text-amber-300 transition-colors">Submit Feedback / Request Portal</a>
           <a href="{root_prefix}index.html#terms" class="text-slate-400 hover:text-white transition-colors">Terms of Service</a>
           <a href="{root_prefix}index.html#privacy" class="text-slate-400 hover:text-white transition-colors">Privacy Policy &amp; DPA</a>
@@ -3077,7 +3075,8 @@ def _render_layout(
           rawItems = [
             {{ icon: 'pulse', id: 'trust-panel-status', label: 'Live System Status (99.95%)', kw: 'status uptime sla health 52 portals operational', color: 'text-emerald-400', action: 'trust_status' }},
             {{ icon: 'shield', id: 'trust-panel-security', label: 'Security & Trust Center', kw: 'security zero retention rls pbkdf2 cui soc 2', color: 'text-sky-400', action: 'trust_security' }},
-            {{ icon: 'chat', id: 'trust-panel-contact', label: 'AI Support Concierge', kw: 'contact support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_contact' }},
+            {{ icon: 'chat', id: 'trust-panel-concierge', label: 'AI Support Concierge', kw: 'support ai concierge help questions billing', color: 'text-indigo-300', action: 'trust_concierge' }},
+            {{ icon: 'mail', id: 'trust-panel-contact', label: 'Contact', kw: 'contact message form', color: 'text-sky-300', action: 'trust_contact' }},
             {{ icon: 'flag', id: 'trust-panel-feedback', label: 'Submit Feedback / Portal', kw: 'feedback request state portal feature waf secure', color: 'text-amber-300', action: 'trust_feedback' }},
             {{ icon: 'doc', id: 'trust-panel-terms', label: 'Terms of Service & SLA', kw: 'terms of service legal sla cancellation disclaimer', color: 'text-slate-300', action: 'trust_terms' }},
             {{ icon: 'lock', id: 'trust-panel-privacy', label: 'Privacy Policy & DPA', kw: 'privacy policy dpa zero retention subprocessors gdpr', color: 'text-emerald-400', action: 'trust_privacy' }}
@@ -5121,7 +5120,7 @@ def generate_pseo_site() -> int:
                     <div id="teaming-box-static" class="hidden mt-3 p-4 rounded-xl bg-navy-900 border border-amber-500/40 space-y-3 text-xs font-mono">
                       <div class="text-amber-300 font-bold uppercase">// TWO-SIDED FAR 52.219-9 &amp; 13 CFR &sect; 125.6 TEAMING CLEARINGHOUSE</div>
                       <p class="text-slate-300">Register your verified UEI/CAGE and socio-economic status to request a compliant Prime/Sub workshare slot on this solicitation (auto-validates the 50% Limitation on Subcontracting rule).</p>
-                      <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+                      <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
                         <input id="teaming-co-static" type="text" placeholder="Company Name LLC" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
                         <input id="teaming-uei-static" type="text" placeholder="UEI / CAGE Code" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />
                         <select id="teaming-soc-static" class="px-2.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white">
@@ -5723,11 +5722,10 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         </a>
         <!-- Full-Width Organized Site Navigation Bar -->
         <nav aria-label="Primary Site Navigation" class="hidden lg:flex flex-1 items-center justify-between gap-1 xl:gap-2 mx-1.5 xl:mx-2 2xl:mx-5 p-1 xl:p-1.5 rounded-xl bg-navy-900/95 border border-slate-800/90 shadow-inner">
-          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
-          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
-          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
-          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
-          <a href="#contact" class="flex-1 inline-flex items-center justify-center px-1.5 xl:px-2.5 2xl:px-3 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Contact</a>
+          <a href="#overview" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Platform Overview</a>
+          <a href="#contracts" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-semibold text-white bg-sky-500/15 border border-sky-500/40 shadow-sm transition-all whitespace-nowrap">Live RFP Directory</a>
+          <a href="#apis" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">API Catalog</a>
+          <a href="#checkout" class="flex-1 inline-flex items-center justify-center px-2 xl:px-2.5 2xl:px-3.5 py-1.5 xl:py-2 rounded-lg text-[11px] xl:text-xs 2xl:text-[13px] font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 border border-transparent transition-all whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
         <div class="w-auto flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
           <button
@@ -5763,12 +5761,11 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
         </div>
       </div>
       <div class="lg:hidden border-t border-slate-800/80 bg-navy-900/90">
-        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-5 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
-          <a href="#overview" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
-          <a href="#contracts" class="px-1 sm:px-2 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFPs</a>
-          <a href="#apis" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
-          <a href="#checkout" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Pricing</a>
-          <a href="#contact" class="px-1 sm:px-2 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Contact</a>
+        <nav aria-label="Mobile Site Navigation" class="max-w-[1600px] mx-auto px-2.5 sm:px-4 py-1.5 grid grid-cols-4 gap-1 sm:gap-1.5 text-[10.5px] sm:text-[11px] font-sans font-medium sm:font-mono text-center">
+          <a href="#overview" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Overview</a>
+          <a href="#contracts" class="px-1 sm:px-2.5 py-1 rounded-md bg-sky-500/20 text-white border border-sky-500/40 font-semibold tracking-tight whitespace-nowrap">RFP Directory</a>
+          <a href="#apis" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">APIs</a>
+          <a href="#checkout" class="px-1 sm:px-2.5 py-1 rounded-md bg-navy-950 text-slate-200 hover:text-sky-400 border border-slate-800 tracking-tight whitespace-nowrap">Plans &amp; Pricing</a>
         </nav>
       </div>
     </header>
@@ -6907,7 +6904,7 @@ def _inject_spa_directory_into_index(enriched_contracts: list[dict]):
                     '<div id="teaming-box-' + esc(item.slug) + '" class="hidden mt-3 p-4 rounded-xl bg-navy-900 border border-amber-500/40 space-y-3 text-xs font-mono">' +
                       '<div class="text-amber-300 font-bold uppercase">// TWO-SIDED FAR 52.219-9 &amp; 13 CFR &sect; 125.6 TEAMING CLEARINGHOUSE</div>' +
                       '<p class="text-slate-300">Register your verified UEI/CAGE and socio-economic status to request a compliant Prime/Sub workshare slot on this solicitation (auto-validates the 50% Limitation on Subcontracting rule).</p>' +
-                      '<div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">' +
+                      '<div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">' +
                         '<input id="teaming-co-' + esc(item.slug) + '" type="text" placeholder="Company Name LLC" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />' +
                         '<input id="teaming-uei-' + esc(item.slug) + '" type="text" placeholder="UEI / CAGE Code" class="px-3 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white placeholder-slate-500" />' +
                         '<select id="teaming-soc-' + esc(item.slug) + '" class="px-2.5 py-2 rounded-lg bg-navy-950 border border-slate-700 text-white">' +
