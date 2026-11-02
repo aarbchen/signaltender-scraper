@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-01T11:09:12Z",
+  "timestamp": "2026-11-02T10:10:32Z",
   "mode": "fast",
-  "elapsed_seconds": 113.51,
+  "elapsed_seconds": 204.34,
   "status": "HEALTHY",
   "counts": {
     "portals": 52,
@@ -24,11 +24,35 @@
       "unfixed_issues": []
     },
     "camberdesk_ecosystem": {
-      "timestamp": "2026-11-01T11:09:11.845475+00:00",
+      "timestamp": "2026-11-02T10:09:48.024935+00:00",
       "mode": "fast",
-      "elapsed_seconds": 26.72,
+      "elapsed_seconds": 43.56,
       "status": "healthy",
-      "total_learned_rules": 18,
+      "total_learned_rules": 19,
+      "pillars": {
+        "pillar_1_products": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        },
+        "pillar_2_acquisition": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        },
+        "pillar_3_website_and_edge": {
+          "ok": true,
+          "issues": [],
+          "auto_healed": []
+        }
+      }
+    },
+    "rubricward_ecosystem": {
+      "timestamp": "2026-11-02T10:10:31.920397+00:00",
+      "mode": "fast",
+      "elapsed_seconds": 42.49,
+      "status": "healthy",
+      "total_learned_rules": 43,
       "pillars": {
         "pillar_1_products": {
           "ok": true,

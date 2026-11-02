@@ -1230,6 +1230,12 @@ def run_autonomous_mailbox_scaler(dry_run: bool = False, simulate_revenue_usd: f
 
     if not dry_run:
         _save_local_ledger(ledger)
+        if new_pods_created:
+            try:
+                import outreach_generator
+                outreach_generator.generate_outreach()
+            except Exception:
+                pass
 
     summary = {
         "reinvestment_ratio": f"{int(active_ratio * 100)}%",
