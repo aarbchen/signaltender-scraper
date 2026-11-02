@@ -1,17 +1,18 @@
 """
-Autonomous Outbound Reply Classifier & Zero-Touch Responder (`outbound_reply_responder.py`).
+Autonomous Outbound Reply Classifier, Zero-Touch Responder & 48h/96h Warm Follow-Up Engine (`outbound_reply_responder.py`).
 ===========================================================================================
 Solves the "Stop-on-Reply Conversion Gap" in zero-touch B2B cold outreach:
   - Because `stop_on_reply: true` is enabled in Instantly.ai campaign `c7727dff-92cc-4621-9e96-c960938d5a47`,
     any prospect who replies "Yes, send it over" to Step 1 (which has no pricing/checkout link)
     automatically pauses Step 2—meaning our hottest prospects would never receive the raw RFP links
     or the self-serve Tier 1 ($99/mo) / Tier 2 ($399/mo) checkout link unless answered!
-  - Runs automatically every 6 hours inside `mainscraper.py`:
+  - Runs automatically every 6 hours inside `mainscraper.py` and every 60 seconds inside `silent_autopilot_watcher.py`:
     1. Polls Instantly.ai V2 `/api/v2/emails` for unread inbound prospect replies (`ue_type == 2`).
     2. Classifies each reply using `claude-sonnet-5-5` into `POSITIVE_INTEREST`, `QUESTION`, or `UNSUBSCRIBE`.
     3. For `POSITIVE_INTEREST` / `QUESTION`: automatically sends a warm, human-sounding reply via
-       Instantly.ai `/api/v2/emails/reply` containing their state's live RFP dossier link + the self-serve
-       SignalWire Pro ($99/mo) / CaptureDesk Autopilot ($399/mo) checkout link, and alerts Discord.
+       Instantly.ai `/api/v2/emails/reply` containing their state's live RFP dossier link + pre-filled `?co=&state=&email=`
+       self-serve SignalWire Pro ($99/mo) / CaptureDesk Autopilot ($399/mo) checkout link, records the delivery in
+       `warm_zip_followup_ledger.json`, and dispatches 48h and 96h post-`.ZIP` follow-up nudges.
     4. For `UNSUBSCRIBE`: marks the lead as Do-Not-Contact so they are never emailed again.
 """
 
@@ -22,6 +23,7 @@ import csv
 import json
 import os
 import time
+import urllib.parse
 from datetime import datetime, timezone
 import requests
 from dotenv import load_dotenv
@@ -39,6 +41,22 @@ SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").r
 PROCESSED_REPLIES_PATH = os.path.join(BASE_DIR, "processed_outbound_replies.json")
 CAMPAIGN_CSV_PATH = os.path.join(BASE_DIR, "campaign_leads.csv")
 INTEL_JSON_PATH = os.path.join(BASE_DIR, "govcon_prospect_intelligence.json")
+WARM_FOLLOWUP_PATH = os.path.join(BASE_DIR, "warm_zip_followup_ledger.json")
+TREASURY_LEDGER_PATH = os.path.join(BASE_DIR, "reinvestment_treasury_ledger.json")
+ARCHIVE_PATH = os.path.join(BASE_DIR, "completed_outreach_archive.json")
+
+
+def _build_prefilled_st_url(path: str, company: str, state: str, email: str, hash_frag: str = "") -> str:
+    q = {}
+    if company and company.lower() not in ("your team", "capture team"):
+        q["co"] = company
+    if state:
+        q["state"] = state
+    if email and "@" in email:
+        q["email"] = email
+    qs = f"?{urllib.parse.urlencode(q)}" if q else ""
+    frag = f"#{hash_frag.lstrip('#')}" if hash_frag else ""
+    return f"{SITE_BASE_URL}{path}{qs}{frag}"
 
 
 def _lookup_prospect_context(from_email: str, reply_text: str = "") -> dict:
@@ -111,6 +129,21 @@ def _lookup_prospect_context(from_email: str, reply_text: str = "") -> dict:
             target = dict(target)
             target["Email Body"] = "\n".join(quoted_123[:3])
     company = str(target.get("Company") or "").strip()
+    if not company:
+        verified_govcon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verified_public_govcon_contacts.json")
+        if os.path.exists(verified_govcon_path):
+            try:
+                with open(verified_govcon_path, "r", encoding="utf-8") as vf:
+                    for item in json.load(vf) or []:
+                        v_em = str(item.get("Email") or item.get("email") or "").strip().lower()
+                        if v_em == clean_em or (dom and v_em.endswith("@" + dom)):
+                            company = str(item.get("Company Name") or item.get("company_name") or "").strip()
+                            break
+            except Exception:
+                pass
+    if not company and dom:
+        company = dom.split(".")[0].replace("-", " ").title()
+    matched_st = str(target.get("Matched State") or "Federal & State SLED").strip()
     award_profile = None
     if company and os.path.exists(INTEL_JSON_PATH):
         try:
@@ -123,12 +156,24 @@ def _lookup_prospect_context(from_email: str, reply_text: str = "") -> dict:
         except Exception:
             award_profile = None
 
+    raw_dossier = str(target.get("Top Contract Dossier URL") or f"{SITE_BASE_URL}/contracts").strip()
+    if "?" not in raw_dossier and (company or clean_em):
+        q_str = urllib.parse.urlencode({k: v for k, v in [("co", company), ("state", matched_st), ("email", clean_em)] if v})
+        if q_str:
+            if "#" in raw_dossier:
+                b_part, h_part = raw_dossier.split("#", 1)
+                raw_dossier = f"{b_part}?{q_str}#{h_part}"
+            else:
+                raw_dossier = f"{raw_dossier}?{q_str}"
+
     return {
         "first_name": str(target.get("First Name") or "").strip(),
         "company": company,
-        "matched_state": str(target.get("Matched State") or "Federal & State SLED").strip(),
-        "top_dossier_url": str(target.get("Top Contract Dossier URL") or f"{SITE_BASE_URL}/contracts").strip(),
-        "compiler_deeplink_url": str(target.get("Compiler Deep-Link URL") or f"{SITE_BASE_URL}/#proposal-autopilot").strip(),
+        "matched_state": matched_st,
+        "top_dossier_url": raw_dossier,
+        "compiler_deeplink_url": str(target.get("Compiler Deep-Link URL") or _build_prefilled_st_url("/", company, matched_st, clean_em, "proposal-autopilot")).strip(),
+        "checkout_deeplink_url": _build_prefilled_st_url("/", company, matched_st, clean_em, "checkout"),
+        "signup_deeplink_url": _build_prefilled_st_url("/", company, matched_st, clean_em, "signup"),
         "top_naics": str(target.get("Top Contract NAICS") or "541512 — Computer Systems Design Services").strip(),
         "top_posture": str(target.get("Top Contract Posture") or "").strip(),
         "original_subject": str(target.get("Subject Line") or "").strip(),
@@ -291,6 +336,8 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     state_label = ctx["matched_state"] or "Federal & State SLED"
     top_dossier_url = ctx["top_dossier_url"] or f"{SITE_BASE_URL}/contracts"
     compiler_deeplink_url = ctx.get("compiler_deeplink_url") or f"{SITE_BASE_URL}/#proposal-autopilot"
+    checkout_deeplink_url = ctx.get("checkout_deeplink_url") or f"{SITE_BASE_URL}/#checkout"
+    signup_deeplink_url = ctx.get("signup_deeplink_url") or f"{SITE_BASE_URL}/#signup"
     fname_greeting = f"Hi {ctx['first_name']},\n\n" if ctx["first_name"] and ctx["first_name"].lower() not in ("capture", "team", "there", "contracts", "partnerships") else ""
 
     matched_lines = [
@@ -314,14 +361,14 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
         f"And here is the full live directory of pre-shredded Federal & 50-State SLED IT/Cyber dossiers (Covering #1, #2, #3, and all active bids):\n"
         f"{SITE_BASE_URL}/contracts\n\n"
         f"You can also create a Free Explorer Account ($0/mo — no credit card required) in our Client Portal to save {comp_label}'s state & NAICS alert filters, pre-load your Company Capture Vault, track bids on your Saved RFP Bid Board, and test all 58 AI Capture APIs:\n"
-        f"{SITE_BASE_URL}/#signup\n\n"
+        f"{signup_deeplink_url}\n\n"
         f"When your team is ready for automated 6-hour dispatches, un-blurred portal links, or 1-click 6-file Shipley proposal compilation, we have four instant self-serve plans (FAR 31.205-18 allowable B&P expense with instant corporate P-Card PDF receipt & 1-click auto-renew pause):\n"
         f"• Tier 1 — SignalWire Pro ($99/mo): Real-time 52-portal Federal & State SLED IT/Cyber alerts + 90-180d Recompete & Subcontracting Wire via Slack, Microsoft Teams, Discord, CRM Webhook, or Email + 5 Team CC seats.\n"
         f"• Tier 2 — CaptureDesk Autopilot ($399/mo): Full 25-Engine AI Section L/M compliance matrices, Price-to-Win Recompete Models (API #16), Sources Sought Set-Aside Briefs (API #21), Shipley Black-Hat & Incumbent Ghosting (API #33), Prime-to-Sub Teaming Plans (API #11), CPARS Volume III citations, SF-30 amendment diffs, and your own st_live_... Enterprise API & MCP key.\n"
         f"• Tier 3 — Proposal Autopilot Enterprise ($1,499/mo): 1-Click Complete 6-File Shipley Proposal Compiler (.ZIP containing Word .docx Volumes I, III, IV, V + live-formula Excel .xlsx Volume II Cost Model + Manifest in 90s) + 13 CFR § 125.6 Teaming Clearinghouse.\n"
         f"• Tier 4 — Enterprise OEM & FOIA Winning-Bid Vault ($2,499/mo): Automated Post-Award FOIA/PIA Incumbent LCAT Rate Vault + 50,000 REST/MCP API calls/mo OEM license.\n\n"
-        f"You can also test-drive a custom 6-file Shipley Proposal .ZIP compilation on your own solicitation, benchmark incumbent LCAT rates in the FOIA Rate Vault, or generate an official FAR 31.205-18 corporate procurement quote directly on our Plans & Pricing page:\n"
-        f"{SITE_BASE_URL}/#checkout\n\n"
+        f"You can also test-drive a custom 6-file Shipley Proposal .ZIP compilation on your own solicitation, benchmark incumbent LCAT rates in the FOIA Rate Vault, or generate an official FAR 31.205-18 corporate procurement quote directly on our Plans & Pricing page (pre-configured for {comp_label}):\n"
+        f"{checkout_deeplink_url}\n\n"
         f"Best,\nAaron Chen\nFounder, SignalTender"
     )
 
@@ -361,8 +408,8 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
             f"(Founder, SignalTender) that directly answers their specific question (referencing the exact solicitation #1/#2/#3, "
             f"agency, due date, Recompete Radar, or Prime-to-Sub Teaming item from the Original Email Sent above) and gives them:\n"
             f"  1) Their exact Solicitation #1 Capture Dossier link ({top_dossier_url}), their 1-Click 6-File Shipley .ZIP Compiler deep-link ({compiler_deeplink_url}), + the full directory ({SITE_BASE_URL}/contracts)\n"
-            f"  2) The Free Explorer Account sign-up link ({SITE_BASE_URL}/#signup — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
-            f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo), Tier 2 CaptureDesk Autopilot ($399/mo), Tier 3 Proposal Autopilot .ZIP Compiler ($1,499/mo), and Tier 4 Enterprise OEM & FOIA Rate Vault ($2,499/mo) instant activation link ({SITE_BASE_URL}/#checkout).\n"
+            f"  2) The Free Explorer Account sign-up link ({signup_deeplink_url} — $0/mo, no credit card required to save state/NAICS alert filters, Company Capture Vault, and Bid Board)\n"
+            f"  3) The self-serve Tier 1 SignalWire Pro ($99/mo), Tier 2 CaptureDesk Autopilot ($399/mo), Tier 3 Proposal Autopilot .ZIP Compiler ($1,499/mo), and Tier 4 Enterprise OEM & FOIA Rate Vault ($2,499/mo) instant activation link ({checkout_deeplink_url}).\n"
             f"Zero emojis, zero markdown bold (**). Output strictly valid JSON."
         )
         resp = client.messages.create(
@@ -390,6 +437,159 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     return {"intent": "POSITIVE_INTEREST", "reply_body": default_reply, "context": ctx}
 
 
+def _is_converted_or_unsubscribed(email: str) -> bool:
+    clean = str(email or "").strip().lower()
+    if not clean:
+        return True
+    if os.path.exists(ARCHIVE_PATH):
+        try:
+            with open(ARCHIVE_PATH, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+                if isinstance(raw, list) and clean in {str(x).strip().lower() for x in raw if x}:
+                    return True
+        except Exception:
+            pass
+    if os.path.exists(TREASURY_LEDGER_PATH):
+        try:
+            with open(TREASURY_LEDGER_PATH, "r", encoding="utf-8") as f:
+                t_data = json.load(f) or {}
+                for ev in (t_data.get("payment_events") or []):
+                    if str(ev.get("customer_email") or "").strip().lower() == clean:
+                        return True
+        except Exception:
+            pass
+    return False
+
+
+def _record_warm_zip_delivery(from_email: str, eaccount: str, msg_id: str, subject: str, ctx: dict) -> None:
+    clean_em = str(from_email or "").strip().lower()
+    if not clean_em or "@" not in clean_em:
+        return
+    entries = {}
+    if os.path.exists(WARM_FOLLOWUP_PATH):
+        try:
+            with open(WARM_FOLLOWUP_PATH, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+                if isinstance(loaded, dict):
+                    entries = loaded
+        except Exception:
+            entries = {}
+    if clean_em not in entries:
+        entries[clean_em] = {
+            "email": clean_em,
+            "eaccount": eaccount,
+            "reply_to_uuid": msg_id,
+            "subject": subject,
+            "first_name": ctx.get("first_name") or "",
+            "company": ctx.get("company") or "your capture team",
+            "matched_state": ctx.get("matched_state") or "Federal & State SLED",
+            "top_dossier_url": ctx.get("top_dossier_url") or f"{SITE_BASE_URL}/contracts",
+            "compiler_deeplink_url": ctx.get("compiler_deeplink_url") or f"{SITE_BASE_URL}/#proposal-autopilot",
+            "checkout_deeplink_url": ctx.get("checkout_deeplink_url") or f"{SITE_BASE_URL}/#checkout",
+            "sent_at_epoch": time.time(),
+            "nudge_48h_sent": False,
+            "nudge_96h_sent": False,
+        }
+        try:
+            with open(WARM_FOLLOWUP_PATH, "w", encoding="utf-8") as f:
+                json.dump(entries, f, indent=2)
+        except Exception:
+            pass
+
+
+def _process_warm_zip_followups() -> int:
+    if not os.path.exists(WARM_FOLLOWUP_PATH) or not INSTANTLY_API_KEY:
+        return 0
+    try:
+        with open(WARM_FOLLOWUP_PATH, "r", encoding="utf-8") as f:
+            entries = json.load(f)
+            if not isinstance(entries, dict):
+                return 0
+    except Exception:
+        return 0
+
+    now = time.time()
+    nudges_sent = 0
+    dirty = False
+    headers = {"Authorization": f"Bearer {INSTANTLY_API_KEY}", "Content-Type": "application/json"}
+
+    for em, info in list(entries.items()):
+        if not isinstance(info, dict) or _is_converted_or_unsubscribed(em):
+            continue
+        sent_at = float(info.get("sent_at_epoch") or 0)
+        if sent_at <= 0:
+            continue
+        elapsed_hrs = (now - sent_at) / 3600.0
+        msg_id = str(info.get("reply_to_uuid") or "").strip()
+        eaccount = str(info.get("eaccount") or "").strip()
+        if not msg_id or not eaccount or "signaltender" not in eaccount.lower():
+            continue
+        fname = info.get("first_name") or ""
+        greeting = f"Hi {fname},\n\n" if fname and fname.lower() not in ("capture", "team", "there", "contracts") else "Hi there,\n\n"
+        comp = info.get("company") or "your capture team"
+        st_lbl = info.get("matched_state") or "Federal & State SLED"
+        checkout_url = info.get("checkout_deeplink_url") or f"{SITE_BASE_URL}/#checkout"
+        subj = str(info.get("subject") or "Re: Open IT & Cyber RFPs")
+        if not subj.lower().startswith("re:"):
+            subj = f"Re: {subj}"
+
+        if elapsed_hrs >= 48.0 and not info.get("nudge_48h_sent"):
+            body_48 = (
+                f"{greeting}"
+                f"Quick check-in on the {st_lbl} CaptureDesk dossier and 6-file Shipley Proposal .ZIP compiler I sent over for {comp} — "
+                f"did the Section L/M compliance matrix and live-formula Excel Section B Cost Model open cleanly for your team?\n\n"
+                f"If your capture desk wants automated 6-hour Federal & 50-State SLED dispatches, un-blurred agency links, and 1-click 6-file Shipley proposal packages, "
+                f"your pre-configured workspace is ready here:\n"
+                f"{checkout_url}\n\n"
+                f"Best,\nAaron Chen\nFounder, SignalTender"
+            )
+            try:
+                r_nudge = requests.post(
+                    "https://api.instantly.ai/api/v2/emails/reply",
+                    headers=headers,
+                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_48}},
+                    timeout=15,
+                )
+                if 200 <= r_nudge.status_code < 300:
+                    info["nudge_48h_sent"] = True
+                    info["nudge_48h_at"] = now
+                    nudges_sent += 1
+                    dirty = True
+            except Exception:
+                pass
+        elif elapsed_hrs >= 96.0 and info.get("nudge_48h_sent") and not info.get("nudge_96h_sent"):
+            body_96 = (
+                f"{greeting}"
+                f"Closing the loop on the {st_lbl} IT/Cyber solicitations for {comp} before the upcoming proposal submission window — "
+                f"if your team needs automated 52-portal RFP monitoring, Price-to-Win LCAT models, or unlimited 1-click 6-file Shipley .ZIP compilations, "
+                f"you can activate your self-serve plan anytime here:\n"
+                f"{checkout_url}\n\n"
+                f"Best,\nAaron Chen\nFounder, SignalTender"
+            )
+            try:
+                r_nudge = requests.post(
+                    "https://api.instantly.ai/api/v2/emails/reply",
+                    headers=headers,
+                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_96}},
+                    timeout=15,
+                )
+                if 200 <= r_nudge.status_code < 300:
+                    info["nudge_96h_sent"] = True
+                    info["nudge_96h_at"] = now
+                    nudges_sent += 1
+                    dirty = True
+            except Exception:
+                pass
+
+    if dirty:
+        try:
+            with open(WARM_FOLLOWUP_PATH, "w", encoding="utf-8") as f:
+                json.dump(entries, f, indent=2)
+        except Exception:
+            pass
+    return nudges_sent
+
+
 def run_reply_responder() -> dict:
     """Poll Instantly.ai V2 Unibox for unread prospect replies and auto-respond to positive interest."""
     if not INSTANTLY_API_KEY or not INSTANTLY_CAMPAIGN_ID:
@@ -402,6 +602,7 @@ def run_reply_responder() -> dict:
     processed_ids = _load_processed_ids()
     answered_count = 0
     unsub_count = 0
+    nudges_sent = 0
 
     try:
         sub_cid = os.getenv("INSTANTLY_SUBSCRIBER_CAMPAIGN_ID", "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f").strip()
@@ -430,7 +631,6 @@ def run_reply_responder() -> dict:
                         items.append(it)
         for msg in items:
             msg_id = str(msg.get("id") or "").strip()
-            # ue_type == 2 indicates an inbound reply from a lead in Instantly V2
             ue_type = msg.get("ue_type")
             if not msg_id or msg_id in processed_ids or ue_type != 2:
                 continue
@@ -449,21 +649,24 @@ def run_reply_responder() -> dict:
             result = classify_and_draft_reply(from_email, subject, reply_text)
             intent = result["intent"]
             reply_body = result["reply_body"]
+            ctx = result.get("context") or {}
 
             if intent in ("POSITIVE_INTEREST", "QUESTION") and reply_body and eaccount:
+                reply_subj = subject if subject.lower().startswith("re:") else f"Re: {subject}"
                 r_send = requests.post(
                     "https://api.instantly.ai/api/v2/emails/reply",
                     headers=headers,
                     json={
                         "reply_to_uuid": msg_id,
                         "eaccount": eaccount,
-                        "subject": subject if subject.lower().startswith("re:") else f"Re: {subject}",
+                        "subject": reply_subj,
                         "body": {"text": reply_body},
                     },
                     timeout=15,
                 )
                 if 200 <= r_send.status_code < 300:
                     answered_count += 1
+                    _record_warm_zip_delivery(from_email, eaccount, msg_id, reply_subj, ctx)
                 if DISCORD_WEBHOOK_URL:
                     try:
                         requests.post(
@@ -473,7 +676,7 @@ def run_reply_responder() -> dict:
                                     f"**[HOT OUTBOUND REPLY — AUTO-ANSWERED BY CLAUDE SONNET 5.5]**\n"
                                     f"• **Prospect:** `{from_email}` (`{intent}`)\n"
                                     f"• **Their Reply:** {reply_text[:300]}\n"
-                                    f"• **Auto-Sent Response:** Delivered `/contracts` dossier directory + `/#signup` Free Explorer Portal + `/#checkout` activation link."
+                                    f"• **Auto-Sent Response:** Delivered `/contracts` dossier directory + `/#signup` Free Explorer Portal + pre-filled `/#checkout` activation link."
                                 ),
                                 "flags": 4,
                             },
@@ -511,17 +714,17 @@ def run_reply_responder() -> dict:
             processed_ids.add(msg_id)
 
         _save_processed_ids(processed_ids)
+        nudges_sent = _process_warm_zip_followups()
         print(
             f"[+] Outbound Reply Auto-Responder: Checked {len(items)} Unibox item(s) "
-            f"({answered_count} positive replies auto-answered, {unsub_count} unsubscribes).",
+            f"({answered_count} positive replies auto-answered, {nudges_sent} warm nudges sent, {unsub_count} unsubscribes).",
             flush=True,
         )
     except Exception as exc:
         report_error("outbound_reply_responder.py", f"Outbound reply responder warning: {exc}", severity="WARNING")
 
-    return {"status": "ok", "answered": answered_count, "unsubscribed": unsub_count}
+    return {"status": "ok", "answered": answered_count, "nudges_sent": nudges_sent, "unsubscribed": unsub_count}
 
 
 if __name__ == "__main__":
     run_reply_responder()
-
