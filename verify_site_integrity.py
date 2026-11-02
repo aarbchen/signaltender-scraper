@@ -985,7 +985,7 @@ window.renderAccountDashboard({
   discord_handle: 'aarbchen',
   email_briefings_enabled: true
 });
-if (document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER &amp; ADMIN CONSOLE') === -1 && document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER & ADMIN CONSOLE') === -1) {
+if (document.getElementById('account-admin-bar').innerHTML.indexOf('ENTERPRISE ADMIN CONSOLE') === -1 && document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER &amp; ADMIN CONSOLE') === -1 && document.getElementById('account-admin-bar').innerHTML.indexOf('FOUNDER & ADMIN CONSOLE') === -1) {
   throw new Error('Admin user did not receive #account-admin-bar switcher!');
 }
 window.switchAdminPortalPreview('tier_1');

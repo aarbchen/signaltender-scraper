@@ -613,3 +613,38 @@ Node.js v26.7.0
 [2026-10-31 04:23:02 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/support.py: AI Concierge knowledge base missing required tier fact '1-Click 3-Volume Shipley Proposal'
 [2026-10-31 04:24:54 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/support.py: AI Concierge knowledge base missing required tier fact '1-Click 3-Volume Shipley Proposal'
 [2026-10-31 04:25:48 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: api/routers/stripe_webhook.py: Missing `not.like.subscriber://*` filter to exclude internal state rows from live contract queries!
+
+=== ARCHIVED & RESOLVED AT 2026-11-02 03:52:31 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote alert(s)) ===
+[2026-11-02 03:48:31 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: index.html: JS SyntaxError:
+onclick="window.copyDirectSupportEmail(&apos;aaron@getsignaltender.com&apos;, this)": onclick="window.copyDirectSupportEmail(&apos;aaron@getsignaltender.com&apos;, this)":2
+window.copyDirectSupportEmail(&apos;aaron@getsignaltender.com&apos;, this)
+                              ^
+
+SyntaxError: Unexpected token '&'
+    at new Script (node:vm:118:7)
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmp48cko7lt.js:5:5)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_mod
+
+=== ARCHIVED & RESOLVED AT 2026-11-02 05:13:24 UTC: Auto-healed & verified by auto_error_healer.py (52/52 scrapers & pipeline contracts healthy; cleared 14 local + 1 remote alert(s)) ===
+[2026-11-02 05:05:11 UTC] [LOCAL] [verify_site_integrity.py] verify_site_integrity.py FAIL: Headless SPA runtime check failed:
+C:\Users\jouan\AppData\Local\Temp\tmpeiea140k.js:10129
+  throw new Error('Admin user did not receive #account-admin-bar switcher!');
+  ^
+
+Error: Admin user did not receive #account-admin-bar switcher!
+    at Object.<anonymous> (C:\Users\jouan\AppData\Local\Temp\tmpeiea140k.js:10129:9)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
