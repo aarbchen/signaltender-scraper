@@ -1,0 +1,32 @@
+{
+  "updated_at": "2026-11-02T19:30:06.828412+00:00",
+  "campaign_id": "c7727dff-92cc-4621-9e96-c960938d5a47",
+  "recent_rendered_emails_audited": 50,
+  "recent_inbound_replies_detected": 0,
+  "unrendered_template_tags_detected": 0,
+  "prefix_delivery_stats": {
+    "named_person": {
+      "clean": 228,
+      "bounced": 0
+    },
+    "dept_desk": {
+      "clean": 8,
+      "bounced": 0
+    },
+    "generic_info": {
+      "clean": 0,
+      "bounced": 0
+    }
+  },
+  "adaptive_prefix_priority_weights": {
+    "named_person": 1.0,
+    "dept_desk": 0.85,
+    "generic_info": 0.5
+  },
+  "cohort_stats": {
+    "default": {
+      "sent": 1,
+      "replies": 0
+    }
+  }
+}

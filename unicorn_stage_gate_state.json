@@ -1,0 +1,14 @@
+{
+  "brand": "SignalTender",
+  "updated_at": "2026-11-02T20:26:40.354431+00:00",
+  "active_gate": "GATE_0_1M_ARR_52_PORTAL_AUTOPILOT_SCALE",
+  "unlocked_pillar": "52-Portal Core Engine + 50% Revenue-to-Mailbox Autonomous Scaling",
+  "cumulative_gross_revenue_usd": 0.0,
+  "recorded_conversions": 0,
+  "gate_thresholds_mrr_usd": {
+    "gate_1_10m_arr_trigger": 85000.0,
+    "gate_2_35m_arr_trigger": 833333.0,
+    "gate_3_1b_unicorn_trigger": 2916666.0
+  },
+  "blueprint_doc": "UNICORN_1B_EXPANSION_BLUEPRINT.md"
+}

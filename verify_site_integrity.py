@@ -121,6 +121,7 @@ def check_html_file(fpath: str) -> str:
         "#checkout-tier3",
         "#checkout-tier4",
         "#proposal-foia-moat",
+        "#master-plan-roadmap",
         "#checkout-annual",
         "#account",
         "#signup",
@@ -2221,6 +2222,10 @@ def main() -> int:
     check_catalog_parity_and_ui(index_txt, apis_txt)
     check_portal_parity_and_telemetry(index_txt, apis_txt)
     check_tier_value_prop_and_capture_moat_parity(index_txt)
+    if 'id="master-plan-roadmap"' not in index_txt:
+        fail("[RULE-025] index.html: Missing `<section id=\"master-plan-roadmap\">` Master Plan Phase & 4-Phase Unicorn Roadmap section!")
+    if "52 PREVIEW LEADS SHOWN" not in index_txt:
+        fail("[RULE-025] index.html: `#contract-directory` must render all 52 preview leads (`52 PREVIEW LEADS SHOWN`)!")
     # Enforce that AI Concierge knowledge bases in index.html and support.py cover all 4 tiers
     for req_concierge_tier in ("Tier 1", "Tier 2", "Tier 3", "Tier 4", "$1,499", "$2,499"):
         if req_concierge_tier not in index_txt:

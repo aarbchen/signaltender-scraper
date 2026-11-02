@@ -140,3 +140,19 @@ Whenever any new API, scraper, or feature addition is created and finished, you 
    - **Independent Bottom-Up Revenue & Funnel Projections (Zero Anchoring):** Never reuse a single template projection across different businesses or report the same ARR for 1 business as for 3 combined. Every business has its own independent pricing (`SignalTender`: `$99 / $399 / $999 / $1,499`; `CamberDesk`: `$199 / $499 / $1,499 / $2,499`; `RubricWard`: `$249 / $599 / $1,499 / $2,999`), its own `300`-capacity Instantly campaign, its own lead pool, and its own independent `$1M+ ARR` Year 1 / `$1B+` Unicorn trajectory.
    - **Automated Integrity Gate Enforcement:** `verify_site_integrity.py`, `verify_camberdesk_integrity.py`, and `verify_rubricward_integrity.py` must all run `check_master_plan_and_domain_native_depth()` to fail any build that has `< 52` active portals/static dossiers, `< 200` federal-enriched verified leads, or missing domain-native backend modules.
 
+
+## 17. Mandatory Website Differentiation, 52-Portal Full Seed Rendering & Master-Plan Phase Visibility Rule (`RULE-025`)
+To prevent any business website (`d:\Daas`, `D:\CamberDesk`, `D:\RubricWard`, or any future standalone vertical business) from ever being deployed as an undifferentiated clone, partial 12-row seed table, or cross-domain copy:
+1. **100% Domain-Native Website Copy, API Sample JSON & Interactive Workbenches:**
+   - Every `<article id="product-...">` card, `CATALOG` / `API_META` JSON payload, interactive before/after shredder, and evaluation workbench (`#wb-vault-output`, `#wb-dbe-output`, `#wb-custom-output`) **MUST** use 100% domain-native keys, units, and statutory citations:
+     - **SignalTender (`d:\Daas`):** GovCon IT/Cyber SAM.gov & SLED RFPs, Shipley Section L/M matrices, FAR/DFARS clauses, LCAT hourly rates, 13 CFR § 125.6 workshare, and 3-Volume Proposal `.ZIP` packages.
+     - **CamberDesk (`D:\CamberDesk`):** Heavy-Civil & Commercial Preconstruction, CSI MasterFormat Divisions 00–48, 36-month DOT pay-item bid tabulations (`$/Ton`, `$/CY`, `$/LF`), Davis-Bacon WH-347 craft wages, IIJA BABA domestic steel, and 49 CFR Part 26 DBE credits.
+     - **RubricWard (`D:\RubricWard`):** Healthcare Commercial Payer TiC MRF (`45 CFR 147.212`), CMS Medicare MPFS RVU/GPCI locality math, X12 835 CARC/RARC denial reversal, CMS NCCI PTP/Modifier 25/59 edits, ERISA `29 CFR 2560.503-1` appeals, and Federal No Surprises Act (`45 CFR 149.510`) IDR arbitration briefs. Zero construction keys (`liquidated_damages_usd_per_day`, `retainage_pct`, `wh347_certified_payroll_ready`, `baba_compliant`, `contractor_emr`, `winning_low_avg_usd`) may ever appear on `RubricWard`.
+2. **Master-Plan Pricing Alignment:**
+   - Every website must display the exact pricing tiers from its own `$1M ARR` Master Plan (`SignalTender`: `$99 / $399 / $1,499 / $2,499`; `CamberDesk`: `$199 / $499 / $1,499 / $2,499`; `RubricWard`: `$249 / $599 / $1,499 / $2,999`).
+3. **Full 52-Portal Directory Rendering (`#contract-directory`):**
+   - Never leave a 12-row partial seed table on disk when 52 portals are live. `#contract-directory` on every site must render all **52** live portals/cohorts (`52 PREVIEW LEADS SHOWN` / `52 PREVIEW LETTINGS SHOWN` / `52 PREVIEW MRF COHORTS SHOWN`), and API #04 sample JSON must report `"count": 52`.
+4. **Visible Master-Plan Execution Phase & 4-Phase Unicorn Roadmap (`#master-plan-roadmap`):**
+   - Every site must include `<section id="master-plan-roadmap">` on its main overview page showing its live **Phase 1 Production Engine** metrics alongside its vertical-specific **Phases 2–4 `$1M ARR -> $1B+ Unicorn` Stage-Gate Architecture**.
+5. **Automated CI/CD Enforcement:**
+   - `verify_site_integrity.py`, `verify_camberdesk_integrity.py`, and `verify_rubricward_integrity.py` must automatically block any commit or push that violates `RULE-024` or `RULE-025`.
