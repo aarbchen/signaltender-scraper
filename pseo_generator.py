@@ -960,16 +960,16 @@ def _render_layout(
   <title>{escaped_title}</title>
   <meta name="description" content="{escaped_desc}" />
   <meta name="theme-color" content="#090C10" />
-  <link rel="icon" type="image/png" sizes="96x96" href="https://signaltender.net/contracts/favicon-96x96.png?v=6" />
-  <link rel="icon" type="image/png" sizes="512x512" href="https://signaltender.net/contracts/favicon-512x512.png?v=6" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://signaltender.net/contracts/favicon-192x192.png?v=6" />
-  <link rel="icon" type="image/svg+xml" href="https://signaltender.net/contracts/favicon.svg?v=6" />
-  <link rel="icon" type="image/png" sizes="48x48" href="https://signaltender.net/contracts/favicon-48x48.png?v=6" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://signaltender.net/contracts/favicon-32x32.png?v=6" />
-  <link rel="shortcut icon" href="https://signaltender.net/contracts/favicon.ico?v=6" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=6" />
-  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=6" />
-  <link rel="manifest" href="https://signaltender.net/contracts/site.webmanifest?v=6" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://signaltender.net/contracts/favicon-96x96.png?v=8" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://signaltender.net/contracts/favicon-512x512.png?v=8" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://signaltender.net/contracts/favicon-192x192.png?v=8" />
+  <link rel="icon" type="image/svg+xml" href="https://signaltender.net/contracts/favicon.svg?v=8" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://signaltender.net/contracts/favicon-48x48.png?v=8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://signaltender.net/contracts/favicon-32x32.png?v=8" />
+  <link rel="shortcut icon" href="https://signaltender.net/contracts/favicon.ico?v=8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=8" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://signaltender.net/contracts/apple-touch-icon.png?v=8" />
+  <link rel="manifest" href="https://signaltender.net/contracts/site.webmanifest?v=8" />
   <link rel="canonical" href="{canonical_url}" />
   <meta property="og:site_name" content="SignalTender" />
   <meta property="og:title" content="{escaped_title}" />
@@ -979,7 +979,7 @@ def _render_layout(
   <meta property="og:image" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta property="og:image:secure_url" content="https://signaltender.net/contracts/og-banner.png?v=7" />
   <meta property="og:image:alt" content="SignalTender | Real-Time Federal &amp; State SLED IT/Cyber Contract Intelligence" />
-  <meta property="og:logo" content="https://signaltender.net/contracts/favicon-512x512.png?v=6" />
+  <meta property="og:logo" content="https://signaltender.net/contracts/favicon-512x512.png?v=8" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -2785,7 +2785,7 @@ def _render_layout(
             <span>System Status (99.95% SLA)</span>
           </a>
           <a href="{root_prefix}index.html#security" class="text-slate-300 hover:text-sky-400 transition-colors">Security &amp; Zero-Retention Trust</a>
-          <a href="{root_prefix}index.html#contact" class="text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
+          <a href="{root_prefix}index.html#contact" class="text-slate-300 hover:text-sky-400 transition-colors">Contact &amp; General Inquiries</a>
           <a href="{root_prefix}index.html#concierge" class="text-slate-300 hover:text-indigo-300 transition-colors">Instant AI Support Concierge</a>
           <a href="{root_prefix}index.html#feedback" class="text-slate-300 hover:text-amber-300 transition-colors">Submit Feedback / Request Portal</a>
           <a href="{root_prefix}index.html#terms" class="text-slate-400 hover:text-white transition-colors">Terms of Service</a>
