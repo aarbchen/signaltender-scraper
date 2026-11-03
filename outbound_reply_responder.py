@@ -22,6 +22,7 @@ configure_utf8_stdio()
 import csv
 import json
 import os
+import re
 import time
 import urllib.parse
 from datetime import datetime, timezone
@@ -37,6 +38,7 @@ INSTANTLY_CAMPAIGN_ID = (os.getenv("INSTANTLY_CAMPAIGN_ID") or "").strip()
 ANTHROPIC_API_KEY = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
 ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5")
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
+DISCORD_HOT_REPLIES_WEBHOOK_URL = (os.getenv("DISCORD_HOT_REPLIES_WEBHOOK_URL") or DISCORD_WEBHOOK_URL or "").strip()
 SITE_BASE_URL = os.getenv("SIGNALTENDER_SITE_URL", "https://signaltender.net").rstrip("/")
 PROCESSED_REPLIES_PATH = os.path.join(BASE_DIR, "processed_outbound_replies.json")
 CAMPAIGN_CSV_PATH = os.path.join(BASE_DIR, "campaign_leads.csv")
@@ -220,6 +222,8 @@ def _load_processed_ids() -> set[str]:
                 data = json.load(f)
                 if isinstance(data, list):
                     ids |= {str(x) for x in data if x}
+                elif isinstance(data, dict):
+                    ids |= {str(x) for x in (data.get("processed_ids") or []) if x}
         except Exception:
             pass
     if SUPABASE_URL and SUPABASE_KEY:
@@ -690,7 +694,11 @@ def run_reply_responder() -> dict:
                 )
                 if 200 <= r_send.status_code < 300:
                     answered_count += 1
+                    processed_ids.add(msg_id)
+                    _save_processed_ids(processed_ids)
                     _record_warm_zip_delivery(from_email, eaccount, msg_id, reply_subj, ctx)
+                else:
+                    continue
                 if DISCORD_HOT_REPLIES_WEBHOOK_URL:
                     try:
                         requests.post(

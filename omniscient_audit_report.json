@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-03T09:09:42Z",
+  "timestamp": "2026-11-03T10:09:45Z",
   "mode": "fast",
-  "elapsed_seconds": 156.16,
+  "elapsed_seconds": 159.34,
   "status": "HEALTHY",
   "counts": {
     "portals": 52,
@@ -31,9 +31,9 @@
       "unfixed_issues": []
     },
     "camberdesk_ecosystem": {
-      "timestamp": "2026-11-03T09:09:02.739225+00:00",
+      "timestamp": "2026-11-03T10:09:06.094518+00:00",
       "mode": "fast",
-      "elapsed_seconds": 28.63,
+      "elapsed_seconds": 33.04,
       "status": "healthy",
       "total_learned_rules": 19,
       "pillars": {
@@ -55,9 +55,9 @@
       }
     },
     "rubricward_ecosystem": {
-      "timestamp": "2026-11-03T09:09:28.023133+00:00",
+      "timestamp": "2026-11-03T10:09:30.849765+00:00",
       "mode": "fast",
-      "elapsed_seconds": 24.46,
+      "elapsed_seconds": 23.94,
       "status": "healthy",
       "total_learned_rules": 43,
       "pillars": {
