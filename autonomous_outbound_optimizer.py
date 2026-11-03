@@ -24,6 +24,7 @@ from concurrent.futures import ThreadPoolExecutor
 import csv
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any, Dict, List
 import requests
@@ -39,10 +40,12 @@ CSV_PATH = ROOT_DIR / "campaign_leads.csv"
 
 def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_leads: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    1. Audits the last 50 actual rendered emails (`GET /api/v2/emails`) sent to prospects
-       to catch any unrendered `{{variable}}`, `%` encoding, or broken link in real time.
-    2. Computes live prefix delivery/bounce rates and hook/cohort reply rates (`ue_type == 2`)
-       and saves adaptive weights to `learned_outbound_intelligence.json`.
+    1. Audits the last 100 actual rendered emails (GET /api/v2/emails) sent to prospects
+       to catch any unrendered {{variable}}, % encoding, or broken link in real time.
+    2. Deduplicates by email ID, separates genuine human replies from auto-replies/OOO
+       and unsubscribes, extracts OOO referral emails (Please send all correspondence to: <email>),
+       computes live prefix delivery/bounce rates + cohort stats, and saves adaptive weights
+       to learned_outbound_intelligence.json (consumed by outreach_generator.py).
     """
     intel_path = ROOT_DIR / "learned_outbound_intelligence.json"
     intel: Dict[str, Any] = {}
@@ -53,9 +56,12 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
             intel = {}
 
     sent_count = 0
-    reply_count = 0
+    human_reply_count = 0
+    auto_reply_count = 0
+    unsubscribe_reply_count = 0
     unrendered_var_alerts = 0
-    cohort_stats: Dict[str, Dict[str, int]] = intel.get("cohort_stats", {})
+    ooo_referrals: List[str] = list(intel.get("ooo_referral_emails") or [])
+    cohort_stats: Dict[str, Dict[str, int]] = {}
     prefix_stats: Dict[str, Dict[str, int]] = {
         "named_person": {"clean": 0, "bounced": 0},
         "dept_desk": {"clean": 0, "bounced": 0},
@@ -70,9 +76,9 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
         lead_by_email[em] = ld
         local = em.split("@")[0]
         status_code = int(ld.get("status", 1) or 1)
-        if local in ("info", "contact", "office", "admin", "hello", "general", "inquiries"):
+        if local in ("info", "contact", "office", "admin", "hello", "general", "inquiries", "pq", "prequal"):
             bucket = "generic_info"
-        elif local in ("estimating", "estimates", "bids", "bidding", "precon", "billing", "rcm", "managedcare", "contracts", "proposals", "sales"):
+        elif local in ("estimating", "estimates", "bids", "bidding", "precon", "billing", "rcm", "managedcare", "contracts", "proposals", "sales", "capture"):
             bucket = "dept_desk"
         else:
             bucket = "named_person"
@@ -81,15 +87,21 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
         else:
             prefix_stats[bucket]["clean"] += 1
 
+    seen_msg_ids = set()
     try:
         r_em = requests.get(
-            f"https://api.instantly.ai/api/v2/emails?campaign_id={cid}&limit=50",
+            f"https://api.instantly.ai/api/v2/emails?campaign_id={cid}&limit=100",
             headers=headers,
             timeout=20,
         )
         if r_em.status_code == 200:
             items = (r_em.json() or {}).get("items") or []
             for m in items:
+                msg_id = str(m.get("id") or "").strip()
+                if msg_id and msg_id in seen_msg_ids:
+                    continue
+                if msg_id:
+                    seen_msg_ids.add(msg_id)
                 ue_type = int(m.get("ue_type", 1) or 1)
                 to_em = (m.get("to_address_email_list") or "").strip().lower()
                 from_em = (m.get("from_address_email") or "").strip().lower()
@@ -102,32 +114,69 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
                 prospect_em = from_em if ue_type == 2 else to_em
                 ld_obj = lead_by_email.get(prospect_em) or {}
                 pl = ld_obj.get("payload") or {}
-                cohort_key = str(pl.get("agency") or pl.get("state") or "default")[:40]
+                cohort_key = str(pl.get("matched_state") or pl.get("agency") or pl.get("state") or "default")[:40]
                 if cohort_key not in cohort_stats:
-                    cohort_stats[cohort_key] = {"sent": 0, "replies": 0}
+                    cohort_stats[cohort_key] = {
+                        "sent": 0,
+                        "human_replies": 0,
+                        "auto_replies": 0,
+                        "unsubscribes": 0,
+                    }
 
                 if ue_type == 2:
-                    reply_count += 1
-                    cohort_stats[cohort_key]["replies"] = cohort_stats[cohort_key].get("replies", 0) + 1
+                    combo_low = f"{subj_txt} {body_txt}".lower()
+                    is_auto = any(
+                        kw in combo_low
+                        for kw in (
+                            "automatic reply", "auto-reply", "autoreply", "out of office",
+                            "out-of-office", "away from the office", "on vacation",
+                            "thank you for contacting", "prequalification", "no longer with",
+                        )
+                    )
+                    is_unsub = any(
+                        kw in combo_low
+                        for kw in ("unsubscribe", "remove me", "stop emailing", "take me off")
+                    )
+                    if is_unsub:
+                        unsubscribe_reply_count += 1
+                        cohort_stats[cohort_key]["unsubscribes"] += 1
+                    elif is_auto:
+                        auto_reply_count += 1
+                        cohort_stats[cohort_key]["auto_replies"] += 1
+                        for ref_m in re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", body_txt):
+                            ref_clean = ref_m.strip().lower().rstrip(".")
+                            ref_dom = ref_clean.split("@", 1)[-1]
+                            if (
+                                ref_clean != prospect_em
+                                and ref_clean != to_em
+                                and not any(b in ref_dom for b in ("signaltender", "camberdesk", "rubricward"))
+                                and ref_clean not in ooo_referrals
+                            ):
+                                ooo_referrals.append(ref_clean)
+                    else:
+                        human_reply_count += 1
+                        cohort_stats[cohort_key]["human_replies"] += 1
                 else:
                     sent_count += 1
-                    cohort_stats[cohort_key]["sent"] = max(cohort_stats[cohort_key].get("sent", 0), 1)
+                    cohort_stats[cohort_key]["sent"] += 1
     except Exception:
         pass
 
-    # Compute adaptive priority weights by prefix bucket (penalizing any bucket with >3% bounce rate)
     recommended_weights: Dict[str, float] = {}
     for bucket, st in prefix_stats.items():
         total = st["clean"] + st["bounced"]
         bounce_rate = (st["bounced"] / total) if total > 0 else 0.0
-        base_w = 1.0 if bucket == "named_person" else (0.85 if bucket == "dept_desk" else 0.5)
-        recommended_weights[bucket] = round(max(0.1, base_w * (1.0 - min(0.8, bounce_rate * 5.0))), 3)
+        base_w = 1.0 if bucket == "named_person" else (0.9 if bucket == "dept_desk" else 0.25)
+        recommended_weights[bucket] = round(max(0.05, base_w * (1.0 - min(0.85, bounce_rate * 5.0))), 3)
 
     intel.update({
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "campaign_id": cid,
         "recent_rendered_emails_audited": sent_count,
-        "recent_inbound_replies_detected": reply_count,
+        "recent_human_replies_detected": human_reply_count,
+        "recent_auto_replies_detected": auto_reply_count,
+        "recent_unsubscribes_detected": unsubscribe_reply_count,
+        "ooo_referral_emails": ooo_referrals,
         "unrendered_template_tags_detected": unrendered_var_alerts,
         "prefix_delivery_stats": prefix_stats,
         "adaptive_prefix_priority_weights": recommended_weights,
@@ -139,11 +188,13 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
         pass
     return {
         "rendered_audited": sent_count,
-        "replies_detected": reply_count,
+        "human_replies_detected": human_reply_count,
+        "auto_replies_detected": auto_reply_count,
+        "unsubscribes_detected": unsubscribe_reply_count,
+        "ooo_referrals_extracted": ooo_referrals,
         "unrendered_alerts": unrendered_var_alerts,
         "adaptive_weights": recommended_weights,
     }
-
 
 
 def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
@@ -235,7 +286,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                     continue
                 st_code = int(it.get("status") or 0)
                 lt_code = int(it.get("lt_interest_status") or 0)
-                if st_code < 0 or lt_code < 0 or "%" in em:
+                if st_code < 0 or lt_code < 0 or "%" in em or not govcon_lead_harvester.is_verified_it_cyber_prospect( str(it.get("company_name") or ""), em ):
                     to_purge.append((em, lid))
                     continue
 
@@ -333,6 +384,20 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
             summary["leads_patched_in_place"] = sum(pool.map(_do_patch, to_patch))
 
     summary["outbox_learning"] = audit_rendered_sent_outbox_and_learn(CAMPAIGN_ID, auth_only, all_leads)
+    uncontacted_remaining = sum(
+        1 for it in all_leads
+        if int(it.get("status") or 0) == 1
+        and not it.get("timestamp_last_contact")
+        and (str(it.get("email") or "").strip().lower(), str(it.get("id") or "").strip()) not in set(to_purge)
+    )
+    summary["uncontacted_leads_remaining"] = uncontacted_remaining
+    if uncontacted_remaining < 40:
+        try:
+            import outreach_generator
+            outreach_generator.generate_outreach()
+            summary["auto_replenished_queue"] = True
+        except Exception as rep_err:
+            report_error("autonomous_outbound_optimizer.py", f"SignalTender lead replenishment warning: {rep_err}", severity="WARNING")
     return summary
 
 

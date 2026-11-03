@@ -1293,7 +1293,7 @@ def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
         if 5 <= len(first_two) <= 24 and f"{first_two}.com" not in cands:
             cands.append(f"{first_two}.com")
     if len(words[0]) >= 5 and words[0] not in generic_first:
-        for dom_cand in (f"{words[0]}.com", f"{words[0]}fed.com", f"{words[0]}it.com"):
+        for dom_cand in (f"{words[0]}.com",):
             if dom_cand not in cands:
                 cands.append(dom_cand)
     if len(words) >= 3:
@@ -1302,7 +1302,7 @@ def _candidate_domains_for_recipient(raw_name: str) -> Tuple[str, List[str]]:
             for acro_cand in (f"{initials}federal.com", f"{initials}gov.com"):
                 if acro_cand not in cands:
                     cands.append(acro_cand)
-    return display, cands[:4]
+    return display, cands[:2]
 
 
 def discover_usaspending_small_business_websites(
@@ -1327,10 +1327,10 @@ def discover_usaspending_small_business_websites(
 
     states = get_active_harvester_states()
 
-    deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 220
+    deep_harvest = os.getenv("GOVCON_DEEP_HARVEST") == "1" or len(existing_contacts) < 250
     if deep_harvest:
         active_states = states[:12]
-        pages_per_state = 2
+        pages_per_state = 1
     else:
         now_utc = datetime.now(timezone.utc)
         slot_idx = ((now_utc.timetuple().tm_yday * 4) + (now_utc.hour // 6)) % len(states)
@@ -1373,7 +1373,6 @@ def discover_usaspending_small_business_websites(
                             cache_key = f"crawled:{dom}"
                             if disp and dom and dom not in existing_domains and not mx_cache.get(cache_key):
                                 existing_domains.add(dom)
-                                mx_cache[cache_key] = True
                                 candidates.append((
                                     disp,
                                     dom,
@@ -1390,9 +1389,13 @@ def discover_usaspending_small_business_websites(
     if not candidates:
         return existing_contacts
 
+    crawl_batch = candidates[:220]
+    for c_item in crawl_batch:
+        mx_cache[f"crawled:{c_item[1]}"] = True
+
     newly_found: List[Dict[str, str]] = []
-    with ThreadPoolExecutor(max_workers=28) as pool:
-        futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in candidates[:84]]
+    with ThreadPoolExecutor(max_workers=36) as pool:
+        futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in crawl_batch]
         for fut in as_completed(futs):
             res = fut.result()
             if res and verify_email_domain_mx(res["Email"], mx_cache):
@@ -1525,14 +1528,14 @@ NON_IT_BIO_AG_MAT_REGEX = re.compile(
     r"terraai|radioisotop|directkinetics|wireless\s+power|terra-watts|yanktech|wireless\s+charg|"
     r"deepcharge|space\s+balloon|spaceloon|quasarusa|diffract|millimeterwave|organicrobotics|"
     r"tatumrobotics|diamondagetechnology|elektrum|semergy|gmt-semi|linebird|sonovoice|vellex|"
-    r"giwotech|designerecosystem|earthsense|quantum-ec|automatsoln|emaginest|macula-vision|aimetrics|quantivly|qsimulate|zepsor|tendo\.tech|phlux|informuta|luxnour|ravenspacesystems|tricrobotics|trellisrobotics)",
+    r"giwotech|designerecosystem|earthsense|quantum-ec|automatsoln|emaginest|macula-vision|aimetrics|quantivly|qsimulate|zepsor|tendo\.tech|phlux|informuta|luxnour|ravenspacesystems|tricrobotics|trellisrobotics|\brobot|robotics|\bquantum\b|squishyrobotics|ambirobotics|icarusrobotics|sensate-robotics|sensaterobotics|hansonrobotics|pikerobotics|boxrobotics|atom-computing|appliedquantum|\bphotonic|\blaser\b|\bdrone\b|\buav\b|\bsatellite\b|\bspacecraft\b|\bprosthetic|\bexoskeleton)",
     re.I,
 )
 
 IT_CYBER_DOMAIN_OR_NAME_REGEX = re.compile(
     r"(\bcyber(?!winter)|infosec|appsec|netsec|devsec|cybersec|secops|\bsecurity\b|soft|cloud|data|"
     r"\bai\b|intel|\bnet(?!ic)|network|comput|tech|system|digital|code|\bdev\b|devops|logic|info|"
-    r"algo|quant|\bbit|web|app\b|platform|analyt|automat|robot|comms|signal|crypt|threat|defen)",
+    r"algo|\bbit|web|app\b|platform|analyt|comms|signal|crypt|threat|defen)",
     re.I,
 )
 
@@ -1611,7 +1614,7 @@ def discover_federal_sbir_and_tech_named_executives(
     newly_verified: List[Dict[str, str]] = []
     for _wave in range(16):
         batch_queries: List[Tuple[str, str, int]] = []
-        for off in range(1, 6001, 25):
+        for off in range(1, 25001, 25):
             for prog in ("SBIR", "STTR"):
                 cur_key = f"sbir_page_v5:{prog}:{off}"
                 if not mx_cache.get(cur_key):

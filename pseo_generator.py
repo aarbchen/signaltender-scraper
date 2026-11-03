@@ -576,6 +576,17 @@ COMMODITY_IT_EXCLUSIONS = [
     r"construction\s+contract",
     r"general\s+construction",
     r"naics\s+236\d{3}",
+    r"sign\s+panel\s+fabrication",
+    r"hiv\s+care\s+network",
+    r"water\s+valve\s+distribution",
+    r"pavement\s+repairs?",
+    r"x[\s\-]*ray\s+screening\s+system",
+    r"heart\s+rate\s+monitoring",
+    r"gamma\s+calibrators?",
+    r"linear\s+positioning\s+system",
+    r"^\[[^\]]+\]\s*renewal\s+notice\b",
+    r"^renewal\s+notice\b",
+    r"motor\s+vehicle\s+inspection\s+maintenance",
 ]
 
 
