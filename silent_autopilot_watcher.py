@@ -310,7 +310,7 @@ def main() -> int:
                     timeout=180,
                     creationflags=no_win_flag,
                 )
-                if cycle_num == 1 or cycle_num % 4 == 0:
+                if True:  # Run autonomous_outbound_optimizer & auto_error_healer on every 15-minute cycle
                     subprocess.run(
                         [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py")],
                         cwd=BASE_DIR,
