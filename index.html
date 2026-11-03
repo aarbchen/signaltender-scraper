@@ -29656,6 +29656,32 @@ Pursuant to 5 U.S.C. § 552, requester demands electronic copies of: (1) Execute
           });
       };
 
+      window.handleAccountT3RfpUpload = function (inputEl) {
+        if (!inputEl || !inputEl.files || !inputEl.files[0]) return;
+        var file = inputEl.files[0];
+        var badge = document.getElementById('account-t3-file-badge');
+        var txtArea = document.getElementById('account-t3-rfp-text');
+        window._stUploadedRfpFilename = file.name;
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          var dataUrl = String((ev && ev.target && ev.target.result) || '');
+          var commaIdx = dataUrl.indexOf(',');
+          window._stUploadedRfpBase64 = commaIdx !== -1 ? dataUrl.slice(commaIdx + 1) : dataUrl;
+          if (badge) {
+            badge.classList.remove('hidden');
+            badge.textContent = '\u2713 Loaded ' + file.name + ' (' + Math.max(1, Math.round(file.size / 1024)) + ' KB) \u2014 ready for 6-File .ZIP compilation';
+          }
+        };
+        reader.readAsDataURL(file);
+        if (/\.(txt|md|csv|json)$/i.test(file.name) && txtArea) {
+          var txtReader = new FileReader();
+          txtReader.onload = function (ev2) {
+            txtArea.value = String((ev2 && ev2.target && ev2.target.result) || '').slice(0, 25000);
+          };
+          txtReader.readAsText(file);
+        }
+      };
+
       window.compileAccountTier3ProposalZip = function () {
         var btn = document.getElementById('btn-account-t3-compile-zip');
         var st = document.getElementById('account-t3-compile-status');
