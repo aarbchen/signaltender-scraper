@@ -691,10 +691,10 @@ def run_reply_responder() -> dict:
                 if 200 <= r_send.status_code < 300:
                     answered_count += 1
                     _record_warm_zip_delivery(from_email, eaccount, msg_id, reply_subj, ctx)
-                if DISCORD_WEBHOOK_URL:
+                if DISCORD_HOT_REPLIES_WEBHOOK_URL:
                     try:
                         requests.post(
-                            DISCORD_WEBHOOK_URL,
+                            DISCORD_HOT_REPLIES_WEBHOOK_URL,
                             json={
                                 "content": (
                                     f"**[HOT OUTBOUND REPLY — AUTO-ANSWERED BY CLAUDE SONNET 5.5]**\n"
