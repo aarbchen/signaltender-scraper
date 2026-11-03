@@ -565,6 +565,32 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
         except Exception:
             pass
 
+
+    # 5. Verify Outbound Campaign CSV & Self-Improver Health (Zero Non-IT Contracts & Zero Disconnected Loops)
+    try:
+        import csv
+        csv_p = BASE_DIR / "campaign_leads.csv"
+        if csv_p.exists():
+            with open(csv_p, "r", encoding="utf-8-sig", newline="") as cf:
+                rows = list(csv.DictReader(cf))
+            bad_contract_rows = [
+                r.get("Email") for r in rows
+                if any(
+                    bad_kw in str(r.get("Email Body") or "").lower()
+                    for bad_kw in (
+                        "sign panel fabrication", "water valve distribution", "pavement repair",
+                        "x-ray screening", "x ray screening", "heart rate monitoring",
+                        "gamma calibrator", "hiv care network", "alternate system of assessment",
+                    )
+                )
+            ]
+            if bad_contract_rows:
+                import autonomous_outbound_optimizer
+                autonomous_outbound_optimizer.run_autonomous_outbound_optimizer()
+                print(f"  [AUTO-HEALED] Regenerated campaign_leads.csv & patched Instantly leads to remove {len(bad_contract_rows)} non-IT contract references.")
+    except Exception:
+        pass
+
     return issues
 
 

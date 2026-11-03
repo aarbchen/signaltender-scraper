@@ -358,8 +358,8 @@ def main() -> int:
             except Exception:
                 pass
 
-            # 5. Check if any unfixed runtime alerts or contract issues remain that require Argon AI code editing
-            if night_allowed:
+            # 5. Check 24/7 if any unfixed runtime alerts or contract issues remain after auto_error_healer.py
+            if True:
                 remote_errors = auto_error_healer.fetch_remote_open_errors()
                 local_errors = auto_error_healer.read_local_unacknowledged_errors()
                 contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()

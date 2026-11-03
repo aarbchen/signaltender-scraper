@@ -449,6 +449,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Michael",
+    "Last Name": "Hardy",
+    "Title": "Small Business IT & Cyber Capture Lead (GA)",
+    "Company Name": "HLP Integration",
+    "Email": "michael.hardy@hlpintegration.com",
+    "City": "",
+    "State": "Georgia",
+    "Website": "https://hlpintegration.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, georgia sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Allyson",
     "Last Name": "Mckinney",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -726,6 +739,19 @@
     "Keywords": "govcon, maryland sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Corey",
+    "Last Name": "Thomas",
+    "Title": "CEO (Boston Vulnerability & SOC)",
+    "Company Name": "Boston GovTech",
+    "Email": "partners@rapid7.com",
+    "City": "Boston",
+    "State": "Massachusetts",
+    "Website": "https://rapid7.com",
+    "NAICS Codes": "541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Rashmi",
     "Last Name": "Agrawal",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -795,19 +821,6 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
-    "First Name": "Corey",
-    "Last Name": "Thomas",
-    "Title": "CEO (Boston Vulnerability & SOC)",
-    "Company Name": "Boston GovTech",
-    "Email": "partners@rapid7.com",
-    "City": "Boston",
-    "State": "Massachusetts",
-    "Website": "https://rapid7.com",
-    "NAICS Codes": "541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, massachusetts sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
     "First Name": "Ronald",
     "Last Name": "Davis",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -860,6 +873,19 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, nevada sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Samples",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (NY)",
+    "Company Name": "Arch Systems",
+    "Email": "samples@archsystems.com",
+    "City": "",
+    "State": "New York",
+    "Website": "https://archsystems.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Carlos",
@@ -918,6 +944,19 @@
     "Primary Email Catch-all Status": "Not Catch-all"
   },
   {
+    "First Name": "Bmoyo",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (NY)",
+    "Company Name": "Martin Loyd",
+    "Email": "bmoyo@martinloyd.com",
+    "City": "",
+    "State": "New York",
+    "Website": "https://martinloyd.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Nicholas",
     "Last Name": "Wilkins",
     "Title": "Founder, Principal Investigator & Federal Tech Capture Lead",
@@ -930,6 +969,32 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, new york sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase II:  Real-Time Artificial Intelligence (AI) Bidirectional American Sign Language (ASL) Communication System",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (NY)",
+    "Company Name": "Technolutions",
+    "Email": "slate-proposals@technolutions.com",
+    "City": "",
+    "State": "New York",
+    "Website": "https://technolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Sandra",
+    "Last Name": "Escalante",
+    "Title": "Small Business IT & Cyber Capture Lead (NY)",
+    "Company Name": "Topsarge Business Solutions",
+    "Email": "sandra.escalante@topsargebusinesssolutions.com",
+    "City": "",
+    "State": "New York",
+    "Website": "https://topsargebusinesssolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, new york sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Assaf",
@@ -957,6 +1022,45 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, north carolina sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  Health Communication Software Integration with AI and LMLs To Target Localized, High-Quality Health Infor",
     "Primary Email Catch-all Status": "Not Catch-all"
+  },
+  {
+    "First Name": "Bbd",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (NC)",
+    "Company Name": "BCF Solutions",
+    "Email": "bbd@bcfsolutions.com",
+    "City": "",
+    "State": "North Carolina",
+    "Website": "https://bcfsolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Miriam",
+    "Last Name": "Aarons",
+    "Title": "Small Business IT & Cyber Capture Lead (NC)",
+    "Company Name": "Chenega Security",
+    "Email": "miriam.aarons@chenega.com",
+    "City": "",
+    "State": "North Carolina",
+    "Website": "https://chenega.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (NC)",
+    "Company Name": "Copper River Information Technology",
+    "Email": "partners@copper.com",
+    "City": "",
+    "State": "North Carolina",
+    "Website": "https://copper.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Sophia",
@@ -1027,6 +1131,32 @@
     "Keywords": "govcon, north carolina sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
+    "First Name": "Courtemanche",
+    "Last Name": "Pat",
+    "Title": "Small Business IT & Cyber Capture Lead (OH)",
+    "Company Name": "Dorsey",
+    "Email": "courtemanche.pat@dorsey.com",
+    "City": "",
+    "State": "Ohio",
+    "Website": "https://dorsey.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, ohio sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Editors",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (OH)",
+    "Company Name": "Engineering Computer Simulations",
+    "Email": "editors@engineering.com",
+    "City": "",
+    "State": "Ohio",
+    "Website": "https://engineering.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, ohio sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
     "First Name": "Capture",
     "Last Name": "Team",
     "Title": "Small Business IT & Cyber Capture Lead (OK)",
@@ -1038,6 +1168,32 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, oklahoma sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (PA)",
+    "Company Name": "Lucayan Technology Solutions",
+    "Email": "contracts@lucayantechnology.com",
+    "City": "",
+    "State": "Pennsylvania",
+    "Website": "https://lucayantechnology.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, pennsylvania sled rfp, sam.gov, cybersecurity, cloud, software"
+  },
+  {
+    "First Name": "Capture",
+    "Last Name": "Team",
+    "Title": "Small Business IT & Cyber Capture Lead (PA)",
+    "Company Name": "Nemean Solutions",
+    "Email": "growth@nemeansolutions.com",
+    "City": "",
+    "State": "Pennsylvania",
+    "Website": "https://nemeansolutions.com",
+    "NAICS Codes": "541511, 541512, 541519",
+    "Industry": "information technology & services",
+    "Keywords": "govcon, pennsylvania sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Dwayne",
@@ -1080,19 +1236,6 @@
     "Industry": "information technology & services",
     "Keywords": "govcon, sbir, texas sled rfp, sam.gov, cybersecurity, cloud, software, SBIR Phase I:  Distributed Ledger Technology Based Collaborative Project Management Platform",
     "Primary Email Catch-all Status": "Not Catch-all"
-  },
-  {
-    "First Name": "Orders",
-    "Last Name": "India",
-    "Title": "Small Business IT & Cyber Capture Lead (TX)",
-    "Company Name": "STS Systems Defense",
-    "Email": "orders.india@stssystems.com",
-    "City": "",
-    "State": "Texas",
-    "Website": "https://stssystems.com",
-    "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Stuelpnerb",
@@ -1172,19 +1315,6 @@
     "NAICS Codes": "541511, 541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, texas sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Shery",
-    "Last Name": "Lloyd",
-    "Title": "President & CEO",
-    "Company Name": "AttainX",
-    "Email": "%7c02%7cswati.agane@attainx.com",
-    "City": "Herndon",
-    "State": "Virginia",
-    "Website": "https://attainx.com",
-    "NAICS Codes": "541511, 541512",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },
   {
     "First Name": "Capture",
@@ -1303,19 +1433,6 @@
     "State": "Virginia",
     "Website": "https://summit.com",
     "NAICS Codes": "541511, 541512, 541519",
-    "Industry": "information technology & services",
-    "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
-  },
-  {
-    "First Name": "Baan",
-    "Last Name": "Alsinawi",
-    "Title": "Founder & President (RMF & Cyber)",
-    "Company Name": "TalaTek",
-    "Email": "pao@talatek.com",
-    "City": "Oakton",
-    "State": "Virginia",
-    "Website": "https://talatek.com",
-    "NAICS Codes": "541512, 541519",
     "Industry": "information technology & services",
     "Keywords": "govcon, virginia sled rfp, sam.gov, cybersecurity, cloud, software"
   },

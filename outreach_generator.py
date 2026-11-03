@@ -40,7 +40,10 @@ tech_keywords = [
     r"\bit\b", r"cyber(security)?", r"software", r"network", r"computer",
     r"server", r"infosec", r"audio/visual", r"hardware",
     r"technology", r"cloud", r"broadband", r"telecom", r"fiber",
-    r"saas", r"data", r"system", r"digital", r"platform", r"web", r"infrastructure"
+    r"saas", r"data", r"digital", r"platform", r"web",
+    r"(?:information|computer|software|cloud|data|network|cyber|security|erp|crm|gis|it|operating|database|management|enterprise|digital|billing|financial|records|dispatch|communications?|telemetry|application|portal)\s+systems?\b",
+    r"\bsystems?\s+(?:integration|administration|engineering|modernization|architecture)",
+    r"(?:it|cloud|network|data|digital|cyber|telecom|broadband|fiber)\s+infrastructure",
 ]
 
 # Commodity IT & low-value renewal exclusions

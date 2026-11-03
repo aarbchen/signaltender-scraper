@@ -143,6 +143,15 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
                     elif is_auto:
                         auto_reply_count += 1
                         cohort_stats[cohort_key]["auto_replies"] += 1
+                        p_local = prospect_em.split("@", 1)[0] if "@" in prospect_em else ""
+                        if p_local in ("pq", "prequal", "prequalification", "billing", "ap", "accounts", "noreply", "no-reply", "donotreply", "support", "helpdesk"):
+                            try:
+                                import govcon_lead_harvester
+                                govcon_lead_harvester.save_completed_outreach_archive({prospect_em})
+                                if ld_obj.get("id"):
+                                    requests.delete(f"https://api.instantly.ai/api/v2/leads/{ld_obj['id']}", headers=headers, timeout=10)
+                            except Exception:
+                                pass
                         for ref_m in re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", body_txt):
                             ref_clean = ref_m.strip().lower().rstrip(".")
                             ref_dom = ref_clean.split("@", 1)[-1]
@@ -153,6 +162,29 @@ def audit_rendered_sent_outbox_and_learn(cid: str, headers: Dict[str, str], all_
                                 and ref_clean not in ooo_referrals
                             ):
                                 ooo_referrals.append(ref_clean)
+                                # Automatically enroll OOO referred colleague into verified_public_govcon_contacts.json
+                                try:
+                                    vp_file = ROOT_DIR / "verified_public_govcon_contacts.json"
+                                    if vp_file.exists():
+                                        vp_list = json.loads(vp_file.read_text(encoding="utf-8")) or []
+                                        if not any(str(x.get("Email") or "").strip().lower() == ref_clean for x in vp_list if isinstance(x, dict)):
+                                            vp_list.insert(0, {
+                                                "First Name": "Capture",
+                                                "Last Name": "Team",
+                                                "Title": f"Federal & SLED Capture Lead (Referred by {prospect_em})",
+                                                "Company Name": str(ld_obj.get("company_name") or ref_dom.split(".")[0].title()),
+                                                "Email": ref_clean,
+                                                "City": "",
+                                                "State": str(pl.get("matched_state") or "Virginia"),
+                                                "Website": f"https://{ref_dom}",
+                                                "NAICS Codes": "541512, 541519",
+                                                "Industry": "information technology & services",
+                                                "Keywords": "govcon, sled rfp, sam.gov, cybersecurity, cloud, software",
+                                                "Primary Email Catch-all Status": "Not Catch-all",
+                                            })
+                                            vp_file.write_text(json.dumps(vp_list, indent=2), encoding="utf-8")
+                                except Exception:
+                                    pass
                     else:
                         human_reply_count += 1
                         cohort_stats[cohort_key]["human_replies"] += 1
@@ -297,7 +329,16 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                 cur_fn = str(it.get("first_name") or "").strip()
                 cur_comp = str(it.get("company_name") or "").strip()
 
-                has_stale_counts = ("39 AI " + "capture modules" in fb_txt) or ("31-State " + "SLED" in fb_txt) or ("58 AI capture modules" not in fb_txt) or not br_txt.strip()
+                has_non_it_contract = any(
+                    bad_kw in eb_txt.lower()
+                    for bad_kw in (
+                        "sign panel fabrication", "water valve distribution", "pavement repair",
+                        "x-ray screening", "x ray screening", "heart rate monitoring",
+                        "gamma calibrator", "hiv care network", "alternate system of assessment",
+                        "system of care", "panic alert system", "weather notification system",
+                    )
+                )
+                has_stale_counts = has_non_it_contract or ("39 AI " + "capture modules" in fb_txt) or ("31-State " + "SLED" in fb_txt) or ("58 AI capture modules" not in fb_txt) or not br_txt.strip()
                 has_bad_handle = is_dotless_handle_name(cur_fn, em) and cur_fn.lower() not in ("capture", "there", "team")
 
                 if (has_stale_counts or has_bad_handle) and em in csv_map:
@@ -391,9 +432,30 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
         and (str(it.get("email") or "").strip().lower(), str(it.get("id") or "").strip()) not in set(to_purge)
     )
     summary["uncontacted_leads_remaining"] = uncontacted_remaining
-    if uncontacted_remaining < 40:
+    # Auto-heal poisoned crawled:* keys in dns_mx_cache.json if crawled:* exceeds 3x verified + archived domains
+    try:
+        mx_p = ROOT_DIR / "dns_mx_cache.json"
+        if mx_p.exists():
+            mx_d = json.loads(mx_p.read_text(encoding="utf-8")) or {}
+            crawled_keys = [k for k in mx_d if k.startswith("crawled:")]
+            if len(crawled_keys) > 2500:
+                vp_d = json.loads((ROOT_DIR / "verified_public_govcon_contacts.json").read_text(encoding="utf-8")) if (ROOT_DIR / "verified_public_govcon_contacts.json").exists() else []
+                arch_d = set(json.loads((ROOT_DIR / "completed_outreach_archive.json").read_text(encoding="utf-8"))) if (ROOT_DIR / "completed_outreach_archive.json").exists() else set()
+                known_doms = {str(c.get("Email") or "").split("@")[-1].lower() for c in vp_d if isinstance(c, dict)} | {e.split("@")[-1].lower() for e in arch_d if "@" in e}
+                cleaned_mx = {
+                    k: v for k, v in mx_d.items()
+                    if not k.startswith("usaspending_award_pg:")
+                    and (not k.startswith("crawled:") or k.split("crawled:", 1)[1].lower() in known_doms)
+                }
+                mx_p.write_text(json.dumps(cleaned_mx, indent=2), encoding="utf-8")
+                summary["mx_crawl_cache_pruned"] = len(mx_d) - len(cleaned_mx)
+    except Exception:
+        pass
+
+    if uncontacted_remaining < 50:
         try:
             import outreach_generator
+            os.environ["OUTREACH_FORCE_INSTANTLY_RESYNC"] = "1"
             outreach_generator.generate_outreach()
             summary["auto_replenished_queue"] = True
         except Exception as rep_err:
