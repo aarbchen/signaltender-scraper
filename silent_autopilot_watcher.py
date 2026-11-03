@@ -285,11 +285,13 @@ def main() -> int:
                 time.sleep(CHECK_INTERVAL_SECONDS)
                 continue
 
-            # 3. Poll outbound email replies 24/7 via fresh subprocess so code updates on disk take effect immediately
+            # 3. Poll outbound email replies & mailbox scaler 24/7 via fresh subprocess so code updates on disk take effect immediately
             python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
             if not os.path.exists(python_exe):
                 python_exe = sys.executable
             no_win_flag = getattr(__import__("subprocess"), "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+            globals()["_WATCHER_CYCLE_COUNT"] = int(globals().get("_WATCHER_CYCLE_COUNT") or 0) + 1
+            cycle_num = globals()["_WATCHER_CYCLE_COUNT"]
             try:
                 import subprocess
                 subprocess.run(
@@ -300,6 +302,31 @@ def main() -> int:
                     timeout=180,
                     creationflags=no_win_flag,
                 )
+                subprocess.run(
+                    [python_exe, os.path.join(BASE_DIR, "autonomous_mailbox_scaler.py")],
+                    cwd=BASE_DIR,
+                    capture_output=True,
+                    text=True,
+                    timeout=180,
+                    creationflags=no_win_flag,
+                )
+                if cycle_num == 1 or cycle_num % 4 == 0:
+                    subprocess.run(
+                        [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py")],
+                        cwd=BASE_DIR,
+                        capture_output=True,
+                        text=True,
+                        timeout=300,
+                        creationflags=no_win_flag,
+                    )
+                    subprocess.run(
+                        [python_exe, os.path.join(BASE_DIR, "auto_error_healer.py"), "--smoke", "--clear-resolved"],
+                        cwd=BASE_DIR,
+                        capture_output=True,
+                        text=True,
+                        timeout=300,
+                        creationflags=no_win_flag,
+                    )
             except Exception:
                 pass
 

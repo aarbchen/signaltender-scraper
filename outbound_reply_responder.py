@@ -326,6 +326,12 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
                 "away from my desk",
                 "auto-reply",
                 "automatic reply",
+                "automated response",
+                "this is an automated",
+                "do not reply to this",
+                "we have received your e-mail",
+                "we have received your email",
+                "our typical response time",
             )
         )
     ):
@@ -704,8 +710,35 @@ def run_reply_responder() -> dict:
                         pass
             elif intent in ("UNSUBSCRIBE", "BOUNCE"):
                 unsub_count += 1
-                if from_email and "@" in from_email:
-                    clean_unsub = from_email.strip().lower()
+                raw_candidates = [from_email, str(msg.get("lead") or "").strip()]
+                if intent == "BOUNCE":
+                    raw_candidates.extend(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", reply_text or ""))
+                target_emails = set()
+                for cand in raw_candidates:
+                    c_low = str(cand or "").strip().lower().strip(".,;<>()[]\"'")
+                    if (
+                        "@" in c_low
+                        and not c_low.startswith(("mailer-daemon@", "postmaster@", "noreply-dmarc@", "bounces@", "noreply@", "no-reply@"))
+                        and not any(own in c_low for own in ("signaltender", "camberdesk", "rubricward", "googlemail.com", "google.com"))
+                    ):
+                        target_emails.add(c_low)
+                if intent == "BOUNCE" and target_emails:
+                    bl_path = os.path.join(BASE_DIR, "bounced_leads_blacklist.json")
+                    try:
+                        bl_data = {"bounced_emails": [], "bounced_domains": []}
+                        if os.path.exists(bl_path):
+                            with open(bl_path, "r", encoding="utf-8") as bf:
+                                loaded_bl = json.load(bf)
+                                if isinstance(loaded_bl, dict):
+                                    bl_data = loaded_bl
+                        cur_bounced = {str(x).strip().lower() for x in (bl_data.get("bounced_emails") or []) if x}
+                        if not target_emails.issubset(cur_bounced):
+                            bl_data["bounced_emails"] = sorted(cur_bounced | target_emails)
+                            with open(bl_path, "w", encoding="utf-8") as bf:
+                                json.dump(bl_data, bf, indent=2)
+                    except Exception:
+                        pass
+                for clean_unsub in sorted(target_emails):
                     try:
                         import govcon_lead_harvester
                         govcon_lead_harvester.save_completed_outreach_archive({clean_unsub})
