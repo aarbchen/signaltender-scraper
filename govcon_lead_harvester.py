@@ -752,11 +752,11 @@ GOVCON_CONTRACTOR_SEED_DIRECTORY: List[Tuple[str, str, str, str, str, str, str, 
 
 BAD_LOCAL_PARTS = {
     "info", "contact", "contactus", "contact-us", "hello", "inquiries", "information",
-    "enquiry", "sales", "vasales", "kgsinfo", "cti-info", "emeasales", "marketing",
+    "enquiry", "kgsinfo", "cti-info", "emeasales", "marketing",
     "events", "admin", "office", "general", "reception", "frontdesk", "feedback",
     "service", "customercare", "u003esupport", "%20support", "dpo", "privacyteam",
-    "cbprivacy", "resumes", "claims", "connect", "teambox", "psirt", "mydata",
-    "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
+    "cbprivacy", "resumes", "claims", "teambox", "psirt", "mydata",
+    "content", "communications", "labs", "wccc", "mdc", "nsf",
     "privacy", "legal", "abuse", "dmca", "noreply", "no-reply", "donotreply",
     "webmaster", "postmaster", "security", "careers", "jobs", "hr", "recruiting",
     "talent", "employmentverifications", "support", "helpdesk", "help",
@@ -774,15 +774,18 @@ BAD_LOCAL_SUBSTRINGS = (
     "investor", "grant", "sbir", "sttr", "recruit", "talent", "employ", "resume",
     "billing", "account", "invoice", "claim", "unsub", "media", "press", "news", "theteam",
     "marketing", "events", "admin", "office", "general", "reception", "frontdesk",
-    "feedback", "service", "customercare", "u003e", "%20", "sales", "teambox", "connect",
-    "mydata", "content", "communications", "solutions", "labs", "wccc", "mdc", "nsf",
+    "feedback", "service", "customercare", "u003e", "%20", "teambox",
+    "mydata", "content", "communications", "labs", "wccc", "mdc", "nsf",
 )
 
 ROLE_LOCAL_PARTS = {
     "contracts", "contracting", "capture", "bd", "bizdev", "growth",
     "partner", "partners", "partnerships", "engage", "stars3", "starsiii",
     "ciosp3", "ciosp4", "oasis", "vets2", "sewp", "gsa", "vehicles",
-    "federal", "sled", "govcon", "proposals", "rfp", "teaming", "ipsecureinc", "usa", "uk", "us", "president", "ceo", "cto", "founder", "alliances", "contractmanager",
+    "federal", "sled", "govcon", "proposals", "rfp", "teaming", "ipsecureinc",
+    "usa", "uk", "us", "president", "ceo", "cto", "founder", "alliances",
+    "contractmanager", "sales", "govsales", "publicsector", "solutions", "connect",
+    "gov", "fed", "dod", "cyber",
 }
 
 COMPANY_CLEAN_OVERRIDES = {
@@ -1114,10 +1117,38 @@ TECH_GOVCON_PAGE_SIGNALS = (
 )
 
 
+def _extract_govcon_emails_from_html(html_text: str, domain: str) -> List[str]:
+    import html as _html
+    from urllib.parse import unquote as _unquote
+    raw_slice = html_text[:300000]
+    out: List[str] = []
+    for cf_hex in re.findall(r'''(?:data-cfemail=["']|email-protection#)([0-9a-fA-F]{10,120})''', raw_slice):
+        try:
+            key = int(cf_hex[:2], 16)
+            decoded_cf = "".join(chr(int(cf_hex[i:i+2], 16) ^ key) for i in range(2, len(cf_hex), 2))
+            if "@" in decoded_cf:
+                out.append(decoded_cf.strip().lower().split("?")[0])
+        except Exception:
+            pass
+    decoded = _unquote(
+        _html.unescape(raw_slice)
+        .replace("&#64;", "@")
+        .replace("&#x40;", "@")
+        .replace("%40", "@")
+        .replace("&#46;", ".")
+    )
+    email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(domain), re.I)
+    mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
+    for m in list(mailto_re.findall(decoded)) + list(email_re.findall(decoded)):
+        out.append(m.strip().lower().rstrip("."))
+    return out
+
+
 def _crawl_single_contractor_site(
     item: Tuple[str, str, str, str, str, str, str, str],
     require_tech_signal: bool = False,
 ) -> Dict[str, str] | None:
+    from urllib.parse import urljoin, urlparse
     comp, domain, fn, ln, title, city, state, naics = item
     domain = domain.strip().lower()
     if " " in domain or not domain:
@@ -1132,29 +1163,22 @@ def _crawl_single_contractor_site(
     }
     found = set()
     has_tech_signal = not require_tech_signal
-    email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(domain), re.I)
-    mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(domain) + r")", re.I)
 
     root_base = None
+    home_html = ""
     for root_u in (f"https://{domain}", f"https://www.{domain}"):
         try:
-            r0 = requests.get(root_u, headers=headers, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
+            r0 = requests.get(root_u, headers=headers, timeout=(2.0, 2.8), verify=False, allow_redirects=True)
             if r0.status_code == 200 and r0.text:
                 low_html = r0.text.lower()
                 if any(pk in low_html for pk in PARKED_PAGE_MARKERS):
                     return None
                 root_base = root_u
+                home_html = r0.text
                 if not has_tech_signal and any(sig in low_html for sig in TECH_GOVCON_PAGE_SIGNALS):
                     has_tech_signal = True
-                decoded = (
-                    r0.text.replace("&#64;", "@")
-                    .replace("&#x40;", "@")
-                    .replace("%40", "@")
-                    .replace("&#46;", ".")
-                )
-                for m in list(mailto_re.findall(decoded)) + list(email_re.findall(decoded)):
-                    clean = m.strip().lower().rstrip(".")
-                    clean = re.sub(r"^[0-9-]+", "", clean)
+                for m in _extract_govcon_emails_from_html(r0.text, domain):
+                    clean = re.sub(r"^[0-9-]+", "", m)
                     if _score_candidate_email(clean, domain) > 0:
                         found.add(clean)
                 break
@@ -1165,30 +1189,40 @@ def _crawl_single_contractor_site(
         return None
 
     if not (found and has_tech_signal):
-        for u in (
+        sub_urls: List[str] = []
+        seen_sub: set[str] = set()
+        for href in re.findall(r'''href=["']([^"'#<>\s]{2,180})["']''', home_html[:220000], re.I):
+            h_low = href.lower()
+            if any(k in h_low for k in ("contact", "about", "team", "leader", "government", "contract", "vehicle", "gsa", "sled", "partner", "capture")):
+                full_u = urljoin(root_base + "/", href.strip())
+                parsed = urlparse(full_u)
+                if parsed.scheme in ("http", "https") and (parsed.hostname or "").lower().endswith(domain):
+                    clean_u = f"{parsed.scheme}://{parsed.netloc}{parsed.path}"
+                    if clean_u not in seen_sub and clean_u.rstrip("/") != root_base.rstrip("/"):
+                        seen_sub.add(clean_u)
+                        sub_urls.append(clean_u)
+                        if len(sub_urls) >= 4:
+                            break
+        for fallback_u in (
             f"{root_base}/contact",
             f"{root_base}/contact-us",
+            f"{root_base}/contracts",
             f"{root_base}/about",
-            f"{root_base}/team",
             f"{root_base}/government",
         ):
+            if fallback_u not in seen_sub:
+                sub_urls.append(fallback_u)
+        for u in sub_urls[:5]:
             try:
-                r = requests.get(u, headers=headers, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
+                r = requests.get(u, headers=headers, timeout=(1.8, 2.5), verify=False, allow_redirects=True)
                 if r.status_code == 200 and r.text:
                     low_html = r.text.lower()
                     if any(pk in low_html for pk in PARKED_PAGE_MARKERS):
                         return None
                     if not has_tech_signal and any(sig in low_html for sig in TECH_GOVCON_PAGE_SIGNALS):
                         has_tech_signal = True
-                    decoded = (
-                        r.text.replace("&#64;", "@")
-                        .replace("&#x40;", "@")
-                        .replace("%40", "@")
-                        .replace("&#46;", ".")
-                    )
-                    for m in list(mailto_re.findall(decoded)) + list(email_re.findall(decoded)):
-                        clean = m.strip().lower().rstrip(".")
-                        clean = re.sub(r"^[0-9-]+", "", clean)
+                    for m in _extract_govcon_emails_from_html(r.text, domain):
+                        clean = re.sub(r"^[0-9-]+", "", m)
                         if _score_candidate_email(clean, domain) > 0:
                             found.add(clean)
                     if found and has_tech_signal:
@@ -1241,13 +1275,23 @@ def discover_and_crawl_govcon_websites(existing_contacts: List[Dict[str, str]], 
     if not uncrawled:
         return existing_contacts
 
+    socket.setdefaulttimeout(2.2)
+    uncrawled = uncrawled[:85]
     newly_found: List[Dict[str, str]] = []
-    with ThreadPoolExecutor(max_workers=24) as pool:
+    pool = ThreadPoolExecutor(max_workers=28)
+    try:
         futs = [pool.submit(_crawl_single_contractor_site, item) for item in uncrawled]
-        for fut in as_completed(futs):
-            res = fut.result()
-            if res and verify_email_domain_mx(res["Email"], mx_cache):
-                newly_found.append(res)
+        for fut in as_completed(futs, timeout=22.0):
+            try:
+                res = fut.result(timeout=0.5)
+                if res and verify_email_domain_mx(res["Email"], mx_cache):
+                    newly_found.append(res)
+            except Exception:
+                continue
+    except Exception:
+        pass
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
 
     if newly_found:
         merged = list(existing_contacts) + newly_found
@@ -1393,15 +1437,25 @@ def discover_usaspending_small_business_websites(
     for c_item in crawl_batch:
         mx_cache[f"crawled:{c_item[1]}"] = True
 
+    socket.setdefaulttimeout(2.2)
+    crawl_batch = crawl_batch[:90]
     newly_found: List[Dict[str, str]] = []
-    with ThreadPoolExecutor(max_workers=36) as pool:
+    pool = ThreadPoolExecutor(max_workers=32)
+    try:
         futs = [pool.submit(_crawl_single_contractor_site, item, True) for item in crawl_batch]
-        for fut in as_completed(futs):
-            res = fut.result()
-            if res and verify_email_domain_mx(res["Email"], mx_cache):
-                newly_found.append(res)
-                if len(newly_found) >= max_new_per_run:
-                    break
+        for fut in as_completed(futs, timeout=22.0):
+            try:
+                res = fut.result(timeout=0.5)
+                if res and verify_email_domain_mx(res["Email"], mx_cache):
+                    newly_found.append(res)
+                    if len(newly_found) >= max_new_per_run:
+                        break
+            except Exception:
+                continue
+    except Exception:
+        pass
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
 
     if newly_found:
         merged = list(existing_contacts) + newly_found
@@ -1571,9 +1625,12 @@ def is_verified_it_cyber_prospect(
         return False
     if title_or_keywords and NON_IT_BIO_AG_MAT_REGEX.search(title_or_keywords):
         return False
-    if "541715" in str(naics_codes or ""):
-        if not IT_CYBER_DOMAIN_OR_NAME_REGEX.search(f"{combo} {title_or_keywords or ''}"):
-            return False
+    kw_low = str(title_or_keywords or "").lower()
+    naics_str = str(naics_codes or "")
+    if "sbir" in kw_low or "sttr" in kw_low or "nsf" in kw_low:
+        return False
+    if "541715" in naics_str and not any(c in naics_str for c in ("541511", "541512", "541513", "541519", "518210")):
+        return False
     return True
 
 
@@ -2900,17 +2957,11 @@ def run_harvester() -> Dict[str, Any]:
     dynamic_harvest_target = max(80, warmed_mb_count * 18)
 
     # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
-    if len(public_contacts) < 2500 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1":
+    if (len(public_contacts) < 60 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1") and os.getenv("OUTREACH_SKIP_HARVESTER") != "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
-        before_usa_cnt = len(public_contacts)
         public_contacts = discover_usaspending_small_business_websites(
             public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target
         )
-        usa_added = len(public_contacts) - before_usa_cnt
-        if usa_added < dynamic_harvest_target:
-            public_contacts = discover_federal_sbir_and_tech_named_executives(
-                public_contacts, mx_cache, max_new_per_run=max(20, dynamic_harvest_target - usa_added)
-            )
 
     cleaned_public: List[Dict[str, str]] = []
     for spec in public_contacts:

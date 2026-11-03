@@ -566,9 +566,26 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             pass
 
 
-    # 5. Verify Outbound Campaign CSV & Self-Improver Health (Zero Non-IT Contracts & Zero Disconnected Loops)
+    # 5. Verify Outbound Campaign CSV, Prospect Pool & Self-Improver Health (Root Causes #1 & #2: Zero Non-IT Contracts & Zero NSF SBIR 541715 Grant Startups)
     try:
         import csv
+        import govcon_lead_harvester
+        vp_p = BASE_DIR / "verified_public_govcon_contacts.json"
+        if vp_p.exists():
+            vp_rows = json.loads(vp_p.read_text(encoding="utf-8")) or []
+            bad_sbir = [
+                r.get("Email") for r in vp_rows
+                if isinstance(r, dict) and not govcon_lead_harvester.is_verified_it_cyber_prospect(
+                    str(r.get("Company Name") or ""), str(r.get("Email") or ""), str(r.get("Keywords") or ""), str(r.get("NAICS Codes") or "")
+                )
+            ]
+            if bad_sbir:
+                govcon_lead_harvester.run_harvester()
+                import outreach_generator
+                outreach_generator.generate_outreach()
+                import autonomous_outbound_optimizer
+                autonomous_outbound_optimizer.run_autonomous_outbound_optimizer()
+                print(f"  [AUTO-HEALED] Purged {len(bad_sbir)} non-IT/SBIR grant startups from prospect pool & resynced Instantly.")
         csv_p = BASE_DIR / "campaign_leads.csv"
         if csv_p.exists():
             with open(csv_p, "r", encoding="utf-8-sig", newline="") as cf:
@@ -585,6 +602,8 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                 )
             ]
             if bad_contract_rows:
+                import outreach_generator
+                outreach_generator.generate_outreach()
                 import autonomous_outbound_optimizer
                 autonomous_outbound_optimizer.run_autonomous_outbound_optimizer()
                 print(f"  [AUTO-HEALED] Regenerated campaign_leads.csv & patched Instantly leads to remove {len(bad_contract_rows)} non-IT contract references.")

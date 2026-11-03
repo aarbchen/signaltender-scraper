@@ -255,7 +255,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
             cdata = rc.json() or {}
             seqs = cdata.get("sequences") or []
             steps = (seqs[0].get("steps") or []) if seqs and isinstance(seqs[0], dict) else []
-            needs_seq_fix = len(steps) < 3
+            needs_seq_fix = len(steps) < 3 or int(steps[1].get('delay') or 99) > 1 or int(steps[2].get('delay') or 99) > 2
             for st_item in steps:
                 vars_list = st_item.get("variants") or []
                 if not vars_list or not str(vars_list[0].get("subject") or "").strip() or not str(vars_list[0].get("body") or "").strip():
@@ -265,7 +265,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                     {
                         "steps": [
                             {"type": "email", "delay": 2, "variants": [{"subject": "{{subject_line}}", "body": "{{email_body}}"}]},
-                            {"type": "email", "delay": 2, "variants": [{"subject": "{{followup_subject}}", "body": "{{followup_body}}"}]},
+                            {"type": "email", "delay": 1, "variants": [{"subject": "{{followup_subject}}", "body": "{{followup_body}}"}]},
                             {"type": "email", "delay": 2, "variants": [{"subject": "{{breakup_subject}}", "body": "{{breakup_body}}"}]},
                         ]
                     }
@@ -318,7 +318,8 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                     continue
                 st_code = int(it.get("status") or 0)
                 lt_code = int(it.get("lt_interest_status") or 0)
-                if st_code < 0 or lt_code < 0 or "%" in em or not govcon_lead_harvester.is_verified_it_cyber_prospect( str(it.get("company_name") or ""), em ):
+                archived_set = govcon_lead_harvester.load_completed_outreach_archive()
+                if st_code < 0 or lt_code < 0 or "%" in em or em in archived_set or (em not in csv_map and int(it.get("email_reply_count") or 0) == 0) or not govcon_lead_harvester.is_verified_it_cyber_prospect(str(it.get("company_name") or ""), em, "", str((it.get("payload") or {}).get("top_naics") or "")):
                     to_purge.append((em, lid))
                     continue
 

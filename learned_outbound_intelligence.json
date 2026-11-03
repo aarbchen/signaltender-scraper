@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-11-03T20:53:37.999599+00:00",
+  "updated_at": "2026-11-03T21:38:15.495199+00:00",
   "campaign_id": "c7727dff-92cc-4621-9e96-c960938d5a47",
   "recent_rendered_emails_audited": 100,
   "recent_inbound_replies_detected": 0,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
-      "clean": 190,
-      "bounced": 3
+      "clean": 207,
+      "bounced": 0
     },
     "dept_desk": {
-      "clean": 8,
+      "clean": 10,
       "bounced": 0
     },
     "generic_info": {
@@ -19,7 +19,7 @@
     }
   },
   "adaptive_prefix_priority_weights": {
-    "named_person": 0.922,
+    "named_person": 1.0,
     "dept_desk": 0.9,
     "generic_info": 0.25
   },
@@ -60,7 +60,7 @@
       "auto_replies": 0,
       "unsubscribes": 0
     },
-    "Virginia & Federal": {
+    "default": {
       "sent": 14,
       "human_replies": 0,
       "auto_replies": 0,
@@ -72,8 +72,14 @@
       "auto_replies": 0,
       "unsubscribes": 0
     },
+    "Virginia & Federal": {
+      "sent": 12,
+      "human_replies": 0,
+      "auto_replies": 0,
+      "unsubscribes": 0
+    },
     "Texas & Federal": {
-      "sent": 13,
+      "sent": 12,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
@@ -86,12 +92,6 @@
     },
     "Pennsylvania & Federal": {
       "sent": 5,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "default": {
-      "sent": 11,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
