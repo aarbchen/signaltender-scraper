@@ -156,3 +156,19 @@ To prevent any business website (`d:\Daas`, `D:\CamberDesk`, `D:\RubricWard`, or
    - Every site must include `<section id="master-plan-roadmap">` on its main overview page showing its live **Phase 1 Production Engine** metrics alongside its vertical-specific **Phases 2–4 `$1M ARR -> $1B+ Unicorn` Stage-Gate Architecture**.
 5. **Automated CI/CD Enforcement:**
    - `verify_site_integrity.py`, `verify_camberdesk_integrity.py`, and `verify_rubricward_integrity.py` must automatically block any commit or push that violates `RULE-024` or `RULE-025`.
+
+
+## 18. Mandatory Branded Stripe Checkout Isolation, Zero `buy.stripe.com` Payment Links & Neutral Parent Account Rule (`RULE-026`)
+To guarantee that **CamberDesk** (`D:\CamberDesk`) and **RubricWard** (`D:\RubricWard`) **NEVER** display `SignalTender` branding, logos, dark-navy colors, or `SignalTender.net` URLs inside Stripe Checkout:
+1. **Strict Prohibition of `https://buy.stripe.com/...` Payment Links on CamberDesk & RubricWard:**
+   - Stripe Payment Links (`https://buy.stripe.com/...`) do **not** support per-session `branding_settings` (`display_name`, `logo`, `icon`, `background_color`, `button_color`) and always fall back to the Stripe Account's global default brand (`SignalTender`).
+   - Therefore, `https://buy.stripe.com/...` URLs are **100% BANNED** across all HTML (`index.html`, `apis.html`, `v1/billing/**/*.html`), JS (`cloudflare_worker.js`), and Python files (`build_*_site.py`, `build_cloudflare_edge_worker.py`, `outbound_reply_responder.py`, `api_gateway/routers/billing_webhook.py`, and `RUBRICWARD_FALLBACK_LINKS` / `CAMBERDESK_FALLBACK_LINKS` in `d:\Data API Ecosystem\api\routers\stripe_webhook.py`).
+2. **Mandatory Per-Brand `checkout.stripe.com/c/pay/cs_live_...` Sessions + Real-Time Browser Refresh:**
+   - Every checkout link on `camberdesk.com` and `rubricward.com` must point to a live `https://checkout.stripe.com/c/pay/cs_live_...` session created with `Stripe-Version: 2025-06-30.basil` and explicit `branding_settings`:
+     - **CamberDesk:** `display_name="CamberDesk"`, `background_color="#FAF8F5"`, `button_color="#1E3A8A"`, `icon="file_1UWoK1CGhMI1IjipmLv2iM1F"`, `logo="file_1UWoK2CGhMI1IjiphUswlc5T"`, `statement_descriptor="CAMBERDESK"`.
+     - **RubricWard:** `display_name="RubricWard"`, `background_color="#F2F9F8"`, `button_color="#0F766E"`, `icon="file_1UX603CGhMI1Ijip32ZgFajz"`, `logo="file_1UX604CGhMI1IjiphUswlc5T"`, `statement_descriptor="RUBRICWARD"`.
+   - Both `index.html` and `apis.html` must include `refreshLiveBrandedStripeLinks()` so that every visitor's browser dynamically refreshes all 4 tier links against `POST https://b2b-contract-parser-api.onrender.com/v1/billing/create-checkout-session` on page load and on Monthly/Annual toggle.
+3. **Neutral Parent Stripe Account Profile (`Apex B2B Cloud`):**
+   - Keep `acct_1Rj7l8CGhMI1Ijip`'s parent `business_profile[name] = "Apex B2B Cloud"`, `business_profile[url] = "https://github.com/aarbchen"`, and `settings[payments][statement_descriptor] = "APEX B2B CLOUD"` so the recurring-subscription mandate text at the bottom of Stripe Checkout never says `"SignalTender"` on CamberDesk or RubricWard sessions.
+4. **Live `payment_pages/{cs_id}/init` Automated Verification Gate:**
+   - `verify_camberdesk_integrity.py` and `verify_rubricward_integrity.py` must decode the active `cs_live_...` URL fragment, query `POST https://api.stripe.com/v1/payment_pages/{cs_id}/init`, and fail the build if `order_summary_display_name` is not `"CamberDesk"` / `"RubricWard"`, if `background_color` mismatches, or if `"signaltender"` appears anywhere in the Stripe Checkout init payload.
