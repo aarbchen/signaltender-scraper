@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-04T07:41:18Z",
+  "timestamp": "2026-11-04T08:41:13Z",
   "mode": "fast",
-  "elapsed_seconds": 251.54,
+  "elapsed_seconds": 247.02,
   "status": "HEALTHY",
   "counts": {
     "portals": 52,
@@ -19,7 +19,7 @@
       "auto_fixed": [
         {
           "component": "outbound_reply_responder.py (Instantly Unibox)",
-          "issue": "Detected 10 unprocessed prospect reply(ies) in Instantly Unibox",
+          "issue": "Detected 14 unprocessed prospect reply(ies) in Instantly Unibox",
           "fix": "Executed `outbound_reply_responder.py` to classify and respond to unread prospect replies.",
           "rule_id": "RULE-007-WARMED-MAILBOX-CONTINUITY"
         }
@@ -31,9 +31,9 @@
       "unfixed_issues": []
     },
     "camberdesk_ecosystem": {
-      "timestamp": "2026-11-04T07:39:41.533729+00:00",
+      "timestamp": "2026-11-04T08:39:36.288241+00:00",
       "mode": "fast",
-      "elapsed_seconds": 66.13,
+      "elapsed_seconds": 63.73,
       "status": "healthy",
       "total_learned_rules": 21,
       "pillars": {
@@ -55,9 +55,9 @@
       }
     },
     "rubricward_ecosystem": {
-      "timestamp": "2026-11-04T07:41:03.150577+00:00",
+      "timestamp": "2026-11-04T08:40:57.757721+00:00",
       "mode": "fast",
-      "elapsed_seconds": 80.75,
+      "elapsed_seconds": 80.49,
       "status": "healthy",
       "total_learned_rules": 44,
       "pillars": {
