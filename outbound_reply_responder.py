@@ -310,13 +310,20 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
     )
     if not negated_unsub and any(
         p in low
-        for p in ("unsubscribe", "remove me", "take me off", "stop emailing", "not interested", "no thanks", "off your list")
+        for p in (
+            "unsubscribe", "remove me", "remove us", "remove this", "take me off", "take us off",
+            "stop emailing", "stop sending", "stop contacting", "do not contact", "don't contact",
+            "dont contact", "never email", "not interested", "no thanks", "off your list",
+            "wrong person", "wrong email", "retired", "no longer with", "left the company",
+            "doesn't work here", "does not work here", "opt out", "opt-out",
+            "who gave you", "why are you emailing",
+        )
     ):
         return {"intent": "UNSUBSCRIBE", "reply_body": ""}
 
     subj_low = str(subject or "").lower()
     if (
-        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:"))
+        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:", "anti-spam", "email verification"))
         or any(
             ooo_p in low
             for ooo_p in (
@@ -336,6 +343,14 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
                 "we have received your e-mail",
                 "we have received your email",
                 "our typical response time",
+                "barracuda",
+                "mimecast",
+                "proofpoint",
+                "boxbe",
+                "verify your email",
+                "challenge-response",
+                "unattended mailbox",
+                "no longer monitored",
             )
         )
     ):
