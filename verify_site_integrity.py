@@ -2239,6 +2239,13 @@ def main() -> int:
                 fail(f"api/routers/support.py: AI Concierge knowledge base missing required tier fact '{req_tier}'")
     check_conversion_and_distribution_surfaces(index_txt)
     check_anti_regression_guardrails(index_txt, apis_txt)
+    for _line_no, _line in enumerate(index_txt.splitlines(), 1):
+        if ".replace(" in _line:
+            continue
+        if "textContent" in _line and "&amp;" in _line:
+            fail(f"index.html:{_line_no}: Raw `&amp;` assigned to `.textContent`: {_line.strip()[:100]}")
+        if re.search(r"\b(?:rawNoticeId|rawTitle|rawNoise|header|psc|tier_label|company_name)\s*:\s*'[^']*&amp;", _line):
+            fail(f"index.html:{_line_no}: Raw `&amp;` inside plain-text JS property passed to `setTxt`: {_line.strip()[:100]}")
     check_acquisition_and_email_guardrails()
     check_zero_camberdesk_overlap()
     if os.getenv("OMNISCIENT_PILLAR1_QUALITY_VERIFIED") != "1":

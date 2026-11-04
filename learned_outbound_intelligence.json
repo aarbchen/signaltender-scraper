@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-11-03T21:38:15.495199+00:00",
+  "updated_at": "2026-11-04T03:54:35.359132+00:00",
   "campaign_id": "c7727dff-92cc-4621-9e96-c960938d5a47",
   "recent_rendered_emails_audited": 100,
   "recent_inbound_replies_detected": 0,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
-      "clean": 207,
+      "clean": 68,
       "bounced": 0
     },
     "dept_desk": {
-      "clean": 10,
+      "clean": 3,
       "bounced": 0
     },
     "generic_info": {
@@ -25,97 +25,61 @@
   },
   "cohort_stats": {
     "New York & Federal": {
-      "sent": 4,
+      "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "North Carolina & Federal": {
-      "sent": 2,
+      "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Massachusetts & Federal": {
-      "sent": 5,
+      "sent": 2,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Michigan & Federal": {
-      "sent": 4,
+      "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Florida & Federal": {
-      "sent": 7,
+      "sent": 3,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Maryland & Federal": {
-      "sent": 8,
+      "sent": 4,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "default": {
-      "sent": 14,
+      "sent": 82,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "California & Federal": {
-      "sent": 19,
+      "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Virginia & Federal": {
-      "sent": 12,
+      "sent": 3,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "Texas & Federal": {
-      "sent": 12,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "Indiana & Federal": {
-      "sent": 1,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "Pennsylvania & Federal": {
-      "sent": 5,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "Illinois & Federal": {
       "sent": 2,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "Georgia & Federal": {
-      "sent": 2,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "Ohio & Federal": {
-      "sent": 2,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
-    "New Jersey & Federal": {
-      "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
