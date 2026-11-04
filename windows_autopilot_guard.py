@@ -82,7 +82,25 @@ def send_discord_alert(content: str) -> bool:
     return True
 
 
+def _is_any_watcher_process_running() -> bool:
+    try:
+        import subprocess as _sp
+        out = _sp.check_output(
+            ["powershell", "-NoProfile", "-Command", "Get-CimInstance Win32_Process -Filter \"Name LIKE '%python%'\" | Select-Object -ExpandProperty CommandLine"],
+            text=True,
+            timeout=8,
+            creationflags=0x08000000,
+        )
+        return "silent_autopilot_watcher.py" in out
+    except Exception:
+        return False
+
+
 def main() -> int:
+    try:
+        ctypes.windll.kernel32.SetPriorityClass(ctypes.windll.kernel32.GetCurrentProcess(), 0x00004000)
+    except Exception:
+        pass
     # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
     try:
         import rapidapi_headless_publisher
@@ -104,6 +122,8 @@ def main() -> int:
     no_win_flag = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
 
     alive, detail = is_watcher_alive()
+    if not alive and _is_any_watcher_process_running():
+        alive, detail = True, 'Process verified running via CIM'
     if not alive:
         # Watcher is NOT alive (VS Code was reset or closed).
         # Respawn `silent_autopilot_watcher.py` using python.exe + CREATE_NO_WINDOW so stdout/stderr are never None.

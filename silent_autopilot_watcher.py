@@ -26,6 +26,39 @@ import auto_error_healer
 configure_utf8_stdio()
 
 
+
+class _LASTINPUTINFO(ctypes.Structure):
+    _fields_ = [("cbSize", ctypes.c_uint), ("dwTime", ctypes.c_uint)]
+
+
+def get_user_idle_seconds() -> float:
+    """Return seconds since the last keyboard or mouse input on Windows."""
+    if os.name != "nt":
+        return 999999.0
+    try:
+        lii = _LASTINPUTINFO()
+        lii.cbSize = ctypes.sizeof(_LASTINPUTINFO)
+        if ctypes.windll.user32.GetLastInputInfo(ctypes.byref(lii)):
+            millis = (ctypes.windll.kernel32.GetTickCount() - lii.dwTime) & 0xFFFFFFFF
+            return float(millis) / 1000.0
+    except Exception:
+        pass
+    return 999999.0
+
+
+def set_background_low_priority() -> int:
+    """Set current process to BELOW_NORMAL_PRIORITY_CLASS and return subprocess creationflags."""
+    if os.name != "nt":
+        return 0
+    BELOW_NORMAL = 0x00004000
+    CREATE_NO_WIN = 0x08000000
+    try:
+        ctypes.windll.kernel32.SetPriorityClass(ctypes.windll.kernel32.GetCurrentProcess(), BELOW_NORMAL)
+    except Exception:
+        pass
+    return CREATE_NO_WIN | BELOW_NORMAL
+
+
 def prevent_windows_sleep() -> None:
     """
     Use Windows Kernel32 SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED)
@@ -270,8 +303,7 @@ def main() -> int:
             prevent_windows_sleep()
             write_watcher_heartbeat()
             if not is_primary_watcher():
-                time.sleep(CHECK_INTERVAL_SECONDS)
-                continue
+                return 0
 
             # 1. Always keep RapidAPI Studio rolling session (`connect.sid`) alive 24/7 via GraphQL POST
             try:
@@ -289,7 +321,7 @@ def main() -> int:
             python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
             if not os.path.exists(python_exe):
                 python_exe = sys.executable
-            no_win_flag = getattr(__import__("subprocess"), "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+            no_win_flag = set_background_low_priority()
             globals()["_WATCHER_CYCLE_COUNT"] = int(globals().get("_WATCHER_CYCLE_COUNT") or 0) + 1
             cycle_num = globals()["_WATCHER_CYCLE_COUNT"]
             try:
@@ -310,17 +342,18 @@ def main() -> int:
                     timeout=180,
                     creationflags=no_win_flag,
                 )
-                if True:  # Run autonomous_outbound_optimizer & auto_error_healer on every 15-minute cycle
+                if get_user_idle_seconds() >= 600:  # Only run heavy AST/optimizer tasks when user is idle >= 10 minutes (and never run --smoke in 15m loop)
+                    if cycle_num % 4 == 1:
+                        subprocess.run(
+                            [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py")],
+                            cwd=BASE_DIR,
+                            capture_output=True,
+                            text=True,
+                            timeout=300,
+                            creationflags=no_win_flag,
+                        )
                     subprocess.run(
-                        [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py")],
-                        cwd=BASE_DIR,
-                        capture_output=True,
-                        text=True,
-                        timeout=300,
-                        creationflags=no_win_flag,
-                    )
-                    subprocess.run(
-                        [python_exe, os.path.join(BASE_DIR, "auto_error_healer.py"), "--smoke", "--clear-resolved"],
+                        [python_exe, os.path.join(BASE_DIR, "auto_error_healer.py"), "--clear-resolved"],
                         cwd=BASE_DIR,
                         capture_output=True,
                         text=True,
@@ -359,7 +392,7 @@ def main() -> int:
                 pass
 
             # 5. Check 24/7 if any unfixed runtime alerts or contract issues remain after auto_error_healer.py
-            if True:
+            if get_user_idle_seconds() >= 600:
                 remote_errors = auto_error_healer.fetch_remote_open_errors()
                 local_errors = auto_error_healer.read_local_unacknowledged_errors()
                 contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()

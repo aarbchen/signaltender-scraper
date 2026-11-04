@@ -351,8 +351,16 @@ def classify_and_draft_reply(from_email: str, subject: str, reply_text: str) -> 
                 "challenge-response",
                 "unattended mailbox",
                 "no longer monitored",
+                "new ticket confirmation",
+                "assigned ticket number",
+                "please reply above this line",
+                "was created for you",
+                "qualification portal",
+                "requesting access to",
             )
         )
+        or str(from_email or "").lower().startswith(("ticket@", "tickets@", "support@", "helpdesk@", "pq@", "prequal@", "noreply@", "no-reply@", "donotreply@"))
+        or ("ticket [" in subj_low and ("was created" in subj_low or "was closed" in subj_low))
     ):
         return {"intent": "OUT_OF_OFFICE", "reply_body": ""}
 
