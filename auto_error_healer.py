@@ -705,10 +705,27 @@ def check_and_heal_client_semantic_quality() -> list[str]:
             import pseo_generator
             import outreach_generator
             pseo_generator.generate_pseo_site()
-            outreach_generator.generate_outreach_campaigns()
+            outreach_generator.generate_outreach()
             print("  [AUTO-HEALED] Regenerated SignalTender pSEO dossiers & outreach campaigns (RULE-021)", flush=True)
         except Exception as exc:
             issues.append(f"SignalTender semantic auto-heal failed: {exc}")
+
+    # Verify stripe_webhook.py sample dossier URLs resolve to real static files across all 3 businesses
+    sw_path = os.path.join(r"d:\Data API Ecosystem", "api", "routers", "stripe_webhook.py")
+    if os.path.exists(sw_path):
+        try:
+            sw_txt = open(sw_path, "r", encoding="utf-8", errors="replace").read()
+            for m in re.finditer(r"https://(?:signaltender\.net/contracts/rfp|camberdesk\.com/lettings/project|rubricward\.com/lettings/project)/([a-z0-9\-]+\.html)", sw_txt):
+                u = m.group(0)
+                fn = m.group(1)
+                if "signaltender.net" in u and not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts", "rfp", fn)):
+                    issues.append(f"stripe_webhook.py references non-existent SignalTender sample dossier: {u}")
+                elif "camberdesk.com" in u and os.path.exists(r"D:\CamberDesk\lettings\project") and not os.path.exists(os.path.join(r"D:\CamberDesk\lettings\project", fn)):
+                    issues.append(f"stripe_webhook.py references non-existent CamberDesk sample dossier: {u}")
+                elif "rubricward.com" in u and os.path.exists(r"D:\RubricWard\lettings\project") and not os.path.exists(os.path.join(r"D:\RubricWard\lettings\project", fn)):
+                    issues.append(f"stripe_webhook.py references non-existent RubricWard sample dossier: {u}")
+        except Exception as exc:
+            issues.append(f"stripe_webhook.py sample dossier URL check error: {exc}")
 
     return issues
 
