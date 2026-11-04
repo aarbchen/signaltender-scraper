@@ -335,6 +335,14 @@ def main() -> int:
                     creationflags=no_win_flag,
                 )
                 subprocess.run(
+                    [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py"), "--fast-vital-check"],
+                    cwd=BASE_DIR,
+                    capture_output=True,
+                    text=True,
+                    timeout=45,
+                    creationflags=no_win_flag,
+                )
+                subprocess.run(
                     [python_exe, os.path.join(BASE_DIR, "autonomous_mailbox_scaler.py")],
                     cwd=BASE_DIR,
                     capture_output=True,

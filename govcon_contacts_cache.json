@@ -8468,5 +8468,19 @@
     "mailbox_pool_slot": 26,
     "mailbox_shard_id": "MBX-26",
     "mailbox_pool_size": 50
+  },
+  "HALVIK": {
+    "company_name": "Halvik",
+    "poc_email": "oasisplus@halvik.com",
+    "poc_name": "Madhavi Bathula",
+    "poc_title": "Founder & CEO",
+    "poc_phone": "SAM.gov Electronic POC",
+    "uei": "9PHP5XHPGPMV",
+    "website": "https://halvik.com",
+    "state": "Virginia",
+    "naics_codes": "541511, 541512",
+    "mailbox_pool_slot": 34,
+    "mailbox_shard_id": "MBX-34",
+    "mailbox_pool_size": 50
   }
 }

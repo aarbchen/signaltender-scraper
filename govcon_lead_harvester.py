@@ -1509,6 +1509,7 @@ COMPETITOR_OR_EXCLUDED_DOMAINS = {
     "technomile.com", "deltek.com", "govwin.com", "higherlogic.com",
     "group.com", "alvarez.com", "rossassociates.com", "eprentise.com", "truveta.com",
     "camberdesk.com", "trycamberdesk.com", "getcamberdesk.com", "camberdesk.io", "camberdesk.net",
+    "rubricward.com", "tryrubricward.com", "getrubricward.com", "gibsondunn.com", "icanotes.com", "pjkclaims.com", "leader.com",
 }
 
 _CAMBERDESK_EXCLUSION_CACHE: Optional[Tuple[set[str], set[str]]] = None
@@ -1615,7 +1616,7 @@ def is_verified_it_cyber_prospect(
     if em in camber_emails or dom in camber_domains:
         return False
     if local in BAD_LOCAL_PARTS or any(
-        sub in local for sub in ("human.resource", "humanresource", "investor", "grant", "news", "theteam", "webmaster")
+        sub in local for sub in ("human.resource", "humanresource", "investor", "grant", "news", "theteam", "webmaster", "leaderalert", "ticket", "tickets", "helpdesk", "prequal", "wcdept", "workerscomp", "pjkclaims", "purchase", "purchasing")
     ):
         return False
     if dom in HEALTH_IT_CONTRACTOR_WHITELIST:
@@ -1690,7 +1691,7 @@ def discover_federal_sbir_and_tech_named_executives(
             try:
                 params_dict: Dict[str, Any] = {
                     "fundProgramName": prog,
-                    "dateStart": "01/01/2019",
+                    "dateStart": "01/01/2024",
                     "offset": off,
                     "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
                     "rpp": 25,
@@ -1720,7 +1721,7 @@ def discover_federal_sbir_and_tech_named_executives(
                 yr = int(start_dt.split("/")[-1])
             except Exception:
                 yr = 0
-            if yr < 2019:
+            if yr < 2024:
                 continue
             em = str(a.get("piEmail") or "").strip().lower()
             fn = str(a.get("piFirstName") or "").strip().title()
@@ -2957,7 +2958,7 @@ def run_harvester() -> Dict[str, Any]:
     dynamic_harvest_target = max(80, warmed_mb_count * 18)
 
     # Continuously expand verified GovCon pool on every 6-hour run (up to 2,500 verified leads) so Instantly never runs dry
-    if (len(public_contacts) < 60 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1") and os.getenv("OUTREACH_SKIP_HARVESTER") != "1":
+    if (len(public_contacts) < 180 or os.getenv("GOVCON_FORCE_WEBSITE_CRAWL") == "1") and os.getenv("OUTREACH_SKIP_HARVESTER") != "1":
         public_contacts = discover_and_crawl_govcon_websites(public_contacts, mx_cache)
         public_contacts = discover_usaspending_small_business_websites(
             public_contacts, mx_cache, max_new_per_run=dynamic_harvest_target

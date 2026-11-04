@@ -101,6 +101,13 @@ commodity_it_exclusions = [
     r"state\s+pop\s+modernization",
     r"copiers?\s+lease",
     r"title:\s*line\s+",
+    r"\bchild\s*care\b",
+    r"\bday\s*care\b",
+    r"\bcafeteria\b",
+    r"\bschool\s+nutrition\b",
+    r"\bcrossing\s+guard\b",
+    r"\blibrary\s+book\b",
+    r"\bgolf\s+course\b",
 ]
 try:
     from pseo_generator import COMMODITY_IT_EXCLUSIONS as _PSEO_COMMODITY_EXCLUSIONS
@@ -494,7 +501,10 @@ def clean_agency_for_email(raw_agency: str) -> str:
         return "Federal (SAM.gov)"
     if ag == "DGS - Statewide Procurement":
         return "California DGS Statewide Procurement"
-    ag = re.sub(r"\s*\((?:Georgia|North Carolina|Ohio|New York|Massachusetts|Pennsylvania|Illinois|Maryland|Florida|California|Virginia|Texas)\)\s*$", "", ag, flags=re.IGNORECASE).strip()
+    ag = re.sub(r"\s*[—–-]\s*[A-Za-z ]+\)?\s*$", lambda m: ")" if "(" in ag and ")" not in ag.split("(")[-1] else "", ag).strip()
+    ag = re.sub(r"\s*\((?:Georgia|North Carolina|Ohio|New York|Massachusetts|Pennsylvania|Illinois|Maryland|Florida|California|Virginia|Texas|Louisiana|Michigan|Washington|Colorado|Arizona|Minnesota|Tennessee|Indiana|Missouri|Wisconsin|South Carolina|Oregon|Connecticut|Utah|Nevada|Alabama|Kentucky|Oklahoma|Iowa|Kansas|Arkansas|Mississippi|New Mexico|Nebraska|Idaho|Hawaii|New Hampshire|Maine|Rhode Island|Montana|Delaware|South Dakota|North Dakota|Alaska|Vermont|West Virginia|Wyoming)\)\s*$", "", ag, flags=re.IGNORECASE).strip()
+    if ag.count("(") > ag.count(")"):
+        ag = re.sub(r"\s*\([^)]*$", "", ag).strip()
     ag = re.sub(r"\bOf\b", "of", ag)
     return ag
 
@@ -513,24 +523,31 @@ def format_contract_line(index: int, rec: dict, dossiers: dict | None = None) ->
     return f"{index}. {human_title} — {agency} (NAICS {naics_code} • {short_posture})\n"
 
 
-def _contract_runway_score(rec: dict, today: date | None = None) -> tuple[int, int]:
+def _contract_runway_score(rec: dict, today: date | None = None) -> tuple[int, int, int]:
     """
     Rank contracts so outbound prospects always see solicitations with healthy response runway (>=5 days out)
-    ahead of same-day/next-day expiring bids.
+    AND enterprise-caliber Federal / State-Department IT, Cyber, Cloud, and AI scopes ahead of small town/school bids.
     """
     ref = today or datetime.now().date()
     dt = parse_contract_date(rec.get("closing_date") or "", rec.get("title") or "")
     rec_id = int(rec.get("id") or 0) if str(rec.get("id") or "").isdigit() else 0
+    blob = f"{rec.get('title') or ''} {rec.get('agency') or ''}".lower()
+    if any(k in blob for k in ("town of", "village of", "borough of", "school district", "public schools", "isd", "park district", "housing authority")):
+        ent_rank = 0
+    elif any(k in blob for k in ("department of", "state of", "commonwealth of", "federal", "sam.gov", "disa", "defense", "cyber", "zero trust", "zero-trust", "cloud", "soc ", "siem", "enterprise", "modernization", "artificial intelligence")):
+        ent_rank = 2
+    else:
+        ent_rank = 1
     if dt is None:
-        return (1, rec_id)
+        return (1, ent_rank, rec_id)
     days_left = (dt - ref).days
     if days_left >= 10:
-        return (3, rec_id)
+        return (3, ent_rank, rec_id)
     if days_left >= 5:
-        return (2, rec_id)
+        return (2, ent_rank, rec_id)
     if days_left >= 2:
-        return (1, rec_id)
-    return (0, rec_id)
+        return (1, ent_rank, rec_id)
+    return (0, ent_rank, rec_id)
 
 
 def select_contracts_for_prospect(all_contracts: list[dict], prospect_state: str, max_count: int = 3) -> list[dict]:
@@ -1058,10 +1075,12 @@ def build_two_step_outreach(
             f"covering Federal (SAM.gov), National Municipal (DemandStar) & all 50 U.S. State SLED portals nationwide."
         )
 
+    prefilled_dossier_url = f"{clean_dossier_url}?co={quote_plus(clean_comp)}&state={quote_plus(region_label)}&email={quote_plus(email)}"
+    clean_dossier_url = prefilled_dossier_url
     step2_closers = [
-        f"Want me to reply with the direct solicitation links and pre-shredded Section L/M capture brief for #1, or should I hold off?",
-        f"Mind if I send over the direct agency solicitation links and Section L/M compliance matrix for #1?",
-        f"Worth sending over the direct solicitation links and incumbent breakdown for #1, or is {clean_comp} focused elsewhere right now?",
+        f"You can inspect the live pre-shredded Section L/M capture brief & 6-file Shipley proposal workbench for #1 directly here:\n{prefilled_dossier_url}\n\nOr reply 'SEND' and I'll reply with the 6-file .ZIP package attached.",
+        f"Here is the direct link to the pre-shredded Section L/M compliance matrix & 6-file Shipley proposal workbench for #1:\n{prefilled_dossier_url}\n\nOr reply 'SEND' if you'd like me to email the 6-file .ZIP directly.",
+        f"I linked the pre-shredded Section L/M capture brief & incumbent breakdown for #1 directly below so your team can review without waiting:\n{prefilled_dossier_url}\n\nOr reply 'SEND' and I'll send the 6-file .ZIP over.",
     ]
 
     step2_subject = f"Re: {step1_subject}"
@@ -1378,6 +1397,8 @@ def sync_leads_to_cold_email_api(leads_payload: list[dict]) -> None:
                                     "39 AI " + "capture modules" in fb_txt
                                     or "31-State " + "SLED" in fb_txt
                                     or "58 AI capture modules" not in fb_txt
+                                    or "https://" not in fb_txt
+                                    or "Last note from me" in fb_txt
                                     or (is_dotless_handle_name(str(it.get("first_name") or ""), em) and str(it.get("first_name") or "").strip().lower() not in ("capture", "there", "team"))
                                     or any(h in eb_txt for h in ("Hi Tbuzan", "Hey Tbuzan", "Hello Tbuzan", "Hi Rdepew", "Hi Bbertram"))
                                 ):

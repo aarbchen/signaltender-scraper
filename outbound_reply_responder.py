@@ -598,7 +598,7 @@ def _process_warm_zip_followups() -> int:
                 r_nudge = requests.post(
                     "https://api.instantly.ai/api/v2/emails/reply",
                     headers=headers,
-                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_48}},
+                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_48, "html": str(body_48).replace("\n", "<br>\n")}},
                     timeout=15,
                 )
                 if 200 <= r_nudge.status_code < 300:
@@ -621,7 +621,7 @@ def _process_warm_zip_followups() -> int:
                 r_nudge = requests.post(
                     "https://api.instantly.ai/api/v2/emails/reply",
                     headers=headers,
-                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_96}},
+                    json={"reply_to_uuid": msg_id, "eaccount": eaccount, "subject": subj, "body": {"text": body_96, "html": str(body_96).replace("\n", "<br>\n")}},
                     timeout=15,
                 )
                 if 200 <= r_nudge.status_code < 300:
@@ -711,7 +711,7 @@ def run_reply_responder() -> dict:
                         "reply_to_uuid": msg_id,
                         "eaccount": eaccount,
                         "subject": reply_subj,
-                        "body": {"text": reply_body},
+                        "body": {"text": reply_body, "html": str(reply_body).replace("\n", "<br>\n")},
                     },
                     timeout=15,
                 )
