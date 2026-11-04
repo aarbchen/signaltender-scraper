@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T09:34:17.168067+00:00",
+  "updated_at": "2026-11-04T10:37:39.480437+00:00",
   "launch_date": "2026-10-15",
   "ramp_phase": "Full Warmed Cadence (Day 21: 180/day | 45/cron across 6 mailboxes)",
   "daily_cap": 180,
@@ -17,7 +17,7 @@
       "subject": "Fortem Solutions' U.S. Army contract (W912DY24F0357) + 3 Alabama & Federal IT bids",
       "body": "Hello Ashish,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Alabama Buys STAARS, Alabama OIT/Redstone Arsenal, and SAM.gov. Noticed Fortem Solutions' USD 4.57M contract with U.S. Department of the Army (W912DY24F0357, PoP through 2027-09-29) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring \u2014 Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services) (Due: 12/03/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n2. Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform \u2014 Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations (Due: 11/23/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n3. Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave \u2014 City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL) (Due: 11/30/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -28,7 +28,7 @@
       "subject": "RED Bison Services' U.S. Army contract (W912P825C0021) + 3 Louisiana & Federal IT bids",
       "body": "Hey Rocky,\n\nI run an automated procurement monitor that tracks Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed RED Bison Services' USD 20.1M contract with U.S. Department of the Army (W912P825C0021, PoP through 2028-03-03) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nIs Louisiana & Federal IT/cyber on RED Bison Services' radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these 3 if useful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -39,7 +39,7 @@
       "subject": "Prenax (36C77622C0133) \u2014 3 open Wisconsin & Federal IT & cyber solicitations",
       "body": "Hey Mail,\n\nWe maintain a live public-sector RFP engine covering Wisconsin eSupplier/VendorNet, DOA-DET, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Saw Prenax's active USD 18.6M VA award (36C77622C0133, running through 2027-06-24) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. University of Wisconsin-Madison (DoIT) High-Performance AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave \u2014 University of Wisconsin-Madison \u2014 Division of Information Technology (DoIT) (Wisconsin) (Due: 12/04/2026 | NAICS 541512 \u2022 Wisconsin DOA-DET InfoSec Policies (NIST 800-53 / Wis. Stat. Ch. 16))\n2. City of Madison & Dane County Regional Public Safety Next-Gen 911 GIS, Municipal Fiber Network & Zero-Trust Access \u2014 City of Madison Information Technology Department & Dane County (Wisconsin) (Due: 11/30/2026 | NAICS 541512 \u2022 Wisconsin DOA-DET InfoSec Policies (NIST 800-53 / Wis. Stat. Ch. 16))\n3. City of Milwaukee Information Technology Management Division (ITMD) Municipal Cloud ERP, 311 AI Citizen Portal & 24/7 MDR \u2014 City of Milwaukee \u2014 Information Technology Management Division (ITMD) (Wisconsin) (Due: 11/28/2026 | NAICS 541512 \u2022 Wisconsin DOA-DET InfoSec Policies (NIST 800-53 / Wis. Stat. Ch. 16))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/wi-uwmadison-doit-rfp-26-5501-university-of-wisconsin-madison-doit-high-1366.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -50,7 +50,7 @@
       "subject": "LinTech Global (68HERD22F0017) \u2014 3 open Florida & Federal IT & cyber solicitations",
       "body": "Hey Jon,\n\nI run an automated procurement monitor that tracks Florida MFMP VIP, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed LinTech Global's USD 8.07M contract with Environmental Protection Agency (EPA) (68HERD22F0017, PoP through 2027-02-23) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -61,7 +61,7 @@
       "subject": "U.S. Army W519TC24C0026 + new Maryland & Federal IT bids for Sealing Technologies",
       "body": "Hi Ed,\n\nI run an automated procurement monitor that tracks Maryland eMMA, county Bonfire portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping U.S. Army IT primes (Sealing Technologies' USD 13.4M contract W519TC24C0026, PoP ending 2027-07-30), our classifier flagged 3 open solicitations aligned with Sealing Technologies:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -72,7 +72,7 @@
       "subject": "VA 36C10G26F0014 + new Virginia & Federal IT bids for Tria Federal",
       "body": "Hey Tim,\n\nI track newly released public-sector technology solicitations across Virginia eVA, DemandStar, and SAM.gov (52 federal and state portals total). While mapping VA IT primes (Tria Federal's USD 25.3M contract 36C10G26F0014, PoP ending 2027-09-28), our classifier flagged 3 open solicitations aligned with Tria Federal:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -83,7 +83,7 @@
       "subject": "U.S. Army W912QR26FA090 + new Georgia & Federal IT bids for HLP Integration",
       "body": "Hello Michael,\n\nI run an automated procurement monitor that tracks Georgia DOAS GPR, Atlanta metro portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed HLP Integration's USD 77K contract with U.S. Department of the Army (W912QR26FA090, PoP through 2028-07-30) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Managed IT Services \u2014 Tyrone, Town of (Due: 12/04/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n2. Childcare Management Software \u2014 Cobb County School District (GA) (Due: 12/01/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n3. Georgia Technology Authority (GTA) Georgia Enterprise Technology Services (GETS) Multi-Cloud Governance, Zero-Trust Cyber Defense & AI Portal \u2014 Georgia Technology Authority (GTA \u2014 Enterprise Governance & Cloud Services) (Due: 12/09/2026 | NAICS 541512 \u2022 Georgia GTA SSG Security)\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/pe-66873-nonst-2027-000000042-rfp-th-2026-03-managed-it-services-1776.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -94,7 +94,7 @@
       "subject": "Topsarge Business Solutions (W911NF26CA010) \u2014 3 open New York & Federal IT & cyber solicitations",
       "body": "Hello Sandra,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across NYS Contract Reporter, NYC PASSPort, and SAM.gov. While mapping U.S. Army IT primes (Topsarge Business Solutions' USD 460K contract W911NF26CA010, PoP ending 2027-05-21), our classifier flagged 3 open solicitations aligned with Topsarge Business Solutions:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -105,7 +105,7 @@
       "subject": "Chenega Security's U.S. Army contract (W9126019C0002) + 3 North Carolina & Federal IT bids",
       "body": "Hi Miriam,\n\nI run an automated procurement monitor that tracks North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping U.S. Army IT primes (Chenega Security's USD 93.1M contract W9126019C0002, PoP ending 2027-06-28), our classifier flagged 3 open solicitations aligned with Chenega Security:\n\n1. Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience \u2014 NC Department of Public Safety (NCDPS) (Due: 11/15/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n2. Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation \u2014 Wake County Government (Raleigh Metro, NC) (Due: 11/16/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n3. NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform \u2014 NC Department of Health and Human Services (NCDHHS) (Due: 11/18/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nIs North Carolina & Federal IT/cyber on Chenega Security's radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these 3 if useful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -116,7 +116,7 @@
       "subject": "Dorsey's USAF contract (FA877022CB004) + 3 Ohio & Federal IT bids",
       "body": "Hello Courtemanche,\n\nI track newly released public-sector technology solicitations across OhioBuys, Columbus/Franklin County portals, and SAM.gov (52 federal and state portals total). Noticed Dorsey's USD 2.92M contract with U.S. Department of the Air Force (FA877022CB004, PoP through 2027-08-02) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Ohio Academic Resources Network (OARnet) & Ohio State University 400G Statewide Fiber Backbone, Quantum-Safe Encryption & Research Cloud \u2014 Ohio Department of Higher Education \u2014 OARnet & The Ohio State University (OH) (Due: 12/16/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n2. Wright-Patterson AFB (AFLCMC / AFRL) & Ohio Cyber Reserve CMMC 2.0 Level 2 Cloud Enclave & Digital Engineering Platform \u2014 Ohio Cyber Reserve (Adjutant General's Dept) & Wright-Patterson Defense Corridor (OH) (Due: 12/13/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n3. Ohio Department of Public Safety (ODPS) Multi-Agency Radio Communication System (MARCS) Next-Gen 911 Cloud & CJIS Cyber Defense \u2014 Ohio Department of Public Safety (ODPS \u2014 Ohio Homeland Security & MARCS IT) (Due: 12/10/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/oh-osu-oarnet-2026-0507-ohio-academic-resources-network-oarnet-ohio-state-1730.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -127,7 +127,7 @@
       "subject": "HE125422F3025 (DoD) + 3 open Virginia & Federal IT RFPs for AttainX",
       "body": "Swati \u2014\n\nI run an automated procurement monitor that tracks Virginia eVA, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed AttainX's USD 19.1M contract with Department of Defense (DoD) (HE125422F3025, PoP through 2027-09-29) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nMind if I reply with the direct solicitation links, incumbent labor-rate benchmarks, and pre-shredded Section L/M compliance briefs for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -138,7 +138,7 @@
       "subject": "15JPSS20F00000937 (DOJ) + 3 open Virginia & Federal IT RFPs for MindPoint Group",
       "body": "Hey MindPoint Group team,\n\nI track newly released public-sector technology solicitations across Virginia eVA, DemandStar, and SAM.gov (52 federal and state portals total). Saw MindPoint Group's active USD 39.6M DOJ award (15JPSS20F00000937, running through 2027-09-22) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nIs Virginia & Federal IT/cyber on MindPoint Group's radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these 3 if useful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -149,7 +149,7 @@
       "subject": "4M Research's NASA contract (80MSFC22F0109) + 3 Alabama & Federal IT bids",
       "body": "Hey 4M Research team,\n\nWe maintain a live public-sector RFP engine covering Alabama Buys STAARS, Alabama OIT/Redstone Arsenal, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Saw 4M Research's active USD 9.87M NASA award (80MSFC22F0109, running through 2026-11-14) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring \u2014 Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services) (Due: 12/03/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n2. Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform \u2014 Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations (Due: 11/23/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n3. Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave \u2014 City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL) (Due: 11/30/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -160,7 +160,7 @@
       "subject": "Sancorp Consulting (HQ003425FE405) \u2014 3 open Louisiana & Federal IT & cyber solicitations",
       "body": "Hello Sancorp Consulting team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov. Noticed Sancorp Consulting's USD 20.2M contract with DoD Washington Headquarters Services (WHS) (HQ003425FE405, PoP through 2030-06-15) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nIs Louisiana & Federal IT/cyber on Sancorp Consulting's radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these 3 if useful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -171,7 +171,7 @@
       "subject": "Nuvitek's DOT FAA contract (6973GH25F01296) + 3 Oklahoma & Federal IT bids",
       "body": "Hello Nuvitek team,\n\nWe maintain a live public-sector RFP engine covering Oklahoma OMES Central Purchasing, Tinker AFB, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. While mapping DOT FAA IT primes (Nuvitek's USD 13.7M contract 6973GH25F01296, PoP ending 2027-09-14), our classifier flagged 3 open solicitations aligned with Nuvitek:\n\n1. City of Oklahoma City Information Technology & City of Tulsa Smart Metro Fiber, Next-Gen 911 CAD GIS & 24/7 MDR Cybersecurity SOC \u2014 City of Oklahoma City Department of Information Technology & City of Tulsa IT (Oklahoma) (Due: 12/03/2026 | NAICS 541512 \u2022 Oklahoma OMES Cyber Command Policy (NIST 800-53 / CMMC 2.0))\n2. Oklahoma DOT (ODOT) I-35 / I-40 Connected Corridor Fiber Backbone, Automated Weather Telemetry & Cloud Traffic Operations Platform \u2014 Oklahoma Department of Transportation (ODOT) \u2014 Traffic Engineering & Intelligent Transportation Systems (Due: 11/23/2026 | NAICS 541512 \u2022 Oklahoma OMES Cyber Command Policy (NIST 800-53 / CMMC 2.0))\n3. Tinker AFB Oklahoma City Air Logistics Complex (OC-ALC / 76th Software Engineering Group) & Oklahoma Aerospace Defense Corridor DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Oklahoma Aerospace and Aeronautics & Tinker AFB / 76 SMXG Defense Corridor (OK) (Due: 11/30/2026 | NAICS 541512 \u2022 Oklahoma OMES Cyber Command Policy (NIST 800-53 / CMMC 2.0))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ok-okc-tulsa-it-rfp-2026-3804-city-of-oklahoma-city-information-technology-1566.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -182,7 +182,7 @@
       "subject": "SP470124F0236 (DLA) + 3 open Virginia & Federal IT RFPs for Carahsoft Technology",
       "body": "Hey Carahsoft Technology team,\n\nWe maintain a live public-sector RFP engine covering Virginia eVA, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. While mapping DLA IT primes (Carahsoft Technology's USD 131.7M contract SP470124F0236, PoP ending 2027-04-30), our classifier flagged 3 open solicitations aligned with Carahsoft Technology:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -193,7 +193,7 @@
       "subject": "U.S. Navy M9549425C0005 + new Pennsylvania & Federal IT bids for Lucayan Technology Solutions",
       "body": "Hey Lucayan Technology Solutions team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across PA DGS eMarketplace, PhilaPort, and SAM.gov. Noticed Lucayan Technology Solutions' USD 2.92M contract with U.S. Department of the Navy (M9549425C0005, PoP through 2026-12-27) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Digital Video Network Dvn (3524R14-01) \u2014 PA Department of Transportation (Due: 11/20/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n2. Pennsylvania Department of Revenue (DOR) myPATH Tax Analytics Cloud, Fraud Detection AI & Managed SOC Services \u2014 Pennsylvania Department of Revenue (DOR \u2014 Enterprise Tax Systems Modernization) (Due: 12/14/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n3. Pennsylvania State Police (PSP) Commonwealth Law Enforcement Assistance Network (CLEAN) CJIS Cloud & Next-Gen 911 GIS Platform \u2014 Pennsylvania State Police (PSP \u2014 Bureau of Communications and Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n\nAre you bidding Pennsylvania & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/digital-video-network-dvn-3524r14-01-1772.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -204,7 +204,7 @@
       "subject": "Nemean Solutions' U.S. Army contract (W91RUS22C0013) + 3 Pennsylvania & Federal IT bids",
       "body": "Hi Nemean Solutions team,\n\nWe maintain a live public-sector RFP engine covering PA DGS eMarketplace, PhilaPort, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Saw Nemean Solutions' active USD 11.7M U.S. Army award (W91RUS22C0013, running through 2027-06-29) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Digital Video Network Dvn (3524R14-01) \u2014 PA Department of Transportation (Due: 11/20/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n2. Pennsylvania Department of Revenue (DOR) myPATH Tax Analytics Cloud, Fraud Detection AI & Managed SOC Services \u2014 Pennsylvania Department of Revenue (DOR \u2014 Enterprise Tax Systems Modernization) (Due: 12/14/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n3. Pennsylvania State Police (PSP) Commonwealth Law Enforcement Assistance Network (CLEAN) CJIS Cloud & Next-Gen 911 GIS Platform \u2014 Pennsylvania State Police (PSP \u2014 Bureau of Communications and Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 PA OA-ITB Security Policy)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/digital-video-network-dvn-3524r14-01-1772.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -215,7 +215,7 @@
       "subject": "VA 36C10F25C0004 + new Louisiana & Federal IT bids for 3links Technologies",
       "body": "Hi 3links Technologies team,\n\nI run an automated procurement monitor that tracks Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Saw 3links Technologies' active USD 1.85M VA award (36C10F25C0004, running through 2026-12-16) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -226,7 +226,7 @@
       "subject": "Jeff Murrays Programming Shop (75R60226P00003) \u2014 3 open Louisiana & Federal IT & cyber solicitations",
       "body": "Hello Jeff,\n\nWe maintain a live public-sector RFP engine covering Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. While mapping HHS HRSA IT primes (Jeff Murrays Programming Shop's USD 1.76M contract 75R60226P00003, PoP ending 2027-03-22), our classifier flagged 3 open solicitations aligned with Jeff Murrays Programming Shop:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -237,7 +237,7 @@
       "subject": "75F40123F80401 (HHS) + 3 open Kentucky & Federal IT RFPs for Trigent Solutions",
       "body": "Hello Trigent Solutions team,\n\nWe maintain a live public-sector RFP engine covering Kentucky eProcurement VSS, Kentucky COT, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Saw Trigent Solutions' active USD 9.71M HHS award (75F40123F80401, running through 2027-09-29) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Louisville Metro Technology Services & Lexington-Fayette Urban County Government Smart City Fiber, Next-Gen 911 GIS & MDR Cybersecurity SOC \u2014 Louisville Metro Government \u2014 Office of Civic Innovation and Technology (Kentucky) (Due: 12/03/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n2. Fort Knox U.S. Army Human Resources Command (HRC) & V Corps Defense Corridor DevSecOps Cloud, Zero-Trust ICAM & CMMC Level 2 Enclave \u2014 Kentucky Commission on Military Affairs & Fort Knox / V Corps Defense Corridor (KY) (Due: 11/30/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n3. Kentucky Transportation Cabinet (KYTC) I-64 / I-75 Connected Corridor Fiber Telemetry, Automated RWIS & Cloud Traffic Management Platform \u2014 Kentucky Transportation Cabinet (KYTC) \u2014 Division of Maintenance & Intelligent Transportation Systems (Due: 11/23/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ky-louisville-lex-rfp-2026-2910-louisville-metro-technology-services-1560.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -248,7 +248,7 @@
       "subject": "Sps Ars' DOT FAA contract (697DCK26C00170) + 3 Nevada & Federal IT bids",
       "body": "Hey Sps Ars team,\n\nI run an automated procurement monitor that tracks NevadaEPro, Nevada EITS/Nellis AFB, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping DOT FAA IT primes (Sps Ars' USD 628K contract 697DCK26C00170, PoP ending 2027-09-24), our classifier flagged 3 open solicitations aligned with Sps Ars:\n\n1. Nevada System of Higher Education (UNLV & UNR) High-Performance AI Research Cloud, Campus Zero-Trust Network & NIST 800-171 Enclave \u2014 Nevada System of Higher Education (NSHE \u2014 UNLV & University of Nevada, Reno IT) (Due: 12/05/2026 | NAICS 541512 \u2022 Nevada EITS InfoSec Program (NIST 800-53 / NRS 242))\n2. Clark County Information Technology & City of Las Vegas Smart Metro Fiber, CJIS Cloud Records & 24/7 MDR Cybersecurity SOC \u2014 Clark County Department of Information Technology & City of Las Vegas Innovation Technology (Nevada) (Due: 12/02/2026 | NAICS 541512 \u2022 Nevada EITS InfoSec Program (NIST 800-53 / NRS 242))\n3. Nellis AFB 53rd Wing / Nevada Test and Training Range (NTTR) & Fallon NAS Tactical Edge DevSecOps Cloud, AI Sensor Fusion & CMMC Level 2 Enclave \u2014 Nevada Military Support Alliance & Nellis AFB / NTTR Defense Technology Corridor (NV) (Due: 11/29/2026 | NAICS 541512 \u2022 Nevada EITS InfoSec Program (NIST 800-53 / NRS 242))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/nv-nshe-unlv-unr-rfp-2649-nevada-system-of-higher-education-unlv-unr-high-1543.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -259,7 +259,7 @@
       "subject": "SPE60322C5005 (DLA) + 3 open Florida & Federal IT RFPs for Walsingham",
       "body": "Hello Walsingham team,\n\nI run an automated procurement monitor that tracks Florida MFMP VIP, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping DLA IT primes (Walsingham's USD 33.6M contract SPE60322C5005, PoP ending 2031-07-31), our classifier flagged 3 open solicitations aligned with Walsingham:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -270,7 +270,7 @@
       "subject": "U.S. Army W91ZLK23C0002 + new Maryland & Federal IT bids for Omni Technologies",
       "body": "Hello Omni Technologies team,\n\nI track newly released public-sector technology solicitations across Maryland eMMA, county Bonfire portals, and SAM.gov (52 federal and state portals total). Saw Omni Technologies' active USD 2.03M U.S. Army award (W91ZLK23C0002, running through 2027-02-27) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -281,7 +281,7 @@
       "subject": "U.S. Army W91QEX24F0012 + new Florida & Federal IT bids for Primcorp",
       "body": "Hello Primcorp team,\n\nWe maintain a live public-sector RFP engine covering Florida MFMP VIP, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Noticed Primcorp's USD 5.14M contract with U.S. Department of the Army (W91QEX24F0012, PoP through 2027-02-24) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nAre you bidding Florida & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -292,7 +292,7 @@
       "subject": "Riegl USA's Commerce NOAA contract (1305M226C0025) + 3 Florida & Federal IT bids",
       "body": "Hey Riegl USA team,\n\nOur ingestion pipeline monitors Florida MFMP VIP, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed Riegl USA's USD 375K contract with National Oceanic and Atmospheric Administration (NOAA) (1305M226C0025, PoP through 2027-09-30) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nAre you bidding Florida & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -303,7 +303,7 @@
       "subject": "Chesapeake Technology International's GSA FAS contract (47QFCA21C0021) + 3 Maryland & Federal IT bids",
       "body": "Hi Chesapeake Technology International team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Maryland eMMA, county Bonfire portals, and SAM.gov. While mapping GSA FAS IT primes (Chesapeake Technology International's USD 89.2M contract 47QFCA21C0021, PoP ending 2027-02-05), our classifier flagged 3 open solicitations aligned with Chesapeake Technology International:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -314,7 +314,7 @@
       "subject": "Nava's HHS contract (75FCMC23F0009) + 3 Maryland & Federal IT bids",
       "body": "Hey Nava team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Maryland eMMA, county Bonfire portals, and SAM.gov. While mapping HHS IT primes (Nava's USD 39.7M contract 75FCMC23F0009, PoP ending 2026-12-31), our classifier flagged 3 open solicitations aligned with Nava:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nMind if I reply with the direct solicitation links, incumbent labor-rate benchmarks, and pre-shredded Section L/M compliance briefs for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -325,7 +325,7 @@
       "subject": "Teracore's USCG contract (70Z02324F86000001) + 3 Texas & Federal IT bids",
       "body": "Hello Teracore team,\n\nWe maintain a live public-sector RFP engine covering Texas ESBD/DIR, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Saw Teracore's active USD 5.99M USCG award (70Z02324F86000001, running through 2027-04-30) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -336,7 +336,7 @@
       "subject": "VA 36C10B24C0017 + new Texas & Federal IT bids for World Wide Technology",
       "body": "Hey World Wide Technology team,\n\nI track newly released public-sector technology solicitations across Texas ESBD/DIR, DemandStar, and SAM.gov (52 federal and state portals total). Noticed World Wide Technology's USD 85.5M contract with Department of Veterans Affairs (VA) (36C10B24C0017, PoP through 2027-09-30) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -347,7 +347,7 @@
       "subject": "Arch Systems' Commerce NOAA contract (1305M224F0258) + 3 New York & Federal IT bids",
       "body": "Hello Arch Systems team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across NYS Contract Reporter, NYC PASSPort, and SAM.gov. Saw Arch Systems' active USD 13.7M Commerce NOAA award (1305M224F0258, running through 2027-09-28) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nAre you bidding New York & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -358,7 +358,7 @@
       "subject": "Martin Loyd's HHS CMS contract (75FCMC24F0110) + 3 New York & Federal IT bids",
       "body": "Hello Martin Loyd team,\n\nI run an automated procurement monitor that tracks NYS Contract Reporter, NYC PASSPort, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed Martin Loyd's USD 1.38M contract with Centers for Medicare & Medicaid Services (CMS) (75FCMC24F0110, PoP through 2027-07-31) while indexing active IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nAre you bidding New York & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -369,7 +369,7 @@
       "subject": "70CTD021FR0000226 (DHS ICE) + 3 open Virginia & Federal IT RFPs for Harmonia Holdings Group",
       "body": "Hello Harmonia Holdings Group team,\n\nI run an automated procurement monitor that tracks Virginia eVA, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping DHS ICE IT primes (Harmonia Holdings Group's USD 75.9M contract 70CTD021FR0000226, PoP ending 2027-01-31), our classifier flagged 3 open solicitations aligned with Harmonia Holdings Group:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -380,7 +380,7 @@
       "subject": "HHS 75A50224C00005 + new Alabama & Federal IT bids for AFC Development",
       "body": "Hi AFC Development team,\n\nI track newly released public-sector technology solicitations across Alabama Buys STAARS, Alabama OIT/Redstone Arsenal, and SAM.gov (52 federal and state portals total). Saw AFC Development's active USD 3.23M HHS award (75A50224C00005, running through 2027-03-27) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring \u2014 Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services) (Due: 12/03/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n2. Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform \u2014 Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations (Due: 11/23/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n3. Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave \u2014 City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL) (Due: 11/30/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -391,7 +391,7 @@
       "subject": "USDA 12314426F0370 + new Alabama & Federal IT bids for Kriaanet",
       "body": "Hey Kriaanet team,\n\nI run an automated procurement monitor that tracks Alabama Buys STAARS, Alabama OIT/Redstone Arsenal, and SAM.gov (plus 49 other state SLED portals) every 6 hours. While mapping USDA IT primes (Kriaanet's USD 1.86M contract 12314426F0370, PoP ending 2026-12-02), our classifier flagged 3 open solicitations aligned with Kriaanet:\n\n1. Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring \u2014 Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services) (Due: 12/03/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n2. Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform \u2014 Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations (Due: 11/23/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n3. Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave \u2014 City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL) (Due: 11/30/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -402,7 +402,7 @@
       "subject": "15JUST24C00000059 (DOJ) + 3 open Louisiana & Federal IT RFPs for Centricity Technology Partners",
       "body": "Hey Centricity Technology Partners team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov. While mapping DOJ IT primes (Centricity Technology Partners' USD 1.12M contract 15JUST24C00000059, PoP ending 2027-07-31), our classifier flagged 3 open solicitations aligned with Centricity Technology Partners:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nAre you bidding Louisiana & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -413,7 +413,7 @@
       "subject": "Galorath (80TECH26P0019) \u2014 3 open California & Federal IT & cyber solicitations",
       "body": "Hey Galorath team,\n\nWe maintain a live public-sector RFP engine covering California Cal eProcure, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. While mapping NASA IT primes (Galorath's USD 396K contract 80TECH26P0019, PoP ending 2027-08-27), our classifier flagged 3 open solicitations aligned with Galorath:\n\n1. California State University (CSU) & University of California (UC) Shared 24x7 Higher-Ed Cyber SOC, CMMC 2.0 Research Enclave & IAM \u2014 California State University Office of the Chancellor & UC Information Technology Services (CA) (Due: 12/16/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. California Department of Corrections and Rehabilitation (CDCR) Strategic Offender Management System (SOMS) Cloud & Telemedicine Network \u2014 California Department of Corrections and Rehabilitation (CDCR \u2014 Enterprise Information Services) (Due: 12/14/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. California Franchise Tax Board (FTB) & CDTFA Enterprise Tax Processing Cloud Modernization, Zero-Trust SOC & Data Loss Prevention \u2014 California Franchise Tax Board (FTB \u2014 Technology Services Division) (Due: 12/11/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ca-csu-uc-cyber-2026-0909-california-state-university-csu-university-of-1714.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -424,7 +424,7 @@
       "subject": "North South Consulting (W9124D20C0016) \u2014 3 open Kentucky & Federal IT & cyber solicitations",
       "body": "Hey Andie,\n\nI track newly released public-sector technology solicitations across Kentucky eProcurement VSS, Kentucky COT, and SAM.gov (52 federal and state portals total). Noticed North South Consulting's USD 14.7M contract with U.S. Department of the Army (W9124D20C0016) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Louisville Metro Technology Services & Lexington-Fayette Urban County Government Smart City Fiber, Next-Gen 911 GIS & MDR Cybersecurity SOC \u2014 Louisville Metro Government \u2014 Office of Civic Innovation and Technology (Kentucky) (Due: 12/03/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n2. Fort Knox U.S. Army Human Resources Command (HRC) & V Corps Defense Corridor DevSecOps Cloud, Zero-Trust ICAM & CMMC Level 2 Enclave \u2014 Kentucky Commission on Military Affairs & Fort Knox / V Corps Defense Corridor (KY) (Due: 11/30/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n3. Kentucky Transportation Cabinet (KYTC) I-64 / I-75 Connected Corridor Fiber Telemetry, Automated RWIS & Cloud Traffic Management Platform \u2014 Kentucky Transportation Cabinet (KYTC) \u2014 Division of Maintenance & Intelligent Transportation Systems (Due: 11/23/2026 | NAICS 541512 \u2022 Kentucky COT Security Standards CIO-091 (NIST 800-53 / CMMC 2.0))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ky-louisville-lex-rfp-2026-2910-louisville-metro-technology-services-1560.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -435,7 +435,7 @@
       "subject": "USAF FA813225F0117 + new Louisiana & Federal IT bids for Additive Innovators OF LA",
       "body": "Hello Jace,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov. Noticed Additive Innovators OF LA's USD 128K contract with U.S. Department of the Air Force (FA813225F0117) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -446,7 +446,7 @@
       "subject": "W912EQ20C0014 (U.S. Army) + 3 open Louisiana & Federal IT RFPs for Pontchartrain Partners",
       "body": "Hello Pontchartrain Partners team,\n\nI run an automated procurement monitor that tracks Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Saw Pontchartrain Partners' USD 15.5M U.S. Army contract record (W912EQ20C0014) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nIs Louisiana & Federal IT/cyber on Pontchartrain Partners' radar this quarter? Happy to send over the direct solicitation links and incumbent breakdowns for these 3 if useful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -457,7 +457,7 @@
       "subject": "Sapper Solutions' U.S. Army contract (W912P823F0067) + 3 Louisiana & Federal IT bids",
       "body": "Hi Kevin,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov. Noticed Sapper Solutions' USD 2.39M contract with U.S. Department of the Army (W912P823F0067) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -468,7 +468,7 @@
       "subject": "36C25623P0025 (VA) + 3 open Louisiana & Federal IT RFPs for Vanguard GCS",
       "body": "Hey Vanguard GCS team,\n\nWe maintain a live public-sector RFP engine covering Louisiana LaPAC/LaGov, Louisiana OTS, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Noticed Vanguard GCS' USD 135K contract with Department of Veterans Affairs (VA) (36C25623P0025) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. City of New Orleans Office of Information Technology & Innovation (ITI) & East Baton Rouge Parish Smart City Fiber, 911 CAD & MDR SOC \u2014 City of New Orleans Office of Information Technology & Innovation (ITI \u2014 Louisiana) (Due: 12/03/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n2. Barksdale AFB Air Force Global Strike Command (AFGSC) & Bossier National Cyber Research Park DevSecOps Cloud & CMMC Level 2 Enclave \u2014 Cyber Innovation Center (CIC Bossier) & Barksdale AFB Defense Technology Corridor (LA) (Due: 11/30/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n3. Louisiana DOTD & Coastal Protection and Restoration Authority (CPRA) Flood Sensor Telemetry, AI Hydrologic Modeling & Cloud GIS Platform \u2014 Louisiana Department of Transportation and Development (DOTD) & CPRA (Louisiana) (Due: 11/22/2026 | NAICS 541512 \u2022 Louisiana OTS InfoSec Policy (NIST 800-53 / R.S. 39:15.1))\n\nAre you bidding Louisiana & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/la-nola-br-iti-rfp-2026-4110-city-of-new-orleans-office-of-information-1554.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -479,7 +479,7 @@
       "subject": "W912PL25C0010 (U.S. Army) + 3 open California & Federal IT RFPs for Trident CPM Consulting",
       "body": "Hi Mike,\n\nI track newly released public-sector technology solicitations across California Cal eProcure, DemandStar, and SAM.gov (52 federal and state portals total). Noticed Trident CPM Consulting's USD 593K contract with U.S. Department of the Army (W912PL25C0010) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. California State University (CSU) & University of California (UC) Shared 24x7 Higher-Ed Cyber SOC, CMMC 2.0 Research Enclave & IAM \u2014 California State University Office of the Chancellor & UC Information Technology Services (CA) (Due: 12/16/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. California Department of Corrections and Rehabilitation (CDCR) Strategic Offender Management System (SOMS) Cloud & Telemedicine Network \u2014 California Department of Corrections and Rehabilitation (CDCR \u2014 Enterprise Information Services) (Due: 12/14/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. California Franchise Tax Board (FTB) & CDTFA Enterprise Tax Processing Cloud Modernization, Zero-Trust SOC & Data Loss Prevention \u2014 California Franchise Tax Board (FTB \u2014 Technology Services Division) (Due: 12/11/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ca-csu-uc-cyber-2026-0909-california-state-university-csu-university-of-1714.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -490,7 +490,7 @@
       "subject": "Success BY Design's U.S. Army contract (W91QV125CA099) + 3 Virginia & Federal IT bids",
       "body": "Hello Success BY Design team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Virginia eVA, DemandStar, and SAM.gov. Noticed Success BY Design's USD 419K contract with U.S. Department of the Army (W91QV125CA099) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -501,7 +501,7 @@
       "subject": "U.S. Army W91QV119P0053 + new Virginia & Federal IT bids for Parra Consulting",
       "body": "Hello Andrew,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Virginia eVA, DemandStar, and SAM.gov. While mapping U.S. Army IT primes (Parra Consulting's USD 329K contract W91QV119P0053), our classifier flagged 3 open solicitations aligned with Parra Consulting:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nAre you bidding Virginia & Federal IT/cyber work this quarter? Happy to send over the direct solicitation links and Section L/M capture briefs for these 3 if useful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -512,7 +512,7 @@
       "subject": "Schneider Electric Federal's U.S. Army contract (W912DY23F0468) + 3 Texas & Federal IT bids",
       "body": "Hey Schneider Electric Federal team,\n\nWe maintain a live public-sector RFP engine covering Texas ESBD/DIR, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. While mapping U.S. Army IT primes (Schneider Electric Federal's USD 28.7M contract W912DY23F0468), our classifier flagged 3 open solicitations aligned with Schneider Electric Federal:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nMind if I reply with the direct solicitation links, incumbent labor-rate benchmarks, and pre-shredded Section L/M compliance briefs for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -523,7 +523,7 @@
       "subject": "70Z0G324FOIPL0044 (USCG) + 3 open Alabama & Federal IT RFPs for Premiersdn",
       "body": "Hi Premiersdn team,\n\nOur ingestion pipeline monitors Alabama Buys STAARS, Alabama OIT/Redstone Arsenal, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Noticed Premiersdn's USD 3.01M contract with U.S. Coast Guard (USCG) (70Z0G324FOIPL0044) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Alabama Law Enforcement Agency (ALEA) Statewide CJIS Cloud Identity, Automated Biometric Identification & 24/7 SecOps Monitoring \u2014 Alabama Law Enforcement Agency (ALEA \u2014 Criminal Justice Information Services) (Due: 12/03/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n2. Alabama DOT (ALDOT) I-65 / I-20 Connected Corridor Fiber Telemetry, Traffic Management Center (TMC) Cloud & ITS Platform \u2014 Alabama Department of Transportation (ALDOT) \u2014 Transportation Systems Management & Operations (Due: 11/23/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n3. Huntsville Redstone Arsenal / Cummings Research Park & Alabama Defense Corridor MBSE Digital Engineering, C5ISR Cloud & CMMC Level 2 Enclave \u2014 City of Huntsville / Redstone Defense & Aerospace Corridor & Alabama Department of Commerce (AL) (Due: 11/30/2026 | NAICS 541512 \u2022 Alabama OIT Enterprise Security Policies (NIST 800-53 / CMMC 2.0))\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/al-alea-cjis-staars-2026-319-alabama-law-enforcement-agency-alea-statewide-1548.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -534,7 +534,7 @@
       "subject": "W91CRB23P0023 (U.S. Army) + 3 open Virginia & Federal IT RFPs for Marla Keenan Consulting",
       "body": "Hi Marla Keenan Consulting team,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Virginia eVA, DemandStar, and SAM.gov. Noticed Marla Keenan Consulting's USD 458K contract with U.S. Department of the Army (W91CRB23P0023) while indexing proven IT primes, and pulled 3 open solicitations from our latest crawl:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, Section L/M compliance shreds, and incumbent contract records for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -545,7 +545,7 @@
       "subject": "FA821721F0039 (USAF) + 3 open Virginia & Federal IT RFPs for Summit Technologies",
       "body": "Hello Summit Technologies team,\n\nI track newly released public-sector technology solicitations across Virginia eVA, DemandStar, and SAM.gov (52 federal and state portals total). Saw Summit Technologies' USD 13.4M USAF contract record (FA821721F0039) and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nMind if I reply with the direct solicitation links, incumbent breakdowns, and pre-shredded Section L/M compliance matrices for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -556,7 +556,7 @@
       "subject": "Open Massachusetts & Federal IT solicitations (K logix Cybersecurity)",
       "body": "Hi Kevin,\n\nWe maintain a live public-sector RFP engine covering Massachusetts COMMBUYS, Boston/MBTA portals, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Since K logix Cybersecurity delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. AI-Enabled Stop-Arm Camera & Cloud Video Analytics Safety Platform \u2014 City of Boston / Boston Public Schools (Due: 12/08/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n2. Centralized Train Control Software & Network Telemetry System \u2014 Massachusetts Bay Transportation Authority (MBTA) (Due: 11/30/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n3. Enterprise HMIS & Cloud Data Systems Administration Services RFP \u2014 Lynn Housing Authority & Neighborhood Development (Due: 12/04/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n\nMind if I reply with the direct solicitation links, Section L/M compliance shreds, and subcontracting/teaming breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-1285.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -567,7 +567,7 @@
       "subject": "Open Massachusetts & Federal IT solicitations (Boston GovTech)",
       "body": "Hi Boston GovTech team,\n\nI run an automated procurement monitor that tracks Massachusetts COMMBUYS, Boston/MBTA portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Since Boston GovTech delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. AI-Enabled Stop-Arm Camera & Cloud Video Analytics Safety Platform \u2014 City of Boston / Boston Public Schools (Due: 12/08/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n2. Centralized Train Control Software & Network Telemetry System \u2014 Massachusetts Bay Transportation Authority (MBTA) (Due: 11/30/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n3. Enterprise HMIS & Cloud Data Systems Administration Services RFP \u2014 Lynn Housing Authority & Neighborhood Development (Due: 12/04/2026 | NAICS 541512 \u2022 MA EOTSS Enterprise Security (NIST 800-53))\n\nIs Massachusetts & Federal IT/cyber on Boston GovTech's radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ev00018035-ai-enabled-stop-arm-camera-cloud-video-analytics-safety-platform-1285.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -578,7 +578,7 @@
       "subject": "Michigan & Federal IT & cyber RFPs for Censys Public Sector Attack Surface",
       "body": "Hey Brad,\n\nOur ingestion pipeline monitors Michigan SIGMA VSS, DTMB procurement portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Censys Public Sector Attack Surface:\n\n1. Michigan Department of Transportation (MDOT) I-94 Connected & Automated Vehicle (CAV) Corridor Telemetry Cloud & GIS Analytics \u2014 Michigan Department of Transportation (MDOT \u2014 Connected & Automated Vehicle IT) (Due: 12/12/2026 | NAICS 541512 \u2022 MI DTMB 1340.00 Cyber Security (NIST 800-53))\n2. Michigan Department of Technology, Management and Budget (DTMB) MiLogin Citizen Identity Cloud & Statewide 24x7 Cyber Security Operations \u2014 Michigan Department of Technology, Management and Budget (DTMB \u2014 Michigan Cyber Security) (Due: 12/07/2026 | NAICS 541512 \u2022 MI DTMB 1340.00 Cyber Security (NIST 800-53))\n3. University of Michigan & Michigan Medicine Enterprise Research Cloud Enclave & Zero-Trust Network Segmentation \u2014 University of Michigan \u2014 Information and Technology Services (ITS) Procurement (Due: 11/29/2026 | NAICS 541512 \u2022 MI DTMB 1340.00 Cyber Security (NIST 800-53))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/mi-mdot-cav-2026-0104-michigan-department-of-transportation-mdot-i-94-1740.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -589,7 +589,7 @@
       "subject": "RoviSys Federal / 3 open public-sector IT contracts",
       "body": "Hello Gary,\n\nWe maintain a live public-sector RFP engine covering North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Noticed RoviSys Federal's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience \u2014 NC Department of Public Safety (NCDPS) (Due: 11/15/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n2. Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation \u2014 Wake County Government (Raleigh Metro, NC) (Due: 11/16/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n3. NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform \u2014 NC Department of Health and Human Services (NCDHHS) (Due: 11/18/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -600,7 +600,7 @@
       "subject": "North Carolina & Federal IT & cyber RFPs for BCF Solutions",
       "body": "Hello BCF Solutions team,\n\nI run an automated procurement monitor that tracks North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed BCF Solutions' work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience \u2014 NC Department of Public Safety (NCDPS) (Due: 11/15/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n2. Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation \u2014 Wake County Government (Raleigh Metro, NC) (Due: 11/16/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n3. NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform \u2014 NC Department of Health and Human Services (NCDHHS) (Due: 11/18/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -611,7 +611,7 @@
       "subject": "Texas & Federal IT & cyber RFPs for Neos Consulting",
       "body": "Hi Karon,\n\nWe maintain a live public-sector RFP engine covering Texas ESBD/DIR, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with Neos Consulting:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nIs Texas & Federal IT/cyber on Neos Consulting's radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -622,7 +622,7 @@
       "subject": "Open North Carolina & Federal IT solicitations (Copper River Information Technology)",
       "body": "Hi Copper River Information Technology team,\n\nWe maintain a live public-sector RFP engine covering North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Noticed Copper River Information Technology's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience \u2014 NC Department of Public Safety (NCDPS) (Due: 11/15/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n2. Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation \u2014 Wake County Government (Raleigh Metro, NC) (Due: 11/16/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n3. NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform \u2014 NC Department of Health and Human Services (NCDHHS) (Due: 11/18/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -633,7 +633,7 @@
       "subject": "CloudHesive / 3 open public-sector IT contracts",
       "body": "Hi Jim,\n\nI built a real-time government contract radar that pulls newly posted IT and cybersecurity bids across Florida MFMP VIP, DemandStar, and SAM.gov. Noticed CloudHesive's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -644,7 +644,7 @@
       "subject": "New Texas & Federal tech & cyber solicitations for Freeit Data Solutions",
       "body": "Hello Freeit Data Solutions team,\n\nI run an automated procurement monitor that tracks Texas ESBD/DIR, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with Freeit Data Solutions:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nIs Texas & Federal IT/cyber on Freeit Data Solutions' radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -655,7 +655,7 @@
       "subject": "New Virginia & Federal tech & cyber solicitations for Security Solutions Technology",
       "body": "Hey Security Solutions Technology team,\n\nI run an automated procurement monitor that tracks Virginia eVA, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Security Solutions Technology:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -666,7 +666,7 @@
       "subject": "Open Texas & Federal IT solicitations (Vista Global Solutions)",
       "body": "Hi Vista Global Solutions team,\n\nWe maintain a live public-sector RFP engine covering Texas ESBD/DIR, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Thought these 3 open solicitations from today's 6-hour crawl might fit Vista Global Solutions' capture pipeline:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nMind if I reply with the direct solicitation links, Section L/M compliance shreds, and subcontracting/teaming breakdowns for these 3?\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -677,7 +677,7 @@
       "subject": "Florida & Federal IT & cyber RFPs for Infinity Software Development",
       "body": "Hello Tom,\n\nWe maintain a live public-sector RFP engine covering Florida MFMP VIP, DemandStar, and SAM.gov (plus 49 additional state procurement portals) every 6 hours. Thought these 3 open solicitations from today's 6-hour crawl might fit Infinity Software Development's capture pipeline:\n\n1. Florida Department of Law Enforcement (FDLE) Statewide Criminal Justice Information Services (CJIS) Biometric Cloud & Zero-Trust SOC \u2014 Florida Department of Law Enforcement (FDLE \u2014 Criminal Justice Information Services) (Due: 12/10/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n2. Florida Department of Transportation (FDOT) SunPass Cloud Back-Office Tolling Modernization & Connected Vehicle Telemetry Network \u2014 Florida Department of Transportation (FDOT \u2014 Florida's Turnpike Enterprise IT) (Due: 12/05/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n3. Statewide Cloud Security Operations (SOC), Zero-Trust Identity & SIEM Telemetry Services \u2014 Florida Digital Service / Department of Management Services (MFMP VIP) (Due: 12/11/2026 | NAICS 541512 \u2022 FL FAC 60GG-2 / CJIS Security)\n\nIs Florida & Federal IT/cyber on Infinity Software Development's radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/fl-fdle-cjis-2026-0812-florida-department-of-law-enforcement-fdle-1716.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -688,7 +688,7 @@
       "subject": "Daly Computers / 3 open public-sector IT contracts",
       "body": "Hey Ryan,\n\nI run an automated procurement monitor that tracks Maryland eMMA, county Bonfire portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Thought these 3 open solicitations from today's 6-hour crawl might fit Daly Computers' capture pipeline:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -699,7 +699,7 @@
       "subject": "Data Networks / 3 open public-sector IT contracts",
       "body": "Dave \u2014\n\nOur ingestion pipeline monitors Maryland eMMA, county Bonfire portals, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Flagged 3 open public-sector tech opportunities from today's wire that looked aligned with Data Networks:\n\n1. Comptroller of Maryland Integrated Tax System Cloud Modernization, AI Revenue Fraud Analytics & NIST 800-53 Security \u2014 Comptroller of Maryland \u2014 Information Technology Division (eMMA) (Due: 12/12/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n2. Maryland Department of Transportation (MDOT) Coordinated Highways Action Response Team (CHART) AI Traffic Telemetry & Toll Cloud \u2014 Maryland Department of Transportation (MDOT \u2014 State Highway Administration IT) (Due: 12/08/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n3. Maryland Department of Health (MDH) Chesapeake Regional Information System (CRISP) & Medicaid Enterprise Cloud Data Warehouse \u2014 Maryland Department of Health (MDH \u2014 Medicaid Enterprise Systems & Health IT) (Due: 12/04/2026 | NAICS 541512 \u2022 Maryland DoIT Security)\n\nIs Maryland & Federal IT/cyber on Data Networks' radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nRegards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/md-comptroller-tax-2026-0404-comptroller-of-maryland-integrated-tax-system-1734.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -710,7 +710,7 @@
       "subject": "Open New York & Federal IT solicitations (Wiz GovCloud)",
       "body": "Hello Wiz GovCloud team,\n\nI run an automated procurement monitor that tracks NYS Contract Reporter, NYC PASSPort, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed Wiz GovCloud's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nIs New York & Federal IT/cyber on Wiz GovCloud's radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -721,7 +721,7 @@
       "subject": "SoftPro Public Sector / 3 open public-sector IT contracts",
       "body": "Hi SoftPro Public Sector team,\n\nI run an automated procurement monitor that tracks North Carolina eVP, Wake/Mecklenburg portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed SoftPro Public Sector's work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Next-Generation 911 (NG911) ESInet GIS Mapping, Cloud CAD Interoperability & Cyber Resilience \u2014 NC Department of Public Safety (NCDPS) (Due: 11/15/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n2. Countywide Enterprise Resource Planning (ERP) Cloud Migration, Financials & HRIS Implementation \u2014 Wake County Government (Raleigh Metro, NC) (Due: 11/16/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n3. NCTracks Next-Gen Medicaid Enterprise Data Warehouse, AI Fraud Analytics & FHIR API Platform \u2014 NC Department of Health and Human Services (NCDHHS) (Due: 11/18/2026 | NAICS 541512 \u2022 NCDIT Statewide Security (NIST 800-53))\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ncdps-45-2026-0037-next-generation-911-ng911-esinet-gis-mapping-cloud-cad-713.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -732,7 +732,7 @@
       "subject": "Texas & Federal IT & cyber RFPs for Vintage IT Services",
       "body": "Hey Raj,\n\nI track newly released public-sector technology solicitations across Texas ESBD/DIR, DemandStar, and SAM.gov (52 federal and state portals total). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Vintage IT Services:\n\n1. Artificial Intelligence Agent Testing and Evaluation Platform \u2014 Teacher Retirement System - 323 (Due: 11/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n2. Texas Department of Family and Protective Services (DFPS) IMPACT Child Welfare Case Management Cloud & Mobile Field Worker Platform \u2014 Texas Department of Family and Protective Services (DFPS \u2014 IT Modernization) (Due: 12/18/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n3. Texas General Land Office (GLO) & TDEM Disaster Recovery Grant Management Cloud, Geospatial Flood AI & Citizen Portal \u2014 Texas General Land Office (GLO) & Texas Division of Emergency Management (TDEM) (Due: 12/16/2026 | NAICS 541512 \u2022 TX-RAMP Level 2)\n\nIs Texas & Federal IT/cyber on Vintage IT Services' radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/artificial-intelligence-agent-testing-and-evaluation-platform-1745.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -743,7 +743,7 @@
       "subject": "New Virginia & Federal tech & cyber solicitations for Xcelerate Solutions",
       "body": "Hello Mark,\n\nI run an automated procurement monitor that tracks Virginia eVA, DemandStar, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed Xcelerate Solutions' work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nIs Virginia & Federal IT/cyber on Xcelerate Solutions' radar this quarter? Happy to reply with the direct solicitation links and capture briefs for these 3 if helpful.\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -754,7 +754,7 @@
       "subject": "3 open Ohio & Federal IT bids for Engineering Computer Simulations",
       "body": "Hello Engineering Computer Simulations team,\n\nI run an automated procurement monitor that tracks OhioBuys, Columbus/Franklin County portals, and SAM.gov (plus 49 other state SLED portals) every 6 hours. Noticed Engineering Computer Simulations' work in the space and wanted to pass along 3 live IT/cyber bids currently open for response:\n\n1. Ohio Academic Resources Network (OARnet) & Ohio State University 400G Statewide Fiber Backbone, Quantum-Safe Encryption & Research Cloud \u2014 Ohio Department of Higher Education \u2014 OARnet & The Ohio State University (OH) (Due: 12/16/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n2. Wright-Patterson AFB (AFLCMC / AFRL) & Ohio Cyber Reserve CMMC 2.0 Level 2 Cloud Enclave & Digital Engineering Platform \u2014 Ohio Cyber Reserve (Adjutant General's Dept) & Wright-Patterson Defense Corridor (OH) (Due: 12/13/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n3. Ohio Department of Public Safety (ODPS) Multi-Agency Radio Communication System (MARCS) Next-Gen 911 Cloud & CJIS Cyber Defense \u2014 Ohio Department of Public Safety (ODPS \u2014 Ohio Homeland Security & MARCS IT) (Due: 12/10/2026 | NAICS 541512 \u2022 Ohio DAS OIT Cloud Security)\n\nMind if I reply with the direct solicitation links, Section L/M compliance shreds, and subcontracting/teaming breakdowns for these 3?\n\nBest,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/oh-osu-oarnet-2026-0507-ohio-academic-resources-network-oarnet-ohio-state-1730.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -765,7 +765,7 @@
       "subject": "Virginia & Federal IT & cyber RFPs for stackArmor",
       "body": "Hello stackArmor team,\n\nOur ingestion pipeline monitors Virginia eVA, DemandStar, and SAM.gov every 6 hours for net-new IT, cloud, and cybersecurity solicitations. Thought these 3 open solicitations from today's 6-hour crawl might fit stackArmor's capture pipeline:\n\n1. Software as Service-Asset Management Solution \u2014 City of Hampton (Due: 11/17/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n2. Document Management System for Human Resources \u2014 City of Portsmouth (Due: 12/03/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n3. Short-Term Lending Database \u2014 State Corporation Commission (Due: 11/20/2026 | NAICS 541512 \u2022 VITA SEC 530 Cloud Standard)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-27-27-gs-software-as-service-asset-management-solution-1746.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -776,7 +776,7 @@
       "subject": "Resource Management Associates \u2014 3 open California & Federal IT RFPs",
       "body": "Hey Resource Management Associates team,\n\nI track newly released public-sector technology solicitations across California Cal eProcure, DemandStar, and SAM.gov (52 federal and state portals total). Since Resource Management Associates delivers public-sector technology, I pulled 3 active solicitations from our latest crawl:\n\n1. California State University (CSU) & University of California (UC) Shared 24x7 Higher-Ed Cyber SOC, CMMC 2.0 Research Enclave & IAM \u2014 California State University Office of the Chancellor & UC Information Technology Services (CA) (Due: 12/16/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n2. California Department of Corrections and Rehabilitation (CDCR) Strategic Offender Management System (SOMS) Cloud & Telemedicine Network \u2014 California Department of Corrections and Rehabilitation (CDCR \u2014 Enterprise Information Services) (Due: 12/14/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n3. California Franchise Tax Board (FTB) & CDTFA Enterprise Tax Processing Cloud Modernization, Zero-Trust SOC & Data Loss Prevention \u2014 California Franchise Tax Board (FTB \u2014 Technology Services Division) (Due: 12/11/2026 | NAICS 541512 \u2022 CalCloud SIMM 5305-A)\n\nWant me to send over the direct RFP links, incumbent contract records, and Section L/M breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/ca-csu-uc-cyber-2026-0909-california-state-university-csu-university-of-1714.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     },
     {
       "step": 1,
@@ -787,7 +787,7 @@
       "subject": "Technolutions / 3 open public-sector IT contracts",
       "body": "Hi Technolutions team,\n\nI track newly released public-sector technology solicitations across NYS Contract Reporter, NYC PASSPort, and SAM.gov (52 federal and state portals total). Wanted to share 3 newly posted IT & security contracts that just cleared our noise filter for Technolutions:\n\n1. Request for Proposals for Performance of Expert Professional Airport Data Analysis and Business Intelligence Consulting Services during 2025 through 2029 - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 08/31/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n2. Request for Proposals for Performance of Expert Professional Airport Information Technology and Innovation Consulting Services - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 07/29/2030 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n3. Request For Proposals For Performance Of Expert Professional Traffic Technology Services As Requested On A \u201cTask Order Basis\u201d For A Four-Year Term - OPEN \u2014 Port Authority of New York & New Jersey (PANYNJ) (Due: 12/31/2028 | NAICS 541512 \u2022 NYC OTI Cyber Policies / NYS ITS-S14-003)\n\nMind if I reply with the direct solicitation links, Section L/M compliance shreds, and subcontracting/teaming breakdowns for these 3?\n\nBest regards,\nAaron Chen\nFounder, SignalTender",
       "top_dossier_url": "https://signaltender.net/contracts/rfp/rfp-6000002323-request-for-proposals-for-performance-of-expert-727.html",
-      "staged_at": "2026-11-04T09:34:17.168067+00:00"
+      "staged_at": "2026-11-04T10:37:39.480437+00:00"
     }
   ]
 }
