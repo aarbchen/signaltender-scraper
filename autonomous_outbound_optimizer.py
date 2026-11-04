@@ -471,7 +471,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                     if has_bad_handle and cur_fn:
                         for prefix in ("Hi", "Hey", "Hello"):
                             fixed_eb = fixed_eb.replace(f"{prefix} {cur_fn},", f"{prefix} {fixed_comp} team,")
-                    raw_durl = str(p_vars.get("top_dossier_url") or "https://signaltender.com/#contracts").split("?")[0]
+                    raw_durl = str(p_vars.get("top_dossier_url") or "https://signaltender.net/#contracts").split("?")[0]
                     st_lbl = str(p_vars.get("matched_state") or "Federal")
                     prefilled_durl = f"{raw_durl}?co={_qp(fixed_comp)}&state={_qp(st_lbl)}&email={_qp(em)}"
                     greet = f"Hi {fixed_comp} team," if (has_bad_handle or fixed_fn.lower() in ("capture", "there", "team", "")) else f"Hi {fixed_fn},"

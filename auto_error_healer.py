@@ -610,6 +610,52 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
     except Exception:
         pass
 
+
+    # 5b. Live Instantly API & Production Funnel Goalie Check (Audits live campaign state & ALL paginated leads, not just local CSV)
+    inst_key = (os.getenv("INSTANTLY_API_KEY") or "").strip()
+    inst_cid = (os.getenv("INSTANTLY_CAMPAIGN_ID") or "c7727dff-92cc-4621-9e96-c960938d5a47").strip()
+    if inst_key and inst_cid:
+        try:
+            ih = {"Authorization": f"Bearer {inst_key}", "Content-Type": "application/json"}
+            rc = requests.get(f"https://api.instantly.ai/api/v2/campaigns/{inst_cid}", headers=ih, timeout=12)
+            if rc.status_code == 200:
+                cd = rc.json() or {}
+                need_opt = False
+                if int(cd.get("status") or 0) != 1 or not bool(cd.get("disable_bounce_protect")) or int(cd.get("not_sending_status") or 0) == 2:
+                    need_opt = True
+                all_inst_leads = []
+                sa = None
+                for _ in range(10):
+                    b = {"campaign": inst_cid, "limit": 100}
+                    if sa:
+                        b["starting_after"] = sa
+                    rl = requests.post("https://api.instantly.ai/api/v2/leads/list", headers=ih, json=b, timeout=12)
+                    if rl.status_code != 200:
+                        break
+                    rj = rl.json() or {}
+                    its = rj.get("items") or []
+                    all_inst_leads.extend(its)
+                    sa = rj.get("next_starting_after")
+                    if not sa or len(its) < 100:
+                        break
+                bounced_cnt = sum(1 for x in all_inst_leads if int(x.get("status") or 0) < 0)
+                unc_cnt = sum(1 for x in all_inst_leads if int(x.get("status") or 0) == 1 and not x.get("timestamp_last_contact"))
+                bad_payloads = 0
+                for x in all_inst_leads:
+                    p = x.get("payload") or {}
+                    s1 = str(p.get("email_body") or "")
+                    s2 = str(p.get("followup_body") or "")
+                    if "https://" not in s2 or "https://" in s1 or "{{" in (s1 + s2) or s2.count("(") != s2.count(")"):
+                        bad_payloads += 1
+                if bounced_cnt > 0 or unc_cnt < 40 or bad_payloads > 0:
+                    need_opt = True
+                if need_opt:
+                    import autonomous_outbound_optimizer
+                    autonomous_outbound_optimizer.run_autonomous_outbound_optimizer()
+                    print(f"  [AUTO-HEALED] Live Instantly Goalie healed campaign (bounced={bounced_cnt}, uncontacted={unc_cnt}, bad_payloads={bad_payloads}).")
+        except Exception as exc:
+            print(f"  [WARN] Live Instantly Goalie check warning: {exc}")
+
     return issues
 
 
