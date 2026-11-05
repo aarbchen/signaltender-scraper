@@ -660,7 +660,7 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                         or "{{" in (s1 + s2)
                         or s2.count("(") != s2.count(")")
                         or re.search(r"/(202[89]|203\d)\b", s1 + s2)
-                        or not glh._is_valid_email(em_x)
+                        or not glh.is_valid_business_email(em_x)
                     ):
                         bad_payloads += 1
                 if bounced_cnt > 0 or active_cnt < 50 or bad_payloads > 0:

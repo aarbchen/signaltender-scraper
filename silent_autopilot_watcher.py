@@ -385,16 +385,22 @@ def main() -> int:
                 contract_issues = auto_error_healer.verify_scraper_contracts_and_rls_safety()
 
                 if remote_errors or local_errors or contract_issues:
-                    print(
-                        "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
-                        f"Open remote errors: {len(remote_errors)} | "
-                        f"Local errors: {len(local_errors)} | "
-                        f"Contract issues: {len(contract_issues)}\n"
-                        "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
-                        "and restart silent_autopilot_watcher.py.",
-                        flush=True,
-                    )
-                    return 0
+                    if os.path.basename(sys.executable or "").lower().startswith("pythonw"):
+                        try:
+                            auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
+                        except Exception:
+                            pass
+                    else:
+                        print(
+                            "\n[WAKEUP_AGENT: SELF_HEALING_REQUIRED]\n"
+                            f"Open remote errors: {len(remote_errors)} | "
+                            f"Local errors: {len(local_errors)} | "
+                            f"Contract issues: {len(contract_issues)}\n"
+                            "Please diagnose and fix the reported issue, run omniscient_auditor.py --mode fast --auto-deploy, "
+                            "and restart silent_autopilot_watcher.py.",
+                            flush=True,
+                        )
+                        return 0
 
             # 6. Check if today's 2:00 AM Central daily expansion is due
             due, reason = is_daily_expansion_due()

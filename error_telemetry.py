@@ -36,10 +36,17 @@ TELEMETRY_API_BASE = os.getenv(
 
 
 def configure_utf8_stdio() -> None:
-    """Ensure stdout and stderr never fail with Windows cp1252 charmap UnicodeEncodeError."""
+    """Ensure stdout and stderr never fail with Windows cp1252 charmap UnicodeEncodeError or pythonw Errno 22."""
+    is_pythonw = os.path.basename(sys.executable or "").lower().startswith("pythonw")
     for stream_name in ("stdout", "stderr"):
         stream = getattr(sys, stream_name, None)
-        if stream is not None and hasattr(stream, "reconfigure"):
+        if is_pythonw or stream is None:
+            try:
+                setattr(sys, stream_name, open(os.devnull, "w", encoding="utf-8", errors="replace"))
+            except Exception:
+                pass
+            continue
+        if hasattr(stream, "reconfigure"):
             try:
                 stream.reconfigure(encoding="utf-8", errors="replace")
             except Exception:
