@@ -77,6 +77,48 @@ def prevent_windows_sleep() -> None:
     except Exception:
         pass
 
+
+_LAST_VSCODE_TRIM_TS: float = 0.0
+
+
+def trim_vscode_memory_if_bloated() -> None:
+    # Zero-subprocess Win32 PSAPI working-set trimmer (<1ms, 0% CPU).
+    global _LAST_VSCODE_TRIM_TS
+    if os.name != "nt":
+        return
+    now_ts = time.time()
+    if (now_ts - _LAST_VSCODE_TRIM_TS) < 300.0:
+        return
+    _LAST_VSCODE_TRIM_TS = now_ts
+    try:
+        kernel32 = ctypes.windll.kernel32
+        psapi = ctypes.windll.psapi
+        arr = (ctypes.c_ulong * 2048)()
+        cb_needed = ctypes.c_ulong()
+        if not psapi.EnumProcesses(ctypes.byref(arr), ctypes.sizeof(arr), ctypes.byref(cb_needed)):
+            return
+        count = int(cb_needed.value // ctypes.sizeof(ctypes.c_ulong))
+        PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+        PROCESS_SET_QUOTA = 0x0100
+        buf = ctypes.create_unicode_buffer(512)
+        for i in range(min(count, 2048)):
+            pid = int(arr[i])
+            if pid <= 4:
+                continue
+            h_proc = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, False, pid)
+            if not h_proc:
+                continue
+            try:
+                size = ctypes.c_ulong(512)
+                if kernel32.QueryFullProcessImageNameW(h_proc, 0, buf, ctypes.byref(size)):
+                    exe_lower = buf.value.lower()
+                    if exe_lower.endswith(("\\code.exe", "\\chrome.exe", "\\msedgewebview2.exe")):
+                        psapi.EmptyWorkingSet(h_proc)
+            finally:
+                kernel32.CloseHandle(h_proc)
+    except Exception:
+        pass
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROADMAP_PATH = os.path.join(BASE_DIR, "daily_expansion_roadmap.json")
 HEARTBEAT_PATH = os.path.join(BASE_DIR, ".autopilot_watcher_heartbeat.json")
@@ -301,6 +343,7 @@ def main() -> int:
     while True:
         try:
             prevent_windows_sleep()
+            trim_vscode_memory_if_bloated()
             write_watcher_heartbeat()
             if not is_primary_watcher():
                 return 0

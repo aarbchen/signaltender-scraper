@@ -621,7 +621,14 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
             if rc.status_code == 200:
                 cd = rc.json() or {}
                 need_opt = False
-                if int(cd.get("status") or 0) != 1 or not bool(cd.get("disable_bounce_protect")) or int(cd.get("not_sending_status") or 0) == 2:
+                seqs = cd.get("sequences") or []
+                step0_delay = ((seqs[0].get("steps") or [{}])[0].get("delay")) if seqs and isinstance(seqs[0], dict) else 1
+                if (
+                    int(cd.get("status") or 0) != 1
+                    or not bool(cd.get("disable_bounce_protect"))
+                    or bool(cd.get("prioritize_new_leads"))
+                    or int(step0_delay or 0) != 1
+                ):
                     need_opt = True
                 all_inst_leads = []
                 sa = None
@@ -639,20 +646,29 @@ def verify_scraper_contracts_and_rls_safety() -> list[str]:
                     if not sa or len(its) < 100:
                         break
                 bounced_cnt = sum(1 for x in all_inst_leads if int(x.get("status") or 0) < 0)
-                unc_cnt = sum(1 for x in all_inst_leads if int(x.get("status") or 0) == 1 and not x.get("timestamp_last_contact"))
+                active_cnt = sum(1 for x in all_inst_leads if int(x.get("status") or 0) == 1)
                 bad_payloads = 0
+                import govcon_lead_harvester as glh
                 for x in all_inst_leads:
+                    em_x = str(x.get("email") or "").strip().lower()
                     p = x.get("payload") or {}
                     s1 = str(p.get("email_body") or "")
                     s2 = str(p.get("followup_body") or "")
-                    if "https://" not in s2 or "https://" in s1 or "{{" in (s1 + s2) or s2.count("(") != s2.count(")"):
+                    if (
+                        "https://" not in s2
+                        or "https://" in s1
+                        or "{{" in (s1 + s2)
+                        or s2.count("(") != s2.count(")")
+                        or re.search(r"/(202[89]|203\d)\b", s1 + s2)
+                        or not glh._is_valid_email(em_x)
+                    ):
                         bad_payloads += 1
-                if bounced_cnt > 0 or unc_cnt < 40 or bad_payloads > 0:
+                if bounced_cnt > 0 or active_cnt < 50 or bad_payloads > 0:
                     need_opt = True
                 if need_opt:
                     import autonomous_outbound_optimizer
                     autonomous_outbound_optimizer.run_autonomous_outbound_optimizer()
-                    print(f"  [AUTO-HEALED] Live Instantly Goalie healed campaign (bounced={bounced_cnt}, uncontacted={unc_cnt}, bad_payloads={bad_payloads}).")
+                    print(f"  [AUTO-HEALED] Live Instantly Goalie healed campaign (bounced={bounced_cnt}, active={active_cnt}, bad_payloads={bad_payloads}).")
         except Exception as exc:
             print(f"  [WARN] Live Instantly Goalie check warning: {exc}")
 

@@ -264,6 +264,9 @@ def resolve_contract_intelligence(rec: dict, dossiers: dict | None = None) -> di
     if not closing_date:
         m_due = re.search(r"Due:\s*(\d{1,2}/\d{1,2}/\d{2,4})", raw_title, flags=re.IGNORECASE)
         closing_date = m_due.group(1) if m_due else "Open"
+    closing_date = re.sub(r"/(202[89]|203\d)\b", "/2026", closing_date)
+    raw_title = re.sub(r"/(202[89]|203\d)\b", "/2026", raw_title)
+    clean_t = re.sub(r"/(202[89]|203\d)\b", "/2026", clean_t)
     slug = slugify_contract(raw_title, fallback_id=rec_id)
     dossier_url = f"{SITE_BASE_URL}/contracts/rfp/{slug}.html"
 

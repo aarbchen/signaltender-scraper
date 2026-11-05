@@ -266,24 +266,46 @@ def run_fast_campaign_vital_check() -> Dict[str, Any]:
                 requests.patch(
                     f"https://api.instantly.ai/api/v2/campaigns/{CAMPAIGN_ID}",
                     headers=headers,
-                    json={"disable_bounce_protect": True, "stop_on_reply": True, "prioritize_new_leads": True},
+                    json={"disable_bounce_protect": True, "stop_on_reply": True, "prioritize_new_leads": False},
                     timeout=12,
                 )
                 vital["disable_bounce_protect"] = True
+            uncontacted_cnt = 0
+            sa = None
+            for _ in range(10):
+                req_b = {"campaign": CAMPAIGN_ID, "limit": 100}
+                if sa:
+                    req_b["starting_after"] = sa
+                rl = requests.post("https://api.instantly.ai/api/v2/leads/list", headers=headers, json=req_b, timeout=15)
+                if rl.status_code != 200:
+                    break
+                rj = rl.json() or {}
+                its = rj.get("items") or []
+                for it in its:
+                    if int(it.get("status") or 0) < 0 or int(it.get("lt_interest_status") or 0) < 0:
+                        lid = str(it.get("id") or "").strip()
+                        if lid:
+                            requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=auth_only, timeout=10)
+                            vital["bounces_purged"] += 1
+                        em_b = str(it.get("email") or "").strip().lower()
+                        if em_b:
+                            try:
+                                bl_p = ROOT_DIR / "bounced_leads_blacklist.json"
+                                if bl_p.exists():
+                                    bld = json.loads(bl_p.read_text(encoding="utf-8")) or {}
+                                    bset = set(bld.get("bounced_emails") or [])
+                                    bset.add(em_b)
+                                    bld["bounced_emails"] = sorted(bset)
+                                    bl_p.write_text(json.dumps(bld, indent=2), encoding="utf-8")
+                            except Exception:
+                                pass
+                    elif int(it.get("status") or 0) == 1 and not it.get("timestamp_last_contact"):
+                        uncontacted_cnt += 1
+                sa = rj.get("next_starting_after")
+                if not sa or len(its) < 100:
+                    break
+            vital["uncontacted"] = uncontacted_cnt
             if c_status != 1:
-                rl = requests.post(
-                    "https://api.instantly.ai/api/v2/leads/list",
-                    headers=headers,
-                    json={"campaign": CAMPAIGN_ID, "limit": 100},
-                    timeout=15,
-                )
-                if rl.status_code == 200:
-                    for it in (rl.json() or {}).get("items") or []:
-                        if int(it.get("status") or 0) < 0 or int(it.get("lt_interest_status") or 0) < 0:
-                            lid = str(it.get("id") or "").strip()
-                            if lid:
-                                requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=auth_only, timeout=10)
-                                vital["bounces_purged"] += 1
                 ra = requests.post(
                     f"https://api.instantly.ai/api/v2/campaigns/{CAMPAIGN_ID}/activate",
                     headers=headers,
@@ -291,7 +313,15 @@ def run_fast_campaign_vital_check() -> Dict[str, Any]:
                     timeout=12,
                 )
                 vital["reactivated"] = ra.status_code in (200, 201)
-            if ns_status == 2:
+            if ns_status == 2 and uncontacted_cnt > 0:
+                requests.patch(
+                    f"https://api.instantly.ai/api/v2/campaigns/{CAMPAIGN_ID}",
+                    headers=headers,
+                    json={"prioritize_new_leads": False, "disable_bounce_protect": True, "stop_on_reply": True},
+                    timeout=12,
+                )
+                requests.post(f"https://api.instantly.ai/api/v2/campaigns/{CAMPAIGN_ID}/activate", headers=headers, json={}, timeout=12)
+            if ns_status == 2 or uncontacted_cnt < 40:
                 vital["needs_replenish"] = True
     except Exception:
         pass
@@ -333,7 +363,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                 expected_seq = [
                     {
                         "steps": [
-                            {"type": "email", "delay": 2, "variants": [{"subject": "{{subject_line}}", "body": "{{email_body}}"}]},
+                            {"type": "email", "delay": 1, "variants": [{"subject": "{{subject_line}}", "body": "{{email_body}}"}]},
                             {"type": "email", "delay": 1, "variants": [{"subject": "{{followup_subject}}", "body": "{{followup_body}}"}]},
                             {"type": "email", "delay": 2, "variants": [{"subject": "{{breakup_subject}}", "body": "{{breakup_body}}"}]},
                         ]
@@ -350,7 +380,7 @@ def run_autonomous_outbound_optimizer() -> Dict[str, Any]:
                 requests.patch(
                     f"https://api.instantly.ai/api/v2/campaigns/{CAMPAIGN_ID}",
                     headers=headers,
-                    json={"disable_bounce_protect": True, "stop_on_reply": True, "prioritize_new_leads": True},
+                    json={"disable_bounce_protect": True, "stop_on_reply": True, "prioritize_new_leads": False},
                     timeout=15,
                 )
                 summary["bounce_protect_disabled"] = True
