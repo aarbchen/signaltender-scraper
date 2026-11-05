@@ -46,6 +46,24 @@ def configure_utf8_stdio() -> None:
                 pass
 
 
+
+if os.name == "nt":
+    import subprocess as _sp
+    if not getattr(_sp.Popen, "_silent_window_patched", False):
+        _ORIG_POPEN_INIT = _sp.Popen.__init__
+        def _silent_popen_init(self, *args, **kwargs):
+            kwargs["creationflags"] = int(kwargs.get("creationflags") or 0) | 0x08000000
+            si = kwargs.get("startupinfo")
+            if si is None:
+                si = _sp.STARTUPINFO()
+            si.dwFlags |= 0x00000001
+            si.wShowWindow = 0
+            kwargs["startupinfo"] = si
+            return _ORIG_POPEN_INIT(self, *args, **kwargs)
+        _silent_popen_init._silent_window_patched = True
+        _sp.Popen.__init__ = _silent_popen_init
+        _sp.Popen._silent_window_patched = True
+
 def load_learned_rules() -> list[dict]:
     """Load all persisted self-improvement anti-regression rules from `learned_anti_regression_rules.json`."""
     if not os.path.exists(LEARNED_RULES_PATH):

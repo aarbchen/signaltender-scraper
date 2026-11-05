@@ -266,6 +266,7 @@ def is_expansion_build_in_progress() -> bool:
                 capture_output=True,
                 text=True,
                 timeout=10,
+                creationflags=0x08000000,
             )
             if st.returncode == 0 and len(st.stdout.strip().splitlines()) > 3:
                 return True
@@ -360,85 +361,20 @@ def main() -> int:
                 time.sleep(CHECK_INTERVAL_SECONDS)
                 continue
 
-            # 3. Poll outbound email replies & mailbox scaler 24/7 via fresh subprocess so code updates on disk take effect immediately
-            python_exe = os.path.join(BASE_DIR, "daas_env", "Scripts", "python.exe")
-            if not os.path.exists(python_exe):
-                python_exe = sys.executable
-            no_win_flag = set_background_low_priority()
+            # 3. Poll outbound email replies & vital checks IN-PROCESS (zero subprocesses, zero console windows)
+            set_background_low_priority()
             globals()["_WATCHER_CYCLE_COUNT"] = int(globals().get("_WATCHER_CYCLE_COUNT") or 0) + 1
             cycle_num = globals()["_WATCHER_CYCLE_COUNT"]
             try:
-                import subprocess
-                subprocess.run(
-                    [python_exe, os.path.join(BASE_DIR, "outbound_reply_responder.py")],
-                    cwd=BASE_DIR,
-                    capture_output=True,
-                    text=True,
-                    timeout=180,
-                    creationflags=no_win_flag,
-                )
-                subprocess.run(
-                    [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py"), "--fast-vital-check"],
-                    cwd=BASE_DIR,
-                    capture_output=True,
-                    text=True,
-                    timeout=45,
-                    creationflags=no_win_flag,
-                )
-                subprocess.run(
-                    [python_exe, os.path.join(BASE_DIR, "autonomous_mailbox_scaler.py")],
-                    cwd=BASE_DIR,
-                    capture_output=True,
-                    text=True,
-                    timeout=180,
-                    creationflags=no_win_flag,
-                )
-                if get_user_idle_seconds() >= 600:  # Only run heavy AST/optimizer tasks when user is idle >= 10 minutes (and never run --smoke in 15m loop)
-                    if cycle_num % 4 == 1:
-                        subprocess.run(
-                            [python_exe, os.path.join(BASE_DIR, "autonomous_outbound_optimizer.py")],
-                            cwd=BASE_DIR,
-                            capture_output=True,
-                            text=True,
-                            timeout=300,
-                            creationflags=no_win_flag,
-                        )
-                    subprocess.run(
-                        [python_exe, os.path.join(BASE_DIR, "auto_error_healer.py"), "--clear-resolved"],
-                        cwd=BASE_DIR,
-                        capture_output=True,
-                        text=True,
-                        timeout=300,
-                        creationflags=no_win_flag,
-                    )
-            except Exception:
-                pass
-
-            # 4. Enforce RULE-006: Execute Omniscient Auditor at night (11:00 PM – 6:00 AM)
-            #    when the user is away from the computer (>= 15 minutes idle via GetLastInputInfo).
-            night_allowed = False
-            try:
-                import subprocess
-                import omniscient_auditor
-                night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
-                today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
-                if night_allowed and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
-                    globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
-                    subprocess.run(
-                        [
-                            python_exe,
-                            os.path.join(BASE_DIR, "omniscient_auditor.py"),
-                            "--mode",
-                            "fast",
-                            "--auto-deploy",
-                            "--force-now",
-                        ],
-                        cwd=BASE_DIR,
-                        capture_output=True,
-                        text=True,
-                        timeout=900,
-                        creationflags=no_win_flag,
-                    )
+                import outbound_reply_responder
+                import autonomous_outbound_optimizer
+                import autonomous_mailbox_scaler
+                outbound_reply_responder.poll_and_respond_to_replies()
+                autonomous_outbound_optimizer.run_fast_campaign_vital_check()
+                if cycle_num % 4 == 1:
+                    autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()
+                if get_user_idle_seconds() >= 1800 and cycle_num % 4 == 1:
+                    auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
             except Exception:
                 pass
 

@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-11-05T02:17:20.428853+00:00",
+  "updated_at": "2026-11-05T05:46:18.460042+00:00",
   "brand": "SignalTender",
   "1_are_people_showing_interest": {
     "human_replies_detected": 0,
     "recent_emails_audited": 100,
-    "uncontacted_leads_remaining": 59
+    "uncontacted_leads_remaining": 0
   },
   "2_why_not_bottlenecks_checked": {
     "campaign_was_paused": false,
     "bounce_protect_was_enabled": false,
-    "lead_queue_was_low": false,
+    "lead_queue_was_low": true,
     "bounced_or_non_buyer_leads_found": 0,
     "leads_missing_step2_link_or_stale_patched": 0
   },
@@ -19,6 +19,6 @@
     "rule_conv_003_enterprise_solicitation_and_buyer_inbox_filter": true,
     "rule_conv_004_inflight_subject_lock": true,
     "rule_conv_005_html_br_reply_formatting": true,
-    "auto_replenished_queue": false
+    "auto_replenished_queue": true
   }
 }
