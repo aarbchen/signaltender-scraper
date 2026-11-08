@@ -45,7 +45,7 @@ STRIPE_TIER2_URL = os.getenv(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ERROR_LOG_PATH = os.path.join(BASE_DIR, "error_log.txt")
 DOSSIER_CACHE_PATH = os.path.join(BASE_DIR, "capturedesk_dossiers.json")
-BATCH_LIMIT = 0 if os.getenv("SKELETON_ZERO_COST_MODE", "1") == "1" else int(os.getenv("CAPTUREDESK_BATCH_LIMIT", "2"))
+BATCH_LIMIT = int(os.getenv("CAPTUREDESK_BATCH_LIMIT", "2"))
 
 RAPIDAPI_ENDPOINT_HOSTS = {
     "/v1/classify/naics-psc-nigp": "naics-sic-psc-unspsc-industry-classifier-api.p.rapidapi.com",
