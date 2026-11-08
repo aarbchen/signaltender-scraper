@@ -123,7 +123,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROADMAP_PATH = os.path.join(BASE_DIR, "daily_expansion_roadmap.json")
 HEARTBEAT_PATH = os.path.join(BASE_DIR, ".autopilot_watcher_heartbeat.json")
 GUARD_STATE_PATH = os.path.join(BASE_DIR, ".autopilot_guard_state.json")
-CHECK_INTERVAL_SECONDS = 900  # 15 minutes
+CHECK_INTERVAL_SECONDS = 3600  # 1 hour ($0.00 Skeleton Keepalive Mode)
 
 
 def claim_primary_watcher() -> None:
@@ -361,22 +361,23 @@ def main() -> int:
                 time.sleep(CHECK_INTERVAL_SECONDS)
                 continue
 
-            # 3. Poll outbound email replies & vital checks IN-PROCESS (zero subprocesses, zero console windows)
+            # 3. $0.00 Skeleton Mode: outbound Instantly campaigns & LLM healers paused unless SKELETON_ZERO_COST_MODE=0
             set_background_low_priority()
-            globals()["_WATCHER_CYCLE_COUNT"] = int(globals().get("_WATCHER_CYCLE_COUNT") or 0) + 1
-            cycle_num = globals()["_WATCHER_CYCLE_COUNT"]
-            try:
-                import outbound_reply_responder
-                import autonomous_outbound_optimizer
-                import autonomous_mailbox_scaler
-                outbound_reply_responder.poll_and_respond_to_replies()
-                autonomous_outbound_optimizer.run_fast_campaign_vital_check()
-                if cycle_num % 4 == 1:
-                    autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()
-                if get_user_idle_seconds() >= 1800 and cycle_num % 4 == 1:
-                    auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
-            except Exception:
-                pass
+            if os.getenv("SKELETON_ZERO_COST_MODE", "1") != "1":
+                globals()["_WATCHER_CYCLE_COUNT"] = int(globals().get("_WATCHER_CYCLE_COUNT") or 0) + 1
+                cycle_num = globals()["_WATCHER_CYCLE_COUNT"]
+                try:
+                    import outbound_reply_responder
+                    import autonomous_outbound_optimizer
+                    import autonomous_mailbox_scaler
+                    outbound_reply_responder.poll_and_respond_to_replies()
+                    autonomous_outbound_optimizer.run_fast_campaign_vital_check()
+                    if cycle_num % 4 == 1:
+                        autonomous_mailbox_scaler.run_autonomous_mailbox_scaler()
+                    if get_user_idle_seconds() >= 1800 and cycle_num % 4 == 1:
+                        auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
+                except Exception:
+                    pass
 
             # 5. Check 24/7 if any unfixed runtime alerts or contract issues remain after auto_error_healer.py
             if get_user_idle_seconds() >= 600:

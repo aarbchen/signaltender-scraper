@@ -2,7 +2,7 @@ services:
   - type: cron
     name: daas-contract-scraper
     runtime: python
-    schedule: "0 */6 * * *"
+    schedule: "0 8 * * *"
     buildCommand: pip install -r requirements.txt && python -c "import pathlib, subprocess; p = pathlib.Path('node_modules/playwright-core/.local-browsers'); subprocess.run(['playwright', 'install', 'chromium'], check=True) if not p.exists() or not any(p.iterdir()) else print('Playwright Chromium already cached')"
     startCommand: python mainscraper.py
     buildFilter:
@@ -20,6 +20,8 @@ services:
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: "0"
+      - key: SKELETON_ZERO_COST_MODE
+        value: "1"
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_KEY
