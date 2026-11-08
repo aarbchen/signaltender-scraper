@@ -35,6 +35,7 @@ supabase = None
 
 def _get_anthropic_client():
     global client
+    if os.getenv('SKELETON_ZERO_COST_MODE', '1') == '1': return None
     if client is None and os.getenv("ANTHROPIC_API_KEY"):
         import anthropic
         client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
